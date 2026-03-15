@@ -433,7 +433,7 @@
 	var/post_desc_string = length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""
 	if(length(tags_list))
 		var/tag_string = list()
-		for (var/atom_tag in tags_list)
+		for(var/atom_tag in tags_list)
 			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
 		// some regex to ensure that we don't add another "and" if the final element's main text (not tooltip) has one
 		tag_string = russian_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], regex(@">.*?и .*?<"))) ? " " : " и ")
@@ -513,7 +513,6 @@
 	return "male"
 
 /// Returns the correct form of the examine descriptor based on provided gender
-/// Basically just a copy of genderize_ru() proc
 /atom/proc/genderize_examine_descriptor(male_word, female_word, gender)
 	if(!gender)
 		gender = examine_descriptor_gender()
