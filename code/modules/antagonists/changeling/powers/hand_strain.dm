@@ -24,12 +24,7 @@
 		return FALSE
 
 	// Check active hand
-	var/obj/item/held_item
-	if(user.hand) // 1 - left hand, 0 - right hand
-		held_item = user.l_hand
-	else
-		held_item = user.r_hand
-
+	var/obj/item/held_item = user.get_active_hand()
 	if(!held_item)
 		user.balloon_alert(user, "активная рука пуста!")
 		return FALSE
