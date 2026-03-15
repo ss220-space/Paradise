@@ -328,7 +328,7 @@
 /obj/item/extinguisher/proc/steam_explosion()
 	SIGNAL_HANDLER
 
-	if(type != /obj/item/extinguisher || blowing_up || !reagents || (reagents && !reagents.reagent_list) || !safety)
+	if(type != /obj/item/extinguisher || blowing_up || !reagents || !reagents.reagent_list.len || !safety)
 		return
 
 	var/temp = reagents.chem_temp
