@@ -294,8 +294,9 @@
 
 /datum/component/muscles/proc/get_firelock_speed_mod(mob/living/carbon/human/user, list/modifiers)
 	SIGNAL_HANDLER
-	if(usable_strength_level)
-		modifiers += usable_strength_level.door_open_speed_modifier
+	if(!usable_strength_level)
+		return
+	modifiers += usable_strength_level.door_open_speed_modifier
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
