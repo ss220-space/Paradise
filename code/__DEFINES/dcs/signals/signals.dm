@@ -1564,6 +1564,8 @@
 #define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
 /// Called when proc need to get weak mob modifier.
 #define COMSIG_GET_WEAK_MOB_MODIFIERS "get_weak_mob_modifiers"
+/// Called when proc need to get firelock speed mod
+#define COMSIG_GET_FIRELOCK_SPEED_MOD "get_firelock_speed_mod"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)

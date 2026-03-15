@@ -38,6 +38,7 @@
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 	RegisterSignal(parent, COMSIG_STRENGTH_LEVEL_UP, PROC_REF(strength_level_up))
 	RegisterSignal(parent, COMSIG_GET_WEAK_MOB_MODIFIERS, PROC_REF(on_get_weak_mob_modifiers))
+	RegisterSignal(parent, COMSIG_GET_FIRELOCK_SPEED_MOD, PROC_REF(get_firelock_speed_mod))
 
 /datum/component/muscles/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -291,6 +292,11 @@
 	SIGNAL_HANDLER
 	modifiers.Add(usable_strength_level.weak_mob_modifier)
 
+/datum/component/muscles/proc/get_firelock_speed_mod(mob/living/carbon/human/user, list/modifiers)
+	SIGNAL_HANDLER
+	if(usable_strength_level)
+		modifiers += usable_strength_level.door_open_speed_modifier
+
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
 #undef MIN_NUTRITION_FOR_STRENGTH_CHANGE
@@ -310,6 +316,7 @@
 	var/strength_req_to_upgrade
 	var/strength_examine
 	var/weak_mob_modifier
+	var/door_open_speed_modifier
 
 /datum/strength_level/weak
 	next_level = /datum/strength_level/normal
@@ -325,7 +332,7 @@
 	strength_req_to_upgrade = 10
 	strength_examine = "слаб"
 	weak_mob_modifier = 1
-
+	door_open_speed_modifier = 0.8
 /datum/strength_level/normal
 	next_level = /datum/strength_level/strong
 	prev_level = /datum/strength_level/weak
@@ -341,6 +348,7 @@
 	strength_req_to_upgrade = 20
 	strength_examine = "нормальн"
 	weak_mob_modifier = 0.75
+	door_open_speed_modifier = 1
 
 /datum/strength_level/strong
 	next_level = /datum/strength_level/ideal
@@ -357,6 +365,7 @@
 	strength_req_to_upgrade = 30
 	strength_examine = "сильн"
 	weak_mob_modifier = 0.5
+	door_open_speed_modifier = 1.5
 
 /datum/strength_level/ideal
 	next_level = /datum/strength_level/superhuman
@@ -373,6 +382,7 @@
 	strength_req_to_upgrade = 35
 	strength_examine = "очень сильн"
 	weak_mob_modifier = 0.25
+	door_open_speed_modifier = 2.5
 
 /datum/strength_level/superhuman
 	prev_level = /datum/strength_level/ideal
@@ -388,3 +398,4 @@
 	strength_req_to_upgrade = -1
 	strength_examine = "необыкновенно сильн"
 	weak_mob_modifier = 0
+	door_open_speed_modifier = 10

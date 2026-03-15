@@ -126,11 +126,18 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 
+	var/open_time = manual_open_time
+	if(ishuman(user))
+		var/list/modifiers = list()
+		SEND_SIGNAL(user, COMSIG_GET_FIRELOCK_SPEED_MOD, modifiers)
+		var/speed_mod = modifiers.len ? modifiers[1] : 1
+		open_time = manual_open_time / max(0.1, speed_mod)
+
 	user.visible_message(
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	if(do_after(user, manual_open_time, src))
+	if(do_after(user, open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),
