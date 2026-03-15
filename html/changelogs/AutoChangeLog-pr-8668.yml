@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - add: "TGUI консоли дронов обслуживания (PR #8668)"

@@ -8,10 +8,10 @@ on:
 
 jobs:
   check-dmi5:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v6
-    - uses: ParadiseSS13/DMI5Checker@v1
-      with:
-        icons-path: 'icons'
+      - uses: actions/checkout@v6
+      - uses: ParadiseSS13/DMI5Checker@v1
+        with:
+          icons-path: "icons"
