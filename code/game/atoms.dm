@@ -431,7 +431,7 @@
 	var/list/tags_list = examine_tags(user)
 	var/list/post_descriptor = examine_post_descriptor(user)
 	var/post_desc_string = length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""
-	if (length(tags_list))
+	if(length(tags_list))
 		var/tag_string = list()
 		for (var/atom_tag in tags_list)
 			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
@@ -488,7 +488,7 @@
 		.[span_hypnophrase("abstract")] = "Это абстрактный концепт, который вы не должны были увидеть! Сообщите об этом Высшим Силам!"
 
 	if(resistance_flags & INDESTRUCTIBLE)
-		.["неразрушим[genderize_examine_descriptor("ый", "ая")]"] = "Чрезвычайно прочн[genderize_examine_descriptor("ый", "ая")]! Может выдержать повреждения любого рода."
+		.["неразрушим[genderize_examine_descriptor("ый", "ая")]"] = "Чрезвычайно прочн[genderize_examine_descriptor("ый", "ая")]! Уничтожить практически невозможно."
 	else
 		if(resistance_flags & LAVA_PROOF)
 			.["лавастойк[genderize_examine_descriptor("ий", "ая")]"] = "Чрезвычайно устойчив[genderize_examine_descriptor("ый", "ая")] к экстремальным температурам! Может выдержать даже воздействие лавы!"

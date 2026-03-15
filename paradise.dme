@@ -3831,7 +3831,6 @@
 #include "code\modules\vote\vote_datum.dm"
 #include "code\modules\vote\vote_presets.dm"
 #include "code\modules\vote\vote_verb.dm"
-#include "code\modules\w_examine\examine.dm"
 #include "code\modules\wiremod\components\abstract\assoc_list_variable.dm"
 #include "code\modules\wiremod\components\abstract\compare.dm"
 #include "code\modules\wiremod\components\abstract\list_variable.dm"

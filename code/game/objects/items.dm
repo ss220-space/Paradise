@@ -429,9 +429,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = parent_tags
 	.[weight_class_to_text(w_class)] = weight_class_to_tooltip(w_class)
 
-	if (siemens_coefficient == 0)
+	if(siemens_coefficient == 0)
 		.["изолирующий"] = "Сделано из хорошо изолированного материала, блокирующего прохождение любого электрического тока."
-	else if (siemens_coefficient <= 0.5)
+	else if(siemens_coefficient <= 0.5)
 		.["частично изолирующий"] = "Сделано из плохо изолированного материала, который лишь ослабит, но не заблокирует прохождение электрического тока."
 
 /obj/item/examine_descriptor(mob/user)
