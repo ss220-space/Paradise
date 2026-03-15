@@ -2408,8 +2408,7 @@
 	name = "A little cracked urn";
 	pixel_x = 1;
 	pixel_y = 9;
-	desc = "Dark ceramic urn filled with someone's ashes. You better don't look inside. It can bite back.";
-	
+	desc = "Dark ceramic urn filled with someone's ashes. You better don't look inside. It can bite back."
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
