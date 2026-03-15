@@ -2,6 +2,7 @@
 #define EXTINGUISHER_TEMP_HIGH 350
 #define EXTINGUISHER_TEMP_ULTRA 374
 #define EXTINGUISHER_TEMP_DETONATION 410
+#define EXTINGUISHER_EXPLOSION_FRAME_DELAY (0.2 SECONDS)
 
 /obj/item/extinguisher
 	name = "fire extinguisher"
@@ -128,17 +129,18 @@
 
 		if(temp >= EXTINGUISHER_TEMP_DETONATION)
 			icon_state = "[base_icon_state]_temp_detonate"
-		else if(temp >= EXTINGUISHER_TEMP_ULTRA)
+			return
+		if(temp >= EXTINGUISHER_TEMP_ULTRA)
 			icon_state = "[base_icon_state]_temp_ultra"
-		else if(temp >= EXTINGUISHER_TEMP_HIGH)
+			return
+		if(temp >= EXTINGUISHER_TEMP_HIGH)
 			icon_state = "[base_icon_state]_temp_high"
-		else if(temp >= EXTINGUISHER_TEMP_MED)
+			return
+		if(temp >= EXTINGUISHER_TEMP_MED)
 			icon_state = "[base_icon_state]_temp_med"
-		else
-			icon_state = "[base_icon_state][!safety]"
-	else
+			return
 
-		icon_state = "[base_icon_state][!safety]"
+	icon_state = "[base_icon_state][!safety]"
 
 /obj/item/extinguisher/update_appearance(updates)
 	. = ..()
@@ -199,15 +201,15 @@
 			var/mob/living/living_user = user
 			living_user.apply_damage(30, BURN, spread_damage = TRUE)
 			living_user.emote("scream")
-			temp = T20C
+			reagents.chem_temp = T20C
 
 		reagents.clear_reagents()
 
 	else if(temp >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
-		temp = EXTINGUISHER_TEMP_MED
+		reagents.chem_temp = EXTINGUISHER_TEMP_MED
 
 	else
-		temp = T20C
+		reagents.chem_temp = T20C
 
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
@@ -344,17 +346,16 @@
 
 	if(temp < EXTINGUISHER_TEMP_ULTRA)
 		icon_state = "[base_icon_state]_temp_high"
-		total_delay += 0.2 SECONDS
+		total_delay += EXTINGUISHER_EXPLOSION_FRAME_DELAY
 
 	if(temp < EXTINGUISHER_TEMP_DETONATION)
 		addtimer(CALLBACK(src, PROC_REF(set_icon_state), "[base_icon_state]_temp_ultra"), total_delay)
-		total_delay += 0.2 SECONDS
+		total_delay += EXTINGUISHER_EXPLOSION_FRAME_DELAY
 	else
 		icon_state = "[base_icon_state]_temp_ultra"
 
-
 	addtimer(CALLBACK(src, PROC_REF(set_icon_state), "[base_icon_state]_temp_detonate"), total_delay)
-	total_delay += 0.2 SECONDS
+	total_delay += EXTINGUISHER_EXPLOSION_FRAME_DELAY
 
 	addtimer(CALLBACK(src, PROC_REF(finalize_steam_explosion)), total_delay)
 
@@ -387,3 +388,4 @@
 #undef EXTINGUISHER_TEMP_HIGH
 #undef EXTINGUISHER_TEMP_ULTRA
 #undef EXTINGUISHER_TEMP_DETONATION
+#undef EXTINGUISHER_EXPLOSION_FRAME_DELAY
