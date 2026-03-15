@@ -25,6 +25,11 @@ export async function sendDiscordChangelog({ context }) {
     .map((change) => `${change.type.changelogKey}: ${change.description}`)
     .join("\n");
 
+  const formatDate = (dateString) => {
+    const d = new Date(dateString);
+    return d.toLocaleString('ru-RU', { hour12: false, timeZone: 'UTC' }).replace(',', '');
+  };
+
   const embed = {
     title: `PR #${prNumber}: ${prTitle}`,
     url: pull_request.html_url,
@@ -36,7 +41,7 @@ export async function sendDiscordChangelog({ context }) {
       },
     ],
     footer: {
-      text: `${author} — ${new Date(mergedAt).toUTCString()}`,
+      text: `${author} — ${formatDate(mergedAt)}`,
     },
     timestamp: mergedAt,
   };

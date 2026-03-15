@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлена ошибка, из-за которой возникали черные экраны при смене тел."
+  - bugfix: "Исправлена разметка escape меню."

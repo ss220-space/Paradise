@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - server: "CI скрипт для проверки наличия неэкранированных скобок"
