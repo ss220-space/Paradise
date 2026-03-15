@@ -1756,7 +1756,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		var/permit_required = !isnull(new_skin.required_permit)
 		var/donator_tier_required = !isnull(new_skin.donator_tier)
 		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
-			var/has_permit = permit_required && mmi?.skin_permissions[new_skin.required_permit]
+			var/has_permit = permit_required && mind?.cyborg_skin_permissions[new_skin.required_permit]
 			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
 
 			if(!has_permit && !has_donator)
