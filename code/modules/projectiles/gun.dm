@@ -195,7 +195,7 @@
 
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
-	if(attachable_offset)
+	if(overlay && attachable_offset)
 		var/x_offset = attachable_offset[module.slot]["x"]
 		var/y_offset = attachable_offset[module.slot]["y"]
 		if(module.overlay_offset)
