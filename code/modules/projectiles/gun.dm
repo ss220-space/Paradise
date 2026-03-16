@@ -69,13 +69,15 @@
 	var/list/attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0)
+		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_SIBYL = list("x" = 0, "y" = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
-		ATTACHMENT_SLOT_UNDER
+		ATTACHMENT_SLOT_UNDER,
+		ATTACHMENT_SLOT_SIBYL
 	)
 
 	var/suppressed = FALSE
