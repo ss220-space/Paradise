@@ -7,6 +7,12 @@
 #define SIBYL_LETHAL 2
 #define SIBYL_DESTRUCTIVE 3
 
+// Sibyl System states
+#define SIBSYS_STATE_UNINSTALLED 0
+#define SIBSYS_STATE_INSTALLED 1
+#define SIBSYS_STATE_SCREWDRIVER_ACT 2
+#define SIBSYS_STATE_WELDER_ACT 3
+
 GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/gun_module/sibyl
@@ -51,8 +57,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/gun_module/sibyl/Destroy()
 	if(registered)
 		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
+	QDEL_NULL(auth_id)
 	. = ..()
-	auth_id = null
 
 /obj/item/gun_module/sibyl/get_ru_names()
 	return list(
@@ -234,6 +240,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/gun_module/sibyl/proc/sync_limit(datum/source, old_level, new_level)
 	SIGNAL_HANDLER
+
 	switch(SSsecurity_level.get_current_level_as_number())
 		if(SEC_LEVEL_GREEN)
 			set_limit(SIBYL_NONLETHAL)
@@ -249,18 +256,16 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			set_limit(SIBYL_DESTRUCTIVE)
 
 	var/obj/item/gun/energy/energy_gun = gun
-	if(!check_select(energy_gun?.select))
+	if(!energy_gun)
+		return
+	if(!check_select(energy_gun.select))
 		energy_gun.select_fire()
 
 /obj/item/gun_module/sibyl/proc/check_unknown_names(obj/item/gun/energy/energy_gun)
+	var/list/known_names = nonlethal_names + lethal_names + destructive_names
 	for(var/obj/item/ammo_casing/energy/ammo in energy_gun.ammo_type)
-		if(ammo.select_name in nonlethal_names)
-			continue
-		if(ammo.select_name in lethal_names)
-			continue
-		if(ammo.select_name in destructive_names)
-			continue
-		nonlethal_names += list(ammo.select_name)
+		if(!(ammo.select_name in known_names))
+			nonlethal_names += list(ammo.select_name)
 
 /obj/item/gun_module/sibyl/proc/get_available_text()
 	var/list/names = list()
@@ -306,9 +311,13 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			state = SIBSYS_STATE_SCREWDRIVER_ACT
 			to_chat(user, span_notice("Вы заварили болты [declent_ru(GENITIVE)] к [gun.declent_ru(DATIVE)]."))
 		return
+
 	if(state == SIBSYS_STATE_SCREWDRIVER_ACT)
+		var/old_state = state
 		to_chat(user, span_notice("Вы начинаете разваривать болты [declent_ru(GENITIVE)] от [gun.declent_ru(GENITIVE)]..."))
 		if(I.use_tool(gun, user, 16 SECONDS, volume = I.tool_volume))
+			if(state != old_state)
+				return
 			if(prob(70))
 				state = SIBSYS_STATE_WELDER_ACT
 				to_chat(user, span_notice("Вы успешно разварили болты [declent_ru(GENITIVE)] от [gun.declent_ru(GENITIVE)]."))
@@ -321,21 +330,24 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return
 
 /obj/item/gun_module/sibyl/crowbar_act(mob/living/user, obj/item/I)
-	if(state == SIBSYS_STATE_WELDER_ACT)
-		to_chat(user, span_notice("Вы начинаете поддевать крепление [declent_ru(GENITIVE)] от [gun.declent_ru(GENITIVE)]..."))
-		if(!I.use_tool(gun, user, 16 SECONDS, volume = I.tool_volume))
-			return
-		if(prob(95))
-			if(state == SIBSYS_STATE_WELDER_ACT)
-				detach_without_check(gun, user, force = TRUE)
-				to_chat(user, span_notice("Вы успешно сняли крепление [declent_ru(GENITIVE)] от [gun.declent_ru(GENITIVE)]."))
-		else
-			var/mob/living/carbon/human/H = user
-			var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			user.apply_damage(5, BRUTE, affecting)
-			user.emote("scream")
-			to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)]ась и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
+	if(state != SIBSYS_STATE_WELDER_ACT)
 		return
+
+	to_chat(user, span_notice("Вы начинаете поддевать крепление [declent_ru(GENITIVE)] от [gun.declent_ru(GENITIVE)]..."))
+
+	if(!I.use_tool(gun, user, 16 SECONDS, volume = I.tool_volume))
+		return
+
+	if(prob(95))
+		detach_without_check(gun, user, force = TRUE)
+		to_chat(user, span_notice("Вы успешно сняли крепление [declent_ru(GENITIVE)] от [gun.declent_ru(GENITIVE)]."))
+	else
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		user.apply_damage(5, BRUTE, affecting)
+		user.emote("scream")
+		to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)]ась и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
+	return
 
 #undef SIBYL_NONLETHAL
 #undef SIBYL_LETHAL
