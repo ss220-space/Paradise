@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "Исправлен звук харм атаки телскопичкой. (PR #8679)"

@@ -1065,8 +1065,7 @@
 "dm" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
@@ -1383,10 +1382,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
-"ea" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle,
-/area/awaymission/BMPship/Kitchen)
 "eb" = (
 /obj/machinery/door/window/southright{
 	color = "green"
@@ -1636,11 +1631,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/BMPship/CommonArea)
-"eK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/awaymission/BMPship/Containment)
 "eL" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -1651,10 +1641,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Engines)
-"eM" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/awaymission/BMPship/Containment)
 "eN" = (
 /obj/structure/window/reinforced{
 	color = "yellow"
@@ -1869,7 +1855,6 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
 "fl" = (
-/obj/effect/decal/remains/human,
 /obj/effect/gibspawner/generic,
 /turf/space,
 /area/space)
@@ -2383,7 +2368,6 @@
 	light_power = 0
 	},
 /obj/effect/mob_spawn/carp,
-/obj/effect/decal/cleanable/blood/old,
 /turf/space,
 /area/space)
 "gB" = (
@@ -3287,11 +3271,6 @@
 	tag = "icon-barber"
 	},
 /area/awaymission/BMPship/Kitchen)
-"jE" = (
-/obj/effect/decal/cleanable/blood/gibs/body,
-/obj/item/skeleton/head,
-/turf/space,
-/area/space)
 "jF" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
@@ -4029,7 +4008,6 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "pp" = (
-/obj/effect/decal/cleanable/ash,
 /obj/item/skeleton/head,
 /turf/space,
 /area/space)
@@ -4214,17 +4192,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
-"qE" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
-	},
-/obj/item/ammo_casing{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/turf/space,
-/area/space)
 "qF" = (
 /obj/structure/cable{
 	icon_state = "2-4";
@@ -4746,10 +4713,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
-"vd" = (
-/obj/effect/decal/cleanable/blood/drip,
-/turf/space,
-/area/space)
 "ve" = (
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/MedBay)
@@ -4792,17 +4755,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/BMPship/CommonArea)
-"vD" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
-	},
-/obj/item/ammo_casing{
-	pixel_y = 3;
-	pixel_x = 9
-	},
-/turf/space,
-/area/space)
 "vH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5087,7 +5039,6 @@
 /area/awaymission/BMPship/Dormitories)
 "xz" = (
 /obj/item/stack/ore/uranium,
-/obj/effect/decal/cleanable/ash,
 /obj/item/stock_parts/cell/empty,
 /turf/space,
 /area/space/nearstation)
@@ -5420,11 +5371,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
-"AV" = (
-/obj/effect/decal/cleanable/ash,
-/obj/effect/mob_spawn/carp,
-/turf/space,
-/area/space)
 "AW" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5612,13 +5558,6 @@
 "CJ" = (
 /turf/simulated/mineral/random,
 /area/awaymission/BMPship/Buffer)
-"Dc" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
-	},
-/turf/space,
-/area/space)
 "De" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6251,13 +6190,6 @@
 "HV" = (
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/TurretsSouth)
-"HW" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
-	},
-/turf/simulated/wall/shuttle,
-/area/awaymission/BMPship/MedBay)
 "HZ" = (
 /obj/structure/alien/weeds,
 /obj/item/shard{
@@ -6268,11 +6200,6 @@
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
-"Ik" = (
-/obj/item/stack/sheet/mineral/plastitanium,
-/obj/effect/decal/cleanable/ash,
-/turf/space,
-/area/space)
 "Io" = (
 /obj/structure/cable{
 	icon_state = "4-8";
@@ -6317,10 +6244,6 @@
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
-"IA" = (
-/obj/effect/decal/remains/human,
-/turf/space,
-/area/space)
 "IB" = (
 /obj/item/cigbutt/roach{
 	pixel_x = -12
@@ -6753,11 +6676,6 @@
 	icon_state = "gray_walls_corners_smoothed"
 	},
 /area/awaymission/BMPship/TraderShuttle)
-"NI" = (
-/obj/effect/decal/cleanable/ash,
-/obj/item/stack/ore/uranium,
-/turf/space,
-/area/space)
 "NW" = (
 /obj/machinery/flasher/portable{
 	anchored = 1
@@ -6863,11 +6781,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
-"Ph" = (
-/obj/item/shard,
-/obj/effect/decal/cleanable/ash,
-/turf/space,
-/area/space)
 "Pi" = (
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /mob/living/simple_animal/hostile/syndicate/ranged/space{
@@ -6894,10 +6807,6 @@
 /obj/item/stock_parts/cell/empty,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
-"PH" = (
-/obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/mineral/random/high_chance,
-/area/awaymission)
 "PJ" = (
 /obj/structure/alien/weeds,
 /obj/item/weldingtool/largetank,
@@ -7231,12 +7140,6 @@
 /obj/structure/signpost,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
-"Ti" = (
-/obj/effect/decal/cleanable/blood/drip,
-/obj/structure/alien/weeds,
-/obj/structure/alien/resin,
-/turf/simulated/floor/wood,
-/area/awaymission/BMPship/Armory)
 "Tj" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -7769,13 +7672,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/awaymission/BMPship/Dormitories)
-"Yo" = (
-/obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
-	},
-/turf/space,
-/area/space)
 "Yv" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
@@ -7847,10 +7743,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
-"Zb" = (
-/obj/effect/decal/cleanable/ash,
-/turf/space,
-/area/space)
 "Zg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -11348,7 +11240,7 @@ aa
 aa
 aa
 aa
-Yo
+aa
 ge
 ac
 ab
@@ -11471,7 +11363,7 @@ aa
 aa
 aa
 aa
-Dc
+aa
 ge
 aa
 aa
@@ -11614,7 +11506,7 @@ aa
 aa
 aa
 aa
-vd
+aa
 aa
 aa
 aa
@@ -11722,7 +11614,7 @@ aa
 aa
 aa
 aa
-vD
+nn
 aa
 aa
 aa
@@ -11751,7 +11643,7 @@ aa
 aa
 aa
 aa
-Dc
+aa
 aa
 aa
 aa
@@ -12234,7 +12126,7 @@ sU
 WK
 ac
 ab
-PH
+ab
 aa
 aa
 aa
@@ -12361,7 +12253,7 @@ QA
 Pi
 Ao
 lU
-KF
+ac
 wh
 ac
 ab
@@ -12665,7 +12557,7 @@ aa
 aa
 aa
 aa
-qE
+ge
 aa
 aa
 aa
@@ -13311,7 +13203,7 @@ aa
 ct
 aa
 aa
-Zb
+aa
 aa
 Un
 aa
@@ -13445,7 +13337,7 @@ oA
 aa
 am
 rY
-IA
+aa
 Un
 aa
 aa
@@ -13571,10 +13463,10 @@ eY
 Xy
 yQ
 yv
-Zb
+aa
 Un
 SJ
-Zb
+aa
 aa
 aa
 ET
@@ -13703,11 +13595,11 @@ fF
 yv
 mF
 aa
-Zb
+aa
 gP
 BG
 aa
-NI
+SJ
 aa
 aa
 aa
@@ -13966,7 +13858,7 @@ fc
 pp
 PK
 oA
-Zb
+aa
 BG
 ac
 ac
@@ -15653,7 +15545,7 @@ LT
 cU
 Pu
 Yh
-eM
+er
 zX
 LC
 CJ
@@ -15891,7 +15783,7 @@ aa
 aa
 aa
 aa
-jE
+pp
 aa
 oA
 aa
@@ -16040,7 +15932,7 @@ XJ
 ch
 Gy
 Dy
-eM
+er
 Ds
 BI
 er
@@ -16155,7 +16047,7 @@ aa
 Ay
 SJ
 Fp
-Zb
+aa
 mo
 as
 bB
@@ -16283,10 +16175,10 @@ oA
 aa
 aa
 aa
-Zb
-vd
+aa
+aa
 oA
-Zb
+aa
 bB
 bB
 ve
@@ -16300,7 +16192,7 @@ fE
 WO
 ID
 Dy
-eK
+er
 Dp
 pV
 er
@@ -16415,12 +16307,12 @@ BG
 ct
 oA
 as
-AV
+ET
 vr
 ZB
 dw
 Rn
-eM
+er
 er
 er
 er
@@ -16430,7 +16322,7 @@ Hu
 BL
 NZ
 fM
-eM
+er
 er
 er
 TJ
@@ -16543,7 +16435,7 @@ aa
 aa
 aa
 as
-Zb
+aa
 aa
 as
 by
@@ -16560,7 +16452,7 @@ Lu
 FT
 Gs
 LT
-eM
+er
 fD
 lK
 er
@@ -16672,7 +16564,7 @@ aa
 Ay
 aa
 aa
-Zb
+aa
 as
 as
 su
@@ -16950,7 +16842,7 @@ vO
 MN
 VD
 nO
-eM
+er
 er
 er
 er
@@ -17080,7 +16972,7 @@ bU
 OX
 kn
 kn
-eM
+er
 At
 MY
 er
@@ -17326,7 +17218,7 @@ aa
 ve
 aT
 Si
-HW
+ve
 Xb
 ZN
 ve
@@ -17470,7 +17362,7 @@ Ll
 ks
 kn
 YU
-eM
+er
 er
 er
 er
@@ -17600,7 +17492,7 @@ tf
 ku
 kn
 kn
-eM
+er
 fD
 fP
 er
@@ -17850,7 +17742,7 @@ Si
 Si
 ji
 ve
-eM
+er
 el
 xW
 er
@@ -17860,7 +17752,7 @@ Ck
 Ue
 ej
 Qk
-eM
+er
 Zg
 fP
 er
@@ -18752,13 +18644,13 @@ aa
 aa
 Un
 aa
-Zb
+aa
 Ak
 HE
 IH
 sW
 vi
-Ti
+iJ
 Hz
 cP
 FZ
@@ -18879,7 +18771,7 @@ aa
 BG
 aa
 aa
-Zb
+aa
 OH
 aa
 oA
@@ -19139,7 +19031,7 @@ aa
 aa
 OH
 aa
-Ph
+ct
 oR
 aE
 aH
@@ -20061,9 +19953,9 @@ cs
 TU
 aN
 aQ
-ea
+tA
 hw
-ea
+tA
 tA
 kK
 EL
@@ -21413,7 +21305,7 @@ aa
 jx
 kv
 ig
-Zb
+aa
 aa
 qL
 aa
@@ -21546,7 +21438,7 @@ aa
 aM
 SJ
 aa
-Ik
+aM
 aa
 aa
 aa
@@ -21939,8 +21831,8 @@ aa
 aa
 aa
 aa
-Zb
-Zb
+aa
+aa
 aa
 aa
 aa
@@ -22192,9 +22084,9 @@ aa
 aa
 aa
 aa
-Zb
 aa
-Zb
+aa
+aa
 aa
 aa
 aa
@@ -22457,7 +22349,7 @@ aa
 aa
 aa
 aa
-Zb
+aa
 aa
 aa
 aM

@@ -2477,7 +2477,6 @@
 "auq" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /obj/item/radio/intercom/directional/south,
@@ -34523,10 +34522,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
-"ffD" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/chapel)
 "ffJ" = (
 /obj/machinery/firealarm{
 	name = "north fire alarm";
@@ -34550,7 +34545,6 @@
 	dir = 1
 	},
 /obj/item/storage/fancy/coffee_condi_display{
-	pixel_y = 4;
 	pixel_x = -2
 	},
 /obj/item/storage/box/coffeepack{
@@ -50316,10 +50310,6 @@
 	icon_state = "purple"
 	},
 /area/janitor)
-"hyb" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fsmaint2)
 "hyg" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 9
@@ -52122,9 +52112,15 @@
 	},
 /area/hallway/primary/central/second/east)
 "hPp" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fsmaint3)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/grille,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
 "hPr" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
@@ -52424,10 +52420,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/bar/atrium)
-"hRv" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fsmaint)
 "hRC" = (
 /obj/structure/curtain/open/shower/security{
 	alpha = 255;
@@ -58622,9 +58614,7 @@
 /area/security/permabrig)
 "iMb" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
@@ -69040,10 +69030,6 @@
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/carpet/red,
 /area/security/warden)
-"knW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/rust,
-/area/maintenance/fsmaint3)
 "knY" = (
 /obj/structure/table,
 /obj/item/stack/tape_roll{
@@ -70098,9 +70084,7 @@
 /area/crew_quarters/fitness)
 "kwT" = (
 /obj/structure/table,
-/obj/item/storage/fancy/coffee_condi_display{
-	pixel_y = 4
-	},
+/obj/item/storage/fancy/coffee_condi_display,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -77922,10 +77906,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/spacebridge/comcar)
-"lIq" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/starboard)
 "lIs" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east extinguisher cabinet";
@@ -79875,10 +79855,6 @@
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plasteel,
 /area/maintenance/medroom)
-"lXP" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fore2)
 "lXQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -117797,10 +117773,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"rAO" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/electrical)
 "rAQ" = (
 /obj/structure/table/wood,
 /obj/item/lipstick,
@@ -126601,10 +126573,6 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/serviceyard)
-"sOK" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/maintenance/fore)
 "sON" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 25
@@ -130601,10 +130569,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"tsr" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/quartermaster/sorting)
 "tsv" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -135617,12 +135581,6 @@
 	icon_state = "darkred"
 	},
 /area/security/processing)
-"ucl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_30,
-/turf/simulated/wall,
-/area/maintenance/brig)
 "ucp" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	locked = 1;
@@ -136308,7 +136266,6 @@
 /turf/simulated/wall,
 /area/janitor)
 "uhC" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/door_control{
 	id = "BrigMechBaySecAccess";
 	name = "Armory Security Access Control";
@@ -155082,11 +155039,6 @@
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet2)
-"wYj" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_70,
-/turf/simulated/wall,
-/area/maintenance/fsmaint2)
 "wYn" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -155556,9 +155508,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 2
-	},
+/obj/item/storage/fancy/coffee_cart_rack,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -183496,7 +183446,7 @@ uBw
 jOC
 nQu
 ttn
-ffD
+jUw
 jUw
 jUw
 jUw
@@ -185038,7 +184988,7 @@ hLp
 jOC
 pzp
 ttn
-ffD
+jUw
 jUw
 jUw
 xMh
@@ -187108,7 +187058,7 @@ nJe
 nJe
 iEW
 nJe
-eDP
+hPp
 uzy
 nJe
 nJe
@@ -197929,7 +197879,7 @@ iUx
 gEF
 uYx
 rPD
-hRv
+nVC
 nVC
 rSe
 tkq
@@ -201242,7 +201192,7 @@ xWQ
 bua
 gEB
 anF
-wYj
+wNw
 dQw
 dhR
 jFH
@@ -201756,7 +201706,7 @@ sNf
 bua
 jFG
 aDI
-hyb
+cJE
 fQY
 cBZ
 rpv
@@ -203284,7 +203234,7 @@ hvS
 tRO
 tRO
 pTz
-tsr
+bua
 wdC
 vJT
 xZM
@@ -252644,7 +252594,7 @@ tFB
 fBg
 bXo
 lpE
-ucl
+onl
 awC
 awC
 hSZ
@@ -254898,7 +254848,7 @@ dDu
 tOT
 dDu
 dDu
-sOK
+lIv
 aKV
 fev
 fev
@@ -255412,7 +255362,7 @@ slY
 fLN
 nAj
 goz
-sOK
+lIv
 aKV
 fev
 pik
@@ -259605,11 +259555,11 @@ cZV
 sXg
 sXg
 sXg
-rAO
+sXg
 mSE
 pgt
 sXg
-rAO
+sXg
 sXg
 dgs
 dgs
@@ -264664,7 +264614,7 @@ dbj
 hAa
 hAa
 hAa
-lXP
+hAa
 hAa
 euZ
 xDu
@@ -272621,8 +272571,8 @@ pTU
 eyX
 phm
 pTU
-lIq
-lIq
+pTU
+pTU
 nOX
 mHg
 kqy
@@ -278069,8 +278019,8 @@ grh
 rul
 cHE
 vTB
-knW
-hPp
+ohr
+vTB
 dbs
 knv
 lnL

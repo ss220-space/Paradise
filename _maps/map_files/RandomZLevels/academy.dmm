@@ -613,12 +613,6 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
-"cW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall{
-	simulated = 0
-	},
-/area/awaymission/academy/academyaft)
 "cZ" = (
 /turf/simulated/wall{
 	simulated = 0
@@ -2744,7 +2738,6 @@
 /area/awaymission/academy/headmaster)
 "lD" = (
 /obj/structure/statue/bone/rib{
-	anchored = 1;
 	dir = 8;
 	pixel_x = 2;
 	pixel_y = 8
@@ -5522,10 +5515,6 @@
 	dir = 9;
 	icon_state = "green"
 	},
-/area/awaymission/academy/academyaft)
-"Oy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/reinforced/rusted,
 /area/awaymission/academy/academyaft)
 "OD" = (
 /obj/structure/bookcase,
@@ -8869,7 +8858,7 @@ gm
 hH
 hH
 iG
-cW
+gZ
 hH
 hH
 hH
@@ -20670,7 +20659,7 @@ aa
 aa
 gQ
 gQ
-Oy
+gQ
 zk
 FK
 zk
