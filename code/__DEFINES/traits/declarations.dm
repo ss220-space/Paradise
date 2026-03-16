@@ -444,5 +444,5 @@
 
 #define TRAIT_MESON_VISION "meson_vision"
 
-/// If human exists fracture in legs or foors (for optimisation)
+/// If a human has a fracture in their legs or feet (for optimization)
 #define TRAIT_FRACTURE_FALL "fracture_fall"
