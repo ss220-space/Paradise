@@ -18,7 +18,7 @@
 			/* hud_owner = */ null,
 			/* escape_menu = */ src,
 			/* button_text = */ "Персонаж",
-			/* offset = */ list(-171, 28),
+			/* offset = */ list(-171, 30),
 			/* font_size = */ 24,
 			/* on_click_callback = */ CALLBACK(src, PROC_REF(home_open_character_settings)),
 		)
