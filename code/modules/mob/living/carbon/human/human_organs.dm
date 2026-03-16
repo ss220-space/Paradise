@@ -34,8 +34,10 @@
 			continue
 
 		if(bodypart.is_traumatized() || !bodypart.properly_attached)
-			var/drop_chance = 0
+			var/drop_chance = 100
 			switch(bodypart.fracture_state)
+				if(FRACTURE_TYPE_CRACK)
+					drop_chance = 0
 				if(FRACTURE_TYPE_CLOSED)
 					drop_chance = FRACTURE_CLOSED_ITEM_DROP_CHANCE
 				if(FRACTURE_TYPE_OPEN)
