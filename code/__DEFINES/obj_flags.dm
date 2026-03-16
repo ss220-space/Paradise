@@ -57,6 +57,8 @@
 #define SKIP_ATTACK_MESSAGE (1<<16)
 /// Checks whether the item was upgraded with a speed potion
 #define SPEEDPOTION_APPLIED (1<<17)
+/// If an item has had its /datum/element/weapon_description initialized or not.
+#define WEAPON_DESCRIPTION_INITIALIZED (1<<18)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

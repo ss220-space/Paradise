@@ -38,6 +38,37 @@
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
 
+/obj/item/gun/energy/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_energy))
+
+/**
+ *
+ * Outputs type-specific weapon stats for energy-based firearms based on its firing modes
+ * and the stats of those firing modes. Esoteric firing modes like ion are currently not supported
+ * but can be added easily
+ *
+ */
+/obj/item/gun/energy/proc/add_notes_energy()
+	var/list/readout = list()
+	readout += "<b><u>СТРЕЛЬБА</u></b>"
+	// Make sure there is something to actually retrieve
+	if(!ammo_type.len)
+		return
+	var/obj/projectile/exam_proj
+	readout += "Имеет <b>[ammo_type.len]</b> режим[DECL_CREDIT(ammo_type.len)] стрельбы."
+	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
+		exam_proj = for_ammo.projectile_type
+		if((damage_mod <= 0 && stamina_mod <= 0) || (initial(exam_proj.damage) <= 0 && initial(exam_proj.stamina) <= 0))
+			readout += span_boldnotice("- Не наносит значимого ущерба при попадании.")
+			return readout.Join("\n") // Sending over the singular string, rather than the whole list
+		if(!ispath(exam_proj))
+			continue
+		if(initial(exam_proj.damage) > 0) // Don't divide by 0!!!!!
+			readout += "- Для [initial(exam_proj.damage_type) == STAMINA ? span_blue("<b>нелетального</b>") : span_red("<b>летального</b>")] устранения гуманоида в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets), "ие", "ия", "ий")]")]."
+			if(initial(exam_proj.stamina) > 0) // In case a projectile does damage AND stamina damage (Energy Crossbow)
+				readout += "- Для <b>[span_blue("нелетального")]</b> устранения гуманоида в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets), "ие", "ия", "ий")]")]."
+	return readout.Join("\n") // Sending over the singular string, rather than the whole list
+
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/sibyl_system_mod))
 		add_fingerprint(user)

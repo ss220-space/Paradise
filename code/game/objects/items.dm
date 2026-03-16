@@ -41,6 +41,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// What dye registry should be looked at when dying this item; see washing_machine.dm
 	var/dying_key
 
+	/// Used in obj/item/examine to give additional notes on what the weapon does, separate from the predetermined output variables
+	var/offensive_notes
+	/// Used in obj/item/examine to determines whether or not to detail an item's statistics even if it does not meet the force requirements
+	var/override_notes = FALSE
+
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 
@@ -402,6 +407,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	LAZYREMOVE(actions, action)
 	qdel(action)
 
+/// Adds the weapon_description element, which shows the 'warning label' for especially dangerous objects.
+/// Override this for item types with special notes.
+/obj/item/proc/add_weapon_description()
+	AddElement(/datum/element/weapon_description)
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -420,7 +429,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	forceMove(voring_core)
 
 /obj/item/examine(mob/user)
-	//TODO: Имлементировать /datum/element/weapon_description
+	// lazily initialize the weapon description element if it hasn't been already
+	if(!(item_flags & WEAPON_DESCRIPTION_INITIALIZED))
+		add_weapon_description()
+		item_flags |= WEAPON_DESCRIPTION_INITIALIZED
 	return ..()
 
 /obj/item/examine_tags(mob/user)
@@ -472,6 +484,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(exists_skin_change)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы выбрать скин.")
+
+/obj/item/Topic(href, href_list)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_TOPIC, usr, href_list)
 
 /obj/item/burn()
 	if(!QDELETED(src))

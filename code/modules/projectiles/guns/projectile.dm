@@ -31,6 +31,23 @@
 	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
 
+/obj/item/gun/projectile/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ballistic))
+
+/**
+ *
+ * Outputs type-specific weapon stats for ballistic weaponry based on its magazine and its caliber.
+ * It contains extra breaks for the sake of presentation
+ *
+ */
+/obj/item/gun/projectile/proc/add_notes_ballistic()
+	if(magazine) // Make sure you have a magazine, to get the notes from
+		return "\n[magazine.add_notes_box()]"
+	else if(chambered) // if you don't have a magazine, is there something chambered?
+		return "\n[chambered.add_notes_ammo()]"
+	else // we have a very expensive mechanical paperweight.
+		return "<b><u>СТРЕЛЬБА</u></b>\n- Оружие не заряжено, баллистические показатели неизвестны."
+
 /obj/item/gun/projectile/update_name(updates = ALL)
 	. = ..()
 	if(sawn_state)
