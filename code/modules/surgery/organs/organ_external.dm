@@ -686,11 +686,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!prob(inflicted_damage * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
 		return FALSE // bad luck - no fracture
 
-	var/fracture_type = FRACTURE_TYPE_OPEN
-	if(inflicted_damage < LIMB_OPEN_FRACTURE_MIN_DMG)
+	var/fracture_type
+	if(inflicted_damage >= LIMB_OPEN_FRACTURE_MIN_DMG)
+		fracture_type = FRACTURE_TYPE_OPEN
+	else if(inflicted_damage >= LIMB_CLOSED_FRACTURE_MIN_DMG)
 		fracture_type = FRACTURE_TYPE_CLOSED
-
-	if(inflicted_damage < LIMB_CLOSED_FRACTURE_MIN_DMG)
+	else
 		fracture_type = FRACTURE_TYPE_CRACK
 
 	if(fracture(silent, fracture_type))

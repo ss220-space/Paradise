@@ -284,10 +284,12 @@
 		return
 
 	var/fall_chance = 0
+	var/list/fractured_limbs = list()
 	for(var/zone in possible_limbs)
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
+		fractured_limbs += bodypart
 		switch(bodypart.fracture_state)
 			if(FRACTURE_TYPE_CRACK)
 				fall_chance = max(5, fall_chance)
@@ -299,23 +301,17 @@
 	if(!fall_chance || !prob(fall_chance))
 		return
 
-	var/knockdown_duration = 0
-	for(var/zone in possible_limbs)
+	for(var/zone in fractured_limbs)
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
 		switch(bodypart.fracture_state)
 			if(FRACTURE_TYPE_CRACK)
 				bodypart.external_receive_damage(brute = 5)
-				knockdown_duration = max(3 SECONDS, knockdown_duration)
-			if(FRACTURE_TYPE_CLOSED)
+			else
 				bodypart.external_receive_damage(brute = 10)
-				knockdown_duration = max(3 SECONDS, knockdown_duration)
-			if(FRACTURE_TYPE_OPEN)
-				bodypart.external_receive_damage(brute = 10)
-				knockdown_duration = max(3 SECONDS, knockdown_duration)
 
-	Knockdown(knockdown_duration)
+	Knockdown(3 SECONDS)
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))
