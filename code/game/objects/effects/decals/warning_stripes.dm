@@ -2,6 +2,10 @@
 	icon = 'icons/effects/warning_stripes.dmi'
 	layer = TURF_LAYER
 
+// IT'S MUST BE turf_decal
+/obj/effect/decal/warning_stripes/never_should_have_come_here(turf/here_turf)
+	return FALSE
+
 /obj/effect/decal/warning_stripes/north
 	icon_state = "N"
 

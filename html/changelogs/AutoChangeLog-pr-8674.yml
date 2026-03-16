@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - tweak: "cl снова указывает ссылку на пр (PR #8674)"
+  - tweak: "нормальное форматирование даты у парсера cl в дискорд (PR #8674)"
