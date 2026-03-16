@@ -514,7 +514,7 @@
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
 	/// our active hand, to check if it's disabled/detached
 	var/obj/item/organ/external/hand/active_hand = has_active_hand()? get_active_hand() : null
-	if(!active_hand || do_after_count() >= usable_hands)
+	if(active_hand || do_after_count() >= usable_hands)
 		examined_thing.balloon_alert(src, "нет свободных рук для осмотра!")
 		return FALSE
 
@@ -540,7 +540,6 @@
 		balloon_alert(src, "не удалось осмотреть!")
 		return FALSE
 
-	INVOKE_ASYNC(examined_thing, TYPE_PROC_REF(/atom, attack_hand), src)
 	return TRUE
 
 
