@@ -2011,7 +2011,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		exists_fracture  = TRUE
 		break
 
-	if(exists_fracture )
+	if(exists_fracture)
 		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
 	else
 		REMOVE_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
