@@ -25,7 +25,7 @@
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)

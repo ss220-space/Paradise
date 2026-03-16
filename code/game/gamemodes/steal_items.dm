@@ -849,7 +849,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/sibyl
 	id = "collect_num_sibyl"
-	typepath = /obj/item/sibyl_system_mod
+	typepath = /obj/item/gun_module/sibyl
 	name = "системы Сибил"
 	min=4
 	max=12

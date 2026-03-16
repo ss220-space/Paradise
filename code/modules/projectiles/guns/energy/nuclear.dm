@@ -6,7 +6,7 @@
 	modifystate = TRUE
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE_LASER
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
@@ -31,7 +31,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	. = ..()
@@ -86,7 +86,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/gun/pdw9/ert
@@ -123,6 +123,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
