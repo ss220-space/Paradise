@@ -9,7 +9,7 @@
 	gender = MALE
 	pass_flags = PASSTABLE
 	braintype = "Robot"
-	lawupdate = 0
+	lawupdate = FALSE
 	density = FALSE
 	has_camera = FALSE
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
@@ -17,7 +17,6 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
-
 	drain_act_protected = TRUE
 
 	// We need to keep track of a few module items so we don't need to do list operations
@@ -29,12 +28,18 @@
 	var/obj/item/matter_decompiler/decompiler = null
 
 	// What objects can drones bump into
-	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
-													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
+	var/static/list/allowed_bumpable_objects = list(
+		/obj/machinery/door,
+		/obj/machinery/recharge_station,
+		/obj/machinery/disposal/deliveryChute,
+		/obj/machinery/teleport/hub,
+		/obj/effect/portal,
+		/obj/structure/transit_tube/station,
+	)
 
 	//Used for self-mailing.
 	var/mail_destination = 0
-	var/reboot_cooldown = 60 // one minute
+	var/reboot_cooldown = 1 MINUTES
 	var/last_reboot
 	var/list/pullable_drone_items = list(
 		/obj/item/pipe,
@@ -58,6 +63,9 @@
 	canBeHatted = TRUE
 	canWearBlacklistedHats = TRUE
 
+	/// Cooldown for law syncs
+	COOLDOWN_DECLARE(sync_cooldown)
+
 /mob/living/silicon/robot/drone/get_ru_names()
 	return list(
 		NOMINATIVE = "дрон",
@@ -73,8 +81,8 @@
 
 	remove_language(LANGUAGE_BINARY)
 	remove_language(LANGUAGE_GALACTIC_COMMON)
-	add_language(LANGUAGE_DRONE_BINARY, 1)
-	add_language(LANGUAGE_DRONE, 1)
+	add_language(LANGUAGE_DRONE_BINARY, TRUE)
+	add_language(LANGUAGE_DRONE, TRUE)
 
 	// Disable the microphone wire on Drones
 	if(radio)
@@ -106,13 +114,13 @@
 	radio.recalculate_channels()
 
 	//Grab stacks.
-	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
-	stack_wood = locate(/obj/item/stack/sheet/wood) in src.module
-	stack_glass = locate(/obj/item/stack/sheet/glass/cyborg) in src.module
-	stack_plastic = locate(/obj/item/stack/sheet/plastic) in src.module
+	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in module
+	stack_wood = locate(/obj/item/stack/sheet/wood) in module
+	stack_glass = locate(/obj/item/stack/sheet/glass/cyborg) in module
+	stack_plastic = locate(/obj/item/stack/sheet/plastic) in module
 
 	//Grab decompiler.
-	decompiler = locate(/obj/item/matter_decompiler) in src.module
+	decompiler = locate(/obj/item/matter_decompiler) in module
 
 	//Some tidying-up.
 	scanner.Grant(src)
@@ -136,10 +144,10 @@
 	laws = new /datum/ai_laws/drone()
 	set_connected_ai(null)
 
-	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
+	aiCamera = new /obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
 
-	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, FALSE)
+	playsound(loc, 'sound/machines/twobeep.ogg', 50, FALSE)
 
 /mob/living/silicon/robot/drone/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
@@ -271,13 +279,12 @@
 	GLOB.lawchanges.Add("[time] <b>:</b> [H.name]([H.key]) emagged [name]([key])")
 	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
-	emagged = 1
+	emagged = TRUE
 	set_density(TRUE)
 	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
 	update_icons()
-	lawupdate = 0
 	set_connected_ai(null)
 	clear_supplied_laws()
 	clear_inherent_laws()
@@ -288,7 +295,6 @@
 	to_chat(src, "<b>Соблюдайте эти законы:</b>")
 	laws.show_laws(src)
 	to_chat(src, span_boldwarning("ВНИМАНИЕ: [H.real_name] теперь ваш новый хозяин. Соблюдайте новые законы и команды [H.real_name]."))
-	return
 
 #undef EMAG_TIMER
 
@@ -326,7 +332,7 @@
 			full_law_reset()
 			show_laws()
 
-/mob/living/silicon/robot/drone/proc/shut_down(force=FALSE)
+/mob/living/silicon/robot/drone/proc/shut_down(force = FALSE)
 	if(stat == DEAD)
 		return
 
@@ -366,7 +372,8 @@
 
 /mob/living/silicon/robot/drone/proc/transfer_personality(client/player)
 
-	if(!player) return
+	if(!player)
+		return
 
 	mind = new
 	mind.current = src
@@ -376,7 +383,6 @@
 	mind.key = player.key
 	key = player.key
 
-	lawupdate = 0
 	to_chat(src, "<b>Перезагрузка завершена</b>. Активирован базовый сервисный протокол... <b>Готово</b>.")
 	full_law_reset()
 	to_chat(src, "<br><b>Вы — сервисный дрон, компактный ремонтный модуль</b>.")
@@ -427,7 +433,7 @@
 			return ..()
 		to_chat(user, span_warning("Вы аккуратно и тщательно разбираете своего павшего собрата, сохраняя как можно больше его ресурсов внутри себя."))
 		balloon_alert(user, "дрон разобран")
-		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
+		new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15
 		C.stored_comms["wood"] += 5

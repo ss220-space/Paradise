@@ -100,18 +100,12 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
-"fl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/template_noop)
 "fr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cart,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "gd" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
@@ -1737,7 +1731,7 @@ eA
 yg
 qF
 uB
-fl
+YX
 lc
 lc
 uB

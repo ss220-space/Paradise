@@ -15725,9 +15725,7 @@
 /area/medical/virology)
 "bWF" = (
 /obj/structure/table,
-/obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 2
-	},
+/obj/item/storage/fancy/coffee_cart_rack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -18863,9 +18861,7 @@
 	},
 /area/hallway/secondary/entry/commercial)
 "coo" = (
-/obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 2
-	},
+/obj/item/storage/fancy/coffee_cart_rack,
 /turf/simulated/wall/r_wall,
 /area/medical/cmo)
 "cop" = (
@@ -30405,10 +30401,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/theatre)
-"dqo" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/hallway/secondary/exit/maint)
 "dqq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -43255,7 +43247,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "fju" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -45238,7 +45229,6 @@
 	},
 /area/security/evidence)
 "fJE" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/wallmed{
 	pixel_y = 30
 	},
@@ -54364,10 +54354,6 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/courtroom)
-"hOT" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/tourist)
 "hOZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -59538,10 +59524,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/west)
-"jaN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/library)
 "jaQ" = (
 /obj/machinery/vending/coffee,
 /obj/structure/window/reinforced{
@@ -59976,7 +59958,6 @@
 /obj/item/stack/rods{
 	amount = 3
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "jfK" = (
@@ -63567,10 +63548,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
-"jXf" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/library)
 "jXg" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light{
@@ -66962,10 +66939,6 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/ai)
-"kPy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/asmaint4)
 "kPC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -67617,10 +67590,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
-"kZD" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/toxins/test_chamber)
 "kZE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -70911,11 +70880,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/heads/hop)
-"lPW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/fungus_30,
-/turf/simulated/wall,
-/area/maintenance/library)
 "lQa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -71991,10 +71955,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
-"mde" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/starboard)
 "mdq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -75796,9 +75756,7 @@
 	pixel_y = -32
 	},
 /obj/structure/table,
-/obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 2
-	},
+/obj/item/storage/fancy/coffee_cart_rack,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -77093,10 +77051,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"nhJ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/engineering)
 "nhY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -80607,11 +80561,6 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
-"nWr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
-/area/maintenance/library)
 "nWz" = (
 /obj/structure/sign/chemistry{
 	pixel_x = 32
@@ -98479,10 +98428,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"rTA" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/asmaint)
 "rTF" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -106058,12 +106003,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit/maint)
-"tGd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/fungus_30,
-/turf/simulated/wall,
-/area/maintenance/library)
 "tGl" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
@@ -110771,7 +110710,6 @@
 	pixel_y = 30
 	},
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 2;
 	pixel_x = 8
 	},
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
@@ -113675,7 +113613,6 @@
 	},
 /area/toxins/xenobiology)
 "vov" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/inflatable/door,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -126865,11 +126802,6 @@
 	icon_state = "white"
 	},
 /area/medical/sleeper)
-"yfm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/wall_rusted_30,
-/turf/simulated/wall,
-/area/maintenance/engineering)
 "yfp" = (
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -148015,7 +147947,7 @@ kwN
 hsp
 kwN
 hsp
-hOT
+hsp
 kxN
 deL
 deL
@@ -149039,7 +148971,7 @@ uQr
 kSW
 lRT
 oBI
-hOT
+hsp
 cOC
 rQm
 hsp
@@ -153963,7 +153895,7 @@ kOj
 dHt
 cQt
 oPF
-lPW
+nFe
 pWR
 lSr
 dSB
@@ -154176,7 +154108,7 @@ fWk
 yhX
 yhX
 ybR
-kZD
+lDu
 dGr
 hEB
 mQI
@@ -154924,8 +154856,8 @@ cXa
 xUL
 cbC
 cXa
-nhJ
-nhJ
+cXa
+cXa
 qUe
 jem
 utt
@@ -155505,7 +155437,7 @@ ibJ
 qsF
 qsF
 xrx
-lPW
+nFe
 jZb
 eaP
 qor
@@ -155756,16 +155688,16 @@ lbz
 xTb
 dFg
 nFe
-nWr
+yfs
 xwW
-tGd
-tGd
+nFe
+nFe
 wTW
 juL
-jaN
+dFg
 rMu
-jaN
-jaN
+dFg
+dFg
 dFg
 mcQ
 fGj
@@ -155969,7 +155901,7 @@ viX
 eVK
 mVO
 iru
-yfm
+lzy
 cbC
 cAT
 ikA
@@ -157254,7 +157186,7 @@ dUD
 dUD
 dUD
 clA
-jXf
+gMw
 cbC
 qIQ
 cbC
@@ -157559,7 +157491,7 @@ wQX
 wQX
 dFg
 dFg
-lPW
+nFe
 rMu
 dFg
 dFg
@@ -169884,7 +169816,7 @@ xpU
 qRT
 wDC
 rhW
-rTA
+uCn
 uCn
 cwQ
 vdW
@@ -173192,7 +173124,7 @@ cnP
 xZu
 vov
 xZu
-mde
+xZu
 dVv
 kVs
 jqj
@@ -173251,8 +173183,8 @@ wcV
 rMi
 cvJ
 fTk
-dqo
-dqo
+wOp
+wOp
 xUb
 vdc
 vdc
@@ -175772,10 +175704,10 @@ xWh
 sGS
 xWh
 xZu
-mde
-mde
+xZu
+xZu
 jAn
-jmK
+rpb
 xWh
 rFn
 wCS
@@ -177062,7 +176994,7 @@ nLe
 sdj
 xWh
 rQt
-mde
+xZu
 isq
 rEe
 tLf
@@ -177319,7 +177251,7 @@ usM
 vfH
 xZu
 dbn
-mde
+xZu
 xZu
 xZu
 imN
@@ -177571,9 +177503,9 @@ uWH
 imN
 qyT
 yfp
-mde
+xZu
 dLy
-mde
+xZu
 rpb
 xWh
 xWh
@@ -181726,7 +181658,7 @@ sCN
 fTk
 wmm
 vLG
-kPy
+fsG
 uMn
 fTk
 pEl

@@ -13,13 +13,14 @@
 
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
-	/**
-	 * TODO: Implement it. The problem is 10k runtime during initialization, it is necessary to study the issue.
-	 */
-	//if(never_should_have_come_here(loc))
-	//	if(mapload)
-	//		stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in \the [get_area(src)]. Please remove it or allow it to pass never_should_have_come_here if it's intended.")
-	//	return INITIALIZE_HINT_QDEL
+
+	if(never_should_have_come_here(loc))
+		/**
+		 * Someday, someone will definitely clean it up to the end.
+		 */
+		//if(mapload)
+		//	stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in [get_area(src)]. Please remove it or allow it to pass never_should_have_come_here if it's intended.")
+		return INITIALIZE_HINT_QDEL
 
 	var/static/list/loc_connections = list(
 		COMSIG_TURF_CHANGE = PROC_REF(on_decal_move),
@@ -41,14 +42,14 @@
 
 /// Checks if we are allowed to be in `here_turf`, and returns that result. Subtypes should override this when necessary.
 /obj/effect/decal/proc/never_should_have_come_here(turf/here_turf)
-	return issimulatedturf(here_turf) || (isgroundlessturf(here_turf) && !GET_TURF_BELOW(here_turf))
+	return iswallturf(here_turf) || ismineralturf(here_turf) || (isgroundlessturf(here_turf) && !GET_TURF_BELOW(here_turf))
 
 /obj/effect/decal/proc/on_decal_move(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
 	SIGNAL_HANDLER
 	post_change_callbacks += CALLBACK(src, PROC_REF(sanity_check_self))
 
 /obj/effect/decal/proc/sanity_check_self(turf/changed)
-	if(changed == loc && never_should_have_come_here(changed))
+	if(changed == loc && never_should_have_come_here(changed) && !QDELETED(src))
 		qdel(src)
 
 /obj/effect/decal/attackby(obj/item/item, mob/user, params)
