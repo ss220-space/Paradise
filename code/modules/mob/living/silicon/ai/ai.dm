@@ -1422,6 +1422,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
+/mob/living/silicon/ai/try_get_ai()
+	return src
+
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
 	var/message_clean = combine_message(message_pieces, M)
 	message_clean = replace_characters(message_clean, list("+"))

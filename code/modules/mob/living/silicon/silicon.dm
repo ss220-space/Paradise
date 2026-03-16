@@ -388,6 +388,10 @@
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
+// Returns AI that is bounded to us. Like a AI itself or a AI-pilot of shell
+/mob/living/silicon/proc/try_get_ai()
+	return null
+
 /mob/living/silicon/adjustToxLoss(
 	amount = 0,
 	updating_health = TRUE,

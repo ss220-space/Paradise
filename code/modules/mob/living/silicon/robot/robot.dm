@@ -2204,18 +2204,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
+/mob/living/silicon/robot/try_get_ai()
+	if(!mainframe)
+		return null
+	return mainframe
+
 // Checks for making a bold message in cyborg's binary channel
 /mob/living/silicon/robot/proc/check_binary_master(mob/living/speaker)
 	if(shell)
 		return FALSE
 	if(isAI(speaker))
-		var/mob/living/silicon/AI = speaker
-		if(connected_ai)
-			if(connected_ai == AI)
-				return TRUE
+		var/mob/living/silicon/ai/AI = speaker
+		if(connected_ai == AI)
+			return TRUE
 	else if(isrobot(speaker))
 		var/mob/living/silicon/robot/robot = speaker
-		if(connected_ai == robot.mainframe)
+		if(connected_ai == robot.try_get_ai())
 			return TRUE
 	return FALSE
 

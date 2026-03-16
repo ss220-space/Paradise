@@ -316,12 +316,7 @@
 //Lifted from Unity stasis.dm and refactored. ~Zuhayr
 /obj/machinery/cryopod/process()
 	if(occupant)
-		// Eject dead people and cyborgs if they are AI shells
-		if(isrobot(occupant))
-			var/mob/living/silicon/robot/robot = occupant
-			if(robot.shell)
-				discard_occupant()
-				return
+		// Eject dead people
 		if(occupant.stat == DEAD)
 			discard_occupant()
 			return
@@ -735,6 +730,9 @@
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R))
+		return ..()
+	if(R.shell)
+		discard_occupant()
 		return ..()
 
 	R.contents -= R.mmi
