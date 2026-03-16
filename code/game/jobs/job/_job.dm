@@ -221,6 +221,7 @@
 	box = /obj/item/storage/box/survival
 
 	var/tmp/list/gear_leftovers = list()
+	var/obj/item/organ/internal/cyberimp/eyes/hud/implant_variant = null
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(allow_backbag_choice)
@@ -240,29 +241,43 @@
 			else
 				back = backpack //Department backpack
 
-	if(allow_loadout && H.client)
-		for(var/gear in H.client.prefs.choosen_gears)
-			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
-			if(!istype(G))
+	if(!allow_loadout || !H.client)
+		H.dna.species.job_pre_equip(H)
+		return
+
+	for(var/gear in H.client.prefs.choosen_gears)
+		var/datum/gear/gear_datum = H.client.prefs.choosen_gears[gear]
+
+		if(!istype(gear_datum))
+			continue
+
+		if(!gear_datum.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name))
+			continue
+
+		if(gear_datum.implantable)
+			var/datum/gear/implant/implant_datum = gear_datum
+			var/implant_path = implant_datum.resolve_implant_path(src)
+
+			if(!implant_path)
 				continue
 
-			if(!G.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name)) // some checks
+			var/obj/item/organ/internal/gear_implant = new implant_path
+			if(!gear_implant.insert(H))
+				qdel(gear_implant)
 				continue
 
-			if(G.implantable) //only works for organ-implants
-				var/obj/item/organ/internal/I = new G.path
-				I.insert(H)
-				to_chat(H, span_notice("Implanting you with [I.name]!"))
-				continue
+			to_chat(H, span_notice("Вам установлен [gear_implant.declent_ru(NOMINATIVE)]!"))
+			continue
 
-			if(G.slot)
-				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
-				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
-					to_chat(H, span_notice("Equipping you with [placed_in.name]!"))
-				else
-					gear_leftovers += G
-			else
-				gear_leftovers += G
+		if(!gear_datum.slot)
+			gear_leftovers += gear_datum
+			continue
+
+		var/obj/item/placed_in = gear_datum.spawn_item(H, H.client.prefs.get_gear_metadata(gear_datum))
+		if(H.equip_to_slot_or_del(placed_in, gear_datum.slot, TRUE))
+			to_chat(H, span_notice("Вы получили [placed_in.declent_ru(ACCUSATIVE)]!"))
+		else
+			gear_leftovers += gear_datum
 
 	H.dna.species.job_pre_equip(H)
 

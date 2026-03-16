@@ -71,11 +71,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR 0
-#define TAB_GAME 1
-#define TAB_SPEC 2
-#define TAB_KEYS 3
-#define TAB_TOGGLES 4
 
 /datum/preferences
 	var/client/parent
@@ -794,11 +789,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 #undef MAX_SAVE_SLOTS
 #undef MAX_SAVE_SLOTS_MEMBER
-#undef TAB_CHAR
-#undef TAB_GAME
-#undef TAB_SPEC
-#undef TAB_KEYS
-#undef TAB_TOGGLES
 
 /datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.index_name]

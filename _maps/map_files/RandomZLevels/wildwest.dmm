@@ -261,10 +261,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
-"bf" = (
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/plating,
-/area/awaymission/wwrefine)
 "bg" = (
 /obj/effect/mine/dnascramble,
 /turf/simulated/floor/plating/ironsand,
@@ -1076,10 +1072,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
-"dv" = (
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "dw" = (
 /obj/item/paper{
 	info = "We've discovered something floating in space. We can't really tell how old it is, but it is scraped and bent to hell. There object is the size of about a room with double doors that we have yet to break into.   It is a lot sturdier than we could have imagined.  We have decided to call it 'The Vault' ";
@@ -1346,14 +1338,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwgov)
-"ef" = (
-/obj/structure/closet/crate/large,
-/obj/machinery/light/small{
-	dir = 1;
-	tag = "icon-bulb1 (NORTH)"
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "eg" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1502,10 +1486,6 @@
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"eB" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wwmines)
 "eC" = (
 /obj/item/soap/syndie,
 /turf/simulated/floor/plasteel{
@@ -1532,10 +1512,6 @@
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/awaymission/wwmines)
-"eF" = (
-/obj/item/reagent_containers/food/drinks/coffee,
-/turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "eG" = (
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
@@ -1705,10 +1681,6 @@
 /obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"fc" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wwmines)
 "fd" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -1848,11 +1820,6 @@
 	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"fw" = (
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
-/turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "fx" = (
 /obj/structure/chair/comfy/beige{
@@ -2146,13 +2113,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
-"gl" = (
-/obj/effect/decal/cleanable/blood/gibs/body{
-	icon_state = "gibdown1";
-	tag = "icon-gibdown1"
-	},
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wwmines)
 "gm" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -2471,6 +2431,31 @@
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver,
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
+"iz" = (
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/plating,
+/area/awaymission/wwrefine)
+"ne" = (
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/carpet,
+/area/awaymission/wwmines)
+"DI" = (
+/obj/structure/closet/crate/large,
+/obj/machinery/light/small{
+	dir = 1;
+	tag = "icon-bulb1 (NORTH)"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"Ps" = (
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"RT" = (
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
+/turf/simulated/floor/carpet,
+/area/awaymission/wwmines)
 
 (1,1,1) = {"
 aa
@@ -18366,7 +18351,7 @@ aQ
 aU
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -19139,7 +19124,7 @@ ba
 ba
 ba
 ba
-bf
+iz
 ba
 aU
 ej
@@ -19392,7 +19377,7 @@ aG
 aG
 aQ
 aU
-bf
+iz
 ba
 bl
 ba
@@ -20417,13 +20402,13 @@ aU
 aU
 aU
 aU
-bf
+iz
 ba
 ba
 ba
 ba
 ba
-bf
+iz
 aU
 aU
 aU
@@ -20664,12 +20649,12 @@ aU
 br
 ba
 ba
-bf
+iz
 ba
 ba
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -20914,7 +20899,7 @@ aQ
 aU
 aU
 aU
-bf
+iz
 ba
 ba
 ba
@@ -20927,7 +20912,7 @@ ba
 bm
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -20935,7 +20920,7 @@ ba
 ba
 ba
 ba
-bf
+iz
 ba
 ba
 aU
@@ -21426,7 +21411,7 @@ aU
 aZ
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -21434,7 +21419,7 @@ bo
 ba
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -21447,7 +21432,7 @@ ba
 ba
 ba
 ba
-bf
+iz
 bm
 aU
 aU
@@ -21688,7 +21673,7 @@ ba
 bl
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -21700,7 +21685,7 @@ ba
 ba
 ba
 ba
-bf
+iz
 ba
 bm
 ba
@@ -21949,7 +21934,7 @@ ba
 ba
 ba
 ba
-bf
+iz
 ba
 ba
 ba
@@ -22201,7 +22186,7 @@ ba
 ba
 bm
 ba
-bf
+iz
 ba
 ba
 ba
@@ -22217,7 +22202,7 @@ ba
 ba
 db
 ba
-bf
+iz
 aU
 aN
 aR
@@ -28411,7 +28396,7 @@ bh
 bh
 bn
 bh
-fc
+eX
 aX
 aR
 aR
@@ -28916,7 +28901,7 @@ bh
 bh
 gP
 eX
-fc
+eX
 aX
 eX
 bh
@@ -28926,7 +28911,7 @@ bh
 bh
 bh
 eX
-fc
+eX
 aR
 aG
 aG
@@ -30203,11 +30188,11 @@ dU
 aX
 aX
 bd
-fc
+eX
 eX
 eX
 cf
-eB
+eX
 eX
 eX
 eX
@@ -30714,11 +30699,11 @@ eX
 eX
 eX
 eX
-fc
-ff
-fc
 eX
-eB
+ff
+eX
+eX
+eX
 eX
 eX
 eX
@@ -31742,7 +31727,7 @@ bh
 fs
 bh
 bh
-eB
+eX
 aX
 eX
 bh
@@ -31752,7 +31737,7 @@ bh
 bh
 bh
 gP
-eB
+eX
 dK
 aR
 aG
@@ -32258,7 +32243,7 @@ bh
 bh
 eX
 aX
-eB
+eX
 dk
 cw
 bh
@@ -33805,9 +33790,9 @@ eX
 dM
 eX
 eX
-eB
 eX
-fc
+eX
+eX
 eX
 aX
 aR
@@ -35340,13 +35325,13 @@ eX
 eX
 eX
 eX
-gl
+eX
 eX
 cf
 cf
 eX
 eX
-eB
+eX
 eX
 eX
 eX
@@ -36360,10 +36345,10 @@ eX
 dk
 bD
 eG
-eF
+ne
 eI
 eK
-eF
+ne
 eI
 bD
 gP
@@ -36616,12 +36601,12 @@ bh
 eX
 bh
 dA
-eF
+ne
 bD
 bD
 bD
 bD
-eF
+ne
 fL
 bh
 eX
@@ -37131,10 +37116,10 @@ eX
 dk
 bD
 eI
-eF
+ne
 eI
 eK
-fw
+RT
 eK
 fM
 gP
@@ -38413,11 +38398,11 @@ bh
 bh
 bh
 eX
-dv
+Ps
 bh
 bh
-dv
-dv
+Ps
+Ps
 eX
 bH
 bh
@@ -38431,7 +38416,7 @@ bv
 cY
 bh
 bh
-eB
+eX
 bh
 eo
 eX
@@ -38670,11 +38655,11 @@ bh
 bh
 bn
 eX
-ef
+DI
 bh
 bh
 bh
-dv
+Ps
 eX
 fz
 bh
@@ -38927,7 +38912,7 @@ bh
 bh
 bh
 eX
-dv
+Ps
 bh
 bh
 bh
@@ -39184,7 +39169,7 @@ bh
 bh
 bh
 eX
-dv
+Ps
 bh
 bh
 bh
@@ -39441,7 +39426,7 @@ bh
 bk
 bh
 eX
-dv
+Ps
 bh
 eo
 bh
@@ -39955,7 +39940,7 @@ aX
 aX
 aX
 eX
-dv
+Ps
 bh
 bh
 bh
@@ -40744,7 +40729,7 @@ bh
 eX
 bh
 bh
-eB
+eX
 bh
 bh
 eX
@@ -41761,7 +41746,7 @@ cw
 bh
 bh
 bh
-eB
+eX
 fX
 ge
 ge

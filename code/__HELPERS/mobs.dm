@@ -798,7 +798,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/selected_borg_name = null
 	var/list/available_borgs = list()
 	for(var/mob/living/silicon/robot/borg in GLOB.player_list)
-		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg))
+		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg) || borg.shell)
 			continue
 		var/borg_name = "[borg.real_name] ([borg.modtype?.name] [borg.braintype])"
 		available_borgs[borg_name] = borg

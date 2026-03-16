@@ -39,6 +39,7 @@
 		/obj/item/melee/baton/telescopic = 1,
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/supply
 	department_flag = JOBCAT_SUPPORT
@@ -108,6 +109,7 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival/survival_mining
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/outfit/job/mining/equipped
 	toggle_helmet = TRUE
@@ -165,3 +167,4 @@
 		/obj/item/radio/weather_monitor = 1,
 		/obj/item/wormhole_jaunter = 1,
 	)
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical

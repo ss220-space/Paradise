@@ -26,7 +26,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	gloves = /obj/item/clothing/gloves/color/black/ce
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/hardhat/white
 	l_ear = /obj/item/radio/headset/heads/ce
@@ -42,6 +42,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/engineering
 	department = STATION_DEPARTMENT_ENGINEERING
@@ -76,6 +77,7 @@
 	uniform = /obj/item/clothing/under/rank/engineer
 	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/full/multitool
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat/orange
 	l_ear = /obj/item/radio/headset/headset_eng
@@ -86,6 +88,35 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+
+/datum/job/engineering/atmos
+	title = JOB_TITLE_ATMOSTECH
+	flag = JOB_FLAG_ATMOSTECH
+	total_positions = 3
+	spawn_positions = 2
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
+	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_LIFE_SUPPORT_SPECIALIST,
+	)
+	outfit = /datum/outfit/job/atmos
+
+/datum/outfit/job/atmos
+	name = JOB_TITLE_RU_ATMOSTECH
+	jobtype = /datum/job/engineering/atmos
+	gloves = /obj/item/clothing/gloves/color/yellow
+	uniform = /obj/item/clothing/under/rank/atmospheric_technician
+	belt = /obj/item/storage/belt/utility/atmostech
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/radio/headset/headset_eng
+	id = /obj/item/card/id/engineering
+	pda = /obj/item/pda/atmos
+
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineering/atmos

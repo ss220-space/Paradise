@@ -60,7 +60,9 @@ GLOBAL_VAR(station_name)
  * * new_designation - The new station name
  */
 /proc/change_station_name(new_designation)
+	var/old_name = GLOB.station_name
 	GLOB.station_name = new_designation
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_STATION_NAME_CHANGED, new_designation, old_name)
 
 GLOBAL_VAR(english_station_name)
 /// Returns the English station name, falling back to appropriate defaults if not set

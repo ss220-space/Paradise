@@ -143,7 +143,7 @@
 	our_hud.hide_landings()
 
 /atom/movable/screen/movable/action_button/proc/save_position()
-	var/mob/user = our_hud.mymob
+	var/mob/user = our_hud?.mymob
 	if(!user?.client)
 		return
 	var/position_info = ""

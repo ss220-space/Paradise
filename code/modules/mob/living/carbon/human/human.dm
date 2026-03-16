@@ -410,6 +410,9 @@
 /**
  * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
  * Useful when player is being seen by other mobs.
+ *
+ * Arguments:
+ * * if_no_id - What to return if we have no ID or PDA
  */
 /mob/living/carbon/human/proc/get_id_name(if_no_id = UNKNOWN_NAME_RUS)
 	var/obj/item/card/id/id = wear_id?.GetID()

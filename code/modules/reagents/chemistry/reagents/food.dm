@@ -164,6 +164,28 @@
 		affected.physiology.hunger_mod *= 0.5
 	..()
 
+/datum/reagent/consumable/aspartame
+	name = "Аспартам"
+	id = "aspartame"
+	description = "Искусственный подсластитель. В отличие от сахара, обладает нулевой калорийностью, благодаря чему его часто используют в продуктах \"для похудения\"."
+	color = "#FFFFFF" // rgb: 255, 255, 255
+	nutriment_factor = 0
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	overdose_threshold = 17
+	taste_mult = 8
+	taste_description = "сладости"
+
+#define ASPARTAME_DISGUST_THRESHOLD 80
+
+/datum/reagent/consumable/aspartame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	if(affected_mob.AmountDisgust() >= ASPARTAME_DISGUST_THRESHOLD)
+		return
+
+	affected_mob.AdjustDisgust(10 * REM * seconds_per_tick)
+
+#undef ASPARTAME_DISGUST_THRESHOLD
+
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"
 	id = "soysauce"
@@ -716,6 +738,14 @@
 	M.reagents.add_reagent("sugar", 0.2)
 	return ..()
 
+/datum/reagent/consumable/chocolate_sprinkle
+	name = "Шоколадная посыпка"
+	id = "chocolate_sprinkle"
+	description = "Измельчённый шоколад. Такой часто добавляют в выпечку или кофе."
+	nutriment_factor = 5 * REAGENTS_METABOLISM	//same as chocolate
+	color = "#2E2418"
+	taste_description = "измельчённого шоколада"
+
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/reagent_containers/food/snacks/choc_pile(T)
@@ -1149,3 +1179,12 @@
 		if(prob(2))
 			to_chat(M, span_warning("Ух! Какой ужасный вкус!"))
 	return ..() | update_flags
+
+/datum/reagent/consumable/caramel
+	name = "Карамель"
+	id = "caramel"
+	description = "Липкая масса, получаемая путём нагревания сахара. Сладко и вкусно."
+	nutriment_factor = 10
+	color = "#D98736"
+	taste_mult = 2
+	taste_description = "сладкой карамели"

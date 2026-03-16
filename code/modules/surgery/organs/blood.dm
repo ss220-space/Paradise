@@ -238,15 +238,14 @@
 		return FALSE
 
 	. = TRUE
-
 	AdjustBlood(-amt)
 
-	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
-		return .
+	//Blood loss still happens in locker, floor stays clean
+	if(!isturf(loc))
+		return
 
 	if(amt >= 10)
 		add_splatter_floor(loc)
-
 	else
 		add_splatter_floor(loc, small_drip = TRUE)
 
@@ -463,8 +462,9 @@
 		if("O+")
 			return list("O-", "O+")
 
+
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
 	var/check_blood = get_blood_id()
 	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
@@ -518,7 +518,7 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -537,7 +537,7 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -555,7 +555,7 @@
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -572,6 +572,25 @@
 	if(shift_x || shift_y)
 		oil.off_floor = TRUE
 		oil.layer = BELOW_MOB_LAYER
+
+/**
+ * This proc is a helper for spraying blood for things like slashing/piercing wounds and dismemberment.
+ *
+ * The strength of the splatter in the second argument determines how much it can dirty and how far it can go
+ *
+ * Arguments:
+ * * splatter_direction: Which direction the blood is flying
+ * * splatter_strength: How many tiles it can go, and how many items it can pass over and dirty
+ */
+/mob/living/carbon/proc/spray_blood(splatter_direction, splatter_strength = 3)
+	if(!isturf(loc))
+		return
+	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, splatter_strength)
+
+	our_splatter.blood_dna_info = get_blood_dna_list()
+	our_splatter.transfer_mob_blood_dna(src)
+	var/turf/target_turf = get_ranged_target_turf(src, splatter_direction, splatter_strength)
+	our_splatter.fly_towards(target_turf, splatter_strength)
 
 #undef EXOTIC_BLEED_MULTIPLIER
 #undef BLOOD_REGENERATION

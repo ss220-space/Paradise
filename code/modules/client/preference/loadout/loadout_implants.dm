@@ -4,6 +4,9 @@
 	sort_category = "Импланты"
 	implantable = TRUE
 
+/datum/gear/implant/proc/resolve_implant_path(datum/outfit/job/job)
+	return path
+
 /datum/gear/implant/
 
 //Eye implants
@@ -37,3 +40,13 @@
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/science
 	allowed_roles = list(JOB_TITLE_CHEMIST, JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST)
+
+/datum/gear/implant/universal
+	index_name = "Universal Eye Implant"
+	cost = 3
+	path = /obj/item/organ/internal/cyberimp/eyes/hud/universal
+
+/datum/gear/implant/universal/resolve_implant_path(datum/outfit/job/job)
+	if(!istype(job) || !job.implant_variant)
+		return null
+	return job.implant_variant
