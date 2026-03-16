@@ -37511,6 +37511,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
+/obj/structure/reagent_dispensers/spacecleanertank{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
