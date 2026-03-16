@@ -1,8 +1,9 @@
-#define EXTINGUISHER_TEMP_MED 320
-#define EXTINGUISHER_TEMP_HIGH 350
-#define EXTINGUISHER_TEMP_ULTRA 374
-#define EXTINGUISHER_TEMP_DETONATION 410
+#define EXTINGUISHER_TEMP_MED (T0C + 45)
+#define EXTINGUISHER_TEMP_HIGH (T0C + 75)
+#define EXTINGUISHER_TEMP_ULTRA T100C
+#define EXTINGUISHER_TEMP_DETONATION (T100C + 35)
 #define EXTINGUISHER_EXPLOSION_FRAME_DELAY (0.2 SECONDS)
+#define EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER 0.2
 
 /obj/item/extinguisher
 	name = "fire extinguisher"
@@ -34,6 +35,8 @@
 	var/precision = FALSE
 	/// Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
+	/// Is extinguisher can explode on heating
+	var/can_explode = TRUE
 	/// Detects when extinguisher exploding
 	var/blowing_up = FALSE
 
@@ -62,6 +65,7 @@
 	max_water = 30
 	dog_fashion = null
 	toolbox_radial_menu_compatibility = TRUE
+	can_explode = FALSE
 
 /obj/item/extinguisher/mini/get_ru_names()
 	return list(
@@ -79,7 +83,7 @@
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
 
-	if(src.type == /obj/item/extinguisher) //Detonate only /obj/item/extinguisher
+	if(can_explode)
 		reagents.set_reacting(FALSE)
 		RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
 
@@ -119,6 +123,7 @@
 
 	if(I.get_heat())
 		update_appearance()
+		explode_at_heat()
 
 /obj/item/extinguisher/update_icon_state()
 	if(blowing_up)
@@ -141,27 +146,6 @@
 			return
 
 	icon_state = "[base_icon_state][!safety]"
-
-/obj/item/extinguisher/update_appearance(updates)
-	. = ..()
-
-	if(!safety || blowing_up || !reagents || !reagents.reagent_list.len)
-		return
-
-	var/temp = reagents.chem_temp
-
-	if(temp >= EXTINGUISHER_TEMP_DETONATION)
-		visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается от чудовищного давления!"))
-		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
-		return
-
-	if(temp >= EXTINGUISHER_TEMP_ULTRA)
-		if(prob(40))
-			visible_message(span_danger("Корпус [declent_ru(GENITIVE)] не выдерживает и лопается!"))
-			INVOKE_ASYNC(src, PROC_REF(steam_explosion))
-			return
-
-		playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
 
 /obj/item/extinguisher/update_desc(updates = ALL)
 	. = ..()
@@ -213,10 +197,29 @@
 
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
+/obj/item/extinguisher/proc/explode_at_heat()
+	if(!safety || blowing_up || !reagents || !reagents.reagent_list.len)
+		return
+
+	var/temp = reagents.chem_temp
+
+	if(temp >= EXTINGUISHER_TEMP_DETONATION)
+		visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается от чудовищного давления!"))
+		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+		return
+
+	if(temp >= EXTINGUISHER_TEMP_ULTRA)
+		if(prob(20))
+			visible_message(span_danger("Корпус [declent_ru(GENITIVE)] не выдерживает и лопается!"))
+			INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+			return
+
+		playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
+
 /obj/item/extinguisher/fire_act(exposed_temperature, exposed_volume)
 	..()
 
-	if(QDELETED(src) || !reagents || blowing_up)
+	if(QDELETED(src) || !reagents || !reagents.reagent_list.len || blowing_up)
 		return
 
 	update_appearance()
@@ -331,7 +334,7 @@
 /obj/item/extinguisher/proc/steam_explosion()
 	SIGNAL_HANDLER
 
-	if(type != /obj/item/extinguisher || blowing_up || !reagents || !reagents.reagent_list.len || !safety)
+	if(!can_explode || blowing_up || !reagents || !reagents.reagent_list.len || !safety)
 		return
 
 	var/temp = reagents.chem_temp
@@ -360,18 +363,19 @@
 	addtimer(CALLBACK(src, PROC_REF(finalize_steam_explosion)), total_delay)
 
 /obj/item/extinguisher/proc/finalize_steam_explosion()
-	if(QDELETED(src))
+	if(QDELETED(src) || !reagents || !reagents.reagent_list.len)
 		return
 
 	var/turf/landed_turf = get_turf(src)
 	if(!landed_turf)
 		return
 
-	explosion(landed_turf, -1, -1, 1, 2, cause = src)
+	explosion(landed_turf, 0, 0, 1, 2, cause = src)
 	playsound(landed_turf, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	visible_message(span_danger("[declent_ru(NOMINATIVE)] разрывается от давления пара!"))
 	var/datum/effect_system/fluid_spread/smoke/bad/steam = new()
-	steam.set_up(amount = 15, location = landed_turf)
+	var/smoke_amount = floor(reagents.total_volume * EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER)
+	steam.set_up(amount = smoke_amount, location = landed_turf)
 	steam.start()
 
 	for(var/mob/living/living in range(3, landed_turf))
@@ -389,3 +393,4 @@
 #undef EXTINGUISHER_TEMP_ULTRA
 #undef EXTINGUISHER_TEMP_DETONATION
 #undef EXTINGUISHER_EXPLOSION_FRAME_DELAY
+#undef EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER
