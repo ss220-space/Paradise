@@ -179,6 +179,7 @@
 	var/announcement = "Питание ИИ восстановлено."
 	send_ai_notification(announcement)
 
+// rework
 /mob/living/silicon/ai/proc/send_ai_notification(message)
 	var/obj/machinery/message_server/message_server = find_pda_server()
 	if(!message_server)
@@ -188,9 +189,9 @@
 
 	var/obj/item/pda/dummy_pda = new /obj/item/pda()
 	dummy_pda.owner = AI_MONITORING_SYSTEM
-	var/datum/data/pda/app/messenger/sender_messenger = dummy_pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/sender_old_messenger = dummy_pda.find_program(/datum/data/pda/app/old_messenger)
 
-	if(!sender_messenger)
+	if(!sender_old_messenger)
 		qdel(dummy_pda)
 		return
 
@@ -198,11 +199,11 @@
 		if(!(pda.ownjob in GLOB.ai_death_alarm_jobs))
 			continue
 
-		var/datum/data/pda/app/messenger/messenger = pda.find_program(/datum/data/pda/app/messenger)
-		if(!messenger?.can_receive())
+		var/datum/data/pda/app/old_messenger/old_messenger = pda.find_program(/datum/data/pda/app/old_messenger)
+		if(!old_messenger?.can_receive())
 			continue
 
-		sender_messenger.create_message(pda, message = message)
+		sender_old_messenger.create_message(pda, message = message)
 
 	qdel(dummy_pda)
 

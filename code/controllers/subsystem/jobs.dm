@@ -854,6 +854,7 @@ SUBSYSTEM_DEF(jobs)
 		account_job.linked_job = SSjobs.GetJob(job_title)
 		account_job.salary_payment_active = salary_capcap
 
+//rework
 /datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
 	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
 	if(!jobtitle || !antext)
@@ -871,10 +872,11 @@ SUBSYSTEM_DEF(jobs)
 			break
 	if(!target_pda)
 		return
-	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/PM = target_pda.find_program(/datum/data/pda/app/old_messenger)
 	if(PM && PM.can_receive())
 		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
+//rework
 /datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
 	// Used to notify a specific crew member based on their real_name
 	if(!target_name || !antext)
@@ -886,7 +888,7 @@ SUBSYSTEM_DEF(jobs)
 			break
 	if(!target_pda)
 		return
-	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/PM = target_pda.find_program(/datum/data/pda/app/old_messenger)
 	if(PM && PM.can_receive())
 		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 

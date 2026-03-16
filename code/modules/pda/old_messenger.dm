@@ -1,11 +1,11 @@
-/datum/data/pda/app/messenger
-	name = "Messenger"
+/datum/data/pda/app/old_messenger
+	name = "old_messenger"
 	icon = "comments-o"
 	notify_icon = "comments"
-	title = "SpaceMessenger V4.1.0"
+	title = "Spaceold_old_messenger V4.1.0"
 	template = "pda_messenger"
 
-	var/toff = 0 //If 1, messenger disabled
+	var/toff = 0 //If 1, old_messenger disabled
 	var/list/tnote = list()  //Current Texts
 	var/last_text //No text spamming
 
@@ -13,13 +13,13 @@
 	var/active_conversation = null // New variable that allows us to only view a single conversation.
 	var/list/conversations = list()    // For keeping up with who we have PDA messsages from.
 
-/datum/data/pda/app/messenger/start()
+/datum/data/pda/app/old_messenger/start()
 	. = ..()
 	unnotify()
 
-/datum/data/pda/app/messenger/update_ui(mob/user as mob, list/data)
+/datum/data/pda/app/old_messenger/update_ui(mob/user as mob, list/data)
 	data["silent"] = pda.silent						// does the pda make noise when it receives a message?
-	data["toff"] = toff									// is the messenger function turned off?
+	data["toff"] = toff								// is the old_messenger function turned off?
 	// Yes I know convo is awful, but it lets me stay inside the 80 char TGUI line limit
 	data["active_convo"] = active_conversation	// Which conversation are we following right now?
 
@@ -36,9 +36,9 @@
 		var/list/pdas = list()
 		for(var/A in GLOB.PDAs)
 			var/obj/item/pda/P = A
-			var/datum/data/pda/app/messenger/recipient_messenger = P.find_program(/datum/data/pda/app/messenger)
+			var/datum/data/pda/app/old_messenger/recipient_old_messenger = P.find_program(/datum/data/pda/app/old_messenger)
 
-			if(!P.owner || recipient_messenger.toff || P == pda || recipient_messenger.m_hidden)
+			if(!P.owner || recipient_old_messenger.toff || P == pda || recipient_old_messenger.m_hidden)
 				continue
 			if(conversations.Find("[P.UID()]"))
 				convopdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
@@ -50,15 +50,15 @@
 
 		var/list/plugins = list()
 		if(pda.cartridge)
-			for(var/A in pda.cartridge.messenger_plugins)
-				var/datum/data/pda/messenger_plugin/P = A
+			for(var/A in pda.cartridge.old_messenger_plugins)
+				var/datum/data/pda/old_messenger_plugin/P = A
 				plugins += list(list(name = P.name, icon = P.icon, uid = "[P.UID()]"))
 		data["plugins"] = plugins
 
 		if(pda.cartridge)
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
-/datum/data/pda/app/messenger/ui_act(action, list/params)
+/datum/data/pda/app/old_messenger/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -69,7 +69,7 @@
 	. = TRUE
 
 	switch(action)
-		if("Toggle Messenger")
+		if("Toggle old_messenger")
 			toff = !toff
 		if("Toggle Ringer")//If viewing texts then erase them, if not then toggle silent status
 			pda.silent = !pda.silent
@@ -97,7 +97,7 @@
 			for(var/n in conversations)
 				if(P == n)
 					active_conversation = P
-		if("Messenger Plugin")
+		if("old_messenger Plugin")
 			if(!params["target"] || !params["plugin"])
 				return
 
@@ -105,9 +105,9 @@
 			if(!P)
 				to_chat(usr, "PDA not found.")
 
-			var/datum/data/pda/messenger_plugin/plugin = locateUID(params["plugin"])
-			if(plugin && (plugin in pda.cartridge.messenger_plugins))
-				plugin.messenger = src
+			var/datum/data/pda/old_messenger_plugin/plugin = locateUID(params["plugin"])
+			if(plugin && (plugin in pda.cartridge.old_messenger_plugins))
+				plugin.old_messenger = src
 				plugin.user_act(usr, P)
 		if("Back")
 			active_conversation = null
@@ -116,7 +116,7 @@
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 // If there is no sender, will ignore cheks for sender.
-/datum/data/pda/app/messenger/proc/create_message(obj/item/pda/recipient_pda, mob/living/sender, message)
+/datum/data/pda/app/old_messenger/proc/create_message(obj/item/pda/recipient_pda, mob/living/sender, message)
 	if(!message)
 		message = tgui_input_text(sender, "Введите сообщение", name)
 
@@ -126,9 +126,9 @@
 	if(sender && !in_range(pda, sender) && pda.loc != sender)
 		return
 
-	var/datum/data/pda/app/messenger/recipient_messenger = recipient_pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/recipient_old_messenger = recipient_pda.find_program(/datum/data/pda/app/old_messenger)
 
-	if(!recipient_messenger || recipient_messenger.toff || toff)
+	if(!recipient_old_messenger || recipient_old_messenger.toff || toff)
 		return
 
 	if(last_text && world.time < last_text + 5)
@@ -146,17 +146,17 @@
 
 	useMS.send_pda_message("[recipient_pda.owner]","[pda.owner]","[message]")
 	tnote.Add(list(list("sent" = 1, "message" = "[html_decode(message)]", "target" = "[recipient_pda.UID()]")))
-	recipient_messenger.tnote.Add(list(list("sent" = 0, "message" = "[html_decode(message)]", "target" = "[pda.UID()]")))
+	recipient_old_messenger.tnote.Add(list(list("sent" = 0, "message" = "[html_decode(message)]", "target" = "[pda.UID()]")))
 	show_message_to_ghosts(pda, recipient_pda, message)
 
 	if(!conversations.Find("[recipient_pda.UID()]"))
 		conversations.Add("[recipient_pda.UID()]")
 
-	if(!recipient_messenger.conversations.Find("[pda.UID()]"))
-		recipient_messenger.conversations.Add("[pda.UID()]")
+	if(!recipient_old_messenger.conversations.Find("[pda.UID()]"))
+		recipient_old_messenger.conversations.Add("[pda.UID()]")
 
 	SStgui.update_uis(src)
-	recipient_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
+	recipient_old_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_old_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
 	to_chat(sender, "[icon2html(pda, sender)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
 
 	log_pda_message(message, sender, pda, recipient_pda)
@@ -165,7 +165,7 @@
 
 	playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 
-/datum/data/pda/app/messenger/proc/show_message_to_ghosts(obj/item/pda/pda, obj/item/pda/recipient_pda, message)
+/datum/data/pda/app/old_messenger/proc/show_message_to_ghosts(obj/item/pda/pda, obj/item/pda/recipient_pda, message)
 	for(var/mob/mob as anything in GLOB.dead_mob_list)
 		if(!isobserver(mob) || !mob.client || !HASBIT(mob.client.prefs.toggles, PREFTOGGLE_CHAT_GHOSTPDA))
 			continue
@@ -173,7 +173,7 @@
 		var/ghost_message = "([ghost_follow_link(pda, ghost = mob)]) [span_name("[pda.owner]")] [span_gamesay("Сообщение на КПК")] --> ([ghost_follow_link(recipient_pda, ghost = mob)]) [span_name("[recipient_pda.owner]")]: [span_message("[message]")]"
 		to_chat(mob, "[ghost_message]")
 
-/datum/data/pda/app/messenger/proc/can_send_message(message, sender, recipient_pda, useMS)
+/datum/data/pda/app/old_messenger/proc/can_send_message(message, sender, recipient_pda, useMS)
 	var/turf/sender_pos = sender ? get_turf(sender) : null
 	var/turf/recipient_pos = get_turf(recipient_pda)
 
@@ -219,7 +219,7 @@
 
 	return TRUE
 
-/datum/data/pda/app/messenger/proc/log_pda_message(message, sender, pda, atom/recipient_pda)
+/datum/data/pda/app/old_messenger/proc/log_pda_message(message, sender, pda, atom/recipient_pda)
 	log_pda("(PDA: [name]) sent \"[message]\" to [recipient_pda.name]", sender)
 	var/log_message = "sent PDA message \"[message]\" using [pda]"
 	var/receiver
@@ -232,7 +232,7 @@
 
 	add_misc_logs(sender, log_message, receiver)
 
-/datum/data/pda/app/messenger/proc/available_pdas()
+/datum/data/pda/app/old_messenger/proc/available_pdas()
 	var/list/names = list()
 	var/list/plist = list()
 	var/list/namecounts = list()
@@ -243,9 +243,9 @@
 
 	for(var/A in GLOB.PDAs)
 		var/obj/item/pda/P = A
-		var/datum/data/pda/app/messenger/recipient_messenger = P.find_program(/datum/data/pda/app/messenger)
+		var/datum/data/pda/app/old_messenger/recipient_old_messenger = P.find_program(/datum/data/pda/app/old_messenger)
 
-		if(!P.owner || !recipient_messenger || recipient_messenger.hidden || P == pda || recipient_messenger.toff)
+		if(!P.owner || !recipient_old_messenger || recipient_old_messenger.hidden || P == pda || recipient_old_messenger.toff)
 			continue
 
 		var/name = P.owner
@@ -259,11 +259,11 @@
 		plist[text("[name]")] = P
 	return plist
 
-/datum/data/pda/app/messenger/proc/can_receive()
+/datum/data/pda/app/old_messenger/proc/can_receive()
 	return pda.owner && !toff && !hidden
 
 // Handler for the in-chat reply button
-/datum/data/pda/app/messenger/Topic(href, href_list)
+/datum/data/pda/app/old_messenger/Topic(href, href_list)
 	if(!pda.can_use(usr))
 		return
 	unnotify()

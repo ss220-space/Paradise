@@ -20,8 +20,9 @@
 		if(prob(5))
 			// /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 			var/list/viables = list()
+			// rework
 			for(var/obj/item/pda/check_pda in GLOB.PDAs)
-				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)
+				var/datum/data/pda/app/old_messenger/check_m = check_pda.find_program(/datum/data/pda/app/old_messenger)
 
 				if(!check_m || !check_m.can_receive())
 					continue
@@ -30,7 +31,7 @@
 			if(!length(viables))
 				return
 			var/obj/item/pda/P = pick(viables)
-			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+			var/datum/data/pda/app/old_messenger/PM = P.find_program(/datum/data/pda/app/old_messenger)
 
 			var/sender
 			var/message

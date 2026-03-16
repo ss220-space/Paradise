@@ -269,6 +269,7 @@
 /**
  * Called by the gameticker.
  */
+// rework
 /datum/game_mode/proc/process_job_tasks()
 	var/obj/machinery/message_server/message_server = null
 	if(GLOB.message_servers)
@@ -315,8 +316,8 @@
 					if(message_server && pda_owned)
 						message_server.send_pda_message("[pda_owned.owner]", "[command_name()] Payroll", msg)
 
-						var/datum/data/pda/app/messenger/messenger = pda_owned.find_program(/datum/data/pda/app/messenger)
-						messenger.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+						var/datum/data/pda/app/old_messenger/old_messenger = pda_owned.find_program(/datum/data/pda/app/old_messenger)
+						old_messenger.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /**
@@ -732,10 +733,10 @@
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
-	
+
 	if(QDELETED(player))
 		return
-	
+
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)

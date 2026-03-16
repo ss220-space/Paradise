@@ -147,9 +147,11 @@
 /obj/item/pda/syndicate/no_cartridge/rd
 	icon_state = "pda-syndie-rd"
 
+
+// REWORK
 /obj/item/pda/syndicate/New()
 	..()
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/M = find_program(/datum/data/pda/app/old_messenger)
 	if(M)
 		M.m_hidden = 1
 
@@ -212,9 +214,10 @@
 	default_request_console_cartridge = /obj/item/cartridge/request_console/centcom
 	icon_state = "pda-h"
 
+// REWORK
 /obj/item/pda/centcom/New()
 	..()
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/M = find_program(/datum/data/pda/app/old_messenger)
 	if(M)
 		M.m_hidden = 1
 

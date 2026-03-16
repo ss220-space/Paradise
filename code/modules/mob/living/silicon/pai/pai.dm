@@ -156,7 +156,7 @@
 	pda.update_owner_name("[src]")
 	pda.name = "[pda.owner] ([pda.ownjob])"
 
-	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/M = pda.find_program(/datum/data/pda/app/old_messenger)
 	M.toff = TRUE
 
 	integrated_console = new(src)

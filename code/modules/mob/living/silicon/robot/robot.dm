@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
-	var/pdahide = 0 //Used to hide the borg from the messenger list
+	var/pdahide = 0 //Used to hide the borg from the old_messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
@@ -354,7 +354,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		rbPDA = new(src)
 
 	rbPDA.set_name_and_job(real_name, braintype)
-	var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/M = rbPDA.find_program(/datum/data/pda/app/old_messenger)
 
 	if(M)
 		if(scrambledcodes)

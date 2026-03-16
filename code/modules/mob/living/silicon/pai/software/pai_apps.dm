@@ -195,36 +195,38 @@
 	scanner.update_ui(user, data)
 	return data
 
-// Messenger //
-/datum/pai_software/messenger
-	name = "Digital Messenger"
+// Old_messenger //
+/datum/pai_software/old_messenger
+	name = "Digital Old_messenger"
 	ram_cost = 5
-	id = "messenger"
-	template_file = "pai_messenger"
+	id = "old_messenger"
+	template_file = "pai_old_messenger"
 	ui_icon = "envelope"
 
-/datum/pai_software/messenger/get_app_data(mob/living/silicon/pai/user)
+//rework
+/datum/pai_software/old_messenger/get_app_data(mob/living/silicon/pai/user)
 	var/list/data = list()
 
 	// Some safety checks
 	if(!user.pda)
 		CRASH("pAI found without PDA.")
 
-	var/datum/data/pda/app/messenger/PM = user.pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/PM = user.pda.find_program(/datum/data/pda/app/old_messenger)
 	if(!PM)
-		CRASH("pAI PDA lacks a messenger program")
+		CRASH("pAI PDA lacks a old_messenger program")
 
 	// Grab the internal data
 	PM.update_ui(user, data)
 
 	return data
 
-/datum/pai_software/messenger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+//rework
+/datum/pai_software/old_messenger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	// Grab their messenger
-	var/datum/data/pda/app/messenger/PM = pai_holder.pda.find_program(/datum/data/pda/app/messenger)
+	// Grab their old_messenger
+	var/datum/data/pda/app/old_messenger/PM = pai_holder.pda.find_program(/datum/data/pda/app/old_messenger)
 	// Double proxy here
 	PM.ui_act(action, params, ui, state)
 

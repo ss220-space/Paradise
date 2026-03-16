@@ -12,38 +12,41 @@
 
 	var/list/stored_data = list()
 	var/list/programs = list()
-	var/list/messenger_plugins = list()
+	var/list/old_messenger_plugins = list()
 
 /obj/item/cartridge/Destroy()
 	QDEL_NULL(radio)
 	QDEL_LIST(programs)
-	QDEL_LIST(messenger_plugins)
+	QDEL_LIST(old_messenger_plugins)
 	return ..()
 
+//rework
 /obj/item/cartridge/proc/update_programs(obj/item/pda/pda)
 	for(var/A in programs)
 		var/datum/data/pda/P = A
 		P.pda = pda
-	for(var/A in messenger_plugins)
-		var/datum/data/pda/messenger_plugin/P = A
+	for(var/A in old_messenger_plugins)
+		var/datum/data/pda/old_messenger_plugin/P = A
 		P.pda = pda
 
+//rework
 /obj/item/cartridge/proc/stamp_act(stamp)
 	var/result = FALSE
 	for(var/A in programs)
 		var/datum/data/pda/P = A
 		result = result || P.stamp_act(stamp)
-	for(var/A in messenger_plugins)
-		var/datum/data/pda/messenger_plugin/P = A
+	for(var/A in old_messenger_plugins)
+		var/datum/data/pda/old_messenger_plugin/P = A
 		result = result || P.stamp_act(stamp)
 	return result
 
+//rework
 /obj/item/cartridge/proc/on_id_updated()
 	for(var/A in programs)
 		var/datum/data/pda/P = A
 		P.on_id_updated()
-	for(var/A in messenger_plugins)
-		var/datum/data/pda/messenger_plugin/P = A
+	for(var/A in old_messenger_plugins)
+		var/datum/data/pda/old_messenger_plugin/P = A
 		P.on_id_updated()
 
 /obj/item/cartridge/engineering
@@ -109,13 +112,13 @@
 	icon_state = "cart-clown"
 	charges = 5
 	programs = list(new/datum/data/pda/utility/honk)
-	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/clown)
+	old_messenger_plugins = list(new/datum/data/pda/old_messenger_plugin/virus/clown)
 
 /obj/item/cartridge/mime
 	name = "Gestur-O 1000"
 	icon_state = "cart-mi"
 	charges = 5
-	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/mime)
+	old_messenger_plugins = list(new/datum/data/pda/old_messenger_plugin/virus/mime)
 
 /*
 /obj/item/cartridge/botanist
@@ -280,7 +283,7 @@
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
 	programs = list(new/datum/data/pda/utility/toggle_door)
-	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
+	old_messenger_plugins = list(new/datum/data/pda/old_messenger_plugin/virus/detonate)
 
 /obj/item/cartridge/syndicate/Initialize(mapload)
 	. = ..()
@@ -292,7 +295,7 @@
 	name = "F.R.A.M.E. cartridge"
 	charges = 5
 	var/telecrystals = 0
-	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)
+	old_messenger_plugins = list(new/datum/data/pda/old_messenger_plugin/virus/frame)
 
 /obj/item/cartridge/frame/get_ru_names()
 	return list(

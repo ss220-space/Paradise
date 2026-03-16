@@ -1,0 +1,1 @@
+/datum/messenger_message

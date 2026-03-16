@@ -389,11 +389,12 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 			if(I)
 				qdel(I)
 
+		// rework
 		if(disable_pda)
-			// We don't want corpse PDAs to show up in the messenger list.
+			// We don't want corpse PDAs to show up in the old_messenger list.
 			var/obj/item/pda/PDA = locate(/obj/item/pda) in H
 			if(PDA)
-				var/datum/data/pda/app/messenger/M = PDA.find_program(/datum/data/pda/app/messenger)
+				var/datum/data/pda/app/old_messenger/M = PDA.find_program(/datum/data/pda/app/old_messenger)
 				M.toff = 1
 		if(disable_sensors)
 			// Using crew monitors to find corpses while creative makes finding certain ruins too easy.

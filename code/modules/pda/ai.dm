@@ -14,6 +14,7 @@
 	custom_name = newname
 	update_appearance(UPDATE_NAME)
 
+//rework
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
 	set category = VERB_CATEGORY_AIIM
 	set name = "Сообщение на КПК"
@@ -21,16 +22,16 @@
 
 	if(!can_use(usr))
 		return
-	var/datum/data/pda/app/messenger/messenger = find_program(/datum/data/pda/app/messenger)
-	if(!messenger)
-		to_chat(usr, span_warning("Cannot use messenger!"))
-	var/list/plist = messenger.available_pdas()
+	var/datum/data/pda/app/old_messenger/old_messenger = find_program(/datum/data/pda/app/old_messenger)
+	if(!old_messenger)
+		to_chat(usr, span_warning("Cannot use old_messenger!"))
+	var/list/plist = old_messenger.available_pdas()
 	if(plist)
 		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
 		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]
-		messenger.create_message(selected, usr)
+		old_messenger.create_message(selected, usr)
 
 /obj/item/pda/silicon/verb/cmd_show_message_log()
 	set category = VERB_CATEGORY_AIIM
@@ -39,9 +40,9 @@
 
 	if(!can_use(usr))
 		return
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/M = find_program(/datum/data/pda/app/old_messenger)
 	if(!M)
-		to_chat(usr, span_warning("Cannot use messenger!"))
+		to_chat(usr, span_warning("Cannot use old_messenger!"))
 	var/HTML = ""
 	for(var/index in M.tnote)
 		var/obj/item/pda/target_pda = locateUID(index["target"])
@@ -51,6 +52,7 @@
 	popup.set_content(HTML)
 	popup.open(FALSE)
 
+//rework
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
 	set category = VERB_CATEGORY_AIIM
 	set name = "Приём сообщений"
@@ -58,7 +60,7 @@
 
 	if(!can_use(usr))
 		return
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/old_messenger/M = find_program(/datum/data/pda/app/old_messenger)
 	M.toff = !M.toff
 	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
@@ -98,7 +100,7 @@
 	var/mob/living/silicon/pai/pAI = usr
 	if(!istype(pAI))
 		return FALSE
-	if(!pAI.installed_software["messenger"])
-		to_chat(usr, span_warning("You have not purchased the digital messenger!"))
+	if(!pAI.installed_software["old_messenger"])
+		to_chat(usr, span_warning("You have not purchased the digital old_messenger!"))
 		return FALSE
 	return ..() && !pAI.silence_time

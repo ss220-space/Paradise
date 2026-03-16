@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
-		new/datum/data/pda/app/messenger,
+		new/datum/data/pda/app/old_messenger,
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight)

@@ -268,6 +268,7 @@
 	custommessage	= "This is a test, please ignore."
 	customjob		= "Admin"
 
+// rework
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
@@ -399,7 +400,7 @@
 						//Get out list of viable PDAs
 						var/list/obj/item/pda/sendPDAs = list()
 						for(var/obj/item/pda/P in GLOB.PDAs)
-							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+							var/datum/data/pda/app/old_messenger/PM = P.find_program(/datum/data/pda/app/old_messenger)
 
 							if(!PM || !PM.can_receive())
 								continue
@@ -430,16 +431,16 @@
 						if(isnull(custommessage) || custommessage == "")
 							message = span_notice("NOTICE: No message entered!")
 							return src.attack_hand(usr)
+						// rework
+						var/datum/data/pda/app/old_messenger/recipient_old_messenger = customrecepient.find_program(/datum/data/pda/app/old_messenger)
 
-						var/datum/data/pda/app/messenger/recipient_messenger = customrecepient.find_program(/datum/data/pda/app/messenger)
-
-						if(!recipient_messenger)
+						if(!recipient_old_messenger)
 							message = span_warning("ERROR: Message could not be transmitted!")
 							return src.attack_hand(usr)
 
 						var/obj/item/pda/PDARec = null
 						for(var/obj/item/pda/P in GLOB.PDAs)
-							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+							var/datum/data/pda/app/old_messenger/PM = P.find_program(/datum/data/pda/app/old_messenger)
 
 							if(!PM || !PM.can_receive())
 								continue
@@ -449,18 +450,18 @@
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
-							recipient_messenger.notify("<b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=[UID()];choice=Message;target=[UID()]'>Reply</a>)")
+							recipient_old_messenger.notify("<b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=[UID()];choice=Message;target=[UID()]'>Reply</a>)")
 							log_pda("(PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
 						//Sender is faking as someone who exists
 						else
 							var/uid = PDARec.UID()
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
-							recipient_messenger.tnote.Add(list(list("sent" = 0, "owner" = "[PDARec.owner]", "job" = "[customjob]", "message" = "[custommessage]", "target" = uid)))
+							recipient_old_messenger.tnote.Add(list(list("sent" = 0, "owner" = "[PDARec.owner]", "job" = "[customjob]", "message" = "[custommessage]", "target" = uid)))
 
-							if(!recipient_messenger.conversations.Find(uid))
-								recipient_messenger.conversations.Add(uid)
+							if(!recipient_old_messenger.conversations.Find(uid))
+								recipient_old_messenger.conversations.Add(uid)
 
-							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[uid]'>Reply</a>)")
+							recipient_old_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=[recipient_old_messenger.UID()];choice=Message;target=[uid]'>Reply</a>)")
 							log_pda("(PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
 						var/log_message = "sent PDA message \"[custommessage]\" using [src] as [customsender] ([customjob])"
 						var/receiver
