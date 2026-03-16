@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Спавнеры лута удаляются ппосле инциализации (PR #8672)"
+  - tweak: "Админы не могут смотреть код ящиков через VV (PR #8672)"
