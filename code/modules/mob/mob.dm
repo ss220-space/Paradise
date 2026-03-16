@@ -564,7 +564,7 @@
 		return
 
 	var/imagined_eye_contact = FALSE
-	if(!LAZYACCESS(examined_mob.client?.recent_examines, src))
+	if(!LAZYACCESS(examined_mob.client?.recent_examines, src.UID()))
 		return
 
 	if(get_dist(src, examined_mob) > EYE_CONTACT_RANGE)

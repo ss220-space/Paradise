@@ -706,7 +706,7 @@
 		if(WEIGHT_CLASS_GIGANTIC)
 			. = "гигантского"
 		else
-			. = ""
+			. = "незвестного"
 	return . + " размера"
 
 /proc/weight_class_to_tooltip(w_class)
