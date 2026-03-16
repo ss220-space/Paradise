@@ -94,7 +94,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/announcer/announcer
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
-	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
+	/// Waypoint mode is for selecting a turf via clicking.
+	var/waypoint_mode = FALSE
 	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
 	var/nuking = 0
 	var/obj/machinery/doomsday_device/doomsday_device
@@ -797,24 +798,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(src, span_warning("Target is not on or near any active cameras on the station."))
 		return
 
-	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locateUID(href_list["callbot"])
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-		waypoint_mode = 1
-		to_chat(src, span_notice("Set your waypoint by clicking on a valid location free of obstructions."))
-		return
-
-	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locateUID(href_list["interface"])
-		if(!Bot || Bot.remote_disabled || control_disabled)
-			return
-		Bot.attack_ai(src)
-
-	if(href_list["botrefresh"]) //Refreshes the bot control panel.
-		botcall()
-		return
-
 	if(href_list["ai_take_control"]) //Mech domination
 
 		var/obj/mecha/M = locateUID(href_list["ai_take_control"])
@@ -903,35 +886,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Диспетчер роботов"
 	set desc = "Wirelessly control various automatic robots."
-	if(stat == 2)
+
+	if(stat == DEAD)
 		to_chat(src, span_danger("Critical error. System offline."))
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	var/d
-	var/area/bot_area
-	var/bot_uid = UID_of(Bot)
-	d += "<a href='byond://?src=[UID()];botrefresh=[bot_uid]'>Query network status</a><br>"
-	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
-
-	for(var/mob/living/simple_animal/bot/Bot as anything in GLOB.bots_list)
-		bot_uid = Bot.UID()
-		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
-			bot_area = get_area(Bot)
-			d += "<tr><td width='30%'>[Bot.hacked ? "[span_bad("(!) ")][Bot.name]" : Bot.name] ([Bot.model])</td>"
-			//If the bot is on, it will display the bot's current mode status. If the bot is not mode, it will just report "Idle". "Inactive if it is not on at all.
-			d += "<td width='20%'>[Bot.on ? "[Bot.mode ? span_average("[ Bot.mode_name[Bot.mode] ]"): span_good("Idle")]" : span_bad("Inactive")]</td>"
-			d += "<td width='30%'>[bot_area.name]</td>"
-			d += "<td width='10%'><a href='byond://?src=[UID()];interface=[bot_uid]'>Interface</a></td>"
-			d += "<td width='10%'><a href='byond://?src=[UID()];callbot=[bot_uid]'>Call</a></td>"
-			d += "</tr>"
-			d = format_text(d)
-
-	var/datum/browser/popup = new(src, "botcall", "Remote Robot Control", 700, 400)
-	popup.set_content(d)
-	popup.open()
+	var/datum/ui_module/botcall/botcall
+	botcall	= new(src)
+	botcall.ui_interact(usr)
 
 /mob/living/silicon/ai/proc/set_waypoint(atom/A)
 	var/turf/turf_check = get_turf(A)

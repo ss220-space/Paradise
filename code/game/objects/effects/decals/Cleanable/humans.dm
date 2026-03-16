@@ -379,12 +379,19 @@
 	if(splatter_strength)
 		src.splatter_strength = splatter_strength
 
+/obj/effect/decal/cleanable/blood/hitsplatter/Destroy(force)
+	if(ismovable(loc))
+		var/atom/movable/container = loc
+		container.vis_contents -= src
+	return ..()
+
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/expire()
 	if(isturf(loc) && !skip)
 		playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
 		if(blood_dna_info)
 			loc.add_blood(blood_dna_info)
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /// Set the splatter up to fly through the air until it rounds out of steam or hits something
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/fly_towards(turf/target_turf, range)

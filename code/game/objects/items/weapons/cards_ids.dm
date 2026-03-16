@@ -145,7 +145,7 @@
 
 /obj/item/card/id/Destroy()
 	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
-	. = ..()
+	return ..()
 
 /obj/item/card/id/proc/set_info()
 	if(ishuman(loc) && blood_type == "\[UNSET\]")
