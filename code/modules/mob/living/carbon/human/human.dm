@@ -2003,15 +2003,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 
-	var/exists_fracure = FALSE
+	var/exists_fracture  = FALSE
 	for(var/zone in possible_limbs)
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		exists_fracure = TRUE
+		exists_fracture  = TRUE
 		break
 
-	if(exists_fracure)
+	if(exists_fracture )
 		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
 	else
 		REMOVE_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)

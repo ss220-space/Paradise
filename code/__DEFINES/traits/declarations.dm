@@ -441,5 +441,5 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
-/// If human exists fracture in legs or foors (for optimisation)
+/// If a human has a fracture in their legs or feet (for optimization)
 #define TRAIT_FRACTURE_FALL "fracture_fall"
