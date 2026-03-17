@@ -17,8 +17,7 @@
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/item/paper_bin{
@@ -110,9 +109,7 @@
 "bj" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/fakemoustache,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -957,8 +954,7 @@
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass,
@@ -1138,9 +1134,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/can,
-/obj/item/trash/semki{
-	pixel_y = 0
-	},
+/obj/item/trash/semki,
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "nJ" = (
@@ -1470,7 +1464,6 @@
 "rz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/clown{
-	pixel_y = 0;
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -1685,8 +1678,7 @@
 /area/maintenance/abandonedoffices)
 "tN" = (
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/machinery/computer/library/public{
@@ -1859,8 +1851,7 @@
 /area/maintenance/fore2)
 "vR" = (
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/item/paper{
@@ -2301,9 +2292,7 @@
 	},
 /area/maintenance/backstage)
 "Ac" = (
-/obj/machinery/vending/chinese{
-	pixel_y = 0
-	},
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
 "Ad" = (
@@ -2460,8 +2449,7 @@
 /area/maintenance/fore2)
 "Bv" = (
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
@@ -2871,9 +2859,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "FA" = (
-/obj/machinery/vending/coffee{
-	pixel_y = 0
-	},
+/obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedoffices)
@@ -3937,9 +3923,7 @@
 	},
 /area/maintenance/backstage)
 "QR" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4481,9 +4465,7 @@
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "WC" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 0
-	},
+/obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "WD" = (
@@ -4536,8 +4518,7 @@
 "Xd" = (
 /obj/structure/table/glass,
 /obj/item/paper/safe_code{
-	owner = "office";
-	pixel_y = 0
+	owner = "office"
 	},
 /obj/item/paper{
 	pixel_x = -5;

@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - qol: "Теперь реагенты в химмастере отсортированы в алфавитном порядке. (PR #8693)"
