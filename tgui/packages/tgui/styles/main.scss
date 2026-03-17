@@ -93,9 +93,6 @@
   background-repeat: no-repeat;
 }
 
-// Raingor Themes
-@include meta.load-css('./themes/raingor_company.scss');
-
 // A default, in case someone uses the vp() function outside of a <Window>
 :root {
   --scaling-amount: 1;

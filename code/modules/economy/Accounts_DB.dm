@@ -278,6 +278,7 @@ GLOBAL_VAR(current_date_string)
 
 			if(salary_modifier == 0)
 				target.cancel()
+				target.modifier = 0
 				to_chat(usr, span_notice("Модификатор сброшен."))
 				ui_interact(usr)
 				return

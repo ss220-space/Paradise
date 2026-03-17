@@ -91,6 +91,8 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 		if(current_sub.active)
 			current_sub.subscription_process()
 
+		// This check is necessary to verify whether the subscription survived after its processing
+		// and to prevent adding a non-working subscription to the scheduler.
 		if(current_sub.active)
 			add_subscription(current_sub)
 

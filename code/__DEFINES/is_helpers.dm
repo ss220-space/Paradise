@@ -386,3 +386,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isrelic(A) (istype(A, /obj/item/relic))
 
 #define is_window(A) (istype(A, /obj/structure/window))
+
+#define is_subscription(A) (istype(A, /datum/subscription))
+#define is_job(A) (istype(A, /datum/job))
+#define is_money_account(A) (istype(A, /datum/money_account))

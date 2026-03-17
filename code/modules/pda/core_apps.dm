@@ -167,7 +167,7 @@
 
 	// Login and get access
 	pda.ui_login_data(data, user)
-	var/datum/ui_login/L = pda.ui_login_get()
+	var/datum/ui_login/login = pda.ui_login_get()
 
 	if(!pda.id && !(data["loginState"]["logged_in"]))
 		return
@@ -180,86 +180,79 @@
 	if(!checked_card)
 		return
 
-	L.id = checked_card
-	L.name = checked_card.registered_name
-	L.rank = checked_card.assignment
-	L.access = checked_card.access
-	L.law_level = checked_card.law_level
-	L.logged_in = TRUE
+	login.id = checked_card
+	login.name = checked_card.registered_name
+	login.rank = checked_card.assignment
+	login.access = checked_card.access
+	login.law_level = checked_card.law_level
+	login.logged_in = TRUE
 
 	if(!data["loginState"]["logged_in"])
 		return
 
-	for(var/datum/transaction/Transaction in owner_bank_account.transaction_log)
+	for(var/datum/transaction/account_transaction as anything in owner_bank_account.transaction_log)
 		transactions_list.Add(list(list(
-			"date" = Transaction.date,
-			"time" = Transaction.time,
-			"target_name" = Transaction.target_name,
-			"purpose" = Transaction.purpose,
-			"amount" = Transaction.amount,
-			"source_terminal" = Transaction.source_terminal
+			"date" = account_transaction.date,
+			"time" = account_transaction.time,
+			"target_name" = account_transaction.target_name,
+			"purpose" = account_transaction.purpose,
+			"amount" = account_transaction.amount,
+			"source_terminal" = account_transaction.source_terminal
 		)))
 
-	for(var/datum/money_account/Target_account as anything in GLOB.all_money_accounts)
-		if(!Target_account.suspended && !(Target_account.owner_name == owner_bank_account.owner_name))
-			possible_targets.Add(Target_account.owner_name)
+	for(var/datum/money_account/target_account as anything in GLOB.all_money_accounts)
+		if(!target_account.suspended && !(target_account.owner_name == owner_bank_account.owner_name))
+			possible_targets.Add(target_account.owner_name)
 
 	/// This list will store the names of subscriptions to which a person has already subscribed
 	/// or interacted, so as not to re-create the subscription.
 	var/list/active_sub_names = list()
 
-	/**
-	 * We collect all subscriptions that were registered in a person's name.
-	 * We use this to create a separate list in TGUI.
-	*/
-	for(var/datum/subscription/Ss in GLOB.all_subscriptions)
-		if(!Ss || !Ss.subscriber_account || !Ss.recipient_account)
-			continue
-
+	// We collect all subscriptions that were registered in a person's name.
+	// We use this to create a separate list in TGUI.
+	for(var/datum/subscription/registered_sub as anything in GLOB.all_subscriptions)
 		/// Check if the player is either a subscriber or a recipient
-		var/is_player_involved = (Ss.subscriber_account == owner_bank_account) || (Ss.recipient_account == owner_bank_account)
+		var/is_player_involved = (registered_sub.subscriber_account == owner_bank_account) || (registered_sub.recipient_account == owner_bank_account)
 
 		if(is_player_involved)
-			active_sub_names.Add(Ss.subscription_name)
+			active_sub_names.Add(registered_sub.subscription_name)
 
 			var/counterpart_name = "Неизвестно"
 
-			if(Ss.subscriber_account == owner_bank_account)
-				counterpart_name = Ss.recipient_account.owner_name
+			if(registered_sub.subscriber_account == owner_bank_account)
+				counterpart_name = registered_sub.recipient_account.owner_name
 			else
-				counterpart_name = Ss.subscriber_account.owner_name
+				counterpart_name = registered_sub.subscriber_account.owner_name
 
 			subs_list.Add(list(list(
-				"subscription_name" = Ss.subscription_name,
+				"subscription_name" = registered_sub.subscription_name,
 				"recipient_name" = counterpart_name,
-				"cost" = Ss.cost,
-				"interval" = Ss.interval,
-				"status" = Ss.active,
-				"description" = Ss.description,
-				"secure" = Ss.secure,
-				"subscription_type" = Ss.subscription_type_path,
-				"direction" = (Ss.subscriber_account == owner_bank_account) ? "outgoing" : "incoming"
+				"cost" = registered_sub.cost,
+				"interval" = registered_sub.interval,
+				"status" = registered_sub.active,
+				"description" = registered_sub.description,
+				"secure" = registered_sub.secure,
+				"subscription_type" = registered_sub.subscription_type_path,
+				"direction" = (registered_sub.subscriber_account == owner_bank_account) ? "outgoing" : "incoming"
 			)))
 
-	/**
-	 * subscriptions that can be purchased
-	*/
-	for(var/datum/subscription/S in GLOB.available_subscriptions)
-		if(S.subscription_name in active_sub_names)
+	// subscriptions that can be purchased
+	for(var/datum/subscription/purchased_subscription as anything in GLOB.available_subscriptions)
+		if(purchased_subscription.subscription_name in active_sub_names)
 			continue
 
 		// check for "forced subscription"
-		if(S.secure)
+		if(purchased_subscription.secure)
 			continue
 
 		available_sub_list.Add(list(list(
-			"available_subscription_name" = S.subscription_name,
-			"description" = S.description,
-			"cost" = S.cost,
-			"interval" = S.interval,
+			"available_subscription_name" = purchased_subscription.subscription_name,
+			"description" = purchased_subscription.description,
+			"cost" = purchased_subscription.cost,
+			"interval" = purchased_subscription.interval,
 			"provider" = "Нет доступа",
-			"secure" = S.secure,
-			"subscription_type" = S.subscription_type_path
+			"secure" = purchased_subscription.secure,
+			"subscription_type" = purchased_subscription.subscription_type_path
 		)))
 
 	data["balance"] = owner_bank_account.money
@@ -284,14 +277,14 @@
 			var/amount = text2num(params["amount"])
 			var/purpose = params["purpose"]
 
-			var/datum/money_account/RecipientUser = get_account_with_name(target)
-			var/datum/money_account/SenderUser = get_account_with_name(pda.owner)
+			var/datum/money_account/recipient_user = get_account_with_name(target)
+			var/datum/money_account/sender_user = get_account_with_name(pda.owner)
 
-			if(!SenderUser || !RecipientUser || amount <= 0)
+			if(!sender_user || !recipient_user || amount <= 0)
 				to_chat(usr, span_warning("Ошибка: не удалось выполнить перевод."))
 				return
 
-			if(!SenderUser.charge(amount, RecipientUser, purpose, "Терминал Raingor Interstellar Banking №[rand(111,333)]", target, purpose, pda.owner))
+			if(!sender_user.charge(amount, recipient_user, purpose, "Терминал Raingor Interstellar Banking №[rand(111,333)]", target, purpose, pda.owner))
 				to_chat(usr, span_warning("Ошибка: не удалось выполнить перевод."))
 				return
 

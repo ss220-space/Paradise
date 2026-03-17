@@ -40,7 +40,7 @@
 	var/secure = FALSE
 
 /datum/subscription/New(subscriber, recipient, cost_val, interval_val, name_val, description_t)
-	if(!subscriber || !istype(subscriber, /datum/money_account))
+	if(!subscriber || !is_money_account(subscriber))
 		return
 	..()
 	subscriber_account = subscriber
@@ -52,9 +52,8 @@
 	description = description_t
 	subscription_type_path = type
 
-	/**
-	 * check that it is a subscription - template
-	*/
+
+	// check that it is a subscription - template
 	if(!(subscriber_account == recipient_account))
 		GLOB.all_subscriptions += src
 		SSsubscriptions_subsystem.add_subscription(src)
@@ -63,16 +62,14 @@
 	if(!active)
 		return
 
-	/**
-	 * If the account is deleted, delete the subscription from the global and log out.
-	*/
+
+	// If the account is deleted, delete the subscription from the global and log out.
 	if(!subscriber_account || !recipient_account)
 		GLOB.all_subscriptions -= src
 		return
 
-	/**
-	 * check can start and safe check for charge (he can joke)
-	*/
+
+	// check can start and safe check for charge (he can joke)
 	if(!can_process())
 		cancel()
 		return
@@ -89,10 +86,10 @@
 		cancel()
 		return
 
-	subscriber_account.notify_pda_owner(
+	subscriber_account?.notify_pda_owner(
 		"<b> Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. \" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
-	recipient_account.notify_pda_owner(
+	recipient_account?.notify_pda_owner(
 		"<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
 
@@ -107,14 +104,12 @@
 
 /datum/subscription/proc/cancel()
 	active = FALSE
-	if(subscriber_account)
-		subscriber_account.notify_pda_owner(
-			"<b> Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. \" (Невозможно Ответить)",
-			SUBSCRIPTION_NOTI_NO_REPLY)
-	if(recipient_account)
-		recipient_account.notify_pda_owner(
-			"<b> Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)",
-			SUBSCRIPTION_NOTI_NO_REPLY)
+	subscriber_account?.notify_pda_owner(
+		"<b> Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. \" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
+	recipient_account?.notify_pda_owner(
+		"<b> Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
 
 /datum/subscription/proc/resub()
 	active = TRUE
@@ -122,14 +117,13 @@
 	if(SSsubscriptions_subsystem)
 		SSsubscriptions_subsystem.add_subscription(src)
 
-	if(subscriber_account)
-		subscriber_account.notify_pda_owner(
-			"<b> Уведомление о возобновлении действия подписки</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки восстановлено. \" (Невозможно Ответить)",
-			SUBSCRIPTION_NOTI_NO_REPLY)
-	if(recipient_account)
-		recipient_account.notify_pda_owner(
-			"<b> Уведомление о возобновлении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] возобновил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов активированы. Мониторинг транзакций возобновлен.\" (Невозможно Ответить)",
-			SUBSCRIPTION_NOTI_NO_REPLY)
+	subscriber_account?.notify_pda_owner(
+		"<b> Уведомление о возобновлении действия подписки</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки восстановлено. \" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
+
+	recipient_account?.notify_pda_owner(
+		"<b> Уведомление о возобновлении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] возобновил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов активированы. Мониторинг транзакций возобновлен.\" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
 
 // ======================================================================================
 //								    Additional Tools
@@ -146,35 +140,31 @@
 	GLOB.available_subscriptions += new /datum/subscription/station_donations(GLOB.station_account)
 	GLOB.available_subscriptions += new /datum/subscription/salary_modifier(GLOB.station_account)
 
-/proc/find_subscription_with_name(subscriber_account_name, subscription_name_f)
-	for(var/datum/subscription/check_subscription in GLOB.all_subscriptions)
-		if(!check_subscription || !check_subscription.subscriber_account)
-			continue
-		if(check_subscription.subscription_name ==  subscription_name_f && check_subscription.subscriber_account.owner_name == subscriber_account_name)
+/proc/find_subscription_with_name(subscriber_account_name, target_subscription_name)
+	for(var/datum/subscription/check_subscription as anything in GLOB.all_subscriptions)
+		if(check_subscription.subscription_name ==  target_subscription_name && check_subscription.subscriber_account.owner_name == subscriber_account_name)
 			return check_subscription
 	return
 
 /proc/find_subscription_with_type(subscriber_account_name, subscription_type)
-	for(var/datum/subscription/S in GLOB.all_subscriptions)
-		if(!S || !S.subscriber_account)
-			continue
-		if(S.subscription_type_path == subscription_type && S.subscriber_account.owner_name == subscriber_account_name)
-			return S
+	for(var/datum/subscription/checked_sub as anything in GLOB.all_subscriptions)
+		if(checked_sub.subscription_type_path == subscription_type && checked_sub.subscriber_account.owner_name == subscriber_account_name)
+			return checked_sub
 
 /proc/find_subscription_salary_modifier_spec(subscriber_account_name, subscription_type)
-	for(var/datum/subscription/salary_modifier/S in GLOB.all_subscriptions)
-		if(!S || !S.subscriber_account)
+	for(var/datum/subscription/salary_modifier/salary_modifier_sub in GLOB.all_subscriptions)
+		if(!salary_modifier_sub || !salary_modifier_sub.subscriber_account)
 			continue
 
 		var/subscr
 
-		if(S.modifier <= 0)
-			subscr = S.subscriber_account.owner_name
+		if(salary_modifier_sub.modifier <= 0)
+			subscr = salary_modifier_sub.subscriber_account.owner_name
 		else
-			subscr = S.recipient_account.owner_name
+			subscr = salary_modifier_sub.recipient_account.owner_name
 
-		if(S.subscription_type_path == subscription_type && subscr == subscriber_account_name)
-			return S
+		if(salary_modifier_sub.subscription_type_path == subscription_type && subscr == subscriber_account_name)
+			return salary_modifier_sub
 
 /proc/create_subscription(
 	datum/money_account/subscriber_account,
@@ -183,7 +173,7 @@
 )
 
 	// 9 rounds of testing
-	if(!subscriber_account || !istype(subscriber_account, /datum/money_account))
+	if(!subscriber_account || !is_money_account(subscriber_account))
 		to_chat(usr, span_warning("Ошибка: неверный аккаунт подписчика."))
 		return FALSE
 
@@ -196,12 +186,12 @@
 		return FALSE
 
 	/// Find a template in the catalog of available subscriptions
-	var/datum/subscription/template = null
+	var/datum/subscription/template = locate(subscription_type) in GLOB.available_subscriptions
 
-	for(var/datum/subscription/S in GLOB.available_subscriptions)
-		if(S && S.type == subscription_type)
-			template = S
-			break
+	// for(var/datum/subscription/subscription_template as anything in GLOB.available_subscriptions)
+	// 	if(subscription_template && subscription_template.type == subscription_type)
+	// 		template = subscription_template
+	// 		break
 
 	if(!template)
 		to_chat(usr, span_warning("Ошибка: подписка типа [subscription_type] не найдена в каталоге."))
@@ -245,9 +235,9 @@
 		if(/datum/subscription/salary_modifier) // CUSTOM
 			new_sub = new subscription_type(subscriber_account, modifier)
 		else									// DEFAULT
-			new_sub = new subscription_type(subscriber_account, sub_recipient_account, sub_cost, sub_interval, sub_subscription_name, sub_description)
+			new_sub = new /datum/subscription(subscriber_account, sub_recipient_account, sub_cost, sub_interval, sub_subscription_name, sub_description)
 
-	if(!new_sub || !istype(new_sub, /datum/subscription))
+	if(!new_sub || !is_subscription(new_sub))
 		to_chat(usr, span_warning("Критическая ошибка: не удалось создать подписку."))
 		return FALSE
 
@@ -265,7 +255,7 @@
 
 /**
  * An example of a station donation subscription
-*/
+ */
 /datum/subscription/station_donations
 	subscription_name = "Фонд развития станции"
 	description = " Регулярное перечисление средств на модернизацию систем жизнеобеспечения. Поощряется руководством НТ и отделом кадров."
@@ -287,11 +277,11 @@
 /datum/subscription/salary_modifier/New(datum/money_account/subscriber, new_modifier = 0)
 	modifier = new_modifier
 
-	var/datum/job/J = subscriber.linked_job
+	var/datum/job/curr_job = subscriber.linked_job
 	var/base_paycheck = 0
 
-	if(J && istype(J, /datum/job))
-		base_paycheck = J.paycheck
+	if(curr_job && is_job(curr_job))
+		base_paycheck = curr_job.paycheck
 
 	if(modifier <= 0)
 		subscriber_account = subscriber
