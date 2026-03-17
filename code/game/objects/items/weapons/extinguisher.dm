@@ -114,7 +114,7 @@
 	. = ..()
 
 	if(I.get_heat())
-		update_appearance()
+		update_appearance(UPDATE_ICON_STATE)
 		explode_at_heat()
 		burn_hands(user)
 
@@ -198,22 +198,24 @@
 
 	if(temp >= EXTINGUISHER_TEMP_DETONATION)
 		visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается от чудовищного давления!"))
-		if(!QDELETED(src))
+		if(QDELETED(src))
 			return
 
 		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
 		return
 
-	if(temp >= EXTINGUISHER_TEMP_ULTRA)
-		if(prob(20))
-			visible_message(span_danger("Корпус [declent_ru(GENITIVE)] не выдерживает и лопается!"))
-			if(!QDELETED(src))
-				return
+	if(temp < EXTINGUISHER_TEMP_ULTRA)
+		return
 
-			INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+	if(prob(20))
+		visible_message(span_danger("Корпус [declent_ru(GENITIVE)] не выдерживает и лопается!"))
+		if(QDELETED(src))
 			return
 
-		playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
+		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+		return
+
+	playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
 
 /obj/item/extinguisher/fire_act(exposed_temperature, exposed_volume)
 	..()
@@ -221,7 +223,8 @@
 	if(QDELETED(src) || !reagents || !reagents.reagent_list.len || blowing_up)
 		return
 
-	update_appearance()
+	update_appearance(UPDATE_ICON_STATE)
+	explode_at_heat()
 
 /obj/item/extinguisher/attack_obj(obj/object, mob/living/user, params)
 	if(AttemptRefill(object, user))
