@@ -295,6 +295,7 @@
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
 	QDEL_NULL(darkness_effects)
+	supermatter_explosive_effects = null
 	return ..()
 
 /obj/machinery/atmospherics/supermatter_crystal/examine(mob/user)
@@ -413,8 +414,6 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/explode(forced_combined_gas = 0, forced_power = 0, forced_gasmix_power_ratio = 0)
 	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
-	supermatter_explosive_effects.z = src.z
-	supermatter_explosive_effects.handle_special_effects()
 	for(var/mob/living/living_mob as anything in GLOB.alive_mob_list)
 		if(istype(living_mob) && are_zs_connected(living_mob, src))
 			if(ishuman(living_mob))
@@ -455,6 +454,10 @@
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
+
+	if(supermatter_explosive_effects)
+		supermatter_explosive_effects.z = z
+		supermatter_explosive_effects.handle_special_effects()
 
 	explosion(get_turf(source_turf), explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) * 0.5 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 2, explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 4 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 6, 1, 1, cause = "Exploding Supermatter")
 	qdel(src)
