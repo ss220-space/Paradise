@@ -40,7 +40,7 @@
 
 // Legal
 #define JOB_TITLE_MAGISTRATE "Magistrate"
-#define JOB_TITLE_LAWYER "Internal Affairs Agent"
+#define JOB_TITLE_LAWYER "Lawyer"
 
 // Supply
 #define JOB_TITLE_QUARTERMASTER "Quartermaster"

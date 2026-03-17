@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 
 // Legal
 #define JOB_TITLE_RU_MAGISTRATE "Магистрат"
-#define JOB_TITLE_RU_LAWYER "Агент внутренних дел"
+#define JOB_TITLE_RU_LAWYER "Адвокат"
 
 // Supply
 #define JOB_TITLE_RU_QUARTERMASTER "Квартирмейстер"
@@ -366,7 +366,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_JUDGE "Судья"
 // Internal affairs agent
 #define ALT_JOB_TITLE_RU_LAWYER "Юрист"
-#define ALT_JOB_TITLE_RU_ATTORNEY "Адвокат"
 
 // Silicons
 #define ALT_JOB_TITLE_RU_CYBORG "Робот"
