@@ -151,8 +151,11 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	var/datum/job/linked_job = /datum/job
 	var/salary_payment_active = FALSE
 
+	var/datum/messenger_account/messenger_profile
+
 /datum/money_account/New()
 	..()
+	messenger_profile = new /datum/messenger_account(src)
 
 /datum/money_account/proc/addInsurancePoints(amount)
 	insurance += amount
@@ -206,6 +209,16 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			return D
+
+/**
+ * Iterates through the input list,
+ * checking whether the account exists in the given list.
+ */
+/proc/check_account_in_list(datum/money_account/checked_account, list/checked_list)
+	for(var/datum/money_account/selected_account as anything in checked_list)
+		if(selected_account.account_number == checked_account.account_number)
+			return TRUE
+	return FALSE
 
 #undef STATION_CREATION_DATE
 #undef STATION_CREATION_TIME

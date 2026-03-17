@@ -1,1 +1,129 @@
+/* TODO LIST:
+* 1. не забудь добавить потом что если овнер ливнет, то надо взять первого админа,
+* а если их нет, то чат удаляется;
+* 2. базовый круд
+*
+*
+*
+*
+*/
+
+/**
+ * Chat log data type, stores information about the chat members,
+ * the messages themselves and other metadata.
+ */
 /datum/messenger_chat
+	var/chat_id
+	/// group name
+	var/name_chat = "Неизвестный чат"
+	/// chat description
+	var/description_chat = "Нет описания"
+	/// The creator and main admin in the chat
+	var/datum/messenger_account/owner_chat
+	/// people who are designated as the chat creator and can interact
+	/// as the chat creator except for deletion
+	var/list/datum/messenger_account/chat_admins
+	/// a list of all chat participants
+	var/list/datum/messenger_account/chat_members
+	/// list of all messages in this chat
+	var/list/datum/messenger_message/messages = list()
+	/// Used to determine if you can talk in a chat
+	var/can_reply = TRUE
+	/// A variable that indicates whether this is a group
+	var/is_group = FALSE
+	/// a variable that determines whether a group is private or public
+	var/is_private = TRUE
+	/// Saved draft of a message so the sender can leave and come back later
+	var/message_draft = ""
+
+/datum/messenger_chat/New(name_chat, description_chat, owner_chat, is_group, is_private)
+	src.name_chat = name_chat
+	src.description_chat = description_chat
+	src.owner_chat = owner_chat
+	src.chat_admins = list(owner_chat)
+	src.chat_members = list(owner_chat)
+	src.is_group = is_group
+	src.is_private = is_private
+
+/**
+ * Can update multiple fields at once.
+ */
+/datum/messenger_chat/proc/update_chat(
+	name_chat = null, description_chat = null, owner_chat = null, is_private = null)
+	if(name_chat)
+		src.name_chat = name_chat
+	if(description_chat)
+		src.description_chat = description_chat
+	if(owner_chat)
+		src.owner_chat = owner_chat
+	if(is_private)
+		src.is_private = is_private
+
+/**
+ * Return FALSE if the account was not added.
+ *		  TRUE  if it was.
+ */
+/datum/messenger_chat/proc/add_admin_in_chat(datum/messenger_account/added_member)
+	if(!added_member)
+		return FALSE
+	// Checking if you are already a member of the chat.
+	if(!check_account_in_list(added_member.owner, chat_members))
+		chat_members += added_member
+	// Checking if you are already an admin
+	if(check_account_in_list(added_member.owner, chat_admins))
+		return FALSE
+	chat_admins += added_member
+	return TRUE
+
+/**
+ * Return FALSE if the account was not added.
+ *		  TRUE  if it was.
+ */
+/datum/messenger_chat/proc/add_member_in_chat(datum/messenger_account/added_member)
+	if(!added_member)
+		return FALSE
+	// Checking if you are already a member of the chat.
+	if(check_account_in_list(added_member.owner, chat_members))
+		return FALSE
+	chat_members += added_member
+	return TRUE
+
+/**
+ * Adds a message to the chat log and optionally shows the chat in recents.
+ * Call this instead of adding to messages directly.
+ */
+/datum/messenger_chat/proc/add_message(datum/messenger_message/added_message, datum/messenger_account/account)
+	messages += added_message
+	increment_unread_counts(src, account)
+	return added_message
+
+/datum/messenger_chat/proc/get_ui_data(mob/user)
+	var/list/data = list()
+
+	data["name_chat"] = name_chat
+	data["description_chat"] = description_chat
+	// booleans
+	data["can_reply"] = can_reply
+	data["is_group"] = is_group
+	data["is_private"] = is_private
+
+	data["message_draft"] = message_draft
+
+	var/list/messages_data = list()
+	for(var/datum/messenger_message/message as anything in messages)
+		messages_data += list(message.get_ui_data(user))
+
+	if(is_group)
+		data["owner_chat"] = get_account_info(owner_chat)
+
+		var/list/chat_admins_list = list()
+		for(var/datum/messenger_account/checked_account as anything in chat_admins)
+			chat_admins_list.Add(get_account_info(checked_account))
+
+		data["chat_admins"] = chat_admins_list
+
+		var/list/chat_members_list = list()
+		for(var/datum/messenger_account/checked_account as anything in chat_members)
+			chat_members_list.Add(get_account_info(checked_account))
+
+		data["chat_members"] = chat_members_list

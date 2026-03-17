@@ -60,7 +60,7 @@ export const PDA = (_props: unknown) => {
   const App = GetApp(app.template);
 
   return (
-    <Window width={600} height={650}>
+    <Window width={600} height={950}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>
