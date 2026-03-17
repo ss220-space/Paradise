@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - map: "Замена сканеров на принтеры на Нове (PR #8689)"

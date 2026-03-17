@@ -122,7 +122,7 @@ jobs:
           cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.so
       - name: Generate App Token
         id: app-token-generation
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         if: env.APP_PRIVATE_KEY != '' && env.APP_ID != ''
         with:
           app-id: ${{ secrets.CHANGELOGBOT_APPID }}
