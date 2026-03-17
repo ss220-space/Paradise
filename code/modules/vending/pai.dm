@@ -19,7 +19,6 @@
 	default_price = PAYCHECK_CREW*2
 	default_premium_price = PAYCHECK_COMMAND*2
 
-	// ВАЖНО: следующие переменные должны быть с отступом (табуляцией) внутри типа!
 	product_categories = list(
 		list(
 			"name" = "Улучшения для ПИИ",
@@ -63,13 +62,11 @@
 			)
 		)
 	)
-
 	premium = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical = 1,
 		/obj/item/organ/internal/cyberimp/eyes/shield = 1,
 		/obj/item/organ/internal/cyberimp/arm/toolset = 1
 	)
-
 	contraband = list(
 		/obj/item/pai_cartridge/syndi_emote = 1,
 		/obj/item/pai_cartridge/snake = 1,
