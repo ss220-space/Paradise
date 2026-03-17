@@ -16,7 +16,7 @@
 	)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/pai
-	default_price = PAYCHECK_CREW*2
+	default_price = PAYCHECK_CREW * 2
 	default_premium_price = PAYCHECK_COMMAND*2
 
 	product_categories = list(
