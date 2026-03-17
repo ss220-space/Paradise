@@ -8053,14 +8053,14 @@
 "bhl" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	name = "Internal Affairs Office";
+	name = "Lawyer Office";
 	req_access = list(38)
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
@@ -87806,7 +87806,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -95461,7 +95461,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock{
-	name = "Internal Affairs Office";
+	name = "Lawyer Office";
 	req_access = list(38)
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -96241,7 +96241,7 @@
 "qRV" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs Office"
+	department = "Lawyer Office"
 	},
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -100541,7 +100541,7 @@
 	pixel_y = 26
 	},
 /obj/machinery/camera{
-	c_tag = "Internal Affairs Office North";
+	c_tag = "Lawyer Office North";
 	network = list("SS13","Security")
 	},
 /obj/structure/cable{
@@ -103141,7 +103141,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -103209,7 +103209,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -104308,7 +104308,7 @@
 /area/crew_quarters/fitness)
 "sHp" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "sHq" = (
@@ -107370,7 +107370,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -109769,7 +109769,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -114591,7 +114591,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -115406,7 +115406,7 @@
 "vcG" = (
 /obj/machinery/door_control{
 	id = "lawyer";
-	name = "Internal Affairs Privacy Shutters Control";
+	name = "Lawyer Privacy Shutters Control";
 	pixel_x = -24
 	},
 /obj/machinery/light{
@@ -115832,7 +115832,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -118015,8 +118015,8 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	department = "Internal Affairs Office";
-	name = "Internal Affairs Requests Console";
+	department = "Lawyer Office";
+	name = "Lawyer Requests Console";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -118401,7 +118401,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -119328,7 +119328,7 @@
 "vUZ" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	name = "Internal Affairs Office archive";
+	name = "Lawyer Office archive";
 	req_access = list(38)
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -121807,7 +121807,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -125124,7 +125124,7 @@
 "xlq" = (
 /obj/structure/filingcabinet/employment,
 /obj/machinery/camera{
-	c_tag = "Internal Affairs Office South";
+	c_tag = "Lawyer Office South";
 	dir = 1;
 	network = list("SS13","Security")
 	},
@@ -128466,7 +128466,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "lawyer";
-	name = "Internal Affairs Privacy Shutters"
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)

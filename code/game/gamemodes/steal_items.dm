@@ -752,8 +752,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/clothing/shoes/clown_shoes,
 		/obj/item/clothing/under/mime,
 		/obj/item/clothing/mask/gas/mime,
-		/obj/item/clothing/under/rank/internalaffairs,
-		/obj/item/clothing/suit/storage/internalaffairs,
+		/obj/item/clothing/under/rank/lawyer,
+		/obj/item/clothing/suit/storage/lawyer,
 	)
 
 /datum/theft_objective/collect/encryption_keys

@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - experiment: "Роль АВД заменена ролью Адвокат (PR #8561)"
