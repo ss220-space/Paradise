@@ -27,19 +27,16 @@ pub(crate) fn setup_panic_handler() {
                             let ts = Utc::now().format("%Y%m%d_%H%M%S").to_string();
                             let file_end = format!("{}_{}", ts, panic_guid);
 
-                            // Создаем путь с вложенными папками для BYOND ошибок
-                            let now = Utc::now();
-                            let year = now.format("%Y").to_string();
-                            let month = now.format("%m-%B").to_string();
-                            let day = now.format("%d-%A").to_string();
-
-                            let log_path = format!("data/logs/{}/{}/{}", year, month, day);
-                            let _ = std::fs::create_dir_all(&log_path);
-
-                            let _ = std::fs::write(
-                                format!("{}/rustlibs_dm_trace_failed_{}.txt", log_path, file_end),
-                                second_msg.clone(),
-                            );
+                            // Handle the Result from create_dated_log_path
+                            if let Ok(log_path) = create_dated_log_path() {
+                                let _ = std::fs::write(
+                                    format!(
+                                        "{}/rustlibs_dm_trace_failed_{}.txt",
+                                        log_path, file_end
+                                    ),
+                                    second_msg.clone(),
+                                );
+                            }
                         }
                     });
                     Default::default()
@@ -54,21 +51,25 @@ pub(crate) fn setup_panic_handler() {
             let ts = get_safe_timestamp();
             let file_end = format!("{}_{}", ts, panic_guid);
 
-            // Создаем путь с вложенными папками для паник
-            let now = Utc::now();
-            let year = now.format("%Y").to_string();
-            let month = now.format("%m-%B").to_string();
-            let day = now.format("%d-%A").to_string();
-
-            let log_path = format!("data/logs/{}/{}/{}", year, month, day);
-            let _ = std::fs::create_dir_all(&log_path);
-
-            let _ = std::fs::write(
-                format!("{}/rustlibs_panic_{}.txt", log_path, file_end),
-                msg.clone(),
-            );
+            // Handle the Result from create_dated_log_path
+            if let Ok(log_path) = create_dated_log_path() {
+                let _ = std::fs::write(
+                    format!("{}/rustlibs_panic_{}.txt", log_path, file_end),
+                    msg.clone(),
+                );
+            }
         });
     }))
+}
+
+fn create_dated_log_path() -> std::io::Result<String> {
+    let now = chrono::Utc::now();
+    let year = now.format("%Y").to_string();
+    let month = now.format("%m-%B").to_string();
+    let day = now.format("%d-%A").to_string();
+    let log_path = format!("data/logs/{}/{}/{}", year, month, day);
+    std::fs::create_dir_all(&log_path)?;
+    Ok(log_path)
 }
 
 fn get_safe_timestamp() -> String {
