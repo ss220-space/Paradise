@@ -87,36 +87,28 @@
 		reagents.set_reacting(FALSE)
 		RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
 
-	START_PROCESSING(SSobj, src)
-
-/obj/item/extinguisher/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	. += span_notice("Предохранитель <b>[safety ? "включён" : "выключен"]</b>.")
 
-/obj/item/extinguisher/process(seconds_per_tick)
-	if(!reagents || !reagents.reagent_list.len || reagents.chem_temp < EXTINGUISHER_TEMP_HIGH)
+/obj/item/extinguisher/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	burn_hands(user)
+
+/obj/item/extinguisher/proc/burn_hands(mob/user)
+	if(!user || !ishuman(user))
 		return
 
-	if(!isliving(loc))
+	var/mob/living/carbon/human/holding_human = user
+
+	if(!holding_human.is_in_hands(src) || reagents.chem_temp < EXTINGUISHER_TEMP_HIGH)
 		return
 
-	var/mob/living/holding_living = loc
-
-	if(holding_living.l_hand != src && holding_living.r_hand != src)
+	if(holding_human.gloves && holding_human.gloves.heat_protection)
 		return
 
-	if(ishuman(holding_living))
-		var/mob/living/carbon/human/holding_human = holding_living
-		if(holding_human.gloves && holding_human.gloves.heat_protection)
-			return
-
-	if(prob(80))
-		to_chat(holding_living, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] невыносимо обжигает вам ладони!"))
-		holding_living.apply_damage(3, BURN, pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND))
+	holding_human.apply_damage(3, BURN, pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND))
+	to_chat(holding_human, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] невыносимо обжигает вам ладони!"))
 
 /obj/item/extinguisher/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -124,12 +116,13 @@
 	if(I.get_heat())
 		update_appearance()
 		explode_at_heat()
+		burn_hands(user)
 
 /obj/item/extinguisher/update_icon_state()
 	if(blowing_up)
 		return
 
-	if(type == /obj/item/extinguisher && safety && reagents && reagents.reagent_list.len)
+	if(can_explode && safety && reagents && reagents.reagent_list.len)
 		var/temp = reagents.chem_temp
 
 		if(temp >= EXTINGUISHER_TEMP_DETONATION)
@@ -192,9 +185,7 @@
 	else if(temp >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
 		reagents.chem_temp = EXTINGUISHER_TEMP_MED
 
-	else
-		reagents.chem_temp = T20C
-
+	reagents.chem_temp = T20C
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /obj/item/extinguisher/proc/explode_at_heat()
@@ -345,22 +336,21 @@
 
 	playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
 
-	var/total_delay = 0
+	var/list/animation_steps = list(
+		list("icon" = "[base_icon_state]_temp_high", "delay" = EXTINGUISHER_EXPLOSION_FRAME_DELAY, "temp_check" = EXTINGUISHER_TEMP_ULTRA),
+		list("icon" = "[base_icon_state]_temp_ultra", "delay" = EXTINGUISHER_EXPLOSION_FRAME_DELAY, "temp_check" = EXTINGUISHER_TEMP_DETONATION),
+		list("icon" = "[base_icon_state]_temp_detonate", "delay" = EXTINGUISHER_EXPLOSION_FRAME_DELAY, "temp_check" = INFINITY)
+	)
 
-	if(temp < EXTINGUISHER_TEMP_ULTRA)
-		icon_state = "[base_icon_state]_temp_high"
-		total_delay += EXTINGUISHER_EXPLOSION_FRAME_DELAY
+	var/current_delay = 0
+	for(var/list/step as anything in animation_steps)
+		if(temp >= step["temp_check"])
+			continue
 
-	if(temp < EXTINGUISHER_TEMP_DETONATION)
-		addtimer(CALLBACK(src, PROC_REF(set_icon_state), "[base_icon_state]_temp_ultra"), total_delay)
-		total_delay += EXTINGUISHER_EXPLOSION_FRAME_DELAY
-	else
-		icon_state = "[base_icon_state]_temp_ultra"
+		addtimer(CALLBACK(src, PROC_REF(set_icon_state), step["icon"]), current_delay)
+		current_delay += step["delay"]
 
-	addtimer(CALLBACK(src, PROC_REF(set_icon_state), "[base_icon_state]_temp_detonate"), total_delay)
-	total_delay += EXTINGUISHER_EXPLOSION_FRAME_DELAY
-
-	addtimer(CALLBACK(src, PROC_REF(finalize_steam_explosion)), total_delay)
+	addtimer(CALLBACK(src, PROC_REF(finalize_steam_explosion)), current_delay)
 
 /obj/item/extinguisher/proc/finalize_steam_explosion()
 	if(QDELETED(src) || !reagents || !reagents.reagent_list.len)
