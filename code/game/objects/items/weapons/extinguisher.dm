@@ -185,7 +185,9 @@
 	else if(temp >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
 		reagents.chem_temp = EXTINGUISHER_TEMP_MED
 
-	reagents.chem_temp = T20C
+	else
+		reagents.chem_temp = T20C
+
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /obj/item/extinguisher/proc/explode_at_heat()
