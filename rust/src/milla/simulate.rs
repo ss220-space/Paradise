@@ -59,70 +59,60 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
         let y = (my_index % MAP_SIZE) as i32;
         let my_tile = prev.get_tile(my_index);
 
+        // Для космоса ветер всегда 0
+        if let AtmosMode::Space = my_tile.mode {
+            let my_new_tile = next.get_tile_mut(my_index);
+            my_new_tile.wind = [0.0, 0.0];
+            continue;
+        }
+
         for (axis, (dx, dy)) in AXES.iter().enumerate() {
+            let my_new_tile = next.get_tile_mut(my_index);
+
+            // Проверяем, есть ли стена у текущего тайла в этом направлении
+            if my_new_tile.wall[axis] {
+                my_new_tile.wind[axis] = 0.0;
+                continue;
+            }
+
             let neighbor_index = match ZLevel::maybe_get_index(x + dx, y + dy) {
                 Some(index) => index,
-                None => continue,
+                None => {
+                    my_new_tile.wind[axis] = 0.0;
+                    continue;
+                }
             };
+
             let neighbor = prev.get_tile(neighbor_index);
-            let my_new_tile = next.get_tile_mut(my_index);
-            let my_pressure = my_tile.pressure();
-            // How much pressure do these tiles have together?
-            let combined_pressure = my_tile.pressure() + neighbor.pressure();
 
             // No wind across walls.
             if my_new_tile.wall[axis] {
                 my_new_tile.wind[axis] = 0.0;
-                for i in 0..GAS_COUNT {
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
-                }
                 continue;
             }
+
+            let my_pressure = my_tile.pressure();
+
+            if let AtmosMode::Space = neighbor.mode {
+                my_new_tile.wind[axis] = WIND_STRENGTH;
+                continue;
+            }
+
+            let combined_pressure = my_pressure + neighbor.pressure();
 
             // If there's no air, there's no wind.
             if combined_pressure <= 0.0 {
                 my_new_tile.wind[axis] = 0.0;
-                for i in 0..GAS_COUNT {
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
-                }
                 continue;
             }
 
-            // A bias from [-1.0, 1.0] representing how much air is flowing from the negative tile
-            // to the positive one, based purely on pressure.
+            // A bias from [-1.0, 1.0] representing how much air is flowing
             let pressure_bias = 2.0 * (my_pressure / combined_pressure) - 1.0;
-            // New wind mixes the pressure bias with the old wind, and clamps it to reasonable
-            // bounds.
+
+            // New wind mixes the pressure bias with the old wind
             my_new_tile.wind[axis] = (my_tile.wind[axis]
                 + WIND_ACCELERATION * (pressure_bias * WIND_STRENGTH - my_tile.wind[axis]))
                 .clamp(-MAX_WIND, MAX_WIND);
-
-            let wind_gas_flow = (1.0 + WIND_SPEED).powf(my_new_tile.wind[axis].abs()) - 1.0;
-
-            for i in 0..GAS_COUNT {
-                my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
-                my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] = 0.0;
-
-                // Calculate how much gas should flow based on pressure.
-                let combined_partial_pressure =
-                    my_tile.partial_pressure(i) + neighbor.partial_pressure(i);
-                if combined_partial_pressure <= 0.0 {
-                    // Gas? What gas?
-                    continue;
-                }
-                if my_new_tile.wind[axis] > 0.0 {
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += wind_gas_flow;
-                } else {
-                    my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += wind_gas_flow;
-                }
-
-                // And how much gas should flow based on diffusion.
-                let diffusion_gas_flow = DIFFUSION_SPEED;
-                my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] += diffusion_gas_flow;
-                my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += diffusion_gas_flow;
-            }
         }
     }
 }
@@ -133,39 +123,48 @@ pub(crate) struct AirflowOutcome {
     max_thermal_energy_delta: f32,
 }
 
+impl AirflowOutcome {
+    fn new() -> Self {
+        AirflowOutcome {
+            active_tiles: HashSet::with_capacity(1024),
+            max_gas_delta: 0.0,
+            max_thermal_energy_delta: 0.0,
+        }
+    }
+}
+
 /// Let the air flow until it stabilizes for this tick or we run out of patience.
 pub(crate) fn flow_air(prev: &ZLevel, next: &mut ZLevel) -> Result<AirflowOutcome, eyre::Error> {
     let mut outcome = flow_air_once(prev, next, None)?;
+
     for _iter in 1..MAX_ITERATIONS {
-        outcome = flow_air_once(prev, next, Some(outcome))?;
+        let new_outcome = flow_air_once(prev, next, Some(&outcome))?;
 
         // Check for significant changes.
-        if outcome.max_gas_delta < GAS_CHANGE_SIGNIFICANCE
-            && outcome.max_thermal_energy_delta < THERMAL_CHANGE_SIGNIFICANCE
+        if new_outcome.max_gas_delta < GAS_CHANGE_SIGNIFICANCE
+            && new_outcome.max_thermal_energy_delta < THERMAL_CHANGE_SIGNIFICANCE
         {
-            // We've stabilized.
-            return Ok(outcome);
+            return Ok(new_outcome);
         }
+
+        outcome = new_outcome;
     }
 
     Ok(outcome)
 }
 
 /// Let the air flow at every active tile by one step.
+/// Let the air flow at every active tile by one step.
 pub(crate) fn flow_air_once(
     prev: &ZLevel,
     next: &mut ZLevel,
-    maybe_old_outcome: Option<AirflowOutcome>,
+    maybe_old_outcome: Option<&AirflowOutcome>,
 ) -> Result<AirflowOutcome, eyre::Error> {
-    let mut new_outcome = AirflowOutcome {
-        active_tiles: HashSet::new(),
-        max_gas_delta: 0.0,
-        max_thermal_energy_delta: 0.0,
-    };
+    let mut new_outcome = AirflowOutcome::new();
 
     if let Some(old_outcome) = maybe_old_outcome {
-        for my_index in &old_outcome.active_tiles {
-            flow_air_once_at_index(prev, next, *my_index, &mut new_outcome)?;
+        for &my_index in &old_outcome.active_tiles {
+            flow_air_once_at_index(prev, next, my_index, &mut new_outcome)?;
         }
     } else {
         for my_index in 0..MAP_SIZE * MAP_SIZE {
@@ -188,35 +187,48 @@ pub(crate) fn flow_air_once_at_index(
 
     // Skip tiles that can't change.
     match my_tile.mode {
-        // Space is always empty.
-        AtmosMode::Space => return Ok(()),
-        // Tiles exposed to an environment always contain that environment.
-        AtmosMode::ExposedTo { .. } => return Ok(()),
+        AtmosMode::Space | AtmosMode::ExposedTo { .. } => return Ok(()),
         _ => (),
     }
 
-    // Save the values from the prior iteration so we can check how much they changed.
+    // Save the values from the prior iteration
     let prev_iter = next.get_tile(my_index).clone();
+
+    // Reset to original values (Gauss-Seidel step)
     {
-        // We're doing a modified Gauss-Seidel method, and while it's counter-intuitive, one of
-        // the necessary steps is to reset the current tile to its original values before
-        // processing this iteration.
-        // See https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#Element-based_formula
         let my_new_tile = next.get_tile_mut(my_index);
         my_new_tile.gases.copy_from(&my_tile.gases);
         my_new_tile.thermal_energy = my_tile.thermal_energy;
     }
-    let mut outgoing_gas_mult: [f32; GAS_COUNT] = [0.0; GAS_COUNT];
+
     let mut total_weighted_temperature = my_tile.temperature() * my_tile.heat_capacity();
     let mut total_temperature_weights: f32 = my_tile.heat_capacity();
+
+    // Массив для отслеживания суммарного outflow по каждому газу
+    let mut outgoing_gas_mult = [0.0f32; GAS_COUNT];
+
+    // Буфер для новых значений газов
+    let mut new_gas_values = [0.0f32; GAS_COUNT];
+
+    // Копируем текущие значения
+    for i in 0..GAS_COUNT {
+        new_gas_values[i] = my_tile.gases.values[i];
+    }
+
+    // Обрабатываем все направления
     for (dir, (dx, dy)) in DIRECTIONS.iter().enumerate() {
+        let axis = DIRECTION_AXIS[dir];
+
+        // СНАЧАЛА проверяем, есть ли стена в этом направлении
+        let my_new_tile = next.get_tile(my_index);
+
         let neighbor_index = match ZLevel::maybe_get_index(x + dx, y + dy) {
             Some(value) => value,
             None => continue,
         };
-        let (my_new_tile, new_neighbor) = next.get_pair_mut(my_index, neighbor_index);
 
-        let axis = DIRECTION_AXIS[dir];
+        // Проверяем, есть ли стена у соседа с нашей стороны
+        let neighbor_tile = next.get_tile(neighbor_index);
 
         // Don't do anything across walls.
         if dx + dy > 0 {
@@ -224,103 +236,126 @@ pub(crate) fn flow_air_once_at_index(
                 continue;
             }
         } else {
-            if new_neighbor.wall[axis] {
+            if neighbor_tile.wall[axis] {
                 continue;
             }
         }
 
-        // If there's no air, don't do anything.
-        let total_pressure = my_tile.pressure() + new_neighbor.pressure();
-        if total_pressure <= 0.0 {
-            continue;
-        }
+        // Теперь получаем изменяемые ссылки на оба тайла
+        let (my_new_tile, new_neighbor) = next.get_pair_mut(my_index, neighbor_index);
+
+        // Получаем ветер для этого направления
+        let wind = if dx + dy > 0 {
+            my_new_tile.wind[axis]
+        } else {
+            -new_neighbor.wind[axis] // Для обратного направления инвертируем ветер
+        };
+
+        // Вычисляем коэффициенты потока
+        let (inflow, outflow) = calculate_flow_coefficients(wind);
 
         for i in 0..GAS_COUNT {
-            // Normalise the gas flow direction.
-            let gas_flow_in;
-            let gas_flow_out;
-            if dx + dy > 0 {
-                gas_flow_in = my_new_tile.gas_flow[axis][i][GAS_FLOW_IN];
-                gas_flow_out = my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT];
-            } else {
-                gas_flow_in = new_neighbor.gas_flow[axis][i][GAS_FLOW_OUT];
-                gas_flow_out = new_neighbor.gas_flow[axis][i][GAS_FLOW_IN];
-            }
+            // Применяем inflow от соседа
+            let incoming = inflow * new_neighbor.gases.values[i];
+            new_gas_values[i] += incoming;
 
-            // Once again, this may looks a bit odd, but it's the second step of Gauss-Seidel,
-            // summing together this tile's value from the last iteration with the incoming values
-            // from other tiles this tick.
-            my_new_tile.gases.values[i] += gas_flow_in * new_neighbor.gases.values[i];
-            let temperature_weight = gas_flow_in * new_neighbor.gases.values[i] * SPECIFIC_HEATS[i];
-
-            // Track the outgoing values as well.
-            outgoing_gas_mult[i] += gas_flow_out;
-
-            // Temperature is not Gauss-Seidel, though it looks similar. It's just a weighted
-            // average.
+            // Учитываем вклад в температуру
+            let temperature_weight = incoming * SPECIFIC_HEATS[i];
             total_weighted_temperature +=
                 new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
             total_temperature_weights += temperature_weight * TEMPERATURE_FLOW_RATE;
-        }
 
-        my_new_tile.gases.set_dirty();
+            // Учитываем outflow для нормализации
+            outgoing_gas_mult[i] += outflow;
+        }
     }
 
-    // And now we finish off Gauss-Seidel by dividing by the total outgoing weights, plus one
-    // to represent this tile.
-    let mut max_gas_delta: f32 = 0.0;
+    // Применяем нормализацию Gauss-Seidel
+    let mut max_gas_delta = 0.0f32;
     let my_new_tile = next.get_tile_mut(my_index);
-    for i in 0..GAS_COUNT {
-        my_new_tile.gases.values[i] /= 1.0 + outgoing_gas_mult[i];
 
-        if (prev_iter.gases.values[i] - my_new_tile.gases.values[i]).abs()
-            >= GAS_CHANGE_SIGNIFICANCE
-        {
-            let new_gas_delta = (2.0 * prev_iter.gases.values[i]
-                / (prev_iter.gases.values[i] + my_new_tile.gases.values[i])
-                - 1.0)
-                .abs();
+    for i in 0..GAS_COUNT {
+        // Нормализуем - делим на (1 + сумма outflow)
+        let divisor = 1.0 + outgoing_gas_mult[i];
+        let new_value = if divisor > 0.0 {
+            new_gas_values[i] / divisor
+        } else {
+            new_gas_values[i]
+        };
+
+        let old_value = prev_iter.gases.values[i];
+        my_new_tile.gases.values[i] = new_value;
+
+        // Проверяем значимость изменений
+        if (old_value - new_value).abs() >= GAS_CHANGE_SIGNIFICANCE {
+            let new_gas_delta = if old_value + new_value > 0.0 {
+                (2.0 * old_value / (old_value + new_value) - 1.0).abs()
+            } else {
+                0.0
+            };
             max_gas_delta = max_gas_delta.max(new_gas_delta);
         }
     }
     my_new_tile.gases.set_dirty();
 
-    my_new_tile.thermal_energy =
-        my_new_tile.heat_capacity() * total_weighted_temperature / total_temperature_weights;
-
-    let new_thermal_energy_delta;
-    if (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs() >= THERMAL_CHANGE_SIGNIFICANCE
-    {
-        new_thermal_energy_delta = (2.0 * prev_iter.thermal_energy
-            / (prev_iter.thermal_energy + my_new_tile.thermal_energy)
-            - 1.0)
-            .abs();
-    } else {
-        new_thermal_energy_delta = 0.0
+    // Обновляем температуру
+    if total_temperature_weights > 0.0 {
+        my_new_tile.thermal_energy =
+            my_new_tile.heat_capacity() * total_weighted_temperature / total_temperature_weights;
     }
 
-    // outcome is the global version across all tiles.
+    // Проверяем изменения температуры
+    let thermal_diff = (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs();
+    let new_thermal_energy_delta = if thermal_diff >= THERMAL_CHANGE_SIGNIFICANCE
+        && prev_iter.thermal_energy + my_new_tile.thermal_energy > 0.0
+    {
+        (2.0 * prev_iter.thermal_energy / (prev_iter.thermal_energy + my_new_tile.thermal_energy)
+            - 1.0)
+            .abs()
+    } else {
+        0.0
+    };
+
+    // Обновляем глобальные метрики
     outcome.max_gas_delta = outcome.max_gas_delta.max(max_gas_delta);
     outcome.max_thermal_energy_delta = outcome
         .max_thermal_energy_delta
         .max(new_thermal_energy_delta);
 
-    // Check for significant changes.
-    if max_gas_delta < GAS_CHANGE_SIGNIFICANCE_FRACTION {
-        if new_thermal_energy_delta < THERMAL_CHANGE_SIGNIFICANCE_FRACTION {
-            return Ok(());
-        }
-    }
-
-    // If any change was significant, mark this tile and all neighbors as active.
-    outcome.active_tiles.insert(my_index);
-    for (dx, dy) in DIRECTIONS {
-        if let Some(neighbor_index) = ZLevel::maybe_get_index(x + dx, y + dy) {
-            outcome.active_tiles.insert(neighbor_index);
+    // Если изменения значимы, добавляем в active_tiles
+    if max_gas_delta >= GAS_CHANGE_SIGNIFICANCE_FRACTION
+        || new_thermal_energy_delta >= THERMAL_CHANGE_SIGNIFICANCE_FRACTION
+    {
+        outcome.active_tiles.insert(my_index);
+        for (dx, dy) in DIRECTIONS {
+            if let Some(neighbor_index) = ZLevel::maybe_get_index(x + dx, y + dy) {
+                outcome.active_tiles.insert(neighbor_index);
+            }
         }
     }
 
     Ok(())
+}
+
+/// Вычисляет коэффициенты потока на основе ветра
+fn calculate_flow_coefficients(wind: f32) -> (f32, f32) {
+    // Базовая диффузия
+    let mut inflow = DIFFUSION_SPEED;
+    let mut outflow = DIFFUSION_SPEED;
+
+    if wind != 0.0 {
+        let wind_flow = (1.0 + WIND_SPEED).powf(wind.abs()) - 1.0;
+
+        if wind > 0.0 {
+            // Ветер дует от нас
+            outflow += wind_flow;
+        } else {
+            // Ветер дует к нам
+            inflow += wind_flow;
+        }
+    }
+
+    (inflow, outflow)
 }
 
 /// Applies effects that happen after the main airflow routine:

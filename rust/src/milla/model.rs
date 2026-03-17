@@ -222,7 +222,6 @@ bitflags! {
 /// A single tile in the atmos model.
 #[derive(Debug, Clone)]
 pub(crate) struct Tile {
-    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// The gases this tile holds.
     pub(crate) gases: GasSet,
     /// How well this tile conducts heat in each direction
@@ -260,7 +259,6 @@ impl Tile {
             hotspot_volume: 0.0,
             wind: [0.0, 0.0],
             wall: [false, false],
-            gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
             fuel_burnt: 0.0,
         }
     }
@@ -318,10 +316,6 @@ impl Tile {
         for axis in 0..AXES.len() {
             self.wind[axis] = other.wind[axis];
             self.wall[axis] = other.wall[axis];
-            for gas in 0..GAS_COUNT {
-                self.gas_flow[axis][gas][GAS_FLOW_IN] = other.gas_flow[axis][gas][GAS_FLOW_IN];
-                self.gas_flow[axis][gas][GAS_FLOW_OUT] = other.gas_flow[axis][gas][GAS_FLOW_OUT];
-            }
         }
         self.fuel_burnt = other.fuel_burnt;
     }
