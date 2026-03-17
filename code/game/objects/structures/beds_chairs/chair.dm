@@ -1,4 +1,4 @@
-/obj/structure/chair	// fuck you Pete and Jonsonmt
+/obj/structure/chair
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
@@ -292,77 +292,6 @@
 	item_chair = null
 	anchored = TRUE
 
-// SOFAS
-/obj/structure/chair/sofa
-	name = "sofa"
-	icon_state = "leather_sofa_middle"
-	anchored = TRUE
-	item_chair = null
-	comfort = 0.6
-	var/mutable_appearance/armrest
-	flip_on_buckled_move = FALSE
-
-/obj/structure/chair/sofa/Initialize(mapload)
-	armrest = GetArmrest()
-	armrest.layer = ABOVE_MOB_LAYER
-	return ..()
-
-/obj/structure/chair/sofa/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
-
-/obj/structure/chair/sofa/Destroy()
-	QDEL_NULL(armrest)
-	return ..()
-
-/obj/structure/chair/sofa/post_buckle_mob(mob/living/target)
-	. = ..()
-	update_armrest()
-
-/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/target)
-	. = ..()
-	update_armrest()
-
-/obj/structure/chair/sofa/proc/update_armrest()
-	if(has_buckled_mobs())
-		add_overlay(armrest)
-	else
-		cut_overlay(armrest)
-
-/obj/structure/chair/sofa/left
-	icon_state = "leather_sofa_left"
-
-/obj/structure/chair/sofa/right
-	icon_state = "leather_sofa_right"
-
-/obj/structure/chair/sofa/corner
-	icon_state = "leather_sofa_corner"
-
-/obj/structure/chair/sofa/corp
-	desc = "Soft and cushy."
-	icon_state = "corp_sofamiddle"
-
-/obj/structure/chair/sofa/corp/left
-	icon_state = "corp_sofaend_left"
-
-/obj/structure/chair/sofa/corp/right
-	icon_state = "corp_sofaend_right"
-
-/obj/structure/chair/sofa/corp/corner
-	icon_state = "corp_sofacorner"
-
-/obj/structure/chair/sofa/pew
-	name = "pew"
-	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
-	icon_state = "pewmiddle"
-	buildstacktype = /obj/item/stack/sheet/wood
-	comfort = 0.2
-
-/obj/structure/chair/sofa/pew/left
-	icon_state = "pewend_left"
-
-/obj/structure/chair/sofa/pew/right
-	icon_state = "pewend_right"
-
 /obj/structure/chair/stool
 	name = "stool"
 	desc = "Apply butt."
@@ -496,14 +425,6 @@
 /obj/item/chair/wood/wings
 	icon_state = "wooden_chair_wings_toppled"
 	origin_type = /obj/structure/chair/wood/wings
-
-/obj/structure/chair/old
-	name = "strange chair"
-	desc = "You sit in this. Either by will or force. Looks REALLY uncomfortable."
-	icon_state = "chairold"
-	item_chair = null
-	comfort = 0
-	flip_on_buckled_move = FALSE
 
 // Brass chair
 /obj/structure/chair/brass

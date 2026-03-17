@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - admin: "звук metal_pipe_falling.ogg для смайта с пианином (PR #8692)"

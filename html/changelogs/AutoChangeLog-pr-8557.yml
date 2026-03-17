@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - tweak: "video camera заменена на broadcast camera (PR #8557)"

@@ -66,5 +66,12 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 
+	if(isobserver(user))
+		msg += "The laws it serves:\n"
+		laws.sort_laws()
+		for(var/datum/ai_law/law in laws.sorted_laws)
+			msg += "[law.get_index()]. [law.law]\n"
+		msg += "[shell? "Occupier: [mainframe? "[mainframe.name]" : "NONE"]" : "AI master: [connected_ai? "[connected_ai.name]" : "NONE"]"]\n"
+
 	. += msg
 	user.showLaws(src)
