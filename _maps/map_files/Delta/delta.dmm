@@ -23746,13 +23746,7 @@
 	},
 /area/maintenance/asmaint)
 "cMO" = (
-/obj/structure/chair,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete.";
-	name = "---Merge Conflict Marker---"
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/chair/sofa/bench,
 /turf/simulated/floor/plasteel,
@@ -26746,12 +26740,7 @@
 	},
 /area/hallway/primary/central/west)
 "daf" = (
-/obj/structure/chair/stool/bar,
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete.";
-	name = "---Merge Conflict Marker---"
-	},
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
@@ -55986,17 +55975,7 @@
 	},
 /area/maintenance/kitchen)
 "ijU" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Central Ring Hallway Center 2"
-	},
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete.";
-	name = "---Merge Conflict Marker---"
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
