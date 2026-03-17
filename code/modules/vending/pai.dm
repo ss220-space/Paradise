@@ -42,7 +42,7 @@
 				/obj/item/organ/internal/cyberimp/chest/nutriment = 3,
 				/obj/item/organ/internal/cyberimp/brain/clown_voice = 3,
 				/obj/item/organ/internal/cyberimp/arm/botanical = 2,
-				/obj/item/organ/internal/cyberimp/arm/janitorial = 2
+				/obj/item/organ/internal/cyberimp/arm/janitorial = 2,
 			)
 		),
 		list(
@@ -58,14 +58,14 @@
 				/obj/item/organ/internal/kidneys/cybernetic = 3,
 				/obj/item/organ/internal/heart/cybernetic = 3,
 				/obj/item/organ/internal/eyes/cybernetic = 3,
-				/obj/item/organ/internal/ears/cybernetic = 3
+				/obj/item/organ/internal/ears/cybernetic = 3,
 			)
 		)
 	)
 	premium = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical = 1,
 		/obj/item/organ/internal/cyberimp/eyes/shield = 1,
-		/obj/item/organ/internal/cyberimp/arm/toolset = 1
+		/obj/item/organ/internal/cyberimp/arm/toolset = 1,
 	)
 	contraband = list(
 		/obj/item/pai_cartridge/syndi_emote = 1,
