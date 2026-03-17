@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "Удаление алерта кровотечения после rejuvenate (PR #8680)"

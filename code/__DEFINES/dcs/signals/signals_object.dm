@@ -124,3 +124,6 @@
 
 /// called on implants, after an implant has been removed: (mob/living/source, silent, special)
 #define COMSIG_IMPLANT_REMOVED "implant_removed"
+
+/// Sent on camera switch in camera monitors (/obj/machinery/computer/security/ui_act(action, params))
+#define COMSIG_MONITOR_CAMERA_SWITCHED "monitor_camera_switched"

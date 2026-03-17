@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - add: "Возвращение эффектов взрыва кристалла суперматерии (PR #8673)"

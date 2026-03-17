@@ -25,13 +25,21 @@
 #define BOT_WAIT_FOR_NAV 16	// waiting for nav computation
 #define BOT_NO_ROUTE 17	// no destination beacon found (or no route)
 
-//Bot types
-#define SEC_BOT (1<<0) // Secutritrons (Beepsky) and ED-209s
-#define MULE_BOT (1<<1) // MULEbots
-#define FLOOR_BOT (1<<2) // Floorbots
-#define CLEAN_BOT (1<<3) // Cleanbots
-#define MED_BOT (1<<4) // Medibots
-#define HONK_BOT (1<<5) // Honkbots
+// Bot types
+/// Secutritrons (Beepsky) and ED-209s
+#define SEC_BOT "Security"
+/// MULEbots
+#define MULE_BOT "Mule"
+/// Floorbots
+#define FLOOR_BOT "Floorbot"
+/// Cleanbots
+#define CLEAN_BOT "Cleanbot"
+/// Medibots
+#define MED_BOT "Medibot"
+/// Honkbots
+#define HONK_BOT "Honkbot"
+/// Griefsky
+#define GRIEF_BOT "Grief"
 
 //Sentience types
 #define SENTIENCE_ORGANIC 1

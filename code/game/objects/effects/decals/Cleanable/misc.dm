@@ -189,6 +189,9 @@
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
 
+/obj/effect/decal/cleanable/fungus/never_should_have_come_here(turf/here_turf)
+	return FALSE
+
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"
 	desc = "Party time!"
