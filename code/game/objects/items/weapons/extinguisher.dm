@@ -153,7 +153,7 @@
 		span_notice("Вы начинаете [safety ? "снимать" : "ставить"] предохранитель...")
 	)
 
-	if(!do_after(user, 5, target = src) || QDELETED(src))
+	if(!user || !do_after(user, 5, target = src) || QDELETED(src))
 		return
 
 	safety = !safety
@@ -198,12 +198,18 @@
 
 	if(temp >= EXTINGUISHER_TEMP_DETONATION)
 		visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается от чудовищного давления!"))
+		if(!QDELETED(src))
+			return
+
 		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
 		return
 
 	if(temp >= EXTINGUISHER_TEMP_ULTRA)
 		if(prob(20))
 			visible_message(span_danger("Корпус [declent_ru(GENITIVE)] не выдерживает и лопается!"))
+			if(!QDELETED(src))
+				return
+
 			INVOKE_ASYNC(src, PROC_REF(steam_explosion))
 			return
 
