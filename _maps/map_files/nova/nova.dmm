@@ -11084,7 +11084,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
 "bEk" = (
-/obj/machinery/libraryscanner,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "bEs" = (
@@ -29952,7 +29952,7 @@
 	c_tag = "Library South";
 	dir = 1
 	},
-/obj/machinery/libraryscanner,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/library)
 "evL" = (
@@ -47909,7 +47909,7 @@
 /area/medical/biostorage)
 "hev" = (
 /obj/machinery/light,
-/obj/machinery/libraryscanner,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	tag = "icon-whitepurple (WEST)"
@@ -75997,7 +75997,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/libraryscanner,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -112734,7 +112734,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "qOL" = (
-/obj/machinery/libraryscanner,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
