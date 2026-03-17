@@ -497,6 +497,7 @@
 	var/turf/target_turf = get_turf(target)
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
+	playsound(fallen, 'sound/misc/metal_pipe_falling.ogg', 50, FALSE, 3)
 	to_chat(target, span_userdanger(
 		"Откуда-то сверху на вас пада[PLUR_ET_YUT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \

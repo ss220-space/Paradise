@@ -106,7 +106,7 @@ ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a 
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/locale in world)
-	var/range = tgui_input_text(user, "Range:", "Narrate to mobs within how many tiles:", 7)
+	var/range = tgui_input_number(user, "Range:", "Narrate to mobs within how many tiles:", 7)
 	if(!range)
 		return
 

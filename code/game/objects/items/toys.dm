@@ -2223,8 +2223,8 @@
 	toysay = "Читай знаки, идиот."
 
 /obj/item/toy/figure/lawyer
-	name = "Internal Affairs Agent action figure"
-	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
+	name = "Lawyer action figure"
+	desc = "The unappreciated Lawyer, from Space Life's SS12 figurine collection."
 	icon_state = "lawyer"
 	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они Враги Корпорации!"
 
