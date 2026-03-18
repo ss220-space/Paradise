@@ -58,7 +58,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	)
 
 /obj/item/gun_module/sibyl/create_overlay()
-    return null
+	return null
 
 /obj/item/gun_module/sibyl/try_attach(obj/item/gun/target_gun, mob/user)
 	if(!istype(target_gun, /obj/item/gun/energy))
