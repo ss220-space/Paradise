@@ -53,12 +53,11 @@ jobs:
           git pull origin master220
           git add html/changelogs
           git commit -m "Automatic changelog compile [ci skip]" -a || true
-          git push
 
       - name: Generate App Token
         id: app-token-generation
         uses: actions/create-github-app-token@v3
-        if: env.APP_PRIVATE_KEY != '' && env.APP_ID != ''
+        if: env.CHANGELOGBOT_PRIVATEKEY != '' && env.CHANGELOGBOT_APPID != ''
         with:
           app-id: ${{ secrets.CHANGELOGBOT_APPID }}
           private-key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
