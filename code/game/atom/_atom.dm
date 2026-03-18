@@ -22,10 +22,10 @@
 		active_hud.screentip_text.maptext = ""
 		return
 
-	var/lmb_rmb_line = ""
-	var/ctrl_lmb_ctrl_rmb_line = ""
-	var/alt_lmb_alt_rmb_line = ""
-	var/shift_lmb_ctrl_shift_lmb_line = ""
+	var/list/lmb_rmb_line = list()
+	var/list/ctrl_lmb_ctrl_rmb_line = list()
+	var/list/alt_lmb_alt_rmb_line = list()
+	var/list/shift_lmb_ctrl_shift_lmb_line = list()
 	var/extra_lines = 0
 	var/extra_context = ""
 	var/used_name = declent_ru(NOMINATIVE)
@@ -54,51 +54,51 @@
 				var/rmb_text = build_context(context, SCREENTIP_CONTEXT_RMB, screentip_images)
 
 				if(lmb_text != "")
-					lmb_rmb_line = lmb_text
+					lmb_rmb_line = list(lmb_text)
 					if(rmb_text != "")
 						lmb_rmb_line += " | [rmb_text]"
 				else if(rmb_text != "")
-					lmb_rmb_line = rmb_text
+					lmb_rmb_line = list(rmb_text)
 
 				// Ctrl-LMB, Ctrl-RMB on one line...
-				if(lmb_rmb_line != "")
+				if(lendth(lmb_rmb_line))
 					lmb_rmb_line += "<br>"
 					extra_lines++
 				if(SCREENTIP_CONTEXT_CTRL_LMB in context)
 					ctrl_lmb_ctrl_rmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_LMB, screentip_images)
 
 				if(SCREENTIP_CONTEXT_CTRL_RMB in context)
-					if(ctrl_lmb_ctrl_rmb_line != "")
+					if(length(ctrl_lmb_ctrl_rmb_line))
 						ctrl_lmb_ctrl_rmb_line += " | "
 					ctrl_lmb_ctrl_rmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_RMB, screentip_images)
 
 				// Alt-LMB, Alt-RMB on one line...
-				if(ctrl_lmb_ctrl_rmb_line != "")
+				if(length(ctrl_lmb_ctrl_rmb_line))
 					ctrl_lmb_ctrl_rmb_line += "<br>"
 					extra_lines++
 				if(SCREENTIP_CONTEXT_ALT_LMB in context)
 					alt_lmb_alt_rmb_line += build_context(context, SCREENTIP_CONTEXT_ALT_LMB, screentip_images)
 				if(SCREENTIP_CONTEXT_ALT_RMB in context)
-					if(alt_lmb_alt_rmb_line != "")
+					if(length(alt_lmb_alt_rmb_line))
 						alt_lmb_alt_rmb_line += " | "
 					alt_lmb_alt_rmb_line += build_context(context, SCREENTIP_CONTEXT_ALT_RMB, screentip_images)
 
 				// Shift-LMB, Ctrl-Shift-LMB on one line...
-				if(alt_lmb_alt_rmb_line != "")
+				if(length(alt_lmb_alt_rmb_line))
 					alt_lmb_alt_rmb_line += "<br>"
 					extra_lines++
 				if(SCREENTIP_CONTEXT_SHIFT_LMB in context)
 					shift_lmb_ctrl_shift_lmb_line += build_context(context, SCREENTIP_CONTEXT_SHIFT_LMB, screentip_images)
 				if(SCREENTIP_CONTEXT_CTRL_SHIFT_LMB in context)
-					if(shift_lmb_ctrl_shift_lmb_line != "")
+					if(length(shift_lmb_ctrl_shift_lmb_line))
 						shift_lmb_ctrl_shift_lmb_line += " | "
 					shift_lmb_ctrl_shift_lmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_SHIFT_LMB, screentip_images)
 
-				if(shift_lmb_ctrl_shift_lmb_line != "")
+				if(length(shift_lmb_ctrl_shift_lmb_line))
 					extra_lines++
 
 				if(extra_lines)
-					extra_context = "<br><span class='subcontext'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
+					extra_context = "<br><span class='subcontext'>[lmb_rmb_line.Join("")][ctrl_lmb_ctrl_rmb_line.Join("")][alt_lmb_alt_rmb_line.Join("")][shift_lmb_ctrl_shift_lmb_line.Join("")]</span>"
 
 	var/new_maptext
 	if(screentips_enabled == 0 && extra_context == "")
