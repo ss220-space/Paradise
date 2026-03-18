@@ -104,24 +104,28 @@ const ChemDispenserChemicals = (properties) => {
         scrollable
         title={data.glass ? 'Синтез напитков' : 'Синтез реагентов'}
       >
-        {chemicals.map((chemical, i) => (
-          <Button
-            m={0.1}
-            key={i}
-            width="32.5%"
-            icon="tint"
-            iconColor={chemical.reagentColor}
-            overflow="hidden"
-            style={{ marginLeft: '2px', textOverflow: 'ellipsis' }}
-            onClick={() =>
-              act('dispense', {
-                reagent: chemical.id,
-              })
-            }
-          >
-            {chemical.title}
-          </Button>
-        ))}
+        {chemicals
+          .sort((first, second) =>
+            first.title.localeCompare(second.title, 'ru')
+          )
+          .map((chemical, i) => (
+            <Button
+              m={0.1}
+              key={i}
+              width="32.5%"
+              icon="tint"
+              iconColor={chemical.reagentColor}
+              overflow="hidden"
+              style={{ marginLeft: '2px', textOverflow: 'ellipsis' }}
+              onClick={() =>
+                act('dispense', {
+                  reagent: chemical.id,
+                })
+              }
+            >
+              {chemical.title}
+            </Button>
+          ))}
         {flexFillers.map((_, i) => (
           <Stack.Item key={i} grow basis="25%" />
         ))}

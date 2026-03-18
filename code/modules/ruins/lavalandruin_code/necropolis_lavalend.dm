@@ -33,6 +33,9 @@
 				if(!QDELETED(room))
 					INVOKE_ASYNC(room, PROC_REF(load_room_async))
 			pending_landmarks.Cut()
+			loader_landmark = null
+			qdel(src)
+			return
 		else
 			pending_landmarks |= src
 			return
@@ -44,6 +47,8 @@
 		// Removing the selected template from the list so as not to repeat
 		room_list -= map_template
 		load(map_template)
+
+	qdel(src)
 
 /obj/effect/landmark/map_loader/lavaland_room/proc/load_templates()
 	if(templates_loaded)
