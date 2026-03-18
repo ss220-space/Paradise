@@ -42,9 +42,8 @@ Almost every mining medic related stuff
 	)
 
 /obj/item/clothing/accessory/camera/Destroy()
-	GLOB.active_video_cameras -= src
-
 	if(camera) // null until we activate
+		GLOB.active_entertainment_cameras -= camera
 		camera.c_tag = null
 		QDEL_NULL(camera)
 
@@ -87,13 +86,13 @@ Almost every mining medic related stuff
 /obj/item/clothing/accessory/camera/proc/update_camera_state(mob/living/carbon/user, force = FALSE)
 	if(on)
 		if(news_feed)
-			GLOB.active_video_cameras -= src
+			GLOB.active_entertainment_cameras -= camera
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	else
 		if(news_feed)
 			camera = new(src, list(feed, "news"), user.name)
-			GLOB.active_video_cameras |= src
+			GLOB.active_entertainment_cameras |= camera
 		else
 			camera = new(src, list(feed), user.name)
 	on = !on
