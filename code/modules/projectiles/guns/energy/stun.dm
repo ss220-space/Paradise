@@ -30,6 +30,10 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 
+/obj/item/gun/energy/gun/advtaser/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
@@ -49,6 +53,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_PISTOL
+
+/obj/item/gun/energy/disabler/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

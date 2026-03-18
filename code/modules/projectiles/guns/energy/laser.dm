@@ -15,6 +15,10 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
+/obj/item/gun/energy/laser/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
@@ -192,6 +196,10 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 
+/obj/item/gun/energy/immolator/multi/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/immolator/multi/update_overlays()
 	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -224,4 +232,3 @@
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
-

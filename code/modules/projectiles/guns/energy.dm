@@ -38,6 +38,10 @@
 	. = ..()
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
+		if(sibyl_mod.state == SIBSYS_STATE_SCREWDRIVER_ACT)
+			. += span_notice("Крепление модуля Sibyl System ослаблено.")
+		else if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
+			. += span_danger("Модуль Sibyl System поврежден.")
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun_module/sibyl))
@@ -166,6 +170,9 @@
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
 	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
+		return FALSE
+
+	if(user && sibyl_mod && !sibyl_mod.can_fire(user))
 		return FALSE
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -360,43 +367,3 @@
 	var/obj/item/gun_module/sibyl/M = new /obj/item/gun_module/sibyl()
 	M.voice_is_enabled = FALSE
 	M.try_attach(src, null)
-
-/obj/item/gun/energy/dominator/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/gun/advtaser/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/disabler/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/gun/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/gun/mini/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/gun/pdw9/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/gun/nuclear/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/laser/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/immolator/multi/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/specter/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()

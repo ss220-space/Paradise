@@ -1,0 +1,18 @@
+/**
+ * # Sibyl System Constants
+ */
+
+// Sibyl System limit level
+#define SIBYL_NONLETHAL 1
+#define SIBYL_LETHAL 2
+#define SIBYL_DESTRUCTIVE 3
+
+// Sibyl System states
+#define SIBSYS_STATE_UNINSTALLED 0
+#define SIBSYS_STATE_INSTALLED 1
+#define SIBSYS_STATE_SCREWDRIVER_ACT 2
+#define SIBSYS_STATE_WELDER_ACT 3
+
+// Sibyl System cooldowns and durations
+#define SIBYL_LINK_SOUND_COOLDOWN 10 SECONDS
+#define SIBYL_DISMANTLE_DURATION 16 SECONDS

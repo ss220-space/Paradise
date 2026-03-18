@@ -12,6 +12,10 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
 	)
 
+/obj/item/gun/energy/gun/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	attachable_allowed = GUN_MODULE_CLASS_NONE
@@ -38,6 +42,10 @@
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	cell.maxcharge = 600
 	cell.charge = 600
+
+/obj/item/gun/energy/gun/mini/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/gun/hos
 	name = "X-01 MultiPhase Energy Gun"
@@ -89,6 +97,10 @@
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	accuracy = GUN_ACCURACY_PISTOL
 
+/obj/item/gun/energy/gun/pdw9/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/gun/pdw9/ert
 
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot(mob/user)
@@ -128,6 +140,10 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
+
+/obj/item/gun/energy/gun/nuclear/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"

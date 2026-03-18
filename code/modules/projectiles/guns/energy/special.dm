@@ -742,6 +742,10 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
+/obj/item/gun/energy/dominator/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	. = ..()
 	if(sibyl_mod && sibyl_mod.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
@@ -786,6 +790,10 @@
 	)
 	ammo_x_offset = 0
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+
+/obj/item/gun/energy/specter/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/specter/get_ru_names()
 	return list(
