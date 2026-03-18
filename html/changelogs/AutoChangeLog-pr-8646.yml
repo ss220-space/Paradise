@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - add: "Добавлено новое меню на клавишу escape."
-  - del: "Удалены некоторые кнопки над статпанелью и перенесены в новое меню."

@@ -198,7 +198,7 @@
 	// Attempt to update tgui ui, open and update if needed.
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AbandonedCrate", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "AbandonedCrate", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/structure/closet/crate/secure/loot/ui_data(mob/user)
@@ -302,5 +302,10 @@
 
 /obj/structure/closet/crate/secure/loot/shove_impact(mob/living/target, mob/living/attacker)
 	if(locked)
+		return FALSE
+	return ..()
+
+/obj/structure/closet/crate/secure/loot/can_vv_get(var_name)
+	if(var_name == NAMEOF(src, code) && !check_rights(R_PERMISSIONS, FALSE))
 		return FALSE
 	return ..()

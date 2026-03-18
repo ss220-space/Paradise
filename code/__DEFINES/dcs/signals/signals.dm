@@ -1574,7 +1574,13 @@
 
 #define COMSIG_MASKFILTER_UPDATE_STATE "ttsfilter_update_state"
 
+/// Sent after addind a camera to the cameranet datum (/datum/cameranet/proc/addCamera(obj/machinery/camera/c))
+#define COMSIG_CAMERANET_CAMERA_ADDED "cameranet_camera_added"
+
+/// Sent after removing a camera from the cameranet datum (/datum/cameranet/proc/removeCamera(obj/machinery/camera/c))
+#define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
+
 /// Called on tripwire activation (/obj/item/tripwire)
 #define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
-// Called on assembling of tripwire
+// Called on payload installing at tripwire
 #define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"

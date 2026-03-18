@@ -62,6 +62,10 @@ jobs:
           python tools/ci/check_grep.py
           python tools/ci/check_grep2.py
 
+      - name: Check Unescaped Brackets
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/catch_unescaped_brackets.py
+
       - name: Check Line Endings
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: python tools/ci/check_line_endings.py
