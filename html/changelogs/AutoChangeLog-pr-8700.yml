@@ -1,4 +1,4 @@
 author: "littleboobs"
 delete-after: True
 changes:
-  - server: "изменение dependabot"
+  - del: "fonts folder (PR #8700)"

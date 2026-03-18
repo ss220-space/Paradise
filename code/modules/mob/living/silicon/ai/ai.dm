@@ -61,6 +61,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/custom_sprite = 0 //For our custom sprites
 	var/custom_hologram = 0 //For our custom holograms
 	var/on_the_card = FALSE //If our ai is on the Intelicard, or not
+	// if FALSE AI will not suffer from not be powered
+	var/require_power = TRUE
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -1385,6 +1387,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
+/mob/living/silicon/ai/try_get_ai()
+	return src
+
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
 	var/message_clean = combine_message(message_pieces, M)
 	message_clean = replace_characters(message_clean, list("+"))
@@ -1573,7 +1578,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return TRUE
 
 /mob/living/silicon/ai/proc/deploy_to_shell(mob/living/silicon/robot/target)
-	if(control_disabled)
+	if(control_disabled || lacks_power())
 		to_chat(src, span_warning("Подсистема беcпроводного подключения не отвечает."))
 		return
 
@@ -1604,10 +1609,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isclocker(src))
 		target.ratvar_act(TRUE, TRUE)
 	mind.transfer_to(target)
+	var/area/area = get_area(target)
+	log_game("[ckey] has entered AI shell \"[target.name]\" in [sanitize(area.name)]([COORD(target)])")
 
 /mob/living/silicon/ai/proc/disconnect_shell()
 	SIGNAL_HANDLER
 	if(deployed_shell)
+		var/area/area = get_area(deployed_shell)
+		log_game("[ckey] has left AI shell \"[deployed_shell.name]\" in [sanitize(area.name)]([COORD(deployed_shell)])")
 		deployed_shell.undeploy()
 
 /mob/living/silicon/ai/vv_edit_var(var_name, var_value)

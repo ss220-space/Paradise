@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - tweak: "Дальность струи клинера уменьшена с 3 до 2. (PR #8681)"

@@ -157,7 +157,7 @@
 		"Clown", "CMO", "Coroner",
 		"Detective", "Engineering", "Genetics",
 		"HOP", "HOS", "Hydroponics",
-		"Internal Affairs Agent", "Janitor", "Magistrate",
+		"Lawyer", "Janitor", "Magistrate",
 		"Mechanic", "Medical", "Mime",
 		"Mining", "NT Representative", "Paramedic",
 		"Pod Pilot", "Prisoner", "Research Director",
