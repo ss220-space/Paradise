@@ -289,11 +289,10 @@
 
 // Put after the header and before the footer in the explaination text
 /datum/martial_art/proc/explaination_combos(user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(H, TRAIT_MARTIAL_ARTS_SUPPRESSED))
-			to_chat(user, span_warning("Что-то подавляет ваши боевые навыки... Вы не можете вспомнить техники."))
-			return
+	var/mob/living/carbon/human/H = user
+	if(HAS_TRAIT(H, TRAIT_MARTIAL_ARTS_SUPPRESSED))
+		to_chat(user, span_warning("Что-то подавляет ваши боевые навыки... Вы не можете вспомнить техники."))
+		return
 
 	if(HAS_COMBOS)
 		for(var/combo_type in combos)

@@ -175,7 +175,7 @@
 	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
 
 /datum/implant_fluff/suppression
-	name = "Nanotrasen Security MA-SUPP Bio-chip"
-	life = "Indefinite."
-	notes = "Developed following Incident Report 1984-MA-003. Recommended for use on personnel trained in hostile martial arts techniques."
-	function = "Neural inhibitor that blocks motor patterns associated with martial arts combos and defensive maneuvers while preserving learned weapon restrictions."
+	name = "Био-чип Cybersun Industries MA-SUPP"
+	life = "Пожизненная гарантия."
+	notes = "Разработан по заказу Nanotrasen после инцидента 1984-MA-003. Рекомендуется для использования на заключенных, обученных техникам боевых искусств."
+	function = "Нейронный ингибитор, блокирующий моторные паттерны, связанные с комбинациями боевых искусств и защитными манёврами."
