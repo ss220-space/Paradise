@@ -117,6 +117,7 @@
 	obj_destruction(MELEE)
 
 /obj/item/grenade/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	SIGNAL_HANDLER
 	var/turf/T = get_turf(base)
 	forceMove(T)
 	active = TRUE
