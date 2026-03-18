@@ -27,7 +27,7 @@
 	var/datum/money_account/recipient_account /// recipient (product owner)
 	var/cost = 0
 	var/description = ""
-	/// Path to class / Each subscription knows who it is / for creation
+	/// Path to class / Each subscription knows who it is | for creation
 	var/subscription_type_path
 
 	// time logic
