@@ -283,7 +283,6 @@
 	item_state = "surgical"
 	max_combined_w_class = 17
 	storage_slots = 11
-	storable = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -336,6 +335,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "surgical_alien"
 	max_combined_w_class = 19
+	storable = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
