@@ -475,9 +475,6 @@
 	dir = 8
 	},
 /obj/machinery/light_switch/directional/south,
-/obj/item/handheld_defibrillator,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle/patch_pack,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"

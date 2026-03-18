@@ -245,11 +245,11 @@
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/color/white
+	belt = /obj/item/storage/belt/medical/filled
 	l_ear = /obj/item/radio/headset/headset_brigphys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/medical
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/medic
