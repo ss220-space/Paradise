@@ -277,7 +277,6 @@
 	SEND_SOUND(user, sound(pick(creepyasssounds)))
 
 /obj/item/camera/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
-	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(tripwire_capture), base, user)
 
 /obj/item/camera/proc/tripwire_capture(obj/item/tripwire/base, mob/user)

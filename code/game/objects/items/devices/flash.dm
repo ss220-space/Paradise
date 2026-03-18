@@ -218,7 +218,6 @@
 	..()
 
 /obj/item/flash/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
-	SIGNAL_HANDLER
 	var/turf/owner_turf = get_turf(base)
 	playsound(owner_turf, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[icon_state]_flash", src)

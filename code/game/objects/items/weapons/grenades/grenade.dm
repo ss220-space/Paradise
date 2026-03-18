@@ -117,12 +117,11 @@
 	obj_destruction(MELEE)
 
 /obj/item/grenade/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
-	SIGNAL_HANDLER
-	var/turf/T = get_turf(base)
-	forceMove(T)
+	var/turf/turf = get_turf(base)
+	forceMove(turf)
 	active = TRUE
 	update_appearance()
-	playsound(T, 'sound/weapons/armbomb.ogg', 60, TRUE)
+	playsound(turf, 'sound/weapons/armbomb.ogg', 60, TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grenade, prime)), 1 SECONDS)
 	base.attached_item = null
 	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
