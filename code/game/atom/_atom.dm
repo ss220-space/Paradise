@@ -22,7 +22,7 @@
 		active_hud.screentip_text.maptext = ""
 		return
 
-	var/list/
+	var/list/lmb_rmb_line
 	var/list/ctrl_lmb_ctrl_rmb_line = list()
 	var/list/alt_lmb_alt_rmb_line = list()
 	var/list/shift_lmb_ctrl_shift_lmb_line = list()
