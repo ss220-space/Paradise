@@ -8,9 +8,9 @@
 #define SIBYL_DESTRUCTIVE 3
 
 // Sibyl System tier flags
-#define SIBYL_TIER_NONLETHAL    (1<<0)
-#define SIBYL_TIER_LETHAL       (1<<1)
-#define SIBYL_TIER_DESTRUCTIVE  (1<<2)
+#define SIBYL_TIER_NONLETHAL (1<<0)
+#define SIBYL_TIER_LETHAL (1<<1)
+#define SIBYL_TIER_DESTRUCTIVE (1<<2)
 
 // Sibyl System states
 #define SIBSYS_STATE_UNINSTALLED 0

@@ -257,7 +257,6 @@
 	projectile_type = /obj/projectile/kinetic
 	muzzle_flash_color = null
 	select_name = "kinetic"
-	sibyl_tier = SIBYL_TIER_NONLETHAL
 	e_cost = 500
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
