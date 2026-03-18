@@ -57,7 +57,7 @@ jobs:
       - name: Generate App Token
         id: app-token-generation
         uses: actions/create-github-app-token@v3
-        if: env.CHANGELOGBOT_PRIVATEKEY != '' && env.CHANGELOGBOT_APPID != ''
+        if: env.APP_PRIVATE_KEY != '' && env.APP_ID != ''
         with:
           app-id: ${{ secrets.CHANGELOGBOT_APPID }}
           private-key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
@@ -70,3 +70,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ steps.app-token-generation.outputs.token || secrets.CHANGELOGBOT_TOKEN }}
+          branch: master220
