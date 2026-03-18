@@ -142,6 +142,10 @@ GLOBAL_VAR(current_date_string)
 		if("toggle_suspension")
 			if(detailed_account_view)
 				detailed_account_view.suspended = !detailed_account_view.suspended
+				if(detailed_account_view.suspended)
+					SEND_SIGNAL(detailed_account_view, COMSIG_ACCOUNT_SUSPENDED)
+				else
+					SEND_SIGNAL(detailed_account_view, COMSIG_ACCOUNT_UNSUSPENDED)
 
 		if("create_new_account")
 			current_page = AUT_ACCNEW
@@ -287,6 +291,7 @@ GLOBAL_VAR(current_date_string)
 			var/datum/job/user_job = sub_acc.linked_job
 			var/base_paycheck = user_job.paycheck
 			target.cost = abs(base_paycheck * salary_modifier / 100)
+			target.active = TRUE
 
 			if(salary_modifier < 0)
 				target.recipient_account = GLOB.station_account

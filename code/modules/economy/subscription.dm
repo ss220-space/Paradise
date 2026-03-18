@@ -18,6 +18,8 @@
 */
 
 #define SUBSCRIPTION_NOTI_NO_REPLY FALSE
+#define CANCEL_USER 1
+#define CANCEL_SYSTEM 2
 
 /datum/subscription
 	var/subscription_name = "" /// this like primary key!!! Don't create multiple subscriptions with the same name.
@@ -38,6 +40,7 @@
 	/// Ideally, this is used to add salary "modifiers" or similar items, like fines. || forced subscription
 	/// If it is enabled, do not add it to available_subscriptions
 	var/secure = FALSE
+	var/cancel_reason
 
 /datum/subscription/New(subscriber, recipient, cost_val, interval_val, name_val, description_t)
 	if(!subscriber || !is_money_account(subscriber))
@@ -49,9 +52,10 @@
 	interval = interval_val
 	subscription_name = name_val
 	active = TRUE
+	cancel_reason = null
 	description = description_t
 	subscription_type_path = type
-
+	register_for_signals()
 
 	// check that it is a subscription - template
 	if(!(subscriber_account == recipient_account))
@@ -62,16 +66,9 @@
 	if(!active)
 		return
 
-
 	// If the account is deleted, delete the subscription from the global and log out.
 	if(!subscriber_account || !recipient_account)
 		GLOB.all_subscriptions -= src
-		return
-
-
-	// check can start and safe check for charge (he can joke)
-	if(!can_process())
-		cancel()
 		return
 
 	if(!subscriber_account.charge(
@@ -93,17 +90,15 @@
 		"<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
 
-/datum/subscription/proc/can_process()
-	if(!subscriber_account || !recipient_account)
-		return FALSE
 
-	if(subscriber_account.suspended || recipient_account.suspended || subscriber_account.money < cost)
-		return FALSE
-
-	return TRUE
-
-/datum/subscription/proc/cancel()
+/**
+ *	cancel(reason)
+ *  reason is CANCEL_USER or CANCEL_SYSTEM
+ *  default CANCEL_USER
+ */
+/datum/subscription/proc/cancel(reason=CANCEL_USER)
 	active = FALSE
+	cancel_reason = reason
 	subscriber_account?.notify_pda_owner(
 		"<b> Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. \" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
@@ -113,7 +108,7 @@
 
 /datum/subscription/proc/resub()
 	active = TRUE
-
+	cancel_reason = null
 	if(SSsubscriptions_subsystem)
 		SSsubscriptions_subsystem.add_subscription(src)
 
@@ -139,6 +134,41 @@
 	/// you must make sure that this subscription has sender and recipient accounts GLOB.station_account
 	GLOB.available_subscriptions += new /datum/subscription/station_donations(GLOB.station_account)
 	GLOB.available_subscriptions += new /datum/subscription/salary_modifier(GLOB.station_account)
+
+/**
+ * Registers this subscription for signals from accounts.
+ * Called once when the subscription is created.
+ */
+/datum/subscription/proc/register_for_signals()
+	if(subscriber_account)
+		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_SUSPENDED, PROC_REF(handle_account_suspended))
+		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_MONEY_CHANGED, PROC_REF(handle_money_changed))
+		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_UNSUSPENDED, PROC_REF(handle_account_unsuspended))
+	if(recipient_account && recipient_account != subscriber_account)
+		RegisterSignal(recipient_account, COMSIG_ACCOUNT_SUSPENDED, PROC_REF(handle_account_suspended))
+		RegisterSignal(recipient_account, COMSIG_ACCOUNT_UNSUSPENDED, PROC_REF(handle_account_unsuspended))
+
+/datum/subscription/proc/handle_account_suspended(datum/money_account/account)
+	SIGNAL_HANDLER
+	if(account != subscriber_account  && account != recipient_account)
+		return
+	if(active)
+		cancel(CANCEL_SYSTEM)
+
+/datum/subscription/proc/handle_account_unsuspended(datum/money_account/account)
+	SIGNAL_HANDLER
+	if(account != subscriber_account && account != recipient_account)
+		return
+	if(!active && cancel_reason == CANCEL_SYSTEM)
+		resub()
+
+/datum/subscription/proc/handle_money_changed(datum/money_account/account, new_balance, change_amount)
+	SIGNAL_HANDLER
+	if(account != subscriber_account)
+		return
+
+	if(new_balance < cost)
+		cancel(CANCEL_SYSTEM)
 
 /proc/find_subscription_with_name(subscriber_account_name, target_subscription_name)
 	for(var/datum/subscription/check_subscription as anything in GLOB.all_subscriptions)
@@ -296,3 +326,5 @@
 
 
 #undef SUBSCRIPTION_NOTI_NO_REPLY
+#undef CANCEL_USER
+#undef CANCEL_SYSTEM

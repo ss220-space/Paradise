@@ -69,7 +69,7 @@ export const PDA = (_props: unknown) => {
   const theme = THEME_MAP[app.template] || 'nanotrasen';
 
   return (
-    <Window width={600} height={650} theme={theme}>
+    <Window width={600} height={850} theme={theme}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

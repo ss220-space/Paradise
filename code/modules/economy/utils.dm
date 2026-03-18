@@ -115,9 +115,11 @@
 	if(transaction_amount <= money)
 		//transfer the money
 		money -= transaction_amount
+		SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
 		makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name)
 		if(dest)
 			dest.money += transaction_amount
+			SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
 			dest.makeTransactionLog(transaction_amount,
 			dest_purpose ? dest_purpose : transaction_purpose, terminal_name, dest_target_name ? dest_target_name : dest_name, FALSE)
 		return 1
@@ -134,6 +136,9 @@
 	if(transaction_amount <= money)
 		//transfer the money
 		money -= transaction_amount
+
+		SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
+
 		if(dest)
 			dest.money += transaction_amount
 		return 1
@@ -144,10 +149,12 @@
 /datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, date = GLOB.current_date_string, time = "")
 
 	money += transaction_amount
+	SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
 	makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name, FALSE, date, time)
 	return 1
 
 //phantom_credit is like the above without any log
 /datum/money_account/proc/phantom_credit(transaction_amount = 0)
 	money += transaction_amount
+	SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
 	return 1
