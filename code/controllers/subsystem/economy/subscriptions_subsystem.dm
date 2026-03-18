@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(all_subscriptions)
 
 /// The base tick rate of this subsystem. All subscription intervals should ideally be
 /// multiples of this value for precise scheduling.
-#define BASE_FREQUENCY_SUBSYSTEM (1 MINUTES)
+#define BASE_FREQUENCY_SUBSYSTEM (5 MINUTES)
 
 /// Number of time buckets. With a 5-minute wait, 12 buckets cover 1 hour of scheduling.
 /// Increase this value if you plan to have subscriptions with intervals > 1 hour.
