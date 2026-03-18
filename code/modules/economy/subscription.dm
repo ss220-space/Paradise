@@ -90,7 +90,6 @@
 		"<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
 
-
 /**
  *	cancel(reason)
  *  reason is CANCEL_USER or CANCEL_SYSTEM
@@ -107,6 +106,9 @@
 		SUBSCRIPTION_NOTI_NO_REPLY)
 
 /datum/subscription/proc/resub()
+	if(subscriber_account.suspended || recipient_account.suspended)
+		return
+
 	active = TRUE
 	cancel_reason = null
 	if(SSsubscriptions_subsystem)
@@ -167,7 +169,7 @@
 	if(account != subscriber_account)
 		return
 
-	if(new_balance < cost)
+	if(new_balance < cost && active)
 		cancel(CANCEL_SYSTEM)
 
 /proc/find_subscription_with_name(subscriber_account_name, target_subscription_name)

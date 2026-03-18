@@ -52,6 +52,7 @@ type RaingorBankData = {
   transactions: Transaction[];
   name: string;
   targets: string[];
+  account_suspended: number;
 
   subscriptions: Subscription[];
   availableSubs: AvailableSubscription[];
@@ -205,6 +206,40 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
           </Box>
         </Stack>
       </Section>
+
+      {data.account_suspended === 1 && (
+        <Section className="card--error" style={{ margin: '0 0 16px 0' }}>
+          <Box
+            className="display-flex"
+            style={{ alignItems: 'center', gap: '12px', padding: '4px 8px' }}
+          >
+            <Box>
+              <div
+                className="text-danger"
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  lineHeight: '1.2',
+                  textTransform: 'uppercase',
+                }}
+              >
+                <Icon
+                  name="exclamation-triangle"
+                  className="text-danger"
+                  style={{ fontSize: '32px', flexShrink: 0 }}
+                />{' '}
+                АККАУНТ ЗАМОРОЖЕН
+              </div>
+              <div
+                className="text-muted"
+                style={{ fontSize: '13px', marginTop: '4px' }}
+              >
+                Все финансовые операции приостановлены
+              </div>
+            </Box>
+          </Box>
+        </Section>
+      )}
 
       {/* Quick Operations Header */}
       <Box fontSize="16px" bold mb={1} className="text-gold">

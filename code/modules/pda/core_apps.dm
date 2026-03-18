@@ -264,6 +264,7 @@
 	/// Subscriptions that are NOT registered in the user's name and for them
 	/// you will need to create a new one
 	data["availableSubs"] = available_sub_list
+	data["account_suspended"] = owner_bank_account.suspended
 
 /datum/data/pda/app/bank/ui_act(action, params)
 	if(pda.ui_login_act(action, params))
