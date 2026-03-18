@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/chem_charges = 20
 	/// The amount of chemicals that recharges per `Life()` call.
 	var/chem_recharge_rate = 1
-	///asic chemical regeneration
+	/// Basic chemical regeneration rate, before any modifiers are applied.
 	var/base_chem_recharge_rate
 	///minimum possible production of chemicals
 	var/min_chem_recharge_rate = 0.1
@@ -83,6 +83,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
 	if(!length(purchaseable_powers))
 		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
+
+	base_chem_recharge_rate = chem_recharge_rate
 
 /datum/antagonist/changeling/on_gain()
 	SSticker.mode.changelings |= owner
@@ -621,10 +623,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
-
-/datum/antagonist/changeling/New()
-	. = ..()
-	base_chem_recharge_rate = chem_recharge_rate
 
 /datum/antagonist/changeling/proc/update_chem_recharge_rate()
 	var/new_rate = base_chem_recharge_rate
