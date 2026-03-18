@@ -44,7 +44,7 @@
 		return
 
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-	INVOKE_ASYNC(master_base, TYPE_PROC_REF(/obj/item/tripwire, trigger_tripwire), entered_living, src)
+	INVOKE_ASYNC(master_base, TYPE_PROC_REF(/obj/item/tripwire, trigger_tripwire), entered_living)
 
 /obj/structure/tripwire_bridge/wirecutter_act(mob/living/user, obj/item/I)
 	if(!master_base || !master_base.is_active || QDELETED(master_base))
@@ -118,7 +118,7 @@
 
 			LAZYCLEARLIST(other.wire_segments)
 
-		other.update_appearance()
+		other.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 	linked_to = null
 	attached_item = null
@@ -141,7 +141,7 @@
 	if(!proximity || anchored_to_wall || is_active)
 		return
 
-	if(!isturf(target) && !target.density)
+	if(!isturf(target))
 		return
 
 	var/turf/user_turf = get_turf(user)
@@ -162,7 +162,7 @@
 
 	to_chat(user, span_notice("Вы надёжно закрепили [declent_ru(ACCUSATIVE)] на стене."))
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/item/tripwire/forceMove(atom/dest)
 	pixel_x = 0
@@ -246,7 +246,7 @@
 
 	var/obj/item/tripwire/target_base = valid_targets[1]
 	if(valid_targets.len > 1)
-		for(var/obj/item/tripwire/potential_base in valid_targets)
+		for(var/obj/item/tripwire/potential_base as anything in valid_targets)
 			if(get_dist(src, potential_base) < get_dist(src, target_base))
 				target_base = potential_base
 
@@ -280,8 +280,8 @@
 	target.is_active = TRUE
 
 	draw_wire(target, cable.color)
-	update_appearance()
-	target.update_appearance()
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+	target.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/tripwire/proc/draw_wire(obj/item/tripwire/target_base, wire_color)
@@ -323,17 +323,39 @@
 	LAZYADD(target_base.wire_segments, bridge)
 
 /obj/item/tripwire/proc/install_payload(obj/item/installing_item, mob/user)
-	if(attached_item || (linked_to && linked_to.attached_item))
-		to_chat(user, span_warning("На этой растяжке уже что-то установлено!"))
+	if(attached_item)
+		to_chat(user, span_warning("На этой основе уже установлено устройство!"))
+		return
+
+	if(linked_to && linked_to.attached_item)
+		to_chat(user, span_warning("На противоположной основе уже установлено устройство!"))
 		return
 
 	if(!user.transfer_item_to_loc(installing_item, src))
 		return
 
 	attached_item = installing_item
-	to_chat(user, span_notice("Вы закрепили [installing_item.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
 	payload_deployer_key = user.ckey
-	update_appearance()
+
+	UnregisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED)
+
+	if(istype(installing_item, /obj/item/grenade))
+		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_grenade), override = TRUE)
+
+	else if(istype(installing_item, /obj/item/flash))
+		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_flash), override = TRUE)
+
+	else if(istype(installing_item, /obj/item/camera))
+		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_camera), override = TRUE)
+
+	else if(istype(installing_item, /obj/item/reagent_containers/food/drinks/drinkingglass))
+		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_dr_glass), override = TRUE)
+
+	else if(istype(installing_item, /obj/item/assembly))
+		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_assembly), override = TRUE)
+
+	to_chat(user, span_notice("Вы успешно закрепили [installing_item.name] на растяжке."))
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/item/tripwire/update_overlays()
 	. = ..()
@@ -380,7 +402,8 @@
 	to_chat(user, span_notice("Вы успешно извлекли [attached_item.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	extracted_item.forceMove(drop_location())
 	attached_item = null
-	update_appearance()
+	UnregisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED)
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/item/tripwire/crowbar_act(mob/living/user, obj/item/I)
 	if(!anchored)
@@ -403,9 +426,10 @@
 	anchored_to_wall = FALSE
 	pixel_x = 0
 	pixel_y = 0
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/item/tripwire/proc/break_wire()
+	UnregisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED)
 	if(!is_active || breaking)
 		return
 
@@ -424,7 +448,7 @@
 	if(other && !QDELETED(other))
 		other.break_wire()
 
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	breaking = FALSE
 
 ////////////////////////////////////////
@@ -432,90 +456,144 @@
 ////////////////////////////////////////
 #define TRIPWIRE_GRENADE_DETONATION_TIME 1 SECONDS
 
-/obj/item/tripwire/proc/trigger_flash(mob/user, obj/item/flash/flasher)
-	if(QDELETED(flasher) || !flasher.try_use_flash(user))
+/obj/item/tripwire/proc/trigger_flash(datum/source, mob/living/user)
+	SIGNAL_HANDLER
+	var/obj/item/tripwire/owner = source
+	var/obj/item/flash/flasher = owner.attached_item
+
+	if(QDELETED(flasher) || QDELETED(owner))
 		return
 
-	playsound(src.loc, 'sound/weapons/flash.ogg', 100, TRUE)
+	var/turf/owner_turf = get_turf(owner)
+	playsound(owner_turf, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[flasher.icon_state]_flash", flasher)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2 SECONDS)
+	owner.set_light(2, 1, COLOR_WHITE)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
 
-	for(var/mob/living/living in viewers(3, get_turf(src)))
-		if(living.flash_eyes(affect_silicon = TRUE))
-			living.AdjustConfused(6 SECONDS)
-			living.visible_message(span_disarm("<b>[html_encode(living.name)]</b> ахает и пытается прикрыть глаза!"))
+	for(var/mob/living/living_mob in viewers(3, owner_turf))
+		if(living_mob.flash_eyes(affect_silicon = TRUE))
+			living_mob.AdjustConfused(6 SECONDS)
+			living_mob.visible_message(span_disarm("<b>[html_encode(living_mob.name)]</b> ахает и пытается прикрыть глаза!"))
 
-/obj/item/tripwire/proc/trigger_camera(obj/item/camera/camera, turf/trigger_turf)
-	if(QDELETED(camera) || !camera.on || !camera.pictures_left)
-		playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
+/obj/item/tripwire/proc/trigger_camera(datum/source, mob/living/user)
+	SIGNAL_HANDLER
+	var/obj/item/tripwire/owner = source
+	var/obj/item/camera/camera = owner.attached_item
+
+	if(QDELETED(owner) || QDELETED(camera))
 		return
 
-	var/turf/camera_loc = get_turf(camera)
-	camera.captureimage(trigger_turf, src)
+	var/turf/owner_turf = get_turf(owner)
 
-	playsound(camera_loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
+	if(!camera.on || !camera.pictures_left)
+		playsound(owner_turf, 'sound/machines/click.ogg', 50, TRUE)
+		return
+
+	camera.captureimage(owner_turf, owner)
+	playsound(owner_turf, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
+
+	var/obj/item/photo/photo_item = locate(/obj/item/photo) in owner
+	if(photo_item)
+		photo_item.forceMove(owner_turf)
 
 	if(camera.flashing_lights)
-		camera_loc.set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-		addtimer(CALLBACK(camera_loc, TYPE_PROC_REF(/atom, set_light), 0), 2 SECONDS)
+		owner_turf.set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+		addtimer(CALLBACK(owner_turf, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
 
 	camera.pictures_left--
 	camera.on = FALSE
 	camera.update_icon()
 	addtimer(CALLBACK(camera, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
 
+/obj/item/tripwire/proc/trigger_grenade(datum/source, mob/living/user)
+	SIGNAL_HANDLER
+	var/obj/item/tripwire/owner = source
+	var/obj/item/grenade/grenade = owner.attached_item
+
+	if(QDELETED(owner))
+		return
+
+	var/turf/owner_turf = get_turf(owner)
+
+	if(QDELETED(grenade))
+		playsound(owner_turf, 'sound/machines/click.ogg', 50, TRUE)
+		return
+
+	UnregisterSignal(owner, COMSIG_TRIPWIRE_TRIGGERED)
+	grenade.forceMove(owner_turf)
+	grenade.active = TRUE
+	grenade.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+	playsound(grenade.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
+	addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
+	owner.attached_item = null
+
+/obj/item/tripwire/proc/trigger_dr_glass(datum/source, mob/living/user)
+	SIGNAL_HANDLER
+	var/obj/item/tripwire/owner = source
+	var/obj/item/reagent_containers/food/drinks/drinkingglass/dr_glass = owner.attached_item
+
+	if(QDELETED(owner))
+		return
+
+	var/turf/owner_turf = get_turf(owner)
+
+	if(QDELETED(dr_glass))
+		return
+
+	UnregisterSignal(owner, COMSIG_TRIPWIRE_TRIGGERED)
+
+	if(dr_glass.reagents && dr_glass.reagents.total_volume)
+		dr_glass.reagents.reaction(owner_turf, REAGENT_TOUCH)
+		for(var/mob/living/living_mob in owner_turf)
+			dr_glass.reagents.reaction(living_mob, REAGENT_TOUCH)
+
+		dr_glass.reagents.clear_reagents()
+
+	playsound(owner_turf, 'sound/effects/glass_step.ogg', 60, TRUE)
+	new /obj/item/shard(owner_turf)
+	owner.attached_item = null
+	qdel(dr_glass)
+
+/obj/item/tripwire/proc/trigger_assembly(datum/source, mob/living/user)
+	SIGNAL_HANDLER
+	var/obj/item/tripwire/owner = source
+	var/obj/item/assembly/attached_assembly = owner.attached_item
+
+	if(QDELETED(owner) || QDELETED(attached_assembly))
+		return
+
+	attached_assembly.activate()
+
 /obj/item/tripwire/proc/trigger_tripwire(mob/user)
+	SIGNAL_HANDLER
+
 	if(!is_active || QDELETED(src))
 		return
 
-	var/turf/trigger_turf = get_turf(src)
-	var/obj/item/payload = attached_item
-	var/obj/item/tripwire/owner = src
+	var/obj/item/tripwire/owner = get_tripwire_with_payload()
 
-	if(!payload && !QDELETED(linked_to) && linked_to.attached_item)
-		payload = linked_to.attached_item
-		owner = linked_to
+	if(!owner)
+		break_wire()
+		return
 
-	if(payload)
-		var/payload_info = "[html_encode(payload.name)] ([payload.type])"
-		investigate_log("[html_encode(key_name(user))] activated tripwire with [payload_info] at [ADMIN_COORDJMP(trigger_turf)]. Creator: [creator_key || "unknown"], Deployer: [payload_deployer_key || "unknown"]", INVESTIGATE_BOMB)
-
-		if(istype(payload, /obj/item/grenade))
-			var/obj/item/grenade/grenade = payload
-			owner.attached_item = null
-			grenade.forceMove(get_turf(owner))
-			grenade.active = TRUE
-			grenade.update_appearance()
-			playsound(grenade.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
-			addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
-
-		else if(istype(payload, /obj/item/flash))
-			trigger_flash(user, payload)
-
-		else if(istype(payload, /obj/item/assembly))
-			var/obj/item/assembly/attached_assembly = payload
-			attached_assembly.activate()
-
-		else if(istype(payload, /obj/item/reagent_containers/food/drinks/drinkingglass))
-			var/obj/item/reagent_containers/food/drinks/drinkingglass/drink_glass = payload
-			var/turf/payload_turf = get_turf(owner)
-
-			if(drink_glass.reagents && drink_glass.reagents.total_volume)
-				drink_glass.reagents.reaction(payload_turf, REAGENT_TOUCH)
-				for(var/mob/living/living in payload_turf)
-					drink_glass.reagents.reaction(living, REAGENT_TOUCH)
-				drink_glass.reagents.clear_reagents()
-
-			playsound(payload_turf, 'sound/effects/glass_step.ogg', 60, TRUE)
-			new /obj/item/shard(payload_turf)
-			owner.attached_item = null
-			qdel(drink_glass)
-
-		else if(istype(payload, /obj/item/camera))
-			trigger_camera(payload, trigger_turf)
+	if(owner.attached_item)
+		var/turf/owner_turf = get_turf(owner)
+		investigate_log("[key_name(user)] activated tripwire at [ADMIN_COORDJMP(owner_turf)]. Payload: [owner.attached_item.name].", INVESTIGATE_BOMB)
+		SEND_SIGNAL(owner, COMSIG_TRIPWIRE_TRIGGERED, user)
 
 	owner.update_appearance()
 	break_wire()
+
+/obj/item/tripwire/proc/get_tripwire_with_payload()
+	if(QDELETED(src) || QDELETED(linked_to))
+		return
+
+	if(src.attached_item)
+		return src
+
+	else if(linked_to.attached_item)
+		return linked_to
+
+	return
 
 #undef TRIPWIRE_GRENADE_DETONATION_TIME

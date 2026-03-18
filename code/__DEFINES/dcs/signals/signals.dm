@@ -1573,3 +1573,6 @@
 #define COMSIG_LUNGE_DUAL_STRIKE "lunge_dual_strike"
 
 #define COMSIG_MASKFILTER_UPDATE_STATE "ttsfilter_update_state"
+
+/// Called on tripwire activation (/obj/item/tripwire)
+#define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
