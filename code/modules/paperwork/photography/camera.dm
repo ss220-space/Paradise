@@ -277,6 +277,10 @@
 	SEND_SOUND(user, sound(pick(creepyasssounds)))
 
 /obj/item/camera/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(tripwire_capture), base, user)
+
+/obj/item/camera/proc/tripwire_capture(obj/item/tripwire/base, mob/user)
 	if(!on || !pictures_left)
 		playsound(get_turf(base), 'sound/machines/click.ogg', 50, TRUE)
 		return
@@ -284,8 +288,8 @@
 	var/turf/owner_turf = get_turf(base)
 	captureimage(owner_turf, base)
 	playsound(owner_turf, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
-
 	var/obj/item/photo/photo_item = locate(/obj/item/photo) in base
+
 	if(photo_item)
 		photo_item.forceMove(owner_turf)
 

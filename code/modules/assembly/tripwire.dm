@@ -64,12 +64,11 @@
 	return TRUE
 
 /obj/structure/tripwire_bridge/Destroy()
-	UnregisterSignal(loc, COMSIG_ATOM_ENTERED)
-
-	if(master_base && master_base.is_active && !master_base.breaking)
+	if(master_base && !master_base.breaking)
 		master_base.break_wire()
 
 	master_base = null
+	UnregisterSignal(loc, COMSIG_ATOM_ENTERED)
 	return ..()
 
 ////////////////////////////////////////
@@ -110,13 +109,7 @@
 		var/obj/item/tripwire/other = linked_to
 		other.linked_to = null
 		other.is_active = FALSE
-
-		if(LAZYLEN(other.wire_segments))
-			var/list/segments_to_del = other.wire_segments.Copy()
-			for(var/obj/structure/tripwire_bridge/segment in segments_to_del)
-				qdel(segment)
-
-			LAZYCLEARLIST(other.wire_segments)
+		QDEL_LIST(other.wire_segments)
 
 	linked_to = null
 	attached_item = null
@@ -274,14 +267,22 @@
 /obj/item/tripwire/proc/connect_to(obj/item/tripwire/target, obj/item/stack/cable_coil/cable)
 	linked_to = target
 	is_active = TRUE
-
 	target.linked_to = src
 	target.is_active = TRUE
 
 	draw_wire(target, cable.color)
 	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	target.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-	RegisterSignal(src, COMSIG_TRIPWIRE_BASE_ACTIVATE, PROC_REF(trigger_tripwire))
+
+	RegisterSignal(src, COMSIG_TRIPWIRE_BASE_ACTIVATE, PROC_REF(trigger_tripwire), override = TRUE)
+	target.RegisterSignal(target, COMSIG_TRIPWIRE_BASE_ACTIVATE, PROC_REF(trigger_tripwire), override = TRUE)
+
+	if(attached_item)
+		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(on_payload_activate), override = TRUE)
+
+	if(target.attached_item)
+		target.RegisterSignal(target, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(on_payload_activate), override = TRUE)
+
 	return TRUE
 
 /obj/item/tripwire/proc/draw_wire(obj/item/tripwire/target_base, wire_color)
@@ -412,24 +413,20 @@
 	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/item/tripwire/proc/break_wire()
-	UnregisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED)
-	if(!is_active || breaking)
+	if(breaking || !is_active)
 		return
 
 	breaking = TRUE
 	is_active = FALSE
-
-	if(LAZYLEN(wire_segments))
-		var/list/segments = wire_segments.Copy()
-		LAZYCLEARLIST(wire_segments)
-		for(var/obj/structure/tripwire_bridge/segment in segments)
-			qdel(segment)
+	UnregisterSignal(src, list(COMSIG_TRIPWIRE_BASE_ACTIVATE, COMSIG_TRIPWIRE_TRIGGERED))
 
 	var/obj/item/tripwire/other = linked_to
-	linked_to = null
-
 	if(other && !QDELETED(other))
-		other.break_wire()
+		linked_to = null
+		if(!other.breaking)
+			other.break_wire()
+
+	QDEL_LIST(wire_segments)
 
 	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	breaking = FALSE
@@ -445,114 +442,6 @@
 		return
 
 	attached_item.on_tripwire_trigger(src, user)
-
-/obj/item/tripwire/proc/trigger_flash(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	var/obj/item/tripwire/owner = source
-	var/obj/item/flash/flasher = owner.attached_item
-
-	if(QDELETED(flasher) || QDELETED(owner))
-		return
-
-	var/turf/owner_turf = get_turf(owner)
-	playsound(owner_turf, 'sound/weapons/flash.ogg', 100, TRUE)
-	flick("[flasher.icon_state]_flash", flasher)
-	owner.set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
-
-	for(var/mob/living/living_mob in viewers(3, owner_turf))
-		if(living_mob.flash_eyes(affect_silicon = TRUE))
-			living_mob.AdjustConfused(6 SECONDS)
-			living_mob.visible_message(span_disarm("<b>[html_encode(living_mob.name)]</b> ахает и пытается прикрыть глаза!"))
-
-/obj/item/tripwire/proc/trigger_camera(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	var/obj/item/tripwire/owner = source
-	var/obj/item/camera/camera = owner.attached_item
-
-	if(QDELETED(owner) || QDELETED(camera))
-		return
-
-	var/turf/owner_turf = get_turf(owner)
-
-	if(!camera.on || !camera.pictures_left)
-		playsound(owner_turf, 'sound/machines/click.ogg', 50, TRUE)
-		return
-
-	camera.captureimage(owner_turf, owner)
-	playsound(owner_turf, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
-
-	var/obj/item/photo/photo_item = locate(/obj/item/photo) in owner
-	if(photo_item)
-		photo_item.forceMove(owner_turf)
-
-	if(camera.flashing_lights)
-		owner_turf.set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-		addtimer(CALLBACK(owner_turf, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
-
-	camera.pictures_left--
-	camera.on = FALSE
-	camera.update_icon()
-	addtimer(CALLBACK(camera, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
-
-/obj/item/tripwire/proc/trigger_grenade(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	var/obj/item/tripwire/owner = source
-	var/obj/item/grenade/grenade = owner.attached_item
-
-	if(QDELETED(owner))
-		return
-
-	var/turf/owner_turf = get_turf(owner)
-
-	if(QDELETED(grenade))
-		playsound(owner_turf, 'sound/machines/click.ogg', 50, TRUE)
-		return
-
-	UnregisterSignal(owner, COMSIG_TRIPWIRE_TRIGGERED)
-	grenade.forceMove(owner_turf)
-	grenade.active = TRUE
-	grenade.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-	playsound(grenade.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
-	addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
-	owner.attached_item = null
-
-/obj/item/tripwire/proc/trigger_dr_glass(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	var/obj/item/tripwire/owner = source
-	var/obj/item/reagent_containers/food/drinks/drinkingglass/dr_glass = owner.attached_item
-
-	if(QDELETED(owner))
-		return
-
-	var/turf/owner_turf = get_turf(owner)
-
-	if(QDELETED(dr_glass))
-		return
-
-	UnregisterSignal(owner, COMSIG_TRIPWIRE_TRIGGERED)
-
-	if(dr_glass.reagents && dr_glass.reagents.total_volume)
-		dr_glass.reagents.reaction(owner_turf, REAGENT_TOUCH)
-		for(var/mob/living/living_mob in owner_turf)
-			dr_glass.reagents.reaction(living_mob, REAGENT_TOUCH)
-
-		dr_glass.reagents.clear_reagents()
-
-	playsound(owner_turf, 'sound/effects/glass_step.ogg', 60, TRUE)
-	new /obj/item/shard(owner_turf)
-	owner.attached_item = null
-	qdel(dr_glass)
-
-/obj/item/tripwire/proc/trigger_assembly(datum/source, mob/living/user)
-	SIGNAL_HANDLER
-	var/obj/item/tripwire/owner = source
-	var/obj/item/assembly/attached_assembly = owner.attached_item
-
-	if(QDELETED(owner) || QDELETED(attached_assembly))
-		return
-
-	attached_assembly.activate()
 
 /obj/item/tripwire/proc/trigger_tripwire(datum/source, mob/user)
 	SIGNAL_HANDLER
