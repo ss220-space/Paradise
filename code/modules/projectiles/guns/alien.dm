@@ -23,6 +23,7 @@
 	muzzle_flash_effect = null
 	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
 /obj/projectile/bullet/spike

@@ -22,24 +22,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/registered = FALSE
 	var/voice_is_enabled = TRUE
 	var/voice_cd = null
-	var/list/available = list()
-	var/list/nonlethal_names = list("stun", "disabler", "disable", "practice", "ion",
-								"energy", "bluetag", "redtag", "yield", "mutation",
-								"goddamn meteor", "plasma burst", "blue", "orange",
-								"lightning beam", "clown", "teleport beam", "gun mimic",
-								"kinetic", "taser")
-	var/list/lethal_names = list("kill", "lethal", "scatter", "anti-vehicle",
-								"snipe", "precise", "declone", "mindfuck", "bolt",
-								"heavy bolt", "toxic dart", "spraydown", "accelerator")
-	var/list/destructive_names = list("destroy", "annihilate")
-	var/list/cached_lethal = null
-	var/list/cached_destructive = null
-
-/obj/item/gun_module/sibyl/Initialize(mapload)
-	. = ..()
-	available = nonlethal_names
-	cached_lethal = nonlethal_names + lethal_names
-	cached_destructive = cached_lethal + destructive_names
 
 /obj/item/gun_module/sibyl/Destroy()
 	if(registered)
@@ -102,7 +84,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		registered = TRUE
 
 	sibyl_sound(user, 'sound/voice/dominator/link.ogg', SIBYL_LINK_SOUND_COOLDOWN)
-	check_unknown_names(energy_gun)
 	sync_limit()
 	energy_gun.update_icon()
 
@@ -173,11 +154,14 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 	var/list/ammo_types = energy_gun.ammo_type
 	var/obj/item/ammo_casing/energy/ammo = ammo_types[select]
-	var/ammo_name = lowertext(ammo.select_name)
-	if(ammo_name in available)
+
+	if(limit == SIBYL_NONLETHAL)
+		return (ammo.sibyl_tier & SIBYL_TIER_NONLETHAL)
+	if(limit == SIBYL_LETHAL)
+		return (ammo.sibyl_tier & (SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL))
+	if(limit == SIBYL_DESTRUCTIVE)
 		return TRUE
-	else
-		check_unknown_names(energy_gun)
+
 	return FALSE
 
 /obj/item/gun_module/sibyl/proc/check_auth(mob/living/user)
@@ -213,19 +197,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return FALSE
 
 	limit = mode
-	switch(mode)
-		if(SIBYL_NONLETHAL)
-			available = nonlethal_names
-		if(SIBYL_LETHAL)
-			available = cached_lethal
-		if(SIBYL_DESTRUCTIVE)
-			available = cached_destructive
+	gun?.update_icon()
 
 	var/obj/item/gun/energy/energy_gun = gun
-	var/message = "Для [energy_gun.declent_ru(GENITIVE)] теперь доступны только данные режимы: [get_available_text()]!"
-	energy_gun.update_icon()
 	if(ismob(energy_gun.loc))
-		to_chat(energy_gun.loc, span_notice("[message]"))
+		to_chat(energy_gun.loc, span_notice("Для [energy_gun.declent_ru(GENITIVE)] теперь доступны только режимы, соответствующие уровню опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
 	return TRUE
 
 /obj/item/gun_module/sibyl/proc/sync_limit(datum/source, old_level, new_level)
@@ -251,29 +227,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return
 	if(!check_select(energy_gun.select))
 		energy_gun.select_fire()
-
-/obj/item/gun_module/sibyl/proc/check_unknown_names(obj/item/gun/energy/energy_gun)
-	var/list/ammo_types = energy_gun.ammo_type
-	var/added = FALSE
-	for(var/obj/item/ammo_casing/energy/ammo in ammo_types)
-		var/ammo_name = ammo.select_name
-		if(!(ammo_name in nonlethal_names))
-			nonlethal_names += list(ammo_name)
-			added = TRUE
-	if(added)
-		cached_lethal = nonlethal_names + lethal_names
-		cached_destructive = cached_lethal + destructive_names
-
-/obj/item/gun_module/sibyl/proc/get_available_text()
-	var/list/names = list()
-	var/obj/item/gun/energy/energy_gun = gun
-	if(!energy_gun)
-		return ""
-	var/list/ammo_types = energy_gun.ammo_type
-	for(var/obj/item/ammo_casing/energy/ammo in ammo_types)
-		if(ammo.select_name in available)
-			names += list(ammo.select_name)
-	return names.Join(", ")
 
 /obj/item/gun_module/sibyl/proc/toggle_voice(mob/user)
 	voice_is_enabled = !voice_is_enabled

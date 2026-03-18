@@ -124,6 +124,7 @@
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/projectile/beam/laser/accelerator
 	select_name = "accelerator"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	fire_sound = 'sound/weapons/gunshots/accelerator_cannon.ogg'
 	e_cost = 150
 	delay = 20
