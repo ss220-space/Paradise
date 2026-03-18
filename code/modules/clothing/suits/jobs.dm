@@ -439,9 +439,9 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-//Internal Affairs
+//Lawyer ex Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
-	name = "Internal Affairs jacket"
+	name = "Lawyer jacket"
 	desc = "A smooth black jacket."
 	icon_state = "ia_jacket_open"
 	item_state = "ia_jacket_open"

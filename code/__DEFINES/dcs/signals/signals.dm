@@ -1574,6 +1574,12 @@
 
 #define COMSIG_MASKFILTER_UPDATE_STATE "ttsfilter_update_state"
 
+/// Sent after addind a camera to the cameranet datum (/datum/cameranet/proc/addCamera(obj/machinery/camera/c))
+#define COMSIG_CAMERANET_CAMERA_ADDED "cameranet_camera_added"
+
+/// Sent after removing a camera from the cameranet datum (/datum/cameranet/proc/removeCamera(obj/machinery/camera/c))
+#define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
+
 /// Signal about account balance change (arguments: account, new balance, change amount)
 #define COMSIG_ACCOUNT_MONEY_CHANGED "account_money_changed"
 /// Account freeze signal (argument: account)
