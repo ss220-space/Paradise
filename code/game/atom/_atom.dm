@@ -61,7 +61,7 @@
 					lmb_rmb_line = list(rmb_text)
 
 				// Ctrl-LMB, Ctrl-RMB on one line...
-				if(lendth(lmb_rmb_line))
+				if(length(lmb_rmb_line))
 					lmb_rmb_line += "<br>"
 					extra_lines++
 				if(SCREENTIP_CONTEXT_CTRL_LMB in context)
