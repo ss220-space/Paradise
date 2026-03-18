@@ -12556,6 +12556,9 @@
 /obj/item/radio/intercom/directional/north,
 /obj/item/stamp/cmo,
 /obj/item/clothing/glasses/hud/health/sunglasses,
+/obj/item/storage/secure/safe/CMO{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -53726,6 +53729,7 @@
 	pixel_x = 5;
 	pixel_y = 13
 	},
+/obj/item/storage/pill_bottle/painkillers,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "whitered"
@@ -69552,6 +69556,8 @@
 	pixel_x = 26
 	},
 /obj/item/storage/box/bodybags/biohazard,
+/obj/item/storage/bag/bio,
+/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitered"
@@ -104617,10 +104623,6 @@
 /obj/structure/closet/secure_closet/brigdoc{
 	req_access = list(2,5)
 	},
-/obj/item/handheld_defibrillator,
-/obj/item/storage/belt/medical,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle/patch_pack,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitered"
@@ -109898,6 +109900,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/item/radio/headset/headset_medsci,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"

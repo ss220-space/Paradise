@@ -242,6 +242,35 @@
 /obj/item/storage/firstaid/adv/empty/populate_contents()
 	return
 
+/obj/item/storage/firstaid/premium
+	name = "premium first-aid kit"
+	desc = "Это аптечка для экстренной первой помощи, премиальная версия."
+	icon_state = "advfirstaid"
+	item_state = "medkit_advanced"
+	med_bot_skin = "adv"
+
+/obj/item/storage/firstaid/premium/get_ru_names()
+	return list(
+		NOMINATIVE = "аптечка первой помощи (Премиум)",
+		GENITIVE = "аптечки первой помощи (Премиум)",
+		DATIVE = "аптечке первой помощи (Премиум)",
+		ACCUSATIVE = "аптечку первой помощи (Премиум)",
+		INSTRUMENTAL = "аптечкой первой помощи (Премиум)",
+		PREPOSITIONAL = "аптечке первой помощи (Премиум)",
+	)
+
+/obj/item/storage/firstaid/premium/populate_contents()
+	new /obj/item/stack/medical/bruise_pack/extended(src)
+	new /obj/item/stack/medical/bruise_pack/extended(src)
+	new /obj/item/stack/medical/ointment/extended(src)
+	new /obj/item/stack/medical/ointment/extended(src)
+	new /obj/item/stack/medical/suture/advanced(src)
+	new /obj/item/stack/medical/suture/advanced(src)
+	new /obj/item/stack/medical/splint(src)
+
+/obj/item/storage/firstaid/premium/empty/populate_contents()
+	return
+
 /obj/item/storage/firstaid/paramed
 	name = "paramed first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при, специализированная версия для Парамедика."
@@ -633,6 +662,8 @@
 		new /obj/item/reagent_containers/food/pill/mannitol(src)
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)

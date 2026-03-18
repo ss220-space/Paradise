@@ -7,8 +7,39 @@
 	desc = "A hazard vest used in the recovery of bodies."
 	icon_state = "paramedic-vest"
 	item_state = "paramedic-vest"
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/autopsy_scanner,
+		/obj/item/bodyanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/dna_notepad,
+		/obj/item/flashlight/pen,
+		/obj/item/gun/syringe,
+		/obj/item/handheld_defibrillator,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/pinpointer/crew,
+		/obj/item/rad_laser,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_scanner,
+		/obj/item/roller/holo,
+		/obj/item/sensor_device,
+		/obj/item/soap,
+		/obj/item/stack/medical,
+		/obj/item/storage/bag/bio,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/pill_bottle,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tourniquet,
+	)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -28,8 +59,39 @@
 	blood_overlay_type = "armor"
 	icon_state = "paramedic_jacket_open"
 	item_state = "paramedic_jacket_open"
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/autopsy_scanner,
+		/obj/item/bodyanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/dna_notepad,
+		/obj/item/flashlight/pen,
+		/obj/item/gun/syringe,
+		/obj/item/handheld_defibrillator,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/pinpointer/crew,
+		/obj/item/rad_laser,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_scanner,
+		/obj/item/roller/holo,
+		/obj/item/sensor_device,
+		/obj/item/soap,
+		/obj/item/stack/medical,
+		/obj/item/storage/bag/bio,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/pill_bottle,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tourniquet,
+	)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
 	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
@@ -41,9 +103,39 @@
 	desc = "A vest often worn by doctors caring for inmates."
 	icon_state = "brigphysician-vest"
 	item_state = "brigphysician-vest"
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, \
-	/obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/autopsy_scanner,
+		/obj/item/bodyanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/dna_notepad,
+		/obj/item/flashlight/pen,
+		/obj/item/gun/syringe,
+		/obj/item/handheld_defibrillator,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/pinpointer/crew,
+		/obj/item/rad_laser,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_scanner,
+		/obj/item/roller/holo,
+		/obj/item/sensor_device,
+		/obj/item/soap,
+		/obj/item/stack/medical,
+		/obj/item/storage/bag/bio,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/pill_bottle,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tourniquet,
+	)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
 
 	sprite_sheets = list(
@@ -488,8 +580,39 @@
 	icon_state = "fr_jacket_open"
 	item_state = "fr_jacket"
 	blood_overlay_type = "armor"
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/autopsy_scanner,
+		/obj/item/bodyanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/dna_notepad,
+		/obj/item/flashlight/pen,
+		/obj/item/gun/syringe,
+		/obj/item/handheld_defibrillator,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/pinpointer/crew,
+		/obj/item/rad_laser,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_scanner,
+		/obj/item/roller/holo,
+		/obj/item/sensor_device,
+		/obj/item/soap,
+		/obj/item/stack/medical,
+		/obj/item/storage/bag/bio,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/pill_bottle,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tourniquet,
+	)
 	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
