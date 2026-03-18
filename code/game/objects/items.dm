@@ -1482,3 +1482,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/ignition_effect(atom/target, mob/user)
 	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		return span_notice("[user] lights [target] with [src].")
+
+/// What item does if activated when attached to tripwire
+/obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	return

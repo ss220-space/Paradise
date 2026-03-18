@@ -99,3 +99,16 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine
 	list_reagents = list("mulled_wine" = 50)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/T = get_turf(base)
+	if(reagents?.total_volume)
+		reagents.reaction(T, REAGENT_TOUCH)
+		for(var/mob/living/L in T)
+			reagents.reaction(L, REAGENT_TOUCH)
+		reagents.clear_reagents()
+	playsound(T, 'sound/effects/glass_step.ogg', 60, TRUE)
+	new /obj/item/shard(T)
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+	qdel(src)

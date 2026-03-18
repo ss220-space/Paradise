@@ -146,3 +146,5 @@
 	interact(user)
 	return TRUE
 
+/obj/item/assembly/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	activate()

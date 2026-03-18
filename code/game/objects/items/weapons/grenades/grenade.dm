@@ -97,3 +97,13 @@
 
 /obj/item/grenade/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	obj_destruction(MELEE)
+
+/obj/item/grenade/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/T = get_turf(base)
+	forceMove(T)
+	active = TRUE
+	update_appearance()
+	playsound(T, 'sound/weapons/armbomb.ogg', 60, TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grenade, prime)), 1 SECONDS)
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)

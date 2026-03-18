@@ -276,6 +276,28 @@
 	)
 	SEND_SOUND(user, sound(pick(creepyasssounds)))
 
+/obj/item/camera/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	if(!on || !pictures_left)
+		playsound(get_turf(base), 'sound/machines/click.ogg', 50, TRUE)
+		return
+
+	var/turf/owner_turf = get_turf(base)
+	captureimage(owner_turf, base)
+	playsound(owner_turf, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
+
+	var/obj/item/photo/photo_item = locate(/obj/item/photo) in base
+	if(photo_item)
+		photo_item.forceMove(owner_turf)
+
+	if(flashing_lights)
+		base.set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+		addtimer(CALLBACK(base, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
+
+	pictures_left--
+	on = FALSE
+	update_icon()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
+
 /*
  * Digital Camera
  */

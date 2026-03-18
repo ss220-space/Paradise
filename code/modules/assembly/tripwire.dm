@@ -199,80 +199,6 @@
 
 	return .
 
-// /obj/item/tripwire/proc/setup_wire(obj/item/stack/cable_coil/cable, mob/user)
-// 	if(is_active)
-// 		to_chat(user, span_warning("Провод уже натянут!"))
-// 		return
-
-// 	var/list/valid_targets = list()
-// 	for(var/obj/item/tripwire/nearby_base in range(2, src))
-// 		if(QDELETED(nearby_base) || nearby_base == src || nearby_base.is_active || !nearby_base.anchored_to_wall)
-// 			continue
-
-// 		var/is_valid_alignment = FALSE
-// 		var/distance_to_base = get_dist(src, nearby_base)
-
-// 		if(distance_to_base > 0)
-// 			var/turf/check_step = get_turf(src)
-// 			var/dir_to_target = get_dir(src, nearby_base)
-// 			var/path_blocked = FALSE
-// 			for(var/i in 1 to distance_to_base)
-// 				check_step = get_step(check_step, dir_to_target)
-// 				if(check_step.density && check_step != get_turf(nearby_base))
-// 					path_blocked = TRUE
-// 					break
-
-// 			if(path_blocked)
-// 				continue
-
-// 		if(distance_to_base == 0)
-// 			if(src.wall_dir == turn(nearby_base.wall_dir, 180))
-// 				is_valid_alignment = TRUE
-
-// 		else if(src.x == nearby_base.x || src.y == nearby_base.y)
-// 			var/dir_to_target = get_dir(src, nearby_base)
-// 			var/dir_to_source = get_dir(nearby_base, src)
-// 			if(src.wall_dir == turn(dir_to_target, 180) && nearby_base.wall_dir == turn(dir_to_source, 180))
-// 				is_valid_alignment = TRUE
-
-// 		if(is_valid_alignment)
-// 			valid_targets += nearby_base
-
-// 	if(!length(valid_targets))
-// 		to_chat(user, span_warning("Напротив нет подходящей основы или путь заблокирован."))
-// 		return
-
-// 	var/obj/item/tripwire/target_base = valid_targets[1]
-// 	if(valid_targets.len > 1)
-// 		for(var/obj/item/tripwire/potential_base as anything in valid_targets)
-// 			if(get_dist(src, potential_base) < get_dist(src, target_base))
-// 				target_base = potential_base
-
-// 	var/needed_cable = max(get_dist(src, target_base) + 1, 1)
-// 	if(cable.amount < needed_cable)
-// 		to_chat(user, span_warning("Вам нужен кабель длиной [needed_cable] для такой дистанции!"))
-// 		return
-
-// 	to_chat(user, span_notice("Вы начинаете протягивать кабель к [target_base.declent_ru(DATIVE)]..."))
-// 	var/initial_target_loc = target_base.loc
-
-// 	if(!cable.use_tool(src, user, 3 SECONDS, volume = 50))
-// 		return
-
-// 	var/new_target_loc = target_base.loc
-
-// 	if(QDELETED(target_base) || initial_target_loc != new_target_loc || src.z != target_base.z || is_active || target_base.is_active || QDELETED(cable) || cable.amount < needed_cable)
-// 		return
-
-// 	if(connect_to(target_base, cable))
-// 		var/datum/mind/user_mind = user.mind
-// 		if(user_mind)
-// 			src.creator_mind = WEAKREF(user_mind)
-// 			target_base.creator_mind = WEAKREF(user_mind)
-
-// 		to_chat(user, span_notice("Вы успешно натянули провод между растяжками."))
-// 		cable.use(needed_cable)
-
 /obj/item/tripwire/proc/is_valid_target(obj/item/tripwire/target)
 	if(QDELETED(target) || target == src || target.is_active || !target.anchored_to_wall)
 		return FALSE
@@ -396,42 +322,21 @@
 	LAZYADD(wire_segments, bridge)
 	LAZYADD(target_base.wire_segments, bridge)
 
-/obj/item/tripwire/proc/install_payload(obj/item/installing_item, mob/user)
-	if(attached_item)
-		to_chat(user, span_warning("На этой основе уже установлено устройство!"))
+/obj/item/tripwire/proc/install_payload(obj/item/I, mob/user)
+	if(attached_item || (linked_to && linked_to.attached_item))
+		to_chat(user, span_warning("На растяжке уже что-то установлено!"))
 		return
 
-	if(linked_to && linked_to.attached_item)
-		to_chat(user, span_warning("На противоположной основе уже установлено устройство!"))
+	if(!user.transfer_item_to_loc(I, src))
 		return
 
-	if(!user.transfer_item_to_loc(installing_item, src))
-		return
-
-	attached_item = installing_item
-
+	attached_item = I
 	if(user.mind)
 		payload_mind = WEAKREF(user.mind)
 
-	UnregisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED)
-
-	if(istype(installing_item, /obj/item/grenade))
-		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_grenade), override = TRUE)
-
-	else if(istype(installing_item, /obj/item/flash))
-		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_flash), override = TRUE)
-
-	else if(istype(installing_item, /obj/item/camera))
-		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_camera), override = TRUE)
-
-	else if(istype(installing_item, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_dr_glass), override = TRUE)
-
-	else if(istype(installing_item, /obj/item/assembly))
-		RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(trigger_assembly), override = TRUE)
-
-	to_chat(user, span_notice("Вы успешно закрепили [installing_item.name] на растяжке."))
-	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+	RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(on_payload_activate), override = TRUE)
+	to_chat(user, span_notice("Вы закрепили [I.name] на растяжке."))
+	update_appearance()
 
 /obj/item/tripwire/update_overlays()
 	. = ..()
@@ -533,6 +438,13 @@
 // MARK:	Trigger & payloads
 ////////////////////////////////////////
 #define TRIPWIRE_GRENADE_DETONATION_TIME 1 SECONDS
+
+/obj/item/tripwire/proc/on_payload_activate(datum/source, mob/user)
+	SIGNAL_HANDLER
+	if(!attached_item)
+		return
+
+	attached_item.on_tripwire_trigger(src, user)
 
 /obj/item/tripwire/proc/trigger_flash(datum/source, mob/living/user)
 	SIGNAL_HANDLER
