@@ -8,7 +8,6 @@
 	armour_penetration = 30
 	dismemberment = 5
 	tile_dropoff = 0.5
-	ricochets_max = 2
 	ricochet_chance = 70
 	var/embedded_type = /obj/item/embedded/shrapnel
 
