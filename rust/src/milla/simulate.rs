@@ -197,7 +197,6 @@ pub(crate) fn flow_air_once_at_index(
     let mut total_temperature_weights: f32 = my_tile.heat_capacity();
 
     let mut outgoing_gas_mult = [0.0f32; GAS_COUNT];
-
     let mut new_gas_values = [0.0f32; GAS_COUNT];
 
     for i in 0..GAS_COUNT {
@@ -240,16 +239,16 @@ pub(crate) fn flow_air_once_at_index(
         for i in 0..GAS_COUNT {
             let incoming = inflow * new_neighbor.gases.values[i];
             new_gas_values[i] += incoming;
-
-            let temperature_weight = incoming * SPECIFIC_HEATS[i];
-            total_weighted_temperature +=
-                new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
-            total_temperature_weights += temperature_weight * TEMPERATURE_FLOW_RATE;
-
             outgoing_gas_mult[i] += outflow;
+
+            // Правильный перенос тепла: газ переносит свою температуру
+            let temperature_weight = incoming * SPECIFIC_HEATS[i];
+            total_weighted_temperature += new_neighbor.temperature() * temperature_weight;
+            total_temperature_weights += temperature_weight;
         }
     }
 
+    // Нормализуем газы
     let mut max_gas_delta = 0.0f32;
     let my_new_tile = next.get_tile_mut(my_index);
 
@@ -275,9 +274,10 @@ pub(crate) fn flow_air_once_at_index(
     }
     my_new_tile.gases.set_dirty();
 
+    // Обновляем температуру (не тепловую энергию!)
     if total_temperature_weights > 0.0 {
-        my_new_tile.thermal_energy =
-            my_new_tile.heat_capacity() * total_weighted_temperature / total_temperature_weights;
+        let new_temperature = total_weighted_temperature / total_temperature_weights;
+        my_new_tile.thermal_energy = new_temperature * my_new_tile.heat_capacity();
     }
 
     let thermal_diff = (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs();
@@ -449,26 +449,44 @@ pub(crate) fn check_interesting(
     let mut reasons: ReasonFlags = ReasonFlags::empty();
     {
         let my_next_tile = next.get_tile_mut(my_index);
+
+        // Проверяем изменения (всегда)
         if (my_next_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES)
             != (my_tile.fuel_burnt > REACTION_SIGNIFICANCE_MOLES)
         {
-            // Fire started or stopped.
             reasons |= ReasonFlags::DISPLAY;
-        } else if (my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
+        }
+
+        if (my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
             != (my_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES)
         {
-            // Crossed the toxins visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
-        } else if (my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
+        }
+
+        if (my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
             != (my_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
         {
-            // Crossed the sleeping agent visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
-        } else if (my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
+        }
+
+        if (my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
             != (my_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
         {
-            // Crossed the sleeping agent visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if reasons.is_empty() {
+            if my_tile.last_gas_update > TICK_UPDATE_COOLDOWN {
+                if my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES
+                    || my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES
+                    || my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES
+                {
+                    reasons |= ReasonFlags::DISPLAY;
+                    my_next_tile.last_gas_update = 0;
+                }
+            } else {
+                my_next_tile.last_gas_update += 1;
+            }
         }
 
         if do_turf_effects(my_next_tile) {

@@ -1,4 +1,4 @@
-SUBSYSTEM_DEF(turfs_visualization)
+/*SUBSYSTEM_DEF(turfs_visualization)
 	name = "Turfs visualization"
 	priority = FIRE_PRIORITY_TURFS_VISUALIZATION
 	wait = 5 SECONDS
@@ -23,3 +23,4 @@ SUBSYSTEM_DEF(turfs_visualization)
 			return
 
 	turfs_visualisation.Cut()
+*/

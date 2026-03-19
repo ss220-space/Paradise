@@ -244,6 +244,7 @@ pub(crate) struct Tile {
     pub(crate) airtight_directions: AirtightDirections,
     /// Is there a wall in this direction?
     pub(crate) wall: [bool; AXES.len()],
+    pub(crate) last_gas_update: i32,
 }
 
 impl Tile {
@@ -260,6 +261,7 @@ impl Tile {
             wind: [0.0, 0.0],
             wall: [false, false],
             fuel_burnt: 0.0,
+            last_gas_update: 0,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
