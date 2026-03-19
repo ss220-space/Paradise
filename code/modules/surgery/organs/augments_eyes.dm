@@ -203,6 +203,7 @@
 	var/show_targets = null
 	var/active = FALSE
 	var/current_z_level
+	var/turf/current_turf
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
 	var/datum/station_holomap/holomap_datum
 	var/crop_x = 0
@@ -239,14 +240,12 @@
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 		return
 
-	holomap_datum.update_map(handle_overlays())
-
 	var/datum/hud/human/user_hud = user.hud_used
 	holomap_datum.base_map.loc = user_hud.mini_holomap  // Put the image on the holomap hud
 	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
-	playsound(src, 'sound/effects/holomap_open.ogg', 125)
+	playsound(user, 'sound/effects/holomap_open.ogg', 125)
 	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
 
 	user.hud_used.mini_holomap.used_station_map = src
@@ -263,14 +262,14 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/setup_holomap(mob/user)
-	var/turf/current_turf = get_turf(user)
+	current_turf = get_turf(user)
 	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size/2)
 	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size/2)
 	var/list/crop_params = list("x1" = crop_x, "y1" = crop_y, "x2" = crop_x + crop_size, "y2" = crop_y + crop_size)
-	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays(), show_legend = FALSE, crop = crop_params)
+	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays(user), show_legend = FALSE, crop = crop_params)
 
 
-/obj/item/organ/internal/cyberimp/eyes/map/proc/handle_overlays()
+/obj/item/organ/internal/cyberimp/eyes/map/proc/handle_overlays(mob/user)
 	// Each entry in this list contains the text for the legend, and the icon and icon_state use. Null or non-existent icon_state ignore hiding logic.
 	// If an entry contains an icon,
 	var/list/legend = list() //+ GLOB.holomap_default_legend
@@ -281,6 +280,10 @@
 	return legend
 
 
+/obj/item/organ/internal/cyberimp/eyes/map/proc/is_in_crop_area(turf/target)
+	return target.x >= (current_turf.x - crop_size/2)  && target.x <= (current_turf.x + crop_size/2)\
+		&& target.y >= (current_turf.y - crop_size/2)  && target.y <= (current_turf.y + crop_size/2)
+
 /obj/item/organ/internal/cyberimp/eyes/map/proc/check_position(mob/moved_mob)
 	SIGNAL_HANDLER
 
@@ -290,7 +293,6 @@
 	if(moved_mob.client)
 		moved_mob.client.images -= holomap_datum.base_map
 		setup_holomap(moved_mob)
-		holomap_datum.update_map(handle_overlays())
 		holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
 		moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
 		moved_mob.client.images |= holomap_datum.base_map
@@ -314,8 +316,146 @@
 
 /obj/item/organ/internal/cyberimp/eyes/map/security
 	name = "security map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Дополнена возможностью показа владельцев импланта защиты разума."
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает владельцев импланта защиты разума."
+
+/obj/item/organ/internal/cyberimp/eyes/map/security/handle_overlays(mob/user)
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/mindshields = list()
+	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
+		if(check == user)
+			continue
+		var/turf/check_turf = get_turf(check)
+		if(check_turf.z == current_z_level && is_in_crop_area(check_turf) && ismindshielded(check))
+			var/image/sensor_icon = image('icons/misc/8x8.dmi', icon_state = "security")
+			mindshields += sensor_icon
+			sensor_icon.pixel_w = HOLOMAP_CENTER_X + check_turf.x - crop_x - 1
+			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
+
+	if(length(mindshields))
+		extra_overlays["Mindshields"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "security"), "markers" = mindshields)
+
+	return extra_overlays
+
 
 /obj/item/organ/internal/cyberimp/eyes/map/medical
 	name = "medical map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Дополнена возможностью показа медицинских датчиков и критических состояний."
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает медицинские датчики и критическе состояния."
+
+/obj/item/organ/internal/cyberimp/eyes/map/medical/handle_overlays(mob/user)
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/death_bodies = list()
+	var/list/critical_states = list()
+	var/list/medical_sensors = list()
+	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
+		if(check == user)
+			continue
+		var/turf/check_turf = get_turf(check)
+		if(check_turf.z == current_z_level && is_in_crop_area(check_turf))
+			var/image/sensor_icon = null
+			if(check.is_dead())
+				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "death_body")
+				death_bodies += sensor_icon
+			else if(check.is_in_crit())
+				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "critical_state")
+				critical_states += sensor_icon
+			else if(hassensorlevel(check, SUIT_SENSOR_TRACKING))
+				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "medical_sensor")
+				medical_sensors += sensor_icon
+
+			if(sensor_icon == null)
+				continue
+
+			sensor_icon.pixel_w = HOLOMAP_CENTER_X + check_turf.x - crop_x - 1
+			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
+
+	if(length(death_bodies))
+		extra_overlays["Death bodies"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "death_body"), "markers" = death_bodies)
+	if(length(critical_states))
+		extra_overlays["Critical states"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "critical_state"), "markers" = critical_states)
+	if(length(medical_sensors))
+		extra_overlays["Medical sensors"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "medical_sensor"), "markers" = medical_sensors)
+
+	return extra_overlays
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/fire
+	name = "fire map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает отсеки с активной пожарной сигнализацией."
+
+/obj/item/organ/internal/cyberimp/eyes/map/fire/handle_overlays(mob/user)
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/fire_alarms = list()
+	for(var/obj/machinery/firealarm/alarm as anything in GLOB.station_fire_alarms["[current_z_level]"])
+		if(alarm?.z == current_z_level && is_in_crop_area(alarm.loc) && alarm?.myArea?.fire)
+			var/image/alarm_icon = image('icons/misc/8x8.dmi', icon_state = "fire_marker")
+			alarm_icon.pixel_w = HOLOMAP_CENTER_X + alarm.loc.x - crop_x - 1
+			alarm_icon.pixel_z = HOLOMAP_CENTER_X + alarm.loc.y - crop_y
+			fire_alarms += alarm_icon
+
+	if(length(fire_alarms))
+		extra_overlays["Fire Alarms"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "fire_marker"), "markers" = fire_alarms)
+
+	var/list/air_alarms = list()
+	for(var/obj/machinery/alarm/air_alarm in GLOB.air_alarms)
+		var/area/alarms = get_area(air_alarm)
+		if(air_alarm?.z == current_z_level && is_in_crop_area(air_alarm.loc) && alarms?.atmosalm != ATMOS_ALARM_NONE) //Altered it to fire_alam since we don't have an area variable on air_alarms
+			var/image/alarm_icon = image('icons/misc/8x8.dmi', "atmos_marker")
+			alarm_icon.pixel_w = HOLOMAP_CENTER_X + air_alarm.loc.x - crop_x - 1
+			alarm_icon.pixel_z = HOLOMAP_CENTER_X + air_alarm.loc.y - crop_y
+			air_alarms += alarm_icon
+
+	if(length(air_alarms))
+		extra_overlays["Air Alarms"] = list("icon" = image('icons/misc/8x8.dmi', "atmos_marker"), "markers" = air_alarms)
+
+	return extra_overlays
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/nuke
+	name = "A.T.O.M. map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
+
+/obj/item/organ/internal/cyberimp/eyes/map/nuke/handle_overlays(mob/user)
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/teammates = list()
+	var/list/crew_members = list()
+	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
+		if(check == user)
+			continue
+		var/turf/check_turf = get_turf(check)
+		if(check_turf.z == current_z_level && is_in_crop_area(check_turf))
+			var/image/sensor_icon = null
+			if(isAntag(check))
+				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "nuker")
+				teammates += sensor_icon
+			else if(!check.is_dead())
+				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "crew")
+				crew_members += sensor_icon
+
+			if(sensor_icon == null)
+				continue
+
+			sensor_icon.pixel_w = HOLOMAP_CENTER_X + check_turf.x - crop_x - 1
+			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
+
+	var/list/nuclear_disks = list()
+
+	if(length(teammates))
+		extra_overlays["Teammates"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "nuker"), "markers" = teammates)
+	if(length(crew_members))
+		extra_overlays["Crew members"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "crew"), "markers" = crew_members)
+	if(length(nuclear_disks))
+		extra_overlays["Nuclear authentification disk"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "nuclear_disk"), "markers" = nuclear_disks)
+
+	return extra_overlays
