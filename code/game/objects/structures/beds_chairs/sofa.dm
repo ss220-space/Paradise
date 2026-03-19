@@ -1,5 +1,6 @@
 /obj/structure/chair/sofa
 	name = "sofa"
+	gender = FEMALE
 	icon_state = "sofamiddle"
 	icon = 'icons/obj/chairs_wide.dmi'
 	anchored = TRUE

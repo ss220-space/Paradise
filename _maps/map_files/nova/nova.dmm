@@ -46848,7 +46848,7 @@
 "gXq" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57166,7 +57166,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -99252,7 +99252,7 @@
 /area/maintenance/fsmaint)
 "oRt" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -146927,7 +146927,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -152903,7 +152903,7 @@
 	},
 /area/turret_protected/ai)
 "wGq" = (
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -159038,7 +159038,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "xCH" = (
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -188143,7 +188143,7 @@ hDI
 kxM
 qsj
 rtN
-jvi
+lNZ
 xnD
 tkq
 kjL
@@ -188400,7 +188400,7 @@ xnD
 kxM
 qsj
 rtN
-vyu
+uKg
 xnD
 tkq
 kjL
@@ -191484,7 +191484,7 @@ xnD
 kxM
 qsj
 rtN
-uKg
+vyu
 xnD
 tkq
 kjL
@@ -191741,7 +191741,7 @@ dTo
 kxM
 qsj
 rtN
-lNZ
+jvi
 xnD
 tkq
 kjL
@@ -263074,7 +263074,7 @@ bkc
 rGI
 iDg
 plr
-iLU
+vwO
 rGI
 bkc
 bkc
@@ -263331,7 +263331,7 @@ bkc
 rGI
 bOz
 plr
-vwO
+iLU
 rGI
 bkc
 bkc
@@ -263339,7 +263339,7 @@ bkc
 rGI
 bOz
 plr
-vwO
+iLU
 rGI
 bkc
 bkc
@@ -266158,7 +266158,7 @@ bkc
 rGI
 mkw
 hvv
-fEg
+uHM
 rGI
 bkc
 bkc
@@ -266166,7 +266166,7 @@ bkc
 rGI
 mkw
 hvv
-iLU
+vwO
 rGI
 bkc
 bkc
@@ -266423,7 +266423,7 @@ bkc
 rGI
 mhX
 mSL
-uHM
+fEg
 rGI
 bkc
 bkc

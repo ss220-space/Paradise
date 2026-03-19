@@ -55126,7 +55126,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57398,7 +57398,7 @@
 	},
 /area/hallway/secondary/exit)
 "ixA" = (
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -70637,7 +70637,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -79897,7 +79897,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -86999,7 +86999,7 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -94444,7 +94444,7 @@
 /obj/structure/railing/wooden/endr{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -99152,7 +99152,7 @@
 /obj/structure/sign/poster/official/state_laws{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /obj/machinery/firealarm{
@@ -119283,7 +119283,7 @@
 /area/toxins/explab)
 "wAw" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -122104,7 +122104,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "xgE" = (
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -163391,7 +163391,7 @@ svM
 tVC
 dXa
 dKi
-tIS
+moF
 dIO
 uLG
 lEe
@@ -163905,7 +163905,7 @@ cfR
 tVC
 dXa
 dKi
-moF
+tIS
 dIO
 cjv
 lEe
