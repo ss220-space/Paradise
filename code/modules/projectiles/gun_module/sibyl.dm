@@ -83,6 +83,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(sync_limit))
 		registered = TRUE
 
+	RegisterSignal(target_gun, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver_act))
+	RegisterSignal(target_gun, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), PROC_REF(on_welder_act))
+	RegisterSignal(target_gun, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR), PROC_REF(on_crowbar_act))
 	sibyl_sound(user, 'sound/voice/dominator/link.ogg', SIBYL_LINK_SOUND_COOLDOWN)
 	sync_limit()
 	energy_gun.update_icon()
@@ -97,6 +100,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
 		registered = FALSE
 
+	UnregisterSignal(target_gun, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER))
+	UnregisterSignal(target_gun, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER))
+	UnregisterSignal(target_gun, COMSIG_ATOM_TOOL_ACT(TOOL_CROWBAR))
 	var/obj/item/gun/energy/energy_gun = target_gun
 	energy_gun.verbs -= /obj/item/gun/energy/proc/toggle_voice
 	state = SIBSYS_STATE_UNINSTALLED
@@ -228,7 +234,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		user.playsound_local(get_turf(user), sound, 50, FALSE)
 		voice_cd = addtimer(VARSET_CALLBACK(src, voice_cd, null), time)
 
-/obj/item/gun_module/sibyl/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/gun_module/sibyl/proc/on_screwdriver_act(mob/living/user, obj/item/I)
+	SIGNAL_HANDLER
+
 	switch(state)
 		if(SIBSYS_STATE_WELDER_ACT)
 			to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
@@ -251,7 +259,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 				to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)] и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
 			return
 
-/obj/item/gun_module/sibyl/welder_act(mob/living/user, obj/item/I)
+/obj/item/gun_module/sibyl/proc/on_welder_act(mob/living/user, obj/item/I)
+	SIGNAL_HANDLER
+
 	switch(state)
 		if(SIBSYS_STATE_WELDER_ACT)
 			to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
@@ -275,7 +285,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 					to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)] и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
 			return
 
-/obj/item/gun_module/sibyl/crowbar_act(mob/living/user, obj/item/I)
+/obj/item/gun_module/sibyl/proc/on_crowbar_act(mob/living/user, obj/item/I)
+	SIGNAL_HANDLER
+
 	if(state != SIBSYS_STATE_WELDER_ACT)
 		return
 

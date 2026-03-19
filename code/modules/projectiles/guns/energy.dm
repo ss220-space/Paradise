@@ -76,21 +76,12 @@
 
 /obj/item/gun/energy/screwdriver_act(mob/living/user, obj/item/I)
 	..()
-	if(sibyl_mod && user.a_intent != INTENT_HARM)
-		sibyl_mod.screwdriver_act(user, I)
-		return
 
 /obj/item/gun/energy/welder_act(mob/living/user, obj/item/I)
 	..()
-	if(sibyl_mod && user.a_intent != INTENT_HARM)
-		sibyl_mod.welder_act(user, I)
-		return
 
 /obj/item/gun/energy/crowbar_act(mob/living/user, obj/item/I)
 	..()
-	if(sibyl_mod && user.a_intent != INTENT_HARM)
-		sibyl_mod.crowbar_act(user, I)
-		return
 
 /obj/item/gun/energy/emag_act(mob/user)
 	if(sibyl_mod && !sibyl_mod.emagged)
