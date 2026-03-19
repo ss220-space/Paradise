@@ -268,7 +268,7 @@
 	desc = "Инструмент, используемый для выполнения сварочных работ. \
 			Оборудован небольшим баком для топлива. \
 			Специализированная версия для установки в роботизированные системы."
-	toolspeed = 0.5
+	toolspeed = 0.8
 
 /obj/item/weldingtool/largetank/cyborg/get_ru_names()
 	return list(
@@ -335,6 +335,7 @@
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
+	toolspeed = 0.6
 
 /obj/item/weldingtool/hugetank/get_ru_names()
 	return list(

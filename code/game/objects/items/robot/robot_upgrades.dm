@@ -312,6 +312,58 @@
 	robot.gps.upgraded = FALSE
 	return TRUE
 
+/obj/item/borg/upgrade/industrial_engi
+	name = "engineering cyborg industial upgrade"
+	desc = "" // TODO: add desk
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=5;materials=6;powerstorage=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+
+/obj/item/borg/upgrade/industrial_engi/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/weldingtool) || \
+			istype(I, /obj/item/screwdriver) || \
+			istype(I, /obj/item/wrench) || \
+			istype(I, /obj/item/crowbar) || \
+			istype(I, /obj/item/wirecutters) || \
+			istype(I, /obj/item/multitool))
+			qdel(I)
+
+	robot.module.modules += new /obj/item/weldingtool/hugetank(robot.module)
+	robot.module.modules += new /obj/item/wrench/industrial(robot.module)
+	robot.module.modules += new /obj/item/screwdriver/industrial(robot.module)
+	robot.module.modules += new /obj/item/crowbar/industrial(robot.module)
+	robot.module.modules += new /obj/item/wirecutters/industrial(robot.module)
+	robot.module.modules += new /obj/item/multitool/industrial(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/industrial_engi/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/weldingtool) || \
+			istype(I, /obj/item/screwdriver) || \
+			istype(I, /obj/item/wrench) || \
+			istype(I, /obj/item/crowbar) || \
+			istype(I, /obj/item/wirecutters) || \
+			istype(I, /obj/item/multitool))
+			qdel(I)
+
+	robot.module.modules += new /obj/item/weldingtool/largetank/cyborg/(robot.module)
+	robot.module.modules += new /obj/item/wrench/cyborg(robot.module)
+	robot.module.modules += new /obj/item/screwdriver/cyborg(robot.module)
+	robot.module.modules += new /obj/item/crowbar/cyborg(robot.module)
+	robot.module.modules += new /obj/item/wirecutters/cyborg(robot.module)
+	robot.module.modules += new /obj/item/multitool/cyborg(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
@@ -324,18 +376,14 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/weldingtool/largetank/cyborg/weldingtool in robot.module.modules)
-		qdel(weldingtool)
-	for(var/obj/item/screwdriver/cyborg/screwdriver in robot.module.modules)
-		qdel(screwdriver)
-	for(var/obj/item/wrench/cyborg/wrench in robot.module.modules)
-		qdel(wrench)
-	for(var/obj/item/crowbar/cyborg/crowbar in robot.module.modules)
-		qdel(crowbar)
-	for(var/obj/item/wirecutters/cyborg/wirecutters in robot.module.modules)
-		qdel(wirecutters)
-	for(var/obj/item/multitool/cyborg/multitool in robot.module.modules)
-		qdel(multitool)
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/weldingtool) || \
+			istype(I, /obj/item/screwdriver) || \
+			istype(I, /obj/item/wrench) || \
+			istype(I, /obj/item/crowbar) || \
+			istype(I, /obj/item/wirecutters) || \
+			istype(I, /obj/item/multitool))
+			qdel(I)
 
 	robot.module.modules += new /obj/item/weldingtool/abductor(robot.module)
 	robot.module.modules += new /obj/item/wrench/abductor(robot.module)
@@ -350,20 +398,16 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/weldingtool/abductor/weldingtool in robot.module.modules)
-		qdel(weldingtool)
-	for(var/obj/item/screwdriver/abductor/screwdriver in robot.module.modules)
-		qdel(screwdriver)
-	for(var/obj/item/wrench/abductor/wrench in robot.module.modules)
-		qdel(wrench)
-	for(var/obj/item/crowbar/abductor/crowbar in robot.module.modules)
-		qdel(crowbar)
-	for(var/obj/item/wirecutters/abductor/wirecutters in robot.module.modules)
-		qdel(wirecutters)
-	for(var/obj/item/multitool/abductor/multitool in robot.module.modules)
-		qdel(multitool)
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/weldingtool) || \
+			istype(I, /obj/item/screwdriver) || \
+			istype(I, /obj/item/wrench) || \
+			istype(I, /obj/item/crowbar) || \
+			istype(I, /obj/item/wirecutters) || \
+			istype(I, /obj/item/multitool))
+			qdel(I)
 
-	robot.module.modules += new /obj/item/weldingtool/abductor(robot.module)
+	robot.module.modules += new /obj/item/weldingtool/largetank/cyborg/(robot.module)
 	robot.module.modules += new /obj/item/wrench/cyborg(robot.module)
 	robot.module.modules += new /obj/item/screwdriver/cyborg(robot.module)
 	robot.module.modules += new /obj/item/crowbar/cyborg(robot.module)
