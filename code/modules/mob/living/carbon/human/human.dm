@@ -1974,7 +1974,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return ishuman(target) && target.body_position == LYING_DOWN
 
-/mob/living/carbon/human/proc/fireman_carry	(mob/living/carbon/target)
+/mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED))
 		target.balloon_alert(src, "цель не лежит!")
 		return
