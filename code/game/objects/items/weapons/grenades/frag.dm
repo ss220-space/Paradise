@@ -5,7 +5,7 @@
 	icon_state = "frag"
 	origin_tech = "materials=3;magnets=4"
 	det_time = 3 SECONDS
-	shrapnel_type = /obj/projectile/shrapnel
+	shrapnel_type = /obj/projectile/shrapnel/grenade
 	shrapnel_radius = 4
 	var/range = 5
 

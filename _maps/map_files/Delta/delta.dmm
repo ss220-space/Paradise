@@ -113657,7 +113657,6 @@
 /area/toxins/xenobiology)
 "vmN" = (
 /obj/machinery/vending/chinese,
-/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -118646,10 +118645,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
-"wtb" = (
-/obj/item/storage/fancy/coffee_cart_rack,
-/turf/simulated/wall/r_wall,
-/area/medical/cmo)
 "wti" = (
 /obj/machinery/vending/shoedispenser,
 /turf/simulated/floor/plasteel{
@@ -174411,7 +174406,7 @@ ikS
 wFR
 ufP
 wrn
-wtb
+dqR
 dqR
 dqR
 dqR

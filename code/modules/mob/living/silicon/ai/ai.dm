@@ -94,10 +94,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcer/announcer
-	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
-	/// Waypoint mode is for selecting a turf via clicking.
-	var/waypoint_mode = FALSE
 	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
 	var/nuking = 0
 	var/obj/machinery/doomsday_device/doomsday_device
@@ -147,6 +144,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	COOLDOWN_DECLARE(ai_recover_alarm_cooldown)
 	/// A variable that allows sending a recovery message
 	var/ai_recover_alarm_enabled = TRUE
+
+	/* ROBOT CONTROL */
+	/// UI for robot controls
+	VAR_FINAL/datum/robot_control/robot_control
+	/// Weakref to the bot the AI is currently commanding
+	VAR_FINAL/datum/weakref/bot_ref
+	/// If TRUE, the AI will send it's [var/bot_ref][commanded bot] to the next clicked atom
+	VAR_FINAL/setting_waypoint = FALSE
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
@@ -257,6 +262,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		deltimer(malfhacking)
 		malfhacking = null
 	malfhack = null
+	bot_ref = null
 	linked_core = null
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	QDEL_NULL(aiPDA)
@@ -889,16 +895,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Диспетчер роботов"
 	set desc = "Wirelessly control various automatic robots."
 
-	if(stat == DEAD)
-		to_chat(src, span_danger("Critical error. System offline."))
-		return
+	if(!robot_control)
+		robot_control = new(src)
 
-	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
-		return
-
-	var/datum/ui_module/botcall/botcall
-	botcall	= new(src)
-	botcall.ui_interact(usr)
+	robot_control.ui_interact(src)
 
 /mob/living/silicon/ai/proc/set_waypoint(atom/A)
 	var/turf/turf_check = get_turf(A)
@@ -911,15 +911,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, span_danger("Selected location is not visible."))
 
 /mob/living/silicon/ai/proc/call_bot(turf/waypoint)
-
-	if(!Bot)
+	var/mob/living/bot = bot_ref?.resolve()
+	if(!bot)
 		return
 
-	if(Bot.calling_ai && Bot.calling_ai != src) //Prevents an override if another AI is controlling this bot.
-		to_chat(src, span_danger("Interface error. Unit is already in use."))
-		return
+	var/summon_success
+	//if(isbasicbot(bot))
+	//	var/mob/living/basic/bot/basic_bot = bot
+	//	summon_success = basic_bot.summon_bot(src, waypoint, grant_all_access = TRUE)
+	//else
+	var/mob/living/simple_animal/bot/simple_bot = bot
+	summon_success = simple_bot.call_bot(src, waypoint)
 
-	Bot.call_bot(src, waypoint)
+	var/chat_message = summon_success ? "Sending command to bot..." : "Interface error. Unit is already in use."
+	to_chat(src, span_notice("[chat_message]"))
 
 /mob/living/silicon/ai/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listend_for))
