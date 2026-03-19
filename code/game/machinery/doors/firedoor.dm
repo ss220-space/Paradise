@@ -128,10 +128,9 @@
 
 	var/open_time = manual_open_time
 	if(ishuman(user))
-		var/list/modifiers = list()
-		SEND_SIGNAL(user, COMSIG_GET_FIRELOCK_SPEED_MOD, modifiers)
-		var/speed_mod = modifiers.len ? modifiers[1] : 1
-		open_time = manual_open_time / max(0.1, speed_mod)
+		var/datum/strength_level/level = user.get_strength_level()
+		if(level)
+			open_time = manual_open_time / max(0.1, level.door_open_speed_modifier)
 
 	user.visible_message(
 		span_notice("[user] tries to open [src] manually."),

@@ -38,7 +38,6 @@
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 	RegisterSignal(parent, COMSIG_STRENGTH_LEVEL_UP, PROC_REF(strength_level_up))
 	RegisterSignal(parent, COMSIG_GET_WEAK_MOB_MODIFIERS, PROC_REF(on_get_weak_mob_modifiers))
-	RegisterSignal(parent, COMSIG_GET_FIRELOCK_SPEED_MOD, PROC_REF(get_firelock_speed_mod))
 
 /datum/component/muscles/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -292,11 +291,6 @@
 	SIGNAL_HANDLER
 	modifiers.Add(usable_strength_level.weak_mob_modifier)
 
-/datum/component/muscles/proc/get_firelock_speed_mod(mob/living/carbon/human/user, list/modifiers)
-	SIGNAL_HANDLER
-	if(!usable_strength_level)
-		return
-	modifiers += usable_strength_level.door_open_speed_modifier
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
@@ -399,4 +393,4 @@
 	strength_req_to_upgrade = -1
 	strength_examine = "необыкновенно сильн"
 	weak_mob_modifier = 0
-	door_open_speed_modifier = 10
+	door_open_speed_modifier = 25
