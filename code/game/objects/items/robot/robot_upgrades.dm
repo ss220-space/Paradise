@@ -372,15 +372,15 @@
 	robot.module.rebuild()
 	return TRUE
 
-/obj/item/borg/upgrade/medical_tools
-	name = "medical cyborg tools upgrade"
+/obj/item/borg/upgrade/laser_medi
+	name = "medical cyborg laser upgrade"
 	desc = "" // TODO: add desc
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "biotech=3;materials=5;magnets=5"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/medical_tools/action(mob/living/silicon/robot/robot, mob/user)
+/obj/item/borg/upgrade/laser_medi/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
@@ -414,7 +414,7 @@
 	robot.module.handle_storages()
 	return TRUE
 
-/obj/item/borg/upgrade/medical_tools/deactivate(mob/living/silicon/robot/robot, mob/user)
+/obj/item/borg/upgrade/laser_medi/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 

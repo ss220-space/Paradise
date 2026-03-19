@@ -1325,7 +1325,7 @@
 /datum/design/borg_upgrade_medical_tools
 	id = "borg_upgrade_medical_tools"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/medical_tools
+	build_path = /obj/item/borg/upgrade/laser_medi
 	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 5)
 	materials = list(MAT_METAL = 18000, MAT_GLASS = 10000, MAT_SILVER = 10000, MAT_GOLD = 10000)
 	construction_time = 12 SECONDS
