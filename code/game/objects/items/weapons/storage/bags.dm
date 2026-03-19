@@ -522,27 +522,27 @@
 	if(!istype(sheet_stack))
 		return ..() // Let parent handle non-sheets (shouldn't happen).
 
-	// If the stack is larger than max_amount, we split it.
-	if(sheet_stack.amount > sheet_stack.max_amount)
-		// Create a new stack with max_amount to be moved.
-		var/obj/item/stack/sheet/new_stack = new sheet_stack.type(new_location)
-		new_stack.amount = sheet_stack.max_amount
-		sheet_stack.amount -= sheet_stack.max_amount
-		// The original stack stays in the bag.
-		// Move the new stack to the target location.
-		if(ismob(new_location))
-			var/mob/mob = new_location
-			mob.put_in_hands(new_stack)
-		else if(isturf(new_location))
-			new_stack.forceMove(new_location)
-		// Update UI.
-		if(usr.s_active)
-			usr.s_active.show_to(usr)
-		update_icon()
-		return TRUE
-	else
-		// Normal removal — let parent handle moving the whole stack.
+	// Normal removal — let parent handle moving the whole stack.
+	if(sheet_stack.amount <= sheet_stack.max_amount)
 		return ..(sheet_stack, new_location)
+
+	// If the stack is larger than max_amount, we split it.
+	// Create a new stack with max_amount to be moved.
+	var/obj/item/stack/sheet/new_stack = new sheet_stack.type(new_location)
+	new_stack.amount = sheet_stack.max_amount
+	sheet_stack.amount -= sheet_stack.max_amount
+	// The original stack stays in the bag.
+	// Move the new stack to the target location.
+	if(ismob(new_location))
+		var/mob/mob = new_location
+		mob.put_in_hands(new_stack)
+	else if(isturf(new_location))
+		new_stack.forceMove(new_location)
+	// Update UI.
+	if(usr.s_active)
+		usr.s_active.show_to(usr)
+	update_icon()
+	return TRUE
 
 /obj/item/storage/bag/sheetsnatcher/quick_empty()
 	var/drop_location = get_turf(src)
@@ -761,7 +761,7 @@
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
-		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
+		handle_item_insertion(C)	// Done this way so the tray actually has the cookies visible when spawned
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
