@@ -1558,7 +1558,7 @@
 
 /datum/status_effect/parasitism/tick()
 	var/mob/living/carbon/host = owner
-	if(!istype(host))
+	if(!istype(owner, /mob/living/carbon))
 		qdel(src)
 		return
 
