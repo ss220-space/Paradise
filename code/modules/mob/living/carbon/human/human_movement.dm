@@ -292,11 +292,11 @@
 		fractured_limbs += bodypart
 		switch(bodypart.fracture_state)
 			if(FRACTURE_TYPE_CRACK)
-				fall_chance = max(5, fall_chance)
+				fall_chance = max(1, fall_chance)
 			if(FRACTURE_TYPE_CLOSED)
-				fall_chance = max(20, fall_chance)
+				fall_chance = max(5, fall_chance)
 			if(FRACTURE_TYPE_OPEN)
-				fall_chance = max(30, fall_chance)
+				fall_chance = max(10, fall_chance)
 
 	if(!fall_chance || !prob(fall_chance))
 		return

@@ -9,7 +9,7 @@
 /// Threshold needed to have a chance of inflicting closed fracture
 #define LIMB_CLOSED_FRACTURE_MIN_DMG 20
 /// Threshold needed to have a chance of inflicting open fracture
-#define LIMB_OPEN_FRACTURE_MIN_DMG 30
+#define LIMB_OPEN_FRACTURE_MIN_DMG 40
 /// Threshold needed to have a chance of inflicting internal bleeding
 #define LIMB_INT_BLEEDING_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting arterial bleeding
