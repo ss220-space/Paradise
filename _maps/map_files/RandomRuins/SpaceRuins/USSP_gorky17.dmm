@@ -1249,7 +1249,14 @@
 	},
 /area/ruin/space/USSP_gorky17/gate)
 "eX" = (
-/turf/space,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/computer/crew/old_frame,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
 /area/ruin/space/USSP_gorky17/medbay)
 "eY" = (
 /turf/simulated/floor/plasteel{
