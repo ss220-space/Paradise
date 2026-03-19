@@ -209,7 +209,7 @@
 		return
 
 	if(host.health <= HEALTH_THRESHOLD_CRIT)
-		to_chat(owner, "Носитель слишком слаб для активации режима эволюции!")
+		to_chat(owner, "Носитель слишком слаб для питания!")
 		return
 
 	if(host.reagents.has_reagent("sugar"))
@@ -217,7 +217,7 @@
 		return
 
 	if(borer.chemicals < cost)
-		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для активации режима эволюции!")
+		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для активации паразитоидизм!")
 		return
 
 	if(host.has_status_effect(/datum/status_effect/parasitism))
