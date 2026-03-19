@@ -7,10 +7,14 @@
 	owner = new_owner
 
 /datum/robot_control/proc/is_interactable(mob/user)
-	if(user != owner || owner.stat)
+	if(user != owner || owner.stat || owner.lacks_power() || owner.aiRadio.disabledAi)
+		if(owner.lacks_power())
+			to_chat(user, span_warning("Сбой в энергосистеме!"))
+		if(owner.aiRadio.disabledAi)
+			to_chat(user, span_warning("Системная ошибка — приемопередатчик не работает!"))
 		return FALSE
 	if(owner.control_disabled)
-		to_chat(user, span_warning("Wireless control is disabled."))
+		to_chat(user, span_warning("Беспроводное управление отключено."))
 		return FALSE
 	return TRUE
 
@@ -25,7 +29,7 @@
 /datum/robot_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RemoteRobotControl")
+		ui = new(user, src, "RemoteRobotControl", "Дистанционное управление ботами")
 		ui.open()
 
 /datum/robot_control/ui_data(mob/user)
@@ -96,7 +100,7 @@
 
 			owner.bot_ref = WEAKREF(bot)
 			owner.setting_waypoint = TRUE
-			to_chat(our_user, span_notice("Set your waypoint by clicking on a valid location free of obstructions."))
+			to_chat(our_user, span_notice("Укажите место назначения, кликнув на свободную от препятствий точку на карте."))
 		if("interface") //Remotely connect to a bot!
 			owner.bot_ref = WEAKREF(bot)
 			//if(isbasicbot(bot))
