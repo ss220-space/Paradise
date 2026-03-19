@@ -295,7 +295,6 @@
 	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
-// can pierce through thick skin and hardsuits.
 
 	fix_modules()
 	handle_storages()

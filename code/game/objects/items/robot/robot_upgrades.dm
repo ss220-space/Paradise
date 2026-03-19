@@ -372,6 +372,82 @@
 	robot.module.rebuild()
 	return TRUE
 
+/obj/item/borg/upgrade/medical_tools
+	name = "medical cyborg tools upgrade"
+	desc = "" // TODO: add desc
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "biotech=3;materials=5;magnets=5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/medical_tools/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/scalpel) || \
+		   istype(I, /obj/item/hemostat) || \
+		   istype(I, /obj/item/retractor) || \
+		   istype(I, /obj/item/bonesetter) || \
+		   istype(I, /obj/item/circular_saw) || \
+		   istype(I, /obj/item/surgicaldrill) || \
+		   istype(I, /obj/item/bonegel) || \
+		   istype(I, /obj/item/FixOVein) || \
+		   istype(I, /obj/item/cautery) || \
+		   istype(I, /obj/item/stack/medical/bruise_pack) || \
+		   istype(I, /obj/item/stack/medical/ointment) || \
+		   istype(I, /obj/item/handheld_defibrillator))
+			qdel(I)
+
+	robot.module.modules += new /obj/item/scalpel/laser/laser3(robot.module)
+	robot.module.modules += new /obj/item/hemostat/laser(robot.module)
+	robot.module.modules += new /obj/item/retractor/laser(robot.module)
+	robot.module.modules += new /obj/item/bonesetter/laser(robot.module)
+	robot.module.modules += new /obj/item/circular_saw/laser(robot.module)
+	robot.module.modules += new /obj/item/surgicaldrill/laser(robot.module)
+	robot.module.modules += new /obj/item/bonegel(robot.module)
+	robot.module.modules += new /obj/item/FixOVein(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/bruise_pack/extended(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/ointment/extended(robot.module)
+	robot.module.modules += new /obj/item/handheld_defibrillator/advanced(robot.module)
+	robot.module.rebuild()
+	robot.module.handle_storages()
+	return TRUE
+
+/obj/item/borg/upgrade/medical_tools/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/scalpel) || \
+		   istype(I, /obj/item/hemostat) || \
+		   istype(I, /obj/item/retractor) || \
+		   istype(I, /obj/item/bonesetter) || \
+		   istype(I, /obj/item/circular_saw) || \
+		   istype(I, /obj/item/surgicaldrill) || \
+		   istype(I, /obj/item/bonegel) || \
+		   istype(I, /obj/item/FixOVein) || \
+		   istype(I, /obj/item/cautery) || \
+		   istype(I, /obj/item/stack/medical/bruise_pack) || \
+		   istype(I, /obj/item/stack/medical/ointment) || \
+		   istype(I, /obj/item/handheld_defibrillator))
+			qdel(I)
+
+	robot.module.modules += new /obj/item/scalpel/laser/laser1(robot.module)
+	robot.module.modules += new /obj/item/hemostat(robot.module)
+	robot.module.modules += new /obj/item/retractor(robot.module)
+	robot.module.modules += new /obj/item/bonesetter(robot.module)
+	robot.module.modules += new /obj/item/circular_saw(robot.module)
+	robot.module.modules += new /obj/item/surgicaldrill(robot.module)
+	robot.module.modules += new /obj/item/bonegel(robot.module)
+	robot.module.modules += new /obj/item/FixOVein(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/bruise_pack/advanced(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/ointment/advanced(robot.module)
+	robot.module.modules += new /obj/item/handheld_defibrillator(robot.module)
+	robot.module.rebuild()
+	robot.module.handle_storages()
+	return TRUE
+
 /obj/item/borg/upgrade/abductor_medi
 	name = "medical cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
@@ -384,24 +460,22 @@
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/scalpel/laser/laser1/scalpel in robot.module.modules)
-		qdel(scalpel)
-	for(var/obj/item/hemostat/hemostat in robot.module.modules)
-		qdel(hemostat)
-	for(var/obj/item/retractor/retractor in robot.module.modules)
-		qdel(retractor)
-	for(var/obj/item/bonegel/bonegel in robot.module.modules)
-		qdel(bonegel)
-	for(var/obj/item/FixOVein/fix_o_vein in robot.module.modules)
-		qdel(fix_o_vein)
-	for(var/obj/item/bonesetter/bonesetter in robot.module.modules)
-		qdel(bonesetter)
-	for(var/obj/item/circular_saw/circular_saw in robot.module.modules)
-		qdel(circular_saw)
-	for(var/obj/item/surgicaldrill/surgical_drill in robot.module.modules)
-		qdel(surgical_drill)
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/scalpel) || \
+		   istype(I, /obj/item/hemostat) || \
+		   istype(I, /obj/item/retractor) || \
+		   istype(I, /obj/item/bonesetter) || \
+		   istype(I, /obj/item/circular_saw) || \
+		   istype(I, /obj/item/surgicaldrill) || \
+		   istype(I, /obj/item/bonegel) || \
+		   istype(I, /obj/item/FixOVein) || \
+		   istype(I, /obj/item/cautery) || \
+		   istype(I, /obj/item/stack/medical/bruise_pack) || \
+		   istype(I, /obj/item/stack/medical/ointment) || \
+		   istype(I, /obj/item/handheld_defibrillator))
+			qdel(I)
 
-	robot.module.modules += new /obj/item/scalpel/laser/laser3(robot.module) //no abductor laser scalpel, so next best thing.
+	robot.module.modules += new /obj/item/scalpel/alien(robot.module)
 	robot.module.modules += new /obj/item/hemostat/alien(robot.module)
 	robot.module.modules += new /obj/item/retractor/alien(robot.module)
 	robot.module.modules += new /obj/item/bonegel/alien(robot.module)
@@ -409,29 +483,32 @@
 	robot.module.modules += new /obj/item/bonesetter/alien(robot.module)
 	robot.module.modules += new /obj/item/circular_saw/alien(robot.module)
 	robot.module.modules += new /obj/item/surgicaldrill/alien(robot.module)
+	robot.module.modules += new /obj/item/cautery/alien(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/bruise_pack/extended(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/ointment/extended(robot.module)
+	robot.module.modules += new /obj/item/handheld_defibrillator/advanced(robot.module)
 	robot.module.rebuild()
+	robot.module.handle_storages()
 	return TRUE
 
 /obj/item/borg/upgrade/abductor_medi/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
-	for(var/obj/item/scalpel/laser/laser3/scalpel in robot.module.modules)
-		qdel(scalpel)
-	for(var/obj/item/hemostat/alien/hemostat in robot.module.modules)
-		qdel(hemostat)
-	for(var/obj/item/retractor/alien/retractor in robot.module.modules)
-		qdel(retractor)
-	for(var/obj/item/bonegel/alien/bonegel in robot.module.modules)
-		qdel(bonegel)
-	for(var/obj/item/FixOVein/alien/fix_o_vein in robot.module.modules)
-		qdel(fix_o_vein)
-	for(var/obj/item/bonesetter/alien/bonesetter in robot.module.modules)
-		qdel(bonesetter)
-	for(var/obj/item/circular_saw/alien/circular_saw in robot.module.modules)
-		qdel(circular_saw)
-	for(var/obj/item/surgicaldrill/alien/surgical_drill in robot.module.modules)
-		qdel(surgical_drill)
+	for(var/obj/item/I in robot.module.modules)
+		if(istype(I, /obj/item/scalpel) || \
+		   istype(I, /obj/item/hemostat) || \
+		   istype(I, /obj/item/retractor) || \
+		   istype(I, /obj/item/bonesetter) || \
+		   istype(I, /obj/item/circular_saw) || \
+		   istype(I, /obj/item/surgicaldrill) || \
+		   istype(I, /obj/item/bonegel) || \
+		   istype(I, /obj/item/FixOVein) || \
+		   istype(I, /obj/item/cautery) || \
+		   istype(I, /obj/item/stack/medical/bruise_pack) || \
+		   istype(I, /obj/item/stack/medical/ointment) || \
+		   istype(I, /obj/item/handheld_defibrillator))
+			qdel(I)
 
 	robot.module.modules += new /obj/item/scalpel/laser/laser1(robot.module)
 	robot.module.modules += new /obj/item/hemostat(robot.module)
@@ -441,7 +518,11 @@
 	robot.module.modules += new /obj/item/bonesetter(robot.module)
 	robot.module.modules += new /obj/item/circular_saw(robot.module)
 	robot.module.modules += new /obj/item/surgicaldrill(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/bruise_pack/advanced(robot.module)
+	robot.module.modules += new /obj/item/stack/medical/ointment/advanced(robot.module)
+	robot.module.modules += new /obj/item/handheld_defibrillator(robot.module)
 	robot.module.rebuild()
+	robot.module.handle_storages()
 	return TRUE
 
 /obj/item/borg/upgrade/syndicate
@@ -733,6 +814,8 @@
 	desc = "An experimental upgrade that replaces cyborgs RCDs with the syndicate version."
 	icon_state = "syndicate_cyborg_upgrade"
 	origin_tech = "engineering=6;materials=6;syndicate=5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
 
 /obj/item/borg/upgrade/syndie_rcd/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
