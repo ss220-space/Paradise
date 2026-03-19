@@ -27,6 +27,11 @@
 
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
+		ADD_TRAIT(target, TRAIT_MINDSHIELD_HUD, GENERIC_TRAIT)
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/human = target
+		human.sec_hud_set_implants()
 
 	var/obj/item/implant/fake_mindshield/fake_shield = locate() in imp_in
 
@@ -40,6 +45,12 @@
 	. = ..()
 	if(. && target.stat != DEAD && !silent)
 		to_chat(target, span_boldnotice("Your mind softens. You feel susceptible to the effects of brainwashing once more."))
+
+	REMOVE_TRAIT(target, TRAIT_MINDSHIELD_HUD, GENERIC_TRAIT)
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/human = target
+		human.sec_hud_set_implants()
 
 /obj/item/implanter/mindshield
 	name = "bio-chip implanter (mindshield)"
@@ -77,7 +88,6 @@
 	implant_state = "implant-syndicate"
 	implant_data = /datum/implant_fluff/fake_mindshield
 	icon_state = "fake_mindshield0"
-	var/hud_visible = FALSE
 
 /obj/item/implant/fake_mindshield/get_ru_names()
 	return list(
@@ -105,10 +115,12 @@
 	if(!imp_in)
 		return
 
-	if(!hud_visible)
-		hud_visible = TRUE
+	var/is_active = HAS_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD)
+
+	if(!is_active)
+		ADD_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, GENERIC_TRAIT)
 	else
-		hud_visible = FALSE
+		REMOVE_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, GENERIC_TRAIT)
 
 	update_icon()
 
@@ -119,7 +131,8 @@
 	human.sec_hud_set_implants()
 
 /obj/item/implant/fake_mindshield/update_icon_state()
-	icon_state = "fake_mindshield[hud_visible ? 1 : 0]"
+	var/is_active = HAS_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD)
+	icon_state = "fake_mindshield[is_active ? 1 : 0]"
 
 /obj/item/implanter/fake_mindshield
 	name = "bio-chip implanter (fake mindshield)"

@@ -352,11 +352,7 @@
 			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
 			set_hud_image_active(IMPTRACK_HUD)
 
-		else if(istype(current_implant, /obj/item/implant/mindshield) || istype(current_implant, /obj/item/implant/fake_mindshield))
-			if(istype(current_implant, /obj/item/implant/fake_mindshield))
-				var/obj/item/implant/fake_mindshield/fake_shield = current_implant
-				if(!fake_shield.hud_visible)
-					continue
+		else if(HAS_TRAIT(src, TRAIT_MINDSHIELD_HUD))
 			set_hud_image_state(IMPMINDSHIELD_HUD, "hud_imp_loyal")
 			set_hud_image_active(IMPMINDSHIELD_HUD)
 
