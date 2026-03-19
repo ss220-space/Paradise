@@ -2,11 +2,6 @@
  * # Sibyl System Constants
  */
 
-// Sibyl System limit level
-#define SIBYL_NONLETHAL 1
-#define SIBYL_LETHAL 2
-#define SIBYL_DESTRUCTIVE 3
-
 // Sibyl System tier flags
 #define SIBYL_TIER_NONLETHAL (1<<0)
 #define SIBYL_TIER_LETHAL (1<<1)

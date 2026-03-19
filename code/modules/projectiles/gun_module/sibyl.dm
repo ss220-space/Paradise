@@ -15,10 +15,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	hitsound = SFX_SWING_HIT
 	slot = ATTACHMENT_SLOT_SIBYL
 	class = GUN_MODULE_CLASS_ENERGY_WEAPON
+	can_detach = FALSE // Disable standard removal using ALT+LMB
 
 	var/state = SIBSYS_STATE_UNINSTALLED
 	var/datum/weakref/auth_id = null
-	var/limit = SIBYL_NONLETHAL
+	var/limit = SIBYL_TIER_NONLETHAL
 	var/registered = FALSE
 	var/voice_is_enabled = TRUE
 	var/voice_cd = null
@@ -101,7 +102,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	state = SIBSYS_STATE_UNINSTALLED
 	lock(silent = TRUE)
 	energy_gun.sibyl_mod = null
-	set_limit(SIBYL_NONLETHAL)
+	limit = SIBYL_TIER_NONLETHAL
 	energy_gun.update_icon()
 
 /obj/item/gun_module/sibyl/proc/lock(mob/user, silent = FALSE)
@@ -152,14 +153,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/list/ammo_types = energy_gun.ammo_type
 	var/obj/item/ammo_casing/energy/ammo = ammo_types[select]
 
-	if(limit == SIBYL_NONLETHAL)
-		return (ammo.sibyl_tier & SIBYL_TIER_NONLETHAL)
-	if(limit == SIBYL_LETHAL)
-		return (ammo.sibyl_tier & (SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL))
-	if(limit == SIBYL_DESTRUCTIVE)
-		return TRUE
-
-	return FALSE
+	return (ammo.sibyl_tier & limit)
 
 /obj/item/gun_module/sibyl/proc/check_auth(mob/living/user)
 	if(!gun)
@@ -193,39 +187,34 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			return TRUE
 	return FALSE
 
-/obj/item/gun_module/sibyl/proc/set_limit(mode)
-	if(!gun)
-		return FALSE
-
-	limit = mode
-	gun?.update_icon()
-
-	var/obj/item/gun/energy/energy_gun = gun
-	if(ismob(energy_gun.loc))
-		to_chat(energy_gun.loc, span_notice("Для [energy_gun.declent_ru(GENITIVE)] теперь доступны только режимы, соответствующие уровню опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
-	return TRUE
-
 /obj/item/gun_module/sibyl/proc/sync_limit(datum/source, old_level, new_level)
 	SIGNAL_HANDLER
-
-	var/new_level_num = SSsecurity_level.get_current_level_as_number()
-	switch(new_level_num)
-		if(SEC_LEVEL_GREEN)
-			set_limit(SIBYL_NONLETHAL)
-		if(SEC_LEVEL_BLUE)
-			set_limit(SIBYL_LETHAL)
-		if(SEC_LEVEL_RED)
-			set_limit(SIBYL_LETHAL)
-		if(SEC_LEVEL_GAMMA)
-			set_limit(SIBYL_DESTRUCTIVE)
-		if(SEC_LEVEL_EPSILON)
-			set_limit(SIBYL_DESTRUCTIVE)
-		if(SEC_LEVEL_DELTA)
-			set_limit(SIBYL_DESTRUCTIVE)
 
 	var/obj/item/gun/energy/energy_gun = gun
 	if(!energy_gun)
 		return
+
+	var/old_limit = limit
+	var/new_level_num = SSsecurity_level.get_current_level_as_number()
+	switch(new_level_num)
+		if(SEC_LEVEL_GREEN)
+			limit = SIBYL_TIER_NONLETHAL
+		if(SEC_LEVEL_BLUE)
+			limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL
+		if(SEC_LEVEL_RED)
+			limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL
+		if(SEC_LEVEL_GAMMA)
+			limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL | SIBYL_TIER_DESTRUCTIVE
+		if(SEC_LEVEL_EPSILON)
+			limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL | SIBYL_TIER_DESTRUCTIVE
+		if(SEC_LEVEL_DELTA)
+			limit = SIBYL_TIER_NONLETHAL | SIBYL_TIER_LETHAL | SIBYL_TIER_DESTRUCTIVE
+
+	if(limit != old_limit)
+		energy_gun.update_icon()
+		if(ismob(energy_gun.loc))
+			to_chat(energy_gun.loc, span_notice("Для [energy_gun.declent_ru(GENITIVE)] теперь доступны только режимы, соответствующие уровню опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
+
 	if(!check_select(energy_gun.select))
 		energy_gun.select_fire()
 
