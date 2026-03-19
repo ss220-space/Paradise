@@ -2238,7 +2238,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "rK" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "rM" = (
@@ -6023,7 +6023,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "YX" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -41274,7 +41274,7 @@ vD
 tk
 ez
 jq
-mP
+od
 zL
 EY
 vD
@@ -41788,7 +41788,7 @@ EY
 kB
 hJ
 ah
-od
+mP
 aJ
 gL
 Sp
@@ -57352,9 +57352,9 @@ Hm
 wa
 pf
 sa
-go
+Nm
 VY
-go
+Nm
 BA
 Mx
 Mx
@@ -57609,9 +57609,9 @@ mn
 mn
 YB
 VY
-Nm
+go
 sa
-Nm
+go
 BA
 Sl
 Mx
@@ -58123,9 +58123,9 @@ mn
 mn
 YB
 sa
-go
+Nm
 VY
-go
+Nm
 iS
 zC
 zC
@@ -58637,9 +58637,9 @@ mn
 mn
 YB
 VY
-Nm
+go
 sa
-Nm
+go
 iS
 zC
 vT
@@ -59151,9 +59151,9 @@ mn
 mn
 YB
 sa
-go
+Nm
 VY
-go
+Nm
 BA
 du
 Mx
@@ -59408,9 +59408,9 @@ eR
 Vf
 UT
 VY
-Nm
+go
 sa
-Nm
+go
 BA
 Tb
 Mx

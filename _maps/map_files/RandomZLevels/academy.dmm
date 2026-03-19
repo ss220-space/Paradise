@@ -5106,7 +5106,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "Kp" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5352,7 +5352,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "Ms" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5699,7 +5699,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "Qq" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -5800,7 +5800,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "RD" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -10129,7 +10129,7 @@ oL
 cu
 hs
 qF
-rD
+xz
 by
 bK
 br
@@ -10909,7 +10909,7 @@ oL
 cu
 hs
 cu
-xz
+rD
 hY
 ry
 wW

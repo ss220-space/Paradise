@@ -312,7 +312,7 @@
 /area/ruin/powered/space_bar)
 "hA" = (
 /obj/item/weaponcrafting/ishotgunconstruction3,
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -562,7 +562,7 @@
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
 "DF" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,

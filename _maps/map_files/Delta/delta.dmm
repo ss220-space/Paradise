@@ -5494,7 +5494,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aQA" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6223,7 +6223,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aVX" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
@@ -7424,7 +7424,7 @@
 /turf/simulated/wall,
 /area/engineering/mechanic_workshop)
 "beF" = (
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -16969,7 +16969,7 @@
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "ccO" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19835,7 +19835,7 @@
 /area/maintenance/fpmaint)
 "cuO" = (
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars,
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuQ" = (
@@ -20912,7 +20912,7 @@
 /turf/simulated/wall,
 /area/atmos)
 "czB" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -21769,7 +21769,7 @@
 	},
 /area/hallway/primary/port/west)
 "cDm" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22497,7 +22497,7 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "cGj" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/machinery/newscaster{
@@ -28702,7 +28702,7 @@
 /turf/space,
 /area/space)
 "djh" = (
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -36128,7 +36128,7 @@
 	},
 /area/chapel/office)
 "dSJ" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /obj/machinery/camera{
@@ -36258,13 +36258,13 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "dTs" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/purple,
 /area/hallway/secondary/exit)
 "dTw" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/purple,
@@ -38358,7 +38358,7 @@
 /area/atmos)
 "eeF" = (
 /obj/item/radio/intercom/directional/north,
-/obj/structure/chair/sofa/bench/right,
+/obj/structure/chair/sofa/bench/left,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -41782,7 +41782,7 @@
 /area/maintenance/asmaint4)
 "eSW" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -47635,7 +47635,7 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "gpe" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/effect/landmark/start/civilian,
@@ -48585,7 +48585,7 @@
 	},
 /area/teleporter/abandoned)
 "gAL" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/east,
@@ -51297,7 +51297,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/chair/sofa/bench/right/security_red{
+/obj/structure/chair/sofa/bench/left/security_red{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -52199,7 +52199,7 @@
 	},
 /area/medical/sleeper)
 "hoj" = (
-/obj/structure/chair/sofa/bench/left/science_pink,
+/obj/structure/chair/sofa/bench/right/science_pink,
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -55126,7 +55126,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -56296,7 +56296,7 @@
 	},
 /area/security/permahallway)
 "imn" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
@@ -57323,7 +57323,7 @@
 	},
 /area/security/evidence)
 "iwZ" = (
-/obj/structure/chair/sofa/bench/left/science_pink{
+/obj/structure/chair/sofa/bench/right/science_pink{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -57398,7 +57398,7 @@
 	},
 /area/hallway/secondary/exit)
 "ixA" = (
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57665,7 +57665,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "iCB" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -58247,7 +58247,7 @@
 	},
 /area/atmos)
 "iJm" = (
-/obj/structure/chair/sofa/bench/right/science_pink,
+/obj/structure/chair/sofa/bench/left/science_pink,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -59109,7 +59109,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -61494,7 +61494,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "jvI" = (
-/obj/structure/chair/sofa/bench/left/medical_blue,
+/obj/structure/chair/sofa/bench/right/medical_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -64330,7 +64330,7 @@
 /area/toxins/sm_test_chamber)
 "kgj" = (
 /obj/item/radio/intercom/directional/west,
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -64632,7 +64632,7 @@
 	},
 /area/toxins/misc_lab)
 "kks" = (
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 4
 	},
 /obj/effect/landmark/start/doctor,
@@ -66839,7 +66839,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "kLC" = (
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -69768,7 +69768,7 @@
 /area/toxins/xenobiology)
 "lxt" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -70637,7 +70637,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -71758,7 +71758,7 @@
 /obj/structure/railing/wooden/endl{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/left,
+/obj/structure/chair/sofa/bench/right,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -73818,7 +73818,7 @@
 /turf/space,
 /area/space)
 "muz" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
@@ -77177,7 +77177,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
 "nfq" = (
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 4
 	},
 /obj/effect/landmark/start/intern,
@@ -77454,7 +77454,7 @@
 	},
 /area/security/processing)
 "niV" = (
-/obj/structure/chair/sofa/bench/right,
+/obj/structure/chair/sofa/bench/left,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -79423,7 +79423,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "nGk" = (
-/obj/structure/chair/sofa/bench/right,
+/obj/structure/chair/sofa/bench/left,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
@@ -79897,7 +79897,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -80181,7 +80181,7 @@
 /area/solar/port)
 "nOS" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -86999,7 +86999,7 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -88130,7 +88130,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/chair/sofa/bench/left,
+/obj/structure/chair/sofa/bench/right,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -89090,7 +89090,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
 "pPw" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -94444,7 +94444,7 @@
 /obj/structure/railing/wooden/endr{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -99152,7 +99152,7 @@
 /obj/structure/sign/poster/official/state_laws{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /obj/machinery/firealarm{
@@ -102751,7 +102751,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/structure/chair/sofa/bench/left/security_red{
+/obj/structure/chair/sofa/bench/right/security_red{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -103652,7 +103652,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "tcQ" = (
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -113900,7 +113900,7 @@
 	},
 /area/aisat/aihallway)
 "vpG" = (
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -117433,7 +117433,7 @@
 	},
 /area/engineering/aienter)
 "weA" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "wff" = (
@@ -119283,7 +119283,7 @@
 /area/toxins/explab)
 "wAw" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -119577,7 +119577,7 @@
 /turf/simulated/wall,
 /area/medical/medbay)
 "wDD" = (
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
 /obj/effect/landmark/start/civilian,
@@ -121267,7 +121267,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/obj/structure/chair/sofa/bench/left,
+/obj/structure/chair/sofa/bench/right,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -122104,7 +122104,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "xgE" = (
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -125585,7 +125585,7 @@
 	},
 /area/hallway/primary/aft)
 "xQH" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "xQM" = (
@@ -155799,7 +155799,7 @@ aaq
 coE
 aaq
 etQ
-jZw
+rnq
 aPg
 gWz
 uCN
@@ -156313,7 +156313,7 @@ aaq
 coE
 aaq
 etQ
-rnq
+jZw
 aPg
 cwC
 bco
@@ -159426,7 +159426,7 @@ xnM
 cyc
 aHw
 gtF
-nwZ
+oPj
 uvi
 imn
 qfy
@@ -159683,9 +159683,9 @@ tDT
 cFO
 nlF
 hpR
-oPj
+nwZ
 gtF
-oPj
+nwZ
 roI
 aYZ
 dYt
@@ -160197,9 +160197,9 @@ aHb
 cFO
 nlF
 gtF
-nwZ
+oPj
 uvi
-nwZ
+oPj
 uBA
 ddc
 iTZ
@@ -160711,9 +160711,9 @@ tOp
 cFO
 nlF
 uvi
-oPj
+nwZ
 gtF
-oPj
+nwZ
 uBA
 dtC
 cDm
@@ -161227,7 +161227,7 @@ nlF
 gtF
 imn
 uvi
-nwZ
+oPj
 ffL
 pAs
 ots
@@ -161482,9 +161482,9 @@ qIO
 aGp
 aHB
 hpR
-oPj
+nwZ
 gtF
-oPj
+nwZ
 wSb
 gWF
 gWF
@@ -162264,11 +162264,11 @@ vQM
 wNe
 wNe
 fFt
-gsj
 gHN
+gsj
 lAQ
-gsj
 gHN
+gsj
 wNe
 qiF
 wVn
@@ -162366,9 +162366,9 @@ bko
 tzE
 jkJ
 kJs
-mvS
-sJm
 ebU
+sJm
+mvS
 jaQ
 jkJ
 sWh
@@ -162877,15 +162877,15 @@ pBI
 xQY
 fkq
 lFG
-mMA
-vqR
 qAS
+vqR
+mMA
 xQY
 tGV
 xQY
-fpy
-vdv
 lFc
+vdv
+fpy
 xQY
 bgj
 dSi
@@ -162984,8 +162984,8 @@ ahS
 aJV
 ahS
 bWG
-joQ
 xhg
+joQ
 ahR
 ahS
 aJV
@@ -163143,7 +163143,7 @@ nKI
 xNa
 dIO
 xNa
-sto
+byB
 iAS
 dSi
 dSi
@@ -163391,9 +163391,9 @@ svM
 tVC
 dXa
 dKi
-tIS
+moF
 dIO
-cjv
+uLG
 lEe
 dSl
 iqZ
@@ -163905,9 +163905,9 @@ cfR
 tVC
 dXa
 dKi
-moF
+tIS
 dIO
-uLG
+cjv
 lEe
 cJu
 xPl
@@ -164171,7 +164171,7 @@ lJu
 xNa
 dIO
 xNa
-byB
+sto
 efR
 dSi
 dSi
@@ -164425,12 +164425,12 @@ beF
 xQY
 pwo
 xQY
-fGp
-fQd
 ldk
+fQd
+fGp
 xQY
 hax
-mvS
+ebU
 gsU
 iUZ
 dUf
@@ -172349,9 +172349,9 @@ tta
 cPN
 gvj
 qEX
-qHP
-mRV
 mJx
+mRV
+qHP
 gHp
 wVd
 kSH
@@ -175229,7 +175229,7 @@ axo
 fTk
 wfx
 qXI
-dAX
+uux
 aAw
 jks
 aaq
@@ -176000,7 +176000,7 @@ oEr
 nUR
 fsG
 iIN
-dAX
+uux
 xzl
 jks
 coE
@@ -176257,7 +176257,7 @@ taq
 gmq
 wfx
 oXy
-uux
+dAX
 oTu
 jks
 aaq
@@ -176489,7 +176489,7 @@ dBO
 lGF
 dBO
 ltW
-gpI
+wBW
 qIo
 jjb
 ltW
@@ -176746,7 +176746,7 @@ hvy
 rvd
 fey
 ltW
-wBW
+gpI
 qIo
 qUW
 ltW
@@ -181310,8 +181310,8 @@ lhS
 vcX
 iHp
 uZU
-kyp
-kyp
+rsH
+rsH
 syB
 vnH
 vic
@@ -182338,8 +182338,8 @@ lhS
 oHJ
 unN
 hbT
-rsH
-rsH
+kyp
+kyp
 syB
 vnH
 vic

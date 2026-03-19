@@ -1581,7 +1581,7 @@
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/ruin/space/USSP_gorky17/mining)
 "gf" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -5042,7 +5042,7 @@
 	},
 /area/ruin/space/USSP_gorky17/medbay)
 "sK" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8344,7 +8344,7 @@
 	},
 /area/ruin/space/USSP_gorky17/medbay)
 "ED" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12741,7 +12741,7 @@
 	},
 /area/ruin/space/USSP_gorky17/arrival)
 "Uu" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},

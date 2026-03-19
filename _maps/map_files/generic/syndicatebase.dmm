@@ -22758,7 +22758,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tyz" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -23648,7 +23648,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "tXc" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25979,7 +25979,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "vCW" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
@@ -27399,7 +27399,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wEL" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
@@ -59675,9 +59675,9 @@ uQm
 dQw
 nrC
 pGE
-edm
+vOW
 uXW
-xDn
+wZM
 qpn
 nPD
 ylT
@@ -60189,9 +60189,9 @@ uQm
 ksA
 vkE
 aTM
-vOW
+edm
 vbe
-wZM
+xDn
 uut
 kWT
 ylT
@@ -60682,9 +60682,9 @@ dUD
 lUt
 dUD
 qEw
-gaS
+dGu
 xWn
-hdW
+tMm
 yez
 gEw
 wTW
@@ -61196,9 +61196,9 @@ vyL
 xhQ
 xrU
 qEw
-dGu
+gaS
 gIE
-tMm
+hdW
 yez
 iGX
 wTW
@@ -65834,9 +65834,9 @@ aAQ
 lNn
 anW
 frs
-fZp
+gpX
 vop
-moU
+wiV
 wuo
 qli
 dOc
@@ -66348,9 +66348,9 @@ fHz
 lNn
 rGX
 frs
-gpX
+fZp
 uyM
-wiV
+moU
 wuo
 lsA
 qVf
