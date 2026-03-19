@@ -5,6 +5,8 @@
 /// Pixel width & height of the holomap icon. Used for auto-centering etc.
 #define HOLOMAP_ICON_SIZE 480
 #define ui_holomap "CENTER-7,CENTER-7" // Screen location of the holomap "hud"
+/// Screen location of the mini holomap "hud"
+#define ui_mini_holomap "EAST-2:8,NORTH-2:8"
 
 #define HOLOMAP_EXTRA_STATIONMAP "stationmapformatted"
 #define HOLOMAP_EXTRA_STATIONMAPAREAS "stationareas"

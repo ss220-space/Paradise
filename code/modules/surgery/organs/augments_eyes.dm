@@ -190,3 +190,132 @@
 		INSTRUMENTAL = "универсальным ИЛС имплантом",
 		PREPOSITIONAL = "универсальном ИЛС импланте",
 	)
+
+
+/obj/item/organ/internal/cyberimp/eyes/map
+	name = "citizen map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
+	icon_state = "welding_implant"
+	eye_colour = "#634ce9"
+	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
+	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	var/show_targets = null
+	var/active = FALSE
+	var/current_z_level
+	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
+	var/datum/station_holomap/holomap_datum
+	var/crop_x = 0
+	var/crop_y = 0
+	var/crop_size = 80
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+
+/obj/item/organ/internal/cyberimp/eyes/map/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+
+/obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
+	active = !active
+	if(active)
+		to_chat(user, "На границе поля зрения появляется мини-карта.")
+		show_mini_map(user)
+	else
+		to_chat(user, "Мини-карта исчезает.")
+		hide_mini_map(user)
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/show_mini_map(mob/user)
+	if(!user?.client || user.hud_used.mini_holomap.used_station_map)
+		return FALSE
+
+	current_z_level = user.loc.z
+	holomap_datum = new()
+	setup_holomap(user)
+	if(!holomap_datum)
+		// Something is very wrong if we have to un-fuck ourselves here.
+		stack_trace("Mini holomap at [user.name]([COORD(user)]) couldn't setup holomap_datum.")
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
+		return
+
+	holomap_datum.update_map(handle_overlays())
+
+	var/datum/hud/human/user_hud = user.hud_used
+	holomap_datum.base_map.loc = user_hud.mini_holomap  // Put the image on the holomap hud
+	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+
+	playsound(src, 'sound/effects/holomap_open.ogg', 125)
+	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
+
+	user.hud_used.mini_holomap.used_station_map = src
+	user.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
+	user.hud_used.mini_holomap.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	user.client.screen |= user.hud_used.mini_holomap
+	user.client.images |= holomap_datum.base_map
+
+	if(holomap_datum.bogus)
+		to_chat(user, span_warning("Ошибка инициализации голокарты. Этот сектор пространства невозможно отобразить."))
+	else
+		to_chat(user, span_warning("На краю поля зрения появляется голографическая проекция станции."))
+
+	return TRUE
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/setup_holomap(mob/user)
+	var/turf/current_turf = get_turf(user)
+	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size/2)
+	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size/2)
+	var/list/crop_params = list("x1" = crop_x, "y1" = crop_y, "x2" = crop_x + crop_size, "y2" = crop_y + crop_size)
+	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays(), show_legend = FALSE, crop = crop_params)
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/handle_overlays()
+	// Each entry in this list contains the text for the legend, and the icon and icon_state use. Null or non-existent icon_state ignore hiding logic.
+	// If an entry contains an icon,
+	var/list/legend = list() //+ GLOB.holomap_default_legend
+
+	var/list/z_transitions = SSholomaps.holomap_z_transitions["[current_z_level]"]
+	if(length(z_transitions))
+		legend += z_transitions
+	return legend
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/check_position(mob/moved_mob)
+	SIGNAL_HANDLER
+
+	if(!moved_mob)
+		return
+
+	if(moved_mob.client)
+		moved_mob.client.images -= holomap_datum.base_map
+		setup_holomap(moved_mob)
+		holomap_datum.update_map(handle_overlays())
+		holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
+		moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
+		moved_mob.client.images |= holomap_datum.base_map
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	playsound(src, 'sound/effects/holomap_close.ogg', 125)
+
+	if(user?.client)
+		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
+		spawn(5)
+			if(user?.client)
+				user.client.screen -= user.hud_used.mini_holomap
+				user.client.images -= holomap_datum.base_map
+				user.hud_used.mini_holomap.used_station_map = null
+				user.hud_used.mini_holomap.used_base_map = null
+
+	holomap_datum.reset_map()
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/security
+	name = "security map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Дополнена возможностью показа владельцев импланта защиты разума."
+
+/obj/item/organ/internal/cyberimp/eyes/map/medical
+	name = "medical map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Дополнена возможностью показа медицинских датчиков и критических состояний."
