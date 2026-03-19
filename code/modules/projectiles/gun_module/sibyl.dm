@@ -119,8 +119,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 	auth_id = null
 	gun?.update_icon()
-	if(!silent && user)
-		to_chat(user, span_notice("Блокировка [gun.declent_ru(GENITIVE)] включена."))
 	return TRUE
 
 /obj/item/gun_module/sibyl/proc/unlock(mob/user, obj/item/card/id/ID)
@@ -128,8 +126,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return FALSE
 	auth_id = WEAKREF(ID)
 	gun?.update_icon()
-	if(user)
-		to_chat(user, span_notice("Блокировка [gun.declent_ru(GENITIVE)] отключена."))
 	return TRUE
 
 /obj/item/gun_module/sibyl/proc/toggle_authorization(obj/item/card/id/card_id, mob/user)
@@ -213,8 +209,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!energy_gun)
 		return
 
+	var/datum/security_level/current_level = SSsecurity_level.current_security_level
+	if(!current_level)
+		return
+
 	var/old_limit = limit
-	var/new_limit = SSsecurity_level.current_security_level.sibyl_limit
+	var/new_limit = current_level.sibyl_limit
 
 	if(new_limit != old_limit)
 		limit = new_limit
@@ -278,8 +278,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			return
 
 /obj/item/gun_module/sibyl/proc/on_welder_act(datum/source, mob/living/user, obj/item/tool)
-	SIGNAL_HANDLER
-
 	switch(state)
 		if(SIBSYS_STATE_WELDER_ACT)
 			to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
@@ -298,8 +296,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			return
 
 /obj/item/gun_module/sibyl/proc/on_crowbar_act(datum/source, mob/living/user, obj/item/tool)
-	SIGNAL_HANDLER
-
 	if(state != SIBSYS_STATE_WELDER_ACT)
 		return
 

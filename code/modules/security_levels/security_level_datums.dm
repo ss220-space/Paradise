@@ -53,7 +53,6 @@
 	color = "limegreen"
 	lowering_to_announcement_title = "Внимание! Уровень угрозы понижен до Зелёного."
 	lowering_to_announcement_text = "Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются."
-	sibyl_limit = SIBYL_TIER_NONLETHAL
 
 /**
  * MARK: BLUE
