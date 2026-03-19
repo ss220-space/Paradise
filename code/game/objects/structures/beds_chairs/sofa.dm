@@ -1,6 +1,6 @@
 /obj/structure/chair/sofa
 	name = "sofa"
-	icon_state = "leather_sofa_middle"
+	icon_state = "sofamiddle"
 	icon = 'icons/obj/chairs_wide.dmi'
 	anchored = TRUE
 	item_chair = null
@@ -35,13 +35,13 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
-	icon_state = "leather_sofa_left"
+	icon_state = "sofaend_left"
 
 /obj/structure/chair/sofa/right
-	icon_state = "leather_sofa_right"
+	icon_state = "sofaend_right"
 
 /obj/structure/chair/sofa/corner
-	icon_state = "leather_sofa_corner"
+	icon_state = "sofacorner"
 
 // MARK: CORP SOFA
 
