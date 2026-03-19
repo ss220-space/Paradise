@@ -2821,9 +2821,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/machinery/bodyscanner{
-	dir = 8
-	},
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
