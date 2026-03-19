@@ -527,3 +527,7 @@
 
 #define CARBON_MAX_RADIATION 200
 #define NUCLEATION_MAX_RADIATION 800
+
+// Flags for the mob_flags var on /mob
+/// May override the names used in screentips of OTHER OBJECTS hovered over.
+#define MOB_HAS_SCREENTIPS_NAME_OVERRIDE (1 << 0)

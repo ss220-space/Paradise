@@ -2,12 +2,9 @@
  * Contains the following:
  *
  * Folded and assemblied tripods
- * Broadcast camera that can be attached to these tripods (with no special mechanics for now)
  *
  * Most of the stuff is inherited. The folded tripod item takes actions straight from the camera, and then the unfolded tripod takes
  * everything from the folded tripod that ends up inside the unfolded one.
- *
- * TODO: Some mechanic for turned on broadcast camera
  */
 
 #define FOLDED_TRIPOD_ACTION_ASSEMBLY "Собрать штатив"
@@ -224,11 +221,13 @@
 		user.update_held_items()
 
 /// Signal proc to listen from the camera to change stuff based on its active state
-/obj/item/tripod/proc/on_camera_toggle(datum/source)
+/obj/item/tripod/proc/on_camera_toggle(datum/source, updates)
 	SIGNAL_HANDLER
 	update_appearance()
-	if(built_tripod) // This is a bit hacky, but much easier than anything I can think of right now. The unfolded tripod structure takes everything from this item, so we need to update that too
-		built_tripod.update_appearance()
+
+/obj/item/tripod/hear_talk(mob/speaker, list/message_pieces)
+	. = ..()
+	camera?.hear_talk(speaker, message_pieces)
 
 /obj/item/tripod/update_name(updates = ALL)
 	. = ..()
@@ -287,7 +286,11 @@
 
 /obj/structure/tripod/Initialize(mapload)
 	. = ..()
-	tripod_item = istype(loc, /obj/item/tripod) ? loc : new(src)
+	if(istype(loc, /obj/item/tripod))
+		tripod_item = loc
+		update_appearance()
+	else
+		tripod_item = new(src)
 	RegisterSignal(tripod_item, COMSIG_ATOM_UPDATE_APPEARANCE, PROC_REF(on_parent_item_update))
 
 /obj/structure/tripod/Destroy(force)
@@ -313,7 +316,7 @@
 	)
 
 /// Signal proc called on tripod_item appearance update.
-/obj/structure/tripod/proc/on_parent_item_update(datum/source)
+/obj/structure/tripod/proc/on_parent_item_update(datum/source, updates)
 	SIGNAL_HANDLER
 	update_appearance()
 
@@ -374,6 +377,10 @@
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 
+/obj/structure/tripod/hear_talk(mob/speaker, list/message_pieces)
+	. = ..()
+	tripod_item.hear_talk(speaker, message_pieces)
+
 /obj/structure/tripod/update_name(updates = ALL)
 	. = ..()
 	if(tripod_item.camera)
@@ -400,115 +407,3 @@
 
 #undef TRIPOD_ACTION_FOLD
 #undef TRIPOD_ACTION_CAMERA
-
-
-#define BROADCAST_CAMERA_ACTION_TOGGLE "Переключить режим камеры"
-#define BROADCAST_CAMERA_ACTION_CARTRIDGE "Вытащить ленту"
-
-/obj/item/broadcast_camera
-	name = "broadcast camera"
-	desc = "Камера, что принимает киноленты и может быть установлена на штатив."
-	icon = 'icons/obj/tripod_camera.dmi'
-	icon_state = "broadcast_camera_off"
-	item_state = "broadcast_camera_off"
-	gender = FEMALE
-	/// The tape inside the camera. Currently does not do anything at all and is just for cosmetic purposes.
-	var/obj/item/tape/tape
-	/// Are we currently "filming"?
-	var/active = FALSE
-	/// Sound loop of the camera working
-	var/datum/looping_sound/film_roll/soundloop
-
-/obj/item/broadcast_camera/Initialize(mapload)
-	. = ..()
-	soundloop = new(src, FALSE)
-
-/obj/item/broadcast_camera/get_ru_names()
-	return list(
-		NOMINATIVE = "трансляционная камера",
-		GENITIVE = "трансляционной камеры",
-		DATIVE = "трансляционной камере",
-		ACCUSATIVE = "трансляционную камеру",
-		INSTRUMENTAL = "трансляционной камерой",
-		PREPOSITIONAL = "трансляционной камере",
-	)
-
-/obj/item/broadcast_camera/Destroy(force)
-	QDEL_NULL(soundloop)
-	if(tape)
-		var/turf/our_turf = get_turf(src)
-		our_turf ? tape.forceMove(our_turf) : qdel(tape)
-		tape = null
-
-	return ..()
-
-/obj/item/broadcast_camera/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/tape))
-		return ..()
-
-	. = ATTACK_CHAIN_BLOCKED_ALL
-	add_fingerprint(user)
-	if(tape)
-		loc.balloon_alert(user, "уже вставлено")
-		return
-	if(!user.drop_transfer_item_to_loc(I, src))
-		return
-
-	tape = I
-	loc.balloon_alert(user, "вставлено")
-	playsound(loc, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
-
-/obj/item/broadcast_camera/attack_self(mob/user)
-	. = ..()
-	var/list/possible_actions = list(BROADCAST_CAMERA_ACTION_TOGGLE)
-	if(tape)
-		possible_actions += BROADCAST_CAMERA_ACTION_CARTRIDGE
-
-	var/choice = tgui_alert(user, "Что вы хотите сделать?", "Выбор действия", possible_actions)
-	switch(choice)
-		if(BROADCAST_CAMERA_ACTION_TOGGLE)
-			toggle(user)
-		if(BROADCAST_CAMERA_ACTION_CARTRIDGE)
-			eject(user)
-
-/// Proc to eject tape from the camera.
-/obj/item/broadcast_camera/proc/eject(mob/user)
-	if(!tape)
-		return FALSE
-
-	if(active)
-		toggle()
-	loc.balloon_alert(user, "вытащено")
-	playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
-	tape.forceMove_turf()
-	if(user)
-		user.put_in_hands(tape)
-	tape = null
-	return TRUE
-
-/// Proc used to toggle the state of the camera.
-/obj/item/broadcast_camera/proc/toggle(mob/user)
-	if(!active && !tape)
-		user?.balloon_alert(user, "требуется лента!")
-		return
-
-	active = !active
-	active ? soundloop.start() : soundloop.stop()
-	update_appearance(UPDATE_ICON_STATE)
-	if(!user)
-		return
-
-	var/message = active ? "включено" : "отключено"
-	user.balloon_alert(user, message)
-	user.update_held_items()
-
-/obj/item/broadcast_camera/update_icon_state()
-	if(active)
-		icon_state = "broadcast_camera_on"
-		item_state = "broadcast_camera_on"
-	else
-		icon_state = "broadcast_camera_off"
-		item_state = "broadcast_camera_off"
-
-#undef BROADCAST_CAMERA_ACTION_TOGGLE
-#undef BROADCAST_CAMERA_ACTION_CARTRIDGE

@@ -261,6 +261,9 @@
 
 #define SPLASHSCREEN_LAYER 33
 
+///Layer for screentips
+#define SCREENTIP_LAYER 34
+
 //-------------------- Radial ---------------------
 
 #define RADIAL_BACKGROUND_LAYER 0
