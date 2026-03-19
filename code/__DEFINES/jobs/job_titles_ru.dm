@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_CHIEF_ENGINEER_RESEARCHER "Главный научный сотрудник"
 // Scientist
 #define ALT_JOB_TITLE_RU_ANOMALIST "Аномалист"
-#define ALT_JOB_TITLE_RU_PLASMOLOGIST "Плазмолог"
+#define ALT_JOB_TITLE_RU_PLASMOLOGIST "Исследователь плазмы"
 #define ALT_JOB_TITLE_RU_XENOBIOLOGIST "Ксенобиолог"
 #define ALT_JOB_TITLE_RU_RESEARCH_ASSOCIATE "Научный сотрудник"
 #define ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER "Химик-исследователь"
