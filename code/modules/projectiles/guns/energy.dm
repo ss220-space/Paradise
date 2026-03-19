@@ -61,7 +61,7 @@
 
 	if(sibyl_mod && istype(I, /obj/item/card/id))
 		add_fingerprint(user)
-		sibyl_mod.toggleAuthorization(I, user)
+		sibyl_mod.toggle_authorization(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -84,15 +84,7 @@
 	..()
 
 /obj/item/gun/energy/emag_act(mob/user)
-	if(sibyl_mod && !sibyl_mod.emagged)
-		add_attack_logs(user, sibyl_mod, "emagged")
-		sibyl_mod.emagged = TRUE
-		sibyl_mod.unlock(user)
-		if(user)
-			user.visible_message(span_warning("От [src] летят искры!"), span_notice("Вы взломали [src], что привело к выключению болтов предохранителя."))
-		playsound(loc, 'sound/effects/sparks4.ogg', 30, TRUE)
-		do_sparks(5, TRUE, src)
-		return
+	..()
 
 /obj/item/gun/energy/emp_act(severity)
 	cell?.use(round(cell.charge / severity))
@@ -160,10 +152,10 @@
 		update_icon()
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
-	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
+	if(user && !sibyl_mod?.check_auth(user))
 		return FALSE
 
-	if(user && sibyl_mod && !sibyl_mod.can_fire(user))
+	if(user && !sibyl_mod?.can_fire(user))
 		return FALSE
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
