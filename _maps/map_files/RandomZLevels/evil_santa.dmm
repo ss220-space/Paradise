@@ -6023,7 +6023,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "YX" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -41274,7 +41274,7 @@ vD
 tk
 ez
 jq
-od
+mP
 zL
 EY
 vD
@@ -41788,7 +41788,7 @@ EY
 kB
 hJ
 ah
-mP
+od
 aJ
 gL
 Sp
@@ -57352,9 +57352,9 @@ Hm
 wa
 pf
 sa
-Nm
+go
 VY
-Nm
+go
 BA
 Mx
 Mx
@@ -57609,9 +57609,9 @@ mn
 mn
 YB
 VY
-go
+Nm
 sa
-go
+Nm
 BA
 Sl
 Mx
@@ -58123,9 +58123,9 @@ mn
 mn
 YB
 sa
-Nm
+go
 VY
-Nm
+go
 iS
 zC
 zC
@@ -58637,9 +58637,9 @@ mn
 mn
 YB
 VY
-go
+Nm
 sa
-go
+Nm
 iS
 zC
 vT
@@ -59151,9 +59151,9 @@ mn
 mn
 YB
 sa
-Nm
+go
 VY
-Nm
+go
 BA
 du
 Mx
@@ -59408,9 +59408,9 @@ eR
 Vf
 UT
 VY
-go
+Nm
 sa
-go
+Nm
 BA
 Tb
 Mx

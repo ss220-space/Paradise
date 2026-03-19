@@ -22497,7 +22497,7 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "cGj" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/machinery/newscaster{
@@ -55126,7 +55126,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -56296,7 +56296,7 @@
 	},
 /area/security/permahallway)
 "imn" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
@@ -57398,7 +57398,7 @@
 	},
 /area/hallway/secondary/exit)
 "ixA" = (
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -70637,7 +70637,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -79897,7 +79897,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -86999,7 +86999,7 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -89090,7 +89090,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
 "pPw" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -94444,7 +94444,7 @@
 /obj/structure/railing/wooden/endr{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -99152,7 +99152,7 @@
 /obj/structure/sign/poster/official/state_laws{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /obj/machinery/firealarm{
@@ -119283,7 +119283,7 @@
 /area/toxins/explab)
 "wAw" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -122104,7 +122104,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "xgE" = (
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -159426,7 +159426,7 @@ xnM
 cyc
 aHw
 gtF
-oPj
+nwZ
 uvi
 imn
 qfy
@@ -159683,9 +159683,9 @@ tDT
 cFO
 nlF
 hpR
-nwZ
+oPj
 gtF
-nwZ
+oPj
 roI
 aYZ
 dYt
@@ -160197,9 +160197,9 @@ aHb
 cFO
 nlF
 gtF
-oPj
+nwZ
 uvi
-oPj
+nwZ
 uBA
 ddc
 iTZ
@@ -160711,9 +160711,9 @@ tOp
 cFO
 nlF
 uvi
-nwZ
+oPj
 gtF
-nwZ
+oPj
 uBA
 dtC
 cDm
@@ -161227,7 +161227,7 @@ nlF
 gtF
 imn
 uvi
-oPj
+nwZ
 ffL
 pAs
 ots
@@ -161482,9 +161482,9 @@ qIO
 aGp
 aHB
 hpR
-nwZ
+oPj
 gtF
-nwZ
+oPj
 wSb
 gWF
 gWF
@@ -163391,7 +163391,7 @@ svM
 tVC
 dXa
 dKi
-moF
+tIS
 dIO
 uLG
 lEe
@@ -163905,7 +163905,7 @@ cfR
 tVC
 dXa
 dKi
-tIS
+moF
 dIO
 cjv
 lEe

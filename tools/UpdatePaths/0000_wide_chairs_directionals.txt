@@ -1,5 +1,5 @@
-/obj/structure/chair/sofa/temp_right : /obj/structure/chair/sofa/right{@OLD}
+/obj/structure/chair/sofa/temp_right {dir=1} : /obj/structure/chair/sofa/right{@OLD}
 
-/obj/structure/chair/sofa/corp/temp_right : /obj/structure/chair/sofa/corp/right{@OLD}
+/obj/structure/chair/sofa/corp/temp_right {dir=1} : /obj/structure/chair/sofa/corp/right{@OLD}
 
-/obj/structure/chair/sofa/bench/temp_right/@SUBTYPES : /obj/structure/chair/sofa/bench/right/@SUBTYPES{@OLD}
+/obj/structure/chair/sofa/bench/temp_right/@SUBTYPES {dir=1} : /obj/structure/chair/sofa/bench/right/@SUBTYPES{@OLD}

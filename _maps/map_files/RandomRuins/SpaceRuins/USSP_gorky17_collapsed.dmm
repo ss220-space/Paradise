@@ -1988,7 +1988,7 @@
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/ruin/space/USSP_gorky17/collapsed/mining)
 "gf" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -6173,7 +6173,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "sK" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,

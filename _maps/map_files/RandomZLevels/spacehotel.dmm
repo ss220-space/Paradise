@@ -2994,7 +2994,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "ku" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
@@ -7348,7 +7348,7 @@ eb
 fx
 fx
 eb
-kt
+ks
 cl
 cl
 lj
@@ -7868,7 +7868,7 @@ eb
 eb
 eb
 eb
-ks
+kt
 cl
 cl
 lj

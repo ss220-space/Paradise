@@ -598,7 +598,7 @@
 	},
 /area/ruin/ussp_xeno/admiral)
 "iK" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -2710,7 +2710,7 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "LU" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

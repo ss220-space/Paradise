@@ -5817,7 +5817,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
 "PQ" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -6915,7 +6915,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -9344,7 +9344,7 @@ IE
 Nn
 BO
 ex
-Ra
+mE
 wd
 ui
 ag
@@ -9719,7 +9719,7 @@ ex
 ex
 TQ
 ex
-mE
+Ra
 wd
 ui
 Iv

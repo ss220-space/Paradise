@@ -26735,7 +26735,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "dYg" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /obj/effect/landmark/start/prisoner,
@@ -46848,7 +46848,7 @@
 "gXq" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/chair/sofa/bench/left/medical_blue{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57166,7 +57166,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -90571,7 +90571,7 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 10
 	},
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/purple,
@@ -93442,7 +93442,7 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 6
 	},
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -99106,7 +99106,7 @@
 	},
 /area/security/brig)
 "oPW" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -99252,7 +99252,7 @@
 /area/maintenance/fsmaint)
 "oRt" = (
 /obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -109617,7 +109617,7 @@
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "qqH" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -120988,7 +120988,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "rYi" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -125348,7 +125348,7 @@
 	},
 /area/security/evidence)
 "sFf" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -127440,7 +127440,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit/maint)
 "sUy" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -128988,7 +128988,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
 "tfi" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /obj/machinery/camera{
@@ -146927,7 +146927,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/left{
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -152695,7 +152695,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "wEx" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/white/end{
@@ -152903,7 +152903,7 @@
 	},
 /area/turret_protected/ai)
 "wGq" = (
-/obj/structure/chair/sofa/bench/right/medical_blue{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -159038,7 +159038,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "xCH" = (
-/obj/structure/chair/sofa/bench/right{
+/obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -163821,7 +163821,7 @@
 	dir = 1;
 	pixel_y = -25
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -188143,7 +188143,7 @@ hDI
 kxM
 qsj
 rtN
-lNZ
+jvi
 xnD
 tkq
 kjL
@@ -188400,7 +188400,7 @@ xnD
 kxM
 qsj
 rtN
-uKg
+vyu
 xnD
 tkq
 kjL
@@ -191484,7 +191484,7 @@ xnD
 kxM
 qsj
 rtN
-vyu
+uKg
 xnD
 tkq
 kjL
@@ -191741,7 +191741,7 @@ dTo
 kxM
 qsj
 rtN
-jvi
+lNZ
 xnD
 tkq
 kjL
@@ -197491,7 +197491,7 @@ sqm
 oId
 ups
 mtb
-bqL
+pGz
 rRW
 kWJ
 hdm
@@ -198776,7 +198776,7 @@ fEn
 ghK
 uxo
 mtb
-pGz
+bqL
 rYj
 gft
 hRu
@@ -263074,7 +263074,7 @@ bkc
 rGI
 iDg
 plr
-vwO
+iLU
 rGI
 bkc
 bkc
@@ -263331,7 +263331,7 @@ bkc
 rGI
 bOz
 plr
-iLU
+vwO
 rGI
 bkc
 bkc
@@ -263339,7 +263339,7 @@ bkc
 rGI
 bOz
 plr
-iLU
+vwO
 rGI
 bkc
 bkc
@@ -266158,7 +266158,7 @@ bkc
 rGI
 mkw
 hvv
-uHM
+fEg
 rGI
 bkc
 bkc
@@ -266166,7 +266166,7 @@ bkc
 rGI
 mkw
 hvv
-vwO
+iLU
 rGI
 bkc
 bkc
@@ -266423,7 +266423,7 @@ bkc
 rGI
 mhX
 mSL
-fEg
+uHM
 rGI
 bkc
 bkc

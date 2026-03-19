@@ -1170,7 +1170,7 @@
 /area/ruin/unpowered)
 "sy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/machinery/light{

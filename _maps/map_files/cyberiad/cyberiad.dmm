@@ -17643,7 +17643,7 @@
 	},
 /area/hallway/primary/central/ne)
 "bpA" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
@@ -34666,7 +34666,7 @@
 	},
 /area/quartermaster/office)
 "cDc" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
@@ -40896,7 +40896,7 @@
 	name = "south newscaster";
 	pixel_x = -32
 	},
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /obj/effect/spawner/new_year/garland/west,
@@ -68060,7 +68060,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
 "nkQ" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,

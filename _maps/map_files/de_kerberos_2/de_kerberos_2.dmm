@@ -23284,7 +23284,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/serviceyard)
 "cGj" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/machinery/newscaster{
@@ -35795,7 +35795,7 @@
 	},
 /area/chapel/main)
 "dMi" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
@@ -67990,7 +67990,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "kKx" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -79888,7 +79888,7 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -91066,7 +91066,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
 "pPw" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -162109,7 +162109,7 @@ lqY
 cyc
 aHw
 dFv
-bxt
+wCD
 xHA
 dMi
 dlv
@@ -162366,9 +162366,9 @@ dbv
 cFO
 nlF
 xHA
-wCD
+bxt
 dFv
-wCD
+bxt
 fiK
 aYZ
 dYt
@@ -162880,9 +162880,9 @@ aHb
 cFO
 nlF
 dFv
-bxt
+wCD
 xHA
-bxt
+wCD
 nsi
 ddc
 iTZ
@@ -163394,9 +163394,9 @@ tOp
 vFd
 nlF
 xHA
-wCD
+bxt
 dFv
-wCD
+bxt
 nsi
 dtC
 cDm
@@ -163910,7 +163910,7 @@ nlF
 dFv
 dMi
 xHA
-bxt
+wCD
 aPM
 oNr
 dFW
@@ -164165,9 +164165,9 @@ aFt
 aGp
 aHB
 xHA
-wCD
+bxt
 dFv
-wCD
+bxt
 aUy
 cFF
 cFF

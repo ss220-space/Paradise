@@ -5450,7 +5450,7 @@
 	},
 /area/coldcolony/malta/medical/sleeper)
 "bUl" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
@@ -10467,7 +10467,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "dNo" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/orange,
@@ -25089,7 +25089,7 @@
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "jiF" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/random{
@@ -53883,7 +53883,7 @@
 	},
 /area/coldcolony/malta/security/customs)
 "tJa" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -96969,7 +96969,7 @@ nWM
 vVi
 nLT
 dhb
-pTc
+hWV
 twC
 mCf
 iUK
@@ -97483,7 +97483,7 @@ nWM
 vVi
 kmf
 goc
-hWV
+pTc
 twC
 vJn
 iUK

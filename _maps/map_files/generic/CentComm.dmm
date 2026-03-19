@@ -12936,7 +12936,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -17146,7 +17146,7 @@
 /area/shuttle/trade/sol)
 "itS" = (
 /obj/machinery/light/small,
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -20019,7 +20019,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -25218,7 +25218,7 @@
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lWZ" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -26033,7 +26033,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
 "mpQ" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -30402,7 +30402,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/supply)
 "ocs" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/plating{
@@ -30448,7 +30448,7 @@
 	},
 /area/shuttle/syndicate)
 "odT" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -32798,7 +32798,7 @@
 /obj/structure/sign/poster/official/religious{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
@@ -47159,7 +47159,7 @@
 	},
 /area/shuttle/escape)
 "vFV" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -62727,7 +62727,7 @@ luv
 dmj
 dmj
 dmj
-jJf
+tfq
 dJo
 oyw
 dhX
@@ -62984,7 +62984,7 @@ dmj
 dmj
 dmj
 dmj
-tfq
+jJf
 dJo
 nMc
 vhY
@@ -68895,7 +68895,7 @@ dmj
 dmj
 ruB
 dmj
-kgG
+qjR
 dJo
 nMc
 icT
@@ -69152,7 +69152,7 @@ ekY
 ruB
 ruB
 izp
-qjR
+kgG
 dJo
 iny
 woR
@@ -73769,7 +73769,7 @@ gro
 azv
 lym
 nKg
-wsI
+cNs
 azv
 jhz
 jhz
@@ -74283,7 +74283,7 @@ jtb
 xho
 nDx
 nKg
-cNs
+wsI
 azv
 iEU
 iEU
@@ -74499,7 +74499,7 @@ jWb
 kGX
 lxT
 mdb
-mDW
+mDk
 mVq
 nsg
 nKA
@@ -74756,7 +74756,7 @@ jWb
 kGJ
 lyR
 mds
-mDk
+mDW
 mVq
 nsi
 nMF
@@ -88902,7 +88902,7 @@ onc
 suU
 cHU
 cHU
-hqo
+pfp
 onc
 ajO
 hHt
@@ -89416,7 +89416,7 @@ onc
 omJ
 cHU
 cHU
-pfp
+hqo
 onc
 ajO
 oNF
@@ -92299,7 +92299,7 @@ nHr
 wcM
 hmB
 kGp
-ylC
+vTi
 pqb
 ont
 tGz
@@ -92556,7 +92556,7 @@ ozZ
 ueN
 euy
 kGp
-vTi
+ylC
 pqb
 ont
 tGz
@@ -93070,7 +93070,7 @@ gul
 ueN
 hmB
 kGp
-ylC
+vTi
 pqb
 pqb
 pqb
@@ -93327,7 +93327,7 @@ ufi
 lgU
 euy
 mOD
-vTi
+ylC
 pqb
 tRY
 tRY
@@ -100728,7 +100728,7 @@ dsj
 ugH
 aVH
 aVH
-eTD
+jic
 ihM
 onc
 onc
@@ -101756,7 +101756,7 @@ dDw
 ugH
 aVH
 aVH
-jic
+eTD
 rag
 onc
 tmi
