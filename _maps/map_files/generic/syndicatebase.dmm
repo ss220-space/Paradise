@@ -22738,7 +22738,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -26005,9 +26007,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

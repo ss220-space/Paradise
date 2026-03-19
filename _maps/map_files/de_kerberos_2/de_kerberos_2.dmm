@@ -46256,7 +46256,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
@@ -122715,9 +122717,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
 "wHp" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;

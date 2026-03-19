@@ -1112,9 +1112,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "iT" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "iY" = (

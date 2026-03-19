@@ -3818,9 +3818,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
 "ws" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -10259,7 +10257,7 @@ cu
 cu
 hs
 cu
-ud
+vN
 EG
 Jd
 Ms
@@ -10779,7 +10777,7 @@ cu
 cu
 cu
 cu
-vN
+ud
 Gu
 Ji
 Qq

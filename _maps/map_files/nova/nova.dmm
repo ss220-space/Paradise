@@ -43322,7 +43322,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
 "gtI" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -66036,7 +66038,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "jNK" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -90025,9 +90029,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "nwN" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -93749,7 +93751,8 @@
 /area/quartermaster/miningstorage)
 "nZH" = (
 /obj/structure/chair/sofa/corner{
-	color = "#85130b"
+	color = "#85130b";
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -100815,8 +100818,7 @@
 /area/medical/cryo)
 "pch" = (
 /obj/structure/chair/sofa/corner{
-	color = "#85130b";
-	dir = 4
+	color = "#85130b"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";

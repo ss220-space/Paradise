@@ -1249,14 +1249,7 @@
 	},
 /area/ruin/space/USSP_gorky17/gate)
 "eX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/computer/crew/old_frame,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitered"
-	},
+/turf/space,
 /area/ruin/space/USSP_gorky17/medbay)
 "eY" = (
 /turf/simulated/floor/plasteel{
@@ -2471,9 +2464,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
 "jE" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10011,7 +10002,9 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/asteroids)
 "Kt" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
