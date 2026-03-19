@@ -386,17 +386,17 @@
 
 	for(var/obj/item/I in robot.module.modules)
 		if(istype(I, /obj/item/scalpel) || \
-		   istype(I, /obj/item/hemostat) || \
-		   istype(I, /obj/item/retractor) || \
-		   istype(I, /obj/item/bonesetter) || \
-		   istype(I, /obj/item/circular_saw) || \
-		   istype(I, /obj/item/surgicaldrill) || \
-		   istype(I, /obj/item/bonegel) || \
-		   istype(I, /obj/item/FixOVein) || \
-		   istype(I, /obj/item/cautery) || \
-		   istype(I, /obj/item/stack/medical/bruise_pack) || \
-		   istype(I, /obj/item/stack/medical/ointment) || \
-		   istype(I, /obj/item/handheld_defibrillator))
+			istype(I, /obj/item/hemostat) || \
+			istype(I, /obj/item/retractor) || \
+			istype(I, /obj/item/bonesetter) || \
+			istype(I, /obj/item/circular_saw) || \
+			istype(I, /obj/item/surgicaldrill) || \
+			istype(I, /obj/item/bonegel) || \
+			istype(I, /obj/item/FixOVein) || \
+			istype(I, /obj/item/cautery) || \
+			istype(I, /obj/item/stack/medical/bruise_pack) || \
+			istype(I, /obj/item/stack/medical/ointment) || \
+			istype(I, /obj/item/handheld_defibrillator))
 			qdel(I)
 
 	robot.module.modules += new /obj/item/scalpel/laser/laser3(robot.module)
@@ -420,17 +420,17 @@
 
 	for(var/obj/item/I in robot.module.modules)
 		if(istype(I, /obj/item/scalpel) || \
-		   istype(I, /obj/item/hemostat) || \
-		   istype(I, /obj/item/retractor) || \
-		   istype(I, /obj/item/bonesetter) || \
-		   istype(I, /obj/item/circular_saw) || \
-		   istype(I, /obj/item/surgicaldrill) || \
-		   istype(I, /obj/item/bonegel) || \
-		   istype(I, /obj/item/FixOVein) || \
-		   istype(I, /obj/item/cautery) || \
-		   istype(I, /obj/item/stack/medical/bruise_pack) || \
-		   istype(I, /obj/item/stack/medical/ointment) || \
-		   istype(I, /obj/item/handheld_defibrillator))
+			istype(I, /obj/item/hemostat) || \
+			istype(I, /obj/item/retractor) || \
+			istype(I, /obj/item/bonesetter) || \
+			istype(I, /obj/item/circular_saw) || \
+			istype(I, /obj/item/surgicaldrill) || \
+			istype(I, /obj/item/bonegel) || \
+			istype(I, /obj/item/FixOVein) || \
+			istype(I, /obj/item/cautery) || \
+			istype(I, /obj/item/stack/medical/bruise_pack) || \
+			istype(I, /obj/item/stack/medical/ointment) || \
+			istype(I, /obj/item/handheld_defibrillator))
 			qdel(I)
 
 	robot.module.modules += new /obj/item/scalpel/laser/laser1(robot.module)
@@ -462,17 +462,17 @@
 
 	for(var/obj/item/I in robot.module.modules)
 		if(istype(I, /obj/item/scalpel) || \
-		   istype(I, /obj/item/hemostat) || \
-		   istype(I, /obj/item/retractor) || \
-		   istype(I, /obj/item/bonesetter) || \
-		   istype(I, /obj/item/circular_saw) || \
-		   istype(I, /obj/item/surgicaldrill) || \
-		   istype(I, /obj/item/bonegel) || \
-		   istype(I, /obj/item/FixOVein) || \
-		   istype(I, /obj/item/cautery) || \
-		   istype(I, /obj/item/stack/medical/bruise_pack) || \
-		   istype(I, /obj/item/stack/medical/ointment) || \
-		   istype(I, /obj/item/handheld_defibrillator))
+			istype(I, /obj/item/hemostat) || \
+			istype(I, /obj/item/retractor) || \
+			istype(I, /obj/item/bonesetter) || \
+			istype(I, /obj/item/circular_saw) || \
+			istype(I, /obj/item/surgicaldrill) || \
+			istype(I, /obj/item/bonegel) || \
+			istype(I, /obj/item/FixOVein) || \
+			istype(I, /obj/item/cautery) || \
+			istype(I, /obj/item/stack/medical/bruise_pack) || \
+			istype(I, /obj/item/stack/medical/ointment) || \
+			istype(I, /obj/item/handheld_defibrillator))
 			qdel(I)
 
 	robot.module.modules += new /obj/item/scalpel/alien(robot.module)
@@ -497,17 +497,17 @@
 
 	for(var/obj/item/I in robot.module.modules)
 		if(istype(I, /obj/item/scalpel) || \
-		   istype(I, /obj/item/hemostat) || \
-		   istype(I, /obj/item/retractor) || \
-		   istype(I, /obj/item/bonesetter) || \
-		   istype(I, /obj/item/circular_saw) || \
-		   istype(I, /obj/item/surgicaldrill) || \
-		   istype(I, /obj/item/bonegel) || \
-		   istype(I, /obj/item/FixOVein) || \
-		   istype(I, /obj/item/cautery) || \
-		   istype(I, /obj/item/stack/medical/bruise_pack) || \
-		   istype(I, /obj/item/stack/medical/ointment) || \
-		   istype(I, /obj/item/handheld_defibrillator))
+			istype(I, /obj/item/hemostat) || \
+			istype(I, /obj/item/retractor) || \
+			istype(I, /obj/item/bonesetter) || \
+			istype(I, /obj/item/circular_saw) || \
+			istype(I, /obj/item/surgicaldrill) || \
+			istype(I, /obj/item/bonegel) || \
+			istype(I, /obj/item/FixOVein) || \
+			istype(I, /obj/item/cautery) || \
+			istype(I, /obj/item/stack/medical/bruise_pack) || \
+			istype(I, /obj/item/stack/medical/ointment) || \
+			istype(I, /obj/item/handheld_defibrillator))
 			qdel(I)
 
 	robot.module.modules += new /obj/item/scalpel/laser/laser1(robot.module)
