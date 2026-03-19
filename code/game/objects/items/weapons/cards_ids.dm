@@ -160,8 +160,7 @@
 	if(!acc)
 		return
 
-	acc.suspended = TRUE
-	SEND_SIGNAL(acc, COMSIG_ACCOUNT_SUSPENDED)
+	acc.set_suspended(TRUE)
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()

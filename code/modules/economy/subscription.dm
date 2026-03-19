@@ -62,6 +62,11 @@
 		GLOB.all_subscriptions += src
 		SSsubscriptions_subsystem.add_subscription(src)
 
+/datum/subscription/Destroy()
+	subscriber_account = null
+	recipient_account = null
+	. = ..()
+
 /datum/subscription/proc/subscription_process()
 	if(!active)
 		return
@@ -95,7 +100,7 @@
  *  reason is CANCEL_USER or CANCEL_SYSTEM
  *  default CANCEL_USER
  */
-/datum/subscription/proc/cancel(reason=CANCEL_USER)
+/datum/subscription/proc/cancel(reason = CANCEL_USER)
 	active = FALSE
 	cancel_reason = reason
 	subscriber_account?.notify_pda_owner(
@@ -219,11 +224,6 @@
 
 	/// Find a template in the catalog of available subscriptions
 	var/datum/subscription/template = locate(subscription_type) in GLOB.available_subscriptions
-
-	// for(var/datum/subscription/subscription_template as anything in GLOB.available_subscriptions)
-	// 	if(subscription_template && subscription_template.type == subscription_type)
-	// 		template = subscription_template
-	// 		break
 
 	if(!template)
 		to_chat(usr, span_warning("Ошибка: подписка типа [subscription_type] не найдена в каталоге."))

@@ -136,7 +136,7 @@
 	data["aircontents"] = results
 
 /datum/data/pda/app/bank
-	name = "Raingor Interstellar Banking" /// this is the perfect name for a bank. (do not change)
+	name = "Raingor Interstellar Banking" // this is the perfect name for a bank. (do not change)
 	title = "Raingor Interstellar Banking"
 	icon = "university"
 	template = "pda_bank"
@@ -257,12 +257,12 @@
 
 	data["balance"] = owner_bank_account.money
 	data["transactions"] = transactions_list
-	/// Here are the names of the people/terminals where you can transfer money
+	// Here are the names of the people/terminals where you can transfer money
 	data["targets"] = possible_targets
-	/// Subscriptions that are already registered in the user's name
+	// Subscriptions that are already registered in the user's name
 	data["subscriptions"] = subs_list
-	/// Subscriptions that are NOT registered in the user's name and for them
-	/// you will need to create a new one
+	// Subscriptions that are NOT registered in the user's name and for them
+	// you will need to create a new one
 	data["availableSubs"] = available_sub_list
 	data["account_suspended"] = owner_bank_account.suspended
 

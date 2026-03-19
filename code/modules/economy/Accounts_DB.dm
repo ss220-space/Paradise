@@ -141,11 +141,7 @@ GLOBAL_VAR(current_date_string)
 
 		if("toggle_suspension")
 			if(detailed_account_view)
-				detailed_account_view.suspended = !detailed_account_view.suspended
-				if(detailed_account_view.suspended)
-					SEND_SIGNAL(detailed_account_view, COMSIG_ACCOUNT_SUSPENDED)
-				else
-					SEND_SIGNAL(detailed_account_view, COMSIG_ACCOUNT_UNSUSPENDED)
+				detailed_account_view.set_suspended(!detailed_account_view.suspended)
 
 		if("create_new_account")
 			current_page = AUT_ACCNEW

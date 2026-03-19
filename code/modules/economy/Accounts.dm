@@ -166,6 +166,18 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		PM.notify(text, noti)
 		. = TRUE
 
+/datum/money_account/proc/set_suspended(suspended_actual_status)
+	suspended = suspended_actual_status
+	if(suspended)
+		SEND_SIGNAL(src, COMSIG_ACCOUNT_SUSPENDED)
+	else
+		SEND_SIGNAL(src, COMSIG_ACCOUNT_UNSUSPENDED)
+
+/datum/money_account/proc/set_money(changed_money)
+	var/transaction_amount = abs(changed_money - money)
+	money = changed_money
+	SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
+
 /datum/transaction
 	var/target_name = ""
 	var/purpose = ""
