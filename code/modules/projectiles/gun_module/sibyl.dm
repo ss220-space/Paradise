@@ -17,7 +17,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	class = GUN_MODULE_CLASS_ENERGY_WEAPON
 
 	var/state = SIBSYS_STATE_UNINSTALLED
-	var/obj/item/card/id/auth_id = null
+	var/datum/weakref/auth_id = null
 	var/limit = SIBYL_NONLETHAL
 	var/registered = FALSE
 	var/voice_is_enabled = TRUE
@@ -26,7 +26,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/gun_module/sibyl/Destroy()
 	if(registered)
 		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
-	QDEL_NULL(auth_id)
 	. = ..()
 
 /obj/item/gun_module/sibyl/get_ru_names()
@@ -89,7 +88,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 	if(user)
 		to_chat(user, span_notice("Вы установили [declent_ru(ACCUSATIVE)] в [energy_gun.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
-		if(!auth_id)
+		if(!auth_id?.resolve())
 			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 
 /obj/item/gun_module/sibyl/on_detach(obj/item/gun/target_gun, mob/user)
@@ -118,10 +117,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/gun_module/sibyl/proc/unlock(mob/user, obj/item/card/id/ID)
 	if(state != SIBSYS_STATE_INSTALLED)
 		return FALSE
-	if(ID)
-		auth_id = ID
-	else
-		auth_id = TRUE
+	auth_id = WEAKREF(ID)
 	gun?.update_icon()
 	if(user)
 		to_chat(user, span_notice("Блокировка [gun.declent_ru(GENITIVE)] отключена."))
@@ -134,11 +130,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(emagged)
 		to_chat(user, span_danger("ОШИБКА АУТЕНТИФИКАЦИИ: [ID] вызывает короткое замыкание при сканировании!"))
 		return
-	if(!auth_id)
+	var/obj/item/card/id/current_auth = auth_id?.resolve()
+	if(!current_auth)
 		unlock(user, ID)
-		to_chat(user, span_notice("Вы авторизировали [gun.declent_ru(ACCUSATIVE)] в системе Sibyl System под именем [auth_id.registered_name]."))
+		to_chat(user, span_notice("Вы авторизировали [gun.declent_ru(ACCUSATIVE)] в системе Sibyl System под именем [ID.registered_name]."))
 		sibyl_sound(user, 'sound/voice/dominator/user.ogg', SIBYL_LINK_SOUND_COOLDOWN)
-	else if(auth_id == ID)
+	else if(current_auth == ID)
 		lock(user)
 		to_chat(user, span_notice("Вы деавторизировали [gun.declent_ru(ACCUSATIVE)] в системе Sibyl System."))
 	else if(ACCESS_ARMORY in ID.GetAccess())
@@ -168,7 +165,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!gun)
 		return FALSE
 	if(!emagged)
-		if(!auth_id)
+		var/obj/item/card/id/current_auth = auth_id?.resolve()
+		if(!current_auth)
 			to_chat(user, span_warning("Требуется авторизация! Приложите ID-карту."))
 			return FALSE
 		if(!find_and_compare_id_cards(user))
@@ -187,8 +185,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return TRUE
 
 /obj/item/gun_module/sibyl/proc/find_and_compare_id_cards(mob/user)
+	var/obj/item/card/id/current_auth = auth_id?.resolve()
+	if(!current_auth)
+		return FALSE
 	for(var/obj/item/card/id/found_id in user.get_all_id_cards())
-		if(found_id == auth_id)
+		if(found_id == current_auth)
 			return TRUE
 	return FALSE
 
@@ -239,50 +240,51 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		voice_cd = addtimer(VARSET_CALLBACK(src, voice_cd, null), time)
 
 /obj/item/gun_module/sibyl/screwdriver_act(mob/living/user, obj/item/I)
-	if(state == SIBSYS_STATE_WELDER_ACT)
-		to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
-		return
-	if(state == SIBSYS_STATE_SCREWDRIVER_ACT)
-		state = SIBSYS_STATE_INSTALLED
-		to_chat(user, span_notice("Вы закрепили [declent_ru(ACCUSATIVE)] в [gun.declent_ru(PREPOSITIONAL)]."))
-		return
-	else
-		if(prob(90))
-			state = SIBSYS_STATE_SCREWDRIVER_ACT
-			to_chat(user, span_notice("Вы ослабили крепление [declent_ru(GENITIVE)] на [gun.declent_ru(PREPOSITIONAL)]."))
-		else
-			var/obj/item/organ/external/affecting
-			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
-				affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			user.apply_damage(5, BRUTE, affecting)
-			user.emote("scream")
-			to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)] и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
-		return
-
-/obj/item/gun_module/sibyl/welder_act(mob/living/user, obj/item/I)
-	if(state == SIBSYS_STATE_WELDER_ACT)
-		to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
-		return
-
-	if(state == SIBSYS_STATE_SCREWDRIVER_ACT)
-		var/old_state = state
-		to_chat(user, span_notice("Вы начинаете разваривать крепление [declent_ru(GENITIVE)]..."))
-		if(I.use_tool(gun, user, SIBYL_DISMANTLE_DURATION, volume = I.tool_volume))
-			if(state != old_state)
-				return
-			if(prob(70))
-				state = SIBSYS_STATE_WELDER_ACT
-				to_chat(user, span_notice("Вы успешно разварили крепление [declent_ru(GENITIVE)]."))
+	switch(state)
+		if(SIBSYS_STATE_WELDER_ACT)
+			to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
+			return
+		if(SIBSYS_STATE_SCREWDRIVER_ACT)
+			state = SIBSYS_STATE_INSTALLED
+			to_chat(user, span_notice("Вы закрепили [declent_ru(ACCUSATIVE)] в [gun.declent_ru(PREPOSITIONAL)]."))
+			return
+		if(SIBSYS_STATE_INSTALLED)
+			if(prob(90))
+				state = SIBSYS_STATE_SCREWDRIVER_ACT
+				to_chat(user, span_notice("Вы ослабили крепление [declent_ru(GENITIVE)] на [gun.declent_ru(PREPOSITIONAL)]."))
 			else
 				var/obj/item/organ/external/affecting
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user
 					affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				user.apply_damage(10, BURN, affecting)
+				user.apply_damage(5, BRUTE, affecting)
 				user.emote("scream")
 				to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)] и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
-		return
+			return
+
+/obj/item/gun_module/sibyl/welder_act(mob/living/user, obj/item/I)
+	switch(state)
+		if(SIBSYS_STATE_WELDER_ACT)
+			to_chat(user, span_warning("Крепление [declent_ru(GENITIVE)] повреждено. Требуется монтировка."))
+			return
+		if(SIBSYS_STATE_SCREWDRIVER_ACT)
+			var/old_state = state
+			to_chat(user, span_notice("Вы начинаете разваривать крепление [declent_ru(GENITIVE)]..."))
+			if(I.use_tool(gun, user, SIBYL_DISMANTLE_DURATION, volume = I.tool_volume))
+				if(state != old_state)
+					return
+				if(prob(70))
+					state = SIBSYS_STATE_WELDER_ACT
+					to_chat(user, span_notice("Вы успешно разварили крепление [declent_ru(GENITIVE)]."))
+				else
+					var/obj/item/organ/external/affecting
+					if(ishuman(user))
+						var/mob/living/carbon/human/H = user
+						affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					user.apply_damage(10, BURN, affecting)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(I, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(I)] и повредил[GEND_A_O_I(I)] [affecting.declent_ru(ACCUSATIVE)]!"))
+			return
 
 /obj/item/gun_module/sibyl/crowbar_act(mob/living/user, obj/item/I)
 	if(state != SIBSYS_STATE_WELDER_ACT)

@@ -364,6 +364,6 @@
 // MARK: Sibyl System
 
 /obj/item/gun/energy/proc/install_sibyl()
-	var/obj/item/gun_module/sibyl/M = new /obj/item/gun_module/sibyl()
-	M.voice_is_enabled = FALSE
-	M.try_attach(src, null)
+	var/obj/item/gun_module/sibyl/module = new /obj/item/gun_module/sibyl()
+	module.voice_is_enabled = FALSE
+	module.try_attach(src, null)
