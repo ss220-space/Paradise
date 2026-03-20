@@ -31,6 +31,7 @@ type Account = {
   money: number;
   transactions: Transaction[];
   salary_modifier?: number;
+  salary_modifier_uid?: string;
 };
 
 export type Transaction = {
@@ -249,6 +250,7 @@ const DetailedAccountInfo = (_properties) => {
     suspended,
     transactions,
     salary_modifier,
+    salary_modifier_uid,
   } = data;
 
   const isModified = salary_modifier !== undefined && salary_modifier !== 0;
@@ -325,6 +327,7 @@ const DetailedAccountInfo = (_properties) => {
                       act('set_salary_modifier', {
                         modifier: selectedValue,
                         owner_name: owner_name,
+                        salary_modifier_uid: salary_modifier_uid,
                       })
                     }
                   >
@@ -350,6 +353,7 @@ const DetailedAccountInfo = (_properties) => {
                       act('set_salary_modifier', {
                         modifier: 0,
                         owner_name: owner_name,
+                        salary_modifier_uid: salary_modifier_uid,
                       });
                     }}
                   >

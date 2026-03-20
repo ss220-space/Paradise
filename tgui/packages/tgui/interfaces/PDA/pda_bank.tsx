@@ -35,6 +35,7 @@ type Subscription = {
   secure: boolean;
   subscription_type: string;
   direction: 'outgoing' | 'incoming';
+  uid: string;
 };
 
 type AvailableSubscription = {
@@ -45,6 +46,7 @@ type AvailableSubscription = {
   provider: string;
   secure: boolean;
   subscription_type: string;
+  uid: string;
 };
 
 type RaingorBankData = {
@@ -698,7 +700,7 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                     onClick={() =>
                       act('cancel_subscription', {
                         subscription_name: e.subscription_name,
-                        subscription_type: e.subscription_type,
+                        uid: e.uid,
                       })
                     }
                   >
@@ -718,7 +720,7 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                   onClick={() =>
                     act('resume_subscription', {
                       subscription_name: e.subscription_name,
-                      subscription_type: e.subscription_type,
+                      uid: e.uid,
                     })
                   }
                 >

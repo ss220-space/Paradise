@@ -96,12 +96,15 @@ GLOBAL_VAR(current_date_string)
 				data["suspended"] = detailed_account_view.suspended
 
 				var/salary_mod = 0
+				var/salary_mod_uid = ""
 				var/datum/subscription/salary_modifier/this_modifier = find_subscription_salary_modifier_spec(detailed_account_view.owner_name, /datum/subscription/salary_modifier)
 
 				if(this_modifier)
 					salary_mod = this_modifier.modifier;
+					salary_mod_uid = this_modifier.UID()
 
 				data["salary_modifier"] = salary_mod
+				data["salary_modifier_uid"] = salary_mod_uid
 
 				var/list/transactions = list()
 				for(var/datum/transaction/T in detailed_account_view.transaction_log)
@@ -259,44 +262,33 @@ GLOBAL_VAR(current_date_string)
 		if("set_salary_modifier")
 			var/sub_type = /datum/subscription/salary_modifier
 			var/owner_name = params["owner_name"]
+			var/salary_modifier = text2num(params["modifier"])
+			var/sub_uid = params["salary_modifier_uid"]
 			var/datum/money_account/sub_acc = get_account_with_name(owner_name)
+			var/datum/subscription/salary_modifier/target
 
 			if(!sub_acc)
 				to_chat(usr, span_danger("Аккаунт не найден."))
 				return
 
-			var/list/extra_params = list()
-			var/salary_modifier = text2num(params["modifier"])
-			extra_params["modifier"] = salary_modifier
-
-			var/datum/subscription/salary_modifier/target = find_subscription_salary_modifier_spec(owner_name, sub_type)
+			if(sub_uid && sub_uid != "" && sub_uid != "null")
+				target = locateUID(sub_uid)
 
 			if(!target)
+				target = find_subscription_salary_modifier_spec(owner_name, sub_type)
+
+			if(!target)
+				var/list/extra_params = list("modifier" = salary_modifier)
 				create_subscription(sub_acc, sub_type, extra_params)
-				ui_interact(usr)
-				return
-
-			if(salary_modifier == 0)
-				target.cancel()
-				target.modifier = 0
-				to_chat(usr, span_notice("Модификатор сброшен."))
-				ui_interact(usr)
-				return
-
-			target.modifier = salary_modifier
-			var/datum/job/user_job = sub_acc.linked_job
-			var/base_paycheck = user_job.paycheck
-			target.cost = abs(base_paycheck * salary_modifier / 100)
-			target.active = TRUE
-
-			if(salary_modifier < 0)
-				target.recipient_account = GLOB.station_account
-				target.subscriber_account = sub_acc
 			else
-				target.recipient_account = sub_acc
-				target.subscriber_account = GLOB.station_account
-
-			to_chat(usr, span_notice("Модификатор обновлён: [salary_modifier]%."))
+				if(salary_modifier == 0)
+					target.cancel()
+					target.modifier = 0
+					target.cost = 0
+					to_chat(usr, span_notice("Модификатор сброшен."))
+				else
+					target.update_modifier(salary_modifier)
+					to_chat(usr, span_notice("Модификатор обновлён: [salary_modifier]%."))
 			ui_interact(usr)
 
 #undef AUT_ACCLST
