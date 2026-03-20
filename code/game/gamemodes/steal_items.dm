@@ -538,7 +538,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_crusher"
 	typepath = /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "кота по кличке Бедокур"
-	protected_jobs = list(JOB_TITLE_MECHANIC, JOB_TITLE_CHIEF_ENGINEER)
+	protected_jobs = list(JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/animal/paperwork
 	id = "animal_paperwork"

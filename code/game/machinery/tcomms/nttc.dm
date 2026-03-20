@@ -38,7 +38,7 @@
 		// Engineeering
 		JOB_TITLE_CHIEF_ENGINEER = "engradio",
 		JOB_TITLE_ATMOSTECH = "engradio",
-		JOB_TITLE_MECHANIC = "engradio",
+		JOB_TITLE_SPACEPOD_TECHNICIAN = "engradio",
 		JOB_TITLE_ENGINEER = "engradio",
 		JOB_TITLE_ENGINEER_TRAINEE = "engradio",
 		// Central Command

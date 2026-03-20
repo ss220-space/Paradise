@@ -153,7 +153,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 
 /datum/job/science/mechanic
-	title = JOB_TITLE_MECHANIC
+	title = JOB_TITLE_SPACEPOD_TECHNICIAN
 	flag = JOB_FLAG_MECHANIC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -163,7 +163,7 @@
 	outfit = /datum/outfit/job/mechanic
 
 /datum/outfit/job/mechanic
-	name = JOB_TITLE_RU_MECHANIC
+	name = JOB_TITLE_RU_SPACEPOD_TECHNICIAN
 	jobtype = /datum/job/science/mechanic
 	uniform = /obj/item/clothing/under/rank/mechanic
 	belt = /obj/item/storage/belt/utility/full

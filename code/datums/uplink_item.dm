@@ -489,7 +489,7 @@
 			В комплект входит аккумулятор, который можно заменить с помощью кусачек."
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 7
-	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
+	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 //Bartender
 
@@ -538,7 +538,7 @@
 	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, \
-			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
+			JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
 //SCI
 
@@ -637,7 +637,7 @@
 	desc = "Способно разрушать укреплённые стены. Имеет 500 единиц материи вместо стандартных 100."
 	item = /obj/item/rcd/combat
 	cost = 25
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/poisonbottle

@@ -190,7 +190,7 @@
 
 /datum/gear/mug/department/eng
 	index_name = "engineer coffee mug"
-	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med

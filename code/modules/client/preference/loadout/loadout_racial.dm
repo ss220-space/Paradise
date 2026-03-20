@@ -66,7 +66,7 @@
 /datum/gear/racial/taj/job/eng
 	index_name = "veil, industrial"
 	path = /obj/item/clothing/glasses/tajblind/eng
-	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/racial/taj/job/cargo
 	index_name = "veil, khaki"

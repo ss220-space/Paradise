@@ -53,7 +53,7 @@
 /datum/gear/suit/coat/job/engi
 	index_name = "winter coat, engineering"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
-	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN)
 
 /datum/gear/suit/coat/job/atmos
 	index_name = "winter coat, atmospherics"
@@ -180,7 +180,7 @@
 /datum/gear/suit/suragi_jacket/eng
 	index_name = "Suragi Jacket - Engineering"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/eng
-	allowed_roles = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC)
+	allowed_roles = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN)
 
 /datum/gear/suit/suragi_jacket/botany
 	index_name = "Suragi Jacket - Hydroponics"

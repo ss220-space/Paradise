@@ -11,7 +11,7 @@
 #define JOB_TITLE_ENGINEER "Station Engineer"
 #define JOB_TITLE_ENGINEER_TRAINEE "Trainee Engineer"
 #define JOB_TITLE_ATMOSTECH "Life Support Specialist"
-#define JOB_TITLE_MECHANIC "Mechanic"
+#define JOB_TITLE_SPACEPOD_TECHNICIAN "Spacepod Technician"
 
 // Medical
 #define JOB_TITLE_CMO "Chief Medical Officer"

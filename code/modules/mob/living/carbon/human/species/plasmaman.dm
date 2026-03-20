@@ -193,7 +193,7 @@
 		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 			O = new /datum/outfit/plasmaman/engineering
 
-		if(JOB_TITLE_MECHANIC)
+		if(JOB_TITLE_SPACEPOD_TECHNICIAN)
 			O = new /datum/outfit/plasmaman/engineering/mecha
 
 		if(JOB_TITLE_CHIEF_ENGINEER)

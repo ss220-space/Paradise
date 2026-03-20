@@ -415,7 +415,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Atmos"
 
 /obj/effect/landmark/start/mechanic
-	name = JOB_TITLE_MECHANIC
+	name = JOB_TITLE_SPACEPOD_TECHNICIAN
 	icon_state = "Mechanic"
 
 /obj/effect/landmark/start/cmo
