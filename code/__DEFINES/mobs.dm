@@ -319,9 +319,8 @@ GLOBAL_LIST_INIT(ru_species, list(
 	SPECIES_WRYN = "врин"
 ))
 
-/proc/get_ru_species_name(species)
-	return GLOB.ru_species[species] || species
-	
+#define GET_RU_SPECIES_NAME(species) (GLOB.ru_species[species] || (species))
+
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
 	if(QDELETED(A)) return; \

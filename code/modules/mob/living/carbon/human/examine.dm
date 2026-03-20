@@ -17,7 +17,7 @@
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
 		return ..() //omit the species when examining
 	else
-		return "[..()],<b><font color='[examine_color]'> [get_ru_species_name(displayed_species)]</font></b>"
+		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
 
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0

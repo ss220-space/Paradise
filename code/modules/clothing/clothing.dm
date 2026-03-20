@@ -73,24 +73,6 @@
 		.["плотный"] = "Выполнен из плотного материала, защищающего от уколов."
 	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		.["устойчивый к давлению"] = "Способен защитить носителя от экстремального давления."
-	if(heat_protection || cold_protection)
-		var/heat_desc
-		var/cold_desc
-		switch(max_heat_protection_temperature)
-			if(400 to 1000)
-				heat_desc = "высоких"
-			if(1001 to 1600)
-				heat_desc = "очень высоких"
-			if(1601 to 35000)
-				heat_desc = "экстремально высоких"
-		switch(min_cold_protection_temperature)
-			if(160 to 272)
-				cold_desc = "низких"
-			if(72 to 159)
-				cold_desc = "очень низких"
-			if(0 to 71)
-				cold_desc = "экстремально низких"
-		.["термоизолированный"] = "Защищает носителя от [jointext(list(heat_desc, cold_desc) - null, " и ")] температур."
 	if((clothing_traits & TRAIT_QUICK_CARRY) || (clothing_traits & TRAIT_QUICKER_CARRY))
 		.["тактильный"] = "Уменьшает время для поднятия существ в пожарный захват на [(clothing_traits & TRAIT_QUICKER_CARRY) ? "две секунды" : "одну секунду"]."
 	if(clothing_traits & FINGERS_COVERED)

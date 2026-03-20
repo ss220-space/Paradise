@@ -513,8 +513,7 @@
 
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
 	/// our active hand, to check if it's disabled/detached
-	var/obj/item/organ/external/hand/active_hand = has_active_hand()? get_active_hand() : null
-	if(active_hand || do_after_count() >= usable_hands)
+	if(get_active_hand() || do_after_count() >= usable_hands)
 		examined_thing.balloon_alert(src, "нет свободных рук для осмотра!")
 		return FALSE
 
@@ -577,11 +576,13 @@
 			var/msg = span_smallnotice("Вы встречаетесь взглядом с [examined_mob.declent_ru(INSTRUMENTAL)].")
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
 
-	if(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT)
-		var/obj/item/clothing/eye_cover = is_eyes_covered()
-		if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
-			var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
-			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
+	if(!(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT))
+		return
+
+	var/obj/item/clothing/eye_cover = is_eyes_covered()
+	if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+		var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
 
 /// Checks if we can make eye contact or someone can make eye contact with us
 /mob/living/proc/can_eye_contact()

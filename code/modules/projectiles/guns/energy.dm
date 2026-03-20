@@ -52,10 +52,10 @@
 	var/list/readout = list()
 	readout += "<b><u>СТРЕЛЬБА</u></b>"
 	// Make sure there is something to actually retrieve
-	if(!ammo_type.len)
+	if(!length(ammo_type))
 		return
 	var/obj/projectile/exam_proj
-	readout += "Имеет <b>[ammo_type.len]</b> режим[DECL_CREDIT(ammo_type.len)] стрельбы."
+	readout += "Имеет <b>[length(ammo_type)]</b> режим[DECL_CREDIT(length(ammo_type))] стрельбы."
 	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
 		exam_proj = for_ammo.projectile_type
 		if((damage_mod <= 0 && stamina_mod <= 0) || (initial(exam_proj.damage) <= 0 && initial(exam_proj.stamina) <= 0))

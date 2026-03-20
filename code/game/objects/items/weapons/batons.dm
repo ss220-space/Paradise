@@ -648,7 +648,7 @@
 		GENITIVE = "оглушающего прута",
 		DATIVE = "оглушающему пруту",
 		ACCUSATIVE = "оглушающий прут",
-		INSTRUMENTAL = "оглушающий прутом",
+		INSTRUMENTAL = "оглушающим прутом",
 		PREPOSITIONAL = "оглушающем пруте"
 	)
 
