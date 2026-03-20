@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return null
 
 /obj/item/gun_module/sibyl/try_attach(obj/item/gun/target_gun, mob/user)
-	if(!istype(target_gun, /obj/item/gun/energy))
+	if(!isenergygun(target_gun))
 		if(user)
 			user.balloon_alert(user, "несовместимо с Sibyl System!")
 		return FALSE
@@ -108,12 +108,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/obj/item/gun/energy/energy_gun = target_gun
 	energy_gun.verbs -= /obj/item/gun/energy/proc/toggle_voice
 	state = SIBSYS_STATE_UNINSTALLED
-	lock(silent = TRUE)
+	lock()
 	energy_gun.sibyl_mod = null
 	limit = SIBYL_TIER_NONLETHAL
 	energy_gun.update_icon()
 
-/obj/item/gun_module/sibyl/proc/lock(mob/user, silent = FALSE)
+/obj/item/gun_module/sibyl/proc/lock(mob/user)
 	if(emagged)
 		return FALSE
 

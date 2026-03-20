@@ -74,18 +74,6 @@
 	if(sibyl_mod)
 		sibyl_mod.toggle_voice(usr)
 
-/obj/item/gun/energy/screwdriver_act(mob/living/user, obj/item/I)
-	..()
-
-/obj/item/gun/energy/welder_act(mob/living/user, obj/item/I)
-	..()
-
-/obj/item/gun/energy/crowbar_act(mob/living/user, obj/item/I)
-	..()
-
-/obj/item/gun/energy/emag_act(mob/user)
-	..()
-
 /obj/item/gun/energy/emp_act(severity)
 	cell?.use(round(cell.charge / severity))
 	if(chambered)//phil235
