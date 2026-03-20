@@ -129,7 +129,7 @@
 	if(changeling && chemical_synthesis_modifier != 0)
 		changeling.remove_chem_rate_modifier(src)
 
-	// Delуte item
+	// Delete item
 	if(istype(user.wear_suit, suit_type))
 		qdel(user.wear_suit)
 	if(istype(user.head, helmet_type))
