@@ -191,7 +191,7 @@
 		PREPOSITIONAL = "универсальном ИЛС импланте",
 	)
 
-
+// MARK: mini map implant
 /obj/item/organ/internal/cyberimp/eyes/map
 	name = "citizen map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
@@ -200,32 +200,26 @@
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	var/show_targets = null
 	var/active = FALSE
+	/// Z level for draw
 	var/current_z_level
+	/// Last mini map redraw turf
 	var/turf/current_turf
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
 	var/datum/station_holomap/holomap_datum
+	/// Global station map crop position x (bottom left)
 	var/crop_x = 0
+	/// Global station map crop position y (bottom left)
 	var/crop_y = 0
+	/// Global station map crop size
 	var/crop_size = 80
-
-
-/obj/item/organ/internal/cyberimp/eyes/map/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	. = ..()
-
-/obj/item/organ/internal/cyberimp/eyes/map/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	. = ..()
 
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
-		to_chat(user, "На границе поля зрения появляется мини-карта.")
 		show_mini_map(user)
 	else
-		to_chat(user, "Мини-карта исчезает.")
 		hide_mini_map(user)
-
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/show_mini_map(mob/user)
 	if(!user?.client || user.hud_used.mini_holomap.used_station_map)
@@ -302,15 +296,19 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 
+	to_chat(user, span_interface("Мини-карта исчезает."))
 	if(user?.client)
 		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-		spawn(5)
-			if(user?.client)
-				user.client.screen -= user.hud_used.mini_holomap
-				user.client.images -= holomap_datum.base_map
-				user.hud_used.mini_holomap.used_station_map = null
-				user.hud_used.mini_holomap.used_base_map = null
+		addtimer(CALLBACK(src, PROC_REF(remove_mini_map), user), 5)
+	holomap_datum.reset_map()
 
+/obj/item/organ/internal/cyberimp/eyes/map/proc/remove_mini_map(mob/user)
+	if(!user || !user.client)
+		return
+	user.client.screen -= user.hud_used.mini_holomap
+	user.client.images -= holomap_datum.base_map
+	user.hud_used.mini_holomap.used_station_map = null
+	user.hud_used.mini_holomap.used_base_map = null
 	holomap_datum.reset_map()
 
 
@@ -450,6 +448,15 @@
 			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
 
 	var/list/nuclear_disks = list()
+	var/obj/item/disk/nuclear/the_disk = locate() in GLOB.poi_list
+	if(the_disk)
+		var/turf/disk_location = get_turf(the_disk)
+		if(disk_location.z == current_z_level && is_in_crop_area(disk_location))
+			var/image/sensor_icon = image('icons/misc/8x8.dmi', icon_state = "nuclear_disk")
+			sensor_icon.pixel_w = HOLOMAP_CENTER_X + disk_location.x - crop_x - 1
+			sensor_icon.pixel_z = HOLOMAP_CENTER_X + disk_location.y - crop_y - 1
+			nuclear_disks += sensor_icon
+
 
 	if(length(teammates))
 		extra_overlays["Teammates"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "nuker"), "markers" = teammates)
