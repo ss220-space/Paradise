@@ -314,11 +314,21 @@
 
 /obj/item/borg/upgrade/industrial_engi
 	name = "engineering cyborg industial upgrade"
-	desc = "" // TODO: add desk
+	desc = "Модуль предоставляющий инженерному киборгу набор продвинутых инструментов."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=5;materials=6;powerstorage=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
+
+/obj/item/borg/upgrade/industrial_engi/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль продвинутых инструментов",
+		GENITIVE = "модуля продвинутых инструментов",
+		DATIVE = "модулю продвинутых инструментов",
+		ACCUSATIVE = "модуль продвинутых инструментов",
+		INSTRUMENTAL = "модулем продвинутых инструментов",
+		PREPOSITIONAL = "модуле продвинутых инструментов",
+	)
 
 /obj/item/borg/upgrade/industrial_engi/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
@@ -366,11 +376,21 @@
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
-	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
+	desc = "Экспериментальный модуль который заменяет инструменты инженерного киборга на инопланетный аналог."
 	icon_state = "abductor_mod"
 	origin_tech = "engineering=6;materials=6;abductor=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
+
+/obj/item/borg/upgrade/abductor_engi/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль инопланетных инструментов",
+		GENITIVE = "модуля инопланетных инструментов",
+		DATIVE = "модулю инопланетных инструментов",
+		ACCUSATIVE = "модуль инопланетных инструментов",
+		INSTRUMENTAL = "модулем инопланетных инструментов",
+		PREPOSITIONAL = "модуле инопланетных инструментов",
+	)
 
 /obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
@@ -418,11 +438,21 @@
 
 /obj/item/borg/upgrade/laser_medi
 	name = "medical cyborg laser upgrade"
-	desc = "" // TODO: add desc
+	desc = "Модуль который предоставляет медицинскому киборгу набор лазерных хирургических инструментов и улучшает установленное оборудование."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "biotech=3;materials=5;magnets=5"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/laser_medi/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль лазерных хирургических инструментов",
+		GENITIVE = "модуля лазерных хирургических инструментов",
+		DATIVE = "модулю лазерных хирургических инструментов",
+		ACCUSATIVE = "модуль лазерных хирургических инструментов",
+		INSTRUMENTAL = "модулем лазерных хирургических инструментов",
+		PREPOSITIONAL = "модуле лазерных хирургических инструментов",
+	)
 
 /obj/item/borg/upgrade/laser_medi/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
@@ -494,11 +524,21 @@
 
 /obj/item/borg/upgrade/abductor_medi
 	name = "medical cyborg abductor upgrade"
-	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
+	desc = "Экспериментальный модуль который заменяет хирургические инструменты медицинского киборга на инопланетный аналог и улучшает установленное оборудование."
 	icon_state = "abductor_mod"
 	origin_tech = "biotech=6;materials=6;abductor=2"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/laser_medi/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль инопланетных хирургических инструментов",
+		GENITIVE = "модуля инопланетных хирургических инструментов",
+		DATIVE = "модулю инопланетных хирургических инструментов",
+		ACCUSATIVE = "модуль инопланетных хирургических инструментов",
+		INSTRUMENTAL = "модулем инопланетных хирургических инструментов",
+		PREPOSITIONAL = "модуле инопланетных хирургических инструментов",
+	)
 
 /obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
