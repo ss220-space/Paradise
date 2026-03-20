@@ -359,6 +359,10 @@
 	. = ..()
 
 	if(iscarbon(target) && can_convert && user_is_rev && target.mind)
+		if(ismindshielded(target))
+			to_chat(user, span_warning("У [target] установлен защитный имплант! Конвертация невозможна!"))
+			return
+
 		var/target_is_rev = FALSE
 		if((target.mind in rev_mode.revolutionaries) || (target.mind in rev_mode.head_revolutionaries))
 			target_is_rev = TRUE
