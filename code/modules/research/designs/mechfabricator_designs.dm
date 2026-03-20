@@ -1295,15 +1295,6 @@
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 
-/datum/design/borg_upgrade_industrial_engi
-	id = "borg_upgade_industrial_engi"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/industrial_engi
-	req_tech = list(RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_POWERSTORAGE = 4)
-	materials = list(MAT_METAL = 25000, MAT_SILVER = 12500,  MAT_TITANIUM = 10000)
-	construction_time = 12 SECONDS
-	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
-
 /datum/design/borg_upgrade_hypospray
 	id = "borg_upgrade_hypospray"
 	build_type = MECHFAB
