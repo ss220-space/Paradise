@@ -44646,8 +44646,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/start/security_officer,
-/obj/structure/chair/sofa/bench/security_red,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "fDU" = (
@@ -59876,11 +59874,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"jdx" = (
-/obj/effect/landmark/start/security_officer,
-/obj/structure/chair/sofa/bench/security_red,
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "jdI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -181565,8 +181558,8 @@ xXC
 vcX
 nHu
 hvr
-jdx
-jdx
+kyp
+kyp
 syB
 mIk
 hvr
@@ -182079,8 +182072,8 @@ eEb
 vcX
 nHu
 hvr
-jdx
-jdx
+rsH
+rsH
 syB
 tIW
 hvr
