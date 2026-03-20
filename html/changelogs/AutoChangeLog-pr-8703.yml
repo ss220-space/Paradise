@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - bugfix: "микрофикс ошибки мапинга (PR #8703)"

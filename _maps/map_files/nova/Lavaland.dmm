@@ -2,7 +2,6 @@
 "aa" = (
 /obj/machinery/camera{
 	c_tag = "Mining Post South-East Hallway";
-	dir = 2;
 	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
@@ -31,10 +30,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "ad" = (
-/obj/structure/stone_tile/surrounding/cracked,
-/obj/structure/stone_tile/center/burnt,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "ae" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -90,14 +90,15 @@
 	},
 /area/mine/laborcamp/security)
 "au" = (
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "clockwork_floor"
 	},
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "av" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -148,15 +149,19 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "aM" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 8
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
 	},
-/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "aS" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -181,6 +186,20 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
+"bh" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "bq" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -214,14 +233,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "by" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "bB" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -256,12 +270,18 @@
 	},
 /area/mine/laborcamp)
 "bW" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile,
+/obj/structure/chair/brass{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "ca" = (
 /obj/item/stack/ore/iron,
 /obj/effect/mapping_helpers/no_lava,
@@ -272,26 +292,31 @@
 /obj/structure/flora/ausbushes/fullgrass/hell,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"cj" = (
+/obj/structure/stone_tile/slab/cracked,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "cu" = (
-/obj/structure/stone_tile/block/burnt{
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"cD" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 1
 	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"cD" = (
 /obj/structure/stone_tile,
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "cG" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -334,23 +359,30 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "dd" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"de" = (
+/obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"de" = (
-/obj/structure/stone_tile/slab,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "dg" = (
 /turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
@@ -364,9 +396,12 @@
 	},
 /area/mine/storage)
 "dm" = (
-/obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "dq" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 8
@@ -402,15 +437,16 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "dy" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 8
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
 	},
-/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/surrounding/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "dz" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 8
@@ -434,17 +470,19 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dG" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
 /obj/structure/stone_tile/cracked{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "dI" = (
 /turf/simulated/wall,
 /area/mine/laborcamp/security)
@@ -481,18 +519,18 @@
 	},
 /area/mine/lobby)
 "dQ" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "dW" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -503,12 +541,16 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ec" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/structure/fluff/drake_statue/falling{
-	move_resist = 40000
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ed" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -554,9 +596,7 @@
 /area/lavaland/surface/outdoors)
 "eu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "ev" = (
@@ -715,16 +755,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "fw" = (
-/obj/structure/window/reinforced/clockwork{
-	dir = 8;
-	move_resist = 45000
+/obj/structure/stone_tile{
+	dir = 1
 	},
-/obj/structure/bookcase/random/religion{
-	move_resist = 45000
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
 	},
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "fF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -736,18 +778,18 @@
 	},
 /area/mine/laborcamp)
 "fI" = (
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "fM" = (
 /obj/structure/stone_tile/cracked,
 /obj/effect/mapping_helpers/no_lava,
@@ -784,23 +826,21 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "fY" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/block{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "ga" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/flasher{
 	id = "labor";
-	pixel_y = 0;
 	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel{
@@ -813,17 +853,20 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "gi" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center/cracked,
-/obj/structure/table/reinforced/brass,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "gn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -861,27 +904,25 @@
 	},
 /area/mine/laborcamp)
 "gw" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
 "gA" = (
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "gC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -919,16 +960,13 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "gG" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/cracked{
-	dir = 4
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
 	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "gI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -953,17 +991,17 @@
 /area/mine/laborcamp)
 "gN" = (
 /obj/structure/stone_tile/cracked{
-	dir = 1
+	dir = 8
 	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
 /obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "gQ" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -979,28 +1017,35 @@
 	},
 /area/mine/lobby)
 "gY" = (
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
+/obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "he" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	pixel_y = 0
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"hf" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "hh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1100,38 +1145,38 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "hJ" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt{
 	dir = 4
 	},
-/obj/structure/stone_tile,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "hK" = (
 /obj/machinery/door/window/southleft{
 	dir = 8;
 	name = "Trash Driver Access"
 	},
 /obj/machinery/mass_driver{
-	dir = 2;
 	id_tag = "trash1"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "hL" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
-/obj/item/storage/toolbox/brass,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "hQ" = (
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/explored)
@@ -1244,18 +1289,28 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "iq" = (
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/unexplored/danger)
+/obj/structure/stone_tile/center/burnt,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"ir" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "is" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile{
-	dir = 8
-	},
+/obj/structure/stone_tile/block,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "it" = (
 /obj/machinery/door/airlock{
 	id_tag = "toiletmining2";
@@ -1310,17 +1365,39 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"iF" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/obj/structure/stone_tile/surrounding_tile/cracked{
+"iD" = (
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"iF" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"iG" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 6
+	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "iH" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -1345,13 +1422,20 @@
 /turf/simulated/wall,
 /area/mine/lobby)
 "iO" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/wrench/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "iS" = (
 /obj/machinery/seed_extractor,
 /obj/effect/decal/cleanable/dirt,
@@ -1371,21 +1455,30 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "iW" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
+/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "iZ" = (
 /obj/structure/fluff/drake_statue/falling,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"ja" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "jc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1482,9 +1575,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/accessory/necklace/skullcodpiece{
-	pixel_y = 0
-	},
+/obj/item/clothing/accessory/necklace/skullcodpiece,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -1517,11 +1608,27 @@
 /area/mine/storage)
 "jU" = (
 /obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"jV" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "jW" = (
 /obj/structure/fans/tiny,
 /obj/machinery/access_button{
@@ -1657,23 +1764,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "kt" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
-"kx" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
-"ky" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
@@ -1686,7 +1776,28 @@
 /obj/structure/stone_tile/center,
 /mob/living/simple_animal/hostile/megafauna/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"kx" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"ky" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "kA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
@@ -1701,21 +1812,22 @@
 	},
 /area/mine/eva)
 "kN" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile/burnt,
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "kO" = (
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
 	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "kR" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1760,25 +1872,25 @@
 	},
 /area/mine/laborcamp/security)
 "li" = (
+/obj/structure/stone_tile/slab,
+/obj/item/storage/toolbox/brass,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"lk" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/item/clockwork/clockgolem_remains,
+/obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"lk" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "lm" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
@@ -1806,19 +1918,15 @@
 	},
 /area/mine/laborcamp/security)
 "ls" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/big_legion,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "lx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
@@ -1842,26 +1950,25 @@
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "lA" = (
-/obj/structure/stone_tile/block/burnt{
-	dir = 8
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
 	},
-/obj/structure/stone_tile/block{
-	dir = 4
+/obj/structure/bookcase{
+	move_resist = 45000
 	},
+/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "lB" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "clockwork_floor"
 	},
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "lD" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Bedroom"
@@ -1877,9 +1984,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "lG" = (
@@ -1926,16 +2031,21 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "lW" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
+/obj/structure/stone_tile/cracked{
+	dir = 4
 	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "lY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -1973,11 +2083,18 @@
 	},
 /area/mine/lobby)
 "mi" = (
-/obj/structure/stone_tile/surrounding_tile/burnt{
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "mn" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer{
@@ -1991,6 +2108,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
+"ms" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "mt" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -1998,21 +2122,31 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "my" = (
-/obj/effect/landmark/map_loader/lavaland_room{
-	dir = 4
+/obj/structure/stone_tile{
+	dir = 8
 	},
-/turf/template_noop,
-/area/lavaland/surface/outdoors/necropolis)
-"mz" = (
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"mz" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "mE" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/mineral/wood,
@@ -2066,14 +2200,11 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "mS" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab,
+/obj/item/wrench/brass,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "mY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2183,19 +2314,16 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "nT" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "nU" = (
 /obj/structure/table/wood,
 /obj/machinery/kitchen_machine/microwave,
@@ -2285,17 +2413,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "oz" = (
-/obj/structure/stone_tile/block{
-	dir = 8
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
 	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
 	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "oA" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/mapping_helpers/no_lava,
@@ -2343,10 +2472,20 @@
 	},
 /area/mine/laborcamp/security)
 "oX" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/closet/crate/necropolis/tendril,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "oY" = (
 /obj/structure/chair/office/light{
 	dir = 8;
@@ -2357,11 +2496,18 @@
 	},
 /area/mine/lobby)
 "pd" = (
-/obj/structure/stone_tile/slab,
-/obj/item/wrench/brass,
-/obj/structure/table/reinforced/brass,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "pg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -2406,12 +2552,10 @@
 	},
 /area/mine/laborcamp)
 "pk" = (
-/obj/structure/stone_tile/slab/burnt,
-/obj/structure/fluff/drake_statue/falling{
-	move_resist = 40000
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/closet/crate/necropolis/tendril,
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "pm" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 8
@@ -2560,9 +2704,9 @@
 	},
 /obj/structure/stone_tile,
 /obj/structure/table/reinforced/brass,
-/obj/item/twohanded/ratvarian_spear,
+/obj/item/wirecutters/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "pY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2581,28 +2725,26 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "qe" = (
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile{
-	dir = 4
+/obj/structure/stone_tile/block{
+	dir = 1
 	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"qi" = (
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"qi" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "qu" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/lavaland/inocybe,
@@ -2727,11 +2869,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "rc" = (
-/obj/structure/stone_tile/slab,
-/obj/item/storage/toolbox/brass,
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "rl" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2789,17 +2934,23 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "rO" = (
-/obj/structure/stone_tile/block/burnt{
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"rQ" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
-"rQ" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "rR" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -2810,19 +2961,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "rZ" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/window/reinforced/clockwork{
-	dir = 4;
-	move_resist = 45000
-	},
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "sd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/weightmachine/horizontalbar,
@@ -2864,17 +3007,31 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "sw" = (
-/obj/structure/closet/crate/necropolis/tendril,
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"sH" = (
-/obj/structure/stone_tile/center/burnt,
-/obj/structure/stone_tile/surrounding/cracked{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"sH" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "sJ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
@@ -2889,17 +3046,10 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "sM" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "sQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/effect/spawner/window/reinforced,
@@ -2966,9 +3116,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/light/small{
-	dir = 2
-	},
+/obj/machinery/light/small,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -2986,7 +3134,6 @@
 /obj/machinery/power/apc{
 	name = "Labor Camp APC";
 	pixel_x = -26;
-	pixel_y = 0;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -3063,17 +3210,18 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "tK" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "tM" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/machinery/alarm{
@@ -3104,6 +3252,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"tT" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "tU" = (
 /obj/structure/ore_box,
@@ -3182,37 +3343,31 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "uw" = (
-/obj/structure/stone_tile/surrounding/cracked,
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "uz" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
+/obj/structure/stone_tile/surrounding/burnt,
+/obj/structure/stone_tile/center/burnt,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "uA" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 4
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
 	},
-/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "uB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -3358,12 +3513,19 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "va" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "vb" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
@@ -3401,18 +3563,18 @@
 	},
 /area/mine/laborcamp/security)
 "vg" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "vi" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
@@ -3452,10 +3614,12 @@
 	},
 /area/mine/living_quarters)
 "vt" = (
-/obj/structure/stone_tile/surrounding/burnt,
-/obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "vw" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -3477,16 +3641,10 @@
 	},
 /area/mine/eva)
 "vx" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "vA" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3532,16 +3690,13 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/structure/window/reinforced/clockwork{
-	dir = 4;
-	move_resist = 45000
-	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "vS" = (
 /obj/machinery/light/small,
 /obj/structure/sign/xeno_warning_mining{
@@ -3580,17 +3735,17 @@
 /area/mine/laborcamp)
 "vZ" = (
 /obj/structure/stone_tile/cracked{
-	dir = 4
+	dir = 1
 	},
 /obj/structure/stone_tile{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "wc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -3651,12 +3806,12 @@
 	},
 /area/mine/storage)
 "wo" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile/block,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "wr" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3724,31 +3879,24 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "wK" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 4
-	},
-/obj/structure/stone_tile/cracked,
-/mob/living/simple_animal/hostile/big_legion,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"wN" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
 	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/structure/table/reinforced/brass,
-/obj/item/weldingtool/experimental/brass,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"wN" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "wO" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/fluff/ash_statue{
@@ -3757,24 +3905,33 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wP" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "wQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/mine/lobby)
+"wT" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/closet/crate/necropolis/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "wZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3782,16 +3939,15 @@
 	},
 /area/mine/laborcamp)
 "xb" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "xe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -3830,9 +3986,15 @@
 	},
 /area/mine/laborcamp/security)
 "xr" = (
-/obj/structure/stone_tile/block/burnt,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "xx" = (
 /obj/machinery/biogenerator,
 /obj/item/reagent_containers/glass/bucket,
@@ -3912,16 +4074,15 @@
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
 "xW" = (
-/obj/structure/window/reinforced/clockwork{
-	dir = 4;
-	move_resist = 45000
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 1
 	},
-/obj/structure/bookcase/random/religion{
-	move_resist = 45000
+/obj/structure/stone_tile{
+	dir = 4
 	},
-/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "xY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -3963,18 +4124,15 @@
 	},
 /area/mine/laborcamp)
 "yg" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/structure/stone_tile/slab/cracked{
+/obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile/slab/cracked,
-/obj/structure/fluff/drake_statue/falling{
-	move_resist = 40000
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "yh" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -3982,13 +4140,31 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "yk" = (
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "yp" = (
-/obj/structure/clockwork/wall_gear,
-/turf/simulated/wall/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "yt" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -4044,11 +4220,15 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "yE" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 4
+/obj/structure/stone_tile/block{
+	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "yM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/locked/prison/directional/north,
@@ -4087,14 +4267,10 @@
 	},
 /area/mine/lobby)
 "yZ" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
+/obj/structure/necropolis_gate/locked,
+/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "za" = (
 /obj/ash_walker_landmark,
 /turf/template_noop,
@@ -4129,9 +4305,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "zm" = (
-/obj/machinery/cryopod{
-	dir = 2
-	},
+/obj/machinery/cryopod,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4181,15 +4355,19 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "zK" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
 /obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "zL" = (
 /obj/machinery/mineral/equipment_vendor/labor,
 /turf/simulated/floor/plating,
@@ -4210,22 +4388,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "zP" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/bookcase,
-/obj/structure/window/reinforced/clockwork{
-	dir = 1
-	},
-/obj/structure/window/reinforced/clockwork,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "zT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -4261,9 +4429,9 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/table/reinforced/brass,
+/obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Ab" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4278,12 +4446,9 @@
 	},
 /area/mine/laborcamp)
 "Af" = (
-/obj/structure/stone_tile/slab,
-/obj/structure/window/reinforced/clockwork{
-	move_resist = 45000
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Ag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4324,17 +4489,19 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "Am" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
 	dir = 4
 	},
+/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "An" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -4391,32 +4558,42 @@
 /turf/simulated/wall,
 /area/mine/living_quarters)
 "AI" = (
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 6
-	},
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"AJ" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/surrounding_tile/burnt{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
-"AK" = (
-/obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
 /obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"AJ" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
 	dir = 4
 	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"AK" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "AM" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -4471,6 +4648,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"AS" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "AU" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -4486,9 +4677,7 @@
 	},
 /area/mine/living_quarters)
 "AY" = (
-/obj/structure/disposaloutlet{
-	dir = 2
-	},
+/obj/structure/disposaloutlet,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -4498,18 +4687,11 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "AZ" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/burnt{
 	dir = 1
 	},
-/obj/structure/stone_tile,
-/obj/machinery/door/poddoor/impassable/necropolisdoor{
-	id_tag = "11119"
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Bf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -4530,16 +4712,19 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "Bk" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile/burnt,
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Bm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4551,25 +4736,24 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "Bn" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 1
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Bp" = (
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "Bq" = (
 /obj/structure/stone_tile/block,
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 4
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
 	},
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Bu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -4688,17 +4872,18 @@
 	},
 /area/mine/laborcamp)
 "Cc" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Ce" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -4706,16 +4891,17 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Cf" = (
-/obj/structure/window/reinforced/clockwork{
-	dir = 4;
-	move_resist = 45000
+/obj/structure/stone_tile/block{
+	dir = 4
 	},
-/obj/structure/bookcase{
-	move_resist = 45000
+/obj/structure/stone_tile{
+	dir = 4
 	},
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Cg" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -4782,27 +4968,40 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Cz" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/bookcase,
+/obj/structure/window/reinforced/clockwork,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "CB" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "CC" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/window/reinforced/clockwork{
-	dir = 1;
-	move_resist = 45000
+/obj/structure/stone_tile/block{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "CF" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
@@ -4824,19 +5023,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "CI" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
-	dir = 4
+/obj/structure/stone_tile/block{
+	dir = 8
 	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
 	},
-/obj/structure/window/reinforced/clockwork{
-	dir = 1;
-	move_resist = 45000
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "CJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -4860,28 +5054,29 @@
 /turf/simulated/wall/r_wall,
 /area/mine/maintenance)
 "CP" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile{
-	dir = 4
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"CR" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "clockwork_floor"
 	},
-/area/mine/necropolis)
-"CR" = (
-/obj/structure/stone_tile/center/cracked,
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding/cracked,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "CS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4909,18 +5104,19 @@
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "CW" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
 	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/item/clockwork/clockgolem_remains,
+/obj/structure/stone_tile/cracked,
+/mob/living/simple_animal/hostile/big_legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Dd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4935,12 +5131,13 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Df" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 8
+/obj/structure/closet/crate/necropolis/tendril,
+/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/cracked{
+	dir = 1
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Dh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -4963,37 +5160,45 @@
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "Dl" = (
-/obj/structure/stone_tile/slab/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Dq" = (
-/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Dt" = (
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"Dt" = (
-/obj/structure/closet/crate/necropolis/tendril,
-/obj/structure/stone_tile/slab,
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"DB" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"DB" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "DC" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/lava/lava_land_surface,
@@ -5016,38 +5221,56 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "DI" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "DJ" = (
-/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"DP" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
 	},
+/mob/living/simple_animal/hostile/big_legion,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"DP" = (
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "DQ" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/cracked{
-	dir = 1
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "DV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -5073,31 +5296,31 @@
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "Ej" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"El" = (
 /obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"El" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Em" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -5157,11 +5380,20 @@
 	},
 /area/mine/laborcamp/security)
 "ED" = (
-/obj/structure/stone_tile/slab,
-/obj/item/clockwork/clockgolem_remains,
-/obj/structure/table/reinforced/brass,
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/chair/brass{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "EG" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5193,15 +5425,15 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "EW" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors/necropolis)
@@ -5233,24 +5465,14 @@
 	},
 /area/mine/storage)
 "Fv" = (
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Fw" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/burnt{
-	dir = 4
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Fy" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/lattice/catwalk/mapping,
@@ -5281,9 +5503,7 @@
 /turf/simulated/mineral/random/volcanic/hard,
 /area/lavaland/surface/outdoors)
 "FG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "FI" = (
@@ -5312,18 +5532,18 @@
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "FM" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/structure/stone_tile,
 /obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile,
-/obj/structure/window/reinforced/clockwork{
-	move_resist = 45000
-	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "FR" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/lavaland/ember,
@@ -5349,12 +5569,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
 "FX" = (
-/obj/structure/stone_tile/block/burnt{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Gb" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -5369,18 +5595,22 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Gg" = (
-/obj/structure/stone_tile/block{
-	dir = 1
+/obj/structure/stone_tile/slab,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
 	},
-/obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Gi" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -5396,34 +5626,30 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Go" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/chair/brass{
 	dir = 1
 	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Gp" = (
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Gq" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5433,18 +5659,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "Gr" = (
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Gu" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/lavaland/coaltree,
@@ -5465,23 +5691,25 @@
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "GA" = (
-/turf/simulated/wall/indestructible/boss{
-	opacity = 0
-	},
-/area/mine/necropolis)
-"GC" = (
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/block{
 	dir = 4
 	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 1
-	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"GC" = (
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/obj/structure/bookcase/random/religion{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "GH" = (
 /obj/machinery/light{
 	dir = 8
@@ -5495,18 +5723,15 @@
 	},
 /area/mine/living_quarters)
 "GI" = (
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "GJ" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
@@ -5516,12 +5741,27 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"GL" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "GM" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "GQ" = (
 /obj/machinery/power/apc{
 	name = "Mining EVA APC";
@@ -5558,16 +5798,18 @@
 	},
 /area/mine/living_quarters)
 "He" = (
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Hi" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -5581,15 +5823,16 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Hm" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/slab,
-/obj/structure/stone_tile/cracked{
-	dir = 1
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
 	},
-/obj/structure/closet/crate/necropolis/tendril,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Ho" = (
 /obj/structure/closet/crate,
 /obj/effect/mapping_helpers/no_lava,
@@ -5659,16 +5902,19 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "HD" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "HN" = (
 /obj/machinery/door/airlock{
 	name = "Labor Camp Storage"
@@ -5735,21 +5981,30 @@
 	},
 /area/mine/lobby)
 "In" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"Ix" = (
 /obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
 /obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Ix" = (
+/obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile,
-/obj/structure/chair/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Iy" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -5757,6 +6012,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"IA" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "IE" = (
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
@@ -5811,18 +6077,34 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Jg" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1
+	},
+/obj/structure/window/reinforced/clockwork,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Jk" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile,
+/obj/structure/table/reinforced/brass,
+/obj/item/twohanded/ratvarian_spear,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Jl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -5836,12 +6118,18 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "Jm" = (
-/obj/structure/fluff/drake_statue{
-	move_resist = 40000
+/obj/structure/stone_tile/cracked{
+	dir = 4
 	},
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Jq" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -5871,22 +6159,22 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "Jy" = (
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Jz" = (
+/obj/structure/stone_tile,
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
 /obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "JB" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/bonfire,
@@ -5949,12 +6237,16 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile,
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Ka" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -6026,6 +6318,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
+"Kq" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/weldingtool/experimental/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ks" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -6041,28 +6344,23 @@
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "Kv" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
-"Ky" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
+/obj/structure/stone_tile,
 /obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"Ky" = (
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Kz" = (
 /obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel{
@@ -6071,18 +6369,12 @@
 	},
 /area/mine/eva)
 "KA" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
+/obj/structure/stone_tile/slab,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "KE" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile/burnt{
@@ -6115,16 +6407,14 @@
 	},
 /area/mine/living_quarters)
 "KO" = (
-/obj/structure/window/reinforced/clockwork{
-	dir = 8;
-	move_resist = 45000
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
 	},
-/obj/structure/bookcase{
-	move_resist = 45000
+/obj/structure/stone_tile/block{
+	dir = 8
 	},
-/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "KP" = (
 /obj/machinery/computer/shuttle/mining{
 	req_access = null
@@ -6137,18 +6427,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "KR" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "KU" = (
 /obj/machinery/flasher{
 	id = "labor";
@@ -6165,49 +6449,51 @@
 	},
 /area/mine/laborcamp)
 "KW" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
-"KX" = (
 /obj/structure/stone_tile/cracked{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/stone_tile{
-	dir = 4
+	dir = 1
 	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"KX" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ld" = (
 /obj/item/stack/fireproof_rods/twentyfive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Lg" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/burnt{
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Lo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -6258,14 +6544,11 @@
 	},
 /area/mine/laborcamp)
 "Lz" = (
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "LG" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/random/volcanic/hard,
@@ -6283,22 +6566,16 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "LK" = (
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 6
-	},
-/obj/structure/stone_tile/center/cracked,
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 4
-	},
+/obj/structure/stone_tile/surrounding,
+/obj/structure/closet/crate/necropolis/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "LQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/red/partial{
@@ -6419,9 +6696,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -6476,18 +6751,17 @@
 	},
 /area/mine/eva)
 "MF" = (
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "MH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -6511,13 +6785,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "MO" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center,
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
+/obj/structure/stone_tile/block{
+	dir = 1
 	},
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "MS" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -6536,12 +6812,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "MW" = (
-/obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab,
+/obj/item/clockwork/clockgolem_remains,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "MZ" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -6574,11 +6849,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Nr" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
+/obj/structure/fluff/drake_statue{
+	move_resist = 40000
 	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Nu" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -6627,9 +6903,7 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -6691,10 +6965,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "NQ" = (
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "NT" = (
 /obj/machinery/power/smes{
 	charge = 1e+006
@@ -6803,6 +7081,11 @@
 "Or" = (
 /turf/simulated/genturf,
 /area/lavaland/surface/outdoors/unexplored/danger)
+"Os" = (
+/obj/structure/stone_tile/slab/cracked,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ot" = (
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/light{
@@ -6858,6 +7141,13 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"ON" = (
+/obj/structure/fluff/drake_statue{
+	name = "ancient drake statue"
+	},
+/obj/structure/stone_tile/slab/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "OS" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -6909,16 +7199,18 @@
 	},
 /area/mine/living_quarters)
 "Pi" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
+/obj/structure/stone_tile{
+	dir = 8
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Pj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6939,9 +7231,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "Pl" = (
-/obj/machinery/bodyscanner{
-	dir = 8
-	},
+/obj/machinery/bodyscanner,
 /obj/structure/fishingrodcabinet{
 	pixel_x = 32
 	},
@@ -7009,14 +7299,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Pw" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/center/burnt,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Px" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer,
@@ -7027,12 +7313,11 @@
 	},
 /area/mine/laborcamp/security)
 "Py" = (
-/obj/structure/bookcase/random/religion{
-	move_resist = 45000
-	},
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "PC" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/indestructible/boss,
@@ -7050,13 +7335,17 @@
 /area/mine/lobby)
 "PO" = (
 /obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
+/obj/structure/stone_tile,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
 	},
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "PQ" = (
 /obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/lava/lava_land_surface,
@@ -7068,31 +7357,21 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "PT" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/table/reinforced/brass,
+/obj/item/weldingtool/experimental/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "PW" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/clockwork/wall_gear,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Qa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7172,20 +7451,16 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Qt" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
+/obj/structure/window/reinforced/clockwork{
+	dir = 8;
+	move_resist = 45000
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
+/obj/structure/bookcase/random/religion{
+	move_resist = 45000
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Qu" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -7197,6 +7472,17 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
+"Qv" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Qw" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -7207,36 +7493,40 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "Qz" = (
-/obj/structure/stone_tile/block/burnt{
-	dir = 4
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
 	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "QA" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/structure/closet/crate/necropolis,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "QE" = (
-/obj/structure/stone_tile{
-	dir = 8
-	},
+/obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 4
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
 	},
-/obj/structure/stone_tile/cracked,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "QF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -7271,35 +7561,38 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "QO" = (
-/obj/structure/fluff/drake_statue{
-	name = "ancient drake statue"
-	},
-/obj/structure/stone_tile/slab/burnt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/necropolis)
-"QS" = (
 /obj/structure/stone_tile/block{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
-	dir = 1
+	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"QT" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
-"QW" = (
+/area/lavaland/surface/outdoors/necropolis)
+"QS" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
 /obj/structure/stone_tile{
 	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"QT" = (
+/obj/structure/stone_tile/block/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
+"QW" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
 	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -7307,11 +7600,9 @@
 	},
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Rc" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -7340,8 +7631,12 @@
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "Rs" = (
-/turf/simulated/wall/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Rt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7358,53 +7653,52 @@
 /area/mine/lobby)
 "RC" = (
 /obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 8
-	},
+/obj/structure/stone_tile/surrounding_tile/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "RE" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
+/obj/structure/stone_tile{
+	dir = 4
 	},
-/area/mine/necropolis)
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "RI" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "RJ" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/impassable/necropolisdoor{
-	id_tag = "11119"
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/chair/brass{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "RS" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -7455,7 +7749,6 @@
 "Sj" = (
 /obj/structure/table/wood,
 /obj/machinery/power/apc/syndicate{
-	dir = 2;
 	name = "Bar APC";
 	pixel_y = -24
 	},
@@ -7469,20 +7762,31 @@
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "Sk" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/chair/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Sm" = (
-/obj/structure/stone_tile/surrounding_tile/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Sp" = (
+/obj/structure/stone_tile/slab,
+/obj/item/clockwork/fallen_armor,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Ss" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -7507,15 +7811,16 @@
 	},
 /area/mine/storage)
 "Sy" = (
-/obj/structure/stone_tile/block{
-	dir = 8
+/obj/structure/window/reinforced/clockwork{
+	dir = 8;
+	move_resist = 45000
 	},
-/obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
+/obj/structure/bookcase{
+	move_resist = 45000
 	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Sz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7525,15 +7830,18 @@
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
 "SA" = (
-/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "SB" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -7553,16 +7861,18 @@
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "SE" = (
-/obj/structure/stone_tile/surrounding_tile/burnt,
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "SF" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -7580,7 +7890,6 @@
 /area/mine/laborcamp)
 "SG" = (
 /obj/machinery/computer/cryopod{
-	pixel_y = 0;
 	pixel_x = -32
 	},
 /obj/structure/table,
@@ -7623,15 +7932,18 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Td" = (
-/obj/structure/stone_tile/block/cracked,
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Te" = (
 /obj/machinery/conveyor{
 	dir = 6;
@@ -7658,15 +7970,10 @@
 	},
 /area/mine/laborcamp/security)
 "Ti" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
+/obj/structure/stone_tile/slab/cracked,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Tk" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/stone_tile,
@@ -7702,41 +8009,31 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "Tv" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/item/clockwork/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"Tx" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile/burnt{
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
+"Tx" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "TA" = (
 /obj/machinery/camera{
 	c_tag = "Mining Post South-West Hallway";
-	dir = 2;
 	network = list("Mining Outpost")
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -7750,22 +8047,16 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "TM" = (
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor{
-	opacity = 0;
-	pixel_x = -32;
-	pixel_y = -32
-	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "TQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7838,21 +8129,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Ul" = (
 /turf/simulated/wall,
 /area/mine/cafeteria)
 "Ur" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/center,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Uu" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -7931,11 +8217,9 @@
 	},
 /area/mine/living_quarters)
 "UJ" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/structure/stone_tile/slab,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "UL" = (
 /obj/machinery/recharge_station,
@@ -7965,6 +8249,22 @@
 	icon_state = "brown"
 	},
 /area/mine/lobby)
+"UT" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "UU" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -8025,40 +8325,38 @@
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "Vi" = (
-/obj/structure/stone_tile/block{
-	dir = 4
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
 	},
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/bookcase,
-/obj/structure/window/reinforced/clockwork,
-/obj/structure/window/reinforced/clockwork{
+/obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/structure/stone_tile,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"Vl" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Vo" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/window/reinforced/clockwork{
-	move_resist = 45000
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"Vu" = (
-/obj/structure/stone_tile/block,
+/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "clockwork_floor"
 	},
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"Vu" = (
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "Vy" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
@@ -8075,16 +8373,11 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "VA" = (
-/obj/structure/stone_tile/surrounding_tile/burnt,
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/block/burnt{
 	dir = 4
 	},
-/obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "VB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -8173,13 +8466,18 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Wa" = (
-/obj/structure/stone_tile/slab,
-/obj/structure/window/reinforced/clockwork{
-	dir = 1;
-	move_resist = 45000
+/obj/structure/stone_tile/cracked{
+	dir = 8
 	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Wg" = (
 /obj/structure/necropolis_gate/legion_gate,
 /obj/structure/necropolis_arch,
@@ -8209,14 +8507,16 @@
 /area/mine/lobby)
 "Wn" = (
 /obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
 "Wq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -8228,15 +8528,11 @@
 	},
 /area/mine/laborcamp)
 "Wr" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Ws" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8268,12 +8564,12 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/obj/structure/stone_tile/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "WC" = (
 /obj/item/stack/ore/glass/basalt,
 /obj/effect/mapping_helpers/no_lava,
@@ -8298,15 +8594,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "WI" = (
-/obj/structure/stone_tile/block{
-	dir = 4
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 6
 	},
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
+/obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "WJ" = (
 /obj/item/beacon,
 /obj/machinery/hologram/holopad,
@@ -8320,6 +8613,19 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
+"WL" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/fluff/drake_statue/falling{
+	move_resist = 40000
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "WR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -8413,25 +8719,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "XD" = (
-/obj/effect/rune{
-	color = "#DAA520";
-	desc = "An odd collection of symbols.";
-	name = "brass rune";
-	rune_blood_color = "#DAA520"
+/obj/structure/stone_tile/block{
+	dir = 1
 	},
-/mob/living/simple_animal/hostile/megafauna/dragon{
-	color = "#C2B015";
-	health = 5000;
-	maxHealth = 5000;
-	melee_damage_lower = 60;
-	melee_damage_upper = 65;
-	name = "ancient drake"
-	},
-/turf/simulated/floor/indestructible/boss{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "clockwork_floor"
-	},
-/area/mine/necropolis)
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "XJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -8451,27 +8744,38 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "XT" = (
 /turf/simulated/wall/rust,
 /area/mine/laborcamp)
 "XV" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/cracked{
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "XZ" = (
-/obj/structure/stone_tile/block/burnt,
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
 	dir = 1
 	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Ya" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8514,20 +8818,19 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Yp" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
 	dir = 1
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	pixel_y = 0
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -8554,23 +8857,22 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Yv" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/structure/table/reinforced/brass,
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Yz" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "YH" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -8640,17 +8942,14 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Zd" = (
 /obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/window/reinforced/clockwork{
-	dir = 4;
-	move_resist = 45000
-	},
+/obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Zf" = (
 /obj/machinery/computer/prisoner{
 	dir = 4
@@ -8668,16 +8967,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Zj" = (
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Zn" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -8711,36 +9006,54 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "Zu" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "Zx" = (
 /obj/structure/stone_tile/slab,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "Zz" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
+/obj/effect/rune{
+	color = "#DAA520";
+	desc = "An odd collection of symbols.";
+	name = "brass rune";
+	rune_blood_color = "#DAA520"
 	},
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"ZA" = (
-/obj/structure/stone_tile/block{
-	dir = 4
+/mob/living/simple_animal/hostile/megafauna/dragon{
+	color = "#C2B015";
+	health = 5000;
+	maxHealth = 5000;
+	melee_damage_lower = 60;
+	melee_damage_upper = 65;
+	name = "ancient drake"
 	},
 /turf/simulated/floor/indestructible/boss{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "clockwork_floor"
 	},
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
+"ZA" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/lavaland/surface/outdoors/necropolis)
 "ZC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8772,18 +9085,15 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ZG" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/slab,
 /obj/structure/stone_tile/cracked{
-	dir = 8
+	dir = 1
 	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/obj/structure/closet/crate/necropolis/tendril,
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "ZI" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile{
@@ -8827,20 +9137,24 @@
 	},
 /area/mine/laborcamp)
 "ZW" = (
-/obj/structure/stone_tile/slab,
-/obj/item/clockwork/fallen_armor,
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
-"ZZ" = (
-/obj/structure/stone_tile/block{
+/obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
+/turf/simulated/floor/indestructible/boss{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "clockwork_floor"
+	},
+/area/lavaland/surface/outdoors/necropolis)
+"ZZ" = (
 /obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 
 (1,1,1) = {"
 yU
@@ -8874,8 +9188,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -9131,8 +9445,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -9388,8 +9702,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -9645,8 +9959,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -9902,8 +10216,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-tG
+Cg
+Or
 Or
 Or
 Or
@@ -10159,8 +10473,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-tG
+Cg
+Or
 Or
 Or
 Or
@@ -10415,9 +10729,9 @@ Ne
 Ne
 Ne
 Ne
-Ne
 Cg
-Or
+Cg
+Cg
 Or
 Or
 Or
@@ -10671,10 +10985,10 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
 Cg
-tG
+Cg
+Cg
+Cg
 Or
 Or
 Or
@@ -10927,11 +11241,11 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
 Cg
-tG
+Cg
+Cg
+Cg
+Cg
 Or
 Or
 Or
@@ -11184,11 +11498,11 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
 Cg
-tG
+Cg
+Cg
+Cg
+Cg
 Or
 Or
 Or
@@ -11443,9 +11757,9 @@ Ne
 Ne
 Ne
 Ne
-Ne
 Cg
-Or
+Cg
+Cg
 Or
 Or
 Or
@@ -12212,7 +12526,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Cg
 Cg
@@ -12469,11 +12783,11 @@ Ne
 Ne
 Ne
 Ne
-Or
+Ne
 Cg
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -12726,11 +13040,11 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Or
 Or
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -12983,11 +13297,11 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Or
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -13240,11 +13554,11 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -13497,11 +13811,11 @@ Ne
 Ne
 Ne
 Ne
-Cg
 Ne
 Ne
+Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -13754,7 +14068,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Ne
 Cg
@@ -14011,7 +14325,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Ne
 Cg
@@ -14267,8 +14581,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+Ne
+Ne
 Ne
 Ne
 Cg
@@ -14515,7 +14829,7 @@ Oy
 Oy
 Oy
 Ne
-Cg
+Ne
 Cg
 Cg
 Ne
@@ -14524,12 +14838,12 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
-Cg
+Ne
+Ne
+Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -14782,11 +15096,11 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
 Cg
 Cg
-Cg
-Cg
-tG
 Or
 Or
 Or
@@ -15039,11 +15353,11 @@ Ne
 Ne
 Ne
 Ne
-Cg
 Ne
 Ne
+Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -15296,7 +15610,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Ne
 Cg
@@ -15553,8 +15867,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+Ne
+Ne
 Ne
 Cg
 Or
@@ -15810,11 +16124,11 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
 Cg
 Cg
 Cg
-Cg
-tG
 Or
 Or
 Or
@@ -16066,12 +16380,12 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
 Cg
 Cg
 Cg
 Cg
-Cg
-tG
 Or
 Or
 Or
@@ -16321,14 +16635,14 @@ Ne
 Cg
 Cg
 Ne
+Ne
+Ne
+Ne
 Cg
 Cg
 Cg
 Cg
 Cg
-Cg
-Cg
-tG
 Or
 Or
 Or
@@ -16580,12 +16894,12 @@ Ne
 Ne
 Ne
 Ne
+Ne
 Cg
 Cg
 Cg
 Cg
 Cg
-tG
 Or
 Or
 Or
@@ -16838,11 +17152,11 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
 Cg
 Cg
 Cg
-Cg
-tG
 Or
 Or
 Or
@@ -17096,10 +17410,10 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -17356,7 +17670,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -18120,10 +18434,10 @@ Cg
 Cg
 Ne
 Ne
-Cg
 Ne
-Cg
-Cg
+Ne
+Ne
+Ne
 Cg
 Cg
 Cg
@@ -18380,8 +18694,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+Ne
+Ne
 Cg
 Cg
 Cg
@@ -18641,7 +18955,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -18898,7 +19212,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -19155,7 +19469,7 @@ Ne
 Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -19656,16 +19970,16 @@ Oy
 Oy
 Oy
 Ne
-Cg
-Ne
-Cg
-Cg
-Ne
-Ne
-Ne
 Ne
 Ne
 Cg
+Cg
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
 Cg
@@ -20183,7 +20497,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -20440,7 +20754,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -20697,7 +21011,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -20954,7 +21268,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -21211,7 +21525,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -21468,7 +21782,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -21725,7 +22039,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -21982,7 +22296,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -22239,7 +22553,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -22496,7 +22810,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -22753,7 +23067,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -23010,7 +23324,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -23267,7 +23581,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -23778,10 +24092,10 @@ Ne
 Ne
 Ne
 Ne
+Ne
 Cg
 Cg
 Cg
-tG
 Or
 Or
 Or
@@ -24026,19 +24340,19 @@ Oy
 Oy
 Oy
 Ne
-Cg
 Ne
 Ne
-Cg
-Cg
-Ne
-Cg
 Ne
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -24292,10 +24606,10 @@ Ne
 Ne
 Ne
 Ne
+Ne
 Cg
 Cg
 Cg
-tG
 Or
 Or
 Or
@@ -25580,7 +25894,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -27374,7 +27688,7 @@ Cg
 Cg
 Cg
 Ne
-Cg
+Ne
 Ne
 Cg
 Cg
@@ -27861,17 +28175,17 @@ bB
 bB
 "}
 (75,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
 yU
 yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 Oy
 Oy
 Oy
@@ -27894,7 +28208,7 @@ Ne
 Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -28118,15 +28432,15 @@ Ne
 bB
 "}
 (76,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
@@ -28151,9 +28465,9 @@ Ne
 Ne
 Ne
 Cg
-tG
-tG
-tG
+Cg
+Cg
+Cg
 Or
 Or
 Or
@@ -28375,15 +28689,15 @@ Ne
 Ne
 "}
 (77,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
@@ -28410,7 +28724,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -28632,17 +28946,17 @@ Ne
 Ne
 "}
 (78,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
 yU
 yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 Oy
 Oy
 Oy
@@ -28650,7 +28964,7 @@ Oy
 Oy
 Oy
 Oy
-Oy
+Ne
 Ne
 Ne
 Ne
@@ -28668,7 +28982,7 @@ Ne
 Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -28889,17 +29203,17 @@ Ne
 Ne
 "}
 (79,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
 yU
 yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 Oy
 EW
 EW
@@ -28907,7 +29221,7 @@ EW
 Oy
 Oy
 Oy
-Oy
+Ne
 Ne
 Ne
 Ne
@@ -28925,8 +29239,8 @@ Ne
 Ne
 Ne
 Cg
-tG
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -29146,15 +29460,15 @@ Ne
 Ne
 "}
 (80,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
@@ -29182,8 +29496,8 @@ Ne
 Ne
 Ne
 Ne
-tG
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -29403,15 +29717,15 @@ Ne
 Ne
 "}
 (81,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
@@ -29440,7 +29754,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -29660,15 +29974,15 @@ Ne
 Ne
 "}
 (82,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
@@ -29697,7 +30011,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -29917,15 +30231,15 @@ Ne
 Ne
 "}
 (83,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
@@ -29936,17 +30250,6 @@ EW
 kj
 Oy
 Ne
-Oy
-Ne
-Ne
-Ne
-Ne
-Ne
-Cg
-Ne
-Cg
-Ne
-Ne
 Ne
 Ne
 Ne
@@ -29954,7 +30257,18 @@ Ne
 Ne
 Ne
 Cg
-tG
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Cg
+Cg
 Or
 Or
 Or
@@ -30174,17 +30488,17 @@ Ne
 Ne
 "}
 (84,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
 yU
 yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 Oy
 Oy
 Oy
@@ -30192,8 +30506,8 @@ Oy
 Oy
 Oy
 Oy
-Oy
-Oy
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -30211,7 +30525,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -30431,15 +30745,10 @@ Ne
 Ne
 "}
 (85,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -30452,8 +30761,8 @@ Oy
 Oy
 Oy
 Oy
-Ne
-Ne
+Oy
+Oy
 Ne
 Ne
 Ne
@@ -30467,8 +30776,13 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -30688,15 +31002,10 @@ Ne
 Ne
 "}
 (86,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -30710,7 +31019,7 @@ Oy
 Oy
 Oy
 Oy
-Ne
+Oy
 Ne
 Ne
 Ne
@@ -30724,8 +31033,13 @@ Cg
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -30945,20 +31259,15 @@ Ne
 Ne
 "}
 (87,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 kj
@@ -30981,8 +31290,13 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -31202,20 +31516,15 @@ Ne
 Ne
 "}
 (88,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 EW
@@ -31236,11 +31545,16 @@ Cg
 Ne
 Cg
 Ne
-Cg
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Cg
-tG
-tG
+Cg
+Cg
 Or
 Or
 Or
@@ -31459,20 +31773,15 @@ Ne
 Ne
 "}
 (89,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -31496,8 +31805,13 @@ Ne
 Ne
 Ne
 Ne
-tG
-tG
+Ne
+Ne
+Ne
+Ne
+Ne
+Cg
+Cg
 Or
 Or
 Or
@@ -31716,20 +32030,15 @@ Ne
 Ne
 "}
 (90,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -31753,8 +32062,13 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -31973,20 +32287,15 @@ Ne
 bB
 "}
 (91,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -32010,9 +32319,14 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -32230,25 +32544,20 @@ Ne
 bB
 "}
 (92,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+Hx
 Oy
 Oy
 Oy
@@ -32267,9 +32576,14 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
-iq
+Cg
 Or
 Or
 Or
@@ -32487,25 +32801,20 @@ bB
 bB
 "}
 (93,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+Oy
 Oy
 Oy
 Oy
@@ -32520,6 +32829,11 @@ Ne
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -32744,25 +33058,20 @@ bB
 bB
 "}
 (94,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+Tv
+yU
+yU
+yU
+yU
+yU
+yU
+EW
+EW
+Oy
 Oy
 Oy
 Oy
@@ -32778,6 +33087,11 @@ Cg
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -33001,25 +33315,20 @@ bB
 bB
 "}
 (95,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+Aa
+xb
+lk
+yU
+yU
+yU
+yU
+yU
+EW
+kj
+Oy
 Oy
 Oy
 Oy
@@ -33035,6 +33344,11 @@ Cg
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -33258,25 +33572,20 @@ bB
 bB
 "}
 (96,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+PW
+AI
+Yv
+hL
+yU
+yU
+yU
+yU
+yU
+EW
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -33292,6 +33601,11 @@ Cg
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -33515,25 +33829,20 @@ bB
 bB
 "}
 (97,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+hf
+ls
+Ti
+SE
+Yz
+PW
+yU
+yU
+yU
+Hx
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -33549,6 +33858,11 @@ Ne
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -33772,25 +34086,20 @@ bB
 bB
 "}
 (98,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+xb
+Jm
+Aa
+uw
+Jm
+CC
+yU
+yU
+yU
+Oy
+Oy
+Oy
 Oy
 rJ
 rJ
@@ -33806,6 +34115,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -34029,25 +34343,20 @@ bB
 bB
 "}
 (99,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+dG
+Dl
+ls
+Jm
+cj
+Bk
+hf
+yU
+yU
+Oy
+Oy
+Oy
 Oy
 rJ
 rJ
@@ -34063,6 +34372,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -34286,25 +34600,20 @@ Ne
 bB
 "}
 (100,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+QW
+SE
+CC
+SE
+Jm
+Yv
+sw
+yU
+yU
+Oy
+Oy
+Oy
 EW
 rJ
 rJ
@@ -34321,6 +34630,11 @@ Ne
 Ne
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Cg
@@ -34543,25 +34857,20 @@ Ne
 Ne
 "}
 (101,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+wN
+CC
+Vl
+Jm
+vZ
+HD
+yU
+yU
+yU
+Oy
+Oy
+Oy
 Oy
 EW
 EW
@@ -34579,6 +34888,11 @@ Ne
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Cg
 Or
@@ -34800,25 +35114,20 @@ Ne
 Ne
 "}
 (102,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+sw
+Yz
+HD
+iW
+Ti
+sw
+yU
+yU
+yU
+Oy
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -34834,6 +35143,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -35057,25 +35371,20 @@ Ne
 Ne
 "}
 (103,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+Jm
+hL
+Jm
+CC
+yU
+yU
+yU
+yU
+EW
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -35091,6 +35400,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -35314,25 +35628,20 @@ Ne
 Ne
 "}
 (104,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+PW
+yU
+Jy
+yU
+yU
+yU
+yU
+yU
+EW
+EW
+Oy
 Oy
 Oy
 Oy
@@ -35348,6 +35657,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -35571,25 +35885,20 @@ Ne
 Ne
 "}
 (105,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+yU
+Jm
+yU
+yU
+yU
+yU
+yU
+yU
+EW
+EW
 Ce
 Ce
 Oy
@@ -35605,6 +35914,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -35828,31 +36142,31 @@ Ne
 Ne
 "}
 (106,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+PW
+ls
+Bk
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -36085,25 +36399,20 @@ Ne
 Ne
 "}
 (107,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-my
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+CC
+Jm
+CC
+sM
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 EW
@@ -36119,6 +36428,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -36342,31 +36656,31 @@ Ne
 Ne
 "}
 (108,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+ec
+Yz
+dd
+Jm
+ED
+QW
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 EW
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -36599,31 +36913,31 @@ Ne
 Ne
 "}
 (109,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+QA
+rZ
+ls
+SE
+Yv
+DI
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 kj
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -36856,31 +37170,31 @@ Ne
 Ne
 "}
 (110,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+sM
+Dq
+Jm
+hL
+Bk
+PW
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -37113,31 +37427,31 @@ Ne
 Ne
 "}
 (111,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+SE
+gi
+Jy
+yU
+yU
+yU
+PW
+iO
+dG
+yU
+yU
 yU
 Oy
 Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -37370,25 +37684,20 @@ Ne
 Ne
 "}
 (112,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+PW
+yU
+Jm
+yU
+yU
+yU
+Dq
+Yz
+RJ
+Jy
+yU
 yU
 Oy
 Oy
@@ -37397,6 +37706,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -37627,25 +37941,20 @@ Ne
 Ne
 "}
 (113,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+yU
+CC
+yU
+yU
+KW
+SE
+Jm
+Yv
+ls
+yU
 yU
 Oy
 Oy
@@ -37655,6 +37964,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -37884,25 +38198,20 @@ Ne
 Ne
 "}
 (114,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+yU
+Yz
+yU
+yU
+pS
+lW
+CC
+bh
+wK
+yU
 yU
 Oy
 Oy
@@ -37911,6 +38220,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -38141,31 +38455,31 @@ Ne
 Ne
 "}
 (115,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+yU
+Jy
+yU
+yU
+yU
+Yv
+Jm
+ls
+bW
+yU
 yU
 Oy
 Oy
 EW
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -38398,31 +38712,31 @@ Ne
 Ne
 "}
 (116,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+yU
+Jm
+SE
+Ti
+PW
+yU
+vZ
+Os
+QW
+Kq
+yU
 yU
 Oy
 EW
 rJ
 rJ
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -38655,31 +38969,31 @@ Ne
 Ne
 "}
 (117,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+wT
+CC
+ls
+Jm
+SE
+yU
+Yz
+SE
+PW
+yU
+yU
 yU
 EW
 EW
 rJ
 rJ
 EW
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -38912,31 +39226,31 @@ Ne
 Ne
 "}
 (118,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+sM
+Yv
+Jm
+SE
+Yz
+CC
+Jm
+Kv
+yU
+yU
+yU
 Mb
 Zc
 EW
 rJ
 rJ
 EW
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -39169,31 +39483,31 @@ Ne
 Ne
 "}
 (119,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+PW
+XZ
+KX
+ky
+vZ
+Py
+yU
+yU
+yU
+yU
+yU
+yU
 Oy
 Oy
 EW
 rJ
 rJ
 Ys
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -39426,25 +39740,20 @@ Ne
 Ne
 "}
 (120,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
+yU
+yU
+yU
+dG
+Yz
+ls
+DJ
+XZ
+yU
+yU
+yU
+yU
+yU
+yU
 Oy
 Oy
 Oy
@@ -39455,7 +39764,12 @@ Ne
 Ne
 Ne
 Ne
-Kh
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -39683,25 +39997,20 @@ bB
 Ne
 "}
 (121,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-MB
-bq
-bq
+yU
+yU
+yU
+yU
+Vi
+Jm
+Jy
+PW
+yU
+yU
+yU
+oq
+Jz
+YZ
 YZ
 yh
 Oy
@@ -39710,12 +40019,17 @@ Oy
 Oy
 Ne
 Ne
-Dq
 Ne
 Ne
 Ne
-Cg
-hJ
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -39940,25 +40254,20 @@ bB
 bB
 "}
 (122,1,1) = {"
-Rs
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-vB
-oq
+yU
+yU
+yU
+yU
+yU
+CC
+yU
+yU
+yU
+yU
+yU
+Tx
 bq
-oF
+Zn
 bq
 bq
 Oa
@@ -39966,6 +40275,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -40197,20 +40511,15 @@ tG
 bB
 "}
 (123,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-RJ
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+SE
+yU
+yU
+yU
 yU
 yU
 MB
@@ -40222,6 +40531,11 @@ oF
 kj
 Oy
 WT
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -40454,20 +40768,15 @@ ua
 tG
 "}
 (124,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-zK
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+hL
+yU
+yU
+yU
 yU
 yU
 yU
@@ -40479,6 +40788,11 @@ bq
 eU
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -40711,20 +41025,15 @@ ua
 ua
 "}
 (125,1,1) = {"
-GA
-GA
-GA
+yU
+yU
+yU
 vZ
-vZ
+Ge
 Yz
-yp
-Rs
-PT
-Cc
-dG
-Cc
-vZ
-Rs
+Ge
+Jm
+yU
 yU
 yU
 yU
@@ -40743,6 +41052,11 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+SD
 Ne
 Ne
 Ne
@@ -40968,20 +41282,15 @@ Or
 Or
 "}
 (126,1,1) = {"
-GA
-GA
-Cc
+yU
+yU
+yU
 TM
-dG
+SE
 Cc
-vZ
-Rs
-Pi
-KA
-gY
-uA
-RI
-Rs
+Wa
+ZZ
+yU
 yU
 yU
 yU
@@ -41000,6 +41309,11 @@ xj
 Pv
 MU
 SI
+Hi
+yx
+SI
+SI
+Hi
 Hi
 yx
 SI
@@ -41228,17 +41542,12 @@ Or
 GA
 GA
 yZ
-yZ
-yZ
-yZ
-yZ
+GA
+CC
+Yv
+OU
 Jy
-yZ
-lk
-In
-ZZ
-Dl
-ZZ
+OU
 OU
 OU
 Wg
@@ -41253,10 +41562,15 @@ cY
 Ol
 cY
 lZ
-UJ
+KR
 Ol
 ip
 OS
+nb
+LS
+iU
+cG
+Zh
 nb
 LS
 iU
@@ -41482,20 +41796,15 @@ Or
 Or
 "}
 (128,1,1) = {"
-GA
-GA
-XL
-JW
-JW
-XL
-Yz
-Rs
-ky
-GI
-PW
-vZ
-Ti
-Rs
+yU
+yU
+yU
+kt
+mz
+yp
+Jm
+ls
+yU
 yU
 yU
 yU
@@ -41514,6 +41823,11 @@ hI
 UU
 JS
 fP
+fP
+qY
+Qs
+LT
+Qs
 fP
 qY
 Qs
@@ -41739,20 +42053,15 @@ Or
 Or
 "}
 (129,1,1) = {"
-GA
-GA
-GA
-Yz
-Yz
-Yz
-yp
-Rs
-PT
-zK
-JW
+yU
+yU
+yU
+vZ
+hL
+yg
 XL
-Yz
-Rs
+Go
+yU
 yU
 yU
 yU
@@ -41764,6 +42073,11 @@ bq
 eU
 yU
 yU
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -41996,20 +42310,15 @@ Or
 Or
 "}
 (130,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Dl
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+Jy
+yU
+yU
+yU
 yU
 yU
 yU
@@ -42024,7 +42333,12 @@ Oy
 Ne
 Ne
 Ne
-qi
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -42253,20 +42567,15 @@ Or
 Or
 "}
 (131,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-AZ
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+hL
+yU
+yU
+yU
 yU
 yU
 MB
@@ -42281,11 +42590,16 @@ Oy
 Ne
 Ne
 Ne
-Cg
-mt
 Ne
-uC
-Cg
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -42510,20 +42824,15 @@ Or
 Or
 "}
 (132,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-PT
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+vZ
+yU
+yU
+yU
 yU
 yU
 MB
@@ -42541,8 +42850,13 @@ Ne
 Ne
 Ne
 Ne
-Cg
-CB
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -42767,20 +43081,15 @@ Or
 Or
 "}
 (133,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-In
-Ti
-dG
-yp
-Rs
+yU
+yU
+yU
+PW
+Yv
+ls
+Yz
+PW
+yU
 yU
 yU
 oq
@@ -42799,7 +43108,12 @@ Ne
 Ne
 Ne
 Ne
-QM
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -43024,20 +43338,15 @@ Or
 Or
 "}
 (134,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-cD
-Dl
-dG
-Ix
-Yv
-Rs
+yU
+yU
+yU
+wP
+Jy
+Yz
+Sk
+sM
+yU
 yU
 yU
 yU
@@ -43050,6 +43359,11 @@ Oy
 Oy
 Oy
 Mv
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -43281,20 +43595,15 @@ Or
 Or
 "}
 (135,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Aa
-Go
-Ti
-CW
-gi
-Rs
+yU
+yU
+yU
+In
+UT
+ls
+Dl
+Py
+yU
 yU
 yU
 yU
@@ -43306,6 +43615,11 @@ Oy
 Gm
 qX
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -43538,20 +43852,15 @@ Or
 Or
 "}
 (136,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-dG
-lW
-Ti
-yp
-Rs
+yU
+yU
+yU
+PW
+Yz
+Vi
+ls
+PW
+yU
 yU
 yU
 yU
@@ -43563,6 +43872,11 @@ Oy
 Oy
 Ys
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -43795,20 +44109,15 @@ Or
 Or
 "}
 (137,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-zK
-Dl
-dG
-Rs
-Rs
+yU
+yU
+yU
+yU
+hL
+Jy
+Yz
+yU
+yU
 yU
 yU
 Za
@@ -43820,6 +44129,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -44052,20 +44366,15 @@ Or
 Or
 "}
 (138,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-li
-In
-ZG
-In
-KX
-Rs
+yU
+yU
+yU
+Kv
+Yv
+AK
+Yv
+Am
+yU
 yU
 yU
 Oy
@@ -44077,6 +44386,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -44309,20 +44623,15 @@ Or
 Or
 "}
 (139,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-pS
+yU
+yU
+Jk
+vZ
+zK
+yp
+yp
+Jy
 PT
-nT
-PW
-PW
-Dl
-wN
 yU
 yU
 Oy
@@ -44334,6 +44643,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -44566,21 +44880,16 @@ Or
 Or
 "}
 (140,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+PW
+sM
+Yv
+yp
+LK
 yp
 Yv
 In
 PW
-oX
-PW
-In
-Aa
-yp
 yU
 EW
 Oy
@@ -44591,6 +44900,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -44823,20 +45137,15 @@ Or
 Or
 "}
 (141,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+RE
+Yz
+DP
+yp
+zK
 hL
 dG
-ls
-PW
-nT
-zK
-QW
 yU
 yU
 yU
@@ -44848,6 +45157,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+QM
+Ne
 Ne
 Ne
 Ne
@@ -45080,20 +45394,15 @@ Or
 Or
 "}
 (142,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Ti
-In
-Dl
-In
-Tv
-Rs
+yU
+yU
+yU
+ls
+Yv
+Jy
+Yv
+AS
+yU
 yU
 yU
 yU
@@ -45105,6 +45414,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -45337,20 +45651,15 @@ Or
 Or
 "}
 (143,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Am
-zK
-is
-Rs
-Rs
+yU
+yU
+yU
+yU
+Gp
+hL
+GM
+yU
+yU
 yU
 yU
 yU
@@ -45366,6 +45675,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -45594,20 +45908,15 @@ Or
 Or
 "}
 (144,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-jU
-wo
-kt
-Rs
-Rs
+yU
+yU
+yU
+yU
+RI
+is
+Bq
+yU
+yU
 yU
 yU
 EW
@@ -45623,6 +45932,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -45851,20 +46165,15 @@ Or
 Or
 "}
 (145,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-DP
-wP
-Df
-Rs
-Rs
+yU
+yU
+yU
+yU
+mR
+tT
+vt
+yU
+yU
 yU
 yU
 Hx
@@ -45887,8 +46196,13 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
+Or
 Or
 Or
 Or
@@ -46108,20 +46422,15 @@ Or
 Or
 "}
 (146,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-GM
-bW
-AJ
-DP
-mi
+yU
+yU
+yU
+yU
+Oo
+XD
+Zj
+mR
+kN
 yU
 yU
 Oy
@@ -46144,7 +46453,12 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
 Cg
+Or
 Or
 Or
 Or
@@ -46365,20 +46679,15 @@ Or
 Or
 "}
 (147,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-GM
-NQ
-Td
-CR
-yk
+yU
+yU
+yU
+yU
+Oo
+vx
+GI
+dy
+DC
 yU
 yU
 EW
@@ -46401,6 +46710,11 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Or
 Or
 Or
 Or
@@ -46622,20 +46936,15 @@ Or
 Or
 "}
 (148,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-DP
-Qz
-va
-Fw
-yk
+yU
+yU
+yU
+yU
+mR
+VA
+cD
+gA
+DC
 yU
 yU
 EW
@@ -46652,6 +46961,11 @@ Ne
 Ne
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -46879,20 +47193,15 @@ Or
 Or
 "}
 (149,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Nr
-DI
-yk
+yU
+yU
+yU
+yU
+yU
+yU
+Lz
+xW
+DC
 yU
 yU
 yU
@@ -46908,6 +47217,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -47136,20 +47450,15 @@ Or
 Or
 "}
 (150,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Jy
-Rs
-GM
-kN
-xr
+yU
+yU
+yU
+PW
+by
+yU
+Oo
+uA
+QT
 yU
 yU
 yU
@@ -47171,9 +47480,14 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
-Cg
+Or
 Or
 Or
 Or
@@ -47393,20 +47707,15 @@ Or
 Or
 "}
 (151,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Ur
-Ge
-HD
-Rs
-GM
-aM
-DP
+yU
+yU
+IA
+tP
+Lg
+yU
+Oo
+qe
+mR
 yU
 yU
 kj
@@ -47419,6 +47728,11 @@ EW
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -47650,20 +47964,15 @@ Or
 Or
 "}
 (152,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
+yU
+PW
+DC
+ON
+Oo
+yU
+AZ
 yk
-QO
-GM
-Rs
-rO
-GC
-xr
+QT
 yU
 yU
 Oy
@@ -47679,6 +47988,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -47907,20 +48221,15 @@ Or
 Or
 "}
 (153,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+Zu
+hx
+vg
+yU
+Oo
 He
 QT
-Gp
-Rs
-GM
-gA
-xr
 yU
 yU
 Oy
@@ -47935,6 +48244,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -48164,20 +48478,15 @@ Or
 Or
 "}
 (154,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Jy
-Rs
-Pw
-AK
-Bq
+yU
+yU
+yU
+PW
+by
+yU
+ir
+fI
+zP
 yU
 yU
 EW
@@ -48196,6 +48505,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Cg
@@ -48421,20 +48735,15 @@ Or
 Or
 "}
 (155,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Lg
-Yp
-mz
+yU
+yU
+yU
+yU
+yU
+PW
+hJ
+CB
+Dt
 yU
 yU
 yU
@@ -48451,6 +48760,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -48678,20 +48992,15 @@ Or
 Or
 "}
 (156,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-LK
-vt
-AI
+yU
+yU
+yU
+yU
+yU
+yU
+iG
+uz
+WI
 yU
 yU
 yU
@@ -48706,6 +49015,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -48935,23 +49249,18 @@ Or
 Or
 "}
 (157,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Rs
-Vi
-Jz
-wK
-Ej
-zP
 yU
-yp
+yU
+yU
+PW
+yU
+Cz
+Gr
+CW
+tK
+Jg
+yU
+PW
 yU
 yU
 yU
@@ -48963,6 +49272,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -49192,24 +49506,19 @@ Or
 Or
 "}
 (158,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-WI
-Cc
-tK
+yU
+yU
+QO
+Ge
 Ej
+tK
+tK
+dQ
+tK
+tK
+MF
 Ej
 fY
-Ej
-Ej
-Ky
-tK
-QA
 yU
 yU
 yU
@@ -49220,6 +49529,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -49449,25 +49763,20 @@ Or
 Or
 "}
 (159,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-SA
+yU
+PW
+Yp
+Pi
+tK
+my
+QS
+UJ
 Gr
-Ej
-QE
+my
+tK
 gN
-de
-Jz
-QE
-Ej
-iW
-aM
-yp
+qe
+PW
 yU
 yU
 Oy
@@ -49477,6 +49786,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -49706,25 +50020,20 @@ Or
 Or
 "}
 (160,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+Qt
+Yp
+iD
+tK
+FM
 fw
 SA
-El
-Ej
+tK
+pd
 dQ
 RC
 qe
-Ej
-dd
-fY
-KR
-aM
-KO
+Sy
 yU
 yU
 Oy
@@ -49734,6 +50043,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -49963,25 +50277,20 @@ Or
 Or
 "}
 (161,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Cf
-DJ
+yU
+lA
+xr
+Af
+Wr
+ja
+Sm
+vx
 Sm
 rQ
-iO
+tP
+nT
+MO
 lA
-NQ
-lA
-Bk
-Ge
-Kv
-dy
-Cf
 yU
 yU
 Oy
@@ -49992,6 +50301,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -50220,25 +50534,20 @@ Or
 Or
 "}
 (162,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+Sp
+aM
+DC
+ms
+Lz
 ZW
 CI
-yk
-pk
+lB
+DC
 Nr
-au
+Oo
 PO
 mS
-yk
-Jm
-GM
-FM
-pd
 yU
 yU
 Oy
@@ -50250,6 +50559,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -50477,25 +50791,20 @@ Or
 Or
 "}
 (163,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-KO
+yU
+Sy
+GL
+Ur
+hx
+Fw
+Wn
 gG
 yE
-QT
-uw
+Qv
+hx
 oz
 MO
 Sy
-iF
-QT
-KW
-dy
-KO
 yU
 yU
 Oy
@@ -50513,9 +50822,14 @@ Ne
 Ne
 Ne
 Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -50734,25 +51048,20 @@ Or
 Or
 "}
 (164,1,1) = {"
+yU
+lA
+AJ
 Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Cf
+ZW
+Ix
+CR
 Bn
 FX
 au
 lB
-MF
-ZA
-fI
-Wr
-mS
-XZ
-Zu
-Cf
+DB
+iF
+lA
 yU
 yU
 Oy
@@ -50766,6 +51075,11 @@ Ne
 Ne
 Ne
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -50991,26 +51305,21 @@ Or
 Or
 "}
 (165,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Jy
+PW
+by
+wo
+vx
+NQ
+gG
+Ky
 Zz
 NQ
-by
-MO
+gG
+Ky
 Vu
 XD
 by
-MO
-Vu
-Fv
-bW
-Jy
-yp
+PW
 yU
 Oy
 Oy
@@ -51023,6 +51332,11 @@ Ne
 Ne
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -51248,25 +51562,20 @@ Or
 Or
 "}
 (166,1,1) = {"
+yU
+Sy
+Yp
 Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-KO
-SA
-FX
-Lz
-Gg
+rc
+Vo
+Td
+CI
+oX
+QE
+dm
 DB
-PO
+qe
 Qt
-RE
-MW
-XZ
-aM
-Py
 yU
 yU
 WT
@@ -51282,7 +51591,12 @@ Cg
 Cg
 Cg
 Ne
-Cg
+Ne
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Cg
 Cg
@@ -51505,25 +51819,20 @@ Or
 Or
 "}
 (167,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+lA
+AJ
+iq
+VA
+qi
 Cf
-Bn
+gG
 sH
 Qz
 VA
 CP
-MO
-sM
-SE
-Qz
-Zj
-Zu
-Cf
+iF
+lA
 yU
 yU
 rJ
@@ -51537,6 +51846,11 @@ Ne
 Cg
 Cg
 Cg
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -51762,25 +52076,20 @@ Or
 Or
 "}
 (168,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+li
+va
+Fv
+WL
+AZ
 rc
-CC
+Bn
 dm
-yg
+DC
 rO
 Lz
 ZA
 MW
-yk
-ec
-Nr
-Vo
-ED
 yU
 yU
 rJ
@@ -51788,6 +52097,11 @@ rJ
 rJ
 rJ
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -52019,25 +52333,20 @@ Or
 Or
 "}
 (169,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+Sy
+de
+Hm
+ad
+Pw
 KO
 vx
-Sk
+KO
 kO
 ad
 cu
-NQ
-cu
-xb
-kO
-Tx
-aM
-KO
+qe
+Sy
 yU
 yU
 rJ
@@ -52048,6 +52357,11 @@ Oy
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -52276,25 +52590,20 @@ Or
 Or
 "}
 (170,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-xW
+yU
+GC
+gY
+jV
+Uk
+mi
+EU
 XV
-vg
+Wz
 Uk
 EU
 Wz
-uz
-Jg
-Uk
-Wz
-Jg
-aM
-Cf
+qe
+lA
 yU
 yU
 rJ
@@ -52305,6 +52614,11 @@ EW
 Oy
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -52533,25 +52847,20 @@ Or
 Or
 "}
 (171,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
+yU
+PW
+jU
+yg
+XL
+XL
+El
 DQ
 JW
 XL
 XL
 vP
 Zd
-rZ
-XL
-XL
-QS
-Wn
-yp
+PW
 yU
 yU
 rJ
@@ -52562,6 +52871,11 @@ EW
 EW
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -52790,22 +53104,17 @@ Or
 Or
 "}
 (172,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Af
-sw
-Hm
-Dt
-Wa
-yp
+yU
+yU
+yU
+yU
+PW
+KA
+pk
+ZG
+Df
+Gg
+PW
 yU
 yU
 yU
@@ -52819,6 +53128,11 @@ EW
 EW
 Oy
 Oy
+Ne
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -53047,20 +53361,15 @@ Or
 Or
 "}
 (173,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-yp
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+PW
+yU
 yU
 yU
 yU
@@ -53075,6 +53384,11 @@ rJ
 EW
 Oy
 Oy
+Oy
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -53304,20 +53618,15 @@ Or
 Or
 "}
 (174,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -53332,6 +53641,11 @@ rJ
 EW
 Oy
 Oy
+Oy
+Ne
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -53561,20 +53875,15 @@ Or
 Or
 "}
 (175,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -53588,6 +53897,11 @@ rJ
 rJ
 Ys
 Oy
+Oy
+Oy
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -53599,7 +53913,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -53818,20 +54132,15 @@ Or
 Or
 "}
 (176,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -53844,6 +54153,11 @@ rJ
 rJ
 rJ
 Oy
+Oy
+Oy
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -53856,7 +54170,7 @@ Ne
 Ne
 Ne
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -54075,20 +54389,15 @@ Or
 Or
 "}
 (177,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -54101,6 +54410,11 @@ EW
 EW
 Oy
 Oy
+Oy
+Oy
+Ne
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -54113,7 +54427,7 @@ Ne
 Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -54332,20 +54646,16 @@ Or
 Or
 "}
 (178,1,1) = {"
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
-Rs
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
+yU
 yU
 yU
 yU
@@ -54357,6 +54667,10 @@ Oy
 Oy
 Oy
 Oy
+Oy
+Oy
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -54603,8 +54917,8 @@ yU
 yU
 yU
 yU
-yU
-yU
+EW
+Oy
 Oy
 Oy
 Oy
@@ -54870,9 +55184,9 @@ Oy
 Oy
 Oy
 Oy
-Ne
-Ne
-Ne
+Oy
+Oy
+Oy
 Ne
 Ne
 Ne
@@ -55129,9 +55443,9 @@ Oy
 Oy
 Oy
 Oy
-Ne
-Ne
-Ne
+Oy
+Oy
+Oy
 Ne
 Ne
 Ne
@@ -56419,7 +56733,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Cg
 Cg
@@ -57439,12 +57753,12 @@ Oy
 Oy
 Oy
 Oy
-Oy
-Ne
-Cg
+mR
 Ne
 Ne
-Cg
+Ne
+Ne
+Ne
 Cg
 Cg
 Cg
@@ -57959,7 +58273,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Cg
 Cg
@@ -66184,7 +66498,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+Cg
 Cg
 Cg
 FF
@@ -70036,7 +70350,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Ne
 Ne
 Ne
@@ -70292,8 +70606,8 @@ Oy
 Ne
 Ne
 Ne
-Cg
-Cg
+Ne
+Ne
 Cg
 Cg
 Cg
@@ -70550,8 +70864,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+Ne
+Ne
 Cg
 Cg
 Cg
@@ -73123,7 +73437,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Or
 Or
@@ -73380,7 +73694,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Or
 Or
@@ -73637,7 +73951,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Or
 Or
@@ -73894,7 +74208,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
 Cg
 Or
 Or
@@ -74150,8 +74464,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+Ne
+Ne
 Cg
 Or
 Or
