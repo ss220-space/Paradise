@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - tweak: "Осколочная граната теперь создает физические осколки (PR #8694)"

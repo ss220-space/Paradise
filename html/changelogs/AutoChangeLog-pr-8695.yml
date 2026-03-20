@@ -1,4 +1,0 @@
-author: "Den109G"
-delete-after: True
-changes:
-  - bugfix: "Чинит рантайм, когда админ пытается наратировать локально. (PR #8695)"
