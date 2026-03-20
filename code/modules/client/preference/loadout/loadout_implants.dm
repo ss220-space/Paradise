@@ -50,3 +50,9 @@
 	if(!istype(job) || !job.implant_variant)
 		return null
 	return job.implant_variant
+
+/datum/gear/implant/map_implant
+	index_name = "Minimap implant"
+	donator_tier = 1
+	cost = 1
+	path = /obj/item/organ/internal/cyberimp/eyes/map

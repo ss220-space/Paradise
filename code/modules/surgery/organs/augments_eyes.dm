@@ -418,7 +418,7 @@
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/nuke
-	name = "A.T.O.M. map implant "
+	name = "nuke ops map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
 
 /obj/item/organ/internal/cyberimp/eyes/map/nuke/handle_overlays(mob/user)

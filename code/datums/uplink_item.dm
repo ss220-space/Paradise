@@ -2363,6 +2363,15 @@
 	cost = 38
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
+/datum/uplink_item/cyber_implants/nuke_map
+	name = "Имплант миникарты отряда \"Атом\""
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. \
+			Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
+	item = /obj/item/storage/box/cyber_implants/nuke_map
+	cost = 33
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+
 /**
  * MARK: Pointless Badassery
  */
