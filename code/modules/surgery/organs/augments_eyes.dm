@@ -195,8 +195,8 @@
 /obj/item/organ/internal/cyberimp/eyes/map
 	name = "citizen map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
-	icon_state = "welding_implant"
-	eye_colour = "#634ce9"
+	icon_state = "citizen_map_implant"
+	eye_colour = "#4255e6"
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -315,6 +315,8 @@
 /obj/item/organ/internal/cyberimp/eyes/map/security
 	name = "security map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает владельцев импланта защиты разума."
+	icon_state = "security_map_implant"
+	eye_colour = "#e41618"
 
 /obj/item/organ/internal/cyberimp/eyes/map/security/handle_overlays(mob/user)
 	var/list/extra_overlays = ..()
@@ -341,6 +343,8 @@
 /obj/item/organ/internal/cyberimp/eyes/map/medical
 	name = "medical map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает медицинские датчики и критическе состояния."
+	icon_state = "medical_map_implant"
+	eye_colour = "#00e3e3"
 
 /obj/item/organ/internal/cyberimp/eyes/map/medical/handle_overlays(mob/user)
 	var/list/extra_overlays = ..()
@@ -385,6 +389,8 @@
 /obj/item/organ/internal/cyberimp/eyes/map/fire
 	name = "fire map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает отсеки с активной пожарной сигнализацией."
+	icon_state = "fire_map_implant"
+	eye_colour = "#0abd33"
 
 /obj/item/organ/internal/cyberimp/eyes/map/fire/handle_overlays(mob/user)
 	var/list/extra_overlays = ..()
@@ -420,6 +426,8 @@
 /obj/item/organ/internal/cyberimp/eyes/map/nuke
 	name = "nuke ops map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
+	icon_state = "nuke_map_implant"
+	eye_colour = "#292929"
 
 /obj/item/organ/internal/cyberimp/eyes/map/nuke/handle_overlays(mob/user)
 	var/list/extra_overlays = ..()
