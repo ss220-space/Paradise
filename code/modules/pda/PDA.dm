@@ -554,7 +554,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/proc/play_ringtone(list/balloon_alertees)
 	var/sound_file = ttone_sound[ttone] ? ttone_sound[ttone] : 'sound/machines/twobeep_high.ogg'
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
-		sound = pick(
+		sound_file = pick(
 			'sound/machines/twobeep_voice1.ogg',
 			'sound/machines/twobeep_voice2.ogg',
 			)
