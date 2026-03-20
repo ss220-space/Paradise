@@ -26,10 +26,12 @@
 #define BOT_NO_ROUTE 17	// no destination beacon found (or no route)
 
 // Bot types
-/// Secutritrons (Beepsky) and ED-209s
-#define SEC_BOT "Security"
+/// Secutritrons (Beepsky)
+#define SEC_BOT "Securitron"
+/// ED-209s
+#define ADVANCED_SEC_BOT "ED-209"
 /// MULEbots
-#define MULE_BOT "Mule"
+#define MULE_BOT "MULEbot"
 /// Floorbots
 #define FLOOR_BOT "Floorbot"
 /// Cleanbots
