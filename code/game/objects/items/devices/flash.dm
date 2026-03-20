@@ -327,3 +327,49 @@
  */
 
 /obj/item/flash/synthetic //just a regular flash now
+
+/**
+ * MARK:Revolution flash
+ */
+//shitspawn
+/obj/item/flash/revolutionary
+	origin_tech = "magnets=3;combat=2;syndicate=2"
+
+/obj/item/flash/revolutionary/burn_out()
+	return
+
+/obj/item/flash/revolutionary/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	var/datum/game_mode/revolution/rev_mode = SSticker?.mode
+
+	// Check if the user is a revolutionary (regular or leader)
+	var/user_is_rev = FALSE
+	if(user.mind)
+		if((user.mind in rev_mode.revolutionaries) || (user.mind in rev_mode.head_revolutionaries))
+			user_is_rev = TRUE
+
+	if(!user_is_rev)
+		return ..()
+
+	// For carbons, we check eye protection in advance
+	var/can_convert = FALSE
+	if(iscarbon(target))
+		can_convert = target.flash_eyes(1, TRUE)
+
+	// Call the parent method
+	. = ..()
+
+	if(iscarbon(target) && can_convert && user_is_rev && target.mind)
+		var/target_is_rev = FALSE
+		if((target.mind in rev_mode.revolutionaries) || (target.mind in rev_mode.head_revolutionaries))
+			target_is_rev = TRUE
+
+		if(!target_is_rev)
+			if(rev_mode.add_revolutionary(target.mind))
+				target.visible_message(
+					span_userdanger("Вы чувствуете, как ваше сознание перепрограммируется! Вы теперь революционер!")
+				)
+				add_attack_logs(user, target, "Converted to revolutionary with revolutionary flash")
+			else
+				to_chat(user, span_warning("Не удалось сделать [target] революционером!"))
+		else
+			to_chat(user, span_warning("[target] уже является революционером!"))
