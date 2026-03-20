@@ -9,6 +9,7 @@ import {
   LabeledList,
   Section,
   Stack,
+  Dropdown,
 } from '../../components';
 
 export const pda_messenger = (props: unknown) => {
@@ -34,6 +35,8 @@ export type Messenger = {
   silent: boolean;
   toff: boolean;
   plugins: Plugin[];
+  ringtone_list: Record<string, string>;
+  ringtone: string;
 };
 
 export type MessenderData = Conversation & Messenger;
@@ -185,12 +188,23 @@ type MessengerListProps = {
   silent: boolean;
   toff: boolean;
   plugins: Plugin[];
+  ringtone_list: Record<string, string>; // добавлено
+  ringtone: string;
 };
 
 export const MessengerList = (props: MessengerListProps) => {
   const { act } = useBackend();
 
-  const { convopdas, pdas, charges, silent, toff, plugins } = props;
+  const {
+    convopdas,
+    pdas,
+    charges,
+    silent,
+    toff,
+    plugins,
+    ringtone_list,
+    ringtone,
+  } = props;
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -213,9 +227,6 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Messenger: {toff ? 'Off' : 'On'}
             </Button>
-            <Button icon="bell" onClick={() => act('Ringtone')}>
-              Set Ringtone
-            </Button>
             <Button
               icon="trash"
               color="bad"
@@ -223,6 +234,23 @@ export const MessengerList = (props: MessengerListProps) => {
             >
               Delete All Conversations
             </Button>
+            <Stack>
+              <Stack.Item>
+                <Button icon="bell" onClick={() => act('Ringtone')}>
+                  Set Custom Ringtone
+                </Button>
+              </Stack.Item>
+              <Stack.Item grow={1}>
+                <Dropdown
+                  selected={ringtone}
+                  fluid
+                  options={Object.keys(ringtone_list)}
+                  onSelected={(value) =>
+                    act('Available_Ringtones', { selected_ringtone: value })
+                  }
+                />
+              </Stack.Item>
+            </Stack>
           </LabeledList.Item>
         </LabeledList>
         {(!toff && (
