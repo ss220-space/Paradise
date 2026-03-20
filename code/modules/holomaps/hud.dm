@@ -7,7 +7,7 @@
 	holomap.screen_loc = ui_holomap
 	holomap.mouse_opacity = MOUSE_OPACITY_ICON
 
-	mini_holomap = new /atom/movable/screen/holomap()
+	mini_holomap = new()
 	mini_holomap.name = "mini_holomap"
 	mini_holomap.icon = null
 	mini_holomap.screen_loc = ui_mini_holomap

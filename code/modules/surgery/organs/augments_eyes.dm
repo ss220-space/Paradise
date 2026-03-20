@@ -193,7 +193,7 @@
 
 // MARK: mini map implant
 /obj/item/organ/internal/cyberimp/eyes/map
-	name = "citizen map implant "
+	name = "citizen map implant"
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
 	icon_state = "citizen_map_implant"
 	eye_colour = "#4255e6"
@@ -213,6 +213,10 @@
 	var/crop_y = 0
 	/// Global station map crop size
 	var/crop_size = 80
+
+/obj/item/organ/internal/cyberimp/eyes/map/Destroy()
+	holomap_datum = null
+	. = ..()
 
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
@@ -284,12 +288,14 @@
 	if(!moved_mob)
 		return
 
-	if(moved_mob.client)
-		moved_mob.client.images -= holomap_datum.base_map
-		setup_holomap(moved_mob)
-		holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
-		moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
-		moved_mob.client.images |= holomap_datum.base_map
+	if(!moved_mob.client)
+		return
+
+	moved_mob.client.images -= holomap_datum.base_map
+	setup_holomap(moved_mob)
+	holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
+	moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
+	moved_mob.client.images |= holomap_datum.base_map
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
@@ -297,10 +303,12 @@
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 
 	to_chat(user, span_interface("Мини-карта исчезает."))
-	if(user?.client)
-		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-		addtimer(CALLBACK(src, PROC_REF(remove_mini_map), user), 5)
-	holomap_datum.reset_map()
+	if(!user.client)
+		holomap_datum.reset_map()
+		return
+
+	animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
+	addtimer(CALLBACK(src, PROC_REF(remove_mini_map), user), 5)
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/remove_mini_map(mob/user)
 	if(!user || !user.client)

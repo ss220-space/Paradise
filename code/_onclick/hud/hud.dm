@@ -155,6 +155,8 @@
 
 	mymob = null
 	QDEL_NULL(screentip_text)
+
+	QDEL_NULL(mini_holomap)
 	. = ..()
 
 /datum/hud/proc/client_refresh(datum/source)
