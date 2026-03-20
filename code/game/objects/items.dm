@@ -1478,6 +1478,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
+/// Returns the sharpness of src. If you want to get the sharpness of an item use this.
+/obj/item/proc/get_sharpness()
+	return sharp//ness
+	
 /// If an object can successfully be used as a fire starter it will return a message
 /obj/item/proc/ignition_effect(atom/target, mob/user)
 	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)

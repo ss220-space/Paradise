@@ -2,11 +2,12 @@
 	name = "shrapnel"
 	icon = 'icons/obj/shards.dmi'
 	icon_state = null
-	throw_speed =  EMBED_THROWSPEED_THRESHOLD
+	throw_speed = EMBED_THROWSPEED_THRESHOLD
 	sharp = TRUE
 	range = 20
 	armour_penetration = 30
 	dismemberment = 5
+	tile_dropoff = 0.5
 	ricochet_chance = 70
 	var/embedded_type = /obj/item/embedded/shrapnel
 
@@ -36,13 +37,22 @@
 	target.hitby(shrapnel, skipcatch = TRUE)
 	qdel(src)
 
+/obj/projectile/shrapnel/grenade
+	range = 6
+
+/obj/projectile/shrapnel/m80mm
+	range = 8
+
+/obj/projectile/shrapnel/short_range
+	range = 5
+
 /obj/item/embedded/shrapnel
 	name = "shrapnel"
 	icon = 'icons/obj/shards.dmi'
 	throwforce = 10
-	throw_speed =  EMBED_THROWSPEED_THRESHOLD
-	embed_chance = 100
-	embedded_fall_chance = 0
+	throw_speed = EMBED_THROWSPEED_THRESHOLD
+	embed_chance = 70
+	embedded_fall_chance = 1
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
 	hitsound = 'sound/weapons/pierce.ogg'

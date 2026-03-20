@@ -522,7 +522,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	name = JOB_TITLE_JUDGE
 	icon_state = "Magi"
 
-/obj/effect/landmark/start/internal_affairs
+/obj/effect/landmark/start/lawyer
 	name = JOB_TITLE_LAWYER
 	icon_state = "IAA"
 
