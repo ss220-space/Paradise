@@ -291,7 +291,6 @@
 	SIGNAL_HANDLER
 	modifiers.Add(usable_strength_level.weak_mob_modifier)
 
-
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
 #undef MIN_NUTRITION_FOR_STRENGTH_CHANGE
