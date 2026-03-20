@@ -22,10 +22,10 @@
 
 	if(active)
 		deactivate(user)
-		to_chat(user, span_notice("Снижаем мышечную активность. Синтез химикатов восстановлен."))
+		user.balloon_alert(user, "сила уменьшеается")
 	else
 		activate(user)
-		to_chat(user, span_notice("Мобилизуем ресурсы организма! Сила возрастает, но синтез химикатов замедляется."))
+		user.balloon_alert(user, "сила нарастает")
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]", "[active]"))
 	return TRUE
@@ -68,36 +68,25 @@
 	return TRUE
 
 /datum/action/changeling/anabolic_surge/proc/deactivate(mob/living/carbon/user)
-	if(!ishuman(user))
-		return
-
-	var/mob/living/carbon/human/human = user
-
-
-	REMOVE_TRAIT(human, TRAIT_STRONG_MUSCLES, CHANGELING_TRAIT)
-
-	// Get the muscle component
-	var/datum/component/muscles/muscles = human.GetComponent(/datum/component/muscles)
-	if(muscles)
-		// If there is a saved level, restore it
-		if(backup_strength_level)
-			muscles.real_strength_level = backup_strength_level
-			muscles.strength_points = backup_strength_points
-		else
-			// Otherwise, set the standard level
-			muscles.real_strength_level = new STRENGTH_LEVEL_DEFAULT()
-			muscles.strength_points = 0
-
-
-		human.update_body(TRUE)
-
-// Remove the chemical modifier
-	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
+	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
 		changeling.remove_chem_rate_modifier(src)
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/human = user
+		REMOVE_TRAIT(human, TRAIT_STRONG_MUSCLES, CHANGELING_TRAIT)
+
+		var/datum/component/muscles/muscles = human.GetComponent(/datum/component/muscles)
+		if(muscles)
+			if(backup_strength_level)
+				muscles.real_strength_level = backup_strength_level
+				muscles.strength_points = backup_strength_points
+			else
+				muscles.real_strength_level = new STRENGTH_LEVEL_DEFAULT()
+				muscles.strength_points = 0
+			human.update_body(TRUE)
 
 	active = FALSE
 	button_icon_state = "anabolic_surge"
 	UpdateButtonIcon()
-
 	return TRUE
