@@ -453,7 +453,29 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer",JOB_TITLE_ERT_MEMBER,JOB_TITLE_ERT_LEADER,"Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer", JOB_TITLE_CCSPECOPS,"Nanotrasen Navy Representative", JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD,"Nanotrasen Diplomat","Nanotrasen Navy Captain", JOB_TITLE_CCSUPREME)
+	return list(
+		"VIP Guest","Custodian",
+		"Thunderdome Overseer",
+		JOB_TITLE_ERT_MEMBER,
+		JOB_TITLE_ERT_LEADER,
+		JOB_TITLE_ERT_OFFICER,
+		JOB_TITLE_ERT_ENGINEER,
+		JOB_TITLE_ERT_MEDIC,
+		JOB_TITLE_ERT_INQUISITOR,
+		JOB_TITLE_ERT_JANITOR,
+		"Intel Officer",
+		"Medical Officer",
+		"Death Commando",
+		"Research Officer",
+		"Deathsquad Officer",
+		JOB_TITLE_CCSPECOPS,
+		"Nanotrasen Navy Representative",
+		JOB_TITLE_CCOFFICER,
+		JOB_TITLE_CCFIELD,
+		"Nanotrasen Diplomat",
+		"Nanotrasen Navy Captain",
+		JOB_TITLE_CCSUPREME,
+)
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader", JOB_TITLE_CCSOLGOV)
