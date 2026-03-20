@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - del: "Удалена рандомизация левой комнаты Некрополя. (PR #8708)"

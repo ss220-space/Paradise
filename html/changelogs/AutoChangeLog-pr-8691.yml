@@ -1,5 +1,0 @@
-author: "chomasuke"
-delete-after: True
-changes:
-  - refactor: "Перевод connected_ports на LAZY листы. (PR #8691)"
-  - bugfix: "Компоненты \"Отображение маркировки\" и \"Отображение графического столбца\" снова работают. (PR #8691)"

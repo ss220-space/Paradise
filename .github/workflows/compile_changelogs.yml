@@ -53,7 +53,6 @@ jobs:
           git pull origin master220
           git add html/changelogs
           git commit -m "Automatic changelog compile [ci skip]" -a || true
-          git push
 
       - name: Generate App Token
         id: app-token-generation
@@ -71,3 +70,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ steps.app-token-generation.outputs.token || secrets.CHANGELOGBOT_TOKEN }}
+          branch: master220

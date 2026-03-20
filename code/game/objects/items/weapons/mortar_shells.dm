@@ -71,10 +71,9 @@
 	item_state = "mortar_ammo_frag"
 
 /obj/item/mortar_shell/frag/detonate(turf/detonate_turf, explosion_detonate = FALSE)
-	AddComponent(/datum/component/pellet_cloud, magnitude = 4)
+	AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/shrapnel/m80mm, magnitude = 4)
 	. = ..()
-	sleep(2)
-	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 5)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), 0, 0, 5), 0.2 SECONDS)
 
 /obj/item/mortar_shell/incendiary
 	name = "80mm incendiary mortar shell"
@@ -114,11 +113,12 @@
 	item_state = "mortar_ammo_custom_locked"
 
 	materials = list(METAL = 18750) //5 sheets
+	locked = FALSE
+
 	var/obj/item/warhead/mortar/warhead
 	var/obj/item/reagent_containers/glass/beaker/fuel
 	var/fuel_requirement = 60
 	var/fuel_type = "hydrogen"
-	locked = FALSE
 
 /obj/item/mortar_shell/custom/examine(mob/user)
 	. = ..()

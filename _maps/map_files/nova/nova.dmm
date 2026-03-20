@@ -59311,10 +59311,15 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/vending/medical{
-	req_access = list(3,5,19)
-	},
 /obj/effect/decal/warning_stripes/blue/hollow,
+/obj/structure/table/glass,
+/obj/item/storage/pill_bottle{
+	pixel_x = 7
+	},
+/obj/item/storage/pill_bottle/patch_pack,
+/obj/item/storage/fancy/vials{
+	pixel_x = -6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -101044,13 +101049,9 @@
 /area/medical/research)
 "peM" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/structure/closet/secure_closet/medical3,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/mask/muzzle,
-/obj/item/reagent_containers/hypospray/safety,
-/obj/item/reagent_containers/hypospray/safety,
-/obj/item/clothing/glasses/sunglasses/blindfold/black,
-/obj/item/storage/belt/medical/surgery/loaded,
+/obj/machinery/vending/medical{
+	req_access = list(3,5,19)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -125619,8 +125620,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "sGQ" = (
-/obj/machinery/sleeper{
-	pixel_x = 3
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -132832,8 +132833,6 @@
 /obj/structure/closet/secure_closet/brigdoc{
 	req_access = list(2,5)
 	},
-/obj/item/clothing/under/rank/security/brigmedical/skirt,
-/obj/item/clothing/under/rank/security/brigmedical,
 /obj/item/clothing/under/fluff/soviet_casual_uniform,
 /turf/simulated/floor/carpet/red,
 /area/security/medbay)
@@ -139930,16 +139929,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "uKm" = (
-/obj/structure/table/glass,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/storage/fancy/vials{
-	pixel_x = -6
-	},
-/obj/item/storage/pill_bottle/patch_pack,
-/obj/item/storage/pill_bottle{
-	pixel_x = 7
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/sleeper{
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -156771,6 +156765,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
