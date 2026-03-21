@@ -48255,15 +48255,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea_virology)
-"gwh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/fitness)
 "gwx" = (
 /obj/structure/table,
 /obj/item/pen{
@@ -63376,7 +63367,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "jSo" = (
-/obj/machinery/fishtank,
+/obj/machinery/fishtank/tank,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/fitness)
 "jSs" = (
@@ -97691,10 +97682,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "rFD" = (
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -182132,7 +182120,7 @@ uDH
 fcg
 fcg
 lGv
-gwh
+vCY
 rFC
 lGv
 fcg
