@@ -216,6 +216,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/map/Destroy()
 	holomap_datum = null
+	current_turf = null
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -277,10 +278,23 @@
 		legend += z_transitions
 	return legend
 
+/obj/item/organ/internal/cyberimp/eyes/map/proc/create_overlay_icon(icon_name, turf/target_loc, list/output)
+	if(target_loc.z != current_z_level || !is_in_crop_area(target_loc))
+		return
+	var/image/overlay_icon = image('icons/misc/8x8.dmi', icon_state = icon_name)
+	overlay_icon.pixel_w = HOLOMAP_CENTER_X + target_loc.x - crop_x - 1
+	overlay_icon.pixel_z = HOLOMAP_CENTER_X + target_loc.y - crop_y - 1
+	output += overlay_icon
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/create_overlays_entry(list/overlays, name, icon_name, list/markers)
+	if(!length(markers))
+		return
+	overlays[name] = list("icon" = image('icons/misc/8x8.dmi', icon_state = icon_name), "markers" = markers)
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/is_in_crop_area(turf/target)
 	return target.x >= (current_turf.x - crop_size/2)  && target.x <= (current_turf.x + crop_size/2)\
 		&& target.y >= (current_turf.y - crop_size/2)  && target.y <= (current_turf.y + crop_size/2)
+
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/check_position(mob/moved_mob)
 	SIGNAL_HANDLER
@@ -291,6 +305,7 @@
 	if(!moved_mob.client)
 		return
 
+	current_z_level = user.loc.z
 	moved_mob.client.images -= holomap_datum.base_map
 	setup_holomap(moved_mob)
 	holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
@@ -335,16 +350,12 @@
 	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
 		if(check == user)
 			continue
+		if(!ismindshielded(check))
+			continue
 		var/turf/check_turf = get_turf(check)
-		if(check_turf.z == current_z_level && is_in_crop_area(check_turf) && ismindshielded(check))
-			var/image/sensor_icon = image('icons/misc/8x8.dmi', icon_state = "security")
-			mindshields += sensor_icon
-			sensor_icon.pixel_w = HOLOMAP_CENTER_X + check_turf.x - crop_x - 1
-			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
+		create_overlay_icon("security", check_turf, mindshields)
 
-	if(length(mindshields))
-		extra_overlays["Mindshields"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "security"), "markers" = mindshields)
-
+	create_overlays_entry(extra_overlays, "Mindshields", icon_name="security", markers=mindshields)
 	return extra_overlays
 
 
@@ -366,31 +377,16 @@
 		if(check == user)
 			continue
 		var/turf/check_turf = get_turf(check)
-		if(check_turf.z == current_z_level && is_in_crop_area(check_turf))
-			var/image/sensor_icon = null
-			if(check.is_dead())
-				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "death_body")
-				death_bodies += sensor_icon
-			else if(check.is_in_crit())
-				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "critical_state")
-				critical_states += sensor_icon
-			else if(hassensorlevel(check, SUIT_SENSOR_TRACKING))
-				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "medical_sensor")
-				medical_sensors += sensor_icon
+		if(check.is_dead())
+			create_overlay_icon("death_body", check_turf, death_bodies)
+		else if(check.is_in_crit())
+			create_overlay_icon("critical_state", check_turf, critical_states)
+		else if(hassensorlevel(check, SUIT_SENSOR_TRACKING))
+			create_overlay_icon("medical_sensor", check_turf, medical_sensors)
 
-			if(sensor_icon == null)
-				continue
-
-			sensor_icon.pixel_w = HOLOMAP_CENTER_X + check_turf.x - crop_x - 1
-			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
-
-	if(length(death_bodies))
-		extra_overlays["Death bodies"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "death_body"), "markers" = death_bodies)
-	if(length(critical_states))
-		extra_overlays["Critical states"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "critical_state"), "markers" = critical_states)
-	if(length(medical_sensors))
-		extra_overlays["Medical sensors"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "medical_sensor"), "markers" = medical_sensors)
-
+	create_overlays_entry(extra_overlays, "Death bodies", icon_name="death_body", markers=death_bodies)
+	create_overlays_entry(extra_overlays, "Critical states", icon_name="critical_state", markers=critical_states)
+	create_overlays_entry(extra_overlays, "Medical sensors", icon_name="medical_sensor", markers=medical_sensors)
 	return extra_overlays
 
 
@@ -407,27 +403,21 @@
 
 	var/list/fire_alarms = list()
 	for(var/obj/machinery/firealarm/alarm as anything in GLOB.station_fire_alarms["[current_z_level]"])
-		if(alarm?.z == current_z_level && is_in_crop_area(alarm.loc) && alarm?.myArea?.fire)
-			var/image/alarm_icon = image('icons/misc/8x8.dmi', icon_state = "fire_marker")
-			alarm_icon.pixel_w = HOLOMAP_CENTER_X + alarm.loc.x - crop_x - 1
-			alarm_icon.pixel_z = HOLOMAP_CENTER_X + alarm.loc.y - crop_y
-			fire_alarms += alarm_icon
-
-	if(length(fire_alarms))
-		extra_overlays["Fire Alarms"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "fire_marker"), "markers" = fire_alarms)
+		if(!alarm?.myArea?.fire)
+			continue
+		var/alarm_turf = get_turf(alarm)
+		create_overlay_icon("fire_marker", alarm_turf, fire_alarms)
 
 	var/list/air_alarms = list()
 	for(var/obj/machinery/alarm/air_alarm in GLOB.air_alarms)
 		var/area/alarms = get_area(air_alarm)
-		if(air_alarm?.z == current_z_level && is_in_crop_area(air_alarm.loc) && alarms?.atmosalm != ATMOS_ALARM_NONE) //Altered it to fire_alam since we don't have an area variable on air_alarms
-			var/image/alarm_icon = image('icons/misc/8x8.dmi', "atmos_marker")
-			alarm_icon.pixel_w = HOLOMAP_CENTER_X + air_alarm.loc.x - crop_x - 1
-			alarm_icon.pixel_z = HOLOMAP_CENTER_X + air_alarm.loc.y - crop_y
-			air_alarms += alarm_icon
+		if(alarms?.atmosalm == ATMOS_ALARM_NONE)
+			continue
+		var/alarm_turf = get_turf(air_alarm)
+		create_overlay_icon("atmos_marker", alarm_turf, air_alarms)
 
-	if(length(air_alarms))
-		extra_overlays["Air Alarms"] = list("icon" = image('icons/misc/8x8.dmi', "atmos_marker"), "markers" = air_alarms)
-
+	create_overlays_entry(extra_overlays, "Fire Alarms", icon_name="fire_marker", markers=fire_alarms)
+	create_overlays_entry(extra_overlays, "Air Alarms", icon_name="atmos_marker", markers=air_alarms)
 	return extra_overlays
 
 
@@ -448,37 +438,18 @@
 		if(check == user)
 			continue
 		var/turf/check_turf = get_turf(check)
-		if(check_turf.z == current_z_level && is_in_crop_area(check_turf))
-			var/image/sensor_icon = null
-			if(isAntag(check))
-				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "nuker")
-				teammates += sensor_icon
-			else if(!check.is_dead())
-				sensor_icon = image('icons/misc/8x8.dmi', icon_state = "crew")
-				crew_members += sensor_icon
-
-			if(sensor_icon == null)
-				continue
-
-			sensor_icon.pixel_w = HOLOMAP_CENTER_X + check_turf.x - crop_x - 1
-			sensor_icon.pixel_z = HOLOMAP_CENTER_X + check_turf.y - crop_y - 1
+		if(isAntag(check))
+			create_overlay_icon("nuker", check_turf, teammates)
+		else if(!check.is_dead())
+			create_overlay_icon("crew", check_turf, teammates)
 
 	var/list/nuclear_disks = list()
-	var/obj/item/disk/nuclear/the_disk = locate() in GLOB.poi_list
-	if(the_disk)
+	for(var/obj/item/disk/nuclear/the_disk in GLOB.poi_list)
 		var/turf/disk_location = get_turf(the_disk)
-		if(disk_location.z == current_z_level && is_in_crop_area(disk_location))
-			var/image/sensor_icon = image('icons/misc/8x8.dmi', icon_state = "nuclear_disk")
-			sensor_icon.pixel_w = HOLOMAP_CENTER_X + disk_location.x - crop_x - 1
-			sensor_icon.pixel_z = HOLOMAP_CENTER_X + disk_location.y - crop_y - 1
-			nuclear_disks += sensor_icon
+		create_overlay_icon("nuclear_disk", disk_location, nuclear_disks)
 
-
-	if(length(teammates))
-		extra_overlays["Teammates"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "nuker"), "markers" = teammates)
-	if(length(crew_members))
-		extra_overlays["Crew members"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "crew"), "markers" = crew_members)
-	if(length(nuclear_disks))
-		extra_overlays["Nuclear authentification disk"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "nuclear_disk"), "markers" = nuclear_disks)
-
+	create_overlays_entry(extra_overlays, "Teammates", icon_name="nuker", markers=teammates)
+	create_overlays_entry(extra_overlays, "Crew members", icon_name="crew", markers=crew_members)
+	create_overlays_entry(extra_overlays, "Nuclear authentification disk", icon_name="nuclear_disk", markers=nuclear_disks)
 	return extra_overlays
+
