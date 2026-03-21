@@ -218,7 +218,7 @@
 	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
 		return 0
 	revolutionaries += rev_mind
-	to_chat(rev_mind.current, span_danger(span_fontsize3(" You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.")))
+	to_chat(rev_mind.current, span_danger(span_fontsize3("You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.")))
 	add_conversion_logs(rev_mind.current, "recruited to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
