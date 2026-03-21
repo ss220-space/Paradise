@@ -105,6 +105,9 @@
 	name = "space cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Произведено компанией \"BLAM!\"."
 	list_reagents = list("cleaner" = 250)
+	amount_per_transfer_from_this = 10
+	spray_maxrange = 2
+	spray_currentrange = 2
 
 /obj/item/reagent_containers/spray/cleaner/get_ru_names()
 	return list(

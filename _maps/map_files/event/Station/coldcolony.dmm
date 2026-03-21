@@ -48454,7 +48454,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/ai)
 "rEA" = (
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "rEW" = (
@@ -49277,7 +49277,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "rVT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"

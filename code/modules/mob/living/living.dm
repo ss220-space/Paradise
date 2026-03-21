@@ -863,6 +863,7 @@
 	update_fire()
 	regenerate_icons()
 	restore_blood()
+	clear_alert(ALERT_BLEEDING)
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()

@@ -1,0 +1,6 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - balance: "Уменьшен радиус поражения у осколков (PR #8709)"
+  - balance: "Добавлено падение урона осколков с расстоянием (PR #8709)"
+  - balance: "Уменьшен шанс застревания осколков (PR #8709)"

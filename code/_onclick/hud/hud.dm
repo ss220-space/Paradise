@@ -73,6 +73,10 @@
 	/// and avoid needing to make changes to all idk 300 consumers if we want to change the appearance
 	var/list/asset_refs_for_reuse = list()
 
+	/// Whether to use text or images for click hints.
+	/// Same behavior as `screentips_enabled`--very hot, updated when the preference is updated.
+	var/screentip_images = TRUE
+
 /datum/hud/New(mob/owner)
 	mymob = owner
 
