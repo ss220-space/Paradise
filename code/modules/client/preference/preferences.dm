@@ -868,7 +868,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
 				rank = "<font class='text-muted'>[get_job_title_ru(GetPlayerAltTitle(job))]</font>"
 			lastJob = job
-			if(jobban_isbanned(user, job.title))
+			if(jobban_isbanned(user, job_title_ru_to_en(job.title)))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЗАБАНЕНО]</b></span></td></tr>"
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
