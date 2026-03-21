@@ -305,7 +305,7 @@
 	if(!moved_mob.client)
 		return
 
-	current_z_level = user.loc.z
+	current_z_level = moved_mob.loc.z
 	moved_mob.client.images -= holomap_datum.base_map
 	setup_holomap(moved_mob)
 	holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
