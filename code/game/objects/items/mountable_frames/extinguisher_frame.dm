@@ -6,6 +6,6 @@
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 
 /obj/item/mounted/frame/extinguisher/do_build(turf/on_wall, mob/user)
-	var/obj/structure/extinguisher_cabinet/empty/cabinet = new(get_turf(src), get_dir(user, on_wall))
+	var/obj/structure/extinguisher_cabinet/empty/cabinet = new /obj/structure/extinguisher_cabinet/empty(get_turf(src), get_dir(user, on_wall))
 	cabinet.add_fingerprint(user)
 	qdel(src)

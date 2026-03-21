@@ -7,7 +7,7 @@
 	metal_sheets_refunded = 1
 
 /obj/item/mounted/frame/driver_button/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/driver_button/button = new(get_turf(user), get_dir(user, on_wall))
+	var/obj/machinery/driver_button/button = new /obj/machinery/driver_button(get_turf(user), get_dir(user, on_wall))
 	button.add_fingerprint(user)
 	qdel(src)
 
@@ -20,7 +20,7 @@
 	metal_sheets_refunded = 1
 
 /obj/item/mounted/frame/light_switch/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/light_switch/button = new(get_turf(user), get_dir(user, on_wall))
+	var/obj/machinery/light_switch/button = new /obj/machinery/light_switch(get_turf(user), get_dir(user, on_wall))
 	button.add_fingerprint(user)
 	qdel(src)
 
@@ -32,6 +32,6 @@
 	metal_sheets_refunded = 1
 
 /obj/item/mounted/frame/door_control/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/door_control/button = new(get_turf(user), get_dir(user, on_wall), TRUE)
+	var/obj/machinery/door_control/button = new /obj/machinery/door_control(get_turf(user), get_dir(user, on_wall), TRUE)
 	button.add_fingerprint(user)
 	qdel(src)
