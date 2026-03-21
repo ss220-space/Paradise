@@ -62283,13 +62283,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
-"jDe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/fitness)
 "jDk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -64801,13 +64794,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"kkY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/fitness)
 "klb" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/south,
@@ -180615,7 +180601,7 @@ tzt
 cQh
 mjE
 msG
-nop
+wkE
 qEC
 oip
 yfp
@@ -180872,7 +180858,7 @@ iUT
 iUT
 pww
 foa
-wkE
+nop
 qEC
 oum
 yfp
@@ -184456,14 +184442,14 @@ csj
 cza
 sct
 rbu
+uDH
 mjQ
-jDe
 lpH
 oJm
 tRc
 eBn
-kkY
 hcu
+uDH
 rbu
 sct
 cza
