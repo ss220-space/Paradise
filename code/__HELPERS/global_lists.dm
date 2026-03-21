@@ -328,6 +328,7 @@
 		EQUIPMENT("Industrial Mining Satchel", /obj/item/storage/bag/ore/bigger, 500),
 		EQUIPMENT("Meson Health Scanner HUD", /obj/item/clothing/glasses/hud/health/meson, 1500),
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
+		EQUIPMENT("Mining Satchel Upgrade", /obj/item/mining_satchel_upgrade, 600)
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("Marker Beacons (10)", /obj/item/stack/marker_beacon/ten, 100),

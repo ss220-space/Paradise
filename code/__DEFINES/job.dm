@@ -137,7 +137,7 @@
 #define JOB_TITLE_WARDEN "Warden"
 #define JOB_TITLE_DETECTIVE "Detective"
 #define JOB_TITLE_JUDGE "Magistrate"
-#define JOB_TITLE_LAWYER "Internal Affairs Agent"
+#define JOB_TITLE_LAWYER "Lawyer"
 #define JOB_TITLE_OFFICER "Security Officer"
 #define JOB_TITLE_BRIGDOC "Brig Physician"
 #define JOB_TITLE_PILOT "Security Pod Pilot"
