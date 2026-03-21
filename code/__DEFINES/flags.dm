@@ -206,20 +206,6 @@
 #define NO_MALF_EFFECT (1<<8) //So malf cannot blow certain things
 #define NO_MOUSTACHING (1<<9) //Saves from super hairgrowium shenanigans
 
-#define MEAT (1<<0)
-#define VEGETABLES (1<<1)
-#define RAW (1<<2)
-#define JUNKFOOD (1<<3)
-#define GRAIN (1<<4)
-#define FRUIT (1<<5)
-#define DAIRY (1<<6)
-#define FRIED (1<<7)
-#define ALCOHOL (1<<8)
-#define SUGAR (1<<9)
-#define EGG (1<<10)
-#define GROSS (1<<11)
-#define TOXIC (1<<12)
-
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288))
 

@@ -62,7 +62,7 @@
 	if(!QDELING(parent))
 		container.forceMove(real_parent.drop_location())
 
-	if (particle_type)
+	if(particle_type)
 		real_parent.remove_shared_particles("[particle_type]_stove_[container_x]")
 
 	UnregisterSignal(parent, list(
@@ -260,12 +260,12 @@
 /datum/component/stove/proc/update_smoke(old_type = null)
 	var/obj/obj_parent = parent
 
-	if (old_type)
+	if(old_type)
 		obj_parent.remove_shared_particles("[old_type]_stove_[container_x]")
 
 	if(!on || !container?.reagents.total_volume)
 		soup_sound?.stop()
-		if (!isnull(particle_type))
+		if(!isnull(particle_type))
 			obj_parent.remove_shared_particles("[particle_type]_stove_[container_x]")
 		return
 
