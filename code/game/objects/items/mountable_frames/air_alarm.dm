@@ -9,6 +9,6 @@
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 
 /obj/item/mounted/frame/alarm_frame/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/alarm/alarm = new /obj/machinery/alarm(get_turf(src), get_dir(on_wall, user), 1)
+	var/obj/machinery/alarm/alarm = new(get_turf(src), get_dir(on_wall, user), 1)
 	alarm.add_fingerprint(user)
 	qdel(src)

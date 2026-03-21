@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		mode = AALARM_MODE_CYCLE
 		apply_mode()
 
-/obj/machinery/alarm/Initialize(mapload, direction, building = 0)
+/obj/machinery/alarm/Initialize(mapload, direction, building = FALSE)
 	. = ..()
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -220,11 +220,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
 		req_access = list(ACCESS_SYNDICATE)
+	update_icon()
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
-	alarm_area.air_alarms -= src
+	alarm_area?.air_alarms -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
