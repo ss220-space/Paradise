@@ -53,3 +53,18 @@
 	volume = 55
 	extra_range = 15
 	vary = TRUE
+
+/datum/looping_sound/soup
+	mid_sounds = list(
+		'sound/effects/soup_boil/soup_boil1.ogg',
+		'sound/effects/soup_boil/soup_boil2.ogg',
+		'sound/effects/soup_boil/soup_boil3.ogg',
+		'sound/effects/soup_boil/soup_boil4.ogg',
+		'sound/effects/soup_boil/soup_boil5.ogg',
+	)
+	mid_length = 3 SECONDS
+	volume = 80
+	end_sound = 'sound/effects/soup_boil/soup_boil_end.ogg'
+	end_volume = 60
+	extra_range = MEDIUM_RANGE_SOUND_EXTRARANGE
+	falloff_exponent = 4
