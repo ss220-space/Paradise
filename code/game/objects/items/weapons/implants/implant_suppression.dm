@@ -43,17 +43,17 @@
 
 /obj/item/implanter/suppression/get_ru_names()
 	return list(
-		NOMINATIVE = "имплантер био-чипов (подавление)",
-		GENITIVE = "имплантера био-чипов (подавление)",
-		DATIVE = "имплантеру био-чипов (подавление)",
-		ACCUSATIVE = "имплантер био-чипов (подавление)",
-		INSTRUMENTAL = "имплантером био-чипов (подавление)",
-		PREPOSITIONAL = "имплантере био-чипов (подавление)",
+		NOMINATIVE = "имплантер био-чипов \"Подавление\"",
+		GENITIVE = "имплантера био-чипов \"Подавление\"",
+		DATIVE = "имплантеру био-чипов \"Подавление\"",
+		ACCUSATIVE = "имплантер био-чипов \"Подавление\"",
+		INSTRUMENTAL = "имплантером био-чипов \"Подавление\"",
+		PREPOSITIONAL = "имплантере био-чипов \"Подавление\"",
 	)
 
 /obj/item/implantcase/suppression
 	name = "bio-chip case - 'Suppression'"
-	desc = "A glass case containing a suppression bio-chip."
+	desc = "Стеклянный кейс, содержащий био-чип \"Подавление\"."
 	imp = /obj/item/implant/suppression
 
 /obj/item/implantcase/suppression/get_ru_names()

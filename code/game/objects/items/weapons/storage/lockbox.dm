@@ -130,7 +130,7 @@
 
 /obj/item/storage/lockbox/suppression
 	name = "Lockbox (Suppression Implants)"
-	desc = "Contains suppression bio-chips for martial arts control."
+	desc = "Содержит био-чипы \"Подавление\" для ограничения навыков боевых искусств."
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/suppression/populate_contents()
