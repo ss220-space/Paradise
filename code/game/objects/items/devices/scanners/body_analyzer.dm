@@ -297,6 +297,4 @@
 	if(HAS_TRAIT(target, TRAIT_NEARSIGHTED))
 		dat += "<font color='red'>Retinal misalignment detected.</font><br>"
 
-	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, dat)
-
 	return dat

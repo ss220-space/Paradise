@@ -25,10 +25,12 @@
 
 	ADD_TRAIT(parent, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UNIQUE_TRAIT_SOURCE(src))
 
-	if(isitem(parent))
-		var/atom/atom_parent = parent
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
-		register_to_loc(atom_parent.loc)
+	if(!isitem(parent))
+		return
+
+	var/atom/atom_parent = parent
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	register_to_loc(atom_parent.loc)
 
 /datum/component/geiger_sound/UnregisterFromParent()
 	UnregisterSignal(parent, list(

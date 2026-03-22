@@ -105,7 +105,7 @@
 	/// Is the crystal protected?
 	var/shielded = TRUE
 	/// Cooldown between radiation pulses
-	var/cooldown = 0
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/gem/rupee/get_ru_names()
 	return list(
@@ -129,13 +129,15 @@
 	if(shielded)
 		return
 
-	if(cooldown < world.time - 3 SECONDS)
-		cooldown = world.time
-		radiation_pulse(
-			src,
-			max_range = 5,
-			threshold = RAD_EXTREME_INSULATION,
-		)
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	COOLDOWN_START(src, radiation_cooldown, 3 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 5,
+		threshold = RAD_EXTREME_INSULATION,
+	)
 
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()

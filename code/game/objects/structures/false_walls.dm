@@ -255,8 +255,8 @@
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
-	/// The last time a radiation pulse was performed
-	var/last_event = 0
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/structure/falsewall/uranium/Initialize(mapload)
 	. = ..()
@@ -276,10 +276,11 @@
 	if(active)
 		return
 
-	if(world.time <= last_event + 1.5 SECONDS)
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
 
 	active = TRUE
+	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 	radiation_pulse(
 		src,
 		max_range = 3,
@@ -288,7 +289,6 @@
 		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 	propagate_radiation_pulse()
-	last_event = world.time
 	active = FALSE
 
 /*

@@ -426,7 +426,7 @@
 
 // Radiation defines
 /// Marks that this object is irradiated
-#define TRAIT_IRRADIATED "iraddiated"
+#define TRAIT_IRRADIATED "irradiated"
 /// Immune to being irradiated
 #define TRAIT_RADIMMUNE "rad_immunity"
 /// Harmful radiation effects, the toxin damage and the burns, will not occur while this trait is active
@@ -474,6 +474,3 @@
 // Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
-
-/// Trait applied by MODsuits.
-#define MOD_TRAIT "mod"

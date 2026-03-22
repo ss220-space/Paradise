@@ -1349,9 +1349,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/go_bald(mob/living/carbon/human/target)
 	if(QDELETED(target))	//may be called from a timer
 		return
-	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
+
+	var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
 	if(!head_organ)
 		return
+
 	head_organ.f_style = "Shaved"
 	head_organ.h_style = "Bald"
 	target.update_hair()

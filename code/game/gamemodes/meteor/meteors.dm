@@ -382,9 +382,10 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	. = ..()
-	explosion(src, light_impact_range = 4, flash_range = 3, adminlog = FALSE, cause = src)
-	new /obj/effect/decal/cleanable/greenglow/filled(get_turf(src))
-	radiation_pulse(src, max_range = 3, threshold = RAD_MEDIUM_INSULATION, chance = 80)
+	explosion(src, heavy_impact_range = 1, light_impact_range = 3, flash_range = 6, adminlog = FALSE, cause = src)
+	for(var/turf/simulated/floor/surviving_ground in range(2, get_turf(src)))
+		if(prob(70))
+			new /obj/effect/decal/cleanable/greenglow/radioactive(get_turf(surviving_ground))
 
 //Station buster Tunguska
 /obj/effect/meteor/tunguska

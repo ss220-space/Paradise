@@ -43,7 +43,7 @@
 			if(prob(1))
 				destiny(H, FALSE)
 
-			radiate(H, 4, 70)
+			radiate(H)
 
 		if(4)
 			H.AdjustJitter(2 SECONDS)
@@ -57,7 +57,7 @@
 			if(prob(1.5))
 				destiny(H, TRUE)
 
-			radiate(H, 6, 93)
+			radiate(H)
 
 		if(5)
 			H.visible_message(span_danger("[H.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(affected_mob)]ся в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))

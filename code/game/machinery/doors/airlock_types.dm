@@ -149,16 +149,16 @@
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
-	/// The last time a radiation pulse was performed
-	var/last_event = 0
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 	/// Is this airlock actually radioactive?
 	var/actually_radioactive = TRUE
 
 /obj/machinery/door/airlock/uranium/process()
-	if(actually_radioactive && world.time > last_event + 20)
+	if(actually_radioactive && COOLDOWN_FINISHED(src, radiation_cooldown))
 		if(prob(50))
 			radiate()
-		last_event = world.time
+		COOLDOWN_START(src, radiation_cooldown, 20)
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
 	radiation_pulse(

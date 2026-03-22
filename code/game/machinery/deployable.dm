@@ -218,7 +218,7 @@
 			Уничтожение генератора приведёт к полному отключению всех привязанных к нему щитов."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead" //sprite chosen in init
-	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 10, ACID = 0) // Copied from the security barrier, but no melee armor
+	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, FIRE = 10, ACID = 0) // Copied from the security barrier, but no melee armor
 	density = FALSE
 	directional_blockage = TRUE
 	max_integrity = 75 //3 shots from revolver

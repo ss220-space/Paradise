@@ -356,7 +356,7 @@
 	return data
 
 // Scan data to TGUI
-/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE)
+/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/list/data = list()
 	var/DNR = !H.ghost_can_reenter()

@@ -77,12 +77,16 @@
 	switch(severity)
 		if(1)
 			stat &= BROKEN
-			if(prob(75)) explode()
+			if(prob(75))
+				explode()
 		if(2)
-			if(prob(25)) stat &= BROKEN
-			if(prob(10)) explode()
+			if(prob(25))
+				stat &= BROKEN
+			if(prob(10))
+				explode()
 		if(3)
-			if(prob(10)) stat &= BROKEN
+			if(prob(10))
+				stat &= BROKEN
 			duration = 300
 
 	stat |= EMPED
@@ -427,15 +431,6 @@
 	component_parts += new board_path(null)
 	RefreshParts()
 
-/obj/machinery/power/port_gen/pacman/super/UseFuel()
-	radiation_pulse(
-		source = src,
-		max_range = 10,
-		threshold = 0.2,
-		chance = 60
-	)
-	return ..()
-
 /obj/machinery/power/port_gen/pacman/super/explode()
 	radiation_pulse(
 		source = src,
@@ -443,7 +438,6 @@
 		threshold = 0.1,
 		chance = 80,
 	)
-
 	explosion(loc, devastation_range = 3, heavy_impact_range = 3, light_impact_range = 5, flash_range = 3, cause = src)
 	qdel(src)
 

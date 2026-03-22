@@ -35,12 +35,13 @@
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	color = null
-	for(var/C in atom_colours)
-		if(islist(C))
-			var/list/L = C
-			if(length(L))
-				color = L
-				return
-		else if(C)
-			color = C
-			return
+	for(var/checked_color in atom_colours)
+		if(islist(checked_color))
+			var/list/dummy_list = checked_color
+			if(length(dummy_list))
+				color = dummy_list
+				break
+
+		else if(checked_color)
+			color = checked_color
+			break

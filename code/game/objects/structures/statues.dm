@@ -81,8 +81,8 @@
 	abstract_type = /obj/structure/statue/uranium
 	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
-	/// The last time a radiation pulse was performed
-	var/last_event = 0
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/structure/statue/uranium/Initialize(mapload)
 	. = ..()
@@ -94,10 +94,11 @@
 	if(active)
 		return
 
-	if(world.time <= last_event + 1.5 SECONDS)
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
 		return
 
 	active = TRUE
+	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 	radiation_pulse(
 		src,
 		max_range = 3,
@@ -106,14 +107,13 @@
 		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 	propagate_radiation_pulse()
-	last_event = world.time
 	active = FALSE
 
 /obj/structure/statue/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
 	return ..()
 
-/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, list/modifiers)
+/obj/structure/statue/uranium/attackby(obj/item/item, mob/user, list/modifiers)
 	radiate()
 	return ..()
 

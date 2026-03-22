@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return ..()
 		to_chat(user, span_notice("You have loaded the plasma tank into [src]."))
 		loaded_tank = item
-		update_appearance()
+		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(item.GetID() || is_pda(item))
@@ -199,13 +199,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/energy_accumulator/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
-		icon_state = "ca_on"
 		flick("ca_active", src)
 	else
-		icon_state = "ca"
 		flick("ca_deactive", src)
 
-	update_appearance()
+	update_icon()
 
 #undef RAD_COLLECTOR_THRESHOLD
 #undef RAD_COLLECTOR_COEFFICIENT

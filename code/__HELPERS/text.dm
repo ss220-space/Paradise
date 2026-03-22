@@ -724,6 +724,6 @@
  * *
  * * For pressure conversion, use proc/siunit_pressure() below
  */
-/proc/siunit(value, unit, maxdecimals=1)
+/proc/siunit(value, unit, maxdecimals = 1)
 	var/si_isolated = siunit_isolated(value, unit, maxdecimals)
 	return "[si_isolated[SI_COEFFICIENT]][si_isolated[SI_UNIT]]"

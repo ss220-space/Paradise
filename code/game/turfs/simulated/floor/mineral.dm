@@ -251,8 +251,8 @@
 	icons = list("uranium","uranium_dam")
 	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
-	/// The last time a radiation pulse was performed
-	var/last_event = 0
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /turf/simulated/floor/mineral/uranium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -275,19 +275,21 @@
 	if(active)
 		return
 
-	if(world.time > last_event + 15)
-		active = TRUE
-		radiation_pulse(
-			src,
-			max_range = 1,
-			threshold = RAD_VERY_LIGHT_INSULATION,
-			chance = (URANIUM_IRRADIATION_CHANCE / 3),
-			minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
-		)
-		for(var/turf/simulated/floor/mineral/uranium/uranium_floor in orange(1, src))
-			uranium_floor.radiate()
-		last_event = world.time
-		active = FALSE
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 1,
+		threshold = RAD_VERY_LIGHT_INSULATION,
+		chance = (URANIUM_IRRADIATION_CHANCE / 3),
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+	for(var/turf/simulated/floor/mineral/uranium/uranium_floor in orange(1, src))
+		uranium_floor.radiate()
+	COOLDOWN_START(src, radiation_cooldown, 15)
+	active = FALSE
 
 // ALIEN ALLOY
 /turf/simulated/floor/mineral/abductor

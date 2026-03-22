@@ -10,8 +10,16 @@ import {
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const GravityGenerator = (props) => {
-  const { data } = useBackend();
+type GravityGeneratorData = {
+  breaker: boolean;
+  charge_count: number;
+  charging_state: number;
+  on: boolean;
+  operational: boolean;
+};
+
+export const GravityGenerator = () => {
+  const { data } = useBackend<GravityGeneratorData>();
   const { operational } = data;
   return (
     <Window width={400} height={155}>
@@ -23,8 +31,8 @@ export const GravityGenerator = (props) => {
   );
 };
 
-const GravityGeneratorContent = (props) => {
-  const { act, data } = useBackend();
+const GravityGeneratorContent = () => {
+  const { act, data } = useBackend<GravityGeneratorData>();
   const { breaker, charge_count, charging_state, on, operational } = data;
   return (
     <Section>
@@ -32,11 +40,12 @@ const GravityGeneratorContent = (props) => {
         <LabeledList.Item label="Power">
           <Button
             icon={breaker ? 'power-off' : 'times'}
-            content={breaker ? 'On' : 'Off'}
             selected={breaker}
             disabled={!operational}
             onClick={() => act('gentoggle')}
-          />
+          >
+            {breaker ? 'On' : 'Off'}
+          </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Gravity Charge">
           <ProgressBar

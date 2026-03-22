@@ -37,16 +37,18 @@
 
 	beginning_of_irradiation = world.time
 
-	if(ishuman(parent))
-		var/mob/living/carbon/human/human_parent = parent
-		human_parent.apply_damage(RADIATION_IMMEDIATE_TOX_DAMAGE, TOX)
-		START_PROCESSING(SSobj, src)
+	if(!ishuman(parent))
+		return
 
-		COOLDOWN_START(src, last_tox_damage, RADIATION_TOX_INTERVAL)
+	var/mob/living/carbon/human/human_parent = parent
+	human_parent.apply_damage(RADIATION_IMMEDIATE_TOX_DAMAGE, TOX)
+	START_PROCESSING(SSobj, src)
 
-		start_burn_splotch_timer()
+	COOLDOWN_START(src, last_tox_damage, RADIATION_TOX_INTERVAL)
 
-		human_parent.throw_alert(ALERT_IRRADIATED, /atom/movable/screen/alert/irradiated)
+	start_burn_splotch_timer()
+
+	human_parent.throw_alert(ALERT_IRRADIATED, /atom/movable/screen/alert/irradiated)
 
 /datum/component/irradiated/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))

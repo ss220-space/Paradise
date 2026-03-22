@@ -245,14 +245,14 @@
 	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
 	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
 	for(var/obj/item/part in mod.get_parts(all = TRUE))
-		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
+		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
 
 /obj/item/mod/module/rad_protection/on_part_deactivation(deleting = FALSE)
 	qdel(GetComponent(/datum/component/geiger_sound))
 	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
 	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
 	for(var/obj/item/part in mod.get_parts(all = TRUE))
-		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
+		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
