@@ -103,7 +103,7 @@
 
 	if(location_turf && location_turf.z == map_z && is_station_level(location_turf.z))
 		cursor.pixel_w = HOLOMAP_CENTER_X + location_turf.x - crop_x - 3
-		cursor.pixel_z = HOLOMAP_CENTER_X + location_turf.y - crop_y - 3
+		cursor.pixel_z = HOLOMAP_CENTER_Y + location_turf.y - crop_y - 3
 
 		base_map.add_overlay(cursor)
 		overlays_to_use["Вы здесь"] = list(

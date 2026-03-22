@@ -283,7 +283,7 @@
 		return
 	var/image/overlay_icon = image('icons/misc/8x8.dmi', icon_state = icon_name)
 	overlay_icon.pixel_w = HOLOMAP_CENTER_X + target_loc.x - crop_x - 1
-	overlay_icon.pixel_z = HOLOMAP_CENTER_X + target_loc.y - crop_y - 1
+	overlay_icon.pixel_z = HOLOMAP_CENTER_Y + target_loc.y - crop_y - 1
 	output += overlay_icon
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/create_overlays_entry(list/overlays, name, icon_name, list/markers)

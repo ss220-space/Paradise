@@ -45,7 +45,11 @@
 #define HOLOMAP_CENTER_X round((HOLOMAP_ICON_SIZE - world.maxx) / 2)
 #define HOLOMAP_CENTER_Y round((HOLOMAP_ICON_SIZE - world.maxy) / 2)
 
+/// Key for crop bottom-left x coordinate
 #define CROP_X1 "x1"
+/// Key for crop top-right x coordinate
 #define CROP_X2 "x2"
+/// Key for crop bottom-left y coordinate
 #define CROP_Y1 "y1"
+/// Key for crop top-right y coordinate
 #define CROP_Y2 "y2"
