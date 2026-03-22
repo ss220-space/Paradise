@@ -241,9 +241,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/computer/crew,
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -1083,8 +1080,8 @@
 /turf/simulated/wall,
 /area/mine/living_quarters)
 "hu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2975,9 +2972,6 @@
 /obj/machinery/vending/wallmed{
 	pixel_x = 26
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /obj/machinery/sleeper,
 /obj/machinery/light{
 	dir = 4
@@ -3225,7 +3219,7 @@
 "tM" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3383,11 +3377,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "uF" = (
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
+/obj/structure/bed/dogbed,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
-/obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -4276,9 +4270,6 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors/necropolis)
 "zb" = (
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
 /obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8168,7 +8159,7 @@
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
 "Uz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

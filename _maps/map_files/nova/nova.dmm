@@ -94873,6 +94873,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "oiA" = (
