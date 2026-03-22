@@ -83,9 +83,11 @@
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
 
-	if(can_explode)
-		reagents.set_reacting(FALSE)
-		RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
+	if(!can_explode)
+		return .
+
+	reagents.set_reacting(FALSE)
+	RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
@@ -113,10 +115,12 @@
 /obj/item/extinguisher/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(I.get_heat())
-		update_appearance(UPDATE_ICON_STATE)
-		explode_at_heat()
-		burn_hands(user)
+	if(!I.get_heat())
+		return .
+
+	update_appearance(UPDATE_ICON_STATE)
+	explode_at_heat()
+	burn_hands(user)
 
 /obj/item/extinguisher/update_icon_state()
 	if(blowing_up)
