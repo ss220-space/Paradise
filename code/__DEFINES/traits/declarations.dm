@@ -64,15 +64,20 @@
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
 /// Are we immune to shocks?
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 
+/// Makes the user handcuff others faster
+#define TRAIT_FAST_CUFFING "fast_cuffing"
 /// We place people into a fireman carry quicker than standard
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
+/// Make some nuild actions quicker
+#define TRAIT_QUICK_BUILD "quick-build"
 /// Prevents mob from riding mobs when buckled onto something
 #define TRAIT_CANT_RIDE "cant_ride"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
@@ -221,6 +226,8 @@
 #define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
 /// This item will not be cloned in the experimentator
 #define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
+/// Combat exoframe EMP nutrition shield flag
+#define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 
@@ -366,8 +373,17 @@
 
 #define TRAIT_BALD "bald"
 
+
+#define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
+#define TRAIT_XRAY_VISION "xray_vision"
+#define TRAIT_THERMAL_VISION "thermal_vision"
+#define TRAIT_MESON_VISION "meson_vision"
+#define TRAIT_FLASH_PROTECTION "flash_protection"
+#define TRAIT_NIGHT_VISION "night_vision"
+
 /// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
 #define TRAIT_AIRLOCK_HIT "airlock_hit"
+
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
@@ -398,6 +414,9 @@
 
 /// If any of the owner's robotic parts are being repaired right now
 #define TRAIT_REPAIRING_LIMB "repairing_limb"
+
+/// Mob with this trait will not suffer from radiation effects
+#define TRAIT_NO_RADIATION_EFFECTS "no_radiation_effects"
 
 #define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
 
@@ -440,3 +459,20 @@
 #define TRAIT_MEDICAL_METABOLISM "medical_metabolism"
 #define TRAIT_PRETENDER_ROYAL_METABOLISM "pretender_royal_metabolism"
 #define TRAIT_ROYAL_METABOLISM "royal_metabolism"
+/// Immune to being afflicted by time stop (spell)
+#define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
+
+#define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"
+
+// prevents explosion implants from auto activating upon death
+#define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
+
+/// Mob is an echolocator
+#define TRAIT_ECHOLOCATOR "echolocator"
+
+/// eignore blindness or blurriness or nearsightedness
+#define TRAIT_SIGHT_BYPASS "perfect_sight"
+
+// Hud traits
+/// This hud is owned by a client with an open escape menu
+#define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"

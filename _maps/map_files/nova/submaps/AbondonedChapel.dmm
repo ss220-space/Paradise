@@ -419,10 +419,6 @@
 "lx" = (
 /turf/simulated/wall/rust,
 /area/maintenance/club)
-"lE" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating,
-/area/maintenance/club)
 "lL" = (
 /obj/item/trash/candy,
 /obj/item/trash/chips{
@@ -687,6 +683,15 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/maintenance/server)
+"wn" = (
+/obj/structure/table,
+/obj/item/folder/yellow,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
 "wp" = (
 /obj/item/clothing/gloves/color/fyellow{
 	pixel_y = -8
@@ -933,6 +938,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"EI" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
 "EU" = (
 /obj/structure/chair/wood,
 /obj/effect/decal/cleanable/dust,
@@ -1041,18 +1050,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
-"Ju" = (
-/obj/structure/table,
-/obj/item/folder/yellow,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_y = 6;
-	pixel_x = -15
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
-/area/maintenance/server)
 "JL" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dust,
@@ -1280,11 +1277,6 @@
 /obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
 /area/maintenance/server)
-"PP" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/item/trash/pistachios,
-/turf/simulated/floor/plating,
-/area/maintenance/club)
 "PZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1531,6 +1523,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"YC" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/trash/pistachios,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
 "YJ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1830,7 +1827,7 @@ Ec
 Ec
 jK
 eB
-lE
+EI
 cy
 Bl
 aM
@@ -1861,7 +1858,7 @@ ep
 jC
 Wf
 as
-Ju
+wn
 SA
 HJ
 Zx
@@ -1937,11 +1934,11 @@ zp
 Ec
 Ec
 WI
-lE
+EI
 yM
 mF
 QG
-lE
+EI
 Bq
 kT
 jA
@@ -1999,7 +1996,7 @@ oJ
 JS
 TC
 yM
-PP
+YC
 Mq
 Ec
 "}

@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		to_chat(user, span_warning("Здесь недостаточно места для установки [declent_ru(GENITIVE)]."))
 		return
 	if(locate(/obj/structure/marker_beacon) in user.loc)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже установлен здесь."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже установлен здесь."))
 		return
 	if(use(1))
 		to_chat(user, span_notice("Вы активируете и закрепляете [declent_ru(ACCUSATIVE)] на месте."))

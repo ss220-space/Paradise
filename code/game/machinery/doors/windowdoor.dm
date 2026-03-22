@@ -247,10 +247,10 @@
 	C.name = name
 	qdel(src)
 
-/obj/machinery/door/window/temperature_expose(temperature, volume)
+/obj/machinery/door/window/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > T0C + (reinf ? 1600 : 800))
-		take_damage(round(temperature / 200), BURN, 0, 0)
+	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
+		take_damage(round(exposed_temperature / 200), BURN, 0, 0)
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)

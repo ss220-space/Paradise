@@ -7,7 +7,7 @@
 	plane = GAME_PLANE //makes the graffiti visible over a wall.
 	mergeable_decal = FALSE // Allows crayon drawings to overlap one another.
 
-/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", type = "rune1", e_name = "rune")
+/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = BLOOD_COLOR_RED, type = "rune1", e_name = "rune")
 	. = ..()
 
 	name = e_name
@@ -15,3 +15,6 @@
 
 	icon_state = type
 	color = main
+
+/obj/effect/decal/cleanable/crayon/never_should_have_come_here(turf/here_turf)
+	return isgroundlessturf(here_turf)

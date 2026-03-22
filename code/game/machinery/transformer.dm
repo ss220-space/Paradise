@@ -328,7 +328,7 @@
 		add_fingerprint(user)
 		if(locked)
 			to_chat(user, span_warning("Access Denied."))
-			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+			playsound(src, SFX_BUTTON_DENIED, 20)
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/disk/data/disk = I
 		if(!disk.buf)

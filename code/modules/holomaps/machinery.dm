@@ -47,8 +47,8 @@
 	SSholomaps.station_holomaps += src
 	floor_markings = image('icons/obj/stationmap.dmi', "decal_station_map")
 	floor_markings.dir = src.dir
-	floor_markings.pixel_x = -src.pixel_x
-	floor_markings.pixel_y = -src.pixel_y
+	floor_markings.pixel_w = -src.pixel_x
+	floor_markings.pixel_z = -src.pixel_y
 	add_overlay(floor_markings)
 	..()
 	component_parts = list()
@@ -103,7 +103,7 @@
 		if(!holomap_datum)
 			// Something is very wrong if we have to un-fuck ourselves here.
 			stack_trace("Holomap at [COORD(src)] couldn't setup holomap_datum.")
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 			return
 
 	holomap_datum.update_map(handle_overlays())
@@ -159,17 +159,21 @@
 	if(!watching_mob)
 		return
 
-	UnregisterSignal(moving_mob, COMSIG_AI_EYE_MOVED)
+	if(moving_mob)
+		UnregisterSignal(moving_mob, COMSIG_AI_EYE_MOVED)
+
 	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 	icon_state = initial(icon_state)
+
 	if(watching_mob?.client)
 		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-		spawn(5) //we give it time to fade out
-			watching_mob.client?.screen -= watching_mob.hud_used.holomap
-			watching_mob.client?.images -= holomap_datum.base_map
-			watching_mob.hud_used.holomap.used_station_map = null
-			watching_mob.hud_used.holomap.used_base_map = null
+		spawn(5)
+			if(watching_mob?.client)
+				watching_mob.client.screen -= watching_mob.hud_used.holomap
+				watching_mob.client.images -= holomap_datum.base_map
+				watching_mob.hud_used.holomap.used_station_map = null
+				watching_mob.hud_used.holomap.used_base_map = null
 			watching_mob = null
 			set_light(HOLOMAP_LOW_LIGHT)
 
@@ -211,8 +215,8 @@
 	// Put the little "map" overlay down where it looks nice
 	if(floor_markings)
 		floor_markings.dir = src.dir
-		floor_markings.pixel_x = -src.pixel_x
-		floor_markings.pixel_y = -src.pixel_y
+		floor_markings.pixel_w = -src.pixel_x
+		floor_markings.pixel_z = -src.pixel_y
 		add_overlay(floor_markings)
 
 /obj/machinery/station_map/screwdriver_act(mob/living/user, obj/item/tool)
@@ -297,7 +301,7 @@
 	icon_state = "station_map_engi"
 
 /obj/machinery/station_map/engineering/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/station_map/engineering(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -323,8 +327,8 @@
 	for(var/obj/machinery/firealarm/alarm as anything in GLOB.station_fire_alarms["[current_z_level]"])
 		if(alarm?.z == current_z_level && alarm?.myArea?.fire)
 			var/image/alarm_icon = image('icons/misc/8x8.dmi', icon_state = "fire_marker")
-			alarm_icon.pixel_x = alarm.x + HOLOMAP_CENTER_X - 1
-			alarm_icon.pixel_y = alarm.y + HOLOMAP_CENTER_Y
+			alarm_icon.pixel_w = alarm.x + HOLOMAP_CENTER_X - 1
+			alarm_icon.pixel_z = alarm.y + HOLOMAP_CENTER_Y
 			fire_alarms += alarm_icon
 
 	if(length(fire_alarms))
@@ -336,8 +340,8 @@
 		var/area/alarms = get_area(air_alarm)
 		if(air_alarm?.z == current_z_level && alarms?.atmosalm) //Altered it to fire_alam since we don't have an area variable on air_alarms
 			var/image/alarm_icon = image('icons/misc/8x8.dmi', "atmos_marker")
-			alarm_icon.pixel_x = air_alarm.x + HOLOMAP_CENTER_X - 1
-			alarm_icon.pixel_y = air_alarm.y + HOLOMAP_CENTER_Y
+			alarm_icon.pixel_w = air_alarm.x + HOLOMAP_CENTER_X - 1
+			alarm_icon.pixel_z = air_alarm.y + HOLOMAP_CENTER_Y
 			air_alarms += alarm_icon
 
 	if(length(air_alarms))

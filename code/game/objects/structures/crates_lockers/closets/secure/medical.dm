@@ -149,6 +149,7 @@
 	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator/advanced(src)
 	new /obj/item/storage/belt/medical(src)
+	new /obj/item/storage/belt/medical/surgery/loaded(src)
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
@@ -160,6 +161,7 @@
 	new /obj/item/storage/garmentbag/CMO(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/storage/firstaid/premium(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
@@ -205,8 +207,8 @@
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
-	new /obj/item/clothing/suit/space/eva/paramedic(src)
-	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
+	new /obj/item/mod/control/pre_equipped/rescue(src)
+	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/sensor_device(src)
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)

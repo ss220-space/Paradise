@@ -50,6 +50,16 @@
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	toggle_magpulse(user)
 
+/obj/item/clothing/shoes/magboots/dropped(mob/living/user, slot, silent)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_FEET)
+		return .
+
+	if(!magpulse)
+		return
+
+	toggle_magpulse(user, silent = TRUE)
+
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, silent = FALSE)
 	magpulse = !magpulse
 	if(magpulse)

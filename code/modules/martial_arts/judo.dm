@@ -11,7 +11,7 @@
 		/datum/martial_combo/judo/goldenblast,
 	)
 	weight = 8
-	no_baton_reason = span_warning("Из-за занятий дзюдо у вас не получается крепко держать дубинку!")
+	no_baton_reason = span_warning_alt("Из-за занятий дзюдо у вас не получается крепко держать дубинку!")
 	change_musculs = FALSE
 	can_horizontally_grab = FALSE
 
@@ -27,6 +27,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
 	max_combined_w_class = 7
+	custom_price = PAYCHECK_MAX
 	var/datum/martial_art/judo/style
 
 /obj/item/storage/belt/security/judobelt/get_ru_names()

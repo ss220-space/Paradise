@@ -180,3 +180,26 @@
 
 	user.dust()
 	return OBLITERATION
+
+/obj/item/wrench/industrial
+	name = "industrial wrench"
+	desc = "Инструмент, используемый для закручивания и откручивания гаек и болтов. \
+			Использует храповой механизм \"трещотку\", что повышает скорость работы."
+	icon_state = "wrench_industrial"
+	toolspeed = 0.6
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	usesound = 'sound/items/ratchet2.ogg'
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
+
+/obj/item/wrench/industrial/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый гаечный ключ",
+		GENITIVE = "продвинутого гаечного ключа",
+		DATIVE = "продвинутому гаечному ключу",
+		ACCUSATIVE = "продвинутый гаечный ключ",
+		INSTRUMENTAL = "продвинутым гаечным ключом",
+		PREPOSITIONAL = "продвинутом гаечном ключе"
+	)

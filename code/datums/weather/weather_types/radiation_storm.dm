@@ -4,16 +4,16 @@
 	desc = "A cloud of intense radiation passes through the area dealing rad damage to those who are unprotected."
 
 	telegraph_duration = 400
-	telegraph_message = span_danger("The air begins to grow warm.")
+	telegraph_message = span_danger_alt("The air begins to grow warm.")
 
-	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
+	weather_message = span_userdanger_alt("<i>You feel waves of heat wash over you! Find shelter!</i>")
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_color = "green"
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 100
-	end_message = span_notice("The air seems to be cooling off again.")
+	end_message = span_notice_alt("The air seems to be cooling off again.")
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
@@ -53,7 +53,7 @@
 		return
 
 	var/mob/living/carbon/human/human = living
-	if(HAS_TRAIT(human, TRAIT_RADIMMUNE))
+	if(HAS_TRAIT(human, TRAIT_RADIMMUNE) || HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS))
 		return
 
 	if(SSradiation.wearing_rad_protected_clothing(human))

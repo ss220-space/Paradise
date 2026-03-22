@@ -1,8 +1,7 @@
 /// The essential proc to call when an obj must receive damage of any kind.
 /obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(QDELETED(src))
-		stack_trace("[src] taking damage after deletion")
-		return
+		CRASH("[src] taking damage after deletion")
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE) || obj_integrity <= 0)
@@ -20,6 +19,8 @@
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
 	var/armor_protection = 0
+	if(!armor)
+		return
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
@@ -105,7 +106,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger(pick(list("[capitalize(declent_ru(NOMINATIVE))] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!", "[capitalize(P.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
+	visible_message(span_danger(pick(list("[DECLENT_RU_CAP(src, NOMINATIVE)] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!", "[DECLENT_RU_CAP(P, NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -243,7 +244,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 // MARK: FIRE
 
-/obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/fire_act(exposed_temperature, exposed_volume)
 	if(isturf(loc))
 		var/turf/T = loc
 		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //fire can't damage things hidden below the floor.
@@ -252,7 +253,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(QDELETED(src)) // no taking damage after deletion
 		return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
+		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
@@ -332,6 +333,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/flamer_fire_act(damage)
 	if(resistance_flags & FIRE_PROOF)
 		resistance_flags &= ~FIRE_PROOF
+
 	if(armor.getRating(FIRE) > 50)
 		armor = armor.setRating(fire_value = 50)
+
 	return ..()

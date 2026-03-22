@@ -1919,7 +1919,7 @@
 /area/ruin/unpowered/ash_walkers)
 "UU" = (
 /turf/simulated/wall/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Vh" = (
 /obj/structure/stone_tile/surrounding,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

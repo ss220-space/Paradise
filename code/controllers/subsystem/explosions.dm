@@ -109,7 +109,7 @@ SUBSYSTEM_DEF(explosions)
 
 		var/took = stop_watch(data.watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		log_world("## DEBUG: Explosion([data.x0],[data.y0],[data.z0])(d[data.devastation_range],h[data.heavy_impact_range],l[data.light_impact_range]): Took [took] seconds.")
+		debug_world("Explosion([data.x0],[data.y0],[data.z0])(d[data.devastation_range],h[data.heavy_impact_range],l[data.light_impact_range]): Took [took] seconds.")
 		data.log_explosions_machines(took)
 		qdel(explosion_queue.dequeue())
 		if(MC_TICK_CHECK)
@@ -233,13 +233,14 @@ SUBSYSTEM_DEF(explosions)
 	watch = start_watch()
 
 /datum/explosion_data/Destroy()
-	qdel(affected_turfs_queue)
+	QDEL_NULL(affected_turfs_queue)
 	LAZYCLEARLIST(cached_exp_block)
 	LAZYNULL(cached_exp_block)
 	LAZYCLEARLIST(cached_turf_exp_block)
 	LAZYNULL(cached_turf_exp_block)
 	LAZYCLEARLIST(cached_turf_vert_exp_block)
 	LAZYNULL(cached_turf_vert_exp_block)
+	epicenter = null
 	. = ..()
 
 /datum/explosion_data/proc/clamp_ranges()
@@ -322,6 +323,9 @@ SUBSYSTEM_DEF(explosions)
 		if(istype(array, /obj/item/clothing/head/helmet/space/hardsuit/rd))
 			var/obj/item/clothing/head/helmet/space/hardsuit/rd/helm_array = array
 			helm_array.sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+		if(istype(array, /obj/item/mod/module/reagent_scanner/advanced))
+			var/obj/item/mod/module/reagent_scanner/advanced/mod_array = array
+			mod_array.sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 
 // Explosion SFX defines...
 /// The probability that a quaking explosion will make the station creak per unit. Maths!

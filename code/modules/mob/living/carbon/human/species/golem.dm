@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_SUITSTORE)
 	nojumpsuit = TRUE
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	warning_low_pressure = -INFINITY
 	hazard_low_pressure = -INFINITY

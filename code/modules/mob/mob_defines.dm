@@ -1,3 +1,11 @@
+/**
+ * The mob, usually meant to be a creature of some type
+ *
+ * Has a client attached that is a living person (most of the time), although I have to admit
+ * sometimes it's hard to tell they're sentient
+ *
+ * Has a lot of the creature game world logic, such as health etc
+ */
 /mob
 	density = TRUE
 	layer = MOB_LAYER
@@ -6,6 +14,7 @@
 	throwforce = 10
 	dont_save = TRUE // to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
+	abstract_type = /mob
 
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
@@ -177,7 +186,6 @@
 	var/datum/dna/dna = null // Carbon
 
 	//see: setup.dm for list of mutations
-
 	var/voice_name = "неизвестный голос"
 
 	/// Used for checking whether hostile simple animals will attack you, possibly more stuff later
@@ -323,3 +331,10 @@
 
 	/// It's like a client, but persists! Persistent clients will stick to a mob until the client in question is logged into a different mob.
 	var/datum/persistent_client/persistent_client
+
+	var/tts_effect_override = SOUND_EFFECT_NONE
+	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
+	var/obj/item/tts_effect_override_source = null
+
+	/// Mob bitflags
+	var/mob_flags = NONE

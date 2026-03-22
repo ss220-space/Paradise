@@ -71,11 +71,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR 0
-#define TAB_GAME 1
-#define TAB_SPEC 2
-#define TAB_KEYS 3
-#define TAB_TOGGLES 4
 
 /datum/preferences
 	var/client/parent
@@ -571,9 +566,11 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<b>Переход в криосон при неактивности:</b> <a href='byond://?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Да" : "Нет"]</a><br>"
 			dat += "<b>Окружающее затенение:</b> <a href='byond://?_src_=prefs;preference=ambientocclusion'><b>[toggles & PREFTOGGLE_AMBIENT_OCCLUSION ? "Включить" : "Выключить"]</b></a><br>"
 			dat += "<b>Анимации атаки:</b> <a href='byond://?_src_=prefs;preference=ghost_att_anim'>[(toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Автонаведение медицины:</b> <a href='byond://?_src_=prefs;preference=auto_aim_medicine'>[(toggles2 & PREFTOGGLE_2_AUTO_AIM_MEDICINE) ? "Да" : "Нет"]</a><br>"
 			if(unlock_content)
 				dat += "<b>Публичность членства BYOND:</b> <a href='byond://?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
 			dat += "<b>Runechat облака с сообщениями:</b> <a href='byond://?_src_=prefs;preference=chat_on_map'>[toggles2 & PREFTOGGLE_2_RUNECHAT ? "Включить" : "Выключить"]</a><br>"
+			dat += "<b>Runechat для LOOC:</b> <a href='byond://?_src_=prefs;preference=runechat_looc'>[toggles3 & PREFTOGGLE_3_RUNECHAT_LOOC ? "Включить" : "Выключить"]</a><br>"
 			dat += "<b>Анонимность CKEY:</b> <a href='byond://?_src_=prefs;preference=anonmode'><b>[toggles2 & PREFTOGGLE_2_ANON ? "Анонимный" : "Не анонимный"]</b></a><br>"
 			if(user.client.donator_level > 0)
 				dat += "<b>Публичность донат-статуса:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
@@ -792,11 +789,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 #undef MAX_SAVE_SLOTS
 #undef MAX_SAVE_SLOTS_MEMBER
-#undef TAB_CHAR
-#undef TAB_GAME
-#undef TAB_SPEC
-#undef TAB_KEYS
-#undef TAB_TOGGLES
 
 /datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.index_name]
@@ -2444,6 +2436,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("chat_on_map")
 					toggles2 ^= PREFTOGGLE_2_RUNECHAT
 
+				if("runechat_looc")
+					toggles3 ^= PREFTOGGLE_3_RUNECHAT_LOOC
+
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
@@ -2485,6 +2480,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
+
+				if("auto_aim_medicine")
+					toggles2 ^= PREFTOGGLE_2_AUTO_AIM_MEDICINE
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING

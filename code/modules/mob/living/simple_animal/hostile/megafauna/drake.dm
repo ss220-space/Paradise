@@ -90,28 +90,28 @@ Difficulty: Medium
 	name = "Огненный конус"
 	button_icon = 'icons/obj/wizard.dmi'
 	button_icon_state = "fireball"
-	chosen_message = span_colossus("Вы стреляете огнём в цель.")
+	chosen_message = span_colossus_alt("Вы стреляете огнём в цель.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Огненный конус с метеорами"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы стреляете огнём в цель и обрушиваете огонь вокруг себя.")
+	chosen_message = span_colossus_alt("Вы стреляете огнём в цель и обрушиваете огонь вокруг себя.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Массовая огненная атака"
 	button_icon = 'icons/effects/fire.dmi'
 	button_icon_state = "1"
-	chosen_message = span_colossus("Вы обрушиваете массовый огонь на цель.")
+	chosen_message = span_colossus_alt("Вы обрушиваете массовый огонь на цель.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Пикирующий удар"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "lavastaff_warn"
-	chosen_message = span_colossus("Вы пикируете и обрушиваете лаву на цель.")
+	chosen_message = span_colossus_alt("Вы пикируете и обрушиваете лаву на цель.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
@@ -202,7 +202,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_arena()
 	if(!target)
 		return
-	target.visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] заключает вас в арену огня!"))
+	target.visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] заключает вас в арену огня!"))
 	var/amount = 3
 	var/turf/center = get_turf(target)
 	var/list/walled = RANGE_TURFS(enraged ? 4 : 3, center) - RANGE_TURFS(enraged ? 3 : 2, center)
@@ -247,7 +247,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/arena_escape_enrage() // you ran somehow / teleported away from my arena attack now i'm mad fucker
 	SLEEP_CHECK_DEATH(src, 0)
 	SetRecoveryTime(80)
-	visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] начинает ярко светиться, пока его раны закрываются!"))
+	visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает ярко светиться, пока его раны закрываются!"))
 	adjustBruteLoss(-250) // yeah you're gonna pay for that, don't run nerd
 	add_atom_colour(rgb(255, 255, 0), TEMPORARY_COLOUR_PRIORITY)
 	move_to_delay = move_to_delay / 2
@@ -325,7 +325,7 @@ Difficulty: Medium
 	swooping |= SWOOP_DAMAGEABLE
 	ADD_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	icon_state = "shadow"
-	visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] взмывает высоко вверх!"))
+	visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] взмывает высоко вверх!"))
 
 	var/negative
 	var/initial_x = x
@@ -382,7 +382,7 @@ Difficulty: Medium
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, TRUE)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
@@ -392,7 +392,7 @@ Difficulty: Medium
 					throw_dir = pick(GLOB.alldirs)
 				var/throwtarget = get_edge_target_turf(src, throw_dir)
 				L.throw_at(throwtarget, 3)
-				visible_message(span_warning("[capitalize(L.declent_ru(NOMINATIVE))] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_warning("[DECLENT_RU_CAP(L, NOMINATIVE)] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
 	for(var/obj/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, MELEE, 1)
 

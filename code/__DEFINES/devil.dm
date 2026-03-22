@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(whiteness, list(
 	/obj/item/clothing/under/rank/psych = 1,
 	/obj/item/clothing/under/rank/orderly = 1,
 	/obj/item/clothing/under/rank/security/brigphys = 1,
-	/obj/item/clothing/under/rank/internalaffairs = 1,
+	/obj/item/clothing/under/rank/lawyer = 1,
 	/obj/item/clothing/under/rank/ntrep = 1,
 	/obj/item/clothing/under/det = 1,
 	/obj/item/clothing/under/wedding/bride_white = 1,

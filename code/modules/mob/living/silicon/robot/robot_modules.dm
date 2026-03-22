@@ -173,6 +173,7 @@
 		/datum/robot_skin/mech/std,
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
+		/datum/robot_skin/wide/drake/std,
 	)
 	has_transform_animation = TRUE
 
@@ -249,6 +250,7 @@
 		/datum/robot_skin/chiefbot,
 		/datum/robot_skin/droid_medical,
 		/datum/robot_skin/basic/needles,
+		/datum/robot_skin/wide/drake/medical,
 	)
 	has_transform_animation = TRUE
 
@@ -325,9 +327,7 @@
 	name = "Engineering"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/meson)
 	channels = list(ENG_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/eng
 	borg_skins = list(
@@ -357,14 +357,15 @@
 		/datum/robot_skin/basic/antique,
 		/datum/robot_skin/landmate,
 		/datum/robot_skin/chiefmate,
+		/datum/robot_skin/wide/drake/eng,
 	)
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
 		LAZYADD(robot.camera.network, "Engineering")
-
-	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
+	robot.install_upgrade(upgrade)
 
 	return TRUE
 
@@ -440,6 +441,7 @@
 		/datum/robot_skin/redknight,
 		/datum/robot_skin/blackknight,
 		/datum/robot_skin/bloodhound,
+		/datum/robot_skin/wide/drake/sec,
 	)
 	has_transform_animation = TRUE
 
@@ -507,6 +509,7 @@
 		/datum/robot_skin/heavy/jan,
 		/datum/robot_skin/basic/mopbot,
 		/datum/robot_skin/mopgearrex,
+		/datum/robot_skin/wide/drake/jan,
 	)
 	has_transform_animation = TRUE
 
@@ -560,6 +563,7 @@
 		/datum/robot_skin/basic/bro,
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
+		/datum/robot_skin/wide/drake/srv,
 	)
 	has_transform_animation = TRUE
 
@@ -644,9 +648,7 @@
 /obj/item/robot_module/miner
 	name = "Miner"
 	module_type = "Miner"
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	channels = list(SUP_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/mnr
@@ -675,6 +677,7 @@
 		/datum/robot_skin/droid_miner,
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland,
+		/datum/robot_skin/wide/drake/mnr,
 	)
 	has_transform_animation = TRUE
 
@@ -736,9 +739,7 @@
 	name = "Deathsquad"
 	name_disguise = "NT advanced combat"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal)
 	default_skin = /datum/robot_skin/deathsquad
 	borg_skins = list(/datum/robot_skin/deathsquad)
 	has_transform_animation = TRUE
@@ -747,6 +748,8 @@
 	var/mob/living/silicon/robot/deathsquad/death = new(get_turf(robot))
 	robot.mind?.transfer_to(death)
 	qdel(robot)
+	var/obj/item/borg/upgrade/magboots/upgrade = new(death)
+	death.install_upgrade(upgrade)
 
 	return TRUE
 
@@ -772,6 +775,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
+		/datum/robot_skin/wide/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -807,6 +811,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
+		/datum/robot_skin/wide/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -866,6 +871,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
+		/datum/robot_skin/wide/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -914,9 +920,7 @@
 /obj/item/robot_module/destroyer
 	name = "Destroyer"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal)
 	channels = list(SEC_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/droidcombat
 	borg_skins = list(/datum/robot_skin/droidcombat)
@@ -926,6 +930,8 @@
 	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
 	robot.mind?.transfer_to(destroy)
 	qdel(robot)
+	var/obj/item/borg/upgrade/magboots/upgrade = new(destroy)
+	destroy.install_upgrade(upgrade)
 
 	return TRUE
 
@@ -947,7 +953,6 @@
 /obj/item/robot_module/combat
 	name = "Combat"
 	module_type = "Malf"
-	module_actions = list()
 	default_skin = /datum/robot_skin/ertgamma
 	borg_skins = list(
 		/datum/robot_skin/ertgamma,
@@ -964,6 +969,8 @@
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
 	robot.status_flags &= ~CANPUSH
+	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
+	robot.install_upgrade(upgrade)
 
 	return TRUE
 
@@ -988,9 +995,7 @@
 /obj/item/robot_module/hunter
 	name = "Hunter"
 	module_type = "Standard"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal/alien,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
 	default_skin = /datum/robot_skin/xenoborg
 	borg_skins = list(/datum/robot_skin/xenoborg)
 

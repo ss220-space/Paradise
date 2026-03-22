@@ -1,10 +1,3 @@
-/client/verb/setup_character()
-	set name = "Игровые настройки"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения — незамедлительно."
-	prefs.current_tab = 1
-	prefs.ShowChoices(usr)
-
 // Preference toggles
 /datum/preference_toggle
 	/// Name of the preference toggle. Don't set this if you don't want it to appear in game
@@ -316,6 +309,16 @@
 	disable_message = "Теперь вы не будете видеть Runechat облака с сообщениями."
 	blackbox_message = "Toggle Runechat"
 
+/datum/preference_toggle/toggle_runechat_looc
+	name = "Runechat-LOOC"
+	description = "Переключает видимость Runechat облаков с LOOC-сообщениями."
+	preftoggle_bitflag = PREFTOGGLE_3_RUNECHAT_LOOC
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь вы будете видеть Runechat облака с LOOC-сообщениями."
+	disable_message = "Теперь вы не будете видеть Runechat облака с LOOC-сообщениями."
+	blackbox_message = "Toggle Runechat LOOC"
+
 /datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Уведомление о смерти — Призрак"
 	description = "Включает уведомления о смерти игроков."
@@ -519,6 +522,15 @@
 	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
 	enable_message = "Теперь вы будете видеть анимации атаки."
 	disable_message = "Теперь вы не будете видеть анимации атаки."
+
+/datum/preference_toggle/toggle_auto_aim_medicine
+	name = "Автонаведение медицины"
+	description = "Переключает автонаведение медицины."
+	preftoggle_bitflag = PREFTOGGLE_2_AUTO_AIM_MEDICINE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "Теперь медицина будет применяться к максимально пострадавшей части тела."
+	disable_message = "Теперь медицина будет применена туда куда вы нацелены."
 
 /datum/preference_toggle/toggleprayers
 	name = "Молитвы"

@@ -6,7 +6,9 @@
 	return P
 
 /proc/pixel_length_between_points(datum/point_precise/a, datum/point_precise/b)
-	return sqrt(((b.x - a.x) ** 2) + ((b.y - a.y) ** 2))
+	var/dx = (b.x - a.x)
+	var/dy = (b.y - a.y)
+	return MAGNITUDE(dx, dy)
 
 /proc/angle_between_points(datum/point_precise/a, datum/point_precise/b)
 	return ATAN2((b.y - a.y), (b.x - a.x))

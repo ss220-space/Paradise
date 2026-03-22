@@ -149,6 +149,11 @@
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
 				backpack.handle_item_insertion(I, prevent_warning = TRUE)
 				return
+		if(ismodcontrol(back))
+			var/obj/item/mod/control/control = back
+			if(control.can_be_inserted(I, stop_messages = TRUE))
+				control.bag.handle_item_insertion(I, prevent_warning = TRUE)
+				return
 		var/turf/T = get_turf(src)
 		if(istype(T))
 			I.forceMove(T)
@@ -571,7 +576,8 @@
 				I.forceMove(newloc)
 		I.dropped(src, slot, silent, newloc)
 
-	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, src)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)
 		update_equipment_speed_mods()
 	return TRUE
@@ -623,7 +629,7 @@
 
 //get_all_contents that is reasonable and not stupid
 /mob/living/proc/get_all_gear(recursive = TRUE)
-	var/list/processing_list = get_equipped_items(TRUE, TRUE)
+	var/list/processing_list = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
 	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list))

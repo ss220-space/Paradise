@@ -9,7 +9,7 @@
 	icon_state = "bullet"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSPROJECTILE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
 	animate_movement = NO_STEPS
@@ -81,6 +81,8 @@
 	var/fire_log_text
 	/// Whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 	var/log_override = FALSE
+	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
+	var/immolate = 0
 
 	// Status effects applied on hit
 	var/stun = 0 SECONDS
@@ -278,7 +280,7 @@
 
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] попадает вам [organ_hit_text]"))
+			to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
@@ -288,9 +290,13 @@
 								"получа[PLUR_ET_YUT(L)] ранение",
 								"поражён[GEND_A_O_Y(L)]",
 								"прошибает")
-			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
-								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
+			L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] [hit_text] [declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
+								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+
+		if(immolate)
+			L.adjust_fire_stacks(immolate)
+			L.IgniteMob()
 
 		if(L?.mind && firer?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())

@@ -82,6 +82,22 @@
 		PREPOSITIONAL = "силовом тренажёре",
 	)
 
+/obj/structure/weightmachine/Initialize(mapload)
+	. = ..()
+
+	var/static/list/tool_behaviors
+	if(!tool_behaviors)
+		tool_behaviors = string_assoc_nested_list(list(
+			TOOL_WELDER = list(
+				SCREENTIP_CONTEXT_LMB = "Разобрать",
+			),
+
+			TOOL_WRENCH = list(
+				SCREENTIP_CONTEXT_LMB = "Закрепить",
+			),
+		))
+	AddElement(/datum/element/contextual_screentip_tools, tool_behaviors)
+
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
 
@@ -248,7 +264,7 @@
 
 /obj/structure/weightmachine/horizontalbar/AnimateMachine(mob/living/carbon/human/user)
 	var/mutable_appearance/swole_overlay = mutable_appearance(icon, "rod", WALL_OBJ_LAYER)
-	swole_overlay.pixel_y = rod_y
+	swole_overlay.pixel_z = rod_y
 	add_overlay(swole_overlay)
 	var/reps = 0
 	user.pixel_y = 10

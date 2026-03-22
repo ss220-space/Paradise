@@ -133,12 +133,15 @@
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
+			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)]) [name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
 		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
+
+			if(player.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				player.create_chat_message(speaker, "<i>[message]</i>", list("telepathy"), null)
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
 	return TRUE
@@ -751,7 +754,7 @@
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
+			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)]) <i><span class='game say'>[name], [span_name("[speaker.name]")]")
 			var/list/dead_message = message_start_dead + message_body
 			M.show_message(dead_message.Join(" "), 2)
 
@@ -764,7 +767,7 @@
 			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>")
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/borg = S
-			if(borg.connected_ai?.name == speaker.name)
+			if(borg.check_binary_master(speaker))
 				var/list/big_font_prefix = list("<span style='font-size: 18px;'>")
 				var/list/big_font_suffix = list("</span>")
 				message_start = big_font_prefix + message_start

@@ -190,6 +190,7 @@
 	new /obj/item/detonator(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore/bigger(src)
+	new /obj/item/mining_satchel_upgrade(src)
 
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
@@ -238,7 +239,7 @@
 	if(length(bombs))
 		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += span_notice("[icon2html(charge, user)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
+			. += span_notice("[icon2html(charge, user)] [DECLENT_RU_CAP(charge, NOMINATIVE)]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 /obj/item/detonator/update_icon_state()
 	if(length(bombs))

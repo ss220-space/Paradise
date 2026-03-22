@@ -30,6 +30,14 @@
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 40
 
+/datum/looping_sound/kinesis
+	mid_sounds = list('sound/machines/gravgen/gravgen_mid1.ogg' = 1, 'sound/machines/gravgen/gravgen_mid2.ogg' = 1, 'sound/machines/gravgen/gravgen_mid3.ogg' = 1, 'sound/machines/gravgen/gravgen_mid4.ogg' = 1)
+	mid_length = 1.8 SECONDS
+	extra_range = 10
+	volume = 20
+	falloff_distance = 2
+	falloff_exponent = 5
+
 /datum/looping_sound/supermatter
 	mid_sounds = list('sound/machines/sm/loops/calm.ogg')
 	mid_length = 6 SECONDS

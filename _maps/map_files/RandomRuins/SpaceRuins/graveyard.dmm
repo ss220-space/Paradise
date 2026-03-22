@@ -134,10 +134,6 @@
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
-"cW" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/carpet/red,
-/area/ruin/space/graveyard/church)
 "cY" = (
 /obj/structure/bookcase/ashframe/random,
 /turf/simulated/floor/wood/oak,
@@ -684,6 +680,10 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
+"pQ" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "pS" = (
 /obj/machinery/door_control/mimic{
@@ -1422,13 +1422,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/graveyard/church)
-"Gt" = (
-/obj/machinery/vending/coffee/free,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "GC" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1442,6 +1435,13 @@
 /obj/effect/decal/leaves,
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
+"GH" = (
+/obj/machinery/vending/coffee,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "GO" = (
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /obj/item/bedsheet/cult,
@@ -1567,6 +1567,14 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
+"IV" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/church)
 "IW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1647,6 +1655,15 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
+"KR" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/graveyard/church)
 "KV" = (
 /obj/structure/railing/wooden/endr{
 	dir = 8
@@ -1712,17 +1729,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/red,
-/area/ruin/space/graveyard/church)
-"LM" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "LZ" = (
 /obj/effect/spawner/window/reinforced,
@@ -2351,18 +2357,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
-"Ya" = (
-/obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/flashlight/lamp/green,
-/turf/simulated/floor/carpet/red,
-/area/ruin/space/graveyard/church)
 "Ye" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -3794,7 +3788,7 @@ HD
 rb
 PP
 up
-cW
+pQ
 rb
 qR
 Xl
@@ -3947,7 +3941,7 @@ ts
 rb
 RT
 HY
-Ya
+KR
 rb
 Bz
 qA
@@ -4096,7 +4090,7 @@ it
 tq
 tq
 ow
-Gt
+GH
 rb
 Vq
 ow
@@ -4143,7 +4137,7 @@ it
 it
 it
 rb
-LM
+IV
 ow
 ow
 ow

@@ -1,11 +1,7 @@
-/*
-AIR ALARM ITEM
-Handheld air alarm frame, for placing on walls
-Code shamelessly copied from apc_frame
-*/
+/// Handheld air alarm frame, for placing on walls.
 /obj/item/mounted/frame/alarm_frame
 	name = "air alarm frame"
-	desc = "Used for building Air Alarms"
+	desc = "Used for building Air Alarms."
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm_bitem"
 	materials = list(MAT_METAL = 2000)

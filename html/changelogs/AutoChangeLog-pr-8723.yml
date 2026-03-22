@@ -1,0 +1,4 @@
+author: "pilygun"
+delete-after: True
+changes:
+  - bugfix: "Фиксы лаваленда новы. (PR #8723)"

@@ -56,4 +56,3 @@
 	for(var/datum/atom_hud/data/hydroponic/hydrosensors in GLOB.huds)
 		hydrosensors.hide_from(owner)
 
-	active = FALSE

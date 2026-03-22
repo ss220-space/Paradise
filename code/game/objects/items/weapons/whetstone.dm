@@ -38,7 +38,7 @@
 		to_chat(user, span_warning("Сомневаюсь, что [I.declent_ru(NOMINATIVE)] станет острее."))
 		return .
 	if(I.force >= max || I.throwforce >= max) //So the whetstone never reduces force or throw_force
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] и так уже предельно остр[GEND_YI_AYA_OE_YE(I)]!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] и так уже предельно остр[GEND_YI_AYA_OE_YE(I)]!"))
 		return .
 	if(requires_sharpness && !I.sharp)
 		to_chat(user, span_warning("Можно заточить только режущие предметы, например ножи!"))
@@ -47,13 +47,13 @@
 	//This block is used to check more things if the item has a relevant component.
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) //If the item's components enforce more limits on maximum power from sharpening,  we fail
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] и так уже предельно остр[GEND_YI_AYA_OE_YE(I)]!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] и так уже предельно остр[GEND_YI_AYA_OE_YE(I)]!"))
 		return .
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] нельзя заточить!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] нельзя заточить!"))
 		return .
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (!signal_out && I.force > initial(I.force))) //No sharpening stuff twice
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже было заточено ранее. Дальнейшая заточка невозможна!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] уже было заточено ранее. Дальнейшая заточка невозможна!"))
 		return .
 	//If component returns nothing and sharpen_act() returns FALSE we are out
 	if(!(signal_out & COMPONENT_BLOCK_SHARPEN_APPLIED) && !I.sharpen_act(src, user))

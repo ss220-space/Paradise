@@ -186,6 +186,10 @@
  * After a period of time, we then check to see what stun duration we give.
  */
 /obj/item/melee/baton/security/additional_effects_non_cyborg(mob/living/carbon/target, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+
 	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
 	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
 	target.AdjustConfused(10 SECONDS, bound_upper = 10 SECONDS)

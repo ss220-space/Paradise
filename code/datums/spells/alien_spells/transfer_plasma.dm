@@ -3,8 +3,8 @@
 	desc = "Transfers plasma to a nearby alien"
 	hand_path = "/obj/item/melee/touch_attack/alien/transfer_plasma"
 	action_icon_state = "alien_transfer"
-	on_gain_message = span_noticealien("You vomit some plasma in your hand and prepare to transfer it.")
-	on_withdraw_message = span_noticealien("You decide not to use plasma for now...")
+	on_gain_message = span_noticealien_alt("You vomit some plasma in your hand and prepare to transfer it.")
+	on_withdraw_message = span_noticealien_alt("You decide not to use plasma for now...")
 
 /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma/Click(mob/living/carbon/user = usr)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

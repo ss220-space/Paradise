@@ -1435,7 +1435,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/coffin/vampire/Destroy()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает, оставляя после себя лишь кучку пепла..."))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает, оставляя после себя лишь кучку пепла..."))
 	new /obj/effect/decal/cleanable/ash(loc)
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)

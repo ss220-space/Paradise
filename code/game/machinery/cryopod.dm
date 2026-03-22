@@ -244,7 +244,10 @@
 		/obj/item/door_remote,
 		/obj/item/stamp,
 		/obj/item/sensor_device/advanced,
-		/obj/item/qm_quest_tablet
+		/obj/item/qm_quest_tablet,
+		/obj/item/mod/control,
+		/obj/item/autopsy_scanner,
+		/obj/item/storage/belt/rapier,
 	)
 	// These items will NOT be preserved
 	var/static/list/do_not_preserve_items = list (
@@ -315,7 +318,7 @@
 	if(occupant)
 		// Eject dead people
 		if(occupant.stat == DEAD)
-			go_out()
+			discard_occupant()
 			return
 
 		// Allow a gap between entering the pod and actually despawning.
@@ -373,6 +376,10 @@
 			var/obj/item/pda/P = I
 			QDEL_NULL(P.id)
 			qdel(P)
+			continue
+		if(ismodstorage(I))
+			var/obj/item/storage/backpack/modstorage/our_storage = I
+			our_storage.forceMove(our_storage.source)
 			continue
 
 		var/preserve = should_preserve_item(I)
@@ -461,7 +468,7 @@
 				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
 			else
 				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с характерным жужжанием и шипением перемещает [occupant.real_name] в хранилище."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с характерным жужжанием и шипением перемещает [occupant.real_name] в хранилище."))
 
 	SEND_SIGNAL(SSshuttle, COMSIG_CRYOPOD_DESPAWN, src, occupant)
 
@@ -475,6 +482,11 @@
 	QDEL_NULL(occupant)
 	update_icon(UPDATE_ICON_STATE)
 	name = initial(name)
+
+/obj/machinery/cryopod/proc/discard_occupant()
+	playsound(src, 'sound/machines/buzz-sigh.ogg', HALFWAY_SOUND_VOLUME, use_reverb = TRUE)
+	go_out()
+	balloon_alert_to_viewers("субъект отклонен")
 
 /obj/machinery/cryopod/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -718,6 +730,9 @@
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R))
+		return ..()
+	if(R.shell)
+		discard_occupant()
 		return ..()
 
 	R.contents -= R.mmi

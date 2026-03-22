@@ -73,9 +73,7 @@
 	},
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -177,9 +175,7 @@
 	},
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},

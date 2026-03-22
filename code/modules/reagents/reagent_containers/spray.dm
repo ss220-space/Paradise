@@ -105,6 +105,9 @@
 	name = "space cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Произведено компанией \"BLAM!\"."
 	list_reagents = list("cleaner" = 250)
+	amount_per_transfer_from_this = 10
+	spray_maxrange = 2
+	spray_currentrange = 2
 
 /obj/item/reagent_containers/spray/cleaner/get_ru_names()
 	return list(
@@ -236,9 +239,9 @@
 		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
 			reagents.del_reagent(R.id)
 			if(ismob(loc))
-				to_chat(loc, span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
-				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	volume = 50

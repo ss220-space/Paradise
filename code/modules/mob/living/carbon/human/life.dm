@@ -77,22 +77,19 @@
 		force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
-
-	// Determines how much the clothing you are wearing protects you in percent.
-	var/pressure_adjustment_coefficient = 1
 	if(isclothing(wear_suit) && isclothing(head))
 		var/obj/item/clothing/suit = wear_suit
 		var/obj/item/clothing/helmet = head
 		// Complete set of pressure-proof suit worn, assume fully sealed.
 		if((suit.clothing_flags & STOPSPRESSUREDMAGE) && (helmet.clothing_flags & STOPSPRESSUREDMAGE))
-			pressure_adjustment_coefficient = 0
-	pressure_adjustment_coefficient = max(pressure_adjustment_coefficient,0) //So it isn't less than 0
-	pressure_difference = pressure_difference * pressure_adjustment_coefficient
-	if(pressure > ONE_ATMOSPHERE)
-		return ONE_ATMOSPHERE + pressure_difference
-	else
-		return ONE_ATMOSPHERE - pressure_difference
+			return ONE_ATMOSPHERE
+
+	if(ismovable(loc))
+		/// If we're in a space with 0.5 content pressure protection, it averages the values, for example.
+		var/atom/movable/occupied_space = loc
+		return (occupied_space.contents_pressure_protection * ONE_ATMOSPHERE + (1 - occupied_space.contents_pressure_protection) * pressure)
+
+	return pressure
 
 /mob/living/carbon/human/handle_disabilities()
 	//Vision //god knows why this is here
@@ -182,6 +179,60 @@
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
+
+	if(radiation)
+		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
+			radiation = clamp(radiation, 0, max_radiation)
+
+			var/autopsy_damage = 0
+			switch(radiation)
+				if(1 to 49)
+					radiation = max(radiation-1, 0)
+					if(prob(25))
+						apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
+						autopsy_damage = 2
+
+				if(50 to 74)
+					radiation = max(radiation-2, 0)
+					apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
+					autopsy_damage = 2
+					if(prob(5))
+						radiation = max(radiation-5, 0)
+						Weaken(6 SECONDS)
+						to_chat(src, span_danger("Вы чувствуете слабость."))
+						emote("collapse")
+
+				if(75 to 100)
+					radiation = max(radiation-2, 0)
+					apply_damages(burn = 2, tox = 2, spread_damage = TRUE)
+					autopsy_damage = 4
+					if(prob(2))
+						to_chat(src, span_danger("Вы мутируете!"))
+						randmutb(src)
+						check_genes()
+
+				if(101 to 150)
+					radiation = max(radiation-3, 0)
+					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
+					autopsy_damage = 5
+					if(prob(4))
+						to_chat(src, span_danger("Вы мутируете!"))
+						randmutb(src)
+						check_genes()
+
+				if(151 to INFINITY)
+					radiation = max(radiation-3, 0)
+					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
+					autopsy_damage = 5
+					if(prob(6))
+						to_chat(src, span_danger("Вы мутируете!"))
+						randmutb(src)
+						check_genes()
+
+			if(autopsy_damage)
+				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
+				if(chest)
+					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
@@ -671,7 +722,6 @@
 				if(prob(5))
 					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
 				SetStuttering(10 SECONDS)
-				EyeBlurry(10 SECONDS)
 				if(prob(7))
 					AdjustConfused(4 SECONDS)
 				if(prob(5))
@@ -800,14 +850,14 @@
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
 				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
-				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в ваш[GEND_EM_EI_EM_IH(bodypart)] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
+				to_chat(src, span_userdanger("[DECLENT_RU_CAP(thing, NOMINATIVE)] в ваш[GEND_EM_EI_EM_IH(bodypart)] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
 				visible_message(
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_danger("[DECLENT_RU_CAP(thing, NOMINATIVE)] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
+					span_danger("[DECLENT_RU_CAP(thing, NOMINATIVE)] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 				)
 
 /mob/living/carbon/human/proc/handle_pulse(times_fired)

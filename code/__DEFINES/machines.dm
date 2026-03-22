@@ -182,6 +182,8 @@
 #define MECH_FAB_CATEGORY_CYBORG_REPAIR "Компоненты роботов"
 #define MECH_FAB_CATEGORY_CYBORG_EQUIPMENT "Оборудование роботов"
 #define MECH_FAB_CATEGORY_IPC "КПБ"
+#define MECH_FAB_CATEGORY_MODSUIT_CONSTRUCTION "Сборка МЭК"
+#define MECH_FAB_CATEGORY_MODSUIT_MODULES "Модули МЭК"
 #define MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT "Оборудование экзоскелетов"
 #define MECH_FAB_CATEGORY_EXOSUIT_PAINTKITS "Наборы кастомизации экзоскелетов"
 #define MECH_FAB_CATEGORY_RIPLEY "Рипли"
@@ -219,4 +221,3 @@
 /// Emagged mode; turns off scrubbers and pressure checks on vents
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
-

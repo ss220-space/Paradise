@@ -102,16 +102,15 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
 				msg = span_emojienabled("[msg]")
 			to_chat(C, span_ooc("<span style='color:[display_colour];'>[span_prefix("OOC: ")]<em>[display_name]:</em> [span_message(msg)]</span>"))
+
 /proc/toggle_ooc()
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
 	if(CONFIG_GET(flag/ooc_allowed))
-		to_chat(world, "<b>The OOC channel has been globally enabled!</b>")
-		log_admin("OOC was toggled on automatically.")
-		message_admins("OOC has been toggled on automatically.")
+		to_chat(world, span_bold("Канал OOC стал доступен всем!"))
+		log_and_message_admins("OOC was toggled on automatically.")
 	else
-		to_chat(world, "<b>The OOC channel has been globally disabled!</b>")
-		log_admin("OOC was toggled off automatically.")
-		message_admins("OOC has been toggled off automatically.")
+		to_chat(world, span_bold("Канал OOC отключён для всех!"))
+		log_and_message_admins("OOC was toggled off automatically.")
 
 /proc/auto_toggle_ooc(on)
 	if(CONFIG_GET(flag/auto_toggle_ooc_during_round) && CONFIG_GET(flag/ooc_allowed) != on)
@@ -208,6 +207,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(send)
 				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<em>[display_name][admin_stuff]:</em> [span_message(msg)]")))
+
+				if(target.mob && target.prefs.toggles3 & PREFTOGGLE_3_RUNECHAT_LOOC)
+					var/mob/source_mob = mob.get_looc_source()
+					target.mob.create_chat_message(source_mob, "<b>LOOC:</b> [msg]", list("looc"), null)
 
 /mob/proc/get_looc_source()
 	return src

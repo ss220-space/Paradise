@@ -129,6 +129,8 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 
 	switch(severity)
 		if(1)
@@ -281,7 +283,7 @@
 			repair_damage(1)
 
 		if(obj_integrity <= 0)
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] расслаивается и распадается на множество крошечных кусочков."))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] расслаивается и распадается на множество крошечных кусочков."))
 			qdel(src)
 
 //debug and adminbus....

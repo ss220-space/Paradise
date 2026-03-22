@@ -830,6 +830,7 @@
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "передышки"
+	metabolized_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1058,7 +1059,7 @@
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
-	taste_description = span_userdanger("нереальной бодрости")
+	taste_description = span_userdanger_alt("нереальной бодрости")
 	var/absorption_applied = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
@@ -1115,13 +1116,13 @@
 	user.AdjustWeakened(-6 SECONDS)
 	user.AdjustKnockdown(-6 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7.5, FALSE)
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+	if(!(user.dna && (user.dna.species.reagent_tag & ORGANIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+	if(user.dna && (user.dna.species.reagent_tag & ORGANIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/user)

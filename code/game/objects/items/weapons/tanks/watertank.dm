@@ -16,10 +16,15 @@
 	var/on = 0
 	var/volume = 500
 
-/obj/item/watertank/New()
-	..()
+/obj/item/watertank/Initialize(mapload)
+	. = ..()
 	create_reagents(volume)
 	noz = make_noz()
+
+/obj/item/watertank/Destroy()
+	remove_noz()
+	QDEL_NULL(noz)
+	return ..()
 
 /obj/item/watertank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mister()
@@ -71,12 +76,6 @@
 		var/mob/user = noz.loc
 		user.drop_item_ground(noz, force = TRUE)
 
-/obj/item/watertank/Destroy()
-	if(on)
-		remove_noz()
-		QDEL_NULL(noz)
-	return ..()
-
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
 		ui_action_click()
@@ -106,13 +105,20 @@
 
 	var/obj/item/watertank/tank
 
-/obj/item/reagent_containers/spray/mister/New(parent_tank)
-	..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
+/obj/item/reagent_containers/spray/mister/Initialize(mapload)
+	. = ..()
+	if(check_tank_exists(loc, usr, src))
+		tank = loc
 		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
 		loc = tank
 	return
+
+/obj/item/reagent_containers/spray/mister/Destroy()
+	if(tank)
+		tank.remove_noz()
+		tank.noz = null
+	tank = null
+	. = ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -123,13 +129,14 @@
 /obj/item/reagent_containers/spray/mister/attack_self()
 	return
 
-/proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
+/proc/check_tank_exists(parent_tank, mob/living/carbon/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		M.temporarily_remove_item_from_inventory(O)
+		if(istype(M))
+			M.temporarily_remove_item_from_inventory(O)
 		qdel(O)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -147,8 +154,8 @@
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
 
-/obj/item/watertank/janitor/New()
-	..()
+/obj/item/watertank/janitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("cleaner", 500)
 
 /obj/item/reagent_containers/spray/mister/janitor
@@ -223,10 +230,11 @@
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-/obj/item/extinguisher/mini/nozzle/New(parent_tank)
+/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
+	if(check_tank_exists(loc, usr, src))
+		tank = loc
+		qdel(reagents)
 		reagents = tank.reagents
 		max_water = tank.volume
 		loc = tank
@@ -234,6 +242,11 @@
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+/obj/item/extinguisher/mini/nozzle/Destroy()
+	tank = null
+	reagents = null
+	. = ..()
 
 /obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()

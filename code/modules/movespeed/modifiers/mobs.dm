@@ -213,3 +213,7 @@
 	variable = TRUE
 	movetypes = GROUND
 	blacklisted_movetypes = (FLOATING|FLYING)
+
+/datum/movespeed_modifier/timestop_modifier
+	multiplicative_slowdown = 25
+	flags = IGNORE_NOSLOW

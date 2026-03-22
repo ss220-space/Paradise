@@ -6,6 +6,7 @@
 	density = TRUE
 	max_integrity = 100
 	cares_about_temperature = TRUE
+	abstract_type = /obj/structure/statue
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
@@ -58,7 +59,7 @@
 		span_notice("You rub some dust off from the [name]'s surface.")
 	)
 
-/obj/structure/statue/CanAtmosPass(turf/T, vertical)
+/obj/structure/statue/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
@@ -77,6 +78,7 @@
 	light_power = 0.7
 	light_color = LIGHT_COLOR_NUCLEAR
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
+	abstract_type = /obj/structure/statue/uranium
 	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
 	/// The last time a radiation pulse was performed
@@ -133,6 +135,7 @@
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
+	abstract_type = /obj/structure/statue/plasma
 
 /obj/structure/statue/plasma/scientist
 	name = "statue of a scientist"
@@ -142,10 +145,10 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(temperature, volume)
+/obj/structure/statue/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
-		PlasmaBurn(temperature)
+	if(exposed_temperature > 300)
+		PlasmaBurn(exposed_temperature)
 
 /obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
@@ -192,6 +195,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/gold
 	desc = "This is a highly valuable statue made from gold."
+	abstract_type = /obj/structure/statue/gold
 
 /obj/structure/statue/gold/hos
 	name = "statue of the head of security"
@@ -225,6 +229,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
 	desc = "This is a valuable statue made from silver."
+	abstract_type = /obj/structure/statue/silver
 
 /obj/structure/statue/silver/md
 	name = "statue of a medical doctor"
@@ -250,6 +255,7 @@
 	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
 	desc = "This is a very expensive diamond statue."
+	abstract_type = /obj/structure/statue/diamond
 
 /obj/structure/statue/diamond/captain
 	name = "statue of THE captain"
@@ -267,6 +273,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
+	abstract_type = /obj/structure/statue/bananium
 	var/spam_flag = 0
 
 /obj/structure/statue/bananium/clown
@@ -301,6 +308,7 @@
 /obj/structure/statue/sandstone
 	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
+	abstract_type = /obj/structure/statue/sandstone
 
 /obj/structure/statue/sandstone/assistant
 	name = "statue of an assistant"
@@ -317,6 +325,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
 	desc = "..."
+	abstract_type = /obj/structure/statue/tranquillite
 
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
@@ -491,7 +500,7 @@
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-/obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/statue/unknown/fire_act(exposed_temperature, exposed_volume)
 	if(!lit)
 		light()
 	return ..()
@@ -551,7 +560,7 @@
 
 	return ..()
 
-/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/snowman/built/fire_act(exposed_temperature, exposed_volume)
 	..()
 	qdel(src)
 
@@ -568,6 +577,7 @@
 ///////// Cheese
 /obj/structure/statue/cheese
 	material_drop_type = /obj/item/stack/sheet/cheese
+	abstract_type = /obj/structure/statue/cheese
 
 /obj/structure/statue/cheese/cheesus
 	name = "statue of cheesus"

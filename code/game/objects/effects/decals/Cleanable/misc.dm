@@ -15,6 +15,11 @@
 	scoop_reagents = list("ash" = 10)
 	mergeable_decal = FALSE
 
+/obj/effect/decal/cleanable/ash/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
+
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
@@ -73,12 +78,18 @@
 	light_color = LIGHT_COLOR_GREEN
 	icon_state = "greenglow"
 
-/obj/effect/decal/cleanable/greenglow/Initialize(mapload)
+/obj/effect/decal/cleanable/greenglow/temp/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 2 MINUTES)
 
 /obj/effect/decal/cleanable/greenglow/ex_act()
 	return
+
+/obj/effect/decal/cleanable/greenglow/filled/Initialize(mapload)
+	var/decal_reagent = pick(/datum/reagent/uranium, /datum/reagent/radium)
+	scoop_reagents = list()
+	scoop_reagents[decal_reagent] = 5
+	. = ..()
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
@@ -177,6 +188,9 @@
 	icon_state = "flour"
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
+
+/obj/effect/decal/cleanable/fungus/never_should_have_come_here(turf/here_turf)
+	return FALSE
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"

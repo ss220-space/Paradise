@@ -101,7 +101,7 @@
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
-		hit_atom.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [hit_atom.declent_ru(GENITIVE)], отброшенная невидимой силой!"))
+		hit_atom.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отскакивает от [hit_atom.declent_ru(GENITIVE)], отброшенная невидимой силой!"))
 		return
 	. = ..()
 

@@ -24,6 +24,16 @@
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 	var/ready = TRUE
 
+/obj/item/circuit_component/thought_listener/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	input_name = null
+	input_desc = null
+
+	output = null
+	failure = null
+	. = ..()
+
 /obj/item/circuit_component/thought_listener/populate_ports()
 	input_name = add_input_port("Название", PORT_TYPE_STRING)
 	input_desc = add_input_port("Описание", PORT_TYPE_STRING)

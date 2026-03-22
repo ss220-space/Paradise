@@ -410,12 +410,12 @@
 	var/obj/docking_port/stationary/S1 = assigned_transit
 	if(S1)
 		if(dock(S1, transit = TRUE))
-			log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"]."))
+			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
 			return TRUE
 	else
-		log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]"))
+		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
@@ -622,7 +622,7 @@
 
 	mobile_port.unlockPortDoors(new_dock)
 	areaInstance.parallax_movedir = mobile_port.preferred_direction
-	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
+	SEND_SIGNAL(mobile_port, COMSIG_SHUTTLE_DOCK, new_dock)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
 	var/static/list/blacklisted_turf_types = typecacheof(GLOB.blacklisted_turf_types_for_transit)
@@ -933,7 +933,7 @@
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, span_danger("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE

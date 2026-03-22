@@ -15,6 +15,11 @@
 
 	var/should_listen = FALSE
 
+/obj/item/circuit_component/variable/Destroy()
+	variable_name = null
+	remove_current_variable()
+	. = ..()
+
 /obj/item/circuit_component/variable/populate_options()
 	variable_name = add_option_port("Переменная", null)
 

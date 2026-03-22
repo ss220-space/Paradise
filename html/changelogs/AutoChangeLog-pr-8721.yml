@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Аир алярм фрейм больше не дюпается (PR #8721)"

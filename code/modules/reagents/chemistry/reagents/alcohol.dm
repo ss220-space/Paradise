@@ -1104,7 +1104,7 @@
 	description = "Производство этого напитка вероятно, нарушает Женевскую конвенцию."
 	color = "#DC0000"
 	can_synth = FALSE
-	taste_description = span_userdanger("ЖИДКОЙ БЛЯДЬ СМЕРТИ СУКА ПИЗДЕЦ НАХУЙ КАКОГО ХУЯ")
+	taste_description = span_userdanger_alt("ЖИДКОЙ БЛЯДЬ СМЕРТИ СУКА ПИЗДЕЦ НАХУЙ КАКОГО ХУЯ")
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST && prob(20))
@@ -1156,7 +1156,7 @@
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
-	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+	if(!(M.dna.species.reagent_tag & SYNTHETIC))
 		metabolization_rate += 9 * REAGENTS_METABOLISM //gets removed from organics very fast
 		if(prob(25))
 			metabolization_rate += 40 * REAGENTS_METABOLISM
@@ -1164,7 +1164,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.dna.species.reagent_tag & PROCESS_SYN)
+	if(M.dna.species.reagent_tag & SYNTHETIC)
 		return
 	if(method == REAGENT_INGEST)
 		to_chat(M, pick(span_danger("Это отвратительно!"), span_danger("Фу!")))

@@ -169,14 +169,20 @@ ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed
 
 		names[name] = ruin_landmark
 
+	if(!names)
+		to_chat(user, "No ruins now!")
+		return
+
 	var/ruinname = tgui_input_list(user, "Select ruin", "Jump to Ruin", sort_list(names))
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 	if(!istype(landmark))
 		return
 
+	var/datum/map_template/ruin/template = landmark.ruin_template
+	user.mob.forceMove(get_turf(landmark))
 	var/list/messages = list(
-		span_name("Jumped to <b>[landmark.ruin_template?.name]</b>:"),
-		span_italics("[landmark.ruin_template?.description]"),
+		span_name("Jumped to <b>[template?.name]</b>:"),
+		span_italics("[template?.description]"),
 	)
 	to_chat(user, chat_box_examine(messages.Join("<br/>")), confidential = TRUE)
 

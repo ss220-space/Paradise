@@ -10,7 +10,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] с кормит [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] с кормит [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
 			span_notice("Вы кормите [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		qdel(I)
@@ -57,8 +57,8 @@
 		if(INTENT_HELP)
 			if(health > 0)
 				visible_message(
-					span_notice("[capitalize(M.declent_ru(NOMINATIVE))] [response_help] [declent_ru(ACCUSATIVE)]."),
-					span_notice("[capitalize(M.declent_ru(NOMINATIVE))] [response_help] вас.")
+					span_notice("[DECLENT_RU_CAP(M, NOMINATIVE)] [response_help] [declent_ru(ACCUSATIVE)]."),
+					span_notice("[DECLENT_RU_CAP(M, NOMINATIVE)] [response_help] вас.")
 				)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
@@ -73,8 +73,8 @@
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message(
-				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] [declent_ru(ACCUSATIVE)]!"),
-				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_harm] вас!")
+				span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] [response_harm] [declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("[DECLENT_RU_CAP(M, NOMINATIVE)] [response_harm] вас!")
 			)
 			playsound(loc, attacked_sound, 25, TRUE, -1)
 			attack_threshold_check(harm_intent_damage)
@@ -86,15 +86,15 @@
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			visible_message(
-				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] [name]!"),
-				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [response_disarm] вас!")
+				span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] [response_disarm] [name]!"),
+				span_userdanger("[DECLENT_RU_CAP(M, NOMINATIVE)] [response_disarm] вас!")
 			)
 			add_attack_logs(M, src, "Alien disarmed")
 		else
 			var/damage = M.attack_damage
 			visible_message(
-				span_danger("[capitalize(M.declent_ru(NOMINATIVE))] дела[PLUR_ET_YUT(M)] резкий выпад в сторону [declent_ru(ACCUSATIVE)]!"),
-				span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] делает резкий выпад в вашу сторону!")
+				span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] дела[PLUR_ET_YUT(M)] резкий выпад в сторону [declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("[DECLENT_RU_CAP(M, NOMINATIVE)] делает резкий выпад в вашу сторону!")
 			)
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			add_attack_logs(M, src, "Alien attacked")
@@ -129,7 +129,7 @@
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит невредимым."))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит невредимым."))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))

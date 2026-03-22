@@ -14,9 +14,17 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
+"bm" = (
+/obj/item/mod/control/pre_equipped/standard,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
+"dY" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "eW" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -50,6 +58,13 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"hG" = (
+/obj/machinery/light_switch/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/blue)
@@ -80,6 +95,10 @@
 /obj/spacepod/sec,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"pZ" = (
+/obj/machinery/tcomms/core/station,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "qp" = (
 /obj/item/tank/jetpack/oxygen,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -136,6 +155,13 @@
 /obj/machinery/vending/nta/ertarmory/engineer,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"zn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "zP" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -174,13 +200,17 @@
 /obj/item/tank/internals/oxygen,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"DZ" = (
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Fv" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"GE" = (
-/obj/effect/spawner/new_year/presents_tree,
-/obj/machinery/light/floor,
+"Fz" = (
+/obj/effect/landmark/start/ai,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "Hi" = (
@@ -224,6 +254,10 @@
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"RU" = (
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Tl" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -2142,14 +2176,14 @@ jO
 HE
 HE
 HE
-HE
-HE
+hG
+bm
 Cd
 WA
 CV
 qp
 nx
-HE
+zn
 HE
 jk
 ay
@@ -2534,7 +2568,7 @@ ay
 ay
 ay
 jk
-HE
+RU
 HE
 HE
 HE
@@ -6759,13 +6793,13 @@ jD
 jD
 jD
 BO
+Fz
 YB
 YB
 YB
 YB
 YB
-YB
-GE
+dY
 YB
 YB
 YB
@@ -6825,7 +6859,7 @@ jD
 jD
 jD
 BO
-YB
+pZ
 YB
 YB
 YB
@@ -10984,7 +11018,7 @@ jD
 jD
 jD
 uJ
-vR
+DZ
 vR
 vR
 vR

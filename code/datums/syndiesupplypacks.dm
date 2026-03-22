@@ -48,6 +48,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	var/cost = null
 	var/containertype = /obj/structure/closet/crate
 	var/containername = null
+	var/container_ru_names = list()
 	var/access = null
 	var/group = SYNDIE_SUPPLY_MISC
 	var/list/ui_manifest = list()
@@ -107,6 +108,40 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	)
 	cost = 100
 	containername = "internals crate"
+
+/datum/syndie_supply_packs/emergency/proper
+	name = "Кластерная очищающая граната"
+	contains = list(
+		/obj/item/grenade/clusterbuster/cleaner,
+	)
+	cost = 300
+	containertype = /obj/structure/closet/crate
+	containername = "ящик с кластерной очищающей гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кластерной очищающей гранатой",
+		GENITIVE = "ящика с кластерной очищающей гранатой",
+		DATIVE = "ящику с кластерной очищающей гранатой",
+		ACCUSATIVE = "ящик с кластерной очищающей гранатой",
+		INSTRUMENTAL = "ящиком с кластерной очищающей гранатой",
+		PREPOSITIONAL = "ящике с кластерной очищающей гранатой",
+	)
+
+/datum/syndie_supply_packs/emergency/clusteroxygen
+	name = "Кластерная кислородная граната"
+	contains = list(
+		/obj/item/grenade/clusterbuster/oxygen,
+	)
+	cost = 250
+	containertype = /obj/structure/closet/crate
+	containername = "ящик с кластерной кислородной гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кластерной кислородной гранатой",
+		GENITIVE = "ящика с кластерной кислородной гранатой",
+		DATIVE = "ящику с кластерной кислородной гранатой",
+		ACCUSATIVE = "ящик с кластерной кислородной гранатой",
+		INSTRUMENTAL = "ящиком с кластерной кислородной гранатой",
+		PREPOSITIONAL = "ящике с кластерной кислородной гранатой",
+	)
 
 /datum/syndie_supply_packs/emergency/firefighting
 	name = "Firefighting Crate"
@@ -226,6 +261,131 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	)
 	cost = 2500
 	containername = "Stechkin Pistol Crate"
+
+/datum/syndie_supply_packs/security/minigun
+	name = "Гатлинг—лазер"
+	contains = list(
+		/obj/item/gun/energy/gun/minigun,
+	)
+	cost = 5000
+	containertype = /obj/structure/closet/crate/secure/weapon/veihit
+	containername = "ящик с гатлинг—лазером"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с гатлинг—лазером",
+		GENITIVE = "ящика с гатлинг—лазером",
+		DATIVE = "ящику с гатлинг—лазером",
+		ACCUSATIVE = "ящик с гатлинг—лазером",
+		INSTRUMENTAL = "ящиком с гатлинг—лазером",
+		PREPOSITIONAL = "ящике с гатлинг—лазером",
+	)
+
+/datum/syndie_supply_packs/security/mini_uzi
+	name = "Пистолет пулемет \"Узи\""
+	contains = list(
+		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/ammo_box/magazine/uzim9mm,
+		/obj/item/ammo_box/magazine/uzim9mm,
+	)
+	cost = 5000
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с пистолетом пулеметом узи"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с пистолетом-пулеметом \"Узи\"",
+		GENITIVE = "ящика с пистолетом-пулеметом \"Узи\"",
+		DATIVE = "ящику с пистолетом-пулеметом \"Узи\"",
+		ACCUSATIVE = "ящик с пистолетом-пулеметом \"Узи\"",
+		INSTRUMENTAL = "ящиком с пистолетом-пулеметом \"Узи\"",
+		PREPOSITIONAL = "ящике с пистолетом-пулеметом \"Узи\"",
+	)
+
+/datum/syndie_supply_packs/security/mastiff
+	name = "Дробовик \"Мастиф\""
+	contains = list(
+		/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff,
+		/obj/item/ammo_box/magazine/cheap_m12g,
+		/obj/item/ammo_box/magazine/cheap_m12g,
+	)
+	cost = 4000
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с дробовиком \"Мастиф\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с дробовиком \"Мастиф\"",
+		GENITIVE = "ящика с дробовиком \"Мастиф\"",
+		DATIVE = "ящику с дробовиком \"Мастиф\"",
+		ACCUSATIVE = "ящик с дробовиком \"Мастиф\"",
+		INSTRUMENTAL = "ящиком с дробовиком \"Мастиф\"",
+		PREPOSITIONAL = "ящике с дробовиком \"Мастиф\"",
+	)
+
+/datum/syndie_supply_packs/security/atmosn2ogrenades
+	name = "Усыпляющая кластерная граната"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/atmosn2ogrenades,
+	)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с газовой кластерной гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с усыпляющей кластерной гранатой",
+		GENITIVE = "ящика с усыпляющей кластерной гранатой",
+		DATIVE = "ящику с усыпляющей кластерной гранатой",
+		ACCUSATIVE = "ящик с усыпляющей кластерной гранатой",
+		INSTRUMENTAL = "ящиком с усыпляющей кластерной гранатой",
+		PREPOSITIONAL = "ящике с усыпляющей кластерной гранатой",
+	)
+
+/datum/syndie_supply_packs/security/frag
+	name = "Пояс боевых осколочных гранат"
+	contains = list(
+		/obj/item/storage/belt/grenade/frag,
+	)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с поясом боевых осколочных гранат"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с поясом боевых осколочных гранат",
+		GENITIVE = "ящика с поясом боевых осколочных гранат",
+		DATIVE = "ящику с поясом боевых осколочных гранат",
+		ACCUSATIVE = "ящик с поясом боевых осколочных гранат",
+		INSTRUMENTAL = "ящиком с поясом боевых осколочных гранат",
+		PREPOSITIONAL = "ящике с поясом боевых осколочных гранат",
+	)
+
+/datum/syndie_supply_packs/security/emp
+	name = "Набор ЭМИ-гранат"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/emp,
+	)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с набором ЭМИ-гранат"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с набором ЭМИ-гранат",
+		GENITIVE = "ящика с набором ЭМИ-гранат",
+		DATIVE = "ящику с набором ЭМИ-гранат",
+		ACCUSATIVE = "ящик с набором ЭМИ-гранат",
+		INSTRUMENTAL = "ящиком с набором ЭМИ-гранат",
+		PREPOSITIONAL = "ящике с набором ЭМИ-гранат",
+	)
+
+/datum/syndie_supply_packs/security/knives_kit
+	name = "Метательные ножи"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/knives_kit,
+		/obj/item/storage/box/syndie_kit/knives_kit,
+		/obj/item/storage/box/syndie_kit/knives_kit,
+	)
+	cost = 500
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик метательных ножей"
+	container_ru_names = list(
+		NOMINATIVE = "ящик метательных ножей",
+		GENITIVE = "ящика метательных ножей",
+		DATIVE = "ящику метательных ножей",
+		ACCUSATIVE = "ящик метательных ножей",
+		INSTRUMENTAL = "ящиком метательных ножей",
+		PREPOSITIONAL = "ящике метательных ножей",
+	)
 
 /datum/syndie_supply_packs/security/stechkin_ammo
 	name = "Syndicate Stechkin - 10mm Magazine"
@@ -633,7 +793,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/structure/reagent_dispensers/fueltank,
 	)
 	cost = 80
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "fuel tank crate"
 
 /datum/syndie_supply_packs/engineering/tools		//the most robust crate
@@ -645,6 +805,43 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	)
 	cost = 100
 	containername = "Syndicate Toolbox crate"
+
+/datum/syndie_supply_packs/engineering/thermal
+	name = "Тепловизионные очки \"Хамелеон\""
+	contains = list(
+		/obj/item/clothing/glasses/chameleon/thermal,
+	)
+	cost = 500
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с тепловизионными очками \"Хамелеон\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с тепловизионными очками \"Хамелеон\"",
+		GENITIVE = "ящика с тепловизионными очками \"Хамелеон\"",
+		DATIVE = "ящику с тепловизионными очками \"Хамелеон\"",
+		ACCUSATIVE = "ящик с тепловизионными очками \"Хамелеон\"",
+		INSTRUMENTAL = "ящиком с тепловизионными очками \"Хамелеон\"",
+		PREPOSITIONAL = "ящике с тепловизионными очками \"Хамелеон\"",
+	)
+
+/datum/syndie_supply_packs/engineering/indumulti
+	name = "Продвинутые мультиметры"
+	containername = "ящик продвинутых мультиметров"
+	contains = list(
+		/obj/item/multitool/industrial,
+		/obj/item/multitool/industrial,
+		/obj/item/multitool/industrial,
+	)
+	cost = 200
+	containertype = /obj/structure/closet/crate/engineering/electrical
+	containername = "ящик продвинутых мультиметров"
+	container_ru_names = list(
+		NOMINATIVE = "ящик продвинутых мультиметров",
+		GENITIVE = "ящика продвинутых мультиметров",
+		DATIVE = "ящику продвинутых мультиметров",
+		ACCUSATIVE = "ящик продвинутых мультиметров",
+		INSTRUMENTAL = "ящиком продвинутых мультиметров",
+		PREPOSITIONAL = "ящике продвинутых мультиметров",
+	)
 
 /datum/syndie_supply_packs/vending/engivend
 	name = "EngiVend Supply Crate"
@@ -860,91 +1057,91 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Канистра азота"
 	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
 	cost = 50
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой азота"
 
 /datum/syndie_supply_packs/engineering/canister/oxygen
 	name = "Канистра кислорода"
 	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
 	cost = 50
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой кислорода"
 
 /datum/syndie_supply_packs/engineering/canister/air
 	name = "Канистра воздуха"
 	contains = list(/obj/machinery/portable_atmospherics/canister/air)
 	cost = 50
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой воздуха"
 
 /datum/syndie_supply_packs/engineering/canister/sleeping_agent
 	name = "Канистра оксида азота"
 	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
 	cost = 250
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой оксида азота"
 
 /datum/syndie_supply_packs/engineering/canister/carbon_dioxide
 	name = "Канистра углекислого газа"
 	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
 	cost = 250
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой углекислого газа"
 
 /datum/syndie_supply_packs/engineering/canister/toxins
 	name = "Канистра плазмы"
 	contains = list(/obj/machinery/portable_atmospherics/canister/toxins)
 	cost = 250
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой плазмы"
 
 /datum/syndie_supply_packs/engineering/miner_n2o
 	name = "Майнер N2O"
 	contains = list(/obj/machinery/atmospherics/miner/n2o)
 	cost = 2000
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером N2O"
 
 /datum/syndie_supply_packs/engineering/miner_nitrogen
 	name = "Майнер N2"
 	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
 	cost = 1500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером N2"
 
 /datum/syndie_supply_packs/engineering/miner_oxygen
 	name = "Майнер O2"
 	contains = list(/obj/machinery/atmospherics/miner/oxygen)
 	cost = 1500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером O2"
 
 /datum/syndie_supply_packs/engineering/miner_plasma
 	name = "Майнер плазмы"
 	contains = list(/obj/machinery/atmospherics/miner/plasma)
 	cost = 3000
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером плазмы"
 
 /datum/syndie_supply_packs/engineering/miner_carbon_dioxide
 	name = "Майнер CO2"
 	contains = list(/obj/machinery/atmospherics/miner/carbon_dioxide)
 	cost = 1500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером CO2"
 
 /datum/syndie_supply_packs/engineering/miner_agent_b
 	name = "Майнер Agent B"
 	contains = list(/obj/machinery/atmospherics/miner/agent_b)
 	cost = 2500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером Agent B"
 
 /datum/syndie_supply_packs/engineering/miner_hydrogen
 	name = "Майнер H2"
 	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
 	cost = 4000
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером H2"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1152,6 +1349,41 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "surgery crate"
 	access = ACCESS_MEDICAL
 
+/datum/syndie_supply_packs/medical/menderindustrial
+	name = "Продвинутый авто-мендер"
+	containername = "ящик продвинутых авто-мендеров"
+	container_ru_names = list(
+		NOMINATIVE = "ящик продвинутых авто-мендеров",
+		GENITIVE = "ящика продвинутых авто-мендеров",
+		DATIVE = "ящику продвинутых авто-мендеров",
+		ACCUSATIVE = "ящик продвинутых авто-мендеров",
+		INSTRUMENTAL = "ящиком продвинутых авто-мендеров",
+		PREPOSITIONAL = "ящике продвинутых авто-мендеров",
+	)
+	cost = 5000
+	contains = list(
+		/obj/item/reagent_containers/applicator/abductor/industrial,
+		/obj/item/reagent_containers/applicator/abductor/industrial,
+		/obj/item/reagent_containers/applicator/abductor/industrial,
+	)
+
+/datum/syndie_supply_packs/medical/autoimplanter
+	name = "Автоимплантер"
+	contains = list(
+		/obj/item/autoimplanter,
+	)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик с автоимплантером"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с автоимплантером",
+		GENITIVE = "ящика с автоимплантером",
+		DATIVE = "ящику с автоимплантером",
+		ACCUSATIVE = "ящик с автоимплантером",
+		INSTRUMENTAL = "ящиком с автоимплантером",
+		PREPOSITIONAL = "ящике с автоимплантером",
+	)
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1176,6 +1408,27 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
 	access = ACCESS_ROBOTICS
+
+/datum/syndie_supply_packs/science/modcore
+	name = "Ящик ядер МЭК"
+	contains = list(
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+	)
+	cost = 5000
+	access = ACCESS_ROBOTICS
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "ящик с ядрами МЭК"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с ядрами МЭК",
+		GENITIVE = "ящика с ядрами МЭК",
+		DATIVE = "ящику с ядрами МЭК",
+		ACCUSATIVE = "ящик с ядрами МЭК",
+		INSTRUMENTAL = "ящиком с ядрами МЭК",
+		PREPOSITIONAL = "ящике с ядрами МЭК",
+	)
 
 /datum/syndie_supply_packs/science/syndie_exosuit_fabricator_circuit
 	name = "Syndicate Exosuit Fabricator Crate"
@@ -1282,7 +1535,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/reagent_containers/food/drinks/oilcan,
 	)
 	cost = 100
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "oil tank crate"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1402,79 +1655,79 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/organic/cow
 	name = "Cow Crate"
 	cost = 300
-	containertype = /obj/structure/closet/critter/cow
+	containertype = /obj/structure/closet/crate/critter/cow
 	containername = "cow crate"
 
 /datum/syndie_supply_packs/organic/pig
 	name = "Pig Crate"
 	cost = 250
-	containertype = /obj/structure/closet/critter/pig
+	containertype = /obj/structure/closet/crate/critter/pig
 	containername = "pig crate"
 
 /datum/syndie_supply_packs/organic/goat
 	name = "Goat Crate"
 	cost = 250
-	containertype = /obj/structure/closet/critter/goat
+	containertype = /obj/structure/closet/crate/critter/goat
 	containername = "goat crate"
 
 /datum/syndie_supply_packs/organic/chicken
 	name = "Chicken Crate"
 	cost = 200
-	containertype = /obj/structure/closet/critter/chick
+	containertype = /obj/structure/closet/crate/critter/chick
 	containername = "chicken crate"
 
 /datum/syndie_supply_packs/organic/turkey
 	name = "Turkey Crate"
 	cost = 200
-	containertype = /obj/structure/closet/critter/turkey
+	containertype = /obj/structure/closet/crate/critter/turkey
 	containername = "turkey crate"
 
 /datum/syndie_supply_packs/organic/corgi
 	name = "Corgi Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/corgi
+	containertype = /obj/structure/closet/crate/critter/corgi
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "corgi crate"
 
 /datum/syndie_supply_packs/organic/dog_pug
 	name = "Dog Pug Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/dog_pug
+	containertype = /obj/structure/closet/crate/critter/dog_pug
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "dog pug crate"
 
 /datum/syndie_supply_packs/organic/dog_bullterrier
 	name = "Dog Bullterrie Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/dog_bullterrier
+	containertype = /obj/structure/closet/crate/critter/dog_bullterrier
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "dog bullterrie crate"
 
 /datum/syndie_supply_packs/organic/dog_tamaskan
 	name = "Dog Tamaskan Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/dog_tamaskan
+	containertype = /obj/structure/closet/crate/critter/dog_tamaskan
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "dog tamaskan crate"
 
 /datum/syndie_supply_packs/organic/dog_german
 	name = "Dog German Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/dog_german
+	containertype = /obj/structure/closet/crate/critter/dog_german
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "dog german crate"
 
 /datum/syndie_supply_packs/organic/dog_brittany
 	name = "Dog Brittany Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/dog_brittany
+	containertype = /obj/structure/closet/crate/critter/dog_brittany
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "dog brittany crate"
 
 /datum/syndie_supply_packs/organic/cat
 	name = "Cat Crate"
 	cost = 500 //Cats are worth as much as corgis.
-	containertype = /obj/structure/closet/critter/cat
+	containertype = /obj/structure/closet/crate/critter/cat
 	contains = list(
 		/obj/item/clothing/accessory/petcollar,
 		/obj/item/toy/cattoy,
@@ -1484,98 +1737,98 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/organic/cat/white
 	name = "White Cat Crate"
 	containername = "white crate"
-	containertype = /obj/structure/closet/critter/cat_white
+	containertype = /obj/structure/closet/crate/critter/cat_white
 
 /datum/syndie_supply_packs/organic/cat/birman
 	name = "Birman Cat Crate"
 	containername = "birman crate"
-	containertype = /obj/structure/closet/critter/cat_birman
+	containertype = /obj/structure/closet/crate/critter/cat_birman
 
 /datum/syndie_supply_packs/organic/fox
 	name = "Fox Crate"
 	cost = 550 //Foxes are cool.
-	containertype = /obj/structure/closet/critter/fox
+	containertype = /obj/structure/closet/crate/critter/fox
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "fox crate"
 
 /datum/syndie_supply_packs/organic/fennec
 	name = "Fennec Crate"
 	cost = 800
-	containertype = /obj/structure/closet/critter/fennec
+	containertype = /obj/structure/closet/crate/critter/fennec
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "fennec crate"
 
 /datum/syndie_supply_packs/organic/butterfly
 	name = "Butterfly Crate"
 	cost = 500
-	containertype = /obj/structure/closet/critter/butterfly
+	containertype = /obj/structure/closet/crate/critter/butterfly
 	containername = "butterfly crate"
 
 /datum/syndie_supply_packs/organic/deer
 	name = "Deer Crate"
 	cost = 560 //Deer are best.
-	containertype = /obj/structure/closet/critter/deer
+	containertype = /obj/structure/closet/crate/critter/deer
 	containername = "deer crate"
 
 /datum/syndie_supply_packs/organic/sloth
 	name = "Sloth Crate"
 	cost = 600
-	containertype = /obj/structure/closet/critter/sloth
+	containertype = /obj/structure/closet/crate/critter/sloth
 	contains = list(/obj/item/clothing/accessory/petcollar)
 	containername = "sloth crate"
 
 /datum/syndie_supply_packs/organic/goose
 	name = "Goose Crate"
 	cost = 300
-	containertype = /obj/structure/closet/critter/goose
+	containertype = /obj/structure/closet/crate/critter/goose
 	containername = "goose crate"
 
 /datum/syndie_supply_packs/organic/gosling
 	name = "Gosling Crate"
 	cost = 300
-	containertype = /obj/structure/closet/critter/gosling
+	containertype = /obj/structure/closet/crate/critter/gosling
 	containername = "gosling crate"
 
 /datum/syndie_supply_packs/organic/frog
 	name = "Frog Crate"
 	cost = 600
-	containertype = /obj/structure/closet/critter/frog
+	containertype = /obj/structure/closet/crate/critter/frog
 	containername = "frog crate"
 
 /datum/syndie_supply_packs/organic/frog/toxic
 	name = "Toxic Frog Crate"
 	cost = 1200
-	containertype = /obj/structure/closet/critter/frog/toxic
+	containertype = /obj/structure/closet/crate/critter/frog/toxic
 	containername = "toxic frog crate"
 
 /datum/syndie_supply_packs/organic/snail
 	name = "Snail Crate"
 	cost = 600
-	containertype = /obj/structure/closet/critter/snail
+	containertype = /obj/structure/closet/crate/critter/snail
 	containername = "snail crate"
 
 /datum/syndie_supply_packs/organic/turtle
 	name = "Turtle Crate"
 	cost = 700
-	containertype = /obj/structure/closet/critter/turtle
+	containertype = /obj/structure/closet/crate/critter/turtle
 	containername = "turtle crate"
 
 /datum/syndie_supply_packs/organic/iguana
 	name = "Iguana Crate"
 	cost = 800
-	containertype = /obj/structure/closet/critter/iguana
+	containertype = /obj/structure/closet/crate/critter/iguana
 	containername = "iguana crate"
 
 /datum/syndie_supply_packs/organic/gator
 	name = "Gator Crate"
 	cost = 1500	//most dangerous
-	containertype = /obj/structure/closet/critter/gator
+	containertype = /obj/structure/closet/crate/critter/gator
 	containername = "gator crate"
 
 /datum/syndie_supply_packs/organic/croco
 	name = "Croco Crate"
 	cost = 1000
-	containertype = /obj/structure/closet/critter/croco
+	containertype = /obj/structure/closet/crate/critter/croco
 	containername = "croco crate"
 
 ////// hippy gear
@@ -1835,8 +2088,81 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/structure/reagent_dispensers/watertank,
 	)
 	cost = 80
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "water tank crate"
+
+/datum/syndie_supply_packs/misc/syndie_cutouts
+	name = "Адаптивные картонные фигуры"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/cutouts,
+		/obj/item/storage/box/syndie_kit/cutouts,
+		/obj/item/storage/box/syndie_kit/cutouts,
+	)
+	cost = 100
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик адаптивных картонных фигур"
+	container_ru_names = list(
+		NOMINATIVE = "ящик адаптивных картонных фигур",
+		GENITIVE = "ящика адаптивных картонных фигур",
+		DATIVE = "ящику адаптивных картонных фигур",
+		ACCUSATIVE = "ящик адаптивных картонных фигур",
+		INSTRUMENTAL = "ящиком адаптивных картонных фигур",
+		PREPOSITIONAL = "ящике адаптивных картонных фигур",
+	)
+
+/datum/syndie_supply_packs/misc/tape_roll_thick
+	name = "Плотная изолента"
+	contains = list(
+		/obj/item/stack/tape_roll/thick,
+		/obj/item/stack/tape_roll/thick,
+		/obj/item/stack/tape_roll/thick,
+	)
+	cost = 200
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик плотных изолент"
+	container_ru_names = list(
+		NOMINATIVE = "ящик плотных изолент",
+		GENITIVE = "ящика плотных изолент",
+		DATIVE = "ящику плотных изолент",
+		ACCUSATIVE = "ящик плотных изолент",
+		INSTRUMENTAL = "ящиком плотных изолент",
+		PREPOSITIONAL = "ящике плотных изолент",
+	)
+
+/datum/syndie_supply_packs/misc/powerfist
+	name = "Реверсивные карты"
+	contains = list(
+		/obj/item/syndicate_reverse_card,
+		/obj/item/syndicate_reverse_card,
+	)
+	cost = 500
+	containertype = /obj/structure/closet/crate/syndicate
+	containername = "ящик реверсивных карт"
+	container_ru_names = list(
+		NOMINATIVE = "ящик реверсивных карт",
+		GENITIVE = "ящика реверсивных карт",
+		DATIVE = "ящику реверсивных карт",
+		ACCUSATIVE = "ящик реверсивных карт",
+		INSTRUMENTAL = "ящиком реверсивных карт",
+		PREPOSITIONAL = "ящике реверсивных карт",
+	)
+
+/datum/syndie_supply_packs/misc/loader
+	name = "Мотоцикл"
+	contains = list(
+		/obj/vehicle/ridden/motorcycle,
+	)
+	cost = 3000
+	containertype = /obj/structure/closet/crate/secure/large
+	containername = "ящик с мотоциклом"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с мотоциклом",
+		GENITIVE = "ящика с мотоциклом",
+		DATIVE = "ящику с мотоциклом",
+		ACCUSATIVE = "ящик с мотоциклом",
+		INSTRUMENTAL = "ящиком с мотоциклом",
+		PREPOSITIONAL = "ящике с мотоциклом",
+	)
 
 /datum/syndie_supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
@@ -1844,7 +2170,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/structure/reagent_dispensers/watertank/high,
 	)
 	cost = 120
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "high-capacity water tank crate"
 
 /datum/syndie_supply_packs/misc/lasertag
@@ -2020,7 +2346,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/shoes/galoshes,
 	)
 	cost = 100
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "janitorial cart crate"
 
 /datum/syndie_supply_packs/misc/janitor/janitank
@@ -2566,6 +2892,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/implanter/freedom,
 		/obj/item/implanter/emp,
 		/obj/item/implanter/adrenalin,
+		/obj/item/implanter/heal,
 		/obj/item/implanter/explosive,
 		/obj/item/implanter/storage,
 		/obj/item/encryptionkey/syndicate,

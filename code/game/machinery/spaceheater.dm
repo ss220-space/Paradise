@@ -17,9 +17,20 @@
 
 /obj/machinery/space_heater/Initialize(mapload)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src)
+	if(ispath(cell))
+		cell = new cell(src)
 	update_icon()
-	return
+
+	var/static/list/tool_behaviors = list(
+		TOOL_SCREWDRIVER = list(
+			SCREENTIP_CONTEXT_LMB = "Открыть/закрыть люк",
+		),
+
+		TOOL_WRENCH = list(
+			SCREENTIP_CONTEXT_LMB = "Закрепить",
+		),
+	)
+	AddElement(/datum/element/contextual_screentip_tools, tool_behaviors)
 
 /obj/machinery/space_heater/Destroy()
 	QDEL_NULL(cell)

@@ -383,7 +383,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/irradiated/meteor_effect()
 	. = ..()
 	explosion(src, light_impact_range = 4, flash_range = 3, adminlog = FALSE, cause = src)
-	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
+	new /obj/effect/decal/cleanable/greenglow/filled(get_turf(src))
 	radiation_pulse(src, max_range = 3, threshold = RAD_MEDIUM_INSULATION, chance = 80)
 
 //Station buster Tunguska

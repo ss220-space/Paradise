@@ -41,6 +41,8 @@
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 
 	if(severity > 1)
 		if(prob(10 * severity))
@@ -92,6 +94,8 @@
 	aug_message = "You see prey everywhere you look..."
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/empproof/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	return
 
 // HUD implants
@@ -167,4 +171,22 @@
 	// Welding with thermals will still hurt your eyes a bit.
 
 /obj/item/organ/internal/cyberimp/eyes/shield/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	return
+
+/obj/item/organ/internal/cyberimp/eyes/hud/universal
+	name = "universal HUD implant"
+	desc = "Устанавливает подходящий вашей должности ИЛС имплант. Менее приоритетный, чем выбранные вручную импланты."
+	icon_state = "universal_implant"
+	aug_message = "Этот имплант не имеет смысла..."
+
+/obj/item/organ/internal/cyberimp/eyes/hud/universal/get_ru_names()
+		return list(
+		NOMINATIVE = "универсальный ИЛС имплант",
+		GENITIVE = "универсального ИЛС импланта",
+		DATIVE = "универсальному ИЛС импланту",
+		ACCUSATIVE = "универсальный ИЛС имплант",
+		INSTRUMENTAL = "универсальным ИЛС имплантом",
+		PREPOSITIONAL = "универсальном ИЛС импланте",
+	)

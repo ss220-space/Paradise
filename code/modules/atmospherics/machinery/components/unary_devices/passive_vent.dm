@@ -19,11 +19,9 @@
 	. = ..()
 	air_contents.volume = volume
 
-/obj/machinery/atmospherics/unary/passive_vent/process_atmos()
-	..()
-
+/obj/machinery/atmospherics/unary/passive_vent/process_atmos(seconds)
 	if(!node)
-		return 0
+		return FALSE
 
 	var/datum/milla_safe/passive_vent_processing/milla = new()
 	milla.invoke_async(src)

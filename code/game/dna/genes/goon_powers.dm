@@ -122,8 +122,8 @@
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 
-	selection_activated_message	= span_notice("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
-	selection_deactivated_message = span_notice("Ваш разум возвращается в нормальное состояние.")
+	selection_activated_message	= span_notice_alt("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
+	selection_deactivated_message = span_notice_alt("Ваш разум возвращается в нормальное состояние.")
 
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
@@ -399,8 +399,8 @@
 
 	clothes_req = FALSE
 
-	selection_activated_message	= span_notice("Ваше тело становится нестабильным.")
-	selection_deactivated_message = span_notice("Ваше тело возвращается в норму.")
+	selection_activated_message	= span_notice_alt("Ваше тело становится нестабильным.")
+	selection_deactivated_message = span_notice_alt("Ваше тело возвращается в норму.")
 
 	action_icon_state = "genetic_poly"
 	need_active_overlay = TRUE

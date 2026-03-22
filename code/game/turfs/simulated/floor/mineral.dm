@@ -28,7 +28,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
 
-/turf/simulated/floor/mineral/plasma/temperature_expose(temperature, volume)
+/turf/simulated/floor/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(temperature > 300)
 		PlasmaBurn()

@@ -25,6 +25,7 @@
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
+	custom_price = PAYCHECK_MIN * 0.05
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer	//The bottom stuff before the stamp but after the body
@@ -438,7 +439,7 @@
 
 	if(href_list["write"])
 		var/id = href_list["write"]																			/* Becаuse HTML */
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
 
 		topic_href_write(usr, id, input_element)
 
@@ -541,7 +542,7 @@
 	bundle.amount++
 	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
@@ -653,7 +654,7 @@
 
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
-	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes, but is not limited to, The Captain, The Heads of Staff and Central Command staff. You answer directly to the Nanotrasen Representative who will assist you in achieving your mission.<br>When required to achieve your primary responsibility, you should liaise with security and share resources; however, the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats, then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection; however, additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation, or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Internal affairs will also monitor and observe your conduct, and their mandate applies equally to security and Blueshield operations."
+	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes, but is not limited to, The Captain, The Heads of Staff and Central Command staff. You answer directly to the Nanotrasen Representative who will assist you in achieving your mission.<br>When required to achieve your primary responsibility, you should liaise with security and share resources; however, the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats, then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection; however, additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation, or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Lawyers will also monitor and observe your conduct, and their mandate applies equally to security and Blueshield operations."
 
 /obj/item/paper/ntrep
 	name = "paper- 'Nanotrasen Representative Mission Briefing'"

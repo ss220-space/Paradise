@@ -18,6 +18,11 @@
 
 	var/max_range = 7
 
+/obj/item/circuit_component/tostring/Destroy()
+	input_port = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/tostring/populate_ports()
 	input_port = add_input_port("Ввод", PORT_TYPE_ANY)
 	output = add_output_port("Результат", PORT_TYPE_STRING)

@@ -81,13 +81,19 @@ GLOBAL_LIST_EMPTY(safes)
 	// Combination generation
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
+	if(mapload)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
+
+/obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
-	for(var/obj/item/I in loc)
+	for(var/obj/item/item in loc)
+		if(item.density || item.anchored)
+			continue
 		if(space >= maxspace)
-			return
-		if(I.w_class + space <= maxspace)
-			space += I.w_class
-			I.forceMove(src)
+			break
+		if(item.w_class + space <= maxspace)
+			space += item.w_class
+			item.forceMove(src)
 
 /obj/structure/safe/Destroy()
 	GLOB.safes -= src
@@ -144,7 +150,9 @@ GLOBAL_LIST_EMPTY(safes)
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
-		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state, pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
+		drill_overlay.pixel_w = drill_x_offset
+		drill_overlay.pixel_z = drill_y_offset
 		. += drill_overlay
 
 /obj/structure/safe/attack_ghost(mob/user)

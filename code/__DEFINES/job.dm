@@ -106,7 +106,7 @@
 #define JOB_TITLE_ENGINEER "Station Engineer"
 #define JOB_TITLE_ENGINEER_TRAINEE "Trainee Engineer"
 #define JOB_TITLE_ATMOSTECH "Life Support Specialist"
-#define JOB_TITLE_MECHANIC "Mechanic"
+#define JOB_TITLE_MECHANIC "Spacepod Technician"
 
 // Central Command
 #define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"
@@ -137,7 +137,7 @@
 #define JOB_TITLE_WARDEN "Warden"
 #define JOB_TITLE_DETECTIVE "Detective"
 #define JOB_TITLE_JUDGE "Magistrate"
-#define JOB_TITLE_LAWYER "Internal Affairs Agent"
+#define JOB_TITLE_LAWYER "Lawyer"
 #define JOB_TITLE_OFFICER "Security Officer"
 #define JOB_TITLE_BRIGDOC "Brig Physician"
 #define JOB_TITLE_PILOT "Security Pod Pilot"

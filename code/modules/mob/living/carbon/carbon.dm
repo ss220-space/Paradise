@@ -3,6 +3,11 @@
 	GLOB.carbon_list += src
 
 /mob/living/carbon/Destroy()
+	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
+	if(back)
+		var/obj/item = back
+		temporarily_remove_item_from_inventory(item)
+		qdel(item)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		temporarily_remove_item_from_inventory(item)
@@ -144,10 +149,10 @@
 			if(isturf(thing.loc))
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
-	for(var/mob/M in src)
-		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_loc)
-		visible_message(span_danger("[M] вырыва[PLUR_ET_YUT(M)]ся из нутра [name]!"))
+	for(var/mob/target in src)
+		LAZYREMOVE(stomach_contents, target)
+		target.forceMove(drop_loc)
+		visible_message(span_danger("[target] вырыва[PLUR_ET_YUT(target)]ся из нутра [name]!"))
 
 /// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -401,9 +406,10 @@
 				to_chat(src, span_danger("Ваши глаза сильно болят от яркого света!"))
 				E.internal_receive_damage(rand(12, 16) + extra_damage, silent = TRUE)
 
-		if(E.damage > E.min_bruised_damage)
-			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
-			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
+		if(E.damage >= E.min_bruised_damage)
+			if(E.damage >= E.min_broken_damage)
+				EyeBlind(E.damage STATUS_EFFECT_CONSTANT)
+			EyeBlurry(clamp(floor((E.damage - E.min_bruised_damage) / 5) * 5 + EYE_BLUR_SCALE_STEP, 0, EYE_BLUR_SCALE_MAX_DURATION))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
@@ -492,18 +498,21 @@
 
 		return
 
-	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
-	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
+	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
+		return
 
-/mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
+
+/mob/living/carbon/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded?.force)
-			visible_message(span_danger("[name] impales [C] with [D], before dropping them on the ground!"))
-			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
-			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
-			C.Weaken(2 SECONDS)
-			D.melee_attack_chain(src, C) //attack animation / jedi spin
+		if(D.wielded && D.force)
+			visible_message(span_danger("[name] impales [throwned_mob] with [D], before dropping them on the ground!"))
+			throwned_mob.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
+			throwned_mob.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			throwned_mob.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, throwned_mob) //attack animation / jedi spin
 			C.emote("scream")
 			return
 	*/
@@ -645,7 +654,9 @@
 	// but no more than 50. Short throws are quieter. A fast throwing speed also makes the noise sharper.
 	frequency_number = frequency_number + (rand(-5, 5) / 100)
 
-	playsound(src, throwsound, min(8 * min(get_dist(loc, target), range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
+	var/volume = min(8 * min(get_dist(loc, target), range), 50)
+	if(volume >= SOUND_AUDIBLE_VOLUME_MIN)
+		playsound(src, throwsound, volume, vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
 		span_danger("[name][power_throw_text] броса[PLUR_ET_YUT(src)] [thrown_thing.declent_ru(ACCUSATIVE)]."),
@@ -922,9 +933,21 @@ so that different stomachs can handle things in different ways VB*/
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		add_sight(SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
 	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
 		add_sight(SEE_TURFS)
 		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		nightvision = max(nightvision, 8)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	if(HAS_TRAIT(src, TRAIT_ECHOLOCATOR))
+		add_sight(SEE_MOBS|SEE_TURFS)
+		lighting_alpha = max(lighting_alpha, LIGHTING_PLANE_ALPHA_INVISIBLE)
 
 	return ..()
 

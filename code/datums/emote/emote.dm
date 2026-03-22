@@ -201,7 +201,7 @@
 		else
 			log_emote(msg, user)
 
-		var/displayed_msg = "<b>[capitalize(user.declent_ru(NOMINATIVE))]</b> [msg]"
+		var/displayed_msg = "<b>[DECLENT_RU_CAP(user, NOMINATIVE)]</b> [msg]"
 
 		var/user_turf = get_turf(user)
 		if(user.client && !isobserver(user))
@@ -209,7 +209,7 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message(span_emote("([ghost_follow_link(user, ghost)])<b>[user]</b> [msg]"), chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+					ghost.show_message(span_emote("([ghost_follow_link(user, ghost)]) <b>[user]</b> [msg]"), chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
@@ -596,7 +596,7 @@
 	log_emote(text, src)
 	create_log(EMOTE_LOG, text)
 
-	var/ghost_text = "<b>[capitalize(declent_ru(NOMINATIVE))]</b> [text]"
+	var/ghost_text = "<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [text]"
 
 	var/origin_turf = get_turf(src)
 	if(client)

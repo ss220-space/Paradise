@@ -76,6 +76,7 @@
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
+	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	undyeable = TRUE
 	sprite_sheets = list(

@@ -35,6 +35,9 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+/obj/item/reagent_containers/food/get_short_name()
+	return declent_ru(NOMINATIVE)
+
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5) //Randomizes postion
@@ -58,11 +61,11 @@
 
 /obj/item/reagent_containers/food/set_APTFT()
 	set hidden = TRUE
-	..()
+	return
 
 /obj/item/reagent_containers/food/empty()
 	set hidden = TRUE
-	..()
+	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)

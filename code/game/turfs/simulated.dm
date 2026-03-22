@@ -4,6 +4,7 @@
 	rad_insulation = RAD_MEDIUM_INSULATION
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
+	abstract_type = /turf/simulated
 
 	var/wet = 0
 	var/image/wet_overlay = null

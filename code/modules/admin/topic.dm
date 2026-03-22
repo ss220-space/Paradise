@@ -387,12 +387,12 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		var/delmob = 0
+		var/delmob = FALSE
 		switch(tgui_alert(usr, "Delete old mob?", "Message", list("Yes", "No", "Cancel")))
 			if("Cancel")
 				return
 			if("Yes")
-				delmob = 1
+				delmob = TRUE
 
 		switch(href_list["simplemake"])
 			if("observer")
@@ -3571,15 +3571,15 @@
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else
-							SSnightshift.update_nightshift(FALSE, TRUE)
+							SSnightshift.update_nightshift(active = FALSE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift set to automatic."), confidential = TRUE)
 					if("On")
 						SSnightshift.can_fire = FALSE
-						SSnightshift.update_nightshift(TRUE, FALSE)
+						SSnightshift.update_nightshift(active = TRUE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift forced on."), confidential = TRUE)
 					if("Off")
 						SSnightshift.can_fire = FALSE
-						SSnightshift.update_nightshift(FALSE, FALSE)
+						SSnightshift.update_nightshift(active = FALSE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift forced off."), confidential = TRUE)
 
 			if("lavatype")

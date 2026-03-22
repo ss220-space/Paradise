@@ -376,3 +376,22 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 	var/list/arguments = list_filter.Copy()
 	arguments -= "priority"
 	return filter(arglist(arguments))
+
+/// Recursively applies a filter to a passed in static appearance, returns the modified appearance
+/proc/filter_appearance_recursive(mutable_appearance/filter, filter_to_apply)
+	var/mutable_appearance/modify = new(filter)
+	var/list/existing_filters = modify.filters.Copy()
+	modify.filters = list(filter_to_apply) + existing_filters
+
+	// Ideally this should be recursive to check for KEEP_APART elements that need this applied to it
+	// and RESET_COLOR flags but this is much simpler, and hopefully we don't have that point of layering here
+	if(modify.appearance_flags & KEEP_TOGETHER)
+		return modify
+
+	for(var/overlay_index in 1 to length(modify.overlays))
+		modify.overlays[overlay_index] = filter_appearance_recursive(modify.overlays[overlay_index], filter_to_apply)
+
+	for(var/underlay_index in 1 to length(modify.underlays))
+		modify.underlays[underlay_index] = filter_appearance_recursive(modify.underlays[underlay_index], filter_to_apply)
+
+	return modify

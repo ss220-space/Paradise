@@ -88,7 +88,7 @@
 		return .
 
 	if(!buf)
-		log_runtime(EXCEPTION("[src] used by [user] on [target] failed to initialize properly."), src)
+		stack_trace("[src] used by [user] on [target] failed to initialize properly.")
 		return .
 
 	var/attack_log = "injected with the Isolated [name]"
@@ -117,6 +117,9 @@
 		)
 	else
 		to_chat(user, span_notice("You inject yourself with [src]."))
+
+	var/cached_damage_coeff = damage_coeff
+	var/damage_coeff_squared = POW2(cached_damage_coeff)
 
 	add_attack_logs(user, target, attack_log, ATKLOG_ALL)
 	used = TRUE

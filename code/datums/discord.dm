@@ -37,6 +37,14 @@
 		var/sanitized_content = webhook_content
 		sanitized_content = replacetext(sanitized_content, "@everyone", "(Attempted atEveryone)")
 		sanitized_content = replacetext(sanitized_content, "@here", "(Attempted atHere)")
+
+		sanitized_content = replacetext(sanitized_content, "&#64;everyone", "(Attempted atEveryone)")
+		sanitized_content = replacetext(sanitized_content, "&#64;here", "(Attempted atHere)")
+
+		var/list/replacement_list = list("<@", "<&#64;", "&#60;@", "&#60;&#64;", "&lt;&#64;", "&lt;@")
+		for(var/to_replace in replacement_list)
+			sanitized_content = replacetext(sanitized_content, to_replace, "(Attempted ping)<")
+
 		// Fixes speech marks being replaced by invalid chars
 		// Note that we dont have to care about having to sanitize <> out, because discord handles that
 		sanitized_content = html_decode(sanitized_content)

@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
-	wait = 300
+	wait = 30 SECONDS
 	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
 	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(title)
  * Show the title screen to specific client.
  */
 /datum/controller/subsystem/title/proc/show_title_screen_to(client/viewer)
-	if(!viewer || !current_title_screen)
+	if(!viewer || !current_title_screen || SEND_SIGNAL(viewer, COMSIG_TILE_MENU_OPEN) & COMPONENT_BLOCK_OPEN)
 		return
 
 	INVOKE_ASYNC(current_title_screen, TYPE_PROC_REF(/datum/title_screen, show_to), viewer)
@@ -165,10 +165,8 @@ SUBSYSTEM_DEF(title)
 /datum/controller/subsystem/title/proc/update_preview(client/viewer)
 	if(!viewer)
 		return
-	if(viewer.byond_version < 516)
-		viewer << output("", "title_browser:update_preview_515")
-	else
-		viewer << output("", "title_browser:update_preview")
+
+	viewer << output("", "title_browser:update_preview")
 
 /datum/controller/subsystem/title/proc/update_servers_list(client/viewer)
 	if(!viewer)
@@ -441,11 +439,6 @@ SUBSYSTEM_DEF(title)
 
 			function update_preview() {
 				charPreview.src = "previewicon.png";
-			}
-
-			function update_preview_515() {
-				charPreview.src = "";
-				setTimeout(update_preview, 100); // TODO: change after 516
 			}
 
 			function update_servers_list() {

@@ -226,9 +226,9 @@
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
-	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))
-	stage4	= list(span_danger("Ваша кровь кипит!"))
-	stage5	= list(span_danger("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
+	stage3	= list(span_danger_alt("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger_alt("Ваши зубы кажутся острее."))
+	stage4	= list(span_danger_alt("Ваша кровь кипит!"))
+	stage5	= list(span_danger_alt("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
 	new_form = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
 //Lava Staff
@@ -282,7 +282,7 @@
 
 	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
 		timer = world.time + create_delay + 1
-		user.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] [user] даёт сбой!"))
+		user.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [user] даёт сбой!"))
 		do_sparks(5, FALSE, user)
 		return
 

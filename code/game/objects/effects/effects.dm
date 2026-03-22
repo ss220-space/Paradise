@@ -1,9 +1,8 @@
-
-//objects in /obj/effect should never be things that are attackable, use obj/structure instead.
-//Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
-
+// Objects in /obj/effect should never be things that are attackable, use obj/structure instead.
+// Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
+	abstract_type = /obj/effect
 	obj_flags = IGNORE_HITS
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|FREEZE_PROOF
 	move_resist = INFINITY
@@ -16,10 +15,11 @@
 	return
 
 /obj/effect/singularity_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 	return FALSE
 
-/obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/acid_act()
@@ -38,6 +38,9 @@
 	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity, target)
+	if(QDELETED(src))
+		return FALSE
+
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			qdel(src)
@@ -48,7 +51,7 @@
 			if(prob(25))
 				qdel(src)
 
-/obj/effect/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/effect/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
 
 /**
@@ -99,7 +102,7 @@
 /obj/effect/abstract/acid_act()
 	return
 
-/obj/effect/abstract/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/abstract/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/abstract/get_gravity(turf/gravity_turf)

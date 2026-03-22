@@ -23,7 +23,7 @@
 /datum/dna2/record/Destroy(force)
 	dna = null
 	mind = null
-	. = ..()
+	return ..()
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
@@ -636,8 +636,10 @@
 			irradiating = 0
 			connected.locked = lock_state
 
+			var/precision_coeff = connected.precision_coeff
+
 			if(connected.occupant)
-				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
+				if(prob((80 + ((radiation_duration / 2) + POW3(precision_coeff)))))
 					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					var/real_SE_block=selected_se_block

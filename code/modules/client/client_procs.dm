@@ -3,10 +3,10 @@
 	////////////
 
 #define UPLOAD_LIMIT 10485760 //Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION 515 // Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION 513 // Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION 515 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD 1633 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION 514 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD 1566 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -1187,7 +1187,7 @@
 /// If they are not an observer, will try to aghost them.
 /client/proc/admin_follow(atom/movable/target)
 	if(!isobserver(mob))
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_ghost)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/admin_ghost)
 
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
@@ -1231,11 +1231,6 @@
 			var/atom/movable/screen/screen_object = object
 			if(!screen_object.clear_with_screen)
 				continue
-		if(istype(object, /atom/movable/render_plane_relay) || \
-			istype(object, /atom/movable/screen/parallax_layer) || \
-			istype(object, /atom/movable/screen/plane_master/))
-			continue
-
 		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
@@ -1666,13 +1661,8 @@
 			target.reagents.add_reagent(chosen_id, amount)
 			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
 
+/// This grabs the DPI of the user per their skin
 /client/proc/acquire_dpi()
-	set waitfor = FALSE
-
-	// Remove with 516
-	if(byond_version < 516)
-		return
-
 	window_scaling = text2num(winget(src, null, "dpi"))
 
 // This is in its own proc so we can async it out

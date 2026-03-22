@@ -297,11 +297,13 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(temperature, volume)
+/obj/structure/grille/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(!broken)
-		if(temperature > T0C + 1500)
-			take_damage(1, BURN, 0, 0)
+	if(broken)
+		return
+
+	if(exposed_temperature > T0C + 1500)
+		take_damage(1, BURN, 0, 0)
 
 /obj/structure/grille/hitby(atom/movable/atom_movable, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isobj(atom_movable))

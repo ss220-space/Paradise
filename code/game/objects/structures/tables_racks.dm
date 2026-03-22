@@ -55,7 +55,7 @@
 	. = ..()
 
 	if(flip_check())
-		. += span_notice("Можно <b>кликнуть в намерении \"Обезоружить\"</b> чтобы [flipped ? "вернуть [src.declent_ru(ACCUSATIVE)] в исходное положение" : "перевернуть [src.declent_ru(ACCUSATIVE)]"].")
+		. += span_notice("Можно <b>кликнуть в намерении \"Обезоружить\"</b> чтобы [flipped ? "вернуть [declent_ru(ACCUSATIVE)] в исходное положение" : "перевернуть [declent_ru(ACCUSATIVE)]"].")
 
 	. += deconstruction_hints(user)
 
@@ -112,8 +112,8 @@
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
 			user.visible_message(
-				span_notice("[capitalize(user.declent_ru(NOMINATIVE))] кладёт [user.pulling.declent_ru(ACCUSATIVE)] на [src.declent_ru(ACCUSATIVE)]."),
-				span_warning("Вы кладёте [user.pulling.declent_ru(ACCUSATIVE)] на [src.declent_ru(ACCUSATIVE)].")
+				span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] кладёт [user.pulling.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."),
+				span_warning("Вы кладёте [user.pulling.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)].")
 			)
 			user.stop_pulling()
 	else if(user.a_intent == INTENT_DISARM)
@@ -229,7 +229,7 @@
 		to_chat(user, span_danger("Бросок [victim.declent_ru(ACCUSATIVE)] на стол может причинить вред!"))
 		return FALSE
 	if(victim.buckled)
-		to_chat(user, span_warning("[capitalize(victim.declent_ru(NOMINATIVE))] уже пристегнут к [victim.buckled.declent_ru(DATIVE)]!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(victim, NOMINATIVE)] уже пристегнут к [victim.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	var/obj/blocking_object = density_check(user)
 	if(blocking_object)
@@ -239,8 +239,8 @@
 	victim.Weaken(4 SECONDS)
 	item_placed(victim)
 	victim.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_YUT(user)] [victim.declent_ru(GENITIVE)] на [src.declent_ru(ACCUSATIVE)]."),
-		span_userdanger("[user] толка[PLUR_ET_YUT(user)] вас на [src.declent_ru(ACCUSATIVE)]."),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [victim.declent_ru(GENITIVE)] на [declent_ru(ACCUSATIVE)]."),
+		span_userdanger("[user] толка[PLUR_ET_YUT(user)] вас на [declent_ru(ACCUSATIVE)]."),
 	)
 	add_attack_logs(user, victim, "Pushed onto a table")
 	return TRUE
@@ -357,7 +357,7 @@
 			to_chat(user, span_notice("Никак не поддаётся."))
 			return
 
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] переворачивает [src.declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] переворачивает [declent_ru(ACCUSATIVE)]!"))
 
 		if(climbable)
 			structure_shaken()
@@ -502,7 +502,7 @@
 	return TRUE
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
-	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
 	var/turf/T = get_turf(src)
 	playsound(T, SFX_SHATTER, 50, TRUE)
 	for(var/I in debris)
@@ -872,8 +872,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] пинает [src.declent_ru(ACCUSATIVE)]."),
-		span_danger("Вы пинаете [src.declent_ru(ACCUSATIVE)].")
+		span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] пинает [declent_ru(ACCUSATIVE)]."),
+		span_danger("Вы пинаете [declent_ru(ACCUSATIVE)].")
 	)
 	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
@@ -990,7 +990,7 @@
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
 		user.visible_message(
-			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] собирает [GR.declent_ru(ACCUSATIVE)]."),
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] собирает [GR.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы собираете [GR.declent_ru(ACCUSATIVE)].")
 		)
 		GR.add_fingerprint(user)
@@ -1046,7 +1046,7 @@
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
 		user.visible_message(
-			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] собирает [R.declent_ru(ACCUSATIVE)]."),
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] собирает [R.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы собираете [R.declent_ru(ACCUSATIVE)].")
 		)
 		R.add_fingerprint(user)
