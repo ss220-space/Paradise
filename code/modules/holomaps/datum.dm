@@ -9,12 +9,19 @@
 
 	/// This set to TRUE when the station map is initialized on a zLevel that doesn't have its own icon formatted for use by station holomaps.
 	var/bogus = TRUE
+	/// Redraw location turf
 	var/turf/location_turf
+	/// Z level of map
 	var/map_z
+	/// Flag for add map legend
 	var/show_legend
+	/// Bottom left corner x for crop (0 for disable crop)
 	var/crop_x
+	/// Bottom left corner y for crop (0 for disable crop)
 	var/crop_y
+	/// Crop size by x (world.maxx for disable crop)
 	var/crop_w
+	/// Crop size by y (world.maxy for disable crop)
 	var/crop_h
 
 /datum/station_holomap/New()
@@ -39,11 +46,11 @@
 		crop_w = world.maxx
 		crop_h = world.maxy
 		if(crop)
-			crop_x = crop["x1"]
-			crop_y = crop["y1"]
-			crop_w = crop["x2"] - crop_x
-			crop_h = crop["y2"] - crop_y
-			big_map.Crop(crop_x, crop_y, crop["x2"], crop["y2"])
+			crop_x = crop[CROP_X1]
+			crop_y = crop[CROP_Y1]
+			crop_w = crop[CROP_X2] - crop_x
+			crop_h = crop[CROP_Y2] - crop_y
+			big_map.Crop(crop_x, crop_y, crop[CROP_X2], crop[CROP_Y2])
 		base_map = image(big_map)
 
 	if(isAI(user) || isAIEye(user))

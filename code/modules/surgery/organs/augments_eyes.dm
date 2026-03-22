@@ -217,7 +217,7 @@
 /obj/item/organ/internal/cyberimp/eyes/map/Destroy()
 	holomap_datum = null
 	current_turf = null
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
@@ -264,7 +264,7 @@
 	current_turf = get_turf(user)
 	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size/2)
 	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size/2)
-	var/list/crop_params = list("x1" = crop_x, "y1" = crop_y, "x2" = crop_x + crop_size, "y2" = crop_y + crop_size)
+	var/list/crop_params = list(CROP_X1 = crop_x, CROP_Y1 = crop_y, CROP_X2 = crop_x + crop_size, CROP_Y2 = crop_y + crop_size)
 	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays(user), show_legend = FALSE, crop = crop_params)
 
 
@@ -292,8 +292,8 @@
 	overlays[name] = list("icon" = image('icons/misc/8x8.dmi', icon_state = icon_name), "markers" = markers)
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/is_in_crop_area(turf/target)
-	return target.x >= (current_turf.x - crop_size/2)  && target.x <= (current_turf.x + crop_size/2)\
-		&& target.y >= (current_turf.y - crop_size/2)  && target.y <= (current_turf.y + crop_size/2)
+	return target.x >= (current_turf.x - crop_size / 2)  && target.x <= (current_turf.x + crop_size / 2)\
+		&& target.y >= (current_turf.y - crop_size / 2)  && target.y <= (current_turf.y + crop_size / 2)
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/check_position(mob/moved_mob)
@@ -355,7 +355,7 @@
 		var/turf/check_turf = get_turf(check)
 		create_overlay_icon("security", check_turf, mindshields)
 
-	create_overlays_entry(extra_overlays, "Mindshields", icon_name="security", markers=mindshields)
+	create_overlays_entry(extra_overlays, "Mindshields", icon_name = "security", markers = mindshields)
 	return extra_overlays
 
 
@@ -384,9 +384,9 @@
 		else if(hassensorlevel(check, SUIT_SENSOR_TRACKING))
 			create_overlay_icon("medical_sensor", check_turf, medical_sensors)
 
-	create_overlays_entry(extra_overlays, "Death bodies", icon_name="death_body", markers=death_bodies)
-	create_overlays_entry(extra_overlays, "Critical states", icon_name="critical_state", markers=critical_states)
-	create_overlays_entry(extra_overlays, "Medical sensors", icon_name="medical_sensor", markers=medical_sensors)
+	create_overlays_entry(extra_overlays, "Death bodies", icon_name = "death_body", markers = death_bodies)
+	create_overlays_entry(extra_overlays, "Critical states", icon_name = "critical_state", markers = critical_states)
+	create_overlays_entry(extra_overlays, "Medical sensors", icon_name = "medical_sensor", markers = medical_sensors)
 	return extra_overlays
 
 
@@ -416,8 +416,8 @@
 		var/alarm_turf = get_turf(air_alarm)
 		create_overlay_icon("atmos_marker", alarm_turf, air_alarms)
 
-	create_overlays_entry(extra_overlays, "Fire Alarms", icon_name="fire_marker", markers=fire_alarms)
-	create_overlays_entry(extra_overlays, "Air Alarms", icon_name="atmos_marker", markers=air_alarms)
+	create_overlays_entry(extra_overlays, "Fire Alarms", icon_name = "fire_marker", markers = fire_alarms)
+	create_overlays_entry(extra_overlays, "Air Alarms", icon_name = "atmos_marker", markers = air_alarms)
 	return extra_overlays
 
 
@@ -448,8 +448,8 @@
 		var/turf/disk_location = get_turf(the_disk)
 		create_overlay_icon("nuclear_disk", disk_location, nuclear_disks)
 
-	create_overlays_entry(extra_overlays, "Teammates", icon_name="nuker", markers=teammates)
-	create_overlays_entry(extra_overlays, "Crew members", icon_name="crew", markers=crew_members)
-	create_overlays_entry(extra_overlays, "Nuclear authentification disk", icon_name="nuclear_disk", markers=nuclear_disks)
+	create_overlays_entry(extra_overlays, "Teammates", icon_name = "nuker", markers = teammates)
+	create_overlays_entry(extra_overlays, "Crew members", icon_name = "crew", markers = crew_members)
+	create_overlays_entry(extra_overlays, "Nuclear authentification disk", icon_name = "nuclear_disk", markers = nuclear_disks)
 	return extra_overlays
 

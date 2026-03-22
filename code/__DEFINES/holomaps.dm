@@ -44,3 +44,8 @@
 
 #define HOLOMAP_CENTER_X round((HOLOMAP_ICON_SIZE - world.maxx) / 2)
 #define HOLOMAP_CENTER_Y round((HOLOMAP_ICON_SIZE - world.maxy) / 2)
+
+#define CROP_X1 "x1"
+#define CROP_X2 "x2"
+#define CROP_Y1 "y1"
+#define CROP_Y2 "y2"
