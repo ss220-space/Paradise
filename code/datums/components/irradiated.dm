@@ -91,6 +91,8 @@
 		qdel(src)
 		return PROCESS_KILL
 
+	SEND_SIGNAL(parent, COMSIG_IRRADIATED_PROCESS, seconds_per_tick, beginning_of_irradiation)
+
 	if(should_halt_effects(parent))
 		return
 

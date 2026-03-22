@@ -1,3 +1,5 @@
+#define IRRADIATION_PROB 30
+
 /datum/disease/virus/nuclefication // YOU WILL NEVER ESCAPE
 	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
@@ -83,15 +85,17 @@
 		return organ_check
 
 /datum/disease/virus/nuclefication/proc/radiate(mob/living/carbon/human)
-	SSradiation.irradiate(human)
+	if(prob(IRRADIATION_PROB))
+		SSradiation.irradiate(human)
 	radiation_pulse(
 		source = human,
 		max_range = 1,
-		chance = 40,
+		chance = IRRADIATION_PROB,
 	)
 
+
 /datum/disease/virus/nuclefication/proc/destiny(mob/living/carbon/H, silenced = FALSE)
-	var/destiny = rand(1,3) // What is your destiny?
+	var/destiny = rand(1, 3) // What is your destiny?
 	switch(destiny)
 		if(1)
 			var/obj/item/organ/external/limb = check_available_limbs(H, FALSE)
@@ -105,3 +109,5 @@
 		if(3)
 			var/obj/item/organ/internal/organ = check_available_organs(H)
 			organ?.necrotize()
+
+#undef IRRADIATION_PROB

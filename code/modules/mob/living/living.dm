@@ -820,6 +820,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	cure_radiation()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)

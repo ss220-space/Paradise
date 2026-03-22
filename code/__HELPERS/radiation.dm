@@ -62,12 +62,14 @@
 		// We could get irradiated! The only thing stopping us now is chance, so scale based on that.
 		if(pulse_information.chance >= EXTREME_RADIATION_CHANCE)
 			return PERCEIVED_RADIATION_DANGER_EXTREME
-		return PERCEIVED_RADIATION_DANGER_HIGH
-
-	// We're out of the threshold from being irradiated, but by how much?
-	if(insulation_to_target / pulse_information.threshold <= MEDIUM_RADIATION_THRESHOLD_RANGE)
-		return PERCEIVED_RADIATION_DANGER_MEDIUM
-	return PERCEIVED_RADIATION_DANGER_LOW
+		else
+			return PERCEIVED_RADIATION_DANGER_HIGH
+	else
+		// We're out of the threshold from being irradiated, but by how much?
+		if(insulation_to_target / pulse_information.threshold <= MEDIUM_RADIATION_THRESHOLD_RANGE)
+			return PERCEIVED_RADIATION_DANGER_MEDIUM
+		else
+			return PERCEIVED_RADIATION_DANGER_LOW
 
 /// A common proc used to send COMSIG_ATOM_PROPAGATE_RAD_PULSE to adjacent atoms
 /// Only used for uranium (false/tram)walls to spread their radiation pulses

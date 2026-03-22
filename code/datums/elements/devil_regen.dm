@@ -142,6 +142,7 @@
 		TRUE,
 		TRUE
 	)
+	human.cure_radiation()
 
 	apply_status_effects(human, regen_amount)
 	apply_cure(human, devil)
