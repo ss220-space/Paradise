@@ -12,7 +12,7 @@
 	borer.Communicate()
 
 /datum/action/innate/borer/toggle_hide
-	name = "Переключить Скрытность"
+	name = "Спрятаться"
 	desc = "Спрячьтесь под предметами. Включается или выключается."
 	button_icon_state = "borer_hiding_false"
 
@@ -150,7 +150,7 @@
 	borer.host.sneak_mode()
 
 /datum/action/innate/borer/focus_menu
-	name = "Меню Фокусов"
+	name = "Меню Фокусировки"
 	desc = "Усиль своего хозяина."
 	button_icon_state = "human_form"
 

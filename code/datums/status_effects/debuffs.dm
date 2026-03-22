@@ -1572,7 +1572,7 @@
 		return
 
 	if(host.reagents.has_reagent("sugar"))
-		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым, питание прервано."))
+		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком слабым"))
 		qdel(src)
 		return
 
