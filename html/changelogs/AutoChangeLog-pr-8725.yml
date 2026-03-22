@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - del: "Удаление старых спрайтов оружия с глушителем (PR #8725)"

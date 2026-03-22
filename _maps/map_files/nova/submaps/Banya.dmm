@@ -145,7 +145,7 @@
 	},
 /area/maintenance/abandonedclub)
 "ff" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4;
 	color = "#85130b"
 	},
@@ -870,7 +870,7 @@
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "vT" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4;
 	color = "#85130b"
 	},
@@ -2060,11 +2060,11 @@ AZ
 hq
 Zr
 WW
-jk
+no
 ff
 kL
 vT
-no
+jk
 yM
 jY
 Wb
