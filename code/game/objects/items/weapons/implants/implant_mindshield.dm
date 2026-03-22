@@ -27,7 +27,7 @@
 
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
-		ADD_TRAIT(target, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE)
+		ADD_TRAIT(target, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE(src))
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human = target
@@ -46,7 +46,7 @@
 	if(. && target.stat != DEAD && !silent)
 		to_chat(target, span_boldnotice("Your mind softens. You feel susceptible to the effects of brainwashing once more."))
 
-	REMOVE_TRAIT(target, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE)
+	REMOVE_TRAIT(target, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE(src))
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human = target
@@ -115,20 +115,18 @@
 	if(!imp_in)
 		return
 
-	var/is_active = HAS_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD)
+	var/is_active = HAS_TRAIT_FROM(imp_in, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE(src))
 
 	if(!is_active)
-		ADD_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE)
+		ADD_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE(src))
 	else
-		REMOVE_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE)
+		REMOVE_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE(src))
 
 	update_icon()
 
-	if(!ishuman(imp_in))
-		return
-
-	var/mob/living/carbon/human/human = imp_in
-	human.sec_hud_set_implants()
+	if(ishuman(imp_in))
+		var/mob/living/carbon/human/H = imp_in
+		H.sec_hud_set_implants()
 
 /obj/item/implant/fake_mindshield/update_icon_state()
 	var/is_active = HAS_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD)
