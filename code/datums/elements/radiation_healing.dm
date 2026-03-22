@@ -58,3 +58,9 @@
 
 	if(SPT_PROB(round((exposure_time / RADIATION_CONSUME_TIME) * 100), seconds_per_tick))
 		human.cure_radiation()
+
+#undef BRUTE_HEAL_AMOUNT
+#undef BURN_HEAL_AMOUNT
+#undef INTERNAL_HEAL_AMOUNT
+#undef MIN_RADIATION_DURATION_FOR_HEALING
+#undef RADIATION_CONSUME_TIME
