@@ -44,11 +44,10 @@
 	..()
 
 	// base init
-	subscriber_account = subscriber
+	set_subscriber_account(subscriber)
 	active = TRUE
 	cancel_reason = null
 	subscription_type_path = type
-	register_for_signals()
 
 	// check that it is a subscription - template
 	if(!(subscriber_account == recipient_account))
@@ -56,8 +55,9 @@
 		SSsubscriptions_subsystem.add_subscription(src)
 
 /datum/subscription/Destroy()
-	subscriber_account = null
-	recipient_account = null
+	set_subscriber_account(null)
+	set_recipient_account(null)
+	GLOB.all_subscriptions -= src
 	. = ..()
 
 /datum/subscription/proc/subscription_process()
@@ -81,12 +81,7 @@
 		cancel()
 		return
 
-	subscriber_account?.notify_pda_owner(
-		"<b> Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. \" (Невозможно Ответить)",
-		SUBSCRIPTION_NOTI_NO_REPLY)
-	recipient_account?.notify_pda_owner(
-		"<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)",
-		SUBSCRIPTION_NOTI_NO_REPLY)
+	notify_payment_success()
 
 /**
  *	cancel(reason)
@@ -96,12 +91,7 @@
 /datum/subscription/proc/cancel(reason = CANCEL_USER)
 	active = FALSE
 	cancel_reason = reason
-	subscriber_account?.notify_pda_owner(
-		"<b> Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. \" (Невозможно Ответить)",
-		SUBSCRIPTION_NOTI_NO_REPLY)
-	recipient_account?.notify_pda_owner(
-		"<b> Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)",
-		SUBSCRIPTION_NOTI_NO_REPLY)
+	notify_cancelled()
 
 /datum/subscription/proc/resub()
 	if(subscriber_account.suspended || recipient_account.suspended)
@@ -111,7 +101,25 @@
 	cancel_reason = null
 	if(SSsubscriptions_subsystem)
 		SSsubscriptions_subsystem.add_subscription(src)
+	notify_resubscribed()
 
+/datum/subscription/proc/notify_payment_success()
+	subscriber_account?.notify_pda_owner(
+		"<b> Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. \" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
+	recipient_account?.notify_pda_owner(
+		"<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
+
+/datum/subscription/proc/notify_cancelled()
+	subscriber_account?.notify_pda_owner(
+		"<b> Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. \" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
+	recipient_account?.notify_pda_owner(
+		"<b> Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)",
+		SUBSCRIPTION_NOTI_NO_REPLY)
+
+/datum/subscription/proc/notify_resubscribed()
 	subscriber_account?.notify_pda_owner(
 		"<b> Уведомление о возобновлении действия подписки</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки восстановлено. \" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
@@ -120,18 +128,35 @@
 		"<b> Уведомление о возобновлении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] возобновил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов активированы. Мониторинг транзакций возобновлен.\" (Невозможно Ответить)",
 		SUBSCRIPTION_NOTI_NO_REPLY)
 
-/**
- * Registers this subscription for signals from accounts.
- * Called once when the subscription is created.
- */
-/datum/subscription/proc/register_for_signals()
+/datum/subscription/proc/set_subscriber_account(datum/money_account/new_account)
+	if(subscriber_account == new_account)
+		return
+
 	if(subscriber_account)
-		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_SUSPENDED, PROC_REF(handle_account_suspended))
-		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_MONEY_CHANGED, PROC_REF(handle_money_changed))
-		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_UNSUSPENDED, PROC_REF(handle_account_unsuspended))
+		UnregisterSignal(subscriber_account, COMSIG_ACCOUNT_SUSPENDED)
+		UnregisterSignal(subscriber_account, COMSIG_ACCOUNT_MONEY_CHANGED)
+		UnregisterSignal(subscriber_account, COMSIG_ACCOUNT_UNSUSPENDED)
+
+	subscriber_account = new_account
+
+	if(subscriber_account)
+		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_SUSPENDED, PROC_REF(handle_account_suspended), TRUE)
+		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_MONEY_CHANGED, PROC_REF(handle_money_changed), TRUE)
+		RegisterSignal(subscriber_account, COMSIG_ACCOUNT_UNSUSPENDED, PROC_REF(handle_account_unsuspended), TRUE)
+
+/datum/subscription/proc/set_recipient_account(datum/money_account/new_account)
+	if(recipient_account == new_account)
+		return
+
 	if(recipient_account && recipient_account != subscriber_account)
-		RegisterSignal(recipient_account, COMSIG_ACCOUNT_SUSPENDED, PROC_REF(handle_account_suspended))
-		RegisterSignal(recipient_account, COMSIG_ACCOUNT_UNSUSPENDED, PROC_REF(handle_account_unsuspended))
+		UnregisterSignal(recipient_account, COMSIG_ACCOUNT_SUSPENDED)
+		UnregisterSignal(recipient_account, COMSIG_ACCOUNT_UNSUSPENDED)
+
+	recipient_account = new_account
+
+	if(recipient_account && recipient_account != subscriber_account)
+		RegisterSignal(recipient_account, COMSIG_ACCOUNT_SUSPENDED, PROC_REF(handle_account_suspended), TRUE)
+		RegisterSignal(recipient_account, COMSIG_ACCOUNT_UNSUSPENDED, PROC_REF(handle_account_unsuspended), TRUE)
 
 /datum/subscription/proc/handle_account_suspended(datum/money_account/account)
 	SIGNAL_HANDLER

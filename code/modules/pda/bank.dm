@@ -10,10 +10,6 @@
 
 /datum/data/pda/app/bank/update_ui(mob/user, list/data)
 	var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
-	var/list/transactions_list = list()
-	var/list/possible_targets = list()
-	var/list/subs_list = list()
-	var/list/available_sub_list = list()
 
 	if(owner_bank_account == null)
 		data["name"] = "unknown"
@@ -34,7 +30,6 @@
 		last_login_card_id = pda.id
 
 	var/obj/item/card/id/checked_card = pda.id || last_login_card_id
-
 	if(!checked_card)
 		return
 
@@ -48,64 +43,68 @@
 	if(!data["loginState"]["logged_in"])
 		return
 
-	for(var/datum/transaction/account_transaction as anything in owner_bank_account.transaction_log)
-		transactions_list.Add(list(list(
-			"date" = account_transaction.date,
-			"time" = account_transaction.time,
-			"target_name" = account_transaction.target_name,
-			"purpose" = account_transaction.purpose,
-			"amount" = account_transaction.amount,
-			"source_terminal" = account_transaction.source_terminal
-		)))
+	data["transactions"] = get_transactions_list(owner_bank_account)
+	// Here are the names of the people/terminals where you can transfer money
+	data["targets"] = get_possible_targets(owner_bank_account)
 
+	var/list/subscriptions_data = get_active_subscriptions(owner_bank_account)
+
+	// Subscriptions that are already registered in the user's name
+	data["subscriptions"] = subscriptions_data["subscriptions"]
+	// Subscriptions that are NOT registered in the user's name and for them
+	// you will need to create a new one
+	data["availableSubs"] = get_available_subscriptions(subscriptions_data["names"])
+
+	data["balance"] = owner_bank_account.money
+	data["account_suspended"] = owner_bank_account.suspended
+
+/datum/data/pda/app/bank/proc/get_transactions_list(datum/money_account/account)
+	var/list/transactions_list = list()
+	for(var/datum/transaction/account_transaction as anything in account.transaction_log)
+		transactions_list.Add(list(account_transaction.get_ui_data()))
+	return transactions_list
+
+/datum/data/pda/app/bank/proc/get_possible_targets(datum/money_account/exclude_account)
+	var/list/possible_targets = list()
 	for(var/datum/money_account/target_account as anything in GLOB.all_money_accounts)
-		if(!target_account.suspended && !(target_account.owner_name == owner_bank_account.owner_name))
+		if(!target_account.suspended && !(target_account.owner_name == exclude_account.owner_name))
 			possible_targets.Add(target_account.owner_name)
+	return possible_targets
 
-	/// This list will store the names of subscriptions to which a person has already subscribed
-	/// or interacted, so as not to re-create the subscription.
+/datum/data/pda/app/bank/proc/get_active_subscriptions(datum/money_account/user_account)
+	var/list/subs_list = list()
 	var/list/active_sub_names = list()
 
-	// We collect all subscriptions that were registered in a person's name.
-	// We use this to create a separate list in TGUI.
 	for(var/datum/subscription/registered_sub as anything in GLOB.all_subscriptions)
-		/// Check if the player is either a subscriber or a recipient
-		var/is_player_involved = (registered_sub.subscriber_account == owner_bank_account) || (registered_sub.recipient_account == owner_bank_account)
+		var/is_player_involved = (registered_sub.subscriber_account == user_account) || (registered_sub.recipient_account == user_account)
 
 		if(is_player_involved)
 			active_sub_names.Add(registered_sub.subscription_name)
 
 			var/counterpart_name = "Неизвестно"
-
-			if(registered_sub.subscriber_account == owner_bank_account)
+			if(registered_sub.subscriber_account == user_account)
 				counterpart_name = registered_sub.recipient_account.owner_name
 			else
 				counterpart_name = registered_sub.subscriber_account.owner_name
 
 			subs_list.Add(list(registered_sub.get_base_subscription_ui_data(counterpart_name,
-				(registered_sub.subscriber_account == owner_bank_account) ? "outgoing" : "incoming")))
+				(registered_sub.subscriber_account == user_account) ? "outgoing" : "incoming")))
 
-	// subscriptions that can be purchased
+	return list("names" = active_sub_names, "subscriptions" = subs_list)
+
+/datum/data/pda/app/bank/proc/get_available_subscriptions(list/exclude_names)
+	var/list/available_sub_list = list()
+
 	for(var/datum/subscription/purchased_subscription as anything in GLOB.available_subscriptions)
-		if(purchased_subscription.subscription_name in active_sub_names)
+		if(purchased_subscription.subscription_name in exclude_names)
 			continue
 
-		// check for "forced subscription"
 		if(purchased_subscription.secure)
 			continue
 
 		available_sub_list.Add(list(purchased_subscription.get_template_subscription_ui_data()))
 
-	data["balance"] = owner_bank_account.money
-	data["transactions"] = transactions_list
-	// Here are the names of the people/terminals where you can transfer money
-	data["targets"] = possible_targets
-	// Subscriptions that are already registered in the user's name
-	data["subscriptions"] = subs_list
-	// Subscriptions that are NOT registered in the user's name and for them
-	// you will need to create a new one
-	data["availableSubs"] = available_sub_list
-	data["account_suspended"] = owner_bank_account.suspended
+	return available_sub_list
 
 /datum/data/pda/app/bank/ui_act(action, params)
 	if(pda.ui_login_act(action, params))
@@ -144,11 +143,6 @@
 
 			/// additional options for your subscriptions
 			var/list/extra_params = list()
-
-			//If you have additional parameters, write them something like this:
-			// if(sub_type == /datum/subscription/salary_modifier)
-			//	    body
-			//	    extra_params["modifier"] = modifier
 
 			create_subscription(sub_acc, sub_type, extra_params)
 			return

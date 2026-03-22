@@ -86,6 +86,7 @@ export const pda_bank = (props: unknown) => {
         <Window.Content>
           <Stack fill vertical>
             <Section
+              fill
               title={
                 <Box fontSize="22px" bold textAlign="center">
                   <Icon name="university" color="blue" mr={1} />

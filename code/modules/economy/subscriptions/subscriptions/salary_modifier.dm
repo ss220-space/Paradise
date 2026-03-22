@@ -20,12 +20,12 @@
 	var/base_paycheck = curr_job?.paycheck || 0
 
 	if(modifier <= 0)
-		subscriber_account = target_account
-		recipient_account = GLOB.station_account
+		set_subscriber_account(target_account)
+		set_recipient_account(GLOB.station_account)
 		cost = abs(base_paycheck * (modifier / 100))
 	else
-		subscriber_account = GLOB.station_account
-		recipient_account = target_account
+		set_subscriber_account(GLOB.station_account)
+		set_recipient_account(target_account)
 		cost = base_paycheck * (modifier / 100)
 
 	..(subscriber_account, null)
@@ -43,12 +43,12 @@
 	var/base_paycheck = user_job?.paycheck || 0
 
 	if(modifier < 0)
-		recipient_account = GLOB.station_account
-		subscriber_account = target_account
+		set_recipient_account(GLOB.station_account)
+		set_subscriber_account(target_account)
 		cost = abs(base_paycheck * (modifier / 100))
 	else
-		recipient_account = target_account
-		subscriber_account = GLOB.station_account
+		set_recipient_account(target_account)
+		set_subscriber_account(GLOB.station_account)
 		cost = base_paycheck * (modifier / 100)
 
 	active = TRUE

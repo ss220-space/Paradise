@@ -5,7 +5,7 @@
 	interval = 5 MINUTES
 
 /datum/subscription/station_donations/New(subscriber, extra_params)
-	recipient_account = GLOB.station_account
+	set_recipient_account(GLOB.station_account)
 	cost = 100
 	interval = 5 MINUTES
 	subscription_name = "Фонд развития станции"

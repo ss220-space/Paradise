@@ -186,6 +186,16 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	var/time = ""
 	var/source_terminal = ""
 
+/datum/transaction/proc/get_ui_data()
+	return list(
+		"date" = date,
+		"time" = time,
+		"target_name" = target_name,
+		"purpose" = purpose,
+		"amount" = amount,
+		"source_terminal" = source_terminal
+	)
+
 // attempt_account_number - Recipient account
 // datum/money_account/source - Sender account
 /obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)

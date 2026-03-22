@@ -1,12 +1,6 @@
 // ======================================================================================
 //								    Additional Tools
 // ======================================================================================
-/proc/find_subscription_with_name(subscriber_account_name, target_subscription_name)
-	for(var/datum/subscription/check_subscription as anything in GLOB.all_subscriptions)
-		if(check_subscription.subscription_name ==  target_subscription_name && check_subscription.subscriber_account.owner_name == subscriber_account_name)
-			return check_subscription
-	return
-
 /proc/find_subscription_with_type(subscriber_account_name, subscription_type)
 	for(var/datum/subscription/checked_sub as anything in GLOB.all_subscriptions)
 		if(checked_sub.subscription_type_path == subscription_type && checked_sub.subscriber_account.owner_name == subscriber_account_name)
@@ -27,26 +21,26 @@
 	subscription_type,
 	extra_params
 )
-	// 9 rounds of testing
-	if(!subscriber_account || !is_money_account(subscriber_account))
-		to_chat(usr, span_warning("Ошибка: неверный аккаунт подписчика."))
-		return FALSE
+	validate_subscription_inputs(subscriber_account, subscription_type)
 
-	if(!subscription_type || !ispath(subscription_type,/datum/subscription))
-		to_chat(usr, span_warning("Ошибка: неверный тип подписки."))
-		return FALSE
-
-	if(subscriber_account.suspended)
-		to_chat(usr, span_warning("Ошибка: аккаунт #[subscriber_account.account_number] заблокирован."))
-		return FALSE
-
-	/// Find a template in the catalog of available subscriptions
+	// Find a template in the catalog of available subscriptions
 	var/datum/subscription/template = locate(subscription_type) in GLOB.available_subscriptions
 
 	if(!template)
-		to_chat(usr, span_warning("Ошибка: подписка типа [subscription_type] не найдена в каталоге."))
+		CRASH("Subscription type [subscription_type] not found in catalog - forgot to register it?")
+
+	find_existhing(subscriber_account, subscription_type, template)
+
+	var/datum/subscription/new_sub = new subscription_type(subscriber_account, extra_params)
+
+	if(!is_subscription(new_sub) || !new_sub.active)
+		to_chat(usr, span_warning("Критическая ошибка: не удалось создать или активировать подписку."))
 		return FALSE
 
+	to_chat(usr, span_good("Подписка '[new_sub.subscription_name]' успешно оформлена."))
+	return TRUE
+
+/proc/find_existhing(datum/money_account/subscriber_account, subscription_type, datum/subscription/template)
 	var/datum/subscription/existing = find_subscription_with_type(subscriber_account.owner_name, subscription_type)
 
 	if(existing)
@@ -62,14 +56,17 @@
 				to_chat(usr, span_warning("Не удалось восстановить подписку '[template.subscription_name]'."))
 				return FALSE
 
-	var/datum/subscription/new_sub = new subscription_type(subscriber_account, extra_params)
-
-	if(!new_sub || !is_subscription(new_sub) || !new_sub.active)
-		to_chat(usr, span_warning("Критическая ошибка: не удалось создать или активировать подписку."))
+/proc/validate_subscription_inputs(datum/money_account/subscriber_account, subscription_type)
+	if(!is_money_account(subscriber_account))
+		to_chat(usr, span_warning("Ошибка: неверный аккаунт подписчика."))
 		return FALSE
 
-	to_chat(usr, span_good("Подписка '[new_sub.subscription_name]' успешно оформлена."))
-	return TRUE
+	if(!subscription_type)
+		CRASH("Invalid subscription type: [subscription_type]")
+
+	if(subscriber_account.suspended)
+		to_chat(usr, span_warning("Ошибка: аккаунт #[subscriber_account.account_number] заблокирован."))
+		return FALSE
 
 /**
  * This process is one of the basic ones; if you don’t add your subscription
@@ -77,7 +74,7 @@
 */
 /datum/controller/subsystem/subscriptions_subsystem/proc/initialize_catalog()
 	GLOB.available_subscriptions.Cut()
-	/// Because this is a DEMONSTRATION SUBSCRIPTION (the one that is not active, but which shows what subscriptions exist),
-	/// you must make sure that this subscription has sender and recipient accounts GLOB.station_account
+	// Because this is a DEMONSTRATION SUBSCRIPTION (the one that is not active, but which shows what subscriptions exist),
+	// you must make sure that this subscription has sender and recipient accounts GLOB.station_account
 	GLOB.available_subscriptions += new /datum/subscription/station_donations(GLOB.station_account)
 	GLOB.available_subscriptions += new /datum/subscription/salary_modifier(GLOB.station_account)
