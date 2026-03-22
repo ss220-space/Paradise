@@ -122,7 +122,7 @@
 	else
 		REMOVE_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD, UNIQUE_TRAIT_SOURCE(src))
 
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 	if(ishuman(imp_in))
 		var/mob/living/carbon/human/H = imp_in
