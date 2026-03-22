@@ -331,8 +331,8 @@
 /**
  * MARK:Revolution flash
  */
-//shitspawn
-/obj/item/flash/revolutionary
+
+/obj/item/flash/revolutionary //shitspawn
 	origin_tech = "magnets=3;combat=2;syndicate=2"
 	cooldown_duration = 3 SECONDS
 	can_overcharge = FALSE
