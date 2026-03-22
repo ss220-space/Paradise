@@ -36,7 +36,7 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(firer, projectilesound, 100)
-		casing.fire(target, firer, zone_override = ran_zone())
+		casing.fire(target, firer, params = null, distro = null, quiet = FALSE, zone_override = ran_zone(), firer_source_atom = firer)
 		casing.after_fire()
 
 	else if(projectiletype)

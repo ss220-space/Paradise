@@ -3,7 +3,7 @@ import { parseChangelog } from "./changelogParser.js";
 const safeYml = (string) =>
   string.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n");
 
-export function changelogToYml(changelog, login) {
+export function changelogToYml(changelog, login, prNumber) {
   const author = changelog.author || login;
   const ymlLines = [];
 
@@ -12,8 +12,12 @@ export function changelogToYml(changelog, login) {
   ymlLines.push(`changes:`);
 
   for (const change of changelog.changes) {
+    let description = change.description;
+    if (!description.includes(`#${prNumber}`)) {
+      description += ` (PR #${prNumber})`;
+    }
     ymlLines.push(
-      `  - ${change.type.changelogKey}: "${safeYml(change.description)}"`,
+      `  - ${change.type.changelogKey}: "${safeYml(description)}"`,
     );
   }
 
@@ -30,6 +34,7 @@ export async function processAutoChangelog({ github, context }) {
   const yml = changelogToYml(
     changelog,
     context.payload.pull_request.user.login,
+	context.payload.pull_request.number,
   );
 
   github.rest.repos.createOrUpdateFileContents({

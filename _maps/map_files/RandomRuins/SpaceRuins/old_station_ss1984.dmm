@@ -3184,7 +3184,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "le" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
@@ -7279,7 +7279,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
 "zq" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood{
 	broken = 1;

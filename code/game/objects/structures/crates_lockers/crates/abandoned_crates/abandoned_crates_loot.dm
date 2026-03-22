@@ -13,11 +13,13 @@
 	. = ..()
 
 	if(!length(loot))
-		return
+		return INITIALIZE_HINT_QDEL
 
 	for(var/atom in loot)
 		for(var/i in 1 to loot[atom])
 			new atom(loc)
+
+	return INITIALIZE_HINT_QDEL
 
 // MARK: Thematic spawners
 /obj/effect/spawner/abandoned_crate/booze
@@ -405,3 +407,17 @@
 		loot[cannabis_type] = (loot[cannabis_type] || 0) + 1
 
 	return ..()
+
+/obj/effect/spawner/abandoned_crate/bwoink
+	name = "bwoink spawner"
+	loot = list(
+		/obj/item/banhammer = 1,
+		/obj/effect/mine/sound/bwoink = 3
+		)
+
+/obj/effect/spawner/abandoned_crate/bwoink/Initialize(mapload)
+	. = ..()
+
+	for(var/obj/effect/mine/sound/bwoink/mine in loc)
+		mine.set_anchored(FALSE)
+		mine.move_resist = MOVE_RESIST_DEFAULT

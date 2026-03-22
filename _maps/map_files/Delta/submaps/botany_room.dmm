@@ -714,10 +714,6 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/maintenance/garden)
-"GU" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/template_noop)
 "Hd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -1875,7 +1871,7 @@ qr
 qr
 qr
 yg
-GU
+Lq
 qr
 "}
 (26,1,1) = {"

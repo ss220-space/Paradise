@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - add: "Добавлен фейковый имплант МЩ для триторов (PR #8544)"

@@ -165,6 +165,8 @@
 #define TRAIT_BADASS "trait_badass"
 /// Mantis blades trait for lunging
 #define TRAIT_CANT_LUNGE "cant_lunge"
+/// Trait for Mindshield HUD in sec HUDs
+#define TRAIT_MINDSHIELD_HUD "mindshield_hud"
 
 /**
  * Traits for ventcrawling.

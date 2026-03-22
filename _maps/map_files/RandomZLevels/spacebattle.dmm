@@ -1213,7 +1213,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "dM" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -13569,7 +13569,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "LU" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,

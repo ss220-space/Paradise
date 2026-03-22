@@ -1486,10 +1486,6 @@
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"eB" = (
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wwmines)
 "eC" = (
 /obj/item/soap/syndie,
 /turf/simulated/floor/plasteel{
@@ -1684,10 +1680,6 @@
 	},
 /obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"fc" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/wall/mineral/sandstone,
 /area/awaymission/wwmines)
 "fd" = (
 /obj/structure/window/reinforced{
@@ -2121,13 +2113,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
-"gl" = (
-/obj/effect/decal/cleanable/blood/gibs/body{
-	icon_state = "gibdown1";
-	tag = "icon-gibdown1"
-	},
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/wwmines)
 "gm" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -28411,7 +28396,7 @@ bh
 bh
 bn
 bh
-fc
+eX
 aX
 aR
 aR
@@ -28916,7 +28901,7 @@ bh
 bh
 gP
 eX
-fc
+eX
 aX
 eX
 bh
@@ -28926,7 +28911,7 @@ bh
 bh
 bh
 eX
-fc
+eX
 aR
 aG
 aG
@@ -30203,11 +30188,11 @@ dU
 aX
 aX
 bd
-fc
+eX
 eX
 eX
 cf
-eB
+eX
 eX
 eX
 eX
@@ -30714,11 +30699,11 @@ eX
 eX
 eX
 eX
-fc
-ff
-fc
 eX
-eB
+ff
+eX
+eX
+eX
 eX
 eX
 eX
@@ -31742,7 +31727,7 @@ bh
 fs
 bh
 bh
-eB
+eX
 aX
 eX
 bh
@@ -31752,7 +31737,7 @@ bh
 bh
 bh
 gP
-eB
+eX
 dK
 aR
 aG
@@ -32258,7 +32243,7 @@ bh
 bh
 eX
 aX
-eB
+eX
 dk
 cw
 bh
@@ -33805,9 +33790,9 @@ eX
 dM
 eX
 eX
-eB
 eX
-fc
+eX
+eX
 eX
 aX
 aR
@@ -35340,13 +35325,13 @@ eX
 eX
 eX
 eX
-gl
+eX
 eX
 cf
 cf
 eX
 eX
-eB
+eX
 eX
 eX
 eX
@@ -38431,7 +38416,7 @@ bv
 cY
 bh
 bh
-eB
+eX
 bh
 eo
 eX
@@ -40744,7 +40729,7 @@ bh
 eX
 bh
 bh
-eB
+eX
 bh
 bh
 eX
@@ -41761,7 +41746,7 @@ cw
 bh
 bh
 bh
-eB
+eX
 fX
 ge
 ge
