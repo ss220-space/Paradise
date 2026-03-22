@@ -1207,7 +1207,7 @@
 			update_appearance(UPDATE_NAME)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(access_id)
 			to_chat(user, span_notice("There is already [access_id] clipped onto [src]."))

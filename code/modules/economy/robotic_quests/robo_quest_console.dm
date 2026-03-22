@@ -75,7 +75,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -89,7 +89,7 @@
 	return ..()
 
 /obj/machinery/computer/roboquest/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 
 	. = TRUE

@@ -637,7 +637,7 @@
 
 	//high velocity mechas in your face!
 	var/breakthrough = FALSE
-	if(istype(bumped_atom, /obj/structure/window))
+	if(is_window(bumped_atom))
 		qdel(bumped_atom)
 		breakthrough = TRUE
 
@@ -646,7 +646,7 @@
 		grille.obj_break()
 		breakthrough = TRUE
 
-	else if(istype(bumped_atom, /obj/structure/table))
+	else if(istable(bumped_atom))
 		qdel(bumped_atom)
 		breakthrough = TRUE
 
@@ -906,7 +906,7 @@
 		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list(TOGGLE_ID, TOGGLE_MAINTENANCE))
 		if(!choose || !Adjacent(user))

@@ -383,7 +383,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["mob"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -514,7 +514,7 @@
 		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locateUID(href_list["appearanceban"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 		if(!M.ckey)	//sanity
@@ -564,7 +564,7 @@
 //			return
 
 		var/mob/M = locateUID(href_list["jobban2"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -813,7 +813,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["jobban4"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1084,7 +1084,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["newban"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
@@ -1187,7 +1187,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["mute"])
-		if(!istype(M, /mob))	return
+		if(!ismob(M))	return
 		if(!M.client)	return
 
 		var/mute_type = href_list["mute_type"]
@@ -1366,7 +1366,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1411,7 +1411,7 @@
 
 		var/mob/M = locateUID(href_list["eraseflavortext"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1442,7 +1442,7 @@
 
 		var/mob/M = locateUID(href_list["userandomname"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -1522,10 +1522,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1549,10 +1549,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1576,10 +1576,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1600,10 +1600,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -1701,10 +1701,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, span_warning("This cannot be used on instances of type /mob/living/silicon/ai"), confidential = TRUE)
 			return
 
@@ -2282,7 +2282,7 @@
 
 		var/mob/M = locateUID(href_list["CentcommReply"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -2294,7 +2294,7 @@
 
 		var/mob/M = locateUID(href_list["SyndicateReply"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -2306,7 +2306,7 @@
 
 		var/mob/M = locateUID(href_list["HeadsetMessage"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
@@ -2739,7 +2739,7 @@
 		var/dirty_paths
 		if(istext(href_list["object_list"]))
 			dirty_paths = list(href_list["object_list"])
-		else if(istype(href_list["object_list"], /list))
+		else if(islist(href_list["object_list"]))
 			dirty_paths = href_list["object_list"]
 
 		var/paths = list()
@@ -2824,7 +2824,7 @@
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name
-								if(istype(O,/mob))
+								if(ismob(O))
 									var/mob/M = O
 									M.real_name = obj_name
 							if(where == "inhand" && isliving(usr) && isitem(O))
@@ -3305,7 +3305,7 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
-					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
+					if(isclothing(W) || is_id_card(W) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/weapons/projectile.dmi'
 					W.icon_state = "revolver"

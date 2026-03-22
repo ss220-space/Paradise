@@ -199,7 +199,7 @@
 		. += crayon.colourName
 
 /obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		switch(crayon.colourName)
 			if("mime")

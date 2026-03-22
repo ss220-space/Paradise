@@ -29,7 +29,7 @@
 	return 1
 
 /datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || istype(M,/mob/dead/observer))
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)

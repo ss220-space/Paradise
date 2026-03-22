@@ -268,7 +268,7 @@
 		if(O)
 			to_chat(user, span_notice("Вы извлекли нож из ботинка."))
 			O.forceMove_turf()
-			if(istype(loc, /mob))
+			if(ismob(loc))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O, ignore_anim = FALSE)

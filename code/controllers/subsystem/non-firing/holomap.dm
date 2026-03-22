@@ -1,11 +1,11 @@
 /// Turfs that will be colored as HOLOMAP_ROCK
-#define IS_ROCK(tile) (istype(tile, /turf/simulated/mineral) && tile.density)
+#define IS_ROCK(tile) (ismineralturf(tile) && tile.density)
 /// Turfs that will be colored as HOLOMAP_OBSTACLE
-#define IS_OBSTACLE(tile) (istype(tile, /turf/simulated/wall) ||  (locate(/obj/structure/window) in tile))
+#define IS_OBSTACLE(tile) (iswallturf(tile) ||  (locate(/obj/structure/window) in tile))
 /// Turfs that will be colored as HOLOMAP_SOFT_OBSTACLE
 #define IS_SOFT_OBSTACLE(tile) ((locate(/obj/structure/grille) in tile) || (locate(/obj/structure/lattice) in tile))
 /// Turfs that will be colored as HOLOMAP_PATH
-#define IS_PATH(tile) istype(tile, /turf/simulated/floor)
+#define IS_PATH(tile) isfloorturf(tile)
 /// Turfs that contain a Z transition, like ladders and stairs. They show with special animations on the map.
 #define HAS_Z_TRANSITION(tile) ((locate(/obj/structure/ladder) in tile) || (locate(/obj/structure/stairs) in tile))
 

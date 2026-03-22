@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	id.update_label()
 	if(!worn || worn == id)
 		return ..()
-	if(istype(worn,/obj/item/pda))
+	if(is_pda(worn))
 		var/obj/item/pda/PDA = worn
 		PDA.id = id
 	else if(istype(worn,/obj/item/storage/wallet))

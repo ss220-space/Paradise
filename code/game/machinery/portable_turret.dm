@@ -567,7 +567,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		var/obj/spacepod/SP = target
 		return assess_and_assign(SP.pilot)
 
-	if(istype(target, /obj/vehicle))
+	if(isvehicle(target))
 		var/obj/vehicle/T = target
 		if(T.has_buckled_mobs())
 			for(var/m in T.buckled_mobs)

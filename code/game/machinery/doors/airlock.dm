@@ -1303,7 +1303,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
-	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+	if(ispowertool(I))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, TRUE) //scary
 		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))

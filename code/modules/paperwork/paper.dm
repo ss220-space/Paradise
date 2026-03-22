@@ -86,7 +86,7 @@
 	. = ..()
 	. += span_notice("<b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.")
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_content(user)
 		else
 			. += span_notice("You have to go closer if you want to read it.")
@@ -347,7 +347,7 @@
 /obj/item/paper/proc/topic_href_write(mob/user, id, input_element)
 	var/obj/item/item_write = user.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
-	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
+	if(!is_pen(item_write) && !iscrayon(item_write))
 		return
 	if(loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user))
 		return // If paper is not in usr, then it must be near them
@@ -470,7 +470,7 @@
 		fire_act()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		if(!user.is_literate())
 			to_chat(user, span_warning("You don't know how to write!"))

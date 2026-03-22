@@ -53,7 +53,7 @@
 		new_sibyl.install(src, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(sibyl_mod && istype(I, /obj/item/card/id))
+	if(sibyl_mod && is_id_card(I))
 		add_fingerprint(user)
 		sibyl_mod.toggleAuthorization(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

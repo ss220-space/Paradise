@@ -186,7 +186,7 @@
 	. = ..()
 
 /obj/item/mortar_shell/custom/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/reagent_containers/glass) && !locked)
+	if(isglassreagentcontainer(I) && !locked)
 		if(!warhead)
 			to_chat(user, span_notice("[name] must contain a warhead to do that!"))
 			return ATTACK_CHAIN_PROCEED

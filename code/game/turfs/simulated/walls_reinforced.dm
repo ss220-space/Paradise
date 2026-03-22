@@ -207,7 +207,7 @@
 /turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params)
 	if(d_state != RWALL_COVER && d_state != RWALL_SUPPORT_RODS)	//Plasma cutter only works in the deconstruction steps!
 		return FALSE
-	if(!istype(I, /obj/item/weldingtool))
+	if(!iswelder(I))
 		return FALSE
 	if(d_state == RWALL_COVER)
 		to_chat(user, span_notice("You begin slicing through the metal cover..."))

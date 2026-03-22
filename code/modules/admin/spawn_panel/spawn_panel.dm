@@ -199,7 +199,7 @@
 
 	if(!left_click)
 		return TRUE
-	if(istype(target,/atom/movable/screen))
+	if(is_screen_atom(target))
 		return FALSE
 
 	var/turf/clicked_turf = get_turf(target)

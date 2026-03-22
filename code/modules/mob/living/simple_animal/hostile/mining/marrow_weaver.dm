@@ -107,7 +107,7 @@
 	var/foundorgans = 0
 	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
 	for(var/obj/item/organ/internal/I as anything in organs)
-		if(!istype(I, /obj/item/organ/internal/brain))
+		if(!is_internal_organ_brain(I))
 			foundorgans ++
 			if(!preparing)
 				qdel(I)

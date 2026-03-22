@@ -120,7 +120,7 @@
 			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
 			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-		else if(istype(I, /obj/item/soap))
+		else if(issoap(I))
 			cleaning = TRUE
 		if(!cleaning)
 			return ATTACK_CHAIN_PROCEED
@@ -439,7 +439,7 @@
 				cleaning = TRUE
 			else
 				return ATTACK_CHAIN_PROCEED
-		if(istype(W, /obj/item/soap))
+		if(issoap(W))
 			cleaning = TRUE
 
 		if(!cleaning)

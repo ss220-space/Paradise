@@ -109,7 +109,7 @@
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
 	. = ..()
-	ASSERT(istype(copy_to_turf, /turf/simulated))
+	ASSERT(issimulatedturf(copy_to_turf))
 	var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
 	if(slip)
 		var/datum/component/wet_floor/new_wet_floor_component = copy_to_turf.AddComponent(/datum/component/wet_floor)

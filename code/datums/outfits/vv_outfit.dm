@@ -126,7 +126,7 @@
 	var/obj/item/id_slot = get_item_by_slot(ITEM_SLOT_ID)
 	if(istype(id_slot, /obj/item/storage/wallet))
 		for(var/obj/item/item in id_slot)
-			if(istype(item, /obj/item/card/id))
+			if(is_id_card(item))
 				continue
 			if(O.backpack_contents[item.type])
 				O.backpack_contents[item.type] += 1

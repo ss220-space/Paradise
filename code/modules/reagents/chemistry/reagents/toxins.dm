@@ -1191,7 +1191,7 @@
 		if(HAS_TRAIT(C, TRAIT_PLANT_ORIGIN))	//plantmen take extra damage
 			C.adjustToxLoss(3)
 			..()
-	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+	else if(isnymph(M)) //nymphs take EVEN MORE damage
 		M.apply_damage(100)
 		..()
 
