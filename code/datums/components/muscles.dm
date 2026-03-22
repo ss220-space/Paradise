@@ -310,6 +310,7 @@
 	var/strength_req_to_upgrade
 	var/strength_examine
 	var/weak_mob_modifier
+	var/door_open_speed_modifier
 
 /datum/strength_level/weak
 	next_level = /datum/strength_level/normal
@@ -325,7 +326,7 @@
 	strength_req_to_upgrade = 10
 	strength_examine = "слаб"
 	weak_mob_modifier = 1
-
+	door_open_speed_modifier = 0.8
 /datum/strength_level/normal
 	next_level = /datum/strength_level/strong
 	prev_level = /datum/strength_level/weak
@@ -341,6 +342,7 @@
 	strength_req_to_upgrade = 20
 	strength_examine = "нормальн"
 	weak_mob_modifier = 0.75
+	door_open_speed_modifier = 1
 
 /datum/strength_level/strong
 	next_level = /datum/strength_level/ideal
@@ -357,6 +359,7 @@
 	strength_req_to_upgrade = 30
 	strength_examine = "сильн"
 	weak_mob_modifier = 0.5
+	door_open_speed_modifier = 1.5
 
 /datum/strength_level/ideal
 	next_level = /datum/strength_level/superhuman
@@ -373,6 +376,7 @@
 	strength_req_to_upgrade = 35
 	strength_examine = "очень сильн"
 	weak_mob_modifier = 0.25
+	door_open_speed_modifier = 2.5
 
 /datum/strength_level/superhuman
 	prev_level = /datum/strength_level/ideal
@@ -388,3 +392,4 @@
 	strength_req_to_upgrade = -1
 	strength_examine = "необыкновенно сильн"
 	weak_mob_modifier = 0
+	door_open_speed_modifier = 25

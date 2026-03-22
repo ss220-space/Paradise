@@ -62,12 +62,24 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list(
 		"beep" = 'sound/machines/twobeep.ogg',
-		"boom" = 'sound/effects/explosionfar.ogg',
+		"boop" = 'sound/machines/boop.ogg',
+		"blup" = 'sound/misc/blup.ogg',
+		"chime" = 'sound/machines/notif2.ogg',
 		"slip" = 'sound/misc/slip.ogg',
 		"honk" = 'sound/items/bikehorn.ogg',
 		"SKREE" = 'sound/voice/shriek1.ogg',
 		"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+		"boom" = 'sound/effects/explosionfar.ogg',
+		"gavel" = 'sound/items/gavel.ogg',
 		"xeno" = 'sound/voice/hiss1.ogg',
+		"smoke" = 'sound/magic/smoke.ogg',
+		"shatter" = 'sound/effects/pylon_shatter.ogg',
+		"energy" = 'sound/weapons/egloves.ogg',
+		"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
+		"interference" = 'sound/misc/interference.ogg',
+		"zap" = 'sound/effects/eleczap.ogg',
+		"disgusting" = 'sound/effects/blobattack.ogg',
+		"hungry" = 'sound/weapons/bite.ogg',
 		"stalk" = 'sound/items/PDA/stalk1.ogg',
 		"stalk2" = 'sound/items/PDA/stalk2.ogg',
 	)
@@ -78,7 +90,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
-		new/datum/data/pda/utility/flashlight)
+		new/datum/data/pda/utility/flashlight,
+	)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
@@ -538,29 +551,32 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	for(var/atom/A in src)
 		A.emp_act(severity)
 
-/obj/item/pda/proc/play_ringtone()
-	var/sound
-
-	if(ttone in ttone_sound)
-		sound = ttone_sound[ttone]
-	else
-		sound = 'sound/machines/twobeep_high.ogg'
-	playsound(loc, sound, 50, TRUE)
-	audible_message("[icon2html(src, hearers(3, loc))] *[ttone]*", hearing_distance = 3)
+/obj/item/pda/proc/play_ringtone(list/balloon_alertees)
+	var/sound_file = ttone_sound[ttone] ? ttone_sound[ttone] : 'sound/machines/twobeep_high.ogg'
+	playsound(loc, sound_file, 50, TRUE)
+	var/ring_message = "*[ttone]*"
+	audible_message(ring_message)
+	for(var/mob/living/alertee in balloon_alertees)
+		alertee.balloon_alert(alertee, ring_message)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
-	if(in_range(src, usr) && loc == usr)
-		if(new_tone)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
-				to_chat(usr, "The PDA softly beeps.")
-				close(usr)
-			else
-				ttone = new_tone
-			return 1
-	else
-		close(usr)
-	return 0
+	var/new_tone = tgui_input_text(user, "Введите новый рингтон", name, ttone, max_length = 20, encode = FALSE)
+	new_tone = trim(new_tone)
+
+	if(!in_range(src, user) || loc != user)
+		close(user)
+		return FALSE
+
+	if(!new_tone)
+		return FALSE
+
+	if(hidden_uplink && hidden_uplink.check_trigger(user, lowertext(new_tone), lowertext(lock_code)))
+		to_chat(user, "КПК издает тихий звуковой сигнал.")
+		close(user)
+		return TRUE
+
+	ttone = new_tone
+	return TRUE
 
 /obj/item/pda/process()
 	if(current_app)

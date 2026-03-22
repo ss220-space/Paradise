@@ -81,7 +81,7 @@
 
 // Central Command Dependent
 #define RC_BLUESHIELD "Blueshield"
-#define RC_INTERNAL_AFFAIRS_OFFICE "Internal Affairs Office"
+#define RC_LAWYER_OFFICE "Lawyer Office"
 #define RC_NT_REPRESENTATIVE "NT Representative"
 #define RC_CENTRAL_COMMAND "Central Command"
 

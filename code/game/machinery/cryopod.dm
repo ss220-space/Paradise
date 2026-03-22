@@ -318,7 +318,7 @@
 	if(occupant)
 		// Eject dead people
 		if(occupant.stat == DEAD)
-			go_out()
+			discard_occupant()
 			return
 
 		// Allow a gap between entering the pod and actually despawning.
@@ -482,6 +482,11 @@
 	QDEL_NULL(occupant)
 	update_icon(UPDATE_ICON_STATE)
 	name = initial(name)
+
+/obj/machinery/cryopod/proc/discard_occupant()
+	playsound(src, 'sound/machines/buzz-sigh.ogg', HALFWAY_SOUND_VOLUME, use_reverb = TRUE)
+	go_out()
+	balloon_alert_to_viewers("субъект отклонен")
 
 /obj/machinery/cryopod/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -725,6 +730,9 @@
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R))
+		return ..()
+	if(R.shell)
+		discard_occupant()
 		return ..()
 
 	R.contents -= R.mmi

@@ -20,6 +20,7 @@ SUBSYSTEM_DEF(holomaps)
 	var/static/list/holomaps = list()
 	var/static/list/extra_holomaps = list()
 	var/static/list/station_holomaps = list()
+	var/static/list/station_mini_holomaps = list()
 	var/static/list/holomap_z_transitions = list()
 	var/static/list/list/holomap_position_to_name = list()
 

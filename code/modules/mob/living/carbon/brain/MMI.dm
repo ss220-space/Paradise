@@ -27,8 +27,6 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
-	var/list/skin_permissions = list()
-
 /obj/item/mmi/Destroy()
 	QDEL_NULL(brainmob)
 	robot = null

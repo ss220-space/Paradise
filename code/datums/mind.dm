@@ -91,6 +91,9 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	///Owned cyborg skin permissions
+	var/list/cyborg_skin_permissions = list()
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src

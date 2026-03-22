@@ -266,3 +266,9 @@
 
 /obj/item/storage/secure/safe/attack_hand(mob/user)
 	return attack_self(user)
+
+/obj/item/storage/secure/safe/CMO/populate_contents()
+	new /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis(src)
+	new /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/synaptizine(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/omnizine(src)

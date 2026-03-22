@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
 	mess = TRUE
 	update_icon()
-	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично.</font>")
+	connected_message(span_warning("Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично!"))
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)

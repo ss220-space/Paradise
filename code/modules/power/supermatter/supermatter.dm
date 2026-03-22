@@ -246,6 +246,8 @@
 	var/ticks_per_run = 5
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
+	/// Datum, that handles all effects on station when sm explodes
+	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
 
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
@@ -275,6 +277,9 @@
 	if(!moveable)
 		move_resist = MOVE_FORCE_OVERPOWERING // Avoid being moved by statues or other memes
 
+	supermatter_explosive_effects = new()
+	supermatter_explosive_effects.z = src.z
+
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
 	if(warp)
 		vis_contents -= warp
@@ -290,6 +295,7 @@
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
 	QDEL_NULL(darkness_effects)
+	supermatter_explosive_effects = null
 	return ..()
 
 /obj/machinery/atmospherics/supermatter_crystal/examine(mob/user)
@@ -448,6 +454,10 @@
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
 	if(forced_gasmix_power_ratio)
 		gasmix_power_ratio = forced_gasmix_power_ratio
+
+	if(supermatter_explosive_effects)
+		supermatter_explosive_effects.z = z
+		supermatter_explosive_effects.handle_special_effects()
 
 	explosion(get_turf(source_turf), explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) * 0.5 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 2, explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 4 , explosion_power * max(gasmix_power_ratio, MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION) + 6, 1, 1, cause = "Exploding Supermatter")
 	qdel(src)

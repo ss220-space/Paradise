@@ -607,7 +607,7 @@
 
 /obj/item/grenade/frag/less
 	range = 2
-	max_shrapnel = 3
+	shrapnel_radius = 3
 
 /obj/item/ammo_box/secgl/exp
 	name = "ammo box (40mm frag)"

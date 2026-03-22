@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Название GPS сигнала у трекинг импланта теперь можно изменить (PR #8726)"

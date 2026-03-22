@@ -258,8 +258,8 @@
 	allowed_roles = list(JOB_TITLE_CCOFFICER)
 
 /datum/gear/uniform/skirt/job/internalaffairs
-	index_name = "skirt, internalaffairs"
-	path = /obj/item/clothing/under/rank/internalaffairs/skirt
+	index_name = "skirt, lawyer"
+	path = /obj/item/clothing/under/rank/lawyer/skirt
 	allowed_roles = list(JOB_TITLE_LAWYER)
 
 /datum/gear/uniform/medical

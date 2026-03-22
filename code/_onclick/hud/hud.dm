@@ -59,6 +59,7 @@
 	var/current_plane_offset = 0
 
 	var/atom/movable/screen/holomap/holomap
+	var/atom/movable/screen/holomap/mini_holomap
 
 	var/atom/movable/screen/button_palette/toggle_palette
 	var/atom/movable/screen/palette_scroll/down/palette_down
@@ -72,6 +73,10 @@
 	/// They typically use * in their render target. They exist solely so we can reuse them,
 	/// and avoid needing to make changes to all idk 300 consumers if we want to change the appearance
 	var/list/asset_refs_for_reuse = list()
+
+	/// Whether to use text or images for click hints.
+	/// Same behavior as `screentips_enabled`--very hot, updated when the preference is updated.
+	var/screentip_images = TRUE
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -154,6 +159,8 @@
 
 	mymob = null
 	QDEL_NULL(screentip_text)
+
+	QDEL_NULL(mini_holomap)
 	. = ..()
 
 /datum/hud/proc/client_refresh(datum/source)
