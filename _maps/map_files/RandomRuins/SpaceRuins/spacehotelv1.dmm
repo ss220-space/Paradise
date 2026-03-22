@@ -1264,7 +1264,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/aftportmaints)
 "jH" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -1656,7 +1656,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "nd" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -2060,7 +2060,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -2082,7 +2082,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -2641,7 +2641,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "tI" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -3111,7 +3111,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/machinery/door_control{
@@ -5831,7 +5831,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -5841,7 +5841,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -6106,7 +6106,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -6294,7 +6294,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -6497,7 +6497,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -6770,7 +6770,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "WA" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -8796,7 +8796,7 @@ NM
 lY
 uW
 lS
-rq
+KQ
 AZ
 Uk
 XD
@@ -8871,7 +8871,7 @@ rc
 uW
 uW
 AZ
-KQ
+rq
 AZ
 Uk
 Uk
@@ -9021,7 +9021,7 @@ xO
 BT
 BT
 AZ
-rq
+KQ
 AZ
 qR
 qR
@@ -9096,7 +9096,7 @@ vK
 yj
 BT
 Db
-KQ
+rq
 AZ
 qR
 IB
@@ -9336,7 +9336,7 @@ OF
 Rn
 ui
 bs
-Ka
+nG
 ex
 fg
 dw
@@ -9411,7 +9411,7 @@ OF
 Rn
 ui
 TC
-lU
+IP
 ex
 sD
 Fc
@@ -9636,7 +9636,7 @@ UF
 Hk
 ui
 TC
-IP
+lU
 ex
 pR
 dw
@@ -9711,7 +9711,7 @@ tz
 ag
 ui
 wd
-nG
+Ka
 ex
 TQ
 wP

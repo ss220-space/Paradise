@@ -5723,7 +5723,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aQA" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6464,7 +6464,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aVX" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
@@ -17535,7 +17535,7 @@
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "ccO" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20534,7 +20534,7 @@
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuz" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/structure/sign/poster/contraband/commando{
 	pixel_y = 32
 	},
@@ -20560,7 +20560,7 @@
 /area/maintenance/fpmaint)
 "cuO" = (
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars,
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuQ" = (
@@ -21632,7 +21632,7 @@
 /turf/simulated/wall,
 /area/atmos)
 "czB" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -22518,7 +22518,7 @@
 	},
 /area/hallway/primary/port/west)
 "cDm" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37256,7 +37256,7 @@
 	},
 /area/chapel/office)
 "dSJ" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /obj/machinery/camera{
@@ -37295,7 +37295,7 @@
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
 "dTd" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/effect/landmark/start/civilian,
@@ -37384,7 +37384,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "dTs" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/purple,
@@ -37396,7 +37396,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/bar/atrium)
 "dTw" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/purple,
@@ -46256,7 +46256,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
@@ -55422,7 +55424,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hLK" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/effect/landmark/start/civilian,
@@ -58922,7 +58924,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "iCB" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -75643,7 +75645,7 @@
 	},
 /area/medical/morgue)
 "mzl" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -95998,7 +96000,7 @@
 	},
 /area/security/permabrig)
 "qPq" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/structure/closet/loot_crate/ammo,
@@ -112480,7 +112482,7 @@
 	},
 /area/aisat)
 "uuQ" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -116356,7 +116358,7 @@
 	},
 /area/assembly/chargebay)
 "voc" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/east,
@@ -122715,9 +122717,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
 "wHp" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -128251,7 +128251,7 @@
 	},
 /area/hallway/primary/aft)
 "xQH" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "xQM" = (
@@ -164948,10 +164948,10 @@ ddk
 dyN
 szN
 qPq
-irC
-aXF
 bew
+aXF
 irC
+bew
 aXF
 qiF
 wVn
@@ -165461,11 +165461,11 @@ jaX
 sQV
 vji
 bRW
-dTu
 iqk
+dTu
 iWe
 dTd
-iqk
+dTu
 bhF
 cYW
 myq
@@ -165976,10 +165976,10 @@ fVj
 aUG
 tuE
 hLK
-irC
-vvn
 bew
+vvn
 irC
+bew
 aXF
 ggP
 wVn
@@ -166489,11 +166489,11 @@ oek
 fXt
 cdm
 tuE
-dTu
 iqk
+dTu
 pTF
-dTu
 iqk
+dTu
 aXF
 qiF
 wVn
@@ -177912,7 +177912,7 @@ axo
 fTk
 wfx
 qXI
-dAX
+uux
 aAw
 jks
 aaq
@@ -178683,7 +178683,7 @@ oEr
 vGh
 fsG
 iIN
-dAX
+uux
 xzl
 jks
 coE
@@ -178940,7 +178940,7 @@ taq
 gmq
 wfx
 oXy
-uux
+dAX
 oTu
 jks
 aaq
@@ -179172,7 +179172,7 @@ dBO
 lGF
 dBO
 ltW
-gpI
+wBW
 qIo
 jjb
 ltW
@@ -179429,7 +179429,7 @@ hvy
 rvd
 hZL
 ltW
-wBW
+gpI
 qIo
 qUW
 ltW

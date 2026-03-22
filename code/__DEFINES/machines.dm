@@ -222,4 +222,3 @@
 /// Emagged mode; turns off scrubbers and pressure checks on vents
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
-

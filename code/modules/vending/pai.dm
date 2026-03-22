@@ -37,6 +37,7 @@
 			"products" = list(
 				/obj/item/organ/internal/cyberimp/mouth/breathing_tube = 3,
 				/obj/item/organ/internal/cyberimp/eyes/meson = 3,
+				/obj/item/organ/internal/cyberimp/eyes/map = 3,
 				/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic = 3,
 				/obj/item/organ/internal/cyberimp/eyes/hud/science = 3,
 				/obj/item/organ/internal/cyberimp/chest/nutriment = 3,
