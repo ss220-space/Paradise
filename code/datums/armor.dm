@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(armor_cache)
 	var/list/cached_armor_cache = GLOB.armor_cache
 	. = cached_armor_cache[armor_id]
 	if(!.)
-		var/datum/armor/new_armor = new (melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic)
+		var/datum/armor/new_armor = new (melee, bullet, laser, energy, bomb, bio, fire, acid, magic)
 		cached_armor_cache[armor_id] = new_armor
 		. = new_armor
 

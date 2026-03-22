@@ -1,4 +1,3 @@
-/*
 /datum/disease/virus/nuclefication // YOU WILL NEVER ESCAPE
 	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
@@ -83,20 +82,13 @@
 			continue
 		return organ_check
 
-/datum/disease/virus/nuclefication/proc/radiate(mob/living/carbon/H, rad_ammount = 2, rad_threshold = 47)
-	if(H.radiation < rad_threshold)
-		H.apply_effect(rad_ammount, IRRADIATE, negate_armor = TRUE)
-	if(H.getarmor(attack_flag = RAD) >= 100)
-		return
-	for(var/mob/living/carbon/L in range(1, H))
-		if(L == H)
-			continue
-		var/rad_block = L.getarmor(attack_flag = RAD)
-		if(rad_block >= 100)
-			continue
-		if(!rad_block)
-			to_chat(L, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [H.declent_ru(GENITIVE)]."))
-		L.apply_effect(rad_ammount, IRRADIATE, rad_block)
+/datum/disease/virus/nuclefication/proc/radiate(mob/living/carbon/human)
+	SSradiation.irradiate(human)
+	radiation_pulse(
+		source = human,
+		max_range = 1,
+		chance = 40,
+	)
 
 /datum/disease/virus/nuclefication/proc/destiny(mob/living/carbon/H, silenced = FALSE)
 	var/destiny = rand(1,3) // What is your destiny?
@@ -113,4 +105,3 @@
 		if(3)
 			var/obj/item/organ/internal/organ = check_available_organs(H)
 			organ?.necrotize()
-*/

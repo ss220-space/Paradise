@@ -24,7 +24,7 @@
 	if(!HAS_TRAIT(src, TRAIT_STASIS))
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations()
+			handle_mutations(seconds)
 			//Heart Attack, if applicable
 			handle_heartattack()
 			//Breathing, if applicable

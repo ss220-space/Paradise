@@ -1,3 +1,4 @@
+/*
 #define BRUTE_HEAL_AMOUNT 3
 #define BRUTE_HEAL_COST 2
 
@@ -94,3 +95,4 @@
 #undef INTERNAL_HEAL_COST
 #undef FRACTURE_HEAL_COST
 #undef PASSIVE_RAD_DRAIN
+*/

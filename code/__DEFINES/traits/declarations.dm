@@ -424,8 +424,6 @@
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
 
-#define TRAIT_MESON_VISION "meson_vision"
-
 // Radiation defines
 /// Marks that this object is irradiated
 #define TRAIT_IRRADIATED "iraddiated"
@@ -476,3 +474,6 @@
 // Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
+
+/// Trait applied by MODsuits.
+#define MOD_TRAIT "mod"
