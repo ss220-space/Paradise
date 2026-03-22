@@ -334,46 +334,36 @@
 //shitspawn
 /obj/item/flash/revolutionary
 	origin_tech = "magnets=3;combat=2;syndicate=2"
+	cooldown_duration = 3 SECONDS
+	can_overcharge = FALSE
 
 /obj/item/flash/revolutionary/burn_out()
 	return
 
 /obj/item/flash/revolutionary/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/datum/game_mode/revolution/rev_mode = SSticker?.mode
-
-	// Check if the user is a revolutionary (regular or leader)
-	var/user_is_rev = FALSE
-	if(user.mind)
-		if((user.mind in rev_mode.revolutionaries) || (user.mind in rev_mode.head_revolutionaries))
-			user_is_rev = TRUE
-
-	if(!user_is_rev)
+	if(!istype(rev_mode))
 		return ..()
 
-	// For carbons, we check eye protection in advance
-	var/can_convert = FALSE
-	if(iscarbon(target))
-		can_convert = target.flash_eyes(1, TRUE)
+	if(!is_revolutionary(user) && !is_head_revolutionary(user))
+		return ..()
 
-	// Call the parent method
+	var/old_times_used = times_used
 	. = ..()
 
-	if(iscarbon(target) && can_convert && user_is_rev && target.mind)
-		if(ismindshielded(target))
-			to_chat(user, span_warning("У [target] установлен защитный имплант! Конвертация невозможна!"))
+	if(times_used > old_times_used && iscarbon(target) && target.mind)
+		if(target.check_eye_prot() != FLASH_PROTECTION_NONE)
 			return
 
-		var/target_is_rev = FALSE
-		if((target.mind in rev_mode.revolutionaries) || (target.mind in rev_mode.head_revolutionaries))
-			target_is_rev = TRUE
+		if(ismindshielded(target))
+			to_chat(user, span_warning("У [declent_ru(target, GENITIVE)] установлен защитный имплант! Конвертация невозможна!"))
+			return
 
-		if(!target_is_rev)
-			if(rev_mode.add_revolutionary(target.mind))
-				target.visible_message(
-					span_userdanger("Вы чувствуете, как ваше сознание перепрограммируется! Вы теперь революционер!")
-				)
-				add_attack_logs(user, target, "Converted to revolutionary with revolutionary flash")
-			else
-				to_chat(user, span_warning("Не удалось сделать [target] революционером!"))
+		if((target.mind in rev_mode.revolutionaries) || (target.mind in rev_mode.head_revolutionaries))
+			to_chat(user, span_warning("[capitalize(declent_ru(target, NOMINATIVE))] уже является революционером!"))
+			return
+
+		if(rev_mode.add_revolutionary(target.mind))
+			add_attack_logs(user, target, "Converted to revolutionary with revolutionary flash")
 		else
-			to_chat(user, span_warning("[target] уже является революционером!"))
+			to_chat(user, span_warning("Не удалось сделать [declent_ru(target, ACCUSATIVE)] революционером!"))
