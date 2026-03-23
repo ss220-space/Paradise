@@ -183,7 +183,7 @@
 	},
 /obj/machinery/power/emitter{
 	dir = 8;
-	anchored = 1
+	
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;

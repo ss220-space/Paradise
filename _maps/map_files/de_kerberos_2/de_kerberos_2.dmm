@@ -1506,8 +1506,7 @@
 "aou" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -3368,8 +3367,7 @@
 "aBK" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -32;
@@ -15893,8 +15891,7 @@
 "bVq" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -15907,8 +15904,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -18838,8 +18834,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/light{
 	dir = 8
@@ -21500,14 +21495,6 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
-"czw" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "czx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -24505,8 +24492,7 @@
 "cNe" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -28775,8 +28761,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -28960,8 +28945,7 @@
 "dhb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office";
-	pixel_y = 2
+	department = "Quartermaster's Office"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -29896,8 +29880,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office";
-	pixel_y = 2
+	department = "Chief Engineer's Office"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -33154,8 +33137,7 @@
 	dir = 4
 	},
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -34523,14 +34505,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
 /area/space)
-"dHq" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "dHr" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -35015,14 +34989,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
-"dJi" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "dJj" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -37213,7 +37179,6 @@
 	id = "chapel";
 	name = "Privacy Shutters Control";
 	pixel_x = 26;
-	pixel_y = 0;
 	req_access = list(22)
 	},
 /turf/simulated/floor/carpet,
@@ -41631,8 +41596,7 @@
 "eFi" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -24
@@ -42196,8 +42160,7 @@
 "eLr" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/item/melee/chainofcommand{
 	pixel_x = 5;
@@ -42577,8 +42540,7 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46941,8 +46903,7 @@
 "fSq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -49737,8 +49698,7 @@
 "gzr" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
@@ -56507,8 +56467,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
@@ -58140,8 +58099,7 @@
 "itv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -60969,8 +60927,7 @@
 "jdn" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -67964,14 +67921,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space)
-"kLx" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "kLF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -69625,8 +69574,7 @@
 "lhe" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -71446,8 +71394,7 @@
 "lCN" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -71522,14 +71469,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"lDA" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "lDD" = (
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -75672,8 +75611,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
@@ -76243,8 +76181,7 @@
 "mFi" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 2
+	department = "NT Representative's Office"
 	},
 /obj/machinery/camera{
 	c_tag = "NT Representative's Office";
@@ -78617,8 +78554,7 @@
 "nfN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharger/wallcharger{
@@ -82181,8 +82117,7 @@
 "nTz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -86233,14 +86168,6 @@
 "oOZ" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/misc_lab)
-"oPh" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "oPr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -87875,8 +87802,7 @@
 "phI" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -88748,8 +88674,7 @@
 "prh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
@@ -89348,9 +89273,7 @@
 /area/hallway/primary/central/nw)
 "pyN" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -94315,14 +94238,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/consarea_virology)
-"qwQ" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "qwW" = (
 /obj/effect/mine/explosive{
 	faction = "dk2"
@@ -94851,10 +94766,6 @@
 	},
 /area/crew_quarters/chief)
 "qCX" = (
-/obj/machinery/power/emitter{
-	anchored = 1;
-	state = 2
-	},
 /obj/structure/cable/yellow,
 /obj/effect/decal/warning_stripes/eastsouthwest,
 /turf/simulated/floor/plating/airless,
@@ -96455,8 +96366,7 @@
 /obj/item/radio/intercom/directional/east,
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office";
-	pixel_y = 2
+	department = "Magistrate's Office"
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -100426,14 +100336,6 @@
 	icon_state = "darkred"
 	},
 /area/security/execution)
-"rPj" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "rPr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -113583,8 +113485,7 @@
 "uHW" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
@@ -115304,8 +115205,7 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
@@ -124704,8 +124604,7 @@
 "xfT" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office";
-	pixel_y = 2
+	department = "Captain's Office"
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -26;
@@ -124904,8 +124803,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/wood{
@@ -124987,8 +124885,7 @@
 "xiB" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -128357,8 +128254,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office";
-	pixel_y = 2
+	department = "Chief Medical Officer's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -129143,8 +129039,7 @@
 "yak" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office";
-	pixel_y = 2
+	department = "Head of Security's Office"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -148791,15 +148686,15 @@ lEd
 aaq
 efA
 siL
-dJi
+nyX
 coE
 coE
-rPj
+jsz
 aaq
 acF
 coE
 coE
-kLx
+tiz
 dZb
 efA
 aaq
@@ -149562,7 +149457,7 @@ hvP
 acF
 efA
 siL
-czw
+siL
 acF
 acF
 nyX
@@ -150084,7 +149979,7 @@ dHp
 dQy
 acF
 acF
-oPh
+dZb
 dZb
 efA
 acF
@@ -150847,15 +150742,15 @@ lEd
 aaq
 efA
 siL
-dHq
+gOv
 coE
 coE
 acF
 aaq
-lDA
+dHp
 coE
 coE
-qwQ
+dQy
 dZb
 efA
 aaq

@@ -7430,9 +7430,7 @@
 /area/hallway/primary/central/nw)
 "aBl" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/power/energy_accumulator/grounding_rod{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "aBm" = (
@@ -28640,9 +28638,6 @@
 	},
 /area/medical/surgery/south)
 "cfN" = (
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -28652,6 +28647,7 @@
 	network = list("Engineering","SS13")
 	},
 /obj/item/radio/intercom/directional/west,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
 "cfO" = (
@@ -33776,14 +33772,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/chief)
-"czJ" = (
-/obj/item/extinguisher,
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -7
-	},
-/turf/simulated/floor/plating/airless,
-/area/engineering/engine)
 "czL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/body_bag,
@@ -37122,7 +37110,7 @@
 "cNj" = (
 /obj/machinery/particle_accelerator/control_box,
 /obj/structure/cable/yellow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cNk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -37273,7 +37261,7 @@
 /area/engineering/mechanic_workshop)
 "cNW" = (
 /obj/structure/particle_accelerator/fuel_chamber,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cNY" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -38180,7 +38168,7 @@
 /area/hallway/primary/aft)
 "cRf" = (
 /obj/structure/particle_accelerator/particle_emitter/center,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cRh" = (
 /obj/structure/cable{
@@ -38670,7 +38658,7 @@
 /area/maintenance/asmaint)
 "cSx" = (
 /obj/structure/particle_accelerator/power_box,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cSy" = (
 /obj/machinery/firealarm{
@@ -39067,10 +39055,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cUo" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -39414,15 +39399,13 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/xenobiology)
 "cVh" = (
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
 "cVi" = (
@@ -39448,20 +39431,6 @@
 	},
 /area/crew_quarters/bar)
 "cVj" = (
-/turf/simulated/floor/plasteel,
-/area/engineering/engine)
-"cVq" = (
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -7
-	},
-/obj/item/crowbar,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cVr" = (
@@ -40490,7 +40459,7 @@
 /area/engineering/engine)
 "cYF" = (
 /obj/structure/particle_accelerator/end_cap,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cYG" = (
 /obj/structure/cable/yellow{
@@ -40607,9 +40576,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "cZl" = (
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/full,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -44160,10 +44127,7 @@
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/asmaint)
 "dmj" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "dmk" = (
@@ -45581,9 +45545,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "drV" = (
@@ -56690,7 +56652,7 @@
 /area/security/permabrig)
 "imf" = (
 /obj/structure/particle_accelerator/particle_emitter/left,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "imD" = (
 /obj/structure/chair/office/light,
@@ -57342,10 +57304,7 @@
 /turf/simulated/wall,
 /area/maintenance/trading)
 "iBb" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -59525,9 +59484,7 @@
 /turf/simulated/floor/engine/n2,
 /area/atmos)
 "jxL" = (
-/obj/machinery/power/energy_accumulator/tesla_coil{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -59742,10 +59699,9 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/warning_stripes/northwestsouth,
-/obj/item/circuitboard/emitter,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/manipulator,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/power/emitter/welded{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "jCF" = (
@@ -71384,10 +71340,6 @@
 	icon_state = "dark"
 	},
 /area/engineering/mechanic_workshop)
-"oMi" = (
-/obj/item/wrench,
-/turf/simulated/floor/plating/airless,
-/area/engineering/engine)
 "oMl" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -72129,10 +72081,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/item/circuitboard/emitter,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/manipulator/nano,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/power/emitter/welded{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "pbF" = (
@@ -72987,9 +72938,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "pvG" = (
-/obj/machinery/power/energy_accumulator/tesla_coil{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -76480,11 +76429,6 @@
 	icon_state = "dark"
 	},
 /area/storage/eva)
-"qVg" = (
-/obj/structure/lattice,
-/obj/item/wirecutters,
-/turf/space,
-/area/space)
 "qVj" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -81304,7 +81248,7 @@
 /area/assembly/robotics)
 "tai" = (
 /obj/structure/particle_accelerator/particle_emitter/right,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "taj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -82019,18 +81963,6 @@
 /obj/item/ai_module/antimov,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
-"tqd" = (
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/decal/warning_stripes/northwestsouth,
-/obj/item/circuitboard/emitter,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/manipulator/nano,
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plating/airless,
-/area/engineering/engine)
 "tqF" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/disposalpipe/segment{
@@ -82948,9 +82880,7 @@
 /area/storage/tech)
 "tKa" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/power/energy_accumulator/grounding_rod{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "tKk" = (
@@ -83734,18 +83664,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
-"uaF" = (
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/decal/warning_stripes/northeastsouth,
-/obj/item/circuitboard/emitter,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/manipulator,
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plating/airless,
-/area/engineering/engine)
 "uaN" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/glass,
@@ -88902,10 +88820,7 @@
 	},
 /area/toxins/xenobiology)
 "wkn" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -89532,9 +89447,7 @@
 /area/maintenance/asmaint2)
 "wyR" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/energy_accumulator/grounding_rod{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "wyV" = (
@@ -90548,10 +90461,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/fsmaint2)
 "wTS" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -91148,9 +91058,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
 "xhj" = (
-/obj/machinery/power/energy_accumulator/tesla_coil{
-	anchored = 1
-	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -91285,7 +91193,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "xkm" = (
-/obj/item/wirecutters,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
@@ -119430,9 +119337,9 @@ sRl
 tGP
 icM
 wls
-czJ
 kCz
-uaF
+kCz
+pbu
 kCz
 xzQ
 cSM
@@ -119687,9 +119594,9 @@ dtw
 cSU
 cSU
 cBa
+doE
 lTl
-lTl
-lTl
+doE
 uTI
 uTI
 uTI
@@ -119697,7 +119604,7 @@ uTI
 uTI
 uTI
 uTI
-lTl
+doE
 lTl
 fNj
 lTl
@@ -120464,7 +120371,7 @@ cUo
 uTI
 uTI
 dmj
-uTI
+doE
 uTI
 uTI
 uTI
@@ -120721,7 +120628,7 @@ uTI
 uTI
 uTI
 lTl
-uTI
+doE
 uTI
 uTI
 uTI
@@ -120968,7 +120875,7 @@ iKC
 whN
 xCn
 fKd
-cVq
+cZO
 cZO
 cRp
 dfo
@@ -120978,7 +120885,7 @@ uTI
 uTI
 lTl
 lTl
-lTl
+doE
 lTl
 lTl
 uTI
@@ -121488,15 +121395,15 @@ xkm
 pUG
 cDT
 hpJ
-uTI
-uTI
-lTl
+doE
+doE
+doE
 hpJ
 ujO
 pST
-lTl
-uTI
-uTI
+doE
+doE
+doE
 xhj
 cEX
 uTI
@@ -121746,7 +121653,7 @@ dfo
 cUF
 hpJ
 dmj
-qVg
+lTl
 lTl
 qsG
 nDy
@@ -122006,7 +121913,7 @@ uTI
 uTI
 lTl
 lTl
-lTl
+doE
 lTl
 lTl
 uTI
@@ -122263,7 +122170,7 @@ uTI
 uTI
 uTI
 uTI
-uTI
+doE
 lTl
 uTI
 uTI
@@ -122520,7 +122427,7 @@ iBb
 uTI
 uTI
 uTI
-uTI
+doE
 dmj
 uTI
 uTI
@@ -123285,9 +123192,9 @@ dtw
 cSU
 cSU
 sCA
+doE
 lTl
-lTl
-lTl
+doE
 uTI
 uTI
 uTI
@@ -123295,7 +123202,7 @@ uTI
 uTI
 uTI
 uTI
-lTl
+doE
 lTl
 lYW
 lTl
@@ -123542,9 +123449,9 @@ qiV
 tUU
 vUH
 cIT
-oMi
 kCz
-tqd
+kCz
+jBS
 kCz
 cUl
 cSM

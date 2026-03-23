@@ -18984,7 +18984,6 @@
 	dir = 1;
 	network = list("Engineering","SS13")
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -19882,7 +19881,7 @@
 	},
 /area/mimeoffice)
 "cwu" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "cwv" = (
@@ -31076,10 +31075,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/shower{
-	dir = 8
-	},
-/turf/simulated/floor/noslip,
+/turf/simulated/floor/plating,
 /area/engineering/engine)
 "dwu" = (
 /obj/structure/disposalpipe/segment{
@@ -52824,7 +52820,7 @@
 	},
 /area/security/permabrig)
 "hyv" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -54446,6 +54442,7 @@
 	},
 /obj/item/geiger_counter,
 /obj/item/geiger_counter,
+/obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "hRC" = (
@@ -87295,7 +87292,6 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "pyz" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -87948,7 +87944,6 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "pEz" = (
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "pEC" = (
@@ -101125,7 +101120,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -105086,7 +105080,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "tui" = (
@@ -121628,10 +121622,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/item/radio/intercom/directional/east,
-/obj/machinery/shower{
-	dir = 8
-	},
-/turf/simulated/floor/noslip,
+/turf/simulated/floor/plating,
 /area/engineering/engine)
 "wZo" = (
 /obj/item/flag/nt,

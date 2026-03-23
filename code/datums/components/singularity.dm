@@ -262,7 +262,7 @@
 		return FALSE
 	var/atom/atom_parent = parent
 	if(!steps)
-		switch (singularity_size)
+		switch(singularity_size)
 			if(STAGE_ONE)
 				steps = 1
 			if(STAGE_TWO)
@@ -282,7 +282,7 @@
 	turfs.Add(farthest_turf)
 	var/dir2
 	var/dir3
-	switch (direction)
+	switch(direction)
 		if(NORTH, SOUTH)
 			dir2 = EAST
 			dir3 = WEST

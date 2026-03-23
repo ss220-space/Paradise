@@ -578,7 +578,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 	// POWER PROCESSING
 	var/delta_time = (SSmachines.times_fired - last_energy_accumulation_perspective_machines) * SSmachines.wait / (1 SECONDS)
-	var/accumulated_energy = accumulate_energy(ZAP_ENERGY_ACCUMULATION_NORMAL, energy = zap_transmission_rate * (12 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10))))) * delta_time)
+	var/accumulated_energy = accumulate_energy(ZAP_ENERGY_ACCUMULATION_NORMAL, energy = zap_transmission_rate * (6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10))))) * delta_time)
 	if(accumulated_energy && (last_power_zap + (4 - power * 0.001) SECONDS) < world.time)
 		var/discharged_energy = discharge_energy(ZAP_ENERGY_ACCUMULATION_NORMAL)
 		playsound(src, 'sound/weapons/emitter2.ogg', 70, TRUE)
@@ -590,7 +590,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			zap_str = discharged_energy,
 			zap_flags = ZAP_SUPERMATTER_FLAGS,
 			zap_cutoff = 240 KILO JOULES,
-			power_level = power,
+			power_level = power * 10,
 			color = zap_color,
 		)
 

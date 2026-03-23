@@ -1,10 +1,8 @@
 /obj/effect/shield
 	name = "shield"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "wave2"
 	layer = ABOVE_NORMAL_TURF_LAYER
 	flags = PREVENT_CLICK_UNDER
-	anchored = TRUE
 	/// Our turf's previous heat capacity
 	var/old_heat_capacity
 

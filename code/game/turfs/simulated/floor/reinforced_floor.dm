@@ -7,9 +7,6 @@
 	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/insulated = FALSE
 
 /turf/open/floor/engine/examine(mob/user)

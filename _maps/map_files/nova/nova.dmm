@@ -35095,7 +35095,7 @@
 /area/maintenance/trading)
 "fik" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/redgrid,
 /area/engineering/engine)
 "fio" = (
@@ -42695,9 +42695,7 @@
 "goy" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 8;
-	state = 2
+	dir = 8
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -151956,9 +151954,7 @@
 /area/maintenance/electrical)
 "wym" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 4;
-	state = 2
+	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northeastsouth,
 /obj/structure/cable/yellow{

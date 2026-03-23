@@ -3342,9 +3342,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/window/plasmareinforced,
-/obj/machinery/power/emitter{
-	anchored = 1
-	},
+/obj/machinery/power/emitter,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
