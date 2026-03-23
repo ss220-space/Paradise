@@ -149,11 +149,11 @@
 /obj/item/storage/backpack/holding/satchel/duffelbag/get_ru_names()
 	return list(
 		NOMINATIVE = "блюспейс спортивная сумка",
-		GENITIVE = "блюспейс спортивная сумки",
-		DATIVE = "блюспейс спортивная сумке",
-		ACCUSATIVE = "блюспейс спортивная сумку",
-		INSTRUMENTAL = "блюспейс спортивная сумкой",
-		PREPOSITIONAL = "блюспейс спортивная сумке"
+		GENITIVE = "блюспейс спортивной сумки",
+		DATIVE = "блюспейс спортивной сумке",
+		ACCUSATIVE = "блюспейс спортивную сумку",
+		INSTRUMENTAL = "блюспейс спортивной сумкой",
+		PREPOSITIONAL = "блюспейс спортивной сумке"
 	)
 
 /obj/item/storage/backpack/santabag
