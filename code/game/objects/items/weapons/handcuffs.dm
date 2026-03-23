@@ -232,7 +232,7 @@
 		user.put_in_hands(bola, ignore_anim = FALSE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/crayon = I
 		cable_color(crayon.colourName)

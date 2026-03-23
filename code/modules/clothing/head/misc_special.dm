@@ -84,7 +84,7 @@
 		adjust_paint(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/soap) && paint)
+	if(issoap(I) && paint)
 		add_fingerprint(user)
 		adjust_paint()
 		return ATTACK_CHAIN_PROCEED_SUCCESS

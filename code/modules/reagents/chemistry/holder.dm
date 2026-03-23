@@ -848,7 +848,7 @@
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
-	if(!istype(current_reagent.data, /list))
+	if(!islist(current_reagent.data))
 		return current_reagent.data
 
 	var/list/trans_data = current_reagent.data.Copy()

@@ -108,7 +108,7 @@
 		if(iscarbon(A))
 			var/mob/living/carbon/M = A
 			M.update_tint()
-		if(istype(A, /obj/structure/closet))
+		if(iscloset(A))
 			for(var/mob/living/carbon/M in A.contents)
 				M.update_tint()
 	update_icon(UPDATE_ICON_STATE)
@@ -129,7 +129,7 @@
 			if(iscarbon(A))
 				var/mob/living/carbon/M = A
 				M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
-			if(istype(A, /obj/structure/closet))
+			if(iscloset(A))
 				for(var/mob/living/carbon/M in A.contents)
 					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)

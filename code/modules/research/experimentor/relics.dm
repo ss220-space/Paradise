@@ -30,7 +30,7 @@
 	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer))
 
 /obj/item/relict_production/perfect_mix/afterattack(atom/target, mob/user, proximity)
-	if(istype(target, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(target))
 		var/obj/item/reagent_containers/glass/beaker = target
 		beaker.reagents.add_reagent(inner_reagent.id, transfer)
 		to_chat(user, span_notice("You have poured 10 units of content into this."))

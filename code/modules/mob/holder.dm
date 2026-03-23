@@ -19,7 +19,7 @@
 
 /obj/item/holder/process()
 
-	if(istype(loc,/turf) || !(length(contents)))
+	if(isturf(loc) || !(length(contents)))
 
 		for(var/mob/M in contents)
 
@@ -67,7 +67,7 @@
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
-			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/holder))
+			if(isborer(A) || istype(A,/obj/item/holder))
 				return
 		M.status_flags &= ~PASSEMOTES
 

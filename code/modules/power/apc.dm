@@ -1103,7 +1103,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(last_used_equipment + last_used_lighting + last_used_environment)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights

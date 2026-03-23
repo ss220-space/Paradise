@@ -54,7 +54,7 @@
 	)
 
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
-	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
+	if(!(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks)))
 		return FALSE
 	if(!..())
 		return FALSE

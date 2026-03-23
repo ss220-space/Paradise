@@ -269,7 +269,7 @@
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			attack_self(user)
 		else
 			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")

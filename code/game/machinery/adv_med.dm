@@ -187,7 +187,7 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		if(inserted_id)
 			balloon_alert(user, "слот ID карты занят")
 		else if(user.drop_transfer_item_to_loc(I, src))
@@ -357,7 +357,7 @@
 
 			organData["status"] = organStatus
 
-			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(E) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
 			if(E.has_internal_bleeding())
@@ -541,7 +541,7 @@
 
 				internal_bleeding += "Внутреннее кровотечение"
 
-			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(e) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
 				splint = "Наложена шина"

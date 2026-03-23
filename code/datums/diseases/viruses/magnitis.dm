@@ -50,7 +50,7 @@
 
 /datum/disease/virus/magnitis/proc/move_mobs(range, iter)
 	for(var/mob/living/L in orange(range, affected_mob))
-		if(istype(L, /mob/living/silicon/robot) || \
+		if(isrobot(L) || \
 			istype(L, /mob/living/simple_animal/pet/dog/corgi/borgi) || \
 			ismachineperson(L))
 

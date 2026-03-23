@@ -109,7 +109,7 @@
 	I.play_tool_sound(src)
 	to_chat(user, span_notice("Вы начинаете долбить..."))
 	if(!do_after(user, mine_time * I.toolspeed, src, category = DA_CAT_TOOL))
-		if(istype(src, /turf/simulated/mineral))
+		if(ismineralturf(src))
 			COOLDOWN_RESET(src, last_act)
 		return .
 
