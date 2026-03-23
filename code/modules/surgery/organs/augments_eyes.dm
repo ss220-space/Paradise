@@ -315,11 +315,12 @@
 		return
 
 	current_z_level = moved_mob.loc.z
-	moved_mob.client.images -= holomap_datum.base_map
+	var/image/old_map = holomap_datum.base_map
 	setup_holomap(moved_mob)
 	holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
 	moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
 	moved_mob.client.images |= holomap_datum.base_map
+	moved_mob.client.images -= old_map
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
