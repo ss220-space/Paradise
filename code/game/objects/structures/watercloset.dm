@@ -375,6 +375,7 @@
 	var/current_temperature = SHOWER_NORMAL
 	///What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
+	COOLDOWN_DECLARE(wash_cooldown)
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -499,7 +500,10 @@
 /obj/machinery/shower/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
-	if(on)
+	if(on && COOLDOWN_FINISHED(src, wash_cooldown))
+		wash_atom(arrived)
+		COOLDOWN_START(src, wash_cooldown, 6 SECONDS)
+	else if(on)
 		wash_atom(arrived)
 
 /obj/machinery/shower/proc/convertHeat()
@@ -516,8 +520,6 @@
 	if(!on)
 		return
 
-	target.wash_tg(CLEAN_RAD | CLEAN_WASH)
-
 	if(isitem(target))
 		var/obj/item/item = target
 		item.extinguish()
@@ -531,7 +533,7 @@
 		//to_chat(living_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
-	SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 10)
+	target.wash_tg(CLEAN_RAD|CLEAN_WASH)
 
 /obj/machinery/shower/process()
 	if(on)
