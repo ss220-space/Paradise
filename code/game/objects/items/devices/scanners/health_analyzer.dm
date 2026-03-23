@@ -252,7 +252,7 @@
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
 	if(scan_data)
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_results(user)
 		else
 			. += span_notice("Нужно подойти ближе, чтобы прочесть содержмое.")
@@ -790,7 +790,7 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(!advanced)
 			to_chat(user, span_warning("Для привязки счёта требуется наличие продвинутого модуля сканирования."))

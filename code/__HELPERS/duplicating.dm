@@ -16,7 +16,7 @@
 			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
-				if(istype(original.vars[V],/list))
+				if(islist(original.vars[V]))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
 				else if(isdatum(original.vars[V]))

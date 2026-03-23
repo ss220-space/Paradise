@@ -507,7 +507,7 @@
 #define SSD_LAYER 1
 
 /// Get the client from the var
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (isclient(I) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1
@@ -527,3 +527,7 @@
 
 #define CARBON_MAX_RADIATION 200
 #define NUCLEATION_MAX_RADIATION 800
+
+// Flags for the mob_flags var on /mob
+/// May override the names used in screentips of OTHER OBJECTS hovered over.
+#define MOB_HAS_SCREENTIPS_NAME_OVERRIDE (1 << 0)

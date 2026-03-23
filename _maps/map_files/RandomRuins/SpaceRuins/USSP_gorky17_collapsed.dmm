@@ -10328,7 +10328,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "ED" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -15666,7 +15666,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "Uu" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"

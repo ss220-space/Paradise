@@ -544,7 +544,7 @@
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M)
 	var/fish_count = get_num_fish()
-	if(istype(M, /mob/living/simple_animal/pet/cat))
+	if(iscat(M))
 		if(M.a_intent == INTENT_HELP)							//Cats can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message(

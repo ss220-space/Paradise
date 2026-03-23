@@ -632,7 +632,7 @@
 
 /obj/projectile/ornament/on_hit(atom/target)	//knockback
 	..()
-	if(!istype(target, /mob))
+	if(!ismob(target))
 		return 0
 	var/obj/T = target
 	var/throwdir = get_dir(firer,target)

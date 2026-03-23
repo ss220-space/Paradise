@@ -13,7 +13,7 @@
 	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = SEC_FREQ_NAME
-	bot_type = SEC_BOT
+	bot_type = ADVANCED_SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "найти преступников, задержать их и доложить службе безопасности"

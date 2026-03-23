@@ -49,7 +49,7 @@ I'm using this for Stat to give it a more nifty interface to work with
 			return M.held_brain.dna.species.name
 		else
 			return "Artificial Life"
-	if(istype(loc, /obj/item/organ/internal/brain))
+	if(is_internal_organ_brain(loc))
 		var/obj/item/organ/internal/brain/B = loc
 		return B.dna.species.name
 

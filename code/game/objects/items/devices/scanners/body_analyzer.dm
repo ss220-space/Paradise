@@ -233,7 +233,7 @@
 		var/lung_ruptured = ""
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding = "<br>Internal bleeding"
-		if(istype(bodypart, /obj/item/organ/external/chest) && target.is_lung_ruptured())
+		if(ischest(bodypart) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
 		if(bodypart.is_splinted())
 			splint = "Splinted:"

@@ -106,9 +106,9 @@
 		aiCamera.captureimage(A, usr)
 		return
 
-	if(waypoint_mode)
+	if(setting_waypoint)
+		setting_waypoint = FALSE
 		set_waypoint(A)
-		waypoint_mode = 0
 		return
 
 	A.add_hiddenprint(src)

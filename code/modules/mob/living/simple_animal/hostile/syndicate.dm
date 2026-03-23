@@ -146,7 +146,7 @@
 	if(scan_cycles >= 15)
 		scan_cycles = 0
 		if(!are_zs_connected(src, spawn_turf))
-			if(istype(loc, /obj/structure/closet))
+			if(iscloset(loc))
 				var/obj/structure/closet/O = loc
 				forceMove(get_turf(src))
 				visible_message(span_boldwarning("[src] smashes their way out of [O]!"))

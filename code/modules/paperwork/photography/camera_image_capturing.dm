@@ -30,7 +30,7 @@
 			if(T.loc.icon_state)
 				atoms += new /obj/effect/appearance_clone(newT, T.loc)
 			for(var/atom/A in T.contents)
-				if(istype(A, /atom/movable/lighting_object))
+				if(is_light(A))
 					continue
 				if(!A.invisibility || (see_ghosts && isobserver(A)))
 					atoms += new /obj/effect/appearance_clone(newT, A)
@@ -42,7 +42,7 @@
 		for(var/turf/T in turfs)
 			atoms += T
 			for(var/atom/movable/A in T)
-				if(flashing_lights && istype(A, /atom/movable/lighting_object))
+				if(flashing_lights && is_light(A))
 					continue //Do not apply lighting, making whole image full bright.
 				if(A.invisibility)
 					if(!(see_ghosts && isobserver(A)))
@@ -71,7 +71,7 @@
 
 	if(!skip_normal) //these are not clones
 		for(var/atom/A in sorted)
-			if(istype(A, /atom/movable/lighting_object))
+			if(is_light(A))
 				continue //Lighting objects render last, need to be above all atoms and turfs displayed
 			var/xo = (A.x - center.x) * ICON_SIZE_X + A.pixel_x + xcomp
 			var/yo = (A.y - center.y) * ICON_SIZE_Y + A.pixel_y + ycomp

@@ -284,7 +284,7 @@
 		if(istype(delivery.wrapped, /obj/structure/closet/crate))
 			is_correct_delivery = TRUE
 
-	if(istype(target_object, /obj/structure/closet) || is_big_delivery)
+	if(iscloset(target_object) || is_big_delivery)
 		var/obj/structure/closet/check_crate = target_object
 
 		if(a_intent == INTENT_HELP)

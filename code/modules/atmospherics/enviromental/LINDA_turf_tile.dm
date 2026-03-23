@@ -226,7 +226,7 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 
 	for(var/obj/O in src)
-		if(istype(O, /obj/item))
+		if(isitem(O))
 			// Items can't block atmos.
 			continue
 		if(!O.CanAtmosPass(NORTH))

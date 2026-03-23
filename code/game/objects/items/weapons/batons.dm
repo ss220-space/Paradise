@@ -335,7 +335,7 @@
 	AddComponent( \
 		/datum/component/transforming, \
 		force_on = src.extend_force, \
-		hitsound_on = src.hitsound, \
+		hitsound_on = on_stun_sound, \
 		hitsound_off = src.hitsound, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		item_state_on = src.extend_item_state, \

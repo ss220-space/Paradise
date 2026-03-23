@@ -168,7 +168,7 @@
 				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				door.open()
 				deplete_spell()
-			else if(istype(target, /obj/structure/closet))
+			else if(iscloset(target))
 				var/obj/structure/closet/closet = target
 				if(istype(closet, /obj/structure/closet/secure_closet))
 					var/obj/structure/closet/secure_closet/SC = closet
@@ -1768,7 +1768,7 @@
 	heal_clocker(living)
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/heal_clocker(mob/living/clocker)
-	if(istype(clocker, /mob/living/simple_animal/hostile/clockwork/marauder))
+	if(ismarauder(clocker))
 		if(!heal_marauders)
 			return
 		clocker.heal_overall_damage(100)

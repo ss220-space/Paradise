@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
 		else if(closest_type >= RIDE)
 			continue
 
-		else if(istype(A, /obj/vehicle))
+		else if(isvehicle(A))
 			var/obj/vehicle/ridden/R = A
 			if(R.can_buckle && !HAS_TRAIT(R, TRAIT_BEING_SHOCKED))
 				closest_type = RIDE

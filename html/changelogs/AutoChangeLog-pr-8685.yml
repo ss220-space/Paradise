@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - code_imp: "Новый CI-скрипт для проверки использования макросов istype() (PR #8685)"

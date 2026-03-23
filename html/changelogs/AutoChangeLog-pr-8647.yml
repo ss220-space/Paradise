@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - server: "Отправка CL в дискорд при мерже"
-  - server: "CI тест корректного CL"

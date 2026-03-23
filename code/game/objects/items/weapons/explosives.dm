@@ -179,7 +179,7 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
+			if(isturf(target))
 				location = get_turf(target)	// Set the explosion location to turf if planted directly on a wall or floor
 			else
 				location = get_atom_on_turf(target)	// Otherwise, make sure we're blowing up what's on top of the turf
@@ -188,7 +188,7 @@
 	if(location)
 		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range, cause = src)
 		location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
@@ -208,7 +208,7 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
+			if(isturf(target))
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
@@ -223,7 +223,7 @@
 		else
 			explosion(location, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, cause = src)
 			location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
@@ -255,7 +255,7 @@
 		else
 			explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
 			location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)
