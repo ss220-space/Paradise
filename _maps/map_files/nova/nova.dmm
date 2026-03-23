@@ -11544,7 +11544,7 @@
 /area/medical/medbay)
 "bHl" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "bHv" = (
 /obj/structure/cable{
@@ -13107,6 +13107,20 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/controlroom)
+"bTl" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/simulated/floor/glass/reinforced/plasma,
+/area/engineering/supermatter)
 "bTr" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/regular{
@@ -13899,10 +13913,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/engineering/supermatter)
 "bYI" = (
@@ -16211,15 +16225,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
-"cqM" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod{
-	anchored = 1
-	},
-/turf/simulated/floor/redgrid,
-/area/engineering/controlroom)
 "cqN" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -17495,7 +17500,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/emitter{
+/obj/machinery/power/emitter/welded{
 	dir = 8
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
@@ -17963,7 +17968,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable,
 /obj/machinery/light,
-/obj/machinery/power/emitter{
+/obj/machinery/power/emitter/welded{
 	dir = 1
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
@@ -20000,10 +20005,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/engineering/supermatter)
 "cUH" = (
@@ -21933,9 +21938,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/redgrid,
 /area/engineering/engine)
 "djZ" = (
@@ -31183,7 +31186,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/emitter,
+/obj/machinery/power/emitter/welded,
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/engineering/controlroom)
 "eDP" = (
@@ -33122,6 +33125,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/geiger_counter,
+/obj/item/geiger_counter,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "eTw" = (
@@ -35090,10 +35095,7 @@
 /area/maintenance/trading)
 "fik" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/smes{
-	charge = 2e+006;
-	name = "Shield power storage unit"
-	},
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/redgrid,
 /area/engineering/engine)
 "fio" = (
@@ -36935,7 +36937,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "fxj" = (
 /obj/machinery/camera{
@@ -41685,7 +41687,7 @@
 	},
 /area/quartermaster/office)
 "ghI" = (
-/obj/structure/reflector/box{
+/obj/structure/reflector/box/anchored{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -41735,7 +41737,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "ghU" = (
 /obj/structure/cable/yellow{
@@ -46150,9 +46152,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53631,10 +53631,10 @@
 	},
 /area/medical/chemistry)
 "hZQ" = (
-/obj/machinery/power/smes,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
 "hZS" = (
@@ -53896,7 +53896,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/reflector/box{
+/obj/structure/reflector/box/anchored{
 	dir = 8
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
@@ -59770,7 +59770,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/emitter{
+/obj/machinery/power/emitter/welded{
 	dir = 4
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
@@ -67243,6 +67243,9 @@
 	icon_state = "dark"
 	},
 /area/maintenance/library)
+"jZs" = (
+/turf/simulated/wall/r_wall,
+/area/engineering/supermatter)
 "jZx" = (
 /obj/item/radio/intercom/directional/west,
 /obj/structure/disposalpipe/segment,
@@ -79977,9 +79980,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "lYF" = (
@@ -82208,8 +82209,7 @@
 	pixel_y = 7
 	},
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_x = 9;
-	pixel_y = 2
+	pixel_x = 9
 	},
 /turf/simulated/floor/carpet/red,
 /area/lawoffice)
@@ -87708,7 +87708,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/reflector/box{
+/obj/structure/reflector/box/anchored{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -93207,7 +93207,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/reflector/box{
+/obj/structure/reflector/box/anchored{
 	dir = 1
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
@@ -96205,9 +96205,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ouv" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -96219,6 +96216,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plating,
 /area/aisat/maintenance)
 "ouB" = (
@@ -99059,10 +99057,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/engineering/supermatter)
 "oQS" = (
@@ -99344,7 +99342,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/reflector/box{
+/obj/structure/reflector/box/anchored{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -103578,7 +103576,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/reflector/box{
+/obj/structure/reflector/box/anchored{
 	dir = 1
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
@@ -116313,10 +116311,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/engineering/supermatter)
 "rpv" = (
@@ -120880,11 +120878,8 @@
 "rXN" = (
 /obj/structure/table/reinforced,
 /obj/item/multitool,
-/obj/item/multitool{
-	pixel_x = 4;
-	pixel_y = -4
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "rXR" = (
@@ -134910,7 +134905,7 @@
 	icon_state = "radiation";
 	name = "RADIOACTIVE AREA"
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "tXa" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -139208,9 +139203,7 @@
 /area/bridge/checkpoint/north)
 "uER" = (
 /obj/structure/cable,
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/redgrid,
 /area/engineering/engine)
 "uES" = (
@@ -146587,6 +146580,20 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medrest)
+"vKU" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/simulated/floor/glass/reinforced/plasma,
+/area/engineering/supermatter)
 "vKV" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -153108,9 +153115,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "wIl" = (
@@ -162255,7 +162260,7 @@
 /area/security/prison/cell_block/A)
 "yan" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "yas" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -210339,11 +210344,11 @@ iUO
 udo
 gsG
 wpY
-vWZ
+jZs
 aim
 aim
 aim
-vWZ
+jZs
 adT
 fvN
 laS
@@ -210596,11 +210601,11 @@ ogj
 fzb
 kXq
 wpY
-vWZ
+jZs
 dhV
 iVs
 iVs
-vWZ
+jZs
 sZP
 fxB
 tTp
@@ -210854,10 +210859,10 @@ euP
 yan
 tWV
 fxh
-cUF
+vKU
 cUF
 bYG
-vWZ
+jZs
 qss
 qof
 eZJ
@@ -211115,7 +211120,7 @@ tkH
 tkH
 tkH
 vWZ
-cqM
+epr
 pNr
 eEd
 tNK
@@ -211629,7 +211634,7 @@ vcV
 vcV
 vcV
 vWZ
-cqM
+epr
 tBc
 eEd
 tds
@@ -211879,13 +211884,13 @@ laS
 gCI
 hau
 xHC
-vWZ
+jZs
 tWV
 ghT
-rpq
+bTl
 rpq
 oQM
-vWZ
+jZs
 ckl
 kOV
 sKp
@@ -212138,11 +212143,11 @@ cQN
 prz
 jVM
 wpY
-vWZ
+jZs
 nfs
 iVa
 iVa
-vWZ
+jZs
 sZP
 jqP
 tTp
@@ -212395,11 +212400,11 @@ hau
 prz
 jVM
 wpY
-vWZ
+jZs
 iTp
 iTp
 iTp
-vWZ
+jZs
 adT
 vcC
 laS

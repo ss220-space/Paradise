@@ -70,6 +70,7 @@ no power level overlay is currently in the overlays list.
 /obj/machinery/field/generator/anchored/Initialize(mapload)
 	. = ..()
 	set_anchored(TRUE)
+	state = FG_WELDED
 
 /obj/machinery/field/generator/process()
 	if(active == FG_ONLINE)

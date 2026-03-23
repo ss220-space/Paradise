@@ -2515,9 +2515,6 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/emitter/anchored{
-	dir = 1
-	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "avW" = (
@@ -5485,13 +5482,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/greengrid,
 /area/engineering/controlroom)
-"aQK" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/warning_stripes/eastsouthwest,
-/turf/simulated/floor/engine,
-/area/engineering/controlroom)
 "aQM" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -5724,7 +5714,7 @@
 	level = 1
 	},
 /obj/machinery/atmospherics/meter,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "aSO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8607,6 +8597,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "blL" = (
@@ -14173,6 +14164,9 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/power/emitter/welded{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "bPT" = (
@@ -15476,9 +15470,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
 "bWs" = (
@@ -20625,11 +20617,8 @@
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "czw" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/field/generator/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "czx" = (
@@ -25013,6 +25002,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "cTZ" = (
@@ -28035,12 +28025,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
-	charge = 1e+006
-	},
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31791,7 +31779,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/light/small,
-/obj/machinery/power/smes,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/greengrid,
 /area/engineering/controlroom)
 "dzA" = (
@@ -33336,10 +33324,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "dHq" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -33786,10 +33771,7 @@
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dJi" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -40167,8 +40149,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal{
 	amount = 50;
-	pixel_x = -4;
-	pixel_y = 0
+	pixel_x = -4
 	},
 /obj/item/stack/sheet/glass{
 	amount = 50;
@@ -43647,6 +43628,16 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
+"ful" = (
+/obj/structure/reflector/box/anchored{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/engine,
+/area/engineering/controlroom)
 "fuE" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -45998,7 +45989,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/emitter/anchored{
+/obj/machinery/power/emitter/welded{
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -54366,7 +54357,7 @@
 "hQU" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/warning_stripes/eastsouthwest,
-/obj/machinery/power/emitter/anchored,
+/obj/machinery/power/emitter/welded,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "hQW" = (
@@ -54769,8 +54760,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/greengrid,
 /area/engineering/controlroom)
 "hVL" = (
@@ -59625,21 +59616,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
-"jdm" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/power/emitter{
-	dir = 4;
-	anchored = 1;
-	state = 2
-	},
-/turf/simulated/floor/engine,
-/area/engineering/controlroom)
 "jdn" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
@@ -61256,6 +61232,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/library)
+"juM" = (
+/turf/simulated/wall/r_wall/coated,
+/area/engineering/supermatter)
 "juQ" = (
 /obj/structure/railing{
 	dir = 5
@@ -64322,11 +64301,9 @@
 	name = "Cargo Lockdown"
 	},
 /obj/item/paper_bin{
-	pixel_x = 0;
 	pixel_y = 2
 	},
 /obj/item/pen{
-	pixel_x = 0;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -66695,10 +66672,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "kLx" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -67390,7 +67364,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/eastnorthwest,
-/obj/machinery/power/emitter/anchored{
+/obj/machinery/power/emitter/welded{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -69434,6 +69408,16 @@
 	icon_state = "vault"
 	},
 /area/atmos)
+"ltO" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/power/emitter/welded{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/engineering/controlroom)
 "ltW" = (
 /turf/simulated/wall/r_wall,
 /area/medical/virology)
@@ -70107,10 +70091,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "lDA" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -84428,10 +84409,7 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/misc_lab)
 "oPh" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -86818,7 +86796,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/meter,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "psd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -87489,13 +87467,11 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
 	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
 "pAn" = (
@@ -92192,10 +92168,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/consarea_virology)
 "qwQ" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -94484,13 +94457,11 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
 "qZn" = (
@@ -98205,10 +98176,7 @@
 	},
 /area/security/execution)
 "rPj" = (
-/obj/machinery/field/generator{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/field/generator/anchored,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -105117,10 +105085,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "tui" = (
@@ -107333,6 +107299,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/warden)
+"tQt" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/reflector/box/anchored,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/engine,
+/area/engineering/controlroom)
 "tQA" = (
 /obj/structure/flora/ausbushes,
 /obj/structure/disposalpipe/segment{
@@ -107453,7 +107430,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/power/emitter/anchored,
+/obj/machinery/power/emitter/welded,
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
 "tRq" = (
@@ -123347,9 +123324,6 @@
 /area/crew_quarters/theatre)
 "xtL" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -123359,6 +123333,7 @@
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
+/obj/machinery/power/smes/full,
 /turf/simulated/floor/plating,
 /area/aisat/maintenance)
 "xtQ" = (
@@ -126812,6 +126787,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"yav" = (
+/obj/structure/reflector/box/anchored{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/engine,
+/area/engineering/controlroom)
 "yaz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -150727,7 +150712,7 @@ coE
 coE
 coE
 bVk
-bJi
+ltO
 jox
 bMn
 bPZ
@@ -150986,7 +150971,7 @@ aaq
 bzy
 nCJ
 gFI
-euY
+yav
 blJ
 bzV
 aSG
@@ -151241,7 +151226,7 @@ aaq
 bCI
 coE
 bVk
-bJi
+fXL
 fBu
 bMD
 bQF
@@ -151755,7 +151740,7 @@ coE
 bCI
 aaq
 bzy
-jdm
+cGe
 fBu
 bMD
 bQH
@@ -151763,7 +151748,7 @@ bQH
 cPl
 aVh
 vvx
-tGE
+juM
 qgo
 qgo
 qgo
@@ -152014,9 +151999,9 @@ coE
 bVk
 hOY
 tht
-nCJ
+tQt
 bQw
-aQK
+bQw
 aSO
 bIH
 aYW
@@ -152277,7 +152262,7 @@ bQH
 cPl
 aVh
 rJz
-tGE
+juM
 bhB
 bhB
 bhB
@@ -153042,7 +153027,7 @@ aaq
 bzy
 nCJ
 uDY
-shc
+ful
 cTV
 bzV
 aua
@@ -153297,7 +153282,7 @@ aaq
 coE
 aaq
 bVk
-fXL
+bJi
 bRj
 uLk
 bRt

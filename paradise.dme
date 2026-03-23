@@ -1843,6 +1843,7 @@
 #include "code\game\turfs\simulated\floor\misc_floor.dm"
 #include "code\game\turfs\simulated\floor\plasteel_floor.dm"
 #include "code\game\turfs\simulated\floor\plating.dm"
+#include "code\game\turfs\simulated\floor\reinforced_floor.dm"
 #include "code\game\turfs\simulated\floor\transparent.dm"
 #include "code\game\turfs\space\openspace.dm"
 #include "code\game\turfs\space\space.dm"
