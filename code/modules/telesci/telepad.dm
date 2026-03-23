@@ -100,7 +100,7 @@
 ///TELEPAD CALLER///
 /obj/item/telepad_beacon
 	name = "telepad beacon"
-	desc = "Устройство, используемое для вызова телепада Отдела снабжения."
+	desc = "Устройство, используемое для вызова телепада отдела Снабжения."
 	gender = MALE
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"

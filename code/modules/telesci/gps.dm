@@ -35,12 +35,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/get_ru_names()
 	return list(
-		NOMINATIVE = "GPS-навигатор",
-		GENITIVE = "GPS-навигатора",
-		DATIVE = "GPS-навигатору",
-		ACCUSATIVE = "GPS-навигатор",
-		INSTRUMENTAL = "GPS-навигатором",
-		PREPOSITIONAL = "GPS-навигаторе"
+		NOMINATIVE = "GPS-маячок",
+		GENITIVE = "GPS-маячка",
+		DATIVE = "GPS-маячку",
+		ACCUSATIVE = "GPS-маячок",
+		INSTRUMENTAL = "GPS-маячком",
+		PREPOSITIONAL = "GPS-маячке"
 	)
 
 /obj/item/gps/Initialize(mapload)
@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	if(!newtag)
 		newtag = gpstag
-	
+
 	name = "global positioning system ([newtag])"
 	for(var/i = 1; i <= 6; i++)
 		ru_names[i] = "[names ? names[i] : initial(name)][newtag ? " ([newtag])" : ""]"
