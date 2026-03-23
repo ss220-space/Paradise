@@ -1,19 +1,19 @@
 GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 
+// MARK: Procs
+
 /**
- * Get job title in Russian by English job title
+ * English -> Russian
  *
- * Should be used for display purposes only, not the logic
+ * Should be used for display purposes only, not for logic
  */
 /proc/get_job_title_ru(en_title)
 	return GLOB.job_titles_ru[en_title] || en_title
 
-/// Get job title in English by Russian job title
-
 /**
- * Get job title in English by Russian job title
+ * Russian -> English
  *
- * Should be used for logic purposes only, not the display
+ * Should be used for logic purposes only, not for display
  */
 /proc/job_title_ru_to_en(ru_title)
 	if(!length(GLOB.job_titles_ru_to_en))
@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 			GLOB.job_titles_ru_to_en[GLOB.job_titles_ru[key]] = key
 	return GLOB.job_titles_ru_to_en[ru_title] || ru_title
 
-// MARK: Russian job titles
+// MARK: Job titles
 
 // Command (Solo command, not department heads)
 #define JOB_TITLE_RU_CAPTAIN "Капитан"
@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_TAIPAN_CYBORG = JOB_TITLE_RU_TAIPAN_CYBORG,
 ))
 
-// MARK: Alt Russian job titles
+// MARK: Alt job titles
 
 // Engineer
 #define ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER "Монтажник"
@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_ARRESTEE "Арестант"
 #define ALT_JOB_TITLE_RU_CONVICT "Осуждённый"
 
-// MARK: Russian department titles
+// MARK: Department titles
 
 #define STATION_DEPARTMENT_RU_COMMAND "Командование"
 #define STATION_DEPARTMENT_RU_MEDICAL "Медицина"

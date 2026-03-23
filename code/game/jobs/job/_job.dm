@@ -1,6 +1,9 @@
+//MARK: Job datum
+
 /datum/job
 
-	/// The name of the job
+	/// The name of the job.
+	/// English only!
 	var/title = ""
 
 	/// Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
@@ -200,7 +203,11 @@
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
 
+//MARK: Outfit datum
+
 /datum/outfit/job
+	/// Name of the outfit.
+	/// Russian names allowed.
 	name = "Standard Gear"
 	collect_not_del = TRUE // we don't want anyone to lose their job shit
 
@@ -251,7 +258,8 @@
 		if(!istype(gear_datum))
 			continue
 
-		if(!gear_datum.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name))
+		var/datum/job/J = SSjobs.GetJobType(jobtype)
+		if(!gear_datum.can_select(cl = H.client, job_name = J.title, species_name = H.dna.species.name))
 			continue
 
 		if(gear_datum.implantable)
