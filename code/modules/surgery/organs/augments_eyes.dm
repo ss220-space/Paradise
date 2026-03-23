@@ -223,6 +223,11 @@
 	. = ..()
 	hide_mini_map(target)
 
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/is_implanted_minimap_implant(mob/living/carbon/target, implant_type)
+	var/obj/item/organ/internal/cyberimp/eyes/map/eye_implant = target.get_organ_slot(INTERNAL_ORGAN_EYE_HUD_DEVICE)
+	return istype(eye_implant, implant_type)
+
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
@@ -354,7 +359,7 @@
 	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
 		if(check == user)
 			continue
-		if(!ismindshielded(check))
+		if(!ismindshielded(check) && !is_implanted_minimap_implant(check, /obj/item/organ/internal/cyberimp/eyes/map/security))
 			continue
 		var/turf/check_turf = get_turf(check)
 		create_overlay_icon("security", check_turf, mindshields)
@@ -362,6 +367,32 @@
 	create_overlays_entry(extra_overlays, "Mindshields", icon_name = "security", markers = mindshields)
 	return extra_overlays
 
+
+/obj/item/organ/internal/cyberimp/eyes/map/ert
+	name = "special reaction team map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов ОБР."
+	icon_state = "security_map_implant"
+	eye_colour = "#e41618"
+
+/obj/item/organ/internal/cyberimp/eyes/map/ert/handle_overlays(mob/user)
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/mindshields = list()
+	var/list/ert_mindshieds = list()
+	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
+		if(check == user)
+			continue
+		var/turf/check_turf = get_turf(check)
+		if(isertmindshielded(check) || is_implanted_minimap_implant(check, /obj/item/organ/internal/cyberimp/eyes/map/ert))
+			create_overlay_icon("ert", check_turf, ert_mindshieds)
+		else if(ismindshielded(check) || is_implanted_minimap_implant(check, /obj/item/organ/internal/cyberimp/eyes/map/security))
+			create_overlay_icon("security", check_turf, mindshields)
+
+	create_overlays_entry(extra_overlays, "ERT Members", icon_name = "ert", markers = ert_mindshieds)
+	create_overlays_entry(extra_overlays, "Mindshields", icon_name = "security", markers = mindshields)
+	return extra_overlays
 
 /obj/item/organ/internal/cyberimp/eyes/map/medical
 	name = "medical map implant "

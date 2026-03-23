@@ -239,6 +239,10 @@
 		/obj/item/implant/mindshield/ert,
 	)
 
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
+	)
+
 /datum/outfit/admin/special_reaction_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	H.head.desc = null
@@ -396,6 +400,10 @@
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/security,
+	)
 
 /datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
