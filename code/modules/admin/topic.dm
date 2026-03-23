@@ -387,12 +387,12 @@
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		var/delmob = 0
+		var/delmob = FALSE
 		switch(tgui_alert(usr, "Delete old mob?", "Message", list("Yes", "No", "Cancel")))
 			if("Cancel")
 				return
 			if("Yes")
-				delmob = 1
+				delmob = TRUE
 
 		switch(href_list["simplemake"])
 			if("observer")

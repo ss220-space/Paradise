@@ -98,7 +98,7 @@
 					extra_lines++
 
 				if(extra_lines)
-					extra_context = "<br><span class='subcontext'>[lmb_rmb_line.Join("")][ctrl_lmb_ctrl_rmb_line.Join("")][alt_lmb_alt_rmb_line.Join("")][shift_lmb_ctrl_shift_lmb_line.Join("")]</span>"
+					extra_context = "<br><span class='subcontext'>[lmb_rmb_line?.Join("")][ctrl_lmb_ctrl_rmb_line.Join("")][alt_lmb_alt_rmb_line.Join("")][shift_lmb_ctrl_shift_lmb_line.Join("")]</span>"
 
 	var/new_maptext
 	if(screentips_enabled == 0 && extra_context == "")
