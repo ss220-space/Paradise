@@ -225,7 +225,7 @@
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/is_implanted_minimap_implant(mob/living/carbon/target, implant_type)
-	var/obj/item/organ/internal/cyberimp/eyes/map/eye_implant = target.get_organ_slot(INTERNAL_ORGAN_EYE_HUD_DEVICE)
+	var/obj/item/organ/internal/eye_implant = target.get_organ_slot(INTERNAL_ORGAN_EYE_HUD_DEVICE)
 	return istype(eye_implant, implant_type)
 
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
