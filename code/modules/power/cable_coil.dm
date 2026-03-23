@@ -245,7 +245,7 @@
 	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/crayon = I
 		cable_color(crayon.colourName)

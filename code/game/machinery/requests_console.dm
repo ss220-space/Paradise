@@ -252,7 +252,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(user.a_intent == INTENT_HARM || inoperable(MAINT))
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		return login_console(screen, I, src)
 

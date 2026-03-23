@@ -71,7 +71,7 @@
 	add_fingerprint(usr)
 	if(href_list["pulse"])
 		var/temp_wire = href_list["wire"]
-		if(!istype(usr.get_active_hand(), /obj/item/multitool))
+		if(!ismultitool(usr.get_active_hand()))
 			balloon_alert(usr, "неподходящий инструмент!")
 		else
 			if(wires[temp_wire])
@@ -89,7 +89,7 @@
 					shock(usr,50)
 					spawn(100) shocked = !shocked
 	if(href_list["cut"])
-		if(!istype(usr.get_active_hand(), /obj/item/wirecutters))
+		if(!iswirecutter(usr.get_active_hand()))
 			balloon_alert(usr, "неподходящий инструмент!")
 		else
 			var/temp_wire = href_list["wire"]

@@ -68,6 +68,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 /obj/item/seeds/Initialize(mapload)
 	. = ..()
+	pixel_x = base_pixel_x + rand(-8, 8)
+	pixel_y = base_pixel_y + rand(-8, 8)
+
 	if(!nogenes) // not used on Copy()
 		genes += new /datum/plant_gene/core/lifespan(lifespan)
 		genes += new /datum/plant_gene/core/endurance(endurance)
@@ -79,13 +82,21 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		if(potency != -1)
 			genes += new /datum/plant_gene/core/potency(potency)
 
-		for(var/p in genes)
-			if(ispath(p))
-				genes -= p
-				genes += new p
+		for(var/plant_gene in genes)
+			if(ispath(plant_gene))
+				genes -= plant_gene
+				genes += new plant_gene
 
 		for(var/reag_id in reagents_add)
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
+
+	var/static/list/hovering_item_typechecks = list(
+		/obj/item/plant_analyzer = list(
+			SCREENTIP_CONTEXT_LMB = "Сканировать параметры семян",
+		),
+	)
+
+	AddElement(/datum/element/contextual_screentip_item_typechecks, hovering_item_typechecks)
 
 /obj/item/seeds/Destroy()
 	QDEL_LIST(genes)

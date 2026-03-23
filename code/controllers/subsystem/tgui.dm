@@ -338,7 +338,7 @@ SUBSYSTEM_DEF(tgui)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
 		return FALSE
-	if(isnull(target.tgui_open_uis) || !istype(target.tgui_open_uis, /list))
+	if(isnull(target.tgui_open_uis) || !islist(target.tgui_open_uis))
 		target.tgui_open_uis = list()
 	// Transfer all the UIs.
 	for(var/datum/tgui/ui in source.tgui_open_uis)

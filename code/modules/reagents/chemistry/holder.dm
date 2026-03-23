@@ -652,7 +652,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			R.volume += amount
 			update_total()
 
@@ -848,7 +848,7 @@
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
-	if(!istype(current_reagent.data, /list))
+	if(!islist(current_reagent.data))
 		return current_reagent.data
 
 	var/list/trans_data = current_reagent.data.Copy()

@@ -63,7 +63,7 @@
 	image_pixel_y = null
 	image_rotation = null
 	object_overlay_options = null
-	LAZYCLEARLIST(options_map)
+	options_map = null
 	return ..()
 
 /obj/item/circuit_component/object_overlay/populate_ports()

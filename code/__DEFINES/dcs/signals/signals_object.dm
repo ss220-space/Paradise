@@ -118,3 +118,6 @@
 
 /// Sent from /datum/powernet/remove_cable()
 #define COMSIG_UPDATE_TWOHANDED_DAMAGE "update_twohanded_damage"
+
+/// Sent on camera switch in camera monitors (/obj/machinery/computer/security/ui_act(action, params))
+#define COMSIG_MONITOR_CAMERA_SWITCHED "monitor_camera_switched"

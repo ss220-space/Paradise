@@ -154,6 +154,17 @@
 #define ROBOT_NOTIFY_AI_CONNECTED 1 //New Cyborg
 #define ROBOT_NOTIFY_AI_MODULE 2 //New Module
 #define ROBOT_NOTIFY_AI_NAME 3 //New Name
+#define AI_NOTIFICATION_AI_SHELL 4 //New AI shell
+
+//'evacuate_ai()' proc danger levels
+#define DANGER_LVL_NONE "danger_level_none" //0% kill chance
+#define DANGER_LVL_MAY_DIE "danger_level_may_die" //50% kill chance
+#define DANGER_LVL_INSTA_DEATH "danger_level_insta_death" //100% kill chance
+
+//'robot.attack_ai()' proc tgui_input desicsions
+#define AISHELL_CONNECT_POSITIVE "Подключиться"
+#define AISHELL_CONNECT_NEGATIVE "Отмена"
+
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
@@ -496,7 +507,7 @@
 #define SSD_LAYER 1
 
 /// Get the client from the var
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (isclient(I) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1
@@ -516,3 +527,7 @@
 
 #define CARBON_MAX_RADIATION 200
 #define NUCLEATION_MAX_RADIATION 800
+
+// Flags for the mob_flags var on /mob
+/// May override the names used in screentips of OTHER OBJECTS hovered over.
+#define MOB_HAS_SCREENTIPS_NAME_OVERRIDE (1 << 0)

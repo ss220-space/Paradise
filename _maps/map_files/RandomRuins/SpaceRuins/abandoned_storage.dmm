@@ -967,7 +967,7 @@
 /area/ruin/unpowered)
 "pj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

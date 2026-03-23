@@ -558,7 +558,7 @@
 		if(isliving(A))
 			var/mob/living/mob = A
 			mob.gib()
-		if(istype(A, /obj/structure/closet))
+		if(iscloset(A))
 			for(var/obj/item/I in A.contents)
 				qdel(I)
 			qdel(A)

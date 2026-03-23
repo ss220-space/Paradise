@@ -992,8 +992,10 @@
 /datum/status_effect/transient/eye_blurry/on_apply()
 	if(!ishuman(owner))
 		return FALSE
+
 	// Refresh the blur when a client jumps into the mob, in case we get put on a clientless mob with no hud
-	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(update_blur))
+	RegisterSignal(owner, list(COMSIG_MOB_LOGIN, SIGNAL_ADDTRAIT(TRAIT_SIGHT_BYPASS), SIGNAL_REMOVETRAIT(TRAIT_SIGHT_BYPASS)), PROC_REF(update_blur))
+
 	// Apply initial blur
 	update_blur()
 	return TRUE

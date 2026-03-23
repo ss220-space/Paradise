@@ -61,7 +61,7 @@ ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager P
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(istype(M, /mob/living/silicon/robot))
+		if(isrobot(M))
 			var/mob/living/silicon/robot/R = M
 			if(R.module && (R.module.name == "engineering robot module"))
 				active_with_role["Engineer"]++

@@ -1466,7 +1466,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			continue
 
 		for(var/obj/item/check in player.current.get_contents()) //Check for items
-			if(istype(check, /obj/item/stack/spacecash))
+			if(is_cash(check))
 				var/obj/item/stack/spacecash/current_cash = check
 				cash_sum += current_cash.amount
 

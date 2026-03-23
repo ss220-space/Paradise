@@ -1227,15 +1227,10 @@
 /// Clears the client's screen, aside from ones that opt out
 /client/proc/clear_screen()
 	for(var/object in screen)
-		if(istype(object, /atom/movable/screen))
+		if(is_screen_atom(object))
 			var/atom/movable/screen/screen_object = object
 			if(!screen_object.clear_with_screen)
 				continue
-		if(istype(object, /atom/movable/render_plane_relay) || \
-			istype(object, /atom/movable/screen/parallax_layer) || \
-			istype(object, /atom/movable/screen/plane_master/))
-			continue
-
 		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
@@ -1313,7 +1308,7 @@
 	set desc = "Lobbyscreen broke? Press this."
 	set category = VERB_CATEGORY_SPECIALVERBS
 
-	if(istype(mob, /mob/new_player))
+	if(isnewplayer(mob))
 		SStitle.show_title_screen_to(src)
 	else
 		SStitle.hide_title_screen_from(src)
@@ -1621,7 +1616,7 @@
 				class = "subsystem"
 			else if(istype(stat_item, /datum/controller))
 				class = "controller"
-			else if(istype(stat_item, /datum))
+			else if(isdatum(stat_item))
 				class = "datum"
 			else
 				class = "unknown"

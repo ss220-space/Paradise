@@ -255,7 +255,7 @@
 			revert_cast()
 			return FALSE
 
-		if(istype(limb,/obj/item/organ/external/chest))
+		if(ischest(limb))
 			// Bullshit, but prevents being able to instagib someone.
 			to_chat(user, span_warning("Вы пытаетесь уместить туловище у себя во рту, но у вас ничего не получается!"))
 			revert_cast()

@@ -220,7 +220,7 @@
 				clear_fullscreen("brute")
 
 /mob/living/simple_animal/slime/ObjBump(obj/object)
-	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (istype(object, /obj/structure/window) && !istype(object, /obj/structure/grille)))
+	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (is_window(object) && !istype(object, /obj/structure/grille)))
 		return
 
 	var/probab = 10

@@ -613,12 +613,6 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
-"cW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall{
-	simulated = 0
-	},
-/area/awaymission/academy/academyaft)
 "cZ" = (
 /turf/simulated/wall{
 	simulated = 0
@@ -2744,7 +2738,6 @@
 /area/awaymission/academy/headmaster)
 "lD" = (
 /obj/structure/statue/bone/rib{
-	anchored = 1;
 	dir = 8;
 	pixel_x = 2;
 	pixel_y = 8
@@ -3825,9 +3818,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
 "ws" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5113,7 +5104,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "Kp" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5359,7 +5350,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "Ms" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5522,10 +5513,6 @@
 	dir = 9;
 	icon_state = "green"
 	},
-/area/awaymission/academy/academyaft)
-"Oy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/reinforced/rusted,
 /area/awaymission/academy/academyaft)
 "OD" = (
 /obj/structure/bookcase,
@@ -5710,7 +5697,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "Qq" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -5811,7 +5798,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "RD" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -8869,7 +8856,7 @@ gm
 hH
 hH
 iG
-cW
+gZ
 hH
 hH
 hH
@@ -10140,7 +10127,7 @@ oL
 cu
 hs
 qF
-rD
+xz
 by
 bK
 br
@@ -10270,7 +10257,7 @@ cu
 cu
 hs
 cu
-ud
+vN
 EG
 Jd
 Ms
@@ -10790,7 +10777,7 @@ cu
 cu
 cu
 cu
-vN
+ud
 Gu
 Ji
 Qq
@@ -10920,7 +10907,7 @@ oL
 cu
 hs
 cu
-xz
+rD
 hY
 ry
 wW
@@ -20670,7 +20657,7 @@ aa
 aa
 gQ
 gQ
-Oy
+gQ
 zk
 FK
 zk

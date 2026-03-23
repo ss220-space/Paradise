@@ -165,6 +165,8 @@
 #define TRAIT_BADASS "trait_badass"
 /// Mantis blades trait for lunging
 #define TRAIT_CANT_LUNGE "cant_lunge"
+/// Trait for Mindshield HUD in sec HUDs
+#define TRAIT_MINDSHIELD_HUD "mindshield_hud"
 
 /**
  * Traits for ventcrawling.
@@ -430,3 +432,13 @@
 
 // prevents explosion implants from auto activating upon death
 #define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
+
+/// Mob is an echolocator
+#define TRAIT_ECHOLOCATOR "echolocator"
+
+/// eignore blindness or blurriness or nearsightedness
+#define TRAIT_SIGHT_BYPASS "perfect_sight"
+
+// Hud traits
+/// This hud is owned by a client with an open escape menu
+#define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
