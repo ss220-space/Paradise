@@ -24,6 +24,8 @@
 	var/category = CAT_NONE
 	/// Subcategory for additional organization in UI
 	var/subcategory = CAT_NONE
+	///Required machines for the craft, set the assigned value of the typepath to CRAFTING_MACHINERY_CONSUME or CRAFTING_MACHINERY_USE. Lazy associative list: type_path key -> flag value.
+	var/list/machinery
 	/// If FALSE, this recipe must be learned before becoming available
 	var/always_availible = TRUE
 	/// If TRUE, alerts admins when this recipe is crafted
