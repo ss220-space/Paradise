@@ -77,18 +77,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(cl && !silent)
 		to_chat(cl, span_warning("\"[capitalize(get_display_name())]\" недоступно для вашей профессии!"))
 
-	if(!donator_tier)
-		return TRUE
-
-	if(!cl.prefs) // DB loading, skip this check now
-		return TRUE
-
-	if(cl?.donator_level >= donator_tier)
-		return TRUE
-
-	if(cl && !silent)
-		to_chat(cl, span_warning("Для получения \"[display_name]\" необходим [donator_tier] или более высокий уровень пожертвований."))
-
 	return FALSE
 
 /datum/gear/proc/get_header_tips()
