@@ -683,6 +683,10 @@
 	..()
 	new /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened(src)
 
+/obj/item/storage/box/cyber_implants/nuke_map/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/eyes/map/nuke(src)
+
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"
 	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,

@@ -80,7 +80,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/ruin/powered/green_bio)
 "gQ" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -583,7 +583,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "Lh" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Lq" = (
@@ -696,9 +696,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "Wr" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/machinery/light/small{
 	dir = 4
 	},

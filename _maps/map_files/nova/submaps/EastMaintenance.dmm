@@ -286,7 +286,7 @@
 	},
 /area/maintenance/abandonedoffices)
 "dm" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -1252,7 +1252,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	color = "#85130b";
 	dir = 8
 	},
@@ -1416,7 +1416,7 @@
 	},
 /area/maintenance/abandonedoffices)
 "rr" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /obj/machinery/light_construct{
@@ -2003,7 +2003,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "wO" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4;
 	color = "#85130b"
 	},
@@ -3660,7 +3660,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/maintenance/abandonedoffices)
 "NP" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4509,7 +4509,7 @@
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "Xb" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
