@@ -295,7 +295,7 @@
 		else if(closest_type >= RIDE)
 			continue
 
-		else if(istype(target_atom, /obj/vehicle))
+		else if(isvehicle(target_atom))
 			var/obj/vehicle/ridden/target_ridden = target_atom
 			if(target_ridden.can_buckle && !HAS_TRAIT(target_ridden, TRAIT_BEING_SHOCKED))
 				closest_type = RIDE
