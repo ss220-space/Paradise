@@ -1456,7 +1456,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "nR" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -2554,7 +2554,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/abandonedhangar)
 "yf" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/yellow{
@@ -2584,7 +2584,7 @@
 	},
 /area/maintenance/medroom)
 "yp" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -3936,7 +3936,7 @@
 /turf/simulated/wall/rust,
 /area/maintenance/apmaint)
 "La" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/yellow{

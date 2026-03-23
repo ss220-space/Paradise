@@ -15,6 +15,10 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
+// Air alarm build stages
+#define AIR_ALARM_FRAME 0
+#define AIR_ALARM_BUILDING 1
+#define AIR_ALARM_READY 2
 
 GLOBAL_LIST_INIT(aalarm_modes, list(
 	"[AALARM_MODE_FILTERING]" = "Filtering",
@@ -28,10 +32,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	"[AALARM_MODE_OFF]" = "Off",
 	"[AALARM_MODE_FLOOD]" = "Flood",
 ))
-
-#define AIR_ALARM_FRAME 0
-#define AIR_ALARM_BUILDING 1
-#define AIR_ALARM_READY 2
 
 // A datum for dealing with threshold limit values
 // used in /obj/machinery/alarm
@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	max2 = other.max2
 
 /obj/machinery/alarm
-	name = "alarm"
+	name = "air alarm"
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		mode = AALARM_MODE_CYCLE
 		apply_mode()
 
-/obj/machinery/alarm/Initialize(mapload, direction, building = 0)
+/obj/machinery/alarm/Initialize(mapload, direction, building = FALSE)
 	. = ..()
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
@@ -207,17 +207,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	wires = new(src)
 
 	if(building)
-		if(loc)
-			src.loc = loc
-
-		if(dir)
+		if(direction)
 			setDir(direction)
 
 		buildstage = AIR_ALARM_FRAME
 		wiresexposed = TRUE
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
-		update_icon()
-		return
 
 	first_run()
 	alarm_area.air_alarms += src
@@ -230,7 +225,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
-	alarm_area.air_alarms -= src
+	alarm_area?.air_alarms -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
@@ -1110,13 +1105,13 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(wiresexposed)
 		wires.Interact(user)
 
-/obj/machinery/alarm/wrench_act(mob/user, obj/item/I)
+/obj/machinery/alarm/wrench_act(mob/user, obj/item/item)
 	if(buildstage != AIR_ALARM_FRAME)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
 		return
-	new /obj/item/mounted/frame/alarm_frame(get_turf(user))
+	new /obj/item/mounted/frame/alarm_frame(user.drop_location())
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	qdel(src)
 

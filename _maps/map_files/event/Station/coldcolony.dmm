@@ -243,7 +243,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "adx" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/effect/landmark/start/civilian,
@@ -13075,7 +13075,7 @@
 	},
 /area/coldcolony/malta/quartermaster/office)
 "eKC" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -17066,7 +17066,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai_upload)
 "gkX" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -25173,7 +25173,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "jkG" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood,
@@ -48332,7 +48332,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "rCp" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -65076,7 +65076,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "xLw" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -95657,8 +95657,8 @@ nHW
 hjM
 oHE
 oSI
-rAA
-rAA
+nHj
+nHj
 sYU
 fFo
 jMX
@@ -96172,7 +96172,7 @@ qgZ
 sBm
 uJI
 rCp
-nHj
+rAA
 sYU
 cdN
 xLn
@@ -96688,11 +96688,11 @@ vRh
 cqT
 oAY
 dmG
-pjw
 vIj
+pjw
 csq
-pjw
 vIj
+pjw
 sYU
 eii
 tEk
@@ -96945,11 +96945,11 @@ kkP
 ccX
 cqT
 sYU
-pjw
 vIj
+pjw
 dUt
 adx
-vIj
+pjw
 sYU
 eii
 bdn
@@ -96967,7 +96967,7 @@ pDT
 mXD
 nWM
 vVi
-kmf
+nLT
 dhb
 hWV
 twC
@@ -97202,11 +97202,11 @@ nxo
 qrf
 gWq
 sYU
-pjw
 vIj
+pjw
 csq
-pjw
 vIj
+pjw
 vPb
 cqT
 jaE
@@ -97481,7 +97481,7 @@ qkz
 mXD
 nWM
 vVi
-nLT
+kmf
 goc
 pTc
 twC
@@ -112346,8 +112346,8 @@ syT
 mca
 jOt
 tRI
-hPV
 plo
+hPV
 tRI
 tSW
 rSb

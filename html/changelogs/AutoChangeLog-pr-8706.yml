@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлена ошибка в проках геренации ассетов. (PR #8706)"
