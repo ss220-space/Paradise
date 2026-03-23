@@ -569,7 +569,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "ig" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3105,7 +3105,7 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "PG" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/structure/sign/poster/official/random{

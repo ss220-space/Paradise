@@ -1791,13 +1791,13 @@
 	},
 /area/derelict/crew_quarters)
 "eE" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
 "eF" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/machinery/light/spot{
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"

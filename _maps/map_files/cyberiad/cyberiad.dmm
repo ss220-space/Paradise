@@ -7551,7 +7551,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aBJ" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	color = "#85130b";
 	dir = 4
 	},
@@ -13422,7 +13422,7 @@
 	},
 /area/security/permabrig)
 "aZV" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white{
@@ -17687,7 +17687,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "bpH" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/landmark/start/civilian,
@@ -29050,7 +29050,7 @@
 /turf/simulated/wall,
 /area/janitor)
 "chd" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -32163,7 +32163,7 @@
 /area/maintenance/server)
 "ctr" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /obj/effect/turf_decal/siding/purple,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -32430,7 +32430,7 @@
 /area/medical/virology)
 "cuC" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /obj/machinery/light_construct{
@@ -38430,7 +38430,7 @@
 	},
 /area/toxins/xenobiology)
 "cRx" = (
-/obj/structure/chair/sofa/corp/right,
+/obj/structure/chair/sofa/corp/left,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -38439,7 +38439,7 @@
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "cRy" = (
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
@@ -42333,7 +42333,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "dfv" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -44670,7 +44670,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -44693,7 +44693,7 @@
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "dnv" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white{
@@ -45414,7 +45414,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -45423,7 +45423,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "dpZ" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/white{
@@ -52696,7 +52696,7 @@
 	},
 /area/security/permabrig)
 "gsG" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	color = "#85130b"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -57073,7 +57073,7 @@
 	},
 /area/turret_protected/ai)
 "itF" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -57809,7 +57809,7 @@
 	},
 /area/medical/sleeper)
 "iJG" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/white{
@@ -58518,7 +58518,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "iXh" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/white{
@@ -72838,7 +72838,7 @@
 /area/maintenance/trading)
 "prK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/south,
@@ -79430,7 +79430,7 @@
 /area/security/permabrig)
 "skM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -85319,7 +85319,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "uOW" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -127330,8 +127330,8 @@ cUS
 dbi
 gOH
 dft
-djT
 djt
+djT
 wPc
 dnq
 dpV
@@ -135574,7 +135574,7 @@ rKD
 sAQ
 upo
 bSH
-wKS
+wMV
 bUJ
 cbf
 vec
@@ -136088,7 +136088,7 @@ bOZ
 bQK
 bJo
 bSH
-wMV
+wKS
 bUJ
 cbf
 uuQ

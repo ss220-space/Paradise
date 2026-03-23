@@ -141,11 +141,6 @@ menu "menu"
 		category = "&Опции"
 		saved-params = "is-checked"
 	elem
-		name = "&Игровые настройки"
-		command = "Игровые-настройки"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
 		name = "&Помощь"
 		command = ""
 		saved-params = "is-checked"
