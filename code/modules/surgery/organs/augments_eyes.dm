@@ -219,6 +219,10 @@
 	current_turf = null
 	return ..()
 
+/obj/item/organ/internal/cyberimp/eyes/map/remove(mob/living/carbon/target, special)
+	. = ..()
+	hide_mini_map(target)
+
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
