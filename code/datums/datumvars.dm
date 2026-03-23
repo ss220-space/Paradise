@@ -457,7 +457,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 </html>
 	"}
 
-	if(istype(D, /datum))
+	if(isdatum(D))
 		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
 
 	var/size_string = "size=475x650";

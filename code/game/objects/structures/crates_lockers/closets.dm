@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(closets)
 			break
 		if(!isnull(mob_storage_capacity) && (mobcount >= mob_storage_capacity))
 			break
-		if(istype(M, /mob/dead/observer))
+		if(isobserver(M))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
@@ -362,11 +362,11 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(!opened)
 		return
-	if(istype(O, /obj/structure/closet))
+	if(iscloset(O))
 		return
 	if(user.pulling == O)
 		user.stop_pulling()

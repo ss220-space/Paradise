@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
-	if(istype(get_area(src), /area))
+	if(isarea(get_area(src)))
 		LAZYADD(GLOB.station_fire_alarms["[z]"], src)
 
 	myArea = get_area(src)
@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 	switch(buildstage)
 		if(FIRE_ALARM_UNWIRED)
-			if(istype(I, /obj/item/stack/cable_coil))
+			if(iscoil(I))
 				add_fingerprint(user)
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))

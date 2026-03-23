@@ -204,7 +204,7 @@
 		to_chat(user, span_warning("unknown power prevents you from using sentience potion on [M])"))
 		return ..()
 
-	if(istype(M, /mob/living/simple_animal/hostile/airmob))
+	if(isairmob(M))
 		to_chat(user, span_warning("[M.declent_ru(NOMINATIVE)] не является формой жизни и не может обрести разум."))
 		return ..()
 

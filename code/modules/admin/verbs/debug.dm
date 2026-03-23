@@ -581,7 +581,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
 		H.regenerate_icons()
 		// Grey translator fix for admin equip
-	if(istype(H.dna.species, /datum/species/grey))
+	if(isgrey(H.dna.species))
 		var/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/retranslator = new
 		retranslator.insert(H)
 

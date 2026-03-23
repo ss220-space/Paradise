@@ -1217,7 +1217,7 @@
 	currently_vending = product_record
 	var/paid = FALSE
 
-	if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
+	if(is_cash(usr.get_active_hand()))
 		var/obj/item/stack/spacecash/cash = usr.get_active_hand()
 		paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 	else if(get_card_account(usr))

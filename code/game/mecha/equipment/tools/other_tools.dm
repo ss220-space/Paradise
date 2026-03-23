@@ -104,7 +104,7 @@
 	switch(mode)
 		if(CATAPULT_GRAVSLING)
 			if(!locked)
-				if(!istype(target) || target.anchored || istype(target, /obj/mecha))
+				if(!istype(target) || target.anchored || ismecha(target))
 					occupant_message("Unable to lock on [target]")
 					return FALSE
 				locked = target

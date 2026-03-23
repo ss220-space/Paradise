@@ -366,7 +366,7 @@
 		)
 
 /obj/item/mod/module/magnet/on_deactivation(display_message = TRUE, deleting = FALSE)
-	if(istype(mod.wearer.pulling, /obj/structure/closet))
+	if(iscloset(mod.wearer.pulling))
 		mod.wearer.stop_pulling()
 
 /obj/item/mod/module/magnet/proc/check_locker(obj/structure/closet/locker)

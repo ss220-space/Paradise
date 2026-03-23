@@ -293,7 +293,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later
 		// But this'll do for now
-		if(istype(head_organ.dna.species, /datum/species/slime))
+		if(isslimeperson(head_organ.dna.species))
 			hair_s.Blend("[H.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 		else
 			hair_s.Blend(head_organ.hair_colour, ICON_ADD)
@@ -317,7 +317,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style?.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-		if(istype(head_organ.dna.species, /datum/species/slime))
+		if(isslimeperson(head_organ.dna.species))
 			facial_s.Blend("[H.skin_colour]A0", ICON_ADD) //A0 = 160 alpha.
 		else
 			facial_s.Blend(head_organ.facial_colour, ICON_ADD)

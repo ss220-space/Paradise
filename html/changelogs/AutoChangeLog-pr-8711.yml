@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - add: "tgui диспетчер роботов (PR #8711)"
-  - map: "На фастлоад добавлены интеркомы, ядро интеркомов и марка спавна ИИ. (PR #8711)"

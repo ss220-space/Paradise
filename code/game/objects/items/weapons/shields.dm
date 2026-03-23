@@ -12,7 +12,7 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
-		if(istype(hitby, /obj/projectile))
+		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
 			if(P.shield_buster)
 				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
@@ -43,7 +43,7 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/melee/baton) && COOLDOWN_FINISHED(src, cooldown))
+	if(isbaton(I) && COOLDOWN_FINISHED(src, cooldown))
 		COOLDOWN_START(src, cooldown, 2.5 SECONDS)
 		user.visible_message(
 			span_warning("[user] bashes [src] with [I]!"),
@@ -115,7 +115,7 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(istype(hitby, /obj/projectile))
+	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)

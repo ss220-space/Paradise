@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Уведомления ПДА снова уведомляют (PR #8720)"

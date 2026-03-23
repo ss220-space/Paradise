@@ -422,7 +422,7 @@
 		input_text = replacetext(input_text, "\[/large\]", "</font>")
 
 	// Crayon-specific handling - disable advanced formatting
-	if(istype(pen_item, /obj/item/toy/crayon) || !enable_formatting)
+	if(iscrayon(pen_item) || !enable_formatting)
 		input_text = replacetext(input_text, "\[*\]", "")
 		input_text = replacetext(input_text, "\[hr\]", "")
 		input_text = replacetext(input_text, "\[small\]", "")
@@ -440,7 +440,7 @@
 		input_text = replacetext(input_text, "\[station\]", "")
 
 	// Apply crayon formatting if using a crayon
-	if(istype(pen_item, /obj/item/toy/crayon))
+	if(iscrayon(pen_item))
 		input_text = "<font face=\"[crayon_font]\" color=[pen_item ? pen_item.colour : "black"]><b>[input_text]</b></font>"
 	else
 		// Apply advanced formatting for non-crayon writing instruments

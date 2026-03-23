@@ -297,7 +297,7 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user)
-	if(istype(user, /mob/dead/observer))
+	if(isobserver(user))
 		return FALSE
 
 	if(user.incapacitated())

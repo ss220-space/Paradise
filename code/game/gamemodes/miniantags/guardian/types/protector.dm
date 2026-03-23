@@ -50,7 +50,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			if(istype(summoner.loc, /obj/effect))
+			if(iseffect(summoner.loc))
 				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
 				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)

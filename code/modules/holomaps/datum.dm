@@ -9,24 +9,49 @@
 
 	/// This set to TRUE when the station map is initialized on a zLevel that doesn't have its own icon formatted for use by station holomaps.
 	var/bogus = TRUE
+	/// Redraw location turf
 	var/turf/location_turf
+	/// Z level of map
 	var/map_z
+	/// Flag for add map legend
+	var/show_legend
+	/// Bottom left corner x for crop (0 for disable crop)
+	var/crop_x
+	/// Bottom left corner y for crop (0 for disable crop)
+	var/crop_y
+	/// Crop size by x (world.maxx for disable crop)
+	var/crop_w
+	/// Crop size by y (world.maxy for disable crop)
+	var/crop_h
 
 /datum/station_holomap/New()
 	. = ..()
 	cursor = image('icons/misc/8x8.dmi', "you")
 
-/datum/station_holomap/proc/initialize_holomap(turf/T, current_z_level, mob/user = null, reinit_base_map = FALSE, extra_overlays = list())
+/datum/station_holomap/proc/initialize_holomap(turf/T, current_z_level, mob/user = null, reinit_base_map = FALSE, extra_overlays = list(), show_legend = TRUE, crop = null)
 	bogus = FALSE
 	location_turf = T
 	map_z = current_z_level
+	src.show_legend = show_legend
 
 	if(!("[HOLOMAP_EXTRA_STATIONMAP]_[map_z]" in SSholomaps.extra_holomaps))
 		initialize_holomap_bogus()
 		return
 
 	if(!base_map || reinit_base_map)
-		base_map = image(SSholomaps.extra_holomaps["[HOLOMAP_EXTRA_STATIONMAP]_[map_z]"])
+		var/icon/extra_holomap = SSholomaps.extra_holomaps["[HOLOMAP_EXTRA_STATIONMAP]_[map_z]"]
+		var/icon/big_map = icon(extra_holomap)
+		crop_x = 0
+		crop_y = 0
+		crop_w = world.maxx
+		crop_h = world.maxy
+		if(crop)
+			crop_x = crop[CROP_X1]
+			crop_y = crop[CROP_Y1]
+			crop_w = crop[CROP_X2] - crop_x
+			crop_h = crop[CROP_Y2] - crop_y
+			big_map.Crop(crop_x, crop_y, crop[CROP_X2], crop[CROP_Y2])
+		base_map = image(big_map)
 
 	if(isAI(user) || isAIEye(user))
 		var/turf/eye_turf = get_turf(user?.client?.eye)
@@ -36,6 +61,9 @@
 	update_map(extra_overlays)
 
 /datum/station_holomap/proc/generate_legend(list/overlays_to_use = list())
+	if(!show_legend)
+		return
+
 	var/legend_y = HOLOMAP_LEGEND_Y
 	for(var/list/overlay_name as anything in overlays_to_use)
 		var/image/overlay_icon = overlays_to_use[overlay_name]["icon"]
@@ -74,8 +102,8 @@
 		return
 
 	if(location_turf && location_turf.z == map_z && is_station_level(location_turf.z))
-		cursor.pixel_w = location_turf.x - 3 + HOLOMAP_CENTER_X
-		cursor.pixel_z = location_turf.y - 3 + HOLOMAP_CENTER_Y
+		cursor.pixel_w = HOLOMAP_CENTER_X + location_turf.x - crop_x - 3
+		cursor.pixel_z = HOLOMAP_CENTER_Y + location_turf.y - crop_y - 3
 
 		base_map.add_overlay(cursor)
 		overlays_to_use["Вы здесь"] = list(

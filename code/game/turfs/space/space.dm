@@ -36,7 +36,7 @@
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	if(!istype(src, /turf/space/transit) && !istype(src, /turf/space/openspace))
+	if(!istype(src, /turf/space/transit) && !isopenspaceturf(src))
 		icon_state = SPACE_ICON_STATE
 
 	if(length(vis_contents))

@@ -372,7 +372,7 @@
 		now_pushing = null
 		return
 
-	if(istype(AM, /obj/structure/window))
+	if(is_window(AM))
 		var/obj/structure/window/window = AM
 		if(window.fulltile)
 			for(var/obj/structure/window/win in get_step(window, dir_to_target))
@@ -1398,7 +1398,7 @@
 		return pod.cabin_air.temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))
 		return environment.temperature()
-	if(istype(get_turf(src), /turf/space))
+	if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))

@@ -563,7 +563,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		var/search_pda = 1
 
 		for(var/A in searching)
-			if(search_id && istype(A,/obj/item/card/id))
+			if(search_id && is_id_card(A))
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname

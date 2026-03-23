@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
 			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-		else if(istype(I, /obj/item/soap))
+		else if(issoap(I))
 			cleaning = TRUE
 		if(!cleaning)
 			return ..()

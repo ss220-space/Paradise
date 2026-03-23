@@ -421,11 +421,11 @@
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
-	if(istype(I, /obj/item/crowbar) || istype(I, /obj/item/wrench))
+	if(istype(I, /obj/item/crowbar) || iswrench(I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(panel_open)
-		if(istype(I, /obj/item/card/id))
+		if(is_id_card(I))
 			idcard_act(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		else if(!isLocked())
@@ -535,7 +535,7 @@
 	data["guestNotice"] = "Идентификационной карты не обнаружено.";
 	data["userMoney"] = 0
 	data["user"] = null
-	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
+	if(issilicon(user) && !isdrone(user) && !ispAI(user))
 		account = get_card_account(user)
 		data["user"] = list()
 		data["user"]["name"] = account.owner_name
@@ -632,7 +632,7 @@
 			currently_vending = product
 			var/paid = FALSE
 
-			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
+			if(is_cash(usr.get_active_hand()))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = FALSE
 				var/left = currently_vending.price
@@ -772,7 +772,7 @@
 	var/turf/origin_turf = get_turf(src)
 	var/list/contents = holder.contents
 	for(var/atom/movable/content in contents)
-		if(istype(content, /obj/item))
+		if(isitem(content))
 			try_insert(null, content, TRUE)
 		else
 			content.forceMove(origin_turf)

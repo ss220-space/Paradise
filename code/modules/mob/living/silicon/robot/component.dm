@@ -274,7 +274,7 @@
 /proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	var/list/msgs = list()
-	if(istype(M, /mob/living/silicon/robot))
+	if(isrobot(M))
 		scan_type = "robot"
 	else if(ishuman(M))
 		scan_type = "prosthetics"

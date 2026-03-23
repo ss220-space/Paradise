@@ -497,7 +497,7 @@
 		to_chat(user, span_notice("You insert the cell."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
 		if(wired)

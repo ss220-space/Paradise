@@ -497,7 +497,7 @@
 		return
 	holder.setOpened()
 	var/turf/turf_underneath = get_turf(holder) //Get the turf of whoever's contents we're talking about
-	if(istype(holder, /mob)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
+	if(ismob(holder)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
 		var/mob/holder_as_mob = holder
 		if(holder_as_mob.key && !forced && !broken) //If we are player controlled, then we shouldn't open unless the opening is manual, or if it is due to being destroyed (represented by the "broken" parameter)
 			return

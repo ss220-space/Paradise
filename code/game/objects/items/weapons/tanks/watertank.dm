@@ -306,7 +306,7 @@
 				nanofrost_cooldown = 0
 		return
 	if(nozzle_mode == METAL_FOAM)
-		if(!Adj|| !istype(target, /turf))
+		if(!Adj|| !isturf(target))
 			return
 		if(metal_synthesis_cooldown < 5)
 			var/datum/effect_system/fluid_spread/foam/metal/s = new()

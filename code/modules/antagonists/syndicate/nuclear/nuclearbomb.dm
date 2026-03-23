@@ -535,7 +535,7 @@ GLOBAL_VAR(bomb_set)
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
 	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(get_area(bomb_location), /area/space))
+		if(isspacearea(get_area(bomb_location)))
 			off_station = 1
 	else
 		off_station = 2

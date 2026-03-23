@@ -276,7 +276,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				brain.forceMove(T)
 				O = brain // Convoluted way of making the brain disappear
 
-		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
+		else if(is_internal_organ_brain(O)) // Offering a brain
 			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
@@ -501,7 +501,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		playsound(target, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
-		else if(!is_station_level(z) || istype(get_area(src), /area/space))
+		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", rune_turf)
 		user.visible_message(
 			span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
@@ -872,7 +872,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/choice = tgui_alert(user, "You tear open a connection to the spirit realm...", "Invoke", list("Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel"))
 	if(choice == "Summon a Cult Ghost")
-		if(!is_station_level(z) || istype(get_area(src), /area/space))
+		if(!is_station_level(z) || isspacearea(get_area(src)))
 			to_chat(user, span_cultitalic("The veil is not weak enough here to manifest spirits, you must be on station!"))
 			fail_invoke()
 			return

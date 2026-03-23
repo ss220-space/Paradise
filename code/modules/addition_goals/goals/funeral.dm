@@ -134,7 +134,7 @@
 					report_text += "тело не находится в гробу.<br>"
 					continue
 				var/obj/structure/closet/coffin/coffin = corpse.loc
-				if(istype(coffin.loc, /turf/space))
+				if(isspaceturf(coffin.loc))
 					report_text += "успешно похоронен.<br>"
 					complete_count++
 				else

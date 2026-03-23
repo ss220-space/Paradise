@@ -113,7 +113,7 @@
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/item/organ))
+	if(is_organ(O))
 		var/obj/item/organ/Org = O
 		if(!Org.is_robotic())
 			Org.rejuvenate()
