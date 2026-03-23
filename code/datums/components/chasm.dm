@@ -28,6 +28,7 @@
 		/obj/machinery/bfl_receiver,
 		/obj/projectile,
 		/obj/singularity,
+		/obj/energy_ball,
 		/obj/spacepod,
 		/obj/structure/lattice,
 		/obj/structure/railing,

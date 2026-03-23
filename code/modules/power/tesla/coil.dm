@@ -34,7 +34,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/tesla_coil(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	wires = new(src)
+	wires = new /datum/wires/tesla_coil(src)
 	RefreshParts()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/Destroy()
@@ -45,9 +45,9 @@
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
 	zap_cooldown = 100
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		power_multiplier += C.rating
-		zap_cooldown -= (C.rating * 20)
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		power_multiplier += capacitor.rating
+		zap_cooldown -= (capacitor.rating * 20)
 	zap_cooldown = max(zap_cooldown, 10)
 	input_power_multiplier = (0.85 * (power_multiplier * 0.25)) // Max out at 85% efficency.
 
@@ -198,7 +198,7 @@
 		flick("grounding_rodhit", src)
 		zap_buckle_check(energy)
 		stored_energy += energy
-		return FALSE
+		return 0
 	else
 		. = ..()
 

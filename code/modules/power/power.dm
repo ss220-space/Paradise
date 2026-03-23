@@ -11,8 +11,9 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
-	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
+	///The powernet our machine is connected to.
+	var/datum/powernet/powernet = null
 
 /obj/machinery/power/Destroy(force)
 	disconnect_from_network()
@@ -44,9 +45,9 @@
 	else
 		return 0
 
-/obj/machinery/power/proc/avail()
+/obj/machinery/power/proc/avail(amount)
 	if(powernet)
-		return powernet.avail
+		return amount ? powernet.avail >= amount : powernet.avail
 	else
 		return 0
 

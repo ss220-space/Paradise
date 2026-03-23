@@ -376,7 +376,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	else if(max(power, forced_power) > POWER_PENALTY_THRESHOLD)
 		investigate_log("has spawned additional energy balls.", INVESTIGATE_ENGINE)
 		if(source_turf)
-			var/obj/singularity/energy_ball/new_energy_ball = new(source_turf)
+			var/obj/energy_ball/new_energy_ball = new(source_turf)
 			new_energy_ball.energy = 200 //Gets us about 9 balls
 
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41

@@ -371,6 +371,7 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
+///Is this atom within 1 tile of another atom
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 

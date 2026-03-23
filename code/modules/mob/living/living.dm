@@ -2289,3 +2289,7 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/// Prints an ominous message if something bad is going to happen to you
+/mob/living/proc/ominous_nosebleed()
+	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))
