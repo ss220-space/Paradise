@@ -1009,7 +1009,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/mend_host
 
 /datum/status_effect/mend_host/tick()
-	if(!istype(owner, /mob/living/carbon))
+	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/C = owner
 	C.adjustBruteLoss(MEND_HOST_HEAL_AMOUNT)
