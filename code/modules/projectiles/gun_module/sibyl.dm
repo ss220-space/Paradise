@@ -276,10 +276,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			if(!prob(90))
 				tool_fumble(user, tool, 5, BRUTE)
 				return
-			else
-				state = SIBSYS_STATE_SCREWDRIVER_ACT
-				to_chat(user, span_notice("Вы ослабили крепление [declent_ru(GENITIVE)] на [gun.declent_ru(PREPOSITIONAL)]."))
-			return
+			state = SIBSYS_STATE_SCREWDRIVER_ACT
+			to_chat(user, span_notice("Вы ослабили крепление [declent_ru(GENITIVE)] на [gun.declent_ru(PREPOSITIONAL)]."))
 
 /obj/item/gun_module/sibyl/proc/on_welder_act(datum/source, mob/living/user, obj/item/tool)
 	switch(state)
@@ -293,12 +291,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 				return
 			if(state != old_state)
 				return
-			if(prob(70))
-				state = SIBSYS_STATE_WELDER_ACT
-				to_chat(user, span_notice("Вы успешно разварили крепление [declent_ru(GENITIVE)]."))
-			else
+			if(!prob(70))
 				tool_fumble(user, tool, 10, BURN)
-			return
+				return
+			state = SIBSYS_STATE_WELDER_ACT
+			to_chat(user, span_notice("Вы успешно разварили крепление [declent_ru(GENITIVE)]."))
 
 /obj/item/gun_module/sibyl/proc/on_crowbar_act(datum/source, mob/living/user, obj/item/tool)
 	if(state != SIBSYS_STATE_WELDER_ACT)
@@ -309,8 +306,10 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!tool.use_tool(gun, user, SIBYL_DISMANTLE_DURATION, volume = tool.tool_volume))
 		return
 
-	if(prob(95))
-		detach_without_check(gun, user, force = TRUE)
-		to_chat(user, span_notice("Вы успешно сняли [declent_ru(ACCUSATIVE)]."))
-	else
+	if(!prob(95))
+		tool_fumble(user, tool, 5, BRUTE)
+		return
+	detach_without_check(gun, user, force = TRUE)
+	to_chat(user, span_notice("Вы успешно сняли [declent_ru(ACCUSATIVE)]."))
+
 		tool_fumble(user, tool, 5, BRUTE)
