@@ -150,7 +150,7 @@
 	if(opacity)
 		directional_opacity = ALL_CARDINALS
 
-	if(istype(loc, /area/space))
+	if(isspacearea(loc))
 		force_no_gravity = TRUE
 
 	ComponentInitialize()

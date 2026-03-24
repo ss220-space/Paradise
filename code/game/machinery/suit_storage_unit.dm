@@ -351,7 +351,7 @@
 	. = FALSE
 	if(panel_open)
 		return .
-	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)  || istype(I, /obj/item/mod/control))  && !suit)
+	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)  || ismodcontrol(I))  && !suit)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			suit = I

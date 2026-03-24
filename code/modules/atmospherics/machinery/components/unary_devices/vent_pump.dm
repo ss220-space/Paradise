@@ -349,7 +349,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/paper) || istype(I, /obj/item/stack/spacecash))
+	if(istype(I, /obj/item/paper) || is_cash(I))
 		add_fingerprint(user)
 		if(welded)
 			to_chat(user, span_warning("The vent is welded."))
@@ -408,7 +408,7 @@
 		return
 
 	for(var/obj/item/thing as anything in src)
-		if(istype(thing, /obj/item/paper) || istype(thing, /obj/item/stack/spacecash))
+		if(istype(thing, /obj/item/paper) || is_cash(thing))
 			thing.forceMove(our_turf)
 			user.put_in_hands(thing, ignore_anim = FALSE)
 

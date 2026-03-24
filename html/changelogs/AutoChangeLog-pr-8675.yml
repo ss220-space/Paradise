@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - add: "Скорость открытия firelock зависит от силы (PR #8675)"

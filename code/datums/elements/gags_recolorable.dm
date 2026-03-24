@@ -36,7 +36,7 @@
 	if(!config)
 		return
 	allowed_configs += "[config]"
-	if(istype(atom_parent, /obj/item))
+	if(isitem(atom_parent))
 		var/obj/item/item = atom_parent
 		var/list/worn = item.greyscale_config_worn
 		var/list/species = item.greyscale_config_worn_species

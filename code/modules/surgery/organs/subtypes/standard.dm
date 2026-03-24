@@ -548,7 +548,7 @@
 
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
-	if(in_range(user, src) || istype(user, /mob/dead/observer))
+	if(in_range(user, src) || isobserver(user))
 		if(!length(contents))
 			. += span_notice("Выглядит пустой.")
 		else

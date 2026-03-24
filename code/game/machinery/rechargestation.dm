@@ -215,7 +215,7 @@
 					var/obj/item/extinguisher/ext = O
 					ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
 				//Welding tools
-				else if(istype(O, /obj/item/weldingtool))
+				else if(iswelder(O))
 					var/obj/item/weldingtool/weld = O
 					weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
 

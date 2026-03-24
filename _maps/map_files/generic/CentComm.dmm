@@ -909,7 +909,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone3)
 "ash" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -1060,7 +1060,7 @@
 	},
 /area/centcom/zone1)
 "awg" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/red,
@@ -2225,7 +2225,7 @@
 	},
 /area/centcom/supplypod/loading/ert)
 "aYp" = (
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -4269,17 +4269,17 @@
 	},
 /area/vox_station)
 "caQ" = (
-/obj/structure/chair/sofa{
-	dir = 9
-	},
 /obj/effect/turf_decal/box/red/corners,
+/obj/structure/chair/sofa/corp/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
 "cbs" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
 "cby" = (
@@ -4462,11 +4462,11 @@
 	},
 /area/syndicate_mothership/jail)
 "cgt" = (
-/obj/structure/chair/sofa{
-	dir = 6
-	},
 /obj/effect/turf_decal/box/red/corners{
 	dir = 1
+	},
+/obj/structure/chair/sofa/corp/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -5589,12 +5589,10 @@
 	},
 /area/ninja/holding)
 "cDE" = (
-/obj/structure/chair/sofa{
-	dir = 10
-	},
 /obj/effect/turf_decal/box/red/corners{
 	dir = 4
 	},
+/obj/structure/chair/sofa/corp/corner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -5981,7 +5979,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "cNn" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -6493,7 +6491,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
 "dag" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -6633,7 +6631,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone3)
 "ddZ" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/red,
@@ -8996,7 +8994,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "eji" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -10114,7 +10112,7 @@
 	},
 /area/syndicate_mothership)
 "eNU" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -10464,7 +10462,7 @@
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/vox)
 "eTD" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -10590,9 +10588,7 @@
 	},
 /area/centcom/zone1)
 "eXF" = (
-/obj/structure/chair/sofa{
-	dir = 10
-	},
+/obj/structure/chair/sofa/corp/corner,
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
 "eXJ" = (
@@ -11305,7 +11301,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/outpost)
 "frA" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
@@ -12728,7 +12724,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
 "fZo" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /obj/structure/railing,
@@ -16027,7 +16023,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "hNK" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/effect/mine/sound/bwoink{
 	alpha = 0;
 	layer = 2.9
@@ -18103,7 +18099,7 @@
 	},
 /area/abductor_ship)
 "iOH" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -18947,7 +18943,7 @@
 	},
 /area/centcom/supply)
 "jic" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -19180,7 +19176,7 @@
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "jmH" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
 "jmV" = (
@@ -22375,7 +22371,7 @@
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "kKf" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -23462,11 +23458,11 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "lgv" = (
-/obj/structure/chair/sofa{
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/chair/sofa/corp{
+	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
@@ -23808,8 +23804,8 @@
 	},
 /area/syndicate_mothership/cargo)
 "lnp" = (
-/obj/structure/chair/sofa{
-	dir = 9
+/obj/structure/chair/sofa/corp/corner{
+	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
@@ -24274,7 +24270,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "lyU" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25963,7 +25959,7 @@
 	},
 /area/centcom/zone1)
 "moS" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/plating{
@@ -26089,7 +26085,7 @@
 	},
 /area/shuttle/trade/sol)
 "mqz" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -26553,11 +26549,11 @@
 	},
 /area/syndicate_mothership)
 "mAw" = (
-/obj/structure/chair/sofa{
-	dir = 8
-	},
 /obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
+	},
+/obj/structure/chair/sofa/corp{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -27032,7 +27028,7 @@
 	},
 /area/centcom/supply)
 "mIR" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -27751,7 +27747,7 @@
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
 "mYH" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -28633,7 +28629,7 @@
 	},
 /area/centcom/zone2)
 "nsg" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -28641,7 +28637,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "nsi" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
 	color = "#791500";
@@ -30417,7 +30413,7 @@
 	},
 /area/centcom/specops)
 "ocG" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -30510,7 +30506,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "oeY" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -31601,7 +31597,7 @@
 	},
 /area/syndicate_mothership)
 "oEQ" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "oFz" = (
@@ -31640,7 +31636,7 @@
 	},
 /area/shuttle/gamma)
 "oFM" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/effect/mine/sound/bwoink{
 	alpha = 0;
 	layer = 2.9
@@ -32798,7 +32794,7 @@
 /obj/structure/sign/poster/official/religious{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
@@ -32930,7 +32926,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "poA" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -34716,7 +34712,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
@@ -35314,8 +35310,8 @@
 	},
 /area/syndicate_mothership/infteam)
 "qrR" = (
-/obj/structure/chair/sofa{
-	dir = 5
+/obj/structure/chair/sofa/corp/corner{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
@@ -36089,7 +36085,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
 "qIo" = (
@@ -37101,7 +37097,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "rfL" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -38811,9 +38807,7 @@
 	},
 /area/centcom/specops)
 "rTQ" = (
-/obj/structure/chair/sofa{
-	dir = 10
-	},
+/obj/structure/chair/sofa/corp/corner,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "rUb" = (
@@ -39954,7 +39948,7 @@
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/infteam)
 "szX" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/infteam)
 "sAd" = (
@@ -40287,7 +40281,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/centcom/evac)
 "sGK" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -41761,7 +41755,7 @@
 	},
 /area/syndicate_mothership)
 "tlE" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -43288,7 +43282,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "tRb" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/sofa/corp{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -43722,11 +43716,11 @@
 	},
 /area/shuttle/ninja)
 "ubI" = (
-/obj/structure/chair/sofa{
-	dir = 5
-	},
 /obj/effect/turf_decal/box/red/corners{
 	dir = 8
+	},
+/obj/structure/chair/sofa/corp/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -46107,10 +46101,10 @@
 	},
 /area/syndicate_mothership)
 "vdY" = (
-/obj/structure/chair/sofa/right{
+/obj/machinery/light/small,
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
-/obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
 "vem" = (
@@ -46614,10 +46608,10 @@
 	},
 /area/shuttle/escape)
 "vqX" = (
-/obj/structure/chair/sofa/left{
+/obj/machinery/light/small,
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
 "vrm" = (
@@ -47159,7 +47153,7 @@
 	},
 /area/shuttle/escape)
 "vFV" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -48258,7 +48252,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "wfA" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /obj/structure/sign/poster/official/space_cops{
@@ -48292,7 +48286,9 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "whd" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/infteam)
 "whe" = (
@@ -50248,7 +50244,7 @@
 /obj/item/paper{
 	info = "Переговорить с командованием о трёхзначных числах"
 	},
-/obj/structure/chair/sofa/corp/right,
+/obj/structure/chair/sofa/corp/left,
 /obj/item/toy/plushie/red_fox,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -51667,7 +51663,7 @@
 	},
 /area/centcom/evac)
 "xMN" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -51743,7 +51739,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "xPB" = (
-/obj/structure/chair/sofa,
+/obj/structure/chair/sofa/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -56508,7 +56504,7 @@ iWh
 jIN
 khv
 kXn
-lNn
+sZX
 szE
 swP
 brr
@@ -56528,7 +56524,7 @@ lOM
 eeV
 swP
 whd
-sZX
+lNn
 txr
 tPL
 ubY
@@ -64001,8 +63997,8 @@ xNs
 xNs
 gDV
 keo
-nVw
 tFp
+nVw
 dJo
 dJo
 dJo
@@ -64012,7 +64008,7 @@ dJo
 rVN
 dJo
 dJo
-bLi
+lDc
 dmj
 vhY
 cPC
@@ -64269,7 +64265,7 @@ iRW
 uoE
 pko
 dJo
-lDc
+bLi
 dmj
 gkO
 dJo
@@ -64286,7 +64282,7 @@ hCl
 hCl
 tnQ
 gSC
-fHL
+beX
 nYK
 nYK
 nYK
@@ -64800,7 +64796,7 @@ hCl
 hCl
 obF
 gSC
-beX
+fHL
 nYK
 nYK
 nYK
@@ -65314,7 +65310,7 @@ bfg
 bfg
 iPw
 gSC
-fHL
+beX
 nYK
 nYK
 nYK
@@ -65571,7 +65567,7 @@ gOB
 fqN
 rcs
 gSC
-beX
+fHL
 nYK
 nYK
 nYK
@@ -66342,7 +66338,7 @@ ttS
 dBt
 umk
 gSC
-fHL
+beX
 nYK
 nYK
 nYK
@@ -66599,7 +66595,7 @@ bfg
 bfg
 iPw
 gSC
-beX
+fHL
 nYK
 nYK
 nYK
@@ -67113,7 +67109,7 @@ hCl
 hCl
 ufP
 gSC
-fHL
+beX
 nYK
 nYK
 nYK
@@ -67610,7 +67606,7 @@ qpI
 vPq
 gwk
 dJo
-bLi
+lDc
 dmj
 gkO
 dJo
@@ -67627,7 +67623,7 @@ hCl
 hCl
 opU
 gSC
-beX
+fHL
 nYK
 nYK
 nYK
@@ -67856,8 +67852,8 @@ wlI
 yas
 spk
 keo
-rjt
 pLC
+rjt
 dJo
 dJo
 dJo
@@ -67867,7 +67863,7 @@ dJo
 lWx
 dJo
 dJo
-lDc
+bLi
 dmj
 icT
 dJX
@@ -74496,7 +74492,7 @@ vPe
 jiV
 vPe
 jWb
-kGJ
+kGX
 lxT
 mdb
 mDk
@@ -74753,7 +74749,7 @@ vPe
 akg
 vPe
 jWb
-kGX
+kGJ
 lyR
 mds
 mDW
@@ -88249,8 +88245,8 @@ hFk
 nXT
 nXT
 hFk
-idL
 gSH
+idL
 nct
 hLh
 fGl
@@ -88261,8 +88257,8 @@ gzT
 gQL
 dQw
 nct
-idL
 gSH
+idL
 hFk
 nXT
 nXT
@@ -88899,7 +88895,7 @@ wLM
 ctv
 wLM
 onc
-omJ
+suU
 cHU
 cHU
 pfp
@@ -89413,7 +89409,7 @@ wLM
 elS
 wLM
 onc
-suU
+omJ
 cHU
 cHU
 hqo
@@ -90442,8 +90438,8 @@ onc
 onc
 onc
 iBl
-gFX
 nut
+gFX
 jrj
 onc
 wUF
@@ -92017,13 +92013,13 @@ qlP
 mzH
 jtL
 kWm
-bbk
 jny
+bbk
 tLO
 oBC
 ueN
-bbk
 jny
+bbk
 kWm
 kWm
 kWm
@@ -92297,7 +92293,7 @@ nHr
 nHr
 nHr
 wcM
-euy
+hmB
 kGp
 vTi
 pqb
@@ -92554,7 +92550,7 @@ htk
 htk
 ozZ
 ueN
-hmB
+euy
 kGp
 ylC
 pqb
@@ -92621,14 +92617,14 @@ glc
 glc
 fCQ
 hFk
-fRd
+mRT
 fZo
 maD
 mhh
 mhh
 maD
 mqz
-mRT
+fRd
 hFk
 nly
 glc
@@ -93068,7 +93064,7 @@ uku
 uku
 gul
 ueN
-euy
+hmB
 kGp
 vTi
 pqb
@@ -93325,7 +93321,7 @@ tnH
 eDV
 ufi
 lgU
-hmB
+euy
 mOD
 ylC
 pqb
@@ -94088,7 +94084,7 @@ kXF
 hWn
 ifS
 kWm
-lVD
+iFB
 fAg
 fAg
 fAg
@@ -94345,7 +94341,7 @@ rbD
 qqS
 wLp
 kWm
-iFB
+lVD
 fAg
 fAg
 kXg
@@ -94859,7 +94855,7 @@ lGS
 mQQ
 dQQ
 wBr
-lVD
+iFB
 fAg
 fAg
 nHw
@@ -95075,11 +95071,11 @@ jyl
 wUF
 tZe
 wUF
-tle
 pNt
+tle
 tJC
-tle
 pNt
+tle
 onc
 iCn
 vES
@@ -95116,7 +95112,7 @@ igb
 fgq
 tyB
 wBr
-iFB
+lVD
 fAg
 fAg
 nHw
@@ -97952,7 +97948,7 @@ pqb
 pqb
 myp
 pqb
-fvx
+vTR
 pIg
 hwc
 kLV
@@ -98209,7 +98205,7 @@ jBs
 cWC
 ayr
 pqb
-vTR
+fvx
 aeY
 hwc
 iqj
@@ -100208,11 +100204,11 @@ jEu
 ihM
 cgt
 tRb
-lyU
+oeY
 ueb
 aZv
 hxR
-oeY
+lyU
 tRb
 ubI
 ihM
@@ -100720,7 +100716,7 @@ sAi
 sRv
 jEu
 ihM
-dag
+ocG
 aVH
 aVH
 ugH
@@ -101748,7 +101744,7 @@ sAi
 eCI
 jEu
 ihM
-ocG
+dag
 aVH
 lQY
 ugH
@@ -102264,11 +102260,11 @@ jEu
 ihM
 cDE
 kKf
-eNU
+sGK
 aTZ
 ePS
 mjx
-sGK
+eNU
 kKf
 caQ
 ihM
@@ -103663,7 +103659,7 @@ jGP
 adx
 wJV
 dRc
-eeh
+egF
 jrL
 jrL
 jrL
@@ -103909,12 +103905,12 @@ wmt
 ghb
 hfa
 wmt
-ixL
-jzk
-riz
-riz
-lBX
 mto
+lBX
+riz
+riz
+jzk
+ixL
 wmt
 ghb
 hfa
@@ -104177,7 +104173,7 @@ gtx
 gtx
 mVX
 dRc
-egF
+eeh
 jrL
 jrL
 jrL
