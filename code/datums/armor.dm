@@ -149,8 +149,6 @@ GLOBAL_LIST_EMPTY(armor_cache)
 			return "ЛАЗЕРЫ"
 		if(MELEE)
 			return "УДАРЫ"
-		if(RAD)
-			return "РАДИАЦИЯ"
 		if(MAGIC)
 			return "МАГИЯ"
 
