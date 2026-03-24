@@ -429,7 +429,7 @@
 	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
-	if(!ishuman(target) || !istype(target.dna.species, /datum/species/slime))
+	if(!ishuman(target) || !isslimeperson(target.dna.species))
 		return FALSE
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
@@ -798,7 +798,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/selected_borg_name = null
 	var/list/available_borgs = list()
 	for(var/mob/living/silicon/robot/borg in GLOB.player_list)
-		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg))
+		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg) || borg.shell)
 			continue
 		var/borg_name = "[borg.real_name] ([borg.modtype?.name] [borg.braintype])"
 		available_borgs[borg_name] = borg
@@ -898,7 +898,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			base_name += " \[[mob_instance.real_name]\]"
 
 		if(mob_instance.stat == DEAD)
-			if(istype(mob_instance, /mob/dead/observer/))
+			if(isobserver(mob_instance))
 				base_name += " \[ghost\]"
 			else
 				base_name += " \[dead\]"

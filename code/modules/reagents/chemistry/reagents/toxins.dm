@@ -238,7 +238,8 @@
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/greenglow(T)
+		var/obj/effect/decal/cleanable/greenglow/reagentdecal = new (T)
+		reagentdecal.reagents?.add_reagent(type, volume)
 
 /datum/reagent/mutagen
 	name = "Нестабильный мутаген"
@@ -318,7 +319,8 @@
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/greenglow(T)
+		var/obj/effect/decal/cleanable/greenglow/reagentdecal = new (T)
+		reagentdecal.reagents?.add_reagent(type, volume)
 
 /datum/reagent/lexorin
 	name = "Лексорин"
@@ -1189,7 +1191,7 @@
 		if(HAS_TRAIT(C, TRAIT_PLANT_ORIGIN))	//plantmen take extra damage
 			C.adjustToxLoss(3)
 			..()
-	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+	else if(isnymph(M)) //nymphs take EVEN MORE damage
 		M.apply_damage(100)
 		..()
 

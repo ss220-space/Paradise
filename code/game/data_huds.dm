@@ -29,7 +29,7 @@
 	return 1
 
 /datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || istype(M,/mob/dead/observer))
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -47,10 +47,10 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_AISHELL_STAT_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD, DIAG_AISHELL_STAT_HUD)
 
 /datum/atom_hud/data/bot_path
 	// This hud exists so the bot can see itself, that's all
@@ -355,7 +355,7 @@
 			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
 			set_hud_image_active(IMPTRACK_HUD)
 
-		else if(istype(current_implant,/obj/item/implant/mindshield))
+		else if(HAS_TRAIT(src, TRAIT_MINDSHIELD_HUD))
 			set_hud_image_state(IMPMINDSHIELD_HUD, "hud_imp_loyal")
 			set_hud_image_active(IMPMINDSHIELD_HUD)
 

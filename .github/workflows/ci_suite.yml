@@ -29,7 +29,7 @@ jobs:
   start_gate:
     if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Start Gate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Mandatory Empty Step
         run: exit 0
@@ -69,14 +69,8 @@ jobs:
   completion_gate:
     if: always() && !cancelled()
     name: Completion Gate
-    needs:
-      [
-        run_linters,
-        compile_all_maps,
-        station_mapload_tests,
-        game_tests,
-      ]
-    runs-on: ubuntu-latest
+    needs: [run_linters, compile_all_maps, station_mapload_tests, game_tests]
+    runs-on: ubuntu-24.04
     steps:
       - name: Decide whether the needed jobs succeeded or failed
         uses: re-actors/alls-green@release/v1

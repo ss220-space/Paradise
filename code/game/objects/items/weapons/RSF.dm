@@ -83,7 +83,7 @@ RSF
 
 /obj/item/rsf/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity) return
-	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
+	if(!(istable(A) || isfloorturf(A)))
 		return
 	var/spawn_location
 	var/turf/T = get_turf(A)

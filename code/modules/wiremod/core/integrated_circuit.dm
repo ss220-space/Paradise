@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		if(istype(component, to_check.type))
 			return TRUE
 
-		if(istype(component, /obj/item/circuit_component/module))
+		if(is_module_circuit(component))
 			var/obj/item/circuit_component/module/module = component
 
 			for(var/module_component in module.internal_circuit.attached_components)

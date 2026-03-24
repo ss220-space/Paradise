@@ -17,9 +17,20 @@
 
 /obj/machinery/space_heater/Initialize(mapload)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell(src)
+	if(ispath(cell))
+		cell = new cell(src)
 	update_icon()
-	return
+
+	var/static/list/tool_behaviors = list(
+		TOOL_SCREWDRIVER = list(
+			SCREENTIP_CONTEXT_LMB = "Открыть/закрыть люк",
+		),
+
+		TOOL_WRENCH = list(
+			SCREENTIP_CONTEXT_LMB = "Закрепить",
+		),
+	)
+	AddElement(/datum/element/contextual_screentip_tools, tool_behaviors)
 
 /obj/machinery/space_heater/Destroy()
 	QDEL_NULL(cell)
@@ -123,7 +134,7 @@
 /obj/machinery/space_heater/Topic(href, href_list)
 	if(..())
 		return 1
-	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
+	if((in_range(src, usr) && isturf(src.loc)) || (issilicon(usr)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

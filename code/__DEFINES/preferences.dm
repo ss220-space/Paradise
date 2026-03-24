@@ -236,3 +236,9 @@
 #define GET_RANDOM_JOB 0
 #define BE_ASSISTANT 1
 #define RETURN_TO_LOBBY 2
+
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_SPEC 2
+#define TAB_KEYS 3
+#define TAB_TOGGLES 4

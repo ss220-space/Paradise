@@ -40,7 +40,7 @@
 /obj/proc/check_access_list(list/L)
 	if(!L)
 		return FALSE
-	if(!istype(L, /list))
+	if(!islist(L))
 		return FALSE
 	return has_access(req_access, check_one_access, L)
 

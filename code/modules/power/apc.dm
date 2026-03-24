@@ -310,6 +310,15 @@
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
+	var/static/list/hovering_mob_typechecks = list(
+		/mob/living/silicon = list(
+			SCREENTIP_CONTEXT_ALT_LMB = "Вкл/выкл блокировку",
+			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
+		)
+	)
+
+	AddElement(/datum/element/contextual_screentip_mob_typechecks, hovering_mob_typechecks)
+
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -1094,7 +1103,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(last_used_equipment + last_used_lighting + last_used_environment)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights

@@ -395,7 +395,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
 	var/is_mob_holder = istype(I, /obj/item/holder)
-	if(!(state & STATE_OPENED) || user.a_intent == INTENT_HARM || istype(I, /obj/item/card/emag) || istype(I, /obj/item/soap) || (!(state & STATE_HACKED) && is_mob_holder))
+	if(!(state & STATE_OPENED) || user.a_intent == INTENT_HARM || istype(I, /obj/item/card/emag) || issoap(I) || (!(state & STATE_HACKED) && is_mob_holder))
 		return ..()
 
 	add_fingerprint(user)

@@ -30,7 +30,7 @@
 
 	item_slot = TRUE
 	products = list(
-		/obj/item/reagent_containers/food/drinks/coffee = 25,
+		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/food/drinks/chocolate = 10,
@@ -54,7 +54,7 @@
 	)
 
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
-	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
+	if(!(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks)))
 		return FALSE
 	if(!..())
 		return FALSE

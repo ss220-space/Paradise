@@ -53,7 +53,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		add_fingerprint(user)
 		if(isBelted)
 			to_chat(user, span_warning("The [name] is already strapped!"))
@@ -83,7 +83,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip >= max_syringes)

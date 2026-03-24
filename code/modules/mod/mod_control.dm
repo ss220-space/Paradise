@@ -217,7 +217,7 @@
 				return
 		if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
 			return
-		carbon_mob.put_in_active_hand(src)
+		carbon_mob.put_in_any_hand_if_possible(src, TRUE)
 	else if(bag)
 		bag.forceMove(usr)
 		bag.show_to(usr)
@@ -329,7 +329,7 @@
 		attacking_core.install(src)
 		update_charge_alert()
 		return ATTACK_CHAIN_PROCEED
-	if(istype(attacking_item, /obj/item/multitool) && open)
+	if(ismultitool(attacking_item) && open)
 		if(seconds_electrified && get_charge() && shock(user))
 			return ATTACK_CHAIN_PROCEED
 		wires.Interact(user)
@@ -337,7 +337,7 @@
 	if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
 		return ATTACK_CHAIN_PROCEED
-	if(istype(attacking_item, /obj/item/stock_parts/cell))
+	if(iscell(attacking_item))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)

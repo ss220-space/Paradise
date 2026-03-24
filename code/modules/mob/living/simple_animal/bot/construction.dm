@@ -18,6 +18,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -115,6 +116,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -376,6 +378,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -418,6 +421,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -531,6 +535,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -655,6 +660,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -770,6 +776,7 @@
 	var/obj/item/bot_assembly/griefsky_assembly/destroyer_of_the_worlds = new(drop_location())
 	transfer_fingerprints_to(destroyer_of_the_worlds)
 	destroyer_of_the_worlds.add_fingerprint(user)
+	destroyer_of_the_worlds.req_access = req_access
 	if(loc == user)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		user.put_in_hands(destroyer_of_the_worlds)
@@ -814,6 +821,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -891,7 +899,9 @@
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ..()
 	toy_step++
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
+	if(toy_step == 1)
+		req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
+		to_chat(user, span_alert("ВНИМАНИЕ: Доступы были изменены."))
 	I.transfer_fingerprints_to(src)
 	update_appearance(UPDATE_NAME)
 	to_chat(user, span_notice("Вы прикрепили игрушечный лазерный меч к заготовке."))
@@ -965,6 +975,7 @@
 		return ..()
 
 	if(is_id_card(I))
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -1037,6 +1048,16 @@
 
 /obj/item/bot_assembly
 	req_access = list()
+
+/obj/item/bot_assembly/proc/try_set_agent_access(obj/item/card/id/card)
+	if(!(ACCESS_SYNDICATE in card.access))
+		return
+
+	if(ACCESS_SYNDICATE in req_access)
+		return
+
+	req_access += ACCESS_SYNDICATE
+	to_chat(usr, span_alert("Вы скрытно проводите картой по каркасу. Доступ агента синдиката добавлен."))
 
 /obj/item/bot_assembly/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

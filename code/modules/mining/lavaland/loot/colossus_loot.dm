@@ -199,7 +199,7 @@
 					C.dir = Original.dir
 					qdel(Stuff)
 					continue
-				if(istype(Stuff, /obj/structure/table) && NewTerrainTables)
+				if(istable(Stuff) && NewTerrainTables)
 					var/obj/structure/table/Original = Stuff
 					var/obj/structure/table/T = new NewTerrainTables(Original.loc)
 					T.dir = Original.dir

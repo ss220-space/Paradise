@@ -121,7 +121,7 @@
 	rename_character(null, "Комплексный роботизированный блок [rand(1, 9999)]")
 	update_dna()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(istype(bodypart, /obj/item/organ/external/chest) || istype(bodypart, /obj/item/organ/external/groin))
+		if(ischest(bodypart) || isgroin(bodypart))
 			continue
 		qdel(bodypart)
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -410,6 +410,9 @@
 /**
  * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
  * Useful when player is being seen by other mobs.
+ *
+ * Arguments:
+ * * if_no_id - What to return if we have no ID or PDA
  */
 /mob/living/carbon/human/proc/get_id_name(if_no_id = UNKNOWN_NAME_RUS)
 	var/obj/item/card/id/id = wear_id?.GetID()

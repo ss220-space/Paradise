@@ -292,7 +292,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
+	if(!charging || isancientrobotleg(bumped_living) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(span_danger("[declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
@@ -730,7 +730,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
 	. = ..()
-	if(!core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
+	if(!core.charging || isancientrobot(bumped_living) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(
@@ -819,7 +819,7 @@ Difficulty: Very Hard
 
 /obj/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /mob/living/simple_animal/hostile/ancient_robot_leg))
+	if(isancientrobotleg(mover))
 		return TRUE
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
@@ -854,7 +854,7 @@ Difficulty: Very Hard
 		M.attempt_drill()
 	playsound(T, 'sound/effects/meteorimpact.ogg', 80, TRUE)
 	for(var/mob/living/L in T.contents)
-		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+		if(isancientrobot(L))
 			continue
 		L.adjustBruteLoss(35)
 		to_chat(L, span_userdanger("Вас ударил падающий камень!"))

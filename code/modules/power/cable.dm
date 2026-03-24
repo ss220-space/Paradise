@@ -182,7 +182,7 @@
 		rcl.is_empty(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/crayon = I
 		cable_color(crayon.colourName)

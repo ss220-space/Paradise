@@ -40,6 +40,7 @@
 	var/obj/item/paicard/paicard
 	/// Are we even allowed to insert a pai card.
 	var/allow_pai = TRUE
+	/// Storing bot_name prior to pai and restoring it. MULEBOT uses this for suffix system
 	var/bot_name
 
 	var/disabling_timer_id = null
@@ -125,7 +126,7 @@
 	var/control_freq = BOT_FREQ
 	/// The radio filter the bot uses to identify itself on the network.
 	var/bot_filter
-	/// The type of bot it is, for radio control.
+	/// Type of bot, one of the *_BOT defines.
 	var/bot_type = NONE
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC
@@ -196,10 +197,7 @@
 
 /mob/living/simple_animal/bot/proc/get_mode()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
-		if(paicard)
-			return "<b>Под управлением ПИИ</b>"
-		else
-			return "<b>Автономный режим</b>"
+		return paicard ? "<b>Под управлением ПИИ</b>" : "<b>Автономный режим</b>"
 	else if(!on)
 		return span_bad("Отключён")
 	else if(hijacked)
