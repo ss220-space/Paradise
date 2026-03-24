@@ -258,8 +258,8 @@
 		if(!istype(gear_datum))
 			continue
 
-		var/datum/job/J = SSjobs.GetJobType(jobtype)
-		if(!gear_datum.can_select(cl = H.client, job_name = J.title, species_name = H.dna.species.name))
+		var/datum/job/job = SSjobs.GetJobType(jobtype)
+		if(!gear_datum.can_select(cl = H.client, job_name = job.title, species_name = H.dna.species.name))
 			continue
 
 		if(gear_datum.implantable)
