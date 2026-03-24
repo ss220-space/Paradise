@@ -1,6 +1,9 @@
+//MARK: Job datum
+
 /datum/job
 
-	/// The name of the job
+	/// The name of the job.
+	/// English only!
 	var/title = ""
 
 	/// Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
@@ -207,7 +210,11 @@
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
 
+//MARK: Outfit datum
+
 /datum/outfit/job
+	/// Name of the outfit.
+	/// Russian names allowed.
 	name = "Standard Gear"
 	collect_not_del = TRUE // we don't want anyone to lose their job shit
 
@@ -258,7 +265,8 @@
 		if(!istype(gear_datum))
 			continue
 
-		if(!gear_datum.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name))
+		var/datum/job/job = SSjobs.GetJobType(jobtype)
+		if(!gear_datum.can_select(cl = H.client, job_name = job.title, species_name = H.dna.species.name))
 			continue
 
 		if(gear_datum.implantable)
@@ -322,7 +330,6 @@
 	var/datum/job/J = SSjobs.GetJobType(jobtype)
 	if(!J)
 		J = SSjobs.GetJob(H.job)
-
 	var/alt_title
 	if(H.mind)
 		alt_title = H.mind.role_alt_title
@@ -333,11 +340,11 @@
 		C.law_level = J.law_level
 		C.registered_name = H.real_name
 		C.rank = J.title
-		C.assignment = alt_title ? alt_title : J.title
+		C.assignment = alt_title ? alt_title : get_job_title_ru(J.title)
 		C.sex = capitalize(H.gender)
 		C.age = H.age
-		C.name = "[C.registered_name]’s ID Card ([C.assignment])"
 		C.photo = get_id_photo(H)
+		C.update_label()
 
 		if(H.mind && H.mind.initial_account)
 			C.associated_account_number = H.mind.initial_account.account_number

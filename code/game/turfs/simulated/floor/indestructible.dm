@@ -329,3 +329,24 @@
 
 /turf/simulated/floor/indestructible/view_portal/dense
 	density = TRUE
+
+/turf/simulated/floor/indestructible/bingle
+	name = "Bingle pit"
+	desc = "Покрытие ямы Бинглов."
+	gender = FEMALE
+	icon = 'icons/turf/floors/bingle.dmi'
+	icon_state = "carpet_orange-0"
+	footstep = FOOTSTEP_MEAT
+	barefootstep = FOOTSTEP_MEAT
+	clawfootstep = FOOTSTEP_MEAT
+	heavyfootstep = FOOTSTEP_MEAT
+
+/turf/simulated/floor/indestructible/bingle/get_ru_names()
+	return list(
+		NOMINATIVE = "яма Бинглов",
+		GENITIVE = "ямы Бинглов",
+		DATIVE = "яме Бинглов",
+		ACCUSATIVE = "яму Бинглов",
+		INSTRUMENTAL = "ямой Бинглов",
+		PREPOSITIONAL = "яме Бинглов",
+	)

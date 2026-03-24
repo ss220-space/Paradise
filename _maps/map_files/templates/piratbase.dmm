@@ -1043,22 +1043,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"dh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "di" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -1767,6 +1751,38 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
+"fb" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/turretid/lethal{
+	ailock = 1;
+	dir = 1;
+	faction = "pirate";
+	name = "Corvette turrets";
+	pixel_x = -32;
+	req_access = list(160);
+	syndicate = 1
+	},
+/obj/item/gps{
+	tracking = 0
+	},
+/obj/item/gps{
+	tracking = 0
+	},
+/obj/item/card/id{
+	access = list(160,26);
+	assignment = "Pirate";
+	desc = "A card used to determine access across.";
+	name = "Pirate ID";
+	registered_name = "Pirate"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
 "fc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood/poker,
@@ -4433,6 +4449,25 @@
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
+"ng" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "nh" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 9
@@ -4577,25 +4612,6 @@
 /mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/virus_lab)
-"nA" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "nB" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6614,6 +6630,15 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
+"tG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner";
+	tag = "icon-whitepurplecorner (EAST)"
+	},
+/area/ruin/space/pirate_base/laboratory)
 "tH" = (
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
@@ -6923,6 +6948,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
+"uz" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "uA" = (
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel{
@@ -9406,6 +9447,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"BA" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/security_atrium)
 "BC" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/cobweb,
@@ -10141,14 +10193,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"Ed" = (
-/obj/effect/turf_decal/siding/blue{
-	dir = 1
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "Ee" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -10547,21 +10591,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
-"Fo" = (
-/obj/structure/table/wood/fancy,
-/obj/item/card/id/thunderdome/red{
-	access = list(160,161,162,26);
-	assignment = "Pirate";
-	desc = "A card used to determine access across.";
-	name = "Pirate ID";
-	registered_name = "Pirate"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/pen,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/security_atrium)
 "Fp" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -13370,17 +13399,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virus_lab)
-"Nk" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/security_atrium)
 "No" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -13541,6 +13559,16 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/kitchen)
+"NK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/observ)
 "NM" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space)
@@ -15757,15 +15785,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
-"Us" = (
-/obj/effect/decal/cleanable/blood,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
-	},
-/area/ruin/space/pirate_base/laboratory)
 "Ut" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/nuclear,
@@ -15826,38 +15845,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
-"UA" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/turretid/lethal{
-	ailock = 1;
-	dir = 1;
-	faction = "pirate";
-	name = "Corvette turrets";
-	pixel_x = -32;
-	req_access = list(160);
-	syndicate = 1
-	},
-/obj/item/gps{
-	tracking = 0
-	},
-/obj/item/gps{
-	tracking = 0
-	},
-/obj/item/card/id/thunderdome/red{
-	access = list(160,26);
-	assignment = "Pirate";
-	desc = "A card used to determine access across.";
-	name = "Pirate ID";
-	registered_name = "Pirate"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "UB" = (
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /obj/item/clothing/head/helmet/space/syndicate/black/red,
@@ -15952,6 +15939,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"UR" = (
+/obj/structure/table/wood/fancy,
+/obj/item/card/id{
+	access = list(160,161,162,26);
+	assignment = "Pirate";
+	desc = "A card used to determine access across.";
+	name = "Pirate ID";
+	registered_name = "Pirate"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/pen,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/security_atrium)
 "UT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15963,6 +15965,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"UU" = (
+/obj/effect/turf_decal/siding/blue{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "UV" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/engine,
@@ -17191,16 +17201,6 @@
 	},
 /turf/space,
 /area/space)
-"YO" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/observ)
 "YP" = (
 /obj/structure/grille/broken,
 /obj/item/shard{
@@ -21625,7 +21625,7 @@ qc
 qc
 ey
 YI
-UA
+fb
 Iq
 wI
 mP
@@ -23600,7 +23600,7 @@ JT
 oO
 Cl
 oy
-nA
+ng
 YU
 kl
 no
@@ -23893,7 +23893,7 @@ BM
 dQ
 vN
 Fv
-Nk
+BA
 Pm
 Df
 lx
@@ -23910,7 +23910,7 @@ tM
 pg
 Km
 OZ
-dh
+uz
 GA
 bV
 HM
@@ -25111,7 +25111,7 @@ BM
 fz
 RU
 BU
-Fo
+UR
 wX
 QP
 VJ
@@ -25216,7 +25216,7 @@ mE
 Yz
 rL
 QP
-Ed
+UU
 OH
 Xq
 Su
@@ -25649,7 +25649,7 @@ zy
 ZW
 IL
 MD
-Us
+tG
 EA
 jZ
 jZ
@@ -25928,7 +25928,7 @@ Yi
 Yi
 Yi
 Yi
-YO
+NK
 Eb
 st
 VL

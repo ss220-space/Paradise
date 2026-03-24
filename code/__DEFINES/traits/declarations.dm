@@ -122,6 +122,9 @@
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
+/// This mob heals from bingle holes.
+#define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
+
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT "knockedout"
@@ -459,6 +462,9 @@
 #define TRAIT_MEDICAL_METABOLISM "medical_metabolism"
 #define TRAIT_PRETENDER_ROYAL_METABOLISM "pretender_royal_metabolism"
 #define TRAIT_ROYAL_METABOLISM "royal_metabolism"
+
+/// Trait used to ensure that things don't get animated as falling in multiple times
+#define TRAIT_FALLING_INTO_BINGLE_HOLE "falling_into_bingle_pit"
 /// Immune to being afflicted by time stop (spell)
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 

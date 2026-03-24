@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - add: "Добавлены новые мидраунд антагонисты - Бинглы(Зюзинглы). (PR #7485)"

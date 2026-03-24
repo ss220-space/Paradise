@@ -58,6 +58,10 @@
 	return TRUE
 
 /proc/get_centcom_access(job)
+	// ERT-related jobs (without ERT Leader)
+	if(job in list(JOB_TITLE_ERT_MEMBER, JOB_TITLE_ERT_OFFICER, JOB_TITLE_ERT_ENGINEER, JOB_TITLE_ERT_MEDIC, JOB_TITLE_ERT_INQUISITOR, JOB_TITLE_ERT_JANITOR))
+		return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS) + get_all_accesses()
+
 	switch(job)
 		if("VIP Guest")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
@@ -65,9 +69,7 @@
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE)
 		if("Thunderdome Overseer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
-		if("Emergency Response Team Member")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS) + get_all_accesses()
-		if("Emergency Response Team Leader")
+		if(JOB_TITLE_ERT_LEADER)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_CENT_SPECOPS_COMMANDER) + get_all_accesses()
 		if("Medical Officer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE) + get_all_accesses()
@@ -100,17 +102,17 @@
 
 /proc/get_syndicate_access(job)
 	switch(job)
-		if(SYNDICATE_OPERATIVE)
+		if(JOB_TITLE_SYNDICATE_OPERATIVE)
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_CONTAINER)
-		if(SYNDICATE_OPERATIVE_LEADER)
+		if(JOB_TITLE_SYNDICATE_OPERATIVE_LEADER)
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_CONTAINER, ACCESS_SYNDICATE_LEADER)
-		if(SYNDICATE_AGENT)
+		if(JOB_TITLE_SYNDICATE_AGENT)
 			return list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS)
-		if(VOX_RAIDER)
+		if(JOB_TITLE_VOX_RAIDER)
 			return list(ACCESS_VOX)
-		if(VOX_TRADER)
+		if(JOB_TITLE_VOX_TRADER)
 			return list(ACCESS_VOX)
-		if(SYNDICATE_COMMANDO)
+		if(JOB_TITLE_SYNDICATE_COMMANDO)
 			return list(ACCESS_SYNDICATE,
 						ACCESS_SYNDICATE_LEADER,
 						ACCESS_SYNDICATE_COMMS_OFFICER,
@@ -121,7 +123,7 @@
 						ACCESS_SYNDICATE_MEDICAL,
 						ACCESS_SYNDICATE_BOTANY,
 						ACCESS_SYNDICATE_ENGINE)
-		if(JOB_TITLE_SYNDICATE)
+		if(JOB_TITLE_SYNDICATE_OFFICER)
 			return list(ACCESS_SYNDICATE,
 						ACCESS_SYNDICATE_LEADER,
 						ACCESS_SYNDICATE_COMMAND,
@@ -451,7 +453,29 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer", JOB_TITLE_CCSPECOPS,"Nanotrasen Navy Representative", JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD,"Nanotrasen Diplomat","Nanotrasen Navy Captain", JOB_TITLE_CCSUPREME)
+	return list(
+		"VIP Guest","Custodian",
+		"Thunderdome Overseer",
+		JOB_TITLE_ERT_MEMBER,
+		JOB_TITLE_ERT_LEADER,
+		JOB_TITLE_ERT_OFFICER,
+		JOB_TITLE_ERT_ENGINEER,
+		JOB_TITLE_ERT_MEDIC,
+		JOB_TITLE_ERT_INQUISITOR,
+		JOB_TITLE_ERT_JANITOR,
+		"Intel Officer",
+		"Medical Officer",
+		"Death Commando",
+		"Research Officer",
+		"Deathsquad Officer",
+		JOB_TITLE_CCSPECOPS,
+		"Nanotrasen Navy Representative",
+		JOB_TITLE_CCOFFICER,
+		JOB_TITLE_CCFIELD,
+		"Nanotrasen Diplomat",
+		"Nanotrasen Navy Captain",
+		JOB_TITLE_CCSUPREME,
+)
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader", JOB_TITLE_CCSOLGOV)

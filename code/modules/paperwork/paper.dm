@@ -393,7 +393,7 @@
 			menu_list.Add(usr.name)
 
 		if(usr.job)
-			menu_list.Add(usr.job)	// job
+			menu_list.Add(get_job_title_ru(usr.job))	// job
 
 		menu_list.Add(sign_text)	//signature
 

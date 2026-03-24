@@ -617,7 +617,7 @@
  *	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - JOB_TITLE_JUDGE - JOB_TITLE_BRIGDOC
+	var/sec_positions = GLOB.security_positions - JOB_TITLE_MAGISTRATE - JOB_TITLE_BRIGDOC
 	var/total = 0
 	var/active = 0
 	var/dead = 0

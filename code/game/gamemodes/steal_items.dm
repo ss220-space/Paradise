@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "hand_tele"
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
-	protected_jobs = list(JOB_TITLE_CAPTAIN, JOB_TITLE_RD, JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CAPTAIN, JOB_TITLE_RD, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/highrisk/ai
 	id = "func_AI"
@@ -174,19 +174,19 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "chief_magboots"
 	name = "the chief engineer's advanced magnetic boots"
 	typepath = /obj/item/clothing/shoes/magboots/advance
-	protected_jobs = list(JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/highrisk/combatrcd
 	id = "chief_crcd"
 	name = "the chief engineer's combat RCD"
 	typepath = /obj/item/rcd/combat
-	protected_jobs = list(JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/highrisk/blueprints
 	id = "chief_blueprints"
 	name = "the station blueprints"
 	typepath = /obj/item/areaeditor/blueprints/ce
-	protected_jobs = list(JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER)
 	altitems = list(/obj/item/photo)
 
 /datum/theft_objective/highrisk/blueprints/check_special_completion(obj/item/I)
@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "supermatter_sliver"
 	name = "a supermatter sliver"
 	typepath = /obj/item/nuke_core/supermatter_sliver
-	protected_jobs = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH) //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH) //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
 	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
 	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
@@ -352,7 +352,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "space_ce"
 	typepath = /obj/item/mod/control/pre_equipped/advanced
 	name = "продвинутый МЭК Главного Инженера"
-	protected_jobs = list(JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/medium/space_mime
 	id = "space_mime"
@@ -400,7 +400,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "monitorkey"
 	typepath = /obj/item/paper/monitorkey
 	name = "подлинную бумагу Monitor Decryption Key"
-	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_HOP)
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_HOP)
 
 /datum/theft_objective/medium/paper_rnd
 	id = "paper_rnd"
@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "tcommskey"
 	typepath = /obj/item/paper/tcommskey
 	name = "подлинную бумагу с паролем от телекомов"
-	protected_jobs = list(JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/medium/yorick
 	id = "yorick"
@@ -490,7 +490,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_borgi"
 	typepath = /mob/living/simple_animal/pet/dog/corgi/borgi
 	name = "собаку по кличке E-N"
-	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/theft_objective/animal/psycho
 	id = "animal_psycho"
@@ -538,7 +538,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_crusher"
 	typepath = /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "кота по кличке Бедокур"
-	protected_jobs = list(JOB_TITLE_MECHANIC, JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/animal/paperwork
 	id = "animal_paperwork"
@@ -550,13 +550,13 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_slugcat"
 	typepath = /mob/living/simple_animal/pet/slugcat/monk
 	name = "слизнекота-монаха"
-	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/theft_objective/animal/poly
 	id = "animal_poly"
 	typepath = /mob/living/simple_animal/parrot/Poly
 	name = "попугая по кличке Поли"
-	protected_jobs = list(JOB_TITLE_CHIEF)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/theft_objective/animal/representative
 	id = "animal_mouse_rep"
@@ -573,7 +573,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_poppy"
 	typepath = /mob/living/simple_animal/possum/Poppy
 	name = "опоссума по кличке Ключик"
-	protected_jobs = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH)
+	protected_jobs = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/theft_objective/animal/mars
 	id = "animal_mars"

@@ -316,28 +316,39 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	)
 
 /datum/outfit/job/centcom/response_team
-	name = "Response team"
-	var/rt_assignment = "Emergency Response Team Member"
-	var/rt_job = "This is a bug"
-	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
-	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира — в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
-	var/hours_dif = 0 // Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
-	var/exp_type = FALSE
-	var/list/ranks = list(
-		"Min" = "Рядовой",
-		"Med" = "Младший капрал",
-		"Max" = "Капрал"
-	)
+	name = JOB_TITLE_RU_ERT_MEMBER
+
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
 	box = /obj/item/storage/box/survival/responseteam
-
 	implants = list(/obj/item/implant/mindshield/ert)
 
-//Ranks
+	/// Strict job name. Used for logic, so must have a proper defined name.
+	var/ert_job = JOB_TITLE_ERT_MEMBER
+	/// Unstrict job name. Used just for display purposes, not the logic, so it can be anything.
+	var/ert_assignment = JOB_TITLE_RU_ERT_MEMBER
+	/// The level of ERT. Used for the assignment on ID-card.
+	/// Should be "Эмбер", "Ред" or "Гамма", in Russian.
+	var/division
+	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему Командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира — в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
+	/// Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
+	var/hours_dif = 0
+	var/exp_type = FALSE
+	var/list/ranks = list(
+		"Min" = "Рядовой",
+		"Med" = "Младший капрал",
+		"Max" = "Капрал"
+	)
+
+/datum/outfit/job/centcom/response_team/New()
+	. = ..()
+
+	ert_assignment = get_job_title_ru(ert_job) + (division ? " \"[division]\"" : "")
+
+// Ranks
 #define MEDIUM_RANK_HOURS 200
 #define MAX_RANK_HOURS 500
 

@@ -47,7 +47,6 @@
 			for(var/overlay in atmos_overlay_types)
 				vis_contents -= overlay
 			atmos_overlay_types = null
-			SSturfs_visualization.turfs_visualisation -= src
 		return
 
 	var/list/new_overlay_types = air.return_visuals(z)
@@ -61,9 +60,6 @@
 			vis_contents += new_overlay_types - atmos_overlay_types //don't add overlays that already exist
 		else
 			vis_contents += new_overlay_types
-		SSturfs_visualization.turfs_visualisation |= src
-	else
-		SSturfs_visualization.turfs_visualisation -= src
 
 	UNSETEMPTY(new_overlay_types)
 	src.atmos_overlay_types = new_overlay_types

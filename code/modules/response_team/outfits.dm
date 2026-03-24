@@ -3,36 +3,34 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(!istype(W))
 		return
-	W.assignment = rt_assignment
-	W.rank = W.assignment
+	W.rank = ert_job
+	W.assignment = ert_assignment
 	W.age = H.age
 	W.sex = capitalize(H.gender)
 	W.registered_name = H.real_name
-	W.name = "[H.real_name]’s ID Card ([rt_job])"
-	W.access = get_centcom_access(W.assignment)
+	W.access = get_centcom_access(ert_job)
 	W.law_level = LAW_LEVEL_RESPONSE_TEAM
 	W.photo = get_id_photo(H)
 	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
 		W.associated_account_number = H.mind.initial_account.account_number
+	W.update_label()
 
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
 		PDA.update_owner_name(H.real_name)
-		PDA.ownjob = rt_assignment
-		PDA.ownrank = rt_assignment
+		PDA.ownjob = ert_assignment
+		PDA.ownrank = ert_job
 		PDA.update_appearance(UPDATE_NAME)
 
 /datum/outfit/job/centcom/response_team/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	H.job = rt_mob_job
+	H.job = ert_job
 
 //////////////////// COMMANDER ///////////////////
 /datum/outfit/job/centcom/response_team/commander
-	name = "RT Commander"
-	rt_assignment = "Emergency Response Team Leader"
-	rt_job = "Emergency Response Team Leader"
-	rt_mob_job = "ERT Commander"
+	name = "Командир ОБР"
+	ert_job = JOB_TITLE_ERT_LEADER
 	special_message = "В обычных условий вы подчиняетесь <span class='red'>старшим по рангу офицерам Защиты Активов</span>. \n Впрочем, на время проведения операции вы подчиняетесь <span class='red'>Офицеру Специальных Операций</span>. \n Исключениями являются случаи, когда его приказания прямо противоречат интересам Отдела Защиты Активов или приказаниям членов ОЗА в более высоком звании, чем вы. \n Вы имеете абсолютную власть в рамках вашего отряда, и практически абсолютную в рамках зоны проведения операции. Пресекайте прямое неподчинение, но не забывайте прислушиваться к мнению специалистов."
 	exp_type = EXP_TYPE_COMMAND
 	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
@@ -47,7 +45,8 @@
 	H.age = rand(35,45)
 
 /datum/outfit/job/centcom/response_team/commander/amber
-	name = "RT Commander (Amber)"
+	name = "Командир ОБР \"Эмбер\""
+	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/armor/vest/ert/command
@@ -68,7 +67,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/commander/red
-	name = "RT Commander (Red)"
+	name = "Командир ОБР \"Ред\""
+	division = "Ред"
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
@@ -98,7 +98,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
-	name = "RT Commander (Gamma)"
+	name = "Командир ОБР \"Гамма\""
+	division = "Гамма"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
@@ -133,9 +134,8 @@
 
 //////////////////// SECURITY ///////////////////
 /datum/outfit/job/centcom/response_team/security
-	name = "RT Security"
-	rt_job = "Emergency Response Team Officer"
-	rt_mob_job = "ERT Security"
+	name = "Штурмовик ОБР"
+	ert_job = JOB_TITLE_ERT_OFFICER
 	uniform = /obj/item/clothing/under/rank/security/sensor
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/sec
@@ -144,7 +144,8 @@
 	exp_type = EXP_TYPE_SECURITY
 
 /datum/outfit/job/centcom/response_team/security/amber
-	name = "RT Security (Amber)"
+	name = "Штурмовик ОБР \"Эмбер\""
+	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security
@@ -160,7 +161,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/security/red
-	name = "RT Security (Red)"
+	name = "Штурмовик ОБР \"Ред\""
+	division = "Ред"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -192,7 +194,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/security/gamma
-	name = "RT Security (Gamma)"
+	name = "Штурмовик ОБР \"Гамма\""
+	division = "Гамма"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -233,9 +236,8 @@
 //////////////////// ENGINEER ///////////////////
 
 /datum/outfit/job/centcom/response_team/engineer
-	name = "RT Engineer"
-	rt_job = "Emergency Response Team Engineer"
-	rt_mob_job = "ERT Engineering"
+	name = "Инженер ОБР"
+	ert_job = JOB_TITLE_ERT_ENGINEER
 	toggle_helmet = TRUE
 	back = /obj/item/storage/backpack/ert/engineer
 	uniform = /obj/item/clothing/under/rank/engineer
@@ -245,7 +247,8 @@
 	exp_type = EXP_TYPE_ENGINEERING
 
 /datum/outfit/job/centcom/response_team/engineer/amber
-	name = "RT Engineer (Amber)"
+	name = "Инженер ОБР \"Эмбер\""
+	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
@@ -269,7 +272,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/red
-	name = "RT Engineer (Red)"
+	name = "Инженер ОБР \"Ред\""
+	division = "Ред"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
@@ -302,7 +306,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
-	name = "RT Engineer (Gamma)"
+	name = "Инженер ОБР \"Гамма\""
+	division = "Гамма"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
@@ -338,9 +343,8 @@
 
 //////////////////// MEDIC ///////////////////
 /datum/outfit/job/centcom/response_team/medic
-	name = "RT Medic"
-	rt_job = "Emergency Response Team Medic"
-	rt_mob_job = "ERT Medical"
+	name = "Медик ОБР"
+	ert_job = JOB_TITLE_ERT_MEDIC
 	uniform = /obj/item/clothing/under/rank/medical
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
@@ -348,7 +352,8 @@
 	exp_type = EXP_TYPE_MEDICAL
 
 /datum/outfit/job/centcom/response_team/medic/amber
-	name = "RT Medic (Amber)"
+	name = "Медик ОБР \"Эмбер\""
+	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/color/white
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
@@ -378,7 +383,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
-	name = "RT Medic (Red)"
+	name = "Медик ОБР \"Ред\""
+	division = "Ред"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -417,7 +423,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
-	name = "RT Medic (Gamma)"
+	name = "Медик ОБР \"Гамма\""
+	division = "Гамма"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -458,9 +465,8 @@
 
 //////////////////// PARANORMAL ///////////////////
 /datum/outfit/job/centcom/response_team/paranormal
-	name = "RT Paranormal"
-	rt_job = "Emergency Response Team Inquisitor"
-	rt_mob_job = "ERT Paranormal"
+	name = "Инквизитор ОБР"
+	ert_job = JOB_TITLE_ERT_INQUISITOR
 	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -482,7 +488,8 @@
 		H.mind.isholy = TRUE
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
-	name = "RT Paranormal (Amber)"
+	name = "Инквизитор ОБР \"Эмбер\""
+	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
@@ -496,7 +503,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/red
-	name = "RT Paranormal (Red)"
+	name = "Инквизитор ОБР \"Ред\""
+	division = "Ред"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	back = /obj/item/mod/control/pre_equipped/responsory/chaplain
@@ -523,7 +531,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
-	name = "RT Paranormal (Gamma)"
+	name = "Инквизитор ОБР \"Гамма\""
+	division = "Гамма"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
@@ -553,9 +562,8 @@
 
 //////////////////// JANITORIAL ///////////////////
 /datum/outfit/job/centcom/response_team/janitorial
-	name = "RT Janitor"
-	rt_job = "Emergency Response Team Janitor"
-	rt_mob_job = "ERT Janitor"
+	name = "Клининг-специалист ОБР"
+	ert_job = JOB_TITLE_ERT_JANITOR
 	uniform = /obj/item/clothing/under/color/purple/sensor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/ert
@@ -581,7 +589,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
-	name = "RT Janitor (Amber)"
+	name = "Клининг-специалист ОБР \"Эмбер\""
+	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/galoshes
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
@@ -592,7 +601,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/red
-	name = "RT Janitor (Red)"
+	name = "Клининг-специалист ОБР \"Ред\""
+	division = "Ред"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
@@ -609,7 +619,8 @@
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
-	name = "RT Janitor (Gamma)"
+	name = "Клининг-специалист ОБР \"Гамма\""
+	division = "Гамма"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
