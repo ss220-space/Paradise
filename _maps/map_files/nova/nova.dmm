@@ -32547,6 +32547,7 @@
 	dir = 10
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/station_map/security/directional/south,
 /turf/simulated/floor/carpet/red,
 /area/security/hos)
 "eOO" = (
@@ -46064,10 +46065,6 @@
 /obj/effect/turf_decal/siding/red,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -32;
-	pixel_y = -30
 	},
 /turf/simulated/floor/carpet/red,
 /area/security/hos)
@@ -110698,6 +110695,10 @@
 	network = list("SS13","Security")
 	},
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -32;
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
