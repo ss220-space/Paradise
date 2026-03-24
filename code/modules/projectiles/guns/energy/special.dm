@@ -736,15 +736,19 @@
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
+/obj/item/gun/energy/dominator/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	. = ..()
-	if(sibyl_mod?.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
+	if(sibyl_mod && sibyl_mod.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
 		user.playsound_local(user, sound_voice[select], 50, FALSE)
 		COOLDOWN_START(src, last_sound_effect, 2 SECONDS)
 
@@ -779,13 +783,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
 	ammo_x_offset = 0
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+
+/obj/item/gun/energy/specter/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/specter/get_ru_names()
 	return list(

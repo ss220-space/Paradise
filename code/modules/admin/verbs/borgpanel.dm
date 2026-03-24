@@ -46,7 +46,7 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 		var/obj/item/borg/upgrade/upgrade = upgradetype
 		if(!borg.module && initial(upgrade.require_module)) //Borg needs to select a module first
 			continue
-		if(initial(upgrade.module_type) && (borg.module != initial(upgrade.module_type))) // Upgrade requires a different module
+		if(initial(upgrade.module_type) && !istype(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
 			continue
 		var/installed = FALSE
 		if(locate(upgradetype) in borg)

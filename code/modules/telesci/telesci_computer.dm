@@ -59,7 +59,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+	if(isbluespacecrystal(I))
 		add_fingerprint(user)
 		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(crystals >= max_crystals)
@@ -94,7 +94,7 @@
 	return ..()
 
 /obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	var/obj/item/multitool/multitool = I
@@ -280,7 +280,7 @@
 					log_msg += "[key_name(T)], "
 				else
 					log_msg += "[ROI.name]"
-					if(istype(ROI, /obj/structure/closet))
+					if(iscloset(ROI))
 						var/obj/structure/closet/C = ROI
 						log_msg += " ("
 						for(var/atom/movable/Q as mob|obj in C)

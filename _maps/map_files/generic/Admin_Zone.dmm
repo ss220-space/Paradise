@@ -69,16 +69,6 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/wood,
 /area/admin)
-"aN" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "aO" = (
 /obj/structure/table/wood,
 /obj/item/dnainjector/antiblind,
@@ -219,7 +209,12 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
-"cg" = (
+"ck" = (
+/turf/simulated/floor/holofloor{
+	icon_state = "redgreenfull"
+	},
+/area/holodeck/source_thunderdomecourt)
+"cv" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
@@ -227,19 +222,15 @@
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
 /obj/machinery/recharger/wallcharger{
-	pixel_x = 30
+	pixel_x = 3;
+	pixel_y = -30
 	},
 /obj/item/clothing/under/color/blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
 	},
-/area/tdome/arena_source)
-"ck" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "redgreenfull"
-	},
-/area/holodeck/source_thunderdomecourt)
+/area/tdome/arena)
 "cy" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/sand,
@@ -248,6 +239,32 @@
 /obj/effect/turf_decal/mech,
 /obj/mecha/combat/durand/rover/loaded{
 	operation_req_access = list(114)
+	},
+/turf/simulated/floor/wood,
+/area/admin)
+"cB" = (
+/obj/structure/table,
+/obj/item/card/id/centcom{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/card/id,
+/obj/item/card/id/admin{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/door/window/southleft{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 8;
+	name = "security checkpoint"
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/admin)
@@ -454,6 +471,19 @@
 	tag = "icon-carpet14-0 (EAST)"
 	},
 /area/holodeck/source_meetinghall)
+"ez" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/grenade/smokebomb,
+/obj/item/restraints/legcuffs/beartrap,
+/obj/item/sleeping_carp_scroll,
+/obj/item/twohanded/bostaff,
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
 "eI" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -600,17 +630,28 @@
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
+"fQ" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/admin)
-"ga" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "ge" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/fingergun/fake,
@@ -657,6 +698,10 @@
 /obj/structure/bed,
 /turf/simulated/floor/wood,
 /area/admin)
+"gH" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/carpet,
+/area/admin)
 "gI" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "light-fancy-wood"
@@ -676,23 +721,6 @@
 	icon_state = "redgreenfull"
 	},
 /area/holodeck/source_thunderdomecourt)
-"gR" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena_source)
 "gX" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/temperature,
@@ -700,10 +728,6 @@
 	dir = 6;
 	icon_state = "darkgrey"
 	},
-/area/admin)
-"gY" = (
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/carpet,
 /area/admin)
 "hl" = (
 /obj/structure/table,
@@ -734,6 +758,19 @@
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome2)
+"hu" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/grenade/smokebomb,
+/obj/item/restraints/legcuffs/beartrap,
+/obj/item/sleeping_carp_scroll,
+/obj/item/twohanded/bostaff,
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
 "hF" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plasteel{
@@ -761,12 +798,32 @@
 	tag = "icon-asteroid"
 	},
 /area/holodeck/source_picnicarea)
+"hS" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
 "hV" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "snow";
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
+"ic" = (
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/carpet,
+/area/admin)
 "io" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/wt550,
@@ -815,15 +872,6 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
-"iG" = (
-/obj/structure/chair/comfy/beige{
-	dir = 8;
-	layer = 5;
-	pixel_y = -2
-	},
-/obj/item/radio/intercom/syndicate/directional/west,
-/turf/simulated/floor/wood,
-/area/admin)
 "iH" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -856,18 +904,6 @@
 	icon_state = "dark"
 	},
 /area/tdome/tdome2)
-"iS" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/energy/sword/saber/red,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena_source)
 "iZ" = (
 /obj/structure/table/wood,
 /obj/item/gun_module/muzzle/suppressor,
@@ -934,21 +970,6 @@
 /obj/item/ammo_box/foambox/sniper/riot,
 /obj/item/ammo_box/foambox/sniper/riot,
 /turf/simulated/floor/carpet/arcade,
-/area/admin)
-"ju" = (
-/obj/structure/table/wood,
-/obj/item/clothing/head/naziofficer{
-	name = "Officer Cap"
-	},
-/obj/item/clothing/under/officeruniform{
-	icon_state = "nazi";
-	name = "Officer's Uniform"
-	},
-/obj/item/clothing/suit/storage/blacktrenchcoat{
-	icon_state = "nazi"
-	},
-/obj/item/clothing/shoes/color/black,
-/turf/simulated/floor/wood,
 /area/admin)
 "jx" = (
 /obj/item/clothing/accessory/cowboyshirt,
@@ -1116,6 +1137,12 @@
 /obj/item/pinpointer/advpinpointer,
 /turf/simulated/floor/wood,
 /area/admin)
+"kZ" = (
+/obj/structure/sink/puddle{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "lc" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -1206,6 +1233,22 @@
 /obj/item/gun/projectile/shotgun/riot/short,
 /turf/simulated/floor/wood,
 /area/admin)
+"mI" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
 "mJ" = (
 /obj/structure/table/wood,
 /obj/item/grenade/clusterbuster/mega_syndieminibomb,
@@ -1225,51 +1268,9 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
-"mR" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena_source)
 "mX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/proto,
-/turf/simulated/floor/wood,
-/area/admin)
-"nb" = (
-/obj/structure/table,
-/obj/item/card/id/silver{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/card/id/captains_spare,
-/obj/item/card/id/lifetime{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 8;
-	name = "security checkpoint"
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 4
-	},
 /turf/simulated/floor/wood,
 /area/admin)
 "nc" = (
@@ -1393,18 +1394,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"oO" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/melee/energy/sword/saber/blue,
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "oV" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -1462,6 +1451,19 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
+"pI" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/grenade/smokebomb,
+/obj/item/restraints/legcuffs/beartrap,
+/obj/item/sleeping_carp_scroll,
+/obj/item/twohanded/bostaff,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
 "pK" = (
 /obj/effect/decal/warning_stripes/blue,
 /turf/simulated/wall/indestructible,
@@ -1610,17 +1612,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
-"rI" = (
-/obj/effect/landmark/spawner/tdomeadmin,
-/obj/item/radio/intercom/pirate/directional/south,
-/obj/machinery/door_control{
-	id = "thunderdome";
-	name = "Thunder start";
-	pixel_y = -32;
-	req_access = list(153)
-	},
-/turf/simulated/floor/carpet/black,
-/area/tdome/tdomeadmin)
 "rK" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/door,
@@ -1639,6 +1630,60 @@
 /area/admin)
 "sm" = (
 /obj/mecha/combat/marauder/loaded,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
+"su" = (
+/obj/structure/table,
+/obj/item/card/id/silver{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/card/id/captains_spare,
+/obj/item/card/id/lifetime{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/door/window/southleft{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 8;
+	name = "security checkpoint"
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100)
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/admin)
+"sL" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
+"sU" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/melee/energy/sword/saber/blue,
+/obj/item/clothing/under/color/blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -1758,32 +1803,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
-"uL" = (
-/obj/structure/table,
-/obj/item/card/id/centcom{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/card/id,
-/obj/item/card/id/admin{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 8;
-	name = "security checkpoint"
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/admin)
 "uN" = (
 /obj/mecha/combat/marauder/mauler/loaded{
 	operation_req_access = list(114)
@@ -1801,14 +1820,17 @@
 	icon_state = "dark"
 	},
 /area/adminconstruction)
-"uY" = (
+"uZ" = (
 /obj/structure/rack,
+/obj/item/clothing/under/color/red,
 /obj/item/clothing/shoes/color/brown,
-/obj/item/grenade/smokebomb,
-/obj/item/restraints/legcuffs/beartrap,
-/obj/item/sleeping_carp_scroll,
-/obj/item/twohanded/bostaff,
-/obj/item/clothing/under/color/blue,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -1899,6 +1921,18 @@
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
+"wa" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/energy/sword/saber/red,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
 "wc" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -2006,6 +2040,27 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
+"wV" = (
+/obj/machinery/camera{
+	c_tag = "Thunderdome Arena";
+	network = list("Thunderdome");
+	pixel_x = 10
+	},
+/obj/machinery/flasher{
+	id = "flash";
+	name = "Thunderdome Flash"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "thunderdome";
+	name = "Thunderdome Blast Door";
+	simulated = 0
+	},
+/obj/item/radio/intercom/pirate/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkgrey"
+	},
+/area/tdome/arena)
 "wZ" = (
 /obj/structure/table/wood,
 /obj/item/multisword,
@@ -2047,6 +2102,23 @@
 /obj/item/gun/projectile/revolver/russian,
 /turf/simulated/floor/wood,
 /area/admin)
+"xS" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
 "xT" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2182,19 +2254,6 @@
 	icon_state = "darkbrown"
 	},
 /area/tdome/tdome1)
-"zz" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/grenade/smokebomb,
-/obj/item/restraints/legcuffs/beartrap,
-/obj/item/sleeping_carp_scroll,
-/obj/item/twohanded/bostaff,
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "zE" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/dominator,
@@ -2265,19 +2324,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"Ai" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/grenade/smokebomb,
-/obj/item/restraints/legcuffs/beartrap,
-/obj/item/sleeping_carp_scroll,
-/obj/item/twohanded/bostaff,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena_source)
 "Ak" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4;
@@ -2298,27 +2344,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"An" = (
-/obj/machinery/camera{
-	c_tag = "Thunderdome Arena";
-	network = list("Thunderdome");
-	pixel_x = 10
-	},
-/obj/machinery/flasher{
-	id = "flash";
-	name = "Thunderdome Flash"
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
-	},
-/obj/item/radio/intercom/pirate/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkgrey"
-	},
-/area/tdome/arena_source)
 "AJ" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/resurrection,
@@ -2398,23 +2423,6 @@
 /obj/item/grenade/clusterbuster/syndieminibomb,
 /turf/simulated/floor/wood,
 /area/admin)
-"Bo" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "Bp" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2476,18 +2484,6 @@
 "BI" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava,
 /area/tdome/newtdome)
-"BL" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/tdome/red,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/energy/sword/saber/red,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "BN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
@@ -2501,18 +2497,6 @@
 	icon_state = "redbluefull"
 	},
 /area/holodeck/source_knightarena)
-"BY" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/melee/energy/sword/saber/blue,
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "BZ" = (
 /obj/structure/table/wood,
 /obj/item/toy/foamblade,
@@ -2632,6 +2616,17 @@
 "Du" = (
 /turf/simulated/floor/indestructible/grass,
 /area/tdome/newtdome)
+"Dx" = (
+/obj/effect/landmark/spawner/tdomeadmin,
+/obj/item/radio/intercom/pirate/directional/south,
+/obj/machinery/door_control{
+	id = "thunderdome";
+	name = "Thunder start";
+	pixel_y = -32;
+	req_access = list(153)
+	},
+/turf/simulated/floor/carpet/black,
+/area/tdome/tdomeadmin)
 "Dz" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -2679,6 +2674,10 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome)
+"Eh" = (
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/wood,
+/area/admin)
 "Em" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -2776,6 +2775,18 @@
 	icon_state = "r_wall-1"
 	},
 /area/space)
+"Fk" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/energy/sword/saber/red,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
 "Fv" = (
 /obj/machinery/computer/teleporter{
 	req_access = list(150)
@@ -2784,6 +2795,19 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"Fx" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/grenade/smokebomb,
+/obj/item/restraints/legcuffs/beartrap,
+/obj/item/sleeping_carp_scroll,
+/obj/item/twohanded/bostaff,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
 "FB" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2829,10 +2853,6 @@
 /obj/item/gun/throw,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/admin)
-"Gf" = (
-/obj/machinery/vending/gun_mods/advanced,
-/turf/simulated/floor/carpet,
 /area/admin)
 "Gi" = (
 /obj/item/bedsheet/black,
@@ -2987,11 +3007,36 @@
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
+"HQ" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena)
 "HR" = (
 /obj/structure/table/wood,
 /obj/item/gun/syringe/rapidsyringe,
 /turf/simulated/floor/wood,
 /area/admin)
+"HY" = (
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/obj/item/reagent_containers/food/snacks/charred_krill{
+	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "HZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot,
@@ -3133,23 +3178,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
-"JL" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "JR" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "green"
@@ -3202,6 +3230,27 @@
 /obj/item/twohanded/dualsaber/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"KW" = (
+/obj/machinery/camera{
+	c_tag = "Thunderdome Arena";
+	network = list("Thunderdome");
+	pixel_x = 10
+	},
+/obj/machinery/flasher{
+	id = "flash";
+	name = "Thunderdome Flash"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "thunderdome";
+	name = "Thunderdome Blast Door";
+	simulated = 0
+	},
+/obj/item/radio/intercom/pirate/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkgrey"
+	},
+/area/tdome/arena_source)
 "Lb" = (
 /obj/structure/table/wood,
 /obj/item/whetstone,
@@ -3372,24 +3421,6 @@
 /obj/item/gun/projectile/automatic/pistol/deagle/camo,
 /turf/simulated/floor/wood,
 /area/admin)
-"Nv" = (
-/obj/structure/sink/puddle{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
-"Nw" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/melee/energy/sword/saber/blue,
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena_source)
 "NA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain,
@@ -3406,22 +3437,6 @@
 /obj/item/gun/energy/gun/blueshield,
 /turf/simulated/floor/wood,
 /area/admin)
-"NJ" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "NL" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -3445,10 +3460,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"NX" = (
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood,
-/area/admin)
 "Oe" = (
 /obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
@@ -3464,22 +3475,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"Om" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena_source)
 "Oq" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3595,6 +3590,12 @@
 /obj/item/gun/energy/laser/tag/red,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"PX" = (
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "PY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
@@ -3604,19 +3605,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
-"Qd" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/grenade/smokebomb,
-/obj/item/restraints/legcuffs/beartrap,
-/obj/item/sleeping_carp_scroll,
-/obj/item/twohanded/bostaff,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "Qi" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/suit/armor/riot/knight/blue,
@@ -3626,22 +3614,6 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
-"Qm" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 30
-	},
-/obj/item/clothing/under/color/blue,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/tdome/arena)
 "Qr" = (
 /obj/structure/table/wood,
 /obj/item/grenade/syndieminibomb,
@@ -3650,6 +3622,15 @@
 "Qt" = (
 /turf/simulated/floor/beach/coastline,
 /area/holodeck/source_beach)
+"QA" = (
+/obj/structure/chair/comfy/beige{
+	dir = 8;
+	layer = 5;
+	pixel_y = -2
+	},
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/wood,
+/area/admin)
 "QC" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/combat/survival,
@@ -3698,6 +3679,21 @@
 "QQ" = (
 /turf/simulated/wall/indestructible,
 /area/space)
+"QV" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/naziofficer{
+	name = "Officer Cap"
+	},
+/obj/item/clothing/under/officeruniform{
+	icon_state = "nazi";
+	name = "Officer's Uniform"
+	},
+/obj/item/clothing/suit/storage/blacktrenchcoat{
+	icon_state = "nazi"
+	},
+/obj/item/clothing/shoes/color/black,
+/turf/simulated/floor/wood,
+/area/admin)
 "Rj" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -3725,27 +3721,6 @@
 /obj/item/gun/projectile/automatic/l6_saw,
 /turf/simulated/floor/wood,
 /area/admin)
-"RI" = (
-/obj/machinery/camera{
-	c_tag = "Thunderdome Arena";
-	network = list("Thunderdome");
-	pixel_x = 10
-	},
-/obj/machinery/flasher{
-	id = "flash";
-	name = "Thunderdome Flash"
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door";
-	simulated = 0
-	},
-/obj/item/radio/intercom/pirate/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkgrey"
-	},
-/area/tdome/arena)
 "Sc" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping,
@@ -3900,6 +3875,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
+"TM" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/melee/energy/sword/saber/blue,
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "TU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/m1911,
@@ -4008,6 +3995,16 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/wood,
 /area/admin)
+"UY" = (
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4082,6 +4079,18 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/wood,
 /area/admin)
+"VA" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/melee/energy/sword/saber/blue,
+/obj/item/clothing/under/color/blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/tdome/arena_source)
 "VD" = (
 /obj/machinery/light/small{
 	brightness_range = 6;
@@ -4094,15 +4103,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"VM" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/obj/item/reagent_containers/food/snacks/charred_krill{
-	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "VO" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/wood,
@@ -4738,8 +4738,8 @@ kD
 gA
 sZ
 aU
-Gf
-Gf
+ic
+ic
 wP
 ui
 Us
@@ -8578,7 +8578,7 @@ MF
 Ep
 Ep
 Ep
-iG
+QA
 zH
 fE
 fE
@@ -8832,7 +8832,7 @@ Yq
 (18,1,1) = {"
 fE
 Oe
-NX
+Eh
 Ep
 Ep
 iD
@@ -10905,7 +10905,7 @@ ZG
 ZG
 ZG
 ZG
-gY
+gH
 ZG
 ZG
 ZG
@@ -12701,7 +12701,7 @@ ZG
 UB
 fI
 MA
-ju
+QV
 sk
 fE
 Cs
@@ -13984,8 +13984,8 @@ VX
 fE
 fE
 PH
-uL
-nb
+cB
+su
 TF
 FW
 fE
@@ -56124,8 +56124,8 @@ Fi
 Fi
 Fi
 Fi
-Qd
-Qd
+pI
+pI
 Fi
 Fi
 yV
@@ -56133,8 +56133,8 @@ Bp
 yV
 Fi
 Fi
-NJ
-NJ
+hS
+hS
 Fi
 Fi
 Fi
@@ -56144,8 +56144,8 @@ Fi
 Fi
 Fi
 Fi
-Ai
-Ai
+Fx
+Fx
 Fi
 Fi
 Bu
@@ -56153,8 +56153,8 @@ Ff
 Bu
 Fi
 Fi
-Om
-Om
+uZ
+uZ
 Fi
 Fi
 Fi
@@ -56380,7 +56380,7 @@ Yq
 Fi
 Fi
 Fi
-Qd
+pI
 Bp
 Bp
 Bp
@@ -56392,7 +56392,7 @@ Fi
 Bp
 Bp
 Bp
-NJ
+hS
 Fi
 Fi
 Fi
@@ -56400,7 +56400,7 @@ Yq
 Fi
 Fi
 Fi
-Ai
+Fx
 Ff
 Ff
 Ff
@@ -56412,7 +56412,7 @@ Fi
 Ff
 Ff
 Ff
-Om
+uZ
 Fi
 Fi
 Fi
@@ -56636,7 +56636,7 @@ Yq
 Yq
 Fi
 Fi
-Qd
+pI
 Bp
 Bp
 Bp
@@ -56650,13 +56650,13 @@ Bp
 Bp
 Bp
 Bp
-JL
+fQ
 Fi
 Fi
 Yq
 Fi
 Fi
-Ai
+Fx
 Ff
 Ff
 Ff
@@ -56670,7 +56670,7 @@ Ff
 Ff
 Ff
 Ff
-gR
+xS
 Fi
 Fi
 Yq
@@ -56893,7 +56893,7 @@ Yq
 Yq
 Fi
 Fi
-Qd
+pI
 Bp
 Bp
 Bp
@@ -56907,13 +56907,13 @@ qI
 Bp
 Bp
 Bp
-JL
+fQ
 Fi
 Fi
 Yq
 Fi
 Fi
-Ai
+Fx
 Ff
 Ff
 Ff
@@ -56927,7 +56927,7 @@ fL
 Ff
 Ff
 Ff
-gR
+xS
 Fi
 Fi
 Yq
@@ -58963,7 +58963,7 @@ Rj
 Bp
 Bp
 Bp
-BL
+Fk
 Fi
 Fi
 Yq
@@ -58983,7 +58983,7 @@ gt
 Ff
 Ff
 Ff
-iS
+wa
 Fi
 Fi
 Yq
@@ -59220,7 +59220,7 @@ Bp
 Bp
 Bp
 Bp
-BL
+Fk
 Fi
 Fi
 Yq
@@ -59240,7 +59240,7 @@ Ff
 Ff
 Ff
 Ff
-iS
+wa
 Fi
 Fi
 Yq
@@ -59476,7 +59476,7 @@ Fi
 Bp
 Bp
 Bp
-BL
+Fk
 Fi
 Fi
 Fi
@@ -59496,7 +59496,7 @@ Fi
 Ff
 Ff
 Ff
-iS
+wa
 Fi
 Fi
 Fi
@@ -59731,8 +59731,8 @@ Tb
 iQ
 Fi
 Fi
-BL
-BL
+Fk
+Fk
 Fi
 Fi
 Fi
@@ -59751,8 +59751,8 @@ Fi
 Fi
 Fi
 Fi
-iS
-iS
+wa
+wa
 Fi
 Fi
 Fi
@@ -61587,7 +61587,7 @@ Ie
 cD
 cD
 cD
-ga
+PX
 EL
 yQ
 yQ
@@ -61843,7 +61843,7 @@ FE
 cD
 Ie
 cD
-ga
+PX
 cD
 RA
 EL
@@ -62297,7 +62297,7 @@ Ou
 Ou
 Ou
 Ou
-RI
+wV
 Ou
 Ou
 Ou
@@ -62305,7 +62305,7 @@ Ou
 Fi
 Xy
 Hx
-rI
+Dx
 Fi
 Yq
 Fi
@@ -62317,7 +62317,7 @@ Zs
 Zs
 Zs
 Zs
-An
+KW
 Zs
 Zs
 Zs
@@ -62355,10 +62355,10 @@ Ie
 cD
 cD
 Ie
-Nv
+kZ
 Uw
 cD
-VM
+HY
 cD
 cD
 Ie
@@ -62871,7 +62871,7 @@ qw
 cD
 Ie
 cD
-ga
+PX
 cD
 mN
 Dz
@@ -63129,7 +63129,7 @@ YS
 cD
 cD
 cD
-aN
+UY
 Dz
 yQ
 yQ
@@ -64871,8 +64871,8 @@ yI
 ZE
 Fi
 Fi
-oO
-oO
+sU
+sU
 Fi
 Fi
 Fi
@@ -64891,8 +64891,8 @@ Fi
 Fi
 Fi
 Fi
-BY
-BY
+TM
+TM
 Fi
 Fi
 Fi
@@ -65130,7 +65130,7 @@ Fi
 Bp
 Bp
 Bp
-oO
+sU
 Fi
 Fi
 Fi
@@ -65150,7 +65150,7 @@ Fi
 Ff
 Ff
 Ff
-Nw
+VA
 Fi
 Fi
 Fi
@@ -65388,7 +65388,7 @@ Bp
 Bp
 Bp
 Bp
-oO
+sU
 Fi
 Fi
 Yq
@@ -65408,7 +65408,7 @@ Ff
 Ff
 Ff
 Ff
-Nw
+VA
 Fi
 Fi
 Yq
@@ -65645,7 +65645,7 @@ Rj
 Bp
 Bp
 Bp
-oO
+sU
 Fi
 Fi
 Yq
@@ -65665,7 +65665,7 @@ gt
 Ff
 Ff
 Ff
-Nw
+VA
 Fi
 Fi
 Yq
@@ -67687,7 +67687,7 @@ Yq
 Yq
 Fi
 Fi
-zz
+ez
 Bp
 Bp
 Bp
@@ -67701,13 +67701,13 @@ qI
 Bp
 Bp
 Bp
-Bo
+cv
 Fi
 Fi
 Yq
 Fi
 Fi
-uY
+hu
 Ff
 Ff
 Ff
@@ -67721,7 +67721,7 @@ fL
 Ff
 Ff
 Ff
-mR
+sL
 Fi
 Fi
 Yq
@@ -67944,7 +67944,7 @@ Yq
 Yq
 Fi
 Fi
-zz
+ez
 Bp
 Bp
 Bp
@@ -67958,13 +67958,13 @@ Bp
 Bp
 Bp
 Bp
-Bo
+cv
 Fi
 Fi
 Yq
 Fi
 Fi
-uY
+hu
 Ff
 Ff
 Ff
@@ -67978,7 +67978,7 @@ Ff
 Ff
 Ff
 Ff
-mR
+sL
 Fi
 Fi
 Yq
@@ -68202,7 +68202,7 @@ Yq
 Fi
 Fi
 Fi
-zz
+ez
 Bp
 Bp
 Bp
@@ -68214,7 +68214,7 @@ Fi
 Bp
 Bp
 Bp
-Qm
+HQ
 Fi
 Fi
 Fi
@@ -68222,7 +68222,7 @@ Yq
 Fi
 Fi
 Fi
-uY
+hu
 Ff
 Ff
 Ff
@@ -68234,7 +68234,7 @@ Fi
 Ff
 Ff
 Ff
-cg
+mI
 Fi
 Fi
 Fi
@@ -68460,8 +68460,8 @@ Fi
 Fi
 Fi
 Fi
-zz
-zz
+ez
+ez
 Fi
 Fi
 yV
@@ -68469,8 +68469,8 @@ Bp
 yV
 Fi
 Fi
-Qm
-Qm
+HQ
+HQ
 Fi
 Fi
 Fi
@@ -68480,8 +68480,8 @@ Fi
 Fi
 Fi
 Fi
-uY
-uY
+hu
+hu
 Fi
 Fi
 Bu
@@ -68489,8 +68489,8 @@ Ff
 Bu
 Fi
 Fi
-cg
-cg
+mI
+mI
 Fi
 Fi
 Fi

@@ -6,7 +6,7 @@
 	color = "#C7FFFF" // rgb: 199, 255, 255
 
 /datum/reagent/silicate/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/structure/window))
+	if(is_window(O))
 		if(O:silicate <= 200)
 
 			O:silicate += volume

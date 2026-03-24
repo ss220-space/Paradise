@@ -70,7 +70,7 @@
 		holder.process_activation(src, TRUE, FALSE, user)
 	if(holder && (wires & WIRE_PULSE_SPECIAL))
 		holder.process_activation(src, FALSE, TRUE, user)
-	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
+	if(isgrenade(loc)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc
 		G.prime(user)                // Adios, muchachos
 	return TRUE

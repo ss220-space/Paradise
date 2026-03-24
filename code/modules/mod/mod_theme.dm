@@ -197,7 +197,6 @@
 	energy = 15
 	bomb = 0
 	bio = 80
-	rad = 25
 	fire = 33
 	acid = 33
 
@@ -288,8 +287,6 @@
 	energy = 15
 	bomb = 0
 	bio = 80
-	rad = 25
-	fire = 33
 	acid = 33
 
 /datum/mod_theme/engineering
@@ -353,7 +350,6 @@
 	energy = 15
 	bomb = 40
 	bio = 80
-	rad = 100
 	fire = 70
 	acid = 10
 
@@ -423,7 +419,6 @@
 	energy = 15
 	bomb = 15
 	bio = 80
-	rad = 15
 	fire = 100
 	acid = 100
 
@@ -501,7 +496,6 @@
 	energy = 20
 	bomb = 60
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -612,10 +606,8 @@
 	energy = 15
 	bomb = 50
 	bio = 80
-	rad = 50
 	fire = 50
 	acid = 50
-
 
 /datum/mod_theme/loader
 	name = "модели \"Геракл\""
@@ -677,7 +669,6 @@
 	energy = 15
 	bomb = 10
 	bio = 80
-	rad = 0
 	fire = 25
 	acid = 25
 
@@ -783,7 +774,6 @@
 	energy = 15
 	bomb = 10
 	bio = 10
-	rad = 0
 	fire = 75
 	acid = 100
 
@@ -861,7 +851,6 @@
 	energy = 15
 	bomb = 10
 	bio = 10
-	rad = 50
 	fire = 100
 	acid = 100
 
@@ -937,7 +926,6 @@
 	energy = 15
 	bomb = 100
 	bio = 80
-	rad = 75
 	fire = 75
 	acid = 100
 
@@ -1008,7 +996,6 @@
 	energy = 15
 	bomb = 25
 	bio = 60
-	rad = 0
 	fire = 60
 	acid = 100
 
@@ -1084,7 +1071,6 @@
 	energy = 15
 	bomb = 25
 	bio = 60
-	rad = 0
 	fire = 60
 	acid = 80
 
@@ -1156,7 +1142,6 @@
 	energy = 25
 	bomb = 30
 	bio = 70
-	rad = 20
 	fire = 70
 	acid = 100
 
@@ -1231,7 +1216,6 @@
 	energy = 30
 	bomb = 70
 	bio = 90
-	rad = 30
 	fire = 80
 	acid = 100
 
@@ -1310,7 +1294,6 @@
 	energy = 20
 	bomb = 30
 	bio = 100
-	rad = 50
 	fire = 70
 	acid = 100
 
@@ -1384,7 +1367,6 @@
 	energy = 15
 	bomb = 15
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 
@@ -1460,7 +1442,6 @@
 	energy = 25
 	bomb = 45
 	bio = 70
-	rad = 45
 	fire = 80
 	acid = 100
 
@@ -1526,7 +1507,6 @@
 	energy = 5
 	bomb = 5
 	bio = 100
-	rad = 0
 	fire = 75
 	acid = 50
 
@@ -1634,7 +1614,6 @@
 	energy = 30
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 50
 	acid = 100
 
@@ -1709,7 +1688,6 @@
 	energy = 35
 	bomb = 75
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -1786,7 +1764,6 @@
 	energy = 30
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 50
 	acid = 100
 
@@ -1860,7 +1837,6 @@
 	energy = 10
 	bomb = 50
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 
@@ -1931,7 +1907,6 @@
 	energy = 20
 	bomb = 25
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -2006,7 +1981,6 @@
 	energy = 40
 	bomb = 55
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -2081,7 +2055,6 @@
 	energy = 90
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -2158,7 +2131,6 @@
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -2223,7 +2195,6 @@
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -2283,6 +2254,5 @@
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100

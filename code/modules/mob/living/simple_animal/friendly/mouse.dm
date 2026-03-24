@@ -247,7 +247,7 @@
 		REMOVE_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
 
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
-	if(istype(M, /mob/living/simple_animal/pet/cat))
+	if(iscat(M))
 		var/mob/living/simple_animal/pet/cat/C = M
 		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
 			apply_damage(15, BRUTE) //3x от ХП обычной мыши или полное хп крысы

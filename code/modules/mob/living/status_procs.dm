@@ -949,6 +949,12 @@
 /mob/living/proc/IsFrozen()
 	return has_status_effect(/datum/status_effect/freon)
 
+/mob/living/proc/cure_radiation()
+	var/radiation = GetComponent(/datum/component/irradiated)
+	if(!radiation)
+		return
+	qdel(GetComponent(/datum/component/irradiated))
+
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH
 

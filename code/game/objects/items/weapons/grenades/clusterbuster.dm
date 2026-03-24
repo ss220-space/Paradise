@@ -64,13 +64,13 @@
 	. = ..()
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)
-		if(istype(P, /obj/item/grenade))
+		if(isgrenade(P))
 			P.active = 1
 		GLOB.move_manager.move_away(P, loc, rand(1,4), 1)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))
-				if(istype(P, /obj/item/grenade))
+				if(isgrenade(P))
 					P.prime(power)
 			qdel(src)
 

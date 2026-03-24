@@ -708,7 +708,7 @@
 		return
 
 	var/deathtime = world.time - persistent_client.time_of_death
-	if(istype(src,/mob/dead/observer))
+	if(isobserver(src))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
@@ -953,7 +953,7 @@
 		to_chat(usr, span_warning("[capitalize(picked_mob)] больше недоступен для возрождения!"))
 		return
 
-	if(istype(picked_mob, /mob/living/simple_animal/borer))
+	if(isborer(picked_mob))
 		var/mob/living/simple_animal/borer/borer = picked_mob
 		borer.transfer_personality(usr.client)
 		return

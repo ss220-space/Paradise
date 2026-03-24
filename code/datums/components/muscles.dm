@@ -172,7 +172,7 @@
 
 /datum/component/muscles/proc/get_organ_icon_state(mob/living/carbon/human/user, obj/item/organ/external/organ, list/icon_state_additions)
 	SIGNAL_HANDLER
-	if(!istype(user.dna.species, /datum/species/human) || !ischest(organ) && !isgroin(organ))
+	if(!ishumanbasic(user.dna.species) || !ischest(organ) && !isgroin(organ))
 		return
 
 	icon_state_additions.Add("_[min(4, get_strength(user))]")

@@ -367,7 +367,7 @@
 	layer = 4.3;
 	pixel_y = 32
 	},
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "navybluealt"
@@ -479,7 +479,7 @@
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Jx" = (
-/obj/structure/chair/sofa/corp/right,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "navybluealt"
@@ -559,7 +559,7 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/structure/chair/sofa/corp/right,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "navybluealt"
@@ -605,7 +605,7 @@
 	},
 /area/shuttle/administration)
 "PI" = (
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /obj/machinery/light{
 	dir = 1
 	},

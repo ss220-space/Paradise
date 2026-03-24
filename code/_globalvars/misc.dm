@@ -84,5 +84,3 @@ GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
 
 /// Global list of all /datum/mod_theme
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
-
-GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)

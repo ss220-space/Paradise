@@ -167,7 +167,7 @@
 	if(!isnull(user))
 		movable_parent.balloon_alert(user, "шляпа прикреплена")
 
-	if(!istype(parent, /obj/item/clothing))
+	if(!isclothing(parent))
 		movable_parent.update_appearance()
 		return
 

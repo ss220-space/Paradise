@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		"name", "severity", "id", "visibility_flags", "spread_flags", "additional_info", "stage_prob", "cures",
 		"cure_prob", "cure_text", "permeability_mod", "mutation_chance", "mutation_reagents", "possible_mutations")
 	for(var/V in required_vars)
-		if(istype(vars[V], /list))
+		if(islist(vars[V]))
 			var/list/L = vars[V]
 			copy.vars[V] = L.Copy()
 		else

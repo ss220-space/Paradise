@@ -18,6 +18,8 @@
 #define IGNORE_HITS (1<<6)
 /// Objects will ignore blob_act
 #define IGNORE_BLOB_ACT (1<<7)
+/// Admin possession yes/no
+#define DANGEROUS_POSSESSION (1<<8)
 
 // Flags for the item_flags var on /obj/item
 

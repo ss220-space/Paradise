@@ -1,7 +1,7 @@
 /// The subsystem used to tick [/datum/ai_controllers] instances. Handling the re-checking of plans.
 SUBSYSTEM_DEF(ai_controllers)
 	name = "AI Controller Ticker"
-	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
+	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_HIBERNATE
 	priority = FIRE_PRIORITY_NPC
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	init_order = INIT_ORDER_AI_CONTROLLERS
@@ -11,6 +11,12 @@ SUBSYSTEM_DEF(ai_controllers)
 	var/list/ai_subtrees = list()
 	///List of all ai controllers currently running
 	var/list/active_ai_controllers = list()
+
+/datum/controller/subsystem/ai_controllers/PreInit()
+	. = ..()
+	hibernate_checks = list(
+		NAMEOF(src, active_ai_controllers),
+	)
 
 /datum/controller/subsystem/ai_controllers/Initialize(timeofday)
 	setup_subtrees()

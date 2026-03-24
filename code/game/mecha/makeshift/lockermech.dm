@@ -7,7 +7,7 @@
 	max_integrity = 100 //its made of scraps
 	lights_power = 5
 	step_in = 4 //Same speed as a ripley, for now.
-	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 70, acid = 60) //Same armour as a locker
+	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, fire = 70, acid = 60) //Same armour as a locker
 	internal_damage_threshold = 30 //Its got shitty durability
 	max_equip = 2 //You only have two arms and the control system is shitty
 	wreckage = null
@@ -41,7 +41,7 @@
 	lights_power = 5
 	step_in = 4
 	max_integrity = 250 //its made of scraps
-	armor = list(melee = 25, bullet = 20, laser = 25, energy = 15, bomb = 20, bio = 0, rad = 0, fire = 70, acid = 60)
+	armor = list(melee = 25, bullet = 20, laser = 25, energy = 15, bomb = 20, bio = 0, fire = 70, acid = 60)
 	internal_damage_threshold = 30
 	deflect_chance = 25
 	force = 20

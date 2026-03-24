@@ -118,7 +118,7 @@
 			)
 		return .
 
-	if(istype(I,/obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!open)
 			balloon_alert(user, "техпанель закрыта!")

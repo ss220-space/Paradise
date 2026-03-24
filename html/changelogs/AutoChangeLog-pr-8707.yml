@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - del: "Удалена нерабочая кнопка \"Игровые настройки\". (PR #8707)"

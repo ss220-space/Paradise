@@ -561,10 +561,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/research)
 "ch" = (
-/obj/machinery/power/emitter{
-	anchored = 1;
-	state = 2
-	},
+/obj/machinery/power/emitter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -737,9 +734,7 @@
 /area/awaymission/research)
 "cG" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -1012,9 +1007,7 @@
 /area/awaymission/research)
 "dn" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 8;
-	state = 2
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1713,9 +1706,7 @@
 /area/awaymission/research)
 "eV" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

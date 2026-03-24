@@ -198,7 +198,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 						if(length(names))
 							. += pick(names)
 					if(2)
-						. += pick(GLOB.jobs)//Returns a job.
+						. += get_job_title_ru(pick(GLOB.jobs)) //Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1, 2))//Places or things.
