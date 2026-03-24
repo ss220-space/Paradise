@@ -414,14 +414,14 @@
 	drink_desc = "Простая, но изящная смесь водки и апельсинового сока. То, что нужно уставшему инженеру."
 	taste_description = "водки с апельсином"
 
-/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/drinker, seconds_per_tick)
-	. = ..()
-	var/obj/item/organ/internal/liver/liver = drinker.get_organ_slot(INTERNAL_ORGAN_LIVER)
+/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/obj/item/organ/internal/liver/liver = affected_mob.get_organ_slot(INTERNAL_ORGAN_LIVER)
 	if(HAS_TRAIT(liver, TRAIT_ENGINEER_METABOLISM))
-		ADD_TRAIT(drinker, TRAIT_HALT_RADIATION_EFFECTS, UNIQUE_TRAIT_SOURCE(src))
-		if(HAS_TRAIT(drinker, TRAIT_IRRADIATED))
-			if(drinker.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE))
-				return STATUS_UPDATE_HEALTH
+		ADD_TRAIT(affected_mob, TRAIT_HALT_RADIATION_EFFECTS, UNIQUE_TRAIT_SOURCE(src))
+		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+			update_flags |= affected_mob.adjustToxLoss(-2 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_end_metabolize(mob/living/drinker)
 	. = ..()

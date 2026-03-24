@@ -234,14 +234,14 @@
 	/// How radioactive is this reagent
 	var/rad_power = 2
 
-/datum/reagent/radium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
-	. = ..()
+/datum/reagent/radium/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
-		if(SPT_PROB(chance, seconds_per_tick)) // ignore rad protection calculations bc it's inside of us
+		if(prob(chance))
 			affected_mob.AddComponent(/datum/component/irradiated)
-	if(affected_mob.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE))
-		return STATUS_UPDATE_HEALTH
+	update_flags |= affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/radium/reaction_turf(turf/reaction_turf, volume)
 	if(!SSradiation.can_irradiate_basic(reaction_turf))
@@ -269,14 +269,14 @@
 	/// How radioactive is this reagent
 	var/rad_power = 3
 
-/datum/reagent/polonium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
-	. = ..()
+/datum/reagent/polonium/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
-		if(SPT_PROB(chance, seconds_per_tick)) // ignore rad protection calculations bc it's inside of us
+		if(prob(chance))
 			affected_mob.AddComponent(/datum/component/irradiated)
-	if(affected_mob.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE))
-		return STATUS_UPDATE_HEALTH
+	update_flags |= affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/polonium/reaction_turf(turf/reaction_turf, volume)
 	if(!SSradiation.can_irradiate_basic(reaction_turf))
@@ -310,10 +310,10 @@
 		randmutb(M)
 		M.check_genes()
 
-/datum/reagent/mutagen/on_mob_life(mob/living/affected_mob, seconds_per_tick)
+/datum/reagent/mutagen/on_mob_life(mob/living/affected_mob)
 	if(!affected_mob.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	affected_mob.adjustToxLoss(0.5 * seconds_per_tick * REM)
+	affected_mob.adjustToxLoss(0.5 * REM)
 	if(prob(4))
 		randmutb(affected_mob)
 		affected_mob.check_genes()
@@ -367,14 +367,14 @@
 	/// How radioactive is this reagent
 	var/rad_power = 1
 
-/datum/reagent/uranium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
-	. = ..()
+/datum/reagent/uranium/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
-		if(SPT_PROB(chance, seconds_per_tick)) // ignore rad protection calculations bc it's inside of us
+		if(prob(chance))
 			affected_mob.AddComponent(/datum/component/irradiated)
-	if(affected_mob.adjustToxLoss(tox_damage * REM * seconds_per_tick, updating_health = FALSE))
-		return STATUS_UPDATE_HEALTH
+	update_flags |= affected_mob.adjustToxLoss(tox_damage * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/uranium/reaction_turf(turf/reaction_turf, volume)
 	if(!SSradiation.can_irradiate_basic(reaction_turf))
@@ -628,11 +628,12 @@
 	toxpwr = 1
 	can_synth = FALSE
 
-/datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	. = ..()
+/datum/reagent/toxin/spore/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
 	affected_mob.damageoverlaytemp = 60
 	affected_mob.update_damage_hud()
-	affected_mob.EyeBlurry(6 SECONDS * REM * seconds_per_tick)
+	affected_mob.EyeBlurry(6 SECONDS * REM)
+	return ..() | update_flags
 
 /datum/reagent/toxin/spore_burning
 	name = "Огненый споровый токсин"
@@ -643,10 +644,11 @@
 	taste_description = "ожогов"
 	can_synth = FALSE
 
-/datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	. = ..()
-	affected_mob.adjust_fire_stacks(2 * REM * seconds_per_tick)
+/datum/reagent/toxin/spore_burning/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	affected_mob.adjust_fire_stacks(2 * REM)
 	affected_mob.IgniteMob()
+	return ..() | update_flags
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Пиво"
@@ -1368,8 +1370,8 @@
 		randmutb(M)
 		M.check_genes()
 
-/datum/reagent/glowing_slurry/on_mob_life(mob/living/affected_mob, seconds_per_tick)
-	affected_mob.adjustToxLoss(0.5 * seconds_per_tick * REM)
+/datum/reagent/glowing_slurry/on_mob_life(mob/living/affected_mob)
+	affected_mob.adjustToxLoss(0.5 * REM)
 	if(!affected_mob.dna)
 		return
 	var/did_mutation = FALSE

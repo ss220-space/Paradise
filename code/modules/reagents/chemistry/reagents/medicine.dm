@@ -577,11 +577,11 @@
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
-	. = ..()
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
-		if(affected_mob.adjustToxLoss(-1 * REM * seconds_per_tick, updating_health = FALSE))
-			return STATUS_UPDATE_HEALTH
+		update_flags |= affected_mob.adjustToxLoss(-1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/medicine/pen_acid
 	name = "Пентетовая кислота"
@@ -594,13 +594,10 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
-	. = ..()
-	if(affected_mob.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE))
-		. = STATUS_UPDATE_HEALTH
-	for(var/datum/reagent/reagent as anything in affected_mob.reagents.reagent_list)
-		if(reagent != src)
-			affected_mob.reagents.remove_reagent(reagent.type, 2 * REM * seconds_per_tick)
+/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= affected_mob.adjustToxLoss(-2 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
 	name = "Салициловая кислота"
