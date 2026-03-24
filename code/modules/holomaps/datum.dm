@@ -97,8 +97,8 @@
 
 	if(bogus)
 		var/image/legend = image('icons/misc/64x64.dmi', "notfound")
-		legend.pixel_w = crop_w/2 - 32
-		legend.pixel_z = crop_h/2 - 32
+		legend.pixel_w = crop_w / 2 - ICON_SIZE_ALL
+		legend.pixel_z = crop_h / 2 - ICON_SIZE_ALL
 		base_map.add_overlay(legend)
 		return
 
