@@ -78,7 +78,7 @@
 		"вытаскивает из тайника бутыль с гербицидом и делает большой глоток!",
 		"разваливается на множество нимф!")
 
-	disliked_food = MEAT | RAW | EGG
+	disliked_food = MEAT | RAW
 	liked_food = VEGETABLES | FRUIT
 
 	age_sheet = list(

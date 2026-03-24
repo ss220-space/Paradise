@@ -132,6 +132,7 @@ GLOBAL_ALIST_INIT(food_quality_description, alist(
 ))
 
 /// Weighted lists of crafted food buffs randomly given according to crafting_complexity unless the food has a specific buff
+/** TODO
 GLOBAL_ALIST_INIT(food_buffs, alist(
 	FOOD_COMPLEXITY_1 = list(
 		/datum/status_effect/food/haste = 1,
@@ -149,6 +150,7 @@ GLOBAL_ALIST_INIT(food_buffs, alist(
 		/datum/status_effect/food/haste = 1,
 	),
 ))
+*/
 
 /// Food quality change according to species diet
 #define DISLIKED_FOOD_QUALITY_CHANGE -2
@@ -195,33 +197,6 @@ DEFINE_BITFIELD(food_flags, list(
 #define FOOD_TOXIC 3
 #define FOOD_ALLERGIC 4
 
-///Venue reagent requirement
-#define VENUE_BAR_MINIMUM_REAGENTS 10
-
-///***Food price classes***
-///Foods that are meant to have no value, such as lollypops from medborgs.
-#define FOOD_PRICE_WORTHLESS 0
-///cheap and quick foods, like those from vending machines.
-#define FOOD_PRICE_TRASH 25
-///In line with prices of cheap snacks and foods you find in vending machine, practically disposable.
-#define FOOD_PRICE_CHEAP 70
-///Half a crate of profit, selling 4 of these lets you buy a kitchen crate from cargo.
-#define FOOD_PRICE_NORMAL 150
-///Making one of these should be worth the time investment, solid chunk of profit.
-#define FOOD_PRICE_EXOTIC 450
-///Large windfall for making something from this list.
-#define FOOD_PRICE_LEGENDARY 1300
-
-///***Drink price classes***
-///Drinks that are only limited by a single click of the dispenser.
-#define DRINK_PRICE_STOCK 20
-///Drinks that are made through very basic processing.
-#define DRINK_PRICE_EASY 35
-///Drinks that are made through more basic processing, or multiple steps.
-#define DRINK_PRICE_MEDIUM 80
-///Drinks that are made through rare ingredients, or high levels of processing.
-#define DRINK_PRICE_HIGH 200
-
 /// Time spent deep frying an item after which it becomes fried.
 #define FRYING_TIME_FRIED (15 SECONDS)
 /// Time spent deep frying an item after which it becomes fried to perfection.
@@ -230,28 +205,6 @@ DEFINE_BITFIELD(food_flags, list(
 #define FRYING_TIME_BURNT (85 SECONDS)
 /// Time spent deep frying an item after which it starts smelling bad.
 #define FRYING_TIME_WARNING (120 SECONDS)
-
-
-/// Flavour defines (also names) for GLOB.ice_cream_flavours list access. Safer from mispelling than plain text.
-#define ICE_CREAM_VANILLA "vanilla"
-#define ICE_CREAM_CHOCOLATE "chocolate"
-#define ICE_CREAM_STRAWBERRY "strawberry"
-#define ICE_CREAM_BLUE "blue"
-#define ICE_CREAM_LEMON "lemon sorbet"
-#define ICE_CREAM_CARAMEL "caramel"
-#define ICE_CREAM_BANANA "banana"
-#define ICE_CREAM_ORANGE_CREAM "orangesicle"
-#define ICE_CREAM_PEACH "peach"
-#define ICE_CREAM_CHERRY_CHOCOLATE "cherry chocolate chip"
-#define ICE_CREAM_KORTA_VANILLA "korta vanilla"
-#define ICE_CREAM_MOB "mob"
-#define ICE_CREAM_CUSTOM "custom"
-#define ICE_CREAM_KORTA_CUSTOM "korta custom"
-#define ICE_CREAM_BLAND "bland"
-
-#define DEFAULT_MAX_ICE_CREAM_SCOOPS 3
-// the vertical distance in pixels from an ice cream scoop and another.
-#define ICE_CREAM_SCOOP_OFFSET 4
 
 #define BLACKBOX_LOG_FOOD_MADE(food) SSblackbox.record_feedback("tally", "food_made", 1, food)
 
@@ -262,10 +215,6 @@ DEFINE_BITFIELD(food_flags, list(
 
 /// Serving size of soup. Plus or minus five units.
 #define SOUP_SERVING_SIZE 25
-
-// Venues for the barbots.
-#define VENUE_RESTAURANT "Restaurant Venue"
-#define VENUE_BAR "Bar Venue"
 
 /// How much milk is needed to make butter on a reagent grinder
 #define MILK_TO_BUTTER_COEFF 25

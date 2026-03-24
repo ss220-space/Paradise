@@ -78,7 +78,7 @@
 		"задерживает дыхание!")
 
 	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
-	liked_food = MEAT | RAW | DAIRY | EGG
+	liked_food = MEAT | RAW | DAIRY
 
 	age_sheet = list(
 		SPECIES_AGE_MIN = 11,

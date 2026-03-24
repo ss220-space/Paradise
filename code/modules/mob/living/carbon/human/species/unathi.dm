@@ -94,7 +94,7 @@
 
 	toxic_food = SUGAR | GRAIN | JUNKFOOD
 	disliked_food = FRIED
-	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
+	liked_food = MEAT | RAW | GROSS | FRUIT | VEGETABLES
 
 	age_sheet = list(
 		SPECIES_AGE_MIN = 12,

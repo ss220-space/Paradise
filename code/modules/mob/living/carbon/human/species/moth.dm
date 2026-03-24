@@ -78,7 +78,7 @@
 		"заддерживает своё дыхание!",
 	)
 	toxic_food = MEAT | JUNKFOOD
-	disliked_food = FRIED | RAW | EGG
+	disliked_food = FRIED | RAW
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
 	special_diet = MATERIAL_CLASS_CLOTH
 

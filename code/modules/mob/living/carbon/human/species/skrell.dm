@@ -42,7 +42,7 @@
 	reagent_tag = ORGANIC
 	butt_sprite = "skrell"
 
-	disliked_food = MEAT | RAW | EGG
+	disliked_food = MEAT | RAW
 	liked_food = VEGETABLES | FRUIT
 
 	has_organ = list(

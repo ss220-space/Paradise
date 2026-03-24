@@ -188,7 +188,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = EGG
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Ikura
 	name = "ikura sushi"
@@ -198,7 +198,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = EGG
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
 	name = "sake maki roll"
@@ -256,17 +256,17 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
-	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
+	tastes = list("MEAT" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Tamago
 	name = "tamago sushi"
-	desc = "A simple sushi consisting of egg and rice."
+	desc = "A simple sushi consisting of MEAT and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Tamago"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
-	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
+	tastes = list("MEAT" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Inari_maki
@@ -303,7 +303,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = EGG
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Masago
 	name = "masago sushi"
@@ -313,7 +313,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = EGG
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
 	name = "tobiko maki roll"
@@ -326,7 +326,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = EGG
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Tobiko
 	name = "tobiko sushi"
@@ -336,29 +336,29 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = EGG
+	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
-	name = "tobiko and egg maki roll"
-	desc = "A large unsliced roll of Tobkio and Egg Sushi."
+/obj/item/reagent_containers/food/snacks/sliceable/TobikoMEAT_maki
+	name = "tobiko and MEAT maki roll"
+	desc = "A large unsliced roll of Tobkio and MEAT Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "TobikoEgg_maki"
-	slice_path = /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
+	icon_state = "TobikoMEAT_maki"
+	slice_path = /obj/item/reagent_containers/food/snacks/sushi_TobikoMEAT
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
-	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
-	foodtype = EGG
+	tastes = list("shark roe" = 1, "rice" = 1, "MEAT" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
-	name = "tobiko and egg sushi"
-	desc = "A sushi consisting of shark roe and an egg."
+/obj/item/reagent_containers/food/snacks/sushi_TobikoMEAT
+	name = "tobiko and MEAT sushi"
+	desc = "A sushi consisting of shark roe and an MEAT."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "sushi_TobikoEgg"
+	icon_state = "sushi_TobikoMEAT"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
-	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
-	foodtype = EGG
+	tastes = list("shark roe" = 1, "rice" = 1, "MEAT" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
 	name = "tai maki roll"
