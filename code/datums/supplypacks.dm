@@ -968,9 +968,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/sibyl
 	name = "Модули \"Sibyl\""
 	contains = list(
-		/obj/item/sibyl_system_mod,
-		/obj/item/sibyl_system_mod,
-		/obj/item/sibyl_system_mod,
+		/obj/item/gun_module/sibyl,
+		/obj/item/gun_module/sibyl,
+		/obj/item/gun_module/sibyl,
 	)
 	cost = 25								//По 6 за один блокиратор
 	containername = "ящик модулей \"Sibyl\""

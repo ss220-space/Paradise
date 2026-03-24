@@ -191,7 +191,7 @@
 						F.broken = FALSE
 						F.times_used = 0
 						F.update_icon(UPDATE_ICON_STATE)
-				else if(istype(O,/obj/item/gun/energy))
+				else if(isenergygun(O))
 					var/obj/item/gun/energy/D = O
 					if(D.cell.charge < D.cell.maxcharge)
 						var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]

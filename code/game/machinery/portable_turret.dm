@@ -905,7 +905,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(TURRET_BUILD_ARMOR_SECURED)
-			if(istype(I, /obj/item/gun/energy)) //the gun installation part
+			if(isenergygun(I)) //the gun installation part
 				var/obj/item/gun/energy/new_gun = I
 				if(isrobot(user) || !new_gun.turret_check())
 					return ATTACK_CHAIN_PROCEED

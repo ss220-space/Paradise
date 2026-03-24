@@ -1462,31 +1462,6 @@
 	desc = "I'll call you - Den."
 	icon_state = "hampter_jan"
 
-/obj/item/toy/plushie/hampter/captain
-	name = "Hampter the Captain"
-	desc = "Thinks he is the Head."
-	icon_state = "hampter_cap"
-
-/obj/item/toy/plushie/hampter/captain/old
-	name = "Hampter the first Captain"
-	desc = "Thinks he is the original Head."
-	icon_state = "hampter_old_cap"
-
-/obj/item/toy/plushie/hampter/syndi
-	name = "Hampter the Red Baron"
-	desc = "The real Head."
-	icon_state = "hampter_sdy"
-
-/obj/item/toy/plushie/hampter/death_squad
-	name = "Who?"
-	desc = "Don't call him - daddy."
-	icon_state = "hampter_ded"
-
-/obj/item/toy/plushie/hampter/ert_squad
-	name = "Hampter the Major"
-	desc = "Faces into the floor!"
-	icon_state = "hampter_ert"
-
 /obj/item/toy/plushie/beaver
 	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."

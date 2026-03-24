@@ -111,6 +111,8 @@
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
+#define isenergygun(A) (istype(A, /obj/item/gun/energy))
+
 #define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
 
 #define isbaton(A) (istype(A, /obj/item/melee/baton))
