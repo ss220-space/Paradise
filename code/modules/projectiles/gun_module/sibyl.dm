@@ -91,10 +91,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	sync_limit()
 	energy_gun.update_icon()
 
-	if(user)
-		to_chat(user, span_notice("Вы установили [declent_ru(ACCUSATIVE)] в [energy_gun.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
-		if(!auth_id?.resolve())
-			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
+	if(!user)
+		return
+	to_chat(user, span_notice("Вы установили [declent_ru(ACCUSATIVE)] в [energy_gun.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
+	if(!auth_id?.resolve())
+		to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 
 /obj/item/gun_module/sibyl/on_detach(obj/item/gun/target_gun, mob/user)
 	if(registered)
@@ -189,8 +190,10 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 	playsound(loc, SFX_SPARKS, 30, TRUE)
 	do_sparks(5, TRUE, src)
-	if(user)
-		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выдаёт сбой!"))
+	if(!user)
+		return FALSE
+
+	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выдаёт сбой!"))
 	return FALSE
 
 /obj/item/gun_module/sibyl/proc/find_and_compare_id_cards(mob/user)
@@ -227,8 +230,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/gun_module/sibyl/proc/toggle_voice(mob/user)
 	voice_is_enabled = !voice_is_enabled
-	if(user)
-		to_chat(user, span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
+	if(!user)
+		return
+	to_chat(user, span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
 
 /obj/item/gun_module/sibyl/proc/sibyl_sound(mob/living/user, sound, time)
 	if(user && voice_is_enabled && !voice_cd)
@@ -253,10 +257,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	add_attack_logs(user, src, "emagged")
 	emagged = TRUE
 	unlock(user)
+
 	if(user)
 		user.visible_message(span_warning("Из [source.declent_ru(GENITIVE)] летят искры!"), span_notice("Вы взломали [source.declent_ru(ACCUSATIVE)], что привело к выключению [declent_ru(GENITIVE)]."))
-	playsound(loc, 'sound/effects/sparks4.ogg', 30, TRUE)
-	do_sparks(5, TRUE, src)
 
 /obj/item/gun_module/sibyl/proc/on_screwdriver_act(datum/source, mob/living/user, obj/item/tool)
 	SIGNAL_HANDLER
@@ -270,11 +273,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			to_chat(user, span_notice("Вы закрепили [declent_ru(ACCUSATIVE)] в [gun.declent_ru(PREPOSITIONAL)]."))
 			return
 		if(SIBSYS_STATE_INSTALLED)
-			if(prob(90))
+			if(!prob(90))
+				tool_fumble(user, tool, 5, BRUTE)
+				return
+			else
 				state = SIBSYS_STATE_SCREWDRIVER_ACT
 				to_chat(user, span_notice("Вы ослабили крепление [declent_ru(GENITIVE)] на [gun.declent_ru(PREPOSITIONAL)]."))
-			else
-				tool_fumble(user, tool, 5, BRUTE)
 			return
 
 /obj/item/gun_module/sibyl/proc/on_welder_act(datum/source, mob/living/user, obj/item/tool)
@@ -285,14 +289,15 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		if(SIBSYS_STATE_SCREWDRIVER_ACT)
 			var/old_state = state
 			to_chat(user, span_notice("Вы начинаете разваривать крепление [declent_ru(GENITIVE)]..."))
-			if(tool.use_tool(gun, user, SIBYL_DISMANTLE_DURATION, volume = tool.tool_volume))
-				if(state != old_state)
-					return
-				if(prob(70))
-					state = SIBSYS_STATE_WELDER_ACT
-					to_chat(user, span_notice("Вы успешно разварили крепление [declent_ru(GENITIVE)]."))
-				else
-					tool_fumble(user, tool, 10, BURN)
+			if(!tool.use_tool(gun, user, SIBYL_DISMANTLE_DURATION, volume = tool.tool_volume))
+				return
+			if(state != old_state)
+				return
+			if(prob(70))
+				state = SIBSYS_STATE_WELDER_ACT
+				to_chat(user, span_notice("Вы успешно разварили крепление [declent_ru(GENITIVE)]."))
+			else
+				tool_fumble(user, tool, 10, BURN)
 			return
 
 /obj/item/gun_module/sibyl/proc/on_crowbar_act(datum/source, mob/living/user, obj/item/tool)
