@@ -808,7 +808,6 @@
 	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
-	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -821,6 +820,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	cure_radiation()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)
@@ -2289,3 +2289,7 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/// Prints an ominous message if something bad is going to happen to you
+/mob/living/proc/ominous_nosebleed()
+	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))

@@ -77,12 +77,16 @@
 	switch(severity)
 		if(1)
 			stat &= BROKEN
-			if(prob(75)) explode()
+			if(prob(75))
+				explode()
 		if(2)
-			if(prob(25)) stat &= BROKEN
-			if(prob(10)) explode()
+			if(prob(25))
+				stat &= BROKEN
+			if(prob(10))
+				explode()
 		if(3)
-			if(prob(10)) stat &= BROKEN
+			if(prob(10))
+				stat &= BROKEN
 			duration = 300
 
 	stat |= EMPED
@@ -427,21 +431,13 @@
 	component_parts += new board_path(null)
 	RefreshParts()
 
-/obj/machinery/power/port_gen/pacman/super/UseFuel()
-	//produces a tiny amount of radiation when in use
-	if(prob(2*power_output))
-		for(var/mob/living/L in range(src, 5))
-			L.apply_effect(1, IRRADIATE) //should amount to ~5 rads per minute at max safe power
-	..()
-
 /obj/machinery/power/port_gen/pacman/super/explode()
-	//a nice burst of radiation
-	var/rads = 50 + (sheets + sheet_left)*1.5
-	for(var/mob/living/L in range(src, 10))
-		//should really fall with the square of the distance, but that makes the rads value drop too fast
-		//I dunno, maybe physics works different when you live in 2D -- SM radiation also works like this, apparently
-		L.apply_effect(max(20, round(rads/get_dist(L,src))), IRRADIATE)
-
+	radiation_pulse(
+		source = src,
+		max_range = 10,
+		threshold = 0.1,
+		chance = 80,
+	)
 	explosion(loc, devastation_range = 3, heavy_impact_range = 3, light_impact_range = 5, flash_range = 3, cause = src)
 	qdel(src)
 

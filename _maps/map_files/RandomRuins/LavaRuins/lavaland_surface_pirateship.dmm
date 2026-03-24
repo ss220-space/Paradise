@@ -630,9 +630,7 @@
 /area/ruin/powered/pirateship)
 "nD" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	d2 = 2;

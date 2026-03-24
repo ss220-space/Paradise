@@ -487,9 +487,6 @@
 			pain_condition -= 0.5
 			thoughts = "поглощен[GEND_A_O_Y(M)] огнем"
 
-		if(M.radiation)
-			pain_condition -= 0.25
-
 		switch(pain_condition)
 			if(0.81 to INFINITY)
 				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувству[PLUR_ET_YUT(M)] себя хорошо."))

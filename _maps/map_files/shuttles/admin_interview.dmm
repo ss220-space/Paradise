@@ -420,6 +420,13 @@
 "sq" = (
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
+"sv" = (
+/obj/structure/window/full/reinforced{
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"fire"=80,"acid"=100)
+	},
+/obj/structure/flora/ausbushes/genericbush,
+/turf/simulated/floor/grass,
+/area/shuttle/administration)
 "sG" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1033,13 +1040,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"VE" = (
-/obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
-	},
-/obj/structure/flora/ausbushes/genericbush,
-/turf/simulated/floor/grass,
-/area/shuttle/administration)
 "VV" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -1371,8 +1371,8 @@ Ti
 hA
 yW
 hA
-VE
-VE
+sv
+sv
 hA
 QT
 Tl

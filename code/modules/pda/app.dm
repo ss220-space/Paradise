@@ -47,6 +47,8 @@
 		balloon_recipients += target_living
 		SStgui.update_user_uis(target_living, pda) // Update the receiving user's PDA UI so that they can see the new message
 
+	balloon_recipients -= target_living
+
 	if(!pda.silent)
 		pda.play_ringtone(balloon_recipients)
 

@@ -1080,7 +1080,6 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
-	max_radiation = dna.species.max_radiation
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1488,7 +1487,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(prob(current_size * 5) && hand_item.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand_item))
 				step_towards(hand_item, src)
 				to_chat(src, span_warning("[S] вырывает [hand_item.declent_ru(ACCUSATIVE)] из вашей хватки!"))
-	apply_effect(current_size * 3, IRRADIATE)
 
 /mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway

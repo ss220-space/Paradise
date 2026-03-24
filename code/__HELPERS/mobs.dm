@@ -964,3 +964,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		var/obj/item/organ/internal/brain/brain = target
 		if(!QDELETED(brain.brainmob?.mind))
 			return brain.brainmob.mind
+
+/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
+/mob/living/proc/parse_zone_with_bodypart(zone)
+	var/obj/item/organ/external/part = get_bodypart(zone)
+
+	return part?.plaintext_zone || parse_zone(zone)

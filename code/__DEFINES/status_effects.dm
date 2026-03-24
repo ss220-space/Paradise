@@ -1,13 +1,21 @@
 
 //These are all the different status effects. Use the paths for each effect in the defines.
 
-#define STATUS_EFFECT_MULTIPLE 0 //if it allows multiple instances of the effect
+///if it allows multiple instances of the effect
+#define STATUS_EFFECT_MULTIPLE 0
+///if it allows only one, preventing new instances
+#define STATUS_EFFECT_UNIQUE 1
+///if it allows only one, but new instances replace
+#define STATUS_EFFECT_REPLACE 2
+/// if it only allows one, and new instances just instead refresh the timer
+#define STATUS_EFFECT_REFRESH 3
 
-#define STATUS_EFFECT_UNIQUE 1 //if it allows only one, preventing new instances
-
-#define STATUS_EFFECT_REPLACE 2 //if it allows only one, but new instances replace
-
-#define STATUS_EFFECT_REFRESH 3 // if it only allows one, and new instances just instead refresh the timer
+/// Use in status effect "duration" to make it last forever
+#define STATUS_EFFECT_PERMANENT -1
+/// Use in status effect "tick_interval" to prevent it from calling tick()
+#define STATUS_EFFECT_NO_TICK -1
+/// Use in status effect "tick_interval" to guarantee that tick() gets called on every process()
+#define STATUS_EFFECT_AUTO_TICK 0
 
 ///Processing flags - used to define the speed at which the status will work
 ///This is fast - 0.2s between ticks (I believe!)

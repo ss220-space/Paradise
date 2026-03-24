@@ -10,7 +10,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, FIRE = 70, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 	pickup_sound = 'sound/items/handling/pickup/boots_pickup.ogg'
@@ -40,7 +40,7 @@
 	name = "SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, FIRE = 90, ACID = 50)
 	clothing_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE)
 
 /obj/item/clothing/shoes/sandal
@@ -82,7 +82,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 40, ACID = 75)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -201,7 +201,7 @@
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
-	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
@@ -445,7 +445,7 @@
 	name = "lizard skin boots"
 	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
 	icon_state = "lizardboots_green"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 0) //lizards like to stay warm
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 40, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
 	name = "Hugs-The-Feet lizard skin boots"
@@ -479,7 +479,7 @@
 	desc = "Эти обмотки, изготовленные из шкуры голиафа, подарят вашим ступням ощущение уюта и безопасности, оставаясь при этом дышащими и лёгкими."
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, FIRE = 10, ACID = 0)
 	resistance_flags = FIRE_PROOF
 	paintable = FALSE
 
@@ -498,7 +498,7 @@
 	desc = "Эти обмотки, изготовленные из шкуры пепельного дракона, обеспечат вам комфорт и безопасность ваших ног, оставаясь при этом лёгкими и дышащими."
 	icon_state = "footwraps_dragon"
 	item_state = "footwraps_dragon"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, RAD = 0, FIRE = 15, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, FIRE = 15, ACID = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	paintable = FALSE
 

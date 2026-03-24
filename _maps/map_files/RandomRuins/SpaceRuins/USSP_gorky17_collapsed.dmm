@@ -2614,6 +2614,13 @@
 "hP" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"hR" = (
+/obj/structure/chair/sofa/left,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "hS" = (
 /obj/machinery/computer/old_frame/big/right,
 /turf/simulated/floor/plasteel{
@@ -3386,6 +3393,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"kn" = (
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
+/obj/item/melee/baton,
+/obj/structure/closet/secure_closet{
+	color = "#ff9999";
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
+	},
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "red"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check1)
 "ko" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -3538,31 +3564,6 @@
 	},
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
-"kO" = (
-/obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
-	desc = "Covers your head and eyes.";
-	name = "Altyn"
-	},
-/obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/baton,
-/obj/machinery/camera/autoname{
-	dir = 1;
-	name = "Gorky17 security camera";
-	network = list("USSP_gorky17")
-	},
-/obj/structure/closet/secure_closet{
-	color = "#ff9999";
-	name = "Gorky17 ammunition locker";
-	req_access = list(123)
-	},
-/obj/item/ammo_box/magazine/aksu,
-/obj/item/gun/projectile/automatic/aksu/rusted,
-/obj/item/clothing/gloves/combat,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/ruin/space/USSP_gorky17/collapsed/check2)
 "kP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -6080,25 +6081,6 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check2)
-"st" = (
-/obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
-	desc = "Covers your head and eyes.";
-	name = "Altyn"
-	},
-/obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/baton,
-/obj/structure/closet/secure_closet{
-	color = "#ff9999";
-	name = "Gorky17 ammunition locker";
-	req_access = list(123)
-	},
-/obj/item/clothing/gloves/combat,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/ruin/space/USSP_gorky17/collapsed/check1)
 "su" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
@@ -8861,6 +8843,13 @@
 /obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"Ar" = (
+/obj/structure/chair/sofa/right,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/arrival)
 "At" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10327,13 +10316,6 @@
 	icon_state = "whitered"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
-"ED" = (
-/obj/structure/chair/sofa/left,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood/airless,
-/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "EE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -10381,6 +10363,28 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
+"EI" = (
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
+/obj/item/melee/baton,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/closet/secure_closet{
+	color = "#ff9999";
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
+	},
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check1)
 "EK" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -11444,28 +11448,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
-"HT" = (
-/obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
-	desc = "Covers your head and eyes.";
-	name = "Altyn"
-	},
-/obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/baton,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/closet/secure_closet{
-	color = "#ff9999";
-	name = "Gorky17 ammunition locker";
-	req_access = list(123)
-	},
-/obj/item/clothing/gloves/combat,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/ruin/space/USSP_gorky17/collapsed/check1)
 "HU" = (
 /obj/machinery/atmospherics/unary/vent_pump,
 /turf/simulated/floor/plasteel{
@@ -11902,6 +11884,32 @@
 /obj/item/mop,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
+"Ja" = (
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
+/obj/item/melee/baton,
+/obj/machinery/camera/autoname{
+	dir = 1;
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
+	},
+/obj/structure/closet/secure_closet{
+	color = "#ff9999";
+	name = "Gorky17 ammunition locker";
+	opened = 1;
+	req_access = list(123)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_box/magazine/aksu,
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Jb" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 200;
@@ -12427,6 +12435,25 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
+"KE" = (
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
+/obj/item/melee/baton,
+/obj/structure/closet/secure_closet{
+	color = "#ff9999";
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
+	},
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "red"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check1)
 "KF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -12460,6 +12487,31 @@
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"KM" = (
+/obj/item/clothing/head/bomb_hood/security{
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
+	desc = "Covers your head and eyes.";
+	name = "Altyn"
+	},
+/obj/item/clothing/suit/armor/vest/combat,
+/obj/item/melee/baton,
+/obj/machinery/camera/autoname{
+	dir = 1;
+	name = "Gorky17 security camera";
+	network = list("USSP_gorky17")
+	},
+/obj/structure/closet/secure_closet{
+	color = "#ff9999";
+	name = "Gorky17 ammunition locker";
+	req_access = list(123)
+	},
+/obj/item/ammo_box/magazine/aksu,
+/obj/item/gun/projectile/automatic/aksu/rusted,
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ruin/space/USSP_gorky17/collapsed/check2)
 "KO" = (
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/plasteel{
@@ -14985,32 +15037,6 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
-"Sp" = (
-/obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
-	desc = "Covers your head and eyes.";
-	name = "Altyn"
-	},
-/obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/baton,
-/obj/machinery/camera/autoname{
-	dir = 1;
-	name = "Gorky17 security camera";
-	network = list("USSP_gorky17")
-	},
-/obj/structure/closet/secure_closet{
-	color = "#ff9999";
-	name = "Gorky17 ammunition locker";
-	opened = 1;
-	req_access = list(123)
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_box/magazine/aksu,
-/obj/item/clothing/gloves/combat,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/ruin/space/USSP_gorky17/collapsed/check2)
 "Sq" = (
 /obj/machinery/light_construct/small{
 	dir = 4
@@ -15664,13 +15690,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17/collapsed/arrival)
-"Uu" = (
-/obj/structure/chair/sofa/right,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "Uv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -16474,25 +16493,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
-"WM" = (
-/obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
-	desc = "Covers your head and eyes.";
-	name = "Altyn"
-	},
-/obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/baton,
-/obj/structure/closet/secure_closet{
-	color = "#ff9999";
-	name = "Gorky17 ammunition locker";
-	req_access = list(123)
-	},
-/obj/item/clothing/gloves/combat,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
-/area/ruin/space/USSP_gorky17/collapsed/check1)
 "WN" = (
 /obj/structure/cable,
 /obj/item/shard{
@@ -31077,7 +31077,7 @@ fB
 fB
 fB
 tj
-ED
+hR
 Xk
 dU
 gf
@@ -34111,7 +34111,7 @@ QQ
 Sq
 Td
 vP
-Uu
+Ar
 Lc
 Lc
 sK
@@ -35726,7 +35726,7 @@ Eq
 Pd
 GZ
 NU
-WM
+KE
 UU
 zg
 iA
@@ -36127,8 +36127,8 @@ Sd
 Kg
 OW
 GE
-HT
-st
+EI
+kn
 Kg
 QM
 FR
@@ -39358,7 +39358,7 @@ lc
 WQ
 dS
 DL
-Sp
+Ja
 NC
 RD
 Xq
@@ -40570,7 +40570,7 @@ DR
 rm
 Un
 Vg
-kO
+KM
 NC
 RD
 oq

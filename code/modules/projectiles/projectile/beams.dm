@@ -122,7 +122,6 @@
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
-	irradiate = 40
 	forcedodge = -1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser

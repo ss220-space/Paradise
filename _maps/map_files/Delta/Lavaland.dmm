@@ -867,9 +867,7 @@
 	},
 /area/mine/living_quarters)
 "cO" = (
-/obj/machinery/power/smes{
-	charge = 1e+006
-	},
+/obj/machinery/power/smes/full,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"

@@ -1,22 +1,30 @@
+/// Radiation needs to be over this amount to get power
+#define RAD_COLLECTOR_THRESHOLD 80
+/// Amount of joules created for each rad point over RAD_COLLECTOR_THRESHOLD
+#define RAD_COLLECTOR_COEFFICIENT 200
+
 GLOBAL_LIST_EMPTY(rad_collectors)
 
-/obj/machinery/power/rad_collector
+/obj/machinery/power/energy_accumulator/rad_collector
 	name = "radiation collector array"
 	desc = "Устройство, преобразующее радиацию в полезную электрическую энергию с использованием плазмы."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "ca"
-	anchored = FALSE
-	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	max_integrity = 350
 	integrity_failure = 80
+	///Stores the loaded tank instance
 	var/obj/item/tank/internals/plasma/loaded_tank = null
-	var/last_power = 0
+	///Is the collector working?
 	var/active = FALSE
+	///Is the collector locked with an id?
 	var/locked = FALSE
-	var/drainratio = 1
+	///Amount of gas removed per tick
+	var/drain_ratio = 0.5
+	///Multiplier for the amount of gas removed per tick
+	var/powerproduction_drain = 0.001
 
-/obj/machinery/power/rad_collector/get_ru_names()
+/obj/machinery/power/energy_accumulator/rad_collector/get_ru_names()
 	return list(
 		NOMINATIVE = "радиационный коллектор",
 		GENITIVE = "радиационного коллектора",
@@ -26,27 +34,33 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		PREPOSITIONAL = "радиационном коллекторе"
 	)
 
-/obj/machinery/power/rad_collector/Initialize(mapload)
+/obj/machinery/power/energy_accumulator/rad_collector/anchored
+	anchored = TRUE
+
+/obj/machinery/power/energy_accumulator/rad_collector/Initialize(mapload)
 	. = ..()
 	GLOB.rad_collectors += src
 
-/obj/machinery/power/rad_collector/Destroy()
+/obj/machinery/power/energy_accumulator/rad_collector/Destroy()
 	GLOB.rad_collectors -= src
 	return ..()
 
-/obj/machinery/power/rad_collector/process()
+/obj/machinery/power/energy_accumulator/rad_collector/process(seconds_per_tick)
 	if(!loaded_tank)
 		return
 
-	if(loaded_tank.air_contents.toxins() <= 0)
+	if(!loaded_tank.air_contents.toxins())
 		investigate_log(span_red("out of fuel."), INVESTIGATE_ENGINE)
-		loaded_tank.air_contents.set_toxins(0)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
-	else
-		loaded_tank.air_contents.set_toxins(max(0, loaded_tank.air_contents.toxins() - 0.001 * drainratio))
+		return
 
-/obj/machinery/power/rad_collector/attack_hand(mob/user)
+	var/gasdrained = min(powerproduction_drain * drain_ratio, loaded_tank.air_contents.toxins())
+	loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
+
+	return ..()
+
+/obj/machinery/power/energy_accumulator/rad_collector/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -62,7 +76,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		else
 			to_chat(user, span_warning("The controls are locked!"))
 
-/obj/machinery/power/rad_collector/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/energy_accumulator/rad_collector/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -96,7 +110,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 	return ..()
 
-/obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/item)
+/obj/machinery/power/energy_accumulator/rad_collector/wrench_act(mob/living/user, obj/item/item)
 	. = TRUE
 	if(loaded_tank)
 		add_fingerprint(user)
@@ -120,7 +134,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		)
 		disconnect_from_network()
 
-/obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/item)
+/obj/machinery/power/energy_accumulator/rad_collector/crowbar_act(mob/living/user, obj/item/item)
 	. = TRUE
 	add_fingerprint(user)
 	if(!loaded_tank)
@@ -133,59 +147,63 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		return .
 	eject(user)
 
-/obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/item)
-	. = TRUE
-	if(!item.use_tool(src, user, volume = item.tool_volume))
-		return .
-	to_chat(user, span_notice("The [item.name] detects that [last_power]W were recently produced.."))
-
-/obj/machinery/power/rad_collector/return_analyzable_air()
+/obj/machinery/power/energy_accumulator/rad_collector/return_analyzable_air()
 	if(loaded_tank)
 		return loaded_tank.return_analyzable_air()
 	return null
 
-/obj/machinery/power/rad_collector/obj_break(damage_flag)
+/obj/machinery/power/energy_accumulator/rad_collector/examine(mob/user)
+	. = ..()
+	if(!active)
+		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
+	. += span_notice("[src]'s display states that it has stored <b>[display_energy(get_stored_joules())]</b>, and is processing <b>[display_power(calculate_sustainable_power(), convert = FALSE)]</b>.")
+
+/obj/machinery/power/energy_accumulator/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
 
-/obj/machinery/power/rad_collector/proc/eject(mob/user)
+/obj/machinery/power/energy_accumulator/rad_collector/proc/receive_pulse(pulse_strength)
+	if(!loaded_tank || !active || pulse_strength <= RAD_COLLECTOR_THRESHOLD)
+		return
+	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT)
+
+/obj/machinery/power/energy_accumulator/rad_collector/proc/eject(mob/user)
 	locked = FALSE
 	if(!loaded_tank)
 		return
+
 	loaded_tank.forceMove_turf()
 	user?.put_in_hands(loaded_tank, ignore_anim = FALSE)
 	loaded_tank = null
+
 	if(active)
 		toggle_power()
 	else
-		update_icon()
+		update_appearance()
 
-/obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
-	if(loaded_tank && active)
-		var/power_produced = 0
-		power_produced = loaded_tank.air_contents.toxins() * pulse_strength * 20
-		add_avail(power_produced)
-		last_power = power_produced
-		return
-
-/obj/machinery/power/rad_collector/update_icon_state()
+/obj/machinery/power/energy_accumulator/rad_collector/update_icon_state()
 	icon_state = "ca[active ? "_on" : ""]"
 
-/obj/machinery/power/rad_collector/update_overlays()
+/obj/machinery/power/energy_accumulator/rad_collector/update_overlays()
 	. = ..()
 	if(loaded_tank)
 		add_overlay("ptank")
+
 	if(stat & (NOPOWER|BROKEN))
 		return
+
 	if(active)
 		add_overlay(loaded_tank ? "on" : "error")
 
-/obj/machinery/power/rad_collector/proc/toggle_power()
+/obj/machinery/power/energy_accumulator/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
 		flick("ca_active", src)
 	else
 		flick("ca_deactive", src)
+
 	update_icon()
 
+#undef RAD_COLLECTOR_THRESHOLD
+#undef RAD_COLLECTOR_COEFFICIENT

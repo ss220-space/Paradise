@@ -903,7 +903,7 @@
 	desc = "Украшение в виде черепа, которое предназначено для защиты самого важного в жизни."
 	icon_state = "skull"
 	item_state = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, FIRE = 0, ACID = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/skullcodpiece/get_ru_names()
@@ -921,7 +921,7 @@
 	desc = "Талисман охотника — многие верят, что он дарует защиту от старых богов тем, кто его носит."
 	icon_state = "talisman"
 	item_state = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, FIRE = 0, ACID = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman/get_ru_names()

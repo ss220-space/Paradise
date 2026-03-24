@@ -12,8 +12,9 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
+	rad_insulation = RAD_HEAVY_INSULATION
 	var/d_state = RWALL_INTACT
-	var/can_be_reinforced = 1
+	var/can_be_reinforced = TRUE
 
 /turf/simulated/wall/r_wall/ComponentInitialize()
 	if(!is_station_level(z))

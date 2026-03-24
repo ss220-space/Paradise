@@ -1863,9 +1863,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/coil
 	name = "Тесла-катушки"
 	contains = list(
-		/obj/machinery/power/tesla_coil,
-		/obj/machinery/power/tesla_coil,
-		/obj/machinery/power/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
 	)
 	cost = 45
 	containername = "ящик тесла-катушек"
@@ -1881,8 +1881,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/grounding
 	name = "Заземлители"
 	contains = list(
-		/obj/machinery/power/grounding_rod,
-		/obj/machinery/power/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
 	)
 	cost = 10
 	containername = "ящик заземлителей"
@@ -1898,9 +1898,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/collector
 	name = "Радиационные накопители"
 	contains = list(
-		/obj/machinery/power/rad_collector,
-		/obj/machinery/power/rad_collector,
-		/obj/machinery/power/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
 	)
 	cost = 45
 	containername = "ящик радиационных накопителей"

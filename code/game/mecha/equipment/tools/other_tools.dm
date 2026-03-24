@@ -463,25 +463,6 @@
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
 
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear
-	name = "exonuclear reactor"
-	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	origin_tech = "powerstorage=4;engineering=4"
-	fuel_name = "uranium" // Our fuel name as a string
-	fuel_type = MAT_URANIUM
-	max_fuel = 50000
-	fuel_per_cycle_active = 30
-	power_per_cycle = 50
-	var/rad_per_cycle = 0.3
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
-	return
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
-	if(..())
-		for(var/mob/living/carbon/M in view(chassis))
-			M.apply_effect((rad_per_cycle * 3), IRRADIATE, 0)
-
 /////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator

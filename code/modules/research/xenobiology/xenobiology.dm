@@ -658,7 +658,7 @@
 	name = "slime acidproof potion"
 	id = "Acid Proof"
 	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 25)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
@@ -682,7 +682,7 @@
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
 	id = "Laser Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 5,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 5,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle4"
@@ -696,27 +696,10 @@
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return C.armor.laser < 100
 
-/obj/item/slimepotion/clothing/radiation
-	name = "radiation resistance slime potion"
-	id = "Radiation Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 40, FIRE = 0, ACID = 0)
-	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle6"
-	origin_tech = "biotech=5"
-
-	inapplicable_caption = "radiation proof"
-	applied_caption = "radiationproof"
-	applied_color = "#e6e205"
-	color_name = "yellow"
-
-/obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
-	return C.armor.rad < 100
-
 /obj/item/slimepotion/clothing/bio
 	name = "bio resistance slime potion"
 	id = "Bio Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 40, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 40, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle7"
@@ -733,7 +716,7 @@
 /obj/item/slimepotion/clothing/explosionresistencte
 	name = "explosion resistance slime potion"
 	id = "Explosion Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 15, BIO = 0, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle9"
