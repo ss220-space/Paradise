@@ -327,7 +327,7 @@
 
 	REMOVE_TRAIT(swallowed_obj, TRAIT_FALLING_INTO_BINGLE_HOLE, UNIQUE_TRAIT_SOURCE(src))
 	// We cant really contain teslas (since they just teleport around), but singularities on the other hand
-	if(istype(swallowed_obj, /obj/singularity/energy_ball))
+	if(istype(swallowed_obj, /obj/energy_ball))
 		qdel(swallowed_obj)
 		return
 
@@ -641,7 +641,7 @@
 	if(LAZYACCESS(bingles_by_hole, hole_to_destroy_uid))
 		for(var/mob/living/simple_animal/hostile/bingle/bingle as anything in bingles_by_hole[hole_to_destroy_uid])
 			LAZYADDASSOCLIST(bingles_by_hole, hole_to_keep_uid, bingle)
-			bingle.spawn_hole = hole_to_keep
+			bingle.spawn_hole_uid = hole_to_keep
 		bingles_by_hole -= hole_to_destroy_uid
 
 	// Move everything from the destroyed hole to the new one
