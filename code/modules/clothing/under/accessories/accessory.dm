@@ -288,7 +288,7 @@
 		return TRUE
 
 /obj/item/clothing/accessory/medal/proc/sving_medal(mob/user)
-	user.custom_emote(EMOTE_VISIBLE, "Щеголя[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)].")
+	user.custom_emote(EMOTE_VISIBLE, "щеголя[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)].")
 	playsound(src, 'sound/items/medal.ogg', 15, TRUE)
 
 // GOLD (awarded by centcom)
