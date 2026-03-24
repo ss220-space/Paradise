@@ -618,7 +618,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/to_chat_safe(target, text, confidential = FALSE)
 	if(!target)
 		return FALSE
-	if(istype(text, /list))
+	if(islist(text))
 		for(var/T in text)
 			to_chat(target, T, confidential = confidential)
 	else

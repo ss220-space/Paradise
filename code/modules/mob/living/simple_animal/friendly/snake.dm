@@ -43,7 +43,7 @@
 	var/list/mice = list()
 	for(var/HM in .)
 		//Yum a tasty mouse
-		if(istype(HM, /mob/living/simple_animal/mouse))
+		if(ismouse(HM))
 			mice += HM
 		if(isliving(HM))
 			living_mobs += HM
@@ -55,7 +55,7 @@
 	return mice
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/mouse))
+	if(ismouse(target))
 		visible_message(span_notice("[name] consumes [target] in a single gulp!"), span_notice("You consume [target] in a single gulp!"))
 		QDEL_NULL(target)
 		adjustHealth(-2)

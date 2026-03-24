@@ -2409,10 +2409,6 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"cfM" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate/unpowered/syndicate_space_base/engineering)
 "cgh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -12228,9 +12224,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "leR" = (
-/obj/machinery/atmospherics/binary/circulator{
-	icon_state = "circ8-off"
-	},
+/obj/machinery/atmospherics/binary/circulator,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -16679,8 +16673,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "oCv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/falsewall/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -18001,10 +17993,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
-"pAy" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "pAA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
@@ -18349,9 +18337,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "pNu" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 3
-	},
+/obj/machinery/recharger,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/item/storage/belt/chameleon,
@@ -22752,7 +22738,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -22772,7 +22760,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tyz" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -23662,7 +23650,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "tXc" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25993,7 +25981,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "vCW" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
@@ -26019,9 +26007,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27413,7 +27399,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wEL" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
@@ -58128,7 +58114,7 @@ xNO
 nkA
 xMT
 ncT
-pAy
+vzF
 vzF
 vzF
 vzF
@@ -59689,7 +59675,7 @@ uQm
 dQw
 nrC
 pGE
-edm
+vOW
 uXW
 xDn
 qpn
@@ -60203,7 +60189,7 @@ uQm
 ksA
 vkE
 aTM
-vOW
+edm
 vbe
 wZM
 uut
@@ -60698,7 +60684,7 @@ dUD
 qEw
 gaS
 xWn
-hdW
+tMm
 yez
 gEw
 wTW
@@ -61212,18 +61198,18 @@ xrU
 qEw
 dGu
 gIE
-tMm
+hdW
 yez
 iGX
 wTW
 xsE
 xeL
 tMw
-pAy
-pAy
 vzF
 vzF
-pAy
+vzF
+vzF
+vzF
 xeL
 uUt
 xZb
@@ -61480,7 +61466,7 @@ vzF
 ntf
 fWn
 oaf
-pAy
+vzF
 ocy
 par
 qcl
@@ -61733,7 +61719,7 @@ wTW
 kdp
 xeL
 lbo
-pAy
+vzF
 aUD
 bWv
 xeL
@@ -61990,7 +61976,7 @@ gjO
 vzF
 kFD
 vzF
-pAy
+vzF
 lvq
 sZg
 wmP
@@ -65848,7 +65834,7 @@ aAQ
 lNn
 anW
 frs
-fZp
+gpX
 vop
 moU
 wuo
@@ -66362,7 +66348,7 @@ fHz
 lNn
 rGX
 frs
-gpX
+fZp
 uyM
 wiV
 wuo
@@ -70939,8 +70925,8 @@ mEC
 avh
 aJC
 aJC
-cfM
-cfM
+aJC
+aJC
 grh
 aJC
 fgj

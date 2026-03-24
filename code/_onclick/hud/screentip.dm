@@ -4,17 +4,16 @@
 	screen_loc = "TOP,LEFT"
 	maptext_height = 480
 	maptext_width = 480
-	maptext_y = -25
 	maptext = ""
+	layer = SCREENTIP_LAYER // Added to make screentips appear above action buttons (and other /atom/movable/screen objects)
 
-/atom/movable/screen/screentip/Initialize(mapload, _hud)
+/atom/movable/screen/screentip/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
-	hud = _hud
 	update_view()
 
 /atom/movable/screen/screentip/proc/update_view(datum/source)
 	SIGNAL_HANDLER
-	if(!hud?.mymob?.client) //Might not have been initialized by now
+	if(!hud?.mymob?.client) // Might not have been initialized by now
 		return
 	var/list/view_size = getviewsize(hud.mymob.client.view)
 	var/view = "[view_size[1]]x[view_size[2]]"

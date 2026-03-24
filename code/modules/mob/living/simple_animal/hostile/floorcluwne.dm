@@ -295,7 +295,7 @@
 			if(!eating)
 				for(var/turf/T as anything in get_line(src, get_turf(H)))
 					for(var/obj/structure/O in T)
-						if(istype(O, /obj/structure/closet))
+						if(iscloset(O))
 							var/obj/structure/closet/locker = O
 							locker.bust_open()
 						if(O.density || is_airlock(O))

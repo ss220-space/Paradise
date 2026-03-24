@@ -82,7 +82,7 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
 		if(!I.reagents || I.reagents.total_volume < 1)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] пуст!"))
@@ -551,7 +551,7 @@
 	..()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, TRUE)
 	for(var/mob/M in range(10, src))
-		if(!M.stat && !istype(M, /mob/living/silicon/ai))\
+		if(!M.stat && !isAI(M))\
 			shake_camera(M, 3, 1)
 	qdel(src)
 
@@ -1462,31 +1462,6 @@
 	desc = "I'll call you - Den."
 	icon_state = "hampter_jan"
 
-/obj/item/toy/plushie/hampter/captain
-	name = "Hampter the Captain"
-	desc = "Thinks he is the Head."
-	icon_state = "hampter_cap"
-
-/obj/item/toy/plushie/hampter/captain/old
-	name = "Hampter the first Captain"
-	desc = "Thinks he is the original Head."
-	icon_state = "hampter_old_cap"
-
-/obj/item/toy/plushie/hampter/syndi
-	name = "Hampter the Red Baron"
-	desc = "The real Head."
-	icon_state = "hampter_sdy"
-
-/obj/item/toy/plushie/hampter/death_squad
-	name = "Who?"
-	desc = "Don't call him - daddy."
-	icon_state = "hampter_ded"
-
-/obj/item/toy/plushie/hampter/ert_squad
-	name = "Hampter the Major"
-	desc = "Faces into the floor!"
-	icon_state = "hampter_ert"
-
 /obj/item/toy/plushie/beaver
 	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
@@ -1665,7 +1640,7 @@
 		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 		for(var/mob/M in range(10, src)) // Checks range
-			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
+			if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
 				sleep(8) // Short delay to match up with the explosion sound
 				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
@@ -2223,8 +2198,8 @@
 	toysay = "Читай знаки, идиот."
 
 /obj/item/toy/figure/lawyer
-	name = "Internal Affairs Agent action figure"
-	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
+	name = "Lawyer action figure"
+	desc = "The unappreciated Lawyer, from Space Life's SS12 figurine collection."
 	icon_state = "lawyer"
 	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они Враги Корпорации!"
 

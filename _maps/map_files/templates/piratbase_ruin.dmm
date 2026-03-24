@@ -3810,7 +3810,7 @@
 	},
 /area/ruin/space/pirate_base/atrium)
 "le" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -4336,9 +4336,7 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "mE" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -6071,7 +6069,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "rL" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/wood,

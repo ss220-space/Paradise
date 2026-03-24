@@ -20,7 +20,7 @@
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<span style='color: #005500;'><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></span>"}
-	if(ishuman(user) || istype(user, /mob/living/silicon/ai))
+	if(ishuman(user) || isAI(user))
 		if(is_special_character(user))
 			dat += "<span style='color: #07700;'><i>Operative record found. Greetings, Agent [user.name].</i></span><br>"
 		else if(charges < 1)

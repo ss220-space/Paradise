@@ -27,8 +27,6 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
-	var/list/skin_permissions = list()
-
 /obj/item/mmi/Destroy()
 	QDEL_NULL(brainmob)
 	robot = null
@@ -57,7 +55,7 @@
 		name = initial(name)
 
 /obj/item/mmi/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/organ/internal/brain)) //Time to stick a brain in it --NEO
+	if(is_internal_organ_brain(I)) //Time to stick a brain in it --NEO
 		add_fingerprint(user)
 		var/obj/item/organ/internal/brain/brain = I
 		if(brainmob)

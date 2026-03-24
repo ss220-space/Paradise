@@ -102,6 +102,10 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
 	sell_multiplier = 2
+	/// Is the crystal protected?
+	var/shielded = TRUE
+	/// Cooldown between radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/gem/rupee/get_ru_names()
 	return list(
@@ -115,26 +119,39 @@
 
 /obj/item/gem/rupee/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-			rad_per_cycle = 10, \
-			rad_cycle = 3 SECONDS, \
-			rad_cycle_radius = 5 \
+	START_PROCESSING(SSobj, src)
+
+/obj/item/gem/rupee/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/gem/rupee/process()
+	if(shielded)
+		return
+
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	COOLDOWN_START(src, radiation_cooldown, 3 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 5,
+		threshold = RAD_EXTREME_INSULATION,
 	)
-	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
 
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+	if(shielded)
 		. += span_notice("Вы можете использовать что-нибудь <b>острое</b>, чтобы распилить кристалл.")
 	else
-		. += span_warning("Кристалл ярко горит!")
+		. += span_warning("Кристалл ярко горит и излучает смертоносную радиацию!")
 
 /obj/item/gem/rupee/update_icon_state()
-	icon_state = "[HAS_TRAIT(src, TRAIT_BLOCK_RADIATION) ? "" : "broken_"]rupee"
+	icon_state = "[shielded ? "" : "broken_"]rupee"
 
 /obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || !HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || !shielded)
 		return .
 
 	to_chat(user, span_notice("Вы начали распиливать кристалл! Это явно плохая идея..."))
@@ -142,8 +159,7 @@
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	to_chat(user, span_warning("Вы разрушили внешнюю оболочку кристалла! Голова начинает болеть..."))
-	user.apply_effect(50, IRRADIATE)
-	REMOVE_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
+	shielded = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 //magmawing watcher gem

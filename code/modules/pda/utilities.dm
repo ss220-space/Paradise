@@ -81,21 +81,6 @@
 				messages.Add(user, span_notice("Blood type: [A.blood_DNA[blood]]\nDNA: [blood]"))
 	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
-/datum/data/pda/utility/scanmode/halogen
-	base_name = "Halogen Counter"
-	icon = "exclamation-circle"
-
-/datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	var/list/messages = list()
-	C.visible_message(span_warning("[user] has analyzed [C]'s radiation levels!"))
-
-	messages.Add(span_notice("Analyzing Results for [C]:"))
-	if(C.radiation)
-		messages.Add("[span_notice("Radiation Level:")] [C.radiation > 0 ? "[span_danger(C.radiation)]" : "[span_danger("0")]"]")
-	else
-		messages.Add(span_notice("No radiation detected."))
-	to_chat(user, chat_box_regular(messages.Join("<br>")))
-
 /datum/data/pda/utility/scanmode/reagent
 	base_name = "Reagent Scanner"
 	icon = "flask"

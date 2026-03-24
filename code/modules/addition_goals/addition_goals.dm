@@ -209,7 +209,7 @@ SUBSYSTEM_DEF(addition_goals)
 	for(var/turf/turf in shuttle_turfs)
 		//open all containers before check
 		for(var/atom/movable/content in turf.contents)
-			if(istype(content, /obj/structure/closet))
+			if(iscloset(content))
 				var/obj/structure/closet/closet = content
 				closet.open()
 		//check turfs contains

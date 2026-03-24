@@ -75,7 +75,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(item, /obj/item/wrench) || is_circuit_multitool(item) || is_integrated_circuit(item))
+	if(iswrench(item) || is_circuit_multitool(item) || is_integrated_circuit(item))
 		return ..()
 
 	if(item.w_class > max_weight && !istype(item, /obj/item/storage/bag))

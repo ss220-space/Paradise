@@ -18,7 +18,7 @@
 	var/opened = FALSE
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/ammo_casing))
+	if(isammocasing(item))
 		add_fingerprint(user)
 		if(!opened)
 			balloon_alert(user, "необходимо открыть")
@@ -607,7 +607,7 @@
 
 /obj/item/grenade/frag/less
 	range = 2
-	max_shrapnel = 3
+	shrapnel_radius = 3
 
 /obj/item/ammo_box/secgl/exp
 	name = "ammo box (40mm frag)"

@@ -49,7 +49,7 @@
 		var/datum/milla_safe/carbon_breathe/milla = new()
 		milla.invoke_async(src)
 	else
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src, 0)
 
@@ -223,27 +223,6 @@
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
-
-/mob/living/carbon/handle_mutations_and_radiation()
-	if(radiation)
-
-		switch(radiation)
-			if(0 to 50)
-				radiation--
-				if(prob(25))
-					apply_damage(1, TOX, spread_damage = TRUE)
-
-			if(50 to 75)
-				radiation -= 2
-				apply_damage(1, TOX, spread_damage = TRUE)
-				if(prob(5))
-					radiation -= 5
-
-			if(75 to 100)
-				radiation -= 3
-				apply_damage(3, TOX, spread_damage = TRUE)
-
-		radiation = clamp(radiation, 0, 100)
 
 /mob/living/carbon/handle_chemicals_in_body()
 	reagents.metabolize(src)

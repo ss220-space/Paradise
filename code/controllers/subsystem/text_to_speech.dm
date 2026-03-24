@@ -132,7 +132,7 @@ SUBSYSTEM_DEF(tts)
 		"nanotrasen representative" = "Представитель Нанотрэйзен",
 		"blueshield" = "Блюшилд",
 		"magistrate" = "Магистрат",
-		"internal affairs agent" = "Агент внутренних дел",
+		"lawyer" = "Адвокат",
 		"human resources agent" = "Агент по персоналу",
 		"bartender" = "Бармэн",
 		"chef" = "Повар",

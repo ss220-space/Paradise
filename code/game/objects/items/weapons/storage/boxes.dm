@@ -1233,7 +1233,7 @@
 	new /obj/item/security_voucher(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/flash(src)
-	new /obj/item/implanter/mindshield(src)
+	new /obj/item/implanter/fake_mindshield(src)
 
 /obj/item/storage/box/dominator_kit
 	name = "Набор энергитического пистолета \"Доминатор\""

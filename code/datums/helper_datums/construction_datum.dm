@@ -45,7 +45,7 @@
 	return 0
 
 /datum/construction/proc/custom_action(step, used_atom, user)
-	if(istype(used_atom, /obj/item/stack/cable_coil))
+	if(iscoil(used_atom))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.get_amount() < 4)
 			to_chat(user, (span_warning("There's not enough cable to finish the task.")))
@@ -101,7 +101,7 @@
 /datum/construction/proc/try_consume(mob/user as mob, atom/used_atom, amount)
 	if(amount > 0)
 		// CABLES
-		if(istype(used_atom,/obj/item/stack/cable_coil))
+		if(iscoil(used_atom))
 			var/obj/item/stack/cable_coil/coil=used_atom
 			if(!coil.use(amount))
 				to_chat(user, span_warning("You don't have enough cable! You need at least [amount] coils."))
@@ -231,7 +231,7 @@
 		var/spawntype=state["spawn"]
 		var/atom/A = new spawntype(holder.loc)
 		if("amount" in state)
-			if(istype(A,/obj/item/stack/cable_coil))
+			if(iscoil(A))
 				var/obj/item/stack/cable_coil/C=A
 				C.amount=state["amount"]
 			if(isstack(A))

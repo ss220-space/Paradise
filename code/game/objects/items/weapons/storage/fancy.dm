@@ -199,7 +199,7 @@
 		. += crayon.colourName
 
 /obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		switch(crayon.colourName)
 			if("mime")
@@ -370,12 +370,12 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_med/get_ru_names()
 	return list(
-		NOMINATIVE = "пачка сигарет \"Доктор Денчиго\"",
-		GENITIVE = "пачки сигарет \"Доктор Денчиго\"",
-		DATIVE = "пачке сигарет \"Доктор Денчиго\"",
-		ACCUSATIVE = "пачку сигарет \"Доктор Денчиго\"",
-		INSTRUMENTAL = "пачкой сигарет \"Доктор Денчиго\"",
-		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\"",
+		NOMINATIVE = "пачка сигарет \"Доктор Виталя\"",
+		GENITIVE = "пачки сигарет \"Доктор Виталя\"",
+		DATIVE = "пачке сигарет \"Доктор Виталя\"",
+		ACCUSATIVE = "пачку сигарет \"Доктор Виталя\"",
+		INSTRUMENTAL = "пачкой сигарет \"Доктор Виталя\"",
+		PREPOSITIONAL = "пачке сигарет \"Доктор Виталя\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
