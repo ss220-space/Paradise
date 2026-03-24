@@ -445,7 +445,13 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
             maxValue={balance}
             minValue={0}
             value={amount}
-            onChange={(m) => setAmount(m)}
+            onChange={(m) => {
+              const num = typeof m === 'string' ? parseFloat(m) : m;
+
+              if (Number.isFinite(num) && num >= 0 && num <= balance) {
+                setAmount(num);
+              }
+            }}
             step={1}
             className="input-field"
           />
