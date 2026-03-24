@@ -12,7 +12,7 @@
 	// escape out of whatever we've hijacked first
 	if(isapc(A) && !isturf(loc) && (A in hijacked_apcs))
 		A.attack_pulsedemon(src)
-	else if(current_weapon && istype(current_weapon, /obj/item/gun/energy))
+	else if(current_weapon && isenergygun(current_weapon))
 		// ironically, because ion guns override their emp_act, it's perfectly safe to be in one and be emp'd
 		var/obj/item/gun/energy/G = current_weapon
 		// we probably shouldn't be firing from inside a recharger or someone's bag

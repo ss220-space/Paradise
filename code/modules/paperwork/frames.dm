@@ -226,7 +226,7 @@
 		. += getFlatIcon(frame)
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
-	var/bomb = istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4)
+	var/bomb = isgrenade(I) || istype(I, /obj/item/grenade/plastic/c4)
 	if(user.a_intent == INTENT_HARM)
 		if(bomb)
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
@@ -300,7 +300,7 @@
 	..(severity)
 
 /obj/structure/sign/picture_frame/proc/explode()
-	if(istype(explosive, /obj/item/grenade))
+	if(isgrenade(explosive))
 		var/obj/item/grenade/G = explosive
 		explosive = null
 		G.prime()

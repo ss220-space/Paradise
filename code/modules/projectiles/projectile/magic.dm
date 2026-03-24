@@ -221,7 +221,7 @@
 		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
-	else if(istype(target, /obj/structure/closet))
+	else if(iscloset(target))
 		OpenCloset(target)
 
 /obj/projectile/magic/door/proc/CreateDoor(turf/T)

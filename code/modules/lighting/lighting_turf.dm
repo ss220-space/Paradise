@@ -65,7 +65,7 @@
 	new_area.contents += src
 
 	var/old_force_no_grav = force_no_gravity
-	if(istype(new_area, /area/space))
+	if(isspacearea(new_area))
 		force_no_gravity = TRUE
 	else
 		force_no_gravity = FALSE

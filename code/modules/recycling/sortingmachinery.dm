@@ -48,7 +48,7 @@
 	playsound(our_turf, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	if(wrapped)
 		wrapped.forceMove(our_turf)
-		if(istype(wrapped, /obj/structure/closet))
+		if(iscloset(wrapped))
 			var/obj/structure/closet/closet = wrapped
 			closet.add_fingerprint(user)
 			closet.welded = init_welded
@@ -303,7 +303,7 @@
 		item.add_fingerprint(user)
 		package.update_icon(UPDATE_ICON_STATE)
 
-	else if(istype(target, /obj/structure/closet))
+	else if(iscloset(target))
 		var/obj/structure/closet/container = target
 		if(container.opened)
 			to_chat(user, span_warning("The [container.name] should be closed."))

@@ -122,7 +122,7 @@ log transactions
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/spacecash))
+	if(is_cash(I))
 		add_fingerprint(user)
 		var/obj/item/stack/spacecash/cash = I
 		if(!authenticated_account)
@@ -359,7 +359,7 @@ log transactions
 				held_card = null
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/card/id))
+				if(is_id_card(I))
 					usr.drop_transfer_item_to_loc(I, src)
 					held_card = I
 

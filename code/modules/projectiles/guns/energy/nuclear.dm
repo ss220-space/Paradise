@@ -6,11 +6,15 @@
 	modifystate = TRUE
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE_LASER
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
 	)
+
+/obj/item/gun/energy/gun/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -31,13 +35,17 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	. = ..()
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	cell.maxcharge = 600
 	cell.charge = 600
+
+/obj/item/gun/energy/gun/mini/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/gun/hos
 	name = "X-01 MultiPhase Energy Gun"
@@ -86,8 +94,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	accuracy = GUN_ACCURACY_PISTOL
+
+/obj/item/gun/energy/gun/pdw9/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/gun/pdw9/ert
 
@@ -123,10 +135,15 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
+
+/obj/item/gun/energy/gun/nuclear/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"

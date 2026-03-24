@@ -1,5 +1,5 @@
 /datum/job/head_of_staff/chief_engineer
-	title = JOB_TITLE_CHIEF
+	title = JOB_TITLE_CHIEF_ENGINEER
 	flag = JOB_FLAG_CHIEF
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_ENGINEERING
@@ -21,7 +21,7 @@
 	outfit = /datum/outfit/job/chief_engineer
 
 /datum/outfit/job/chief_engineer
-	name = JOB_TITLE_CHIEF
+	name = JOB_TITLE_RU_CHIEF_ENGINEER
 	jobtype = /datum/job/head_of_staff/chief_engineer
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
@@ -49,7 +49,7 @@
 	department_flag = JOBCAT_ENGSEC
 	is_engineering = 1
 	supervisors = "Главным инженером"
-	department_head = list(JOB_TITLE_CHIEF)
+	department_head = list(JOB_TITLE_CHIEF_ENGINEER)
 	selection_color = "#ffeaca"
 	minimal_player_age = 7
 	exp_requirements = 600
@@ -63,11 +63,15 @@
 	spawn_positions = 5
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Maintenance Technician", "Engine Technician", "Electrician")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER,
+		ALT_JOB_TITLE_RU_POWER_ENGINEER,
+		ALT_JOB_TITLE_RU_ELECTRICIAN,
+	)
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
-	name = JOB_TITLE_ENGINEER
+	name = JOB_TITLE_RU_ENGINEER
 	jobtype = /datum/job/engineering/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineer
@@ -87,47 +91,6 @@
 	box = /obj/item/storage/box/survival/engineer
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
-/datum/job/engineering/engineer/trainee
-	title = JOB_TITLE_ENGINEER_TRAINEE
-	flag = JOB_FLAG_ENGINEER_TRAINEE
-	spawn_positions = 3
-	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
-	exp_max	= 600
-	exp_type_max = EXP_TYPE_ENGINEERING
-	is_novice = TRUE
-	outfit = /datum/outfit/job/engineer/trainee
-	paycheck = PAYCHECK_LOWER
-
-/datum/outfit/job/engineer/trainee
-	name = JOB_TITLE_ENGINEER_TRAINEE
-	jobtype = /datum/job/engineering/engineer/trainee
-
-	uniform = /obj/item/clothing/under/rank/engineer/trainee
-	id = /obj/item/card/id/engineering/trainee
-	gloves = /obj/item/clothing/gloves/color/orange
-
-/datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Engineer Assistant")
-				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-			if("Technical Assistant")
-				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-				head = /obj/item/clothing/head/soft/orange
-			if("Technical Student", "Technical Trainee")
-				head = /obj/item/clothing/head/soft/orange
-			if("Engineer Student")
-				head = /obj/item/clothing/head/beret/eng
-
 /datum/job/engineering/atmos
 	title = JOB_TITLE_ATMOSTECH
 	flag = JOB_FLAG_ATMOSTECH
@@ -135,11 +98,13 @@
 	spawn_positions = 2
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
-	alt_titles = list("Atmospheric Technician")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_LIFE_SUPPORT_SPECIALIST,
+	)
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
-	name = JOB_TITLE_ATMOSTECH
+	name = JOB_TITLE_RU_ATMOSTECH
 	jobtype = /datum/job/engineering/atmos
 
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician
@@ -154,4 +119,37 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/survival/engineer
-	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+
+/datum/job/engineering/engineer/trainee
+	title = JOB_TITLE_ENGINEER_TRAINEE
+	flag = JOB_FLAG_ENGINEER_TRAINEE
+	spawn_positions = 3
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT,
+	)
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
+	exp_max	= 600
+	exp_type_max = EXP_TYPE_ENGINEERING
+	is_novice = TRUE
+	outfit = /datum/outfit/job/engineer/trainee
+	paycheck = PAYCHECK_LOWER
+
+/datum/outfit/job/engineer/trainee
+	name = JOB_TITLE_RU_ENGINEER_TRAINEE
+	jobtype = /datum/job/engineering/engineer/trainee
+
+	uniform = /obj/item/clothing/under/rank/engineer/trainee
+	id = /obj/item/card/id/engineering/trainee
+	gloves = /obj/item/clothing/gloves/color/orange
+
+/datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if(ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT)
+				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt

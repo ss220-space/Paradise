@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(O)
 			to_chat(user, span_notice("You remove \the [O] from [src]."))
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-			if(istype(loc, /mob))
+			if(ismob(loc))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			remove_id(user)
 			return TRUE
 		var/obj/item/I = user.get_active_hand()
-		if(istype(I, /obj/item/card/id) && user.drop_transfer_item_to_loc(I, src))
+		if(is_id_card(I) && user.drop_transfer_item_to_loc(I, src))
 			id = I
 			cartridge?.on_id_updated()
 			request_cartridge?.on_id_updated()
@@ -328,7 +328,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			return TRUE
 		return FALSE
 	var/obj/item/card/id/I = user.get_active_hand()
-	if(istype(I, /obj/item/card/id) && I.registered_name && user.drop_transfer_item_to_loc(I, src))
+	if(is_id_card(I) && I.registered_name && user.drop_transfer_item_to_loc(I, src))
 		if(id)
 			id.forceMove_turf()
 			user.put_in_hands(id)
@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		var/obj/item/card/id/id_card = I
 		if(!id_card.registered_name)

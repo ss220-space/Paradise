@@ -279,7 +279,7 @@
 			cleaning = TRUE
 		else
 			return
-	if(istype(I, /obj/item/soap))
+	if(issoap(I))
 		cleaning = TRUE
 
 	if(!cleaning)

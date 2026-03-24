@@ -1146,7 +1146,7 @@
 			lamp.on = TRUE
 			lamp.break_light_tube()
 
-		if(istype(object, /obj/structure/window))
+		if(is_window(object))
 			var/obj/structure/window/window = object
 			window.take_damage(rand(80, 100))
 

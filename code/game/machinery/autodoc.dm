@@ -71,7 +71,7 @@
 		rename_interactive(user, I)
 		add_fingerprint(user)
 		return
-	if(istype(I, /obj/item/organ))
+	if(is_organ(I))
 		user.drop_item_ground(I)
 		I.forceMove(src)
 		return

@@ -1,0 +1,7 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - local: "полный перевод должностей (PR #8355)"
+  - local: "перевод ID-карт (PR #8355)"
+  - local: "перевод консоли ГП (PR #8355)"
+  - refactor: "атомизация и небольшое улучшение кода ID-карт (PR #8355)"

@@ -28,7 +28,7 @@
 		if(mob_instance.real_name && mob_instance.real_name != mob_instance.name)
 			mob_name += " \[[mob_instance.real_name]\]"
 		if(mob_instance.stat == DEAD)
-			if(istype(mob_instance, /mob/dead/observer/))
+			if(isobserver(mob_instance))
 				mob_name += " \[ghost\]"
 			else
 				mob_name += " \[dead\]"

@@ -29,7 +29,7 @@
 	return 1
 
 /datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || istype(M,/mob/dead/observer))
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -352,7 +352,7 @@
 			set_hud_image_state(IMPTRACK_HUD, "hud_imp_tracking")
 			set_hud_image_active(IMPTRACK_HUD)
 
-		else if(istype(current_implant,/obj/item/implant/mindshield))
+		else if(HAS_TRAIT(src, TRAIT_MINDSHIELD_HUD))
 			set_hud_image_state(IMPMINDSHIELD_HUD, "hud_imp_loyal")
 			set_hud_image_active(IMPMINDSHIELD_HUD)
 

@@ -151,4 +151,4 @@
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/E = I
-	return istype(E.dna.species, /datum/species/vox)
+	return isvox(E.dna.species)

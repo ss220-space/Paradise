@@ -17,12 +17,12 @@ const HeadRoles = [
 
 // Head colour check. Abbreviated to save on 80 char
 const HCC = (role: string) => {
-  // Return green if they are the head
+  // Return yellow if they are the head
   if (HeadRoles.indexOf(role) !== -1) {
     return 'green';
   }
 
-  // Return orange if its a regular person
+  // Return white if its a regular person
   return 'orange';
 };
 
@@ -46,9 +46,9 @@ const ManifestTable = (group: Person[]) => {
     group.length > 0 && (
       <Table>
         <Table.Row header color="white">
-          <Table.Cell width="50%">Name</Table.Cell>
-          <Table.Cell width="35%">Rank</Table.Cell>
-          <Table.Cell width="15%">Active</Table.Cell>
+          <Table.Cell width="35%">Имя</Table.Cell>
+          <Table.Cell width="50%">Должность</Table.Cell>
+          <Table.Cell width="15%">Статус</Table.Cell>
         </Table.Row>
 
         {group.map((person: Person) => (
@@ -107,7 +107,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.command} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Command
+              Командование
             </Box>
           </Box>
         }
@@ -119,7 +119,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.procedure} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Procedure
+              Юриспруденция
             </Box>
           </Box>
         }
@@ -131,7 +131,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.security} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Security
+              Безопасность
             </Box>
           </Box>
         }
@@ -143,7 +143,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.engineering} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Engineering
+              Инженерия
             </Box>
           </Box>
         }
@@ -155,7 +155,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.medical} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Medical
+              Медицина
             </Box>
           </Box>
         }
@@ -167,7 +167,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.science} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Science
+              Наука
             </Box>
           </Box>
         }
@@ -179,7 +179,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.service} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Service
+              Обслуживание
             </Box>
           </Box>
         }
@@ -191,7 +191,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box backgroundColor={deptCols.supply} m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Supply
+              Снабжение
             </Box>
           </Box>
         }
@@ -203,7 +203,7 @@ export const CrewManifest = (props: ManifestProps) => {
         title={
           <Box m={-1} pt={1} pb={1}>
             <Box ml={1} textAlign="center" fontSize={1.4}>
-              Misc
+              Без отдела
             </Box>
           </Box>
         }

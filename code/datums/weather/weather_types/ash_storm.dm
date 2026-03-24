@@ -94,7 +94,7 @@
 		var/mob/living/carbon/human/human_mob = mob_to_check
 		if(human_mob.get_main_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return FALSE
-	else if(istype(mob_to_check, /mob/living/simple_animal/borer))
+	else if(isborer(mob_to_check))
 		var/mob/living/simple_animal/borer/borer = mob_to_check
 		if(borer.host?.get_main_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return FALSE

@@ -515,7 +515,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
 		return ..()
 
-	if(istype(I, /obj/item/stack/spacecash))
+	if(is_cash(I))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		add_fingerprint(user)

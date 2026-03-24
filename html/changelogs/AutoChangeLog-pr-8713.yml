@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "sheet snatcher больше не дюпает ресурсы (PR #8713)"
-  - refactor: "код sheet snatcher сумки (PR #8713)"

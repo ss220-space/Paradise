@@ -320,7 +320,7 @@
 	spun = TRUE
 
 /obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
+	if(isspeedloader(I) || isammocasing(I))
 		if(get_ammo() > 0)
 			to_chat(user, span_warning("The [name] can only hold a single bullet."))
 			return ATTACK_CHAIN_PROCEED

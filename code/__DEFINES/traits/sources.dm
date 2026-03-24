@@ -110,6 +110,9 @@
 /// Source trait for /obj/item/mecha_parts/mecha_equipment/cage
 #define MECH_SUPRESSED_TRAIT "mech_supress"
 
+/// Source trait for the Bingle
+#define TRAIT_BINGLE "bingle_trait"
+
 /// Trait associated to resting
 #define RESTING_TRAIT "resting"
 /// Trait associated to a stat value or range of

@@ -71,7 +71,7 @@
 
 /obj/item/circuit_component/wiremod_gun/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_PROJECTILE_ON_HIT, PROC_REF(handle_shot))
-	if(!istype(shell, /obj/item/gun/energy))
+	if(!isenergygun(shell))
 		return
 
 	RegisterSignal(shell, COMSIG_GUN_CHAMBER_PROCESSED, PROC_REF(handle_chamber))

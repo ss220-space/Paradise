@@ -483,7 +483,7 @@
 	if(isnull(turf_location))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(loc, /turf)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
+	if(!isturf(loc)) 	//We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return  //Yeah just stop.
 
 	if(turf_location.density)
@@ -1104,7 +1104,7 @@
 	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view)
 	for(var/atom/movable/movable_atom in orange(pull_range,center))
 		if((movable_atom.anchored || movable_atom.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
-			if(istype(movable_atom, /obj/structure/closet))
+			if(iscloset(movable_atom))
 				var/obj/structure/closet/closet = movable_atom
 				closet.open()
 			continue

@@ -130,7 +130,7 @@
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
-		if(istype(loc, /turf))
+		if(isturf(loc))
 			travelling_in_vent = 0
 			entry_vent = null
 	else if(entry_vent)
