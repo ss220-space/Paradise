@@ -311,5 +311,3 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		return
 	detach_without_check(gun, user, force = TRUE)
 	to_chat(user, span_notice("Вы успешно сняли [declent_ru(ACCUSATIVE)]."))
-
-		tool_fumble(user, tool, 5, BRUTE)
