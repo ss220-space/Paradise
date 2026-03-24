@@ -163,6 +163,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
 	)
+	can_air_shoot = FALSE
 
 /obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
 	. = ..()
