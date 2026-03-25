@@ -694,6 +694,12 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		if("save_circuit")
 			return attempt_save_to(usr.client)
 
+		if("export_circuit")
+			return export_circuit_to_client(usr.client)
+
+		if("import_circuit")
+			return begin_import_circuit(usr, ui)
+
 		if("add_variable")
 			var/variable_identifier = trim(copytext(params["variable_name"], 1, PORT_MAX_NAME_LENGTH))
 			if(variable_identifier in circuit_variables)
@@ -872,7 +878,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 	return "[src] (Shell: [shell || "*null*"], Inserter: [key_name(inserter, include_link)], Owner ID: [id_card?.name || "*null*"])"
 
-/// Attempts to save a circuit to a given client
+/// Attempts to save a circuit to a given client (admin-only)
 /obj/item/integrated_circuit/proc/attempt_save_to(client/saver)
 	if(!check_rights_for(saver, R_VAREDIT))
 		return FALSE
@@ -880,6 +886,128 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	fdel(temp_file)
 	WRITE_FILE(temp_file, convert_to_json())
 	DIRECT_OUTPUT(saver, ftp(temp_file, "[display_name || "circuit"].json"))
+	return TRUE
+
+/// Exports circuit JSON to the player as a file download
+/obj/item/integrated_circuit/proc/export_circuit_to_client(client/exporter)
+	if(!exporter)
+		return FALSE
+	var/json_data = convert_to_json()
+	if(!json_data)
+		return FALSE
+	var/temp_file = file("data/CircuitExportTemp_[exporter.ckey]")
+	fdel(temp_file)
+	WRITE_FILE(temp_file, json_data)
+	var/safe_name = sanitize_filename(display_name)
+	if(!length(safe_name))
+		safe_name = "circuit"
+	DIRECT_OUTPUT(exporter, ftp(temp_file, "[safe_name].json"))
+	fdel(temp_file)
+	return TRUE
+
+/// Clear all components
+/obj/item/integrated_circuit/proc/clear_circuit()
+	for(var/obj/item/circuit_component/component as anything in attached_components)
+		remove_component(component)
+		qdel(component)
+
+	QDEL_LIST_ASSOC_VAL(circuit_variables)
+	circuit_variables = list()
+	QDEL_LIST_ASSOC_VAL(list_variables)
+	list_variables = list()
+	modifiable_circuit_variables = list()
+	assoc_list_variables = list()
+
+	setter_and_getter_count = 0
+
+/// Start circuit import 
+/obj/item/integrated_circuit/proc/begin_import_circuit(mob/user, datum/tgui/ui)
+	if(!user?.client)
+		return FALSE
+
+	var/is_admin = check_rights_for(user.client, R_VAREDIT)
+
+	//Circuit imprinter should be linked (if not admin)
+	var/obj/machinery/r_n_d/circuit_imprinter/printer
+	if(!is_admin)
+		printer = linked_circuit_imprinter?.resolve()
+		if(!printer)
+			balloon_alert(user, "привязанный принтер не обнаружен!")
+			return FALSE
+
+	var/option = tgui_alert(user, "Загрузить схему из файла или ввести JSON вручную?", "Импорт схемы", list("Файл", "Прямой ввод", "Отмена"))
+	var/txt
+	switch(option)
+		if("Файл")
+			txt = file2text(input(user, "Укажите файл со схемой (.json)") as null|file)
+		if("Прямой ввод")
+			txt = input(user, "Введите JSON-строку схемы", "Импорт схемы") as message|null
+		else
+			return FALSE
+
+	if(!txt)
+		return FALSE
+
+	// JSON validation
+	var/list/test_data = json_decode(txt)
+
+	if(!islist(test_data) || !test_data["components"])
+		balloon_alert(user, "некорректный формат схемы!")
+		return FALSE
+
+	//Components validation
+	var/list/components_data = test_data["components"]
+	for(var/identifier in components_data)
+		var/list/component_data = components_data[identifier]
+		var/type = text2path(component_data["type"])
+		if(!ispath(type, /obj/item/circuit_component))
+			balloon_alert(user, "недопустимый тип компонента!")
+			return FALSE
+
+		// For non-admins, validate that each component is either printable or a variable getter/setter
+		if(!is_admin)
+			if(ispath(type, /obj/item/circuit_component/variable))
+				continue
+			if(!LAZYACCESS(printer.current_unlocked_designs, type))
+				var/obj/item/circuit_component/comp_ref = type
+				balloon_alert(user, "компонент [initial(comp_ref.display_name)] недоступен для печати!")
+				return FALSE
+
+	// ADMIN-ONLY validation
+	if(test_data["admin_only"] && !is_admin)
+		balloon_alert(user, "схема только для администрации!")
+		return FALSE
+
+	// Always strip external_objects — importing should never spawn shells/doors/etc.
+	test_data["external_objects"] = null
+
+	// Strip non-removable shell-specific components (camera, door access, etc.) — they are provided by the shell
+	for(var/identifier in components_data)
+		var/list/component_data = components_data[identifier]
+		var/type = text2path(component_data["type"])
+		var/obj/item/circuit_component/comp_ref = type
+		if(!initial(comp_ref.removable))
+			components_data -= identifier
+
+	if(!is_admin)
+		test_data["admin_only"] = FALSE
+
+	txt = json_encode(test_data)
+
+	var/list/errors = list()
+
+	clear_circuit()
+
+	load_circuit_data(txt, errors)
+
+	if(length(errors))
+		for(var/error in errors)
+			to_chat(user, span_warning(error))
+		balloon_alert(user, "импортировано с ошибками")
+	else
+		balloon_alert(user, "схема импортирована")
+
+	SStgui.update_uis(src)
 	return TRUE
 
 /obj/item/integrated_circuit/admin

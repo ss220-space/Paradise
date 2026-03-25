@@ -509,6 +509,22 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
                 onClick={() => act('toggle_grid_mode')}
               />
             </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="transparent"
+                tooltip="Экспорт схемы в JSON"
+                onClick={() => act('export_circuit')}
+                icon="download"
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="transparent"
+                tooltip="Импорт схемы из JSON"
+                onClick={() => act('import_circuit')}
+                icon="upload"
+              />
+            </Stack.Item>
             {!!is_admin && (
               <Stack.Item>
                 <Button
