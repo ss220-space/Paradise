@@ -299,7 +299,7 @@ const DetailedAccountInfo = (_properties) => {
             <LabeledList.Item label="Корректировка зарплаты">
               <Box>
                 Введите значение процента корректировки заработной платы
-                (допустимый диапазон: –50% … +50%).
+                (диапазон: –50% … +50%).
               </Box>
               <Stack>
                 <Stack.Item grow>
@@ -361,6 +361,11 @@ const DetailedAccountInfo = (_properties) => {
                   </Button>
                 </Box>
               )}
+              <Box className="text-muted" mt={0.5} fontSize="11px">
+                <Icon name="info-circle" mr={0.5} />
+                Изменения будут применены автоматически со следующего расчётного
+                периода.
+              </Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>

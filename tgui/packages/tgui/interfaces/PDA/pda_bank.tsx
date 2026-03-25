@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useBackend } from '../../backend';
 import {
   Box,
@@ -13,7 +13,7 @@ import {
 } from '../../components';
 
 import { Window } from '../../layouts';
-
+import { SearchableDropdown } from '../../components/SearchableDropdown';
 const DEFAULT_PURPOSE = 'Перевод через RIB';
 
 type Transaction = {
@@ -421,16 +421,11 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
             <Icon name="user" mr={0.5} />
             Получатель
           </Box>
-          <Dropdown
-            fluid
-            width="100%"
+          <SearchableDropdown
             options={targets}
-            selected={target}
-            onSelected={(t) => setTarget(t)}
-            placeholder="Выберите счёт из реестра..."
-            icon="address-book"
-            className="input-field input-field--large"
-            style={{ width: '100%' }}
+            value={target}
+            onChange={(t) => setTarget(t)}
+            placeholder="Введите имя аккаунта..."
           />
         </Box>
 
