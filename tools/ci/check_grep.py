@@ -69,13 +69,48 @@ def check_dash_usage(idx, line):
 
 HTML_TAGS_UPPERCASE_RE = re.compile(r'</?[A-Z][A-Z0-9]*\b[^>]*/?>')
 def check_html_tags_case(idx, line):
+    failures = []
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
-        return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
+        failures.append((idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase."))
+    return failures
 
 SUSPICIOUS_SYMBOLS = re.compile(r'[<>]')
 def check_suspicious_symbols_in_maps(idx, line):
+    failures = []
     if SUSPICIOUS_SYMBOLS.search(line):
-        return [(idx + 1, f"HTML code in maps detected.")]
+        failures.append((idx + 1, "HTML code in maps detected."))
+    return failures
+
+def check_comments(idx, line):
+    failures = []
+    if '//' in line:
+        if '//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE' in line:
+            return failures
+        if 'name|desc' in line:
+            return failures
+        failures.append((idx + 1, "Unexpected commented out line detected. Please remove it."))
+    return failures
+
+ICONSTATE_TAG_RE = re.compile(r'^\ttag = "icon')
+def check_iconstate_tags(idx, line):
+    failures = []
+    if ICONSTATE_TAG_RE.search(line):
+        failures.append((idx + 1, "Tag vars from icon state generation detected in maps, please remove them."))
+    return failures
+
+INVALID_MAP_PROCS_RE = re.compile(r'(new|newlist|icon|matrix|sound)\(.+\)')
+def check_invalid_map_procs(idx, line):
+    failures = []
+    if INVALID_MAP_PROCS_RE.search(line):
+        failures.append((idx + 1, "Using unsupported procs in variables in a map file! Please remove all instances of this."))
+    return failures
+
+INVALID_PIXEL_VARS_RE = re.compile(r'pixel_[^xy]')
+def check_invalid_pixel_vars(idx, line):
+    failures = []
+    if INVALID_PIXEL_VARS_RE.search(line):
+        failures.append((idx + 1, "Incorrect pixel offset variables detected in maps, please remove them."))
+    return failures
 
 CODE_CHECKS = [
     check_non_tgm_map_format,
@@ -83,12 +118,17 @@ CODE_CHECKS = [
     check_dash_usage,
     check_html_tags_case,
 #    check_suspicious_symbols_in_maps,
+    check_comments,
+    check_iconstate_tags,
+    check_invalid_map_procs,
+    check_invalid_pixel_vars,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
     all_failures = []
     with open(code_filepath, encoding="UTF-8") as code:
         last_line = None
+        idx = -1
         for idx, line in enumerate(code):
             for check in CODE_CHECKS:
                 if failures := check(idx, line):
