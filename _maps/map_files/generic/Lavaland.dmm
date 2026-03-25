@@ -1021,8 +1021,7 @@
 /area/mine/laborcamp)
 "cA" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -4888,8 +4887,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
 "ug" = (
@@ -5804,8 +5802,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
 "Dk" = (
@@ -5969,8 +5966,7 @@
 /obj/item/bedsheet/orange,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
 "Fy" = (
@@ -6520,8 +6516,7 @@
 	network = list("Labor    Camp")
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/mine/laborcamp)
 "JQ" = (
@@ -6895,8 +6890,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/mine/laborcamp)
 "NG" = (
@@ -7749,8 +7743,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
 "VO" = (

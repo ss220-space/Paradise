@@ -125,8 +125,7 @@
 /area/ruin/powered/snow_biodome)
 "aA" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/ruin/powered/snow_cabin)
 "aB" = (
@@ -462,8 +461,7 @@
 /area/ruin/powered/snow_cabin)
 "Jl" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/powered/snow_cabin)
 "JZ" = (

@@ -158,8 +158,7 @@
 "A" = (
 /obj/machinery/door/poddoor{
 	id_tag = "mecha cargo";
-	name = "Cargo Bay Door";
-	tag = ""
+	name = "Cargo Bay Door"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3";

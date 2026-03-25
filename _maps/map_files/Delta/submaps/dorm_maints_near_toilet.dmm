@@ -483,8 +483,7 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "yu" = (
@@ -514,8 +513,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "yT" = (
@@ -720,8 +718,7 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "DP" = (
@@ -808,8 +805,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/coatrack,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "Gj" = (
@@ -851,8 +847,7 @@
 /area/template_noop)
 "HD" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Ih" = (

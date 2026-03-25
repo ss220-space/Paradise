@@ -527,8 +527,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "aeG" = (
@@ -1315,8 +1314,7 @@
 /area/engineering/mechanic_workshop/expedition)
 "amQ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -2617,8 +2615,7 @@
 /area/hallway/secondary/entry/additional)
 "awU" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/arrival/station)
@@ -2969,8 +2966,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "azh" = (
@@ -3055,8 +3051,7 @@
 "aAa" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/shuttle/plating,
@@ -9915,8 +9910,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "bsB" = (
@@ -14261,8 +14255,7 @@
 /area/medical/research)
 "bNJ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -19738,8 +19731,7 @@
 /area/clownoffice)
 "cpP" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/maintenance/tourist)
 "cpQ" = (
@@ -22610,8 +22602,7 @@
 "cDV" = (
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/effect/turf_decal/siding/white/end,
 /turf/simulated/floor/plasteel{
@@ -22705,8 +22696,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "cEn" = (
@@ -25195,8 +25185,7 @@
 	},
 /obj/structure/closet/loot_crate/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/medical/virology/lab)
 "cPX" = (
@@ -26876,8 +26865,7 @@
 "cXD" = (
 /obj/machinery/door/window/southleft{
 	name = "Bar Delivery";
-	req_access = list(25);
-	tag = "icon-left (WEST)"
+	req_access = list(25)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -27675,8 +27663,7 @@
 "dbm" = (
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -28920,8 +28907,7 @@
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "dgY" = (
@@ -29227,8 +29213,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "die" = (
@@ -31583,8 +31568,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/effect/turf_decal/siding/white/end{
 	dir = 1
@@ -32220,8 +32204,7 @@
 /area/maintenance/asmaint2)
 "dwo" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-25";
-	tag = "icon-plant-25"
+	icon_state = "plant-25"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -33124,8 +33107,7 @@
 /obj/effect/landmark/start/captain,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 6;
-	tag = "icon-shower (EAST)"
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -35874,8 +35856,7 @@
 	},
 /obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/starboard)
 "dNm" = (
@@ -35941,8 +35922,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "dNv" = (
@@ -39081,8 +39061,7 @@
 /area/toxins/launch)
 "ebt" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -39404,8 +39383,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "eeD" = (
@@ -39615,8 +39593,7 @@
 "egO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/tourist)
 "egU" = (
@@ -40557,8 +40534,7 @@
 /obj/structure/table/glass,
 /obj/item/twohanded/required/kirbyplants{
 	layer = 5.1;
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreencorner"
@@ -41394,8 +41370,7 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "eBI" = (
@@ -42951,8 +42926,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "eTH" = (
@@ -43642,8 +43616,7 @@
 	pixel_y = -12
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/crew_quarters/theatre)
 "fat" = (
@@ -44692,8 +44665,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/engineering)
 "foZ" = (
@@ -44854,8 +44826,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "frJ" = (
@@ -45405,8 +45376,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/starboard)
 "fye" = (
@@ -47650,8 +47620,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/crew_quarters/theatre)
 "fZm" = (
@@ -48143,8 +48112,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gfx" = (
@@ -48623,8 +48591,7 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gmi" = (
@@ -49107,8 +49074,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gre" = (
@@ -49319,8 +49285,7 @@
 "gue" = (
 /obj/effect/landmark/spawner/ninja_teleport,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
@@ -51281,15 +51246,13 @@
 /area/maintenance/tourist)
 "gPC" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/tourist)
 "gPJ" = (
@@ -51740,8 +51703,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/eastright{
 	name = "Hydroponics Delivery";
-	req_access = list(35);
-	tag = "icon-right"
+	req_access = list(35)
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -51872,8 +51834,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gWq" = (
@@ -52199,8 +52160,7 @@
 /obj/structure/closet/loot_crate/blue,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gZC" = (
@@ -54586,8 +54546,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "hDv" = (
@@ -55189,8 +55148,7 @@
 /obj/effect/landmark/spawner/captain,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "hKL" = (
@@ -56074,8 +56032,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "hVw" = (
@@ -56191,8 +56148,7 @@
 /area/medical/virology)
 "hWA" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/tourist)
 "hWL" = (
@@ -58577,8 +58533,7 @@
 "izG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/crew_quarters/theatre)
 "izP" = (
@@ -59814,8 +59769,7 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "iOo" = (
@@ -60062,8 +60016,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "iSO" = (
@@ -60789,8 +60742,7 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -60910,8 +60862,7 @@
 /mob/living/simple_animal/hostile/lizard/croco/Gena,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -61853,8 +61804,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "jnj" = (
@@ -68144,8 +68094,7 @@
 "kNU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/tourist)
 "kOi" = (
@@ -71034,8 +70983,7 @@
 /area/toxins/test_area)
 "lym" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = 33
@@ -71260,8 +71208,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "lAO" = (
@@ -71869,8 +71816,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -72318,8 +72264,7 @@
 	id = "vir_work_zone1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/medical/virology/lab)
 "lPb" = (
@@ -73995,8 +73940,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "miw" = (
@@ -74460,8 +74404,7 @@
 /area/maintenance/asmaint)
 "mna" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel{
@@ -75951,8 +75894,7 @@
 /area/hallway/secondary/entry/commercial)
 "mDr" = (
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /obj/structure/table,
 /obj/machinery/status_display{
@@ -77610,8 +77552,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "mVO" = (
@@ -77911,8 +77852,7 @@
 "mYF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -78817,8 +78757,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "njf" = (
@@ -80105,8 +80044,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "nvQ" = (
@@ -81389,8 +81327,7 @@
 /obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "nLF" = (
@@ -83681,8 +83618,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "olS" = (
@@ -85120,8 +85056,7 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "oCo" = (
@@ -86362,8 +86297,7 @@
 "oRQ" = (
 /mob/living/simple_animal/moth,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/tourist)
 "oRS" = (
@@ -86607,8 +86541,7 @@
 /obj/item/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "oUP" = (
@@ -88019,8 +87952,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "pkf" = (
@@ -88294,8 +88226,7 @@
 	pixel_y = 5
 	},
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -92126,8 +92057,7 @@
 /area/atmos/control)
 "qcw" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /obj/machinery/door_control{
@@ -93517,8 +93447,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qqO" = (
@@ -93741,8 +93670,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qsM" = (
@@ -93879,8 +93807,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qtz" = (
@@ -96394,8 +96321,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qVc" = (
@@ -97200,8 +97126,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "reH" = (
@@ -97273,8 +97198,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "rfj" = (
@@ -97291,8 +97215,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "rfm" = (
@@ -100023,8 +99946,7 @@
 /area/maintenance/kitchen)
 "rLr" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -100323,8 +100245,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "rPi" = (
@@ -101996,8 +101917,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "sja" = (
@@ -104669,8 +104589,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "sNQ" = (
@@ -107785,8 +107704,7 @@
 /obj/item/soap,
 /obj/machinery/light,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/tourist)
 "txq" = (
@@ -108667,8 +108585,7 @@
 /area/engineering/supermatter)
 "tGG" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -109458,8 +109375,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "tOb" = (
@@ -110879,8 +110795,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/trading)
 "udT" = (
@@ -111529,8 +111444,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -113871,8 +113785,7 @@
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -115230,8 +115143,7 @@
 /obj/structure/curtain/open/shower,
 /obj/effect/landmark/spawner/blob,
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -116154,8 +116066,7 @@
 /obj/item/vending_refill/youtool,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "vmX" = (
@@ -116284,8 +116195,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "voL" = (
@@ -117014,16 +116924,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"vwX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
-/area/maintenance/engineering)
 "vxe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -117751,8 +117651,7 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "vDi" = (
@@ -119452,8 +119351,7 @@
 /area/quartermaster/sorting)
 "vXZ" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -119671,8 +119569,7 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "waS" = (
@@ -120340,8 +120237,7 @@
 /obj/random/tool,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "wjU" = (
@@ -121419,8 +121315,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "wuY" = (
@@ -127703,8 +127598,7 @@
 "xNb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -158978,7 +158872,7 @@ gMw
 iKD
 srk
 euu
-vwX
+euu
 wkZ
 eTz
 yhX

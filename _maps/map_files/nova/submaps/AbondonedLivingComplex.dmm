@@ -276,7 +276,6 @@
 	dir = 4
 	},
 /obj/structure/sign/poster/contraband/commando{
-	pixel_y = 0;
 	pixel_x = 32
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -490,7 +489,6 @@
 /area/template_noop)
 "mN" = (
 /obj/structure/sign/poster/contraband/commando{
-	pixel_y = 0;
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -581,8 +579,7 @@
 	pixel_x = -8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/livingcomplex)
 "pm" = (
@@ -619,8 +616,7 @@
 	pixel_x = -17
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/livingcomplex)
 "qq" = (
@@ -1024,9 +1020,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/clothing/gloves/color/latex/nitrile{
-	pixel_y = 0
-	},
+/obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/accessory/stethoscope,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
@@ -1171,7 +1165,6 @@
 	nightshift_enabled = 1
 	},
 /obj/structure/sign/poster/contraband/commando{
-	pixel_y = 0;
 	pixel_x = 32
 	},
 /turf/simulated/floor/carpet/black,
@@ -1273,7 +1266,6 @@
 /obj/machinery/door_control{
 	id = "oldcargo";
 	name = "Abandoned Warehouse Access Control";
-	pixel_y = 0;
 	req_access = list(31);
 	pixel_x = 24
 	},
@@ -1697,8 +1689,7 @@
 "UH" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/livingcomplex)
 "UO" = (

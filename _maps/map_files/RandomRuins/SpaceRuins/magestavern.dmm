@@ -560,8 +560,7 @@
 "Aa" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/ruin/unpowered)
 "Al" = (
@@ -736,12 +735,6 @@
 /obj/structure/table/wood/fancy/purple,
 /obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/carpet/purple,
-/area/ruin/unpowered)
-"Ij" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
-	},
 /area/ruin/unpowered)
 "It" = (
 /obj/structure/mineral_door/iron,
@@ -1595,7 +1588,7 @@ jR
 zB
 ez
 Kn
-Ij
+zy
 gJ
 ez
 tB
@@ -1684,7 +1677,7 @@ ua
 ez
 Ql
 dm
-Ij
+zy
 ez
 zY
 Fo

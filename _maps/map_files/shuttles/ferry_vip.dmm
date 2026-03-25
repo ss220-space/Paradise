@@ -1,8 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
@@ -16,8 +15,7 @@
 	name = "bedsheet"
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/transport)
@@ -44,8 +42,7 @@
 "k" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -65,11 +62,6 @@
 	pixel_y = 26
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/shuttle/transport)
-"o" = (
-/turf/simulated/wall/shuttle{
-	tag = "icon-swall2"
-	},
 /area/shuttle/transport)
 "q" = (
 /obj/item/paper_bin,
@@ -114,8 +106,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/machinery/recharger,
 /turf/simulated/floor/noslip{
@@ -131,8 +122,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 28
@@ -267,7 +257,7 @@ h
 h
 l
 u
-o
+h
 h
 "}
 (7,1,1) = {"

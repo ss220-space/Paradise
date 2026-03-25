@@ -3281,8 +3281,7 @@
 "bhu" = (
 /obj/machinery/shower{
 	dir = 8;
-	pixel_y = 4;
-	tag = "icon-shower (WEST)"
+	pixel_y = 4
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/south,
@@ -6329,8 +6328,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "clQ" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
@@ -10684,8 +10682,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "dRG" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -13178,8 +13175,7 @@
 "eMx" = (
 /obj/item/chair/stool,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/coldcolony/malta/research/test_chamber)
 "eMP" = (
@@ -13956,8 +13952,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "eYu" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-25";
-	tag = "icon-plant-25"
+	icon_state = "plant-25"
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
@@ -15651,8 +15646,7 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "fIQ" = (
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -19854,8 +19848,7 @@
 	},
 /obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/coldcolony/malta/research/test_chamber)
 "hkt" = (
@@ -20888,8 +20881,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/coldcolony/malta/research/test_chamber)
 "hDC" = (
@@ -24700,8 +24692,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "jcb" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-25";
-	tag = "icon-plant-25"
+	icon_state = "plant-25"
 	},
 /obj/machinery/firealarm{
 	dir = 8;
@@ -29151,8 +29142,7 @@
 /area/coldcolony/malta/medical/virology)
 "kEA" = (
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
@@ -32300,8 +32290,7 @@
 /obj/item/multitool/circuit,
 /obj/item/integrated_circuit/loaded/hello_world,
 /obj/item/integrated_circuit/loaded/speech_relay{
-	pixel_x = 2;
-	pixel_y = 0
+	pixel_x = 2
 	},
 /obj/item/compact_remote{
 	pixel_x = 8;
@@ -42243,8 +42232,7 @@
 /area/coldcolony/malta/chapel/main)
 "pvk" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -43087,8 +43075,7 @@
 "pLY" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -43815,8 +43802,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "qap" = (
@@ -44411,8 +44397,7 @@
 "qmX" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/coldcolony/malta/research/test_chamber)
 "qnw" = (
@@ -49436,8 +49421,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/coldcolony/malta/research/storage)
 "sac" = (
@@ -50413,8 +50397,7 @@
 "stA" = (
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/south,
@@ -51609,8 +51592,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52113,8 +52095,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "tbC" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "tbD" = (
@@ -56085,8 +56066,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ruin/unpowered)
 "uyk" = (
@@ -60796,8 +60776,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 6;
-	tag = "icon-shower (EAST)"
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
