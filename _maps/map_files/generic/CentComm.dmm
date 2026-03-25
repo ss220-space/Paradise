@@ -8831,10 +8831,6 @@
 /area/shuttle/ussp)
 "egQ" = (
 /obj/structure/safe/floor,
-/obj/item/paper{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/835083115536973826/947850300524470282/ES.png?width=461&height=338\"></center>";
-	name = "26/02/2022 - 22:54"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -11383,10 +11379,6 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
-/obj/item/paper/central_command/archive/memes{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1079288344657277008/NVNcWzVwAHs.png?width=736&height=736\"></center>";
-	name = "Коллективное решение"
-	},
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "fvm" = (
@@ -12562,9 +12554,6 @@
 /obj/structure/noticeboard{
 	pixel_y = -30
 	},
-/obj/item/paper/syndimemo{
-	info = "https://www.youtube.com/watch?v=PD8LdxRSueA"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -13677,10 +13666,6 @@
 	icon_closed = "cardboard_librarian";
 	icon_opened = "cardboard_librarian_open";
 	icon_state = "cardboard_librarian"
-	},
-/obj/item/paper/central_command/archive/memes{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
-	name = "Супъективное мнение"
 	},
 /obj/item/book/random,
 /turf/simulated/floor/plating,
@@ -38207,10 +38192,6 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "rKJ" = (
-/obj/item/paper{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/835083115536973826/947722266135908373/unknown.png\"></center>";
-	name = "K P A C U B bI E arts."
-	},
 /obj/structure/safe,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
@@ -50940,14 +50921,6 @@
 	icon_state = "router_dir"
 	},
 /area/shuttle/syndicate)
-"xCr" = (
-/obj/structure/bookcase,
-/obj/item/paper{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1168235730171080704/image.png?width=1919&height=824\"></center>";
-	name = "Главный строить мужик репорт"
-	},
-/turf/simulated/floor/plating,
-/area/centcom/zone2)
 "xCu" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	icon = 'icons/obj/decals.dmi';
@@ -89451,7 +89424,7 @@ nAN
 nAN
 nAN
 kXz
-xCr
+kkq
 bBh
 kHS
 tRj
