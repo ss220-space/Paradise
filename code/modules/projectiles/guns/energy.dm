@@ -140,11 +140,12 @@
 		update_icon()
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
-	if(user && !sibyl_mod?.check_auth(user))
-		return FALSE
+	if(user && sibyl_mod)
+		if(!sibyl_mod.check_auth(user))
+			return FALSE
 
-	if(user && !sibyl_mod?.can_fire(user))
-		return FALSE
+		if(!sibyl_mod.can_fire(user))
+			return FALSE
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	. = cell.charge >= shot.e_cost
