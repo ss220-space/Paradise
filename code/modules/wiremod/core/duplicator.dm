@@ -135,6 +135,9 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	var/list/external_objects = list() // Objects that are connected to a component. These objects will be linked to the components.
 	var/list/circuit_data
 	for(var/obj/item/circuit_component/component as anything in attached_components)
+		// Skip non-removable shell-specific components (camera, door access, etc.) — they are provided by the shell
+		if(!component.removable)
+			continue
 		SEND_SIGNAL(component, COMSIG_CIRCUIT_COMPONENT_SAVE, external_objects)
 
 		var/identifier = component.UID()

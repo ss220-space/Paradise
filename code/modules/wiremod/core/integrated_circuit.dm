@@ -882,7 +882,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /obj/item/integrated_circuit/proc/attempt_save_to(client/saver)
 	if(!check_rights_for(saver, R_VAREDIT))
 		return FALSE
-	var/temp_file = file("data/CircuitDownloadTempFile")
+	var/temp_file = UNLINT(file("data/CircuitDownloadTempFile"))
 	fdel(temp_file)
 	WRITE_FILE(temp_file, convert_to_json())
 	DIRECT_OUTPUT(saver, ftp(temp_file, "[display_name || "circuit"].json"))
@@ -895,7 +895,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	var/json_data = convert_to_json()
 	if(!json_data)
 		return FALSE
-	var/temp_file = file("data/CircuitExportTemp_[exporter.ckey]")
+	var/temp_file = UNLINT(file("data/CircuitExportTemp_[exporter.ckey]"))
 	fdel(temp_file)
 	WRITE_FILE(temp_file, json_data)
 	var/safe_name = sanitize_filename(display_name)
@@ -908,6 +908,8 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /// Clear all components
 /obj/item/integrated_circuit/proc/clear_circuit()
 	for(var/obj/item/circuit_component/component as anything in attached_components)
+		if(!component.removable)
+			continue
 		remove_component(component)
 		qdel(component)
 
@@ -941,7 +943,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		if("Файл")
 			txt = file2text(input(user, "Укажите файл со схемой (.json)") as null|file)
 		if("Прямой ввод")
-			txt = input(user, "Введите JSON-строку схемы", "Импорт схемы") as message|null
+			txt = tgui_input_text(user, "Введите JSON-строку схемы", "Импорт схемы", multiline = TRUE, encode = FALSE)
 		else
 			return FALSE
 
@@ -949,7 +951,12 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		return FALSE
 
 	// JSON validation
-	var/list/test_data = json_decode(txt)
+	var/list/test_data
+	try
+		test_data = json_decode(txt)
+	catch(var/exception/e)
+		balloon_alert(user, "некорректный формат JSON!")
+		return FALSE
 
 	if(!islist(test_data) || !test_data["components"])
 		balloon_alert(user, "некорректный формат схемы!")
@@ -959,6 +966,8 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	var/list/components_data = test_data["components"]
 	for(var/identifier in components_data)
 		var/list/component_data = components_data[identifier]
+		if(!islist(component_data) || !component_data["type"])
+			continue
 		var/type = text2path(component_data["type"])
 		if(!ispath(type, /obj/item/circuit_component))
 			balloon_alert(user, "недопустимый тип компонента!")
@@ -984,6 +993,8 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	// Strip non-removable shell-specific components (camera, door access, etc.) — they are provided by the shell
 	for(var/identifier in components_data)
 		var/list/component_data = components_data[identifier]
+		if(!islist(component_data) || !component_data["type"])
+			continue
 		var/type = text2path(component_data["type"])
 		var/obj/item/circuit_component/comp_ref = type
 		if(!initial(comp_ref.removable))
