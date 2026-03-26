@@ -1,12 +1,11 @@
 import { useBackend } from '../../backend';
-import { Button, Box, Section, Stack } from '../../components';
+import { Box, Section } from '../../components';
 
 type MainMenuData = {
   owner: string;
   ownjob: string;
   idInserted: boolean;
   categories: string[];
-  pai: boolean;
   notifying: string[];
   apps: Record<string, App[]>;
 };
@@ -18,106 +17,83 @@ type App = {
   icon: string;
 };
 
-// Компонент одной иконки приложения
-const AppIcon = (props: {
-  app: App;
-  isNotifying: boolean;
-  onClick: () => void;
-}) => {
-  const { app, isNotifying, onClick } = props;
+const AppIcon = ({ app, isNotifying, onClick }) => {
+  const iconName = (isNotifying ? app.notify_icon : app.icon) || 'cube';
 
   return (
-    <Button
-      className="PDA__app-icon"
-      color="transparent"
+    <Box
       onClick={onClick}
       style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '8px 4px',
-        gap: '4px',
-        aspectRatio: '1/1',
-        maxWidth: '100px',
-        minWidth: '70px',
-        flex: '1 1 80px',
+        width: '64px',
+        cursor: 'pointer',
       }}
     >
       <Box
-        className="PDA__app-icon__square"
         style={{
-          width: '48px',
-          height: '48px',
+          width: '52px',
+          height: '52px',
+          borderRadius: '14px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: isNotifying
-            ? 'rgba(220, 50, 50, 0.15)'
-            : 'rgba(255,255,255,0.08)',
-          borderRadius: '12px',
-          border: isNotifying
-            ? '2px solid #dc322f'
-            : '1px solid rgba(255,255,255,0.1)',
-          transition: 'all 0.15s ease',
+          background: '#1f2a3a',
         }}
       >
-        <Box
+        <i
+          className={`fa fa-${iconName}`}
           style={{
-            fontSize: '24px',
-            color: isNotifying ? '#dc322f' : 'white',
-            animation: isNotifying ? 'spin 1.5s linear infinite' : 'none',
+            fontSize: '20px',
+            color: '#fff',
           }}
-        >
-          <i className={`fa fa-${isNotifying ? app.notify_icon : app.icon}`} />
-        </Box>
+        />
       </Box>
+
       <Box
         style={{
-          fontSize: '11px',
+          fontSize: '10px',
+          color: '#ddd',
+          marginTop: '6px',
           textAlign: 'center',
-          color: 'white',
-          fontWeight: 500,
-          textOverflow: 'ellipsis',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          width: '100%',
-          maxWidth: '90px',
         }}
       >
         {app.name}
       </Box>
-    </Button>
+    </Box>
   );
 };
 
-const CategoryGrid = (props: {
+const CategoryGrid = ({
+  name,
+  apps,
+  notifying,
+  onStart,
+}: {
   name: string;
   apps: App[];
   notifying: string[];
   onStart: (uid: string) => void;
 }) => {
-  const { name, apps, notifying, onStart } = props;
-
   if (!apps?.length) return null;
 
   return (
     <Section title={name} mb={2}>
       <Box
-        className="PDA__app-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', // ← Адаптивная сетка
+          gridTemplateColumns: 'repeat(5, 1fr)', // 🔥 максимум 5
           gap: '12px 8px',
-          padding: '8px 4px',
-          justifyContent: 'center',
+          justifyItems: 'center',
+          padding: '10px 6px',
         }}
       >
         {apps.map((app) => (
           <AppIcon
             key={app.uid}
             app={app}
-            isNotifying={app.uid in notifying}
+            isNotifying={notifying.includes(app.uid)}
             onClick={() => onStart(app.uid)}
           />
         ))}
@@ -126,82 +102,41 @@ const CategoryGrid = (props: {
   );
 };
 
-export const pda_main_menu = (_props: unknown) => {
+export const pda_main_menu = () => {
   const { act, data } = useBackend<MainMenuData>();
-  const { owner, ownjob, idInserted, categories, pai, notifying, apps } = data;
+  const { owner, ownjob, categories, notifying, apps } = data;
 
   return (
-    <Stack fill vertical style={{ padding: '4px' }}>
-      <Stack.Item>
-        <Section
-          title="PDA Info"
-          style={
-            {
-              fontSize: '12px',
-              '--section-padding': '8px',
-            } as any
-          }
-        >
-          <Stack>
-            <Stack.Item grow>
-              <Box bold>{owner}</Box>
-              <Box color="average" style={{ fontSize: '11px' }}>
-                {ownjob}
-              </Box>
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                icon="sync"
-                disabled={!idInserted}
-                onClick={() => act('UpdateInfo')}
-                tooltip="Обновить данные из ID-карты"
-              >
-                Sync
-              </Button>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
+    <Box style={{ padding: '10px' }}>
+      {/* USER */}
+      <Box
+        style={{
+          marginBottom: '10px',
+          padding: '10px',
+          background: '#1a1f2b',
+          borderRadius: '10px',
+        }}
+      >
+        <Box bold>{owner}</Box>
+        <Box style={{ fontSize: '11px', color: '#888' }}>{ownjob}</Box>
+      </Box>
 
-      <Stack.Item grow>
-        {categories.map((catName) => (
+      {/* APPS */}
+      {categories.length === 0 ? (
+        <Box style={{ textAlign: 'center', color: '#666', padding: '40px' }}>
+          No apps
+        </Box>
+      ) : (
+        categories.map((cat) => (
           <CategoryGrid
-            key={catName}
-            name={catName}
-            apps={apps?.[catName]}
+            key={cat}
+            name={cat}
+            apps={apps[cat]}
             notifying={notifying}
             onStart={(uid) => act('StartProgram', { program: uid })}
           />
-        ))}
-      </Stack.Item>
-
-      {!!pai && (
-        <Stack.Item>
-          <Section title="pAI Control" style={{ fontSize: '12px' }}>
-            <Stack>
-              <Stack.Item grow>
-                <Button
-                  fluid
-                  icon="cog"
-                  onClick={() => act('pai', { option: 1 })}
-                >
-                  Configuration
-                </Button>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Button
-                  fluid
-                  icon="eject"
-                  onClick={() => act('pai', { option: 2 })}
-                  color="bad"
-                >
-                  Eject
-                </Button>
-              </Stack.Item>
-            </Stack>
-          </Section>
-        </Stack.Item>
+        ))
       )}
-    </Stack>
+    </Box>
   );
 };

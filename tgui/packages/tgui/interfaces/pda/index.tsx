@@ -1,13 +1,12 @@
 import { useBackend } from '../../backend';
-import { Button, Box, Section, Stack, Icon } from '../../components';
+import { Button, Box, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
-
 import { routingError } from '../../routes';
 
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
-  'pda_bank': 'raingor_company',
+  pda_bank: 'raingor_company',
 };
 
 const GetApp = (name) => {
@@ -24,10 +23,12 @@ const GetApp = (name) => {
     }
     throw err;
   }
+
   const Component = appModule[name];
   if (!Component) {
     return routingError('missingExport', name);
   }
+
   return Component;
 };
 
@@ -49,13 +50,14 @@ type App = {
   template: string;
 };
 
-export const PDA = (_props: unknown) => {
+export const PDA = () => {
   const { data } = useBackend<PDAData>();
   const { app, owner } = data;
+
   if (!owner) {
     return (
       <Window width={350} height={105}>
-        <Window.Content scrollable>
+        <Window.Content>
           <Section title="Error">
             No user data found. Please swipe an ID card.
           </Section>
@@ -64,43 +66,42 @@ export const PDA = (_props: unknown) => {
     );
   }
 
-  const App = GetApp(app.template);
+  const AppComponent = GetApp(app.template);
   const theme = THEME_MAP[app.template] || 'nanotrasen';
 
   return (
-    <Window width={600} height={850} theme={theme}>
-      <Window.Content>
-        <Stack fill vertical>
-          <Stack.Item>
-            <PDAHeader />
-          </Stack.Item>
-          <Stack.Item grow>
-            <Section
-              fill
-              scrollable
-              p={1}
-              pb={0}
-              title={
-                <Box>
-                  <Icon name={app.icon} mr={1} />
-                  {app.name}
-                </Box>
-              }
-            >
-              <App />
-            </Section>
-          </Stack.Item>
-          <Stack.Item mt={7.5}>
-            <PDAFooter />
-          </Stack.Item>
-        </Stack>
+    <Window width={580} height={820} theme={theme}>
+      <Window.Content style={{ padding: 0 }}>
+        <Box
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            background: '#0f1115',
+          }}
+        >
+          <PDAHeader />
+
+          <Box
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '10px',
+            }}
+          >
+            <AppComponent />
+          </Box>
+
+          <PDAFooter />
+        </Box>
       </Window.Content>
     </Window>
   );
 };
 
-const PDAHeader = (_props: unknown) => {
+const PDAHeader = () => {
   const { act, data } = useBackend<PDAData>();
+
   const {
     idInserted,
     idLink,
@@ -110,74 +111,105 @@ const PDAHeader = (_props: unknown) => {
   } = data;
 
   return (
-    <Stack fill>
-      <Stack.Item ml={0.5}>
-        <Button
-          icon="id-card"
-          color="transparent"
-          onClick={() => act('Authenticate')}
-        >
-          {idInserted ? idLink : 'No ID Inserted'}
-        </Button>
-      </Stack.Item>
-      <Stack.Item>
-        <Button icon="sd-card" color="transparent" onClick={() => act('Eject')}>
-          {cartridge_name
-            ? ['Eject ' + cartridge_name]
-            : 'No Cartridge Inserted'}
-        </Button>
-      </Stack.Item>
-      <Stack.Item>
-        <Button
-          icon="sd-card"
-          color="transparent"
-          onClick={() => act('Eject_Request')}
-        >
-          {request_cartridge_name
-            ? ['Eject ' + request_cartridge_name]
-            : 'No Request Cartridge Inserted'}
-        </Button>
-      </Stack.Item>
-      <Stack.Item grow textAlign="right" bold mr={1} mt={0.5}>
-        {stationTime}
-      </Stack.Item>
-    </Stack>
+    <Box
+      style={{
+        background: '#12151c',
+        borderBottom: '1px solid #222',
+      }}
+    >
+      <Box
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '4px 8px',
+          fontSize: '11px',
+          color: '#aaa',
+        }}
+      >
+        <Box>{stationTime}</Box>
+        <Box>📡 ███ 🔋</Box>
+      </Box>
+
+      <Box style={{ padding: '6px 8px' }}>
+        <Stack>
+          <Stack.Item grow>
+            <Button
+              icon="id-card"
+              color={idInserted ? 'good' : 'bad'}
+              onClick={() => act('Authenticate')}
+              style={{ fontSize: '11px' }}
+            >
+              {idInserted ? idLink : 'No ID'}
+            </Button>
+          </Stack.Item>
+
+          <Stack.Item>
+            <Button
+              icon="sd-card"
+              onClick={() => act('Eject')}
+              tooltip="Eject cartridge"
+              style={{ fontSize: '11px' }}
+            >
+              {cartridge_name || '—'}
+            </Button>
+          </Stack.Item>
+
+          {!!request_cartridge_name && (
+            <Stack.Item>
+              <Button
+                icon="sd-card"
+                onClick={() => act('Eject_Request')}
+                style={{ fontSize: '11px' }}
+              >
+                {request_cartridge_name}
+              </Button>
+            </Stack.Item>
+          )}
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 
-const PDAFooter = (_props: unknown) => {
+const PDAFooter = () => {
   const { act, data } = useBackend<PDAData>();
-
   const { app } = data;
 
   return (
-    <Box height="45px" className="PDA__footer" backgroundColor="#1b1b1b">
-      <Stack fill>
-        {!!app.has_back && (
-          <Stack.Item basis="33%" mr={-0.5}>
-            <Button
-              fluid
-              className="PDA__footer__button"
-              color="transparent"
-              iconColor={app.has_back ? 'white' : 'disabled'}
-              icon="arrow-alt-circle-left-o"
-              onClick={() => act('Back')}
-            />
-          </Stack.Item>
-        )}
-        <Stack.Item basis={app.has_back ? '33%' : '100%'}>
-          <Button
-            fluid
-            className="PDA__footer__button"
-            color="transparent"
-            iconColor={app.is_home ? 'disabled' : 'white'}
-            icon="home"
-            onClick={() => {
-              act('Home');
-            }}
-          />
-        </Stack.Item>
-      </Stack>
+    <Box
+      style={{
+        height: '56px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        background: '#12151c',
+        borderTop: '1px solid #222',
+      }}
+    >
+      <Button
+        icon="arrow-left"
+        disabled={!app.has_back}
+        onClick={() => {
+          if (app.has_back) {
+            act('Back');
+          } else {
+            act('Home');
+          }
+        }}
+        style={{ fontSize: '18px' }}
+      />
+
+      <Button
+        icon="circle"
+        onClick={() => act('Home')}
+        style={{ fontSize: '18px' }}
+      />
+
+      <Button
+        icon="times"
+        onClick={() => act('Close')}
+        style={{ fontSize: '18px' }}
+      />
     </Box>
   );
 };
