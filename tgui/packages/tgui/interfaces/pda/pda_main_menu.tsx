@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Section } from '../../components';
+import { Box, Button, Icon, Section } from '../../components';
 
 type MainMenuData = {
   owner: string;
@@ -17,18 +17,50 @@ type App = {
   icon: string;
 };
 
+const ICON_MAP: Record<string, string> = {
+  // 'crew-manifest': 'users',
+  // 'crew_manifest': 'users',
+  // 'crewmanifest': 'users',
+  // 'power-monitor': 'bolt',
+  // 'power_monitor': 'bolt',
+  // 'medical-records': 'heartbeat',
+  // 'medical_records': 'heartbeat',
+  // 'security-records': 'shield',
+  // 'security_records': 'shield',
+  // 'atmospheric-scan': 'cloud',
+  // 'atmospheric_scan': 'cloud',
+  // 'gas-scanner': 'cloud',
+  // 'reagent-scanner': 'flask',
+  // 'supply-records': 'cube',
+  // 'request-consoles': 'clipboard',
+  // 'request_consoles': 'clipboard',
+  // 'custodial-locator': 'trash',
+  // 'custodial_locator': 'trash',
+  // 'status-display': 'info',
+  // 'status_display': 'info',
+  // 'security-bot-access': 'robot',
+  // 'security_bot_access': 'robot',
+  // 'enable-flashlight': 'lightbulb',
+  // 'enable_gas_scanner': 'cloud',
+  // 'enable_med_scanner': 'heartbeat',
+  // 'enable_reagent_scanner': 'flask',
+};
+
 const AppIcon = ({ app, isNotifying, onClick }) => {
-  const iconName = (isNotifying ? app.notify_icon : app.icon) || 'cube';
+  const rawIconName = isNotifying ? app.notify_icon : app.icon;
+
+  const iconName = ICON_MAP[rawIconName] || rawIconName || 'cube';
 
   return (
-    <Box
+    <Button
+      color="transparent"
       onClick={onClick}
       style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         width: '64px',
-        cursor: 'pointer',
+        padding: '4px',
       }}
     >
       <Box
@@ -40,6 +72,7 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
           alignItems: 'center',
           justifyContent: 'center',
           background: '#1f2a3a',
+          marginBottom: '6px',
         }}
       >
         <i
@@ -55,50 +88,13 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
         style={{
           fontSize: '10px',
           color: '#ddd',
-          marginTop: '6px',
           textAlign: 'center',
+          lineHeight: '1.2',
         }}
       >
         {app.name}
       </Box>
-    </Box>
-  );
-};
-
-const CategoryGrid = ({
-  name,
-  apps,
-  notifying,
-  onStart,
-}: {
-  name: string;
-  apps: App[];
-  notifying: string[];
-  onStart: (uid: string) => void;
-}) => {
-  if (!apps?.length) return null;
-
-  return (
-    <Section title={name} mb={2}>
-      <Box
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)', // 🔥 максимум 5
-          gap: '12px 8px',
-          justifyItems: 'center',
-          padding: '10px 6px',
-        }}
-      >
-        {apps.map((app) => (
-          <AppIcon
-            key={app.uid}
-            app={app}
-            isNotifying={notifying.includes(app.uid)}
-            onClick={() => onStart(app.uid)}
-          />
-        ))}
-      </Box>
-    </Section>
+    </Button>
   );
 };
 

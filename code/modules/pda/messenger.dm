@@ -1,6 +1,6 @@
 /datum/data/pda/app/messenger
 	name = "Messenger"
-	icon = "comments-o"
+	icon = "comments"
 	notify_icon = "comments"
 	title = "SpaceMessenger V4.1.0"
 	template = "pda_messenger"

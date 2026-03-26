@@ -49,7 +49,7 @@
 
 /datum/data/pda/app/notekeeper
 	name = "Notekeeper"
-	icon = "sticky-note-o"
+	icon = "sticky-note"
 	template = "pda_notes"
 
 	var/note

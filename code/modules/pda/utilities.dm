@@ -1,6 +1,6 @@
 /datum/data/pda/utility/flashlight
 	name = "Enable Flashlight"
-	icon = "lightbulb-o"
+	icon = "lightbulb"
 	/// Is the flashlight function on?
 	var/fon = FALSE
 
@@ -15,7 +15,7 @@
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
-	icon = "smile-o"
+	icon = "smile"
 	category = "Clown"
 
 	var/last_honk //Also no honk spamming that's bad too
@@ -42,7 +42,7 @@
 
 /datum/data/pda/utility/scanmode/medical
 	base_name = "Med Scanner"
-	icon = "heart-o"
+	icon = "heart"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."), span_notice("You analyze [M]'s vitals."))

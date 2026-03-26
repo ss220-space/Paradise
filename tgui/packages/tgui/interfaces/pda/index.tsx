@@ -70,7 +70,7 @@ export const PDA = () => {
   const theme = THEME_MAP[app.template] || 'nanotrasen';
 
   return (
-    <Window width={600} height={820} theme={theme}>
+    <Window width={650} height={850} theme={theme}>
       <Window.Content style={{ padding: 0 }}>
         <Box
           style={{
@@ -111,7 +111,6 @@ const PDAHeader = () => {
 
   return (
     <Box style={{ background: '#151821', borderBottom: '1px solid #222' }}>
-      {/* 🔥 STATUS BAR */}
       <Box
         px={2}
         py={0.5}
@@ -125,9 +124,7 @@ const PDAHeader = () => {
           background: 'linear-gradient(180deg, #1a1f2b 0%, #151821 100%)',
         }}
       >
-        {/* Левая сторона: 🔑 VPN + 📶 Сеть */}
         <Box style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {/* 🔑 Ключ (VPN рофл) */}
           <Box
             style={{
               display: 'flex',
@@ -147,23 +144,18 @@ const PDAHeader = () => {
             </Box>
           </Box>
 
-          {/* 📶 Иконка сети */}
           <Icon name="wifi" style={{ color: '#4a9eff', fontSize: '11px' }} />
         </Box>
 
-        {/* Центр: Время */}
         <Box bold style={{ color: '#888', fontSize: '11px' }}>
           {stationTime}
         </Box>
 
-        {/* Правая сторона: 🔋 Процент + Батарейка */}
         <Box style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          {/* Процент заряда */}
           <Box bold style={{ color: '#4a9eff', fontSize: '10px' }}>
             87%
           </Box>
 
-          {/* Иконка батареи */}
           <Box
             style={{
               display: 'flex',
@@ -174,7 +166,6 @@ const PDAHeader = () => {
               borderRadius: '3px',
             }}
           >
-            {/* Корпус батареи */}
             <Box
               style={{
                 width: '20px',
@@ -185,7 +176,6 @@ const PDAHeader = () => {
                 padding: '1px',
               }}
             >
-              {/* Заполнение (уровень заряда) */}
               <Box
                 style={{
                   width: '16px',
@@ -195,7 +185,6 @@ const PDAHeader = () => {
                 }}
               />
             </Box>
-            {/* Коннектор батареи */}
             <Box
               style={{
                 width: '2px',
@@ -278,7 +267,7 @@ const PDAFooter = () => {
           if (app.has_back) {
             act('Back');
           } else {
-            act('Home'); // 🔥 fallback
+            act('Home');
           }
         }}
       />
