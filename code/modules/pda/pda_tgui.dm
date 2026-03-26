@@ -58,6 +58,8 @@
 		"template" = current_app.template,
 		"has_back" = current_app.has_back)
 
+	data["current_theme"] = current_theme || "nanotrasen"
+
 	current_app.update_ui(user, data)
 
 	return data
@@ -128,6 +130,39 @@
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			return set_ringtone(ui.user)
+		if("CycleTheme")
+			var/list/themes = list(
+				"nanotrasen",
+				"ntos_darkmode",
+				"ntos_roboblue",
+
+				"ntos_cat",
+				"ntos_roboquest",
+				"ntos_spooky",
+				"ntos_synth",
+				"ntos_terminal",
+				"ntOS95",
+
+				"abductor",
+				"admin",
+				"cargo",
+				"changeling",
+				"clockwork",
+				"hackerman",
+				"honker",
+				"infernal",
+				"malfunction",
+				"safe",
+				"spider_clan",
+			)
+			var/current_index = themes.Find(current_theme)
+			if(!current_index || current_index >= themes.len)
+				current_index = 1
+			else
+				current_index++
+			current_theme = themes[current_index]
+			ui_interact(ui.user)
+			return TRUE
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

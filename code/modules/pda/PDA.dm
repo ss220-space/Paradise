@@ -114,6 +114,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	/// Current PDA painting applied by /obj/machinery/pdapainter.
 	/// Saved in and associatove list format: "icon" -> icon_state/item_state, "base64" - > base64icon, "desc" -> desc
 	var/list/current_painting
+	var/current_theme = "nanotrasen"
 
 /obj/item/pda/emag_act(mob/user)
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)

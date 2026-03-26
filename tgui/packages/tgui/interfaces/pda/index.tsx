@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Button, Box, Section, Stack, Icon } from '../../components';
+import { Box, Button, Section, Icon } from '../../components';
 import { Window } from '../../layouts';
 import { routingError } from '../../routes';
 
@@ -8,6 +8,14 @@ const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 const THEME_MAP: Record<string, string> = {
   pda_bank: 'raingor_company',
 };
+
+// Список тем для переключения
+const CYCLE_THEMES = [
+  'nanotrasen',
+  'ntos_darkmode',
+  'ntos_lightmode',
+  'ntos_roboblue',
+];
 
 const GetApp = (name) => {
   if (name === 'index') {
@@ -40,6 +48,7 @@ type PDAData = {
   stationTime: string;
   cartridge_name: string;
   request_cartridge_name: string;
+  current_theme: string;
 };
 
 type App = {
@@ -51,7 +60,7 @@ type App = {
 };
 
 export const PDA = () => {
-  const { data } = useBackend<PDAData>();
+  const { data, act } = useBackend<PDAData>();
   const { app, owner } = data;
 
   if (!owner) {
@@ -59,7 +68,7 @@ export const PDA = () => {
       <Window width={350} height={105}>
         <Window.Content>
           <Section title="Ошибка">
-            Не найден пользователь. Пожайлуста обновите данные через ID карту.
+            Не найден пользователь. Пожалуйста, обновите данные через ID-карту.
           </Section>
         </Window.Content>
       </Window>
@@ -67,30 +76,23 @@ export const PDA = () => {
   }
 
   const AppComponent = GetApp(app.template);
-  const theme = THEME_MAP[app.template] || 'nanotrasen';
+
+  const theme = THEME_MAP[app.template] || data.current_theme || 'nanotrasen';
 
   return (
-    <Window width={650} height={850} theme={theme}>
+    <Window width={600} height={820} theme={theme}>
       <Window.Content style={{ padding: 0 }}>
         <Box
           style={{
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            background: '#0f1115',
           }}
         >
           <PDAHeader />
-          <Box
-            style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '10px',
-            }}
-          >
+          <Box style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
             <AppComponent />
           </Box>
-
           <PDAFooter />
         </Box>
       </Window.Content>
@@ -107,10 +109,19 @@ const PDAHeader = () => {
     stationTime,
     cartridge_name,
     request_cartridge_name,
+    current_theme,
   } = data;
 
+  const themeNames: Record<string, string> = {
+    'nanotrasen': 'NT Classic',
+    'ntos_darkmode': 'Dark Mode',
+    'ntos_lightmode': 'Light Mode',
+    'ntos_roboblue': 'RoboBlue',
+  };
+
   return (
-    <Box style={{ background: '#151821', borderBottom: '1px solid #222' }}>
+    <Box style={{ marginBottom: '0', padding: '0' }}>
+      {/* STATUS BAR */}
       <Box
         px={2}
         py={0.5}
@@ -119,11 +130,11 @@ const PDAHeader = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: '10px',
-          color: '#666',
-          borderBottom: '1px solid #1a1f2b',
-          background: 'linear-gradient(180deg, #1a1f2b 0%, #151821 100%)',
+          padding: '4px 8px',
+          borderBottom: '1px solid var(--color-border)',
         }}
       >
+        {/* 🔑 VPN + 📶 */}
         <Box style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Box
             style={{
@@ -143,19 +154,19 @@ const PDAHeader = () => {
               VPN
             </Box>
           </Box>
-
           <Icon name="wifi" style={{ color: '#4a9eff', fontSize: '11px' }} />
         </Box>
 
+        {/* 🕐 */}
         <Box bold style={{ color: '#888', fontSize: '11px' }}>
           {stationTime}
         </Box>
 
+        {/* 🔋  */}
         <Box style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           <Box bold style={{ color: '#4a9eff', fontSize: '10px' }}>
             87%
           </Box>
-
           <Box
             style={{
               display: 'flex',
@@ -172,7 +183,6 @@ const PDAHeader = () => {
                 height: '9px',
                 border: '1px solid #4a9eff',
                 borderRadius: '2px',
-                position: 'relative',
                 padding: '1px',
               }}
             >
@@ -197,11 +207,18 @@ const PDAHeader = () => {
         </Box>
       </Box>
 
+      {/* MAIN HEADER */}
       <Box
         px={2}
         py={1.5}
-        style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '8px',
+        }}
       >
+        {/* ID Card */}
         <Button
           icon={idInserted ? 'id-card' : 'id-card-o'}
           color={idInserted ? 'good' : 'bad'}
@@ -211,11 +228,13 @@ const PDAHeader = () => {
           {idInserted ? idLink : 'No ID'}
         </Button>
 
+        {/* App Icon + Name */}
         <Icon name={app?.icon || 'cube'} mr={1} style={{ color: '#6496c8' }} />
         <Box bold style={{ flexGrow: 1, fontSize: '13px', color: '#ddd' }}>
           {app?.name || 'PDA'}
         </Box>
 
+        {/* Cartridges */}
         {cartridge_name ? (
           <Button
             icon="sd-card"
@@ -246,42 +265,84 @@ const PDAHeader = () => {
 
 const PDAFooter = () => {
   const { act, data } = useBackend<PDAData>();
-  const { app } = data;
+  const { app, current_theme } = data;
+  const themeNames: Record<string, string> = {
+    'nanotrasen': 'NT Classic',
+    'ntos_darkmode': 'Dark Mode',
+    'ntos_roboblue': 'RoboBlue',
 
+    'ntos_cat': 'NT Cat',
+    'ntos_roboquest': 'RoboQuest',
+    'ntos_spooky': 'Spooky',
+    'ntos_synth': 'Synth',
+    'ntos_terminal': 'Terminal',
+    'ntOS95': 'NT OS 95',
+
+    'abductor': 'Abductor',
+    'admin': 'Admin',
+    'cargo': 'Cargo',
+    'changeling': 'Changeling',
+    'clockwork': 'Clockwork',
+    'hackerman': 'Hacker',
+    'honker': 'Honker',
+    'infernal': 'Infernal',
+    'malfunction': 'Malfunction',
+    'safe': 'Safe',
+    'spider_clan': 'Spider Clan',
+  };
   return (
     <Box
       style={{
+        height: '56px',
         display: 'flex',
         justifyContent: 'space-around',
-        padding: '10px 0',
+        alignItems: 'center',
         background: '#151821',
         borderTop: '1px solid #222',
       }}
     >
       {/* BACK */}
       <Button
-        color="transparent"
         icon="arrow-left"
-        iconColor={app.has_back ? 'white' : '#555'}
+        color="transparent"
+        style={{
+          opacity: app.has_back ? 1 : 0.4,
+          pointerEvents: app.has_back ? 'auto' : 'none',
+        }}
         onClick={() => {
           if (app.has_back) {
             act('Back');
           } else {
-            act('Home');
+            act('Home'); // fallback
           }
         }}
-      />
+      >
+        Back
+      </Button>
 
       {/* HOME */}
       <Button
-        color="transparent"
         icon="home"
-        iconColor={app.is_home ? '#555' : 'white'}
+        color="transparent"
+        style={{
+          opacity: app.is_home ? 0.4 : 1,
+          pointerEvents: app.is_home ? 'none' : 'auto',
+        }}
         onClick={() => act('Home')}
-      />
+      >
+        Home
+      </Button>
 
-      {/* CLOSE */}
-      <Button color="transparent" icon="times" onClick={() => act('Close')} />
+      {/* THEME */}
+      <Button
+        icon="palette"
+        color="transparent"
+        onClick={() => act('CycleTheme')}
+        tooltip={`Тема: ${themeNames[current_theme] || current_theme}`}
+        style={{ fontSize: '10px', padding: '4px 8px' }}
+      >
+        {themeNames[current_theme] || current_theme}
+      </Button>
     </Box>
   );
 };

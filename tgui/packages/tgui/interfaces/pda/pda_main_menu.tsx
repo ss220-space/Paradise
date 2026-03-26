@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, Icon, Section } from '../../components';
+import { Box, Button } from '../../components';
 
 type MainMenuData = {
   owner: string;
@@ -41,7 +41,6 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#1f2a3a',
           marginBottom: '6px',
         }}
       >
@@ -80,7 +79,6 @@ export const pda_main_menu = () => {
         style={{
           marginBottom: '10px',
           padding: '10px',
-          background: '#1a1f2b',
           borderRadius: '10px',
         }}
       >
@@ -89,7 +87,7 @@ export const pda_main_menu = () => {
         <Button
           fluid
           icon="sync"
-          color={idInserted ? 'good' : 'disabled'}
+          color={idInserted ? 'average' : 'disabled'}
           disabled={!idInserted}
           onClick={() => act('UpdateInfo')}
           tooltip={idInserted ? 'Обновить данные из ID' : 'Вставьте ID карту'}
