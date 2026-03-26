@@ -147,6 +147,9 @@ GLOBAL_VAR(current_date_string)
 				detailed_account_view.set_suspended(!detailed_account_view.suspended)
 
 		if("create_new_account")
+			if(GLOB.station_account.suspended)
+				to_chat(usr, span_warning("Ошибка: счет станции был заморожен."))
+				return
 			current_page = AUT_ACCNEW
 
 		if("finalise_create_account")
