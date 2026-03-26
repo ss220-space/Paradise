@@ -17,39 +17,9 @@ type App = {
   icon: string;
 };
 
-const ICON_MAP: Record<string, string> = {
-  // 'crew-manifest': 'users',
-  // 'crew_manifest': 'users',
-  // 'crewmanifest': 'users',
-  // 'power-monitor': 'bolt',
-  // 'power_monitor': 'bolt',
-  // 'medical-records': 'heartbeat',
-  // 'medical_records': 'heartbeat',
-  // 'security-records': 'shield',
-  // 'security_records': 'shield',
-  // 'atmospheric-scan': 'cloud',
-  // 'atmospheric_scan': 'cloud',
-  // 'gas-scanner': 'cloud',
-  // 'reagent-scanner': 'flask',
-  // 'supply-records': 'cube',
-  // 'request-consoles': 'clipboard',
-  // 'request_consoles': 'clipboard',
-  // 'custodial-locator': 'trash',
-  // 'custodial_locator': 'trash',
-  // 'status-display': 'info',
-  // 'status_display': 'info',
-  // 'security-bot-access': 'robot',
-  // 'security_bot_access': 'robot',
-  // 'enable-flashlight': 'lightbulb',
-  // 'enable_gas_scanner': 'cloud',
-  // 'enable_med_scanner': 'heartbeat',
-  // 'enable_reagent_scanner': 'flask',
-};
-
 const AppIcon = ({ app, isNotifying, onClick }) => {
   const rawIconName = isNotifying ? app.notify_icon : app.icon;
-
-  const iconName = ICON_MAP[rawIconName] || rawIconName || 'cube';
+  const iconName = rawIconName || 'cube';
 
   return (
     <Button
