@@ -9,14 +9,6 @@ const THEME_MAP: Record<string, string> = {
   pda_bank: 'raingor_company',
 };
 
-// Список тем для переключения
-const CYCLE_THEMES = [
-  'nanotrasen',
-  'ntos_darkmode',
-  'ntos_lightmode',
-  'ntos_roboblue',
-];
-
 const GetApp = (name) => {
   if (name === 'index') {
     return routingError('notFound', name);
@@ -109,15 +101,7 @@ const PDAHeader = () => {
     stationTime,
     cartridge_name,
     request_cartridge_name,
-    current_theme,
   } = data;
-
-  const themeNames: Record<string, string> = {
-    'nanotrasen': 'NT Classic',
-    'ntos_darkmode': 'Dark Mode',
-    'ntos_lightmode': 'Light Mode',
-    'ntos_roboblue': 'RoboBlue',
-  };
 
   return (
     <Box style={{ marginBottom: '0', padding: '0' }}>
