@@ -97,17 +97,17 @@
 
 /datum/data/pda/utility/scanmode/New(obj/item/cartridge/C)
 	..(C)
-	name = "Включить [base_name]"
+	name = "вкл [base_name]"
 
 /datum/data/pda/utility/scanmode/start()
 	if(pda.scanmode)
-		pda.scanmode.name = "Включить [pda.scanmode.base_name]"
+		pda.scanmode.name = "вкл [pda.scanmode.base_name]"
 
 	if(pda.scanmode == src)
 		pda.scanmode = null
 	else
 		pda.scanmode = src
-		name = "Выключить [base_name]"
+		name = "выкл [base_name]"
 
 	pda.update_shortcuts()
 	return TRUE
