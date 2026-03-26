@@ -104,11 +104,12 @@ const CategoryGrid = ({
 
 export const pda_main_menu = () => {
   const { act, data } = useBackend<MainMenuData>();
-  const { owner, ownjob, categories, notifying, apps } = data;
+  const { owner, ownjob, notifying, apps } = data;
+
+  const allApps: App[] = Object.values(apps || {}).flat();
 
   return (
     <Box style={{ padding: '10px' }}>
-      {/* USER */}
       <Box
         style={{
           marginBottom: '10px',
@@ -121,22 +122,23 @@ export const pda_main_menu = () => {
         <Box style={{ fontSize: '11px', color: '#888' }}>{ownjob}</Box>
       </Box>
 
-      {/* APPS */}
-      {categories.length === 0 ? (
-        <Box style={{ textAlign: 'center', color: '#666', padding: '40px' }}>
-          No apps
-        </Box>
-      ) : (
-        categories.map((cat) => (
-          <CategoryGrid
-            key={cat}
-            name={cat}
-            apps={apps[cat]}
-            notifying={notifying}
-            onStart={(uid) => act('StartProgram', { program: uid })}
+      <Box
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: '12px 8px',
+          justifyItems: 'center',
+        }}
+      >
+        {allApps.map((app) => (
+          <AppIcon
+            key={app.uid}
+            app={app}
+            isNotifying={notifying.includes(app.uid)}
+            onClick={() => act('StartProgram', { program: app.uid })}
           />
-        ))
-      )}
+        ))}
+      </Box>
     </Box>
   );
 };

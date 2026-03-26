@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Button, Box, Section, Stack } from '../../components';
+import { Button, Box, Section, Stack, Icon } from '../../components';
 import { Window } from '../../layouts';
 import { routingError } from '../../routes';
 
@@ -80,8 +80,7 @@ export const PDA = () => {
             background: '#0f1115',
           }}
         >
-          <PDAHeader />
-
+          <PDAHeader app={AppComponent} />
           <Box
             style={{
               flex: 1,
@@ -99,29 +98,25 @@ export const PDA = () => {
   );
 };
 
-const PDAHeader = () => {
+const PDAHeader = ({ app }) => {
   const { act, data } = useBackend<PDAData>();
 
-  const {
-    idInserted,
-    idLink,
-    stationTime,
-    cartridge_name,
-    request_cartridge_name,
-  } = data;
+  const { stationTime, cartridge_name, request_cartridge_name } = data;
 
   return (
     <Box
       style={{
-        background: '#12151c',
+        background: '#151821',
         borderBottom: '1px solid #222',
       }}
     >
+      {/* 🔥 STATUS BAR */}
       <Box
+        px={2}
+        py={0.5}
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          padding: '4px 8px',
           fontSize: '11px',
           color: '#aaa',
         }}
@@ -130,42 +125,48 @@ const PDAHeader = () => {
         <Box>📡 ███ 🔋</Box>
       </Box>
 
-      <Box style={{ padding: '6px 8px' }}>
-        <Stack>
-          <Stack.Item grow>
-            <Button
-              icon="id-card"
-              color={idInserted ? 'good' : 'bad'}
-              onClick={() => act('Authenticate')}
-              style={{ fontSize: '11px' }}
-            >
-              {idInserted ? idLink : 'No ID'}
-            </Button>
-          </Stack.Item>
+      {/* 🔥 MAIN HEADER */}
+      <Box
+        px={2}
+        py={1.5}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+      >
+        {app.has_back && (
+          <Button
+            icon="arrow-left"
+            color="transparent"
+            onClick={() => act('Back')}
+          />
+        )}
 
-          <Stack.Item>
-            <Button
-              icon="sd-card"
-              onClick={() => act('Eject')}
-              tooltip="Eject cartridge"
-              style={{ fontSize: '11px' }}
-            >
-              {cartridge_name || '—'}
-            </Button>
-          </Stack.Item>
+        <Icon name={app.icon} />
 
-          {!!request_cartridge_name && (
-            <Stack.Item>
-              <Button
-                icon="sd-card"
-                onClick={() => act('Eject_Request')}
-                style={{ fontSize: '11px' }}
-              >
-                {request_cartridge_name}
-              </Button>
-            </Stack.Item>
-          )}
-        </Stack>
+        <Box bold style={{ flexGrow: 1 }}>
+          {app.name}
+        </Box>
+
+        {/* 🔥 CARTRIDGES */}
+        {!!cartridge_name && (
+          <Button
+            icon="sd-card"
+            color="transparent"
+            tooltip="Eject cartridge"
+            onClick={() => act('Eject')}
+          />
+        )}
+
+        {!!request_cartridge_name && (
+          <Button
+            icon="sd-card"
+            color="transparent"
+            tooltip="Eject request cartridge"
+            onClick={() => act('Eject_Request')}
+          />
+        )}
       </Box>
     </Box>
   );
@@ -178,38 +179,37 @@ const PDAFooter = () => {
   return (
     <Box
       style={{
-        height: '56px',
         display: 'flex',
         justifyContent: 'space-around',
-        alignItems: 'center',
-        background: '#12151c',
+        padding: '10px 0',
+        background: '#151821',
         borderTop: '1px solid #222',
       }}
     >
+      {/* BACK */}
       <Button
+        color="transparent"
         icon="arrow-left"
-        disabled={!app.has_back}
+        iconColor={app.has_back ? 'white' : '#555'}
         onClick={() => {
           if (app.has_back) {
             act('Back');
           } else {
-            act('Home');
+            act('Home'); // 🔥 fallback
           }
         }}
-        style={{ fontSize: '18px' }}
       />
 
+      {/* HOME */}
       <Button
-        icon="circle"
+        color="transparent"
+        icon="home"
+        iconColor={app.is_home ? '#555' : 'white'}
         onClick={() => act('Home')}
-        style={{ fontSize: '18px' }}
       />
 
-      <Button
-        icon="times"
-        onClick={() => act('Close')}
-        style={{ fontSize: '18px' }}
-      />
+      {/* CLOSE */}
+      <Button color="transparent" icon="times" onClick={() => act('Close')} />
     </Box>
   );
 };
