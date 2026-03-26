@@ -70,7 +70,7 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
 
 export const pda_main_menu = () => {
   const { act, data } = useBackend<MainMenuData>();
-  const { owner, ownjob, notifying, apps } = data;
+  const { owner, ownjob, idInserted, notifying, apps } = data;
 
   const allApps: App[] = Object.values(apps || {}).flat();
 
@@ -86,6 +86,20 @@ export const pda_main_menu = () => {
       >
         <Box bold>{owner}</Box>
         <Box style={{ fontSize: '11px', color: '#888' }}>{ownjob}</Box>
+        <Button
+          fluid
+          icon="sync"
+          color={idInserted ? 'good' : 'disabled'}
+          disabled={!idInserted}
+          onClick={() => act('UpdateInfo')}
+          tooltip={idInserted ? 'Обновить данные из ID' : 'Вставьте ID карту'}
+          style={{
+            padding: '6px 10px',
+            fontSize: '11px',
+          }}
+        >
+          Sync
+        </Button>
       </Box>
 
       <Box
