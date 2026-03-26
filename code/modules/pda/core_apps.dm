@@ -60,7 +60,7 @@
 		note = "Congratulations, your station has chosen the [pda.model_name]!"
 
 /datum/data/pda/app/notekeeper/update_ui(mob/user as mob, list/data)
-	data["note"] = html_decode(note)	// current pda notes
+	data["note"] = html_decode(note)	/// current pda notes
 
 /datum/data/pda/app/notekeeper/ui_act(action, params)
 	if(..())

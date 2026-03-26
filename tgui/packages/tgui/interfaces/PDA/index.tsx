@@ -1,13 +1,21 @@
-import { useBackend } from '../backend';
-import { Button, Box, Section, Stack, Icon } from '../components';
-import { Window } from '../layouts';
+import { useBackend } from '../../backend';
+import { Button, Box, Section, Stack, Icon } from '../../components';
+import { Window } from '../../layouts';
 
 /* This is all basically stolen from routes.js. */
-import { routingError } from '../routes';
+import { routingError } from '../../routes';
 
-const RequirePDAInterface = require.context('./pda', false, /\.tsx$/);
+const RequirePDAInterface = require.context('.', false, /\.tsx$/);
+
+const THEME_MAP: Record<string, string> = {
+  'pda_bank': 'raingor_company',
+};
 
 const GetApp = (name) => {
+  if (name === 'index') {
+    return routingError('notFound', name);
+  }
+
   let appModule;
   try {
     appModule = RequirePDAInterface(`./${name}.tsx`);
@@ -58,10 +66,11 @@ export const PDA = (_props: unknown) => {
   }
 
   const App = GetApp(app.template);
+  const theme = THEME_MAP[app.template] || 'nanotrasen';
 
   return (
-    <Window width={600} height={650}>
-      <Window.Content scrollable>
+    <Window width={600} height={850} theme={theme}>
+      <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
             <PDAHeader />

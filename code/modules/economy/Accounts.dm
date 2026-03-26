@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(active_salary_system)
 GLOBAL_VAR_INIT(next_account_number, 0)
 GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // this being an object hurts me deeply on the inside
 GLOBAL_DATUM(vendor_account, /datum/money_account)
-GLOBAL_LIST_EMPTY(all_money_accounts)
+GLOBAL_LIST_EMPTY(all_money_accounts) // list with money accounts
 GLOBAL_LIST_EMPTY(dna2account)
 
 GLOBAL_DATUM(CC_account, /datum/money_account)
@@ -166,6 +166,18 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		PM.notify(text, noti)
 		. = TRUE
 
+/datum/money_account/proc/set_suspended(suspended_actual_status)
+	suspended = suspended_actual_status
+	if(suspended)
+		SEND_SIGNAL(src, COMSIG_ACCOUNT_SUSPENDED)
+	else
+		SEND_SIGNAL(src, COMSIG_ACCOUNT_UNSUSPENDED)
+
+/datum/money_account/proc/set_money(changed_money)
+	var/transaction_amount = abs(changed_money - money)
+	money = changed_money
+	SEND_SIGNAL(src, COMSIG_ACCOUNT_MONEY_CHANGED, money, transaction_amount)
+
 /datum/transaction
 	var/target_name = ""
 	var/purpose = ""
@@ -174,6 +186,18 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	var/time = ""
 	var/source_terminal = ""
 
+/datum/transaction/proc/get_ui_data()
+	return list(
+		"date" = date,
+		"time" = time,
+		"target_name" = target_name,
+		"purpose" = purpose,
+		"amount" = amount,
+		"source_terminal" = source_terminal
+	)
+
+// attempt_account_number - Recipient account
+// datum/money_account/source - Sender account
 /obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)
 	if(!activated)
 		return 0
