@@ -58,8 +58,8 @@ export const PDA = () => {
     return (
       <Window width={350} height={105}>
         <Window.Content>
-          <Section title="Error">
-            No user data found. Please swipe an ID card.
+          <Section title="Ошибка">
+            Не найден пользователь. Пожайлуста обновите данные через ID карту.
           </Section>
         </Window.Content>
       </Window>
@@ -70,7 +70,7 @@ export const PDA = () => {
   const theme = THEME_MAP[app.template] || 'nanotrasen';
 
   return (
-    <Window width={580} height={820} theme={theme}>
+    <Window width={600} height={820} theme={theme}>
       <Window.Content style={{ padding: 0 }}>
         <Box
           style={{
@@ -80,7 +80,7 @@ export const PDA = () => {
             background: '#0f1115',
           }}
         >
-          <PDAHeader app={AppComponent} />
+          <PDAHeader />
           <Box
             style={{
               flex: 1,
@@ -98,18 +98,19 @@ export const PDA = () => {
   );
 };
 
-const PDAHeader = ({ app }) => {
+const PDAHeader = () => {
   const { act, data } = useBackend<PDAData>();
-
-  const { stationTime, cartridge_name, request_cartridge_name } = data;
+  const {
+    app,
+    idInserted,
+    idLink,
+    stationTime,
+    cartridge_name,
+    request_cartridge_name,
+  } = data;
 
   return (
-    <Box
-      style={{
-        background: '#151821',
-        borderBottom: '1px solid #222',
-      }}
-    >
+    <Box style={{ background: '#151821', borderBottom: '1px solid #222' }}>
       {/* 🔥 STATUS BAR */}
       <Box
         px={2}
@@ -117,56 +118,138 @@ const PDAHeader = ({ app }) => {
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          fontSize: '11px',
-          color: '#aaa',
+          alignItems: 'center',
+          fontSize: '10px',
+          color: '#666',
+          borderBottom: '1px solid #1a1f2b',
+          background: 'linear-gradient(180deg, #1a1f2b 0%, #151821 100%)',
         }}
       >
-        <Box>{stationTime}</Box>
-        <Box>📡 ███ 🔋</Box>
+        {/* Левая сторона: 🔑 VPN + 📶 Сеть */}
+        <Box style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* 🔑 Ключ (VPN рофл) */}
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '3px',
+              padding: '1px 5px',
+              background: 'rgba(74, 158, 255, 0.1)',
+              borderRadius: '3px',
+              border: '1px solid rgba(74, 158, 255, 0.3)',
+            }}
+          >
+            <Icon name="key" style={{ color: '#4a9eff', fontSize: '10px' }} />
+            <Box
+              style={{ color: '#4a9eff', fontSize: '8px', fontWeight: 'bold' }}
+            >
+              VPN
+            </Box>
+          </Box>
+
+          {/* 📶 Иконка сети */}
+          <Icon name="wifi" style={{ color: '#4a9eff', fontSize: '11px' }} />
+        </Box>
+
+        {/* Центр: Время */}
+        <Box bold style={{ color: '#888', fontSize: '11px' }}>
+          {stationTime}
+        </Box>
+
+        {/* Правая сторона: 🔋 Процент + Батарейка */}
+        <Box style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          {/* Процент заряда */}
+          <Box bold style={{ color: '#4a9eff', fontSize: '10px' }}>
+            87%
+          </Box>
+
+          {/* Иконка батареи */}
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '2px',
+              padding: '1px 3px',
+              background: 'rgba(0,0,0,0.3)',
+              borderRadius: '3px',
+            }}
+          >
+            {/* Корпус батареи */}
+            <Box
+              style={{
+                width: '20px',
+                height: '9px',
+                border: '1px solid #4a9eff',
+                borderRadius: '2px',
+                position: 'relative',
+                padding: '1px',
+              }}
+            >
+              {/* Заполнение (уровень заряда) */}
+              <Box
+                style={{
+                  width: '16px',
+                  height: '7px',
+                  background: 'linear-gradient(90deg, #4a9eff 0%, #5af 100%)',
+                  borderRadius: '1px',
+                }}
+              />
+            </Box>
+            {/* Коннектор батареи */}
+            <Box
+              style={{
+                width: '2px',
+                height: '4px',
+                background: '#4a9eff',
+                borderRadius: '0 1px 1px 0',
+              }}
+            />
+          </Box>
+        </Box>
       </Box>
 
-      {/* 🔥 MAIN HEADER */}
       <Box
         px={2}
         py={1.5}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}
+        style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
       >
-        {app.has_back && (
-          <Button
-            icon="arrow-left"
-            color="transparent"
-            onClick={() => act('Back')}
-          />
-        )}
+        <Button
+          icon={idInserted ? 'id-card' : 'id-card-o'}
+          color={idInserted ? 'good' : 'bad'}
+          onClick={() => act('Authenticate')}
+          style={{ padding: '4px 8px', fontSize: '10px' }}
+        >
+          {idInserted ? idLink : 'No ID'}
+        </Button>
 
-        <Icon name={app.icon} />
-
-        <Box bold style={{ flexGrow: 1 }}>
-          {app.name}
+        <Icon name={app?.icon || 'cube'} mr={1} style={{ color: '#6496c8' }} />
+        <Box bold style={{ flexGrow: 1, fontSize: '13px', color: '#ddd' }}>
+          {app?.name || 'PDA'}
         </Box>
 
-        {/* 🔥 CARTRIDGES */}
-        {!!cartridge_name && (
+        {cartridge_name ? (
           <Button
             icon="sd-card"
             color="transparent"
-            tooltip="Eject cartridge"
+            tooltip={`Eject: ${cartridge_name}`}
             onClick={() => act('Eject')}
-          />
-        )}
+            style={{ fontSize: '9px', color: '#888' }}
+          >
+            {cartridge_name}
+          </Button>
+        ) : null}
 
-        {!!request_cartridge_name && (
+        {request_cartridge_name ? (
           <Button
             icon="sd-card"
             color="transparent"
-            tooltip="Eject request cartridge"
+            tooltip={`Eject: ${request_cartridge_name}`}
             onClick={() => act('Eject_Request')}
-          />
-        )}
+            style={{ fontSize: '9px', color: '#888' }}
+          >
+            {request_cartridge_name}
+          </Button>
+        ) : null}
       </Box>
     </Box>
   );
