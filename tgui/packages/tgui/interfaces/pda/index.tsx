@@ -80,7 +80,7 @@ export const PDA = () => {
   const theme = THEME_MAP[app.template] || data.current_theme || 'nanotrasen';
 
   return (
-    <Window width={600} height={820} theme={theme}>
+    <Window width={750} height={950} theme={theme}>
       <Window.Content style={{ padding: 0 }}>
         <Box
           style={{
@@ -276,7 +276,6 @@ const PDAFooter = () => {
     'ntos_spooky': 'Spooky',
     'ntos_synth': 'Synth',
     'ntos_terminal': 'Terminal',
-    'ntOS95': 'NT OS 95',
 
     'abductor': 'Abductor',
     'admin': 'Admin',

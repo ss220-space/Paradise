@@ -141,7 +141,6 @@
 				"ntos_spooky",
 				"ntos_synth",
 				"ntos_terminal",
-				"ntOS95",
 
 				"abductor",
 				"admin",

@@ -82,8 +82,6 @@ export const pda_main_menu = () => {
           borderRadius: '10px',
         }}
       >
-        <Box bold>{owner}</Box>
-        <Box style={{ fontSize: '11px', color: '#888' }}>{ownjob}</Box>
         <Button
           fluid
           icon="sync"
