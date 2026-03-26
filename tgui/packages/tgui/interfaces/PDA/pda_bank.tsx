@@ -325,7 +325,7 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
             Операции отсутствуют
           </Box>
         ) : (
-          transactions.map((t, i) => (
+          [...transactions].reverse().map((t, i) => (
             <Section
               key={i}
               title={`${t.date} ${t.time}`}
@@ -336,11 +336,11 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
               }}
             >
               <LabeledList>
-                <LabeledList.Item label="Назначение" className="text-white">
-                  {t.purpose}
-                </LabeledList.Item>
                 <LabeledList.Item label="Контрагент" className="text-white">
                   {t.target_name}
+                </LabeledList.Item>
+                <LabeledList.Item label="Назначение" className="text-white">
+                  {t.purpose}
                 </LabeledList.Item>
                 <LabeledList.Item label="Терминал" className="text-white">
                   {t.source_terminal}
@@ -524,6 +524,7 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
 const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
   const { subscriptions, availableSubs } = data;
   const { act } = useBackend();
+  const [loading, setLoading] = useState(false);
 
   return (
     <Box>
@@ -576,7 +577,9 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                 <Button
                   fluid
                   className="btn-bank"
+                  disabled={loading}
                   onClick={() => {
+                    setLoading(true);
                     act('add_subscription', {
                       available_subscription_name:
                         e.available_subscription_name,
