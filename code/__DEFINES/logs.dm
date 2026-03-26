@@ -12,7 +12,7 @@
 
 #define ALL_LOGS list(ATTACK_LOG, DEFENSE_LOG, CONVERSION_LOG, SAY_LOG, EMOTE_LOG, GAME_LOG, DEADCHAT_LOG, OOC_LOG, LOOC_LOG, MISC_LOG)
 
-//Investigate logging defines
+// Investigate logging defines
 #define INVESTIGATE_ACCESSCHANGES "id_card_changes"
 #define INVESTIGATE_ATMOS "atmos"
 #define INVESTIGATE_BOMB "bombs"
@@ -24,13 +24,14 @@
 #define INVESTIGATE_EXPERIMENTOR "experimentor"
 #define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HALLUCINATIONS "hallucinations"
-#define INVESTIGATE_TELEPORTATION "teleportation"
+#define INVESTIGATE_PRESENTS "presents"
+#define INVESTIGATE_RADIATION "radiation"
 #define INVESTIGATE_RECORDS "records"
 #define INVESTIGATE_RENAME "renames"
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_SYNDIE_CARGO "syndicate_cargo"
+#define INVESTIGATE_TELEPORTATION "teleportation"
 #define INVESTIGATE_WIRES "wires"
-#define INVESTIGATE_PRESENTS "presents"
 
 //This is an external call, "true" and "false" are how rust parses out booleans
 #define WRITE_LOG(log, text) rustg_log_write(log, text, "true")

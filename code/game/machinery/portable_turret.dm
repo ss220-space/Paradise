@@ -19,7 +19,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 

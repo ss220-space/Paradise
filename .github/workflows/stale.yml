@@ -33,19 +33,14 @@ jobs:
           exempt-pr-labels: "🛑 Не закрывать"
           operations-per-run: 300
 
-      - name: Filter staled pull requests for announcement
-        id: filter-prs
-        uses: actions/github-script@v8
-        with:
-          script: |
-            return JSON.parse(context.job.steps.stale.outputs.staled-issues-prs).filter(issue => !!issue.pull_request)
-
   announce:
     runs-on: ubuntu-24.04
     needs: stale
     if: ${{ needs.stale.outputs.staled_prs != '[]' }}
-    matrix:
+    strategy:
+     matrix:
       pull_request: ${{ fromJSON(needs.stale.outputs.staled_prs) }}
+
     steps:
       - name: "Check for DISCORD_WEBHOOK"
         id: secrets_set
@@ -55,16 +50,17 @@ jobs:
           unset SECRET_EXISTS
           if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
           echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
+
       - name: Send Discord notification
         uses: tgstation/discord-notify@v3
         if: >
           steps.secrets_set.outputs.SECRETS_ENABLED
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          title: ${{ pull_request.user.login }} - ${{ pull_request.title }}
-          message: ${{ format('**Pull Request \#{0} автоматически помечается как устаревший.**', pull_request.number) }}
+          title: ${{ matrix.pull_request.title }}
+          message: ${{ format('**PR \#{0} автоматически помечается как устаревший.**', matrix.pull_request.number) }}
           include_image: false
           show_author: false
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403077083076366546/1984.png?ex=68963cdc&is=6894eb5c&hm=7f654bcb85dec940417a6e393b461382e7284d545f8336807bc753a38b040e01&
           username: Почтальон
-          title_url: "${{ pull_request.html_url }}"
+          title_url: "${{ matrix.pull_request.html_url }}"

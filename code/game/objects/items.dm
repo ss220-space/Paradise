@@ -755,9 +755,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Note that hands count as slots.
  *
  * Arguments:
- * * 'user' is mob that equipped it
- * * 'slot' uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
- * * 'initial' is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ * * user - is mob that equipped it
+ * * slot - uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * initial - is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)

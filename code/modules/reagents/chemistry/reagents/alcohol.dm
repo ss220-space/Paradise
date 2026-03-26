@@ -179,11 +179,6 @@
 	drink_desc = "Стакан с водкой. Только не забывайте закусывать."
 	taste_description = "водки"
 
-/datum/reagent/consumable/ethanol/vodka/on_mob_life(mob/living/M)
-	..()
-	if(prob(50))
-		M.radiation = max(0, M.radiation-1)
-
 /datum/reagent/consumable/ethanol/sake
 	name = "Сакэ"
 	id = "sake"
@@ -418,6 +413,19 @@
 	drink_name = "стакан Отвёртки"
 	drink_desc = "Простая, но изящная смесь водки и апельсинового сока. То, что нужно уставшему инженеру."
 	taste_description = "водки с апельсином"
+
+/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/obj/item/organ/internal/liver/liver = affected_mob.get_organ_slot(INTERNAL_ORGAN_LIVER)
+	if(HAS_TRAIT(liver, TRAIT_ENGINEER_METABOLISM))
+		ADD_TRAIT(affected_mob, TRAIT_HALT_RADIATION_EFFECTS, UNIQUE_TRAIT_SOURCE(src))
+		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+			update_flags |= affected_mob.adjustToxLoss(-2 * REM, updating_health = FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_end_metabolize(mob/living/drinker)
+	. = ..()
+	REMOVE_TRAIT(drinker, TRAIT_HALT_RADIATION_EFFECTS, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Козявка"

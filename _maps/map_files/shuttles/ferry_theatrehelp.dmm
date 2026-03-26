@@ -1,8 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
@@ -118,8 +117,7 @@
 /obj/machinery/vending/suitdispenser,
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -148,11 +146,6 @@
 "I" = (
 /turf/simulated/wall/shuttle{
 	dir = 3
-	},
-/area/shuttle/transport)
-"J" = (
-/turf/simulated/wall/shuttle{
-	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
 "M" = (
@@ -198,8 +191,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -298,7 +290,7 @@ r
 r
 I
 G
-J
+r
 r
 "}
 (8,1,1) = {"

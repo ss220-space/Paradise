@@ -8,8 +8,8 @@
 	supervisors = "Главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e6e6e6"
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	access = list()
+	minimal_access = list()
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_TOURIST,
 		ALT_JOB_TITLE_RU_ASSISTANT,

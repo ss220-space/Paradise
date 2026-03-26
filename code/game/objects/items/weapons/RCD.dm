@@ -14,7 +14,7 @@
 	origin_tech = "engineering=4;materials=2"
 	usesound = 'sound/items/deconstruct.ogg'
 	req_access = list(ACCESS_ENGINE)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	toolbox_radial_menu_compatibility = TRUE
 

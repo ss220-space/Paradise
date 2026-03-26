@@ -8,7 +8,7 @@
 	icon_state = "pneumaticRifle"
 	item_state = "pneumaticRifle"
 	fire_sound = 'sound/weapons/pneumatic_rifle.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 50)
 	var/obj/item/tank/internals/tank = null
 	var/list/syringes = list()
 	var/max_syringes = 1

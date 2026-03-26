@@ -13,7 +13,7 @@
 	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 30, ACID = 30)
 	vent_movement = VENTCRAWL_CAN_SEE
 	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
 	var/temperature_archived

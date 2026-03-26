@@ -2,7 +2,7 @@
 	name = "bingle pit"
 	desc = "Всепоглощающая бездна бесконечных ужасов... и Бинглов."
 	gender = FEMALE
-	armor = list(MELEE = 20, BULLET = 20, LASER = 75, ENERGY = 75, BOMB = 75, BIO = 100, RAD = 100, FIRE = 50, ACID = 80)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 75, ENERGY = 75, BOMB = 75, BIO = 100, FIRE = 50, ACID = 80)
 	max_integrity = 500
 	resistance_flags = FIRE_PROOF | UNACIDABLE
 	icon = 'icons/mob/bingle/binglepit.dmi'
@@ -327,7 +327,7 @@
 
 	REMOVE_TRAIT(swallowed_obj, TRAIT_FALLING_INTO_BINGLE_HOLE, UNIQUE_TRAIT_SOURCE(src))
 	// We cant really contain teslas (since they just teleport around), but singularities on the other hand
-	if(istype(swallowed_obj, /obj/singularity/energy_ball))
+	if(istype(swallowed_obj, /obj/energy_ball))
 		qdel(swallowed_obj)
 		return
 

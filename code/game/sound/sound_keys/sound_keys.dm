@@ -512,6 +512,13 @@
 		'sound/effects/industrial_scan/industrial_scan3.ogg',
 	)
 
+/datum/sound_effect/sizzle
+	key = SFX_SIZZLE
+	file_paths = list(
+		'sound/effects/wounds/sizzle1.ogg',
+		'sound/effects/wounds/sizzle2.ogg',
+	)
+
 /datum/sound_effect/closet_toggle_lock
 	key = SFX_CLOSET_TOGGLE_LOCK
 	file_paths = list(

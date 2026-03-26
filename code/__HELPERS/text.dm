@@ -708,3 +708,22 @@
 	for(var/current_char in special_chars)
 		input_text = replacetext(input_text, "\\\\\\[current_char]", "\\[current_char]")
 	return input_text
+
+/**
+ * Formats a number to human readable form with the appropriate SI unit.
+ *
+ * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
+ * Examples:
+ * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
+ * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
+ * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
+ * Arguments:
+ * * value - The number to convert to text. Can be positive or negative.
+ * * unit - The base unit of the number, such as "Pa" or "W".
+ * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
+ * *
+ * * For pressure conversion, use proc/siunit_pressure() below
+ */
+/proc/siunit(value, unit, maxdecimals = 1)
+	var/si_isolated = siunit_isolated(value, unit, maxdecimals)
+	return "[si_isolated[SI_COEFFICIENT]][si_isolated[SI_UNIT]]"

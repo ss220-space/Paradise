@@ -286,8 +286,7 @@
 /area/ruin/space/graveyard/graves)
 "hA" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
@@ -473,8 +472,7 @@
 "ls" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -799,8 +797,7 @@
 /area/ruin/space/graveyard/church)
 "sR" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-30";
-	tag = "icon-plant-30"
+	icon_state = "plant-30"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -809,8 +806,7 @@
 "te" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
@@ -834,8 +830,7 @@
 	icon_state = "2-4"
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -1495,8 +1490,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -1578,8 +1572,7 @@
 "IW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -1765,8 +1758,7 @@
 "NR" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-30";
-	tag = "icon-plant-30"
+	icon_state = "plant-30"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1822,8 +1814,7 @@
 "Py" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -1911,8 +1902,7 @@
 /area/ruin/space/graveyard/church)
 "Rl" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -1928,8 +1918,7 @@
 	amount = 20
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
@@ -2268,8 +2257,7 @@
 /area/ruin/space/graveyard/church)
 "Xr" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
@@ -2364,8 +2352,7 @@
 	name = "grass"
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "applebush";
-	tag = "icon-applebush"
+	icon_state = "applebush"
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
@@ -2420,8 +2407,7 @@
 /area/ruin/space/graveyard/church)
 "Zi" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-30";
-	tag = "icon-plant-30"
+	icon_state = "plant-30"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2460,8 +2446,7 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
