@@ -156,17 +156,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
-"kK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/obj/effect/map_effect/marker_helper/submap_def/delta/rnd_counter/double,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
-	},
-/area/toxins/lab)
 "la" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -264,7 +253,7 @@
 	},
 /area/toxins/lab)
 "qv" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd_counter,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter,
 /turf/simulated/wall,
 /area/toxins/lab)
 "rQ" = (
@@ -372,7 +361,7 @@
 	},
 /area/toxins/lab)
 "yX" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd_counter,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter,
 /turf/template_noop,
 /area/template_noop)
 "zZ" = (
@@ -744,6 +733,7 @@
 /area/toxins/lab)
 "Vn" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/map_effect/marker_helper/submap_def/delta/rnd/counter/double,
 /turf/simulated/floor/glass{
 	icon_state = "glass-21";
 	layer = 2
@@ -986,7 +976,7 @@ Eb
 qt
 oy
 rQ
-kK
+pa
 pa
 wb
 Ee

@@ -67,7 +67,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/effect/map_effect/marker_helper/submap_def/delta/rnd_hallway/rd_robo,
 /turf/simulated/floor/plasteel{
 	layer = 2
 	},
@@ -86,6 +85,17 @@
 	dir = 4;
 	icon_state = "pipe-sf"
 	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"l" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/map_effect/marker_helper/submap_def/delta/rnd/hallway/rd_robo,
 /turf/simulated/floor/plasteel{
 	layer = 2
 	},
@@ -148,7 +158,7 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
 	},
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd_hallway_rd_robo,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/hallway_rd_robo,
 /turf/simulated/floor/glass{
 	icon_state = "glass-1";
 	layer = 2
@@ -419,7 +429,7 @@
 	},
 /area/medical/research/shallway)
 "W" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd_hallway_rd_robo,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/hallway_rd_robo,
 /turf/template_noop,
 /area/template_noop)
 "X" = (
@@ -597,7 +607,7 @@ K
 z
 K
 d
-o
+l
 f
 j
 b

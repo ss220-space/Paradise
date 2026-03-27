@@ -1,0 +1,1211 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bi" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 15
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 15
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"cq" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	name = "Robotics Mechbay Shutter";
+	id_tag = "robomechbay"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"cw" = (
+/obj/structure/plasticflaps,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 1;
+	location = "Robotics"
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/robotics)
+"dt" = (
+/turf/simulated/wall/r_wall,
+/area/assembly/robotics)
+"dT" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-3"
+	},
+/obj/item/clothing/mask/breath/medical,
+/obj/item/tank/internals/anesthetic,
+/obj/item/reagent_containers/spray/cleaner/medical{
+	name = "Surgery Cleaner"
+	},
+/obj/structure/window/reinforced{
+	color = "#58b5c3";
+	dir = 4
+	},
+/obj/item/storage/box/bodybags,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"eB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "2-4-f"
+	},
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"eJ" = (
+/obj/structure/chair/office/light{
+	dir = 4;
+	pixel_y = 3
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"fS" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"gb" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-2"
+	},
+/obj/structure/window/reinforced{
+	color = "#58b5c3";
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "#58b5c3";
+	dir = 4
+	},
+/obj/item/robotanalyzer,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"hp" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"ht" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/robo,
+/turf/simulated/wall/r_wall,
+/area/assembly/robotics)
+"hO" = (
+/obj/structure/window/reinforced{
+	color = "#58b5c3"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"jI" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"kL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"lF" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/robo,
+/turf/template_noop,
+/area/template_noop)
+"nf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"or" = (
+/obj/structure/sign/poster/random{
+	icon_state = "poster19_legit";
+	name = "Постер — Безопасность: Дыхательные аппараты";
+	pixel_y = -32
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"ot" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/wall/r_wall,
+/area/assembly/robotics)
+"oV" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	name = "Robotics Mechbay Shutter";
+	id_tag = "robomechbay"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"pC" = (
+/obj/machinery/vending/pai,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "purple";
+	layer = 2
+	},
+/area/hallway/primary/aft)
+"rC" = (
+/obj/machinery/door/firedoor,
+/obj/item/folder,
+/obj/machinery/door/window/westleft{
+	color = "#58b5c3";
+	name = "Robotics Desk"
+	},
+/obj/machinery/door/window/eastleft{
+	color = "#58b5c3"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Robotics Privacy Shutter"
+	},
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-0"
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/assembly/robotics)
+"sw" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-9"
+	},
+/obj/item/multitool{
+	pixel_x = 3
+	},
+/obj/structure/window/reinforced{
+	color = "#58b5c3";
+	dir = 4
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"sz" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"th" = (
+/turf/simulated/wall,
+/area/assembly/robotics)
+"vd" = (
+/obj/machinery/computer/operating{
+	dir = 4;
+	name = "Robotics Operating Computer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"vj" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "purple";
+	layer = 2
+	},
+/area/hallway/primary/aft)
+"wk" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	layer = 3.1;
+	name = "Mech Bay"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-sf"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark";
+	layer = 2
+	},
+/area/assembly/robotics)
+"xu" = (
+/obj/structure/closet/wardrobe/robotics_black,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"xQ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"yt" = (
+/obj/machinery/camera{
+	dir = 4
+	},
+/obj/machinery/requests_console{
+	name = "Robotics Requests Console";
+	pixel_x = -30
+	},
+/obj/structure/window/reinforced{
+	color = "#58b5c3"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"yw" = (
+/obj/machinery/r_n_d/protolathe,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"yx" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-0"
+	},
+/obj/item/book/manual/sop_science{
+	name = "manual #?qt;Standard Operating Procedures (Science)#?qt;"
+	},
+/obj/item/clipboard,
+/obj/item/book/manual/robotics_cyborgs{
+	name = "manual #?qt;Robotics for Dummies#?qt;";
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/toy/figure/roboticist,
+/obj/machinery/door_control{
+	id = "RoboDesk";
+	name = "Robotics Desc Privacy Shutters Control";
+	pixel_x = 24;
+	pixel_y = -6
+	},
+/obj/machinery/door_control{
+	id = "RoboPrivat";
+	name = "Robotics Privacy Shutters Control";
+	pixel_x = 24;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"zj" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"AA" = (
+/obj/structure/closet/secure_closet/roboticist,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Bf" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5;
+	icon_state = "pipe-sf"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple";
+	layer = 2
+	},
+/area/assembly/robotics)
+"Bp" = (
+/obj/machinery/computer/rdconsole/robotics,
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"By" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "RoboDesk";
+	name = "Robotics Privacy Shutter"
+	},
+/turf/simulated/floor/plating{
+	layer = 1.7
+	},
+/area/assembly/robotics)
+"BC" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"Dx" = (
+/obj/machinery/door_control{
+	id = "robomechbay";
+	pixel_x = -4;
+	name = "Mechbay Shutters Control"
+	},
+/turf/simulated/wall,
+/area/assembly/robotics)
+"Gn" = (
+/obj/structure/window/reinforced{
+	color = "#58b5c3"
+	},
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1;
+	name = "Mech Bay";
+	req_access = list(29)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"GP" = (
+/obj/structure/cable,
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "RoboDesk";
+	name = "Robotics Privacy Shutter"
+	},
+/turf/simulated/floor/plating{
+	layer = 1.7
+	},
+/area/assembly/robotics)
+"Hl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"Hq" = (
+/turf/template_noop,
+/area/template_noop)
+"IH" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "RoboPrivat";
+	name = "Robotics Privacy Shutter"
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/assembly/robotics)
+"Jh" = (
+/obj/machinery/disposal,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	icon_state = "pipe-tf"
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Jp" = (
+/obj/machinery/mecha_part_fabricator,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Ka" = (
+/obj/item/clothing/suit/fire/firefighter,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/crowbar,
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-3"
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple";
+	layer = 2
+	},
+/area/assembly/robotics)
+"Kr" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "RoboPrivat";
+	name = "Robotics Privacy Shutter"
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/assembly/robotics)
+"KH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"Lu" = (
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/structure/cable{
+	icon_state = "1-4-f"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"Mb" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "Robotics Lab APC";
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	icon_state = "0-2-f"
+	},
+/obj/machinery/power/terminal{
+	dir = 8;
+	icon_state = "term-f"
+	},
+/obj/machinery/mecha_part_fabricator,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Oa" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-2"
+	},
+/obj/item/mmi/robotic_brain,
+/obj/item/multitool{
+	pixel_x = 3
+	},
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/item/stack/cable_coil{
+	dir = 4;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple";
+	layer = 2
+	},
+/area/assembly/robotics)
+"Ob" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research/glass{
+	layer = 3.1;
+	name = "Robotics Lab"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"OK" = (
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"Pg" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"QG" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "RoboDesk";
+	name = "Robotics Privacy Shutter"
+	},
+/turf/simulated/floor/plating{
+	layer = 1.7
+	},
+/area/assembly/robotics)
+"QS" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/assembly/robotics)
+"Ry" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-1"
+	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/obj/structure/extinguisher_cabinet{
+	icon_state = "extinguisher_full_closed";
+	pixel_x = 28
+	},
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/regular/empty,
+/obj/item/storage/firstaid/regular/empty,
+/obj/item/storage/firstaid/regular/empty,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"RH" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/structure/cable{
+	icon_state = "2-4-f"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"TW" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating{
+	layer = 1.7
+	},
+/area/assembly/robotics)
+"TZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
+	},
+/area/assembly/robotics)
+"Uc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/structure/cable{
+	icon_state = "1-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
+"Uw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Vs" = (
+/obj/item/radio/intercom/directional/north,
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"VA" = (
+/obj/machinery/door/window/westleft{
+	color = "#58b5c3";
+	dir = 4;
+	name = "Robotic Delivery"
+	},
+/obj/structure/window/reinforced{
+	color = "#58b5c3";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Xy" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"XY" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Ym" = (
+/obj/structure/table/reinforced{
+	icon_state = "reinforced_table-4"
+	},
+/obj/machinery/light,
+/obj/structure/sign/science{
+	pixel_y = -32
+	},
+/obj/item/storage/toolbox/surgery,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"YE" = (
+/obj/machinery/optable{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"YK" = (
+/obj/item/robot_parts/robot_suit{
+	name = "robot endoskeleton"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Zl" = (
+/obj/structure/window/reinforced{
+	color = "#58b5c3";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"ZM" = (
+/obj/machinery/door/airlock/maintenance{
+	layer = 3.1;
+	name = "Robotics Maintenance"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	layer = 2
+	},
+/area/maintenance/asmaint2)
+
+(1,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(2,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+lF
+Hq
+"}
+(3,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(4,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(5,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(6,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(7,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(8,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(9,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(10,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(11,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(12,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(13,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}
+(14,1,1) = {"
+Hq
+th
+th
+th
+th
+TW
+Ob
+TW
+th
+th
+ht
+Hq
+"}
+(15,1,1) = {"
+Hq
+th
+Vs
+yt
+Mb
+XY
+Uc
+Zl
+hp
+vd
+dt
+Hq
+"}
+(16,1,1) = {"
+Hq
+cq
+QS
+hO
+bi
+sz
+kL
+xQ
+xQ
+YE
+dt
+Hq
+"}
+(17,1,1) = {"
+Hq
+oV
+TZ
+hO
+Jp
+YK
+Hl
+jI
+xQ
+Ym
+dt
+Hq
+"}
+(18,1,1) = {"
+Hq
+Dx
+Uw
+hO
+yw
+sz
+kL
+gb
+dT
+sw
+dt
+Hq
+"}
+(19,1,1) = {"
+Hq
+Kr
+sz
+Gn
+Xy
+sz
+OK
+AA
+xu
+VA
+cw
+Hq
+"}
+(20,1,1) = {"
+Hq
+IH
+RH
+zj
+fS
+BC
+Lu
+xQ
+xQ
+or
+ot
+Hq
+"}
+(21,1,1) = {"
+Hq
+Kr
+Bp
+Pg
+yx
+sz
+nf
+eB
+eJ
+KH
+ZM
+Hq
+"}
+(22,1,1) = {"
+Hq
+dt
+By
+rC
+dt
+Jh
+Bf
+Oa
+Ka
+Ry
+dt
+Hq
+"}
+(23,1,1) = {"
+Hq
+dt
+pC
+vj
+dt
+dt
+wk
+QG
+GP
+dt
+dt
+Hq
+"}
+(24,1,1) = {"
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+Hq
+"}

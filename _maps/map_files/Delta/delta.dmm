@@ -21151,6 +21151,10 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
+"cBU" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/hallway_rd_robo,
+/turf/simulated/wall,
+/area/crew_quarters/hor)
 "cBY" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -90903,6 +90907,10 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/virology/lab)
+"qmP" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/robo,
+/turf/simulated/wall/r_wall,
+/area/assembly/robotics)
 "qmT" = (
 /obj/machinery/door/airlock{
 	id_tag = "cabin1";
@@ -92643,6 +92651,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
+"qDM" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/counter,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/medical/research)
 "qDP" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -106325,7 +106341,7 @@
 	},
 /area/medical/virology/lab)
 "tHB" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd_counter,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/counter,
 /turf/simulated/wall,
 /area/toxins/lab)
 "tHC" = (
@@ -122031,7 +122047,7 @@
 	network = list("Research","SS13")
 	},
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd_hallway_rd_robo,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/hallway_rd_robo,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -159964,7 +159980,7 @@ dhW
 gHm
 dkJ
 lNo
-dIg
+cBU
 spH
 pKc
 onr
@@ -161487,7 +161503,7 @@ uLT
 xDW
 hyI
 kGp
-kGp
+qDM
 hyI
 nBu
 uUW
@@ -162286,7 +162302,7 @@ qOh
 gVV
 tXf
 tXf
-ykx
+qmP
 wEh
 tLT
 ygS
