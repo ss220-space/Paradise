@@ -111,7 +111,7 @@
 	item_color = "camopants"
 
 /obj/item/clothing/under/pants/camo/commando
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 
 /obj/item/clothing/under/pants/galifepants
 	name = "check breeches"

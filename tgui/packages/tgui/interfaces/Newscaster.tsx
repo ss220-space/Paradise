@@ -15,7 +15,7 @@ import {
   Stack,
   TextArea,
 } from '../components';
-import { timeAgo } from '../constants';
+import { timeAgo, DEPARTMENTS_RU } from '../constants';
 import { Window } from '../layouts';
 import {
   ComplexModal,
@@ -40,28 +40,28 @@ const jobOpeningCategoriesOrder = [
 ];
 const jobOpeningCategories = {
   security: {
-    title: 'Security',
-    fluff_text: 'Помогайте обеспечивать безопасность экипажа',
+    title: 'Безопасность',
+    fluff_text: 'Защищайте экипаж и объект от угроз',
   },
   engineering: {
-    title: 'Engineering',
-    fluff_text: 'Следите за бесперебойной работой станции',
+    title: 'Инженерия',
+    fluff_text: 'Следите за работой систем объекта',
   },
   medical: {
-    title: 'Medical',
-    fluff_text: 'Занимайтесь медициной и спасайте жизни',
+    title: 'Медицина',
+    fluff_text: 'Поддерживайте экипаж живыми и здоровыми',
   },
   science: {
-    title: 'Science',
-    fluff_text: 'Разрабатывайте новые технологии',
+    title: 'Наука',
+    fluff_text: 'Продвигайте науку вперёд',
   },
   service: {
-    title: 'Service',
+    title: 'Обслуживание',
     fluff_text: 'Обеспечивайте экипаж удобствами',
   },
   supply: {
-    title: 'Supply',
-    fluff_text: 'Поддерживайте снабжение станции',
+    title: 'Снабжение',
+    fluff_text: 'Занимайтесь логистикой объекта',
   },
 };
 
@@ -460,7 +460,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
         }
         buttons={
           <Box mt="0.25rem" color="label">
-            Работайте ради лучшего будущего в Nanotrasen
+            Работайте ради лучшего будущего в &quot;Нанотрейзен&quot;!
           </Box>
         }
       >
@@ -508,16 +508,11 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
         )}
       </Section>
       <Section height="17%">
-        Интересует работа в \&quot;Нанотрейзен\&quot;?
+        Интересует работа в &quot;Нанотрейзен&quot;?
         <br />
         Запишитесь на любую из вышеуказанных должностей прямо сейчас в{' '}
         <b>Офисе Главы Персонала!</b>
         <br />
-        <Box as="small" color="label">
-          Подписываясь на работу в \&quot;Нанотрейзен\&quot;, вы соглашаетесь
-          передать свою душу в отдел лояльности вездесущего и полезного
-          наблюдателя за человечеством.
-        </Box>
       </Section>
     </Stack>
   );

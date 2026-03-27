@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
 /obj/machinery/bsa/back/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
 /obj/machinery/bsa/front/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return default_unfasten_wrench(user, I, 1 SECONDS)
 
 /obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return FALSE
 	. = TRUE
 	var/obj/item/multitool/multitool = I
@@ -696,7 +696,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-	if(istype(target,/area))
+	if(isarea(target))
 		var/area/A = target
 		return A.name
 	else if(istype(target,/obj/item/gps))
@@ -707,7 +707,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	return aim_turf
 
 /obj/machinery/computer/bsa_control/proc/detect_target_turf()
-	if(istype(target,/area))
+	if(isarea(target))
 		var/area/A = target
 		var/turf/center = A.get_center_turf()
 		if(center)

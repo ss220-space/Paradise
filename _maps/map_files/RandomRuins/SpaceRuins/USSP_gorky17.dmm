@@ -1275,8 +1275,7 @@
 /area/ruin/space/USSP_gorky17/utility)
 "fb" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "fe" = (
@@ -7635,8 +7634,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "Ck" = (
@@ -8703,8 +8701,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "FP" = (
@@ -11079,8 +11076,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "Om" = (
@@ -12611,8 +12607,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "TT" = (
@@ -12647,8 +12642,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "TX" = (
@@ -13149,8 +13143,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "VT" = (

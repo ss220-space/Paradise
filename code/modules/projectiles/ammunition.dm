@@ -88,7 +88,7 @@
 	return ..()
 
 /obj/item/ammo_casing/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/ammo_box) || !can_be_box_inserted)
+	if(!isammobox(item) || !can_be_box_inserted)
 		return ..()
 	add_fingerprint(user)
 	var/obj/item/ammo_box/box = item
@@ -311,8 +311,8 @@
 		add_fingerprint(user)
 		I.add_fingerprint(user)
 
-	var/ammo_box = istype(I, /obj/item/ammo_box) && I != src
-	var/ammo_casing = istype(I, /obj/item/ammo_casing)
+	var/ammo_box = isammobox(I) && I != src
+	var/ammo_casing = isammocasing(I)
 
 	if(ammo_box)
 		var/obj/item/ammo_box/box = I
@@ -356,7 +356,7 @@
 	update_equipped_item()
 
 /obj/item/ammo_box/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+	if(isammobox(I) || isammocasing(I))
 		if(reload(I, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED

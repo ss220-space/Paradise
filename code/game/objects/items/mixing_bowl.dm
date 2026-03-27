@@ -26,7 +26,7 @@
 	create_reagents(100)
 
 /obj/item/mixing_bowl/attackby(obj/item/stack/I, mob/user, params)
-	if(istype(I, /obj/item/soap))
+	if(issoap(I))
 		add_fingerprint(user)
 		if(!dirty)
 			balloon_alert(user, "миска чистая!")

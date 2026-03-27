@@ -733,6 +733,16 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
+
+/datum/controller/subsystem/air/proc/setup_template_machinery(list/atmos_machines)
+	for(var/obj/machinery/atmospherics/AM as anything in atmos_machines)
+		AM.atmos_init()
+		CHECK_TICK
+
+	for(var/obj/machinery/atmospherics/AM as anything in atmos_machines)
+		AM.build_network(remove_deferral = TRUE)
+		CHECK_TICK
+
 /obj/effect/overlay/turf
 	icon = 'icons/effects/tile_effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

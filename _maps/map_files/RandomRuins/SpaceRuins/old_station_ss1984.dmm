@@ -309,10 +309,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
-"aY" = (
-/obj/machinery/power/grounding_rod,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
 "aZ" = (
 /obj/structure/sign/mining,
 /turf/simulated/wall/rust,
@@ -1802,6 +1798,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
+"gt" = (
+/obj/machinery/power/energy_accumulator/grounding_rod,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/hivebot)
 "gu" = (
 /obj/structure/table/wood,
 /obj/machinery/cell_charger,
@@ -3183,12 +3183,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
-"le" = (
-/obj/structure/chair/sofa/right,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/ruin/space/ancientstation/charlie_dininghall)
 "lf" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/theta_solar)
@@ -7278,14 +7272,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
-"zq" = (
-/obj/structure/chair/sofa/left,
-/obj/machinery/light/small,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/ruin/space/ancientstation/charlie_dininghall)
 "zr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -8868,6 +8854,13 @@
 "EU" = (
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
+"EV" = (
+/obj/machinery/power/energy_accumulator/tesla_coil{
+	desc = "A massive coil with a built-in capacitor, collects energy from lightnings on hit";
+	name = "tesla coil prototype"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/hivebot)
 "EX" = (
 /obj/structure/closet/crate/secure/weapon,
 /obj/item/gun/projectile/automatic/sniper_rifle/toy,
@@ -10324,6 +10317,12 @@
 	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/charlie_hydroponics)
+"JM" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/ruin/space/ancientstation/charlie_dininghall)
 "JN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -10729,13 +10728,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
-"Ly" = (
-/obj/machinery/power/tesla_coil{
-	desc = "A massive coil with a built-in capacitor, collects energy from lightnings on hit";
-	name = "tesla coil prototype"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
 "Lz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -13435,6 +13427,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
+"VF" = (
+/obj/structure/chair/sofa/left,
+/obj/machinery/light/small,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/space/ancientstation/charlie_dininghall)
 "VH" = (
 /obj/item/camera_assembly,
 /obj/machinery/light/small{
@@ -21566,7 +21566,7 @@ AG
 jO
 Dq
 EU
-zq
+VF
 da
 yU
 lE
@@ -21810,7 +21810,7 @@ EU
 uy
 Ym
 EU
-le
+JM
 da
 yU
 lE
@@ -25719,9 +25719,9 @@ lT
 bP
 zu
 SR
-Ly
-Ly
-Ly
+EV
+EV
+EV
 cc
 cc
 wH
@@ -25843,7 +25843,7 @@ SR
 Ul
 TR
 jX
-Ly
+EV
 SR
 cc
 wH
@@ -26082,7 +26082,7 @@ cc
 cc
 lq
 pY
-aY
+gt
 SR
 zu
 nQ
@@ -26203,7 +26203,7 @@ bM
 bM
 cc
 pY
-aY
+gt
 TR
 TR
 SR
@@ -26453,7 +26453,7 @@ zD
 SR
 zu
 zu
-aY
+gt
 SR
 cc
 bM

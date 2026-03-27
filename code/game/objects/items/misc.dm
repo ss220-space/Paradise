@@ -61,7 +61,7 @@
 /obj/item/syndicate_reverse_card/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type != PROJECTILE_ATTACK)
 		return FALSE //this means the attack goes through
-	if(istype(hitby, /obj/projectile))
+	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
 		if(P?.firer && P.firer_source_atom && (P.firer != P.firer_source_atom)) //if the projectile comes from YOU, like your spit or some shit, you can't steal that bro. Also protects mechs
 			if(iscarbon(P.firer)) //You can't switcharoo with turrets or simplemobs, or borgs

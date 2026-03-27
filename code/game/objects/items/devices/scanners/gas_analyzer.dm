@@ -224,7 +224,7 @@
 /proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE)
 	var/datum/gas_mixture/air
 	var/list/milla = null
-	if(milla_turf_details && istype(target, /turf))
+	if(milla_turf_details && isturf(target))
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
 		air = new()

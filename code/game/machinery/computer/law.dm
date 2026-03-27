@@ -29,7 +29,7 @@
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(item, /obj/item/card/id))
+	if(is_id_card(item))
 		add_fingerprint(user)
 		check_id(user, item)
 		ui_interact(user)

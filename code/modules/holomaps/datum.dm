@@ -33,6 +33,15 @@
 	location_turf = T
 	map_z = current_z_level
 	src.show_legend = show_legend
+	crop_x = 0
+	crop_y = 0
+	crop_w = world.maxx
+	crop_h = world.maxy
+	if(crop)
+		crop_x = crop[CROP_X1]
+		crop_y = crop[CROP_Y1]
+		crop_w = crop[CROP_X2] - crop_x
+		crop_h = crop[CROP_Y2] - crop_y
 
 	if(!("[HOLOMAP_EXTRA_STATIONMAP]_[map_z]" in SSholomaps.extra_holomaps))
 		initialize_holomap_bogus()
@@ -41,15 +50,7 @@
 	if(!base_map || reinit_base_map)
 		var/icon/extra_holomap = SSholomaps.extra_holomaps["[HOLOMAP_EXTRA_STATIONMAP]_[map_z]"]
 		var/icon/big_map = icon(extra_holomap)
-		crop_x = 0
-		crop_y = 0
-		crop_w = world.maxx
-		crop_h = world.maxy
 		if(crop)
-			crop_x = crop[CROP_X1]
-			crop_y = crop[CROP_Y1]
-			crop_w = crop[CROP_X2] - crop_x
-			crop_h = crop[CROP_Y2] - crop_y
 			big_map.Crop(crop_x, crop_y, crop[CROP_X2], crop[CROP_Y2])
 		base_map = image(big_map)
 
@@ -96,8 +97,8 @@
 
 	if(bogus)
 		var/image/legend = image('icons/misc/64x64.dmi', "notfound")
-		legend.pixel_w = 192
-		legend.pixel_z = 224
+		legend.pixel_w = crop_w / 2 - ICON_SIZE_ALL
+		legend.pixel_z = crop_h / 2 - ICON_SIZE_ALL
 		base_map.add_overlay(legend)
 		return
 
@@ -125,6 +126,7 @@
 
 /datum/station_holomap/proc/initialize_holomap_bogus()
 	bogus = TRUE
-	base_map = image('icons/misc/480x480.dmi', "stationmap")
-
+	var/icon/big_map = icon(image('icons/misc/480x480.dmi', "stationmap"))
+	big_map.Crop(crop_x, crop_y, crop_x + crop_w, crop_y + crop_h)
+	base_map = image(big_map)
 	update_map()

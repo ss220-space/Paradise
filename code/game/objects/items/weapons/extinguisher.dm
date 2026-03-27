@@ -1,3 +1,10 @@
+#define EXTINGUISHER_TEMP_MED (T0C + 45)
+#define EXTINGUISHER_TEMP_HIGH (T0C + 75)
+#define EXTINGUISHER_TEMP_ULTRA T100C
+#define EXTINGUISHER_TEMP_DETONATION (T100C + 35)
+#define EXTINGUISHER_EXPLOSION_FRAME_DELAY (0.2 SECONDS)
+#define EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER 0.2
+
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "Традиционный красный огнетушитель."
@@ -28,6 +35,10 @@
 	var/precision = FALSE
 	/// Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
+	/// Is extinguisher can explode on heating
+	var/can_explode = TRUE
+	/// Detects when extinguisher exploding
+	var/blowing_up = FALSE
 
 /obj/item/extinguisher/get_ru_names()
 	return list(
@@ -54,6 +65,7 @@
 	max_water = 30
 	dog_fashion = null
 	toolbox_radial_menu_compatibility = TRUE
+	can_explode = FALSE
 
 /obj/item/extinguisher/mini/get_ru_names()
 	return list(
@@ -71,11 +83,65 @@
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
 
+	if(!can_explode)
+		return .
+
+	reagents.set_reacting(FALSE)
+	RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
+
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	. += span_notice("Предохранитель <b>[safety ? "включён" : "выключен"]</b>.")
 
+/obj/item/extinguisher/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	burn_hands(user)
+
+/obj/item/extinguisher/proc/burn_hands(mob/user)
+	if(!user || !ishuman(user))
+		return
+
+	var/mob/living/carbon/human/holding_human = user
+
+	if(!holding_human.is_in_hands(src) || reagents.chem_temp < EXTINGUISHER_TEMP_HIGH)
+		return
+
+	if(holding_human.gloves && holding_human.gloves.heat_protection)
+		return
+
+	holding_human.apply_damage(3, BURN, pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND))
+	to_chat(holding_human, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] невыносимо обжигает вам ладони!"))
+
+/obj/item/extinguisher/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(!I.get_heat())
+		return .
+
+	update_appearance(UPDATE_ICON_STATE)
+	explode_at_heat()
+	burn_hands(user)
+
 /obj/item/extinguisher/update_icon_state()
+	if(blowing_up)
+		return
+
+	if(can_explode && safety && reagents && reagents.reagent_list.len)
+		var/temp = reagents.chem_temp
+
+		if(temp >= EXTINGUISHER_TEMP_DETONATION)
+			icon_state = "[base_icon_state]_temp_detonate"
+			return
+		if(temp >= EXTINGUISHER_TEMP_ULTRA)
+			icon_state = "[base_icon_state]_temp_ultra"
+			return
+		if(temp >= EXTINGUISHER_TEMP_HIGH)
+			icon_state = "[base_icon_state]_temp_high"
+			return
+		if(temp >= EXTINGUISHER_TEMP_MED)
+			icon_state = "[base_icon_state]_temp_med"
+			return
+
 	icon_state = "[base_icon_state][!safety]"
 
 /obj/item/extinguisher/update_desc(updates = ALL)
@@ -83,9 +149,86 @@
 	desc = "Предохранитель [safety ? "включён" : "выключен"]."
 
 /obj/item/extinguisher/attack_self(mob/user)
+	if(blowing_up)
+		return
+
+	user.visible_message(
+		span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] возится с предохранителем [declent_ru(GENITIVE)]."),
+		span_notice("Вы начинаете [safety ? "снимать" : "ставить"] предохранитель...")
+	)
+
+	if(!user || !do_after(user, 0.5 SECONDS, target = src) || QDELETED(src))
+		return
+
 	safety = !safety
+
+	if(!reagents)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		return
+
+	if(safety)
+		reagents.set_reacting(FALSE)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		return
+
+	reagents.set_reacting(TRUE)
+	var/temp = reagents.chem_temp
+
+	if(temp >= EXTINGUISHER_TEMP_ULTRA)
+		to_chat(user, span_userdanger("Как только вы вытаскиваете чеку, [declent_ru(NOMINATIVE)] ошпаривает вас паром!"))
+		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
+
+		if(isliving(user))
+			var/mob/living/living_user = user
+			living_user.apply_damage(30, BURN, spread_damage = TRUE)
+			living_user.emote("scream")
+			reagents.chem_temp = T20C
+
+		reagents.clear_reagents()
+
+	else if(temp >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
+		reagents.chem_temp = EXTINGUISHER_TEMP_MED
+
+	else
+		reagents.chem_temp = T20C
+
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-	to_chat(user, "Предохранитель [safety ? "включён" : "выключен"].")
+
+/obj/item/extinguisher/proc/explode_at_heat()
+	if(!safety || blowing_up || !reagents || !reagents.reagent_list.len)
+		return
+
+	var/temp = reagents.chem_temp
+
+	if(temp >= EXTINGUISHER_TEMP_DETONATION)
+		visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается от чудовищного давления!"))
+		if(QDELETED(src))
+			return
+
+		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+		return
+
+	if(temp < EXTINGUISHER_TEMP_ULTRA)
+		return
+
+	if(prob(20))
+		visible_message(span_danger("Корпус [declent_ru(GENITIVE)] не выдерживает и лопается!"))
+		if(QDELETED(src))
+			return
+
+		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+		return
+
+	playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
+
+/obj/item/extinguisher/fire_act(exposed_temperature, exposed_volume)
+	..()
+
+	if(QDELETED(src) || !reagents || !reagents.reagent_list.len || blowing_up)
+		return
+
+	update_appearance(UPDATE_ICON_STATE)
+	explode_at_heat()
 
 /obj/item/extinguisher/attack_obj(obj/object, mob/living/user, params)
 	if(AttemptRefill(object, user))
@@ -194,3 +337,65 @@
 		if(1 to 3)
 			source.delay = 3
 
+/obj/item/extinguisher/proc/steam_explosion()
+	SIGNAL_HANDLER
+
+	if(!can_explode || blowing_up || !reagents || !reagents.reagent_list.len || !safety)
+		return
+
+	var/temp = reagents.chem_temp
+	if(temp < EXTINGUISHER_TEMP_HIGH)
+		return
+
+	blowing_up = TRUE
+
+	playsound(src, 'sound/effects/refill.ogg', 30, TRUE)
+
+	var/list/animation_steps = list(
+		list("icon" = "[base_icon_state]_temp_high", "delay" = EXTINGUISHER_EXPLOSION_FRAME_DELAY, "temp_check" = EXTINGUISHER_TEMP_ULTRA),
+		list("icon" = "[base_icon_state]_temp_ultra", "delay" = EXTINGUISHER_EXPLOSION_FRAME_DELAY, "temp_check" = EXTINGUISHER_TEMP_DETONATION),
+		list("icon" = "[base_icon_state]_temp_detonate", "delay" = EXTINGUISHER_EXPLOSION_FRAME_DELAY, "temp_check" = INFINITY)
+	)
+
+	var/current_delay = 0
+	for(var/list/step as anything in animation_steps)
+		if(temp >= step["temp_check"])
+			continue
+
+		addtimer(CALLBACK(src, PROC_REF(set_icon_state), step["icon"]), current_delay)
+		current_delay += step["delay"]
+
+	addtimer(CALLBACK(src, PROC_REF(finalize_steam_explosion)), current_delay)
+
+/obj/item/extinguisher/proc/finalize_steam_explosion()
+	if(QDELETED(src) || !reagents || !reagents.reagent_list.len)
+		return
+
+	var/turf/landed_turf = get_turf(src)
+	if(!landed_turf)
+		return
+
+	explosion(landed_turf, 0, 0, 1, 2, cause = src)
+	playsound(landed_turf, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+	visible_message(span_danger("[declent_ru(NOMINATIVE)] разрывается от давления пара!"))
+	var/datum/effect_system/fluid_spread/smoke/bad/steam = new()
+	var/smoke_amount = floor(reagents.total_volume * EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER)
+	steam.set_up(amount = smoke_amount, location = landed_turf)
+	steam.start()
+
+	for(var/mob/living/living in range(3, landed_turf))
+		living.Confused(10 SECONDS)
+
+	qdel(src)
+
+/obj/item/extinguisher/proc/set_icon_state(new_state)
+	if(!blowing_up)
+		return
+	icon_state = new_state
+
+#undef EXTINGUISHER_TEMP_MED
+#undef EXTINGUISHER_TEMP_HIGH
+#undef EXTINGUISHER_TEMP_ULTRA
+#undef EXTINGUISHER_TEMP_DETONATION
+#undef EXTINGUISHER_EXPLOSION_FRAME_DELAY
+#undef EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER

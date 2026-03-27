@@ -87,7 +87,7 @@
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		restraint.visible_message(span_warning("[DECLENT_RU_CAP(restraint, NOMINATIVE)] спада[PLUR_ET_YUT(restraint)] с ног [ninja.declent_ru(GENITIVE)]!"))
 	ninja.uncuff()
-	if(istype(ninja.loc, /obj/structure/closet))
+	if(iscloset(ninja.loc))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))
 			return FALSE

@@ -172,6 +172,7 @@
 #define FIRE_PRIORITY_TGUI 110
 #define FIRE_PRIORITY_NEW_PLAYERS_INFO 199
 #define FIRE_PRIORITY_TICKER 200
+#define FIRE_PRIORITY_SINGULO 350
 #define FIRE_PRIORITY_STATPANEL 390
 #define FIRE_PRIORITY_CHAT 400
 #define FIRE_PRIORITY_RUNECHAT 410 // I hate how high the fire priority on this is -aa
@@ -190,6 +191,15 @@
 #define RUNLEVEL_GAME (1<<2)
 #define RUNLEVEL_POSTGAME (1<<3)
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP|RUNLEVEL_GAME|RUNLEVEL_POSTGAME)
+
+// Subsystem delta times or tickrates, in seconds. I.e, how many seconds in between each process() call for objects being processed by that subsystem.
+// Only use these defines if you want to access some other objects processing seconds_per_tick, otherwise use the seconds_per_tick that is sent as a parameter to process()
+#define SSMACHINES_DT (SSmachines.wait / 10)
+#define SSMOBS_DT (SSmobs.wait / 10)
+#define SSOBJ_DT (SSobj.wait / 10)
+
+// The change in the world's time from the subsystem's last fire in seconds.
+#define DELTA_WORLD_TIME(ss) ((world.time - ss.last_fire) * 0.1)
 
 /// The timer key used to know how long subsystem initialization takes
 #define SS_INIT_TIMER_KEY "ss_init"

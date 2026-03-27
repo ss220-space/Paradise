@@ -133,7 +133,7 @@
 	return TRUE
 
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
-	if(istype(possessed_item, /obj/item/card/id))
+	if(is_id_card(possessed_item))
 		var/obj/item/card/id/possessed_id = possessed_item
 		. = possessed_id.access
 
@@ -142,7 +142,7 @@
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
-	if(!istype(loc, /turf)) // If we're inside a card machine or something similar then you're stuck.
+	if(!isturf(loc)) // If we're inside a card machine or something similar then you're stuck.
 		return
 
 	name = spirit_name

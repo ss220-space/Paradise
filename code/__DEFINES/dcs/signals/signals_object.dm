@@ -119,5 +119,11 @@
 /// Sent from /datum/powernet/remove_cable()
 #define COMSIG_UPDATE_TWOHANDED_DAMAGE "update_twohanded_damage"
 
+/// Sent from /obj/structure/bingle_hole to /datum/team/bingles
+#define COMSIG_BINGLE_HOLE_INITIALIZED "bingle_hole_initialized"
+
+/// Sent from /obj/structure/bingle_hole to /datum/team/bingles
+#define COMSIG_BINGLE_HOLE_GROW "bingle_hole_grow"
+
 /// Sent on camera switch in camera monitors (/obj/machinery/computer/security/ui_act(action, params))
 #define COMSIG_MONITOR_CAMERA_SWITCHED "monitor_camera_switched"

@@ -4,6 +4,7 @@
 	gender = MALE
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
+	abstract_type = /obj/item/mod/module
 	/// If it can be removed
 	var/removable = TRUE
 	/// If it's passive, togglable, usable or active
@@ -89,6 +90,7 @@
 	device.w_class = WEIGHT_CLASS_HUGE
 	device.materials = null
 
+	ADD_TRAIT(device, TRAIT_NODROP, MODSUIT_TRAIT)
 	RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 

@@ -26,10 +26,17 @@ pub(crate) fn setup_panic_handler() {
                             let panic_guid = Uuid::new_v4();
                             let ts = Utc::now().format("%Y%m%d_%H%M%S").to_string();
                             let file_end = format!("{}_{}", ts, panic_guid);
-                            let _ = std::fs::write(
-                                format!("data/logs/rustlibs_dm_trace_failed_{}.txt", file_end),
-                                second_msg.clone(),
-                            );
+
+                            // Handle the Result from create_dated_log_path
+                            if let Ok(log_path) = create_dated_log_path() {
+                                let _ = std::fs::write(
+                                    format!(
+                                        "{}/rustlibs_dm_trace_failed_{}.txt",
+                                        log_path, file_end
+                                    ),
+                                    second_msg.clone(),
+                                );
+                            }
                         }
                     });
                     Default::default()
@@ -37,17 +44,32 @@ pub(crate) fn setup_panic_handler() {
                 true,
             );
         });
+
         // GUID may seem pointless but on the off chance we get 2 panics in the same second its needed
         let _ = std::panic::catch_unwind(|| {
             let panic_guid = get_safe_uuid();
             let ts = get_safe_timestamp();
             let file_end = format!("{}_{}", ts, panic_guid);
-            let _ = std::fs::write(
-                format!("data/logs/rustlibs_panic_{}.txt", file_end),
-                msg.clone(),
-            );
+
+            // Handle the Result from create_dated_log_path
+            if let Ok(log_path) = create_dated_log_path() {
+                let _ = std::fs::write(
+                    format!("{}/rustlibs_panic_{}.txt", log_path, file_end),
+                    msg.clone(),
+                );
+            }
         });
     }))
+}
+
+fn create_dated_log_path() -> std::io::Result<String> {
+    let now = chrono::Utc::now();
+    let year = now.format("%Y").to_string();
+    let month = now.format("%m-%B").to_string();
+    let day = now.format("%d-%A").to_string();
+    let log_path = format!("data/logs/{}/{}/{}", year, month, day);
+    std::fs::create_dir_all(&log_path)?;
+    Ok(log_path)
 }
 
 fn get_safe_timestamp() -> String {
