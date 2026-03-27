@@ -214,6 +214,8 @@
 	pixel_y = -2
 	},
 /obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple";
@@ -504,13 +506,9 @@
 	pixel_y = 4
 	},
 /obj/item/clothing/glasses/welding,
-/obj/item/storage/belt/utility{
-	map_json_data = "#?lbr;#?qt;content#?qt;:[],#?qt;slots#?qt;:7,#?qt;max_w_class#?qt;:3,#?qt;max_c_w_class#?qt;:18#?rbr;"
-	},
-/obj/item/storage/belt/utility{
-	map_json_data = "#?lbr;#?qt;content#?qt;:[],#?qt;slots#?qt;:7,#?qt;max_w_class#?qt;:3,#?qt;max_c_w_class#?qt;:18#?rbr;"
-	},
 /obj/structure/table/reinforced,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/glass{
 	icon_state = "glass-157";
 	layer = 2
