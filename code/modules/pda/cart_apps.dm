@@ -39,7 +39,7 @@
 					post_status(params["statdisp"])
 
 /datum/data/pda/app/signaller
-	name = "Система сигнализации"
+	name = "Сигнальная система"
 	icon = "rss"
 	template = "pda_signaler"
 	category = "Utilities"
@@ -278,7 +278,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "summon"))
 
 /datum/data/pda/app/mule_control
-	name = "Контроль курьерских ботов"
+	name = "Боты Снабжения"
 	icon = "truck"
 	template = "pda_mule"
 	category = "Quartermaster"
@@ -413,7 +413,7 @@
 	data["supply"] = supplyData
 
 /datum/data/pda/app/janitor
-	name = "Локатор службы уборки"
+	name = "Локатор уборщика"
 	icon = "trash"
 	template = "pda_janitor"
 	category = "Utilities"

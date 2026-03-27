@@ -1,12 +1,12 @@
 /datum/data/pda/utility/flashlight
-	name = "Включить фонарь"
+	name = "Вкл фонарь"
 	icon = "lightbulb"
 	/// Is the flashlight function on?
 	var/fon = FALSE
 
 /datum/data/pda/utility/flashlight/start()
 	fon = !fon
-	name = fon ? "Выключить фонарь" : "Включить фонарь"
+	name = fon ? "Выкл фонарь" : "Вкл фонарь"
 	pda.update_shortcuts()
 	pda.update_icon(UPDATE_OVERLAYS)
 	pda.set_light_on(fon)
@@ -26,7 +26,7 @@
 		last_honk = world.time
 
 /datum/data/pda/utility/toggle_door
-	name = "Переключатель дверь"
+	name = "Переключатель дверей"
 	icon = "external-link-alt"
 	var/remote_door_id = ""
 
@@ -41,7 +41,7 @@
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/scanmode/medical
-	base_name = "Медсканер"
+	base_name = "Анализатор здоровья"
 	icon = "heart"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
@@ -105,7 +105,7 @@
 	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/gas
-	base_name = "Сканер газов"
+	base_name = "Газоанализатор"
 	icon = "tachometer-alt"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/scanned_atom, mob/user)

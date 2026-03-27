@@ -83,7 +83,7 @@
 				pda.close(usr)
 
 /datum/data/pda/app/manifest
-	name = "Список экипажа"
+	name = "Манифест экипажа"
 	icon = "user"
 	template = "pda_manifest"
 	update = PDA_APP_UPDATE_SLOW
