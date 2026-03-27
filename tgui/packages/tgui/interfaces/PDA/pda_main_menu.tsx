@@ -29,7 +29,7 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '64px',
+        width: '85px',
         padding: '4px',
       }}
     >
@@ -42,6 +42,7 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '6px',
+          margin: '0 auto',
         }}
       >
         <i
@@ -55,10 +56,17 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
 
       <Box
         style={{
-          fontSize: '10px',
+          fontSize: '9px',
+          width: '80px',
           color: '#ddd',
           textAlign: 'center',
-          lineHeight: '1.2',
+          lineHeight: '1.1',
+          whiteSpace: 'normal',
+          wordBreak: 'break-word',
+          overflow: 'hidden',
+          minHeight: '22px',
+          maxHeight: '33px',
+          margin: '0 auto',
         }}
       >
         {app.name}
@@ -69,7 +77,7 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
 
 export const pda_main_menu = () => {
   const { act, data } = useBackend<MainMenuData>();
-  const { owner, ownjob, idInserted, notifying, apps } = data;
+  const { idInserted, notifying, apps } = data;
 
   const allApps: App[] = Object.values(apps || {}).flat();
 
