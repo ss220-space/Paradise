@@ -68,7 +68,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "k" = (
@@ -86,7 +86,7 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "l" = (
@@ -97,13 +97,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/hallway/rd_robo,
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "m" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "n" = (
@@ -128,7 +128,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "p" = (
@@ -148,7 +148,7 @@
 	icon_state = "1-2-f"
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "s" = (
@@ -315,7 +315,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "L" = (
@@ -345,7 +345,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "O" = (
@@ -377,7 +377,7 @@
 	icon_state = "1-2-f"
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "R" = (
@@ -394,7 +394,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "S" = (
@@ -434,7 +434,7 @@
 /area/template_noop)
 "X" = (
 /turf/simulated/floor/plasteel{
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/research/shallway)
 "Z" = (
