@@ -219,11 +219,6 @@
 	pixel_y = 5
 	},
 /obj/item/slime_extract/bluespace,
-/obj/item/circuitboard/bci_implanter{
-	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#bc4a9b.dmi';
-	name = "circuit board (Brain-Computer Interface Manipulation Chamber)"
-	},
 /obj/machinery/light/small{
 	dir = 1;
 	icon_state = "bulb0"
@@ -234,6 +229,7 @@
 	pixel_x = 2;
 	pixel_y = 3
 	},
+/obj/item/circuitboard/bci_implanter,
 /turf/simulated/floor/plating{
 	layer = 1.7
 	},
