@@ -111,7 +111,7 @@
 		else
 			visible_message(
 				span_warning("[name] пыта[PLUR_ET_YUT(src)]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
-				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
+				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 10 секунд."),
 			)
 		if(do_after(src, breakout_time, src, breakout_flags, max_interact_count = 1,
 			cancel_on_max = TRUE, cancel_message = ""))
