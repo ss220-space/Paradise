@@ -114,16 +114,16 @@
 		messages_data += list(message.get_ui_data(user))
 
 	if(is_group)
-		data["owner_chat"] = get_account_info(owner_chat)
+		data["owner_chat"] = owner_chat.get_account_info()
 
 		var/list/chat_admins_list = list()
 		for(var/datum/messenger_account/checked_account as anything in chat_admins)
-			chat_admins_list.Add(get_account_info(checked_account))
+			chat_admins_list.Add(checked_account.get_account_info())
 
 		data["chat_admins"] = chat_admins_list
 
 		var/list/chat_members_list = list()
 		for(var/datum/messenger_account/checked_account as anything in chat_members)
-			chat_members_list.Add(get_account_info(checked_account))
+			chat_members_list.Add(checked_account.get_account_info())
 
 		data["chat_members"] = chat_members_list

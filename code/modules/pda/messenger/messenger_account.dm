@@ -16,11 +16,12 @@
 	unread_counts[added_chat.name_chat] = 0
 	active_chat += added_chat
 
-/proc/get_account_info(datum/messenger_account/checked_account)
+
+/datum/messenger_account/proc/get_account_info()
 	var/list/member = list()
 
-	member["name"] = checked_account.owner.owner_name
-	member["account_number"] = checked_account.owner.account_number
+	member["name"] = owner.owner_name
+	member["account_number"] = owner.account_number
 
 	return member
 

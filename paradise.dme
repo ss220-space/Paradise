@@ -3358,7 +3358,7 @@
 #include "code\modules\pda\Messenger\messenger_account.dm"
 #include "code\modules\pda\Messenger\messenger_message.dm"
 #include "code\modules\pda\Messenger\messenger_chat.dm"
-#include "code\modules\pda\Messenger\messenger.dm"
+#include "code\modules\pda\messenger.dm"
 #include "code\modules\persistence\persistence.dm"
 #include "code\modules\point\point.dm"
 #include "code\modules\power\apc.dm"

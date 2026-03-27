@@ -5,20 +5,21 @@
 	notify_icon = "comments"
 	template = "pda_raingor_messenger"
 
-	/// I used money_account as the user account
-	/// this will allow me to add card login if necessary
+	// последний из входящих аккаунтов
 	var/datum/messenger_account/last_login_owner
 
-	/// Using this flag we make it possible to log in and out of the messenger
+	// Используем флаг вместо того, что бы пользоваться логин системой, которая у терминалов.
 	var/can_login = FALSE
 
 /datum/data/pda/app/messenger/update_ui(mob/user, list/data)
 	var/datum/messenger_account/owner_messenger_account = login_in_messenger()
-
-	can_login = (owner_messenger_account)
-
 	data["can_login"] = can_login
-	data["owner_messenger_account"] = get_account_info(owner_messenger_account)
+
+	// Проверяем на то, что если человек не смог залогиниться ему в UI высветило сообщение о обязательном логине
+	if(!can_login)
+		return
+
+	data["owner_messenger_account"] = owner_messenger_account.get_account_info()
 
 	var/list/chats = list()
 	for(var/datum/messenger_chat/user_chat as anything in owner_messenger_account.active_chat)
@@ -43,5 +44,6 @@
 	if(!current_id || last_login_owner)
 		return null
 
+	can_login = TRUE
 	last_login_owner = pda.id
 	return owner_messenger_account
