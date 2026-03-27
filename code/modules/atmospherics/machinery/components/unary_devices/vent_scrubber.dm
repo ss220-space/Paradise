@@ -287,7 +287,7 @@
 			if(isnull(removed)) //in space
 				return
 
-			var/scrub = scrubber.scrub
+			//var/scrub = scrubber.scrub
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new

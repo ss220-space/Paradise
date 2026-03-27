@@ -9,10 +9,20 @@
 	can_unwrench = TRUE
 	var/injecting = 0
 	var/volume_rate = 50
+	var/id
 
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = TRUE
 
+/obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
+	. = ..()
+	if(id)
+		GLOB.injectors_by_tag[id] = WEAKREF(src)
+
+/obj/machinery/atmospherics/unary/outlet_injector/Destroy()
+	if(id)
+		GLOB.injectors_by_tag -= id
+	. = ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!powered())
@@ -90,6 +100,7 @@
 
 	if("power_toggle" in params)
 		on = !on
+
 
 	if("inject" in params)
 		INVOKE_ASYNC(src, PROC_REF(inject))
