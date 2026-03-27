@@ -106324,6 +106324,10 @@
 	icon_state = "purple"
 	},
 /area/medical/virology/lab)
+"tHB" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd_counter,
+/turf/simulated/wall,
+/area/toxins/lab)
 "tHC" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /turf/simulated/floor/plasteel,
@@ -162265,7 +162269,7 @@ uZs
 iVI
 uZs
 vvY
-vvY
+tHB
 vEo
 rjs
 dlT
