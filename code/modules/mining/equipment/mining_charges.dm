@@ -115,7 +115,7 @@
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
+			if(isturf(target))
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
@@ -125,7 +125,7 @@
 	if(location)
 		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3], cause = src)
 		location.ex_act(EXPLODE_HEAVY, target)
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/M = target
 		M.gib()
 	qdel(src)

@@ -266,8 +266,7 @@
 "wa" = (
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/shuttle/administration)
 "ww" = (
@@ -367,7 +366,7 @@
 	layer = 4.3;
 	pixel_y = 32
 	},
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "navybluealt"
@@ -416,8 +415,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/shuttle/administration)
 "FQ" = (
@@ -479,7 +477,7 @@
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Jx" = (
-/obj/structure/chair/sofa/corp/right,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "navybluealt"
@@ -559,7 +557,7 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/structure/chair/sofa/corp/right,
+/obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "navybluealt"
@@ -605,7 +603,7 @@
 	},
 /area/shuttle/administration)
 "PI" = (
-/obj/structure/chair/sofa/corp/left,
+/obj/structure/chair/sofa/corp/right,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -849,8 +847,7 @@
 "Ye" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 4;
@@ -864,8 +861,7 @@
 "YE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 4;
@@ -888,8 +884,7 @@
 "ZC" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 4;

@@ -175,13 +175,13 @@
 /datum/gear/donor/strip/ce
 	index_name = "strip, Chief Engineer"
 	path = /obj/item/clothing/accessory/head_strip/ce
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/donor/strip/t4ce
 	index_name = "strip, Grand Chief Engineer"
 	path = /obj/item/clothing/accessory/head_strip/t4ce
 	donator_tier = 4
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/donor/strip/cmo
 	index_name = "strip, Chief Medical Officer"
@@ -305,7 +305,7 @@
 	donator_tier = 4
 	cost = 2
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CAPTAIN, JOB_TITLE_ENGINEER_TRAINEE)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CAPTAIN, JOB_TITLE_ENGINEER_TRAINEE)
 
 /datum/gear/donor/heart_science
 	index_name = "Heart Science Glasses"
@@ -313,7 +313,7 @@
 	donator_tier = 4
 	cost = 2
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_SCIENTIST, JOB_TITLE_ROBOTICIST, JOB_TITLE_RD, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST, JOB_TITLE_SCIENTIST_STUDENT)
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_SCIENTIST, JOB_TITLE_ROBOTICIST, JOB_TITLE_RD, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST, JOB_TITLE_SCIENCE_STUDENT)
 
 /datum/gear/donor/heart_health
 	index_name = "Heart Medical Glasses"
@@ -321,7 +321,7 @@
 	donator_tier = 4
 	cost = 2
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_CMO, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BLUESHIELD, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_CMO, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BLUESHIELD, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CORONER)
 
 /datum/gear/donor/heart_diagnostic
 	index_name = "Heart Diagnostic Glasses"
@@ -337,7 +337,7 @@
 	donator_tier = 4
 	cost = 2
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_BLUESHIELD, JOB_TITLE_JUDGE, JOB_TITLE_OFFICER)
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_BLUESHIELD, JOB_TITLE_MAGISTRATE, JOB_TITLE_OFFICER)
 
 /datum/gear/donor/heartsec_read
 	index_name = "Heart Security Glasses"
@@ -368,21 +368,21 @@
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	donator_tier = 3
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE)
 
 /datum/gear/donor/visor_medical
 	index_name = "Optical Medical Visor"
 	path = /obj/item/clothing/glasses/hud/health/visor
 	donator_tier = 3
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/donor/visor_science
 	index_name = "Optical Science Visor"
 	path = /obj/item/clothing/glasses/science/visor
 	donator_tier = 3
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
+	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
 
 /datum/gear/donor/visor_diagnostic
 	index_name = "Optical Diagnostic Visor"
@@ -396,7 +396,7 @@
 	path = /obj/item/clothing/glasses/meson/visor
 	donator_tier = 3
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/donor/visor_skill
 	index_name = "Optical Skill Visor"
@@ -432,7 +432,7 @@
 	index_name = "strip, Great fellow"
 	path = /obj/item/clothing/accessory/head_strip/cheese_badge
 	donator_tier = 4
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_MAGISTRATE)
 
 /datum/gear/donor/smile_pin
 	index_name = "smiling pin"
@@ -478,13 +478,13 @@
 	index_name = "hazard vest alt"
 	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor
 	donator_tier = 3
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER)
 
 /datum/gear/donor/atmosbelt
 	index_name = "hazard vest alt (atmos)"
 	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
 	donator_tier = 3
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/donor/beaver
 	index_name = "Beaver Plushie"

@@ -755,9 +755,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Note that hands count as slots.
  *
  * Arguments:
- * * 'user' is mob that equipped it
- * * 'slot' uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
- * * 'initial' is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ * * user - is mob that equipped it
+ * * slot - uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * initial - is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -948,7 +948,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
-	while(L && !istype(L, /turf/))
+	while(L && !isturf(L))
 		L = L.loc
 	return loc
 
@@ -1478,6 +1478,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
+/// Returns the sharpness of src. If you want to get the sharpness of an item use this.
+/obj/item/proc/get_sharpness()
+	return sharp//ness
+	
 /// If an object can successfully be used as a fire starter it will return a message
 /obj/item/proc/ignition_effect(atom/target, mob/user)
 	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)

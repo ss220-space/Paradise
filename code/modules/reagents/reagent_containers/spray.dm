@@ -28,7 +28,7 @@
 	)
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user, proximity, params)
-	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+	if(isstorage(A) || istable(A) || istype(A, /obj/structure/rack) || iscloset(A) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
 
@@ -105,6 +105,9 @@
 	name = "space cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Произведено компанией \"BLAM!\"."
 	list_reagents = list("cleaner" = 250)
+	amount_per_transfer_from_this = 10
+	spray_maxrange = 2
+	spray_currentrange = 2
 
 /obj/item/reagent_containers/spray/cleaner/get_ru_names()
 	return list(

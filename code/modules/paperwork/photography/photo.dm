@@ -24,7 +24,7 @@
 	user.examinate(src)
 
 /obj/item/photo/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		if(!user.is_literate())
 			to_chat(user, span_warning("You don't know how to write!"))

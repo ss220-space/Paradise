@@ -239,11 +239,11 @@
 	if(current_bot)
 		current_bot.hijacked = FALSE
 	current_bot = null
-	if(istype(old_location, /obj/item/stock_parts/cell))
+	if(iscell(old_location))
 		var/obj/item/stock_parts/cell/C = old_location
 		// only set rigged if there are no remaining demons in the cell
 		C.rigged = !(locate(/mob/living/simple_animal/demon/pulse_demon) in old_location)
-	if(istype(loc, /obj/item/stock_parts/cell))
+	if(iscell(loc))
 		var/obj/item/stock_parts/cell/C = loc
 		C.rigged = FALSE
 

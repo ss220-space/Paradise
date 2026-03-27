@@ -451,122 +451,141 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
+	/// Maximum number of sheets it can hold.
+	var/capacity = 300
 
-	var/capacity = 300; //the number of sheets it can carry.
+// Helper to calculate total sheets currently stored.
+/obj/item/storage/bag/sheetsnatcher/proc/get_total_sheets()
+	. = 0
+	for(var/obj/item/stack/sheet/sheet_stack in contents)
+		. += sheet_stack.amount
 
-/obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
-	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
+/obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/inserted_item, stop_messages = FALSE)
+	if(!istype(inserted_item, /obj/item/stack/sheet) || istype(inserted_item, /obj/item/stack/sheet/mineral/sandstone) || istype(inserted_item, /obj/item/stack/sheet/wood))
 		if(!stop_messages)
-			to_chat(usr, "The snatcher does not accept [W].")
-		return 0 //I don't care, but the existing code rejects them for not being "sheets" *shrug* -Sayu
-	var/current = 0
-	for(var/obj/item/stack/sheet/S in contents)
-		current += S.amount
-	if(capacity == current)//If it's full, you're done
+			to_chat(usr, "The snatcher does not accept [inserted_item].")
+		return FALSE
+
+	var/total_sheets = get_total_sheets()
+	if(total_sheets >= capacity)
 		if(!stop_messages)
 			to_chat(usr, span_warning("The snatcher is full."))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
-// Modified handle_item_insertion.  Would prefer not to, but...
-/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
-	var/obj/item/stack/sheet/S = W
-	if(!istype(S)) return 0
+/obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/inserted_item, prevent_warning = FALSE)
+	var/obj/item/stack/sheet/sheet_stack = inserted_item
+	if(!istype(sheet_stack))
+		return FALSE
 
-	var/amount
-	var/inserted = 0
-	var/current = 0
-	for(var/obj/item/stack/sheet/S2 in contents)
-		current += S2.amount
-	if(capacity < current + S.amount)//If the stack will fill it up
-		amount = capacity - current
-	else
-		amount = S.amount
+	// Preliminary check with proper warnings if not prevented.
+	if(!can_be_inserted(sheet_stack, prevent_warning))
+		return FALSE
 
-	for(var/obj/item/stack/sheet/sheet in contents)
-		if(S.type == sheet.type) // we are violating the amount limitation because these are not sane objects
-			sheet.amount += amount	// they should only be removed through procs in this file, which split them up.
-			S.amount -= amount
-			inserted = 1
+	var/total_sheets = get_total_sheets()
+	var/free_space = capacity - total_sheets
+	var/amount_to_insert = min(sheet_stack.amount, free_space)
+
+	if(amount_to_insert <= 0)
+		if(!prevent_warning)
+			to_chat(usr, span_warning("The snatcher is full."))
+		return FALSE
+
+	// Try to merge with an existing stack of the same type.
+	var/merged_with_existing = FALSE
+	for(var/obj/item/stack/sheet/stored_stack in contents)
+		if(stored_stack.type == sheet_stack.type)
+			stored_stack.amount += amount_to_insert
+			sheet_stack.amount -= amount_to_insert
+			merged_with_existing = TRUE
 			break
 
-	if(!inserted || !S.amount)
-		usr.drop_transfer_item_to_loc(S, src)
-		usr.update_icons()	//update our overlays
-		if(usr.client && usr.s_active != src)
-			usr.client.screen -= S
-		if(!S.amount)
-			qdel(S)
+	if(!merged_with_existing)
+		// No matching stack — create a new one inside the bag.
+		var/obj/item/stack/sheet/new_stack = new sheet_stack.type(src)
+		new_stack.amount = amount_to_insert
+		sheet_stack.amount -= amount_to_insert
 
+	// If the original stack is now empty, delete it.
+	if(sheet_stack.amount <= 0)
+		qdel(sheet_stack)
+	// else it remains where it was, partially used.
+
+	// Update UI if open.
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
 	return TRUE
 
-// Sets up numbered display to show the stack size of each stored mineral
-// NOTE: numbered display is turned off currently because it's broken
-/obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user as mob)
-	var/adjusted_contents = contents.len
+/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/removed_item, atom/new_location)
+	var/obj/item/stack/sheet/sheet_stack = removed_item
+	if(!istype(sheet_stack))
+		return ..() // Let parent handle non-sheets (shouldn't happen).
 
-	//Numbered contents display
-	var/list/datum/numbered_display/numbered_contents
-	if(display_contents_with_number)
-		numbered_contents = list()
-		adjusted_contents = 0
-		for(var/obj/item/stack/sheet/I in contents)
-			adjusted_contents++
-			var/datum/numbered_display/D = new/datum/numbered_display(I)
-			D.number = I.amount
-			numbered_contents.Add(D)
+	// Normal removal — let parent handle moving the whole stack.
+	if(sheet_stack.amount <= sheet_stack.max_amount)
+		return ..(sheet_stack, new_location)
 
-	var/row_num = 0
-	var/col_count = min(7,storage_slots) -1
-	if(adjusted_contents > 7)
-		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
+	// If the stack is larger than max_amount, we split it.
+	// Create a new stack with max_amount to be moved.
+	var/obj/item/stack/sheet/new_stack = new sheet_stack.type(new_location)
+	new_stack.amount = sheet_stack.max_amount
+	sheet_stack.amount -= sheet_stack.max_amount
+	// The original stack stays in the bag.
+	// Move the new stack to the target location.
+	if(ismob(new_location))
+		var/mob/mob = new_location
+		mob.put_in_hands(new_stack)
+	else if(isturf(new_location))
+		new_stack.forceMove(new_location)
+	// Update UI.
+	if(usr.s_active)
+		usr.s_active.show_to(usr)
+	update_icon()
+	return TRUE
 
-	if(!display_contents_with_number)
-		space_orient_objs(numbered_contents)
-	else
-		standard_orient_objs(row_num, col_count, numbered_contents)
-
-// Modified quick_empty verb drops appropriate sized stacks
 /obj/item/storage/bag/sheetsnatcher/quick_empty()
-	var/location = get_turf(src)
-	for(var/obj/item/stack/sheet/S in contents)
-		while(S.amount)
-			var/obj/item/stack/sheet/N = new S.type(location)
-			var/stacksize = min(S.amount,N.max_amount)
-			N.amount = stacksize
-			S.amount -= stacksize
-		if(!S.amount)
-			qdel(S) // todo: there's probably something missing here
+	var/drop_location = get_turf(src)
+	for(var/obj/item/stack/sheet/sheet_stack in contents)
+		while(sheet_stack.amount > 0)
+			var/obj/item/stack/sheet/new_stack = new sheet_stack.type(drop_location)
+			var/transfer_amount = min(sheet_stack.amount, new_stack.max_amount)
+			new_stack.amount = transfer_amount
+			sheet_stack.amount -= transfer_amount
+		qdel(sheet_stack) // Original stack is now empty.
+
+	// Update UI if open.
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
 
-// Instead of removing
-/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/W, atom/new_location)
-	var/obj/item/stack/sheet/S = W
-	if(!istype(S)) return 0
+/obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user)
+	var/adjusted_contents = length(contents)
+	var/list/datum/numbered_display/numbered_displays
+	if(display_contents_with_number)
+		numbered_displays = list()
+		adjusted_contents = 0
+		for(var/obj/item/stack/sheet/sheet_stack in contents)
+			adjusted_contents++
+			var/datum/numbered_display/display = new/datum/numbered_display(sheet_stack)
+			display.number = sheet_stack.amount
+			numbered_displays.Add(display)
 
-	//I would prefer to drop a new stack, but the item/attack_hand code
-	// that calls this can't receive a different object than you clicked on.
-	//Therefore, make a new stack internally that has the remainder.
-	// -Sayu
+	var/row_num = 0
+	var/col_count = min(7, storage_slots) - 1
+	if(adjusted_contents > 7)
+		row_num = round((adjusted_contents - 1) / 7)
 
-	if(S.get_amount() > S.max_amount)
-
-		new S.type(src, S.amount - S.max_amount)
-
-		S.amount = S.max_amount
-
-	return ..(S,new_location)
+	if(!display_contents_with_number)
+		space_orient_objs(numbered_displays)
+	else
+		standard_orient_objs(row_num, col_count, numbered_displays)
 
 // Sheet Snatcher (Cyborg)
 /obj/item/storage/bag/sheetsnatcher/borg
 	name = "Sheet Snatcher 9000"
 	desc = ""
-	capacity = 500//Borgs get more because >specialization
+	capacity = 500 // Borgs get more because > specialization
 
 ////////////////////////////////////////
 // MARK:	Cash bag
@@ -742,7 +761,7 @@
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
-		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
+		handle_item_insertion(C)	// Done this way so the tray actually has the cookies visible when spawned
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie

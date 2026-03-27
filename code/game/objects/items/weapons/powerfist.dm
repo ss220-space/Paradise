@@ -7,7 +7,7 @@
 	attack_verb = list("огрел", "ударил", "с силой ударил")
 	force = 12
 	throwforce = 10
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=1"
 	var/click_delay = 1.5

@@ -287,7 +287,7 @@
 		if(is_type_in_typecache(target, strong_against))
 			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
 			to_chat(user, span_warning("You easily splat the [target]."))
-			if(istype(target, /mob/living/))
+			if(isliving(target))
 				var/mob/living/bug = target
 				bug.death(1)
 			else

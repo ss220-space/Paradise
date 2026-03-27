@@ -6,7 +6,7 @@
 	post_init_icon_state = "thermo_base"
 	density = TRUE
 	max_integrity = 300
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
 	greyscale_config = /datum/greyscale_config/thermomachine
 	flags = NO_NEW_GAGS_PREVIEW

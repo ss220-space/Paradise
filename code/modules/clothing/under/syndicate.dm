@@ -5,7 +5,7 @@
 	item_state = "bl_suit"
 	item_color = "syndicate"
 	has_sensor = 0
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/syndicate/get_ru_names()
@@ -37,7 +37,7 @@
 	icon_state = "tactifool"
 	item_color = "tactifool"
 	has_sensor = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
 
 /obj/item/clothing/under/syndicate/tacticool/get_ru_names()
 	return list(
@@ -85,7 +85,7 @@
 	desc = "Модель тактической водолазки предназначена для ведения переговоров, а не для участия в боевых действиях."
 	icon_state = "black_suit"
 	item_color = "black_suit"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/syndicate/sniper_civ/get_ru_names()
 	return list(
@@ -102,7 +102,7 @@
 	desc = "Прочный комбинезон, созданный для тайных операций в тылу врага. Благодаря кевларовым вставкам, он обеспечивает лёгкую защиту."
 	icon_state = "blackops"
 	item_state = "blackops"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15,ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 10, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops/get_ru_names()
 	return list(
@@ -120,7 +120,7 @@
 	icon_state = "blackops"
 	item_state = "blackops"
 	has_sensor = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops_civ/get_ru_names()
 	return list(

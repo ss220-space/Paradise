@@ -450,7 +450,7 @@
 	name = "Capacitive Cell Production"
 
 /datum/plant_gene/trait/battery/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
 			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))

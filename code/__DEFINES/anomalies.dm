@@ -8,19 +8,9 @@
 #define TIER2 "2"
 #define TIER3 "3"
 
-#define isanomaly(A) (istype((A), /obj/effect/anomaly))
-
-#define iscore(A) (istype((A), /obj/item/assembly/signaler/core))
-
 #define iscoreempty(A) ((A.type == /obj/item/assembly/signaler/core/tier1) || \
 	(A.type == /obj/item/assembly/signaler/core/tier2) || \
 	(A.type == /obj/item/assembly/signaler/core/tier3))
-
-#define iscoreatmos(A) (istype((A), /obj/item/assembly/signaler/core/atmospheric))
-#define iscorebluespace(A) (istype((A), /obj/item/assembly/signaler/core/bluespace))
-#define iscoregrav(A) (istype((A), /obj/item/assembly/signaler/core/gravitational))
-#define iscorevortex(A) (istype((A), /obj/item/assembly/signaler/core/vortex))
-#define iscoreflux(A) (istype((A), /obj/item/assembly/signaler/core/energetic))
 
 GLOBAL_LIST_INIT(anomaly_types, list(
 	TIER1 = list(

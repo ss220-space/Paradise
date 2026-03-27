@@ -258,7 +258,7 @@
 			used = TRUE
 
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grenade))
+	if(isgrenade(I))
 		if(boobytrap)
 			to_chat(user, span_warning("There is already [boobytrap] installed."))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK

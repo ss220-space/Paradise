@@ -5,7 +5,7 @@
 	notify_icon = "comments"
 	template = "pda_raingor_messenger"
 
-	// последний из входящих аккаунтов
+	// последний из входящих аккаунтовgit m
 	var/datum/messenger_account/last_login_owner
 
 	// Используем флаг вместо того, что бы пользоваться логин системой, которая у терминалов.

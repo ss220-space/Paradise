@@ -268,7 +268,6 @@
 
 /obj/projectile/bullet/pellet/bioterror
 	damage = 9
-	irradiate = 20
 	tile_dropoff = 0
 
 /obj/projectile/bullet/pellet/bioterror/on_hit(atom/target, blocked = 0, hit_zone)

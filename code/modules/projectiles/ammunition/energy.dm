@@ -12,11 +12,14 @@
 	var/select_name = "energy"
 	/// Fluff fire mode name showed to the user.
 	var/fluff_select_name
+	/// Sibyl System classification tier
+	var/sibyl_tier = SIBYL_TIER_NONLETHAL
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/laser/light
@@ -42,6 +45,7 @@
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
 	select_name = "practice"
+	sibyl_tier = SIBYL_TIER_NONLETHAL
 	harmful = FALSE
 	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
@@ -61,24 +65,28 @@
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	e_cost = 200
 	select_name = "DESTROY"
+	sibyl_tier = SIBYL_TIER_DESTRUCTIVE
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
 	projectile_type = /obj/projectile/beam/pulse/hitscan
 	e_cost = 200
 	select_name = "ANNIHILATE"
+	sibyl_tier = SIBYL_TIER_DESTRUCTIVE
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/bluetag
 	projectile_type = /obj/projectile/beam/lasertag/bluetag
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name = "bluetag"
+	sibyl_tier = SIBYL_TIER_NONLETHAL
 	harmful = FALSE
 	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
 /obj/item/ammo_casing/energy/laser/redtag
 	projectile_type = /obj/projectile/beam/lasertag/redtag
 	select_name = "redtag"
+	sibyl_tier = SIBYL_TIER_NONLETHAL
 	harmful = FALSE
 	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
@@ -98,6 +106,7 @@
 	projectile_type = /obj/projectile/beam/immolator/strong
 	e_cost = 50
 	select_name = "precise"
+	sibyl_tier = SIBYL_TIER_LETHAL
 
 /obj/item/ammo_casing/energy/immolator/strong/cyborg
 	// Used by gamma ERT borgs
@@ -109,6 +118,7 @@
 	pellets = 6
 	variance = 25
 	select_name = "scatter"
+	sibyl_tier = SIBYL_TIER_LETHAL
 
 /obj/item/ammo_casing/energy/immolator/scatter/cyborg
 	// Used by gamma ERT borgs
@@ -144,11 +154,13 @@
 	projectile_type = /obj/projectile/energy/declone
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name = "declone"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	fire_sound = 'sound/weapons/gunshots/1declone.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
 	projectile_type = /obj/projectile/beam/mindflayer
 	select_name = "MINDFUCK"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/ammo_casing/energy/flora
@@ -270,6 +282,7 @@
 	muzzle_flash_color = null
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	select_name = "bolt"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	e_cost = 500
 	fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
 
@@ -349,12 +362,14 @@
 	fire_sound = 'sound/weapons/genhit.ogg'
 	e_cost = 500
 	select_name = "toxic dart"
+	sibyl_tier = SIBYL_TIER_LETHAL
 
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/projectile/beam/instakill
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	e_cost = 0
 	select_name = "DESTROY"
+	sibyl_tier = SIBYL_TIER_DESTRUCTIVE
 	fire_sound = 'sound/weapons/marauder.ogg'
 
 /obj/item/ammo_casing/energy/instakill/blue
@@ -377,6 +392,7 @@
 	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
+	sibyl_tier = SIBYL_TIER_LETHAL
 
 /obj/item/ammo_casing/energy/weak_plasma
 	projectile_type = /obj/projectile/energy/weak_plasma
@@ -414,6 +430,7 @@
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 50
 	select_name = "snipe"
+	sibyl_tier = SIBYL_TIER_LETHAL
 
 /obj/item/ammo_casing/energy/podsniper/disabler
 	projectile_type = /obj/projectile/beam/podsniper/disabler
@@ -429,6 +446,7 @@
 	delay = 3 SECONDS
 	e_cost = 150
 	select_name = "kill"
+	sibyl_tier = SIBYL_TIER_LETHAL
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/projectile/energy/teleport
@@ -482,6 +500,7 @@
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	select_name = "lethal"
 	fluff_select_name = "lethal-eliminator"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	e_cost = 200
 
 /obj/item/ammo_casing/energy/dominator/slaughter
@@ -489,6 +508,7 @@
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	select_name = "destroy"
 	fluff_select_name  = "execution-slaughter"
+	sibyl_tier = SIBYL_TIER_DESTRUCTIVE
 	fire_sound = 'sound/weapons/marauder.ogg'
 	e_cost = 250
 	delay = 30
@@ -533,6 +553,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
+	sibyl_tier = SIBYL_TIER_LETHAL
 	e_cost = 900
 	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
 	bullet_type = BULLET_TYPE_LASER

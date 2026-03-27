@@ -145,7 +145,7 @@
 	},
 /area/maintenance/abandonedclub)
 "ff" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4;
 	color = "#85130b"
 	},
@@ -870,7 +870,7 @@
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "vT" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4;
 	color = "#85130b"
 	},
@@ -1030,8 +1030,7 @@
 	pixel_y = 15
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -4;
-	pixel_y = 0
+	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = -2;
@@ -1779,8 +1778,7 @@
 /area/maintenance/tourist)
 "Yt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2;
-	pixel_y = 0
+	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1808,8 +1806,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
@@ -2060,11 +2057,11 @@ AZ
 hq
 Zr
 WW
-jk
+no
 ff
 kL
 vT
-no
+jk
 yM
 jY
 Wb

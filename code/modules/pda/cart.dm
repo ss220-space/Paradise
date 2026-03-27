@@ -54,7 +54,6 @@
 	icon_state = "cart-e"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 	)
 
 /obj/item/cartridge/atmos
@@ -197,7 +196,6 @@
 	icon_state = "cart-ce"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/status_display,
 	)
@@ -232,7 +230,6 @@
 	icon_state = "cart-c"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
@@ -262,7 +259,6 @@
 	icon_state = "cart-c"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen,
 		new/datum/data/pda/utility/scanmode/gas,
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,

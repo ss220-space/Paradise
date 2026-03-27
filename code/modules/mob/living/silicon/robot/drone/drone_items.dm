@@ -431,7 +431,7 @@
 		else
 			module_string += text("[O]: <a href=byond://?src=[UID()];act=[UID_of(O)]>Активировать</a><br>")
 
-		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
+		if(isitem(O) && !(iscoil(O)))
 			tools += module_string
 		else
 			resources += module_string
