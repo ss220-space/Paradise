@@ -3,6 +3,7 @@ use crate::milla::model::*;
 use byondapi::map::ByondXYZ;
 use core::f32;
 use eyre::eyre;
+use rand::Rng;
 use scc::Bag;
 use std::collections::HashSet;
 use std::f32::consts::E;
@@ -241,14 +242,12 @@ pub(crate) fn flow_air_once_at_index(
             new_gas_values[i] += incoming;
             outgoing_gas_mult[i] += outflow;
 
-            // Правильный перенос тепла: газ переносит свою температуру
             let temperature_weight = incoming * SPECIFIC_HEATS[i];
             total_weighted_temperature += new_neighbor.temperature() * temperature_weight;
             total_temperature_weights += temperature_weight;
         }
     }
 
-    // Нормализуем газы
     let mut max_gas_delta = 0.0f32;
     let my_new_tile = next.get_tile_mut(my_index);
 
@@ -274,7 +273,6 @@ pub(crate) fn flow_air_once_at_index(
     }
     my_new_tile.gases.set_dirty();
 
-    // Обновляем температуру (не тепловую энергию!)
     if total_temperature_weights > 0.0 {
         let new_temperature = total_weighted_temperature / total_temperature_weights;
         my_new_tile.thermal_energy = new_temperature * my_new_tile.heat_capacity();
@@ -318,10 +316,8 @@ fn calculate_flow_coefficients(wind: f32) -> (f32, f32) {
         let wind_flow = (1.0 + WIND_SPEED).powf(wind.abs()) - 1.0;
 
         if wind > 0.0 {
-            // Ветер дует от нас
             outflow += wind_flow;
         } else {
-            // Ветер дует к нам
             inflow += wind_flow;
         }
     }
@@ -375,6 +371,11 @@ pub(crate) fn post_process(
             let my_next_tile = next.get_tile_mut(my_index);
             // New tick, reset the fuel tracker.
             my_next_tile.fuel_burnt = 0.0;
+
+            my_next_tile.radiation_energy = 0.0;
+            my_next_tile.hallucination_strength = 0.0;
+            my_next_tile.updates = ReasonFlags::NONE;
+            my_next_tile.nuclear_particles = 0.0;
 
             react(my_next_tile, false);
             if my_next_tile.hotspot_volume > 0.0 {
@@ -474,12 +475,102 @@ pub(crate) fn check_interesting(
         {
             reasons |= ReasonFlags::DISPLAY;
         }
+        if (my_next_tile.gases.tritium() >= TRITIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.tritium() >= TRITIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.bz() >= BZ_VISIBILITY_MOLES)
+            != (my_tile.gases.bz() >= BZ_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.freon() >= FREON_VISIBILITY_MOLES)
+            != (my_tile.gases.freon() >= FREON_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.miasma() >= MIASMA_VISIBILITY_MOLES)
+            != (my_tile.gases.miasma() >= MIASMA_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.proto_nitrate() >= PROTO_NITRATE_VISIBILITY_MOLES)
+            != (my_tile.gases.proto_nitrate() >= PROTO_NITRATE_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.zauker() >= ZAUKER_VISIBILITY_MOLES)
+            != (my_tile.gases.zauker() >= ZAUKER_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.helium() >= HELIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.helium() >= HELIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.pluoxium() >= PLUOXIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.pluoxium() >= PLUOXIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.nitrium() >= NITRIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.nitrium() >= NITRIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.healium() >= HEALIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.healium() >= HEALIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.halon() >= HALON_VISIBILITY_MOLES)
+            != (my_tile.gases.halon() >= HALON_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.hypernoblium() >= HYPER_NOBLIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.hypernoblium() >= HYPER_NOBLIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
+
+        if (my_next_tile.gases.antinoblium() >= ANTINOBLIUM_VISIBILITY_MOLES)
+            != (my_tile.gases.antinoblium() >= ANTINOBLIUM_VISIBILITY_MOLES)
+        {
+            reasons |= ReasonFlags::DISPLAY;
+        }
 
         if reasons.is_empty() {
             if my_tile.last_gas_update > TICK_UPDATE_COOLDOWN {
                 if my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES
                     || my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES
                     || my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES
+                    || my_next_tile.gases.tritium() >= TRITIUM_VISIBILITY_MOLES
+                    || my_next_tile.gases.bz() >= BZ_VISIBILITY_MOLES
+                    || my_next_tile.gases.freon() >= FREON_VISIBILITY_MOLES
+                    || my_next_tile.gases.miasma() >= MIASMA_VISIBILITY_MOLES
+                    || my_next_tile.gases.proto_nitrate() >= PROTO_NITRATE_VISIBILITY_MOLES
+                    || my_next_tile.gases.zauker() >= ZAUKER_VISIBILITY_MOLES
+                    || my_next_tile.gases.helium() >= HELIUM_VISIBILITY_MOLES
+                    || my_next_tile.gases.pluoxium() >= PLUOXIUM_VISIBILITY_MOLES
+                    || my_next_tile.gases.nitrium() >= NITRIUM_VISIBILITY_MOLES
+                    || my_next_tile.gases.healium() >= HEALIUM_VISIBILITY_MOLES
+                    || my_next_tile.gases.halon() >= HALON_VISIBILITY_MOLES
+                    || my_next_tile.gases.hypernoblium() >= HYPER_NOBLIUM_VISIBILITY_MOLES
+                    || my_next_tile.gases.antinoblium() >= ANTINOBLIUM_VISIBILITY_MOLES
                 {
                     reasons |= ReasonFlags::DISPLAY;
                     my_next_tile.last_gas_update = 0;
@@ -492,6 +583,8 @@ pub(crate) fn check_interesting(
         if do_turf_effects(my_next_tile) {
             reasons |= ReasonFlags::CONDENSATION;
         }
+
+        reasons |= my_next_tile.updates;
 
         if my_next_tile.temperature() > PLASMA_BURN_MIN_TEMP {
             if let AtmosMode::ExposedTo { .. } = my_next_tile.mode {
@@ -561,6 +654,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     let mut cached_heat_capacity: f32;
     let mut cached_temperature: f32;
     let mut thermal_energy: f32;
+    let mut cached_radiation: f32 = 0.0;
     if hotspot_step {
         fraction = my_next_tile.hotspot_volume;
         hotspot_boost = PLASMA_BURN_HOTSPOT_RATIO_BOOST;
@@ -578,9 +672,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // Agent B converting CO2 to O2
     if cached_temperature > AGENT_B_CONVERSION_TEMP
-        && my_next_tile.gases.agent_b() > 0.0
-        && my_next_tile.gases.carbon_dioxide() > 0.0
-        && my_next_tile.gases.toxins() > 0.0
+        && my_next_tile.gases.agent_b() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.carbon_dioxide() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.toxins() > MINIMUM_MOLE_COUNT
     {
         let co2_converted = fraction
             * (my_next_tile.gases.carbon_dioxide() * 0.75)
@@ -605,7 +699,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile.fuel_burnt += co2_converted;
     }
     // Nitrous Oxide breaking down into nitrogen and oxygen.
-    if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP && my_next_tile.gases.sleeping_agent() > 0.0
+    if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
+        && my_next_tile.gases.sleeping_agent() > MINIMUM_MOLE_COUNT
     {
         let reaction_percent = (0.00002
             * (cached_temperature - (0.00001 * (cached_temperature.powi(2)))))
@@ -634,8 +729,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
     // Plasmafire!
     if cached_temperature > PLASMA_BURN_MIN_TEMP
-        && my_next_tile.gases.toxins() > 0.0
-        && my_next_tile.gases.oxygen() > 0.0
+        && my_next_tile.gases.toxins() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
     {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
@@ -685,8 +780,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // Hydrogen BURNING, also know as Knallgas, which is Swedish. The more you know.
     if cached_temperature > HYDROGEN_MIN_IGNITE_TEMP
-        && my_next_tile.gases.hydrogen() > 0.0
-        && my_next_tile.gases.oxygen() > 0.0
+        && my_next_tile.gases.hydrogen() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
     {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
@@ -724,15 +819,762 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .set_water_vapor(my_next_tile.gases.water_vapor() + hydrogen_burnt);
 
         // Recalculate heat capacity.
-        //cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+        cached_heat_capacity = fraction * my_next_tile.heat_capacity();
         // THEN we can add in the new thermal energy.
         thermal_energy += HYDROGEN_BURN_ENERGY * hydrogen_burnt;
         // Recalculate temperature for any subsequent reactions.
         // (or we would, but this is the last reaction)
-        //cached_temperature = thermal_energy / cached_heat_capacity;
+        cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += hydrogen_burnt;
     }
+
+    // TRITIUM COMBUSTION
+    if cached_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE
+        && my_next_tile.gases.tritium() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+    {
+        let tritium = my_next_tile.gases.tritium();
+        let oxygen = my_next_tile.gases.oxygen();
+        let fraction_tritium = fraction * tritium;
+        let fraction_oxygen = fraction * oxygen;
+
+        let tritium_burnt = (fraction_tritium / FIRE_TRITIUM_BURN_RATE_DELTA)
+            .min(fraction_oxygen / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN))
+            .min(fraction_tritium)
+            .min(fraction_oxygen * 2.0);
+
+        if tritium_burnt > 0.0 {
+            my_next_tile.gases.set_tritium(tritium - tritium_burnt);
+            my_next_tile.gases.set_oxygen(oxygen - tritium_burnt * 0.5);
+            my_next_tile
+                .gases
+                .set_water_vapor(my_next_tile.gases.water_vapor() + tritium_burnt);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = FIRE_TRITIUM_ENERGY_RELEASED * tritium_burnt;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += tritium_burnt;
+
+            let volume = TILE_VOLUME;
+            let cell_volume = 2500.0;
+            let volume_factor = (volume / cell_volume).powf(ATMOS_RADIATION_VOLUME_EXP);
+
+            if tritium_burnt > TRITIUM_RADIATION_MINIMUM_MOLES
+                && energy_released > TRITIUM_RADIATION_RELEASE_THRESHOLD * volume_factor
+            {
+                let mut rng = rand::rng();
+                let random: f32 = rng.random();
+                if random < 0.1 {
+                    my_next_tile.updates |= ReasonFlags::RADIATION_PULSE;
+                    cached_radiation = cached_radiation
+                        .max((tritium_burnt.sqrt() / TRITIUM_RADIATION_RANGE_DIVISOR) * 1000.0);
+                }
+            }
+        }
+    }
+
+    // FREON COMBUSTION
+    if cached_temperature >= FREON_TERMINAL_TEMPERATURE
+        && cached_temperature <= FREON_MAXIMUM_BURN_TEMPERATURE
+        && my_next_tile.gases.freon() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+    {
+        let temp_scale = if cached_temperature < FREON_LOWER_TEMPERATURE {
+            0.5
+        } else {
+            ((FREON_MAXIMUM_BURN_TEMPERATURE - cached_temperature)
+                / (FREON_MAXIMUM_BURN_TEMPERATURE - FREON_TERMINAL_TEMPERATURE))
+                .max(0.0)
+                .min(1.0)
+        };
+
+        let oxygen_burn_ratio = OXYGEN_BURN_RATIO_BASE - temp_scale;
+        let freon = fraction * my_next_tile.gases.freon();
+        let oxygen = fraction * my_next_tile.gases.oxygen();
+
+        let mut freon_burnt = if oxygen < freon * FREON_OXYGEN_FULLBURN {
+            ((oxygen / FREON_OXYGEN_FULLBURN) / FREON_BURN_RATE_DELTA) * temp_scale
+        } else {
+            (freon / FREON_BURN_RATE_DELTA) * temp_scale
+        };
+
+        freon_burnt = freon_burnt.min(freon).min(oxygen / oxygen_burn_ratio);
+
+        if freon_burnt > 0.0 {
+            my_next_tile
+                .gases
+                .set_freon(my_next_tile.gases.freon() - freon_burnt);
+            my_next_tile
+                .gases
+                .set_oxygen(my_next_tile.gases.oxygen() - freon_burnt * oxygen_burn_ratio);
+            my_next_tile
+                .gases
+                .set_carbon_dioxide(my_next_tile.gases.carbon_dioxide() + freon_burnt);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_consumed = FIRE_FREON_ENERGY_CONSUMED * freon_burnt;
+
+            let old_temp = cached_temperature;
+            let new_temp = ((old_temp * cached_heat_capacity - energy_consumed)
+                / cached_heat_capacity)
+                .max(TCMB);
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += freon_burnt;
+
+            if cached_temperature < HOT_ICE_FORMATION_MAXIMUM_TEMPERATURE
+                && cached_temperature > HOT_ICE_FORMATION_MINIMUM_TEMPERATURE
+            {
+                let mut rng = rand::rng();
+                if rng.random::<f32>() < HOT_ICE_FORMATION_PROB {
+                    my_next_tile.updates |= ReasonFlags::CREATE_HOT_ICE;
+                }
+            }
+
+            my_next_tile.updates |= ReasonFlags::HOT;
+        }
+    }
+
+    // N2O FORMATION
+    if cached_temperature >= N2O_FORMATION_MIN_TEMPERATURE
+        && cached_temperature <= N2O_FORMATION_MAX_TEMPERATURE
+        && my_next_tile.gases.oxygen() >= 10.0
+        && my_next_tile.gases.nitrogen() >= 20.0
+        && my_next_tile.gases.bz() >= 5.0
+    {
+        let oxygen = my_next_tile.gases.oxygen();
+        let nitrogen = my_next_tile.gases.nitrogen();
+
+        let heat_efficiency = (oxygen * 2.0).min(nitrogen);
+
+        if heat_efficiency > 0.0 {
+            let old_heat_capacity = cached_heat_capacity;
+
+            my_next_tile
+                .gases
+                .set_oxygen(oxygen - heat_efficiency * 0.5);
+            my_next_tile.gases.set_nitrogen(nitrogen - heat_efficiency);
+            my_next_tile
+                .gases
+                .set_sleeping_agent(my_next_tile.gases.sleeping_agent() + heat_efficiency);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = N2O_FORMATION_ENERGY * heat_efficiency;
+
+            let new_temp = ((cached_temperature * old_heat_capacity + energy_released)
+                / cached_heat_capacity)
+                .max(TCMB);
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += heat_efficiency;
+        }
+    }
+
+    // BZ FORMATION
+    if cached_temperature <= BZ_FORMATION_MAX_TEMPERATURE
+        && my_next_tile.gases.sleeping_agent() >= 10.0
+        && my_next_tile.gases.toxins() >= 10.0
+    {
+        let pressure = my_next_tile.pressure();
+        let volume = TILE_VOLUME;
+
+        let environment_efficiency = volume / pressure.max(1.0);
+        let n2o = my_next_tile.gases.sleeping_agent();
+        let plasma = my_next_tile.gases.toxins();
+        let ratio_efficiency = (n2o / plasma).min(1.0);
+        let n2o_decomposed_factor = (4.0 * (plasma / (n2o + plasma) - 0.75)).max(0.0);
+
+        let plasma_limit = if n2o_decomposed_factor < 1.0 {
+            let denominator = 0.8 * (1.0 - n2o_decomposed_factor);
+            if denominator > 0.0 {
+                plasma / denominator
+            } else {
+                plasma / 0.8
+            }
+        } else {
+            plasma / 0.8
+        };
+
+        let bz_formed = (0.01 * ratio_efficiency * environment_efficiency)
+            .min(n2o * 2.5)
+            .min(plasma_limit);
+
+        if bz_formed > 0.0 {
+            let old_heat_capacity = cached_heat_capacity;
+
+            if n2o_decomposed_factor > 0.0 {
+                let amount_decomposed = 0.4 * bz_formed * n2o_decomposed_factor;
+                my_next_tile
+                    .gases
+                    .set_nitrogen(my_next_tile.gases.nitrogen() + amount_decomposed);
+                my_next_tile
+                    .gases
+                    .set_oxygen(my_next_tile.gases.oxygen() + amount_decomposed * 0.5);
+            }
+
+            my_next_tile
+                .gases
+                .set_bz(my_next_tile.gases.bz() + bz_formed * (1.0 - n2o_decomposed_factor));
+            my_next_tile.gases.set_sleeping_agent(n2o - bz_formed * 0.4);
+            my_next_tile
+                .gases
+                .set_toxins(plasma - 0.8 * bz_formed * (1.0 - n2o_decomposed_factor));
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+
+            let energy_released = bz_formed
+                * (BZ_FORMATION_ENERGY
+                    + n2o_decomposed_factor * (N2O_DECOMPOSITION_ENERGY - BZ_FORMATION_ENERGY));
+
+            let new_temp = ((cached_temperature * old_heat_capacity + energy_released)
+                / cached_heat_capacity)
+                .max(TCMB);
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += bz_formed;
+        }
+    }
+
+    // PLUOXIUM FORMATION
+    if cached_temperature >= PLUOXIUM_FORMATION_MIN_TEMP
+        && cached_temperature <= PLUOXIUM_FORMATION_MAX_TEMP
+        && my_next_tile.gases.carbon_dioxide() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.tritium() >= MINIMUM_MOLE_COUNT
+    {
+        let co2 = my_next_tile.gases.carbon_dioxide();
+        let oxygen = my_next_tile.gases.oxygen();
+        let tritium = my_next_tile.gases.tritium();
+
+        let produced_amount = PLUOXIUM_FORMATION_MAX_RATE
+            .min(co2)
+            .min(oxygen / 0.5)
+            .min(tritium / 0.01);
+
+        if produced_amount > 0.0 {
+            let old_heat_capacity = cached_heat_capacity;
+
+            my_next_tile.gases.set_carbon_dioxide(co2 - produced_amount);
+            my_next_tile
+                .gases
+                .set_oxygen(oxygen - produced_amount * 0.5);
+            my_next_tile
+                .gases
+                .set_tritium(tritium - produced_amount * 0.01);
+            my_next_tile
+                .gases
+                .set_pluoxium(my_next_tile.gases.pluoxium() + produced_amount);
+            my_next_tile
+                .gases
+                .set_hydrogen(my_next_tile.gases.hydrogen() + produced_amount * 0.01);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+
+            let energy_released = PLUOXIUM_FORMATION_ENERGY * produced_amount;
+
+            let new_temp = ((cached_temperature * old_heat_capacity + energy_released)
+                / cached_heat_capacity)
+                .max(TCMB);
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += produced_amount;
+        }
+    }
+
+    // NITRIUM FORMATION
+    if cached_temperature >= NITRIUM_FORMATION_MIN_TEMP
+        && my_next_tile.gases.tritium() >= 20.0
+        && my_next_tile.gases.nitrogen() >= 10.0
+        && my_next_tile.gases.bz() >= 5.0
+    {
+        let tritium = my_next_tile.gases.tritium();
+        let nitrogen = my_next_tile.gases.nitrogen();
+        let bz = my_next_tile.gases.bz();
+
+        let heat_efficiency = (cached_temperature / NITRIUM_FORMATION_TEMP_DIVISOR)
+            .min(tritium)
+            .min(nitrogen)
+            .min(bz / 0.05);
+
+        if heat_efficiency > 0.0
+            && tritium - heat_efficiency >= 0.0
+            && nitrogen - heat_efficiency >= 0.0
+            && bz - heat_efficiency * 0.05 >= 0.0
+        {
+            let old_heat_capacity = cached_heat_capacity;
+
+            my_next_tile.gases.set_tritium(tritium - heat_efficiency);
+            my_next_tile.gases.set_nitrogen(nitrogen - heat_efficiency);
+            my_next_tile.gases.set_bz(bz - heat_efficiency * 0.05);
+            my_next_tile
+                .gases
+                .set_nitrium(my_next_tile.gases.nitrium() + heat_efficiency);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+
+            let energy_used = NITRIUM_FORMATION_ENERGY * heat_efficiency;
+
+            let new_temp = ((cached_temperature * old_heat_capacity - energy_used)
+                / cached_heat_capacity)
+                .max(TCMB);
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += heat_efficiency;
+        }
+    }
+
+    // NITRIUM DECOMPOSITION
+    if cached_temperature <= NITRIUM_DECOMPOSITION_MAX_TEMP
+        && my_next_tile.gases.oxygen() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.nitrium() >= MINIMUM_MOLE_COUNT
+    {
+        let nitrium = my_next_tile.gases.nitrium();
+        let heat_efficiency =
+            (cached_temperature / NITRIUM_DECOMPOSITION_TEMP_DIVISOR).min(nitrium);
+
+        if heat_efficiency > 0.0 && nitrium - heat_efficiency >= 0.0 {
+            let old_heat_capacity = cached_heat_capacity;
+
+            my_next_tile.gases.set_nitrium(nitrium - heat_efficiency);
+            my_next_tile
+                .gases
+                .set_hydrogen(my_next_tile.gases.hydrogen() + heat_efficiency);
+            my_next_tile
+                .gases
+                .set_nitrogen(my_next_tile.gases.nitrogen() + heat_efficiency);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+
+            let energy_released = NITRIUM_DECOMPOSITION_ENERGY * heat_efficiency;
+
+            let new_temp = ((cached_temperature * old_heat_capacity + energy_released)
+                / cached_heat_capacity)
+                .max(TCMB);
+
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += heat_efficiency;
+        }
+    }
+
+    // FREON FORMATION
+    if cached_temperature >= FREON_FORMATION_MIN_TEMPERATURE
+        && my_next_tile.gases.toxins() >= MINIMUM_MOLE_COUNT * 6.0
+        && my_next_tile.gases.carbon_dioxide() >= MINIMUM_MOLE_COUNT * 3.0
+        && my_next_tile.gases.bz() >= MINIMUM_MOLE_COUNT
+    {
+        let plasma = my_next_tile.gases.toxins();
+        let co2 = my_next_tile.gases.carbon_dioxide();
+        let bz = my_next_tile.gases.bz();
+
+        let minimal_mole_factor = (plasma / 0.6).min(bz / 0.1).min(co2 / 0.3);
+
+        let equation_first_part = (-((cached_temperature - 800.0) / 200.0).powi(2)).exp();
+        let equation_second_part = 3.0 / (1.0 + (-0.001 * (cached_temperature - 6000.0)).exp());
+        let heat_factor = equation_first_part + equation_second_part;
+
+        let freon_formed = (heat_factor * minimal_mole_factor * 0.05)
+            .min(plasma / 0.6)
+            .min(co2 / 0.3)
+            .min(bz / 0.1);
+
+        if freon_formed > 0.0
+            && plasma - freon_formed * 0.6 >= 0.0
+            && co2 - freon_formed * 0.3 >= 0.0
+            && bz - freon_formed * 0.1 >= 0.0
+        {
+            let old_heat_capacity = cached_heat_capacity;
+
+            my_next_tile.gases.set_toxins(plasma - freon_formed * 0.6);
+            my_next_tile
+                .gases
+                .set_carbon_dioxide(co2 - freon_formed * 0.3);
+            my_next_tile.gases.set_bz(bz - freon_formed * 0.1);
+            my_next_tile
+                .gases
+                .set_freon(my_next_tile.gases.freon() + freon_formed);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+
+            let energy_consumed =
+                (7000.0 / (1.0 + (-0.0015 * (cached_temperature - 6000.0)).exp()) + 1000.0)
+                    * freon_formed
+                    * 0.1;
+
+            let new_temp = ((cached_temperature * old_heat_capacity - energy_consumed)
+                / cached_heat_capacity)
+                .max(TCMB);
+
+            thermal_energy = new_temp * cached_heat_capacity;
+            cached_temperature = new_temp;
+            my_next_tile.fuel_burnt += freon_formed;
+        }
+    }
+
+    // HYPER-NOBLIUM FORMATION
+    if cached_temperature >= NOBLIUM_FORMATION_MIN_TEMP
+        && cached_temperature <= NOBLIUM_FORMATION_MAX_TEMP
+        && my_next_tile.gases.nitrogen() >= 10.0
+        && my_next_tile.gases.tritium() >= 5.0
+    {
+        let nitrogen = my_next_tile.gases.nitrogen();
+        let tritium = my_next_tile.gases.tritium();
+        let bz = my_next_tile.gases.bz();
+
+        let reduction_factor = (tritium / (tritium + bz)).clamp(0.001, 1.0);
+        let nob_formed = ((nitrogen + tritium) * 0.01)
+            .min(tritium / (5.0 * reduction_factor))
+            .min(nitrogen / 10.0);
+
+        if nob_formed > 0.0 {
+            my_next_tile
+                .gases
+                .set_tritium(tritium - 5.0 * nob_formed * reduction_factor);
+            my_next_tile
+                .gases
+                .set_nitrogen(nitrogen - 10.0 * nob_formed);
+            my_next_tile
+                .gases
+                .set_hypernoblium(my_next_tile.gases.hypernoblium() + nob_formed);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = NOBLIUM_FORMATION_ENERGY * nob_formed / bz.max(1.0);
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += nob_formed;
+        }
+    }
+
+    // HALON COMBUSTION
+    if cached_temperature >= HALON_COMBUSTION_MIN_TEMPERATURE
+        && my_next_tile.gases.halon() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() >= MINIMUM_MOLE_COUNT
+    {
+        let halon = my_next_tile.gases.halon();
+        let oxygen = my_next_tile.gases.oxygen();
+
+        let heat_efficiency = (cached_temperature / HALON_COMBUSTION_TEMPERATURE_SCALE)
+            .min(halon)
+            .min(oxygen / 20.0);
+
+        if heat_efficiency > 0.0 {
+            my_next_tile.gases.set_halon(halon - heat_efficiency);
+            my_next_tile
+                .gases
+                .set_oxygen(oxygen - heat_efficiency * 20.0);
+            my_next_tile
+                .gases
+                .set_pluoxium(my_next_tile.gases.pluoxium() + heat_efficiency * 2.5);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_used = HALON_COMBUSTION_ENERGY * heat_efficiency;
+            thermal_energy = (thermal_energy - energy_used).max(0.0);
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += heat_efficiency;
+
+            if heat_efficiency > HALON_COMBUSTION_MINIMUM_RESIN_MOLES {
+                my_next_tile.updates |= ReasonFlags::CREATE_RESIN;
+            }
+        }
+    }
+
+    // HEALIUM FORMATION
+    if cached_temperature >= HEALIUM_FORMATION_MIN_TEMP
+        && cached_temperature <= HEALIUM_FORMATION_MAX_TEMP
+        && my_next_tile.gases.bz() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.freon() >= MINIMUM_MOLE_COUNT
+    {
+        let bz = my_next_tile.gases.bz();
+        let freon = my_next_tile.gases.freon();
+
+        let heat_efficiency = (cached_temperature * 0.3).min(freon / 2.75).min(bz / 0.25);
+
+        if heat_efficiency > 0.0 {
+            my_next_tile.gases.set_freon(freon - heat_efficiency * 2.75);
+            my_next_tile.gases.set_bz(bz - heat_efficiency * 0.25);
+            my_next_tile
+                .gases
+                .set_healium(my_next_tile.gases.healium() + heat_efficiency * 3.0);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = HEALIUM_FORMATION_ENERGY * heat_efficiency;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += heat_efficiency;
+        }
+    }
+
+    // ZAUKER FORMATION
+    if cached_temperature >= ZAUKER_FORMATION_MIN_TEMPERATURE
+        && cached_temperature <= ZAUKER_FORMATION_MAX_TEMPERATURE
+        && my_next_tile.gases.hypernoblium() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.nitrium() >= MINIMUM_MOLE_COUNT
+    {
+        let hypernoblium = my_next_tile.gases.hypernoblium();
+        let nitrium = my_next_tile.gases.nitrium();
+
+        let heat_efficiency = (cached_temperature * ZAUKER_FORMATION_TEMPERATURE_SCALE)
+            .min(hypernoblium / 0.01)
+            .min(nitrium / 0.5);
+
+        if heat_efficiency > 0.0 {
+            my_next_tile
+                .gases
+                .set_hypernoblium(hypernoblium - heat_efficiency * 0.01);
+            my_next_tile
+                .gases
+                .set_nitrium(nitrium - heat_efficiency * 0.5);
+            my_next_tile
+                .gases
+                .set_zauker(my_next_tile.gases.zauker() + heat_efficiency * 0.5);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_used = ZAUKER_FORMATION_ENERGY * heat_efficiency;
+            thermal_energy = (thermal_energy - energy_used).max(0.0);
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += heat_efficiency;
+        }
+    }
+
+    // ZAUKER DECOMPOSITION
+    if my_next_tile.gases.nitrogen() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.zauker() >= MINIMUM_MOLE_COUNT
+    {
+        let nitrogen = my_next_tile.gases.nitrogen();
+        let zauker = my_next_tile.gases.zauker();
+
+        let burned_fuel = ZAUKER_DECOMPOSITION_MAX_RATE.min(nitrogen).min(zauker);
+
+        if burned_fuel > 0.0 {
+            my_next_tile.gases.set_zauker(zauker - burned_fuel);
+            my_next_tile
+                .gases
+                .set_oxygen(my_next_tile.gases.oxygen() + burned_fuel * 0.3);
+            my_next_tile
+                .gases
+                .set_nitrogen(nitrogen + burned_fuel * 0.7);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = ZAUKER_DECOMPOSITION_ENERGY * burned_fuel;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += burned_fuel;
+        }
+    }
+
+    // PROTO-NITRATE FORMATION
+    if cached_temperature >= PN_FORMATION_MIN_TEMPERATURE
+        && cached_temperature <= PN_FORMATION_MAX_TEMPERATURE
+        && my_next_tile.gases.pluoxium() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.hydrogen() >= MINIMUM_MOLE_COUNT
+    {
+        let pluoxium = my_next_tile.gases.pluoxium();
+        let hydrogen = my_next_tile.gases.hydrogen();
+
+        let heat_efficiency = (cached_temperature * PN_FORMATION_TEMPERATURE_SCALE)
+            .min(pluoxium / 0.2)
+            .min(hydrogen / 2.0);
+
+        if heat_efficiency > 0.0 {
+            my_next_tile
+                .gases
+                .set_hydrogen(hydrogen - heat_efficiency * 2.0);
+            my_next_tile
+                .gases
+                .set_pluoxium(pluoxium - heat_efficiency * 0.2);
+            my_next_tile
+                .gases
+                .set_proto_nitrate(my_next_tile.gases.proto_nitrate() + heat_efficiency * 2.2);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = PN_FORMATION_ENERGY * heat_efficiency;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += heat_efficiency;
+        }
+    }
+
+    // PROTO-NITRATE HYDROGEN CONVERSION
+    if my_next_tile.gases.proto_nitrate() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.hydrogen() >= PN_HYDROGEN_CONVERSION_THRESHOLD
+    {
+        let hydrogen = my_next_tile.gases.hydrogen();
+        let proto_nitrate = my_next_tile.gases.proto_nitrate();
+
+        let produced_amount = PN_HYDROGEN_CONVERSION_MAX_RATE
+            .min(hydrogen)
+            .min(proto_nitrate);
+
+        if produced_amount > 0.0 {
+            my_next_tile.gases.set_hydrogen(hydrogen - produced_amount);
+            my_next_tile
+                .gases
+                .set_proto_nitrate(proto_nitrate + produced_amount * 0.5);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_used = PN_HYDROGEN_CONVERSION_ENERGY * produced_amount;
+            thermal_energy = (thermal_energy - energy_used).max(0.0);
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += produced_amount;
+        }
+    }
+
+    // PROTO-NITRATE TRITIUM CONVERSION
+    if cached_temperature >= PN_TRITIUM_CONVERSION_MIN_TEMP
+        && cached_temperature <= PN_TRITIUM_CONVERSION_MAX_TEMP
+        && my_next_tile.gases.proto_nitrate() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.tritium() >= MINIMUM_MOLE_COUNT
+    {
+        let proto_nitrate = my_next_tile.gases.proto_nitrate();
+        let tritium = my_next_tile.gases.tritium();
+
+        let produced_amount = (cached_temperature / 34.0 * (tritium * proto_nitrate)
+            / (tritium + 10.0 * proto_nitrate))
+            .min(tritium)
+            .min(proto_nitrate / 0.01);
+
+        if produced_amount > 0.0 {
+            my_next_tile
+                .gases
+                .set_proto_nitrate(proto_nitrate - produced_amount * 0.01);
+            my_next_tile.gases.set_tritium(tritium - produced_amount);
+            my_next_tile
+                .gases
+                .set_hydrogen(my_next_tile.gases.hydrogen() + produced_amount);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = PN_TRITIUM_CONVERSION_ENERGY * produced_amount;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += produced_amount;
+
+            if energy_released > PN_TRITIUM_CONVERSION_RAD_RELEASE_THRESHOLD {
+                my_next_tile.updates |= ReasonFlags::RADIATION_PULSE;
+                cached_radiation = cached_radiation
+                    .max((produced_amount.sqrt() / PN_TRITIUM_RAD_RANGE_DIVISOR) * 500.0);
+            }
+        }
+    }
+
+    // PROTO-NITRATE BZ RESPONSE
+    if cached_temperature >= PN_BZASE_MIN_TEMP
+        && cached_temperature <= PN_BZASE_MAX_TEMP
+        && my_next_tile.gases.proto_nitrate() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.bz() >= MINIMUM_MOLE_COUNT
+    {
+        let proto_nitrate = my_next_tile.gases.proto_nitrate();
+        let bz = my_next_tile.gases.bz();
+
+        let consumed_amount = (cached_temperature / 2240.0 * bz * proto_nitrate
+            / (bz + proto_nitrate))
+            .min(bz)
+            .min(proto_nitrate);
+
+        if consumed_amount > 0.0 {
+            my_next_tile.gases.set_bz(bz - consumed_amount);
+            my_next_tile
+                .gases
+                .set_nitrogen(my_next_tile.gases.nitrogen() + consumed_amount * 0.4);
+            my_next_tile
+                .gases
+                .set_helium(my_next_tile.gases.helium() + consumed_amount * 1.6);
+            my_next_tile
+                .gases
+                .set_toxins(my_next_tile.gases.toxins() + consumed_amount * 0.8);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = PN_BZASE_ENERGY * consumed_amount;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += consumed_amount;
+
+            if energy_released > PN_BZASE_RAD_RELEASE_THRESHOLD {
+                my_next_tile.updates |= ReasonFlags::RADIATION_PULSE;
+                my_next_tile.updates |= ReasonFlags::HALLUCINATION;
+                my_next_tile.updates |= ReasonFlags::NUCLEAR_PARTICLES;
+                my_next_tile.nuclear_particles = (consumed_amount
+                    / PN_BZASE_NUCLEAR_PARTICLE_DIVISOR)
+                    .min(PN_BZASE_NUCLEAR_PARTICLE_MAXIMUM as f32);
+                cached_radiation = cached_radiation
+                    .max((energy_released.sqrt() / PN_BZASE_RAD_RANGE_DIVISOR) * 300.0);
+                my_next_tile.hallucination_strength = consumed_amount * 20.0;
+            }
+        }
+    }
+
+    // MIASMA STERILIZATION
+    if cached_temperature >= MIASTER_STERILIZATION_TEMP && my_next_tile.gases.miasma() > 0.0 {
+        let water_vapor = my_next_tile.gases.water_vapor();
+        let total_moles = my_next_tile.gases.moles();
+
+        if water_vapor / total_moles <= MIASTER_STERILIZATION_MAX_HUMIDITY {
+            let miasma = my_next_tile.gases.miasma();
+            let cleaned_air = (miasma.min(
+                MIASTER_STERILIZATION_RATE_BASE
+                    + (cached_temperature - MIASTER_STERILIZATION_TEMP)
+                        / MIASTER_STERILIZATION_RATE_SCALE,
+            ))
+            .min(miasma);
+
+            if cleaned_air > 0.0 {
+                my_next_tile.gases.set_miasma(miasma - cleaned_air);
+                my_next_tile
+                    .gases
+                    .set_oxygen(my_next_tile.gases.oxygen() + cleaned_air);
+
+                cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+                let energy_released = MIASTER_STERILIZATION_ENERGY * cleaned_air;
+                thermal_energy += energy_released;
+                cached_temperature = thermal_energy / cached_heat_capacity;
+                my_next_tile.fuel_burnt += cleaned_air;
+            }
+        }
+    }
+
+    // ANTINOBLIUM REPLICATION
+    if my_next_tile.gases.antinoblium() >= MOLES_GAS_VISIBLE
+        && cached_temperature >= REACTION_OPPRESSION_MIN_TEMP
+    {
+        let antinoblium = my_next_tile.gases.antinoblium();
+        let total_moles = my_next_tile.gases.moles();
+        let total_not_antinoblium = total_moles - antinoblium;
+
+        let reaction_rate =
+            (antinoblium / ANTINOBLIUM_CONVERSION_DIVISOR).min(total_not_antinoblium);
+
+        if reaction_rate > 0.0 {
+            for i in 0..GAS_COUNT {
+                if i != GAS_ANTINOBLIUM {
+                    let reduction =
+                        reaction_rate * my_next_tile.gases.values[i] / total_not_antinoblium;
+                    my_next_tile.gases.values[i] =
+                        (my_next_tile.gases.values[i] - reduction).max(0.0);
+                }
+            }
+
+            my_next_tile
+                .gases
+                .set_antinoblium(antinoblium + reaction_rate);
+
+            //cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            thermal_energy =
+                thermal_energy * (cached_heat_capacity / (fraction * my_next_tile.heat_capacity()));
+            //cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += reaction_rate;
+        } else if total_not_antinoblium < MINIMUM_MOLE_COUNT && total_not_antinoblium > 0.0 {
+            for i in 0..GAS_COUNT {
+                if i != GAS_ANTINOBLIUM {
+                    my_next_tile.gases.values[i] = 0.0;
+                }
+            }
+            my_next_tile
+                .gases
+                .set_antinoblium(antinoblium + total_not_antinoblium);
+        }
+    }
+    my_next_tile.radiation_energy += cached_radiation;
 
     if hotspot_step {
         adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);

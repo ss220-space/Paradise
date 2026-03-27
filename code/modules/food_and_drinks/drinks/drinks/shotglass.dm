@@ -123,7 +123,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())
 		fire_act()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)

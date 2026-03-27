@@ -242,7 +242,7 @@
 				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
 					var/mob/living/carbon/human/H = M
 					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
+					if((H.gloves?.max_heat_protection_temperature > BURNING_ITEM_MINIMUM_TEMPERATURE) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
 						protected = TRUE
 					if(!protected)
 						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)

@@ -27929,7 +27929,6 @@
 	},
 /area/security/checkpoint/south)
 "cdB" = (
-/obj/machinery/computer/area_atmos,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -52548,7 +52547,6 @@
 	},
 /area/hallway/primary/central/sw)
 "gtV" = (
-/obj/machinery/computer/area_atmos/area,
 /obj/item/radio/intercom/department/security/directional/west,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)

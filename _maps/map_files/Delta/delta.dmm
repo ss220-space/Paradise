@@ -81886,12 +81886,6 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
-"omz" = (
-/obj/machinery/computer/area_atmos/area,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/permabrig)
 "omC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -123961,7 +123955,6 @@
 "xzK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/computer/area_atmos,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "xAb" = (
@@ -184042,7 +184035,7 @@ wNO
 lXk
 tLD
 lzs
-omz
+xan
 wyT
 pee
 gBH

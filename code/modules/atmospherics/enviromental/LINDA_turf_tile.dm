@@ -64,22 +64,6 @@
 	UNSETEMPTY(new_overlay_types)
 	src.atmos_overlay_types = new_overlay_types
 
-/turf/simulated/proc/tile_graphic(datum/gas_mixture/air)
-	if(blocks_air)
-		return
-	if(!istype(air))
-		air = get_readonly_air()
-
-	if(air.toxins() > MOLES_PLASMA_VISIBLE)
-		return "plasma"
-
-	if(air.sleeping_agent() > 1)
-		return "sleeping_agent"
-
-	if(air.water_vapor() > MOLES_WATER_VAPOR_VISIBLE)
-		return "water_vapor"
-	return null
-
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
 	for(var/atom/movable/M in src)
@@ -177,7 +161,30 @@
 /turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
-	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature)
+	var/list/air = list(
+		oxygen,
+		carbon_dioxide,
+		nitrogen,
+		toxins,
+		sleeping_agent,
+		agent_b,
+		hydrogen,
+		water_vapor,
+		tritium,
+		bz,
+		pluoxium,
+		miasma,
+		freon,
+		nitrium,
+		healium,
+		proto_nitrate,
+		zauker,
+		halon,
+		helium,
+		antinoblium,
+		hyper_noblium,
+		temperature
+	)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
 
 /turf/simulated/Initialize_Atmos(milla_tick)

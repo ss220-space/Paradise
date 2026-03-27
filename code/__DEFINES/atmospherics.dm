@@ -23,6 +23,24 @@
 #define T20C 293.15
 /// 100degC
 #define T100C 373.15
+
+#define T1000K 1000
+#define T1500K 1500
+#define T999K 999
+#define T2500K 3500
+#define T500K 3500
+#define T3500K 3500
+#define T3800K 3800
+
+#define T300K 300
+
+///This is a number I got by quickly searching up the temperature to melt iron/glass, though not really realistic.
+///This is used for places where lighters should not be hot enough to be used as a welding tool on.
+#define HIGH_TEMPERATURE_REQUIRED T1500K
+
+///Minimum temperature for items on fire
+#define BURNING_ITEM_MINIMUM_TEMPERATURE (150 + T0C)
+
 /// -14C - Temperature used for kitchen cold room, medical freezer, etc.
 #define COLD_ROOM_TEMP 259.15
 /// -193C - Temperature used for server rooms
@@ -102,6 +120,7 @@
 #define MAX_TOXIC_GAS_DAMAGE 10
 #define MOLES_PLASMA_VISIBLE 0.6 //Moles in a standard cell after which plasma is visible
 #define MOLES_WATER_VAPOR_VISIBLE 2.0 //Moles in a standard cell after which water vapor is visible
+#define MOLES_GAS_VISIBLE 0.25
 
 //HYDROGEN
 #define HYDROGEN_BURN_ENERGY 2500000
@@ -182,6 +201,8 @@
 #define ATMOS_ALARM_WARNING 1
 #define ATMOS_ALARM_DANGER 2
 
+#define MINIMUM_MOLE_COUNT 0.01
+
 // Ventcrawling bitflags, handled in var/vent_movement
 ///Allows for ventcrawling to occur. All atmospheric machines have this flag on by default. Cryo is the exception
 #define VENTCRAWL_ALLOWED (1<<0)
@@ -195,13 +216,27 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_SCAN_PRESSURE (1<<0)
 #define SENSOR_SCAN_TEMPERATURE (1<<1)
 
-#define SENSOR_COMPOSITION_OXYGEN (1<<2)
-#define SENSOR_COMPOSITION_TOXINS (1<<3)
-#define SENSOR_COMPOSITION_NITROGEN (1<<4)
-#define SENSOR_COMPOSITION_CO2 (1<<5)
-#define SENSOR_COMPOSITION_N2O (1<<6)
-#define SENSOR_COMPOSITION_H2 (1<<7)
-#define SENSOR_COMPOSITION_H2O (1<<8)
+#define SENSOR_COMPOSITION_OXYGEN (1<<2)    // 4
+#define SENSOR_COMPOSITION_TOXINS (1<<3)    // 8
+#define SENSOR_COMPOSITION_NITROGEN (1<<4)  // 16
+#define SENSOR_COMPOSITION_CO2 (1<<5)       // 32
+#define SENSOR_COMPOSITION_N2O (1<<6)       // 64
+#define SENSOR_COMPOSITION_H2 (1<<7)        // 128
+#define SENSOR_COMPOSITION_H2O (1<<8)       // 256
+#define SENSOR_COMPOSITION_AGENT_B (1<<9)   // 512
+#define SENSOR_COMPOSITION_TRITIUM (1<<10)  // 1024
+#define SENSOR_COMPOSITION_BZ (1<<11)       // 2048
+#define SENSOR_COMPOSITION_PLUOXIUM (1<<12) // 4096
+#define SENSOR_COMPOSITION_MIASMA (1<<13)   // 8192
+#define SENSOR_COMPOSITION_FREON (1<<14)    // 16384
+#define SENSOR_COMPOSITION_NITRIUM (1<<15)  // 32768
+#define SENSOR_COMPOSITION_HEALIUM (1<<16)  // 65536
+#define SENSOR_COMPOSITION_PROTO_NITRATE (1<<17) // 131072
+#define SENSOR_COMPOSITION_ZAUKER (1<<18)   // 262144
+#define SENSOR_COMPOSITION_HALON (1<<19)    // 524288
+#define SENSOR_COMPOSITION_HELIUM (1<<20)   // 1048576
+#define SENSOR_COMPOSITION_ANTINOBLIUM (1<<21) // 2097152
+#define SENSOR_COMPOSITION_HYPERNOBLIUM (1<<22) // 4194304
 
 /// Maximum germ level you can reach by standing still
 #define GERM_LEVEL_AMBIENT 110
@@ -209,18 +244,29 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define GERM_LEVEL_MOVE_CAP 200
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT (1<<0)
-#define LINDA_SPAWN_20C (1<<1)
-#define LINDA_SPAWN_TOXINS (1<<2)
-#define LINDA_SPAWN_OXYGEN (1<<3)
-#define LINDA_SPAWN_CO2 (1<<4)
-#define LINDA_SPAWN_NITROGEN (1<<5)
-#define LINDA_SPAWN_N2O (1<<6)
-#define LINDA_SPAWN_AGENT_B (1<<7)
-#define LINDA_SPAWN_AIR (1<<8)
-#define LINDA_SPAWN_COLD (1<<9)
-#define LINDA_SPAWN_HYDROGEN (1<<10)
-#define LINDA_SPAWN_WATER_VAPOR (1<<11)
+#define LINDA_SPAWN_TOXINS (1<<1)
+#define LINDA_SPAWN_OXYGEN (1<<2)
+#define LINDA_SPAWN_CO2 (1<<3)
+#define LINDA_SPAWN_NITROGEN (1<<4)
+#define LINDA_SPAWN_N2O (1<<5)
+#define LINDA_SPAWN_AGENT_B (1<<6)
+#define LINDA_SPAWN_AIR (1<<7)
+#define LINDA_SPAWN_HEAT (1<<8)
+#define LINDA_SPAWN_HYDROGEN (1<<9)
+#define LINDA_SPAWN_WATER_VAPOR (1<<10)
+#define LINDA_SPAWN_TRITIUM (1<<11)
+#define LINDA_SPAWN_BZ (1<<12)
+#define LINDA_SPAWN_PLUOXIUM (1<<13)
+#define LINDA_SPAWN_MIASMA (1<<14)
+#define LINDA_SPAWN_FREON (1<<15)
+#define LINDA_SPAWN_NITRIUM (1<<16)
+#define LINDA_SPAWN_HEALIUM (1<<17)
+#define LINDA_SPAWN_PROTO_NITRATE (1<<18)
+#define LINDA_SPAWN_ZAUKER (1<<19)
+#define LINDA_SPAWN_HALON (1<<20)
+#define LINDA_SPAWN_HELIUM (1<<21)
+#define LINDA_SPAWN_ANTINOBLIUM (1<<22)
+#define LINDA_SPAWN_HYPER_NOBLIUM (1<<23)
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
@@ -266,6 +312,17 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define DONT_PASS_INPUT_PRESURE_MIN (1<<1)
 #define DONT_PASS_OUTPUT_PRESURE_MAX (1<<2)
 
+/// The volume of the resin foam fluid when halon combusts, in turfs.
+#define HALON_COMBUSTION_RESIN_VOLUME 1
+
+
+/// The threshold of the tritium combustion's radiation. Lower values means it will be able to penetrate through more structures.
+#define ATMOS_RADIATION_THRESHOLD 0.3
+
+/// Maximum range a radiation pulse is allowed to be from a gas reaction.
+#define GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE 20
+
+
 
 // MILLA
 
@@ -280,39 +337,65 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define MILLA_INDEX_AGENT_B 7
 #define MILLA_INDEX_HYDROGEN 8
 #define MILLA_INDEX_WATER_VAPOR 9
-#define MILLA_INDEX_ATMOS_MODE 10
-#define MILLA_INDEX_ENVIRONMENT_ID 11
-#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH 12
-#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST 13
-#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH 14
-#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST 15
-#define MILLA_INDEX_INNATE_HEAT_CAPACITY 16
-#define MILLA_INDEX_TEMPERATURE 17
-#define MILLA_INDEX_HOTSPOT_TEMPERATURE 18
-#define MILLA_INDEX_HOTSPOT_VOLUME 19
-#define MILLA_INDEX_WIND_X 20
-#define MILLA_INDEX_WIND_Y 21
-#define MILLA_INDEX_FUEL_BURNT 22
+#define MILLA_INDEX_TRITIUM 10
+#define MILLA_INDEX_BZ 11
+#define MILLA_INDEX_PLUOXIUM 12
+#define MILLA_INDEX_MIASMA 13
+#define MILLA_INDEX_FREON 14
+#define MILLA_INDEX_NITRIUM 15
+#define MILLA_INDEX_HEALIUM 16
+#define MILLA_INDEX_PROTO_NITRATE 17
+#define MILLA_INDEX_ZAUKER 18
+#define MILLA_INDEX_HALON 19
+#define MILLA_INDEX_HELIUM 20
+#define MILLA_INDEX_ANTINOBLIUM 21
+#define MILLA_INDEX_HYPER_NOBLIUM 22
+#define MILLA_INDEX_ATMOS_MODE 23
+#define MILLA_INDEX_ENVIRONMENT_ID 24
+#define MILLA_INDEX_SUPERCONDUCTIVITY_NORTH 25
+#define MILLA_INDEX_SUPERCONDUCTIVITY_EAST 26
+#define MILLA_INDEX_SUPERCONDUCTIVITY_SOUTH 27
+#define MILLA_INDEX_SUPERCONDUCTIVITY_WEST 28
+#define MILLA_INDEX_INNATE_HEAT_CAPACITY 29
+#define MILLA_INDEX_TEMPERATURE 30
+#define MILLA_INDEX_HOTSPOT_TEMPERATURE 31
+#define MILLA_INDEX_HOTSPOT_VOLUME 32
+#define MILLA_INDEX_WIND_X 33
+#define MILLA_INDEX_WIND_Y 34
+#define MILLA_INDEX_FUEL_BURNT 35
 
 /// The number of values per tile.
 #define MILLA_TILE_SIZE MILLA_INDEX_FUEL_BURNT
 
 // These are only for InterestingTiles.
-#define MILLA_INDEX_TURF 23
-#define MILLA_INDEX_INTERESTING_REASONS 24
-#define MILLA_INDEX_AIRFLOW_X 25
-#define MILLA_INDEX_AIRFLOW_Y 26
+#define MILLA_INDEX_TURF 36
+#define MILLA_INDEX_INTERESTING_REASONS 37
+#define MILLA_INDEX_AIRFLOW_X 38
+#define MILLA_INDEX_AIRFLOW_Y 39
+#define MILLA_INDEX_RADIATION_ENERGY 40
+#define MILLA_INDEX_HALLUCINATION_STRENGTH 41
+#define MILLA_INDEX_NUCLEAR_PARTICLES 42
 
 /// The number of values per interesting tile.
-#define MILLA_INTERESTING_TILE_SIZE MILLA_INDEX_AIRFLOW_Y
+#define MILLA_INTERESTING_TILE_SIZE MILLA_INDEX_NUCLEAR_PARTICLES
 /// Interesting because it needs a display update.
-#define MILLA_INTERESTING_REASON_DISPLAY (1 << 0)
+#define MILLA_INTERESTING_REASON_DISPLAY (1<<0)
 /// Interesting because it's hot enough to start a fire. Excludes normal-temperature Lavaland tiles without an active fire.
-#define MILLA_INTERESTING_REASON_HOT (1 << 1)
+#define MILLA_INTERESTING_REASON_HOT (1<<1)
 /// Interesting because it has wind that can push stuff around.
-#define MILLA_INTERESTING_REASON_WIND (1 << 2)
+#define MILLA_INTERESTING_REASON_WIND (1<<2)
 /// Interesting because it has water vapor condensation
-#define MILLA_INTERESTING_REASON_CONDENSATION (1 << 3)
+#define MILLA_INTERESTING_REASON_CONDENSATION (1<<3)
+/// Interesting because it has radiation pulse
+#define MILLA_INTERESTING_REASON_RADIATION_PULSE (1<<4)
+/// Interesting because it can create hot ice
+#define MILLA_INTERESTING_REASON_CREATE_HOT_ICE (1<<5)
+/// Interesting because it can create resin
+#define MILLA_INTERESTING_REASON_CREATE_RESIN (1<<6)
+/// Interesting because it causes hallucinations
+#define MILLA_INTERESTING_REASON_HALLUCINATION (1<<7)
+/// Interesting because it has nuclear particles
+#define MILLA_INTERESTING_REASON_NUCLEAR_PARTICLES (1<<8)
 
 #define MILLA_NORTH (1 << 0)
 #define MILLA_EAST (1 << 1)
@@ -333,7 +416,46 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define TLV_H2 "hydrogen"
 #define TLV_H2O "water_vapor"
 #define TLV_AGENT_B "agent_b"
+#define TLV_TRITIUM "tritium"
+#define TLV_BZ "bz"
+#define TLV_PLUOXIUM "pluoxium"
+#define TLV_MIASMA "miasma"
+#define TLV_FREON "freon"
+#define TLV_NITRIUM "nitrium"
+#define TLV_HEALIUM "healium"
+#define TLV_PROTO_NITRATE "proto_nitrate"
+#define TLV_ZAUKER "zauker"
+#define TLV_HALON "halon"
+#define TLV_HELIUM "helium"
+#define TLV_ANTINOBLIUM "antinoblium"
+#define TLV_HYPERNOBLIUM "hypernoblium"
 #define TLV_OTHER "other"
 #define TLV_PRESSURE "pressure"
 #define TLV_TEMPERATURE "temperature"
+#define TLV_TOTAL_MOLES "total_moles"
+
+
+
+#define SCRUB_O2 (1<<0)
+#define SCRUB_N2 (1<<1)
+#define SCRUB_CO2 (1<<2)
+#define SCRUB_PL (1<<3)
+#define SCRUB_N2O (1<<4)
+#define SCRUB_H2 (1<<5)
+#define SCRUB_H2O (1<<6)
+#define SCRUB_TRITIUM (1<<7)
+#define SCRUB_BZ (1<<8)
+#define SCRUB_PLUOXIUM (1<<9)
+#define SCRUB_MIASMA (1<<10)
+#define SCRUB_FREON (1<<11)
+#define SCRUB_NITRIUM (1<<12)
+#define SCRUB_HEALIUM (1<<13)
+#define SCRUB_PROTO_NITRATE (1<<14)
+#define SCRUB_ZAUKER (1<<15)
+#define SCRUB_HALON (1<<16)
+#define SCRUB_HELIUM (1<<17)
+#define SCRUB_ANTINOBLIUM (1<<18)
+#define SCRUB_HYPERNOBLIUM (1<<19)
+
+#define SCRUB_ALL_GASES (~0)  // Все газы
 

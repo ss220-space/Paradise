@@ -12265,10 +12265,6 @@
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"bNo" = (
-/obj/machinery/computer/area_atmos/area,
-/turf/simulated/floor/plasteel,
-/area/security/permabrig)
 "bNq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/extinguisher,
@@ -157060,7 +157056,6 @@
 	},
 /area/crew_quarters/locker)
 "xrK" = (
-/obj/machinery/computer/area_atmos,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -179234,7 +179229,7 @@ iur
 sKL
 oVM
 kNC
-bNo
+dyz
 wrH
 jAz
 bMk
