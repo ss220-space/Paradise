@@ -87,8 +87,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/spawner/ninja_teleport,
@@ -979,8 +978,7 @@
 /area/template_noop)
 "uv" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1444,8 +1442,7 @@
 	},
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "Jh" = (

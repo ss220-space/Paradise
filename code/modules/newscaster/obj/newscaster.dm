@@ -19,7 +19,7 @@
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано \"Нанотрейзен\" для использования на коммерческих объектах."
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	integrity_failure = 50
 	anchored = TRUE
 	/// The current screen index in the UI.
@@ -271,9 +271,9 @@
 				if(job.type in jobblacklist)
 					continue
 				if(job.is_position_available())
-					var/list/opening_data = list("title" = job.title)
+					var/list/opening_data = list("title" = get_job_title_ru(job.title))
 					// Is the job a command job?
-					if(job.title in GLOB.command_positions)
+					if(job_title_ru_to_en(job.title) in GLOB.command_positions)
 						opening_data["is_command"] = TRUE
 					// Add the job opening to the corresponding categories
 					// Ugly!

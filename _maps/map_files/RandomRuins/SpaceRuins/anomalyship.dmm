@@ -518,8 +518,7 @@
 "nv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -675,8 +674,7 @@
 "qv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -701,8 +699,7 @@
 "ro" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -724,8 +721,7 @@
 "rX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{

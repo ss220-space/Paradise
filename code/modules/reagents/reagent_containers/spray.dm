@@ -28,7 +28,7 @@
 	)
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user, proximity, params)
-	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+	if(isstorage(A) || istable(A) || istype(A, /obj/structure/rack) || iscloset(A) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
 

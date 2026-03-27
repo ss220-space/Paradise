@@ -25,7 +25,7 @@
 		if(!marked_item) //linking item to the spell
 			message = "<span class='notice'>"
 			for(var/obj/item in hand_items)
-				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
+				if(is_internal_organ_brain(item)) //Yeah, sadly this doesn't work due to the organ system.
 					break
 				if(isitem(item))
 					var/obj/item/I = item

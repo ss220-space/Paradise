@@ -32,15 +32,3 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 # spawn, while the converse is true. Alter this number to affect the amount
 # of ruins.
 LAVALAND_BUDGET 100
-
-## Disable the loading of "Taipan"
-#DISABLE_TAIPAN
-
-## Disable the loading of Lavaland
-#DISABLE_LAVALAND
-
-## Disable the loading of away missions
-#DISABLE_AWAY_MISSIONS
-
-## Disable the loading of space ruins
-#DISABLE_SPACE_RUINS

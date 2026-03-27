@@ -28,7 +28,7 @@
 
 /// Try attach module to gun, return TRUE if success
 /obj/item/gun_module/proc/try_attach(obj/item/gun/target_gun, mob/user)
-	if(!istype(target_gun, /obj/item/gun))
+	if(!isgun(target_gun))
 		user.balloon_alert(user, "несовместимо с модулями")
 		return FALSE
 	var/obj/item/gun/gun = target_gun

@@ -241,9 +241,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/computer/crew,
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -656,8 +653,7 @@
 /area/mine/living_quarters)
 "eQ" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
@@ -1083,8 +1079,8 @@
 /turf/simulated/wall,
 /area/mine/living_quarters)
 "hu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1204,8 +1200,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/mine/laborcamp)
 "ib" = (
@@ -2801,8 +2796,7 @@
 /obj/item/bedsheet/orange,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
 "qS" = (
@@ -2974,9 +2968,6 @@
 "se" = (
 /obj/machinery/vending/wallmed{
 	pixel_x = 26
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
 	},
 /obj/machinery/sleeper,
 /obj/machinery/light{
@@ -3225,7 +3216,7 @@
 "tM" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3383,11 +3374,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "uF" = (
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
+/obj/structure/bed/dogbed,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
-/obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -3463,8 +3454,7 @@
 /obj/structure/bed,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
 "uQ" = (
@@ -4034,8 +4024,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
 "xH" = (
@@ -4276,9 +4265,6 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors/necropolis)
 "zb" = (
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
 /obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4860,8 +4846,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
 "BT" = (
@@ -5046,8 +5031,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/mine/laborcamp)
 "CO" = (
@@ -8168,7 +8152,7 @@
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
 "Uz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

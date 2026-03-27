@@ -8,7 +8,7 @@ RLF
 	desc = "A device used to rapidly deploy lollipop."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rlf"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/rlf/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)

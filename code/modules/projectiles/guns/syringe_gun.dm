@@ -62,7 +62,7 @@
 	return TRUE
 
 /obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip >= max_syringes)

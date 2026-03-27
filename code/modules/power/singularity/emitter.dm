@@ -1,7 +1,3 @@
-#define EMITTER_NEEDS_WRENCH 0
-#define EMITTER_NEEDS_WELDER 1
-#define EMITTER_WELDED 2
-
 /obj/machinery/power/emitter
 	name = "emitter"
 	desc = "Мощный промышленный лазер, который часто применяется для питания защитных полей при производстве электроэнергии."
@@ -30,8 +26,8 @@
 	var/last_shot = 0
 	/// Number of shots made (gets reset every few shots)
 	var/shot_number = 0
-	/// Construction state
-	var/state = EMITTER_NEEDS_WRENCH
+	/// If it's welded down to the ground or not. the emitter will not fire while unwelded. If set to true, the emitter will start anchored as well.
+	var/welded = FALSE
 	/// Locked by an ID card
 	var/locked = FALSE
 	/// What projectile type are we shooting?
@@ -40,6 +36,8 @@
 	var/projectile_sound = 'sound/weapons/emitter.ogg'
 	/// Sparks emitted with every shot
 	var/datum/effect_system/spark_spread/sparks
+	/// Amount of power inside
+	var/charge = 0
 
 /obj/machinery/power/emitter/get_ru_names()
 	return list(
@@ -58,19 +56,39 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
-	if(state == EMITTER_WELDED && anchored)
+	if(welded)
+		if(!anchored)
+			set_anchored(TRUE)
 		connect_to_network()
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
 
+/obj/machinery/power/emitter/Destroy()
+	if(SSticker.IsRoundInProgress())
+		var/turf/current_turf = get_turf(src)
+		message_admins("Emitter deleted at [ADMIN_VERBOSEJMP(current_turf)]. [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]." : ""]", ATKLOG_FEW)
+		add_game_logs("Emitter deleted at [AREACOORD(current_turf)].")
+		investigate_log("deleted at [AREACOORD(current_turf)]. [usr ? "Broken by [key_name_log(usr)]." : ""]", INVESTIGATE_ENGINE)
+	QDEL_NULL(sparks)
+	return ..()
+
+/obj/machinery/power/emitter/welded/Initialize(mapload)
+	welded = TRUE
+	. = ..()
+
+/obj/machinery/power/emitter/set_anchored(anchorvalue)
+	. = ..()
+	if(!anchored && welded) // make sure they're keep in sync in case it was forcibly unanchored by badmins or by a megafauna.
+		welded = FALSE
+
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
-	if(state == EMITTER_WELDED && anchored)
+	if(welded)
 		. += span_notice("Он прочно приварен к полу. Вы можете разварить его с помощью <b>сварочного аппарата</b>.")
-	else if(state == EMITTER_NEEDS_WELDER && anchored)
+	else if(anchored)
 		. += span_notice("В настоящее время он прикреплён к полу. Вы можете надёжно приварить его с помощью <b>сварочного аппарата</b> или открепить с помощью <b>гаечного ключа</b>.")
-	else if(state == EMITTER_NEEDS_WRENCH && !anchored)
+	else
 		. += span_notice("Он не прикреплён к полу. Вы можете прикрутить его с помощью <b>гаечного ключа</b>.")
 
 	if(!in_range(user, src) && !isobserver(user))
@@ -102,37 +120,41 @@
 	active_power_usage = power_usage
 
 /obj/machinery/power/emitter/click_alt(mob/user)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, span_warning("You can't do that right now!"))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return CLICK_ACTION_BLOCKING
 
 	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
+		to_chat(user, "It is fastened to the floor!")
 		return CLICK_ACTION_BLOCKING
 
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	dir = turn(dir, 90)
 
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/power/emitter/Destroy()
-	if(SSticker.IsRoundInProgress())
-		var/turf/turf = get_turf(src)
-		message_admins("Emitter deleted at [ADMIN_VERBOSEJMP(turf)]. [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]." : ""]", ATKLOG_FEW)
-		add_game_logs("Emitter deleted at [AREACOORD(turf)].")
-		investigate_log("deleted at [AREACOORD(turf)]. [usr ? "Broken by [key_name_log(usr)]." : ""]", INVESTIGATE_ENGINE)
-	QDEL_NULL(sparks)
-	return ..()
+/obj/machinery/power/emitter/update_overlays()
+	. = ..()
+	if(!active)
+		return
+	var/laser_color = COLOR_VIBRANT_LIME
+	if(!powered)
+		laser_color = COLOR_ORANGE //stank low power orange
+	var/mutable_appearance/overlay = mutable_appearance(icon, "emitter_overlay")
+	overlay.color = laser_color
+	. += overlay
+	. += emissive_appearance(icon, "emitter_overlay", src, alpha = src.alpha)
 
 /obj/machinery/power/emitter/update_icon_state()
-	if(active && powernet && avail(active_power_usage))
-		icon_state = "[base_icon_state]_on"
+	if(panel_open)
+		icon_state = "[base_icon_state]_open"
 	else
 		icon_state = base_icon_state
+	return ..()
 
 /obj/machinery/power/emitter/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(state != EMITTER_WELDED)
+	if(!welded)
 		to_chat(user, span_warning("[src] needs to be firmly secured to the floor first."))
 		return TRUE
 
@@ -166,7 +188,6 @@
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/user)
 	if(ismegafauna(user) && anchored)
-		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
 		user.visible_message(span_warning("[user] rips [src] free from its moorings!"))
 	else
@@ -175,16 +196,20 @@
 	if(. && !anchored)
 		step(src, get_dir(user, src))
 
-/obj/machinery/power/emitter/process()
-	if((stat & BROKEN) || !active)
+/obj/machinery/power/emitter/process(seconds_per_tick)
+	var/power_usage = active_power_usage * seconds_per_tick
+	if(stat & (BROKEN))
 		return
 
-	if(state != EMITTER_WELDED || (!powernet && active_power_usage))
+	if(!welded || (!powernet && power_usage))
 		active = FALSE
 		update_appearance()
 		return
 
-	if(active_power_usage && surplus() < active_power_usage)
+	if(!active)
+		return
+
+	if(power_usage && surplus() < power_usage)
 		if(powered)
 			powered = FALSE
 			update_appearance()
@@ -192,11 +217,14 @@
 			log_game("[src] lost power in [AREACOORD(src)]")
 		return
 
-	add_load(active_power_usage)
+	add_load(power_usage)
 	if(!powered)
 		powered = TRUE
 		update_appearance()
 		investigate_log("regained power and turned ON at [AREACOORD(src)]", INVESTIGATE_ENGINE)
+
+	if(charge <= 80)
+		charge += 2.5 * seconds_per_tick
 
 	if(!check_delay())
 		return FALSE
@@ -313,30 +341,20 @@
 	if(active)
 		to_chat(user, span_warning("Turn off [src] first!"))
 		return
-	if(state == EMITTER_WELDED)
+	if(welded)
 		to_chat(user, span_warning("[src] needs to be unwelded from the floor!"))
 		return
 
-	if(state == EMITTER_NEEDS_WRENCH)
+	if(!anchored && !welded)
 		for(var/obj/machinery/power/emitter/emitter in get_turf(src))
 			if(emitter.anchored)
 				to_chat(user, span_warning("There is already an emitter here!"))
 				return
-		state = EMITTER_NEEDS_WELDER
 		anchored = TRUE
-		user.visible_message(
-			span_notice("[user] secures [src] to the floor."),
-			span_notice("You secure the external reinforcing bolts to the floor."),
-			span_hear("You hear a ratchet."),
-		)
+		WRENCH_ANCHOR_MESSAGE
 	else
-		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
-		user.visible_message(
-			span_notice("[user] unsecures [src]'s reinforcing bolts from the floor."),
-			span_notice("You undo the external reinforcing bolts."),
-			span_hear("You hear a ratchet."),
-		)
+		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, item.usesound, item.tool_volume, TRUE)
 
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/item)
@@ -345,30 +363,26 @@
 		to_chat(user, span_notice("Turn off [src] first."))
 		return
 
-	if(state == EMITTER_NEEDS_WRENCH)
+	if(!anchored && !welded)
 		to_chat(user, span_warning("[src] needs to be wrenched to the floor."))
 		return
 
 	if(!item.tool_use_check(user, 0))
 		return
 
-	if(state == EMITTER_NEEDS_WELDER)
+	if(!welded && anchored)
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-	else if(state == EMITTER_WELDED)
+	else if(welded)
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 
 	if(!item.use_tool(src, user, 2 SECONDS, volume = item.tool_volume))
 		return
 
-	if(state == EMITTER_NEEDS_WELDER)
+	if(!welded && anchored)
 		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 		connect_to_network()
-		state = EMITTER_WELDED
-	else if(state == EMITTER_WELDED)
+		welded = TRUE
+	else if(welded)
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		disconnect_from_network()
-		state = EMITTER_NEEDS_WELDER
-
-#undef EMITTER_NEEDS_WRENCH
-#undef EMITTER_NEEDS_WELDER
-#undef EMITTER_WELDED
+		welded = FALSE

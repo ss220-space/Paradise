@@ -94,7 +94,7 @@ multiple modular subtrees with behaviors
 	pawn = new_pawn
 	pawn.ai_controller = src
 
-	if(!continue_processing_when_client && istype(new_pawn, /mob))
+	if(!continue_processing_when_client && ismob(new_pawn))
 		var/mob/possible_client_holder = new_pawn
 		if(possible_client_holder.client)
 			set_ai_status(AI_STATUS_OFF)

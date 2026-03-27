@@ -940,7 +940,7 @@
 	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		var/crayon_color = crayon.colourName
 		var/static/list/acceptable_colors = list("blue","green","mime","orange","purple","rainbow","red","yellow")

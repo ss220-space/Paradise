@@ -92,7 +92,7 @@
 		. += span_notice("Вы должны развернуть её, если хотите прочитать.")
 	else
 		if(user.is_literate())
-			if(in_range(user, src) || istype(user, /mob/dead/observer))
+			if(in_range(user, src) || isobserver(user))
 				attack_self(user)
 			else
 				. += span_notice("Вам нужно подойти поближе, если вы хотите это прочитать.")

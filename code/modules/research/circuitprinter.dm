@@ -260,7 +260,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/list/data = list()
 
-	if(istype(circuit, /obj/item/circuit_component/module))
+	if(is_module_circuit(circuit))
 		var/obj/item/circuit_component/module/module = circuit
 
 		data["dupe_data"] = list()

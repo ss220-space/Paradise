@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - del: "fonts folder (PR #8700)"

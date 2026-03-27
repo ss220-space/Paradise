@@ -166,7 +166,7 @@
 	else
 		adjust_bloodthirst(1 * seconds_per_tick) //don't cool off rapidly once we're at the point where His Grace consumes all.
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
-	if(!isnull(master) && istype(master, /mob/living) && master.is_in_hands(src)) //required type check
+	if(!isnull(master) && isliving(master) && master.is_in_hands(src)) //required type check
 		switch(bloodthirst)
 			if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
 				consume_owner(master)

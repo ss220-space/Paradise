@@ -58,7 +58,7 @@
 		fire_act()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/paper/paper = papers[page]
 		if(!istype(paper))	// photo

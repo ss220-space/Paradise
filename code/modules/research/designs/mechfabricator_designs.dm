@@ -1134,15 +1134,6 @@
 	construction_time = 10 SECONDS
 	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
 
-/datum/design/mech_generator_nuclear
-	id = "mech_generator_nuclear"
-	build_type = MECHFAB
-	req_tech = list(RESEARCH_TREE_POWERSTORAGE= 5, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MATERIALS = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/generator/nuclear
-	materials = list(MAT_METAL=10000, MAT_GLASS=1000, MAT_SILVER=500)
-	construction_time = 10 SECONDS
-	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
-
 /datum/design/mech_banana_mortar
 	id = "mech_banana_mortar"
 	req_tech = list(RESEARCH_TREE_COMBAT = 2)

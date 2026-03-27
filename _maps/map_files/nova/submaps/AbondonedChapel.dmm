@@ -363,8 +363,7 @@
 /area/maintenance/server)
 "kG" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
@@ -713,8 +712,7 @@
 /area/maintenance/club)
 "yh" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -928,7 +926,6 @@
 /area/template_noop)
 "EF" = (
 /obj/machinery/alarm{
-	pixel_y = 0;
 	dir = 4;
 	pixel_x = -22
 	},
@@ -1384,8 +1381,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{

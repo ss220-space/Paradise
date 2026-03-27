@@ -520,4 +520,16 @@ CACHE_ASSETS 0
 ## This config option limits the maximum chunk count for which the server will accept a payload, default is 32
 TGUI_MAX_CHUNK_COUNT 128
 
+## Disable the loading of "Taipan"
+#DISABLE_TAIPAN
+
+## Disable the loading of Lavaland
+#DISABLE_LAVALAND
+
+## Disable the loading of away missions
+#DISABLE_AWAY_MISSIONS
+
+## Disable the loading of space ruins
+#DISABLE_SPACE_RUINS
+
 ### INITIALIZATION SETTINGS END ###
