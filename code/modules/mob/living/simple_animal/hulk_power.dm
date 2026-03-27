@@ -71,7 +71,7 @@
 		to_chat(user, span_warning("You can't dash right now!"))
 		return
 
-	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(isturf(user.loc) && !(isspaceturf(user.loc)))
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
 				M.stop_pulling()
@@ -103,14 +103,14 @@
 					hit = 1
 				else if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
-						if(istype(S,/obj/structure/window))
+						if(is_window(S))
 							hit = 1
 						if(istype(S,/obj/structure/grille))
 							hit = 1
 			else if(i > 6)
 				if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
-						if(istype(S,/obj/structure/window))
+						if(is_window(S))
 							S.ex_act(EXPLODE_HEAVY)
 						if(istype(S,/obj/structure/grille))
 							qdel(S)
@@ -233,7 +233,7 @@
 		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
-	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(isturf(user.loc) && !(isspaceturf(user.loc)))
 
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)

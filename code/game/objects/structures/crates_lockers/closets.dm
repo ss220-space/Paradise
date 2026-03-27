@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(closets)
 	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 70, ACID = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(closets)
 			break
 		if(!isnull(mob_storage_capacity) && (mobcount >= mob_storage_capacity))
 			break
-		if(istype(M, /mob/dead/observer))
+		if(isobserver(M))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
@@ -362,11 +362,11 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(!opened)
 		return
-	if(istype(O, /obj/structure/closet))
+	if(iscloset(O))
 		return
 	if(user.pulling == O)
 		user.stop_pulling()

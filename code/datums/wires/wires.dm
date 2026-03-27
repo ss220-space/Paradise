@@ -257,7 +257,7 @@
 	if(user.can_admin_interact())
 		return TRUE
 
-	if(istype(user.get_active_hand(), /obj/item/multitool))
+	if(ismultitool(user.get_active_hand()))
 		var/obj/item/multitool/M = user.get_active_hand()
 		if(M.shows_wire_information)
 			return TRUE

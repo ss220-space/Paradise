@@ -74,7 +74,7 @@ GLOBAL_LIST(ui_logins)
  * * user - The user
  */
 /obj/proc/ui_login_attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/card/id) && ui_login_insert(O))
+	if(is_id_card(O) && ui_login_insert(O))
 		add_fingerprint(user)
 		ui_interact(user)
 		return TRUE
@@ -90,7 +90,7 @@ GLOBAL_LIST(ui_logins)
 	if(state.id)
 		return FALSE
 
-	if(istype(O, /obj/item/card/id))
+	if(is_id_card(O))
 		// Move the ID inside
 		if(!usr.drop_transfer_item_to_loc(O, src))
 			return FALSE

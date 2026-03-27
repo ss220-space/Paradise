@@ -39,7 +39,7 @@
 				M.faction = list("neutral")
 				M.revive()
 				M.can_collar = 1
-				if(istype(target, /mob/living/simple_animal/hostile))
+				if(ishostile(target))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)
 						H.faction |= list("lazarus", PERSONAL_FACTION(user))

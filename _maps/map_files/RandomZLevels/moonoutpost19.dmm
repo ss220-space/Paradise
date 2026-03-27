@@ -165,8 +165,7 @@
 "ax" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "darkred";
-	tag = "icon-darkred (NORTHWEST)"
+	icon_state = "darkred"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "ay" = (
@@ -177,23 +176,20 @@
 "az" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (NORTH)"
+	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "darkred";
-	tag = "icon-darkred (NORTHEAST)"
+	icon_state = "darkred"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "aB" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (EAST)"
+	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "aC" = (
@@ -225,8 +221,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (NORTH)"
+	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "aF" = (
@@ -365,8 +360,7 @@
 "aU" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners (WEST)"
+	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "aV" = (
@@ -391,8 +385,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "aX" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners"
+	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "aY" = (
@@ -443,14 +436,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkred";
-	tag = "icon-darkred (SOUTHWEST)"
+	icon_state = "darkred"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "bf" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -459,15 +450,13 @@
 "bg" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkred";
-	tag = "icon-darkred (SOUTHEAST)"
+	icon_state = "darkred"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "bh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners";
-	tag = "icon-darkredcorners"
+	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "bi" = (
@@ -582,8 +571,7 @@
 	req_access = list(150)
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -662,8 +650,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "bB" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -761,8 +748,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "bQ" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/highsecurity{
 	locked = 1;
@@ -773,8 +759,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "bR" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -806,8 +791,7 @@
 	},
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
@@ -923,8 +907,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "cf" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/north,
@@ -966,8 +949,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "ci" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -1078,12 +1060,10 @@
 /area/moonoutpost19/syndicateoutpost)
 "ct" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -1094,8 +1074,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "cu" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -1108,8 +1087,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "cv" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds{
@@ -1121,15 +1099,13 @@
 /area/moonoutpost19/syndicateoutpost)
 "cw" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cx" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Power Maintenance";
@@ -1139,24 +1115,20 @@
 /area/moonoutpost19/syndicateoutpost)
 "cy" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cz" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
@@ -1168,8 +1140,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "cB" = (
 /obj/structure/cable{
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -1371,8 +1342,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cU" = (
@@ -1440,8 +1410,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "da" = (
@@ -1452,8 +1421,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "db" = (
@@ -1520,8 +1488,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "di" = (
@@ -1534,8 +1501,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "dj" = (
@@ -1616,8 +1582,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "dr" = (
@@ -1632,8 +1597,7 @@
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "wood";
-	name = "floor";
-	tag = "icon-warningcorner (NORTH)"
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "ds" = (
@@ -1705,8 +1669,7 @@
 /area/moonoutpost19/khonsu19)
 "dB" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -1955,8 +1918,7 @@
 /area/moonoutpost19/mo19research)
 "ei" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -1970,8 +1932,7 @@
 /area/moonoutpost19/mo19research)
 "ej" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -2119,8 +2080,7 @@
 /area/moonoutpost19/mo19research)
 "ex" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4;
@@ -2277,8 +2237,7 @@
 /area/moonoutpost19/mo19research)
 "eO" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/chair/office/light{
@@ -2392,8 +2351,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "fa" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -2429,8 +2387,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "fd" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -2453,8 +2410,7 @@
 /area/moonoutpost19/mo19research)
 "fe" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
@@ -2464,8 +2420,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "fg" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/item/newspaper,
 /turf/simulated/floor/plating,
@@ -2522,8 +2477,7 @@
 /area/moonoutpost19/mo19research)
 "fm" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/alien/weeds{
@@ -2584,8 +2538,7 @@
 /area/moonoutpost19/mo19research)
 "fr" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
@@ -2602,8 +2555,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "ft" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -2622,8 +2574,7 @@
 	pixel_x = 32
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
@@ -2678,19 +2629,16 @@
 /area/moonoutpost19/mo19research)
 "fx" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fy" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
@@ -2698,8 +2646,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "fz" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds{
@@ -2709,8 +2656,7 @@
 /area/moonoutpost19/mo19research)
 "fA" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -2719,8 +2665,7 @@
 /area/moonoutpost19/mo19research)
 "fB" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/east,
@@ -2731,8 +2676,7 @@
 /area/moonoutpost19/mo19research)
 "fC" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plasteel{
@@ -2741,8 +2685,7 @@
 /area/moonoutpost19/mo19research)
 "fD" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -2794,8 +2737,7 @@
 	icon_state = "medium"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -2889,15 +2831,13 @@
 /area/moonoutpost19/mo19utilityroom)
 "fN" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fO" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
@@ -2906,8 +2846,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "fQ" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -2926,12 +2865,10 @@
 /area/moonoutpost19/mo19research)
 "fR" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2992,12 +2929,10 @@
 /area/moonoutpost19/mo19utilityroom)
 "fZ" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
@@ -3086,12 +3021,10 @@
 /area/moonoutpost19/mo19research)
 "gh" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
@@ -3101,8 +3034,7 @@
 "gi" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
@@ -3168,8 +3100,7 @@
 	pixel_x = 32
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -3501,8 +3432,7 @@
 	color = "black"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/power/apc/noalarm{
 	cell_type = 15000;
@@ -3518,8 +3448,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "gQ" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/item/stack/rods,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -3680,8 +3609,7 @@
 /area/moonoutpost19/mo19research)
 "hf" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 4;
@@ -3738,8 +3666,7 @@
 /area/moonoutpost19/mo19research)
 "hl" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
@@ -3817,8 +3744,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "ht" = (
@@ -3840,8 +3766,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "hu" = (
@@ -3938,16 +3863,14 @@
 "hC" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "hD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "hE" = (
@@ -4000,8 +3923,7 @@
 /area/moonoutpost19/mo19research)
 "hH" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
@@ -4029,16 +3951,14 @@
 /area/moonoutpost19/mo19arrivals)
 "hL" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "hM" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4047,8 +3967,7 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "hO" = (
@@ -4161,8 +4080,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "hZ" = (
@@ -4173,8 +4091,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "ia" = (
@@ -4189,8 +4106,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "ib" = (
@@ -4200,8 +4116,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "ic" = (
@@ -4366,8 +4281,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "is" = (
@@ -4517,8 +4431,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "iJ" = (
@@ -4527,8 +4440,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "iK" = (
@@ -4537,14 +4449,12 @@
 /obj/item/laser_pointer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "iL" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
@@ -4555,8 +4465,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	name = "emergency shower";
-	tag = "icon-shower (EAST)"
+	name = "emergency shower"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
@@ -4632,8 +4541,7 @@
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "iW" = (
@@ -4656,8 +4564,7 @@
 "iY" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "iZ" = (
@@ -4665,8 +4572,7 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ja" = (
@@ -4776,8 +4682,7 @@
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jp" = (
@@ -4789,8 +4694,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jq" = (
@@ -4820,8 +4724,7 @@
 /obj/item/paicard_upgrade,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "js" = (
@@ -4838,14 +4741,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "ju" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4874,15 +4775,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "purple";
-	tag = "icon-purple (NORTHWEST)"
+	icon_state = "purple"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jz" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "purple";
-	tag = "icon-purple (NORTHEAST)"
+	icon_state = "purple"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jA" = (
@@ -5007,8 +4906,7 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jR" = (
@@ -5019,16 +4917,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jS" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "jT" = (
@@ -5058,8 +4954,7 @@
 /area/moonoutpost19/mo19arrivals)
 "jW" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5068,8 +4963,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "jY" = (
@@ -5085,8 +4979,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "jZ" = (
@@ -5111,8 +5004,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "kc" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -5137,8 +5029,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "kg" = (
@@ -5150,8 +5041,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kh" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -5189,22 +5079,19 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
 "kk" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "kl" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5219,8 +5106,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kn" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
@@ -5238,8 +5124,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "kq" = (
@@ -5248,8 +5133,7 @@
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "kr" = (
@@ -5261,16 +5145,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ks" = (
 /obj/effect/decal/cleanable/plant_smudge,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "kt" = (
@@ -5286,14 +5168,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ku" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -5344,8 +5224,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kA" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5367,8 +5246,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple";
-	tag = "icon-purple (NORTH)"
+	icon_state = "purple"
 	},
 /area/moonoutpost19/mo19arrivals)
 "kD" = (
@@ -5394,8 +5272,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kF" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/item/cigbutt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5406,8 +5283,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kG" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5418,8 +5294,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kH" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5431,8 +5306,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kI" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5483,8 +5357,7 @@
 /obj/item/reagent_containers/food/snacks/badrecipe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "kO" = (
@@ -5498,8 +5371,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -5509,8 +5381,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kQ" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5521,8 +5392,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kR" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor{
 	density = 1;
@@ -5559,8 +5429,7 @@
 "kU" = (
 /obj/machinery/light/small,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5580,8 +5449,7 @@
 /area/moonoutpost19/mo19arrivals)
 "kW" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5637,8 +5505,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ld" = (
@@ -5662,8 +5529,7 @@
 /area/moonoutpost19/mo19arrivals)
 "li" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5777,8 +5643,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "lv" = (
@@ -5831,8 +5696,7 @@
 "lF" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (WEST)"
+	icon_state = "burst_r"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/moonoutpost19/mo19arrivals)
@@ -5856,22 +5720,19 @@
 /area/moonoutpost19/mo19arrivals)
 "lJ" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner";
-	tag = "icon-purplecorner (NORTH)"
+	icon_state = "purplecorner"
 	},
 /area/moonoutpost19/mo19arrivals)
 "lK" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 4;
-	tag = "icon-heater (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -5917,8 +5778,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/alarm/monitor{
 	locked = 0;
@@ -6019,8 +5879,7 @@
 "mg" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (WEST)"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/moonoutpost19/mo19arrivals)
@@ -6065,8 +5924,7 @@
 /area/moonoutpost19/mo19arrivals)
 "mn" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6079,8 +5937,7 @@
 /area/moonoutpost19/mo19arrivals)
 "mo" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -6092,8 +5949,7 @@
 	opacity = 1
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6561,8 +6417,7 @@
 /area/moonoutpost19/mo19arrivals)
 "nA" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -6722,8 +6577,7 @@
 /area/moonoutpost19/mo19arrivals)
 "nU" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6928,8 +6782,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ot" = (
@@ -7076,8 +6929,7 @@
 "oJ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)

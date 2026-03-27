@@ -174,7 +174,7 @@
 	if(currently_eating == target_nom) //currently_eating is always undefined at the end, so don't eat the same thing twice
 		return
 
-	if(istype(target_nom, /obj/structure/window))
+	if(is_window(target_nom))
 		return
 
 	if(istype(target_nom, /obj/structure/grille)) //these three bug-out and won't work, so just ignore them

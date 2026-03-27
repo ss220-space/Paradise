@@ -77,7 +77,7 @@
 	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
-		if(O.density || O.anchored || istype(O,/obj/structure/closet) || isobserver(O) || O.has_buckled_mobs())
+		if(O.density || O.anchored || iscloset(O) || isobserver(O) || O.has_buckled_mobs())
 			continue
 		O.forceMove(src)
 		itemcount++
@@ -92,7 +92,7 @@
 	return ..()
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
+	if(iscoil(W))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
 			to_chat(user, span_notice("[src] is already rigged!"))

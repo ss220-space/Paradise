@@ -103,7 +103,7 @@
 
 /obj/effect/dummy/chameleon/proc/activate(mob/M, saved_appearance, obj/item/chameleon/C)
 	appearance = saved_appearance
-	if(istype(M.buckled, /obj/vehicle))
+	if(isvehicle(M.buckled))
 		var/obj/vehicle/V = M.buckled
 		V.unbuckle_mob(M, TRUE)
 	M.forceMove(src)

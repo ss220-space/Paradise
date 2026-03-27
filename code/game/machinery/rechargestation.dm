@@ -191,7 +191,7 @@
 						F.broken = FALSE
 						F.times_used = 0
 						F.update_icon(UPDATE_ICON_STATE)
-				else if(istype(O,/obj/item/gun/energy))
+				else if(isenergygun(O))
 					var/obj/item/gun/energy/D = O
 					if(D.cell.charge < D.cell.maxcharge)
 						var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
@@ -215,7 +215,7 @@
 					var/obj/item/extinguisher/ext = O
 					ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
 				//Welding tools
-				else if(istype(O, /obj/item/weldingtool))
+				else if(iswelder(O))
 					var/obj/item/weldingtool/weld = O
 					weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
 

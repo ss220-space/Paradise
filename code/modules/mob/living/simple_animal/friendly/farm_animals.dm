@@ -89,7 +89,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))	// yeah, ITS DEAD
@@ -221,7 +221,7 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))

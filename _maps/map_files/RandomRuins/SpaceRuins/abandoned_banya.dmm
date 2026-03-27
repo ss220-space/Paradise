@@ -1,11 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ar" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/ruin/USSP_SpaceBanya)
 "as" = (
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/moth,
@@ -19,8 +12,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky,
@@ -97,8 +89,7 @@
 /area/ruin/USSP_SpaceBanya)
 "dX" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "ef" = (
@@ -115,8 +106,7 @@
 /area/ruin/USSP_SpaceBanya)
 "eu" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/USSP_SpaceBanya)
 "ev" = (
@@ -267,8 +257,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "lE" = (
@@ -281,8 +270,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "mh" = (
@@ -314,8 +302,7 @@
 "op" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/USSP_SpaceBanya)
 "ow" = (
@@ -461,8 +448,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "sP" = (
@@ -606,8 +592,7 @@
 /area/ruin/USSP_SpaceBanya)
 "xE" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/USSP_SpaceBanya)
 "xH" = (
@@ -674,8 +659,7 @@
 "AJ" = (
 /obj/item/ammo_casing/shotgun/buckshot,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/USSP_SpaceBanya)
 "AU" = (
@@ -754,8 +738,7 @@
 "EO" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/USSP_SpaceBanya)
 "Fa" = (
@@ -777,8 +760,7 @@
 /area/ruin/USSP_SpaceBanya)
 "Gi" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/ruin/USSP_SpaceBanya)
 "Gv" = (
@@ -847,16 +829,14 @@
 "JI" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "Lc" = (
 /obj/item/trash/popcorn,
 /obj/structure/table_frame/wood,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "Ld" = (
@@ -895,8 +875,7 @@
 /area/ruin/USSP_SpaceBanya)
 "NP" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -1106,8 +1085,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/USSP_SpaceBanya)
 "WZ" = (
@@ -1151,8 +1129,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/item/soap,
 /obj/item/clothing/shoes/ducky,
@@ -1928,7 +1905,7 @@ jv
 vo
 yJ
 xl
-ar
+Nr
 Jl
 Dd
 nD

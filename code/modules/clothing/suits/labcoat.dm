@@ -40,7 +40,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tourniquet,
 	)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 50, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',

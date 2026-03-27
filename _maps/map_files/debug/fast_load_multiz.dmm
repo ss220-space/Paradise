@@ -246,6 +246,10 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"QS" = (
+/obj/machinery/station_map/security/directional/north,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "RQ" = (
 /obj/item/stack/sheet/plasteel/fifty,
 /obj/structure/rack,
@@ -2370,7 +2374,7 @@ ay
 ay
 ay
 jk
-HE
+QS
 HE
 HE
 HE

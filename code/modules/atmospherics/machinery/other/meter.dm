@@ -10,7 +10,7 @@
 	greyscale_config = /datum/greyscale_config/meter
 	greyscale_colors = COLOR_GRAY
 	max_integrity = 150
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 40, ACID = 0)
 	frequency = ATMOS_DISTRO_FREQ
 	idle_power_usage = 2
 	active_power_usage = 5
@@ -133,7 +133,7 @@
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
+	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
 		. += span_boldnotice("You are too far away to read it.")
 
 	else if(stat & (NOPOWER|BROKEN))
@@ -149,7 +149,7 @@
 		. += span_warning("The connect error light is blinking.")
 
 /obj/machinery/atmospherics/meter/Click()
-	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
+	if(isAI(usr)) // ghosts can call ..() for examine
 		usr.examinate(src)
 		return 1
 

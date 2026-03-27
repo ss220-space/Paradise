@@ -2,7 +2,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	name = "Instruments"
 	init_order = INIT_ORDER_INSTRUMENTS
 	wait = 1
-	flags = SS_TICKER|SS_BACKGROUND|SS_KEEP_TIMING
+	flags = SS_TICKER|SS_BACKGROUND|SS_KEEP_TIMING|SS_HIBERNATE
 	offline_implications = "Instruments will no longer play. No immediate action is needed."
 	ss_id = "instruments"
 

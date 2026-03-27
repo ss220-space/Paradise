@@ -146,19 +146,27 @@
 
 /obj/machinery/door/airlock/uranium
 	name = "uranium airlock"
-	desc = "And they said I was crazy."
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
-	var/event_step = 20
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
+	/// Is this airlock actually radioactive?
+	var/actually_radioactive = TRUE
 
-/obj/machinery/door/airlock/uranium/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_cycle = 15, \
-				rad_cycle_chance = 50, \
-				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 3 \
+/obj/machinery/door/airlock/uranium/process()
+	if(actually_radioactive && COOLDOWN_FINISHED(src, radiation_cooldown))
+		if(prob(50))
+			radiate()
+		COOLDOWN_START(src, radiation_cooldown, 20)
+
+/obj/machinery/door/airlock/uranium/proc/radiate()
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
 
 /obj/machinery/door/airlock/uranium/glass
@@ -662,7 +670,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 //////////////////////////////////
 /*
@@ -724,7 +732,7 @@
 	desc = "An airlock made from pure-hands into some brass moving structure."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 //////////////////////////////////
 /*

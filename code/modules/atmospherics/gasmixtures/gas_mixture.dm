@@ -613,7 +613,7 @@ What are the archived variables for?
 		readonly.private_hotspot_volume = private_hotspot_volume
 		readonly.private_fuel_burnt = private_fuel_burnt
 
-	if(istype(bound_turf, /turf/simulated))
+	if(issimulatedturf(bound_turf))
 		var/turf/simulated/S = bound_turf
 		S.update_visuals()
 	ASSERT(SSair.is_in_milla_safe_code())

@@ -957,26 +957,26 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/engineering/engine/coil
 	name = "Tesla Coil Crate"
 	contains = list(
-		/obj/machinery/power/tesla_coil,
-		/obj/machinery/power/tesla_coil,
-		/obj/machinery/power/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
 	)
 	containername = "tesla coil crate"
 
 /datum/syndie_supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(
-		/obj/machinery/power/grounding_rod,
-		/obj/machinery/power/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
 	)
 	containername = "grounding rod crate"
 
 /datum/syndie_supply_packs/engineering/engine/collector
 	name = "Collector Crate"
 	contains = list(
-		/obj/machinery/power/rad_collector,
-		/obj/machinery/power/rad_collector,
-		/obj/machinery/power/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
 	)
 	containername = "collector crate"
 

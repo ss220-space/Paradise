@@ -414,7 +414,7 @@
 			Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
-	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
@@ -489,7 +489,7 @@
 			В комплект входит аккумулятор, который можно заменить с помощью кусачек."
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 7
-	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 //Bartender
 
@@ -529,7 +529,7 @@
 			Для активации устройства необходимо встать на кабель с питанием."
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 33
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Набор экспериментальных инструментов"
@@ -537,8 +537,8 @@
 	item = /obj/item/storage/toolbox/syndisuper
 	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
-			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, \
+			JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
 //SCI
 
@@ -622,7 +622,7 @@
 			Кроме того, для передвижения внутри вентиляции вам потребуются свободные руки."
 	item = /obj/item/clothing/under/contortionist
 	cost = 50
-	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Энергетический пожарный топор"
@@ -630,14 +630,14 @@
 			Однако для повторного заряда требуется определённое время. Кроме того, этот топор значительно острее обычного и может пробивать лёгкую броню."
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 18
-	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/combat_rcd
 	name = "УБС \"Синдиката\""
 	desc = "Способно разрушать укреплённые стены. Имеет 500 единиц материи вместо стандартных 100."
 	item = /obj/item/rcd/combat
 	cost = 25
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/poisonbottle
@@ -645,7 +645,7 @@
 	desc = "Синдикат отправит вам флакон с 40 единицами случайно выбранного яда. Этот яд может быть как совершенно неэффективным, так и крайне смертельным."
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
-	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/poison_pen

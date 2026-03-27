@@ -12,7 +12,7 @@
 	level = 1	// underfloor only
 	damage_deflection = 10
 	set_dir_on_move = FALSE
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 90, ACID = 30)
 	/// Hardness points, used in explosion interactions
 	var/hardness = 15
 	/// Bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm

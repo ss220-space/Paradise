@@ -225,7 +225,7 @@
 	flick("separator-AO0", src)
 	playsound(loc, 'sound/effects/alert.ogg', 50, FALSE)
 	sleep(0.5 SECONDS)
-	victim.apply_effect((rand(150,200)), IRRADIATE, 0)
+	SSradiation.irradiate(victim)
 	if(prob(5))
 		if(prob(75))
 			randmutb(victim) // Applies bad mutation

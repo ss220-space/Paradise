@@ -5,7 +5,7 @@
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
 	max_integrity = 250
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 10)
 	var/obj/item/stock_parts/cell/cell
 	var/on = 0
 	var/open = 0
@@ -134,7 +134,7 @@
 /obj/machinery/space_heater/Topic(href, href_list)
 	if(..())
 		return 1
-	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
+	if((in_range(src, usr) && isturf(src.loc)) || (issilicon(usr)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

@@ -274,7 +274,6 @@
 /area/ruin/powered)
 "Q" = (
 /obj/machinery/shower{
-	tag = "icon-shower (WEST)";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -288,7 +287,6 @@
 /area/ruin/powered)
 "S" = (
 /obj/structure/toilet{
-	tag = "icon-toilet00 (WEST)";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
