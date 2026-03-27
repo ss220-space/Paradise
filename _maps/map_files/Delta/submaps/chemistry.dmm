@@ -176,9 +176,6 @@
 /area/medical/chemistry)
 "hN" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/masks{
-	map_json_data = "#?lbr;#?qt;content#?qt;:[#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;],#?qt;slots#?qt;:7,#?qt;max_w_class#?qt;:2,#?qt;max_c_w_class#?qt;:14#?rbr;"
-	},
 /obj/item/reagent_containers/spray/cleaner/chemical,
 /obj/machinery/alarm{
 	dir = 8;
@@ -186,6 +183,7 @@
 	pixel_x = 22
 	},
 /obj/item/storage/box/gloves,
+/obj/item/storage/box/masks,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowsiding";
