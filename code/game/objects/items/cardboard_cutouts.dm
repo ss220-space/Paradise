@@ -54,7 +54,7 @@
 
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		change_appearance(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

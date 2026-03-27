@@ -37,8 +37,7 @@
 /obj/item/reagent_containers/food/snacks/bun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "af" = (
@@ -529,8 +528,7 @@
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/pirate_base/atmos)
 "bC" = (
@@ -742,8 +740,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "cg" = (
@@ -1195,8 +1192,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "dm" = (
@@ -1518,8 +1514,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "ee" = (
@@ -1762,8 +1757,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "eS" = (
@@ -2596,8 +2590,7 @@
 "hq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/space/pirate_base/atmos)
 "hr" = (
@@ -2763,8 +2756,7 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "hN" = (
@@ -2930,8 +2922,7 @@
 /obj/structure/table_frame/wood,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "io" = (
@@ -2952,8 +2943,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "ir" = (
@@ -3084,8 +3074,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "iR" = (
@@ -3432,8 +3421,7 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "jW" = (
@@ -3758,8 +3746,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "kV" = (
@@ -4905,8 +4892,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "om" = (
@@ -5101,8 +5087,7 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "oL" = (
@@ -5557,8 +5542,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "qh" = (
@@ -6398,8 +6382,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "sN" = (
@@ -6708,8 +6691,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "tB" = (
@@ -7384,8 +7366,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "vi" = (
@@ -7396,8 +7377,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "vl" = (
@@ -7753,8 +7733,7 @@
 "wi" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "wj" = (
@@ -7918,8 +7897,7 @@
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/ruin/space/pirate_base/atmos)
 "wL" = (
@@ -8114,8 +8092,7 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTH)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "xn" = (
@@ -8285,8 +8262,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "xL" = (
@@ -9835,8 +9811,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Cn" = (
@@ -10576,8 +10551,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "ES" = (
@@ -10968,8 +10942,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "FU" = (
@@ -11678,8 +11651,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "HT" = (
@@ -12072,8 +12044,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Jh" = (
@@ -12196,8 +12167,7 @@
 /area/ruin/space/pirate_base/mining)
 "Jy" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/northwest,
@@ -12622,8 +12592,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "KF" = (
@@ -12642,8 +12611,7 @@
 /area/ruin/space/pirate_base/lab_solar)
 "KI" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/southwest,
@@ -12787,8 +12755,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "KV" = (
@@ -12857,8 +12824,7 @@
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Li" = (
@@ -13221,8 +13187,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Mm" = (
@@ -13330,8 +13295,7 @@
 /mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "MG" = (
@@ -13730,8 +13694,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "NF" = (
@@ -14478,8 +14441,7 @@
 /obj/item/kitchen/utensil/spoon,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "PS" = (
@@ -14649,8 +14611,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Qz" = (
@@ -16023,8 +15984,7 @@
 /obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Ut" = (
@@ -16393,8 +16353,7 @@
 /obj/item/storage/backpack/satchel_tox,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Vx" = (
@@ -17278,8 +17237,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Yc" = (
@@ -17875,8 +17833,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Zy" = (

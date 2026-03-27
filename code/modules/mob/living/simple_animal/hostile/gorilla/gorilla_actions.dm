@@ -267,7 +267,7 @@
 		return
 
 	var/obj/structure/bigDelivery/delivery = pointed_at
-	var/pointed_at_crate = istype(pointed_at, /obj/structure/closet) || (istype(delivery) && istype(delivery.wrapped, /obj/structure/closet/crate))
+	var/pointed_at_crate = iscloset(pointed_at) || (istype(delivery) && istype(delivery.wrapped, /obj/structure/closet/crate))
 
 	if(pointed_at_crate && LAZYLEN(crates_in_hand) >= crate_limit)
 		oogaooga(100, 100)
@@ -315,7 +315,7 @@
 	if(target_turf != loc)
 		return
 
-	if(istype(point_target, /obj/structure/closet) || istype(point_target, /obj/structure/bigDelivery) || istype(point_target, /obj/item/reagent_containers/food/snacks/grown/banana))
+	if(iscloset(point_target) || istype(point_target, /obj/structure/bigDelivery) || istype(point_target, /obj/item/reagent_containers/food/snacks/grown/banana))
 		delayed_manipulation(point_target, 0.3 SECONDS)
 	else
 		delayed_move_drop(point_target, 0.3 SECONDS)
@@ -340,7 +340,7 @@
 		SLEEP_CHECK_DEATH(src, delay)
 	start_action_cooldown()
 	if(!QDELETED(pointed_at) && can_pass_adjacent(pointed_at, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/bigDelivery, /obj/structure/table)))
-		if(istype(pointed_at, /obj/structure/closet) || istype(pointed_at, /obj/structure/bigDelivery))
+		if(iscloset(pointed_at) || istype(pointed_at, /obj/structure/bigDelivery))
 			manipulate_crate(pointed_at)
 		else
 			eat_banana(pointed_at, from_master_hand = (pointed_at.loc == master))

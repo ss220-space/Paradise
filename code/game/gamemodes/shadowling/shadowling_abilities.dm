@@ -35,7 +35,6 @@
 
 	selection_activated_message = span_notice_alt("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваши глаза расслабляются... пока что.")
-	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/shadowling_glare/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()

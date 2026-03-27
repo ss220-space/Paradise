@@ -1,7 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(projectiles)
 	name = "Projectiles"
 	wait = 1
-	flags = SS_NO_INIT|SS_TICKER
+	flags = SS_NO_INIT|SS_TICKER|SS_HIBERNATE
 	offline_implications = "Projectiles will no longer move. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 	ss_id = "projectiles"

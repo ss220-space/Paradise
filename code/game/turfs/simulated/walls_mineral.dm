@@ -5,8 +5,6 @@
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
 	abstract_type = /turf/simulated/wall/mineral
-	var/last_event = 0
-	var/active = null
 
 /turf/simulated/wall/mineral/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 5, 1)
@@ -82,14 +80,47 @@
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 	smooth = SMOOTH_BITMASK
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
+	var/active = null
+	/// The last time a radiation pulse was performed
+	var/last_event = 0
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 12, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
+	RegisterSignal(src, COMSIG_ATOM_PROPAGATE_RAD_PULSE, PROC_REF(radiate))
+
+/turf/simulated/wall/mineral/uranium/proc/radiate()
+	SIGNAL_HANDLER
+
+	if(active)
+		return
+
+	if(world.time <= last_event + 1.5 SECONDS)
+		return
+
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 3,
+		threshold = RAD_LIGHT_INSULATION,
+		chance = URANIUM_IRRADIATION_CHANCE,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
+	propagate_radiation_pulse()
+	last_event = world.time
+	active = FALSE
+
+/turf/simulated/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/turf/simulated/wall/mineral/uranium/attackby(obj/item/W, mob/user, list/modifiers)
+	radiate()
+	return ..()
+
+/turf/simulated/wall/mineral/uranium/Bumped(atom/movable/movable_atom)
+	radiate()
+	return ..()
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"

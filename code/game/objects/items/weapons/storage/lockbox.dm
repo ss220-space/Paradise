@@ -118,7 +118,7 @@
 
 /obj/item/storage/lockbox/sibyl_system_mod/populate_contents()
 	for(var/i in 1 to 10)
-		new /obj/item/sibyl_system_mod(src)
+		new /obj/item/gun_module/sibyl(src)
 
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"

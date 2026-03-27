@@ -629,7 +629,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/tesla_coil
 	board_name = "Tesla Coil"
-	build_path = /obj/machinery/power/tesla_coil
+	build_path = /obj/machinery/power/energy_accumulator/tesla_coil
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;magnets=3;powerstorage=3"
@@ -639,7 +639,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/grounding_rod
 	board_name = "Grounding Rod"
-	build_path = /obj/machinery/power/grounding_rod
+	build_path = /obj/machinery/power/energy_accumulator/grounding_rod
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;powerstorage=3;magnets=3;plasmatech=2"

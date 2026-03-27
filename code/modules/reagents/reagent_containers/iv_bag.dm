@@ -183,7 +183,7 @@
 		after_transfer(target)
 		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
-	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
+	else if(isglassreagentcontainer(target) && !target.is_open_container())
 		balloon_alert(user, "закрыто!")
 		return
 

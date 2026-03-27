@@ -97,8 +97,9 @@
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = CLONE
-	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	/// The chance to be irradiated on hit
+	var/radiation_chance = 30
 
 /obj/projectile/energy/declone/get_ru_names()
 	return list(
@@ -109,6 +110,12 @@
 		INSTRUMENTAL = "деклонером",
 		PREPOSITIONAL = "деклонере",
 	)
+
+/obj/projectile/energy/declone/on_hit(atom/target, blocked, hit_zone)
+	if(ishuman(target) && prob(radiation_chance))
+		radiation_pulse(target, max_range = 0, threshold = RAD_FULL_INSULATION)
+
+	return ..()
 
 /obj/projectile/energy/dart
 	name = "dart"
@@ -199,9 +206,9 @@
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	damage = 10 //A worse lasergun
-	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
 	var/zap_range = 3
-	var/power = 10000
+	var/power = 1e4
 
 /obj/projectile/energy/shock_revolver/get_ru_names()
 	return list(
@@ -234,7 +241,6 @@
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = TOX
-	irradiate = 20
 
 /obj/projectile/energy/toxplasma/get_ru_names()
 	return list(

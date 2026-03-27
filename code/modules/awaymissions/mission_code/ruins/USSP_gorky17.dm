@@ -300,7 +300,7 @@
 		D.rank = ranktogive
 		D.assignment = ranktogive
 		D.registered_name = "[cardrank] [cardholdername]"
-		D.UpdateName()
+		D.update_label()
 
 /obj/machinery/computer/id_upgrader/ussp/verb/set_name()
 	set name = "Ввести название"
@@ -558,7 +558,7 @@
 		if(isliving(A))
 			var/mob/living/mob = A
 			mob.gib()
-		if(istype(A, /obj/structure/closet))
+		if(iscloset(A))
 			for(var/obj/item/I in A.contents)
 				qdel(I)
 			qdel(A)

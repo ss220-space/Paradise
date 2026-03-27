@@ -227,6 +227,8 @@
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	tgui_id = "rad_counter"
+	/// Radiation threat level being perceived.
+	var/perceived_threat_level
 
 /obj/item/mod/module/rad_protection/get_ru_names()
 	return list(
@@ -238,11 +240,32 @@
 		PREPOSITIONAL = "модуле радиационного сканирования",
 	)
 
+/obj/item/mod/module/rad_protection/on_part_activation()
+	AddComponent(/datum/component/geiger_sound)
+	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
+	for(var/obj/item/part in mod.get_parts(all = TRUE))
+		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
+
+/obj/item/mod/module/rad_protection/on_part_deactivation(deleting = FALSE)
+	qdel(GetComponent(/datum/component/geiger_sound))
+	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
+	for(var/obj/item/part in mod.get_parts(all = TRUE))
+		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
+
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
-	.["is_user_irradiated"] = mod.wearer?.radiation || 0
+	.["is_user_irradiated"] = mod.wearer ? HAS_TRAIT(mod.wearer, TRAIT_IRRADIATED) : FALSE
+	.["background_radiation_level"] = perceived_threat_level
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
+
+/obj/item/mod/module/rad_protection/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
+	SIGNAL_HANDLER
+
+	perceived_threat_level = get_perceived_radiation_danger(pulse_information, insulation_to_target)
+	addtimer(VARSET_CALLBACK(src, perceived_threat_level, null), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 // MARK: Grappling hook
 /// Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.

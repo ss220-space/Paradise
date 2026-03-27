@@ -68,7 +68,7 @@
 	godsmack(moving_atom)
 
 /obj/singularity/god/ratvar/proc/godsmack(atom/A)
-	if(istype(A,/obj/))
+	if(isobj(A))
 		var/obj/O = A
 		O.ex_act(EXPLODE_DEVASTATE)
 		if(O) qdel(O)

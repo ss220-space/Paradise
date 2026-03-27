@@ -121,8 +121,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle/objective_check,
@@ -160,8 +159,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/piano,
 /turf/simulated/floor/plasteel{
@@ -258,8 +256,7 @@
 /area/shuttle/escape)
 "aS" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -305,8 +302,7 @@
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/wood/wings{
-	dir = 4;
-	tag = "icon-wooden_chair_wings (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -351,8 +347,7 @@
 /area/shuttle/escape)
 "be" = (
 /obj/structure/chair/wood/wings{
-	dir = 1;
-	tag = "icon-wooden_chair_wings (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -361,8 +356,7 @@
 "bf" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -423,8 +417,7 @@
 /area/shuttle/escape)
 "bp" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/machinery/shower,
 /obj/structure/curtain/open/shower,
@@ -487,8 +480,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -525,8 +517,7 @@
 "bC" = (
 /obj/machinery/sleeper{
 	dir = 1;
-	icon_state = "sleeper";
-	tag = "icon-sleeper (NORTH)"
+	icon_state = "sleeper"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"

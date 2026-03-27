@@ -71,12 +71,12 @@
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."
+	icon_state = "greenglow"
 	gender = PLURAL
 	layer = TURF_LAYER
 	light_power = 3
 	light_range = 2
 	light_color = LIGHT_COLOR_GREEN
-	icon_state = "greenglow"
 
 /obj/effect/decal/cleanable/greenglow/temp/Initialize(mapload)
 	. = ..()
@@ -90,6 +90,22 @@
 	scoop_reagents = list()
 	scoop_reagents[decal_reagent] = 5
 	. = ..()
+
+/obj/effect/decal/cleanable/greenglow/radioactive
+	name = "radioactive goo"
+	desc = "Holy crap, stop looking at this and move away immediately! It's radioactive!"
+	light_power = 5
+	light_range = 3
+	light_color = LIGHT_COLOR_NUCLEAR
+
+/obj/effect/decal/cleanable/greenglow/radioactive/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/radioactive_emitter, \
+		cooldown_time = 5 SECONDS, \
+		range = 4, \
+		threshold = RAD_MEDIUM_INSULATION, \
+	)
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"

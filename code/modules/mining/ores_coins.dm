@@ -584,6 +584,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
 
+/obj/item/coin/uranium/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
+
 /obj/item/coin/clown
 	cmineral = "bananium"
 	icon_state = "coin_bananium_heads"

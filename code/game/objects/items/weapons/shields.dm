@@ -1,7 +1,7 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 80, ACID = 70)
 	obj_integrity = 380
 	max_integrity = 380
 	abstract_type = /obj/item/shield
@@ -12,7 +12,7 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
-		if(istype(hitby, /obj/projectile))
+		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
 			if(P.shield_buster)
 				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
@@ -43,7 +43,7 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/melee/baton) && COOLDOWN_FINISHED(src, cooldown))
+	if(isbaton(I) && COOLDOWN_FINISHED(src, cooldown))
 		COOLDOWN_START(src, cooldown, 2.5 SECONDS)
 		user.visible_message(
 			span_warning("[user] bashes [src] with [I]!"),
@@ -66,7 +66,7 @@
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
 	block_chance = 0
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, fire = 0, acid = 0)
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -115,7 +115,7 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(istype(hitby, /obj/projectile))
+	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)

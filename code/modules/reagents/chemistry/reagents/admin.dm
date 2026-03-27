@@ -12,7 +12,7 @@
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setOxyLoss(0, FALSE)
 	M.adjustCloneLoss(-5, FALSE)
-	M.radiation = 0
+	M.cure_radiation()
 	M.adjustBruteLoss(-5, FALSE)
 	M.adjustFireLoss(-5, FALSE)
 	M.adjustToxLoss(-5, FALSE)

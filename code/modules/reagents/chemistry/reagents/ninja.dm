@@ -158,7 +158,7 @@
 			mob_human.Slowed(4 SECONDS)
 			mob_human.Confused(20 SECONDS)
 			mob_human.EyeBlurry(4 SECONDS)
-		if(prob(10) && last_random_turf && istype(mob_human.loc, /turf) && !rend)
+		if(prob(10) && last_random_turf && isturf(mob_human.loc) && !rend)
 			mob_human.visible_message(span_notice("[mob_human] vanished!"), span_warning("Вы переместились в знакомое место..."))
 			new /obj/effect/temp_visual/gravpush(get_turf(mob_human))
 			playsound(get_turf(mob_human), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)

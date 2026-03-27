@@ -377,10 +377,12 @@ research holder datum.
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/tech_tree)
 	name = "[default_name] \[[tech_tree]\]"
 	desc = tech_tree.desc + " <b>Уровень: \"[tech_tree.level]\"</b>."
+
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 	for(var/i = 1; i <= 6; i++)
 		ru_names[i] = "[names ? names[i] : initial(name)] \[[tech_tree]\]"
+
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	stored = tech_tree
