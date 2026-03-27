@@ -5,13 +5,14 @@
 	notify_icon = "comments"
 	template = "pda_raingor_messenger"
 
-	// последний из входящих аккаунтовgit m
+	// последний из входящих аккаунтов, снапшот называемый
 	var/datum/messenger_account/last_login_owner
 
 	// Используем флаг вместо того, что бы пользоваться логин системой, которая у терминалов.
 	var/can_login = FALSE
 
 /datum/data/pda/app/messenger/update_ui(mob/user, list/data)
+	// выполняем вход в аккаунт
 	var/datum/messenger_account/owner_messenger_account = login_in_messenger()
 	data["can_login"] = can_login
 
@@ -27,23 +28,24 @@
 
 	data["chats"] = chats
 
+// Логинимся и возвращаем аккаунт, либо выдаем null
 /datum/data/pda/app/messenger/proc/login_in_messenger()
-	// Сhecking for the presence of a bank account
+	// Проверяем зашел ли человек в аккаунт в мессенджере
+	if(!pda.id || !last_login_owner)
+		return null
+
+	// Находим человека в базе аккаунтов
 	var/datum/money_account/owner_money_account = get_account_with_name(pda.owner)
 	if(!owner_money_account)
 		return null
 
-	// Checking the existence of a Messenger account using a bank account
+	// берем аккаунт мессенджера из аккаунта человека+
 	var/datum/messenger_account/owner_messenger_account = owner_money_account.messenger_profile
 	if(!owner_messenger_account)
 		return null
 
-	// Determine the currently inserted ID card
-	var/current_id = pda.id
-
-	if(!current_id || last_login_owner)
-		return null
-
+	// делаем скриншот, что бы заново не надо было вставлять айди карту
 	can_login = TRUE
-	last_login_owner = pda.id
+	last_login_owner = owner_messenger_account
+
 	return owner_messenger_account

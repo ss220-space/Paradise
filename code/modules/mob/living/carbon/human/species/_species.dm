@@ -295,7 +295,7 @@
 
 /proc/get_rand_age(datum/species/species)
 	var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
-	return rand(age_limits[SPECIES_AGE_MIN], age_limits[SPECIES_AGE_MAX])
+	return rand(30, age_limits[SPECIES_AGE_MAX])
 
 /**
  * Handles creation of mob organs.
