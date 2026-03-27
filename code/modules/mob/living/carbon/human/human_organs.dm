@@ -34,6 +34,18 @@
 			continue
 
 		if(bodypart.is_traumatized() || !bodypart.properly_attached)
+			var/drop_chance = 100
+			switch(bodypart.fracture_state)
+				if(FRACTURE_TYPE_CRACK)
+					drop_chance = 0
+				if(FRACTURE_TYPE_CLOSED)
+					drop_chance = FRACTURE_CLOSED_ITEM_DROP_CHANCE
+				if(FRACTURE_TYPE_OPEN)
+					drop_chance = FRACTURE_OPEN_ITEM_DROP_CHANCE
+
+			if(!drop_chance || !prob(drop_chance))
+				continue
+
 			if(bodypart.limb_zone == BODY_ZONE_L_ARM || bodypart.limb_zone == BODY_ZONE_PRECISE_L_HAND)
 				if(!l_hand)
 					continue
