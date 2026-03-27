@@ -31,7 +31,8 @@
 // Логинимся и возвращаем аккаунт, либо выдаем null
 /datum/data/pda/app/messenger/proc/login_in_messenger()
 	// Проверяем зашел ли человек в аккаунт в мессенджере
-	if(!pda.id || !last_login_owner)
+	var/now_id = pda.id
+	if(!now_id && !last_login_owner)
 		return null
 
 	// Находим человека в базе аккаунтов
