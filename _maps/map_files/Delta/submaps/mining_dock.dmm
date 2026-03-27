@@ -11,10 +11,7 @@
 	dir = 8;
 	pixel_x = -26
 	},
-/obj/structure/table{
-	dir = 1;
-	icon_state = "table-2"
-	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "orange";
@@ -274,15 +271,6 @@
 	layer = 2
 	},
 /area/template_noop)
-"xn" = (
-/obj/structure/table{
-	dir = 1;
-	icon_state = "table-8"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/template_noop)
 "zg" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -301,9 +289,6 @@
 	},
 /area/template_noop)
 "zH" = (
-/obj/structure/table{
-	icon_state = "table-4"
-	},
 /obj/item/flashlight/lamp{
 	dir = 1;
 	icon_state = "lamp-on";
@@ -315,20 +300,14 @@
 	pixel_x = 8;
 	pixel_y = 3
 	},
-/obj/structure/table{
-	dir = 1;
-	icon_state = "table-4"
-	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull";
 	layer = 2
 	},
 /area/template_noop)
 "AD" = (
-/obj/structure/table{
-	dir = 1;
-	icon_state = "table-1"
-	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple";
@@ -410,10 +389,7 @@
 	},
 /area/template_noop)
 "HK" = (
-/obj/structure/table{
-	dir = 1;
-	icon_state = "table-8"
-	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "orange";
@@ -464,10 +440,7 @@
 	},
 /area/template_noop)
 "LZ" = (
-/obj/structure/table{
-	dir = 1;
-	icon_state = "table-4"
-	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	layer = 2
 	},
@@ -727,7 +700,7 @@ px
 px
 px
 Ed
-xn
+LZ
 Ld
 gp
 vZ
@@ -823,7 +796,7 @@ Yo
 px
 px
 px
-xn
+LZ
 Lz
 gp
 vZ
