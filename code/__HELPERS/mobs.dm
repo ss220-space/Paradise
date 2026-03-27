@@ -419,18 +419,18 @@
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 /proc/is_species(A, species_datum)
-    . = FALSE
+	. = FALSE
 
-    var/datum/dna/donor
-    if(ishuman(A))
-        var/mob/living/carbon/human/human_donor = A
-        donor = human_donor.dna
-    if(is_organ(A))
-        var/obj/item/organ/organ_donor = A
-        donor = organ_donor.dna
+	var/datum/dna/donor
+	if(ishuman(A))
+		var/mob/living/carbon/human/human_donor = A
+		donor = human_donor.dna
+	if(is_organ(A))
+		var/obj/item/organ/organ_donor = A
+		donor = organ_donor.dna
 
-    if(donor && istype(donor.species, species_datum))
-        . = TRUE
+	if(donor && istype(donor.species, species_datum))
+		. = TRUE
 
 /proc/is_monkeybasic(mob/living/carbon/human/target)
 	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
