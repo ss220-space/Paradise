@@ -21151,10 +21151,6 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
-"cBU" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/hallway_rd_robo,
-/turf/simulated/wall,
-/area/crew_quarters/hor)
 "cBY" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -44086,6 +44082,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
+"fBv" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/old_tele,
+/turf/simulated/wall,
+/area/teleporter/abandoned)
 "fBw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -159980,7 +159980,7 @@ dhW
 gHm
 dkJ
 lNo
-cBU
+dIg
 spH
 pKc
 onr
@@ -160252,7 +160252,7 @@ wEh
 wEh
 wEh
 tLT
-ygS
+fBv
 fGj
 gLL
 tzX

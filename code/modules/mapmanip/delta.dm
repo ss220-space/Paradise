@@ -133,3 +133,12 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/robo/extra_safe
 	name = "робототехника с дополнительной перегородкой"
+
+//Old teleporter room
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/old_tele
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/old_tele
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/rnd/old_tele/different
+	name = "немного другая старая телепортерная"
