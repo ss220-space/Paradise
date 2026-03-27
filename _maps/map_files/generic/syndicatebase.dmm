@@ -281,12 +281,9 @@
 /turf/space,
 /area/space)
 "auA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -574,12 +571,7 @@
 /obj/structure/sign/clown{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1090,12 +1082,7 @@
 	pixel_y = 20
 	},
 /obj/structure/curtain/open/shower/security,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredfull"
@@ -2413,12 +2400,9 @@
 	dir = 1
 	},
 /obj/item/bedsheet/medical,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
@@ -2675,12 +2659,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "css" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2777,12 +2758,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "cws" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2986,12 +2964,9 @@
 	dir = 1
 	},
 /obj/structure/curtain/open/shower/security,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -3464,12 +3439,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3818,12 +3790,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4658,12 +4627,9 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "epU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -6835,12 +6801,9 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered)
 "guk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7002,12 +6965,9 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "gzD" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -7030,12 +6990,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 1449;
@@ -7314,12 +7271,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "gIg" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7966,12 +7920,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/kitchen/freezer)
 "hqf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8140,12 +8091,9 @@
 "hvm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -8253,12 +8201,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "hzx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8530,12 +8475,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "hTz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8758,12 +8700,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "icM" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9073,12 +9012,9 @@
 "ilb" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -9669,12 +9605,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "iQt" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10596,12 +10527,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11399,12 +11325,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "kxX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -12675,12 +12596,9 @@
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "lxe" = (
 /obj/machinery/light,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -12912,12 +12830,9 @@
 /turf/space,
 /area/space)
 "lEH" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -13828,12 +13743,9 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "mpM" = (
 /obj/effect/decal/cleanable/blood,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13956,12 +13868,9 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "mvF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14006,12 +13915,9 @@
 /turf/space,
 /area/space)
 "mEG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -14124,12 +14030,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14250,12 +14151,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14554,12 +14450,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15009,12 +14902,9 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16095,12 +15985,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "oht" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -16622,12 +16509,9 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oDf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16764,12 +16648,9 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "oHi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -17366,12 +17247,9 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "pie" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17554,12 +17432,9 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "pmL" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/redgrid,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
@@ -17718,12 +17593,9 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -17937,12 +17809,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "pAA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "pBd" = (
@@ -18788,12 +18655,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -20006,12 +19868,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/structure/sign/directions/cargo{
 	pixel_x = 32
@@ -20317,12 +20176,9 @@
 /mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -21075,12 +20931,9 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "rZn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -22088,12 +21941,9 @@
 	name = "Prison Flasher";
 	pixel_y = -20
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/item/flag/syndi,
 /obj/machinery/computer/cryopod{
@@ -23242,12 +23092,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -23274,12 +23121,9 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "tPk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23705,12 +23549,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23981,12 +23822,9 @@
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -24269,12 +24107,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uzn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24563,12 +24398,9 @@
 "uHe" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -24971,12 +24803,9 @@
 	faction = list("neutral","syndicate")
 	},
 /obj/structure/bed,
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -25210,12 +25039,9 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "vcy" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
@@ -25419,12 +25245,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "viE" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26690,12 +26513,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "wmL" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26907,12 +26727,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27257,12 +27074,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wCB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27427,12 +27241,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wHz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28740,12 +28551,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xAY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29733,12 +29541,9 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "yhd" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+	
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{

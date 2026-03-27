@@ -55,6 +55,10 @@
 	on = TRUE
 	scrub = parent_type::scrub|SCRUB_N2O|SCRUB_PL
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox
+	on = TRUE
+	scrub = parent_type::scrub|SCRUB_N2O
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
 	..()
 	icon = null

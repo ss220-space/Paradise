@@ -12295,9 +12295,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "euZ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	scrub_Toxins = 0
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox,
 /obj/item/trash/tastybread,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/engine,
