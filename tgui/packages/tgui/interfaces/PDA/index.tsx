@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useBackend } from '../../backend';
 import { Box, Button, Section, Icon } from '../../components';
 import { Window } from '../../layouts';
@@ -103,6 +104,8 @@ const PDAHeader = () => {
     request_cartridge_name,
   } = data;
 
+  const [pressed, setPressed] = useState(false);
+
   return (
     <Box style={{ marginBottom: '0', padding: '0' }}>
       {/* STATUS BAR */}
@@ -119,7 +122,17 @@ const PDAHeader = () => {
         }}
       >
         {/* 🔑 VPN + 📶 */}
-        <Box style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Box
+          onClick={() => act('VPNConnect')}
+          onMouseDown={() => setPressed(true)}
+          onMouseUp={() => setPressed(false)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            cursor: 'pointer',
+          }}
+        >
           <Box
             style={{
               display: 'flex',
@@ -129,6 +142,8 @@ const PDAHeader = () => {
               background: 'rgba(74, 158, 255, 0.1)',
               borderRadius: '3px',
               border: '1px solid rgba(74, 158, 255, 0.3)',
+              transform: pressed ? 'scale(0.95)' : 'scale(1)',
+              transition: 'all 0.1s ease',
             }}
           >
             <Icon name="key" style={{ color: '#4a9eff', fontSize: '10px' }} />
@@ -138,6 +153,7 @@ const PDAHeader = () => {
               VPN
             </Box>
           </Box>
+
           <Icon name="wifi" style={{ color: '#4a9eff', fontSize: '11px' }} />
         </Box>
 

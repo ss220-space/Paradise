@@ -162,6 +162,8 @@
 			current_theme = themes[current_index]
 			ui_interact(ui.user)
 			return TRUE
+		if("VPNConnect")
+			return vpn_connect(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

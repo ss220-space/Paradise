@@ -579,6 +579,22 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	ttone = new_tone
 	return TRUE
 
+/obj/item/pda/proc/vpn_connect(mob/user)
+    var/input = tgui_input_text(user, "Введите хэш-ключ подключения", "VPN", "", max_length = 20)
+
+    if(!input)
+        return FALSE
+
+    input = lowertext(trim(input))
+
+    if(hidden_uplink && hidden_uplink.check_trigger(user, input, lowertext(lock_code)))
+        to_chat(user, span_notice("Соединение установлено."))
+		close(user)
+        return TRUE
+
+    to_chat(user, span_warning("Хэш-ключ заблокирован ЦентКомНадзором."))
+    return FALSE
+
 /obj/item/pda/process()
 	if(current_app)
 		current_app.program_process()
