@@ -1,36 +1,31 @@
-#define LOCAL_EMOJI_IMAGE(icon_state, size) "<img class='icon icon-[icon_state]' src='[SSassets.transport.get_asset_url("[icon_state].png")]'>"
+/proc/handleDiscordEmojis(msg, client/target, size = 32)
+	var/list/message_words = splittext_char(msg, " ")
+	var/list/new_message = list()
 
-/proc/handleDiscordEmojis(msg, client/C, size = 32)
-	var/list/listmsg = splittext_char(msg, " ")
-	var/list/newMsg = list()
-	var/list/discordEmojis = CONFIG_GET(str_list/emoji)
-	var/static/list/emoji_cache = list()
-
-	for(var/word in listmsg)
+	for(var/word in message_words)
 		var/emoji_name = lowertext(word)
-		if(emoji_name in discordEmojis)
-			var/icon/byond = emoji_cache[emoji_name]
-			if(isnull(byond))
-				byond = icon('icons/emoji.dmi', emoji_name)
-				if(byond)
-					byond.Scale(size, size)
-					emoji_cache[emoji_name] = byond
-			if(byond)
-				var/asset_name = "emoji_[emoji_name]_[size].png"
-				if(!SSassets.cache[asset_name])
-					SSassets.transport.register_asset(asset_name, byond)
-				SSassets.transport.send_assets(C, asset_name)
-				var/url = SSassets.transport.get_asset_url(asset_name)
-				newMsg += "<img src=\"[url]\" style=\"height: [size]px; width: [size]px; vertical-align: middle;\">"
-			else
-				newMsg += word
-		else
-			newMsg += word
-	return jointext(newMsg, " ")
+		if(!GLOB.emoji_cache.is_emoji(emoji_name))
+			new_message += word
+			continue
+
+		var/icon/emoji_icon = GLOB.emoji_cache.get_icon(emoji_name, size)
+		if(!emoji_icon)
+			new_message += word
+			continue
+
+		if(SSassets)
+			var/asset_name = "emoji_[emoji_name]_[size].png"
+			if(!SSassets.cache[asset_name])
+				SSassets.transport.register_asset(asset_name, emoji_icon)
+			SSassets.transport.send_assets(target, asset_name)
+			var/url = SSassets.transport.get_asset_url(asset_name)
+			new_message += "<img src=\"[url]\" style=\"height: [size]px; width: [size]px; vertical-align: middle;\">"
+
+	return jointext(new_message, " ")
 
 /proc/generateDiscordEmojiTable()
 	// Fallback для старого browser popup
-	var/list/emoji_names = CONFIG_GET(str_list/emoji)
+	var/list/emoji_names = GLOB.emoji_cache.get_emoji_names()
 	var/const/itemsInRow = 7
 	var/emojisListLength = length(emoji_names)
 
@@ -44,9 +39,9 @@
 		for(var/j = 0, j < itemsInRow, j++)
 			if((index+j) <= emojisListLength)
 				var/emojiName = emoji_names[index+j]
-				var/icon/byond = icon('icons/emoji.dmi', emojiName)
-				if(byond)
-					rowString += "<td>[icon2html(byond, usr)]<div>[emojiName]</div></td>"
+				var/icon/emoji_icon = GLOB.emoji_cache.get_icon(emojiName, 48)
+				if(emoji_icon)
+					rowString += "<td>[icon2html(emoji_icon, usr)]<div>[emojiName]</div></td>"
 				else
 					rowString += "<td>[emojiName]</td>"
 			else

@@ -22,8 +22,6 @@
 #define CHAT_LAYER_MAX_Z (CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
 #define CHAT_MESSAGE_ICON_SIZE 9
-/// The dimensions of emoji icons in runechat
-#define CHAT_MESSAGE_EMOJI_SIZE 24
 
 /**
  * # Chat Message Overlay
@@ -174,21 +172,15 @@
 		LAZYADD(extra_classes, language.runechat_span)
 
 	// Process emoji for runechat - parse text for emoji keywords and replace them with icons
-	var/list/discordEmojis = CONFIG_GET(str_list/emoji)
-	if(discordEmojis && length(discordEmojis))
+	var/list/emoji_names = GLOB.emoji_cache.get_emoji_names()
+	if(length(emoji_names))
 		var/list/text_parts = splittext_char(text, " ")
 		var/list/new_text_parts = list()
-		var/static/list/emoji_cache = list()
 
 		for(var/part in text_parts)
 			var/emoji_name = lowertext(part)
-			if(emoji_name in discordEmojis)
-				var/icon/emoji_icon = emoji_cache[emoji_name]
-				if(isnull(emoji_icon))
-					emoji_icon = icon('icons/emoji.dmi', emoji_name)
-					if(emoji_icon)
-						emoji_icon.Scale(CHAT_MESSAGE_ICON_SIZE, CHAT_MESSAGE_ICON_SIZE)
-						emoji_cache[emoji_name] = emoji_icon
+			if(emoji_name in emoji_names)
+				var/icon/emoji_icon = GLOB.emoji_cache.get_icon(emoji_name, 20)
 				if(emoji_icon)
 					new_text_parts += "\icon[emoji_icon]"
 				else
