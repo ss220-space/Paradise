@@ -1,0 +1,656 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"c" = (
+/obj/structure/sign/science{
+	pixel_x = 32
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"d" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"e" = (
+/obj/structure/chair/sofa/bench/right/science_pink{
+	dir = 4
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"f" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "2-8-f"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"j" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/submap_def/delta/rnd_hallway/rd_robo,
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"k" = (
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-sf"
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"m" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"n" = (
+/obj/structure/cable{
+	icon_state = "1-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"o" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"p" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"q" = (
+/obj/structure/disposalpipe/segment{
+	icon_state = "pipe-sf"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"s" = (
+/obj/machinery/camera{
+	dir = 10
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-21"
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd_hallway_rd_robo,
+/turf/simulated/floor/glass{
+	icon_state = "glass-1";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"t" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"u" = (
+/obj/structure/cable{
+	icon_state = "2-8-f"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9;
+	icon_state = "pipe-sf"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"v" = (
+/obj/structure/chair/sofa/bench/left/science_pink{
+	dir = 4
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"x" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"y" = (
+/obj/machinery/camera{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"z" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/structure/cable{
+	icon_state = "2-4-f"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurplefull";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"A" = (
+/obj/structure/extinguisher_cabinet{
+	icon_state = "extinguisher_full_closed";
+	pixel_x = 28
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-0";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"D" = (
+/turf/simulated/floor/glass{
+	icon_state = "glass-1";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"F" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-14"
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-1";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"G" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"H" = (
+/obj/structure/extinguisher_cabinet{
+	icon_state = "extinguisher_full_closed";
+	pixel_x = -28
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"I" = (
+/obj/item/radio/intercom/directional/west,
+/obj/structure/chair/sofa/bench/science_pink{
+	dir = 4
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"K" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"L" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/terminal{
+	dir = 8;
+	layer = 2.01
+	},
+/obj/machinery/power/apc{
+	pixel_x = -26
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"M" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8-f"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"O" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"P" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-28"
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"Q" = (
+/obj/structure/disposalpipe/segment{
+	icon_state = "pipe-sf"
+	},
+/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"R" = (
+/obj/structure/cable{
+	icon_state = "1-2-f"
+	},
+/obj/structure/cable{
+	icon_state = "2-4-f"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"S" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"T" = (
+/turf/simulated/floor/glass{
+	icon_state = "glass-2";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"U" = (
+/turf/simulated/floor/glass{
+	icon_state = "glass-0";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"V" = (
+/obj/structure/sign/poster/official/help_others{
+	name = "Постер — Помогайте другим";
+	pixel_x = -32
+	},
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+"W" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd_hallway_rd_robo,
+/turf/template_noop,
+/area/template_noop)
+"X" = (
+/turf/simulated/floor/plasteel{
+	layer = 2
+	},
+/area/medical/research/shallway)
+"Z" = (
+/turf/simulated/floor/glass{
+	icon_state = "glass-3";
+	layer = 2
+	},
+/area/medical/research/shallway)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+W
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(7,1,1) = {"
+a
+m
+U
+k
+T
+t
+Z
+Z
+Z
+L
+H
+P
+e
+I
+v
+x
+t
+V
+s
+a
+"}
+(8,1,1) = {"
+a
+q
+Q
+u
+K
+z
+K
+d
+o
+f
+j
+b
+o
+d
+R
+n
+X
+p
+X
+a
+"}
+(9,1,1) = {"
+a
+m
+A
+X
+T
+x
+Z
+Z
+y
+G
+O
+S
+Z
+D
+M
+T
+Z
+c
+F
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

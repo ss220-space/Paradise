@@ -122031,6 +122031,7 @@
 	network = list("Research","SS13")
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd_hallway_rd_robo,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
