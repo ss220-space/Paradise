@@ -105,16 +105,15 @@
 	},
 /area/medical/chemistry)
 "eT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-sf"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	 = ;
 	dir = 6
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -143,11 +142,11 @@
 	icon_state = "1-2-f"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	dir = 10;
 	icon_state = "pipe-sf"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull";
 	layer = 2
@@ -160,16 +159,15 @@
 /obj/structure/cable{
 	icon_state = "2-4-f"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-sf"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	 = ;
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull";
@@ -261,11 +259,11 @@
 	layer = 3.1;
 	name = "Chemistry Lab"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-sf"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	layer = 2
@@ -311,14 +309,14 @@
 	},
 /area/medical/chemistry)
 "mP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 5;
 	icon_state = "pipe-sf"
 	},
 /obj/effect/map_effect/marker_helper/submap_def/delta/chemistry/sofa,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowsiding";
@@ -374,10 +372,10 @@
 	icon_state = "1-2-f"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-sf"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	layer = 2
@@ -583,15 +581,15 @@
 	},
 /area/medical/chemistry)
 "Bc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-sf"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -926,15 +924,15 @@
 	},
 /area/medical/chemistry)
 "Xp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-sf"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull";
