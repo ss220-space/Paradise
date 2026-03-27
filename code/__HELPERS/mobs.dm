@@ -436,7 +436,7 @@
 	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
-	if(!ishuman(target) || !isslimeperson(target.dna.species))
+	if(!ishuman(target) || !isslimeperson(target))
 		return FALSE
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
