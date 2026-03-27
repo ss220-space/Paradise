@@ -18,8 +18,6 @@ ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins
 		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
-	msg = handleDiscordEmojis(msg)
-
 	var/datum/say/asay = new(user.ckey, user.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, user)
@@ -27,13 +25,16 @@ ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD, FALSE, C.mob))
 			// Lets see if this admin was pinged in the asay message
+			var/processed_msg = msg
 			if(findtext(msg, "@[C.ckey]") || findtext(msg, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
 				SEND_SOUND(C, sound('sound/misc/ping.ogg'))
-				msg = replacetext(msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
-				msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
+				processed_msg = replacetext(processed_msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
+				processed_msg = replacetext(processed_msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
-			msg = span_emojienabled("[msg]")
-			to_chat(C, span_admin_channel("ADMIN: [span_name("[key_name(user, 1)]")] ([admin_jump_link(user.mob)]): [span_message("[msg]")]"), MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+			if(!CONFIG_GET(flag/disable_ooc_emoji))
+				processed_msg = handleDiscordEmojis(processed_msg, C)
+			processed_msg = span_emojienabled("[processed_msg]")
+			to_chat(C, span_admin_channel("ADMIN: [span_name("[key_name(user, 1)]")] ([admin_jump_link(user.mob)]): [span_message("[processed_msg]")]"), MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Asay")
 
@@ -61,8 +62,6 @@ ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to ot
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
-	msg = handleDiscordEmojis(msg)
-
 	for(var/client/client in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, client.mob))
 			var/display_name = user.key
@@ -71,8 +70,11 @@ ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to ot
 					display_name = "[user.holder.fakekey]/([user.key])"
 				else
 					display_name = user.holder.fakekey
-			msg = span_emojienabled("[msg]")
-			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: [span_name("[display_name]")] ([admin_jump_link(user.mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+			var/processed_msg = msg
+			if(!CONFIG_GET(flag/disable_ooc_emoji))
+				processed_msg = handleDiscordEmojis(msg, client)
+			processed_msg = span_emojienabled("[processed_msg]")
+			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: [span_name("[display_name]")] ([admin_jump_link(user.mob)]): [span_message("[processed_msg]")]</span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("MSay")
 
@@ -113,7 +115,7 @@ ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to oth
 		data["message"] = msg
 		SSredis.publish("byond.devsay", json_encode(data))
 
-	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	msg = copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN)
 
 	if(!msg)
 		return
@@ -131,8 +133,11 @@ ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to oth
 					display_name = "[user.holder.fakekey]/([user.key])"
 				else
 					display_name = user.holder.fakekey
-			msg = span_emojienabled("[msg]")
-			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: [span_name("[display_name]")] ([admin_jump_link(user.mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			var/processed_msg = msg
+			if(!CONFIG_GET(flag/disable_ooc_emoji))
+				processed_msg = handleDiscordEmojis(msg, client)
+			processed_msg = span_emojienabled("[processed_msg]")
+			to_chat(client, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: [span_name("[display_name]")] ([admin_jump_link(user.mob)]): [span_message("[processed_msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Devsay")
 

@@ -54,7 +54,7 @@
 		SSspeech_controller.queue_say_for_mob(usr, message, SPEECH_CONTROLLER_QUEUE_EMOTE_VERB)
 
 /mob/proc/say_dead(message)
-	message = handleDiscordEmojis(say_emphasis(message))
+	message = say_emphasis(message)
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, span_danger("Deadchat is globally muted."))
@@ -80,7 +80,13 @@
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message(message)]\"", src)
+	// Отправка deadchat с emoji для каждого клиента
+	for(var/client/C in GLOB.clients)
+		if(C.prefs.toggles & PREFTOGGLE_CHAT_DEAD)
+			var/processed_message = message
+			if(!CONFIG_GET(flag/disable_ooc_emoji))
+				processed_message = handleDiscordEmojis(message, C)
+			say_dead_direct_to(C, "[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message("[processed_message]")]\"", src)
 	add_deadchat_logs(src, message)
 
 /**

@@ -714,10 +714,8 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
-//Needs proper testing
-/datum/config_entry/keyed_list/emoji
-	key_mode = KEY_MODE_TEXT
-	value_mode = VALUE_MODE_TEXT
+/datum/config_entry/str_list/emoji
+	lowercase = TRUE
 
 /datum/config_entry/number/shadowling_max_age
 

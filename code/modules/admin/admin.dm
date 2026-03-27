@@ -414,14 +414,16 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 	if(!check_rights_client(R_SERVER, FALSE, user))
 		message = adminscrub(message, 500)
 
-	message = handleDiscordEmojis(message)
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-	to_chat(world, chat_box_notice(span_notice("<b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><p>[message]</p>")))
 	log_admin("Announce: [key_name(user)] : [message]")
-	for(var/client/clients_to_alert in GLOB.clients)
-		window_flash(clients_to_alert)
-		if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-			SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+	for(var/client/C in GLOB.clients)
+		var/processed_message = message
+		if(!CONFIG_GET(flag/disable_ooc_emoji))
+			processed_message = handleDiscordEmojis(message, C)
+		to_chat(C, chat_box_notice(span_notice("<b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><p>[processed_message]</p>")))
+		window_flash(C)
+		if(C.prefs?.sound & SOUND_ADMINHELP)
+			SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 ADMIN_VERB(toggle_ooc, R_ADMIN, "Toggle OOC", "Toggle the OOC channel on or off.", ADMIN_CATEGORY_TOGGLES)

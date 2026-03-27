@@ -30,12 +30,16 @@ ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAM
 	if(!msg)
 		return
 
-	msg = handleDiscordEmojis(msg)
-
 	var/prefix = "[stafftype] ([user.key])"
 	if(user.holder.fakekey)
 		prefix = "Administrator"
-	say_dead_direct("[span_name(prefix)] says, [span_message("\"[msg]\"")]")
+
+	for(var/client/C in GLOB.clients)
+		if(C.prefs.toggles & PREFTOGGLE_CHAT_DEAD)
+			var/processed_msg = msg
+			if(!CONFIG_GET(flag/disable_ooc_emoji))
+				processed_msg = handleDiscordEmojis(msg, C)
+			say_dead_direct_to(C, "[span_name(prefix)] says, [span_message("\"[processed_msg]\"")]")
 
 	BLACKBOX_LOG_ADMIN_VERB("Dsay")
 

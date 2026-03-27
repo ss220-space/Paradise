@@ -56,8 +56,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
 
-	msg = handleDiscordEmojis(msg)
-
 	add_ooc_logs(src, msg)
 
 	var/display_colour = GLOB.normal_ooc_colour
@@ -99,9 +97,11 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					else
 						display_name = holder.fakekey
 
+			var/processed_msg = msg
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
-				msg = span_emojienabled("[msg]")
-			to_chat(C, span_ooc("<span style='color:[display_colour];'>[span_prefix("OOC: ")]<em>[display_name]:</em> [span_message(msg)]</span>"))
+				processed_msg = handleDiscordEmojis(msg, C)
+				processed_msg = span_emojienabled("[processed_msg]")
+			to_chat(C, span_ooc("<span style='color:[display_colour];'>[span_prefix("OOC: ")]<em>[display_name]:</em> [span_message(processed_msg)]</span>"))
 
 /proc/toggle_ooc()
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
@@ -164,8 +164,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
 
-	msg = handleDiscordEmojis(msg)
-
 	add_ooc_logs(src, msg, TRUE)
 
 	var/mob/source = mob.get_looc_source()
@@ -206,7 +204,11 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<em>[display_name][admin_stuff]:</em> [span_message(msg)]")))
+				var/processed_msg = msg
+				if(!CONFIG_GET(flag/disable_ooc_emoji))
+					processed_msg = handleDiscordEmojis(msg, target)
+
+				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<em>[display_name][admin_stuff]:</em> [span_message(processed_msg)]")))
 
 				if(target.mob && target.prefs.toggles3 & PREFTOGGLE_3_RUNECHAT_LOOC)
 					var/mob/source_mob = mob.get_looc_source()

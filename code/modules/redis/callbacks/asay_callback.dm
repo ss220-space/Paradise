@@ -7,9 +7,12 @@
 	if(data["source"] == CONFIG_GET(string/instance_id)) // Ignore self messages
 		return
 
-	var/emoji_msg = handleDiscordEmojis(data["message"])
+	var/raw_msg = data["message"]
 
 	for(var/client/client as anything in GLOB.admins)
 		if(R_ADMIN & client.holder.rights)
+			var/emoji_msg = raw_msg
+			if(!CONFIG_GET(flag/disable_ooc_emoji))
+				emoji_msg = handleDiscordEmojis(raw_msg, client)
 			to_chat(client, span_admin_channel("ADMIN: <small>[data["author"]]\[[data["source"]]\]</small>: [span_message(emoji_msg)]"),
 				MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
