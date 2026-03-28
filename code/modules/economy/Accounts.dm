@@ -222,6 +222,8 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 			return D
 
 /proc/get_account_with_name(name_owner)
+	if(!name_owner)
+		return null
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.owner_name == name_owner)
 			return D

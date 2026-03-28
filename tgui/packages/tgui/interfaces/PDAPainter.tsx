@@ -1,5 +1,5 @@
-import { useBackend } from '../../backend';
-import { Window } from '../../layouts';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 import {
   Button,
   LabeledList,
@@ -8,7 +8,7 @@ import {
   Section,
   Table,
   DmIcon,
-} from '../../components';
+} from '../components';
 
 type PDAPainterData = {
   statusLabel: string;
