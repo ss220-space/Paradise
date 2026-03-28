@@ -129,7 +129,7 @@
 	var/matrix/m180 = matrix(target.transform)
 	m180.Turn(180)
 	animate(target, transform = m180, time = 0.3 SECONDS)
-	if(istype(target, /mob/living/carbon/human/lesser))
+	if(istype(target, /mob/living/carbon/human/lesser) && ismonkey(target))
 		target.pixel_x = target.base_pixel_x
 		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING + 3
 	else
