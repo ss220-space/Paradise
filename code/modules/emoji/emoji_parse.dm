@@ -2,13 +2,20 @@
 	var/list/message_words = splittext_char(msg, " ")
 	var/list/new_message = list()
 
+	var/datum/emoji_cache/emoji_cache = GLOB.emoji_cache
+	var/list/emoji_names = emoji_cache.get_emoji_names()
+
+	var/list/emoji_names_assoc = list()
+	for(var/name in emoji_names)
+		emoji_names_assoc[name] = TRUE
+
 	for(var/word in message_words)
 		var/emoji_name = lowertext(word)
-		if(!GLOB.emoji_cache.is_emoji(emoji_name))
+		if(!emoji_names_assoc[emoji_name])
 			new_message += word
 			continue
 
-		var/icon/emoji_icon = GLOB.emoji_cache.get_icon(emoji_name, size)
+		var/icon/emoji_icon = emoji_cache.get_icon(emoji_name, size)
 		if(!emoji_icon)
 			new_message += word
 			continue

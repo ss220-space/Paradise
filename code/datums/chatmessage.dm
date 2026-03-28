@@ -171,15 +171,18 @@
 	if(language?.runechat_span)	// we can use this for custom language icon prefixes later, like on emotes
 		LAZYADD(extra_classes, language.runechat_span)
 
-	// Process emoji for runechat - parse text for emoji keywords and replace them with icons
 	var/list/emoji_names = GLOB.emoji_cache.get_emoji_names()
-	if(length(emoji_names))
+	if(length(emoji_names) && "looc" in extra_classes)
+		var/list/emoji_names_assoc = list()
+		for(var/name in emoji_names)
+			emoji_names_assoc[name] = TRUE
+
 		var/list/text_parts = splittext_char(text, " ")
 		var/list/new_text_parts = list()
 
 		for(var/part in text_parts)
 			var/emoji_name = lowertext(part)
-			if(emoji_name in emoji_names)
+			if(emoji_names_assoc[emoji_name])
 				var/icon/emoji_icon = GLOB.emoji_cache.get_icon(emoji_name, 20)
 				if(emoji_icon)
 					new_text_parts += "\icon[emoji_icon]"

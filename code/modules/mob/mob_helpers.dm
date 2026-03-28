@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 //Direct dead say used both by emote and say
 //It is somewhat messy. I don't know what to do.
 //I know you can't see the change, but I rewrote the name code. It is significantly less messy now
-/proc/say_dead_direct(message, mob/subject = null)
+/proc/say_dead_direct(message, mob/subject = null, client/target_client = null)
 	var/name
 	var/keyname
 	if(subject?.client)
@@ -465,6 +465,31 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			else
 				name = realname
 
+	if(target_client)
+		var/follow
+		var/lname
+		if(subject)
+			var/mob/M = target_client.mob
+			if(subject != M)
+				follow = "([ghost_follow_link(subject, ghost=M)]) "
+			if(M && M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
+				follow = "([admin_jump_link(subject)]) "
+			var/mob/dead/observer/DM
+			if(isobserver(subject))
+				DM = subject
+			if(check_rights(R_ADMIN|R_MOD, FALSE, M))
+				lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+			else
+				if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)
+					lname = "<i>Anon</i> ([name])"
+				else if(DM)
+					lname = "[keyname] ([name])"
+				else
+					lname = name
+			lname = "[span_name("[lname]")] "
+		to_chat(target_client, span_deadsay("[follow][lname][message]"))
+		return
+
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
@@ -477,59 +502,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/mob/dead/observer/DM
 				if(isobserver(subject))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
+				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) // What admins see
 					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
 				else
-					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
+					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) // If the person is actually observer they have the option to be anonymous
 						lname = "<i>Anon</i> ([name])"
-					else if(DM)									// Non-anons
+					else if(DM) // Non-anons
 						lname = "[keyname] ([name])"
-					else										// Everyone else (dead people who didn't ghost yet, etc.)
+					else // Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
 				lname = "[span_name("[lname]")] "
 			to_chat(M, span_deadsay("[follow][lname][message]"))
-
-// Version of say_dead_direct that sends to a specific client with emoji support
-/proc/say_dead_direct_to(client/C, message, mob/subject = null)
-	var/name
-	var/keyname
-	if(subject?.client)
-		var/client/SC = subject.client
-		keyname = (SC.holder && SC.holder.fakekey) ? SC.holder.fakekey : SC.key
-		if(SC.mob)
-			var/mindname
-			var/realname = SC.mob.real_name
-			if(SC.mob.mind)
-				mindname = SC.mob.mind.name
-				if(SC.mob.mind.original_mob_name)
-					realname = SC.mob.mind.original_mob_name
-			if(mindname && mindname != realname)
-				name = "[realname] died as [mindname]"
-			else
-				name = realname
-
-	var/follow
-	var/lname
-	if(subject)
-		var/mob/M = C.mob
-		if(subject != M)
-			follow = "([ghost_follow_link(subject, ghost=M)]) "
-		if(M && M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
-			follow = "([admin_jump_link(subject)]) "
-		var/mob/dead/observer/DM
-		if(isobserver(subject))
-			DM = subject
-		if(check_rights(R_ADMIN|R_MOD, FALSE, M))
-			lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
-		else
-			if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)
-				lname = "<i>Anon</i> ([name])"
-			else if(DM)
-				lname = "[keyname] ([name])"
-			else
-				lname = name
-		lname = "[span_name("[lname]")] "
-	to_chat(C, span_deadsay("[follow][lname][message]"))
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)

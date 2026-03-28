@@ -39,7 +39,7 @@ ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAM
 			var/processed_msg = msg
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
 				processed_msg = handleDiscordEmojis(msg, C)
-			say_dead_direct_to(C, "[span_name(prefix)] says, [span_message("\"[processed_msg]\"")]")
+			say_dead_direct("[span_name(prefix)] says, [span_message("\"[processed_msg]\"")]", target_client=C)
 
 	BLACKBOX_LOG_ADMIN_VERB("Dsay")
 
