@@ -1,5 +1,3 @@
-#define GAMEMODE_DESERT_EVENT "desert_event"
-
 /datum/game_mode/desert_event
 	name = "desert event"
 	config_tag = GAMEMODE_DESERT_EVENT
