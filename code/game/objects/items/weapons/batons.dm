@@ -69,16 +69,16 @@
 	var/list/readout = list()
 
 	if(affect_cyborg)
-		readout += "При ударе оглушает роботов на [round((stun_time_cyborg/10), 1)] секунд[DECL_SEC_MIN(round((stun_time_cyborg/10), 1))]."
+		readout += "- При ударе оглушает роботов на [round((stun_time_cyborg/10), 1)] секунд[DECL_SEC_MIN(round((stun_time_cyborg/10), 1))]."
 
-	readout += "\n[active ? span_boldwarning(capitalize("[activated_word] и способна оглушать.")) : span_boldnotice("Не [activated_word] и не способна оглушать.")]"
+	readout += "- [active ? span_boldwarning(capitalize("[activated_word] и способна оглушать.")) : span_boldnotice("Не [activated_word] и не способна оглушать.")]"
 
 	if(stamina_damage <= 0) // The advanced baton actually does have 0 stamina damage so...yeah.
-		readout += "[span_warning("Не может наносить оглушающие удары")], либо [span_warning("использует уникальный способ оглушения цели")]."
+		readout += "- [span_warning("Не может наносить оглушающие удары")], либо [span_warning("использует уникальный способ оглушения цели")]."
 		return readout.Join("\n")
 
 	if(active)
-		readout += "Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_CREDIT(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
+		readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_CREDIT(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
 	return readout.Join("\n")
 
 /obj/item/melee/baton/proc/add_deep_lore()
