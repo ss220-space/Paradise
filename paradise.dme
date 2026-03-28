@@ -1112,6 +1112,7 @@
 #include "code\game\gamemodes\cult\ritual.dm"
 #include "code\game\gamemodes\cult\runes.dm"
 #include "code\game\gamemodes\de_kerberos_2\de_kerberos_2.dm"
+#include "code\game\gamemodes\desertevent\desertevent.dm"
 #include "code\game\gamemodes\devil\game_mode.dm"
 #include "code\game\gamemodes\devil\objectives.dm"
 #include "code\game\gamemodes\extended\extended.dm"
