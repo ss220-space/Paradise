@@ -172,7 +172,7 @@
 		LAZYADD(extra_classes, language.runechat_span)
 
 	var/list/emoji_names = GLOB.emoji_cache.get_emoji_names()
-	if(length(emoji_names) && "looc" in extra_classes)
+	if(length(emoji_names) && ("looc" in extra_classes))
 		var/list/emoji_names_assoc = list()
 		for(var/name in emoji_names)
 			emoji_names_assoc[name] = TRUE
