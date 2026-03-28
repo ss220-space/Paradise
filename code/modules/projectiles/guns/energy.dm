@@ -60,18 +60,25 @@
 	if(!length(ammo_type))
 		return
 	var/obj/projectile/exam_proj
-	readout += "Имеет <b>[length(ammo_type)]</b> режим[DECL_CREDIT(length(ammo_type))] стрельбы."
+	readout += "- Имеет <b>[length(ammo_type)]</b> режим[DECL_CREDIT(length(ammo_type))] стрельбы."
 	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
 		exam_proj = for_ammo.projectile_type
+
 		if((damage_mod <= 0 && stamina_mod <= 0) || (initial(exam_proj.damage) <= 0 && initial(exam_proj.stamina) <= 0))
 			readout += span_boldnotice("- Не наносит значимого ущерба при попадании.")
 			return readout.Join("\n") // Sending over the singular string, rather than the whole list
+
 		if(!ispath(exam_proj))
 			continue
+
 		if(initial(exam_proj.damage) > 0) // Don't divide by 0!!!!!
-			readout += "- Для [initial(exam_proj.damage_type) == STAMINA ? span_blue("<b>нелетального</b>") : span_red("<b>летального</b>")] устранения гуманоида в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets), "ие", "ия", "ий")]")]."
+			var/lethality_str = initial(exam_proj.damage_type) == STAMINA ? span_blue("<b>нелетального</b>") : span_red("<b>летального</b>")
+			var/lethal_hits_to_crit = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * damage_mod) * for_ammo.pellets), "ие", "ия", "ий")]")
+			readout += "- Для [lethality_str] устранения гуманоида в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [lethal_hits_to_crit]."
 			if(initial(exam_proj.stamina) > 0) // In case a projectile does damage AND stamina damage (Energy Crossbow)
-				readout += "- Для <b>[span_blue("нелетального")]</b> устранения гуманоида в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets), "ие", "ия", "ий")]")]."
+				var/non_lethal_hits_to_crit = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * stamina_mod) * for_ammo.pellets), "ие", "ия", "ий")]")
+				readout += "- Для <b>[span_blue("нелетального")]</b> устранения гуманоида в режиме \"[span_warning("[for_ammo.select_name]")]\" потребуется в среднем [non_lethal_hits_to_crit]."
+
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)

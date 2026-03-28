@@ -73,20 +73,29 @@
 	// Doesn't show the base notes for items that have the override notes variable set to true
 	if(!source.override_notes)
 		readout += "<b><u>БЛИЖНИЙ БОЙ</u></b>"
-		if(source.sharp)
+		if(source.get_sharpness())
 			readout += "- Имеет заострённое лезвие."
-		// Make sure not to divide by 0 on accident
-		if(source.force > 0)
-			readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(source.force)] удар[DECL_CREDIT(HITS_TO_CRIT(source.force))]")], чтобы <b>[span_red("летально")]</b> обезвредить противника."
-		else
-			readout += "- Удары не наносят значимого урона."
 
-		if(source.throwforce > 0)
-			readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(source.throwforce)] брос[declension_ru(HITS_TO_CRIT(source.throwforce), "ок", "ка", "ков")]")], чтобы <b>[span_red("летально")]</b> обезвредить противника."
-		else
-			readout += "- Броски не наносят значимого урона."
+		var/melee_hits_str
+		var/throws_str
+
+		if(source.force > 0 && source.throwforce > 0)
+			melee_hits_str = span_warning("[HITS_TO_CRIT(source.force)] удар[DECL_CREDIT(HITS_TO_CRIT(source.force))]")
+			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[declension_ru(HITS_TO_CRIT(source.throwforce), "ок", "ка", "ков")]")
+
+			readout += "- Потребуется примерно [melee_hits_str] или [throws_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
+		else if(source.force > 0)
+			melee_hits_str = span_warning("[HITS_TO_CRIT(source.force)] удар[DECL_CREDIT(HITS_TO_CRIT(source.force))]")
+
+			readout += "- Потребуется примерно [melee_hits_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
+		else if(source.throwforce > 0)
+			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[declension_ru(HITS_TO_CRIT(source.throwforce), "ок", "ка", "ков")]")
+
+			readout += "- Потребуется примерно [throws_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
+
 		if(source.armour_penetration > 0 || source.block_chance > 0)
 			readout += "- Имеет [span_warning("[weapon_tag_convert(source.armour_penetration)]")] способность к пробитию брони и [span_warning("[weapon_tag_convert(source.block_chance)]")] вероятность заблокировать атаку."
+
 	// Custom manual notes
 	if(source.offensive_notes)
 		readout += source.offensive_notes

@@ -111,11 +111,14 @@
 	readout += "<b><u>СТРЕЛЬБА</u></b>"
 	if((proj_damage_mult <= 0 && proj_stamine_mult <= 0) || (initial_damage <= 0 && initial_stamina <= 0))
 		return span_boldnotice("- Патроны калибра [span_warning(caliber)] не наносят значимого ущерба при попадании.")
+		
 	// No dividing by 0
 	if(initial_damage)
-		readout += "- Для <b>[span_red("летального")]</b> устранения гуманоида патронами калибра [span_warning(caliber)] потребуется примерно [span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")]."
+		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")
+		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику патронами калибра [span_warning(caliber)] потребуется примерно [lethal_hits_to_crit_str]."
 	if(initial_stamina)
-		readout += "- Для <b>[span_blue("нелетального")]</b> устранения гуманоида патронами калибра [span_warning(caliber)] потребуется примерно [span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")]."
+		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")
+		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника патронами калибра [span_warning(caliber)] потребуется примерно [non_lethal_hits_to_crit_str]."
 
 	return readout.Join("\n") // Sending over a single string, rather than the whole list
 

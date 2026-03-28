@@ -42,9 +42,9 @@
  */
 /obj/item/gun/projectile/proc/add_notes_ballistic()
 	if(magazine) // Make sure you have a magazine, to get the notes from
-		return "\n[magazine.add_notes_box()]"
+		return "[magazine.add_notes_box()]"
 	else if(chambered) // if you don't have a magazine, is there something chambered?
-		return "\n[chambered.add_notes_ammo()]"
+		return "[chambered.add_notes_ammo()]"
 	else // we have a very expensive mechanical paperweight.
 		return "<b><u>СТРЕЛЬБА</u></b>\n- Оружие не заряжено, баллистические показатели неизвестны."
 
