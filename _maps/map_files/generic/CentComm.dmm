@@ -231,8 +231,7 @@
 "adx" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/window/reinforced{
 	color = "yellow";
@@ -887,8 +886,7 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "arZ" = (
@@ -1823,8 +1821,7 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "aOe" = (
@@ -2031,8 +2028,7 @@
 "aTQ" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -2472,8 +2468,7 @@
 /area/shuttle/pod_2)
 "bhf" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
@@ -2483,8 +2478,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/holding)
 "bhj" = (
@@ -2684,8 +2678,7 @@
 /area/syndicate_mothership/elite_squad)
 "blm" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone1)
@@ -3202,8 +3195,7 @@
 /area/shuttle/administration)
 "bAh" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /obj/structure/sign/poster/contraband/hacking_guide{
 	pixel_x = 32
@@ -3386,8 +3378,7 @@
 "bDb" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/centcom/zone2)
 "bDo" = (
@@ -3403,8 +3394,7 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/holding)
 "bDZ" = (
@@ -3659,8 +3649,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "bLD" = (
@@ -3694,8 +3683,7 @@
 /area/syndicate_mothership)
 "bMP" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
@@ -3717,8 +3705,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "bNW" = (
@@ -4421,8 +4408,7 @@
 "cig" = (
 /obj/structure/railing/corner,
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
@@ -4642,8 +4628,7 @@
 "ckG" = (
 /obj/machinery/icemachine,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "ckU" = (
@@ -4677,8 +4662,7 @@
 "clj" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "clC" = (
@@ -5013,8 +4997,7 @@
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -5045,8 +5028,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "cuy" = (
@@ -5485,8 +5467,7 @@
 /area/ninja/holding)
 "cEg" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
@@ -5634,8 +5615,7 @@
 /area/shuttle/syndicate)
 "cIn" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/evac)
 "cIA" = (
@@ -5690,8 +5670,7 @@
 "cJL" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/bridge)
 "cJM" = (
@@ -5991,8 +5970,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
@@ -6158,8 +6136,7 @@
 /obj/item/reagent_containers/food/condiment/rice,
 /obj/item/reagent_containers/food/condiment/rice,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "cVb" = (
@@ -6381,8 +6358,7 @@
 /area/centcom/zone3)
 "dbj" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-30";
-	tag = "icon-plant-30"
+	icon_state = "plant-30"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -6584,8 +6560,7 @@
 "deE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -7042,8 +7017,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/holding)
 "dth" = (
@@ -7144,8 +7118,7 @@
 /area/ninja/holding)
 "duM" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -7354,8 +7327,7 @@
 /area/vox_station)
 "dzY" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/shuttle/engine/platform{
 	layer = 2.9
@@ -7951,8 +7923,7 @@
 	icon_state = "golden_stripes"
 	},
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8416,8 +8387,7 @@
 	icon_state = "siding8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "dYp" = (
@@ -8548,8 +8518,7 @@
 /area/trader_station/sol)
 "eaX" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
@@ -8731,8 +8700,7 @@
 "eed" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/bridge)
 "eeh" = (
@@ -8835,8 +8803,7 @@
 /area/syndicate_mothership/outside)
 "egp" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-30";
-	tag = "icon-plant-30"
+	icon_state = "plant-30"
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -8893,8 +8860,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "eia" = (
@@ -9126,8 +9092,7 @@
 /area/shuttle/escape)
 "eoT" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28";
-	tag = "icon-plant-28"
+	icon_state = "plant-28"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -9461,7 +9426,6 @@
 	dir = 8;
 	light_range = 2;
 	nightshift_light_range = 2;
-	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
 /obj/structure/railing/corner{
@@ -9989,8 +9953,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
@@ -10400,8 +10363,7 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
 "eSL" = (
@@ -10432,8 +10394,7 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "eTw" = (
@@ -10452,8 +10413,7 @@
 /area/shuttle/pod_4)
 "eTW" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
 /area/ninja/outpost)
@@ -10520,8 +10480,7 @@
 /area/ninja/outpost)
 "eWS" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
@@ -11604,8 +11563,7 @@
 	name = "Riot Control"
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -11720,7 +11678,6 @@
 	brightness_range = 2;
 	light_range = 2;
 	nightshift_light_range = 2;
-	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
 /obj/effect/turf_decal/siding/wood/corner,
@@ -11866,8 +11823,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "fDZ" = (
@@ -11878,8 +11834,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
 "fEe" = (
@@ -12064,8 +12019,7 @@
 /area/centcom/specops)
 "fJx" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -12139,8 +12093,7 @@
 "fKl" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "fKr" = (
@@ -12391,8 +12344,7 @@
 /area/centcom/zone1)
 "fQO" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/jail)
@@ -12482,8 +12434,7 @@
 	dir = 1
 	},
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
@@ -12567,8 +12518,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "fWt" = (
@@ -12643,8 +12593,7 @@
 	icon_state = "golden_stripes"
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12829,8 +12778,7 @@
 /area/centcom/specops)
 "gcu" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
@@ -12875,15 +12823,13 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
 "gdt" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -13279,8 +13225,7 @@
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
@@ -13318,8 +13263,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
 "gnD" = (
@@ -13384,8 +13328,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
 "gpF" = (
@@ -13532,8 +13475,7 @@
 	req_access = list(102)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "gvs" = (
@@ -13560,8 +13502,7 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
 "gvQ" = (
@@ -13634,8 +13575,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/simulated/floor/wood{
@@ -13644,12 +13584,10 @@
 /area/ninja/outpost)
 "gza" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -13787,8 +13725,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "gCz" = (
@@ -14070,8 +14007,7 @@
 	},
 /obj/structure/railing/corner,
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
@@ -14201,8 +14137,7 @@
 	dir = 1
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
@@ -14288,8 +14223,7 @@
 /obj/item/gun/energy/sniperrifle,
 /obj/item/gun/energy/sniperrifle,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -14909,8 +14843,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
 "hgc" = (
@@ -14993,8 +14926,7 @@
 "hjL" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "hjQ" = (
@@ -15041,8 +14973,7 @@
 "hkM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/addition_goals)
@@ -15351,7 +15282,6 @@
 	brightness_range = 2;
 	light_range = 2;
 	nightshift_light_range = 2;
-	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
 /turf/simulated/floor/wood{
@@ -15496,8 +15426,7 @@
 /area/ninja/outside)
 "hya" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/centcom/zone2)
 "hyg" = (
@@ -15626,8 +15555,7 @@
 /area/syndicate_mothership/control)
 "hCr" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -15815,8 +15743,7 @@
 "hIf" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/funeral)
@@ -15829,8 +15756,7 @@
 /area/centcom/supply)
 "hIm" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -15874,8 +15800,7 @@
 /area/ussp_centcom/secretariat)
 "hJr" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
 /area/ninja/outpost)
@@ -15920,8 +15845,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone2)
 "hLD" = (
@@ -16078,8 +16002,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "hNZ" = (
@@ -16143,8 +16066,7 @@
 /area/centcom/specops)
 "hQV" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "burst_l";
-	tag = "icon-burst_l"
+	icon_state = "burst_l"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
@@ -17142,8 +17064,7 @@
 /area/syndicate_mothership/jail)
 "iuu" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/machinery/atm{
 	pixel_y = 32
@@ -17335,8 +17256,7 @@
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ixW" = (
@@ -17468,8 +17388,7 @@
 /area/syndicate_mothership/outside)
 "iAD" = (
 /obj/machinery/light/small{
-	dir = 8;
-	tag = "icon-bulb1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
@@ -17582,15 +17501,13 @@
 /area/syndicate_mothership/outside)
 "iDq" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -17701,8 +17618,7 @@
 /area/centcom/evac)
 "iFr" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -18220,8 +18136,7 @@
 /area/syndicate_mothership/jail)
 "iSZ" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
@@ -18367,8 +18282,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "iXm" = (
@@ -18642,8 +18556,7 @@
 	pixel_y = 14
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "jdl" = (
@@ -19031,8 +18944,7 @@
 	},
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "jlG" = (
@@ -19117,8 +19029,7 @@
 /area/syndicate_mothership/outside)
 "jmW" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -19649,8 +19560,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
@@ -19965,8 +19875,7 @@
 	},
 /obj/machinery/computer/mech_bay_power_console,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -20037,8 +19946,7 @@
 "jGP" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/window/reinforced{
 	color = "yellow";
@@ -20154,8 +20062,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/infteam)
 "jJf" = (
@@ -20978,8 +20885,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "keG" = (
@@ -21011,8 +20917,7 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/soymilk,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "kfl" = (
@@ -21278,8 +21183,7 @@
 /obj/item/pizzabox/vegetable,
 /obj/item/pizzabox/vegetable,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "kiX" = (
@@ -21463,8 +21367,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
@@ -21566,8 +21469,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "kpr" = (
@@ -22010,8 +21912,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone3)
 "kzO" = (
@@ -22449,8 +22350,7 @@
 	},
 /obj/structure/sign/barsign{
 	icon_state = "syndibarsign";
-	pixel_y = 32;
-	tag = "syndibarsign"
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/elite_squad)
@@ -22760,8 +22660,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
@@ -22819,8 +22718,7 @@
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
@@ -22841,8 +22739,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone2)
 "kTy" = (
@@ -24111,8 +24008,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "lwT" = (
@@ -24146,8 +24042,7 @@
 	name = "Riot Control"
 	},
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -24713,8 +24608,7 @@
 /area/ninja/outpost)
 "lLs" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/addition_goals)
@@ -24731,8 +24625,7 @@
 /area/centcom/supply)
 "lLG" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
@@ -24747,8 +24640,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/infteam)
 "lMq" = (
@@ -24798,8 +24690,7 @@
 /area/centcom/specops)
 "lNA" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /obj/structure/closet/medical_wall{
 	pixel_y = 32
@@ -24859,8 +24750,7 @@
 /area/syndicate_mothership/outside)
 "lPn" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/jail)
@@ -25306,8 +25196,7 @@
 	},
 /obj/item/grenade/clusterbuster,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/item/gun/projectile/automatic/m52,
 /obj/item/ammo_box/magazine/m52mag,
@@ -25324,8 +25213,7 @@
 /area/centcom/zone1)
 "mbk" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -25338,8 +25226,7 @@
 /area/syndicate_mothership/cargo)
 "mby" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -25361,8 +25248,7 @@
 /area/wizard_station)
 "mcb" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/wizard_station)
 "mce" = (
@@ -25380,8 +25266,7 @@
 /area/centcom/specops)
 "mcJ" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/wizard_station)
 "mcM" = (
@@ -25591,8 +25476,7 @@
 /area/centcom/zone1)
 "mhh" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -25733,8 +25617,7 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/wizard_station)
 "mle" = (
@@ -25790,8 +25673,7 @@
 "mlL" = (
 /obj/item/target,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/wizard_station)
 "mmD" = (
@@ -25804,8 +25686,7 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/wizard_station)
 "mmX" = (
@@ -25840,8 +25721,7 @@
 /area/centcom/specops)
 "mog" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
@@ -26493,8 +26373,7 @@
 	},
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
@@ -26545,8 +26424,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 8;
-	pixel_x = 4;
-	tag = "icon-shower (EAST)"
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -26634,8 +26512,7 @@
 /area/syndicate_mothership/elite_squad)
 "mDX" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -26990,8 +26867,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "mKC" = (
@@ -27238,8 +27114,7 @@
 	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "mQQ" = (
@@ -27409,8 +27284,7 @@
 /area/ninja/outpost)
 "mUH" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "mUV" = (
@@ -27785,8 +27659,7 @@
 /area/syndicate_mothership/jail)
 "ncN" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -28093,8 +27966,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/infteam)
 "njO" = (
@@ -28337,8 +28209,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "npn" = (
@@ -28781,8 +28652,7 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "nyA" = (
@@ -28939,8 +28809,7 @@
 /area/syndicate_mothership/control)
 "nBh" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -29163,8 +29032,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -29173,8 +29041,7 @@
 "nFv" = (
 /obj/structure/chair/comfy/shuttle/dark,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -29501,8 +29368,7 @@
 /area/centcom/specops)
 "nLn" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -29648,8 +29514,7 @@
 /area/syndicate_mothership/control)
 "nPg" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "black"
@@ -29661,8 +29526,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
@@ -29684,8 +29548,7 @@
 /area/syndicate_mothership/infteam)
 "nQb" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -29730,8 +29593,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_x = 4;
-	tag = "icon-shower (EAST)"
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -29846,8 +29708,7 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "nUi" = (
@@ -30326,8 +30187,7 @@
 "ofi" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/evac)
 "ofy" = (
@@ -30636,8 +30496,7 @@
 "onS" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "onY" = (
@@ -30712,8 +30571,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone3)
 "ooP" = (
@@ -30744,8 +30602,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "opi" = (
@@ -30787,8 +30644,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 8;
-	pixel_x = 4;
-	tag = "icon-shower (EAST)"
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -31240,8 +31096,7 @@
 "oAH" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "oBC" = (
@@ -31415,8 +31270,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "oFz" = (
@@ -31584,8 +31438,7 @@
 "oJt" = (
 /obj/item/book/random,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/centcom/zone2)
 "oJH" = (
@@ -31597,8 +31450,7 @@
 /obj/item/harpoon,
 /obj/item/tank/internals/nitrogen,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/item/pneumatic_cannon,
 /obj/item/harpoon,
@@ -32010,8 +31862,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/cargo)
 "oRk" = (
@@ -32103,8 +31954,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -32163,8 +32013,7 @@
 /obj/item/reagent_containers/food/condiment/rice,
 /obj/item/reagent_containers/food/condiment/rice,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "oUw" = (
@@ -32654,8 +32503,7 @@
 /area/shuttle/syndicate)
 "plK" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
@@ -32716,8 +32564,7 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "pnQ" = (
@@ -32875,8 +32722,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/shuttle/engine/platform{
 	layer = 2.9
@@ -33244,8 +33090,7 @@
 	},
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
@@ -33613,8 +33458,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	dir = 8;
-	tag = "icon-bulb1 (WEST)"
+	dir = 8
 	},
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
@@ -33763,8 +33607,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_x = 4;
-	tag = "icon-shower (EAST)"
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -34031,8 +33874,7 @@
 /area/centcom/zone1)
 "pTI" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "pTK" = (
@@ -34401,8 +34243,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "qap" = (
@@ -34495,8 +34336,7 @@
 	},
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "qcB" = (
@@ -34731,8 +34571,7 @@
 	name = "Science gear"
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/spawner/lootdrop/trade_sol/sci,
 /turf/simulated/floor/wood{
@@ -34770,8 +34609,7 @@
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "qkT" = (
@@ -34849,8 +34687,7 @@
 "qms" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -34897,8 +34734,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "qnT" = (
@@ -35067,8 +34903,7 @@
 /area/syndicate_mothership/jail)
 "qqE" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "black"
@@ -35276,8 +35111,7 @@
 /area/syndicate_mothership/jail)
 "quv" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/jail)
@@ -35450,8 +35284,7 @@
 "qzP" = (
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "qzU" = (
@@ -35900,8 +35733,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "qJu" = (
@@ -35957,8 +35789,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "qKI" = (
@@ -35985,8 +35816,7 @@
 /area/syndicate_mothership/outside)
 "qLe" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -36169,8 +35999,7 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/sushimat,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "qPt" = (
@@ -36183,8 +36012,7 @@
 /area/centcom/zone1)
 "qQa" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /obj/structure/curtain/open/shower/security{
 	pixel_x = -32
@@ -36638,8 +36466,7 @@
 /area/shuttle/administration)
 "rbb" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/funeral)
@@ -36832,8 +36659,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "rcN" = (
@@ -37366,8 +37192,7 @@
 /area/centcom/zone2)
 "rnV" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28";
-	tag = "icon-plant-28"
+	icon_state = "plant-28"
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -37423,8 +37248,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "rpk" = (
@@ -37522,8 +37346,7 @@
 "rqJ" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "rqT" = (
@@ -37618,8 +37441,7 @@
 "ruh" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
@@ -37709,8 +37531,7 @@
 "rwu" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (NORTH)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
@@ -37785,8 +37606,7 @@
 /area/syndicate_mothership/elite_squad)
 "rxE" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "rxF" = (
@@ -37799,8 +37619,7 @@
 /area/shuttle/escape)
 "rxG" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -37972,8 +37791,7 @@
 	},
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
@@ -38158,8 +37976,7 @@
 /area/syndicate_mothership/control)
 "rGT" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -38385,8 +38202,7 @@
 /area/centcom/zone2)
 "rKE" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -38451,8 +38267,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "rLO" = (
@@ -38838,8 +38653,7 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "rVB" = (
@@ -38943,8 +38757,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -39297,8 +39110,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "shB" = (
@@ -39422,8 +39234,7 @@
 "slQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "slR" = (
@@ -39776,8 +39587,7 @@
 /area/syndicate_mothership)
 "ssE" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
@@ -39918,8 +39728,7 @@
 /area/centcom/specops)
 "sxB" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red"
@@ -39933,8 +39742,7 @@
 /area/shuttle/syndicate_sit)
 "sxQ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -40008,8 +39816,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "sAo" = (
@@ -40327,8 +40134,7 @@
 "sHH" = (
 /obj/structure/chair/comfy/shuttle/dark,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -40390,8 +40196,7 @@
 	},
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
@@ -40879,8 +40684,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/shuttle/engine/platform{
 	layer = 2.9
@@ -40977,8 +40781,7 @@
 /area/centcom/zone1)
 "sWJ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -41148,8 +40951,7 @@
 	icon_state = "siding8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/infteam)
 "sZu" = (
@@ -41358,8 +41160,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "tcW" = (
@@ -41409,7 +41210,6 @@
 	dir = 8;
 	light_range = 2;
 	nightshift_light_range = 2;
-	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
 /obj/structure/railing/corner{
@@ -41529,8 +41329,7 @@
 /area/syndicate_mothership/elite_squad)
 "tgY" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-30";
-	tag = "icon-plant-30"
+	icon_state = "plant-30"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -41774,8 +41573,7 @@
 /area/syndicate_mothership)
 "tlK" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/shuttle{
@@ -41938,8 +41736,7 @@
 /area/syndicate_mothership/cargo)
 "tpC" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28";
-	tag = "icon-plant-28"
+	icon_state = "plant-28"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -42107,8 +41904,7 @@
 "ttE" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
@@ -42551,8 +42347,7 @@
 /area/centcom/jail)
 "tDJ" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
@@ -42581,8 +42376,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "tEi" = (
@@ -42757,8 +42551,7 @@
 "tHx" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
@@ -42892,8 +42685,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "tJV" = (
@@ -43060,8 +42852,7 @@
 /area/shuttle/administration)
 "tMC" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red"
@@ -43071,8 +42862,7 @@
 "tNp" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/funeral)
@@ -43100,8 +42890,7 @@
 	},
 /obj/item/book/manual/sop_service,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/zone1)
 "tOk" = (
@@ -43153,8 +42942,7 @@
 /area/centcom/zone1)
 "tPu" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red"
@@ -43640,8 +43428,7 @@
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/infteam)
 "uca" = (
@@ -44309,8 +44096,7 @@
 "urj" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -44648,8 +44434,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "uzb" = (
@@ -44717,14 +44502,12 @@
 	},
 /obj/item/book/manual/sop_service,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/centcom/jail)
 "uAz" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -44786,8 +44569,7 @@
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "uCi" = (
@@ -44898,8 +44680,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "uEU" = (
@@ -45182,8 +44963,7 @@
 	},
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
@@ -45334,8 +45114,7 @@
 /area/syndicate_mothership/outside)
 "uMZ" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
@@ -45498,8 +45277,7 @@
 /area/shuttle/escape)
 "uPJ" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -45685,8 +45463,7 @@
 /obj/machinery/clonepod/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/centcom/specops)
 "uTC" = (
@@ -45726,8 +45503,7 @@
 /area/centcom/specops)
 "uVg" = (
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -45809,8 +45585,7 @@
 /area/centcom/zone1)
 "uWJ" = (
 /obj/machinery/light/small{
-	dir = 8;
-	tag = "icon-bulb1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -45821,8 +45596,7 @@
 	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -45981,8 +45755,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -46175,8 +45948,7 @@
 /area/centcom/specops)
 "vhU" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
@@ -46367,8 +46139,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	dir = 8;
-	tag = "icon-bulb1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -46430,8 +46201,7 @@
 /area/syndicate_mothership)
 "vod" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28";
-	tag = "icon-plant-28"
+	icon_state = "plant-28"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46645,8 +46415,7 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "vtH" = (
@@ -46935,8 +46704,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "vAA" = (
@@ -47194,8 +46962,7 @@
 	id_tag = "SST_outside"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/elite_squad)
 "vIY" = (
@@ -47331,8 +47098,7 @@
 /area/syndicate_mothership)
 "vMq" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/shuttle/engine/platform{
 	layer = 2.9
@@ -47580,8 +47346,7 @@
 /area/shuttle/funeral)
 "vQi" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -47895,8 +47660,7 @@
 	req_access = list(109)
 	},
 /obj/machinery/shower{
-	dir = 1;
-	tag = "icon-shower (WEST)"
+	dir = 1
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/impassable/preopen{
@@ -48829,8 +48593,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "wyU" = (
@@ -50727,8 +50490,7 @@
 /area/centcom/bridge)
 "xrs" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
@@ -50861,8 +50623,7 @@
 "xuH" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (NORTH)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/addition_goals)
@@ -51159,8 +50920,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
 "xBV" = (
@@ -51436,8 +51196,7 @@
 "xIi" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -51521,8 +51280,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "xKz" = (
@@ -51639,8 +51397,7 @@
 /area/centcom/zone1)
 "xMH" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -51922,8 +51679,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "xUV" = (
@@ -52435,8 +52191,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_x = -4;
-	tag = "icon-shower (EAST)"
+	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

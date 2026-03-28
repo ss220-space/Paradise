@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - tweak: "Таурус больше не может стрелять в воздух (PR #8738)"

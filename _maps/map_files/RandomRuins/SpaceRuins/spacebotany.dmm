@@ -647,8 +647,7 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "if" = (
@@ -901,8 +900,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "lh" = (
@@ -974,8 +972,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "mG" = (
@@ -3249,8 +3246,7 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "QX" = (
@@ -3328,8 +3324,7 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "Rm" = (

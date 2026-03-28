@@ -14791,13 +14791,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/southleft{
 	name = "Bar Delivery";
-	req_access = list(25);
-	tag = "icon-left (WEST)"
+	req_access = list(25)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "beN" = (
@@ -17096,8 +17094,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "bnR" = (
@@ -17218,8 +17215,7 @@
 /obj/effect/landmark/start/bartender,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "bof" = (
@@ -17476,8 +17472,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "boW" = (
@@ -17726,8 +17721,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "bqa" = (
@@ -18502,8 +18496,7 @@
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "bsU" = (
@@ -20962,8 +20955,7 @@
 /obj/machinery/atmospherics/unary/tank/nitrous_oxide,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "bFf" = (
@@ -23788,9 +23780,7 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia,
-/obj/item/reagent_containers/glass/bottle/reagent/ammonia{
-	pixel_x = 0
-	},
+/obj/item/reagent_containers/glass/bottle/reagent/ammonia,
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine{
 	pixel_x = 12
 	},
@@ -26506,8 +26496,7 @@
 "bYP" = (
 /obj/structure/table,
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -32221,8 +32210,7 @@
 "ctY" = (
 /obj/structure/table,
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -36426,8 +36414,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cKD" = (
@@ -36905,8 +36892,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cMH" = (
@@ -38400,8 +38386,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cRL" = (
@@ -38445,16 +38430,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cRP" = (
 /obj/effect/landmark/start/bartender,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cRQ" = (
@@ -39351,8 +39334,7 @@
 "cVa" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cVb" = (
@@ -39426,8 +39408,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cVj" = (
@@ -39468,8 +39449,7 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cVt" = (
@@ -39775,8 +39755,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "cWG" = (
@@ -40916,8 +40895,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "dat" = (
@@ -43224,8 +43202,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "djl" = (
@@ -43584,8 +43561,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/quartermaster/miningdock)
 "dkB" = (
@@ -43838,8 +43814,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "dlk" = (
@@ -44289,8 +44264,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "dmD" = (
@@ -44574,8 +44548,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "dnG" = (
@@ -44669,8 +44642,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "dnO" = (
@@ -47942,8 +47914,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "etT" = (
@@ -49088,8 +49059,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "eSA" = (
@@ -49334,8 +49304,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "eXa" = (
@@ -50101,8 +50070,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "frw" = (
@@ -52638,8 +52606,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "gvx" = (
@@ -54722,8 +54689,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -56077,8 +56043,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "hYV" = (
@@ -57386,8 +57351,7 @@
 /area/toxins/xenobiology)
 "iCG" = (
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (NORTH)"
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -57479,8 +57443,7 @@
 /obj/structure/closet/crate/can,
 /obj/item/reagent_containers/glass/bottle/ethanol,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/apmaint)
 "iET" = (
@@ -57507,8 +57470,7 @@
 /obj/structure/grille,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "iFi" = (
@@ -58953,8 +58915,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "jmE" = (
@@ -59733,8 +59694,7 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "jDp" = (
@@ -60195,8 +60155,7 @@
 	pixel_y = -6
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -60599,8 +60558,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "kbh" = (
@@ -61165,8 +61123,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/papershredder,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/fpmaint)
 "klV" = (
@@ -61465,8 +61422,7 @@
 /obj/random/tool,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "ktq" = (
@@ -62026,8 +61982,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "kFL" = (
@@ -62390,8 +62345,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "kMh" = (
@@ -65262,8 +65216,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "lXV" = (
@@ -67015,8 +66968,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "mMo" = (
@@ -67781,8 +67733,7 @@
 /obj/machinery/door/firedoor/closed,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "nii" = (
@@ -68138,8 +68089,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "nqw" = (
@@ -68192,8 +68142,7 @@
 	},
 /obj/structure/table,
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -69304,8 +69253,7 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/fpmaint)
 "nNp" = (
@@ -70183,8 +70131,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "olv" = (
@@ -70966,8 +70913,7 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/maintenance/apmaint)
 "oDX" = (
@@ -71704,8 +71650,7 @@
 "oUh" = (
 /obj/structure/table,
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -72707,8 +72652,7 @@
 	pixel_y = -10
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/maintenance/port)
 "prF" = (
@@ -76415,8 +76359,7 @@
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "qUW" = (
@@ -76729,8 +76672,7 @@
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "rbU" = (
@@ -77674,8 +77616,7 @@
 /obj/item/trash/syndi_cakes,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "rxH" = (
@@ -77954,8 +77895,7 @@
 	pixel_y = 6
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -79369,8 +79309,7 @@
 	pixel_y = 5
 	},
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -80047,8 +79986,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/hallway/secondary/entry/lounge)
 "sDq" = (
@@ -80857,8 +80795,7 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "sSG" = (
@@ -80952,8 +80889,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/hallway/secondary/entry/lounge)
 "sVu" = (
@@ -82100,8 +82036,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "ttk" = (
@@ -82380,8 +82315,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -82410,8 +82344,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "tAk" = (
@@ -84551,8 +84484,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/apmaint)
 "uyc" = (
@@ -84615,8 +84547,7 @@
 /obj/structure/table,
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-dead";
-	pixel_y = 15;
-	tag = "plant-dead"
+	pixel_y = 15
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -84625,8 +84556,7 @@
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "uAE" = (
@@ -84708,8 +84638,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "uCu" = (
@@ -86015,8 +85944,7 @@
 /area/hallway/secondary/entry)
 "vej" = (
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 23;
-	tag = "plant-dead"
+	pixel_y = 23
 	},
 /obj/structure/dresser,
 /obj/machinery/light_switch/directional/east,
@@ -89652,8 +89580,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/quartermaster/miningdock)
 "wEg" = (
@@ -90994,8 +90921,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/hallway/secondary/entry/lounge)
 "xfY" = (
@@ -92880,8 +92806,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/trading)
 "xUp" = (
@@ -93360,8 +93285,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "yfj" = (

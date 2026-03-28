@@ -88,9 +88,7 @@
 /area/maintenance/trading)
 "gc" = (
 /obj/structure/computerframe,
-/obj/item/circuitboard/secure_data{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/secure_data,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},

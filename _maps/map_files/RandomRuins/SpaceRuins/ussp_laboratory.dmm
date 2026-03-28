@@ -56,8 +56,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "bT" = (
@@ -82,8 +81,7 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "bV" = (
@@ -157,8 +155,7 @@
 	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "dh" = (
@@ -233,14 +230,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "dQ" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/ussp_xeno/out)
 "ef" = (
@@ -333,8 +328,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "fL" = (
@@ -414,8 +408,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "gG" = (
@@ -456,8 +449,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "gW" = (
@@ -506,8 +498,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "hr" = (
@@ -691,8 +682,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "jC" = (
@@ -754,8 +744,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "kR" = (
@@ -798,8 +787,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "lt" = (
@@ -894,8 +882,7 @@
 /area/ruin/ussp_xeno/out)
 "no" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/ussp_xeno/out)
 "nq" = (
@@ -1055,8 +1042,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "qb" = (
@@ -1088,8 +1074,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "qy" = (
@@ -1214,8 +1199,7 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "sG" = (
@@ -1259,8 +1243,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8;
-	frequency = 1379;
-	tag = "SSSP_Xeno_pump"
+	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1447,8 +1430,7 @@
 /obj/item/organ/internal/brain/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "vL" = (
@@ -1603,8 +1585,7 @@
 /obj/machinery/smartfridge/secure/extract,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitebluecorner";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "wO" = (
@@ -1632,8 +1613,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "xi" = (
@@ -1890,8 +1870,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "AX" = (
@@ -2055,13 +2034,11 @@
 "CV" = (
 /obj/item/reagent_containers/glass/beaker,
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8;
-	tag = "SSSP_Xeno_pump"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitebluecorner";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "CX" = (
@@ -2152,8 +2129,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Fd" = (
@@ -2285,8 +2261,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "GC" = (
@@ -2316,8 +2291,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/ussp_xeno/out)
 "GH" = (
@@ -2402,8 +2376,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8;
-	frequency = 1379;
-	tag = "SSSP_Xeno_pump"
+	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -2415,8 +2388,7 @@
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Hi" = (
@@ -2441,14 +2413,12 @@
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "HV" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/ussp_xeno/out)
 "HW" = (
@@ -2723,8 +2693,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mg" = (
@@ -2748,8 +2717,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mn" = (
@@ -2823,17 +2791,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
-	},
-/area/ruin/ussp_xeno/medbay)
-"Nf" = (
-/obj/effect/decal/cleanable/blood,
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Nh" = (
@@ -2882,8 +2840,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "NL" = (
@@ -2896,8 +2853,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitebluecorner";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "NO" = (
@@ -2927,8 +2883,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Oa" = (
@@ -2968,8 +2923,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Ol" = (
@@ -3136,8 +3090,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Qa" = (
@@ -3174,8 +3127,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Qi" = (
@@ -3198,8 +3150,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Rl" = (
@@ -3301,8 +3252,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Tr" = (
@@ -3382,8 +3332,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "TX" = (
@@ -3421,8 +3370,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Un" = (
@@ -3434,8 +3382,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "UM" = (
@@ -3631,8 +3578,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Ym" = (
@@ -4678,7 +4624,7 @@ kr
 wb
 Jt
 BA
-Nf
+Xd
 GB
 kr
 KY

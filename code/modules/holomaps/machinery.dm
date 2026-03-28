@@ -24,6 +24,12 @@
 	var/image/small_station_map
 	/// The little "map" floor painting.
 	var/image/floor_markings
+	/// Auto update holomap with timeout
+	var/auto_update = FALSE
+	/// Auto update timeout (in deciseconds)
+	var/auto_update_timeout = 1 SECONDS
+	/// Auto update timer id
+	var/auto_update_timer_id = null
 
 	// zLevel which the map is a map for. Change this to have mapload holomaps look at other zlevels.
 	var/current_z_level
@@ -118,6 +124,9 @@
 	else
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
+	if(auto_update)
+		auto_update_timer_id = addtimer(CALLBACK(src, PROC_REF(redraw_map), user), auto_update_timeout, TIMER_LOOP)
+
 	playsound(src, 'sound/effects/holomap_open.ogg', 125)
 	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
 	icon_state = "station_map_active"
@@ -138,6 +147,14 @@
 		to_chat(user, span_warning("Перед вами появляется голографическая проекция станции."))
 
 	return TRUE
+
+/obj/machinery/station_map/proc/redraw_map(mob/user)
+	user.client.images -= holomap_datum.base_map
+	var/turf/current_turf = get_turf(src)
+	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())
+	holomap_datum.base_map.loc = user.hud_used.holomap
+	user.hud_used.holomap.used_base_map = holomap_datum.base_map
+	user.client.images |= holomap_datum.base_map
 
 /obj/machinery/station_map/attack_ai(mob/living/silicon/robot/user)
 	attack_hand(user)
@@ -165,6 +182,10 @@
 	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 	icon_state = initial(icon_state)
+
+	if(auto_update_timer_id)
+		deltimer(auto_update_timer_id)
+		auto_update_timer_id = null
 
 	if(watching_mob?.client)
 		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
@@ -350,6 +371,50 @@
 
 	return extra_overlays
 
+
+/obj/machinery/station_map/security
+	name = "security station map"
+	icon_state = "station_map_sec"
+	auto_update = TRUE
+
+/obj/machinery/station_map/security/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/station_map/security(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
+
+/obj/machinery/station_map/security/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		holomap_datum.update_map(handle_overlays())
+
+/obj/machinery/station_map/security/handle_overlays()
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/mindshields = list()
+	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
+		if(!ismindshielded(check))
+			continue
+		var/turf/check_turf = get_turf(check)
+		var/image/check_icon = image('icons/misc/8x8.dmi', icon_state = "security")
+		check_icon.pixel_w = check_turf.x + HOLOMAP_CENTER_X - 1
+		check_icon.pixel_z = check_turf.y + HOLOMAP_CENTER_Y
+		mindshields += check_icon
+
+	if(length(mindshields))
+		extra_overlays["Mindshields"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "security"), "markers" = mindshields)
+
+	return extra_overlays
+
 /obj/item/circuitboard/machine/station_map
 	name = "Station Map"
 	build_path = /obj/machinery/station_map/directional/north
@@ -361,6 +426,14 @@
 	desc = "A virtual map of the surrounding station. Also shows any active fire and atmos alarms."
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/station_map/engineering/directional/north
+	origin_tech = "programming=4;engineering=4"
+	req_components = list(/obj/item/stock_parts/scanning_module = 3, /obj/item/stock_parts/micro_laser = 4, /obj/item/stack/ore/bluespace_crystal = 1)
+
+/obj/item/circuitboard/machine/station_map/security
+	name = "Security Station Map"
+	desc = "Виртуальная карта станции. Показывает сотрудников с имплантом защиты разума."
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
+	build_path = /obj/machinery/station_map/security/directional/north
 	origin_tech = "programming=4;engineering=4"
 	req_components = list(/obj/item/stock_parts/scanning_module = 3, /obj/item/stock_parts/micro_laser = 4, /obj/item/stack/ore/bluespace_crystal = 1)
 
@@ -394,6 +467,22 @@
 	pixel_x = -32
 
 /obj/machinery/station_map/engineering/directional/east
+	dir = EAST
+	pixel_x = 32
+
+/obj/machinery/station_map/security/directional/north
+	dir = NORTH
+	pixel_y = 32
+
+/obj/machinery/station_map/security/directional/south
+	dir = SOUTH
+	pixel_y = -32
+
+/obj/machinery/station_map/security/directional/west
+	dir = WEST
+	pixel_x = -32
+
+/obj/machinery/station_map/security/directional/east
 	dir = EAST
 	pixel_x = 32
 
