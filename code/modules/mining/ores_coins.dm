@@ -502,6 +502,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			if(!QDELETED(src))
 				qdel(src)
 
+/obj/item/twohanded/required/gibtonite/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/turf = get_turf(base)
+	forceMove(turf)
+	GibtoniteReaction(null, 1)
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+
 /obj/item/stack/ore/ex_act(severity, target)
 	if(!severity || severity <= EXPLODE_HEAVY)
 		return

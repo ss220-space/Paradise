@@ -177,6 +177,11 @@
 			pixel_x = -14
 			pixel_y = -7
 
+/obj/item/tripwire/proc/can_be_used_on_tripwire(obj/item)
+	if((isgrenade(item)) || isassembly(item) || is_camera(item) || istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass) || istype(item, /obj/item/flash) || istype(item, /obj/item/twohanded/required/gibtonite))
+		return TRUE
+	return FALSE
+
 /obj/item/tripwire/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -186,7 +191,7 @@
 		if(setup_wire(I, user))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
-	if((isgrenade(I)) || isassembly(I) || is_camera(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass) || istype(I, /obj/item/flash))
+	if(can_be_used_on_tripwire(I))
 		if(install_payload(I, user))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
