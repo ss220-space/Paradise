@@ -941,15 +941,6 @@
 	atmos_mode = 2
 	},
 /area/admin)
-"wB" = (
-/obj/machinery/door/airlock/hatch,
-/obj/machinery/door/poddoor/preopen,
-/obj/machinery/door/poddoor/preopen,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
 "wL" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2084,14 +2075,6 @@
 /obj/structure/door_assembly/door_assembly_hatch,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
-"Zd" = (
-/obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
-/turf/simulated/floor/mineral/titanium{
 	atmos_environment = "temperate";
 	atmos_mode = 2
 	},
@@ -3590,7 +3573,7 @@ cM
 cM
 cM
 cM
-dF
+hh
 cM
 cM
 cM
@@ -17549,7 +17532,7 @@ tX
 rn
 PH
 PH
-Zd
+PH
 rn
 rn
 UH
@@ -36126,7 +36109,7 @@ Tb
 mX
 aU
 yV
-wB
+yV
 TJ
 aU
 aU
