@@ -703,7 +703,7 @@
 			update_held_items()
 		return
 	var/obj/item/storage/storage
-	if(istype(equipped_item, /obj/item/storage))
+	if(isstorage(equipped_item))
 		storage = equipped_item
 	if(!storage)
 		if(!thing)
