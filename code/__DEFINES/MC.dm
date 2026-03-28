@@ -68,6 +68,11 @@
 /// This flag overrides SS_KEEP_TIMING
 #define SS_POST_FIRE_TIMING (1<<5)
 
+/** This subsystem should not be queued if it has no work. */
+/// Populate the [hibernate_checks] list with the names of vars to check before a subsystem is queued.
+/// If the length() of each var is 0, it will not be queued.
+#define SS_HIBERNATE (1<<7)
+
 //! SUBSYSTEM STATES
 #define SS_IDLE 0 /// ain't doing shit.
 #define SS_QUEUED 1 /// queued to run

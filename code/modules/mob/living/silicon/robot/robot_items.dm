@@ -57,7 +57,7 @@
 	if(!target || !flag)
 		return
 
-	if(istype(target, /obj/structure/table))
+	if(istable(target))
 		deploy_paper(get_turf(target))
 
 /obj/item/form_printer/attack_self(mob/user as mob)

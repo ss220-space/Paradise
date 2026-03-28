@@ -82,7 +82,7 @@
 	. = ..()
 
 /obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
 		if(num_loaded)
@@ -112,7 +112,7 @@
 	can_air_shoot = FALSE
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
 		if(num_loaded)

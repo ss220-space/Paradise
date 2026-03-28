@@ -12,7 +12,7 @@
 	name = "table frame"
 	desc = "Four metal legs with four framing rods for a table. You could easily pass through this."
 	icon_state = "table_frame"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	max_integrity = 100
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2

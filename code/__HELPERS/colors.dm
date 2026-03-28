@@ -10,7 +10,7 @@
  */
 /proc/flash_color(target, flash_color = COLOR_CULT_RED, flash_duration = 2 SECONDS)
 	var/client/target_client
-	if(istype(target, /mob))
+	if(ismob(target))
 		var/mob/mob_instance = target
 		if(mob_instance.client)
 			target_client = mob_instance.client

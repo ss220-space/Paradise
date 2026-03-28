@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - experiment: "Оптимизация расхода памяти атмосом (PR #8690)"

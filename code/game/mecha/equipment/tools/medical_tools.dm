@@ -333,7 +333,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
 		return FALSE
-	if(istype(target, /obj/item/reagent_containers/syringe) || isstorage(target))
+	if(issyringe(target) || isstorage(target))
 		if(get_dist(src, target) < 2)
 			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
 				if(!(D.CanPass(target, get_dir(D, loc))))
@@ -420,7 +420,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/start_syringe_loading(obj/item/ammunition)
 	var/lock_n_load = 0
-	if(istype(ammunition, /obj/item/reagent_containers/syringe))
+	if(issyringe(ammunition))
 		if(!load_syringe(ammunition))
 			return FALSE
 	else
@@ -439,7 +439,7 @@
 	if(get_dist(src, A) >= 4)
 		occupant_message("The object is too far away.")
 		return FALSE
-	if(!A.reagents || istype(A,/mob))
+	if(!A.reagents || ismob(A))
 		occupant_message(span_alert("No reagent info gained from [A]."))
 		return FALSE
 	occupant_message("Analyzing reagents...")

@@ -126,7 +126,7 @@
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, fire = 50, acid = 70)
 	. = ..()
 	SSmachines.register_machine(src)
 
@@ -297,7 +297,7 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user)
-	if(istype(user, /mob/dead/observer))
+	if(isobserver(user))
 		return FALSE
 
 	if(user.incapacitated())

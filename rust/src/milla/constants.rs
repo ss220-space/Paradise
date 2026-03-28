@@ -247,3 +247,5 @@ pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 /// The smallest temperature allowed for the purpose of caluclating pressure.
 /// Prevents weirdness from absolute-zero gas having no pressure at all.
 pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;
+
+pub(crate) const TICK_UPDATE_COOLDOWN: i32 = 20;

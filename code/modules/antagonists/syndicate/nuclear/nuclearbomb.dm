@@ -535,7 +535,7 @@ GLOBAL_VAR(bomb_set)
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
 	if(bomb_location && is_station_level(bomb_location.z))
-		if(istype(get_area(bomb_location), /area/space))
+		if(isspacearea(get_area(bomb_location)))
 			off_station = 1
 	else
 		off_station = 2
@@ -583,7 +583,7 @@ GLOBAL_VAR(bomb_set)
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
 	max_integrity = 250
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/disk/nuclear/unrestricted

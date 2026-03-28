@@ -1030,8 +1030,7 @@
 	pixel_y = 15
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -4;
-	pixel_y = 0
+	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = -2;
@@ -1779,8 +1778,7 @@
 /area/maintenance/tourist)
 "Yt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2;
-	pixel_y = 0
+	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1808,8 +1806,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)

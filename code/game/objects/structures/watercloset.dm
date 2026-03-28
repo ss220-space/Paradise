@@ -375,6 +375,7 @@
 	var/current_temperature = SHOWER_NORMAL
 	///What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
+	COOLDOWN_DECLARE(wash_cooldown)
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -499,8 +500,11 @@
 /obj/machinery/shower/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
-	if(on)
-		wash(arrived)
+	if(on && COOLDOWN_FINISHED(src, wash_cooldown))
+		wash_atom(arrived)
+		COOLDOWN_START(src, wash_cooldown, 6 SECONDS)
+	else if(on)
+		wash_atom(arrived)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
@@ -512,7 +516,7 @@
 			return 230.15
 
 //Yes, showers are super powerful as far as washing goes.
-/obj/machinery/shower/proc/wash(atom/target)
+/obj/machinery/shower/proc/wash_atom(atom/target)
 	if(!on)
 		return
 
@@ -523,13 +527,13 @@
 	target.water_act(100, convertHeat(), src)
 
 	if(isliving(target))
-		var/mob/living/l_target = target
-		l_target.ExtinguishMob()
-		l_target.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
-		to_chat(l_target, span_warning("Вы насквозь промокли!"))
+		var/mob/living/living_target = target
+		living_target.ExtinguishMob()
+		living_target.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
+		//to_chat(living_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
-	SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 10)
+	target.wash_tg(CLEAN_RAD|CLEAN_WASH)
 
 /obj/machinery/shower/process()
 	if(on)
@@ -541,7 +545,7 @@
 				if(effect.is_cleanable())
 					qdel(effect)
 		for(var/thing in loc)
-			wash(thing)
+			wash_atom(thing)
 	else
 		on = FALSE
 		soundloop.stop()
@@ -794,9 +798,9 @@
 
 /obj/structure/sink/puddle/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	wash(arrived)
+	wash_atom(arrived)
 
-/obj/structure/sink/puddle/proc/wash(atom/target)
+/obj/structure/sink/puddle/proc/wash_atom(atom/target)
 	if(isitem(target))
 		var/obj/item/item = target
 		item.extinguish()

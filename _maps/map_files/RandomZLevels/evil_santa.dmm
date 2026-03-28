@@ -20,8 +20,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "ad" = (
@@ -83,8 +82,7 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "aE" = (
@@ -103,8 +101,7 @@
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "aS" = (
@@ -144,8 +141,7 @@
 	dir = 4
 	},
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -276,8 +272,7 @@
 "cF" = (
 /mob/living/simple_animal/hostile/winter/snowman,
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plating/ice,
@@ -340,8 +335,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "dp" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
@@ -425,8 +419,7 @@
 "dU" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "dV" = (
@@ -491,8 +484,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ez" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
@@ -541,8 +533,7 @@
 	opacity = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "eV" = (
@@ -564,8 +555,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 /obj/item/reagent_containers/food/snacks/meat,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fc" = (
@@ -597,8 +587,7 @@
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fr" = (
@@ -650,8 +639,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fD" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "fH" = (
@@ -714,20 +702,13 @@
 /obj/structure/decorative_structures/garland,
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"gg" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_w)
 "gk" = (
 /obj/structure/window/full/reinforced/ice,
 /turf/simulated/floor/wood/cold,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "gl" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -868,8 +849,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "hi" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -1188,14 +1168,12 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "jq" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "js" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "jt" = (
@@ -1247,8 +1225,7 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "jI" = (
@@ -1273,8 +1250,7 @@
 /area/vision_change_area/awaymission/evil_santa_storm)
 "jO" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
@@ -1440,8 +1416,7 @@
 	dir = 8
 	},
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -1470,8 +1445,7 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "lP" = (
@@ -1939,8 +1913,7 @@
 "pg" = (
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "ph" = (
@@ -1994,8 +1967,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "pM" = (
@@ -2265,8 +2237,7 @@
 	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "sa" = (
@@ -2406,8 +2377,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "tk" = (
@@ -2511,8 +2481,7 @@
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "ut" = (
@@ -2618,8 +2587,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "vk" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -2758,8 +2726,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "wC" = (
@@ -3137,8 +3104,7 @@
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "zL" = (
@@ -3165,8 +3131,7 @@
 "Ae" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Aj" = (
@@ -3359,8 +3324,7 @@
 /obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Cf" = (
@@ -3663,8 +3627,7 @@
 	dir = 4
 	},
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -3737,8 +3700,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "FX" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -4142,8 +4104,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "Jh" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/item/clothing/suit/space/santa,
 /turf/simulated/floor/wood,
@@ -4593,12 +4554,6 @@
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
-"Nf" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_e)
 "Ni" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -4664,8 +4619,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "NH" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "NK" = (
@@ -4894,8 +4848,7 @@
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Px" = (
@@ -4946,8 +4899,7 @@
 	dir = 8
 	},
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -4968,14 +4920,12 @@
 "Qb" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Qc" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -5067,8 +5017,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "QW" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "QX" = (
@@ -5208,8 +5157,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "RZ" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
@@ -5365,13 +5313,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Ts" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "Tu" = (
@@ -5435,8 +5381,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "TQ" = (
@@ -5514,8 +5459,7 @@
 	dir = 4
 	},
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -5572,8 +5516,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "UW" = (
 /obj/effect/decal/snow/clean/edge{
-	dir = 1;
-	tag = "icon-snow_corner (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plating/ice,
@@ -5797,8 +5740,7 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "WO" = (
@@ -5914,12 +5856,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
-"XQ" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_w)
 "XR" = (
 /obj/effect/spawner/lootdrop/spentcasing/rifle,
 /turf/simulated/floor/carpet,
@@ -13777,7 +13713,7 @@ xr
 zD
 iv
 Ww
-XQ
+eD
 Ww
 Ww
 Ww
@@ -14293,7 +14229,7 @@ Oc
 TO
 ZR
 Ww
-gg
+KP
 bN
 xv
 ny
@@ -39727,7 +39663,7 @@ Sp
 Sp
 Sp
 EY
-Nf
+sI
 Jd
 Fg
 EY

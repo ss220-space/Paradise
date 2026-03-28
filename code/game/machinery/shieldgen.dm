@@ -238,7 +238,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		add_fingerprint(user)
 		if(!malfunction)
 			to_chat(user, span_warning("The [name] is not malfunctioning!"))
@@ -295,7 +295,7 @@
 			shields_down()
 		set_anchored(FALSE)
 	else
-		if(istype(get_turf(src), /turf/space))
+		if(isspaceturf(get_turf(src)))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
 		set_anchored(TRUE)

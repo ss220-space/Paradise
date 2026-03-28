@@ -187,7 +187,7 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		if(inserted_id)
 			balloon_alert(user, "слот ID карты занят")
 		else if(user.drop_transfer_item_to_loc(I, src))
@@ -289,7 +289,6 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 
-		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
 		occupantData["paralysis"] = occupant.AmountParalyzed()
@@ -357,7 +356,7 @@
 
 			organData["status"] = organStatus
 
-			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(E) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
 			if(E.has_internal_bleeding())
@@ -469,9 +468,6 @@
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\t-Термические повреждения: [occupant.getFireLoss()]</font><br>"
 
-		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
-
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tГенетические повреждения: [occupant.getCloneLoss()]<br>"
 
@@ -541,7 +537,7 @@
 
 				internal_bleeding += "Внутреннее кровотечение"
 
-			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(e) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
 				splint = "Наложена шина"

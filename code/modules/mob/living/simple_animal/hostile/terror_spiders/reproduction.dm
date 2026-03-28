@@ -332,7 +332,7 @@
 	name = "empress egg cluster"
 	spiderling_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	max_integrity = 1000
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, FIRE = 50, ACID = 50)
 	explosion_block = 100
 	grown_tick_count = 250
 	explosion_vertical_block = 100
