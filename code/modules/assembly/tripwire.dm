@@ -182,7 +182,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		if(setup_wire(I, user))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
