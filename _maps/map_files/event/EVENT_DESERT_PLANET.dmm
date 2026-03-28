@@ -104,15 +104,6 @@
 	atmos_mode = 2
 	},
 /area/admin)
-"dF" = (
-/obj/structure/lattice/fireproof,
-/obj/structure/lattice/fireproof,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
-/area/admin)
 "dH" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/turf_decal/delivery/white,
@@ -4179,7 +4170,7 @@ cM
 cM
 cM
 cM
-dF
+hh
 cM
 cM
 cM
@@ -4785,7 +4776,7 @@ cM
 cM
 cM
 cM
-dF
+hh
 cM
 cM
 cM
@@ -5391,7 +5382,7 @@ cM
 cM
 cM
 cM
-dF
+hh
 cM
 cM
 cM
@@ -5997,7 +5988,7 @@ cM
 cM
 cM
 cM
-dF
+hh
 cM
 cM
 cM
@@ -6603,7 +6594,7 @@ cM
 cM
 cM
 cM
-dF
+hh
 cM
 cM
 cM
