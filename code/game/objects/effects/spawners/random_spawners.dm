@@ -477,9 +477,6 @@
 		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)
 
-#define SEC_MECH_SPAWN_SUCSESS /obj/mecha/combat/hercules
-#define SEC_MECH_SPAWN_UNSUCSESS /datum/nothing
-
 /obj/effect/spawner/random_spawners/security_exosuit
 	name = "maybe \"Hercules\" secutiry exosuit"
 	icon_state = "rand_mech"
