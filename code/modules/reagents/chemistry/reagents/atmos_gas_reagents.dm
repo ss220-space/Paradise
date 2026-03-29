@@ -140,7 +140,7 @@
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
-/datum/reagent/bz_metabolites/on_mob_life(mob/living/carbon/target\)
+/datum/reagent/bz_metabolites/on_mob_life(mob/living/carbon/target)
 	target.Hallucinate(12.5 * REM)
 	var/datum/antagonist/changeling/changeling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)
 	changeling?.chem_charges -= 5 * REM
