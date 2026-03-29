@@ -1,4 +1,4 @@
-// Gun defines
+//MARK: Gun defines
 /// Muzzle slot identifier
 #define ATTACHMENT_SLOT_MUZZLE "muzzle"
 /// Rail slot identifier
@@ -8,6 +8,7 @@
 /// Sibyl slot identifier
 #define ATTACHMENT_SLOT_SIBYL "sibyl"
 
+//MARK: Modules type flags
 #define GUN_MODULE_CLASS_NONE 0
 // Rail slot types flags
 #define GUN_MODULE_CLASS_PISTOL_RAIL (1<<0)
@@ -35,7 +36,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_UNDER = "цевьё",
 	ATTACHMENT_SLOT_SIBYL = "курок"
 ))
-
+//MARK: Firemodes
 /// Single shot firemode
 #define GUN_SINGLE_MODE 0
 /// Burst fire mode
@@ -47,43 +48,56 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_MODE_SINGLE_BURST 2
 #define GUN_MODE_SINGLE_BURST_AUTO 3
 
-//Calibers
-#define CALIBER_9MM "9mm"
-#define CALIBER_DOT_357 ".357"
+//MARK: Calibers
+// Pistol cartridges
+#define CALIBER_9MM "9x19 мм"
+#define CALIBER_10MM "10 мм"
+#define CALIBER_DOT_45 ".45"
+#define CALIBER_DOT_45_COLT ".45colt"
+#define CALIBER_40NR ".40nr"
+#define CALIBER_45NR ".45nr"
+#define CALIBER_DOT_38 ".38"
+#define CALIBER_DOT_36 ".36"
 #define CALIBER_DOT_257 ".257"
-#define CALIBER_40NR "40nr"
-#define CALIBER_45NR "45nr"
-#define CALIBER_7_DOT_62X54MM "7.62x54mm"
-#define CALIBER_7_DOT_62X51MM "7.62x51mm"
-#define CALIBER_7_DOT_62X25MM "7.62x25mm"
-#define CALIBER_7_DOT_62X38MM "7.62x38mm"
-#define CALIBER_DOT_338 ".338"
+#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
+// Revolver cartridges
+#define CALIBER_DOT_357 ".357"
+#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+// Intermediate
+#define CALIBER_5_DOT_56X45MM "5,56x45 мм"
+#define CALIBER_5_DOT_45X39MM "5,45x39 мм"
+#define CALIBER_4_DOT_6X30MM "4,6x30 мм"
+// Rifle
+#define CALIBER_7_DOT_62X54MM "7,62x54 мм"
+#define CALIBER_7_DOT_62X51MM "7,62x51 мм"
+// Sniper
 #define CALIBER_DOT_50 ".50"
 #define CALIBER_DOT_50L ".50L"
 #define CALIBER_DOT_50AE ".50ae"
-#define CALIBER_DOT_38 ".38"
-#define CALIBER_DOT_36 ".36"
-#define CALIBER_10MM "10mm"
-#define CALIBER_4_DOT_6X30MM "4.6x30mm"
-#define CALIBER_DOT_45 ".45"
-#define CALIBER_DOT_45_COLT ".45colt"
-#define CALIBER_SPEAR "spear"
-#define CALIBER_84MM "84mm"
+#define CALIBER_DOT_338 ".338"
+// Shotgun
 #define CALIBER_12X70 "12х70"
-#define CALIBER_SPECTER "specter"
-#define CALIBER_5_DOT_56X45MM "5.56x45mm"
-#define CALIBER_5_DOT_45X39MM "5.45x39mm"
+// Grenade launcher
+#define CALIBER_40MM "40 мм"
+#define CALIBER_84MM "84 мм"
+// Rocket systems
 #define CALIBER_ROCKET "rocket"
-#define CALIBER_DOT_75 ".75"
-#define CALIBER_40MM "40mm"
+// Special ammunition
+#define CALIBER_SPEAR "spear"
+#define CALIBER_ARROW "arrow"
+#define CALIBER_SPECTER "specter"
+// Energy weapons
+#define CALIBER_LASER "laser"
+// Foam force weapons
 #define CALIBER_FOAM_FORCE "foam force"
 #define CALIBER_FOAM_FORCE_SNIPER "foam force sniper"
+// Blank
 #define CALIBER_CAP "cap"
-#define CALIBER_LASER "laser"
-#define CALIBER_ARROW "arrow"
+// Heavy weapons
+#define CALIBER_DOT_75 ".75"
 
-#define FAKE_CALIBER_40MM_IMP "improvised 40mm"
-#define FAKE_CALIBER_80MM_MORTAR "80mm mortar"
+#define FAKE_CALIBER_40MM_IMP "импровизированный 40 мм"
+#define FAKE_CALIBER_80MM_MORTAR "80 мм миномётный"
 
 /// Minimal recoil
 #define GUN_RECOIL_MIN new /datum/gun_recoil/minimal()
