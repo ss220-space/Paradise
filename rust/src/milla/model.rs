@@ -335,7 +335,6 @@ pub(crate) struct Tile {
     pub(crate) airtight_directions: AirtightDirections,
     /// Is there a wall in this direction?
     pub(crate) wall: [bool; AXES.len()],
-    pub(crate) last_gas_update: i32,
     pub(crate) updates: ReasonFlags,
     pub(crate) radiation_energy: f32,
     pub(crate) hallucination_strength: f32,
@@ -356,7 +355,6 @@ impl Tile {
             wind: [0.0, 0.0],
             wall: [false, false],
             fuel_burnt: 0.0,
-            last_gas_update: 0,
             updates: ReasonFlags::NONE,
             radiation_energy: 0.0,
             hallucination_strength: 0.0,

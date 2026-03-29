@@ -534,30 +534,6 @@ pub(crate) fn check_interesting(
             reasons |= ReasonFlags::DISPLAY;
         }
 
-        if reasons.is_empty() {
-            if my_tile.last_gas_update > TICK_UPDATE_COOLDOWN {
-                if my_next_tile.gases.toxins() >= TOXINS_MIN_VISIBILITY_MOLES
-                    || my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES
-                    || my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES
-                    || my_next_tile.gases.tritium() >= TRITIUM_VISIBILITY_MOLES
-                    || my_next_tile.gases.freon() >= FREON_VISIBILITY_MOLES
-                    || my_next_tile.gases.miasma() >= MIASMA_VISIBILITY_MOLES
-                    || my_next_tile.gases.proto_nitrate() >= PROTO_NITRATE_VISIBILITY_MOLES
-                    || my_next_tile.gases.zauker() >= ZAUKER_VISIBILITY_MOLES
-                    || my_next_tile.gases.nitrium() >= NITRIUM_VISIBILITY_MOLES
-                    || my_next_tile.gases.healium() >= HEALIUM_VISIBILITY_MOLES
-                    || my_next_tile.gases.halon() >= HALON_VISIBILITY_MOLES
-                    || my_next_tile.gases.hypernoblium() >= HYPER_NOBLIUM_VISIBILITY_MOLES
-                    || my_next_tile.gases.antinoblium() >= ANTINOBLIUM_VISIBILITY_MOLES
-                {
-                    reasons |= ReasonFlags::DISPLAY;
-                    my_next_tile.last_gas_update = 0;
-                }
-            } else {
-                my_next_tile.last_gas_update += 1;
-            }
-        }
-
         if do_turf_effects(my_next_tile) {
             reasons |= ReasonFlags::CONDENSATION;
         }

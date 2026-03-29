@@ -398,7 +398,8 @@ SUBSYSTEM_DEF(air)
 
 		if(MC_TICK_CHECK)
 			return
-
+	//TODO refactor with two lists
+	/*
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
@@ -424,7 +425,7 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			for(var/other_sm in supermatters)
 				currentrun += other_sm
-			return
+			return*/
 
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
 	if(!resumed)

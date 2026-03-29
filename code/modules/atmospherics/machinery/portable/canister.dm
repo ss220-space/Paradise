@@ -570,3 +570,6 @@
 /obj/machinery/portable_atmospherics/canister/antinoblium/init_internal_atmos()
 	. = ..()
 	air_contents.set_antinoblium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/halon/init_internal_atmos()
+	air_contents.set_halon((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
