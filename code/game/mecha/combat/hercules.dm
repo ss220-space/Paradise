@@ -9,15 +9,15 @@
 		return
 	if(istype(chassis, /obj/mecha/combat/hercules))
 		var/obj/mecha/combat/hercules/mecha = chassis
-		if(mecha.flashights_working)
+		if(mecha.flashlights_working)
 			mecha.soundloop.stop()
-			mecha.flashights_working = FALSE
+			mecha.flashlights_working = FALSE
 			mecha.update_icon(UPDATE_OVERLAYS)
 			button_icon_state = "mech_flashlights"
 			UpdateButtonIcon()
 			return
 		mecha.soundloop.start()
-		mecha.flashights_working = TRUE
+		mecha.flashlights_working = TRUE
 		mecha.update_icon(UPDATE_OVERLAYS)
 		button_icon_state = "mech_flashlights-on"
 		UpdateButtonIcon()
@@ -51,7 +51,7 @@
 
 /obj/mecha/combat/hercules
 	name = "Hercules"
-	desc = "Modified \"Ripley\", created specially for secuirity forces"
+	desc = "Modified \"Ripley\", created specially for security forces"
 	icon_state = "hercules"
 	initial_icon = "hercules"
 	force = 15
@@ -61,7 +61,6 @@
 	lights_power = 10
 	deflect_chance = 20
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, FIRE = 100, ACID = 100)
-	max_equip = 3
 	wreckage = /obj/structure/mecha_wreckage/hercules
 	stepsound = 'sound/mecha/ripley_step.ogg'
 	operation_req_access = list(ACCESS_BRIG)
@@ -71,7 +70,7 @@
 	var/datum/action/innate/mecha/mech_toggle_stunbaton/stun_action = new
 	/// overlays and action for flashlights
 	var/datum/looping_sound/ambulance_alarm/soundloop
-	var/flashights_working = FALSE
+	var/flashlights_working = FALSE
 	var/flashlights_overlay
 	var/flashlights_overlay_working
 	var/datum/action/innate/mecha/mech_toggle_flashlights/flashlights_action = new
@@ -114,7 +113,7 @@
 
 /obj/mecha/combat/hercules/update_overlays()
 	. = ..()
-	if(flashights_working)
+	if(flashlights_working)
 		add_overlay(flashlights_overlay_working)
 	else
 		add_overlay(flashlights_overlay)
@@ -137,16 +136,14 @@
 			hud.show_to(occupant)
 			builtin_hud_user = TRUE
 
+/obj/mecha/combat/hercules/proc/remove_builin_hud()
+	if(!builtin_hud_user)
+		return
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	hud.hide_from(occupant)
+	builtin_hud_user = FALSE
+
 /obj/mecha/combat/hercules/go_out()
-	if(ishuman(occupant) && builtin_hud_user)
-		var/mob/living/carbon/human/H = occupant
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.hide_from(H)
-		builtin_hud_user = FALSE
-	else if((isbrain(occupant) || pilot_is_mmi()) && builtin_hud_user)
-		var/mob/living/carbon/brain/H = occupant
-		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		hud.hide_from(H)
-		builtin_hud_user = FALSE
+	remove_builin_hud()
 
 	. = ..()

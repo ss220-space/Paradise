@@ -241,6 +241,6 @@
 	icon_state = "sidewinder-broken"
 
 /obj/structure/mecha_wreckage/hercules
-	name = "Herculeses wreckage"
+	name = "Hercules wreckage"
 	desc = "Sweet dreams, comrade..."
 	icon_state = "hercules-broken"

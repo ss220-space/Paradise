@@ -491,7 +491,9 @@
 /obj/effect/spawner/random_spawners/security_exosuit/randspawn(turf/T)
 	. = ..()
 	if(thing_to_place == SEC_MECH_SPAWN_SUCSESS)
-		for(var/obj/effect/landmark/sec_mech_lethal_equipment_spawn/mark in GLOB.landmarks_list)
+		var/list/marks = list()
+		marks += GLOB.landmarks_list
+		for(var/obj/effect/landmark/sec_mech_lethal_equipment_spawn/mark in marks)
 			var/spawn_zone = get_turf(mark)
 			new /obj/structure/closet/secure_closet/guncabinet/mech_mods(spawn_zone)
 			break
