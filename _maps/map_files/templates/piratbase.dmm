@@ -3819,8 +3819,7 @@
 "ll" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
@@ -6390,8 +6389,7 @@
 /area/ruin/space/pirate_base/kitchen)
 "ti" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6800,8 +6798,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
@@ -8510,8 +8507,7 @@
 "yV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10772,8 +10768,7 @@
 /area/ruin/space/pirate_base/lab_medical)
 "Gc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 Prison Mining";
@@ -10947,8 +10942,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "GD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -11193,8 +11187,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -11710,8 +11703,7 @@
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13488,8 +13480,7 @@
 /area/shuttle/pirate_corvette)
 "NP" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -14839,8 +14830,7 @@
 /area/ruin/space/pirate_base/prison_maint)
 "RT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/machinery/light{
 	dir = 4
@@ -17276,8 +17266,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "Zi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"

@@ -1177,8 +1177,7 @@
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1636,8 +1635,7 @@
 /area/ruin/ussp_xeno/storage)
 "xz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
@@ -2704,8 +2702,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

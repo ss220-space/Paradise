@@ -4580,8 +4580,7 @@
 /obj/structure/table/wood,
 /obj/item/trash/sosjerky,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{

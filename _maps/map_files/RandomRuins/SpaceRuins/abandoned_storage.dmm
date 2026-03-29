@@ -475,8 +475,7 @@
 "iz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -929,8 +928,7 @@
 /area/ruin/unpowered)
 "pe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
@@ -1363,8 +1361,7 @@
 "xf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
@@ -1730,8 +1727,7 @@
 "CG" = (
 /obj/structure/chair/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
@@ -1966,8 +1962,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -2524,8 +2519,7 @@
 /area/ruin/unpowered)
 "Qo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
@@ -3043,8 +3037,7 @@
 "Xn" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)

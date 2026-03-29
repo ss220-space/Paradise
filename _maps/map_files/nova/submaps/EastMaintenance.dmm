@@ -4111,8 +4111,7 @@
 /area/maintenance/fore2)
 "Tx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
 /area/maintenance/backstage)

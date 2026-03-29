@@ -1459,8 +1459,7 @@
 "Nr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
@@ -1573,8 +1572,7 @@
 /area/maintenance/livingcomplex)
 "RG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{

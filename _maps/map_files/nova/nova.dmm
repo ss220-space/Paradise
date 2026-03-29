@@ -2721,8 +2721,7 @@
 /obj/item/bedsheet/cmo,
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
@@ -3334,8 +3333,7 @@
 "aBm" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/machinery/light,
 /turf/simulated/floor/wood,
@@ -3727,8 +3725,7 @@
 /area/maintenance/fsmaint2)
 "aDK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4565,8 +4562,7 @@
 /area/atmos)
 "aJR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -5404,8 +5400,7 @@
 /area/maintenance/fsmaint2)
 "aPN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Theatre Antechamber East";
@@ -5783,8 +5778,7 @@
 /area/solar/auxport)
 "aRT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -6944,8 +6938,7 @@
 "bbC" = (
 /obj/structure/dispenser,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7079,8 +7072,7 @@
 /area/quartermaster/miningdock)
 "bcx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet3)
@@ -8819,8 +8811,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -9093,8 +9084,7 @@
 "brn" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9218,8 +9208,7 @@
 "bso" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/chief)
@@ -9772,8 +9761,7 @@
 /area/space)
 "bwf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
@@ -10624,8 +10612,7 @@
 /area/maintenance/starboard)
 "bBR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet)
@@ -13131,8 +13118,7 @@
 "bUq" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13742,8 +13728,7 @@
 /area/security/podbay)
 "bYE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/engineering/aienter)
@@ -14367,8 +14352,7 @@
 /area/maintenance/fsmaint3)
 "cdu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -15387,8 +15371,7 @@
 /area/medical/biostorage)
 "clS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -18481,8 +18464,7 @@
 /area/engineering/controlroom)
 "cKF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -20043,8 +20025,7 @@
 /area/bridge)
 "cWo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20268,8 +20249,7 @@
 /area/maintenance/casino)
 "cXW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -20400,8 +20380,7 @@
 /area/maintenance/fsmaint)
 "cYF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20415,8 +20394,7 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/ntrep)
@@ -20505,8 +20483,7 @@
 /area/security/podbay)
 "cZm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -20974,8 +20951,7 @@
 /obj/structure/table,
 /obj/item/hatchet,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/grass,
 /area/hydroponics)
@@ -21143,8 +21119,7 @@
 /area/maintenance/apmaint)
 "dgq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
@@ -21669,8 +21644,7 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
@@ -23340,8 +23314,7 @@
 /area/maintenance/garden)
 "dwh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -24233,8 +24206,7 @@
 /area/crew_quarters/mrchangs)
 "dCX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -25716,8 +25688,7 @@
 /area/hallway/primary/central/second/east)
 "dPO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -26426,8 +26397,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27952,8 +27922,7 @@
 /area/security/seceqstorage)
 "egR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -28474,8 +28443,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/ntrep)
@@ -30540,8 +30508,7 @@
 /area/toxins/test_chamber)
 "eAF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -32368,8 +32335,7 @@
 /area/medical/psych)
 "eOV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -34475,8 +34441,7 @@
 "fga" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
@@ -36214,8 +36179,7 @@
 /area/engineering/controlroom)
 "ftM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5
@@ -36766,8 +36730,7 @@
 "fxY" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -39277,8 +39240,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "fRt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/courtroom)
@@ -40951,8 +40913,7 @@
 /area/medical/medbay)
 "ges" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -41383,8 +41344,7 @@
 /area/maintenance/xenozoo)
 "ghS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -41742,8 +41702,7 @@
 /area/hallway/secondary/entry/eastarrival)
 "gjV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -43667,8 +43626,7 @@
 /area/maintenance/livingcomplex)
 "gzK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/machinery/firealarm{
 	dir = 1;
@@ -44617,8 +44575,7 @@
 /area/quartermaster/office)
 "gHA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/structure/table_frame,
 /obj/item/shard{
@@ -47198,15 +47155,6 @@
 /obj/structure/flora/firebush,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
-"hbR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/quartermaster/office)
 "hbW" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "courtroom"
@@ -47318,8 +47266,7 @@
 /area/atmos)
 "hcF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
@@ -47538,8 +47485,7 @@
 /area/maintenance/livingcomplex)
 "hdY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
@@ -47759,8 +47705,7 @@
 /area/engineering/controlroom)
 "hfz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -48135,8 +48080,7 @@
 /area/toxins/lab)
 "hiG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48521,8 +48465,7 @@
 /area/hallway/primary/central/second/east)
 "hlB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -50374,8 +50317,7 @@
 /area/hallway/primary/central/ne)
 "hBs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
@@ -51096,8 +51038,7 @@
 /area/medical/genetics)
 "hIw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/livingcomplex)
@@ -51796,8 +51737,7 @@
 /area/tcommsat/chamber)
 "hPu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54074,8 +54014,7 @@
 /area/toxins/explab)
 "ifN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/theatre)
@@ -54741,8 +54680,7 @@
 "ikl" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/bridge/meeting_room)
@@ -54781,8 +54719,7 @@
 /area/bridge)
 "iks" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54903,8 +54840,7 @@
 /area/maintenance/asmaint)
 "ilB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -55029,8 +54965,7 @@
 /area/crew_quarters/toilet3)
 "imF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -55079,8 +55014,7 @@
 /area/maintenance/apmaint)
 "imT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
@@ -55143,8 +55077,7 @@
 /area/maintenance/brig)
 "inp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55831,8 +55764,7 @@
 /area/teleporter/abandoned)
 "itc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -57818,8 +57750,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel{
@@ -58414,8 +58345,7 @@
 /area/medical/psych)
 "iOi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -59148,8 +59078,7 @@
 /area/assembly/robotics)
 "iUO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -60166,8 +60095,7 @@
 "jcg" = (
 /obj/effect/landmark/spawner/xeno,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/engine,
@@ -62214,8 +62142,7 @@
 "jqE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/medroom)
@@ -64616,8 +64543,7 @@
 /area/medical/virology/lab)
 "jIX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -64818,8 +64744,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -64979,8 +64904,7 @@
 /area/teleporter/abandoned)
 "jLh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65840,8 +65764,7 @@
 /area/toxins/xenobiology)
 "jRB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
@@ -66092,8 +66015,7 @@
 /area/medical/sleeper)
 "jTU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/machinery/alarm{
 	dir = 8;
@@ -67344,8 +67266,7 @@
 /area/turret_protected/ai_upload)
 "kff" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -67870,8 +67791,7 @@
 /area/security/permabrig)
 "kjf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -68213,8 +68133,7 @@
 /area/atmos)
 "kmi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/machinery/camera{
 	c_tag = "Prison Solitary Confinement 2";
@@ -68530,8 +68449,7 @@
 /area/crew_quarters/heads)
 "koQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -68949,8 +68867,7 @@
 "ktm" = (
 /obj/structure/closet/firecloset/full,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69696,8 +69613,7 @@
 "kyi" = (
 /obj/machinery/computer/security/mining,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
@@ -70002,8 +69918,7 @@
 /area/engineering/controlroom)
 "kBd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -73424,8 +73339,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "lbT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -74523,8 +74437,7 @@
 /area/hallway/secondary/exit)
 "lkJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -74717,8 +74630,7 @@
 /area/crew_quarters/heads)
 "lmC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -77246,8 +77158,7 @@
 /area/medical/virology)
 "lHL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
@@ -77528,7 +77439,8 @@
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
-	}/obj/effect/decal/warning_stripes/east,
+	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -77678,8 +77590,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -78457,8 +78368,7 @@
 /area/hallway/primary/starboard/east)
 "lSj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
 /area/maintenance/backstage)
@@ -78902,8 +78812,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -79558,8 +79467,7 @@
 /area/solar/port)
 "mbd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -82009,8 +81917,7 @@
 /area/engineering/engine)
 "mtB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
@@ -82869,8 +82776,7 @@
 /area/crew_quarters/theatre)
 "mAG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
@@ -85689,8 +85595,7 @@
 /area/crew_quarters/sleep)
 "mVx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light,
@@ -86297,8 +86202,7 @@
 "nap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -86471,8 +86375,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
@@ -86544,8 +86447,7 @@
 /area/security/hos)
 "nbK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -88495,8 +88397,7 @@
 	pixel_x = 26
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -90031,8 +89932,7 @@
 "nCp" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/library)
@@ -91118,8 +91018,7 @@
 /area/chapel/office)
 "nLE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -91318,8 +91217,7 @@
 /area/ntrep)
 "nNd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
@@ -93153,8 +93051,7 @@
 "obH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -94186,8 +94083,7 @@
 /area/maintenance/starboard)
 "okv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
@@ -94510,8 +94406,7 @@
 /area/maintenance/brig)
 "onm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -96361,8 +96256,7 @@
 /area/medical/research/nhallway)
 "oBG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/bridge/meeting_room)
@@ -96494,8 +96388,7 @@
 "oDb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
@@ -97849,8 +97742,7 @@
 /area/security/permabrig)
 "oNO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -99444,8 +99336,7 @@
 /area/maintenance/casino)
 "oZq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
@@ -99662,8 +99553,7 @@
 "paY" = (
 /obj/effect/landmark/start/clown,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -100581,8 +100471,7 @@
 /area/crew_quarters/heads/hop)
 "phP" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -102152,8 +102041,7 @@
 	network = list("SS13","Security")
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
@@ -102591,8 +102479,7 @@
 /area/maintenance/maintcentral)
 "pxZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -103288,8 +103175,7 @@
 /area/maintenance/brig)
 "pCF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -103618,8 +103504,7 @@
 /area/maintenance/asmaint4)
 "pFC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -103672,8 +103557,7 @@
 /area/security/seceqstorage)
 "pFP" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -106112,8 +105996,7 @@
 	pixel_y = 12
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -107120,8 +107003,7 @@
 "qeA" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -107803,8 +107685,7 @@
 /area/chapel/office)
 "qjC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -108425,8 +108306,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/library/game_zone)
@@ -110461,8 +110341,7 @@
 /area/maintenance/ai)
 "qEz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -110703,8 +110582,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -111180,8 +111058,7 @@
 /area/hallway/primary/central/second/north)
 "qKC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -113156,8 +113033,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -113196,8 +113072,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -115899,8 +115774,7 @@
 /area/quartermaster/office)
 "ruJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -116978,8 +116852,7 @@
 "rBJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -122321,8 +122194,7 @@
 "spv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating,
@@ -122335,8 +122207,7 @@
 /area/medical/reception)
 "spK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -123923,8 +123794,7 @@
 /area/maintenance/fsmaint3)
 "sBF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -124814,8 +124684,7 @@
 "sIu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -126268,8 +126137,7 @@
 /area/hallway/primary/central/east)
 "sTn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -126515,8 +126383,7 @@
 /area/quartermaster/lobby)
 "sVw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -128297,8 +128164,7 @@
 "thB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
@@ -128350,8 +128216,7 @@
 /area/maintenance/livingcomplex)
 "tij" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -129836,8 +129701,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/maintenance/casino)
@@ -129891,8 +129755,7 @@
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/southeast,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
@@ -132194,8 +132057,7 @@
 "tKY" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light{
@@ -132763,8 +132625,7 @@
 /area/civilian/pet_store)
 "tPY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
@@ -132799,8 +132660,7 @@
 /obj/structure/closet/firecloset/full,
 /obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -132920,8 +132780,7 @@
 /obj/item/mop,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -133597,8 +133456,7 @@
 /area/crew_quarters/cabin4)
 "tVF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/medroom)
@@ -133799,8 +133657,7 @@
 /area/engineering/supermatter)
 "tXa" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -135021,8 +134878,7 @@
 	pixel_x = 25
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -135655,8 +135511,7 @@
 	},
 /obj/item/razor,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -136685,8 +136540,7 @@
 "utP" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -137050,8 +136904,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "uwS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -137646,8 +137499,7 @@
 /area/crew_quarters/locker)
 "uBI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -137767,8 +137619,7 @@
 /area/security/hos)
 "uCz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -138889,8 +138740,7 @@
 /area/medical/genetics)
 "uLp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -139416,8 +139266,7 @@
 "uPS" = (
 /obj/structure/railing/corner,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -140119,8 +139968,7 @@
 /area/engineering/engine)
 "uVQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -143693,8 +143541,7 @@
 "vxi" = (
 /obj/effect/landmark/start/janitor,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -143781,8 +143628,7 @@
 /area/hallway/primary/central/west)
 "vxS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light,
@@ -144103,8 +143949,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -145444,8 +145289,7 @@
 "vLu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -145822,8 +145666,7 @@
 /area/maintenance/apmaint)
 "vOb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -145960,8 +145803,7 @@
 /area/crew_quarters/fitness)
 "vOQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningstorage)
@@ -145974,8 +145816,7 @@
 /area/bridge)
 "vOX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -146033,8 +145874,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
@@ -150133,8 +149973,7 @@
 "wtJ" = (
 /obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
@@ -150807,8 +150646,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "wyJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
@@ -151013,8 +150851,7 @@
 /area/crew_quarters/captain/bedroom)
 "wAx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -152625,8 +152462,7 @@
 /area/storage/primary)
 "wOa" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Prison Solitary Confinement 1";
@@ -152881,8 +152717,7 @@
 /area/ntrep)
 "wPF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -153179,8 +153014,7 @@
 /area/atmos)
 "wSq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -153726,8 +153560,7 @@
 /area/medical/biostorage)
 "wWG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
@@ -154395,8 +154228,7 @@
 	pixel_y = 10
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -155690,8 +155522,7 @@
 /area/maintenance/xenozoo)
 "xmw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -156310,8 +156141,7 @@
 "xrQ" = (
 /obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -161010,8 +160840,7 @@
 /area/bridge/checkpoint/south)
 "yaG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -161143,8 +160972,7 @@
 /area/blueshield)
 "ybv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -161639,8 +161467,7 @@
 /area/medical/research)
 "yej" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light,
@@ -271448,7 +271275,7 @@ akR
 oAe
 bWQ
 wka
-hbR
+xNv
 cSB
 kWo
 wka

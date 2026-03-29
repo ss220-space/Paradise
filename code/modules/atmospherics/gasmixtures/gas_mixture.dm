@@ -449,11 +449,12 @@ What are the archived variables for?
 
 	return result
 
-
+UNLINT(
 #define REACT_GAS(gas) \
 var/##gas = private_##gas; \
 if(##gas) \
 	private_##gas = ##gas - (reaction_rate * ##gas / total_not_antinoblium_moles)
+)
 //Procedures used for very specific events
 
 /datum/gas_mixture/proc/react(atom/dump_location)
