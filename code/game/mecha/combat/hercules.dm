@@ -61,7 +61,7 @@
 	lights_power = 10
 	deflect_chance = 20
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, FIRE = 100, ACID = 100)
-	max_equip = 4
+	max_equip = 3
 	wreckage = /obj/structure/mecha_wreckage/hercules
 	stepsound = 'sound/mecha/ripley_step.ogg'
 	operation_req_access = list(ACCESS_BRIG)
