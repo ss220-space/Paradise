@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Отсутствие сибилов больше не блокирует стрельбу. (PR #8743)"

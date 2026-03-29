@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - add: "Добавление настенной карты ГСБ (PR #8734)"

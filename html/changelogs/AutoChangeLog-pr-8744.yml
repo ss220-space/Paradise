@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - map: "Убрано использование переменной tag со всех карт. (PR #8744)"
-  - map: "Убраны pixel_x/y равные нулю со всех карт. (PR #8744)"

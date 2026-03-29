@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - config: "Теперь конфиги для отключения Тайпана, Лаваленда, Косморуин и Гейта снова под гитигнором. (PR #8740)"

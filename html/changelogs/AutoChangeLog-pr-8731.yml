@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлен рантайм, происходящий со скринтипом на некоторых объектах. (PR #8731)"

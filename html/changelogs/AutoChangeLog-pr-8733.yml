@@ -1,4 +1,0 @@
-author: "PlayerUnknown14"
-delete-after: True
-changes:
-  - bugfix: "Фиксы маппинга на ЦК после новых диванов. (PR #8733)"
