@@ -997,6 +997,23 @@
 	construction_time = 10 SECONDS
 	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
 
+/datum/design/lesser_mech_disabler
+	id = "lesser_mech_disabler"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler/lightweight
+	materials = list(MAT_METAL=5000)
+	construction_time = 10 SECONDS
+	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
+
+/datum/design/mech_machinegun
+	id = "mech_machinegun"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/machine_gun
+	materials = list(MAT_METAL=15000, MAT_GLASS=5000)
+	construction_time = 10 SECONDS
+	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
+	locked = TRUE
+
 /datum/design/mech_scattershot_riot
 	id = "mech_scattershot_riot"
 	build_type = MECHFAB

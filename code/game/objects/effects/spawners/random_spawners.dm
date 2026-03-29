@@ -9,6 +9,8 @@
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
 	var/spawn_inside = null
+	/// Thing we are going to spawn
+	var/thing_to_place = null
 	var/use_power = null // Хотим ли мы чтобы то, что мы спавним, тратило электричество
 	var/active_power_usage = null // Сколько энергии оно тратит если активно
 	var/idle_power_usage = null // Сколько энергии оно тратит в пассивном режиме
@@ -23,7 +25,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
-	var/thing_to_place = pickweight(result)
+	thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
 		qdel(src)
 		return
@@ -474,3 +476,22 @@
 		/obj/structure/closet/secure_closet/guncabinet/sp91 = 33,
 		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)
+
+#define SEC_MECH_SPAWN_SUCSESS /obj/mecha/combat/hercules
+#define SEC_MECH_SPAWN_UNSUCSESS /datum/nothing
+
+/obj/effect/spawner/random_spawners/security_exosuit
+	name = "maybe \"Hercules\" secutiry exosuit"
+	icon_state = "rand_mech"
+	result = list(
+		SEC_MECH_SPAWN_SUCSESS = 1,
+		SEC_MECH_SPAWN_UNSUCSESS = 2,
+	)
+
+/obj/effect/spawner/random_spawners/security_exosuit/randspawn(turf/T)
+	. = ..()
+	if(thing_to_place == SEC_MECH_SPAWN_SUCSESS)
+		for(var/obj/effect/landmark/sec_mech_lethal_equipment_spawn/mark in GLOB.landmarks_list)
+			var/spawn_zone = get_turf(mark)
+			new /obj/structure/closet/secure_closet/guncabinet/mech_mods(spawn_zone)
+			break

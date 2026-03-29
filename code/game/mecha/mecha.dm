@@ -97,6 +97,8 @@
 
 	var/melee_cooldown = 1 SECONDS
 	var/melee_can_hit = TRUE
+	/// How much stamina damage deals mecha in combat
+	var/melee_stamina_damage = 34
 
 	// Action vars
 	var/defence_mode = FALSE
@@ -379,6 +381,16 @@
 			target.reagents.add_reagent("atropine", force/2)
 		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
 			target.reagents.add_reagent("toxin", force/2.5)
+
+/obj/mecha/proc/mech_stamina_damage(mob/living/target)
+	target.Knockdown(0.1 SECONDS)
+	target.adjustStaminaLoss(melee_stamina_damage)
+	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
+	target.AdjustConfused(10 SECONDS, bound_upper = 10 SECONDS)
+	use_power(500)
+	playsound(src, SFX_SPARKS, HALFWAY_SOUND_VOLUME, TRUE)
+	playsound(src, 'sound/weapons/egloves.ogg', HALFWAY_SOUND_VOLUME, TRUE)
 
 /obj/mecha/proc/range_action(atom/target)
 	return

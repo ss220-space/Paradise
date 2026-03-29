@@ -98,6 +98,14 @@
 	projectile_delay = 1
 	harmful = FALSE
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler/lightweight
+	equip_cooldown = 0.8 SECONDS
+	name = "Lightweight CH-PD Disabler"
+	icon_state = "mecha_disabler_mini"
+	origin_tech = "combat=1"
+	energy_drain = 80
+	projectiles_per_shot = 1
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 1 SECONDS
 	name = "CH-LC \"Solaris\" Laser Cannon"
@@ -295,6 +303,19 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
+	harmful = TRUE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/machine_gun
+	name = "ASW-5 \"Stormtrooper\" machine gun"
+	icon_state = "mecha_gun"
+	origin_tech = "materials=2;combat=2"
+	equip_cooldown = 0.6 SECONDS
+	projectile = /obj/projectile/bullet/five_mm
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
+	projectiles = 100
+	projectile_energy_cost = 5
+	projectiles_per_shot = 4
+	projectile_delay = 1
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
@@ -586,7 +607,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/M)
 	if(..())
-		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/lockersyndie))
+		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/hercules))
 			return TRUE
 	return FALSE
 

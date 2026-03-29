@@ -239,3 +239,8 @@
 	name = "Обломки Сайдвиндера"
 	desc = "Корпорация будет ОЧЕНЬ недовольна этим. Вы хоть знаете СКОЛЬКО он стоит?!"
 	icon_state = "sidewinder-broken"
+
+/obj/structure/mecha_wreckage/hercules
+	name = "Herculeses wreckage"
+	desc = "Sweet dreams, comrade..."
+	icon_state = "hercules-broken"

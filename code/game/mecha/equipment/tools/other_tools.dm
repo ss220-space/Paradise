@@ -514,10 +514,11 @@
 	var/clarke_step_in = 1.5
 	var/durand_step_in = 3.3
 	var/locker_step_in = 2
+	var/hercules_step_in = 4.5
 
-/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/mech)
 	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/durand))
+		if(istype(mech, /obj/mecha/medical) || istype(mech, /obj/mecha/combat/lockersyndie) || istype(mech, /obj/mecha/working) || istype(mech, /obj/mecha/combat/durand) || istype(mech, /obj/mecha/combat/hercules))
 			return TRUE
 	return FALSE
 
@@ -537,15 +538,18 @@
 	if(istype(loc, /obj/mecha/combat/lockersyndie)) // syndilocker
 		var/obj/mecha/combat/lockersyndie/L = loc
 		L.step_in = locker_step_in
+	if(istype(loc, /obj/mecha/combat/hercules)) // hercules
+		var/obj/mecha/combat/hercules/hercules = loc
+		hercules.step_in = hercules_step_in
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
 	if(ismecha(loc))
 		var/obj/mecha/O = loc
 		O.step_in = initial(O.step_in)
 	if(istype(loc, /obj/mecha/working))
-		var/obj/mecha/working/W = loc
-		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
-		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
+		var/obj/mecha/working/industrial_mech = loc
+		industrial_mech.slow_pressure_step_in = initial(industrial_mech.slow_pressure_step_in)
+		industrial_mech.fast_pressure_step_in = initial(industrial_mech.fast_pressure_step_in)
 
 // SCS-3 CAGE
 
@@ -553,7 +557,7 @@
 	name = "SCS 3 Cage"
 	desc = "Модуль для экзокостюмов, используемый для задержании преступников."
 	icon_state = "mecha_cage"
-	origin_tech = "combat=6;materials=5"
+	origin_tech = "combat=4;materials=3"
 	equip_cooldown = 3 SECONDS
 	energy_drain = 500
 	salvageable = FALSE

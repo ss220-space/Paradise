@@ -114477,6 +114477,7 @@
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
+/obj/effect/spawner/random_spawners/security_exosuit,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/security/securearmory)
 "vwo" = (
@@ -126172,6 +126173,7 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
+/obj/effect/landmark/sec_mech_lethal_equipment_spawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

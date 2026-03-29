@@ -434,3 +434,44 @@
 	new /obj/item/megaphone(src)
 	new /obj/item/storage/garmentbag/magistrate(src)
 	new /obj/item/storage/box/tapes(src)
+
+/obj/structure/closet/secure_closet/guncabinet/mech_mods
+	name = "exosuit equipment cabinet"
+	desc = "Защищённый шкаф, наполненный разными боевыми модулями для экзокостюмов. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/mech_mods/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф с модулями для экзокостюмов",
+		GENITIVE = "шкафа с модулями для экзокостюмов",
+		DATIVE = "шкафу с модулями для экзокостюмов",
+		ACCUSATIVE = "шкаф с модулями для экзокостюмов",
+		INSTRUMENTAL = "шкафом с модулями для экзокостюмов",
+		PREPOSITIONAL = "шкафе с модулями для экзокостюмов"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/mech_mods/populate_contents()
+	// Pick armour
+	if(prob(50))
+		new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	else
+		new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster(src)
+	// Pick support equipment
+	if(prob(50))
+		new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
+	else
+		new /obj/item/mecha_parts/mecha_equipment/repair_droid(src)
+	// Pick alternative non-lethal weapon
+	if(prob(50))
+		new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser(src)
+	else
+		new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola(src)
+	// Pick lethal weapon
+	if(prob(50))
+		new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser(src)
+	else
+		new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/machine_gun(src)
+	// Someday...
+	if(prob(0.01))
+		new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium(src)
+

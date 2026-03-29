@@ -803,37 +803,39 @@ emp_act
 						armor_block = 0
 					objective.take_damage(damage * armor_block, BRUTE)
 
-/mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
+/mob/living/carbon/human/mech_melee_attack(obj/mecha/mecha)
+	if(mecha.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(mecha.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+			to_chat(mecha.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
 			return
-		M.do_attack_animation(src)
-		if(M.damtype == "brute")
-			step_away(src,M,15)
+		mecha.do_attack_animation(src)
+		if(mecha.damtype == "brute")
+			step_away(src, mecha, 15)
 		var/obj/item/organ/external/affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 		if(affecting)
-			var/dmg = rand(M.force/2, M.force)
-			switch(M.damtype)
+			var/dmg = rand(mecha.force/2, mecha.force)
+			switch(mecha.damtype)
 				if(BRUTE)
-					if(M.force > 35) // durand and other heavy mechas
+					if(mecha.force > 35) // durand and other heavy mechas
 						Weaken(2 SECONDS)
-					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
+					else if(mecha.force > 20 && !IsWeakened()) // lightweight mechas like gygax
 						Knockdown(4 SECONDS)
 					apply_damage(dmg, BRUTE, def_zone = affecting)
-					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+					playsound(src, 'sound/weapons/punch4.ogg', HALFWAY_SOUND_VOLUME, TRUE)
 				if(BURN)
 					apply_damage(dmg, BURN, def_zone = affecting)
-					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
+					playsound(src, 'sound/items/welder.ogg', HALFWAY_SOUND_VOLUME, TRUE)
 				if(TOX)
-					M.mech_toxin_damage(src)
+					mecha.mech_toxin_damage(src)
+				if(STAMINA)
+					mecha.mech_stamina_damage(src)
 				else
 					return
 
-		M.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[M.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[M.name] ударил вас!"))
+		mecha.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[mecha.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[mecha.name] ударил вас!"))
 
-		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
+		add_attack_logs(mecha.occupant, src, "Mecha-meleed with [mecha]")
 	else
 		..()
 

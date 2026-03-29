@@ -12,6 +12,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
+	stepsound = 'sound/mecha/ripley_step.ogg'
 	var/hides = 0
 	var/plates = 0
 
