@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Спавнер рандомной игрушки больше не выпадает. (PR #8750)"

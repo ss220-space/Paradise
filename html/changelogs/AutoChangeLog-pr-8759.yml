@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Чинит баг когда борги не могли автоматически собирать руду в рудные сумки (PR #8759)"
