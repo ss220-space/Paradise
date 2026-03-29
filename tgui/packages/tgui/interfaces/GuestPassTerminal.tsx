@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useBackend } from '../backend';
 import {
   Button,
@@ -104,7 +103,6 @@ export const GuestPassTerminal = (props) => {
             </Stack.Item>
 
             <Stack.Item height="410px">
-              {' '}
               <AccessList
                 accesses={regions}
                 selectedList={selectedAccess}

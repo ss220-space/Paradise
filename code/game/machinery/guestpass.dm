@@ -47,6 +47,15 @@
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
+	var/list/region_map = list(
+		"Service" = REGION_GENERAL,
+		"Security" = REGION_SECURITY,
+		"Medical" = REGION_MEDBAY,
+		"Science" = REGION_RESEARCH,
+		"Engineering" = REGION_ENGINEERING,
+		"Supply" = REGION_SUPPLY,
+		"Command" = REGION_COMMAND
+	)
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -71,7 +80,6 @@
 /obj/machinery/computer/guestpass/syndicate
 	name = "Syndicate guest pass terminal"
 
-// MARK: TGUI MY ASS
 /obj/machinery/computer/guestpass/attack_hand(mob/user)
 	if(..())
 		return
@@ -99,16 +107,6 @@
 	if(giver)
 		selectedAccess = accesses
 		grantableList = get_changeable_accesses()
-
-		var/list/region_map = list(
-			"Service" = REGION_GENERAL,
-			"Security" = REGION_SECURITY,
-			"Medical" = REGION_MEDBAY,
-			"Science" = REGION_RESEARCH,
-			"Engineering" = REGION_ENGINEERING,
-			"Supply" = REGION_SUPPLY,
-			"Command" = REGION_COMMAND
-		)
 
 		for(var/region in region_map)
 			var/list/accs = list()
