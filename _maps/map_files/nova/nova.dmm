@@ -44238,6 +44238,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -91517,6 +91518,12 @@
 	pixel_x = -2;
 	pixel_y = 1
 	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 5
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -103565,11 +103572,7 @@
 /area/atmos/control)
 "pAI" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/storage/fancy/donut_box{
-	pixel_y = 5
-	},
+/obj/effect/landmark/sec_mech_lethal_equipment_spawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -158797,7 +158800,7 @@
 /area/hallway/secondary/entry/commercial)
 "xEE" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/vehicle/ridden/secway,
+/obj/effect/spawner/random_spawners/security_exosuit,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/security/securearmory)
 "xEN" = (

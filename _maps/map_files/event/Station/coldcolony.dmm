@@ -57651,6 +57651,10 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/chapel/main)
+"vgz" = (
+/obj/effect/landmark/sec_mech_lethal_equipment_spawn,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/maintenance/brig)
 "vgP" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc{
@@ -59008,6 +59012,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/spawner/random_spawners/security_exosuit,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "vBy" = (
@@ -104846,7 +104851,7 @@ ltJ
 hVu
 xLx
 aic
-gxi
+vgz
 gbh
 sJD
 ahq
