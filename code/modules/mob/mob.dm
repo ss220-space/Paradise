@@ -132,23 +132,9 @@
 	set hidden = TRUE
 
 	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.get_readonly_air()
 
-	if(!environment)
-		return
-
-	var/text = span_notice("Coordinates: [x],[y] \n")
-	text += span_danger("Temperature: [environment.temperature()] \n")
-	text += span_notice("Nitrogen: [environment.nitrogen()] \n")
-	text += span_notice("Oxygen: [environment.oxygen()] \n")
-	text += span_notice("Plasma : [environment.toxins()] \n")
-	text += span_notice("Carbon Dioxide: [environment.carbon_dioxide()] \n")
-	text += span_notice("N2O: [environment.sleeping_agent()] \n")
-	text += span_notice("Agent B: [environment.agent_b()] \n")
-	text += span_notice("Hydrogen: [environment.hydrogen()] \n")
-	text += span_notice("Water Vapor: [environment.water_vapor()] \n")
-
-	to_chat(usr, text)
+	to_chat(usr,"Coordinates: [x],[y] \n")
+	atmos_scan(usr, location, silent = TRUE)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 

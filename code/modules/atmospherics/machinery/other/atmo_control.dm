@@ -10,52 +10,33 @@
 	var/id_tag
 
 	var/list/sensor_data = list()
-	/// 1 - Pressure. 2 - Temperature.
-	/// 4 - Oxygen. 8 - Toxins. 16 - Nitrogen. 32 - Carbon Dioxide. 64 - Nitrous Oxide.
+
 	var/output = SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE
-	var/static/list/composition_to_tlv = list(
-		SENSOR_COMPOSITION_OXYGEN = TLV_O2,
-		SENSOR_COMPOSITION_NITROGEN = TLV_N2,
-		SENSOR_COMPOSITION_CO2 = TLV_CO2,
-		SENSOR_COMPOSITION_TOXINS = TLV_PL,
-		SENSOR_COMPOSITION_N2O = TLV_N2O,
-		SENSOR_COMPOSITION_H2 = TLV_H2,
-		SENSOR_COMPOSITION_H2O = TLV_H2O,
-		SENSOR_COMPOSITION_AGENT_B = TLV_AGENT_B,
-		SENSOR_COMPOSITION_TRITIUM = TLV_TRITIUM,
-		SENSOR_COMPOSITION_BZ = TLV_BZ,
-		SENSOR_COMPOSITION_PLUOXIUM = TLV_PLUOXIUM,
-		SENSOR_COMPOSITION_MIASMA = TLV_MIASMA,
-		SENSOR_COMPOSITION_FREON = TLV_FREON,
-		SENSOR_COMPOSITION_NITRIUM = TLV_NITRIUM,
-		SENSOR_COMPOSITION_HEALIUM = TLV_HEALIUM,
-		SENSOR_COMPOSITION_PROTO_NITRATE = TLV_PROTO_NITRATE,
-		SENSOR_COMPOSITION_ZAUKER = TLV_ZAUKER,
-		SENSOR_COMPOSITION_HALON = TLV_HALON,
-		SENSOR_COMPOSITION_HELIUM = TLV_HELIUM,
-		SENSOR_COMPOSITION_ANTINOBLIUM = TLV_ANTINOBLIUM,
-		SENSOR_COMPOSITION_HYPERNOBLIUM = TLV_HYPERNOBLIUM
-	)
 
 /obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
 	GLOB.gas_sensors += src
 	SSair.atmos_machinery += src
 	if(id_tag)
-		GLOB.sensors_by_tag[id_tag] = WEAKREF(src)
+		register_id(id_tag, src, GLOB.sensors_by_tag)
 
 /obj/machinery/atmospherics/air_sensor/Destroy()
 	GLOB.gas_sensors -= src
 	SSair.atmos_machinery -= src
-	if(id_tag)
-		GLOB.sensors_by_tag[id_tag] = WEAKREF(src)
+	if(id_tag && weak_reference == GLOB.sensors_by_tag[id_tag])
+		GLOB.sensors_by_tag -= id_tag
 	return ..()
+
+/obj/machinery/atmospherics/air_sensor/get_data()
+	var/list/data = sensor_data.Copy()
+	data["name"] = name
+	return sensor_data
 
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
 /obj/machinery/atmospherics/air_sensor/proc/toggle_out_flag(bitflag_value)
-	if(!(bitflag_value in (composition_to_tlv + list(SENSOR_SCAN_PRESSURE, SENSOR_SCAN_TEMPERATURE))))
+	if(!isnum(bitflag_value))
 		return
 	if(output & bitflag_value)
 		output &= ~bitflag_value
@@ -91,30 +72,47 @@
 
 	var/turf/location = get_turf(src)
 	var/datum/gas_mixture/air_sample = location.get_readonly_air()
-	var/list/gas_data = gas_mixture_parser(air_sample, "Air Sensor")
+	var/list/gas_data = air_sample.get_interesting()
 
 	if(output & SENSOR_SCAN_PRESSURE)
-		sensor_data[TLV_PRESSURE] = round(gas_data[TLV_PRESSURE], 0.1)
+		sensor_data[TLV_PRESSURE] = round(air_sample.return_pressure(), 0.1)
 
 	if(output & SENSOR_SCAN_TEMPERATURE)
-		sensor_data[TLV_TEMPERATURE] = round(gas_data[TLV_TEMPERATURE], 0.1)
+		sensor_data[TLV_TEMPERATURE] = round(air_sample.temperature(), 0.1)
 
 	if(output <= (SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE))
 		return
 
-	var/total_moles = gas_data[TLV_TOTAL_MOLES]
+	var/total_moles = air_sample.total_moles()
 	sensor_data[TLV_TOTAL_MOLES] = total_moles
-	if(total_moles > 0)
-		for(var/composition_bit, tlv_key  in composition_to_tlv)
-			if(output & composition_bit)
-				var/moles = gas_data[tlv_key] || 0
-				sensor_data[tlv_key] = round(100 * moles / total_moles, 0.1)
-			return
 
-	for(var/composition_bit in composition_to_tlv)
-		if(output & composition_bit)
-			var/tlv_key = composition_to_tlv[composition_bit]
-			sensor_data[tlv_key] = 0
+	if(total_moles <= 0)
+		return
+
+	var/list/gas_meta = GLOB.gas_meta
+
+	for(var/gas_key, moles in gas_data)
+		var/list/gas_meta_list = gas_meta[gas_key]
+		if(output & gas_meta_list[META_GAS_SENSOR_FLAG])
+			sensor_data[gas_key] = round(100 * moles / total_moles, 0.1)
+
+/obj/machinery/atmospherics/air_sensor/o2
+	output = parent_type::output|SENSOR_COMPOSITION_OXYGEN
+
+/obj/machinery/atmospherics/air_sensor/n2
+	output = parent_type::output|SENSOR_COMPOSITION_NITROGEN
+
+/obj/machinery/atmospherics/air_sensor/pl
+	output = parent_type::output|SENSOR_COMPOSITION_TOXINS
+
+/obj/machinery/atmospherics/air_sensor/n2o
+	output = parent_type::output|SENSOR_COMPOSITION_N2O
+
+/obj/machinery/atmospherics/air_sensor/co2
+	output = parent_type::output|SENSOR_COMPOSITION_CO2
+
+/obj/machinery/atmospherics/air_sensor/all
+	output = ALL
 
 
 /obj/machinery/computer/general_air_control
@@ -128,7 +126,7 @@
 
 	var/show_sensors = TRUE
 	var/list/sensors
-	var/list/sensors_objects
+	var/list/sensors_objects = list()
 
 /obj/machinery/computer/general_air_control/Initialize(mapload)
 	..()
@@ -151,6 +149,12 @@
 	LAZYCLEARLIST(sensors)
 	return ..()
 
+/obj/machinery/computer/general_air_control/attack_hand(mob/user)
+	ui_interact(user)
+
+/obj/machinery/computer/general_air_control/ui_state(mob/user)
+	return GLOB.default_state
+
 /obj/machinery/computer/general_air_control/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!isprocessing)
 		START_PROCESSING(SSmachines, src)
@@ -170,11 +174,14 @@
 /obj/machinery/computer/general_air_control/ui_data(mob/user)
 	var/list/data = ..()
 	var/list/sensors = list()
-	for(var/datum/weakref/object_ref as anything in sensors_objects)
+	for(var/id, ref in sensors_objects)
+		var/datum/weakref/object_ref = ref
 		var/obj/machinery/atmospherics/air_sensor/sensor = object_ref.resolve()
 		if(!sensor)
 			continue
-		sensors += list(sensor.sensor_data)
+		var/list/sensor_data = sensor.get_data()
+		sensor_data["name"] = src.sensors[id] || sensor_data["name"]
+		sensors += list(sensor.get_data())
 	data["sensors"] = sensors
 	return data
 
@@ -185,19 +192,17 @@
 
 	if(action == "command")
 		var/device_id = params["uid"]
-		var/cmd = params["cmd"]
+		var/command = params["cmd"]
 		var/value = params["val"]
 		var/obj/machinery/atmospherics/machine = locateUID(device_id)
 		if(machine && (machine.stat & (NOPOWER|BROKEN)))
 			return
-		machine.update_params(value ?\
-			list(\
-				cmd = params["val"]\
-			) :\
-			list(\
-				cmd\
-			)\
-		)
+		var/list/result = list()
+		if(value)
+			result[command] = value
+		else
+			result += command
+		machine.update_params(result)
 		return TRUE
 
 /*

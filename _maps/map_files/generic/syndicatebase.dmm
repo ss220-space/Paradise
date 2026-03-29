@@ -651,12 +651,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aHi" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
 	frequency = 1443;
-	icon_state = "on";
-	id = "air_in";
-	on = 1;
 	req_access = list(156,159)
 	},
 /turf/simulated/floor/engine,
@@ -2825,9 +2822,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/none{
 	dir = 1;
-	filter_type = -1;
 	on = 1
 	},
 /obj/machinery/light{
@@ -3384,9 +3380,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/none{
 	dir = 1;
-	filter_type = -1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3410,9 +3405,8 @@
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfx" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "syndie_base_air_sensor";
-	output = 23
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "syndie_base_air_sensor"
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -3498,7 +3492,7 @@
 /turf/simulated/floor/engine/o2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "diC" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	id_tag = "syndie_base_o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -3527,7 +3521,7 @@
 /turf/simulated/floor/engine/n2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dlO" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	id_tag = "syndie_base_n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -6091,9 +6085,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "fLc" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "syndie_base_mix_sensor";
-	output = 127
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "syndie_base_mix_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6310,9 +6303,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTM" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	dir = 8;
-	filter_type = 1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -6397,9 +6389,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "fVi" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	dir = 8;
-	filter_type = 2;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8370,7 +8361,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "hLa" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "syndie_base_n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -9074,8 +9065,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "ipX" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	id = "tox_in"
+	dir = 4
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -9277,9 +9267,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "iBs" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2o{
 	dir = 1;
-	filter_type = 4;
 	on = 1
 	},
 /obj/machinery/light{
@@ -12245,7 +12234,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lkI" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/pl{
 	id_tag = "syndie_base_tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -15737,7 +15726,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "nSR" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/co2{
 	id_tag = "syndie_base_co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -16247,9 +16236,8 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "osV" = (
 /obj/effect/turf_decal/tile/yellow,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	dir = 1;
-	filter_type = 3;
 	on = 1
 	},
 /turf/simulated/floor/plasteel{

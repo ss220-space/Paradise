@@ -17,10 +17,10 @@
 /obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
 	. = ..()
 	if(id)
-		GLOB.injectors_by_tag[id] = WEAKREF(src)
+		register_id(id, src, GLOB.injectors_by_tag)
 
 /obj/machinery/atmospherics/unary/outlet_injector/Destroy()
-	if(id)
+	if(id && weak_reference == GLOB.injectors_by_tag[id])
 		GLOB.injectors_by_tag -= id
 	. = ..()
 

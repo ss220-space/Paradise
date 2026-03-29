@@ -28,6 +28,7 @@
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
 
 	var/pressure_checks = DEFAULT_PRESSURE_CHECKS
+	var/pressure_checks_default = DEFAULT_PRESSURE_CHECKS
 	//1: Do not pass external_pressure_bound
 	//2: Do not pass internal_pressure_bound
 	//3: Do not pass either
@@ -60,12 +61,12 @@
 	GLOB.all_vent_pumps += src
 	icon = null
 	if(id_tag)
-		GLOB.pumps_by_tag[id_tag] = WEAKREF(src)
+		register_id(id_tag, src, GLOB.pumps_by_tag)
 	asign_new_area(get_area(src))
 
 /obj/machinery/atmospherics/unary/vent_pump/Destroy()
 	GLOB.all_vent_pumps -= src
-	if(id_tag)
+	if(id_tag && weak_reference == GLOB.pumps_by_tag[id_tag])
 		GLOB.pumps_by_tag -= id_tag
 	return ..()
 
@@ -243,7 +244,7 @@
 
 	if("checks" in params)
 		if(params["checks"] == "default")
-			pressure_checks = DEFAULT_PRESSURE_CHECKS
+			pressure_checks = pressure_checks_default
 		else
 			pressure_checks = params["checks"]
 

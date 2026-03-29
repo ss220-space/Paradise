@@ -18982,9 +18982,8 @@
 /turf/simulated/wall,
 /area/hallway/primary/central/second/north)
 "cOF" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2o{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
-	filter_type = 4;
 	name = "Фильтр Оксида Азота (NO2)";
 	on = 1;
 	target_pressure = 4500
@@ -19578,10 +19577,9 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "cSf" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
 	dir = 1;
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -22609,8 +22607,7 @@
 /turf/simulated/floor/plating,
 /area/atmos/control)
 "dqF" = (
-/obj/machinery/atmospherics/trinary/filter{
-	filter_type = "n2";
+/obj/machinery/atmospherics/trinary/filter/n2{
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -23086,7 +23083,7 @@
 	},
 /area/medical/chemistry)
 "dua" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -33585,9 +33582,8 @@
 /area/maintenance/medroom)
 "eYU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -36934,9 +36930,8 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/none{
 	dir = 8;
-	filter_type = -1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -42943,7 +42938,7 @@
 	},
 /area/aisat/aihallway)
 "gsM" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -55319,8 +55314,7 @@
 "ioW" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	id = "tox_in"
+	dir = 8
 	},
 /turf/space,
 /area/atmos)
@@ -61260,9 +61254,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "jjL" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	dir = 1;
-	filter_type = "n2";
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -63602,7 +63595,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
 "jBg" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/pl{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -67563,12 +67556,9 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/quartermaster/qm)
 "kgS" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1443;
-	icon_state = "on";
-	id = "air_in";
-	on = 1
+	frequency = 1443
 	},
 /obj/machinery/sparker{
 	id = "toxinsigniter";
@@ -75914,9 +75904,8 @@
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
 "lyd" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет их в камеру хранения";
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -77534,15 +77523,13 @@
 	},
 /area/hallway/secondary/exit)
 "lKE" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
 	dir = 1;
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
-	},
-/obj/effect/decal/warning_stripes/east,
+	}/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -97877,7 +97864,7 @@
 	},
 /area/hallway/secondary/entry/additional)
 "oOd" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	id_tag = "mix_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
@@ -127917,9 +127904,8 @@
 	},
 /area/medical/sleeper)
 "teR" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -131327,7 +131313,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "tEZ" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -132610,13 +132596,8 @@
 /turf/simulated/floor/engine,
 /area/engineering/aienter)
 "tOz" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	id_tag = "air_sensor"
-	},
-/obj/machinery/atmospherics/air_sensor{
-	frequency = 1443;
-	id_tag = "air_sensor";
-	output = 7
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -144363,7 +144344,7 @@
 	},
 /area/toxins/server)
 "vDu" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/co2{
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -144746,9 +144727,8 @@
 	},
 /area/crew_quarters/serviceyard)
 "vGw" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
@@ -146580,7 +146560,7 @@
 "vUF" = (
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
+	sensors = list("air_sensor"="Air Mix","n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
@@ -154020,7 +154000,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "wYX" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,

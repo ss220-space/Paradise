@@ -14,6 +14,8 @@ import { useState } from 'react';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
+import { GASES } from '../constants';
+import { Danger2Colour } from './common/AtmosScan';
 
 type AirAlarmData = {
   air: Air;
@@ -111,16 +113,6 @@ export const AirAlarm = (props: unknown) => {
   );
 };
 
-const Danger2Colour = (danger: number) => {
-  if (danger === 0) {
-    return 'green';
-  }
-  if (danger === 1) {
-    return 'orange';
-  }
-  return 'red';
-};
-
 const AirStatus = (_props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { air, mode, atmos_alarm, locked, alarmActivated, rcon, target_temp } =
@@ -138,6 +130,8 @@ const AirStatus = (_props: unknown) => {
   } else {
     areaStatus = 'DANGER: Internals Required';
   }
+
+  let permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
 
   return (
     <Section title="Air Status">
@@ -162,70 +156,23 @@ const AirStatus = (_props: unknown) => {
               )}
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Oxygen">
-            <ProgressBar
-              value={air.contents.oxygen / 100}
-              fractionDigits={1}
-              color={Danger2Colour(air.danger.oxygen)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Nitrogen">
-            <ProgressBar
-              value={air.contents.nitrogen / 100}
-              fractionDigits={1}
-              color={Danger2Colour(air.danger.nitrogen)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Carbon Dioxide">
-            <ProgressBar
-              value={air.contents.carbon_dioxide / 100}
-              fractionDigits={1}
-              color={Danger2Colour(air.danger.carbon_dioxide)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Toxins">
-            <ProgressBar
-              value={air.contents.plasma / 100}
-              fractionDigits={1}
-              color={Danger2Colour(air.danger.plasma)}
-            />
-          </LabeledList.Item>
-          {air.contents.nitrous_oxide > 0.1 && (
-            <LabeledList.Item label="Nitrous Oxide">
-              <ProgressBar
-                value={air.contents.nitrous_oxide / 100}
-                fractionDigits={1}
-                color={Danger2Colour(air.danger.nitrous_oxide)}
-              />
-            </LabeledList.Item>
-          )}
-          {air.contents.hydrogen > 0.1 && (
-            <LabeledList.Item label="Hydrogen">
-              <ProgressBar
-                value={air.contents.hydrogen / 100}
-                fractionDigits={1}
-                color={Danger2Colour(air.danger.hydrogen)}
-              />
-            </LabeledList.Item>
-          )}
-          {air.contents.water_vapor > 0.1 && (
-            <LabeledList.Item label="Water Vapor">
-              <ProgressBar
-                value={air.contents.water_vapor / 100}
-                fractionDigits={1}
-                color={Danger2Colour(air.danger.water_vapor)}
-              />
-            </LabeledList.Item>
-          )}
-          {air.contents.other > 0.1 && (
-            <LabeledList.Item label="Other">
-              <ProgressBar
-                value={air.contents.other / 100}
-                fractionDigits={1}
-                color={Danger2Colour(air.danger.other)}
-              />
-            </LabeledList.Item>
-          )}
+          {GASES.map((gas, id) => {
+            if (
+              gas.tlv in permanentGases ||
+              air.contents[gas.tlv] ||
+              0 >= 0.1
+            ) {
+              return (
+                <LabeledList.Item key={id} label={gas.label}>
+                  <ProgressBar
+                    value={(air.contents[gas.tlv] || 0) / 100}
+                    fractionDigits={1}
+                    color={Danger2Colour(air.danger[gas.tlv] || 0)}
+                  />
+                </LabeledList.Item>
+              );
+            } else return '';
+          })}
           <LabeledList.Item label="Temperature">
             <Box color={Danger2Colour(air.danger.temperature)}>
               <AnimatedNumber value={air.temperature} /> K /{' '}

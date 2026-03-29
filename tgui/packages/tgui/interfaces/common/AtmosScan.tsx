@@ -1,31 +1,19 @@
 import { filter } from 'common/collections';
 import { Box, LabeledList } from '../../components';
 
-const getItemColor = (
-  value: number,
-  min2: number,
-  min1: number,
-  max1: number,
-  max2: number
-) => {
-  if (value < min2) {
-    return 'bad';
-  } else if (value < min1) {
-    return 'average';
-  } else if (value > max1) {
-    return 'average';
-  } else if (value > max2) {
-    return 'bad';
+export const Danger2Colour = (danger: number) => {
+  if (danger === 0) {
+    return 'green';
   }
-  return 'good';
+  if (danger === 1) {
+    return 'orange';
+  }
+  return 'red';
 };
 
 type AirContent = {
   val: number;
-  bad_low: number;
-  poor_low: number;
-  poor_high: number;
-  bad_high: number;
+  danger: number;
   units: string;
   entry: string;
 };
@@ -48,13 +36,7 @@ export const AtmosScan = (props: AtmosScanData) => {
           <LabeledList.Item
             key={item.entry}
             label={item.entry}
-            color={getItemColor(
-              item.val,
-              item.bad_low,
-              item.poor_low,
-              item.poor_high,
-              item.bad_high
-            )}
+            color={Danger2Colour(item.danger || 0)}
           >
             {item.val}
             {item.units}

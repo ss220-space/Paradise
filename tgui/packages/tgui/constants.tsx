@@ -254,14 +254,6 @@ export const GASES = [
     scrubFlag: 1 << 4,
   },
   {
-    id: 'no2',
-    name: 'Nitrium',
-    label: 'Nitrium',
-    color: 'brown',
-    tlv: 'nitrium',
-    scrubFlag: 1 << 12,
-  },
-  {
     id: 'tritium',
     name: 'Tritium',
     label: 'Tritium',
@@ -370,19 +362,17 @@ export const GASES = [
     name: 'Agent B',
     label: 'Agent B',
     color: 'purple',
-    tlv: 'other',
+    tlv: 'agent_b',
     scrubFlag: 0,
   },
 ] as const;
-
-export const ATMOS_MACHINES = [''];
 
 // Returns gas label based on gasId
 export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
   return gas?.label || fallbackValue || gasId;
 };
@@ -392,7 +382,7 @@ export const getGasColor = (gasId: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
   return gas?.color;
 };

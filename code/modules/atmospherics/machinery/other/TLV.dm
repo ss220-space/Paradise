@@ -7,10 +7,14 @@
 	var/max2	// hazard_max
 
 /datum/tlv/New(_min2, _min1, _max1, _max2)
-	min2 = _min2
-	min1 = _min1
-	max1 = _max1
-	max2 = _max2
+	if(_min2)
+		min2 = _min2
+	if(_min1)
+		min1 = _min1
+	if(_max1)
+		min1 = _max1
+	if(_max2)
+		max2 = _max2
 
 /datum/tlv/proc/get_danger_level(curval)
 	if(max2 >= 0 && curval > max2)

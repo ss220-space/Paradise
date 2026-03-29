@@ -101,7 +101,7 @@
 	var/amount = idle_power_usage
 
 	if(scrubbing)
-		for(var/scurb, usage in gas_power_costs)
+		for(var/scrub, usage in gas_power_costs)
 			amount += usage
 	else
 		amount = active_power_usage
@@ -195,6 +195,8 @@
 		else
 			scrub |= scrub_flag
 
+	update_appearance(UPDATE_ICON)
+
 /obj/machinery/atmospherics/unary/vent_scrubber/process_atmos(seconds)
 	if(widenet)
 		check_turfs()
@@ -233,47 +235,28 @@
 
 	var/datum/milla_safe/vent_scrubber_process/milla = new()
 	milla.invoke_async(src, tile)
-/*
-#define SCRUB_CASE(bit, method) \
-	if(scrub & bit) \
-		if(environment.method() > MINIMUM_MOLE_COUNT) \
-			return TRUE
-*/
+
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/should_scrub(datum/gas_mixture/environment)
 	if(!scrubbing)
 		return FALSE
-/*
-	SCRUB_CASE(SCRUB_O2, oxygen)
-	SCRUB_CASE(SCRUB_N2, nitrogen)
-	SCRUB_CASE(SCRUB_CO2, carbon_dioxide)
-	SCRUB_CASE(SCRUB_PL, toxins)
-	SCRUB_CASE(SCRUB_N2O, sleeping_agent)
-	SCRUB_CASE(SCRUB_H2, hydrogen)
-	SCRUB_CASE(SCRUB_H2O, water_vapor)
-	SCRUB_CASE(SCRUB_TRITIUM, tritium)
-	SCRUB_CASE(SCRUB_BZ, bz)
-	SCRUB_CASE(SCRUB_PLUOXIUM, pluoxium)
-	SCRUB_CASE(SCRUB_MIASMA, miasma)
-	SCRUB_CASE(SCRUB_FREON, freon)
-	SCRUB_CASE(SCRUB_NITRIUM, nitrium)
-	SCRUB_CASE(SCRUB_HEALIUM, healium)
-	SCRUB_CASE(SCRUB_PROTO_NITRATE, proto_nitrate)
-	SCRUB_CASE(SCRUB_ZAUKER, zauker)
-	SCRUB_CASE(SCRUB_HALON, halon)
-	SCRUB_CASE(SCRUB_HELIUM, helium)
-	SCRUB_CASE(SCRUB_ANTINOBLIUM, antinoblium)
-	SCRUB_CASE(SCRUB_HYPERNOBLIUM, hyper_noblium)
-*/
+
+	var/list/mixture = environment.get_interesting()
+	var/list/gas_meta = GLOB.gas_meta
+
+	for(var/gas_key, value in mixture)
+		var/list/gas_meta_list = gas_meta[gas_key]
+		if(gas_meta_list[META_GAS_SCRUB_FLAG] & scrub)
+			if(value > MINIMUM_MOLE_COUNT)
+				return TRUE
+
 	return FALSE
-/*
-#undef SCRUB_CASE
 
 #define SCRUB_GAS_SIMPLE(bit, gas_name) \
 	if(scrub & bit) { \
 		filtered_out.set_##gas_name(removed.gas_name()); \
 		removed.set_##gas_name(0); \
 	}
-*/
+
 /datum/milla_safe/vent_scrubber_process
 
 /datum/milla_safe/vent_scrubber_process/on_run(obj/machinery/atmospherics/unary/vent_scrubber/scrubber, turf/simulated/tile)
@@ -291,12 +274,12 @@
 			if(isnull(removed)) //in space
 				return
 
-			//var/scrub = scrubber.scrub
+			var/scrub = scrubber.scrub
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
 			filtered_out.set_temperature(removed.temperature())
-/*
+
 			SCRUB_GAS_SIMPLE(SCRUB_O2, oxygen)
 			SCRUB_GAS_SIMPLE(SCRUB_N2, nitrogen)
 			SCRUB_GAS_SIMPLE(SCRUB_CO2, carbon_dioxide)
@@ -318,7 +301,7 @@
 			SCRUB_GAS_SIMPLE(SCRUB_HELIUM, helium)
 			SCRUB_GAS_SIMPLE(SCRUB_ANTINOBLIUM, antinoblium)
 			SCRUB_GAS_SIMPLE(SCRUB_HYPERNOBLIUM, hyper_noblium)
-*/
+
 			if(removed.agent_b() > 0)
 				filtered_out.set_agent_b(removed.agent_b())
 				removed.set_agent_b(0)

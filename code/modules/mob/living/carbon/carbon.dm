@@ -1037,3 +1037,22 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return ..()
+
+/**
+ * If an organ exists in the slot requested, and we are capable of taking damage (we don't have TRAIT_GODMODE), call the damage proc on that organ.
+ *
+ * Arguments:
+ * * slot - organ slot, like [ORGAN_SLOT_HEART]
+ * * amount - damage to be done
+ * * maximum - currently an arbitrarily large number, can be set so as to limit damage
+ * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOTIC
+ *
+ * Returns: The net change in damage from apply_organ_damage()
+ */
+/mob/living/carbon/adjust_organ_loss(slot, amount, maximum, affect_robotic = FALSE)
+	var/obj/item/organ/internal/affected_organ = get_organ_slot(slot)
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+	if(affect_robotic && !affected_organ.is_robotic())
+		return FALSE
+	return affected_organ.internal_receive_damage(min(amount, maximum))

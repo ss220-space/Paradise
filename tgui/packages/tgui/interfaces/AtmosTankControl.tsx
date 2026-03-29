@@ -19,6 +19,7 @@ type AtmosTankControlData = {
 };
 
 type Sensor = {
+  name: string;
   pressure: number;
   temperature: number;
 };
@@ -26,7 +27,7 @@ type Sensor = {
 export const AtmosTankControl = (props) => {
   const { data } = useBackend<AtmosTankControlData>();
 
-  let sensors_list = data.sensors || {};
+  let sensors_list = data.sensors || [];
 
   const isValidNumber = (value: unknown): value is number => {
     return typeof value === 'number' && !isNaN(value);
@@ -35,34 +36,34 @@ export const AtmosTankControl = (props) => {
   return (
     <Window width={400} height={435}>
       <Window.Content scrollable>
-        {Object.keys(sensors_list).map((s) => (
-          <Section key={s} title={s}>
+        {sensors_list.map((s, index) => (
+          <Section key={index} title={s.name}>
             <LabeledList>
-              {isValidNumber(sensors_list[s].pressure) ? (
+              {isValidNumber(s.pressure) ? (
                 <LabeledList.Item label="Pressure">
-                  {sensors_list[s].pressure} kpa
+                  {s.pressure} kpa
                 </LabeledList.Item>
               ) : (
                 ''
               )}
-              {isValidNumber(sensors_list[s].pressure) ? (
+              {isValidNumber(s.pressure) ? (
                 <LabeledList.Item label="Temperature">
-                  {sensors_list[s].temperature} K
+                  {s.temperature} K
                 </LabeledList.Item>
               ) : (
                 ''
               )}
 
               {GASES.map((g) =>
-                isValidNumber(sensors_list[s][g.tlv]) ? (
+                s[g.tlv] ? (
                   <LabeledList.Item key={g.id} label={g.label}>
                     <ProgressBar
                       color={g.color}
-                      value={sensors_list[s][g.tlv]}
+                      value={s[g.tlv]}
                       minValue={0}
                       maxValue={100}
                     >
-                      {toFixed(sensors_list[s][g.tlv], 2) + '%'}
+                      {toFixed(s[g.tlv], 2) + '%'}
                     </ProgressBar>
                   </LabeledList.Item>
                 ) : (

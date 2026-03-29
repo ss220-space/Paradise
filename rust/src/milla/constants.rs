@@ -29,19 +29,16 @@ pub(crate) const TILE_VOLUME: f32 = 2500.0;
 pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 2.0;
-pub(crate) const TRITIUM_VISIBILITY_MOLES: f32 = 0.5;
-pub(crate) const BZ_VISIBILITY_MOLES: f32 = 0.3;
-pub(crate) const FREON_VISIBILITY_MOLES: f32 = 1.0;
-pub(crate) const MIASMA_VISIBILITY_MOLES: f32 = 0.5;
-pub(crate) const PROTO_NITRATE_VISIBILITY_MOLES: f32 = 0.2;
-pub(crate) const ZAUKER_VISIBILITY_MOLES: f32 = 0.1;
-pub(crate) const HELIUM_VISIBILITY_MOLES: f32 = 2.0;
-pub(crate) const PLUOXIUM_VISIBILITY_MOLES: f32 = 0.3;
-pub(crate) const NITRIUM_VISIBILITY_MOLES: f32 = 0.2;
-pub(crate) const HEALIUM_VISIBILITY_MOLES: f32 = 0.5;
-pub(crate) const HALON_VISIBILITY_MOLES: f32 = 0.3;
-pub(crate) const HYPER_NOBLIUM_VISIBILITY_MOLES: f32 = 0.1;
-pub(crate) const ANTINOBLIUM_VISIBILITY_MOLES: f32 = 0.05;
+pub(crate) const TRITIUM_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const FREON_VISIBILITY_MOLES: f32 = 7.5;
+pub(crate) const MIASMA_VISIBILITY_MOLES: f32 = 15.0;
+pub(crate) const PROTO_NITRATE_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const ZAUKER_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const NITRIUM_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const HEALIUM_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const HALON_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const HYPER_NOBLIUM_VISIBILITY_MOLES: f32 = 0.25;
+pub(crate) const ANTINOBLIUM_VISIBILITY_MOLES: f32 = 0.25;
 
 /// How much stuff needs to react before we think hotspots and BYOND care.
 pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.1;
@@ -260,12 +257,10 @@ pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 /// Prevents weirdness from absolute-zero gas having no pressure at all.
 pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;
 
-pub(crate) const TICK_UPDATE_COOLDOWN: i32 = 20;
+pub(crate) const TICK_UPDATE_COOLDOWN: i32 = 100;
 
 pub(crate) const MINIMUM_MOLE_COUNT: f32 = 0.01;
 pub(crate) const MOLES_GAS_VISIBLE: f32 = 0.25;
-
-pub(crate) const ATMOS_RADIATION_VOLUME_EXP: f32 = 3.0;
 
 // Miasma Sterilization
 pub(crate) const MIASTER_STERILIZATION_TEMP: f32 = FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 70.0;
@@ -330,7 +325,6 @@ pub(crate) const NITRIUM_DECOMPOSITION_ENERGY: f32 = 30000.0;
 
 // Freon Formation
 pub(crate) const FREON_FORMATION_MIN_TEMPERATURE: f32 = FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 100.0;
-pub(crate) const FREON_FORMATION_ENERGY: f32 = 100.0;
 
 // Hyper-Noblium Formation
 pub(crate) const NOBLIUM_FORMATION_MIN_TEMP: f32 = TCMB;
@@ -384,7 +378,6 @@ pub(crate) const PN_BZASE_MAX_TEMP: f32 = 280.0;
 pub(crate) const PN_BZASE_ENERGY: f32 = 60000.0;
 pub(crate) const PN_BZASE_RAD_RELEASE_THRESHOLD: f32 = 60000.0;
 pub(crate) const PN_BZASE_RAD_RANGE_DIVISOR: f32 = 1.5;
-pub(crate) const PN_BZASE_RAD_THRESHOLD: f32 = 0.3;
 pub(crate) const PN_BZASE_NUCLEAR_PARTICLE_DIVISOR: f32 = 5.0;
 pub(crate) const PN_BZASE_NUCLEAR_PARTICLE_MAXIMUM: i32 = 6;
 pub(crate) const PN_BZASE_NUCLEAR_PARTICLE_RADIATION_ENERGY_CONVERSION: f32 = 2.5;
@@ -394,3 +387,7 @@ pub(crate) const ANTINOBLIUM_CONVERSION_DIVISOR: f32 = 90.0;
 pub(crate) const REACTION_OPPRESSION_MIN_TEMP: f32 = 20.0;
 
 pub(crate) const MOLAR_ACCURACY: f32 = 0.0001;
+
+pub const FREON_OPTIMAL_TEMP: f32 = 283.0;
+
+pub const MINIMUM_HEAT_CAPACITY: f32 = 0.0003;

@@ -408,50 +408,52 @@ What are the archived variables for?
 /datum/gas_mixture/proc/return_visuals(z)
 	var/list/result = list()
 	var/z_plane_offset = GET_Z_PLANE_OFFSET(z)
-	if(private_toxins > MOLES_PLASMA_VISIBLE)
+	if(private_toxins > TOXINS_MIN_VISIBILITY_MOLES)
 		result += GLOB.plmaster["[z_plane_offset]"]
 
-	if(private_sleeping_agent > 1)
+	if(private_sleeping_agent > SLEEPING_GAS_VISIBILITY_MOLES)
 		result += GLOB.slmaster["[z_plane_offset]"]
 
-	if(private_water_vapor > MOLES_WATER_VAPOR_VISIBLE)
+	if(private_water_vapor > WATER_VAPOR_VISIBILITY_MOLES)
 		result += GLOB.wvmaster["[z_plane_offset]"]
 
-	if(private_freon > MOLES_GAS_VISIBLE * 30)  // moles_visible = MOLES_GAS_VISIBLE * 30
+	if(private_freon > FREON_VISIBILITY_MOLES)
 		result += GLOB.frmaster["[z_plane_offset]"]
 
-	if(private_nitrium > MOLES_GAS_VISIBLE)
+	if(private_nitrium > NITRIUM_VISIBILITY_MOLES)
 		result += GLOB.nitmaster["[z_plane_offset]"]
 
-	if(private_tritium > MOLES_GAS_VISIBLE)
+	if(private_tritium > TRITIUM_VISIBILITY_MOLES)
 		result += GLOB.trmaster["[z_plane_offset]"]
 
-	if(private_miasma > MOLES_GAS_VISIBLE * 60)  // moles_visible = MOLES_GAS_VISIBLE * 60
+	if(private_miasma > MIASMA_VISIBILITY_MOLES)
 		result += GLOB.mimaster["[z_plane_offset]"]
 
-	if(private_healium > MOLES_GAS_VISIBLE)
+	if(private_healium > HEALIUM_VISIBILITY_MOLES)
 		result += GLOB.hemaster["[z_plane_offset]"]
 
-	if(private_proto_nitrate > MOLES_GAS_VISIBLE)
+	if(private_proto_nitrate > PROTO_NITRATE_VISIBILITY_MOLES)
 		result += GLOB.pnmaster["[z_plane_offset]"]
 
-	if(private_zauker > MOLES_GAS_VISIBLE)
+	if(private_zauker > ZAUKER_VISIBILITY_MOLES)
 		result += GLOB.zamaster["[z_plane_offset]"]
 
-	if(private_halon > MOLES_GAS_VISIBLE)
+	if(private_halon > HALON_VISIBILITY_MOLES)
 		result += GLOB.hamaster["[z_plane_offset]"]
 
-	if(private_antinoblium > MOLES_GAS_VISIBLE)
+	if(private_antinoblium > ANTINOBLIUM_VISIBILITY_MOLES)
 		result += GLOB.antmaster["[z_plane_offset]"]
 
-	if(private_hyper_noblium > MOLES_GAS_VISIBLE)
+	if(private_hyper_noblium >HYPER_NOBLIUM_VISIBILITY_MOLES)
 		result += GLOB.frmaster["[z_plane_offset]"]
+
 	return result
 
 //Procedures used for very specific events
 
 /datum/gas_mixture/proc/react(atom/dump_location)
 	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
+	// ==================== Agent B Conversion ====================
 	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > AGENT_B_CONVERSION_MIN_TEMP)
 		if(private_toxins > MINIMUM_HEAT_CAPACITY && private_carbon_dioxide > MINIMUM_HEAT_CAPACITY)
 			var/reaction_rate = min(private_carbon_dioxide * 0.75, private_toxins * 0.25, private_agent_b * 0.05)
@@ -464,6 +466,306 @@ What are the archived variables for?
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 			reacting = TRUE
+
+	// ==================== Nitrium Decomposition ====================
+	if(private_oxygen > MINIMUM_MOLE_COUNT && private_nitrium > MINIMUM_MOLE_COUNT && private_temperature <= NITRIUM_DECOMPOSITION_MAX_TEMP)
+		var/heat_efficiency = min(private_temperature / NITRIUM_DECOMPOSITION_TEMP_DIVISOR, private_nitrium)
+		if(heat_efficiency > 0)
+			var/old_heat_capacity = heat_capacity()
+			private_nitrium -= heat_efficiency
+			private_hydrogen += heat_efficiency
+			private_nitrogen += heat_efficiency
+			var/energy_released = heat_efficiency * NITRIUM_DECOMPOSITION_ENERGY
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+	// ==================== Halon Oxygen Absorption ====================
+	if(private_halon > MINIMUM_MOLE_COUNT && private_oxygen > MINIMUM_MOLE_COUNT && private_temperature >= HALON_COMBUSTION_MIN_TEMPERATURE)
+		var/heat_efficiency = min(private_temperature / HALON_COMBUSTION_TEMPERATURE_SCALE, private_halon, private_oxygen * INVERSE(20))
+		if(heat_efficiency > 0)
+			var/old_heat_capacity = heat_capacity()
+			private_halon -= heat_efficiency
+			private_oxygen -= heat_efficiency * 20
+			private_pluoxium += heat_efficiency * 2.5
+			var/energy_used = heat_efficiency * HALON_COMBUSTION_ENERGY
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity - energy_used) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+	// ==================== Proto-Nitrate Hydrogen Response ====================
+	if(private_proto_nitrate > MINIMUM_MOLE_COUNT && private_hydrogen >= PN_HYDROGEN_CONVERSION_THRESHOLD)
+		var/produced_amount = min(PN_HYDROGEN_CONVERSION_MAX_RATE, private_hydrogen, private_proto_nitrate)
+		if(produced_amount > 0)
+			var/old_heat_capacity = heat_capacity()
+			private_hydrogen -= produced_amount
+			private_proto_nitrate += produced_amount * 0.5
+			var/energy_used = produced_amount * PN_HYDROGEN_CONVERSION_ENERGY
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity - energy_used) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+	// ==================== Proto-Nitrate Tritium Response ====================
+	if(private_proto_nitrate > MINIMUM_MOLE_COUNT && private_tritium > MINIMUM_MOLE_COUNT)
+		if(private_temperature >= PN_TRITIUM_CONVERSION_MIN_TEMP && private_temperature <= PN_TRITIUM_CONVERSION_MAX_TEMP)
+			var/produced_amount = min(private_temperature / 34 * (private_tritium * private_proto_nitrate) / (private_tritium + 10 * private_proto_nitrate), private_tritium, private_proto_nitrate * INVERSE(0.01))
+			if(produced_amount > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_proto_nitrate -= produced_amount * 0.01
+				private_tritium -= produced_amount
+				private_hydrogen += produced_amount
+				var/energy_released = produced_amount * PN_TRITIUM_CONVERSION_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== Proto-Nitrate BZ Response ====================
+	if(private_proto_nitrate > MINIMUM_MOLE_COUNT && private_bz > MINIMUM_MOLE_COUNT)
+		if(private_temperature >= PN_BZASE_MIN_TEMP && private_temperature <= PN_BZASE_MAX_TEMP)
+			var/consumed_amount = min(private_temperature / 2240 * private_bz * private_proto_nitrate / (private_bz + private_proto_nitrate), private_bz, private_proto_nitrate)
+			if(consumed_amount > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_bz -= consumed_amount
+				private_nitrogen += consumed_amount * 0.4
+				private_helium += consumed_amount * 1.6
+				private_toxins += consumed_amount * 0.8
+				var/energy_released = consumed_amount * PN_BZASE_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== N2O Formation ====================
+	if(private_oxygen >= 10 && private_nitrogen >= 20 && private_bz >= 5)
+		if(private_temperature >= N2O_FORMATION_MIN_TEMPERATURE && private_temperature <= N2O_FORMATION_MAX_TEMPERATURE)
+			var/heat_efficiency = min(private_oxygen * 2, private_nitrogen)
+			if(heat_efficiency > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_oxygen -= heat_efficiency * 0.5
+				private_nitrogen -= heat_efficiency
+				private_sleeping_agent += heat_efficiency
+				var/energy_released = heat_efficiency * N2O_FORMATION_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== BZ Formation ====================
+	if(private_sleeping_agent >= 10 && private_toxins >= 10 && private_temperature <= BZ_FORMATION_MAX_TEMPERATURE)
+		var/pressure = return_pressure()
+		var/environment_effciency = volume / pressure
+		var/ratio_efficency = min(private_sleeping_agent / private_toxins, 1)
+		var/nitrous_oxide_decomposed_factor = max(4 * (private_toxins / (private_sleeping_agent + private_toxins) - 0.75), 0)
+		var/bz_formed = min(0.01 * ratio_efficency * environment_effciency, private_sleeping_agent * INVERSE(0.4), private_toxins * INVERSE(0.8 * (1 - nitrous_oxide_decomposed_factor)))
+		if(bz_formed > 0 && private_sleeping_agent - bz_formed * 0.4 >= 0 && private_toxins - 0.8 * bz_formed * (1 - nitrous_oxide_decomposed_factor) >= 0)
+			var/old_heat_capacity = heat_capacity()
+			if(nitrous_oxide_decomposed_factor > 0)
+				var/amount_decomposed = 0.4 * bz_formed * nitrous_oxide_decomposed_factor
+				private_nitrogen += amount_decomposed
+				private_oxygen += 0.5 * amount_decomposed
+			private_bz += bz_formed * (1 - nitrous_oxide_decomposed_factor)
+			private_sleeping_agent -= 0.4 * bz_formed
+			private_toxins -= 0.8 * bz_formed * (1 - nitrous_oxide_decomposed_factor)
+			var/energy_released = bz_formed * (BZ_FORMATION_ENERGY + nitrous_oxide_decomposed_factor * (N2O_DECOMPOSITION_ENERGY - BZ_FORMATION_ENERGY))
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+	// ==================== Pluoxium Formation ====================
+	if(private_carbon_dioxide > MINIMUM_MOLE_COUNT && private_oxygen > MINIMUM_MOLE_COUNT && private_tritium > MINIMUM_MOLE_COUNT)
+		if(private_temperature >= PLUOXIUM_FORMATION_MIN_TEMP && private_temperature <= PLUOXIUM_FORMATION_MAX_TEMP)
+			var/produced_amount = min(PLUOXIUM_FORMATION_MAX_RATE, private_carbon_dioxide, private_oxygen * INVERSE(0.5), private_tritium * INVERSE(0.01))
+			if(produced_amount > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_carbon_dioxide -= produced_amount
+				private_oxygen -= produced_amount * 0.5
+				private_tritium -= produced_amount * 0.01
+				private_pluoxium += produced_amount
+				private_hydrogen += produced_amount * 0.01
+				var/energy_released = produced_amount * PLUOXIUM_FORMATION_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== Nitrium Formation ====================
+	if(private_tritium >= 20 && private_nitrogen >= 10 && private_bz >= 5 && private_temperature >= NITRIUM_FORMATION_MIN_TEMP)
+		var/heat_efficiency = min(private_temperature / NITRIUM_FORMATION_TEMP_DIVISOR, private_tritium, private_nitrogen, private_bz * INVERSE(0.05))
+		if(heat_efficiency > 0)
+			var/old_heat_capacity = heat_capacity()
+			private_tritium -= heat_efficiency
+			private_nitrogen -= heat_efficiency
+			private_bz -= heat_efficiency * 0.05
+			private_nitrium += heat_efficiency
+			var/energy_used = heat_efficiency * NITRIUM_FORMATION_ENERGY
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity - energy_used) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+
+	// ==================== Freon Formation ====================
+	if(private_toxins >= MINIMUM_MOLE_COUNT * 6 && private_carbon_dioxide >= MINIMUM_MOLE_COUNT * 3 && private_bz >= MINIMUM_MOLE_COUNT && private_temperature >= FREON_FORMATION_MIN_TEMPERATURE)
+		var/minimal_mole_factor = min(private_toxins * INVERSE(0.6), private_bz * INVERSE(0.1), private_carbon_dioxide * INVERSE(0.3))
+		var/equation_first_part = NUM_E ** (-(((private_temperature - 800) / 200) ** 2))
+		var/equation_second_part = 3 / (1 + NUM_E ** (-0.001 * (private_temperature - 6000)))
+		var/heat_factor = equation_first_part + equation_second_part
+		var/freon_formed = min(heat_factor * minimal_mole_factor * 0.05, private_toxins * INVERSE(0.6), private_carbon_dioxide * INVERSE(0.3), private_bz * INVERSE(0.1))
+		if(freon_formed > 0)
+			var/old_heat_capacity = heat_capacity()
+			private_toxins -= freon_formed * 0.6
+			private_carbon_dioxide -= freon_formed * 0.3
+			private_bz -= freon_formed * 0.1
+			private_freon += freon_formed
+			var/energy_consumed = (7000 / (1 + NUM_E ** (-0.0015 * (private_temperature - 6000))) + 1000) * freon_formed * 0.1
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity - energy_consumed) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+	// ==================== Hyper-Noblium Formation ====================
+	if(private_nitrogen >= 10 && private_tritium >= 5)
+		if(private_temperature >= NOBLIUM_FORMATION_MIN_TEMP && private_temperature <= NOBLIUM_FORMATION_MAX_TEMP)
+			var/reduction_factor = clamp(private_tritium / (private_tritium + private_bz), 0.001, 1)
+			var/nob_formed = min((private_nitrogen + private_tritium) * 0.01, private_tritium * INVERSE(5 * reduction_factor), private_nitrogen * INVERSE(10))
+			if(QUANTIZE(nob_formed) > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_tritium -= 5 * nob_formed * reduction_factor
+				private_nitrogen -= 10 * nob_formed
+				private_hyper_noblium += nob_formed
+				var/energy_released = nob_formed * NOBLIUM_FORMATION_ENERGY / max(private_bz, 1)
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== Healium Formation ====================
+	if(private_bz > MINIMUM_MOLE_COUNT && private_freon > MINIMUM_MOLE_COUNT)
+		if(private_temperature >= HEALIUM_FORMATION_MIN_TEMP && private_temperature <= HEALIUM_FORMATION_MAX_TEMP)
+			var/heat_efficiency = min(private_temperature * 0.3, private_freon * INVERSE(2.75), private_bz * INVERSE(0.25))
+			if(heat_efficiency > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_freon -= heat_efficiency * 2.75
+				private_bz -= heat_efficiency * 0.25
+				private_healium += heat_efficiency * 3
+				var/energy_released = heat_efficiency * HEALIUM_FORMATION_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== Zauker Formation ====================
+	if(private_hyper_noblium > MINIMUM_MOLE_COUNT && private_nitrium > MINIMUM_MOLE_COUNT)
+		if(private_temperature >= ZAUKER_FORMATION_MIN_TEMPERATURE && private_temperature <= ZAUKER_FORMATION_MAX_TEMPERATURE)
+			var/heat_efficiency = min(private_temperature * ZAUKER_FORMATION_TEMPERATURE_SCALE, private_hyper_noblium * INVERSE(0.01), private_nitrium * INVERSE(0.5))
+			if(heat_efficiency > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_hyper_noblium -= heat_efficiency * 0.01
+				private_nitrium -= heat_efficiency * 0.5
+				private_zauker += heat_efficiency * 0.5
+				var/energy_used = heat_efficiency * ZAUKER_FORMATION_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity - energy_used) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+	// ==================== Proto-Nitrate Formation ====================
+	if(private_pluoxium > MINIMUM_MOLE_COUNT && private_hydrogen > MINIMUM_MOLE_COUNT)
+		if(private_temperature >= PN_FORMATION_MIN_TEMPERATURE && private_temperature <= PN_FORMATION_MAX_TEMPERATURE)
+			var/heat_efficiency = min(private_temperature * 0.005, private_pluoxium * INVERSE(0.2), private_hydrogen * INVERSE(2))
+			if(heat_efficiency > 0)
+				var/old_heat_capacity = heat_capacity()
+				private_hydrogen -= heat_efficiency * 2
+				private_pluoxium -= heat_efficiency * 0.2
+				private_proto_nitrate += heat_efficiency * 2.2
+				var/energy_released = heat_efficiency * PN_FORMATION_ENERGY
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
+
+#define REACT_GAS(gas) \
+var/##gas = private_##gas; \
+if(##gas) \
+    private_##gas = ##gas - (reaction_rate * ##gas / total_not_antinoblium_moles)
+
+	// ==================== Antinoblium Replication ====================
+	if(private_antinoblium >= MOLES_GAS_VISIBLE && private_temperature >= REACTION_OPPRESSION_MIN_TEMP)
+		var/heat_capacity_before = heat_capacity()
+		var/total_moles_before = total_moles()
+		var/antinoblium_moles = private_antinoblium
+		var/total_not_antinoblium_moles = total_moles_before - antinoblium_moles
+		var/reaction_rate = min(antinoblium_moles / ANTINOBLIUM_CONVERSION_DIVISOR, total_not_antinoblium_moles)
+		
+		if(total_not_antinoblium_moles < MINIMUM_MOLE_COUNT)
+			reaction_rate = total_not_antinoblium_moles
+			private_agent_b = 0
+			private_oxygen= 0
+			private_carbon_dioxide = 0
+			private_nitrogen = 0
+			private_toxins = 0
+			private_sleeping_agent = 0
+			private_hydrogen = 0
+			private_water_vapor = 0
+			private_tritium = 0
+			private_bz = 0
+			private_pluoxium = 0
+			private_miasma = 0
+			private_freon = 0
+			private_nitrium = 0
+			private_healium = 0
+			private_proto_nitrate = 0
+			private_zauker = 0
+			private_halon = 0
+			private_helium = 0
+			private_hyper_noblium = 0
+		else
+			REACT_GAS(agent_b)
+			REACT_GAS(oxygen)
+			REACT_GAS(carbon_dioxide)
+			REACT_GAS(nitrogen)
+			REACT_GAS(toxins)
+			REACT_GAS(sleeping_agent)
+			REACT_GAS(hydrogen)
+			REACT_GAS(water_vapor)
+			REACT_GAS(tritium)
+			REACT_GAS(bz)
+			REACT_GAS(pluoxium)
+			REACT_GAS(miasma)
+			REACT_GAS(freon)
+			REACT_GAS(nitrium)
+			REACT_GAS(healium)
+			REACT_GAS(proto_nitrate)
+			REACT_GAS(zauker)
+			REACT_GAS(halon)
+			REACT_GAS(helium)
+			REACT_GAS(hyper_noblium)
+		
+		private_antinoblium += reaction_rate
+		var/new_heat_capacity = heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			private_temperature = max(private_temperature * heat_capacity_before / new_heat_capacity, TCMB)
+		reacting = TRUE
+
+#undef REACT_GAS
+
+	// ==================== Miasma Sterilization ====================
+	if(private_miasma > MINIMUM_MOLE_COUNT && private_temperature > MIASTER_STERILIZATION_TEMP)
+		var/humidity = private_water_vapor / total_moles()
+		if(humidity <= MIASTER_STERILIZATION_MAX_HUMIDITY)
+			var/cleaned_air = min(private_miasma, MIASTER_STERILIZATION_RATE_BASE + (private_temperature - MIASTER_STERILIZATION_TEMP) / MIASTER_STERILIZATION_RATE_SCALE)
+			private_miasma -= cleaned_air
+			private_oxygen += cleaned_air
+			private_temperature += cleaned_air * MIASTER_STERILIZATION_ENERGY
+			reacting = TRUE
+
+	// ==================== N2O Decomposition ====================
 	if((private_sleeping_agent > MINIMUM_MOLE_COUNT) && private_temperature > N2O_DECOMPOSITION_MIN_ENERGY)
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
@@ -479,8 +781,24 @@ What are the archived variables for?
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 			reacting = TRUE
+
+	// ==================== Zauker Decomposition ====================
+	if(private_nitrogen > MINIMUM_MOLE_COUNT && private_zauker > MINIMUM_MOLE_COUNT)
+		var/burned_fuel = min(ZAUKER_DECOMPOSITION_MAX_RATE, private_nitrogen, private_zauker)
+		if(burned_fuel > 0)
+			var/old_heat_capacity = heat_capacity()
+			private_zauker -= burned_fuel
+			private_oxygen += burned_fuel * 0.3
+			private_nitrogen += burned_fuel * 0.7
+			var/energy_released = ZAUKER_DECOMPOSITION_ENERGY * burned_fuel
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = max((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
+			reacting = TRUE
+
+
 	fuel_burnt = 0
-	//Handle plasma burning
+	// ==================== Plasma Fire ====================
 	if((private_toxins > MINIMUM_MOLE_COUNT) && (private_oxygen > MINIMUM_MOLE_COUNT) && private_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
@@ -512,8 +830,8 @@ What are the archived variables for?
 		if(fuel_burnt)
 			reacting = TRUE
 
-		// handles hydrogen burning
-	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > HYDROGEN_MIN_IGNITE_TEMP)
+	// ==================== Hydrogen Burning ====================
+	if((private_hydrogen >= MINIMUM_MOLE_COUNT) && (private_oxygen >= MINIMUM_MOLE_COUNT) && private_temperature > HYDROGEN_MIN_IGNITE_TEMP)
 		// Calculate the reaction rate based on temperature and pressure
 		var/reaction_rate = (private_temperature / (private_temperature + 2000)) * (return_pressure() / (return_pressure() + 100))
 		// Burn a portion of our hydrogen equal to reaction_rate, but no more than we have or have oxygen for.
@@ -540,8 +858,52 @@ What are the archived variables for?
 		if(fuel_burnt)
 			reacting = TRUE
 
+	// ==================== Tritium Fire ====================
+	if(private_tritium > MINIMUM_MOLE_COUNT && private_oxygen > MINIMUM_MOLE_COUNT && private_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE)
+		var/old_heat_capacity = heat_capacity()
+		var/burned_fuel = min(private_tritium / FIRE_TRITIUM_BURN_RATE_DELTA, private_oxygen / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN), private_tritium, private_oxygen * 2)
+		if(burned_fuel > 0 && private_tritium - burned_fuel >= 0 && private_oxygen - burned_fuel * 0.5 >= 0)
+			private_tritium -= burned_fuel
+			private_oxygen -= burned_fuel * 0.5
+			private_water_vapor += burned_fuel
+			var/energy_released = FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
+			if(energy_released > 0)
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+			reacting = TRUE
+
+	// ==================== Freon Fire ====================
+	if(private_oxygen > MINIMUM_MOLE_COUNT && private_freon > MINIMUM_MOLE_COUNT && private_temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+		var/temperature_scale = 0
+		if(private_temperature < FREON_TERMINAL_TEMPERATURE)
+			temperature_scale = 0
+		else if(private_temperature < FREON_LOWER_TEMPERATURE)
+			temperature_scale = 0.5
+		else
+			temperature_scale = (FREON_MAXIMUM_BURN_TEMPERATURE - private_temperature) / (FREON_MAXIMUM_BURN_TEMPERATURE - FREON_TERMINAL_TEMPERATURE)
+		if(temperature_scale > 0)
+			var/oxygen_burn_ratio = OXYGEN_BURN_RATIO_BASE - temperature_scale
+			var/freon_burn_rate
+			if(private_oxygen < private_freon * FREON_OXYGEN_FULLBURN)
+				freon_burn_rate = ((private_oxygen / FREON_OXYGEN_FULLBURN) / FREON_BURN_RATE_DELTA) * temperature_scale
+			else
+				freon_burn_rate = (private_freon / FREON_BURN_RATE_DELTA) * temperature_scale
+			if(freon_burn_rate >= MINIMUM_HEAT_CAPACITY)
+				var/old_heat_capacity = heat_capacity()
+				freon_burn_rate = min(freon_burn_rate, private_freon, private_oxygen / oxygen_burn_ratio)
+				private_freon = QUANTIZE(private_freon - freon_burn_rate)
+				private_oxygen = QUANTIZE(private_oxygen - (freon_burn_rate * oxygen_burn_ratio))
+				private_carbon_dioxide += freon_burn_rate
+				var/energy_consumed = FIRE_FREON_ENERGY_CONSUMED * freon_burn_rate
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = max((private_temperature * old_heat_capacity - energy_consumed) / new_heat_capacity, TCMB)
+				reacting = TRUE
+
 	set_dirty()
 	return reacting
+
 
 /datum/gas_mixture/proc/archive()
 	private_oxygen_archived = private_oxygen
@@ -757,6 +1119,61 @@ What are the archived variables for?
 	set_dirty()
 
 	return TRUE
+
+#define ADD_GAS_IF_EXISTS(gas_var, tlv_const) \
+	if(gas_var) \
+		result[tlv_const] = gas_var
+
+/datum/gas_mixture/proc/get_interesting()
+	var/list/result = list()
+
+	var/oxygen = private_oxygen
+	var/nitrogen = private_nitrogen
+	var/toxins = private_toxins
+	var/carbon_dioxide = private_carbon_dioxide
+	var/sleeping_agent = private_sleeping_agent
+	var/hydrogen = private_hydrogen
+	var/water_vapor = private_water_vapor
+	var/agent_b = private_agent_b
+	var/tritium = private_tritium
+	var/bz = private_bz
+	var/pluoxium = private_pluoxium
+	var/miasma = private_miasma
+	var/freon = private_freon
+	var/nitrium = private_nitrium
+	var/healium = private_healium
+	var/proto_nitrate = private_proto_nitrate
+	var/zauker = private_zauker
+	var/halon = private_halon
+	var/helium = private_helium
+	var/antinoblium = private_antinoblium
+	var/hyper_noblium = private_hyper_noblium
+
+	ADD_GAS_IF_EXISTS(oxygen, TLV_O2)
+	ADD_GAS_IF_EXISTS(nitrogen, TLV_N2)
+	ADD_GAS_IF_EXISTS(toxins, TLV_PL)
+	ADD_GAS_IF_EXISTS(carbon_dioxide, TLV_CO2)
+	ADD_GAS_IF_EXISTS(sleeping_agent, TLV_N2O)
+	ADD_GAS_IF_EXISTS(hydrogen, TLV_H2)
+	ADD_GAS_IF_EXISTS(water_vapor, TLV_H2O)
+	ADD_GAS_IF_EXISTS(agent_b, TLV_AGENT_B)
+	ADD_GAS_IF_EXISTS(tritium, TLV_TRITIUM)
+	ADD_GAS_IF_EXISTS(bz, TLV_BZ)
+	ADD_GAS_IF_EXISTS(pluoxium, TLV_PLUOXIUM)
+	ADD_GAS_IF_EXISTS(miasma, TLV_MIASMA)
+	ADD_GAS_IF_EXISTS(freon, TLV_FREON)
+	ADD_GAS_IF_EXISTS(nitrium, TLV_NITRIUM)
+	ADD_GAS_IF_EXISTS(healium, TLV_HEALIUM)
+	ADD_GAS_IF_EXISTS(proto_nitrate, TLV_PROTO_NITRATE)
+	ADD_GAS_IF_EXISTS(zauker, TLV_ZAUKER)
+	ADD_GAS_IF_EXISTS(halon, TLV_HALON)
+	ADD_GAS_IF_EXISTS(helium, TLV_HELIUM)
+	ADD_GAS_IF_EXISTS(antinoblium, TLV_ANTINOBLIUM)
+	ADD_GAS_IF_EXISTS(hyper_noblium, TLV_HYPERNOBLIUM)
+
+	return result
+
+#undef ADD_GAS_IF_EXISTS
 
 //Takes the amount of the gas you want to PP as an argument
 //So I don't have to do some hacky switches/defines/magic strings
