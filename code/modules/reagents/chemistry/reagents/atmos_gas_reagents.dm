@@ -75,7 +75,6 @@
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE)
 
 /datum/reagent/nitrium_high_metabolization/on_mob_life(mob/living/carbon/breather)
-	var/metabolization_rate = src.metabolization_rate
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= breather.adjustStaminaLoss(-4 * REM , updating_health = FALSE)
 	update_flags |= breather.adjustToxLoss(0.1 * (current_cycle - 1) * REM , updating_health = FALSE) // 1 toxin damage per cycle at cycle 10
