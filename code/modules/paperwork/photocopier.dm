@@ -58,7 +58,7 @@
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
 					форм, обратитесь в Отдел\
-					стандартизации \"Нанотрейзен\"."
+					стандартизации \"НаноТрейзен\"."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
@@ -80,7 +80,7 @@
 	insert_anim = "syndiebigscanner_work"
 	info_box = "При использовании любой из данных форм,\
 				обратите внимание на все пункты снизу. \
-				Синдикат напоминает, что в ваших же интересах \
+				\"Синдикат\" напоминает, что в ваших же интересах \
 				соблюдать данные указания."
 	ui_theme = "syndicate"
 
@@ -712,7 +712,7 @@
 		visible_message(span_notice("[DECLENT_RU_CAP(copymob, NOMINATIVE)] сталкива[PLUR_ET_YUT(user)] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
-	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
+	atom_say("Внимание: На стеклянной платформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
 	return TRUE
 
