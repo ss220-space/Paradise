@@ -356,11 +356,11 @@
 	generation = !generation
 
 	if(generation)
-		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation enabled.")]")
+		to_chat(chassis.occupant, "[get_examine_icon(chassis.occupant)][span_warning("Power generation enabled.")]")
 		START_PROCESSING(SSobj, src)
 		return
 
-	to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation disabled.")]")
+	to_chat(chassis.occupant, "[get_examine_icon(chassis.occupant)][span_warning("Power generation disabled.")]")
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/get_snowflake_data()

@@ -71,7 +71,7 @@
 		return
 
 	if(!primed)
-		audible_message(span_warning("[icon2html(src, hearers(user))] *beep* *beep* *beep*"))
+		audible_message(span_warning("[get_examine_icon(hearers(user))] *beep* *beep* *beep*"))
 		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, span_danger("That's no pizza! That's a bomb!"))
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at [ADMIN_COORDJMP(loc)].")
@@ -82,7 +82,7 @@
 
 /obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
-		visible_message(span_danger("[icon2html(src, viewers(loc))] Sparks briefly jump out of the [correct_wire] wire on  [src], but it's disarmed!"))
+		visible_message(span_danger("[get_examine_icon(viewers(loc))] Sparks briefly jump out of the [correct_wire] wire on  [src], but it's disarmed!"))
 		return
 	atom_say("Наслаждайтесь пиццей!")
 	visible_message(span_userdanger(" [src] violently explodes!"))
@@ -122,7 +122,7 @@
 		to_chat(user, span_userdanger("WRONG WIRE!!!"))
 		go_boom()
 		return .
-	audible_message(span_warning("[icon2html(src, hearers(loc))] The [name] suddenly stops beeping and seems lifeless."))
+	audible_message(span_warning("[get_examine_icon(hearers(loc))] The [name] suddenly stops beeping and seems lifeless."))
 	to_chat(user, span_notice("You did it!"))
 	disarmed = TRUE
 	primed = FALSE

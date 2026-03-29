@@ -1,3 +1,24 @@
+/mob/living/carbon/human/get_examine_name(mob/user)
+	var/displayed_species = get_visible_species()
+	var/examine_color = dna.species.flesh_color
+	var/skipjumpsuit = FALSE
+	var/skipface = FALSE
+
+	//exosuits and helmets obscure our view and stuff.
+	if(wear_suit)
+		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
+
+	if(head)
+		skipface = head.flags_inv & HIDENAME
+
+	if(wear_mask)
+		skipface |= wear_mask.flags_inv & HIDENAME
+
+	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
+		return ..() //omit the species when examining
+	else
+		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
+
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0
 	var/skipsuitstorage = 0
@@ -28,66 +49,7 @@
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
-	var/msg = "Это <em>[name]</em>"
-
-	var/displayed_species = get_visible_species()
-	var/examine_color = dna.species.flesh_color
-	var/ru_species = list(
-		SPECIES_ABDUCTOR = "абдуктор",
-		SPECIES_DIONA = "диона",
-		SPECIES_DRASK = "драск",
-		SPECIES_GOLEM_BASIC = "голем",
-		SPECIES_GOLEM_RANDOM = "случайный голем",
-		SPECIES_GOLEM_ADAMANTINE = "адамантиновый голем",
-		SPECIES_GOLEM_PLASMA = "плазменный голем",
-		SPECIES_GOLEM_DIAMOND = "алмазный голем",
-		SPECIES_GOLEM_GOLD = "золотой голем",
-		SPECIES_GOLEM_SILVER = "серебряный голем",
-		SPECIES_GOLEM_PLASTEEL = "пласталевый голем",
-		SPECIES_GOLEM_TITANIUM = "титановый голем",
-		SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
-		SPECIES_GOLEM_ALLOY = "голем из инопланетных сплавов",
-		SPECIES_GOLEM_WOOD = "деревянный голем",
-		SPECIES_GOLEM_URANIUM = "урановый голем",
-		SPECIES_GOLEM_PLASTIC = "пластиковый голем",
-		SPECIES_GOLEM_SAND = "песчаный голем",
-		SPECIES_GOLEM_GLASS = "стеклянный голем",
-		SPECIES_GOLEM_BLUESPACE = "блюспейс-голем",
-		SPECIES_GOLEM_BANANIUM = "бананиевый голем",
-		SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
-		SPECIES_GOLEM_CLOCKWORK = "латунный голем",
-		SPECIES_GREY = "серый",
-		SPECIES_HUMAN = "человек",
-		SPECIES_KIDAN = "кидан",
-		SPECIES_MACNINEPERSON = "КПБ",
-		SPECIES_MONKEY = "шимпанзе",
-		SPECIES_FARWA = "фарва",
-		SPECIES_WOLPIN = "вульпин",
-		SPECIES_NEARA = "неара",
-		SPECIES_STOK = "сток",
-		SPECIES_MOTH = "ниан",
-		SPECIES_NUCLEATION = "нуклеация",
-		SPECIES_PLASMAMAN = "плазмолюд",
-		SPECIES_SHADOW_BASIC = "тень",
-		SPECIES_SHADOWLING = "тенеморф",
-		SPECIES_LESSER_SHADOWLING = "низший тенеморф",
-		SPECIES_SKELETON = "скелет",
-		SPECIES_SKRELL = "скрелл",
-		SPECIES_SLIMEPERSON = "слаймолюд",
-		SPECIES_TAJARAN = "таяран",
-		SPECIES_UNATHI = "унати",
-		SPECIES_ASHWALKER_BASIC = "пеплоходец",
-		SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
-		SPECIES_DRACONOID = "драконид",
-		SPECIES_VOX = "вокс",
-		SPECIES_VOX_ARMALIS = "вокс армалис",
-		SPECIES_VULPKANIN = "вульпканин",
-		SPECIES_WRYN = "врин"
-	)
-	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		msg += ".\n"    //omit the species when examining
-	else
-		msg += ",<b><font color='[examine_color]'> [ru_species[displayed_species]]</font></b>.\n"
+	var/msg = ""
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))

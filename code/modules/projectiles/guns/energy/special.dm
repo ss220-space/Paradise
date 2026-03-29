@@ -240,7 +240,7 @@
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("Заряд [icon2html(src, user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
+		. += span_notice("Заряд [get_examine_icon(user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
 
 /obj/item/gun/energy/plasmacutter/get_heat()
 	return 3800

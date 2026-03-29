@@ -33,7 +33,7 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message(span_danger("[victim] sets off [icon2html(src, viewers(src))] [src]!"))
+	visible_message(span_danger("[victim] sets off [get_examine_icon(viewers(src))] [src]!"))
 	do_sparks(3, TRUE, src)
 	mineEffect(victim)
 	triggered = 1

@@ -319,7 +319,7 @@
 					safe_thing = victim.wear_mask
 				if(isclothing(victim.wear_mask))
 					var/obj/item/clothing/cloth = victim.wear_mask
-					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+					if(cloth.clothing_flags & PEPPERPROOF)
 						mouth_covered = TRUE
 						eyes_covered = TRUE
 						safe_thing = victim.wear_mask
@@ -332,7 +332,7 @@
 					safe_thing = victim.head
 				if(isclothing(victim.head))
 					var/obj/item/clothing/cloth = victim.head
-					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+					if(cloth.clothing_flags & PEPPERPROOF)
 						mouth_covered = TRUE
 						eyes_covered = TRUE
 						safe_thing = victim.head

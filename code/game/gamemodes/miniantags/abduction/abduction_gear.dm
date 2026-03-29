@@ -420,7 +420,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "wonderprod"
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
-	affect_cyborgs = TRUE
+	affect_cyborg = TRUE
 	affect_bots = TRUE
 	cooldown = 0 SECONDS
 	stamina_damage = 0
@@ -458,7 +458,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/is_stun_mode = (mode == BATON_STUN)
 	var/is_stun_or_sleep = (mode == BATON_STUN) || (mode == BATON_SLEEP)
 
-	affect_cyborgs = is_stun_mode
+	affect_cyborg = is_stun_mode
 	affect_bots = is_stun_mode
 	log_stun_attack = is_stun_mode // other modes have their own log entries.
 	skip_harm_attack = !is_stun_or_sleep
@@ -851,7 +851,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	)
 
 /obj/item/reagent_containers/applicator/abductor/industrial //пока виталя не отрефакторил менднеры будет находиться в абдукторсих итемах ибо тут код по лучше
-	name = "industrial auto-mender" 
+	name = "industrial auto-mender"
 	desc = "Прототип улучшенного авто-мендера, созданного компанией \"Вита-пром\" как альтернатива стандартным мендерам \"Нанотрейзен\". \
 	Обладает увеличенным объёмом хранилища веществ и возможностью пробивать плотные материалы. Не попал в серийное производство из-за сложности и дороговизны, но всё ещё встречается на рынке в качестве единичных экземплеров."
 	volume = 500
@@ -859,7 +859,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
-	
+
 	emagged = FALSE
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()

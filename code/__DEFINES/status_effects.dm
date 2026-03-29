@@ -208,8 +208,6 @@
 /// Status effect given when someone uses the Give Item command to offer an item to another player.
 #define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item
 
-#define STATUS_EFFECT_STARING /datum/status_effect/staring //Used in ../human/examine() proc
-
 #define STATUS_EFFECT_RECENTLY_SUCCUMBED /datum/status_effect/recently_succumbed
 
 #define STATUS_EFFECT_FORCED_RUMBLE /datum/status_effect/forced_rumble

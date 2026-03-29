@@ -110,6 +110,13 @@
 #define TAIL (1<<12)
 #define WING (1<<13)
 
+//flags for covering body parts
+#define GLASSESCOVERSEYES (1<<0)
+#define MASKCOVERSEYES (1<<1)		// get rid of some of the other mess in these flags
+#define HEADCOVERSEYES (1<<2)		// feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH (1<<3)		// on other items, these are just for mask/head
+#define HEADCOVERSMOUTH (1<<4)
+
 //defines for the index of hands
 #define LEFT_HANDS 1
 #define RIGHT_HANDS 2
@@ -129,13 +136,6 @@
 #define THERMAL_PROTECTION_ARM_RIGHT 0.075
 #define THERMAL_PROTECTION_HAND_LEFT 0.025
 #define THERMAL_PROTECTION_HAND_RIGHT 0.025
-
-//flags for covering body parts
-#define GLASSESCOVERSEYES (1<<0)
-#define MASKCOVERSEYES (1<<1)		// get rid of some of the other mess in these flags
-#define HEADCOVERSEYES (1<<2)		// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH (1<<3)		// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH (1<<4)
 
 // Suit sensor levels
 #define SUIT_SENSOR_OFF 0

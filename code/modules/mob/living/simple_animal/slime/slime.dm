@@ -450,7 +450,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is [icon2html(src, user)] \a <em>[src]</em>!"
+	. += "<span class='notice'>This is [get_examine_icon(user)] \a <em>[src]</em>!"
 	if(stat == DEAD)
 		. += span_deadsay("It is limp and unresponsive.")
 	else

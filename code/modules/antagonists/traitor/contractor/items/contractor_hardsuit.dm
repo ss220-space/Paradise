@@ -54,7 +54,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
 	name = "engineering hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	item_color = "engineering"
@@ -63,7 +62,6 @@
 /obj/item/clothing/suit/space/hardsuit/contractor/agent
 	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
-	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный — предатель!"
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent

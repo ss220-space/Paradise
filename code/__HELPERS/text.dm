@@ -690,6 +690,37 @@
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
+///Returns a string based on the weight class define used as argument
+/proc/weight_class_to_text(w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			. = "крохотного"
+		if(WEIGHT_CLASS_SMALL)
+			. = "маленького"
+		if(WEIGHT_CLASS_NORMAL)
+			. = "среднего"
+		if(WEIGHT_CLASS_BULKY)
+			. = "большого"
+		if(WEIGHT_CLASS_HUGE)
+			. = "огромного"
+		if(WEIGHT_CLASS_GIGANTIC)
+			. = "гигантского"
+		else
+			. = "неизвестного"
+	return . + " размера"
+
+/proc/weight_class_to_tooltip(w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			return "Помещается в человеческую ладонь."
+		if(WEIGHT_CLASS_SMALL)
+			return "Помещается в карман, коробку или сумку."
+		if(WEIGHT_CLASS_NORMAL)
+			return "Помещается в сумку."
+		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_GIGANTIC)
+			return "Слишком большого размера, чтобы поместиться в стандартную сумку."
+	return ""
+
 /// Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"

@@ -147,7 +147,7 @@
 /obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
 	if(triggered || !ishuman(moving_atom))
 		return
-	visible_message(span_warning("[moving_atom] triggered the [icon2html(src, viewers(src))] [src]!"))
+	visible_message(span_warning("[moving_atom] triggered the [get_examine_icon(viewers(src))] [src]!"))
 	triggered = TRUE
 	do_sparks(3, TRUE, src)
 	explosion(src, devastation_range = 1, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0)

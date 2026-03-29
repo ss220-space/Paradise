@@ -3,7 +3,6 @@
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
 	gender = MALE
-	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "briefcase"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'

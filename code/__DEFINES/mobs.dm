@@ -266,6 +266,61 @@
 // not race
 #define SPECIES_OTHER "Other"
 
+GLOBAL_LIST_INIT(ru_species, list(
+	SPECIES_ABDUCTOR = "абдуктор",
+	SPECIES_DIONA = "диона",
+	SPECIES_DRASK = "драск",
+	SPECIES_GOLEM_BASIC = "голем",
+	SPECIES_GOLEM_RANDOM = "случайный голем",
+	SPECIES_GOLEM_ADAMANTINE = "адамантиновый голем",
+	SPECIES_GOLEM_PLASMA = "плазменный голем",
+	SPECIES_GOLEM_DIAMOND = "алмазный голем",
+	SPECIES_GOLEM_GOLD = "золотой голем",
+	SPECIES_GOLEM_SILVER = "серебряный голем",
+	SPECIES_GOLEM_PLASTEEL = "пласталевый голем",
+	SPECIES_GOLEM_TITANIUM = "титановый голем",
+	SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
+	SPECIES_GOLEM_ALLOY = "голем из инопланетных сплавов",
+	SPECIES_GOLEM_WOOD = "деревянный голем",
+	SPECIES_GOLEM_URANIUM = "урановый голем",
+	SPECIES_GOLEM_PLASTIC = "пластиковый голем",
+	SPECIES_GOLEM_SAND = "песчаный голем",
+	SPECIES_GOLEM_GLASS = "стеклянный голем",
+	SPECIES_GOLEM_BLUESPACE = "блюспейс-голем",
+	SPECIES_GOLEM_BANANIUM = "бананиевый голем",
+	SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
+	SPECIES_GOLEM_CLOCKWORK = "латунный голем",
+	SPECIES_GREY = "серый",
+	SPECIES_HUMAN = "человек",
+	SPECIES_KIDAN = "кидан",
+	SPECIES_MACNINEPERSON = "КПБ",
+	SPECIES_MONKEY = "шимпанзе",
+	SPECIES_FARWA = "фарва",
+	SPECIES_WOLPIN = "вульпин",
+	SPECIES_NEARA = "неара",
+	SPECIES_STOK = "сток",
+	SPECIES_MOTH = "ниан",
+	SPECIES_NUCLEATION = "нуклеация",
+	SPECIES_PLASMAMAN = "плазмолюд",
+	SPECIES_SHADOW_BASIC = "тень",
+	SPECIES_SHADOWLING = "тенеморф",
+	SPECIES_LESSER_SHADOWLING = "низший тенеморф",
+	SPECIES_SKELETON = "скелет",
+	SPECIES_SKRELL = "скрелл",
+	SPECIES_SLIMEPERSON = "слаймолюд",
+	SPECIES_TAJARAN = "таяран",
+	SPECIES_UNATHI = "унати",
+	SPECIES_ASHWALKER_BASIC = "пеплоходец",
+	SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
+	SPECIES_DRACONOID = "драконид",
+	SPECIES_VOX = "вокс",
+	SPECIES_VOX_ARMALIS = "вокс армалис",
+	SPECIES_VULPKANIN = "вульпканин",
+	SPECIES_WRYN = "врин"
+))
+
+#define GET_RU_SPECIES_NAME(species) (GLOB.ru_species[species] || (species))
+
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
 	if(QDELETED(A)) return; \
@@ -408,6 +463,17 @@
 
 /// Eyes examine time mod
 #define EXAMINE_INSTANT 0 // 0 seconds
+
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
+/// If you yawn while someone nearby has examined you within this time frame, it will force them to yawn as well. Tradecraft!
+#define YAWN_PROPAGATION_EXAMINE_WINDOW (2 SECONDS)
+
+/// How far away you can be to make eye contact with someone while examining
+#define EYE_CONTACT_RANGE 5
 
 // Incapacitated ignore flags for [/proc/incapacitated()].
 // They also used at interaction_flags_c var.

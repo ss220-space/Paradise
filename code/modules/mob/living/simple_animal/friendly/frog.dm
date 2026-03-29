@@ -65,7 +65,7 @@
 
 /mob/living/simple_animal/frog/proc/frog_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] квака[PLUR_ET_YUT(src)]!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] квака[PLUR_ET_YUT(src)]!"))
 
 /mob/living/simple_animal/frog/toxic
 	name = "яркая лягушка"
