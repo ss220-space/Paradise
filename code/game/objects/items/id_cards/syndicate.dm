@@ -52,16 +52,6 @@
 		"mining_medic",
 	)
 
-/obj/item/card/id/syndicate/get_ru_names()
-	return list(
-		NOMINATIVE = "карта агента \"Синдиката\"",
-		GENITIVE = "карты агента \"Синдиката\"",
-		DATIVE = "карте агента \"Синдиката\"",
-		ACCUSATIVE = "карту агента \"Синдиката\"",
-		INSTRUMENTAL = "картой агента \"Синдиката\"",
-		PREPOSITIONAL = "карте агента \"Синдиката\"",
-	)
-
 /obj/item/card/id/syndicate/Initialize(mapload)
 	access = initial_access.Copy()
 	. = ..()

@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - bugfix: "Исправлены ру неймы ID-карты агента (PR #8767)"
