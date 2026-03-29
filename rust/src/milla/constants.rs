@@ -271,6 +271,7 @@ pub(crate) const MIASTER_STERILIZATION_ENERGY: f32 = 2e3;
 
 // Plasma Fire
 pub(crate) const OXYGEN_BURN_RATIO_BASE: f32 = 1.4;
+pub(crate) const SUPER_SATURATION_THRESHOLD: f32 = 96.0;
 
 // Hydrogen Fire
 pub(crate) const FIRE_HYDROGEN_ENERGY_RELEASED: f32 = 2.8e6;

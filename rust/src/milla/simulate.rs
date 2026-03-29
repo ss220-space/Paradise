@@ -1318,6 +1318,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             let energy_released = ZAUKER_DECOMPOSITION_ENERGY * burned_fuel;
             thermal_energy += energy_released;
             cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += burned_fuel;
         }
     }
 
@@ -1326,6 +1327,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         && my_next_tile.gases.toxins() > MINIMUM_MOLE_COUNT
         && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
     {
+        let toxins = my_next_tile.gases.toxins();
+        let oxygen = my_next_tile.gases.oxygen();
+        let is_super_saturated = (oxygen / toxins) >= SUPER_SATURATION_THRESHOLD;
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
         let efficiency = ((cached_temperature - PLASMA_BURN_MIN_TEMP)
@@ -1334,7 +1338,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             .min(1.0);
 
         // How much plasma is available to burn?
-        let burnable_plasma = fraction * my_next_tile.gases.toxins();
+        let burnable_plasma = fraction * toxins;
+        let burnable_oxygen = fraction * oxygen;
 
         // Actual burn amount.
         let mut plasma_burnt = efficiency * PLASMA_BURN_MAX_RATIO * hotspot_boost * burnable_plasma;
@@ -1342,24 +1347,34 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             // Boost up to the minimum.
             plasma_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_plasma);
         }
-        if plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA > fraction * my_next_tile.gases.oxygen() {
+
+        let oxygen_burn_ratio = if is_super_saturated {
+            OXYGEN_BURN_RATIO_BASE - efficiency
+        } else {
+            PLASMA_BURN_OXYGEN_PER_PLASMA
+        };
+        if plasma_burnt * oxygen_burn_ratio > burnable_oxygen {
             // Restrict based on available oxygen.
-            plasma_burnt = fraction * my_next_tile.gases.oxygen() / PLASMA_BURN_OXYGEN_PER_PLASMA;
+            plasma_burnt = burnable_oxygen / PLASMA_BURN_OXYGEN_PER_PLASMA;
         }
 
+        my_next_tile.gases.set_toxins(toxins - plasma_burnt);
         my_next_tile
             .gases
-            .set_toxins(my_next_tile.gases.toxins() - plasma_burnt);
-        my_next_tile
-            .gases
-            .set_carbon_dioxide(my_next_tile.gases.carbon_dioxide() + plasma_burnt);
-        my_next_tile
-            .gases
-            .set_oxygen(my_next_tile.gases.oxygen() - plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA);
+            .set_oxygen(oxygen - (plasma_burnt * oxygen_burn_ratio));
 
-        my_next_tile.gases.set_water_vapor(
-            my_next_tile.gases.water_vapor() + plasma_burnt * WATER_VAPOR_PER_PLASMA_BURNT,
-        );
+        if is_super_saturated {
+            my_next_tile
+                .gases
+                .set_tritium(my_next_tile.gases.tritium() + plasma_burnt);
+        } else {
+            my_next_tile
+                .gases
+                .set_carbon_dioxide(my_next_tile.gases.carbon_dioxide() + plasma_burnt * 0.75);
+            my_next_tile
+                .gases
+                .set_water_vapor(my_next_tile.gases.water_vapor() + plasma_burnt * 0.25);
+        }
 
         // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();

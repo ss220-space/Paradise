@@ -800,30 +800,43 @@ What are the archived variables for?
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/plasma_burn_rate = 0
-		var/private_oxygen_burn_rate = 0
-		//more plasma released at higher temperatures
+		
 		var/private_temperature_scale = 0
 		if(private_temperature > PLASMA_UPPER_TEMPERATURE)
 			private_temperature_scale = 1
 		else
 			private_temperature_scale = (private_temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE - PLASMA_MINIMUM_BURN_TEMPERATURE)
+		
 		if(private_temperature_scale > 0)
-			private_oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - private_temperature_scale
+			var/private_oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - private_temperature_scale
+			
+			var/is_super_saturated = (private_oxygen / private_toxins >= SUPER_SATURATION_THRESHOLD)
+
 			if(private_oxygen > private_toxins * PLASMA_OXYGEN_FULLBURN)
 				plasma_burn_rate = (private_toxins * private_temperature_scale) / PLASMA_BURN_RATE_DELTA
 			else
 				plasma_burn_rate = (private_temperature_scale * (private_oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
+			
 			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-				plasma_burn_rate = min(plasma_burn_rate, private_toxins, private_oxygen / private_oxygen_burn_rate) //Ensures matter is conserved properly
+				plasma_burn_rate = min(plasma_burn_rate, private_toxins, private_oxygen / private_oxygen_burn_rate)
+				
 				private_toxins = QUANTIZE(private_toxins - plasma_burn_rate)
 				private_oxygen = QUANTIZE(private_oxygen - (plasma_burn_rate * private_oxygen_burn_rate))
-				private_carbon_dioxide += plasma_burn_rate
-				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
-				fuel_burnt += (plasma_burn_rate) * (1 + private_oxygen_burn_rate)
+				
+				if(is_super_saturated)
+					private_tritium += plasma_burn_rate 
+				else
+					private_carbon_dioxide += plasma_burn_rate * 0.75
+					private_water_vapor += plasma_burn_rate * 0.25
+				
+				energy_released += FIRE_PLASMA_ENERGY_RELEASED * plasma_burn_rate
+				fuel_burnt += plasma_burn_rate * (1 + private_oxygen_burn_rate)
+
 		if(energy_released > 0)
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+		
 		if(fuel_burnt)
 			reacting = TRUE
 
