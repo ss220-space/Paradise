@@ -1,7 +1,7 @@
 /// Sorts the list in place with timSort, default settings.
 #define SORT_TIM(to_sort, associative) if(length(to_sort) >= 2) { \
 	var/datum/sort_instance/sorter = GLOB.sortInstance; \
-	if (isnull(sorter)) { \
+	if(isnull(sorter)) { \
 		sorter = new; \
 	} \
 	sorter.L = to_sort; \
@@ -18,14 +18,14 @@
 	} \
 	fromIndex = fromIndex % length(to_sort); \
 	toIndex = toIndex % (length(to_sort) + 1); \
-	if (fromIndex <= 0) { \
+	if(fromIndex <= 0) { \
 		fromIndex += length(to_sort); \
 	} \
-	if (toIndex <= 0) { \
+	if(toIndex <= 0) { \
 		toIndex += length(to_sort) + 1; \
 	} \
 	var/datum/sort_instance/sorter = GLOB.sortInstance; \
-	if (isnull(sorter)) { \
+	if(isnull(sorter)) { \
 		sorter = new; \
 	} \
 	sorter.L = to_sort; \

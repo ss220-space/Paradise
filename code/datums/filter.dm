@@ -21,7 +21,7 @@
 	copied_parameters["priority"] = priority
 	for (var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
-		if (filter_info["name"] != name)
+		if(filter_info["name"] != name)
 			continue
 		filter_data -= list(filter_info)
 		filter_cache -= filter_cache[index]
@@ -31,14 +31,14 @@
 
 	for (var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
-		if (filter_info["name"] != name)
+		if(filter_info["name"] != name)
 			continue
 		var/list/arguments = filter_info.Copy()
 		arguments -= "priority"
 		filter_cache.Insert(index, filter(arglist(arguments)))
 		break
 
-	if (update)
+	if(update)
 		atom_cast.filters = filter_cache
 
 /// A version of add_filter that takes a list of filters to add rather than being individual, to limit appearance updates
@@ -47,14 +47,14 @@
 	var/atom/atom_cast = src // filters only work with images or atoms.
 	for (var/list/individual_filter as anything in filters)
 		add_filter(individual_filter["name"], individual_filter["priority"], individual_filter["params"], update = FALSE)
-	if (update)
+	if(update)
 		atom_cast.filters = filter_cache
 
 /// Reapplies all the filters. If start_index is passed, only a portion of all filters are reapplied starting from said index
 /datum/proc/update_filters(start_index = null)
 	ASSERT(isatom(src) || isimage(src))
 	var/atom/atom_cast = src // filters only work with images or atoms.
-	if (start_index)
+	if(start_index)
 		filter_cache.Cut(start_index)
 	else
 		atom_cast.filters = null
@@ -64,7 +64,7 @@
 		var/list/filter_info = filter_data[index]
 		var/list/arguments = filter_info.Copy()
 		arguments -= "priority"
-		if (start_index) // See https://www.byond.com/forum/post/2980598 as to why we cannot just override the existing filter
+		if(start_index) // See https://www.byond.com/forum/post/2980598 as to why we cannot just override the existing filter
 			atom_cast.filters -= filter_info["name"] // We're trapped in the belly of this horrible machine
 		filter_cache += filter(arglist(arguments)) // And the machine is bleeding to death
 
@@ -89,10 +89,10 @@
 	var/atom/atom_cast = src // filters only work with images or atoms.
 	for (var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
-		if (filter_info["name"] != name)
+		if(filter_info["name"] != name)
 			continue
 
-		if (overwrite)
+		if(overwrite)
 			filter_data[index] = new_params
 		else
 			for (var/thing in new_params)
@@ -102,7 +102,7 @@
 		arguments -= "priority"
 		filter_cache[index] = filter(arglist(arguments))
 
-		if (update)
+		if(update)
 			atom_cast.filters = filter_cache
 		return
 
@@ -118,7 +118,7 @@
  */
 /datum/proc/transition_filter(name, list/new_params, time, easing, loop)
 	var/filter = get_filter(name)
-	if (!filter)
+	if(!filter)
 		return
 	// This can get injected by the filter procs, we want to support them so bye byeeeee
 	new_params -= "type"
@@ -150,7 +150,7 @@
 /datum/proc/transition_filter_chain(name, num_loops, ...)
 	var/list/transition_steps = args.Copy(3)
 	var/filter = get_filter(name)
-	if (!filter)
+	if(!filter)
 		return
 	var/list/first_step = transition_steps[1]
 	animate(filter, first_step["params"], time = first_step["duration"], easing = first_step["easing"], flags = first_step["flags"], loop = num_loops)
@@ -161,7 +161,7 @@
 /// Updates the priority of the passed filter key
 /datum/proc/change_filter_priority(name, new_priority)
 	for (var/list/filter_info as anything in filter_data)
-		if (filter_info["name"] != name)
+		if(filter_info["name"] != name)
 			continue
 
 		remove_filter(name, update = FALSE)
@@ -177,7 +177,7 @@
 /// Returns filter data associated with the passed key
 /datum/proc/get_filter_data(name)
 	for (var/list/filter_info as anything in filter_data)
-		if (filter_info["name"] == name)
+		if(filter_info["name"] == name)
 			return filter_info.Copy()
 
 /// Removes the passed filter, or multiple filters, if supplied with a list.
@@ -192,12 +192,12 @@
 	var/list/new_cache = list()
 	for (var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
-		if (!(filter_info["name"] in names))
+		if(!(filter_info["name"] in names))
 			new_data += list(filter_info)
 			new_cache += filter_cache[index]
 	filter_data = new_data
 	filter_cache = new_cache
-	if (update)
+	if(update)
 		atom_cast.filters = filter_cache
 	return .
 
