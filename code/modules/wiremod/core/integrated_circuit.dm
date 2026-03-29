@@ -698,7 +698,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			return export_circuit_to_client(usr.client)
 
 		if("import_circuit")
-			return begin_import_circuit(usr, ui)
+			return begin_import_circuit(usr, params["circuit_json"])
 
 		if("add_variable")
 			var/variable_identifier = trim(copytext(params["variable_name"], 1, PORT_MAX_NAME_LENGTH))
@@ -922,14 +922,18 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 	setter_and_getter_count = 0
 
-/// Start circuit import 
-/obj/item/integrated_circuit/proc/begin_import_circuit(mob/user, datum/tgui/ui)
+/// Start circuit import.
+/obj/item/integrated_circuit/proc/begin_import_circuit(mob/user, txt)
 	if(!user?.client)
+		return FALSE
+
+	if(!txt || !istext(txt))
+		balloon_alert(user, "нет данных для импорта!")
 		return FALSE
 
 	var/is_admin = check_rights_for(user.client, R_VAREDIT)
 
-	//Circuit imprinter should be linked (if not admin)
+	// Circuit imprinter should be linked (if not admin)
 	var/obj/machinery/r_n_d/circuit_imprinter/printer
 	if(!is_admin)
 		printer = linked_circuit_imprinter?.resolve()
@@ -937,29 +941,10 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			balloon_alert(user, "привязанный принтер не обнаружен!")
 			return FALSE
 
-	var/option = tgui_alert(user, "Загрузить схему из файла или ввести JSON вручную?", "Импорт схемы", list("Файл", "Прямой ввод", "Отмена"))
-	var/txt
-	switch(option)
-		if("Файл")
-			txt = file2text(input(user, "Укажите файл со схемой (.json)") as null|file)
-		if("Прямой ввод")
-			txt = tgui_input_text(user, "Введите JSON-строку схемы", "Импорт схемы", multiline = TRUE, encode = FALSE)
-		else
-			return FALSE
-
-	if(!txt)
-		return FALSE
-
 	// JSON validation
-	var/list/test_data
-	try
-		test_data = json_decode(txt)
-	catch(var/exception/e)
-		balloon_alert(user, "некорректный формат JSON!")
-		return FALSE
-
+	var/list/test_data = json_decode(txt)
 	if(!islist(test_data) || !test_data["components"])
-		balloon_alert(user, "некорректный формат схемы!")
+		balloon_alert(user, "некорректный формат JSON!")
 		return FALSE
 
 	//Components validation

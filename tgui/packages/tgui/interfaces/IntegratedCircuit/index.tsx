@@ -518,11 +518,14 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
               />
             </Stack.Item>
             <Stack.Item>
-              <Button
+              <Button.File
                 color="transparent"
                 tooltip="Импорт схемы из JSON"
-                onClick={() => act('import_circuit')}
+                accept=".json"
                 icon="upload"
+                onSelectFiles={(value) =>
+                  act('import_circuit', { circuit_json: value })
+                }
               />
             </Stack.Item>
             {!!is_admin && (
