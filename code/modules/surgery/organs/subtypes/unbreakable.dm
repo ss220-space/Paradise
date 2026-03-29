@@ -4,7 +4,6 @@
 	convertable_children = list(/obj/item/organ/external/groin/unbreakable)
 
 /obj/item/organ/external/groin/unbreakable
-	cannot_break = TRUE
 
 /obj/item/organ/external/arm/unbreakable
 	cannot_break = TRUE
