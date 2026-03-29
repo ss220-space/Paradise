@@ -28,7 +28,7 @@
 	. = ..()
 	underlays.Cut()
 	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -1361,7 +1361,7 @@
 	if(!reagents.total_volume)
 		return
 
-	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', src, "[base_icon_state]20")
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]20")
 	var/percent = round((reagents.total_volume / volume) * 100)
 	switch(percent)
 		if(0 to 20)

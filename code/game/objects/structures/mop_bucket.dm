@@ -70,7 +70,7 @@
 	if(mymop)
 		. += "mopbucket_mop"
 	if(reagents.total_volume > 0)
-		var/mutable_appearance/reagentsImage = mutable_appearance(icon, src, "mopbucket_reagents0")
+		var/mutable_appearance/reagentsImage = mutable_appearance(icon, "mopbucket_reagents0")
 		reagentsImage.alpha = 150
 		switch((reagents.total_volume / reagents.maximum_volume) * 100)
 			if(1 to 25)

@@ -651,7 +651,7 @@
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
-		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
+		var/mutable_appearance/power_light = mutable_appearance('icons/obj/chemical.dmi', "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
 		switch(percent)
 			if(0 to 33)
@@ -662,13 +662,12 @@
 				power_light.icon_state = "light_full"
 		. += power_light
 
-		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
-		mode_light.icon_state = "light_[mode]"
+		var/mutable_appearance/mode_light = mutable_appearance('icons/obj/chemical.dmi', "light_[mode]")
 		. += mode_light
 
-		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
+		var/mutable_appearance/chamber_contents = mutable_appearance('icons/obj/chemical.dmi', "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
-		chamber_contents.icon += R.color
+		chamber_contents.color = R.color
 		. += chamber_contents
 
 /obj/item/handheld_chem_dispenser/process()

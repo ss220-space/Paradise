@@ -19,7 +19,7 @@
 	if(bag)
 		. += "hangingbag"
 		if(bag.reagents.total_volume)
-			var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/iv.dmi', src, "hangingbag-fluid")
+			var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/iv.dmi', "hangingbag-fluid")
 			filling.color = mix_color_from_reagents(bag.reagents.reagent_list)
 			. += filling
 
