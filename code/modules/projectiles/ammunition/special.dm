@@ -1,3 +1,4 @@
+// MARK: Magic
 /obj/item/ammo_casing/magic
 	name = "magic casing"
 	desc = "I didn't even know magic needed ammo..."
@@ -48,15 +49,9 @@
 /obj/item/ammo_casing/magic/forcebolt
 	projectile_type = /obj/projectile/forcebolt
 
+// MARK: Syringe gun
 /obj/item/ammo_casing/syringegun
 	name = "syringe gun spring"
 	desc = "A high-power spring that throws syringes."
 	projectile_type = null
 	muzzle_flash_effect = null
-
-/obj/item/ammo_casing/energy/c3dbullet
-	projectile_type = /obj/projectile/bullet/midbullet3
-	select_name = "spraydown"
-	sibyl_tier = SIBYL_TIER_LETHAL
-	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
-	e_cost = 20

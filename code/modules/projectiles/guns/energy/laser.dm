@@ -5,7 +5,7 @@
 	item_state = null
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_LASER

@@ -64,9 +64,9 @@
 /obj/item/gun/energy/laser/retro/old
 	name ="laser gun"
 	desc = "First generation lasergun, developed by Nanotrasen. Suffers from ammo issues but its unique ability to recharge its ammo without the need of a magazine helps compensate. You really hope someone has developed a better lasergun while you were in cryo."
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/old)
 
-/obj/item/ammo_casing/energy/lasergun/old
+/obj/item/ammo_casing/energy/laser/old
 	e_cost = 200
 
 /obj/item/gun/energy/e_gun/old

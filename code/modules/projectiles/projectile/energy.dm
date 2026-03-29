@@ -558,3 +558,15 @@
 		return ..()
 	to_heal.heal_overall_damage(0, 75)
 #undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER
+
+/obj/projectile/energy/bsg
+	name = "Сфера чистой БС энергии"
+	icon_state = "bluespace"
+	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
+	damage = 60
+	range = 9
+	weaken  = 8 SECONDS //This is going to knock you off your feet
+	eyeblur = 20 SECONDS
+	speed   = 2
+	/// The strength of the core of the fired Б.С.Г.
+	var/core_strength = 0

@@ -1,3 +1,4 @@
+// Basically it's both an ammo box and external magazine
 /obj/item/ammo_box/speedloader
 	use_bullet_type_overlay = TRUE
 	can_fast_load = FALSE
@@ -133,7 +134,7 @@
 		INSTRUMENTAL = "устройством быстрой зарядки (7,62x38)",
 		PREPOSITIONAL = "устройстве быстрой зарядки (7,62x38)",
 	)
-	
+
 // MARK: Shotguns
 /obj/item/ammo_box/speedloader/shotgun
 	name = "shotgun speedloader"
