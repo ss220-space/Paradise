@@ -36,6 +36,7 @@ import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
 import './styles/themes/spider_clan.scss';
 import './styles/themes/ntOS95.scss';
+import './styles/themes/raingor_company.scss';
 
 import { perf } from 'common/perf';
 import { setupGlobalEvents } from 'common/events';

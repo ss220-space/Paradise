@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Stack } from '../../components';
-import { pages } from '../../interfaces/RequestConsole';
+import { pages } from '../RequestConsole';
 
 type RequestConsolePdaData = {
   screen: number;
