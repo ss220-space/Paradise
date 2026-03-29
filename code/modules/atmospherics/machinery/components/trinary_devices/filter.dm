@@ -242,9 +242,6 @@
 /obj/machinery/atmospherics/trinary/filter/co2
 	filter_type = TLV_CO2
 
-/obj/machinery/atmospherics/trinary/filter/o2
-	filter_type = TLV_O2
-
 /obj/machinery/atmospherics/trinary/filter/n2
 	filter_type = TLV_N2
 

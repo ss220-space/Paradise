@@ -309,16 +309,12 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define DONT_PASS_INPUT_PRESURE_MIN (1<<1)
 #define DONT_PASS_OUTPUT_PRESURE_MAX (1<<2)
 
-/// The volume of the resin foam fluid when halon combusts, in turfs.
-#define HALON_COMBUSTION_RESIN_VOLUME 1
-
 
 /// The threshold of the tritium combustion's radiation. Lower values means it will be able to penetrate through more structures.
 #define ATMOS_RADIATION_THRESHOLD 0.3
 
 /// Maximum range a radiation pulse is allowed to be from a gas reaction.
 #define GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE 20
-
 
 
 // MILLA
@@ -430,7 +426,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define TLV_PRESSURE "pressure"
 #define TLV_TEMPERATURE "temperature"
 #define TLV_TOTAL_MOLES "total_moles"
-
 
 
 #define SCRUB_O2 (1<<0)

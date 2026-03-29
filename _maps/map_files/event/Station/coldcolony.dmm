@@ -27841,7 +27841,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "kgv" = (
-/obj/machinery/atmospherics/trinary/filter/n20{
+/obj/machinery/atmospherics/trinary/filter/n2o{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
 	name = "Фильтр Оксида Азота (NO2)";
 	on = 1;

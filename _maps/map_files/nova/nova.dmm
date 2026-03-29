@@ -1139,8 +1139,7 @@
 /area/maintenance/starboardaux)
 "ajH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"

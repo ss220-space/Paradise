@@ -473,7 +473,6 @@
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "Canister \[Tritium\]"
-	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 	can_label = FALSE
 

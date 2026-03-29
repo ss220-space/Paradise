@@ -449,6 +449,11 @@ What are the archived variables for?
 
 	return result
 
+
+#define REACT_GAS(gas) \
+var/##gas = private_##gas; \
+if(##gas) \
+	private_##gas = ##gas - (reaction_rate * ##gas / total_not_antinoblium_moles)
 //Procedures used for very specific events
 
 /datum/gas_mixture/proc/react(atom/dump_location)
@@ -690,11 +695,6 @@ What are the archived variables for?
 				reacting = TRUE
 
 
-#define REACT_GAS(gas) \
-var/##gas = private_##gas; \
-if(##gas) \
-    private_##gas = ##gas - (reaction_rate * ##gas / total_not_antinoblium_moles)
-
 	// ==================== Antinoblium Replication ====================
 	if(private_antinoblium >= MOLES_GAS_VISIBLE && private_temperature >= REACTION_OPPRESSION_MIN_TEMP)
 		var/heat_capacity_before = heat_capacity()
@@ -752,8 +752,6 @@ if(##gas) \
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			private_temperature = max(private_temperature * heat_capacity_before / new_heat_capacity, TCMB)
 		reacting = TRUE
-
-#undef REACT_GAS
 
 	// ==================== Miasma Sterilization ====================
 	if(private_miasma > MINIMUM_MOLE_COUNT && private_temperature > MIASTER_STERILIZATION_TEMP)
@@ -900,9 +898,11 @@ if(##gas) \
 				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 					private_temperature = max((private_temperature * old_heat_capacity - energy_consumed) / new_heat_capacity, TCMB)
 				reacting = TRUE
-
+	
 	set_dirty()
 	return reacting
+
+#undef REACT_GAS
 
 
 /datum/gas_mixture/proc/archive()
@@ -1218,7 +1218,6 @@ if(##gas) \
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
 	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
 	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
-
 
 
 #define VALIDATE_GAS_AMOUNT(gas_name) \

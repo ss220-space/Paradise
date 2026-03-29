@@ -314,8 +314,7 @@
 /area/ruin/unpowered)
 "gj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)

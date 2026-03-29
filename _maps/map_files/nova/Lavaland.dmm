@@ -2517,8 +2517,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)

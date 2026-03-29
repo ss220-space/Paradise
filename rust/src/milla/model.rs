@@ -475,7 +475,7 @@ impl From<&Tile> for Vec<ByondValue> {
 
 bitflags! {
     #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub(crate) struct ReasonFlags: u8 {
+    pub(crate) struct ReasonFlags: u16 {
         const NONE = 0;
         const DISPLAY = 1 << 0;
         const HOT = 1 << 1;
@@ -485,7 +485,7 @@ bitflags! {
         const CREATE_HOT_ICE = 1 << 5;
         const CREATE_RESIN = 1 << 6;
         const HALLUCINATION = 1 << 7;
-        const NUCLEAR_PARTICLES= 1 << 7;
+        const NUCLEAR_PARTICLES = 1 << 8;
     }
 }
 

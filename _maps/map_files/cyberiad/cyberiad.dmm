@@ -39905,7 +39905,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "cXd" = (
-/obj/machinery/atmospherics/air_sensor/n20{
+/obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,

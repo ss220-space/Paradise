@@ -1363,8 +1363,7 @@
 /area/ruin/space/spacehotelv1/guestroom6)
 "ko" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/sepia{
 	slowdown = 0

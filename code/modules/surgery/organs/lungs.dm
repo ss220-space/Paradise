@@ -339,14 +339,14 @@
 /obj/item/organ/internal/lungs/proc/too_much_freon(mob/living/carbon/breather, datum/gas_mixture/breath, freon_pp)
 	// Inhale Freon. Exhale nothing.
 	breath.set_freon(0)
-	if (freon_pp > gas_stimulation_min)
+	if(freon_pp > gas_stimulation_min)
 		breather.reagents.add_reagent(/datum/reagent/freon, 1)
-	if (prob(freon_pp))
+	if(prob(freon_pp))
 		to_chat(breather, span_alert("Your mouth feels like it's burning!"))
-	if (freon_pp > 40)
+	if(freon_pp > 40)
 		breather.emote("gasp")
 		breather.adjustFireLoss(15)
-		if (prob(freon_pp / 2))
+		if(prob(freon_pp / 2))
 			to_chat(breather, span_alert("Your throat closes up!"))
 			breather.AdjustSilence(6 SECONDS, bound_upper = 6 SECONDS)
 	else
@@ -443,10 +443,10 @@
 		breather.adjust_organ_loss(INTERNAL_ORGAN_BRAIN, nitrium_pp * 0.1)
 		to_chat(breather, span_notice("You feel a burning sensation in your chest"))
 	// Metabolize to reagents.
-	if (nitrium_pp > 5)
+	if(nitrium_pp > 5)
 		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/nitrium_low_metabolization)
 		breather.reagents.add_reagent(/datum/reagent/nitrium_low_metabolization, max(0, 2 - existing))
-	if (nitrium_pp > 10)
+	if(nitrium_pp > 10)
 		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/nitrium_high_metabolization)
 		breather.reagents.add_reagent(/datum/reagent/nitrium_high_metabolization, max(0, 2 - existing))
 
