@@ -19,7 +19,7 @@
 	var/list/copied_parameters = params.Copy()
 	copied_parameters["name"] = name
 	copied_parameters["priority"] = priority
-	for (var/index in 1 to length(filter_data))
+	for(var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
 		if(filter_info["name"] != name)
 			continue
@@ -29,7 +29,7 @@
 
 	BINARY_INSERT_DEFINE(list(copied_parameters), filter_data, SORT_VAR_NO_TYPE, copied_parameters, SORT_PRIORITY_INDEX, COMPARE_KEY)
 
-	for (var/index in 1 to length(filter_data))
+	for(var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
 		if(filter_info["name"] != name)
 			continue
@@ -45,7 +45,7 @@
 /datum/proc/add_filters(list/list/filters, update = TRUE)
 	ASSERT(isatom(src) || isimage(src))
 	var/atom/atom_cast = src // filters only work with images or atoms.
-	for (var/list/individual_filter as anything in filters)
+	for(var/list/individual_filter as anything in filters)
 		add_filter(individual_filter["name"], individual_filter["priority"], individual_filter["params"], update = FALSE)
 	if(update)
 		atom_cast.filters = filter_cache
@@ -60,7 +60,7 @@
 		atom_cast.filters = null
 		filter_cache.Cut()
 
-	for (var/index in start_index || 1 to length(filter_data))
+	for(var/index in start_index || 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
 		var/list/arguments = filter_info.Copy()
 		arguments -= "priority"
@@ -87,7 +87,7 @@
 /datum/proc/modify_filter(name, list/new_params, overwrite = FALSE, update = TRUE)
 	ASSERT(isatom(src) || isimage(src))
 	var/atom/atom_cast = src // filters only work with images or atoms.
-	for (var/index in 1 to length(filter_data))
+	for(var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
 		if(filter_info["name"] != name)
 			continue
@@ -95,7 +95,7 @@
 		if(overwrite)
 			filter_data[index] = new_params
 		else
-			for (var/thing in new_params)
+			for(var/thing in new_params)
 				filter_info[thing] = new_params[thing]
 
 		var/list/arguments = filter_info.Copy()
@@ -154,13 +154,13 @@
 		return
 	var/list/first_step = transition_steps[1]
 	animate(filter, first_step["params"], time = first_step["duration"], easing = first_step["easing"], flags = first_step["flags"], loop = num_loops)
-	for (var/transition_step in 2 to length(transition_steps))
+	for(var/transition_step in 2 to length(transition_steps))
 		var/list/this_step = transition_steps[transition_step]
 		animate(this_step["params"], time = this_step["duration"], easing = this_step["easing"], flags = this_step["flags"])
 
 /// Updates the priority of the passed filter key
 /datum/proc/change_filter_priority(name, new_priority)
-	for (var/list/filter_info as anything in filter_data)
+	for(var/list/filter_info as anything in filter_data)
 		if(filter_info["name"] != name)
 			continue
 
@@ -176,7 +176,7 @@
 
 /// Returns filter data associated with the passed key
 /datum/proc/get_filter_data(name)
-	for (var/list/filter_info as anything in filter_data)
+	for(var/list/filter_info as anything in filter_data)
 		if(filter_info["name"] == name)
 			return filter_info.Copy()
 
@@ -190,7 +190,7 @@
 	. = FALSE
 	var/list/new_data = list()
 	var/list/new_cache = list()
-	for (var/index in 1 to length(filter_data))
+	for(var/index in 1 to length(filter_data))
 		var/list/filter_info = filter_data[index]
 		if(!(filter_info["name"] in names))
 			new_data += list(filter_info)
