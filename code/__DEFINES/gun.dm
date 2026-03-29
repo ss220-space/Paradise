@@ -49,51 +49,97 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_MODE_SINGLE_BURST_AUTO 3
 
 //MARK: Calibers
+
 // Pistol cartridges
+/// Used in most standart SMG and pistols like
 #define CALIBER_9MM "9x19 мм"
+/// Used in Stechkin pistol
 #define CALIBER_10MM "10 мм"
+/// Used in M1911 pistol, C-20r SMG
 #define CALIBER_DOT_45 ".45"
+/// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
 #define CALIBER_DOT_45_COLT ".45colt"
+/// Used in SP-8 pistol
 #define CALIBER_40NR ".40nr"
+/// Used in .45 N&R specialized weapons
 #define CALIBER_45NR ".45nr"
+/// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
+/// Used in Gatfruit revolver
 #define CALIBER_DOT_36 ".36"
+/// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
-#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
-// Revolver cartridges
-#define CALIBER_DOT_357 ".357"
-#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
-// Intermediate
-#define CALIBER_5_DOT_56X45MM "5,56x45 мм"
-#define CALIBER_5_DOT_45X39MM "5,45x39 мм"
-#define CALIBER_4_DOT_6X30MM "4,6x30 мм"
-// Rifle
-#define CALIBER_7_DOT_62X54MM "7,62x54 мм"
-#define CALIBER_7_DOT_62X51MM "7,62x51 мм"
-// Sniper
-#define CALIBER_DOT_50 ".50"
-#define CALIBER_DOT_50L ".50L"
+/// Used in Desert Eagle pistol
 #define CALIBER_DOT_50AE ".50ae"
+/// Used in Soviet type pistols and SMG (TT, PPSh)
+#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
+
+// Revolver cartridges
+/// Used in heavy revolvers like Unica-6
+#define CALIBER_DOT_357 ".357"
+/// Used in Nagant revolver
+#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+
+// Intermediate cartridges
+/// Used in AR-15 type rifles (TSF)
+#define CALIBER_5_DOT_56X45MM "5,56x45 мм"
+/// Used in AK-74 type rifles (USSP)
+#define CALIBER_5_DOT_45X39MM "5,45x39 мм"
+/// Used in PDWs like WT-550
+#define CALIBER_4_DOT_6X30MM "4,6x30 мм"
+
+// Rifle cartridges
+/// Used in Soviet type heavy small arms like Mosin rifle
+#define CALIBER_7_DOT_62X54MM "7,62x54 мм"
+/// Used in NATO type heavy small arms like L6 SAW
+#define CALIBER_7_DOT_62X51MM "7,62x51 мм"
+
+// Sniper cartridges
+/// Used in Syndicate sniper rifle
+#define CALIBER_DOT_50 ".50"
+/// Used in Compact Syndicate sniper rifle
+#define CALIBER_DOT_50L ".50L"
+/// Used in AXMC sniper rifle
 #define CALIBER_DOT_338 ".338"
-// Shotgun
+
+// Shotgun cartridges
+/// Used in all shotguns
 #define CALIBER_12X70 "12х70"
-// Grenade launcher
+
+// Grenade launcher cartridges
+/// Used in underbarrel grenade launchers like M-90gl
 #define CALIBER_40MM "40 мм"
+/// Used in heavy grenade launchers like PML-9
 #define CALIBER_84MM "84 мм"
+
 // Rocket systems
+/// Used in rocket launchers
 #define CALIBER_ROCKET "rocket"
+
 // Special ammunition
+/// Used in speargun
 #define CALIBER_SPEAR "spear"
+/// Used in bows and crossbows
 #define CALIBER_ARROW "arrow"
+/// Used in Specter pistol
 #define CALIBER_SPECTER "specter"
+
 // Energy weapons
+/// Used in laser weapons
 #define CALIBER_LASER "laser"
+
 // Foam force weapons
+/// Used in foam guns
 #define CALIBER_FOAM_FORCE "foam force"
+/// Used in sniper foam gun
 #define CALIBER_FOAM_FORCE_SNIPER "foam force sniper"
-// Blank
+
+// Blank cartridges
+/// Used in toy cap guns
 #define CALIBER_CAP "cap"
+
 // Heavy weapons
+/// Used in high-caliber rocket launchers
 #define CALIBER_DOT_75 ".75"
 
 #define FAKE_CALIBER_40MM_IMP "импровизированный 40 мм"
