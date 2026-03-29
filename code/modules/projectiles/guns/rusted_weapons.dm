@@ -7,7 +7,7 @@
 	item_state = "aksu"
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=4;materials=3"
-	mag_type = /obj/item/ammo_box/magazine/aksu
+	mag_type = /obj/item/ammo_box/magazine/aks74u
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'

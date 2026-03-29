@@ -47,7 +47,7 @@
 		/obj/item/ammo_box/magazine/enforcer/lethal = 8,
 		/obj/item/ammo_box/magazine/sp8 = 8,
 
-		/obj/item/ammo_box/magazine/laser = 12,
+		/obj/item/ammo_box/magazine/ik60mag = 12,
 		/obj/item/ammo_box/magazine/wt550m9 = 20,
 		/obj/item/ammo_box/magazine/m556 = 12,
 		/obj/item/ammo_box/a40mm = 4,
@@ -124,7 +124,7 @@
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
-		/obj/item/ammo_box/magazine/laser = 6,
+		/obj/item/ammo_box/magazine/ik60mag = 6,
 		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,

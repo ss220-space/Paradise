@@ -11699,7 +11699,7 @@
 	req_access = list(123)
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_box/magazine/aksu,
+/obj/item/ammo_box/magazine/aks74u,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -12292,7 +12292,7 @@
 	name = "Gorky17 ammunition locker";
 	req_access = list(123)
 	},
-/obj/item/ammo_box/magazine/aksu,
+/obj/item/ammo_box/magazine/aks74u,
 /obj/item/gun/projectile/automatic/aksu/rusted,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{

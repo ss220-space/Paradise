@@ -562,7 +562,7 @@ TODO Use this name and desc for localisation*/
 	icon_state = "lasercarbine"
 	item_state = "laser"
 	origin_tech = "combat=4;materials=2"
-	mag_type = /obj/item/ammo_box/magazine/laser
+	mag_type = /obj/item/ammo_box/magazine/ik60mag
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'

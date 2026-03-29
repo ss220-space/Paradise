@@ -161,9 +161,9 @@
 		),
 		list(
 			/obj/item/gun/projectile/automatic/lasercarbine,
-			/obj/item/ammo_box/magazine/laser,
-			/obj/item/ammo_box/magazine/laser,
-			/obj/item/ammo_box/magazine/laser,
+			/obj/item/ammo_box/magazine/ik60mag,
+			/obj/item/ammo_box/magazine/ik60mag,
+			/obj/item/ammo_box/magazine/ik60mag,
 		),
 		list(
 			/obj/item/gun/projectile/revolver/doublebarrel,
@@ -318,9 +318,9 @@
 		),
 		list(
 			/obj/item/gun/projectile/automatic/aksu,
-			/obj/item/ammo_box/magazine/aksu,
-			/obj/item/ammo_box/magazine/aksu,
-			/obj/item/ammo_box/magazine/aksu,
+			/obj/item/ammo_box/magazine/aks74u,
+			/obj/item/ammo_box/magazine/aks74u,
+			/obj/item/ammo_box/magazine/aks74u,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/shotgun/bulldog,
