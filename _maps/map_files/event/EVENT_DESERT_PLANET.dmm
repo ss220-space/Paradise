@@ -378,6 +378,19 @@
 	smooth = 0
 	},
 /area/admin)
+"nY" = (
+/obj/docking_port/stationary{
+	area_type = /area/lavaland/surface/outdoors;
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp_away";
+	name = "labor camp";
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
+	width = 9
+	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
+/area/lavaland/surface/outdoors)
 "oh" = (
 /obj/structure/decorative_structures/metal/statue/metal_angel,
 /turf/simulated/floor/indestructible/grass,
@@ -3609,7 +3622,7 @@ UH
 UH
 UH
 UH
-UH
+nY
 UH
 UH
 UH
