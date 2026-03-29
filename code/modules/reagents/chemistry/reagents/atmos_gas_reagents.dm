@@ -7,12 +7,12 @@
 	taste_description = "burning"
 
 /datum/reagent/freon/on_mob_metabolize(mob/living/breather)
-	. = ..()
 	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
+	return ..()
 
 /datum/reagent/freon/on_mob_end_metabolize(mob/living/breather)
-	. = ..()
 	breather.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
+	return ..()
 
 /datum/reagent/halon
 	name = "Halon"
@@ -24,12 +24,12 @@
 	metabolized_traits = list(TRAIT_RESIST_HEAT)
 
 /datum/reagent/halon/on_mob_metabolize(mob/living/breather)
-	. = ..()
 	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+	return ..()
 
 /datum/reagent/halon/on_mob_end_metabolize(mob/living/breather)
-	. = ..()
 	breather.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+	return ..()
 
 /datum/reagent/healium
 	name = "Healium"
@@ -40,18 +40,16 @@
 	taste_description = "rubbery"
 
 /datum/reagent/healium/on_mob_end_metabolize(mob/living/breather)
-	. = ..()
 	breather.SetSleeping(1 SECONDS)
+	return ..()
 
-/datum/reagent/healium/on_mob_life(mob/living/breather, seconds_per_tick, metabolization_ratio)
-	. = ..()
+/datum/reagent/healium/on_mob_life(mob/living/breather)
 	breather.SetSleeping(30 SECONDS)
-	var/need_mob_update
-	need_mob_update = breather.adjustFireLoss(-2, updating_health = FALSE)
-	need_mob_update += breather.adjustToxLoss(-5, updating_health = FALSE)
-	need_mob_update += breather.adjustBruteLoss(-2, updating_health = FALSE)
-	if(need_mob_update)
-		return STATUS_UPDATE_HEALTH
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= breather.adjustFireLoss(-2 * REM, updating_health = FALSE)
+	update_flags |= breather.adjustToxLoss(-5 * REM, updating_health = FALSE)
+	update_flags |= breather.adjustBruteLoss(-2 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/hypernoblium
 	name = "Hyper-Noblium"
@@ -61,10 +59,10 @@
 	color = "90560B"
 	taste_description = "searingly cold"
 
-/datum/reagent/hypernoblium/on_mob_life(mob/living/carbon/breather, seconds_per_tick, metabolization_ratio)
-	. = ..()
+/datum/reagent/hypernoblium/on_mob_life(mob/living/carbon/breather)
 	if(isplasmaman(breather))
 		breather.apply_status_effect(/datum/status_effect/hypernob_protection)
+	return ..()
 
 /datum/reagent/nitrium_high_metabolization
 	name = "Nitrosyl plasmide"
@@ -76,14 +74,12 @@
 	addiction_chance = 50
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE)
 
-/datum/reagent/nitrium_high_metabolization/on_mob_life(mob/living/carbon/breather, seconds_per_tick, metabolization_ratio)
-	. = ..()
-	var/need_mob_update
-	breather.AdjustParalysis()
-	need_mob_update = breather.adjustStaminaLoss(-4, updating_health = FALSE)
-	need_mob_update += breather.adjustToxLoss(0.1 * (current_cycle - 1), updating_health = FALSE) // 1 toxin damage per cycle at cycle 10
-	if(need_mob_update)
-		return STATUS_UPDATE_HEALTH
+/datum/reagent/nitrium_high_metabolization/on_mob_life(mob/living/carbon/breather)
+	var/metabolization_rate = src.metabolization_rate
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= breather.adjustStaminaLoss(-4 * REM , updating_health = FALSE)
+	update_flags |= breather.adjustToxLoss(0.1 * (current_cycle - 1) * REM , updating_health = FALSE) // 1 toxin damage per cycle at cycle 10
+	return ..() | update_flags
 
 /datum/reagent/nitrium_low_metabolization
 	name = "Nitrium"
@@ -94,12 +90,12 @@
 	taste_description = "burning"
 
 /datum/reagent/nitrium_low_metabolization/on_mob_metabolize(mob/living/breather)
-	. = ..()
 	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
+	return ..()
 
 /datum/reagent/nitrium_low_metabolization/on_mob_end_metabolize(mob/living/breather)
-	. = ..()
 	breather.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
+	return ..()
 
 /datum/reagent/pluoxium
 	name = "Pluoxium"
@@ -109,16 +105,16 @@
 	color = COLOR_GRAY
 	taste_description = "irradiated air"
 
-/datum/reagent/pluoxium/on_mob_life(mob/living/carbon/breather, seconds_per_tick, metabolization_ratio)
-	. = ..()
+/datum/reagent/pluoxium/on_mob_life(mob/living/carbon/breather)
 	if(!HAS_TRAIT(breather, TRAIT_KNOCKEDOUT))
 		return
-
+	var/update_flags = STATUS_UPDATE_NONE
 	for(var/obj/item/organ/organ_being_healed as anything in breather.internal_organs)
 		if(!organ_being_healed.damage)
 			continue
 		organ_being_healed.heal_internal_damage(0.5, robo_repair = FALSE)
-		. |= STATUS_UPDATE_HEALTH
+		update_flags |= STATUS_UPDATE_HEALTH
+	return ..() | update_flags
 
 /datum/reagent/zauker
 	name = "Zauker"
@@ -129,14 +125,12 @@
 	taste_description = "bitter"
 
 /datum/reagent/zauker/on_mob_life(mob/living/breather)
-	. = ..()
-	var/need_mob_update
-	need_mob_update = breather.adjustBruteLoss(6,  updating_health = FALSE)
-	need_mob_update += breather.adjustOxyLoss(1, updating_health = FALSE)
-	need_mob_update += breather.adjustFireLoss(2 * REM, updating_health = FALSE)
-	need_mob_update += breather.adjustToxLoss(2 * REM, updating_health = FALSE)
-	if(need_mob_update)
-		return STATUS_UPDATE_HEALTH
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= breather.adjustBruteLoss(6 * REM, updating_health = FALSE)
+	update_flags |= breather.adjustOxyLoss(1 * REM, updating_health = FALSE)
+	update_flags |= breather.adjustFireLoss(2 * REM, updating_health = FALSE)
+	update_flags |= breather.adjustToxLoss(2 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/bz_metabolites
 	name = "BZ Metabolites"
@@ -146,8 +140,8 @@
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
-/datum/reagent/bz_metabolites/on_mob_life(mob/living/carbon/target, seconds_per_tick, metabolization_ratio)
-	. = ..()
-	target.Hallucinate(12.5)
+/datum/reagent/bz_metabolites/on_mob_life(mob/living/carbon/target\)
+	target.Hallucinate(12.5 * REM)
 	var/datum/antagonist/changeling/changeling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)
-	changeling?.chem_charges -= 5
+	changeling?.chem_charges -= 5 * REM
+	return ..()
