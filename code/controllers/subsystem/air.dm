@@ -387,7 +387,7 @@ SUBSYSTEM_DEF(air)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	var/list/supermatters = list()
+	//var/list/supermatters = list()
 
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
