@@ -1,32 +1,15 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ad" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "aS" = (
 /obj/structure/chair/sofa/corp/left,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "aU" = (
 /turf/simulated/wall/r_wall/rust,
 /area/admin)
-"bw" = (
-/obj/structure/spacevine{
-	opacity = 1
-	},
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/lavaland/surface/outdoors)
 "bB" = (
 /obj/structure/sign/directions/medical{
 	dir = 4
@@ -38,10 +21,7 @@
 /obj/effect/decal/cleanable/blood{
 	color = "990000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "bR" = (
 /obj/machinery/computer,
@@ -54,124 +34,75 @@
 "cw" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/turf_decal/caution/stand_clear/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "cz" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "cM" = (
 /obj/machinery/power/solar,
 /obj/structure/lattice/fireproof,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "dc" = (
 /obj/structure/fence{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "dA" = (
 /obj/effect/decal/cleanable/blood{
 	color = "990000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "dB" = (
 /obj/structure/chair/comfy{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "dH" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "dJ" = (
 /obj/structure/sign/cave{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "dO" = (
 /obj/machinery/door/airlock/engineering,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "dU" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "dY" = (
 /obj/structure/closet/crate/secure/biohazard,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ec" = (
 /obj/effect/decal/remains/xeno,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "ef" = (
-/turf/simulated/floor/vines{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/vines/temperate,
 /area/admin)
 "ek" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/portable_atmospherics/canister,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "em" = (
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/wood/fancy/oak{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/wood/fancy/oak/temperate,
 /area/admin)
 "en" = (
 /obj/structure/decorative_structures/corpse,
@@ -179,10 +110,7 @@
 	color = "990000"
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ex" = (
 /obj/machinery/computer/station_alert,
@@ -196,10 +124,7 @@
 /area/admin)
 "eC" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "eR" = (
 /obj/machinery/status_display,
@@ -207,108 +132,62 @@
 /area/admin)
 "fs" = (
 /obj/structure/closet/cabinet,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "fC" = (
 /obj/structure/table,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "gI" = (
 /obj/structure/flora/rock/jungle,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "gV" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "he" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "hh" = (
 /obj/structure/lattice/fireproof,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "hl" = (
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "hm" = (
 /obj/machinery/door/poddoor,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ht" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "hz" = (
 /obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
-"hC" = (
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/lavaland/surface/outdoors)
 "il" = (
 /obj/structure/chair{
 	dir = 3
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "in" = (
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ir" = (
 /obj/structure/chair/office/dark{
@@ -317,77 +196,47 @@
 /obj/effect/decal/cleanable/blood{
 	color = "990000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "iF" = (
 /obj/structure/chair/sofa/left,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "iQ" = (
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "iU" = (
 /turf/simulated/wall/indestructible/wood,
 /area/admin)
 "jc" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood/fancy/oak{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/wood/fancy/oak/temperate,
 /area/admin)
 "jw" = (
 /obj/item/newspaper,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "jU" = (
 /obj/structure/chair/office/light,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "kh" = (
 /obj/structure/chair/comfy,
 /obj/effect/decal/cleanable/blood{
 	color = "990000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ki" = (
 /obj/machinery/computer/security/old_frame/macintosh,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "kv" = (
 /obj/structure/bones/ribs_left,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "kw" = (
 /obj/effect/ebeam{
@@ -395,49 +244,29 @@
 	icon_state = "desert";
 	color = "#555555"
 	},
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "kL" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "kM" = (
 /obj/machinery/door/poddoor/shutters/preopen,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "li" = (
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "lk" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "lA" = (
 /obj/structure/bookcase/random/adult,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "lL" = (
 /turf/simulated/wall/mineral/titanium,
@@ -449,25 +278,16 @@
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "660000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "lR" = (
-/turf/simulated/floor/pod/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/pod/dark/temperate,
 /area/admin)
 "lY" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate,
 /obj/structure/closet/crate,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "mj" = (
 /obj/structure/chair/office/dark{
@@ -477,43 +297,28 @@
 /area/admin)
 "ml" = (
 /obj/structure/table/wood/poker,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "mo" = (
 /obj/structure/bed,
 /obj/structure/bed,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "mv" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "mx" = (
 /obj/structure/chair/office/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "my" = (
 /obj/machinery/computer/security/telescreen{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "mC" = (
 /obj/effect/turf_decal/siding/blue/end{
@@ -522,10 +327,7 @@
 /obj/machinery/computer/security/telescreen{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "mX" = (
 /turf/simulated/wall/r_wall,
@@ -533,18 +335,12 @@
 "ng" = (
 /obj/structure/table/glass,
 /obj/item/storage/lockbox/vials,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ni" = (
 /obj/structure/decorative_structures/corpse,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "np" = (
 /obj/structure/chair/office/dark,
@@ -552,10 +348,7 @@
 	color = "990000"
 	},
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "nz" = (
 /obj/effect/ebeam{
@@ -563,14 +356,7 @@
 	icon_state = "desert";
 	color = "#555555"
 	},
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air{
-	icon = 'icons/misc/beach.dmi';
-	icon_state = "desert";
-	color = 111111;
-	baseturf = /turf/simulated/floor/chasm;
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/temperate,
 /area/lavaland/surface/outdoors)
 "nE" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -582,10 +368,7 @@
 /area/admin)
 "nP" = (
 /obj/structure/chair/sofa/corp,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "nV" = (
 /turf/simulated/wall/indestructible/sandstone{
@@ -614,25 +397,15 @@
 /area/lavaland/surface/outdoors)
 "oV" = (
 /obj/structure/flora/ash/rock,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "pn" = (
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "pw" = (
 /obj/machinery/computer,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "pR" = (
 /obj/structure/sign/poster/official/anniversary_vintage_reprint,
@@ -640,53 +413,35 @@
 /area/admin)
 "pU" = (
 /obj/machinery/kitchen_machine/oven,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "pW" = (
 /obj/structure/decorative_structures/corpse,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "660000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "qg" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "qo" = (
 /obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "qq" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "qB" = (
 /obj/structure/chair/sofa/corp/right,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "qI" = (
 /obj/structure/sign/biohazard,
@@ -694,10 +449,7 @@
 /area/admin)
 "qT" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ra" = (
 /obj/effect/decal/cleanable/blood{
@@ -705,136 +457,74 @@
 	},
 /obj/structure/decorative_structures/corpse,
 /obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "rn" = (
 /turf/simulated/wall/mineral/titanium,
 /area/admin)
 "rT" = (
 /obj/structure/barricade/sandbags,
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/lavaland/surface/outdoors)
 "rU" = (
 /obj/item/documents,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "sn" = (
 /obj/structure/chair/sofa/right,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "sv" = (
 /obj/structure/table/holotable,
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "sy" = (
 /obj/machinery/smartfridge/medbay,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "sN" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "tb" = (
 /obj/structure/table/glass,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "tt" = (
 /obj/structure/filingcabinet,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "tv" = (
 /obj/structure/closet/crate,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "tS" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "tT" = (
 /obj/effect/turf_decal/siding/wood/pallet,
-/turf/simulated/floor/wood/fancy/oak{
-	slowdown = 4
-	},
-/area/lavaland/surface/outdoors)
+/turf/simulated/floor/wood/fancy/oak/temperate,
+/area/admin)
 "tX" = (
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ua" = (
 /obj/structure/table/tray,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/admin)
-"ue" = (
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
 "un" = (
 /obj/machinery/door/airlock/security,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
-"uq" = (
-/obj/structure/bed/roller/holo,
-/obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "uy" = (
 /obj/structure/bed,
-/turf/simulated/floor/wood/fancy/oak{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
+/turf/simulated/floor/wood/fancy/oak/temperate,
+/area/space)
 "uF" = (
 /obj/structure/sign/engineering,
 /turf/simulated/wall/mineral/titanium,
@@ -842,34 +532,22 @@
 "uI" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/secure/large,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "uJ" = (
 /obj/structure/table/wood{
 	icon_state = "wood_tableflip0";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "uO" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "uY" = (
 /obj/machinery/computer/security/old_frame/macintosh,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "vc" = (
 /turf/simulated/wall/indestructible/rock,
@@ -879,58 +557,37 @@
 	color = "990000"
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ve" = (
 /obj/structure/table/glass,
 /obj/item/documents,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "vi" = (
 /obj/structure/toilet{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "vA" = (
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "vD" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo4"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "wc" = (
 /obj/structure/chair/comfy{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ws" = (
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "wL" = (
 /obj/structure/window/reinforced{
@@ -940,114 +597,69 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "wN" = (
 /obj/structure/door_assembly/door_assembly_research,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "wR" = (
 /obj/item/toy/plushie/snakeplushie,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "xb" = (
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "xl" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/engineering,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "xw" = (
 /obj/effect/decal/nanotrasen_logo_short2{
 	icon_state = "NTlogo2"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "xF" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ye" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "yn" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "yw" = (
 /obj/structure/chair/sofa,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "yL" = (
 /obj/effect/decal/nanotrasen_logo_short2{
 	icon_state = "NTlogo5"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "yM" = (
 /obj/machinery/shower,
 /obj/structure/curtain/open/shower,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "yV" = (
 /obj/machinery/door/airlock/hatch,
 /obj/machinery/door/poddoor/preopen,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "yZ" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "za" = (
 /obj/machinery/optable,
@@ -1055,10 +667,7 @@
 /area/admin)
 "zg" = (
 /obj/machinery/door/airlock/research/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "zQ" = (
 /obj/structure/table/glass,
@@ -1070,46 +679,27 @@
 	color = "990000"
 	},
 /obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Ae" = (
 /obj/structure/door_assembly/door_assembly_research,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Ah" = (
 /obj/structure/flora/ash/rock/style_4,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "Aj" = (
 /obj/item/chair/wood,
-/turf/simulated/floor/wood/fancy/oak{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/wood/fancy/oak/temperate,
 /area/admin)
 "As" = (
 /obj/machinery/door/airlock/vault,
-/turf/simulated/floor/pod/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/pod/dark/temperate,
 /area/admin)
 "Bj" = (
 /obj/machinery/door/airlock/research,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Bm" = (
 /obj/effect/decal/cleanable/blood{
@@ -1119,10 +709,7 @@
 	color = "660000"
 	},
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Br" = (
 /obj/structure/sign/poster/official/nanotrasen_logo,
@@ -1130,33 +717,21 @@
 /area/admin)
 "By" = (
 /obj/structure/closet/cabinet,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "BH" = (
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "BW" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Cm" = (
 /obj/machinery/sleeper/upgraded,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Co" = (
 /obj/effect/decal/cleanable/blood{
@@ -1166,10 +741,7 @@
 	color = "990000"
 	},
 /obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "CC" = (
 /obj/structure/sign/med,
@@ -1181,90 +753,55 @@
 /area/admin)
 "CT" = (
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "CV" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Di" = (
 /obj/structure/spacevine{
 	opacity = 1
 	},
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "DI" = (
 /obj/structure/bones/ribs_right,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "DK" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo6"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "DL" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "El" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Eo" = (
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/admin)
 "Ew" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "EE" = (
 /turf/simulated/floor/indestructible/beach/water/dense,
 /area/lavaland/surface/outdoors)
 "EF" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "EO" = (
 /obj/effect/decal/cleanable/blood{
@@ -1274,146 +811,75 @@
 	color = "660000"
 	},
 /obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "EV" = (
 /obj/item/paper_bin,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "EX" = (
-/turf/simulated/floor/wood/fancy/oak{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
-"Fe" = (
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/wood/fancy/oak/temperate,
 /area/admin)
 "Ff" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Fs" = (
 /obj/structure/closet/crate/trashcart/gibs,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Fw" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "FN" = (
 /obj/structure/barricade/wooden/crude,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "FZ" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Gc" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Gk" = (
 /obj/effect/decal/remains/xeno,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "GP" = (
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/lavaland/surface/outdoors)
 "GQ" = (
 /obj/effect/decal/nanotrasen_logo_short2{
 	icon_state = "NTlogo3"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Hh" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
-/area/admin)
-"HL" = (
-/obj/structure/spacevine{
-	opacity = 1
-	},
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "HR" = (
 /obj/effect/decal/cleanable/blood{
 	color = "990000"
 	},
 /obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "HT" = (
 /obj/structure/bones,
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/lavaland/surface/outdoors)
 "HZ" = (
 /obj/machinery/kitchen_machine/grill,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "IF" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -1423,10 +889,7 @@
 /obj/structure/chair/comfy{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Jf" = (
 /obj/machinery/computer/monitor,
@@ -1435,53 +898,32 @@
 "Js" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Jy" = (
 /obj/structure/flora/tree/palm,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "JA" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/decal/cleanable/blood{
 	color = "990000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "JR" = (
 /obj/effect/decal/nanotrasen_logo_short2,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "JU" = (
 /obj/structure/flora/ash/rock/style_4,
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/lavaland/surface/outdoors)
 "JV" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo2"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Ki" = (
 /obj/structure/sign/biohazard,
@@ -1493,30 +935,20 @@
 /area/admin)
 "KD" = (
 /obj/structure/fence/corner,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "KN" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Li" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Lm" = (
 /turf/simulated/wall/indestructible/rock,
@@ -1532,37 +964,25 @@
 "Lw" = (
 /obj/machinery/computer/security/wooden_tv,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Ly" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo5"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "LI" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Mg" = (
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "660000"
 	},
 /obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Mo" = (
 /turf/simulated/floor/engine/insulated,
@@ -1571,85 +991,51 @@
 /obj/structure/stairs{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "MC" = (
 /obj/machinery/smartfridge/broken,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "MT" = (
 /obj/structure/chair/comfy,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Nm" = (
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/lavaland/surface/outdoors)
 "Nn" = (
 /obj/machinery/cryopod,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "NR" = (
 /obj/structure/chair/sofa/corp{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Om" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Os" = (
 /obj/structure/spacevine{
 	opacity = 1
 	},
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "Oz" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "OY" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Pa" = (
 /obj/structure/sign/nosmoking_1,
@@ -1658,63 +1044,37 @@
 "Pb" = (
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "PH" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "PM" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "PP" = (
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "Qb" = (
 /obj/machinery/iv_drip,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Qf" = (
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Qr" = (
 /obj/structure/closet/crate/plastic,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "QE" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Rf" = (
 /obj/structure/sign/electricshock,
@@ -1732,28 +1092,18 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "RI" = (
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "660000"
 	},
 /obj/effect/turf_decal/delivery/white,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "RL" = (
 /obj/structure/barricade/sandbags,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "Sc" = (
 /obj/machinery/iv_drip,
@@ -1761,17 +1111,11 @@
 /area/admin)
 "Sd" = (
 /obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Ss" = (
 /obj/machinery/door/airlock/vault,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "St" = (
 /obj/effect/decal/cleanable/blood{
@@ -1780,10 +1124,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Sv" = (
 /turf/simulated/floor/mineral/titanium/blue,
@@ -1791,40 +1132,24 @@
 "SA" = (
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/box,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Tb" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Tc" = (
 /obj/structure/fence,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "TB" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "TJ" = (
 /obj/machinery/door/poddoor/preopen,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "TK" = (
 /turf/simulated/floor/bluegrid,
@@ -1840,73 +1165,45 @@
 /area/admin)
 "Uf" = (
 /obj/machinery/vending/medical,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "UH" = (
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "UM" = (
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "660000"
 	},
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "US" = (
 /obj/structure/curtain/medical,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "UY" = (
 /obj/structure/bed,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Vf" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo3"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Vi" = (
 /obj/structure/table/holotable,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Vj" = (
 /obj/structure/chair/comfy{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "VD" = (
 /obj/structure/chair/sofa/corp/corner,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "VI" = (
 /obj/structure/sign/electricshock,
@@ -1914,10 +1211,7 @@
 /area/admin)
 "VK" = (
 /obj/machinery/vending/chinese,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "VO" = (
 /obj/structure/sign/nosmoking_2,
@@ -1925,38 +1219,22 @@
 /area/admin)
 "VW" = (
 /obj/structure/door_assembly/door_assembly_hatch,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Wc" = (
 /obj/structure/spacevine{
 	opacity = 1
 	},
-/turf/simulated/floor/indestructible/beach/sand{
-	color = "#eeeeee";
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark,
 /area/admin)
 "Wr" = (
 /obj/structure/bones,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "Ws" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate/secure/biohazard,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "WX" = (
 /turf/simulated/wall/indestructible/sandstone{
@@ -1968,131 +1246,81 @@
 /area/lavaland/surface/outdoors)
 "Xg" = (
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Xq" = (
 /obj/machinery/door/poddoor/multi_tile,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Xr" = (
 /obj/item/phone,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "XE" = (
 /obj/machinery/light/floor,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "XM" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "XP" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "XQ" = (
 /obj/machinery/light/floor,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "XV" = (
 /obj/structure/chair/comfy{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Ya" = (
 /obj/structure/chair/comfy,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Yn" = (
 /obj/structure/chair/sofa/corp{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Yp" = (
 /obj/effect/decal/nanotrasen_logo_short2{
 	icon_state = "NTlogo4"
 	},
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "Yx" = (
 /obj/structure/window/full/basic,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/turf/simulated/floor/wood/fancy/oak{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/wood/fancy/oak/temperate,
 /area/admin)
 "YQ" = (
 /obj/structure/door_assembly/door_assembly_hatch,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "Zv" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/admin)
 "Zz" = (
 /obj/effect/decal/nanotrasen_logo,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ZB" = (
 /obj/effect/turf_decal/siding/wood/pallet,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 "ZG" = (
 /obj/machinery/computer/monitor,
@@ -2103,35 +1331,21 @@
 	color = "990000"
 	},
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ZQ" = (
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "660000"
 	},
-/turf/simulated/floor/plasteel/dark{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plasteel/dark/temperate,
 /area/admin)
 "ZR" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/mineral/titanium{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/mineral/titanium/templerate,
 /area/admin)
 "ZU" = (
 /obj/structure/bones/skull,
-/turf/simulated/floor/indestructible/beach/sand{
-	slowdown = 2;
-	color = "#AAAAAA";
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/indestructible/beach/sand/temperate,
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
@@ -2448,7 +1662,7 @@ WX
 WX
 WX
 WX
-hC
+UH
 WX
 WX
 WX
@@ -2456,17 +1670,17 @@ WX
 WX
 WX
 UH
-hC
+UH
 WX
 UH
-hC
+UH
 WX
 WX
 WX
 WX
 WX
 WX
-hC
+UH
 WX
 WX
 WX
@@ -2641,16 +1855,16 @@ WX
 WX
 WX
 WX
-hC
-hC
-hC
-hC
-hC
-hC
-bw
-hC
-hC
-hC
+UH
+UH
+UH
+UH
+UH
+UH
+Di
+UH
+UH
+UH
 UH
 WX
 WX
@@ -2663,12 +1877,12 @@ WX
 Di
 WX
 WX
-hC
+UH
 WX
 WX
 WX
 WX
-hC
+UH
 UH
 UH
 WX
@@ -2840,32 +2054,32 @@ UH
 UH
 UH
 WX
-hC
-hC
-hC
-bw
+UH
+UH
+UH
+Di
 UH
 UH
 UH
 UH
 UH
-hC
-bw
-hC
 UH
-UH
-bw
+Di
 UH
 UH
 UH
-hC
-hC
-bw
+Di
 UH
 UH
-bw
-hC
-hC
+UH
+UH
+UH
+Di
+UH
+UH
+Di
+UH
+UH
 Di
 UH
 UH
@@ -3043,16 +2257,16 @@ UH
 UH
 WX
 WX
-hC
-UH
-UH
-Di
-Di
-UH
 UH
 UH
 UH
 Di
+Di
+UH
+UH
+UH
+UH
+Di
 UH
 UH
 WX
@@ -3065,10 +2279,10 @@ Di
 UH
 UH
 UH
-bw
-hC
-bw
-hC
+Di
+UH
+Di
+UH
 UH
 UH
 UH
@@ -3089,11 +2303,11 @@ WX
 WX
 WX
 WX
-hC
-hC
-hC
-hC
-hC
+UH
+UH
+UH
+UH
+UH
 GP
 WX
 WX
@@ -3245,7 +2459,7 @@ UH
 UH
 UH
 WX
-hC
+UH
 UH
 UH
 UH
@@ -3265,10 +2479,10 @@ WX
 WX
 WX
 UH
-hC
-bw
-hC
-hC
+UH
+Di
+UH
+UH
 WX
 WX
 UH
@@ -3468,8 +2682,8 @@ WX
 WX
 WX
 Di
-bw
-hC
+Di
+UH
 WX
 WX
 UH
@@ -3534,9 +2748,9 @@ GP
 GP
 GP
 kv
-hC
+UH
 GP
-hC
+UH
 GP
 GP
 GP
@@ -3669,8 +2883,8 @@ nV
 WX
 WX
 WX
-hC
-hC
+UH
+UH
 WX
 WX
 UH
@@ -3729,18 +2943,18 @@ nV
 nV
 nV
 Os
-hC
+UH
 GP
 GP
 GP
 GP
 GP
-hC
-hC
-hC
-hC
-hC
-hC
+UH
+UH
+UH
+UH
+UH
+UH
 ZU
 GP
 GP
@@ -3760,19 +2974,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -3853,8 +3067,8 @@ UH
 UH
 WX
 WX
-hC
-hC
+UH
+UH
 UH
 UH
 WX
@@ -3872,8 +3086,8 @@ WX
 WX
 WX
 UH
-hC
-bw
+UH
+Di
 UH
 UH
 UH
@@ -3935,14 +3149,14 @@ WX
 GP
 GP
 GP
-hC
-hC
-hC
-hC
+UH
+UH
+UH
+UH
 DI
-hC
-hC
-hC
+UH
+UH
+UH
 GP
 GP
 GP
@@ -3962,19 +3176,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -4056,8 +3270,8 @@ UH
 WX
 WX
 WX
-hC
-hC
+UH
+UH
 UH
 WX
 nV
@@ -4074,7 +3288,7 @@ WX
 WX
 WX
 UH
-hC
+UH
 WX
 UH
 UH
@@ -4136,13 +3350,13 @@ nV
 WX
 GP
 GP
-hC
+UH
 Wr
-hC
+UH
 GP
 GP
-hC
-hC
+UH
+UH
 GP
 GP
 GP
@@ -4259,7 +3473,7 @@ UH
 WX
 WX
 WX
-bw
+Di
 Di
 WX
 nV
@@ -4276,7 +3490,7 @@ WX
 WX
 UH
 Di
-hC
+UH
 WX
 UH
 UH
@@ -4339,7 +3553,7 @@ GP
 GP
 GP
 GP
-hC
+UH
 GP
 GP
 GP
@@ -4366,19 +3580,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -4478,7 +3692,7 @@ WX
 WX
 UH
 WX
-hC
+UH
 WX
 UH
 UH
@@ -4543,8 +3757,8 @@ GP
 GP
 GP
 GP
-hC
-hC
+UH
+UH
 GP
 GP
 GP
@@ -4568,19 +3782,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -4673,15 +3887,15 @@ ef
 PP
 PP
 nV
-Fe
-HL
+PP
+Os
 nV
 WX
 WX
 UH
 WX
-hC
-bw
+UH
+Di
 UH
 EE
 EE
@@ -4874,15 +4088,15 @@ PP
 PP
 PP
 nV
-HL
-Fe
-Fe
+Os
+PP
+PP
 nV
 WX
 WX
 WX
 WX
-hC
+UH
 WX
 UH
 EE
@@ -4972,19 +4186,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -5084,7 +4298,7 @@ WX
 WX
 UH
 Di
-hC
+UH
 WX
 UH
 EE
@@ -5174,19 +4388,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -5282,7 +4496,7 @@ UH
 UH
 UH
 WX
-hC
+UH
 WX
 WX
 UH
@@ -5484,8 +4698,8 @@ UH
 UH
 UH
 WX
-hC
-hC
+UH
+UH
 WX
 UH
 WX
@@ -5578,19 +4792,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -5674,8 +4888,8 @@ UH
 UH
 WX
 WX
-hC
-bw
+UH
+Di
 UH
 UH
 UH
@@ -5684,13 +4898,13 @@ UH
 UH
 UH
 UH
-hC
+UH
 WX
 UH
 WX
 WX
-hC
-bw
+UH
+Di
 UH
 UH
 EE
@@ -5780,19 +4994,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -5877,8 +5091,8 @@ UH
 WX
 WX
 WX
-hC
-hC
+UH
+UH
 UH
 UH
 Di
@@ -5886,12 +5100,12 @@ UH
 UH
 UH
 UH
-hC
+UH
 WX
 UH
 UH
-bw
-hC
+Di
+UH
 WX
 UH
 UH
@@ -6080,19 +5294,19 @@ UH
 WX
 WX
 WX
-hC
-hC
-hC
-bw
-hC
 UH
 UH
-hC
+UH
+Di
+UH
+UH
+UH
+UH
 WX
 WX
 WX
 WX
-hC
+UH
 WX
 WX
 UH
@@ -6184,19 +5398,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -6286,16 +5500,16 @@ WX
 WX
 WX
 WX
-hC
-hC
-hC
+UH
+UH
+UH
 WX
 WX
 UH
 WX
 UH
-bw
-hC
+Di
+UH
 UH
 UH
 EE
@@ -6351,7 +5565,7 @@ Eo
 Eo
 Os
 Os
-hC
+UH
 GP
 GP
 GP
@@ -6386,19 +5600,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -6553,7 +5767,7 @@ Eo
 nV
 nV
 nV
-hC
+UH
 GP
 GP
 GP
@@ -6755,7 +5969,7 @@ nV
 nV
 nV
 nV
-hC
+UH
 GP
 GP
 WX
@@ -6790,19 +6004,19 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 hh
-Fe
-Fe
-Fe
-Fe
-Fe
-Fe
+PP
+PP
+PP
+PP
+PP
+PP
 UH
 UH
 UH
@@ -6957,7 +6171,7 @@ nV
 nV
 nV
 PP
-hC
+UH
 GP
 GP
 WX
@@ -6992,9 +6206,9 @@ UH
 UH
 UH
 UH
-Fe
-Fe
-Fe
+PP
+PP
+PP
 rn
 rn
 Xg
@@ -7002,9 +6216,9 @@ rn
 Xg
 rn
 rn
-Fe
-Fe
-Fe
+PP
+PP
+PP
 UH
 UH
 UH
@@ -7158,7 +6372,7 @@ nV
 nV
 nV
 WX
-hC
+UH
 GP
 GP
 WX
@@ -7899,7 +7113,7 @@ UH
 UH
 WX
 WX
-hC
+UH
 WX
 UH
 UH
@@ -8165,7 +7379,7 @@ nV
 WX
 WX
 WX
-hC
+UH
 GP
 GP
 GP
@@ -8350,7 +7564,7 @@ Wc
 Eo
 Eo
 Os
-hC
+UH
 GP
 GP
 GP
@@ -8366,8 +7580,8 @@ nV
 nV
 WX
 WX
-hC
-hC
+UH
+UH
 GP
 GP
 GP
@@ -8568,7 +7782,7 @@ ef
 nV
 WX
 WX
-hC
+UH
 GP
 GP
 GP
@@ -8770,7 +7984,7 @@ ef
 nV
 WX
 WX
-hC
+UH
 GP
 GP
 GP
@@ -8814,11 +8028,11 @@ rn
 rn
 rn
 Rf
-ue
-ue
+tX
+tX
 eR
-ue
-ue
+tX
+tX
 Rf
 CL
 Ln
@@ -9967,7 +9181,7 @@ WX
 WX
 WX
 WX
-hC
+UH
 GP
 GP
 GP
@@ -10170,7 +9384,7 @@ WX
 WX
 WX
 WX
-hC
+UH
 GP
 GP
 GP
@@ -10373,7 +9587,7 @@ WX
 WX
 WX
 WX
-hC
+UH
 GP
 GP
 GP
@@ -15978,7 +15192,7 @@ UH
 UH
 UH
 WX
-hC
+UH
 GP
 GP
 WX
@@ -16180,7 +15394,7 @@ UH
 UH
 WX
 wR
-hC
+UH
 WX
 GP
 WX
@@ -16495,9 +15709,9 @@ tX
 tX
 tX
 PH
-uq
 tX
-uq
+tX
+tX
 rn
 UH
 UH
@@ -40704,7 +39918,7 @@ UH
 UH
 UH
 UH
-Fe
+PP
 Eo
 Eo
 Eo

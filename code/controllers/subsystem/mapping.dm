@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(mapping)
 	if(!CONFIG_GET(flag/disable_taipan) && !(map_datum.disables & DISABLE_TAIPAN))
 		loadTaipan()
 	// Load desert planet if gamemode is desert event
-	if(GLOB.master_mode == GAMEMODE_DESERT_EVENT)
+	if(map_datum.disables & DESERT_PLANET_SPAWN)
 		load_Desert_Planet()
 	// Pick a random away mission.
 	if(!CONFIG_GET(flag/disable_away_missions) && !(map_datum.disables & DISABLE_AWAY_MISSIONS))
@@ -439,7 +439,7 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading Desert Planet...")
 	var/trait_list = list(BLOCK_TELEPORT, ZTRAIT_ASHSTORM, ZTRAIT_BASETURF = /turf/simulated/floor/indestructible/beach/sand)
-	var/desert_z_level = GLOB.space_manager.add_new_zlevel("Desert Planet", linkage = UNAFFECTED, traits = trait_list)
+	var/desert_z_level = GLOB.space_manager.add_new_zlevel(DESERT_PLANET, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file("_maps/map_files/event/EVENT_DESERT_PLANET.dmm"), z_offset = desert_z_level)
 	log_startup_progress("Loaded Desert Planet in [stop_watch(watch)]s")
 

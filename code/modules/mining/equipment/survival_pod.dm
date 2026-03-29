@@ -227,6 +227,9 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/pod/dark/temperate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 //Door
 /obj/machinery/door/airlock/survival_pod

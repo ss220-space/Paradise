@@ -46,6 +46,7 @@
 	#define AWAY_MISSION "Away Mission"
 	#define RAMSS_TAIPAN "RAMSS Taipan"
 	#define RESERVED_ZONE "Transit/Reserved"
+	#define DESERT_PLANET "Desert Planet"
 
 /*
 You can change orders for z-level(from 3 to last cause centcom and admin are compiled right into) and everything shouldn't break

@@ -93,6 +93,9 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/wood/fancy/oak/temperate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/wood/fancy/birch
 	icon_state = "fancy-wood-birch"

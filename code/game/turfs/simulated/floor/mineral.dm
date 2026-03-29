@@ -110,6 +110,10 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/mineral/titanium/templerate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
 /turf/simulated/floor/mineral/titanium/blue
 	icon_state = "titanium_blue"
 

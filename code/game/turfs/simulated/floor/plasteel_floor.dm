@@ -69,6 +69,10 @@
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
 
+/turf/simulated/floor/plasteel/dark/temperate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
 /turf/simulated/floor/plasteel/dark/telecomms
 	nitrogen = 100
 	oxygen = 0
