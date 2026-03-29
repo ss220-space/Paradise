@@ -233,8 +233,11 @@
 
 /obj/item/storage/bag/ore/equipped(mob/user, slot)
 	. = ..()
-	if(listening_to)
+	if(listening_to == user)
 		return
+
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
 
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_moved))
 	listening_to = user
