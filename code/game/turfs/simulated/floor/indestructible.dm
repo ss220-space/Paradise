@@ -199,6 +199,14 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 
+/turf/simulated/floor/indestructible/beach/sand/temperate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+	slowdown = 2
+
+/turf/simulated/floor/indestructible/beach/sand/temperate/dark
+	color = "#eeeeee"
+
 /turf/simulated/floor/indestructible/beach/sand/Initialize(mapload)
 	. = ..()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")

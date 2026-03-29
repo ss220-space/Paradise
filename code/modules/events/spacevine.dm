@@ -784,3 +784,7 @@
 			. = TRUE
 
 #undef SPACEVINE_SPAWN_THRESHOLD
+
+/turf/simulated/floor/vines/temperate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE

@@ -168,6 +168,10 @@
 /turf/simulated/floor/chasm/straight_down/apply_components(mapload)
 	AddComponent(/datum/component/chasm, null, mapload)	//Don't pass anything for below_turf.
 
+/turf/simulated/floor/chasm/temperate
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
@@ -194,3 +198,10 @@
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air/temperate
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "desert";
+	color = "#111111";
+	baseturf = /turf/simulated/floor/chasm;
+	atmos_environment = ENVIRONMENT_TEMPERATE;
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
