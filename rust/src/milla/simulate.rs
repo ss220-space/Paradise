@@ -1322,6 +1322,47 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         }
     }
 
+    // TRITIUM COMBUSTION
+    if cached_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE
+        && my_next_tile.gases.tritium() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+    {
+        let tritium = my_next_tile.gases.tritium();
+        let oxygen = my_next_tile.gases.oxygen();
+
+        let tritium_burnt = fraction
+            * (tritium / FIRE_TRITIUM_BURN_RATE_DELTA)
+                .min(oxygen / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN))
+                .min(tritium)
+                .min(oxygen * 2.0);
+
+        if tritium_burnt > 0.0 {
+            my_next_tile.gases.set_tritium(tritium - tritium_burnt);
+            my_next_tile.gases.set_oxygen(oxygen - tritium_burnt * 0.5);
+            my_next_tile
+                .gases
+                .set_water_vapor(my_next_tile.gases.water_vapor() + tritium_burnt);
+
+            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
+            let energy_released = FIRE_TRITIUM_ENERGY_RELEASED * tritium_burnt;
+            thermal_energy += energy_released;
+            cached_temperature = thermal_energy / cached_heat_capacity;
+            my_next_tile.fuel_burnt += tritium_burnt;
+
+            if tritium_burnt > TRITIUM_RADIATION_MINIMUM_MOLES
+                && energy_released > TRITIUM_RADIATION_RELEASE_THRESHOLD
+            {
+                let mut rng = rand::rng();
+                let random: f32 = rng.random();
+                if random < 0.1 {
+                    my_next_tile.updates |= ReasonFlags::RADIATION_PULSE;
+                    cached_radiation = cached_radiation
+                        .max(tritium_burnt.sqrt() / TRITIUM_RADIATION_RANGE_DIVISOR);
+                }
+            }
+        }
+    }
+
     // Plasmafire!
     if cached_temperature > PLASMA_BURN_MIN_TEMP
         && my_next_tile.gases.toxins() > MINIMUM_MOLE_COUNT
@@ -1436,47 +1477,6 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += hydrogen_burnt;
-    }
-
-    // TRITIUM COMBUSTION
-    if cached_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE
-        && my_next_tile.gases.tritium() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
-    {
-        let tritium = my_next_tile.gases.tritium();
-        let oxygen = my_next_tile.gases.oxygen();
-
-        let tritium_burnt = fraction
-            * (tritium / FIRE_TRITIUM_BURN_RATE_DELTA)
-                .min(oxygen / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN))
-                .min(tritium)
-                .min(oxygen * 2.0);
-
-        if tritium_burnt > 0.0 {
-            my_next_tile.gases.set_tritium(tritium - tritium_burnt);
-            my_next_tile.gases.set_oxygen(oxygen - tritium_burnt * 0.5);
-            my_next_tile
-                .gases
-                .set_water_vapor(my_next_tile.gases.water_vapor() + tritium_burnt);
-
-            cached_heat_capacity = fraction * my_next_tile.heat_capacity();
-            let energy_released = FIRE_TRITIUM_ENERGY_RELEASED * tritium_burnt;
-            thermal_energy += energy_released;
-            cached_temperature = thermal_energy / cached_heat_capacity;
-            my_next_tile.fuel_burnt += tritium_burnt;
-
-            if tritium_burnt > TRITIUM_RADIATION_MINIMUM_MOLES
-                && energy_released > TRITIUM_RADIATION_RELEASE_THRESHOLD
-            {
-                let mut rng = rand::rng();
-                let random: f32 = rng.random();
-                if random < 0.1 {
-                    my_next_tile.updates |= ReasonFlags::RADIATION_PULSE;
-                    cached_radiation = cached_radiation
-                        .max(tritium_burnt.sqrt() / TRITIUM_RADIATION_RANGE_DIVISOR);
-                }
-            }
-        }
     }
 
     // FREON COMBUSTION

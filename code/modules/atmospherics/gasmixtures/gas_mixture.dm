@@ -795,6 +795,22 @@ What are the archived variables for?
 
 
 	fuel_burnt = 0
+
+	// ==================== Tritium Fire ====================
+	if(private_tritium > MINIMUM_MOLE_COUNT && private_oxygen > MINIMUM_MOLE_COUNT && private_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE)
+		var/old_heat_capacity = heat_capacity()
+		var/burned_fuel = min(private_tritium / FIRE_TRITIUM_BURN_RATE_DELTA, private_oxygen / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN), private_tritium, private_oxygen * 2)
+		if(burned_fuel > 0 && private_tritium - burned_fuel >= 0 && private_oxygen - burned_fuel * 0.5 >= 0)
+			private_tritium -= burned_fuel
+			private_oxygen -= burned_fuel * 0.5
+			private_water_vapor += burned_fuel
+			var/energy_released = FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
+			if(energy_released > 0)
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+			reacting = TRUE
+
 	// ==================== Plasma Fire ====================
 	if((private_toxins > MINIMUM_MOLE_COUNT) && (private_oxygen > MINIMUM_MOLE_COUNT) && private_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		var/energy_released = 0
@@ -866,21 +882,6 @@ What are the archived variables for?
 			private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 
 		if(fuel_burnt)
-			reacting = TRUE
-
-	// ==================== Tritium Fire ====================
-	if(private_tritium > MINIMUM_MOLE_COUNT && private_oxygen > MINIMUM_MOLE_COUNT && private_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE)
-		var/old_heat_capacity = heat_capacity()
-		var/burned_fuel = min(private_tritium / FIRE_TRITIUM_BURN_RATE_DELTA, private_oxygen / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN), private_tritium, private_oxygen * 2)
-		if(burned_fuel > 0 && private_tritium - burned_fuel >= 0 && private_oxygen - burned_fuel * 0.5 >= 0)
-			private_tritium -= burned_fuel
-			private_oxygen -= burned_fuel * 0.5
-			private_water_vapor += burned_fuel
-			var/energy_released = FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
-			if(energy_released > 0)
-				var/new_heat_capacity = heat_capacity()
-				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-					private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 			reacting = TRUE
 
 	// ==================== Freon Fire ====================
