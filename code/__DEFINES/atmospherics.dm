@@ -27,8 +27,8 @@
 #define T1000K 1000
 #define T1500K 1500
 #define T999K 999
-#define T2500K 3500
-#define T500K 3500
+#define T2500K 2500
+#define T500K 500
 #define T3500K 3500
 #define T3800K 3800
 
