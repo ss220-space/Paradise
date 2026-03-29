@@ -4,7 +4,7 @@
 	icon_state = "crusher"
 	item_state = "crusher0"
 	name = "proto-kinetic crusher"
-	desc = "Ранняя версия Кинетического Акселератора, по сути являющаяся кучей шахтёрских инструментов прибитых друг к другу в форму топора. Эффективен, но опасен в использовании, особенно для неопытных шахтеров."
+	desc = "Ранняя версия Кинетического Акселератора, по сути, являющаяся кучей шахтёрских инструментов, прибитых друг к другу в форму топора. Эффективен, но опасен в использовании, особенно для неопытных шахтёров."
 	gender = MALE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -301,7 +301,7 @@
 //goliath
 /obj/item/crusher_trophy/goliath_tentacle
 	name = "goliath tentacle"
-	desc = "Отрубленное щупальце голиафа. Может быть установлено на крушитель в качестве трофея."
+	desc = "Отрубленное щупальце голиафа. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/goliath_tentacle
 	bonus_value = 2
@@ -319,7 +319,7 @@
 	)
 
 /obj/item/crusher_trophy/goliath_tentacle/effect_desc()
-	return "Взрыв метки наносит <b>[bonus_value]</b> едениц[DECL_SEC_MIN(bonus_value)] дополнительного урона за каждые <b>[missing_health_desc]</b> единиц[DECL_SEC_MIN(missing_health_desc)] недостающего у вас здоровья"
+	return "Взрыв метки наносит <b>[bonus_value]</b> единиц[DECL_SEC_MIN(bonus_value)] дополнительного урона за каждые <b>[missing_health_desc]</b> единиц[DECL_SEC_MIN(missing_health_desc)] недостающего у вас здоровья"
 
 /obj/item/crusher_trophy/goliath_tentacle/on_mark_detonation(mob/living/target, mob/living/user)
 	var/missing_health = user.health - user.maxHealth
@@ -331,7 +331,7 @@
 //watcher
 /obj/item/crusher_trophy/watcher_wing
 	name = "watcher wing"
-	desc = "Оторванное крыло наблюдателя. Может быть установлено на крушитель в качестве трофея."
+	desc = "Оторванное крыло наблюдателя. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "watcher_wing"
 	denied_type = /obj/item/crusher_trophy/watcher_wing
 	bonus_value = 5
@@ -361,7 +361,7 @@
 //magmawing watcher
 /obj/item/crusher_trophy/blaster_tubes/magma_wing
 	name = "magmawing watcher wing"
-	desc = "Всё ещё пылающее крыло магмового наблюдателя. Может быть установлено на крушитель в качестве трофея."
+	desc = "Всё ещё пылающее крыло магмового наблюдателя. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "magma_wing"
 	gender = NEUTER
 	bonus_value = 5
@@ -390,7 +390,7 @@
 //icewing watcher
 /obj/item/crusher_trophy/watcher_wing/ice_wing
 	name = "icewing watcher wing"
-	desc = "Хрупкое, замороженное крыло ледяного наблюдателя. Может быть установлено на крушитель в качестве трофея."
+	desc = "Хрупкое, замороженное крыло ледяного наблюдателя. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "ice_wing"
 	bonus_value = 8
 
@@ -407,7 +407,7 @@
 //legion
 /obj/item/crusher_trophy/legion_skull
 	name = "legion skull"
-	desc = "Разбитый, безжизненный череп легиона. Может быть установлен на крушитель в качестве трофея."
+	desc = "Разбитый, безжизненный череп легиона. Может быть установлен на Крушитель в качестве трофея."
 	gender = MALE
 	icon_state = "legion_skull"
 	denied_type = /obj/item/crusher_trophy/legion_skull
@@ -439,7 +439,7 @@
 /// Massive eyed tentacle
 /obj/item/crusher_trophy/eyed_tentacle
 	name = "Massive eyed tentacle"
-	desc = "Большое и глазастое щупальце древнего голиафа. Может быть установлено на крушитель в качестве трофея."
+	desc = "Большое и глазастое щупальце древнего голиафа. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "ancient_goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/eyed_tentacle
 	bonus_value = 1
@@ -471,7 +471,7 @@
 /// Poison fang
 /obj/item/crusher_trophy/fang
 	name = "Poison fang"
-	desc = "Уродливый и ядовитый клык костномозгового ткача. Может быть установлен на крушитель в качестве трофея."
+	desc = "Уродливый и ядовитый клык костномозгового ткача. Может быть установлен на Крушитель в качестве трофея."
 	gender = MALE
 	icon_state = "ob_gniga"
 	denied_type = /obj/item/crusher_trophy/fang
@@ -496,7 +496,7 @@
 /// Frost gland
 /obj/item/crusher_trophy/gland
 	name = "Frost gland"
-	desc = "Железа морозноно костномозгового ткача. Может быть установлена на крушитель в качестве трофея."
+	desc = "Железа морозного костномозгового ткача. Может быть установлена на Крушитель в качестве трофея."
 	gender = FEMALE
 	icon_state = "ice_gniga"
 	denied_type = /obj/item/crusher_trophy/gland
@@ -535,7 +535,7 @@
 //blood-drunk hunter
 /obj/item/crusher_trophy/miner_eye
 	name = "eye of a blood-drunk hunter"
-	desc = "Человеческий глаз с раздробленным в кашу зрачком. Может быть установлено на крушитель в качестве трофея."
+	desc = "Человеческий глаз с раздробленным в кашу зрачком. Может быть установлено на Крушитель в качестве трофея."
 	gender = MALE
 	icon_state = "hunter_eye"
 	denied_type = /obj/item/crusher_trophy/miner_eye
@@ -558,7 +558,7 @@
 
 //ash drake
 /obj/item/crusher_trophy/tail_spike
-	desc = "Шип, срезанный с хвоста пепельного дрейка. Может быть установлено на крушитель в качестве трофея."
+	desc = "Шип, срезанный с хвоста пепельного дрейка. Может быть установлено на Крушитель в качестве трофея."
 	gender = MALE
 	denied_type = /obj/item/crusher_trophy/tail_spike
 	bonus_value = 5
@@ -592,7 +592,7 @@
 //bubblegum
 /obj/item/crusher_trophy/demon_claws
 	name = "demon claws"
-	desc = "Набор окровавленных когтей, вырванных с руки огромного демона. Может быть установлено на крушитель в качестве трофея."
+	desc = "Набор окровавленных когтей, вырванных с руки огромного демона. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "demon_claws"
 	gender = PLURAL
 	denied_type = /obj/item/crusher_trophy/demon_claws
@@ -637,7 +637,7 @@
 //colossus
 /obj/item/crusher_trophy/blaster_tubes
 	name = "blaster tubes"
-	desc = "Бластерные трубки, взятые с руки колосса. Может быть установлено на крушитель в качестве трофея."
+	desc = "Бластерные трубки, взятые с руки Колосса. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "blaster_tubes"
 	gender = PLURAL
 	denied_type = /obj/item/crusher_trophy/blaster_tubes
@@ -676,7 +676,7 @@
 //hierophant
 /obj/item/crusher_trophy/vortex_talisman
 	name = "vortex talisman"
-	desc = "Мерцающий талисман, ранее бывший маяком Иерофанта. Может быть установлено на крушитель в качестве трофея."
+	desc = "Мерцающий талисман, ранее бывший маяком Иерофанта. Может быть установлено на Крушитель в качестве трофея."
 	gender = MALE
 	icon_state = "vortex_talisman"
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
@@ -704,7 +704,7 @@
 //vetus
 /obj/item/crusher_trophy/adaptive_intelligence_core
 	name = "adaptive intelligence core"
-	desc = "Кажется, это одно из ядер огромного робота. Может быть установлено на крушитель в качестве трофея."
+	desc = "Кажется, это одно из ядер огромного робота. Может быть установлено на Крушитель в качестве трофея."
 	icon_state = "adaptive_core"
 	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core
 	bonus_value = 2
@@ -736,7 +736,7 @@
 
 /obj/item/crusher_trophy/empowered_legion_skull
 	name = "empowered legion skull"
-	desc = "Устрашающий череп с горящими красными глазами. Может быть установлено на крушитель в качестве трофея."
+	desc = "Устрашающий череп с горящими красными глазами. Может быть установлено на Крушитель в качестве трофея."
 	gender = MALE
 	icon_state = "ashen_skull"
 	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
@@ -752,7 +752,7 @@
 	)
 
 /obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
-	return "После взрыва метки позволяет вам совершить рывок на <b>3</b> клетки, если вы находитесь в намерении помощи"
+	return "После взрыва метки, позволяет вам совершить рывок на <b>3</b> клетки, если вы находитесь в намерении помощи"
 
 /obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_DASH)
@@ -763,7 +763,7 @@
 	icon_state = "magmite_crusher"
 	item_state = "magmite_crusher0"
 	name = "magmite proto-kinetic crusher"
-	desc = "Ранняя версия Кинетического Акселератора, по сути высокотехнологичный топор улучшенный магмитом. Улучшенный дестабилизатор пробивает породу, как плазменный резак."
+	desc = "Ранняя версия Кинетического Акселератора. По сути, высокотехнологичный топор, улучшенный магмитом. Улучшенный дестабилизатор пробивает породу, как плазменный резак."
 	destab = /obj/projectile/destabilizer/mega
 	upgraded = TRUE
 
