@@ -98,7 +98,7 @@
 	var/melee_cooldown = 1 SECONDS
 	var/melee_can_hit = TRUE
 	/// How much stamina damage deals mecha in combat
-	var/melee_stamina_damage = 34
+	var/melee_stamina_damage = 25
 
 	// Action vars
 	var/defence_mode = FALSE
