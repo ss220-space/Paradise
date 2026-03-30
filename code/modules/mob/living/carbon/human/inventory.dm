@@ -697,7 +697,7 @@
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)
 	if(!equipped_item) // We also let you equip an item like this
 		if(!thing)
-			src.balloon_alert(src, "Отсутствует [slot_item_name]")
+			src.balloon_alert(src, "отсутствует [slot_item_name]")
 			return
 		if(equip_to_slot_if_possible(thing, slot_type))
 			update_held_items()
@@ -716,7 +716,7 @@
 			storage.handle_item_insertion(thing)
 		return
 	if(!length(storage.contents))
-		src.balloon_alert(src, "В [slot_item_name] пусто")
+		src.balloon_alert(src, "в [slot_item_name] пусто")
 		return
 	var/obj/item/stored = storage.contents[length(storage.contents)]
 	if(!stored || stored.on_found(src))
