@@ -706,11 +706,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1;
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1184,11 +1180,7 @@
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1;
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4587,11 +4579,7 @@
 "Sx" = (
 /obj/structure/table/wood,
 /obj/item/trash/sosjerky,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1;
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/item/radio/intercom/directional/south,

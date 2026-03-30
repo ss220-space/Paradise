@@ -47,6 +47,11 @@
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
+	var/uid
+
+/obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
+	uid = rand(1, 10000)
+	. = ..()
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

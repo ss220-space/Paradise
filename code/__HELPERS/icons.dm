@@ -1061,7 +1061,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	/// If successful, this looks like "icons/path/to/dmi_file.dmi"
 	var/icon_path = ""
 
-	if(isatom(icon) || istype(icon, /image) || istype(icon, /mutable_appearance))
+	if(isatom(icon) || isimage(icon) || istype(icon, /mutable_appearance))
 		var/atom/atom_icon = icon
 		icon = atom_icon.icon
 		// Atom icons compiled in from 'icons/path/to/dmi_file.dmi' are weird and not really icon objects that you generate with icon().

@@ -180,3 +180,6 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
+
+/// The filter name for the hover outline
+#define HOVER_OUTLINE_FILTER "hover_outline"

@@ -408,7 +408,7 @@
 	. = ..()
 
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]50")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]50")
 
 		switch(round(reagents.total_volume))
 			if(1 to 50)
@@ -423,7 +423,7 @@
 				filling.icon_state = "[icon_state]75"
 			if(76 to INFINITY)
 				filling.icon_state = "[icon_state]80"
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())

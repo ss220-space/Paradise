@@ -70,25 +70,17 @@
 		data["SM_moles"] = air.total_moles()
 		data["SM_gas_coefficient"] = active.gas_coefficient
 		var/list/gas_data = list()
-		var/total_moles = air.total_moles()
-		if(total_moles)
-			gas_data.Add(list(list("name"= "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Hydrogen", "amount" = air.hydrogen(), "portion" = round(100 * air.hydrogen() / total_moles, 0.01))))
-			gas_data.Add(list(list("name"= "Water Vapor", "amount" = air.water_vapor(), "portion" = round(100 * air.water_vapor() / total_moles, 0.01))))
-		else
-			gas_data.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
-			gas_data.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
-			gas_data.Add(list(list("name"= "Nitrogen", "amount" = 0,"portion" = 0)))
-			gas_data.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
-			gas_data.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
-			gas_data.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
-			gas_data.Add(list(list("name"= "Hydrogen", "amount" = 0,"portion" = 0)))
-			gas_data.Add(list(list("name"= "Water Vapor", "amount" = 0,"portion" = 0)))
+		var/list/parsed = gas_mixture_parser_faster(air)
+		var/total_moles = parsed[TLV_TOTAL_MOLES]
+
+		for(var/gas_key in GLOB.gas_meta)
+			var/list/gas = list()
+			var/amount = parsed[gas_key] || 0
+			gas["tlv"] = gas_key
+			gas["amount"] = amount
+			gas["portion"] = round(100 * amount / total_moles, 0.01)
+			gas_data += list(gas)
+
 		data["gases"] = gas_data
 	else
 		var/list/supermatters_list = list()

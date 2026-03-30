@@ -1053,7 +1053,7 @@
 	if(isslimeperson(user))
 		return TRUE
 	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts) // if your limbs are squishy you can squish too!
-		if(bodypart.dna && isslimeperson(bodypart.dna.species))
+		if(bodypart.dna && isslimeperson(bodypart))
 			return TRUE
 	return FALSE
 

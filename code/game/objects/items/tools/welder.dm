@@ -14,7 +14,6 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
-	var/force_enabled = 15
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -29,6 +28,13 @@
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/weldingtool_pickup.ogg'
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
+	heat = T2500K
+	var/force_enabled = 15
 	var/maximum_fuel = 20
 	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
 	var/requires_fuel = TRUE
@@ -41,11 +47,6 @@
 	var/low_fuel_changes_icon = TRUE
 	/// Length of time between each "eye flash"
 	var/progress_flash_divisor = 10
-	light_system = MOVABLE_LIGHT
-	light_range = 2
-	light_power = 0.75
-	light_color = LIGHT_COLOR_FIRE
-	light_on = FALSE
 
 /obj/item/weldingtool/get_ru_names()
 	return list(
@@ -240,8 +241,8 @@
 	if(tool_enabled)
 		. += "[initial(icon_state)]-on"
 
-/obj/item/weldingtool/get_heat()
-	return tool_enabled * 2500
+/obj/item/weldingtool/get_temperature()
+	return tool_enabled * heat
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"

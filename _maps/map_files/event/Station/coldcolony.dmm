@@ -12295,9 +12295,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "euZ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	scrub_Toxins = 0
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox,
 /obj/item/trash/tastybread,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/engine,
@@ -13781,10 +13779,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "eVG" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
 	dir = 8;
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -26599,10 +26596,9 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/engineering/control)
 "jJY" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
 	dir = 8;
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
@@ -27845,9 +27841,8 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "kgv" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2o{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
-	filter_type = 4;
 	name = "Фильтр Оксида Азота (NO2)";
 	on = 1;
 	target_pressure = 4500
@@ -29737,7 +29732,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "kPE" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	id_tag = "n2_sensor"
 	},
 /obj/machinery/camera{
@@ -29900,9 +29895,8 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "kSU" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor";
-	output = 127
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "mix_sensor"
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
@@ -41359,7 +41353,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
 "pga" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	id_tag = "o2_sensor"
 	},
 /obj/machinery/camera{
@@ -51658,9 +51652,8 @@
 	},
 /area/coldcolony/malta/security/hos)
 "sSr" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -54161,9 +54154,8 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "tQz" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor";
-	output = 23
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "air_sensor"
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Air Tank";
