@@ -9,8 +9,6 @@
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
 	var/spawn_inside = null
-	/// Thing we are going to spawn
-	var/thing_to_place = null
 	var/use_power = null // Хотим ли мы чтобы то, что мы спавним, тратило электричество
 	var/active_power_usage = null // Сколько энергии оно тратит если активно
 	var/idle_power_usage = null // Сколько энергии оно тратит в пассивном режиме
@@ -25,6 +23,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
+	var/thing_to_place
 	thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
 		qdel(src)
@@ -53,6 +52,10 @@
 					OM.active_power_usage = active_power_usage
 				if(idle_power_usage)
 					OM.idle_power_usage = idle_power_usage
+	after_spawn(thing_to_place)
+
+/obj/effect/spawner/random_spawners/proc/after_spawn(result)
+	return
 
 /obj/effect/spawner/random_spawners/blood_5
 	name = "blood maybe"
@@ -477,6 +480,11 @@
 		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)
 
+/obj/effect/landmark/sec_mech_lethal_equipment_spawn
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "guncabinet_mech"
+	name = "place, where closet with combat exosiut modules will be spawned"
+
 /obj/effect/spawner/random_spawners/security_exosuit
 	name = "maybe \"Hercules\" secutiry exosuit"
 	icon_state = "rand_mech"
@@ -485,9 +493,8 @@
 		SEC_MECH_SPAWN_UNSUCSESS = 2,
 	)
 
-/obj/effect/spawner/random_spawners/security_exosuit/randspawn(turf/T)
-	. = ..()
-	if(thing_to_place == SEC_MECH_SPAWN_SUCSESS)
+/obj/effect/spawner/random_spawners/security_exosuit/after_spawn(result)
+	if(result == SEC_MECH_SPAWN_SUCSESS)
 		var/list/marks = list()
 		marks += GLOB.landmarks_list
 		for(var/obj/effect/landmark/sec_mech_lethal_equipment_spawn/mark in marks)
