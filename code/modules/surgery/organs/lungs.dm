@@ -18,6 +18,18 @@
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
 
+	var/BZ_trip_balls_min = 1 //BZ gas
+	var/BZ_brain_damage_min = 10 //Give people some room to play around without killing the station
+	var/gas_stimulation_min = 0.002 // For, Pluoxium, Nitrium and Freon
+	///Minimum amount of healium to make you unconscious for 4 seconds
+	var/healium_para_min = 3
+	///Minimum amount of healium to knock you down for good
+	var/healium_sleep_min = 6
+	///Minimum amount of helium to affect speech
+	var/helium_speech_min = 5
+	///Whether these lungs react negatively to miasma
+	var/suffers_miasma = TRUE
+
 	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/oxy_damage_type = OXY
@@ -30,6 +42,11 @@
 	var/tox_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
+
+	var/tritium_irradiation_moles_min = 1
+	var/tritium_irradiation_moles_max = 15
+	var/tritium_irradiation_probability_min = 10
+	var/tritium_irradiation_probability_max = 60
 
 	var/cold_message = ", что ваши дыхательные пути замораживаются"
 	var/cold_level_1_threshold = 260
@@ -127,6 +144,17 @@
 	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins())
 	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide())
 	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent())
+	var/pluoxium_pp = breath.get_breath_partial_pressure(breath.pluoxium())
+	var/bz_pp = breath.get_breath_partial_pressure(breath.bz())
+	var/freon_pp = breath.get_breath_partial_pressure(breath.freon())
+	var/halon_pp = breath.get_breath_partial_pressure(breath.halon())
+	var/healium_pp = breath.get_breath_partial_pressure(breath.healium())
+	var/helium_pp = breath.get_breath_partial_pressure(breath.helium())
+	var/hypernob_pp = breath.get_breath_partial_pressure(breath.hyper_noblium())
+	var/miasma_pp = breath.get_breath_partial_pressure(breath.miasma())
+	var/nitrium_pp = breath.get_breath_partial_pressure(breath.nitrium())
+	var/trit_pp = breath.get_breath_partial_pressure(breath.tritium())
+	var/zauker_pp = breath.get_breath_partial_pressure(breath.zauker())
 
 	//-- OXY --//
 
@@ -252,9 +280,199 @@
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))
 
+	if(pluoxium_pp > 0)
+		consume_pluoxium(H, breath, pluoxium_pp)
+
+	if(bz_pp > 0)
+		too_much_bz(H, breath, bz_pp)
+
+	if(freon_pp > 0)
+		too_much_freon(H, breath, freon_pp)
+
+	if(halon_pp > 0)
+		too_much_halon(H, breath, halon_pp)
+
+	if(healium_pp > 0)
+		consume_healium(H, breath, healium_pp)
+
+	if(helium_pp > 0)
+		consume_helium(H, breath, helium_pp)
+	else
+		lose_helium(H, breath)
+
+	if(hypernob_pp > 0)
+		consume_hypernoblium(H, breath, hypernob_pp)
+
+	if(miasma_pp > 0)
+		too_much_miasma(H, breath, miasma_pp)
+
+	if(nitrium_pp > 0)
+		too_much_nitrium(H, breath, nitrium_pp)
+
+	if(trit_pp > 0)
+		too_much_tritium(H, breath, trit_pp)
+
+	if(zauker_pp > 0)
+		too_much_zauker(H, breath, zauker_pp)
+
 	handle_breath_temperature(breath, H)
 
 	return TRUE
+
+/// Behaves like Oxygen with 8X efficacy, but metabolizes into a reagent.
+/obj/item/organ/internal/lungs/proc/consume_pluoxium(mob/living/carbon/breather, datum/gas_mixture/breath, pluoxium_pp)
+	breath.set_pluoxium(0)
+	// Metabolize to reagent.
+	if(pluoxium_pp > gas_stimulation_min)
+		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/pluoxium)
+		breather.reagents.add_reagent(/datum/reagent/pluoxium, max(0, 1 - existing))
+
+/// Too much funny gas, time to get brain damage
+/obj/item/organ/internal/lungs/proc/too_much_bz(mob/living/carbon/breather, datum/gas_mixture/breath, bz_pp)
+	breath.set_bz(0)
+	if(bz_pp > BZ_trip_balls_min)
+		breather.reagents.add_reagent(/datum/reagent/bz_metabolites, clamp(bz_pp, 1, 5))
+	if(bz_pp > BZ_brain_damage_min && prob(33))
+		breather.adjust_organ_loss(INTERNAL_ORGAN_BRAIN, 3, 150)
+
+/// Breathing in refridgerator coolent, shit's caustic
+/obj/item/organ/internal/lungs/proc/too_much_freon(mob/living/carbon/breather, datum/gas_mixture/breath, freon_pp)
+	// Inhale Freon. Exhale nothing.
+	breath.set_freon(0)
+	if(freon_pp > gas_stimulation_min)
+		breather.reagents.add_reagent(/datum/reagent/freon, 1)
+	if(prob(freon_pp))
+		to_chat(breather, span_alert("Your mouth feels like it's burning!"))
+	if(freon_pp > 40)
+		breather.emote("gasp")
+		breather.adjustFireLoss(15)
+		if(prob(freon_pp / 2))
+			to_chat(breather, span_alert("Your throat closes up!"))
+			breather.AdjustSilence(6 SECONDS, bound_upper = 6 SECONDS)
+	else
+		breather.adjustFireLoss(freon_pp / 4)
+
+/// Breathing in halon, convert it to a reagent
+/obj/item/organ/internal/lungs/proc/too_much_halon(mob/living/carbon/breather, datum/gas_mixture/breath, halon_pp)
+	// Inhale Halon. Exhale nothing.
+	breath.set_halon(0)
+	// Metabolize to reagent.
+	if(halon_pp > gas_stimulation_min)
+		breather.adjustOxyLoss(5)
+		breather.reagents.add_reagent(/datum/reagent/halon, max(0, 1 - breather.reagents.get_reagent_amount(/datum/reagent/halon)))
+
+/// Sleeping gas with healing properties.
+/obj/item/organ/internal/lungs/proc/consume_healium(mob/living/carbon/breather, datum/gas_mixture/breath, healium_pp)
+	breath.set_healium(0)
+	// Euphoria side-effect.
+	if(healium_pp > gas_stimulation_min)
+		if(prob(15))
+			to_chat(breather, span_alert("Your head starts spinning and your lungs burn!"))
+			breather.emote("gasp")
+	// Stun/Sleep side-effects.
+	if(healium_pp > healium_para_min && !breather.IsSleeping() && prob(30))
+		breather.Sleeping(rand(3 SECONDS, 5 SECONDS))
+	// Metabolize to reagent when concentration is high enough.
+	if(healium_pp > healium_sleep_min)
+		breather.reagents.add_reagent(/datum/reagent/healium, max(0, 1 - breather.reagents.get_reagent_amount(/datum/reagent/healium)))
+
+/// Activates helium speech when partial pressure gets high enough
+/obj/item/organ/internal/lungs/proc/consume_helium(mob/living/carbon/breather, datum/gas_mixture/breath, helium_pp)
+	breath.set_helium(0)
+	if(helium_pp > helium_speech_min)
+		RegisterSignal(breather, COMSIG_MOB_SAY, PROC_REF(handle_helium_speech), override = TRUE)
+	else
+		UnregisterSignal(breather, COMSIG_MOB_SAY)
+
+/// Lose helium high pitched voice
+/obj/item/organ/internal/lungs/proc/lose_helium(mob/living/carbon/breather, datum/gas_mixture/breath)
+	UnregisterSignal(breather, COMSIG_MOB_SAY)
+
+/// React to speach while hopped up on the high pitched voice juice
+/obj/item/organ/internal/lungs/proc/handle_helium_speech(mob/living/carbon/breather, message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+	SIGNAL_HANDLER
+	return COMPONENT_SMALL_SPEECH
+
+/// Gain hypernob effects if we have enough of the stuff
+/obj/item/organ/internal/lungs/proc/consume_hypernoblium(mob/living/carbon/breather, datum/gas_mixture/breath, hypernob_pp)
+	breath.set_hyper_noblium(0)
+	if(hypernob_pp > gas_stimulation_min)
+		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/hypernoblium)
+		breather.reagents.add_reagent(/datum/reagent/hypernoblium, max(0, 1 - existing))
+
+/// Breathing in the stink gas
+/obj/item/organ/internal/lungs/proc/too_much_miasma(mob/living/carbon/breather, datum/gas_mixture/breath, miasma_pp)
+	// Inhale Miasma. Exhale nothing.
+	breath.set_miasma(0)
+	// Miasma side effects
+	switch(miasma_pp)
+		if(0.25 to 5)
+			// At lower pp, give out a little warning
+			if(prob(5))
+				to_chat(breather, span_notice("There is an unpleasant smell in the air."))
+		if(5 to 15)
+			//At somewhat higher pp, warning becomes more obvious
+			if(prob(15))
+				to_chat(breather, span_warning("You smell something horribly decayed inside this room."))
+		if(15 to 30)
+			//Small chance to vomit. By now, people have internals on anyway
+			if(prob(5))
+				to_chat(breather, span_warning("The stench of rotting carcasses is unbearable!"))
+				breather.vomit()
+		if(30 to INFINITY)
+			//Higher chance to vomit. Let the horror start
+			if(prob(15))
+				to_chat(breather, span_warning("The stench of rotting carcasses is unbearable!"))
+				breather.vomit()
+
+	// In a full miasma atmosphere with 101.34 pKa, about 10 disgust per breath, is pretty low compared to threshholds
+	// Then again, this is a purely hypothetical scenario and hardly reachable
+	breather.AdjustDisgust(0.1 * miasma_pp)
+
+
+// Breathe in nitrium. It's helpful, but has nasty side effects
+/obj/item/organ/internal/lungs/proc/too_much_nitrium(mob/living/carbon/breather, datum/gas_mixture/breath, nitrium_pp)
+	breath.set_nitrium(0)
+	if(prob(20))
+		breather.emote("burp")
+
+	// Random chance to inflict side effects increases with pressure.
+	if((prob(nitrium_pp) && (nitrium_pp > 15)))
+		// Nitrium side-effect.
+
+		breather.adjust_organ_loss(INTERNAL_ORGAN_BRAIN, nitrium_pp * 0.1)
+		to_chat(breather, span_notice("You feel a burning sensation in your chest"))
+	// Metabolize to reagents.
+	if(nitrium_pp > 5)
+		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/nitrium_low_metabolization)
+		breather.reagents.add_reagent(/datum/reagent/nitrium_low_metabolization, max(0, 2 - existing))
+	if(nitrium_pp > 10)
+		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/nitrium_high_metabolization)
+		breather.reagents.add_reagent(/datum/reagent/nitrium_high_metabolization, max(0, 2 - existing))
+
+/// Radioactive, green gas. Toxin damage, and a radiation chance
+/obj/item/organ/internal/lungs/proc/too_much_tritium(mob/living/carbon/breather, datum/gas_mixture/breath, trit_pp)
+	var/gas_breathed = breath.tritium()
+	breath.set_tritium(0)
+	var/moles_visible = MOLES_GAS_VISIBLE
+	// Tritium side-effects.
+	if(gas_breathed > moles_visible)
+		var/ratio = gas_breathed * 15
+		breather.adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+	// If you're breathing in half an atmosphere of radioactive gas, you fucked up.
+	if((trit_pp > tritium_irradiation_moles_min) && SSradiation.can_irradiate_basic(breather))
+		var/lerp_scale = min(tritium_irradiation_moles_max, trit_pp - tritium_irradiation_moles_min) / (tritium_irradiation_moles_max - tritium_irradiation_moles_min)
+		var/chance = LERP(tritium_irradiation_probability_min, tritium_irradiation_probability_max, lerp_scale)
+		if(prob(chance))
+			breather.AddComponent(/datum/component/irradiated)
+
+/// Really toxic stuff, very much trying to kill you
+/obj/item/organ/internal/lungs/proc/too_much_zauker(mob/living/carbon/breather, datum/gas_mixture/breath, zauker_pp)
+	breath.set_zauker(0)
+	// Metabolize to reagent.
+	if(zauker_pp > gas_stimulation_min)
+		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/zauker)
+		breather.reagents.add_reagent(/datum/reagent/zauker, max(0, 1 - existing))
 
 /obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0

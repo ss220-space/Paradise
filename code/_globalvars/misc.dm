@@ -1,6 +1,15 @@
 GLOBAL_LIST_EMPTY(plmaster)
 GLOBAL_LIST_EMPTY(slmaster)
 GLOBAL_LIST_EMPTY(wvmaster)
+GLOBAL_LIST_EMPTY(frmaster)
+GLOBAL_LIST_EMPTY(nitmaster)
+GLOBAL_LIST_EMPTY(trmaster)
+GLOBAL_LIST_EMPTY(mimaster)
+GLOBAL_LIST_EMPTY(hemaster)
+GLOBAL_LIST_EMPTY(pnmaster)
+GLOBAL_LIST_EMPTY(zamaster)
+GLOBAL_LIST_EMPTY(hamaster)
+GLOBAL_LIST_EMPTY(antmaster)
 
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)

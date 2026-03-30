@@ -5848,13 +5848,6 @@
 	dir = 5
 	},
 /area/awaymission/centcomAway/thunderdome)
-"pZ" = (
-/obj/machinery/computer/area_atmos,
-/turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull";
-	dir = 5
-	},
-/area/awaymission/centcomAway/thunderdome)
 "qa" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -14586,7 +14579,7 @@ mj
 pO
 pN
 pN
-pZ
+pN
 lD
 aa
 aa

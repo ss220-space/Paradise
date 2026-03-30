@@ -201,11 +201,11 @@
 	qdel(src)
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() > 300)
+	if(I.get_temperature() > 300)
 		add_fingerprint(user)
 		add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)]", INVESTIGATE_ATMOS)
-		ignite(I.get_heat())
+		ignite(I.get_temperature())
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
