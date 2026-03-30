@@ -4,5 +4,5 @@
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = BURN
-	flag = "energy"
+	flag = ENERGY
 	reflectability = REFLECTABILITY_ENERGY
