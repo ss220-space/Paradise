@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in PDWs like WT-550
 #define CALIBER_4_DOT_6X30MM "4,6x30 мм"
 
-// Rifle cartridges
+// Heavy cartridges
 /// Used in Soviet type heavy guns like Mosin rifle
 #define CALIBER_7_DOT_62X54MM "7,62x54 мм"
 /// Used in NATO type heavy guns like 'L6 SAW' lmg

@@ -169,6 +169,10 @@
 	var/obj/item/grenade/grenade = new /obj/item/grenade/frag/less(loc)
 	grenade.prime()
 
+/obj/item/grenade/frag/less
+	range = 2
+	shrapnel_radius = 3
+	
 /obj/projectile/grenade/a40mm/secgl/paint
 	icon_state = "secgl_projectile_paint"
 	var/paint_color = "#e99518"

@@ -675,7 +675,7 @@
 			/obj/item/ammo_box/rubber9mm,
 		),
 		CALIBER_45NR = list(
-			/obj/item/ammo_box/c9mmte,
+			/obj/item/ammo_box/dot45NR,
 		),
 		CALIBER_DOT_357 = list(
 			/obj/item/ammo_box/a357,
@@ -687,19 +687,19 @@
 			/obj/item/ammo_box/a762,
 		),
 		CALIBER_7_DOT_62X51MM = list(
-			/obj/item/ammo_box/a762x51,
-			/obj/item/ammo_box/a762x51/weak,
-			/obj/item/ammo_box/a762x51/bleeding,
-			/obj/item/ammo_box/a762x51/ap,
-			/obj/item/ammo_box/a762x51/incen,
-			/obj/item/ammo_box/a762x51/hollow,
+			/obj/item/ammo_box/a763x51,
+			/obj/item/ammo_box/a763x51/weak,
+			/obj/item/ammo_box/a763x51/bleeding,
+			/obj/item/ammo_box/a763x51/ap,
+			/obj/item/ammo_box/a763x51/incen,
+			/obj/item/ammo_box/a763x51/hollow,
 		),
 		CALIBER_7_DOT_62X25MM = list(
 			/obj/item/ammo_box/a762x25,
 		),
 		CALIBER_7_DOT_62X38MM = list(
-			/obj/item/ammo_box/n762,
-			/obj/item/ammo_box/nagant,
+			/obj/item/ammo_box/n762x38,
+			/obj/item/ammo_box/n762x38,
 		),
 		CALIBER_DOT_338 = list(
 			/obj/item/ammo_box/a338,
@@ -714,7 +714,7 @@
 			/obj/item/ammo_box/m50,
 		),
 		CALIBER_10MM = list(
-			/obj/item/ammo_box/c10mm,
+			/obj/item/ammo_box/m10mm,
 			/obj/item/ammo_box/m10mm,
 			/obj/item/ammo_box/m10mm/ap,
 			/obj/item/ammo_box/m10mm/hp,
@@ -766,8 +766,8 @@
 			/obj/item/ammo_box/ap45colt,
 		),
 		CALIBER_5_DOT_45X39MM = list(
-			/obj/item/ammo_box/ak814/fusty,
-			/obj/item/ammo_box/ak814,
+			/obj/item/ammo_box/a545x39/fusty,
+			/obj/item/ammo_box/a545x39,
 		),
 		CALIBER_ROCKET = list(
 			/obj/item/ammo_casing/rocket,
