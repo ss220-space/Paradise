@@ -272,7 +272,7 @@
 	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, show_legend = FALSE, crop = crop_params)
 	var/list/image/overlays = holomap_datum.create_overlays(handle_overlays(user))
 	user.hud_used.mini_holomap.cut_overlays()
-	for(var/image/overlay as anything in overlays)
+	for(var/image/overlay in overlays)
 		user.hud_used.mini_holomap.add_overlay(overlay)
 
 
