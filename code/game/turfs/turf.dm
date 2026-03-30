@@ -30,6 +30,19 @@
 	var/agent_b = 0
 	var/hydrogen = 0
 	var/water_vapor = 0
+	var/hyper_noblium = 0
+	var/nitrium = 0
+	var/tritium = 0
+	var/bz = 0
+	var/pluoxium = 0
+	var/miasma = 0
+	var/freon = 0
+	var/healium = 0
+	var/proto_nitrate = 0
+	var/zauker = 0
+	var/halon = 0
+	var/helium = 0
+	var/antinoblium = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -1000,10 +1013,10 @@
 		air = get_readonly_air()
 	else
 		air = bound_air
-	
+
 	var/wind_x_cached = wind_x
 	var/wind_y_cached = wind_y
-	
+
 	var/wind = MAGNITUDE(wind_x_cached, wind_y_cached)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
 	current_wind.alpha = min(255, 5 + wind_strength * 25)
