@@ -15,6 +15,11 @@
 	var/datum/port/output/result
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/not/Destroy()
+	input_port = null
+	result = null
+	. = ..()
+
 /obj/item/circuit_component/not/populate_ports()
 	input_port = add_input_port("Ввод", PORT_TYPE_ANY)
 

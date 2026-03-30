@@ -619,7 +619,7 @@
 		return 0
 
 	if(!drop_gently)
-		if(istype(held_item, /obj/item/grenade))
+		if(isgrenade(held_item))
 			var/obj/item/grenade/G = held_item
 			G.forceMove(loc)
 			G.do_drop_animation(src)

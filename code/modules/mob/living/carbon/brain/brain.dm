@@ -6,8 +6,8 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
 
-/mob/living/carbon/brain/New()
-	..()
+/mob/living/carbon/brain/Initialize(mapload)
+	. = ..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
 
 /mob/living/carbon/brain/Destroy()
@@ -15,6 +15,7 @@
 		if(stat != DEAD)	//If not dead.
 			death(gibbed = TRUE)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
 		ghostize()		//Ghostize checks for key so nothing else is necessary.
+	container = null
 	return ..()
 
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
@@ -48,7 +49,7 @@ I'm using this for Stat to give it a more nifty interface to work with
 			return M.held_brain.dna.species.name
 		else
 			return "Artificial Life"
-	if(istype(loc, /obj/item/organ/internal/brain))
+	if(is_internal_organ_brain(loc))
 		var/obj/item/organ/internal/brain/B = loc
 		return B.dna.species.name
 

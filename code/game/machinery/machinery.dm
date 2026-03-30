@@ -104,8 +104,6 @@
 	var/active_power_usage = 0
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
-	var/uid
-	var/global/gl_uid = 1
 	var/custom_aghost_alerts=0
 	var/panel_open = 0
 	var/area/myArea
@@ -126,7 +124,7 @@
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, fire = 50, acid = 70)
 	. = ..()
 	SSmachines.register_machine(src)
 
@@ -297,7 +295,7 @@
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user)
-	if(istype(user, /mob/dead/observer))
+	if(isobserver(user))
 		return FALSE
 
 	if(user.incapacitated())
@@ -336,10 +334,6 @@
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-
-/obj/machinery/proc/assign_uid()
-	uid = gl_uid
-	gl_uid++
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

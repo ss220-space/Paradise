@@ -26,10 +26,10 @@
 		exposed_mob.reagents.add_reagent(/datum/reagent/toxin/spore, 0.2*reac_volume)
 	exposed_mob.apply_damage(0.7*reac_volume, TOX)
 
-/datum/reagent/blob/regenerative_materia/on_mob_life(mob/living/carbon/metabolizer, seconds_per_tick, times_fired)
-	. = ..()
-	if(metabolizer.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE))
-		return STATUS_UPDATE_HEALTH
+/datum/reagent/blob/regenerative_materia/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/blob/regenerative_materia/on_mob_metabolize(mob/living/metabolizer)
 	. = ..()

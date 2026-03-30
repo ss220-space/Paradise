@@ -37,6 +37,18 @@
 	/// The limit of iterations before it breaks. Used to prevent from someone iterating a massive list constantly
 	var/limit = 300
 
+/obj/item/circuit_component/filter_list/Destroy()
+	list_options = null
+	accept_entry = null
+	list_to_filter = null
+	element = null
+	current_index = null
+	on_next_index = null
+	finished_list = null
+	on_finished = null
+	on_failed = null
+	. = ..()
+
 /obj/item/circuit_component/filter_list/populate_options()
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 

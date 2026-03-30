@@ -6,7 +6,7 @@
 	post_init_icon_state = "thermo_base"
 	density = TRUE
 	max_integrity = 300
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
 	greyscale_config = /datum/greyscale_config/thermomachine
 	flags = NO_NEW_GAGS_PREVIEW
@@ -67,7 +67,8 @@
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
-	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
+	var/bin_rating_fixed = (calculated_bin_rating - 1)
+	heat_capacity = 5000 * POW2(bin_rating_fixed)
 	min_temperature = T20C
 	max_temperature = T20C
 	if(cooling)

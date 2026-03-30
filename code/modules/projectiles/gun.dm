@@ -69,13 +69,15 @@
 	var/list/attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0)
+		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_SIBYL = list("x" = 0, "y" = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
-		ATTACHMENT_SLOT_UNDER
+		ATTACHMENT_SLOT_UNDER,
+		ATTACHMENT_SLOT_SIBYL
 	)
 
 	var/suppressed = FALSE
@@ -135,8 +137,10 @@
 		if(!attachments_by_slot[attachment])
 			continue
 		qdel(attachments_by_slot[attachment])
-	attachments_by_slot.Cut()
-	attachment_overlays.Cut()
+	LAZYCLEARLIST(attachments_by_slot)
+	LAZYCLEARLIST(attachment_overlays)
+	QDEL_NULL(azoom)
+	QDEL_NULL(chambered)
 	if(accuracy)
 		QDEL_NULL(accuracy)
 	if(recoil)
@@ -191,7 +195,7 @@
 
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
-	if(attachable_offset)
+	if(overlay && attachable_offset)
 		var/x_offset = attachable_offset[module.slot]["x"]
 		var/y_offset = attachable_offset[module.slot]["y"]
 		if(module.overlay_offset)
@@ -240,6 +244,9 @@
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	do_recoil(user, target)
+
+	if(!chambered)
+		return
 
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength

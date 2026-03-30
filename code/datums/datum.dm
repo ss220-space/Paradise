@@ -64,6 +64,11 @@
 	/// Protects datum from editing. Flags are assigned in datumvars procs via [GENERAL_PROTECT_DATUM].
 	var/datum_protecting_flags = NONE
 
+	/// An accursed beast of a list that contains our filters. Why? Because var/list/filters on atoms/images isn't actually a list
+	/// but a snowflaked skinwalker pretending to be one, which doesn't support half the list procs/operations and the other half behaves weirdly
+	/// so we cut down on filter creation and appearance update costs by editing *this* list, and then assigning ours to itCollapse commentComment on lines R60 to R62Ghommie commented on Sep 21, 2025 Ghommieon Sep 21, 2025MemberMore actionsThat's nigh accursed. But I shouldn't expect less from images and mutable appearances having the "same" variables as atoms when datums strangely don't.ReactWrite a replyResolve comment
+	var/list/filter_cache
+
 #ifdef TESTING
 	var/running_find_references
 	var/last_find_references = 0

@@ -202,7 +202,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -389,7 +389,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -1116,7 +1116,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -2048,8 +2048,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "Vh" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
-	filter_type = "n2";
+/obj/machinery/atmospherics/trinary/filter/flipped/n2{
 	on = 1;
 	name = "nitrogen filter"
 	},

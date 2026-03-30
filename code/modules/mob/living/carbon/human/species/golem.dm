@@ -771,18 +771,24 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	material_heal = 25
 	amount_required_for_heal = 3
+	COOLDOWN_DECLARE(radiation_emission_cooldown)
 
 /datum/species/golem/uranium/get_info_text()
 	return info_text = "Будучи [span_danger("урановым големом")], вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
 
+/datum/species/golem/uranium/proc/radiation_emission(mob/living/carbon/human/user)
+	if(!COOLDOWN_FINISHED(src, radiation_emission_cooldown))
+		return
+
+	radiation_pulse(user, max_range = 1, threshold = RAD_VERY_LIGHT_INSULATION, chance = 3)
+	COOLDOWN_START(src, radiation_emission_cooldown, 2 SECONDS)
+
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/user)
-	for(var/mob/living/victim in range(2, user))
-		if(HAS_TRAIT(victim, TRAIT_RADIMMUNE))
-			continue
-		victim.apply_effect(10, IRRADIATE)
-		if(prob(25)) // Reduce spam
-			to_chat(victim, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [user]."))
-	..()
+	if(!COOLDOWN_FINISHED(src, radiation_emission_cooldown))
+		return
+
+	radiation_emission(user)
+	return ..()
 
 /datum/species/golem/uranium/get_heal_material_types()
 	return list(

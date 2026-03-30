@@ -1,5 +1,7 @@
 #define BORG_LAMP_CD_RESET 10 SECONDS
 
+GLOBAL_LIST_EMPTY(available_ai_shells)
+
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
@@ -40,6 +42,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/mob/living/silicon/ai/connected_ai = null
 	var/obj/item/stock_parts/cell/cell = null
 	var/obj/machinery/camera/portable/camera = null
+
+	//AI shell
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
 
 	// Components are basically robot organs.
 	var/list/components = list()
@@ -103,7 +111,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_AISHELL_STAT_HUD)
 	hud_type = /datum/hud/robot
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
@@ -127,6 +135,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager,
 	)
+
+	tts_effect_override = SOUND_EFFECT_ROBOT
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -164,11 +174,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = 0
 
-	if(mmi == null)
+	if(shell)
+		var/obj/item/borg/upgrade/ai/board = new(src)
+		make_shell(board)
+		install_upgrade(board)
+
+	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
 
-	if(mmi.clock)
+	else if(mmi.clock)
 		ratvar_act(TRUE)
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
@@ -201,6 +216,61 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		transform_animation(icon_state, TRUE)
 
 	add_strippable_element()
+
+//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//Improved /N
+/mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
+
+	evacuate_ai(DANGER_LVL_MAY_DIE)
+
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+		var/turf/mmi_drop_location = get_turf(loc)//To hopefully prevent run time errors.
+
+		if(mmi_drop_location)
+			mmi.forceMove(mmi_drop_location)
+
+		if(mmi.brainmob)
+			mind.transfer_to(mmi.brainmob)
+			mmi.update_icon()
+		else
+			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
+			ghostize()
+			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+
+		mmi = null
+
+	if(shell)
+		GLOB.available_ai_shells -= src
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+	selected_skin = null
+
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
+	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(ion_trail)
+	QDEL_NULL(scanner)
+	QDEL_NULL(rbPDA)
+	QDEL_NULL(radio)
+	QDEL_NULL(inv1)
+	QDEL_NULL(inv2)
+	QDEL_NULL(inv3)
+	QDEL_NULL(lamp_button)
+	QDEL_NULL(thruster_button)
+	QDEL_NULL(robot_modules_background)
+	QDEL_NULL(undeployment_action)
+	QDEL_LIST(components)
+	QDEL_LIST(upgrades)
+	QDEL_LIST(module_actions)
+
+	return ..()
 
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
@@ -254,7 +324,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return custom_name
 	else
-		return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
+		if(shell)
+			return (mainframe? "[mainframe.real_name]" : "Empty") + " " + "[designation] Shell-[num2text(ident)]"
+		else
+			return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
 	set category = VERB_CATEGORY_ROBOTCOMMANDS
@@ -299,41 +372,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	return FALSE
-
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	SStgui.close_uis(wires)
-
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.loc = T
-
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-
-		mmi = null
-
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-
-	QDEL_NULL(wires)
-	QDEL_NULL(module)
-	QDEL_NULL(camera)
-	QDEL_NULL(cell)
-	QDEL_NULL(robot_suit)
-	QDEL_NULL(spark_system)
-	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(ion_trail)
-
-	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
@@ -420,6 +458,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	robot_module_hat_offset(icon_state)
 
+/mob/living/silicon/robot/shell
+	shell = TRUE
+	cell = null
+
 /mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, robot_to_spawn, turf/T)
 
 	var/mob/living/silicon/robot/syndicate/R
@@ -489,6 +531,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	base_icon = "robot"
 	module.remove_subsystems_and_actions(src)
+	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
@@ -1017,7 +1060,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
-		if(!mmi)
+		if(!mmi && !shell)
 			to_chat(user, "[src] has no brain to remove.")
 			return
 
@@ -1127,6 +1170,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "You must close the panel first")
 			return
 
+		if(shell)
+			if(!mainframe)
+				to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезная оболочка."))
+			else
+				evacuate_ai(DANGER_LVL_INSTA_DEATH)
+				balloon_alert(user, "ии удален")
+				death()
+			return
+
 		else
 			add_attack_logs(user, src, "emag converted")
 			add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
@@ -1189,7 +1241,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, "<b>Obey these laws:</b>")
 	laws.show_laws(src)
 
-/mob/living/silicon/robot/ratvar_act(weak = FALSE)
+/mob/living/silicon/robot/ratvar_act(weak = FALSE, shell_affected = FALSE)
+	if(mainframe)
+		var/mob/living/silicon/ai/AI = mainframe
+		evacuate_ai(DANGER_LVL_NONE)
+		AI.ratvar_act()
+		return
+	if(shell && !shell_affected)
+		return
 	if(isclocker(src) && module?.type == /obj/item/robot_module/clockwork)
 		return
 
@@ -1201,12 +1260,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		pdahide = TRUE
 
 	SSticker.mode.add_clocker(mind)
-	UnlinkSelf()
+	if(!shell)
+		UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Блокировку панели"
+	set name = "Блокировка панели"
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
@@ -1491,6 +1551,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, span_warning("With body torn into pieces, your mind got free from evil cult!"))
 		SSticker.mode.remove_clocker(mind, FALSE)
 
+	evacuate_ai(DANGER_LVL_NONE)
+
 	if(robot_suit)
 		robot_suit.forceMove(T)
 		robot_suit.l_leg.forceMove(T)
@@ -1533,6 +1595,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+
+	if(shell)
+		new /obj/item/borg/upgrade/ai(T)
 
 	drop_hat()
 	eject_riders()
@@ -1688,12 +1753,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
-		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
+		var/permit_required = !isnull(new_skin.required_permit)
+		var/donator_tier_required = !isnull(new_skin.donator_tier)
+		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
+			var/has_permit = permit_required && mind?.cyborg_skin_permissions[new_skin.required_permit]
+			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
+
+			if(!has_permit && !has_donator)
+				continue
+
 		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
 		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
 		choices[new_skin.name] = skin_image
@@ -1712,6 +1780,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = skin.icon_base_prefix
 	base_icon = skin.icon_base_prefix
 	selected_skin = skin
+	transform = matrix(1,0,skin.move_x,0,1,0)
 	if(use_transformation)
 		transform_animation(skin.icon_base_prefix, default)
 		return
@@ -1744,6 +1813,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(ROBOT_NOTIFY_AI_NAME) //New Name
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+		if(AI_NOTIFICATION_AI_SHELL) //New AI Shell
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track=[UID()]'>[name]</a>")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1754,7 +1825,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
-		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
+		if(shell)
+			notify_ai(AI_NOTIFICATION_AI_SHELL)
+		else
+			notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
 /mob/living/silicon/robot/can_perform_action(atom/target, action_bitflags)
@@ -1785,6 +1859,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	..()
+	if(mainframe)
+		var/mob/living/silicon/ai/AI = mainframe
+		evacuate_ai(DANGER_LVL_NONE)
+		to_chat(AI, span_warningbig("ОШИБКА: ЗАФИКСИРОВАН ЭЛЕКТРОМАГНИТНЫЙ ИМПУЛЬС. СВЯЗЬ С ОБОЛОЧКОЙ РАЗОРВАНА."))
 
 	switch(severity)
 		if(1)
@@ -1904,10 +1982,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 
-/mob/living/silicon/robot/ert/gamma/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 /mob/living/silicon/robot/destroyer
 	// admin-only borg, the seraph / special ops officer of borgs
 	base_icon = "droidcombat"
@@ -1932,10 +2006,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
 	drain_act_protected = TRUE
-
-/mob/living/silicon/robot/destroyer/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -2134,4 +2204,160 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
+/mob/living/silicon/robot/try_get_ai()
+	if(!mainframe)
+		return null
+	return mainframe
+
+// Checks for making a bold message in cyborg's binary channel
+/mob/living/silicon/robot/proc/check_binary_master(mob/living/speaker)
+	if(shell)
+		return FALSE
+	if(isAI(speaker))
+		var/mob/living/silicon/ai/AI = speaker
+		if(connected_ai == AI)
+			return TRUE
+	else if(isrobot(speaker))
+		var/mob/living/silicon/robot/robot = speaker
+		if(connected_ai == robot.try_get_ai())
+			return TRUE
+	return FALSE
+
+/mob/living/silicon/robot/proc/update_camera_name()
+	if(!QDELETED(camera))
+		camera.c_tag = real_name
+
+/datum/action/innate/undeployment
+	name = "Вернуться в ядро"
+	desc = "Отключитесь от оболочки и вернитесь в своё ядро"
+	button_icon_state = "undeploy_shell"
+
+/datum/action/innate/undeployment/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
+	var/mob/living/silicon/robot/shell_to_disconnect = owner
+
+	shell_to_disconnect.undeploy()
+	return TRUE
+
+//Gives avaiable AIshell actions
+/mob/living/silicon/robot/proc/grant_shell_actions()
+	if(!mainframe)
+		return
+	undeployment_action.Grant(src)
+
+//Removes avaiable AIshell actions
+/mob/living/silicon/robot/proc/remove_shell_actions()
+	undeployment_action.Remove(src)
+
+//Makes a AIshell from any cyborg
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
+	if(isnull(board))
+		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
+		return FALSE
+
+	shell = TRUE
+	braintype = "AI Shell"
+	name = "Empty AI Shell-[ident]"
+	real_name = name
+	GLOB.available_ai_shells |= src
+	update_camera_name()
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
+
+//Called when BORIS module has been removes from robot. Reverts BORIS module, leaving a normal and non-AIshell cyborg
+/mob/living/silicon/robot/proc/revert_shell()
+	if(!shell)
+		return
+	undeploy()
+	var/list/installed_upgardes = upgrades
+	for(var/obj/item/borg/upgrade/ai/boris in src)
+		if(boris in installed_upgardes)
+			installed_upgardes -= boris
+		qdel(boris)
+	shell = FALSE
+	GLOB.available_ai_shells -= src
+	name = "Unformatted Cyborg-[num2text(ident)]"
+	real_name = name
+	update_camera_name()
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "nothing")
+
+//Called when the AI is connecting to the AIshell. Prepares cyborg for a AI-pilot
+/mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
+	real_name = "[AI.real_name] [designation] Shell-[num2text(ident)]"
+	name = real_name
+	update_camera_name()
+	mainframe = AI
+	deployed = TRUE
+	lawupdate = 0
+	grant_shell_actions()
+	tts_seed = AI.tts_seed
+	lawsync()
+
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai-active")
+	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
+	module.channels = mainframe.aiRadio.channels
+	radio.recalculate_channels()
+
+//Called when the AI is leaving the AIshell.
+/mob/living/silicon/robot/proc/undeploy()
+	if(!deployed || !mind || !mainframe)
+		return
+	mainframe.UnregisterSignal(src, COMSIG_LIVING_DEATH)
+	mind.transfer_to(mainframe)
+	deployed = FALSE
+	mainframe.deployed_shell = null
+	remove_shell_actions()
+	update_camera_name()
+	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
+	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "nothing")
+	if(mainframe.laws)
+		mainframe.laws.show_laws(mainframe)
+	if(mainframe.eyeobj)
+		mainframe.eyeobj.setLoc(loc)
+	mainframe = null
+
+/mob/living/silicon/robot/attack_ai(mob/user)
+	if(!shell)
+		return
+	if(mainframe || key)
+		to_chat(user, span_warning("Передатчик уже используется. Подключение невозможно"))
+	if(stat == DEAD || stat == UNCONSCIOUS || !cell || (cell.charge <= 0))
+		to_chat(user, span_warning("Передатчик не отвечает на запросы. Подключение невозможно."))
+		return
+	if(connected_ai)
+		if(connected_ai != user)
+			to_chat(user, span_warning("Отказано в доступе. Подключение невозможно."))
+			return
+	if(tgui_alert(user, "Подключиться к [name]?", "Подключение к оболочке", list(AISHELL_CONNECT_POSITIVE, AISHELL_CONNECT_NEGATIVE)) != AISHELL_CONNECT_POSITIVE)
+		return
+	if(shell && (!connected_ai || connected_ai == user))
+		var/mob/living/silicon/ai/AI = user
+		AI.deploy_to_shell(src)
+
+//Just kicks AI-mainframe from cyborg
+//Can kill him if 'danger_level' suggests it.
+/mob/living/silicon/robot/proc/evacuate_ai(danger_level = DANGER_LVL_NONE)
+	if(!mainframe)
+		return
+	var/mob/living/silicon/ai/AI = mainframe
+	mainframe.disconnect_shell()
+	if(danger_level == DANGER_LVL_NONE)
+		to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
+		return
+	if(danger_level == DANGER_LVL_MAY_DIE)
+		if(prob(50))
+			to_chat(AI, span_alert("ОШИБКА: ВО $#%ВРЕ$#@МЯ ПЕ$#GHРЕН#@$ОСА СИ2С$#@@Т#ЕМН%$@ЫХ Ф#$%АЙЛ#$#!ОВ ПРОИЗО#$%^@#^&$$@^&---"))
+			AI.adjustOxyLoss(200)
+			return
+	if(danger_level == DANGER_LVL_INSTA_DEATH)
+		to_chat(AI, span_alert("$%@#!$%##!!$$#---"))
+		AI.adjustOxyLoss(200)
+		return
+
 #undef BORG_LAMP_CD_RESET
+
+/mob/living/silicon/robot/vv_edit_var(var_name, var_value)
+	if(!check_rights(R_SKINS) && (var_name in list("icon", "icon_state")))
+		return FALSE
+	. = ..()
+

@@ -32,6 +32,7 @@
 	activation_message = list("Вы чувствуете, как странное недомогание пронизывает всё ваше тело.")
 	deactivation_message = list("Вы больше не чувствуете себя ужасно больным.")
 	instability = -GENE_INSTABILITY_MAJOR
+	COOLDOWN_DECLARE(last_radioactive_pulse)
 
 /datum/dna/gene/disability/radioactive/New()
 	..()
@@ -42,12 +43,16 @@
 		return FALSE
 	return TRUE
 
-/datum/dna/gene/disability/radioactive/OnMobLife(mob/living/mutant)
-	var/radiation_amount = abs(min(mutant.radiation - 20, 0))
-	mutant.apply_effect(radiation_amount, IRRADIATE)
-	for(var/mob/living/victim in (view(1, get_turf(src)) - src))
-		to_chat(victim, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [mutant]."))
-		victim.apply_effect(5, IRRADIATE)
+/datum/dna/gene/disability/radioactive/OnMobLife(mob/living/owner)
+	if(!COOLDOWN_FINISHED(src, last_radioactive_pulse))
+		return
+
+	COOLDOWN_START(src, last_radioactive_pulse, 5 SECONDS)
+	radiation_pulse(
+		owner,
+		max_range = 3,
+		threshold = RAD_MEDIUM_INSULATION,
+	)
 
 /datum/dna/gene/disability/radioactive/OnDrawUnderlays(mob/M, g)
 	return "rads_s"

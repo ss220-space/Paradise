@@ -102,7 +102,7 @@
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
-			if(see_ghosts && istype(M,/mob/dead/observer))
+			if(see_ghosts && isobserver(M))
 				var/mob/dead/observer/O = M
 				if(O.orbiting)
 					continue
@@ -221,7 +221,7 @@
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	if(istype(src,/obj/item/camera/digital) && istype(user, /mob/living/carbon/human))
+	if(istype(src,/obj/item/camera/digital) && ishuman(user))
 		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
 	else
@@ -375,6 +375,17 @@
 
 	/// The camera this circut is attached to.
 	var/obj/item/camera/camera
+
+/obj/item/circuit_component/camera/Destroy()
+	if(camera)
+		unregister_usb_parent(camera)
+	photographed_atom = null
+	picture_taken = null
+	picture_target = null
+	picture_coord_x = null
+	picture_coord_y = null
+	adjust_size = null
+	. = ..()
 
 /obj/item/circuit_component/camera/populate_ports()
 	picture_taken = add_output_port("Снимок сделан", PORT_TYPE_SIGNAL)

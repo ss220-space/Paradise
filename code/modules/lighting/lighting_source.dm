@@ -52,13 +52,18 @@
 	remove_lum()
 	if(source_atom)
 		LAZYREMOVE(source_atom.light_sources, src)
+		source_atom = null
 
 	if(top_atom)
 		LAZYREMOVE(top_atom.light_sources, src)
+		top_atom = null
+
+	source_turf = null
+	pixel_turf = null
 
 	if(needs_update)
 		SSlighting.sources_queue -= src
-
+	LAZYCLEARLIST(effect_str)
 	. = ..()
 
 // Yes this doesn't align correctly on anything other than 4 width tabs.

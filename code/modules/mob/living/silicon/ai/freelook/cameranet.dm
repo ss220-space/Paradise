@@ -105,12 +105,15 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 /datum/cameranet/proc/removeCamera(obj/machinery/camera/c)
 	majorChunkChange(c, 0)
+	SEND_SIGNAL(src, COMSIG_CAMERANET_CAMERA_REMOVED, c)
 
 // Add a camera to a chunk.
 
 /datum/cameranet/proc/addCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 1)
+	if(!c.can_use())
+		return
+	majorChunkChange(c, 1)
+	SEND_SIGNAL(src, COMSIG_CAMERANET_CAMERA_ADDED, c)
 
 // Used for Cyborg cameras. Since portable cameras can be in ANY chunk.
 

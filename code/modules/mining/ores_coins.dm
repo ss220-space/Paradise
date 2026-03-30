@@ -61,23 +61,6 @@
 	balloon_alert(usr, "переплавлено!")
 	qdel(src)
 
-/obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
-	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
-		return ..()
-
-	var/mob/arrived_mob = arrived
-	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
-		for(var/obj/item/item as anything in loc)
-			if(!bag.can_be_inserted(item, stop_messages = TRUE))
-				continue
-
-			item.do_pickup_animation(arrived_mob)
-			bag.handle_item_insertion(item, prevent_warning = TRUE)
-
-		// Then, if the user is dragging an ore box, empty the satchel into the box.
-		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
-			arrived_mob.pulling.attackby(bag, arrived)
-
 /obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	if(isnull(refined_type))
@@ -600,6 +583,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
+
+/obj/item/coin/uranium/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
 
 /obj/item/coin/clown
 	cmineral = "bananium"

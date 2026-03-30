@@ -11,6 +11,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	density = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
+	abstract_type = /obj/effect/mob_spawn
 	var/mob_type = null
 	var/mob_name = "unidentified entity"
 	var/mob_gender = null
@@ -175,7 +176,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob.gender = mob_gender
 
 	if(faction)
-		mob.faction = list(faction)
+		mob.faction = string_list(list(faction))
 
 	if(disease)
 		var/datum/disease/D = new disease

@@ -2,46 +2,6 @@
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
 
-// global signals
-// These are signals which can be listened to by any component on any parent
-// start global signals with "!", this used to be necessary but now it's just a formatting choice
-
-///from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
-#define COMSIG_GLOB_NEW_Z "!new_z"
-/// sent after world.maxx and/or world.maxy are expanded: (has_exapnded_world_maxx, has_expanded_world_maxy)
-#define COMSIG_GLOB_EXPANDED_WORLD_BOUNDS "!expanded_world_bounds"
-/// called after a successful var edit somewhere in the world: (list/args)
-#define COMSIG_GLOB_VAR_EDIT "!var_edit"
-/// called after an explosion happened : (epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-#define COMSIG_GLOB_EXPLOSION "!explosion"
-/// mob was created somewhere : (mob)
-#define COMSIG_GLOB_MOB_CREATED "!mob_created"
-/// mob died somewhere : (mob , gibbed)
-#define COMSIG_GLOB_MOB_DEATH "!mob_death"
-/// global living say plug - use sparingly: (mob/speaker , message)
-#define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"
-/// a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
-#define COMSIG_GLOB_CARBON_THROW_THING "!throw_thing"
-/// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
-#define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
-	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
-/// ingame button pressed (/obj/machinery/button/button)
-#define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
-/// cable was placed or joined somewhere : (turf)
-#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
-
-#define COMSIG_GLOB_WEB_STORM_ENDED "!web_storm_ended"
-#define COMSIG_GLOB_EMPRESS_EGG_DESTROYED "!empress_egg_destroyed"
-#define COMSIG_GLOB_EMPRESS_EGG_BURST "!empress_egg_burst"
-#define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
-#define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
-#define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
-#define COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED "!subsystems_init_ended"
-
-#define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
-#define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
-#define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
-#define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
 
 /// signals from globally accessible objects
 
@@ -180,8 +140,6 @@
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
 ///from base of atom/emag_act(): (/mob/user)
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
-///from base of atom/rad_act(intensity)
-#define COMSIG_ATOM_RAD_ACT "atom_rad_act"
 ///from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"
 ///from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
@@ -544,6 +502,7 @@
 ////from /mob/living/say(): ()
 #define COMSIG_MOB_SAY "mob_say"
 	#define COMPONENT_UPPERCASE_SPEECH (1<<0)
+	#define COMPONENT_SMALL_SPEECH (1<<1)
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1
 	// #define SPEECH_BUBBLE_TYPE 2
@@ -707,7 +666,7 @@
 /// From mob/living/proc/on_fall
 #define COMSIG_LIVING_THUD "living_thud"
 
-/// from /datum/component/singularity/proc/can_move(), as well as /obj/singularity/energy_ball/proc/can_move()
+/// from /datum/component/singularity/proc/can_move(), as well as /obj/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
 #define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
 	/// When returned from `COMSIG_ATOM_SINGULARITY_TRY_MOVE`, the singularity will move to that turf
@@ -884,6 +843,11 @@
 
 /// Source: /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 #define COMSIG_ANIMAL_HANDLE_ENVIRONMENT "animal_handle_environment"
+
+/// Sent to bingles to evolve
+#define COMSIG_BINGLE_EVOLVE "bingle_evolve"
+/// Sent to all bingles to evolve
+#define COMSIG_MASS_BINGLE_EVOLVE "mass_bingle_evolve"
 
 // /obj signals
 
@@ -1178,14 +1142,6 @@
 #define COMSIG_INSTRUMENT_TEMPO_CHANGE "instrument_tempo_change"
 
 /*******Component Specific Signals*******/
-//Janitor
-
-///(): Returns bitflags of wet values.
-#define COMSIG_TURF_IS_WET "check_turf_wet"
-///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 //Creamed
 
@@ -1608,6 +1564,23 @@
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
 
+/// from internal loop in /atom/proc/propagate_radiation_pulse: (atom/pulse_source)
+#define COMSIG_ATOM_PROPAGATE_RAD_PULSE "atom_propagate_radiation_pulse"
+
+/// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
+/// Consumers are allowed to mutate the scan_results list to add extra information
+#define COMSIG_LIVING_HEALTHSCAN "living_healthscan"
+
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
 #define COMSIG_LUNGE_DUAL_STRIKE "lunge_dual_strike"
+
+#define COMSIG_MASKFILTER_UPDATE_STATE "ttsfilter_update_state"
+
+/// Sent after addind a camera to the cameranet datum (/datum/cameranet/proc/addCamera(obj/machinery/camera/c))
+#define COMSIG_CAMERANET_CAMERA_ADDED "cameranet_camera_added"
+
+/// Sent after removing a camera from the cameranet datum (/datum/cameranet/proc/removeCamera(obj/machinery/camera/c))
+#define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
+
+#define COMSIG_IRRADIATED_PROCESS "irradiated_process"

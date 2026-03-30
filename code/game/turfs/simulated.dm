@@ -1,14 +1,15 @@
 /turf/simulated
 	name = "station"
 	flags = NO_SCREENTIPS
+	rad_insulation = RAD_MEDIUM_INSULATION
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
 	abstract_type = /turf/simulated
+
 	var/wet = 0
 	var/image/wet_overlay = null
 	var/mutable_appearance/melting_olay
-
 	var/thermite = 0
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
@@ -109,7 +110,7 @@
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
 	. = ..()
-	ASSERT(istype(copy_to_turf, /turf/simulated))
+	ASSERT(issimulatedturf(copy_to_turf))
 	var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
 	if(slip)
 		var/datum/component/wet_floor/new_wet_floor_component = copy_to_turf.AddComponent(/datum/component/wet_floor)
@@ -156,6 +157,19 @@
 		merged.set_agent_b(merged.agent_b() / turf_count)
 		merged.set_hydrogen(merged.hydrogen() / turf_count)
 		merged.set_water_vapor(merged.water_vapor() / turf_count)
+		merged.set_hyper_noblium(merged.hyper_noblium() / turf_count)
+		merged.set_nitrium(merged.nitrium() / turf_count)
+		merged.set_tritium(merged.tritium() / turf_count)
+		merged.set_bz(merged.bz() / turf_count)
+		merged.set_pluoxium(merged.pluoxium() / turf_count)
+		merged.set_miasma(merged.miasma() / turf_count)
+		merged.set_freon(merged.freon() / turf_count)
+		merged.set_healium(merged.healium() / turf_count)
+		merged.set_proto_nitrate(merged.proto_nitrate() / turf_count)
+		merged.set_zauker(merged.zauker() / turf_count)
+		merged.set_halon(merged.halon() / turf_count)
+		merged.set_helium(merged.helium() / turf_count)
+		merged.set_antinoblium(merged.antinoblium() / turf_count)
 	get_turf_air(self).copy_from(merged)
 
 /turf/simulated/proc/is_shielded()

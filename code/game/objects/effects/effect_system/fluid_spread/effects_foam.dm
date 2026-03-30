@@ -473,6 +473,38 @@
 /obj/effect/spawner/foam_starter/small
 	foam_size = 2
 
+/// Proc to quickly spawn foam
+/// reagent_type can accept a list of reagents, optionally as a key-value pair with values overriding reagent_volume if not null
+/proc/do_foam(range = 1, atom/holder = null, turf/location = null, datum/reagent/reagent_type = null, reagent_volume = 10, datum/reagents/carry = null, amount = null, log = FALSE, datum/effect_system/fluid_spread/foam/foam_type = /datum/effect_system/fluid_spread/foam, result_type = null, stop_reactions = FALSE, reagent_scale = FOAM_REAGENT_SCALE)
+	if(carry || isnull(reagent_type))
+		var/datum/effect_system/fluid_spread/foam/foam = new foam_type(location, range, amount, holder || location, carry, result_type, stop_reactions, reagent_scale)
+		foam.start(log = log)
+		return
+
+	if(ispath(reagent_type, /datum/reagent))
+		var/datum/reagents/foam_reagents = new /datum/reagents(reagent_volume)
+		foam_reagents.add_reagent(reagent_type, reagent_volume)
+		var/datum/effect_system/fluid_spread/foam/foam = new foam_type(location, range, amount, holder || location, foam_reagents, result_type, stop_reactions, reagent_scale)
+		foam.start(log = log)
+		return
+
+
+	if(!islist(reagent_type))
+		CRASH("do_foam passed a non-reagent path, non-list reagent_type [reagent_type]!")
+
+	var/list/reagent_list = reagent_type
+	var/chem_volume = 0
+	for(var/chem_type in reagent_list)
+		chem_volume += reagent_list[chem_type] || reagent_volume
+
+	var/datum/reagents/foam_reagents = new /datum/reagents(chem_volume)
+	for(var/chem_type in reagent_list)
+		foam_reagents.add_reagent(chem_type, reagent_list[chem_type] || reagent_volume)
+
+	var/datum/effect_system/fluid_spread/foam/foam = new foam_type(location, range, amount, holder || location, foam_reagents, result_type, stop_reactions, reagent_scale)
+	foam.start(log = log)
+
+
 #undef MINIMUM_FOAM_DILUTION_RANGE
 #undef MINIMUM_FOAM_DILUTION
 #undef FOAM_REAGENT_SCALE

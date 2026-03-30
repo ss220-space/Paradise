@@ -122,7 +122,6 @@
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
-	irradiate = 40
 	forcedodge = -1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -220,7 +219,7 @@
 	impact_light_color_override = LIGHT_COLOR_BLUE
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
+	if(isturf(target) || isstructure(target) || ismachinery(target))
 		target.ex_act(EXPLODE_HEAVY)
 	return ..()
 

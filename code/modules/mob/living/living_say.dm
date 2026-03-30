@@ -216,6 +216,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
 		message += "."
 
+	sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+
+	if(sigreturn & COMPONENT_SMALL_SPEECH)
+		message = span_small(message)
+
 	//parse the language code and consume it
 	var/list/message_pieces = list()
 	if(ignore_languages)

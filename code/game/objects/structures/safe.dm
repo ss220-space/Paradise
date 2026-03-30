@@ -81,13 +81,19 @@ GLOBAL_LIST_EMPTY(safes)
 	// Combination generation
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
+	if(mapload)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
+
+/obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
-	for(var/obj/item/I in loc)
+	for(var/obj/item/item in loc)
+		if(item.density || item.anchored)
+			continue
 		if(space >= maxspace)
-			return
-		if(I.w_class + space <= maxspace)
-			space += I.w_class
-			I.forceMove(src)
+			break
+		if(item.w_class + space <= maxspace)
+			space += item.w_class
+			item.forceMove(src)
 
 /obj/structure/safe/Destroy()
 	GLOB.safes -= src

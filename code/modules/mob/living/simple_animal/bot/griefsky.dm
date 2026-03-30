@@ -6,6 +6,8 @@
 	maxHealth = 100
 	base_icon = "griefsky"
 	window_name = "Автоматическая Охранная Единица v3.0"
+	bot_type = GRIEF_BOT
+	model = "Griefsky"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword
@@ -261,7 +263,7 @@
 	visible_message(span_boldannounceic("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/obj/item/bot_assembly/secbot_assembly/Sa = new /obj/item/bot_assembly/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name

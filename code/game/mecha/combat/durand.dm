@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
+	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
 	maint_access = TRUE
@@ -36,7 +36,7 @@
 	name = "Durand"
 	icon_state = "old_durand"
 	initial_icon = "old_durand"
-	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
+	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, bio = 0, fire = 100, acid = 100)
 	maint_access = FALSE
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
@@ -47,7 +47,7 @@
 	name = "Rover"
 	icon_state = "darkdurand"
 	initial_icon = "darkdurand"
-	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
+	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, bio = 0, fire = 100, acid = 100)
 	max_equip = 4
 	maint_access = FALSE
 	wreckage = /obj/structure/mecha_wreckage/durand/rover

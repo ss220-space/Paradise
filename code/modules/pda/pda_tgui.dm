@@ -67,7 +67,7 @@
 	if(..())
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	. = TRUE
 	switch(action)
@@ -121,7 +121,9 @@
 				request_cartridge = null
 				update_shortcuts()
 		if("Authenticate") //Checks for ID
-			id_check(usr, in_pda_usage = TRUE)
+			id_check(ui.user, in_pda_usage = TRUE)
+		if("Available_Ringtones")
+			ttone = params["selected_ringtone"]
 		if("Ringtone")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)

@@ -1,3 +1,9 @@
+/**
+ * The base type for nearly all physical objects in SS13
+
+ * Lots and lots of functionality lives here, although in general we are striving to move
+ * as much as possible to the components/elements system
+ */
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -186,79 +192,10 @@
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
 
-/atom/New(loc, ...)
-	SHOULD_CALL_PARENT(TRUE)
-	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		GLOB._preloader.load(src)
-	. = ..()
-	attempt_init(arglist(args))
-	if(SSdemo?.initialized)
-		SSdemo.mark_new(src)
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
 
-// This is distinct from /tg/ because of our space management system
-// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
-/atom/proc/attempt_init(...)
-	var/do_initialize = SSatoms.initialized
-	if(do_initialize != INITIALIZATION_INSSATOMS)
-		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
-		if(SSatoms.InitAtom(src, args))
-			// we were deleted
-			return
-
-//Called after New if the map is being loaded. mapload = TRUE
-//Called from base of New if the map is not being loaded. mapload = FALSE
-//This base must be called or derivatives must set initialized to TRUE
-//must not sleep
-//Other parameters are passed from New (excluding loc), this does not happen if mapload is TRUE
-//Must return an Initialize hint. Defined in __DEFINES/subsystems.dm
-
-//Note: the following functions don't call the base for optimization and must copypasta:
-// /turf/Initialize
-// /turf/simulated/space/Initialize
-
-/atom/proc/Initialize(mapload, ...)
-	SHOULD_CALL_PARENT(TRUE)
-
-	var/list/names = ru_names
-	if(names && !GLOB.cached_ru_names[type])
-		GLOB.cached_ru_names[type] = names
-	ru_names = null
-
-	if(flags & INITIALIZED)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	flags |= INITIALIZED
-
-	SET_PLANE_IMPLICIT(src, plane)
-
-	if(greyscale_config && greyscale_colors)
-		update_greyscale()
-
-	if(color)
-		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
-
-	if(light_system == STATIC_LIGHT && light_power && light_range)
-		update_light()
-
-	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
-
-	if(post_init_icon_state)
-		icon_state = post_init_icon_state
-
-	SETUP_SMOOTHING()
-
-	ComponentInitialize()
-	InitializeAIController()
-
-	return INITIALIZE_HINT_NORMAL
-
-//called if Initialize returns INITIALIZE_HINT_LATELOAD
-/atom/proc/LateInitialize()
-	return
-
-// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
-	return
+	var/looting_icon_mode
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -434,6 +371,7 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
+///Is this atom within 1 tile of another atom
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
@@ -579,7 +517,7 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays()
+		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
 		// Ok, so its rather this or required inheritance in every [update_overlays()]
@@ -628,6 +566,8 @@
 
 			switch(length(new_overlays))
 				if(0)
+					if(full_control)
+						POST_OVERLAY_CHANGE(src)
 					managed_overlays = null
 				if(1)
 					add_overlay(new_overlays)
@@ -677,6 +617,7 @@
 /// Checks if this atom uses the GAS system and if so updates the icon
 /atom/proc/update_greyscale()
 	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()
@@ -1449,7 +1390,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		datum_flags |= DF_VAR_EDITED
 		return .
 
-	if(!GLOB.debug2)
+	if(!GLOB.debugging_enabled)
 		flags |= ADMIN_SPAWNED
 
 	. = ..()
@@ -1513,53 +1454,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/Exited(atom/movable/departed, atom/newLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
-
-/*
-	Adds an instance of colour_type to the atom's atom_colours list
-*/
-/atom/proc/add_atom_colour(coloration, colour_priority)
-	if(!atom_colours || !length(atom_colours))
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(!coloration)
-		return
-	if(colour_priority > length(atom_colours))
-		return
-	atom_colours[colour_priority] = coloration
-	update_atom_colour()
-
-/*
-	Removes an instance of colour_type from the atom's atom_colours list
-*/
-/atom/proc/remove_atom_colour(colour_priority, coloration)
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(colour_priority > length(atom_colours))
-		return
-	if(coloration && atom_colours[colour_priority] != coloration)
-		return //if we don't have the expected color (for a specific priority) to remove, do nothing
-	atom_colours[colour_priority] = null
-	update_atom_colour()
-
-/*
-	Resets the atom's color to null, and then sets it to the highest priority
-	colour available
-*/
-/atom/proc/update_atom_colour()
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	color = null
-	for(var/C in atom_colours)
-		if(islist(C))
-			var/list/L = C
-			if(length(L))
-				color = L
-				return
-		else if(C)
-			color = C
-			return
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1890,37 +1784,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
 
-/// Update the screentip to reflect what we're hovering over
-/atom/MouseEntered(location, control, params)
-	SSmouse_entered.hovers[usr.client] = src
-
-/// Fired whenever this atom is the most recent to be hovered over in the tick.
-/// Preferred over MouseEntered if you do not need information such as the position of the mouse.
-/// Especially because this is deferred over a tick, do not trust that `client` is not null.
-/atom/proc/on_mouse_enter(client/client)
-	SHOULD_NOT_SLEEP(TRUE)
-
-	var/mob/user = client?.mob
-	if(isnull(user))
-		return
-
-	// Face directions on harm intent
-	if(user.face_mouse && !user.incapacitated())
-		user.face_atom(src)
-
-	// Screentips
-	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	if(!active_hud)
-		return
-
-	var/screentip_mode = user.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-
-	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [user.client.prefs.screentip_color]'>[declent_ru(NOMINATIVE)]</span>"
-
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
 		gravity_sources[id] = 0
@@ -1980,3 +1843,24 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return input
 
 #undef ENCODE_HTML_EMPHASIS
+
+/**
+ * Wash this atom
+ *
+ * This will clean it off any temporary stuff like blood. Override this in your item to add custom cleaning behavior.
+ * Returns true if any washing was necessary and thus performed
+ * Arguments:
+ * * clean_types: any of the CLEAN_ constants
+ * Returns: A bitflag if it successfully cleaned something: e.g. COMPONENT_CLEANED, or NONE if not. COMPONENT_CLEANED_GAIN_XP being flipped on signals whether the cleaning should yield cleaning xp.
+ */
+/atom/proc/wash_tg(clean_types)
+	SHOULD_CALL_PARENT(TRUE)
+	. = SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, clean_types)
+	if(.)
+		return
+
+	// Basically "if has washable coloration"
+	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
+		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		return COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	return NONE

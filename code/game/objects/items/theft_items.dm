@@ -10,6 +10,7 @@
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	/// Cooldown between radiation pulses
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
 
@@ -25,11 +26,6 @@
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_cycle = 40, \
-				rad_cycle = 2 SECONDS, \
-				rad_cycle_radius = 5 \
-	)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nuke_core/Destroy()
@@ -43,6 +39,7 @@
 	if(cooldown < world.time - 2 SECONDS)
 		cooldown = world.time
 		flick(pulseicon, src)
+		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION)
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] натирает себя [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой!"))
@@ -258,8 +255,7 @@
 		return .
 
 	to_chat(user, span_danger("При контакте с [declent_ru(INSTRUMENTAL)] и [I.declent_ru(NOMINATIVE)] мгновенно вспыхивают!"))
-	for(var/mob/living/victim in view(5, get_turf(src)))
-		victim.apply_effect(80, IRRADIATE)
+	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(I)
 	qdel(src)
@@ -274,18 +270,17 @@
 		var/mob/user = throwingdatum.thrower
 		add_attack_logs(user, victim, "[victim] consumed by [src] thrown by [user] ")
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)], thrown by [key_name_admin(user)].")
-		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", "supermatter")
+		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", INVESTIGATE_ENGINE)
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
-		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
+		investigate_log("has consumed [key_name(victim)] via throw impact.", INVESTIGATE_ENGINE)
 	victim.visible_message(
 		span_danger("[DECLENT_RU_CAP(victim, NOMINATIVE)], поражённый [declent_ru(INSTRUMENTAL)], вспыхивает пламенем, в комнате воцаряется тишина..."),
 		span_userdanger("Вас поражает [declent_ru(NOMINATIVE)], и всё вокруг замирает.\n[declent_ru(NOMINATIVE)] вспыхивает, и прежде чем вы осознаёте это, вы тоже горите."),
 		span_hear("Внезапно наступает тишина.")
 	)
 	victim.gib()
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(120, IRRADIATE)
+	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
 
@@ -301,8 +296,7 @@
 		span_userdanger("Вы попытались взять [declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
 		span_italics("Внезапно наступает тишина.")
 	)
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(80, IRRADIATE)
+	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.gib()
 	return FALSE
@@ -404,11 +398,10 @@
 			span_userdanger("Вы попытались взять [sliver.declent_ru(ACCUSATIVE)] голыми руками. Это было глупо."),
 			span_italics("Внезапно наступает тишина.")
 		)
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(80, IRRADIATE)
+		radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
-		investigate_log("has consumed [key_name(user)].", "supermatter")
+		investigate_log("has consumed [key_name(user)].", INVESTIGATE_ENGINE)
 		user.gib()
 		QDEL_NULL(sliver)
 		update_icon(UPDATE_ICON_STATE)
@@ -500,15 +493,15 @@
 			return
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
-		investigate_log("has irradiated [key_name(victim)].", "supermatter")
-	else if(istype(AM, /obj/singularity))
+		investigate_log("has irradiated [key_name(victim)].", INVESTIGATE_ENGINE)
+	else if(AM.flags & SUPERMATTER_IGNORES)
 		return
 	else if(istype(AM, /obj/item/nuke_core_container))
 		return
 	else if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
 		return
 	else
-		investigate_log("has consumed [AM].", "supermatter")
+		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
@@ -518,8 +511,7 @@
 			span_hear("Внезапно наступает тишина.")
 		)
 		user.gib()
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(60, IRRADIATE)
+	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
 	update_icon(UPDATE_ICON_STATE)

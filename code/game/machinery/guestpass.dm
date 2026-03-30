@@ -47,12 +47,17 @@
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
+	var/uid
+
+/obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
+	uid = rand(1, 10000)
+	. = ..()
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(giver)
 			to_chat(user, span_warning("There is already ID card inside."))
@@ -152,7 +157,7 @@
 					accesses.Cut()
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/card/id))
+					if(is_id_card(I))
 						usr.drop_transfer_item_to_loc(I, src)
 						giver = I
 				updateUsrDialog()

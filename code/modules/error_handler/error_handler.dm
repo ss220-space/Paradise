@@ -12,15 +12,41 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		log_world("\[[time_stamp()]] Uncaught exception: [E]")
 		return ..()
 
-	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this if
+	//this is snowflake because of a byond bug (ID:2306577), do not attempt to call non-builtin procs in this block OR BEFORE IT
 	if(copytext(E.name, 1, 32) == "Maximum recursion level reached")//32 == length() of that string + 1
-		//log to world while intentionally triggering the byond bug.
+		var/list/proc_path_to_count = list()
+		var/crashed = FALSE
+		try
+			var/callee/stack_entry = caller
+			while(!isnull(stack_entry))
+				proc_path_to_count[stack_entry.proc] += 1
+				stack_entry = stack_entry.caller
+		catch
+			//union job. avoids crashing the stack again
+			//I just do not trust this construct to work reliably
+			crashed = TRUE
+
+		var/list/split = splittext(E.desc, "\n")
+		for(var/i in 1 to split.len)
+			if(split[i] != "" || copytext(split[1], 1, 2) != "  ")
+				split[i] = "  [split[i]]"
+
+		split += "--Stack Info [crashed ? "(Crashed, may be missing info)" : ""]:"
+		for(var/path in proc_path_to_count)
+			split += "  [path] = [proc_path_to_count[path]]"
+
+		E.desc = jointext(split, "\n")
+		log_world("\[[time2text(world.timeofday,"hh:mm:ss")]\] Runtime Error: [E.name]\n[E.desc]")
+		//log to world while intentionally triggering the byond bug. this does not DO anything, it just errors
+		//(seemingly because of the extra proc call to logger inside log_world interestingly enough)
 		log_world("\[[time_stamp()]] runtime error: [E.name]\n[E.desc]")
 		//if we got to here without silently ending, the byond bug has been fixed.
-		log_world("\[[time_stamp()]] The bug with recursion runtimes has been fixed. Please remove the snowflake check from world/Error in [__FILE__]:[__LINE__]")
+		log_world("\[[time_stamp()]] The \"bug\" with recursion runtimes has been fixed. Please remove the snowflake check from world/Error in [__FILE__]:[__LINE__]")
 		return //this will never happen.
 
-	var/static/regex/stack_workaround = regex("[WORKAROUND_IDENTIFIER](.+?)[WORKAROUND_IDENTIFIER]")
+	var/static/regex/stack_workaround
+	if(isnull(stack_workaround))
+		stack_workaround = regex("[WORKAROUND_IDENTIFIER](.+?)[WORKAROUND_IDENTIFIER]")
 	var/static/list/error_last_seen = list()
 	var/static/list/error_cooldown = list() /* Error_cooldown items will either be positive(cooldown time) or negative(silenced error)
 												If negative, starts at -1, and goes down by 1 each time that error gets skipped*/
@@ -156,3 +182,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			e.desc = "  [extra_info]\n\n" + e.desc
 
 	world.Error(e, e_src)
+
+/// Exists to trigger infinite recursion runtimes in testing
+/proc/recurse(times)
+	if(times <= 0)
+		return
+	recurse(times - 1)

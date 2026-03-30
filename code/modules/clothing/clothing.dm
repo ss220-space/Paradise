@@ -48,6 +48,11 @@
 
 	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
+/obj/item/clothing/Initialize(mapload)
+	if(LAZYLEN(clothing_traits))
+		clothing_traits = string_list(clothing_traits)
+	. = ..()
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -480,7 +485,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(istype(src.loc, /mob))
+	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(0)
 				for(var/mob/V in viewers(user, 1))
@@ -844,7 +849,7 @@
 	abstract_type = /obj/item/clothing/suit
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
@@ -980,7 +985,7 @@
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -1004,7 +1009,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -1089,7 +1094,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
@@ -1381,6 +1386,8 @@
 		trait_or_traits = list(trait_or_traits)
 
 	LAZYOR(clothing_traits, trait_or_traits)
+	if(clothing_traits) // because we might be null
+		clothing_traits = string_list(clothing_traits)
 	var/mob/wearer = loc
 	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
 		for(var/new_trait in trait_or_traits)
