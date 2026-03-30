@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - refactor: "Портирована оптимизация использование фильтров. (PR #8773)"
+  - refactor: "Портирован рефактор сортировки. (PR #8773)"

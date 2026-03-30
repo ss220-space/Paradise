@@ -62,7 +62,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]1")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -72,7 +72,7 @@
 				filling.icon_state = "[icon_state]5"
 			if(80 to INFINITY)
 				filling.icon_state = "[icon_state]12"
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
@@ -123,7 +123,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())
 		fire_act()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)

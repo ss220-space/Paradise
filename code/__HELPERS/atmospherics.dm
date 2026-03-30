@@ -18,7 +18,7 @@
  * Returned list should always be filled with keys even if value are nulls.
  */
 
-//TODO: Port gas_mixture_parser from TG
+// TODO: Port gas_mixture_parser from TG
 /proc/gas_mixture_parser(datum/gas_mixture/gasmix, name)
 	. = list(
 		TLV_O2 = null,
@@ -29,8 +29,21 @@
 		TLV_AGENT_B = null,
 		TLV_H2 = null,
 		TLV_H2O = null,
+		TLV_TRITIUM = null,
+		TLV_BZ = null,
+		TLV_PLUOXIUM = null,
+		TLV_MIASMA = null,
+		TLV_FREON = null,
+		TLV_NITRIUM = null,
+		TLV_HEALIUM = null,
+		TLV_PROTO_NITRATE = null,
+		TLV_ZAUKER = null,
+		TLV_HALON = null,
+		TLV_HELIUM = null,
+		TLV_ANTINOBLIUM = null,
+		TLV_HYPERNOBLIUM = null,
 		"name" = format_text(name),
-		"total_moles" = null,
+		TLV_TOTAL_MOLES = null,
 		TLV_TEMPERATURE = null,
 		"volume" = null,
 		TLV_PRESSURE = null,
@@ -39,6 +52,7 @@
 	)
 	if(!gasmix)
 		return
+
 	.[TLV_O2] = gasmix.oxygen()
 	.[TLV_CO2] = gasmix.carbon_dioxide()
 	.[TLV_N2] = gasmix.nitrogen()
@@ -47,9 +61,88 @@
 	.[TLV_AGENT_B] = gasmix.agent_b()
 	.[TLV_H2] = gasmix.hydrogen()
 	.[TLV_H2O] = gasmix.water_vapor()
-	.["total_moles"] = gasmix.total_moles()
+	.[TLV_TRITIUM] = gasmix.tritium()
+	.[TLV_BZ] = gasmix.bz()
+	.[TLV_PLUOXIUM] = gasmix.pluoxium()
+	.[TLV_MIASMA] = gasmix.miasma()
+	.[TLV_FREON] = gasmix.freon()
+	.[TLV_NITRIUM] = gasmix.nitrium()
+	.[TLV_HEALIUM] = gasmix.healium()
+	.[TLV_PROTO_NITRATE] = gasmix.proto_nitrate()
+	.[TLV_ZAUKER] = gasmix.zauker()
+	.[TLV_HALON] = gasmix.halon()
+	.[TLV_HELIUM] = gasmix.helium()
+	.[TLV_ANTINOBLIUM] = gasmix.antinoblium()
+	.[TLV_HYPERNOBLIUM] = gasmix.hyper_noblium()
+	.[TLV_OTHER] = gasmix.total_trace_moles()
+	.[TLV_TOTAL_MOLES] = gasmix.total_moles()
 	.[TLV_TEMPERATURE] = gasmix.temperature()
 	.["volume"] = gasmix.volume
 	.[TLV_PRESSURE] = gasmix.return_pressure()
 	.["heat_capacity"] = display_joules(gasmix.heat_capacity())
 	.["thermal_energy"] = display_joules(gasmix.thermal_energy())
+
+
+/proc/gas_mixture_parser_faster(datum/gas_mixture/gasmix)
+	. = list(
+		TLV_O2 = null,
+		TLV_CO2 = null,
+		TLV_N2 = null,
+		TLV_PL = null,
+		TLV_N2O = null,
+		TLV_AGENT_B = null,
+		TLV_H2 = null,
+		TLV_H2O = null,
+		TLV_TRITIUM = null,
+		TLV_BZ = null,
+		TLV_PLUOXIUM = null,
+		TLV_MIASMA = null,
+		TLV_FREON = null,
+		TLV_NITRIUM = null,
+		TLV_HEALIUM = null,
+		TLV_PROTO_NITRATE = null,
+		TLV_ZAUKER = null,
+		TLV_HALON = null,
+		TLV_HELIUM = null,
+		TLV_ANTINOBLIUM = null,
+		TLV_HYPERNOBLIUM = null,
+		TLV_TOTAL_MOLES = null,
+		TLV_TEMPERATURE = null,
+		TLV_PRESSURE = null,
+	)
+
+	.[TLV_O2] = gasmix.oxygen()
+	.[TLV_CO2] = gasmix.carbon_dioxide()
+	.[TLV_N2] = gasmix.nitrogen()
+	.[TLV_PL] = gasmix.toxins()
+	.[TLV_N2O] = gasmix.sleeping_agent()
+	.[TLV_AGENT_B] = gasmix.agent_b()
+	.[TLV_H2] = gasmix.hydrogen()
+	.[TLV_H2O] = gasmix.water_vapor()
+	.[TLV_TRITIUM] = gasmix.tritium()
+	.[TLV_BZ] = gasmix.bz()
+	.[TLV_PLUOXIUM] = gasmix.pluoxium()
+	.[TLV_MIASMA] = gasmix.miasma()
+	.[TLV_FREON] = gasmix.freon()
+	.[TLV_NITRIUM] = gasmix.nitrium()
+	.[TLV_HEALIUM] = gasmix.healium()
+	.[TLV_PROTO_NITRATE] = gasmix.proto_nitrate()
+	.[TLV_ZAUKER] = gasmix.zauker()
+	.[TLV_HALON] = gasmix.halon()
+	.[TLV_HELIUM] = gasmix.helium()
+	.[TLV_ANTINOBLIUM] = gasmix.antinoblium()
+	.[TLV_HYPERNOBLIUM] = gasmix.hyper_noblium()
+	.[TLV_OTHER] = gasmix.total_trace_moles()
+	.[TLV_TOTAL_MOLES] = gasmix.total_moles()
+	.[TLV_TEMPERATURE] = gasmix.temperature()
+	.[TLV_PRESSURE] = gasmix.return_pressure()
+
+/proc/register_id(id_tag, atom/object, list/register_in)
+	var/datum/weakref/ref = WEAKREF(object)
+	/* use this to debug only
+	if(id_tag in register_in)
+		if(register_in[id_tag] == ref)
+			return
+		CRASH("Object of type [object.type] with id ([id_tag]) already exist in register list")
+	*/
+	register_in[id_tag] = ref

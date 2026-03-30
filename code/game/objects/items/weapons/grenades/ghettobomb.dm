@@ -146,7 +146,7 @@
 	if(active)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		trigger(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

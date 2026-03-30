@@ -27929,7 +27929,6 @@
 	},
 /area/security/checkpoint/south)
 "cdB" = (
-/obj/machinery/computer/area_atmos,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -32150,12 +32149,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "ctP" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
-	frequency = 1443;
-	icon_state = "on";
-	id = "air_in";
-	on = 1
+	frequency = 1443
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
@@ -33733,7 +33729,7 @@
 "czz" = (
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	sensors = list("air_sensor"="Air Mix", "n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -37280,7 +37276,7 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/chief)
 "cOk" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/pl{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -38613,9 +38609,8 @@
 	},
 /area/atmos/distribution)
 "cSr" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "waste_sensor";
-	output = 127
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "waste_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -38838,7 +38833,7 @@
 	},
 /area/atmos/distribution)
 "cTo" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -39910,7 +39905,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "cXd" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -40263,8 +40258,7 @@
 	},
 /area/security/securearmory)
 "cYa" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
-	filter_type = 4;
+/obj/machinery/atmospherics/trinary/filter/flipped/n2o{
 	name = "Gas filter (N2O tank)";
 	on = 1
 	},
@@ -41763,7 +41757,7 @@
 /turf/simulated/floor/plating,
 /area/atmos)
 "dek" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/co2{
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -42026,8 +42020,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "deR" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
-	filter_type = 3;
+/obj/machinery/atmospherics/trinary/filter/flipped/co2{
 	name = "Gas filter (CO2 tank)";
 	on = 1
 	},
@@ -45596,7 +45589,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "dss" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/pl{
 	frequency = 1222;
 	id_tag = "toxins_mixing_interior"
 	},
@@ -47544,9 +47537,8 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/maintenance/apmaint)
 "elK" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/o2{
 	dir = 8;
-	filter_type = 1;
 	name = "Gas filter (O2 tank)";
 	on = 1
 	},
@@ -51878,9 +51870,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
 "gfE" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/n2{
 	dir = 8;
-	filter_type = 2;
 	name = "Gas filter (N2 tank)";
 	on = 1
 	},
@@ -52548,7 +52539,6 @@
 	},
 /area/hallway/primary/central/sw)
 "gtV" = (
-/obj/machinery/computer/area_atmos/area,
 /obj/item/radio/intercom/department/security/directional/west,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -54805,7 +54795,7 @@
 	},
 /area/security/permabrig)
 "hva" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -60808,10 +60798,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "khx" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	frequency = 1443;
-	id_tag = "air_sensor";
-	output = 23
+	id_tag = "air_sensor"
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -72399,8 +72388,7 @@
 "pla" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	id = "tox_in"
+	dir = 1
 	},
 /turf/space,
 /area/atmos)
@@ -77040,7 +77028,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "riB" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	frequency = 1222;
 	id_tag = "toxins_mixing_exterior"
 	},
@@ -77187,12 +77175,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "rmC" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1443;
-	icon_state = "on";
-	id = "air_in";
-	on = 1
+	frequency = 1443
 	},
 /obj/machinery/sparker{
 	dir = 4;
@@ -77963,11 +77948,9 @@
 	},
 /area/engineering/engine)
 "rDx" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
-	icon_state = "on";
-	id = "o2_in";
-	on = 1
+	id = "air_in"
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
