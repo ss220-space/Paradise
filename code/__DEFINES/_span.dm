@@ -73,6 +73,7 @@
 #define span_orange(str) ("<span class='orange'>[str]</span>")
 #define span_blue(str) ("<span class='blue'>[str]</span>")
 #define span_yellow(str) ("<span class='yellow'>[str]</span>")
+#define span_color(text, color) ("<span style='color:[color]'>[text]</span>")
 
 /**
  * MARK: Other colors

@@ -329,15 +329,6 @@
 "bT" = (
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/administration)
-"bU" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "bV" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -694,11 +685,11 @@
 	height = 18;
 	id = "admin";
 	name = "NHV Asclepius";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -744,12 +735,6 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
-	},
-/area/shuttle/administration)
-"Aa" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
 "Ad" = (
@@ -1329,8 +1314,8 @@ ct
 ct
 ct
 GD
-bU
-Aa
+bV
+bJ
 bV
 ct
 ct
@@ -1350,7 +1335,7 @@ cd
 ct
 Ze
 bV
-bJ
+bV
 ni
 ct
 cd

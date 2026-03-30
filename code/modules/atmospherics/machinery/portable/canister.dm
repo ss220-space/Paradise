@@ -405,6 +405,91 @@
 	greyscale_colors = "#c6c0b5#a63131"
 	can_label = FALSE
 
+/obj/machinery/portable_atmospherics/canister/bz
+	name = "Canister \[BZ\]"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#9b5d7f#d0d2a0"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/freon
+	name = "Canister \[Freon\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#6696ee#fefb30"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/halon
+	name = "Canister \[Halon\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#9b5d7f#368bff"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/healium
+	name = "Canister \[Healium\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#009823#ff0e00"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/helium
+	name = "Canister \[Helium\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#9b5d7f#368bff"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/miasma
+	name = "Canister \[Miasma\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#009823#f7d5d3"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/nitrium
+	name = "Canister \[Nitrium\]"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#7b4732"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/nob
+	name = "Canister \[Hyper-noblium\]"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#6399fc#b2b2b2"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/pluoxium
+	name = "Canister \[Pluoxium\]"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#2786e5"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/proto_nitrate
+	name = "Canister \[Proto Nitrate\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#008200#33cc33"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/tritium
+	name = "Canister \[Tritium\]"
+	greyscale_colors = "#3fcd40#000000"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/zauker
+	name = "Canister \[Zauker\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#009a00#006600"
+	can_label = FALSE
+
+/obj/machinery/portable_atmospherics/canister/antinoblium
+	name = "Canister \[Antinoblium\]"
+	filled = 1
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#333333#fefb30"
+	can_label = FALSE
+
 /obj/machinery/portable_atmospherics/canister/toxins/init_internal_atmos()
 	. = ..()
 	air_contents.set_toxins((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
@@ -437,3 +522,54 @@
 	. = ..()
 	air_contents.set_oxygen((O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	air_contents.set_nitrogen((N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/bz/init_internal_atmos()
+	. = ..()
+	air_contents.set_bz((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/freon/init_internal_atmos()
+	. = ..()
+	air_contents.set_freon((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/healium/init_internal_atmos()
+	. = ..()
+	air_contents.set_healium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/helium/init_internal_atmos()
+	. = ..()
+	air_contents.set_helium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/miasma/init_internal_atmos()
+	. = ..()
+	air_contents.set_miasma((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/nitrium/init_internal_atmos()
+	. = ..()
+	air_contents.set_nitrium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/nob/init_internal_atmos()
+	. = ..()
+	air_contents.set_hyper_noblium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/pluoxium/init_internal_atmos()
+	. = ..()
+	air_contents.set_pluoxium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/proto_nitrate/init_internal_atmos()
+	. = ..()
+	air_contents.set_proto_nitrate((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/tritium/init_internal_atmos()
+	. = ..()
+	air_contents.set_tritium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/zauker/init_internal_atmos()
+	. = ..()
+	air_contents.set_zauker((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/antinoblium/init_internal_atmos()
+	. = ..()
+	air_contents.set_antinoblium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/halon/init_internal_atmos()
+	air_contents.set_halon((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
