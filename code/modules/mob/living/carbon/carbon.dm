@@ -296,6 +296,12 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 
+	var/list/ignore_fracture_zones = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_CHEST,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		missing -= bodypart.limb_zone
 		var/list/part_statuses = list()
@@ -319,11 +325,6 @@
 				part_statuses += "сло[PLUR_IT_YAT(bodypart)]ся кусками обожжённой плоти"
 
 		if(bodypart.has_fracture())
-			var/list/ignore_fracture_zones = list(
-				BODY_ZONE_HEAD,
-				BODY_ZONE_CHEST,
-				BODY_ZONE_PRECISE_GROIN,
-			)
 			if(!(bodypart.limb_zone in ignore_fracture_zones))
 				if(bodypart.is_splinted())
 					part_statuses += "зафиксирован[GEND_A_O_Y(bodypart)] шиной"
@@ -361,8 +362,9 @@
 		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
 			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 
-	for(var/limb_part in missing)
-		status_list += span_boldannounceic("У вас отсутствует [parse_zone(limb_part)]!")
+	if(LAZYLEN(missing))
+		for(var/limb_part in missing)
+			status_list += span_boldannounceic("У вас отсутствует [parse_zone(limb_part)]!")
 
 	if(staminaloss)
 		if(staminaloss > 30)
