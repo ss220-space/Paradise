@@ -665,7 +665,7 @@
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
 				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]]")
 		if(bodypart.has_infected_wound())
-			scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]]")
+			scan_data += span_warning("Заражение в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
