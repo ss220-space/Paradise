@@ -809,27 +809,7 @@
 	projectile_type = /obj/projectile/magic/arcane_barrage/blood
 	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
 
-/obj/projectile/magic/arcane_barrage/blood
-	name = "blood bolt"
-	icon_state = "blood_bolt"
-	damage_type = BRUTE
-	impact_effect_type = /obj/effect/temp_visual/cult/sparks
-	hitsound = 'sound/effects/splat.ogg'
 
-/obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
-	if(iscultist(target))
-		damage = 0
-		nodamage = TRUE
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(H.stat != DEAD)
-				H.reagents.add_reagent("unholywater", 4)
-		if(isshade(target) || isconstruct(target))
-			var/mob/living/simple_animal/M = target
-			if(M.health + 5 < M.maxHealth)
-				M.adjustHealth(-5)
-		new /obj/effect/temp_visual/cult/sparks(target)
-	..()
 
 /obj/item/blood_orb
 	name = "orb of blood"

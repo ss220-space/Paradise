@@ -1,5 +1,7 @@
 // Basically it's both an ammo box and external magazine
+// TODO: rename it to "Спидлоадер" or sum
 /obj/item/ammo_box/speedloader
+	gender = NEUTER
 	use_bullet_type_overlay = TRUE
 	can_fast_load = FALSE
 

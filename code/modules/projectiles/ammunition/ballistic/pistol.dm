@@ -108,7 +108,7 @@
 	projectile_type = /obj/projectile/bullet/midbullet3/hp
 	bullet_type = BULLET_TYPE_EXPANSIVE
 
-// .45
+// MARK: .45
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."
 	materials = list(MAT_METAL = 1500)
@@ -132,7 +132,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	bullet_type = BULLET_TYPE_RUBBER
 
-// .45 Colt
+// MARK: .45 Colt
 /obj/item/ammo_casing/c45colt
 	desc = "A .45 Colt bullet casing."
 	materials = list(MAT_METAL = 1000)
@@ -161,7 +161,7 @@
 	projectile_type = /obj/projectile/bullet/c45colt/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
-// .45 N&R
+// MARK: .45 N&R
 /obj/item/ammo_casing/c45nr
 	desc = "A 45 N&R bullet casing."
 	materials = list(MAT_METAL = 500)

@@ -2,6 +2,7 @@
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "Э-э... коробка с патронами?"
+	gender = FEMALE
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	origin_tech = "materials=3;combat=3"
@@ -243,6 +244,7 @@
 
 // MARK: Мagazine
 /obj/item/ammo_box/magazine
+	gender = MALE
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
 	use_bullet_type_overlay = TRUE

@@ -93,8 +93,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_7_DOT_62X54MM "7,62x54 мм"
 /// Used in NATO type heavy guns like 'L6 SAW' lmg
 #define CALIBER_7_DOT_62X51MM "7,62x51 мм"
-
-// Sniper cartridges
 /// Used in Syndicate sniper rifle
 #define CALIBER_DOT_50 ".50"
 /// Used in Compact Syndicate sniper rifle
@@ -186,3 +184,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 /// Magazine reload duration
 #define GUN_MAGAZINE_RELOAD_DURATION (1 SECONDS)
+
+// Chrono beam stuff
+#define CHRONO_BEAM_RANGE 3
+#define CHRONO_FRAME_COUNT 22

@@ -79,18 +79,6 @@
 	harmful = FALSE
 	delay = 3
 
-/obj/projectile/beam/shuriken
-	name = "energy shuriken"
-	icon = 'icons/obj/ninjaobjects.dmi'
-	icon_state = "shuriken_projectile"
-	damage = 5
-	stamina = 15
-	shockbull = TRUE
-	flag = "energy"
-	hitsound = 'sound/weapons/parry.ogg'
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
-	light_color = LIGHT_COLOR_GREEN
-
 /obj/effect/temp_visual/impact_effect/green_particles
 	icon_state = "mech_toxin"
 	duration = 2

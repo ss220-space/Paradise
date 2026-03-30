@@ -1,3 +1,4 @@
+// MARK: Generic
 /obj/projectile/magic
 	name = "bolt of nothing"
 	icon_state = "energy"
@@ -19,6 +20,7 @@
 		PREPOSITIONAL = "разряде пустоты",
 	)
 
+// MARK: Death Bolt
 /obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = null
@@ -45,6 +47,16 @@
 		PREPOSITIONAL = "заряде смерти",
 	)
 
+/obj/projectile/magic/death/on_hit(mob/living/carbon/C)
+	. = ..()
+	if(isliving(C))
+		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
+			C.adjustFireLoss(6969)  //remember - slimes love fire
+		C.death()
+
+		visible_message(span_danger("[DECLENT_RU_CAP(C, NOMINATIVE)] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
+
+// MARK: Fireball Bolt
 /obj/projectile/magic/fireball
 	name = "bolt of fireball"
 	icon_state = "fireball"
@@ -68,15 +80,6 @@
 		INSTRUMENTAL = "огненным шаром",
 		PREPOSITIONAL = "огненном шаре",
 	)
-
-/obj/projectile/magic/death/on_hit(mob/living/carbon/C)
-	. = ..()
-	if(isliving(C))
-		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
-			C.adjustFireLoss(6969)  //remember - slimes love fire
-		C.death()
-
-		visible_message(span_danger("[DECLENT_RU_CAP(C, NOMINATIVE)] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -134,6 +137,7 @@
 	var/turf/fire_turf = get_turf(target)
 	flame_radius(3, fire_turf, BURN_TIME_DEVIL, hellfire_power, FLAMESHAPE_IRREGULAR, target, FIRE_VARIANT_DEFAULT, hellfire_type)
 
+// MARK: Resurrection Bolt
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
@@ -166,6 +170,7 @@
 		else
 			to_chat(target, span_notice("Вы восстаете из мёртвых. <b>ВЫ СНОВА ЖИВЫ!!!</b>"))
 
+// MARK: Teleportation Bolt
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
@@ -196,6 +201,7 @@
 			smoke.set_up(amount = max(round(10 - teleammount),1), location = stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
+// MARK: Door Creation Bolt
 /obj/projectile/magic/door
 	name = "bolt of door creation"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
@@ -241,6 +247,7 @@
 		C.locked = FALSE
 	C.open()
 
+// MARK: Transformation Bolt
 /obj/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
@@ -412,6 +419,7 @@
 		qdel(M)
 		return new_mob
 
+// MARK: Animation Bolt
 /obj/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
@@ -457,6 +465,7 @@
 		var/mob/living/simple_animal/hostile/mimic/copy/mimic = target
 		mimic.ChangeOwner(firer)
 
+// MARK: Spellblade
 /obj/projectile/magic/spellblade
 	name = "blade energy"
 	icon_state = "lavastaff"
@@ -476,6 +485,7 @@
 		PREPOSITIONAL = "энергии лезвия",
 	)
 
+// MARK: Slipping
 /obj/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -514,6 +524,7 @@
 			L.Knockdown(slip_disable_time)
 	. = ..()
 
+// MARK: Arcane barrage
 /obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
 	icon_state = "arcane_barrage"
@@ -533,3 +544,125 @@
 		INSTRUMENTAL = "тайным зарядом",
 		PREPOSITIONAL = "тайном заряде",
 	)
+
+/obj/projectile/magic/arcane_barrage/blood
+	name = "blood bolt"
+	icon_state = "blood_bolt"
+	damage_type = BRUTE
+	impact_effect_type = /obj/effect/temp_visual/cult/sparks
+	hitsound = 'sound/effects/splat.ogg'
+
+/obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
+	if(iscultist(target))
+		damage = 0
+		nodamage = TRUE
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(H.stat != DEAD)
+				H.reagents.add_reagent("unholywater", 4)
+		if(isshade(target) || isconstruct(target))
+			var/mob/living/simple_animal/M = target
+			if(M.health + 5 < M.maxHealth)
+				M.adjustHealth(-5)
+		new /obj/effect/temp_visual/cult/sparks(target)
+	..()
+
+// MARK: Shadow Hand
+/obj/projectile/magic/shadow_hand
+	name = "shadow hand"
+	icon_state = "shadow_hand"
+	plane = FLOOR_PLANE
+	speed = 1
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
+	var/hit = FALSE
+
+/obj/projectile/magic/shadow_hand/get_ru_names()
+	return list(
+		NOMINATIVE = "теневая рука",
+		GENITIVE = "теневой руки",
+		DATIVE = "теневой руке",
+		ACCUSATIVE = "теневую руку",
+		INSTRUMENTAL = "теневой рукой",
+		PREPOSITIONAL = "теневой руке",
+	)
+
+/obj/projectile/magic/shadow_hand/fire(setAngle)
+	if(firer)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
+	return ..()
+
+/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+	if(hit)
+		return
+	hit = TRUE // to prevent double hits from the pull
+	. = ..()
+	for(var/atom/extinguish_target in range(2, src))
+		extinguish_target.extinguish_light(TRUE)
+	if(isliving(target))
+		var/mob/living/l_target = target
+		l_target.Immobilize(4 SECONDS)
+		l_target.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
+		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+	else
+		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+
+// MARK: Demonic Grasp
+/obj/projectile/magic/demonic_grasp
+	name = "demonic grasp"
+	// parry this you filthy casual
+	reflectability = REFLECTABILITY_NEVER
+	icon_state = null
+
+/obj/projectile/magic/demonic_grasp/get_ru_names()
+	return list(
+			NOMINATIVE = "демоническая хватка",
+			GENITIVE = "демонической хватки",
+			DATIVE = "демонической хватке",
+			ACCUSATIVE = "демоническую хватку",
+			INSTRUMENTAL = "демонической хваткой",
+			PREPOSITIONAL = "демонической хватке",
+		)
+
+/obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
+	. = ..()
+	new /obj/effect/temp_visual/demonic_grasp(loc)
+
+/obj/projectile/magic/demonic_grasp/on_hit(mob/living/target, blocked, hit_zone)
+	. = ..()
+	if(!istype(target) || !firer || !target.affects_vampire(firer))
+		return
+
+	var/target_turf = get_turf(target)
+	target.Immobilize(5 SECONDS)
+	playsound(target_turf, 'sound/misc/demon_attack1.ogg', 50, TRUE)
+	new /obj/effect/temp_visual/demonic_grasp(target_turf)
+
+	var/throw_target
+	switch(firer.a_intent)
+		if(INTENT_DISARM)
+			throw_target = get_edge_target_turf(target, get_dir(firer, target))
+			target.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, PROC_REF(create_snare), target)) // shove away
+		if(INTENT_GRAB)
+			throw_target = get_step(firer, get_dir(firer, target))
+			target.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), target)) // pull towards
+		else
+			create_snare(target)
+
+/obj/projectile/magic/demonic_grasp/proc/create_snare(mob/living/target)
+	new /obj/effect/temp_visual/demonic_snare(get_turf(target))
+
+// MARK: Frost Bolt
+/obj/projectile/magic/frost
+	name = "bolt of frost"
+	icon_state = "ice_2"
+	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
+	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
+
+/obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/victim = target
+		freeze(victim)
+
+/obj/projectile/magic/frost/proc/freeze(mob/living/target)
+	target.apply_status_effect(/datum/status_effect/freon/frost)

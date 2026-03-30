@@ -105,20 +105,7 @@
 /obj/item/ammo_casing/magic/frost
 	projectile_type = /obj/projectile/magic/frost
 
-/obj/projectile/magic/frost
-	name = "bolt of frost"
-	icon_state = "ice_2"
-	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
-	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
 
-/obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
-	. = ..()
-	if(isliving(target))
-		var/mob/living/victim = target
-		freeze(victim)
-
-/obj/projectile/magic/frost/proc/freeze(mob/living/target)
-	target.apply_status_effect(/datum/status_effect/freon/frost)
 
 /datum/status_effect/freon/frost
 	ice_state = "ice_shell"

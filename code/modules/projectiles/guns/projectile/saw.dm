@@ -63,46 +63,7 @@
 
 //ammo//
 
-/obj/projectile/bullet/saw
-	damage = 45
-	armour_penetration = 5
 
-/obj/projectile/bullet/saw/weak
-	damage = 30
-	ricochet_chance = 10
-
-/obj/projectile/bullet/saw/bleeding
-	damage = 20
-	armour_penetration = 0
-
-/obj/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
-	. = ..()
-	if((blocked != 100) && iscarbon(target))
-		var/mob/living/carbon/C = target
-		C.bleed(35)
-
-/obj/projectile/bullet/saw/hollow
-	damage = 60
-	armour_penetration = -10
-	ricochets_max = 0
-
-/obj/projectile/bullet/saw/ap
-	damage = 40
-	armour_penetration = 75
-
-/obj/projectile/bullet/saw/incen
-	damage = 7
-	armour_penetration = 0
-	immolate = 3
-
-/obj/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
-	. = ..()
-	var/turf/location = get_turf(src)
-	if(location)
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
-		hotspot.temperature = 1000
-		hotspot.recolor()
-		location.hotspot_expose(700, 50)
 
 //magazines//
 

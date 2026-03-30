@@ -1,52 +1,4 @@
-/obj/projectile/bullet/reusable
-	name = "reusable bullet"
-	desc = "Как вообще можно повторно использовать пулю?"
-	var/ammo_type = /obj/item/ammo_casing/caseless/
-	var/dropped = 0
-	impact_effect_type = null
-	ricochets_max = 0
-
-/obj/projectile/bullet/reusable/get_ru_names()
-	return list(
-		NOMINATIVE = "многоразовая пуля",
-		GENITIVE = "многоразовой пули",
-		DATIVE = "многоразовой пуле",
-		ACCUSATIVE = "многоразовую пулю",
-		INSTRUMENTAL = "многоразовой пулей",
-		PREPOSITIONAL = "многоразовой пуле",
-	)
-
-/obj/projectile/bullet/reusable/on_hit(atom/target, blocked = 0)
-	. = ..()
-	handle_drop()
-
-/obj/projectile/bullet/reusable/on_range()
-	handle_drop()
-	..()
-
-/obj/projectile/bullet/reusable/proc/handle_drop()
-	if(!dropped)
-		new ammo_type(loc)
-		dropped = 1
-
-/obj/projectile/bullet/reusable/magspear
-	name = "magnetic spear"
-	desc = "БЕЛЫЙ КИТ, СВЯТОЙ ГРААЛЬ!"
-	damage = 30 //takes 3 spears to kill a mega carp, one to kill a normal carp
-	hitsound = 'sound/weapons/pierce.ogg'
-	icon_state = "magspear"
-	ammo_type = /obj/item/ammo_casing/caseless/magspear
-
-/obj/projectile/bullet/reusable/magspear/get_ru_names()
-	return list(
-		NOMINATIVE = "магнитное копье",
-		GENITIVE = "магнитного копья",
-		DATIVE = "магнитному копью",
-		ACCUSATIVE = "магнитное копье",
-		INSTRUMENTAL = "магнитным копьем",
-		PREPOSITIONAL = "магнитном копье",
-	)
-
+// MARK: Foam dart
 /obj/projectile/bullet/reusable/foam_dart
 	name = "foam dart"
 	desc = "Надеюсь, ты в защитных очках."
@@ -142,3 +94,13 @@
 		INSTRUMENTAL = "усиленным пенным снайперским дротиком",
 		PREPOSITIONAL = "усиленном пенном снайперском дротике",
 	)
+
+// MARK: Cap
+/obj/projectile/bullet/cap
+	name = "cap"
+	damage = 0
+	nodamage = TRUE
+
+/obj/projectile/bullet/cap/fire()
+	loc = null
+	qdel(src)
