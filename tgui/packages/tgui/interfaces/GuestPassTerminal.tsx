@@ -14,17 +14,6 @@ import {
 import { Window } from '../layouts';
 import { AccessList, Access } from './common/AccessList';
 
-interface AccessEntry {
-  ref: number;
-  desc: string;
-}
-
-interface AccessRegion {
-  name: string;
-  regid: number;
-  accesses: AccessEntry[];
-}
-
 interface GuestPassData {
   mode: number;
   giver_name: string | null;

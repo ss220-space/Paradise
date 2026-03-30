@@ -57,15 +57,6 @@
 		"Command" = REGION_COMMAND
 	)
 	var/uid
-	var/list/region_map = list(
-		"Service" = REGION_GENERAL,
-		"Security" = REGION_SECURITY,
-		"Medical" = REGION_MEDBAY,
-		"Science" = REGION_RESEARCH,
-		"Engineering" = REGION_ENGINEERING,
-		"Supply" = REGION_SUPPLY,
-		"Command" = REGION_COMMAND
-	)
 
 /obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
 	uid = rand(1, 10000)
@@ -115,7 +106,7 @@
 	data["giv_name"] = "[giv_name]"
 	data["reason"] = "[reason]"
 	data["duration"] = duration
-	data["logs"] = internal_log || list()
+	data["logs"] = internal_log ? internal_log : list()
 
 	var/list/regions = list()
 	var/list/selectedAccess = list()
@@ -220,8 +211,8 @@
 			var/current_date = GLOB.current_date_string
 			var/expire_timestamp = world.time + (duration * 600)
 			var/expire_time_only = time2text(expire_timestamp, "hh:mm:ss")
-			var/safe_giv_name = (giv_name == "NOT SPECIFIED" || !giv_name) ? "неизвестного" : giv_name
-			var/safe_reason = (reason == "NOT SPECIFIED" || !reason) ? "не указана" : reason
+			var/safe_giv_name = giv_name ? giv_name : "неизвестного"
+			var/safe_reason = reason ? reason : "не указана"
 			var/log_msg = "[current_date] [current_time] Пропуск #[number]: выдан \"[giver.registered_name]\" для \"[safe_giv_name]\". Причина: \"[safe_reason]\". Истекает в [current_date] [expire_time_only]."
 			internal_log += log_msg
 
@@ -231,9 +222,8 @@
 				pass.registered_name = (safe_giv_name == "неизвестного") ? "Guest" : safe_giv_name
 				pass.expiration_time = expire_timestamp
 				pass.reason = (safe_reason == "не указана") ? "None" : safe_reason
-				pass.name = "временный пропуск #[number]"
+				pass.name = "temporary pass #[number]"
 
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 			accesses.Cut()
-			updateUsrDialog()
 			return TRUE
