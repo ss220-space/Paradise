@@ -81,28 +81,25 @@
 
 	return adjacent_turfs
 
-/atom/movable/proc/atmos_spawn_air(flag, amount) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
+/atom/movable/proc/atmos_spawn_air(flag, amount, temp_amount = null) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
 	var/turf/simulated/turf = get_turf(src)
 
 	if(!istype(turf))
 		return
 
-	turf.atmos_spawn_air(flag, amount)
+	turf.atmos_spawn_air(flag, amount, temp_amount)
 
-/turf/simulated/proc/atmos_spawn_air(flag, amount)
+/turf/simulated/proc/atmos_spawn_air(flag, amount, temp_amount = null)
 	if(!flag || !amount || blocks_air)
 		return
 
 	var/datum/gas_mixture/gas = new()
 
-	if(flag & LINDA_SPAWN_20C)
-		gas.set_temperature(T20C)
+	if(!isnull(temp_amount))
+		gas.set_temperature(temp_amount)
 
 	if(flag & LINDA_SPAWN_HEAT)
 		gas.set_temperature(gas.temperature() + 1000)
-
-	if(flag & LINDA_SPAWN_COLD)
-		gas.set_temperature(TCMB)
 
 	if(flag & LINDA_SPAWN_TOXINS)
 		gas.set_toxins(gas.toxins() + amount)
@@ -131,5 +128,83 @@
 
 	if(flag & LINDA_SPAWN_WATER_VAPOR)
 		gas.set_water_vapor(gas.water_vapor() + amount)
+
+	if(flag & LINDA_SPAWN_TRITIUM)
+		gas.set_tritium(gas.tritium() + amount)
+
+	if(flag & LINDA_SPAWN_BZ)
+		gas.set_bz(gas.bz() + amount)
+
+	if(flag & LINDA_SPAWN_PLUOXIUM)
+		gas.set_pluoxium(gas.pluoxium() + amount)
+
+	if(flag & LINDA_SPAWN_MIASMA)
+		gas.set_miasma(gas.miasma() + amount)
+
+	if(flag & LINDA_SPAWN_FREON)
+		gas.set_freon(gas.freon() + amount)
+
+	if(flag & LINDA_SPAWN_NITRIUM)
+		gas.set_nitrium(gas.nitrium() + amount)
+
+	if(flag & LINDA_SPAWN_HEALIUM)
+		gas.set_healium(gas.healium() + amount)
+
+	if(flag & LINDA_SPAWN_PROTO_NITRATE)
+		gas.set_proto_nitrate(gas.proto_nitrate() + amount)
+
+	if(flag & LINDA_SPAWN_ZAUKER)
+		gas.set_zauker(gas.zauker() + amount)
+
+	if(flag & LINDA_SPAWN_HALON)
+		gas.set_halon(gas.halon() + amount)
+
+	if(flag & LINDA_SPAWN_HELIUM)
+		gas.set_helium(gas.helium() + amount)
+
+	if(flag & LINDA_SPAWN_ANTINOBLIUM)
+		gas.set_antinoblium(gas.antinoblium() + amount)
+
+	if(flag & LINDA_SPAWN_HYPER_NOBLIUM)
+		gas.set_hyper_noblium(gas.hyper_noblium() + amount)
+
+	if(flag & LINDA_SPAWN_TRITIUM)
+		gas.set_tritium(gas.tritium() + amount)
+
+	if(flag & LINDA_SPAWN_BZ)
+		gas.set_bz(gas.bz() + amount)
+
+	if(flag & LINDA_SPAWN_PLUOXIUM)
+		gas.set_pluoxium(gas.pluoxium() + amount)
+
+	if(flag & LINDA_SPAWN_MIASMA)
+		gas.set_miasma(gas.miasma() + amount)
+
+	if(flag & LINDA_SPAWN_FREON)
+		gas.set_freon(gas.freon() + amount)
+
+	if(flag & LINDA_SPAWN_NITRIUM)
+		gas.set_nitrium(gas.nitrium() + amount)
+
+	if(flag & LINDA_SPAWN_HEALIUM)
+		gas.set_healium(gas.healium() + amount)
+
+	if(flag & LINDA_SPAWN_PROTO_NITRATE)
+		gas.set_proto_nitrate(gas.proto_nitrate() + amount)
+
+	if(flag & LINDA_SPAWN_ZAUKER)
+		gas.set_zauker(gas.zauker() + amount)
+
+	if(flag & LINDA_SPAWN_HALON)
+		gas.set_halon(gas.halon() + amount)
+
+	if(flag & LINDA_SPAWN_HELIUM)
+		gas.set_helium(gas.helium() + amount)
+
+	if(flag & LINDA_SPAWN_ANTINOBLIUM)
+		gas.set_antinoblium(gas.antinoblium() + amount)
+
+	if(flag & LINDA_SPAWN_HYPER_NOBLIUM)
+		gas.set_hyper_noblium(gas.hyper_noblium() + amount)
 
 	blind_release_air(gas)

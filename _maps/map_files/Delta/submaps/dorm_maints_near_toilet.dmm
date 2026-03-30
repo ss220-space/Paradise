@@ -219,9 +219,8 @@
 /area/template_noop)
 "jV" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/structure/bedsheetbin,
 /obj/structure/window/reinforced{

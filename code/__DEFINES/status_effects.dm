@@ -236,3 +236,5 @@
 #define is_blind(...) has_status_effect(/datum/status_effect/transient/blindness)
 /// Is the mob blind from the passed source or sources?
 #define is_blind_from(sources) has_status_effect_from_source(/datum/status_effect/transient/blindness, sources)
+
+#define set_silence_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/silenced, TRUE)

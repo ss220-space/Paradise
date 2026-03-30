@@ -2048,8 +2048,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "Vh" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
-	filter_type = "n2";
+/obj/machinery/atmospherics/trinary/filter/flipped/n2{
 	on = 1;
 	name = "nitrogen filter"
 	},

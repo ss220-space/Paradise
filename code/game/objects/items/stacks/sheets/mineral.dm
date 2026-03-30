@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	return TRUE
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat())
+	if(I.get_temperature())
 		log_and_set_aflame(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

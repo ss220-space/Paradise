@@ -1,20 +1,6 @@
 
 /// Nothing will be filtered.
 #define FILTER_NOTHING -1
-/// Plasma, and Oxygen Agent B.
-#define FILTER_TOXINS 0
-/// Oxygen only.
-#define FILTER_OXYGEN 1
-/// Nitrogen only.
-#define FILTER_NITROGEN 2
-/// Carbon dioxide only.
-#define FILTER_CO2 3
-/// Nitrous oxide only.
-#define FILTER_N2O 4
-/// Hydrogen only.
-#define FILTER_H2 5
-/// Water vapor only.
-#define FILTER_H2O 6
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
@@ -25,18 +11,7 @@
 	/// The amount of pressure the filter wants to operate at.
 	var/target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
-	var/filter_type = FILTER_TOXINS
-	/// A list of available filter options. Used with `ui_data`.
-	var/static/list/filter_list = list(
-		"Nothing" = FILTER_NOTHING,
-		"Plasma" = FILTER_TOXINS,
-		"O2" = FILTER_OXYGEN,
-		"N2" = FILTER_NITROGEN,
-		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O,
-		"H2"  = FILTER_H2,
-		"H2O" = FILTER_H2O,
-	)
+	var/filter_type = TLV_PL
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -112,6 +87,12 @@
 		return
 	update_icon()
 
+#define FILTER_GAS(tag, gas) \
+	if(tag) { \
+		filtered_out.set_##gas(removed.gas()); \
+		removed.set_##gas(0) \
+	}
+
 /obj/machinery/atmospherics/trinary/filter/process_atmos(seconds)
 	if(!on)
 		return FALSE
@@ -141,37 +122,27 @@
 		filtered_out.set_temperature(removed.temperature())
 
 		switch(filter_type)
-			if(FILTER_TOXINS)
-				filtered_out.set_toxins(removed.toxins())
-				removed.set_toxins(0)
-
-				filtered_out.set_agent_b(removed.agent_b())
-				removed.set_agent_b(0)
-
-			if(FILTER_OXYGEN)
-				filtered_out.set_oxygen(removed.oxygen())
-				removed.set_oxygen(0)
-
-			if(FILTER_NITROGEN)
-				filtered_out.set_nitrogen(removed.nitrogen())
-				removed.set_nitrogen(0)
-
-			if(FILTER_CO2)
-				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
-				removed.set_carbon_dioxide(0)
-
-			if(FILTER_N2O)
-				filtered_out.set_sleeping_agent(removed.sleeping_agent())
-				removed.set_sleeping_agent(0)
-
-			if(FILTER_H2)
-				filtered_out.set_hydrogen(removed.hydrogen())
-				removed.set_hydrogen(0)
-
-			if(FILTER_H2O)
-				filtered_out.set_water_vapor(removed.water_vapor())
-				removed.set_water_vapor(0)
-
+			FILTER_GAS(TLV_PL, toxins)
+			FILTER_GAS(TLV_AGENT_B, agent_b)
+			FILTER_GAS(TLV_O2, oxygen)
+			FILTER_GAS(TLV_N2, nitrogen)
+			FILTER_GAS(TLV_CO2, carbon_dioxide)
+			FILTER_GAS(TLV_N2O, sleeping_agent)
+			FILTER_GAS(TLV_H2, hydrogen)
+			FILTER_GAS(TLV_H2O, water_vapor)
+			FILTER_GAS(TLV_TRITIUM, tritium)
+			FILTER_GAS(TLV_BZ, bz)
+			FILTER_GAS(TLV_PLUOXIUM, pluoxium)
+			FILTER_GAS(TLV_MIASMA, miasma)
+			FILTER_GAS(TLV_FREON, freon)
+			FILTER_GAS(TLV_NITRIUM, nitrium)
+			FILTER_GAS(TLV_HEALIUM, healium)
+			FILTER_GAS(TLV_PROTO_NITRATE, proto_nitrate)
+			FILTER_GAS(TLV_ZAUKER, zauker)
+			FILTER_GAS(TLV_HALON, halon)
+			FILTER_GAS(TLV_HELIUM, helium)
+			FILTER_GAS(TLV_ANTINOBLIUM, antinoblium)
+			FILTER_GAS(TLV_HYPERNOBLIUM, hyper_noblium)
 			else
 				filtered_out = null
 
@@ -189,9 +160,7 @@
 
 	return TRUE
 
-/obj/machinery/atmospherics/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	..()
+#undef FILTER_GAS
 
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)
@@ -221,8 +190,6 @@
 		"filter_type" = filter_type
 	)
 	data["filter_type_list"] = list()
-	for(var/label in filter_list)
-		data["filter_type_list"] += list(list("label" = label, "gas_type" = filter_list[label]))
 
 	return data
 
@@ -237,7 +204,7 @@
 			return TRUE
 
 		if("set_filter")
-			filter_type = text2num(params["filter"])
+			filter_type = params["filter"]
 			investigate_log("was set to filter [filter_type] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
@@ -264,11 +231,33 @@
 	. |= ATTACK_CHAIN_SUCCESS
 	rename_interactive(user, I)
 
+//FROM MAPS
+
+/obj/machinery/atmospherics/trinary/filter/o2
+	filter_type = TLV_O2
+
+/obj/machinery/atmospherics/trinary/filter/n2o
+	filter_type = TLV_N2O
+
+/obj/machinery/atmospherics/trinary/filter/co2
+	filter_type = TLV_CO2
+
+/obj/machinery/atmospherics/trinary/filter/n2
+	filter_type = TLV_N2
+
+/obj/machinery/atmospherics/trinary/filter/flipped/n2o
+	filter_type = TLV_N2O
+
+/obj/machinery/atmospherics/trinary/filter/flipped/co2
+	filter_type = TLV_CO2
+
+/obj/machinery/atmospherics/trinary/filter/flipped/o2
+	filter_type = TLV_O2
+
+/obj/machinery/atmospherics/trinary/filter/flipped/n2
+	filter_type = TLV_N2
+
+/obj/machinery/atmospherics/trinary/filter/flipped/none
+	filter_type = FILTER_NOTHING
+
 #undef FILTER_NOTHING
-#undef FILTER_TOXINS
-#undef FILTER_OXYGEN
-#undef FILTER_NITROGEN
-#undef FILTER_CO2
-#undef FILTER_N2O
-#undef FILTER_H2
-#undef FILTER_H2O

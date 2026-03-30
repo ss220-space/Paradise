@@ -226,6 +226,7 @@
 	sharp = 1
 	can_charge = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
+	heat = T3800K
 
 /obj/item/gun/energy/plasmacutter/get_ru_names()
 	return list(
@@ -242,7 +243,7 @@
 	if(cell)
 		. += span_notice("Заряд [icon2html(src, user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
 
-/obj/item/gun/energy/plasmacutter/get_heat()
+/obj/item/gun/energy/plasmacutter/get_temperature()
 	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
@@ -1099,7 +1100,7 @@
 	visible_message(span_danger("[src] vents heated plasma!"))
 	var/turf/simulated/turf = get_turf(src)
 	if(istype(turf))
-		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
+		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS, 15, T20C)
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT

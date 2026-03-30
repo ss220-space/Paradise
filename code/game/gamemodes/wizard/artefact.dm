@@ -196,10 +196,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
-			
+
 			if(QDELETED(user))
 				return
-			
+
 			if(length(candidates))
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
@@ -684,7 +684,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && COOLDOWN_FINISHED(src, cooldown))
 		add_fingerprint(user)
-		if(I.get_heat())
+		if(I.get_temperature())
 			to_chat(target, span_userdanger("You suddenly feel very hot."))
 			target.adjust_bodytemperature(50)
 		else if(is_pointed(I))

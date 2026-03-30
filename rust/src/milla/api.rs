@@ -49,6 +49,19 @@ fn milla_create_environment(
     agent_b: ByondValue,
     hydrogen: ByondValue,
     water_vapor: ByondValue,
+    tritium: ByondValue,
+    bz: ByondValue,
+    pluoxium: ByondValue,
+    miasma: ByondValue,
+    freon: ByondValue,
+    nitrium: ByondValue,
+    healium: ByondValue,
+    proto_nitrate: ByondValue,
+    zauker: ByondValue,
+    halon: ByondValue,
+    helium: ByondValue,
+    antinoblium: ByondValue,
+    hypernoblium: ByondValue,
     temperature: ByondValue,
 ) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
@@ -61,6 +74,19 @@ fn milla_create_environment(
         conversion::byond_to_option_f32(agent_b)?,
         conversion::byond_to_option_f32(hydrogen)?,
         conversion::byond_to_option_f32(water_vapor)?,
+        conversion::byond_to_option_f32(tritium)?,
+        conversion::byond_to_option_f32(bz)?,
+        conversion::byond_to_option_f32(pluoxium)?,
+        conversion::byond_to_option_f32(miasma)?,
+        conversion::byond_to_option_f32(freon)?,
+        conversion::byond_to_option_f32(nitrium)?,
+        conversion::byond_to_option_f32(healium)?,
+        conversion::byond_to_option_f32(proto_nitrate)?,
+        conversion::byond_to_option_f32(zauker)?,
+        conversion::byond_to_option_f32(halon)?,
+        conversion::byond_to_option_f32(helium)?,
+        conversion::byond_to_option_f32(antinoblium)?,
+        conversion::byond_to_option_f32(hypernoblium)?,
         conversion::byond_to_option_f32(temperature)?,
     ) as f32))
 }
@@ -75,6 +101,19 @@ pub(crate) fn internal_create_environment(
     agent_b: Option<f32>,
     hydrogen: Option<f32>,
     water_vapor: Option<f32>,
+    tritium: Option<f32>,
+    bz: Option<f32>,
+    pluoxium: Option<f32>,
+    miasma: Option<f32>,
+    freon: Option<f32>,
+    nitrium: Option<f32>,
+    healium: Option<f32>,
+    proto_nitrate: Option<f32>,
+    zauker: Option<f32>,
+    halon: Option<f32>,
+    helium: Option<f32>,
+    antinoblium: Option<f32>,
+    hypernoblium: Option<f32>,
     temperature: Option<f32>,
 ) -> u8 {
     let mut tile = Tile::new();
@@ -102,6 +141,45 @@ pub(crate) fn internal_create_environment(
     if let Some(value) = water_vapor {
         tile.gases.set_water_vapor(value);
     }
+    if let Some(value) = tritium {
+        tile.gases.set_tritium(value);
+    }
+    if let Some(value) = bz {
+        tile.gases.set_bz(value);
+    }
+    if let Some(value) = pluoxium {
+        tile.gases.set_pluoxium(value);
+    }
+    if let Some(value) = miasma {
+        tile.gases.set_miasma(value);
+    }
+    if let Some(value) = freon {
+        tile.gases.set_freon(value);
+    }
+    if let Some(value) = nitrium {
+        tile.gases.set_nitrium(value);
+    }
+    if let Some(value) = healium {
+        tile.gases.set_healium(value);
+    }
+    if let Some(value) = proto_nitrate {
+        tile.gases.set_proto_nitrate(value);
+    }
+    if let Some(value) = zauker {
+        tile.gases.set_zauker(value);
+    }
+    if let Some(value) = halon {
+        tile.gases.set_halon(value);
+    }
+    if let Some(value) = helium {
+        tile.gases.set_helium(value);
+    }
+    if let Some(value) = antinoblium {
+        tile.gases.set_antinoblium(value);
+    }
+    if let Some(value) = hypernoblium {
+        tile.gases.set_hypernoblium(value);
+    }
     if let Some(value) = temperature {
         tile.thermal_energy = value * tile.heat_capacity();
     }
@@ -124,11 +202,11 @@ fn milla_load_turfs(
         let data = property.get_list_values()?;
         property.decrement_tempref();
 
-        if data.len() != 19 {
+        if data.len() != 32 {
             return Err(eyre!(
                 "data property has the wrong length: {} vs {}",
                 data.len(),
-                18
+                35
             ));
         }
 
@@ -136,21 +214,39 @@ fn milla_load_turfs(
             x as i32 - 1,
             y as i32 - 1,
             z as i32 - 1,
+            // airtight directions (4) - data[0-3]
             conversion::byond_to_option_f32(data[0])?,
             conversion::byond_to_option_f32(data[1])?,
             conversion::byond_to_option_f32(data[2])?,
             conversion::byond_to_option_f32(data[3])?,
+            // atmos_mode, environment (2) - data[4-5]
             conversion::byond_to_option_f32(data[4])?,
             conversion::byond_to_option_f32(data[5])?,
-            conversion::bounded_byond_to_option_f32(data[6], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[7], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[8], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[9], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[10], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[11], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[12], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[13], 0.0, f32::INFINITY)?,
-            conversion::bounded_byond_to_option_f32(data[14], 0.0, f32::INFINITY)?,
+            // gases (21) - data[6-26]
+            conversion::bounded_byond_to_option_f32(data[6], 0.0, f32::INFINITY)?, // oxygen
+            conversion::bounded_byond_to_option_f32(data[7], 0.0, f32::INFINITY)?, // carbon_dioxide
+            conversion::bounded_byond_to_option_f32(data[8], 0.0, f32::INFINITY)?, // nitrogen
+            conversion::bounded_byond_to_option_f32(data[9], 0.0, f32::INFINITY)?, // toxins
+            conversion::bounded_byond_to_option_f32(data[10], 0.0, f32::INFINITY)?, // sleeping_agent
+            conversion::bounded_byond_to_option_f32(data[11], 0.0, f32::INFINITY)?, // agent_b
+            conversion::bounded_byond_to_option_f32(data[12], 0.0, f32::INFINITY)?, // hydrogen
+            conversion::bounded_byond_to_option_f32(data[13], 0.0, f32::INFINITY)?, // water_vapor
+            conversion::bounded_byond_to_option_f32(data[14], 0.0, f32::INFINITY)?, // tritium
+            conversion::bounded_byond_to_option_f32(data[15], 0.0, f32::INFINITY)?, // bz
+            conversion::bounded_byond_to_option_f32(data[16], 0.0, f32::INFINITY)?, // pluoxium
+            conversion::bounded_byond_to_option_f32(data[17], 0.0, f32::INFINITY)?, // miasma
+            conversion::bounded_byond_to_option_f32(data[18], 0.0, f32::INFINITY)?, // freon
+            conversion::bounded_byond_to_option_f32(data[19], 0.0, f32::INFINITY)?, // nitrium
+            conversion::bounded_byond_to_option_f32(data[20], 0.0, f32::INFINITY)?, // healium
+            conversion::bounded_byond_to_option_f32(data[21], 0.0, f32::INFINITY)?, // proto_nitrate
+            conversion::bounded_byond_to_option_f32(data[22], 0.0, f32::INFINITY)?, // zauker
+            conversion::bounded_byond_to_option_f32(data[23], 0.0, f32::INFINITY)?, // halon
+            conversion::bounded_byond_to_option_f32(data[24], 0.0, f32::INFINITY)?, // helium
+            conversion::bounded_byond_to_option_f32(data[25], 0.0, f32::INFINITY)?, // antinoblium
+            conversion::bounded_byond_to_option_f32(data[26], 0.0, f32::INFINITY)?, // hypernoblium
+            // temperature - data[27]
+            conversion::bounded_byond_to_option_f32(data[27], 0.0, f32::INFINITY)?,
+            // thermal_energy
             None,
             Some(0.0),
             Some(0.0),
@@ -162,10 +258,11 @@ fn milla_load_turfs(
             x as i32 - 1,
             y as i32 - 1,
             z as i32 - 1,
-            conversion::bounded_byond_to_option_f32(data[15], 0.0, 1.0)?,
-            conversion::bounded_byond_to_option_f32(data[16], 0.0, 1.0)?,
-            conversion::bounded_byond_to_option_f32(data[17], 0.0, 1.0)?,
-            conversion::bounded_byond_to_option_f32(data[18], 0.0, 1.0)?,
+            // superconductivity values - data[28-31]
+            conversion::bounded_byond_to_option_f32(data[28], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(data[29], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(data[30], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(data[31], 0.0, 1.0)?,
         )?;
     }
     Ok(ByondValue::null())
@@ -189,6 +286,19 @@ fn milla_set_tile(
     agent_b: ByondValue,
     hydrogen: ByondValue,
     water_vapor: ByondValue,
+    tritium: ByondValue,
+    bz: ByondValue,
+    pluoxium: ByondValue,
+    miasma: ByondValue,
+    freon: ByondValue,
+    nitrium: ByondValue,
+    healium: ByondValue,
+    proto_nitrate: ByondValue,
+    zauker: ByondValue,
+    halon: ByondValue,
+    helium: ByondValue,
+    antinoblium: ByondValue,
+    hypernoblium: ByondValue,
     temperature: ByondValue,
     _innate_heat_capacity: ByondValue,
     hotspot_temperature: ByondValue,
@@ -214,6 +324,19 @@ fn milla_set_tile(
         conversion::bounded_byond_to_option_f32(agent_b, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(hydrogen, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(water_vapor, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(tritium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(bz, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(pluoxium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(miasma, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(freon, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(nitrium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(healium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(proto_nitrate, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(zauker, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(halon, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(helium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(antinoblium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(hypernoblium, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?,
         None,
         // Temporarily disabled to better match the existing system.
@@ -245,21 +368,34 @@ fn milla_set_tile_airtight(
         conversion::byond_to_option_f32(airtight_east)?,
         conversion::byond_to_option_f32(airtight_south)?,
         conversion::byond_to_option_f32(airtight_west)?,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
+        None, // atmos_mode
+        None, // environment
+        None, // oxygen
+        None, // carbon_dioxide
+        None, // nitrogen
+        None, // toxins
+        None, // sleeping_agent
+        None, // agent_b
+        None, // hydrogen
+        None, // water_vapor
+        None, // tritium
+        None, // bz
+        None, // pluoxium
+        None, // miasma
+        None, // freon
+        None, // nitrium
+        None, // healium
+        None, // proto_nitrate
+        None, // zauker
+        None, // halon
+        None, // helium
+        None, // antinoblium
+        None, // hypernoblium
+        None, // temperature
+        None, // thermal_energy
+        None, // innate_heat_capacity
+        None, // hotspot_temperature
+        None, // hotspot_volume
     )?;
     Ok(ByondValue::null())
 }
@@ -284,6 +420,19 @@ pub(crate) fn internal_set_tile(
     agent_b: Option<f32>,
     hydrogen: Option<f32>,
     water_vapor: Option<f32>,
+    tritium: Option<f32>,
+    bz: Option<f32>,
+    pluoxium: Option<f32>,
+    miasma: Option<f32>,
+    freon: Option<f32>,
+    nitrium: Option<f32>,
+    healium: Option<f32>,
+    proto_nitrate: Option<f32>,
+    zauker: Option<f32>,
+    halon: Option<f32>,
+    helium: Option<f32>,
+    antinoblium: Option<f32>,
+    hypernoblium: Option<f32>,
     temperature: Option<f32>,
     thermal_energy: Option<f32>,
     innate_heat_capacity: Option<f32>,
@@ -360,6 +509,45 @@ pub(crate) fn internal_set_tile(
     if let Some(value) = water_vapor {
         tile.gases.set_water_vapor(value);
     }
+    if let Some(value) = tritium {
+        tile.gases.set_tritium(value);
+    }
+    if let Some(value) = bz {
+        tile.gases.set_bz(value);
+    }
+    if let Some(value) = pluoxium {
+        tile.gases.set_pluoxium(value);
+    }
+    if let Some(value) = miasma {
+        tile.gases.set_miasma(value);
+    }
+    if let Some(value) = freon {
+        tile.gases.set_freon(value);
+    }
+    if let Some(value) = nitrium {
+        tile.gases.set_nitrium(value);
+    }
+    if let Some(value) = healium {
+        tile.gases.set_healium(value);
+    }
+    if let Some(value) = proto_nitrate {
+        tile.gases.set_proto_nitrate(value);
+    }
+    if let Some(value) = zauker {
+        tile.gases.set_zauker(value);
+    }
+    if let Some(value) = halon {
+        tile.gases.set_halon(value);
+    }
+    if let Some(value) = helium {
+        tile.gases.set_helium(value);
+    }
+    if let Some(value) = antinoblium {
+        tile.gases.set_antinoblium(value);
+    }
+    if let Some(value) = hypernoblium {
+        tile.gases.set_hypernoblium(value);
+    }
     // Done sooner because we need innate heat capacity to calculate thermal energy from
     // temperature.
     if let Some(value) = innate_heat_capacity {
@@ -425,10 +613,6 @@ pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
 }
 
 /// BYOND API for getting a list of interesting tiles this tick.
-/// There are three kinds:
-/// * Turfs that are hot eough to cause fires.
-/// * Turfs that just passed the threshold for showing plasma or sleeping gas.
-/// * Turfs with strong airflow out.
 #[byondapi::bind]
 fn milla_get_interesting_tiles() -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
@@ -800,12 +984,17 @@ mod tests {
             1,
             2,
             test_z,
+            // airtight directions
             None,
             None,
             None,
             None,
+            // atmos_mode, environment
             None,
             None,
+            // gases - четные индексы 0, остальные 1
+            None,
+            Some(1.0),
             None,
             Some(1.0),
             None,
@@ -813,10 +1002,25 @@ mod tests {
             None,
             Some(1.0),
             None,
-            None,
-            None,
+            Some(1.0),
             None,
             Some(1.0),
+            None,
+            Some(1.0),
+            None,
+            Some(1.0),
+            None,
+            Some(1.0),
+            None,
+            Some(1.0),
+            None,
+            // temperature
+            None,
+            // thermal_energy
+            None,
+            // innate_heat_capacity
+            Some(1.0),
+            // hotspot_temperature, hotspot_volume
             None,
             Some(1.0),
         )
@@ -843,11 +1047,20 @@ mod tests {
             1,
             1,
             test_z,
+            // airtight directions
             None,
             None,
             None,
             None,
+            // atmos_mode, environment
             None,
+            None,
+            // gases - нечетные индексы 1, остальные 0
+            Some(1.0),
+            None,
+            Some(1.0),
+            None,
+            Some(1.0),
             None,
             Some(1.0),
             None,
@@ -855,11 +1068,22 @@ mod tests {
             None,
             Some(1.0),
             None,
-            None,
-            None,
+            Some(1.0),
             None,
             Some(1.0),
             None,
+            Some(1.0),
+            None,
+            Some(1.0),
+            None,
+            Some(1.0),
+            // temperature
+            None,
+            // thermal_energy
+            Some(1.0),
+            // innate_heat_capacity
+            None,
+            // hotspot_temperature, hotspot_volume
             Some(1.0),
             None,
         )

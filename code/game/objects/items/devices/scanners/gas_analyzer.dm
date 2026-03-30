@@ -250,36 +250,32 @@
 	if(!print)
 		return TRUE
 
-	var/total_moles = air.total_moles()
-	var/pressure = air.return_pressure()
-	var/volume = air.return_volume() //could just do mixture.volume... but safety, I guess?
-	var/heat_capacity = air.heat_capacity()
-	var/thermal_energy = air.thermal_energy()
+	var/list/gas_data = gas_mixture_parser(air, target.name)
+
+	var/total_moles = gas_data[TLV_TOTAL_MOLES]
+	var/pressure = gas_data[TLV_PRESSURE]
+	var/volume = gas_data["volume"]
+	var/heat_capacity = gas_data["heat_capacity"]
+	var/thermal_energy = gas_data["thermal_energy"]
 
 	if(total_moles)
 		message += span_notice("Total: [round(total_moles, 0.01)] moles")
-		if(air.oxygen() && (milla_turf_details || air.oxygen() / total_moles > 0.01))
-			message += span_oxygen("  Oxygen: [round(air.oxygen(), 0.01)] moles ([round(air.oxygen() / total_moles * 100, 0.01)] %)")
-		if(air.nitrogen() && (milla_turf_details || air.nitrogen() / total_moles > 0.01))
-			message += span_nitrogen("  Nitrogen: [round(air.nitrogen(), 0.01)] moles ([round(air.nitrogen() / total_moles * 100, 0.01)] %)")
-		if(air.carbon_dioxide() && (milla_turf_details || air.carbon_dioxide() / total_moles > 0.01))
-			message += span_carbon_dioxide("  Carbon Dioxide: [round(air.carbon_dioxide(), 0.01)] moles ([round(air.carbon_dioxide() / total_moles * 100, 0.01)] %)")
-		if(air.toxins() && (milla_turf_details || air.toxins() / total_moles > 0.01))
-			message += span_plasma("  Plasma: [round(air.toxins(), 0.01)] moles ([round(air.toxins() / total_moles * 100, 0.01)] %)")
-		if(air.sleeping_agent() && (milla_turf_details || air.sleeping_agent() / total_moles > 0.01))
-			message += span_sleeping_agent("  Nitrous Oxide: [round(air.sleeping_agent(), 0.01)] moles ([round(air.sleeping_agent() / total_moles * 100, 0.01)] %)")
-		if(air.agent_b() && (milla_turf_details || air.agent_b() / total_moles > 0.01))
-			message += span_agent_b("  Agent B: [round(air.agent_b(), 0.01)] moles ([round(air.agent_b() / total_moles * 100, 0.01)] %)")
-		if(air.hydrogen() && (milla_turf_details || air.hydrogen() / total_moles > 0.01))
-			message += span_hydrogen("  Hydrogen: [round(air.hydrogen(), 0.01)] moles ([round(air.hydrogen() / total_moles * 100, 0.01)] %)")
-		if(air.water_vapor() && (milla_turf_details || air.water_vapor() / total_moles > 0.01))
-			message += span_water_vapor("  Water Vapor: [round(air.water_vapor(), 0.01)] moles ([round(air.water_vapor() / total_moles * 100, 0.01)] %)")
+		for(var/gas_id, meta_list in GLOB.gas_meta)
+			var/list/gas_info = meta_list
+			var/gas_name = gas_info[META_GAS_NAME]
+			var/gas_color = gas_info[META_GAS_PRIMARY_COLOR]
+			var/gas_amount = gas_data[gas_id]
+
+			if(gas_amount && (milla_turf_details || gas_amount / total_moles > 0.01))
+				var/percentage = round(gas_amount / total_moles * 100, 0.01)
+				var/percentage_text = percentage > 0.01 ? " ([percentage] %)" : ""
+				message += span_color("  [gas_name]: [round(gas_amount, 0.01)] moles[percentage_text]", gas_color)
 
 		message += span_notice("Temperature: [round(air.temperature()-T0C)] &deg;C ([round(air.temperature())] K)")
 		message += span_notice("Volume: [round(volume)] Liters")
 		message += span_notice("Pressure: [round(pressure, 0.1)] kPa")
-		message += span_notice("Heat Capacity: [display_joules(heat_capacity)] / K")
-		message += span_notice("Thermal Energy: [display_joules(thermal_energy)]")
+		message += span_notice("Heat Capacity: [heat_capacity] / K")
+		message += span_notice("Thermal Energy: [thermal_energy]")
 	else
 		message += span_notice("[target] is empty!")
 		message += span_notice("Volume: [round(volume)] Liters") // don't want to change the order volume appears in, suck it
