@@ -1,13 +1,15 @@
 /proc/handleDiscordEmojis(msg, client/target, size = 32)
+	if(!target)
+		return msg
+
 	var/list/message_words = splittext_char(msg, " ")
 	var/list/new_message = list()
 
-	var/datum/emoji_cache/emoji_cache = GLOB.emoji_cache
-	var/list/emoji_names = emoji_cache.get_emoji_names()
+	var/list/emoji_names = emoji_cache_get_emoji_names()
 
 	var/list/emoji_names_assoc = list()
 	for(var/name in emoji_names)
-		emoji_names_assoc[name] = TRUE
+		emoji_names_assoc[lowertext(name)] = TRUE
 
 	for(var/word in message_words)
 		var/emoji_name = lowertext(word)
@@ -15,7 +17,7 @@
 			new_message += word
 			continue
 
-		var/icon/emoji_icon = emoji_cache.get_icon(emoji_name, size)
+		var/icon/emoji_icon = emoji_cache_get_icon(emoji_name, size)
 		if(!emoji_icon)
 			new_message += word
 			continue
@@ -32,7 +34,7 @@
 
 /proc/generateDiscordEmojiTable()
 	// Fallback для старого browser popup
-	var/list/emoji_names = GLOB.emoji_cache.get_emoji_names()
+	var/list/emoji_names = emoji_cache_get_emoji_names()
 	var/const/itemsInRow = 7
 	var/emojisListLength = length(emoji_names)
 
@@ -46,11 +48,11 @@
 		for(var/j = 0, j < itemsInRow, j++)
 			if((index+j) <= emojisListLength)
 				var/emojiName = emoji_names[index+j]
-				var/icon/emoji_icon = GLOB.emoji_cache.get_icon(emojiName, 48)
+				var/icon/emoji_icon = emoji_cache_get_icon(emojiName, 48)
 				if(emoji_icon)
-					rowString += "<td>[icon2html(emoji_icon, usr)]<div>[emojiName]</div></td>"
+					rowString += "<td>[icon2html(emoji_icon, usr)]<div>[html_encode(emojiName)]</div></td>"
 				else
-					rowString += "<td>[emojiName]</td>"
+					rowString += "<td>[html_encode(emojiName)]</td>"
 			else
 				rowString += "<td></td>"
 		rowString += "</tr>"

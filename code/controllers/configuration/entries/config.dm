@@ -714,9 +714,6 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
-/datum/config_entry/str_list/emoji
-	lowercase = TRUE
-
 /datum/config_entry/number/shadowling_max_age
 
 /datum/config_entry/flag/guest_ban

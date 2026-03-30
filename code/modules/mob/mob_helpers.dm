@@ -451,58 +451,37 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	var/name
 	var/keyname
 	if(subject?.client)
-		var/client/C = subject.client
-		keyname = (C.holder && C.holder.fakekey) ? C.holder.fakekey : C.key
-		if(C.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
+		var/client/subject_client = subject.client
+		keyname = (subject_client.holder && subject_client.holder.fakekey) ? subject_client.holder.fakekey : subject_client.key
+		if(subject_client.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
 			var/mindname
-			var/realname = C.mob.real_name
-			if(C.mob.mind)
-				mindname = C.mob.mind.name
-				if(C.mob.mind.original_mob_name)
-					realname = C.mob.mind.original_mob_name
+			var/realname = subject_client.mob.real_name
+			if(subject_client.mob.mind)
+				mindname = subject_client.mob.mind.name
+				if(subject_client.mob.mind.original_mob_name)
+					realname = subject_client.mob.mind.original_mob_name
 			if(mindname && mindname != realname)
 				name = "[realname] died as [mindname]"
 			else
 				name = realname
 
 	if(target_client)
-		var/follow
-		var/lname
-		if(subject)
-			var/mob/M = target_client.mob
-			if(subject != M)
-				follow = "([ghost_follow_link(subject, ghost=M)]) "
-			if(M && M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
-				follow = "([admin_jump_link(subject)]) "
-			var/mob/dead/observer/DM
-			if(isobserver(subject))
-				DM = subject
-			if(check_rights(R_ADMIN|R_MOD, FALSE, M))
-				lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
-			else
-				if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)
-					lname = "<i>Anon</i> ([name])"
-				else if(DM)
-					lname = "[keyname] ([name])"
-				else
-					lname = name
-			lname = "[span_name("[lname]")] "
-		to_chat(target_client, span_deadsay("[follow][lname][message]"))
+		say_dead_direct_to_client(target_client, message, subject, name, keyname)
 		return
 
-	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+	for(var/mob/living_player as anything in GLOB.player_list)
+		if(living_player.client && ((!isnewplayer(living_player) && living_player.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, living_player)) && living_player.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
-				if(subject != M)
-					follow = "([ghost_follow_link(subject, ghost=M)]) "
-				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
+				if(subject != living_player)
+					follow = "([ghost_follow_link(subject, ghost=living_player)]) "
+				if(living_player.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, living_player))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(isobserver(subject))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) // What admins see
+				if(check_rights(R_ADMIN|R_MOD, FALSE, living_player)) // What admins see
 					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
 				else
 					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) // If the person is actually observer they have the option to be anonymous
@@ -512,7 +491,44 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					else // Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
 				lname = "[span_name("[lname]")] "
-			to_chat(M, span_deadsay("[follow][lname][message]"))
+			to_chat(living_player, span_deadsay("[follow][lname][message]"))
+
+// Send deadchat message to a specific client with proper formatting
+/proc/say_dead_direct_to_client(client/target_client, message, mob/subject, name, keyname)
+	if(!target_client)
+		return
+
+	if(!keyname)
+		keyname = "Unknown"
+	if(!name)
+		name = "Unknown"
+
+	var/follow
+	var/lname
+	if(!subject)
+		lname = "[span_name("[keyname]")] "
+		to_chat(target_client, span_deadsay("[follow][lname][message]"))
+		return
+
+	var/mob/target_mob = target_client.mob
+	if(subject != target_mob)
+		follow = "([ghost_follow_link(subject, ghost=target_mob)]) "
+	if(target_mob && target_mob.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, target_mob))
+		follow = "([admin_jump_link(subject)]) "
+	var/mob/dead/observer/DM
+	if(isobserver(subject))
+		DM = subject
+	if(check_rights(R_ADMIN|R_MOD, FALSE, target_mob))
+		lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+	else
+		if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			lname = "<i>Anon</i> ([name])"
+		else if(DM)
+			lname = "[keyname] ([name])"
+		else
+			lname = name
+	lname = "[span_name("[lname]")] "
+	to_chat(target_client, span_deadsay("[follow][lname][message]"))
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)

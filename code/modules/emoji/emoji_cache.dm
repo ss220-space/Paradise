@@ -2,15 +2,113 @@
  * # Emoji Cache
  * Чтобы добавить новое эмодзи:
  * 1. Добавьте иконку в icons\emoji.dmi (размер 48x48)
- * 2. Добавьте слово-триггер в config\emojis.txt (должно совпадать с icon_state)
+ * 2. Добавьте имя в список EMOJI_NAMES ниже (должно совпадать с icon_state)
  *
  * ## Использование:
  * ```dm
- * var/icon/emoji = GLOB.emoji_cache.get_icon("roflcat", 32)
+ * var/icon/emoji = emoji_cache_get_icon("roflcat", 32)
  * ```
  */
-/datum/emoji_cache
-	var/static/list/emoji_cache = list()
+
+var/static/list/emoji_cache = list()
+
+/**
+ * Список имён эмодзи (триггер-слова)
+ * Чтобы добавить эмодзи, впишите его имя в этот список
+ */
+var/static/list/EMOJI_NAMES = list(
+	"1984",
+	"clueless",
+	"1head",
+	"2head",
+	"3head",
+	"4head",
+	"5head",
+	"ache",
+	"afacepalm",
+	"aga",
+	"alo",
+	"arolf",
+	"badguy",
+	"bigkek",
+	"keks",
+	"blessrng",
+	"catgigi",
+	"catkerz",
+	"catping",
+	"catpong",
+	"catrose",
+	"cats",
+	"catsmile",
+	"4cb",
+	"cemkaauf",
+	"cemkae",
+	"cemkashiza",
+	"chad",
+	"coolstorybob",
+	"dogesmile",
+	"shocked",
+	"fearlul",
+	"fuel",
+	"gagaga",
+	"hampter",
+	"haveyouseenthiscat",
+	"hss",
+	"jokerge",
+	"kekwat",
+	"kotvshlyapi",
+	"madge",
+	"mericcat",
+	"norm",
+	"pizdez",
+	"neodobryaem",
+	"odobryaem",
+	"peepo",
+	"pepeangry",
+	"pepepoint",
+	"pepechad",
+	"pepechill",
+	"angryclown",
+	"pepecoffe",
+	"pepecoffe2",
+	"pepecool",
+	"pepecry",
+	"pepedeal",
+	"peepohug",
+	"peepohug2",
+	"pepekotya",
+	"pepeok",
+	"pepepizdec",
+	"pepelist",
+	"peperot",
+	"pepesleep",
+	"pepetoxic",
+	"pepewut",
+	"prayge",
+	"ratge",
+	"ratass",
+	"ratgehat",
+	"ratgesus",
+	"sadge",
+	"yepp",
+	"paaa",
+	"pog",
+	"roflcat",
+	"seemsgood",
+	"shappy",
+	"shlepa",
+	"smilew",
+	"smorch",
+	"stoneface",
+	"suki",
+	"catahui",
+	"goblin",
+	"welder",
+	"woo",
+	"verymadge",
+	"xmm",
+	"mmx",
+)
 
 /**
  * Получить иконку эмодзи из кэша
@@ -22,7 +120,11 @@
  * Returns:
  * * icon - emoji, или null если emoji не найдено
  */
-/datum/emoji_cache/proc/get_icon(emoji_name, size = 32)
+/proc/emoji_cache_get_icon(emoji_name, size = 32)
+	if(!emoji_name)
+		return null
+
+	emoji_name = lowertext(emoji_name)
 	var/cache_key = "[emoji_name]_[size]"
 	var/icon/cached = emoji_cache[cache_key]
 
@@ -47,30 +149,23 @@
  * Returns:
  * * TRUE если слово является триггером для эмодзи
  */
-/datum/emoji_cache/proc/is_emoji(word)
-	var/list/emoji_names = get_emoji_names()
-	return (lowertext(word) in emoji_names)
+/proc/emoji_cache_is_emoji(word)
+	if(!word)
+		return FALSE
+
+	return (lowertext(word) in EMOJI_NAMES)
 
 /**
- * Получить список слов-триггеров эмодзи из конфига
+ * Получить список слов-триггеров эмодзи
  *
  * Returns:
  * * list - список слов-триггеров эмодзи
  */
-/datum/emoji_cache/proc/get_emoji_names()
-	return CONFIG_GET(str_list/emoji)
+/proc/emoji_cache_get_emoji_names()
+	return EMOJI_NAMES
 
 /**
- * Очистить кэш
+ * Очистить кэш иконок (не влияет на список имён)
  */
-/datum/emoji_cache/proc/clear_cache()
+/proc/emoji_cache_clear()
 	emoji_cache.Cut()
-
-/**
- * Очистить кэш при удалении datum для предотвращения утечки памяти
- */
-/datum/emoji_cache/Destroy()
-	emoji_cache.Cut()
-	return ..()
-
-GLOBAL_DATUM_INIT(emoji_cache, /datum/emoji_cache, new)

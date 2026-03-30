@@ -416,14 +416,14 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 	log_admin("Announce: [key_name(user)] : [message]")
-	for(var/client/C in GLOB.clients)
+	for(var/client/client as anything in GLOB.clients)
 		var/processed_message = message
 		if(!CONFIG_GET(flag/disable_ooc_emoji))
-			processed_message = handleDiscordEmojis(message, C)
-		to_chat(C, chat_box_notice(span_notice("<b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><p>[processed_message]</p>")))
-		window_flash(C)
-		if(C.prefs?.sound & SOUND_ADMINHELP)
-			SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
+			processed_message = handleDiscordEmojis(message, client)
+		to_chat(client, chat_box_notice(span_notice("<b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><p>[processed_message]</p>")))
+		window_flash(client)
+		if(client.prefs?.sound & SOUND_ADMINHELP)
+			SEND_SOUND(client, sound('sound/effects/adminhelp.ogg'))
 	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 ADMIN_VERB(toggle_ooc, R_ADMIN, "Toggle OOC", "Toggle the OOC channel on or off.", ADMIN_CATEGORY_TOGGLES)

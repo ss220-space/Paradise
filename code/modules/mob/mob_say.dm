@@ -81,12 +81,12 @@
 		return
 
 	var/emote_verb = pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")
-	for(var/client/C in GLOB.clients)
-		if(C.prefs.toggles & PREFTOGGLE_CHAT_DEAD)
+	for(var/client/client as anything in GLOB.clients)
+		if(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD)
 			var/processed_message = message
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
-				processed_message = handleDiscordEmojis(message, C)
-			say_dead_direct("[emote_verb], \"[span_message("[processed_message]")]\"", src, target_client=C)
+				processed_message = handleDiscordEmojis(message, client)
+			say_dead_direct("[emote_verb], \"[span_message("[processed_message]")]\"", src, target_client=client)
 	add_deadchat_logs(src, message)
 
 /**
