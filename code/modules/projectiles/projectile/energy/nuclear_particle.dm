@@ -1,4 +1,3 @@
-//Nuclear particle projectile - a deadly side effect of fusion
 /obj/projectile/energy/nuclear_particle
 	name = "nuclear particle"
 	icon_state = "nuclear_particle"

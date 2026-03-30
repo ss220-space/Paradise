@@ -17,7 +17,7 @@
 	caliber = CALIBER_84MM
 	max_ammo = 1
 
-// MARK: Bombarda (improvised GL)
+// MARK: Bombarda
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm/improvised
@@ -36,3 +36,12 @@
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
 		if(bullet.BB || countempties)
 			.++
+
+// MARK: GL-06
+/obj/item/ammo_box/magazine/internal/bombarda/secgl
+	name = "security grenade launcher internal magazine"
+	ammo_type = /obj/item/ammo_casing/a40mm
+
+// MARK: GL-08-4
+/obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
+	max_ammo = 4

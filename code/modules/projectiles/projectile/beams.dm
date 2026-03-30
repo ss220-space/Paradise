@@ -662,6 +662,27 @@
 		damage = 0
 	return ..()
 
+/obj/projectile/beam/laser/accelerator
+	name = "accelerator laser"
+	icon_state = "scatterlaser"
+	range = 255
+	damage = 8
+	armour_penetration = -35
+	speed = 1
+	tile_dropoff_penetration = -5
+	var/size_per_tile = 0.1
+	var/max_scale = 4
+
+/obj/projectile/beam/laser/accelerator/Range()
+	..()
+	// Damage
+	damage = min(damage + 4, 75)
+	armour_penetration = min(armour_penetration, 25)
+
+	// Transform
+	transform = matrix()
+	transform *= min(1 + (maximum_range - range) * size_per_tile, max_scale)
+
 /obj/projectile/beam/shuriken
 	name = "energy shuriken"
 	icon = 'icons/obj/ninjaobjects.dmi'

@@ -802,8 +802,9 @@
 	drop_sound = 'sound/effects/splat.ogg'
 	item_flags = NOBLUDGEON|DROPDEL
 
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
-	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
+
+
+
 
 /obj/item/blood_orb
 	name = "orb of blood"

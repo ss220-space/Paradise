@@ -7,3 +7,6 @@
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo = 1
 	ammo_type = /obj/item/ammo_casing/a762x54/enchanted
+
+/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
+	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
