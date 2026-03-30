@@ -161,3 +161,10 @@
 
 /obj/item/ammo_casing/proc/after_fire()
 	return
+
+// MARK: Caseless
+/obj/item/ammo_casing/caseless
+	desc = "A caseless bullet casing."
+
+/obj/item/ammo_casing/caseless/after_fire()
+	qdel(src)
