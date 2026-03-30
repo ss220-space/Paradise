@@ -205,76 +205,89 @@
 	else
 		Weaken(stun_duration)
 
-/mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(src == M && ishuman(src))
+/mob/living/carbon/proc/help_shake_act(mob/living/carbon/target)
+	if(target == src && ishuman(src))
 		check_self_for_injuries()
+		return
 
-	if(health >= HEALTH_THRESHOLD_CRIT)
-		if(player_logged)
-			M.visible_message(
-				span_notice("[M] встряхива[PLUR_ET_YUT(M)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."),
-				span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС.")
-				)
-		if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-			if(buckled)
-				balloon_alert(M, "цель пристёгнута!")
-				return
-			add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-			if(ishuman(src))
-				var/mob/living/carbon/human/H = src
-				if(H.w_uniform)
-					H.w_uniform.add_fingerprint(M)
-			set_resting(FALSE, instant = TRUE)
-			AdjustSleeping(-10 SECONDS)
-			AdjustParalysis(-6 SECONDS)
-			AdjustStunned(-6 SECONDS)
-			AdjustWeakened(-6 SECONDS)
-			adjustStaminaLoss(-10)
-			if(body_position != STANDING_UP && !resting && !buckled)
-				get_up(instant = TRUE)
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			if(!player_logged)
-				M.visible_message(
-					span_notice("[M] тряс[PLUR_YOT_UT(M)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
-					span_notice("Вы трясёте [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
-					)
+	if(on_fire)
+		var/self_message = span_warning("Вы пытаетесь потушить [name].")
+		if(prob(30) && ishuman(target)) // 30% chance of burning your hands
+			var/mob/living/carbon/human/helper = target
+			var/protected = FALSE // Protected from the fire
 
-		else if(on_fire)
-			var/self_message = span_warning("Вы пытаетесь потушить [name].")
-			if(prob(30) && ishuman(M)) // 30% chance of burning your hands
-				var/mob/living/carbon/human/H = M
-				var/protected = FALSE // Protected from the fire
-				if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
-					protected = TRUE
-				if(!protected)
-					H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-					self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
-					H.update_icons()
+			if((helper.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(helper, TRAIT_RESIST_HEAT))
+				protected = TRUE
 
-			M.visible_message(span_warning("[M] пыта[PLUR_ET_YUT(M)]ся потушить [name]."), self_message)
-			playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			adjust_fire_stacks(-0.5)
+			if(!protected)
+				helper.apply_damage(5, BURN, def_zone = helper.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
+				helper.update_icons()
 
-		// BEGIN HUGCODE - N3X
-		else
-			playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			if(M.zone_selected == BODY_ZONE_HEAD)
-				M.visible_message(\
-				span_notice("[M] глад[PLUR_IT_YAT(M)] [name] по голове."),\
-				span_notice("Вы гладите [name] по голове."),\
-				)
-			else
+		target.visible_message(span_warning("[target] пыта[PLUR_ET_YUT(target)]ся потушить [name]."), self_message)
+		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		adjust_fire_stacks(-0.5)
+		return
 
-				M.visible_message(\
-				span_notice("[M] [pick("обнима[PLUR_ET_YUT(M)]", "тепло обнима[PLUR_ET_YUT(M)]", "прижима[PLUR_ET_YUT(M)] к груди", "приобнима[PLUR_ET_YUT(M)]", "прижима[PLUR_ET_YUT(M)] к груди голову", "приобнима[PLUR_ET_YUT(M)] за плечи")] [name]."),\
-				span_notice("Вы обнимаете [name]."),\
-				)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(H.wear_suit)
-						H.wear_suit.add_fingerprint(M)
-					else if(H.w_uniform)
-						H.w_uniform.add_fingerprint(M)
+	if(health < HEALTH_THRESHOLD_CRIT)
+		return
+
+	if(player_logged)
+		target.visible_message(
+			span_notice("[target] встряхива[PLUR_ET_YUT(target)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(target)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."),
+			span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(target)]. Вероятно, у н[GEND_HIS_HER(src)] КРС.")
+		)
+
+	if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+		if(buckled)
+			balloon_alert(target, "цель пристёгнута!")
+			return
+
+		add_attack_logs(target, src, "Shaked", ATKLOG_ALL)
+
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.w_uniform)
+				H.w_uniform.add_fingerprint(target)
+
+		set_resting(FALSE, instant = TRUE)
+		AdjustSleeping(-10 SECONDS)
+		AdjustParalysis(-6 SECONDS)
+		AdjustStunned(-6 SECONDS)
+		AdjustWeakened(-6 SECONDS)
+		adjustStaminaLoss(-10)
+
+		if(body_position != STANDING_UP && !resting && !buckled)
+			get_up(instant = TRUE)
+
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+		if(!player_logged)
+			target.visible_message(
+				span_notice("[target] тряс[PLUR_YOT_UT(target)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),
+				span_notice("Вы трясёте [name], пытаясь поднять [GEND_HIS_HER(src)]."),
+			)
+		return
+
+	// BEGIN HUGCODE - N3X
+	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	if(target.zone_selected == BODY_ZONE_HEAD)
+		target.visible_message(
+			span_notice("[target] глад[PLUR_IT_YAT(target)] [name] по голове."),
+			span_notice("Вы гладите [name] по голове."),
+		)
+	else
+		target.visible_message(
+			span_notice("[target] [pick("обнима[PLUR_ET_YUT(target)]", "тепло обнима[PLUR_ET_YUT(target)]", "прижима[PLUR_ET_YUT(target)] к груди", "приобнима[PLUR_ET_YUT(target)]", "прижима[PLUR_ET_YUT(target)] к груди голову", "приобнима[PLUR_ET_YUT(target)] за плечи")] [name]."),
+			span_notice("Вы обнимаете [name]."),
+		)
+
+	if(ishuman(src))
+		var/mob/living/carbon/human/helper = src
+		if(helper.wear_suit)
+			helper.wear_suit.add_fingerprint(target)
+		else if(helper.w_uniform)
+			helper.w_uniform.add_fingerprint(target)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
@@ -296,7 +309,7 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 
-	var/list/ignore_fracture_zones = list(
+	var/static/list/ignore_fracture_zones = list(
 		BODY_ZONE_HEAD,
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,
