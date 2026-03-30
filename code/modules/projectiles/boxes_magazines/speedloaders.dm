@@ -256,7 +256,7 @@
 	desc = "Устройство для быстрой зарядки револьверов холостыми патронами калибра 7,62х54 мм. Вмещает 5 патронов."
 	icon_state = "762"
 	caliber = CALIBER_7_DOT_62X54MM
-	ammo_type = /obj/item/ammo_casing/a762
+	ammo_type = /obj/item/ammo_casing/a762x54
 	max_ammo = 5
 	multiple_sprites = 1
 

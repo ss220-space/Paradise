@@ -3470,6 +3470,7 @@
 #include "code\modules\projectiles\ammunition\_ammunition.dm"
 #include "code\modules\projectiles\ammunition\_firing.dm"
 #include "code\modules\projectiles\ammunition\special.dm"
+#include "code\modules\projectiles\ammunition\ballistic\arrow.dm"
 #include "code\modules\projectiles\ammunition\ballistic\grenades_rockets.dm"
 #include "code\modules\projectiles\ammunition\ballistic\intermediate.dm"
 #include "code\modules\projectiles\ammunition\ballistic\misc.dm"

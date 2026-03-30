@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_12X70 "12х70"
 
 // Grenade launcher cartridges
-/// Used in underbarrel grenade launchers like M-90gl
+/// Used in underbarrel grenade launchers and Bombarda
 #define CALIBER_40MM "40 мм"
 /// Used in heavy grenade launchers like PML-9
 #define CALIBER_84MM "84 мм"

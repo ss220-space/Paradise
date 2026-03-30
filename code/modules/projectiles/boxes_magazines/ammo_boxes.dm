@@ -1058,7 +1058,7 @@
 	name = "ammo box (7.62x54mm mosin)"
 	desc = "Коробка, содержащая патроны калибра 7,62x54 мм."
 	icon_state = "ammobox_mosin"
-	ammo_type = /obj/item/ammo_casing/a762
+	ammo_type = /obj/item/ammo_casing/a762x54
 	max_ammo = 40
 
 /obj/item/ammo_box/a762/get_ru_names()

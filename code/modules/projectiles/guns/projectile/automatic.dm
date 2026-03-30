@@ -638,4 +638,3 @@ TODO Use this name and desc for localisation*/
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
 	)
 	recoil = GUN_RECOIL_MEDIUM
-
