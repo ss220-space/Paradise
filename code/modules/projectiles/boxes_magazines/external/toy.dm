@@ -141,3 +141,22 @@
 	icon_state = "a762-[round(ammo_count(), 20)]"
 
 /obj/item/ammo_box/magazine/toy/m762/riot
+
+// MARK: Sniper rifle
+/obj/item/ammo_box/magazine/toy/sniper_rounds
+	name = "donksoft Sniper magazine"
+	icon_state = ".50mag"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	max_ammo = 6
+	caliber = CALIBER_FOAM_FORCE_SNIPER
+
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
+	return
+
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
+	. = ..()
+	var/ammo = ammo_count()
+	if(ammo && istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+		. += ".50mag-r"
+	else if(ammo)
+		. += ".50mag-f"

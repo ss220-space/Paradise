@@ -51,17 +51,17 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 //MARK: Calibers
 
 // Pistol cartridges
-/// Used in most standart SMG and pistols like
+/// Used in most standart SMG and pistols
 #define CALIBER_9MM "9x19 мм"
 /// Used in Stechkin pistol
 #define CALIBER_10MM "10 мм"
+/// Used in SP-8 pistol
+#define CALIBER_40NR ".40nr"
 /// Used in M1911 pistol, C-20r SMG
 #define CALIBER_DOT_45 ".45"
 /// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
 #define CALIBER_DOT_45_COLT ".45colt"
-/// Used in SP-8 pistol
-#define CALIBER_40NR ".40nr"
-/// Used in .45 N&R specialized weapons
+/// Used in .45 N&R specialized weapons (maybe merge it with .45?)
 #define CALIBER_45NR ".45nr"
 /// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
@@ -89,9 +89,9 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_4_DOT_6X30MM "4,6x30 мм"
 
 // Rifle cartridges
-/// Used in Soviet type heavy small arms like Mosin rifle
+/// Used in Soviet type heavy guns like Mosin rifle
 #define CALIBER_7_DOT_62X54MM "7,62x54 мм"
-/// Used in NATO type heavy small arms like L6 SAW
+/// Used in NATO type heavy guns like 'L6 SAW' lmg
 #define CALIBER_7_DOT_62X51MM "7,62x51 мм"
 
 // Sniper cartridges

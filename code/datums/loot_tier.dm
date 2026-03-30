@@ -539,9 +539,9 @@
 		),
 		list(
 			/obj/item/gun/projectile/automatic/l6_saw,
-			/obj/item/ammo_box/magazine/a762x51,
-			/obj/item/ammo_box/magazine/a762x51,
-			/obj/item/ammo_box/magazine/a762x51,
+			/obj/item/ammo_box/magazine/l6saw,
+			/obj/item/ammo_box/magazine/l6saw,
+			/obj/item/ammo_box/magazine/l6saw,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/m52,

@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
-	mag_type = /obj/item/ammo_box/magazine/a762x51
+	mag_type = /obj/item/ammo_box/magazine/l6saw
 	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
@@ -106,36 +106,7 @@
 
 //magazines//
 
-/obj/item/ammo_box/magazine/a762x51
-	name = "box magazine (7.62x51mm)"
-	icon_state = "a762"
-	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/a762x51/weak
-	caliber = CALIBER_7_DOT_62X51MM
-	max_ammo = 100
 
-/obj/item/ammo_box/magazine/a762x51/bleeding
-	name = "box magazine (Bleeding 7.62x51mm)"
-	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/a762x51/bleeding
-
-/obj/item/ammo_box/magazine/a762x51/hollow
-	name = "box magazine (Hollow-Point 7.62x51mm)"
-	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/a762x51/hollow
-
-/obj/item/ammo_box/magazine/a762x51/ap
-	name = "box magazine (Armor Penetrating 7.62x51mm)"
-	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/a762x51/ap
-
-/obj/item/ammo_box/magazine/a762x51/incen
-	name = "box magazine (Incendiary 7.62x51mm)"
-	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/a762x51/incen
-
-/obj/item/ammo_box/magazine/a762x51/update_icon_state()
-	icon_state = "a762-[round(ammo_count(), 20)]"
 
 //casings//
 

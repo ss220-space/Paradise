@@ -160,7 +160,7 @@
 	backpack_contents = list(
 		/obj/item/tank/jetpack/oxygen/harness = 1,
 		/obj/item/radio/uplink/sst = 1,
-		/obj/item/ammo_box/magazine/a762x51 = 1,
+		/obj/item/ammo_box/magazine/l6saw = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
