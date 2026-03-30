@@ -27,11 +27,11 @@
 	///what we should call slot_type in messages (including failure messages)
 	var/slot_item_name = ITEM_SLOT_BELT_STRING
 
-/datum/keybinding/human/quick_equip_belt/down(client/C)
+/datum/keybinding/human/quick_equip_belt/down(client/client)
 	. = ..()
 	if(.)
 		return
-	var/mob/living/carbon/human/human = C.mob
+	var/mob/living/carbon/human/human = client.mob
 	human.smart_equip_targeted(slot_type, slot_item_name)
 	return TRUE
 

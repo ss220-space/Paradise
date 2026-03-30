@@ -690,14 +690,14 @@
 	return gloves?.siemens_coefficient == 0
 
 /// take the most recent item out of a slot or place held item in a slot
-/mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "belt")
+/mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = ITEM_SLOT_BELT_STRING)
 	if(incapacitated())
 		return
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)
 	if(!equipped_item) // We also let you equip an item like this
 		if(!thing)
-			to_chat(src, span_warning("You have no [slot_item_name] to take something out of!"))
+			src.balloon_alert(src, "Отсутствует [slot_item_name]")
 			return
 		if(equip_to_slot_if_possible(thing, slot_type))
 			update_held_items()
@@ -709,14 +709,14 @@
 		if(!thing)
 			equipped_item.attack_hand(src)
 		else
-			to_chat(src, span_warning("You can't fit [thing] into your [slot_item_name]!"))
+			src.balloon_alert(src, "[thing] не поместился в [slot_item_name]")
 		return
 	if(thing)
 		if(storage.can_be_inserted(thing))
 			storage.handle_item_insertion(thing)
 		return
 	if(!length(storage.contents))
-		to_chat(src, span_warning("There's nothing in your [equipped_item] to take out!"))
+		src.balloon_alert(src, "В [slot_item_name] пусто")
 		return
 	var/obj/item/stored = storage.contents[length(storage.contents)]
 	if(!stored || stored.on_found(src))
