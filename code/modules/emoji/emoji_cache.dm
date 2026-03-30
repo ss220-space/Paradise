@@ -10,13 +10,13 @@
  * ```
  */
 
-var/static/list/emoji_cache = list()
+GLOBAL_LIST_EMPTY(emoji_cache)
 
 /**
  * Список имён эмодзи (триггер-слова)
  * Чтобы добавить эмодзи, впишите его имя в этот список
  */
-var/static/list/EMOJI_NAMES = list(
+GLOBAL_LIST_INIT(EMOJI_NAMES, list(
 	"1984",
 	"clueless",
 	"1head",
@@ -108,7 +108,7 @@ var/static/list/EMOJI_NAMES = list(
 	"verymadge",
 	"xmm",
 	"mmx",
-)
+))
 
 /**
  * Получить иконку эмодзи из кэша
@@ -125,8 +125,9 @@ var/static/list/EMOJI_NAMES = list(
 		return null
 
 	emoji_name = lowertext(emoji_name)
+
 	var/cache_key = "[emoji_name]_[size]"
-	var/icon/cached = emoji_cache[cache_key]
+	var/icon/cached = GLOB.emoji_cache[cache_key]
 
 	if(cached)
 		return cached
@@ -136,7 +137,7 @@ var/static/list/EMOJI_NAMES = list(
 		return null
 
 	cached.Scale(size, size)
-	emoji_cache[cache_key] = cached
+	GLOB.emoji_cache[cache_key] = cached
 
 	return cached
 
@@ -153,7 +154,7 @@ var/static/list/EMOJI_NAMES = list(
 	if(!word)
 		return FALSE
 
-	return (lowertext(word) in EMOJI_NAMES)
+	return (lowertext(word) in GLOB.EMOJI_NAMES)
 
 /**
  * Получить список слов-триггеров эмодзи
@@ -162,10 +163,10 @@ var/static/list/EMOJI_NAMES = list(
  * * list - список слов-триггеров эмодзи
  */
 /proc/emoji_cache_get_emoji_names()
-	return EMOJI_NAMES
+	return GLOB.EMOJI_NAMES
 
 /**
  * Очистить кэш иконок (не влияет на список имён)
  */
 /proc/emoji_cache_clear()
-	emoji_cache.Cut()
+	GLOB.emoji_cache.Cut()
