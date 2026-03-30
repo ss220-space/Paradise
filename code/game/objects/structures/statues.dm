@@ -163,10 +163,10 @@
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+	if(I.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(I.get_heat())
+		ignite(I.get_temperature())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -490,7 +490,7 @@
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
+	if(I.get_temperature() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

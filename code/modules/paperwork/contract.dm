@@ -142,7 +142,7 @@
 		balloon_alert(user, "печать сразу исчезает")
 		return ATTACK_CHAIN_PROCEED
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		user.visible_message(
 			("[user.declent_ru(NOMINATIVE)] поднос[PLUR_IT_YAT(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
 			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),

@@ -5,6 +5,7 @@
 	icon_state = "syndicate"
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
+	var/temp_amount = null
 
 /obj/item/grenade/gas/prime()
 	. = ..()
@@ -16,7 +17,7 @@
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
-	target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
+	target_turf.atmos_spawn_air(spawn_contents, spawn_amount, temp_amount)
 	qdel(src)
 
 /obj/item/grenade/gas/plasma
@@ -25,15 +26,17 @@
 /obj/item/grenade/gas/knockout
 	name = "knockout grenade"
 	desc = "A grenade that releases pure N2O gas."
-	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_N2O
+	spawn_contents = LINDA_SPAWN_N2O
+	temp_amount = T20C
 
 /obj/item/grenade/gas/oxygen
 	name = "oxygen grenade"
 	desc = "A grenade that releases pure O2 gas."
 	origin_tech = "materials=3;magnets=4"
 	icon_state = "oxygen"
-	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_OXYGEN
+	spawn_contents = LINDA_SPAWN_OXYGEN
 	spawn_amount = 500
+	temp_amount = T20C
 
 /obj/item/grenade/gluon
 	name = "gluon grenade"

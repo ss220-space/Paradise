@@ -261,7 +261,7 @@
 
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())
 		fire_up()
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)

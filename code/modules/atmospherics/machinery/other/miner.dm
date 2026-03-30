@@ -205,6 +205,13 @@
 /obj/machinery/atmospherics/miner/carbon_dioxide/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_carbon_dioxide(count)
 
+/obj/machinery/atmospherics/miner/bz
+	name = "BZ Gas Miner"
+	overlay_color = COLOR_GAS_MINER_BZ
+
+/obj/machinery/atmospherics/miner/carbon_dioxide/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_bz(count)
+
 /obj/machinery/atmospherics/miner/agent_b
 	name = "Agent B Gas Miner"
 	overlay_color = COLOR_GAS_MINER_AGENT_B
@@ -212,11 +219,95 @@
 /obj/machinery/atmospherics/miner/agent_b/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_agent_b(count)
 
+/obj/machinery/atmospherics/miner/freon
+	name = "Freon Gas Miner"
+	overlay_color = COLOR_GAS_MINER_FREON
+
+/obj/machinery/atmospherics/miner/freon/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_freon(count)
+
+/obj/machinery/atmospherics/miner/halon
+	name = "Halon Gas Miner"
+	overlay_color = COLOR_GAS_MINER_HALON
+
+/obj/machinery/atmospherics/miner/halon/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_halon(count)
+
+/obj/machinery/atmospherics/miner/healium
+	name = "Healium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_HEALIUM
+
+/obj/machinery/atmospherics/miner/healium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_healium(count)
+
 /obj/machinery/atmospherics/miner/hydrogen
 	name = "H2 Gas Miner"
 
 /obj/machinery/atmospherics/miner/hydrogen/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_hydrogen(count)
+
+/obj/machinery/atmospherics/miner/hypernoblium
+	name = "Hypernoblium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_HYPERNOBLIUM
+
+/obj/machinery/atmospherics/miner/hypernoblium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_hyper_noblium(count)
+
+/obj/machinery/atmospherics/miner/miasma
+	name = "Miasma Gas Miner"
+	overlay_color = COLOR_GAS_MINER_MIASMA
+
+/obj/machinery/atmospherics/miner/miasma/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_miasma(count)
+
+/obj/machinery/atmospherics/miner/nitrium
+	name = "Nitrium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_NITRIUM
+
+/obj/machinery/atmospherics/miner/nitrium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_nitrium(count)
+
+/obj/machinery/atmospherics/miner/pluoxium
+	name = "Pluoxium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_PLUOXIUM
+
+/obj/machinery/atmospherics/miner/pluoxium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_pluoxium(count)
+
+/obj/machinery/atmospherics/miner/proto_nitrate
+	name = "Proto-Nitrate Gas Miner"
+	overlay_color = COLOR_GAS_MINER_PROTO_NITRATE
+
+/obj/machinery/atmospherics/miner/proto_nitrate/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_proto_nitrate(count)
+
+/obj/machinery/atmospherics/miner/tritium
+	name = "Tritium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_TRITIUM
+
+/obj/machinery/atmospherics/miner/tritium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_tritium(count)
+
+/obj/machinery/atmospherics/miner/zauker
+	name = "Zauker Gas Miner"
+	overlay_color = COLOR_GAS_MINER_ZAUKER
+
+/obj/machinery/atmospherics/miner/zauker/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_zauker(count)
+
+/obj/machinery/atmospherics/miner/helium
+	name = "Helium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_HELIUM
+
+/obj/machinery/atmospherics/miner/helium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_helium(count)
+
+/obj/machinery/atmospherics/miner/antinoblium
+	name = "Antinoblium Gas Miner"
+	overlay_color = COLOR_GAS_MINER_ANTINOBLIUM
+
+/obj/machinery/atmospherics/miner/antinoblium/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_antinoblium(count)
 
 #undef GASMINER_POWER_NONE
 #undef GASMINER_POWER_STATIC

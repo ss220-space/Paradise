@@ -459,3 +459,8 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	update_pipe_image()
 
+/obj/machinery/atmospherics/proc/update_params(list/params)
+	return
+
+/obj/machinery/atmospherics/proc/get_data()
+	return list()
