@@ -434,25 +434,6 @@
 		PREPOSITIONAL = "мясном крюке",
 	)
 
-/obj/item/ammo_casing/magic/hook
-	name = "hook"
-	desc = "Это хрюк."
-	projectile_type = /obj/projectile/hook
-	caliber = "hook"
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "hook"
-	muzzle_flash_effect = null
-
-/obj/item/ammo_casing/magic/hook/get_ru_names()
-	return list(
-		NOMINATIVE = "крюк",
-		GENITIVE = "крюка",
-		DATIVE = "крюку",
-		ACCUSATIVE = "крюк",
-		INSTRUMENTAL = "крюком",
-		PREPOSITIONAL = "крюке",
-	)
-
 //Immortality Talisman
 /obj/item/immortality_talisman
 	name = "Immortality Talisman"

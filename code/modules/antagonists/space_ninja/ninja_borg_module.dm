@@ -52,6 +52,3 @@
 
 /obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)
 	return TRUE
-
-/obj/item/ammo_casing/energy/shuriken/borg
-	e_cost = 50

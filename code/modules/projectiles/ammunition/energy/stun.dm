@@ -18,6 +18,9 @@
 /obj/item/ammo_casing/energy/electrode/blueshield
 	e_cost = 150
 
+/obj/item/ammo_casing/energy/electrode/old
+	e_cost = 1000
+	
 // MARK: Disabler
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler

@@ -63,11 +63,6 @@
 		/datum/ai_planning_subtree/find_and_hunt_target/cockroach,
 	)
 
-/obj/item/ammo_casing/caseless/glockroach
-	name = "0.9mm bullet casing"
-	desc = "Это... 0.9mm гильза? Чего?"
-	projectile_type = /obj/projectile/glockroachbullet
-
 /mob/living/basic/cockroach/glockroach
 	name = "glockroach"
 	desc = "КТО, ЧЁРТ ВОЗЬМИ, ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"

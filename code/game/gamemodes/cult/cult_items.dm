@@ -805,12 +805,6 @@
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
 
-/obj/item/ammo_casing/magic/arcane_barrage/blood
-	projectile_type = /obj/projectile/magic/arcane_barrage/blood
-	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
-
-
-
 /obj/item/blood_orb
 	name = "orb of blood"
 	icon = 'icons/obj/cult.dmi'

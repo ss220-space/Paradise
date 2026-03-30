@@ -78,22 +78,3 @@
 		my_action.use_action()
 		return TRUE
 	return FALSE
-
-/obj/item/ammo_casing/magic/johyo
-	name = "Jōhyō"
-	desc = "Кинжал, прикреплённый к верёвке. Просто и эффективно."
-	projectile_type = /obj/projectile/johyo
-	muzzle_flash_effect = null
-	caliber = "kunai"
-	icon = 'icons/obj/ninjaobjects.dmi'
-	icon_state = "kunai"
-
-/obj/item/ammo_casing/magic/johyo/get_ru_names()
-	return list(
-		NOMINATIVE = "джохё",
-		GENITIVE = "джохё",
-		DATIVE = "джохё",
-		ACCUSATIVE = "джохё",
-		INSTRUMENTAL = "джохё",
-		PREPOSITIONAL = "джохё",
-	)

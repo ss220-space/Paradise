@@ -399,24 +399,6 @@
 	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
-/obj/item/ammo_casing/magic/tentacle
-	name = "tentacle"
-	desc = "A tentacle."
-	projectile_type = /obj/projectile/tentacle
-	caliber = "tentacle"
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
-	icon_state = "tentacle_end"
-	muzzle_flash_effect = null
-	var/obj/item/gun/magic/tentacle/gun //the item that shot it
-
-/obj/item/ammo_casing/magic/tentacle/Initialize(mapload)
-	gun = loc
-	. = ..()
-
-/obj/item/ammo_casing/magic/tentacle/Destroy()
-	gun = null
-	return ..()
-
 /***************************************\
 |****************SHIELD*****************|
 \***************************************/

@@ -102,11 +102,6 @@
 	var/datum/gas_mixture/environment = get_turf_air(turf)
 	environment.set_temperature(T0C)
 
-/obj/item/ammo_casing/magic/frost
-	projectile_type = /obj/projectile/magic/frost
-
-
-
 /datum/status_effect/freon/frost
 	ice_state = "ice_shell"
 	duration = 20 SECONDS

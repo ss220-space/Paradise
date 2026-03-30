@@ -69,16 +69,6 @@
 /obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
 	return !my_suit.ninjacost(cost*burst_size)
 
-/obj/item/ammo_casing/energy/shuriken
-	projectile_type = /obj/projectile/beam/shuriken
-	muzzle_flash_color = LIGHT_COLOR_GREEN
-	select_name  = "shuriken"
-	e_cost = 0
-	fire_sound = 'sound/weapons/bulletflyby.ogg'
-	click_cooldown_override = 2
-	harmful = FALSE
-	delay = 3
-
 /obj/effect/temp_visual/impact_effect/green_particles
 	icon_state = "mech_toxin"
 	duration = 2

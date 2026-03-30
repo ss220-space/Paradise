@@ -67,6 +67,16 @@
 	harmful = FALSE
 	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
+/obj/item/ammo_casing/energy/laser/accelerator
+	projectile_type = /obj/projectile/beam/laser/accelerator
+	select_name = "accelerator"
+	fire_sound = 'sound/weapons/gunshots/accelerator_cannon.ogg'
+	e_cost = 150
+	delay = 20
+	
+/obj/item/ammo_casing/energy/laser/old
+	e_cost = 200
+
 // MARK: X-ray
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/projectile/beam/xray

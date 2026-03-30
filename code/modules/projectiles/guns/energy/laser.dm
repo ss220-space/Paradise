@@ -121,13 +121,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
 	)
 
-/obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/projectile/beam/laser/accelerator
-	select_name = "accelerator"
-	fire_sound = 'sound/weapons/gunshots/accelerator_cannon.ogg'
-	e_cost = 150
-	delay = 20
-
 /obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "scatterlaser"

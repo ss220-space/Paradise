@@ -111,14 +111,6 @@
 	if(TED)
 		TED.pass_mind(M)
 
-/obj/item/ammo_casing/energy/chrono_beam
-	name = "eradication beam"
-	projectile_type = /obj/projectile/energy/chrono_beam
-	muzzle_flash_color = null
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
-	icon_state = "chronobolt"
-	e_cost = 0
-
 /obj/structure/chrono_field
 	name = "eradication field"
 	desc = "An aura of time-bluespace energy."

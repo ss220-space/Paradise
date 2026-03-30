@@ -29,3 +29,9 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 	bullet_type = BULLET_TYPE_LASER
+
+// MARK: Glockroack
+/obj/item/ammo_casing/caseless/glockroach
+	name = "0.9mm bullet casing"
+	desc = "Это... 0.9mm гильза? Чего?"
+	projectile_type = /obj/projectile/glockroachbullet

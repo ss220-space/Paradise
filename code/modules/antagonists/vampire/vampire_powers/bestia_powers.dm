@@ -595,25 +595,6 @@
 	parent_spell?.revert_cast()
 	qdel(src)
 
-/obj/item/ammo_casing/magic/skull_gun_casing
-	name = "skull gun casing"
-	desc = "Что это за..."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "ashen_skull"
-	projectile_type = /obj/projectile/skull_projectile
-	muzzle_flash_effect = null
-	caliber = "skulls"
-
-/obj/item/ammo_casing/magic/skull_gun_casing/get_ru_names()
-	return list(
-		NOMINATIVE = "гильза для черепного пистолета",
-		GENITIVE = "гильзы для черепного пистолета",
-		DATIVE = "гильзе для черепного пистолета",
-		ACCUSATIVE = "гильзу для черепного пистолета",
-		INSTRUMENTAL = "гильзой для черепного пистолета",
-		PREPOSITIONAL = "гильзе для черепного пистолета",
-	)
-
 /*======================================================================================================================================*\
  * //////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ *
  * -----------------------------------------------------------LUNGE--------------------------------------------------------------------- *

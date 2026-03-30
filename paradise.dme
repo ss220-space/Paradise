@@ -3484,6 +3484,7 @@
 #include "code\modules\projectiles\ammunition\energy\anomaly.dm"
 #include "code\modules\projectiles\ammunition\energy\bsg.dm"
 #include "code\modules\projectiles\ammunition\energy\ebow.dm"
+#include "code\modules\projectiles\ammunition\energy\kinetic.dm"
 #include "code\modules\projectiles\boxes_magazines\_box_magazine.dm"
 #include "code\modules\projectiles\boxes_magazines\ammo_boxes.dm"
 #include "code\modules\projectiles\boxes_magazines\speedloaders.dm"

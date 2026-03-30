@@ -63,12 +63,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_45_COLT ".45colt"
 /// Used in .45 N&R specialized weapons (maybe merge it with .45?)
 #define CALIBER_45NR ".45nr"
-/// Used in small caliber revolvers
-#define CALIBER_DOT_38 ".38"
-/// Used in Gatfruit revolver
-#define CALIBER_DOT_36 ".36"
-/// Used in improvised revolver
-#define CALIBER_DOT_257 ".257"
 /// Used in Desert Eagle pistol
 #define CALIBER_DOT_50AE ".50ae"
 /// Used in Soviet type pistols and SMG (TT, PPSh)
@@ -79,6 +73,12 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_357 ".357"
 /// Used in Nagant revolver
 #define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+/// Used in small caliber revolvers
+#define CALIBER_DOT_38 ".38"
+/// Used in Gatfruit revolver
+#define CALIBER_DOT_36 ".36"
+/// Used in improvised revolver
+#define CALIBER_DOT_257 ".257"
 
 // Intermediate cartridges
 /// Used in AR-15 type rifles (TSF)
