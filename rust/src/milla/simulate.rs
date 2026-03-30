@@ -243,8 +243,9 @@ pub(crate) fn flow_air_once_at_index(
             outgoing_gas_mult[i] += outflow;
 
             let temperature_weight = incoming * SPECIFIC_HEATS[i];
-            total_weighted_temperature += new_neighbor.temperature() * temperature_weight;
-            total_temperature_weights += temperature_weight;
+            total_weighted_temperature +=
+                new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
+            total_temperature_weights += temperature_weight * TEMPERATURE_FLOW_RATE;
         }
     }
 
