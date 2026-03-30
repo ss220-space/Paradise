@@ -8,9 +8,22 @@ import {
   Box,
   Tabs,
   Icon,
+  LabeledList,
+  TextArea,
 } from '../components';
 import { Window } from '../layouts';
-import { AccessList } from './common/AccessList';
+import { AccessList, Access } from './common/AccessList';
+
+interface AccessEntry {
+  ref: number;
+  desc: string;
+}
+
+interface AccessRegion {
+  name: string;
+  regid: number;
+  accesses: AccessEntry[];
+}
 
 interface GuestPassData {
   mode: number;
@@ -19,12 +32,12 @@ interface GuestPassData {
   reason: string;
   duration: number;
   logs: string[];
-  regions: any[];
+  // Используем импортированный тип Access вместо своего AccessRegion
+  regions: Access[];
   selectedAccess: number[];
   grantableList: number[];
 }
-
-export const GuestPassTerminal = (props) => {
+export const GuestPassTerminal = () => {
   const { act, data } = useBackend<GuestPassData>();
   const {
     mode,
@@ -37,6 +50,9 @@ export const GuestPassTerminal = (props) => {
     selectedAccess = [],
     grantableList = [],
   } = data;
+
+  const effectiveGrantableList: number[] =
+    giver_name && grantableList.length === 0 ? [-1] : grantableList;
 
   return (
     <Window width={600} height={700} title="Терминал временных пропусков">
@@ -72,41 +88,67 @@ export const GuestPassTerminal = (props) => {
 
             <Stack.Item>
               <Section title="Данные пропуска">
-                <Stack mb={1}>
-                  <Stack.Item grow>
-                    <Input
-                      fluid
-                      placeholder="Имя Фамилия"
-                      value={giv_name}
-                      onChange={(v) => act('set_name', { value: v })}
-                    />
+                <Stack vertical>
+                  <Stack.Item>
+                    <Stack align="center">
+                      <Stack.Item width="90px" color="label">
+                        Кому выдан:
+                      </Stack.Item>
+                      <Stack.Item width="300px">
+                        <TextArea
+                          fluid
+                          height="22px"
+                          placeholder="Имя Фамилия"
+                          value={giv_name}
+                          onChange={(v) => act('set_name', { value: v })}
+                          style={{ resize: 'none' }}
+                        />
+                      </Stack.Item>
+                      <Stack.Item grow textAlign="right">
+                        <Stack align="center" justify="flex-end">
+                          <Box color="label" mr={1}>
+                            Время:
+                          </Box>
+                          <NumberInput
+                            width="70px"
+                            unit="м"
+                            value={duration}
+                            minValue={1}
+                            maxValue={30}
+                            step={1}
+                            onChange={(v) => act('set_duration', { value: v })}
+                          />
+                        </Stack>
+                      </Stack.Item>
+                    </Stack>
                   </Stack.Item>
-                  <Stack.Item width="85px">
-                    <NumberInput
-                      fluid
-                      unit="м"
-                      value={duration}
-                      minValue={1}
-                      maxValue={30}
-                      step={1}
-                      onChange={(v) => act('set_duration', { value: v })}
-                    />
+
+                  <Stack.Item mt={1}>
+                    <Stack align="center">
+                      <Stack.Item width="90px" color="label">
+                        Причина:
+                      </Stack.Item>
+                      <Stack.Item width="300px">
+                        <TextArea
+                          fluid
+                          height="22px"
+                          placeholder="Причина выдачи пропуска"
+                          value={reason}
+                          onChange={(v) => act('set_reason', { value: v })}
+                          style={{ resize: 'none' }}
+                        />
+                      </Stack.Item>
+                      <Stack.Item grow />
+                    </Stack>
                   </Stack.Item>
                 </Stack>
-                <Input
-                  fluid
-                  placeholder="Причина выдачи"
-                  value={reason}
-                  onChange={(v) => act('set_reason', { value: v })}
-                />
               </Section>
             </Stack.Item>
-
             <Stack.Item height="410px">
               <AccessList
                 accesses={regions}
                 selectedList={selectedAccess}
-                grantableList={grantableList}
+                grantableList={effectiveGrantableList} // ИСПОЛЬЗУЕМ ТУТ
                 accessMod={(ref) => act('toggle_access', { id: ref })}
                 grantAll={() => act('grant_all')}
                 denyAll={() => act('deny_all')}
@@ -114,12 +156,11 @@ export const GuestPassTerminal = (props) => {
                 denyDep={(regid) => act('deny_region', { region: regid })}
               />
             </Stack.Item>
-
             <Stack.Item mt={1}>
               <Button
                 fluid
                 bold
-                color="success"
+                color="green"
                 icon="print"
                 textAlign="center"
                 content="ВЫДАТЬ ПРОПУСК"

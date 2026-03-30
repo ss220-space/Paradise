@@ -1,5 +1,5 @@
 /////////////////////////////////////////////
-//Guest pass ////////////////////////////////
+// MARK: Guest pass
 /////////////////////////////////////////////
 /obj/item/card/id/guest
 	name = "guest pass"
@@ -29,7 +29,7 @@
 	. += span_notice("Issuing reason: [reason].")
 
 /////////////////////////////////////////////
-//Guest pass terminal////////////////////////
+// MARK: Guest pass terminal
 /////////////////////////////////////////////
 
 /obj/machinery/computer/guestpass
@@ -79,6 +79,9 @@
 
 /obj/machinery/computer/guestpass/syndicate
 	name = "Syndicate guest pass terminal"
+
+/obj/machinery/computer/guestpass/hop
+	name = "HoP guest pass terminal"
 
 /obj/machinery/computer/guestpass/attack_hand(mob/user)
 	if(..())
@@ -195,22 +198,28 @@
 
 		if("issue")
 			if(!giver)
-				to_chat(usr, span_warning("Необходима ID-карта!"))
+				to_chat(usr, span_warning("Необходима ID-карта для авторизации!"))
 				return TRUE
 
 			var/number = add_zero("[rand(0,9999)]", 4)
 			var/current_time = station_time_timestamp()
-			var/expire_timestamp = world.time + (duration * 60 * 10)
-			var/log_msg = "\[[current_time]\] Пропуск #[number]: выдан [giver.registered_name] для [!giv_name ? "неизвестного" : giv_name]. Причина: [!reason ? "не указана" : reason]. Истекает в [station_time_timestamp(expire_timestamp)]."
-
+			var/current_date = GLOB.current_date_string
+			var/expire_timestamp = world.time + (duration * 600)
+			var/expire_time_only = time2text(expire_timestamp, "hh:mm:ss")
+			var/safe_giv_name = (giv_name == "NOT SPECIFIED" || !giv_name) ? "неизвестного" : giv_name
+			var/safe_reason = (reason == "NOT SPECIFIED" || !reason) ? "не указана" : reason
+			var/log_msg = "[current_date] [current_time] Пропуск #[number]: выдан \"[giver.registered_name]\" для \"[safe_giv_name]\". Причина: \"[safe_reason]\". Истекает в [current_date] [expire_time_only]."
 			internal_log += log_msg
 
 			var/obj/item/card/id/guest/pass = new(src.loc)
-			pass.temp_access = accesses.Copy()
-			pass.registered_name = giv_name
-			pass.expiration_time = expire_timestamp
-			pass.reason = reason
-			pass.name = "гостевой пропуск #[number]"
+			if(pass)
+				pass.temp_access = accesses.Copy()
+				pass.registered_name = (safe_giv_name == "неизвестного") ? "Guest" : safe_giv_name
+				pass.expiration_time = expire_timestamp
+				pass.reason = (safe_reason == "не указана") ? "None" : safe_reason
+				pass.name = "временный пропуск #[number]"
 
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
+			accesses.Cut()
+			updateUsrDialog()
 			return TRUE
