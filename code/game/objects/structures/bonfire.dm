@@ -89,7 +89,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(used_item.get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	if(used_item.get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		start_burning()
 		add_fingerprint(user)
 		lighter = user.ckey

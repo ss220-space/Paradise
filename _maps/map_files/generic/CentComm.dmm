@@ -1091,15 +1091,6 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
-"axB" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "axP" = (
 /obj/machinery/bodyscanner{
 	dir = 4;
@@ -1403,13 +1394,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
-"aEF" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "aEP" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/decal/warning_stripes/white,
@@ -3627,6 +3611,15 @@
 	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen/double/ninja,
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "ninja_airlock_right";
+	pixel_y = 3;
+	tag_airpump = "ninja_pump_right";
+	tag_chamber_sensor = "ninja_sensor_right";
+	tag_exterior_door = "ninja_outer_right";
+	tag_interior_door = "ninja_inner_right"
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -6425,15 +6418,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"ddb" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "ddG" = (
 /obj/structure/table/glass,
 /obj/effect/turf_decal/siding{
@@ -8239,12 +8223,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
 	frequency = 1331;
-	id_tag = "ninja_pump"
+	id_tag = "ninja_pump_left"
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
-	master_tag = "ninja_airlock";
+	master_tag = "ninja_airlock_left";
 	name = "interior access button";
 	pixel_x = 23;
 	pixel_y = 25
@@ -8355,11 +8339,6 @@
 	},
 /area/centcom/jail)
 "dXR" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1331;
-	id_tag = "synd_pump_bottom"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -11259,6 +11238,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"fsI" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "syndie_cargo_right_shuttle_pump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "fsS" = (
 /obj/machinery/shuttle_manipulator,
 /turf/simulated/floor/bluegrid,
@@ -12602,12 +12592,12 @@
 /area/syndicate_mothership/control)
 "fXX" = (
 /obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 2;
+	height = 7;
 	id = "addition_goal_dock";
 	name = "Addition Goal Shuttle dock";
-	dwidth = 2;
-	width = 10;
-	height = 7;
-	dir = 4
+	width = 10
 	},
 /turf/space,
 /area/space)
@@ -20983,7 +20973,7 @@
 /obj/machinery/door/airlock/hatch{
 	drain_act_protected = 1;
 	frequency = 1331;
-	id_tag = "ninja_outer";
+	id_tag = "ninja_outer_left";
 	name = "Ship External Access"
 	},
 /obj/structure/fans/tiny/invisible,
@@ -22283,8 +22273,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/library/public{
-	pixel_y = 5;
-	dir = 1
+	dir = 1;
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -22374,7 +22364,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	frequency = 1331;
-	id_tag = "ninja_sensor";
+	id_tag = "ninja_sensor_left";
 	pixel_x = -12;
 	pixel_y = 25;
 	req_access = list(150)
@@ -23611,10 +23601,6 @@
 	},
 /area/syndicate_mothership)
 "lng" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_shuttle_pump"
-	},
 /obj/machinery/airlock_sensor{
 	frequency = 1331;
 	id_tag = "syndie_cargo_right_sensor";
@@ -26941,7 +26927,11 @@
 	},
 /area/syndicate_mothership/infteam)
 "mMl" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "syndie_cargo_left_shuttle_pump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27124,6 +27114,22 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone3)
+"mRa" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_inner_right";
+	locked = 1;
+	name = "Ship External Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "mRm" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27497,15 +27503,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
-"nak" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "nar" = (
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
@@ -28251,9 +28248,6 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "nqS" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -28733,7 +28727,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
-	master_tag = "ninja_airlock";
+	master_tag = "ninja_airlock_left";
 	name = "interior access button";
 	pixel_x = -25;
 	pixel_y = 25
@@ -31059,7 +31053,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	frequency = 1331;
-	id_tag = "ninja_sensor";
+	id_tag = "ninja_sensor_right";
 	pixel_x = 12;
 	pixel_y = 25;
 	req_access = list(150)
@@ -31390,10 +31384,6 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "oID" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "syndie_cargo_left_shuttle_pump"
-	},
 /obj/machinery/airlock_sensor{
 	frequency = 1331;
 	id_tag = "syndie_cargo_left_sensor";
@@ -31602,9 +31592,9 @@
 	},
 /obj/structure/table,
 /obj/machinery/computer/library/public{
+	dir = 4;
 	pixel_x = 1;
-	pixel_y = 4;
-	dir = 4
+	pixel_y = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -33795,10 +33785,6 @@
 /turf/simulated/floor/plating,
 /area/centcom/supply)
 "pSK" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "syndie_cargo_left_shuttle_pump"
-	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1331;
 	id_tag = "syndie_cargo_left_airlocks";
@@ -33957,12 +33943,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
 	frequency = 1331;
-	id_tag = "ninja_pump"
+	id_tag = "ninja_pump_right"
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
-	master_tag = "ninja_airlock";
+	master_tag = "ninja_airlock_right";
 	name = "interior access button";
 	pixel_x = -25;
 	pixel_y = 25
@@ -34585,17 +34571,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
-"qkp" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "syndie_cargo_left_shuttle_pump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "qkx" = (
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
@@ -35618,11 +35593,6 @@
 	},
 /area/centcom/specops)
 "qFu" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1331;
-	id_tag = "synd_pump_bottom"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -36061,11 +36031,6 @@
 	},
 /area/centcom/zone2)
 "qRJ" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1331;
-	id_tag = "synd_pump_bottom"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -37765,11 +37730,6 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "rCi" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1331;
-	id_tag = "synd_pump_bottom"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -38284,12 +38244,6 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/jail)
-"rMh" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "rMi" = (
 /obj/effect/turf_decal/siding/green{
 	dir = 8
@@ -40432,17 +40386,6 @@
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
-"sQh" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_shuttle_pump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "sQx" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/snow,
@@ -43565,8 +43508,8 @@
 "ueU" = (
 /obj/structure/table,
 /obj/machinery/computer/library/public{
-	pixel_y = 5;
-	dir = 8
+	dir = 8;
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -44744,7 +44687,7 @@
 /obj/machinery/door/airlock/hatch{
 	drain_act_protected = 1;
 	frequency = 1331;
-	id_tag = "ninja_inner";
+	id_tag = "ninja_inner_left";
 	locked = 1;
 	name = "Ship External Access"
 	},
@@ -44814,7 +44757,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1331;
-	master_tag = "ninja_airlock";
+	master_tag = "ninja_airlock_left";
 	name = "interior access button";
 	pixel_x = -12
 	},
@@ -45135,7 +45078,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1331;
-	master_tag = "ninja_airlock";
+	master_tag = "ninja_airlock_right";
 	name = "interior access button";
 	pixel_x = 10
 	},
@@ -46159,9 +46102,13 @@
 	},
 /area/centcom/zone3)
 "vnw" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "synd_pump_bottom"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -48036,9 +47983,6 @@
 	},
 /area/shuttle/syndicate)
 "wid" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -48066,10 +48010,6 @@
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
 "wiF" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_shuttle_pump"
-	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1331;
 	id_tag = "syndie_cargo_right_airlocks";
@@ -48239,7 +48179,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
-	master_tag = "ninja_airlock";
+	master_tag = "ninja_airlock_right";
 	name = "interior access button";
 	pixel_x = 23;
 	pixel_y = 25
@@ -49674,7 +49614,7 @@
 /obj/machinery/door/airlock/hatch{
 	drain_act_protected = 1;
 	frequency = 1331;
-	id_tag = "ninja_outer";
+	id_tag = "ninja_outer_right";
 	name = "Ship External Access"
 	},
 /obj/docking_port/mobile{
@@ -51154,14 +51094,6 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate_mothership/control)
-"xGZ" = (
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "xHc" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_random,
@@ -53740,8 +53672,8 @@ ciV
 wfY
 ciV
 pSK
-nak
-qkp
+gLq
+gLq
 ktr
 gtw
 ciV
@@ -53998,7 +53930,7 @@ sAE
 ciV
 oID
 mMl
-qkp
+gLq
 ktr
 vHT
 ciV
@@ -55283,7 +55215,7 @@ xxy
 gLq
 gbA
 oOt
-xis
+mVX
 dbs
 lKW
 lKW
@@ -58109,8 +58041,8 @@ jkX
 sAE
 ciV
 wiF
-mMl
-sQh
+fsI
+gLq
 hzK
 xhG
 ciV
@@ -58366,8 +58298,8 @@ ciV
 vlN
 ciV
 lng
-axB
-sQh
+gLq
+gLq
 seD
 xhG
 ciV
@@ -65787,8 +65719,8 @@ hNI
 miW
 puD
 vnw
-aEF
-xGZ
+abs
+wid
 auf
 kpB
 ygg
@@ -88546,7 +88478,7 @@ ykS
 rug
 bpJ
 hNg
-uFB
+mRa
 wQF
 bpJ
 bQF
@@ -91013,8 +90945,8 @@ fzV
 fzV
 fzV
 euY
-ddb
-rMh
+rDf
+pre
 rDf
 fzV
 fzV
@@ -91271,7 +91203,7 @@ mVX
 fzV
 rcB
 rDf
-pre
+rDf
 xVY
 fzV
 mVX

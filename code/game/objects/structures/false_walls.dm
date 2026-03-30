@@ -344,7 +344,7 @@
 	if(opening)
 		return ..()
 
-	if(I.get_heat() > 300)
+	if(I.get_temperature() > 300)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
