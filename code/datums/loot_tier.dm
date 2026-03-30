@@ -684,15 +684,15 @@
 			/obj/item/ammo_box/fortynr,
 		),
 		CALIBER_7_DOT_62X54MM = list(
-			/obj/item/ammo_box/a762,
+			/obj/item/ammo_box/a762x54,
 		),
 		CALIBER_7_DOT_62X51MM = list(
-			/obj/item/ammo_box/a763x51,
-			/obj/item/ammo_box/a763x51/weak,
-			/obj/item/ammo_box/a763x51/bleeding,
-			/obj/item/ammo_box/a763x51/ap,
-			/obj/item/ammo_box/a763x51/incen,
-			/obj/item/ammo_box/a763x51/hollow,
+			/obj/item/ammo_box/a762x51,
+			/obj/item/ammo_box/a762x51/weak,
+			/obj/item/ammo_box/a762x51/bleeding,
+			/obj/item/ammo_box/a762x51/ap,
+			/obj/item/ammo_box/a762x51/incen,
+			/obj/item/ammo_box/a762x51/hollow,
 		),
 		CALIBER_7_DOT_62X25MM = list(
 			/obj/item/ammo_box/a762x25,
