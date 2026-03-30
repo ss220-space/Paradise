@@ -121,14 +121,14 @@
 	)
 
 // MARK: 7.62x25mm
-/obj/item/ammo_box/a762x54x25
+/obj/item/ammo_box/a762x25
 	name = "ammo box (7.62x25mm)"
 	desc = "Большая коробка, содержащая патроны калибра 7.62x25мм."
 	icon_state = "ammobox_762x25"
 	ammo_type = /obj/item/ammo_casing/ftt762
 	max_ammo = 70
 
-/obj/item/ammo_box/a762x54x25/get_ru_names()
+/obj/item/ammo_box/a762x25/get_ru_names()
 	return list(
 		NOMINATIVE = "коробка патронов (7.62x25мм)",
 		GENITIVE = "коробки патронов (7.62x25мм)",
