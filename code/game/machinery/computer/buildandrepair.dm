@@ -509,11 +509,6 @@
 	build_path = /obj/machinery/computer/aifixer
 	origin_tech = "programming=2;biotech=2"
 
-/obj/item/circuitboard/area_atmos
-	board_name = "Area Air Control"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
-	build_path = /obj/machinery/computer/area_atmos
-
 /obj/item/circuitboard/telesci_console
 	board_name = "Telepad Control Console"
 	greyscale_colors = CIRCUIT_COLOR_SCIENCE

@@ -14,6 +14,19 @@
 		air.set_agent_b(agent_b)
 		air.set_hydrogen(hydrogen)
 		air.set_water_vapor(water_vapor)
+		air.set_tritium(tritium)
+		air.set_bz(bz)
+		air.set_pluoxium(pluoxium)
+		air.set_miasma(miasma)
+		air.set_freon(freon)
+		air.set_nitrium(nitrium)
+		air.set_healium(healium)
+		air.set_proto_nitrate(proto_nitrate)
+		air.set_zauker(zauker)
+		air.set_halon(halon)
+		air.set_helium(helium)
+		air.set_antinoblium(antinoblium)
+		air.set_hyper_noblium(hyper_noblium)
 		air.set_temperature(temperature)
 		return air
 	air.set_oxygen(0)
@@ -24,6 +37,19 @@
 	air.set_agent_b(0)
 	air.set_hydrogen(0)
 	air.set_water_vapor(0)
+	air.set_tritium(0)
+	air.set_bz(0)
+	air.set_pluoxium(0)
+	air.set_miasma(0)
+	air.set_freon(0)
+	air.set_nitrium(0)
+	air.set_healium(0)
+	air.set_proto_nitrate(0)
+	air.set_zauker(0)
+	air.set_halon(0)
+	air.set_helium(0)
+	air.set_antinoblium(0)
+	air.set_hyper_noblium(0)
 	air.set_temperature(0)
 	return air
 
@@ -63,22 +89,6 @@
 
 	UNSETEMPTY(new_overlay_types)
 	src.atmos_overlay_types = new_overlay_types
-
-/turf/simulated/proc/tile_graphic(datum/gas_mixture/air)
-	if(blocks_air)
-		return
-	if(!istype(air))
-		air = get_readonly_air()
-
-	if(air.toxins() > MOLES_PLASMA_VISIBLE)
-		return "plasma"
-
-	if(air.sleeping_agent() > 1)
-		return "sleeping_agent"
-
-	if(air.water_vapor() > MOLES_WATER_VAPOR_VISIBLE)
-		return "water_vapor"
-	return null
 
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
@@ -177,7 +187,30 @@
 /turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
-	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature)
+	var/list/air = list(
+		oxygen,
+		carbon_dioxide,
+		nitrogen,
+		toxins,
+		sleeping_agent,
+		agent_b,
+		hydrogen,
+		water_vapor,
+		tritium,
+		bz,
+		pluoxium,
+		miasma,
+		freon,
+		nitrium,
+		healium,
+		proto_nitrate,
+		zauker,
+		halon,
+		helium,
+		antinoblium,
+		hyper_noblium,
+		temperature
+	)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
 
 /turf/simulated/Initialize_Atmos(milla_tick)

@@ -79,7 +79,7 @@
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
-	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
+	D.color = mix_color_from_reagents(D.reagents.reagent_list)
 	var/turf/target_turf = get_turf(A)
 	for(var/i in 1 to spray_currentrange)
 		step_towards(D, target_turf)
@@ -336,14 +336,15 @@
 	)
 
 /obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
-	var/Sprays[3]
-	for(var/i=1, i<=3, i++) // intialize sprays
-		if(reagents.total_volume < 1) break
+	var/list/Sprays = new/list(3)
+	for(var/i in 1 to 3) // intialize sprays
+		if(reagents.total_volume < 1) 
+			break
 		var/obj/effect/decal/chempuff/D = new/obj/effect/decal/chempuff(get_turf(src))
 		D.create_reagents(amount_per_transfer_from_this)
 		reagents.trans_to(D, amount_per_transfer_from_this)
 
-		D.icon += mix_color_from_reagents(D.reagents.reagent_list)
+		D.color = mix_color_from_reagents(D.reagents.reagent_list)
 
 		Sprays[i] = D
 
@@ -353,16 +354,17 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=length(Sprays), i++)
+	for(var/i in 1 to length(Sprays))
 		spawn()
 			var/obj/effect/decal/chempuff/D = Sprays[i]
-			if(!D) continue
+			if(!D) 
+				continue
 
 			// Spreads the sprays a little bit
 			var/turf/my_target = pick(the_targets)
 			the_targets -= my_target
 
-			for(var/j=0, j<=spray_currentrange, j++)
+			for(var/j in 0 to spray_currentrange)
 				step_towards(D, my_target)
 				D.reagents.reaction(get_turf(D))
 				for(var/atom/t in get_turf(D))

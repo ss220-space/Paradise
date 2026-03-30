@@ -85,12 +85,6 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
-"en" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "er" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -524,10 +518,10 @@
 	height = 18;
 	id = "admin";
 	name = "administration shuttle";
-	roundstart_move = "admin_away";
-	width = 18;
 	port_direction = 2;
-	preferred_direction = 8
+	preferred_direction = 8;
+	roundstart_move = "admin_away";
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -1245,15 +1239,6 @@
 	icon_state = "darkgrey"
 	},
 /area/shuttle/administration)
-"YN" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "ZW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/alien/weeds,
@@ -1573,8 +1558,8 @@ tA
 tA
 tA
 wU
-YN
-en
+HR
+oe
 HR
 tA
 tA
@@ -1594,7 +1579,7 @@ Rx
 tA
 Vr
 HR
-oe
+HR
 im
 tA
 Rx
