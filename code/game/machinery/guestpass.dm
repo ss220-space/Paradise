@@ -57,6 +57,15 @@
 		"Command" = REGION_COMMAND
 	)
 	var/uid
+	var/list/region_map = list(
+		"Service" = REGION_GENERAL,
+		"Security" = REGION_SECURITY,
+		"Medical" = REGION_MEDBAY,
+		"Science" = REGION_RESEARCH,
+		"Engineering" = REGION_ENGINEERING,
+		"Supply" = REGION_SUPPLY,
+		"Command" = REGION_COMMAND
+	)
 
 /obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
 	uid = rand(1, 10000)
