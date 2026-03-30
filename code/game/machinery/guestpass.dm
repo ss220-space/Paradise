@@ -47,7 +47,7 @@
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
-		var/list/region_map = list(
+	var/list/region_map = list(
 		"Service" = REGION_GENERAL,
 		"Security" = REGION_SECURITY,
 		"Medical" = REGION_MEDBAY,
