@@ -24,66 +24,66 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 // MARK: Job titles
 
 // Command (Solo command, not department heads)
-#define JOB_TITLE_RU_CAPTAIN "Капитан"
+#define JOB_TITLE_RU_CAPTAIN "Король"
 #define JOB_TITLE_RU_REPRESENTATIVE "Представитель \"Нанотрейзен\""
-#define JOB_TITLE_RU_BLUESHIELD "Офицер \"Синий Щит\""
+#define JOB_TITLE_RU_BLUESHIELD "Королевский гвардеец"
 
 // Engineeering
-#define JOB_TITLE_RU_CHIEF_ENGINEER "Главный инженер"
-#define JOB_TITLE_RU_ENGINEER "Инженер"
-#define JOB_TITLE_RU_ATMOSTECH "Атмосферный специалист"
-#define JOB_TITLE_RU_ENGINEER_TRAINEE "Инженер-стажёр"
+#define JOB_TITLE_RU_CHIEF_ENGINEER "Главный изобретатель"
+#define JOB_TITLE_RU_ENGINEER "Изобретатель"
+#define JOB_TITLE_RU_ATMOSTECH "Паромеханик"
+#define JOB_TITLE_RU_ENGINEER_TRAINEE "Изобретатель-ученик"
 
 // Medical
-#define JOB_TITLE_RU_CMO "Главный врач"
-#define JOB_TITLE_RU_DOCTOR "Врач"
-#define JOB_TITLE_RU_CORONER "Патологоанатом"
-#define JOB_TITLE_RU_CHEMIST "Химик"
-#define JOB_TITLE_RU_GENETICIST "Генетик"
-#define JOB_TITLE_RU_VIROLOGIST "Вирусолог"
-#define JOB_TITLE_RU_PSYCHIATRIST "Психиатр"
-#define JOB_TITLE_RU_PARAMEDIC "Парамедик"
-#define JOB_TITLE_RU_MEDICAL_INTERN "Интерн"
+#define JOB_TITLE_RU_CMO "Главный лекарь"
+#define JOB_TITLE_RU_DOCTOR "Целитель"
+#define JOB_TITLE_RU_CORONER "Прозектор"
+#define JOB_TITLE_RU_CHEMIST "Алхимик"
+#define JOB_TITLE_RU_GENETICIST "Евгенист"
+#define JOB_TITLE_RU_VIROLOGIST "Чумной доктор"
+#define JOB_TITLE_RU_PSYCHIATRIST "Мозгоправ"
+#define JOB_TITLE_RU_PARAMEDIC "Полупрофессионал"
+#define JOB_TITLE_RU_MEDICAL_INTERN "Начинающий целитель"
 
 // Science
-#define JOB_TITLE_RU_RD "Директор исследований"
-#define JOB_TITLE_RU_SCIENTIST "Учёный"
-#define JOB_TITLE_RU_ROBOTICIST "Робототехник"
-#define JOB_TITLE_RU_SPACEPOD_TECHNICIAN "Челнок-инженер"
-#define JOB_TITLE_RU_SCIENCE_STUDENT "Учёный-студент"
+#define JOB_TITLE_RU_RD "Главный мудрец"
+#define JOB_TITLE_RU_SCIENTIST "Философ"
+#define JOB_TITLE_RU_ROBOTICIST "Механик-самоучка"
+#define JOB_TITLE_RU_SPACEPOD_TECHNICIAN "Астролог"
+#define JOB_TITLE_RU_SCIENCE_STUDENT "Студент философа"
 
 // Security
-#define JOB_TITLE_RU_HOS "Глава Службы Безопасности"
-#define JOB_TITLE_RU_WARDEN "Смотритель"
-#define JOB_TITLE_RU_DETECTIVE "Детектив"
-#define JOB_TITLE_RU_OFFICER "Офицер СБ"
-#define JOB_TITLE_RU_BRIGDOC "Бриг-медик"
-#define JOB_TITLE_RU_PILOT "Пилот СБ"
+#define JOB_TITLE_RU_HOS "Королевский надзиратель"
+#define JOB_TITLE_RU_WARDEN "Интендант"
+#define JOB_TITLE_RU_DETECTIVE "Гениальный сыщик"
+#define JOB_TITLE_RU_OFFICER "Стражник"
+#define JOB_TITLE_RU_BRIGDOC "Служебный целитель"
+#define JOB_TITLE_RU_PILOT "Драгун"
 
 // Legal
-#define JOB_TITLE_RU_MAGISTRATE "Магистрат"
-#define JOB_TITLE_RU_LAWYER "Адвокат"
+#define JOB_TITLE_RU_MAGISTRATE "Praefectus urbi"
+#define JOB_TITLE_RU_LAWYER "Advocatus"
 
 // Supply
-#define JOB_TITLE_RU_QUARTERMASTER "Квартирмейстер"
-#define JOB_TITLE_RU_CARGOTECH "Грузчик"
-#define JOB_TITLE_RU_MINER "Шахтёр"
-#define JOB_TITLE_RU_MINING_MEDIC "Шахтёрский врач"
+#define JOB_TITLE_RU_QUARTERMASTER "Главный купец"
+#define JOB_TITLE_RU_CARGOTECH "Купец"
+#define JOB_TITLE_RU_MINER "Рудокоп"
+#define JOB_TITLE_RU_MINING_MEDIC "Целитель рудокопов"
 
 // Service
-#define JOB_TITLE_RU_HOP "Глава персонала"
-#define JOB_TITLE_RU_BARTENDER "Бармен"
-#define JOB_TITLE_RU_CHEF "Повар"
-#define JOB_TITLE_RU_BOTANIST "Ботаник"
-#define JOB_TITLE_RU_CHAPLAIN "Священник"
+#define JOB_TITLE_RU_HOP "Управитель"
+#define JOB_TITLE_RU_BARTENDER "Управляющий таверной"
+#define JOB_TITLE_RU_CHEF "Кухарь"
+#define JOB_TITLE_RU_BOTANIST "Травник"
+#define JOB_TITLE_RU_CHAPLAIN "Ворожей"
 #define JOB_TITLE_RU_CLOWN "Клоун"
 #define JOB_TITLE_RU_MIME "Мим"
-#define JOB_TITLE_RU_JANITOR "Уборщик"
-#define JOB_TITLE_RU_LIBRARIAN "Библиотекарь"
+#define JOB_TITLE_RU_JANITOR "Прислуга"
+#define JOB_TITLE_RU_LIBRARIAN "Книгохранитель"
 #define JOB_TITLE_RU_EXPLORER "Исследователь"
 
 // Civilians
-#define JOB_TITLE_RU_CIVILIAN "Гражданский"
+#define JOB_TITLE_RU_CIVILIAN "Крестьянин"
 #define JOB_TITLE_RU_PRISONER "Заключённый"
 
 // Silicons

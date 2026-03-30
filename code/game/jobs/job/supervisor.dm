@@ -27,7 +27,6 @@
 	minimal_access = list()	//See get_access()
 	law_level = LAW_LEVEL_CAPTAIN
 	minimal_player_age = 30
-	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
@@ -196,7 +195,6 @@
 	is_legal = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 30
-	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
