@@ -40,7 +40,7 @@
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/drop_loot(drop_loc)
-	if(!is_station_level(z))
+	if(is_station_level(z))
 		return
 
 	return ..()
