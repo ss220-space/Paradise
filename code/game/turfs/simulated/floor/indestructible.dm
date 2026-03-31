@@ -70,9 +70,7 @@
 		icon_state = "necro[rand(2,3)]"
 
 /turf/simulated/floor/indestructible/necropolis/air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/boss //you put stone tiles on this and use it as a base
 	name = "necropolis floor"
@@ -84,14 +82,13 @@
 	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
-	oxygen = /turf/simulated/floor/lava::oxygen //lava near tendril
-	nitrogen = /turf/simulated/floor/lava::nitrogen
-	temperature = /turf/simulated/floor/lava::temperature
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'

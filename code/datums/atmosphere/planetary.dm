@@ -58,11 +58,7 @@
 		ATMOSPHERE_OXYGEN = MOLES_O2STANDARD,
 		ATMOSPHERE_NITROGEN = MOLES_N2STANDARD,
 	)
-	normal_gases = list(
-		ATMOSPHERE_OXYGEN = 10,
-		ATMOSPHERE_NITROGEN = 10,
-		ATMOSPHERE_CARBON_DIOXIDE = 10,
-	)
+	normal_gases = list()
 	restricted_gases = list()
 	restricted_chance = 0
 

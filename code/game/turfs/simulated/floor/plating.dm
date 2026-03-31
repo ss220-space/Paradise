@@ -151,6 +151,9 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/plating/cold
+	atmos_environment = ENVIRONMENT_COLD
+
 /turf/simulated/floor/plating/airless
 	name = "airless plating"
 	oxygen = 0

@@ -66,20 +66,22 @@
 	// Now let the random choices begin
 	var/gastype
 	var/amount
-	while(calculate_pressure(gas_template) < target_pressure)
-		if(!prob(restricted_chance) || !length(spicy_gas))
-			gastype = pick(normal_gases)
-			amount = normal_gases[gastype]
-		else
-			gastype = pick(spicy_gas)
-			amount = spicy_gas[gastype]
-			spicy_gas -= gastype //You can only pick each restricted gas once
 
-		amount *= rand(50, 200) / 100 // Randomly modifes the amount from half to double the base for some variety
-		amount *= pressure_scalar // If we pick a really small target pressure we want roughly the same mix but less of it all
-		amount = CEILING(amount, 0.1)
+	if(length(spicy_gas) || length(normal_gases))
+		while(calculate_pressure(gas_template) < target_pressure)
+			if(!prob(restricted_chance) || !length(spicy_gas))
+				gastype = pick(normal_gases)
+				amount = normal_gases[gastype]
+			else
+				gastype = pick(spicy_gas)
+				amount = spicy_gas[gastype]
+				spicy_gas -= gastype //You can only pick each restricted gas once
 
-		gas_template[gastype] += amount
+			amount *= rand(50, 200) / 100 // Randomly modifes the amount from half to double the base for some variety
+			amount *= pressure_scalar // If we pick a really small target pressure we want roughly the same mix but less of it all
+			amount = CEILING(amount, 0.1)
+
+			gas_template[gastype] += amount
 
 	// Ensure that minimum_pressure is actually a hard lower limit
 	target_pressure = clamp(target_pressure, minimum_pressure + (gas_template[gastype] * 0.1), maximum_pressure)

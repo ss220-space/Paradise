@@ -60,8 +60,6 @@
 //EXCITED GROUPS
 #define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER 0.5 //Minimum temperature difference before the gas temperatures are just set to be equal
 
-
-
 // Body temperature warning icons
 /// The temperature the red icon is displayed.
 #define HEAT_WARNING_3 (BODYTEMP_HEAT_DAMAGE_LIMIT + 360) //+700k
@@ -264,9 +262,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define LAVALAND_TEMPERATURE 300
 #define LAVALAND_OXYGEN 14
 #define LAVALAND_NITROGEN 23
-
-/// The minimum temperature of Icebox
-#define ICEBOX_MIN_TEMPERATURE 180
 
 /// The maximum temperature of Lavaland
 #define LAVALAND_MAX_TEMPERATURE 350

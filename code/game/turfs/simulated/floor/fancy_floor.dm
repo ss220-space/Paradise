@@ -71,6 +71,9 @@
 	icon_state = "wood-cherry"
 	floor_tile = /obj/item/stack/tile/wood/cherry
 
+/turf/simulated/floor/wood/cherry/cold
+	atmos_environment = ENVIRONMENT_COLD
+
 /turf/simulated/floor/wood/cherry/broken_states()
 	return list("wood-cherry-broken", "wood-cherry-broken2", "wood-cherry-broken3", "wood-cherry-broken4", "wood-cherry-broken5", "wood-cherry-broken6", "wood-cherry-broken7")
 
@@ -84,7 +87,6 @@
 /turf/simulated/floor/wood/fancy/oak/lavaland_air
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/wood/fancy/birch
 	icon_state = "fancy-wood-birch"
@@ -163,7 +165,7 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
-/turf/simulated/floor/grass/lavaland_air
+/turf/simulated/floor/grass/airless
 	name = "grass patch airless"
 	oxygen = 0
 	nitrogen = 0
@@ -190,6 +192,9 @@
 /turf/simulated/floor/carpet/lavaland_air
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/carpet/cold
+	atmos_environment = ENVIRONMENT_COLD
 
 /turf/simulated/floor/carpet/Initialize(mapload)
 	. = ..()

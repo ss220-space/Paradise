@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(electrolyzer_reactions, electrolyzer_reactions_list())
 	id = "h2o_conversion"
 	desc = "Conversion of H2o into O2 and H2"
 	requirements = list(
-		/datum/gas/water_vapor = MINIMUM_MOLE_COUNT
+		/datum/gas/water_vapor = MINIMUM_MOLE_COUNT,
 	)
 	factor = list(
 		/datum/gas/water_vapor = "2 moles of H2O get consumed",

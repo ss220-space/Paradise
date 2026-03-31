@@ -99,8 +99,14 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
-/turf/simulated/floor/plasteel/airless
-	nitrogen = 0
-	oxygen = 0
-	temperature = TCMB
+/turf/simulated/floor/plasteel/hight_cap
+	heat_capacity = 1e+006
 
+/turf/simulated/floor/plasteel/low_cap
+	heat_capacity = 1
+
+/turf/simulated/floor/plasteel/t0c
+	temperature = T0C
+
+/turf/simulated/floor/plasteel/cold
+	atmos_environment = ENVIRONMENT_COLD

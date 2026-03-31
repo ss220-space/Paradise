@@ -4206,10 +4206,9 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "lM" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "ironsand3";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/general)
 "lN" = (
@@ -4322,10 +4321,9 @@
 	},
 /area/awaymission/centcomAway/general)
 "lZ" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "ironsand11";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/general)
 "ma" = (
@@ -4348,10 +4346,9 @@
 	},
 /area/awaymission/centcomAway/general)
 "md" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "ironsand9";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/general)
 "me" = (
@@ -4447,10 +4444,9 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "mo" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "ironsand4";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/general)
 "mp" = (
@@ -5255,10 +5251,9 @@
 /area/awaymission/centcomAway/thunderdome)
 "ov" = (
 /obj/machinery/door/airlock/centcom,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "barber";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/thunderdome)
 "ow" = (
@@ -5287,26 +5282,23 @@
 	dir = 1;
 	in_use = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "barber";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oA" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "barber";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oB" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/popcorn,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "barber";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oC" = (
@@ -5389,18 +5381,16 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/drinks/ice,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "barber";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oN" = (
 /obj/machinery/icemachine,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/low_cap{
 	icon_state = "barber";
-	dir = 8;
-	heat_capacity = 1
+	dir = 8
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oO" = (

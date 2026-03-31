@@ -185,9 +185,6 @@
 	. = ..()
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
