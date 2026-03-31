@@ -28,7 +28,7 @@
 /obj/item/shield/riot
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
-	icon_state = "riot"
+	icon_state = "minecraft_shield"
 	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
@@ -57,8 +57,8 @@
 /obj/item/shield/riot/roman
 	name = "roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
-	icon_state = "roman_shield"
-	item_state = "roman_shield"
+	icon_state = "minecraft_shield"
+	item_state = "minecraft_shield"
 	materials = list(MAT_METAL=8500)
 	obj_integrity = 380
 	max_integrity = 380
@@ -71,8 +71,8 @@
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
-	icon_state = "buckler"
-	item_state = "buckler"
+	icon_state = "minecraft_shield"
+	item_state = "minecraft_shield"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
@@ -83,8 +83,8 @@
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
 	desc = "Щит, сплетённый из пластин шкуры голиафа."
-	icon_state = "goliath_shield"
-	item_state = "goliath_shield"
+	icon_state = "minecraft_shield"
+	item_state = "minecraft_shield"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	block_chance = 45
