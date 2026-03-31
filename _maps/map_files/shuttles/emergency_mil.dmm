@@ -67,8 +67,7 @@
 /area/shuttle/escape)
 "ap" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/plasteel{
@@ -124,8 +123,7 @@
 "aB" = (
 /obj/machinery/computer/station_alert,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -174,8 +172,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aK" = (
@@ -188,13 +185,11 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aL" = (
@@ -207,8 +202,7 @@
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aO" = (
@@ -220,8 +214,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aR" = (
@@ -246,16 +239,14 @@
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aV" = (
@@ -263,8 +254,7 @@
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "aW" = (
@@ -304,8 +294,7 @@
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "ba" = (
@@ -319,14 +308,12 @@
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "bc" = (
@@ -387,8 +374,7 @@
 "bj" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -418,8 +404,7 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -431,8 +416,7 @@
 /area/shuttle/escape)
 "bn" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -524,8 +508,7 @@
 "hC" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/machinery/status_display{
 	pixel_y = 30
@@ -603,8 +586,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
 "qo" = (

@@ -211,7 +211,7 @@
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
-	var/hot_temp = I.get_heat()
+	var/hot_temp = I.get_temperature()
 	if(hot_temp)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)

@@ -98,8 +98,7 @@
 /area/space)
 "D" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/burnt,
 /area/space)

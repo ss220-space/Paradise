@@ -234,8 +234,7 @@
 /area/derelict/bridge)
 "aI" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -317,8 +316,7 @@
 /area/derelict/bridge)
 "aR" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -336,8 +334,7 @@
 "aU" = (
 /obj/machinery/photocopier,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -611,8 +608,7 @@
 /area/derelict/bridge)
 "bF" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/safe,
@@ -745,8 +741,7 @@
 /area/derelict/security)
 "bV" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/derelict/bridge)
 "bW" = (
@@ -832,8 +827,7 @@
 /area/derelict/bridge)
 "ch" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -858,8 +852,7 @@
 /area/derelict/crew_quarters)
 "ck" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
@@ -1063,8 +1056,7 @@
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_x = 5;
-	tag = "icon-shower (EAST)"
+	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1104,12 +1096,10 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -1227,8 +1217,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -1298,8 +1287,7 @@
 "dt" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1466,8 +1454,7 @@
 "dN" = (
 /obj/structure/closet,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
@@ -1484,8 +1471,7 @@
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1521,15 +1507,6 @@
 	icon_state = "darkred"
 	},
 /area/derelict/security)
-"dV" = (
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/security)
 "dW" = (
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/annex)
@@ -1540,8 +1517,7 @@
 "dY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
@@ -1593,8 +1569,7 @@
 /area/derelict/security)
 "eh" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/item/flag/ussp,
 /turf/simulated/floor/plasteel{
@@ -1613,8 +1588,7 @@
 /area/derelict/engineer_area)
 "ej" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/ussp,
@@ -1781,8 +1755,7 @@
 "eC" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/derelict/crew_quarters)
 "eD" = (
@@ -1799,8 +1772,7 @@
 "eF" = (
 /obj/structure/chair/sofa/right,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/sign/poster/contraband/rebels_unite{
 	pixel_x = -1;
@@ -1816,8 +1788,7 @@
 	},
 /obj/item/spentcasing,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/derelict/crew_quarters)
 "eH" = (
@@ -1852,8 +1823,7 @@
 	name = "Security Wing Lockdown"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2177,8 +2147,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/derelict/crew_quarters)
 "fx" = (
@@ -2202,8 +2171,7 @@
 "fz" = (
 /obj/structure/mopbucket,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/derelict/crew_quarters)
 "fA" = (
@@ -2215,8 +2183,7 @@
 /area/derelict/security)
 "fB" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/item/spentcasing/rifle,
 /turf/simulated/floor/plasteel{
@@ -2233,8 +2200,7 @@
 /area/derelict/security)
 "fD" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
@@ -2334,12 +2300,10 @@
 /area/derelict/engineer_area)
 "fP" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2525,8 +2489,7 @@
 "gn" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/derelict/crew_quarters)
 "go" = (
@@ -2594,8 +2557,7 @@
 	dir = 1
 	},
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -2638,8 +2600,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3113,8 +3074,7 @@
 "hS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3123,8 +3083,7 @@
 "hT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3186,8 +3145,7 @@
 /area/derelict/dock)
 "ib" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/closet/secure_closet{
 	name = "Reagents locker";
@@ -3412,8 +3370,7 @@
 /area/derelict/arrival)
 "iz" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3636,18 +3593,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
-"je" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/church)
 "jf" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -3656,8 +3601,7 @@
 /area/derelict/church)
 "jg" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3821,8 +3765,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "jH" = (
@@ -4139,8 +4082,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "kx" = (
@@ -4448,8 +4390,7 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "lj" = (
@@ -4636,8 +4577,7 @@
 /area/derelict/dining)
 "lG" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -4663,8 +4603,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -4768,8 +4707,7 @@
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/item/trash/tastybread,
 /obj/effect/decal/cleanable/dirt,
@@ -4791,8 +4729,7 @@
 /area/derelict/church)
 "lX" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4913,8 +4850,7 @@
 "ms" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -5170,8 +5106,7 @@
 /area/derelict/garden)
 "ne" = (
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
@@ -5365,8 +5300,7 @@
 /obj/structure/rack,
 /obj/item/beach_ball/holoball,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -5386,8 +5320,7 @@
 /area/derelict/garden)
 "nH" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -5918,8 +5851,7 @@
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -6016,8 +5948,7 @@
 /area/derelict/common)
 "pu" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/rack,
 /obj/item/mop,
@@ -6090,8 +6021,7 @@
 /area/derelict/common)
 "pD" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/rack,
 /obj/structure/spider/stickyweb,
@@ -6123,8 +6053,7 @@
 /area/derelict/med)
 "pI" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
@@ -6153,8 +6082,7 @@
 /area/derelict/common)
 "pN" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -6235,8 +6163,7 @@
 /area/derelict/common)
 "pX" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -6271,8 +6198,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	tag = "icon-bulb1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
@@ -6291,8 +6217,7 @@
 /area/derelict/common)
 "qe" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -6348,8 +6273,7 @@
 "qo" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
@@ -6359,13 +6283,6 @@
 "qp" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/titanium,
-/area/derelict/med)
-"qr" = (
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qs" = (
 /obj/structure/sign/nosmoking_2,
@@ -6412,8 +6329,7 @@
 /area/derelict/arrival)
 "qz" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -6533,8 +6449,7 @@
 /area/derelict/arrival)
 "qN" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -6557,8 +6472,7 @@
 "qQ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/leafybush,
@@ -6598,8 +6512,7 @@
 "qV" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
@@ -6635,8 +6548,7 @@
 /area/derelict/med)
 "ra" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6715,8 +6627,7 @@
 	},
 /obj/effect/decal/cleanable/spiderling_remains,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -6797,8 +6708,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/grass,
 /area/derelict/arrival)
@@ -6870,8 +6780,7 @@
 	pixel_y = 5
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/grass,
@@ -6970,8 +6879,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -7063,8 +6971,7 @@
 /area/derelict/arrival)
 "rW" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	tag = "icon-rwindow (EAST)"
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -7385,16 +7292,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/derelict/arrival)
-"uR" = (
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/security)
 "uZ" = (
 /obj/machinery/door/poddoor{
 	id_tag = "usspchapelgun";
@@ -7461,8 +7358,7 @@
 "vK" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/derelict/bridge)
 "vR" = (
@@ -7476,8 +7372,7 @@
 "vS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -7572,8 +7467,7 @@
 	},
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/derelict/crew_quarters)
 "xo" = (
@@ -7621,8 +7515,7 @@
 /area/derelict/rnd)
 "xN" = (
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/machinery/camera{
 	c_tag = "Капитанская";
@@ -7633,14 +7526,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/bridge)
-"xP" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/space,
-/area/space)
 "xT" = (
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
@@ -7713,8 +7598,7 @@
 	req_access = list(128,129,130,131)
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7745,8 +7629,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
@@ -7867,16 +7750,6 @@
 /obj/machinery/r_n_d/destructive_analyzer,
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
-"At" = (
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/security)
 "Aw" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -7892,8 +7765,7 @@
 /area/ruin/unpowered/no_grav)
 "AB" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7975,8 +7847,7 @@
 "BT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7988,8 +7859,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/space,
 /area/space)
@@ -8132,8 +8002,7 @@
 "Dp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Бар";
@@ -8270,8 +8139,7 @@
 /area/derelict/garden)
 "Ei" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/light_construct{
 	dir = 4
@@ -8541,8 +8409,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
@@ -8573,8 +8440,7 @@
 "Hk" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/derelict/bridge)
 "Hl" = (
@@ -8865,8 +8731,7 @@
 "KG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8941,8 +8806,7 @@
 "Ll" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Церковь выбрасывательная";
@@ -9162,8 +9026,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -9300,8 +9163,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -9322,14 +9184,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
-"PF" = (
-/obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "PL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9374,8 +9228,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/space,
 /area/space)
@@ -9456,8 +9309,7 @@
 /area/derelict/common)
 "RJ" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -9472,16 +9324,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
-"RR" = (
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/derelict/dining)
 "RX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette{
@@ -9511,8 +9353,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -9528,8 +9369,7 @@
 /area/derelict/common)
 "Sq" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
@@ -9875,8 +9715,7 @@
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -9977,8 +9816,7 @@
 /area/derelict/bridge)
 "Yb" = (
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/spiderling_remains,
 /mob/living/simple_animal/hostile/poison/giant_spider,
@@ -10024,8 +9862,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
@@ -15642,11 +15479,11 @@ ac
 cq
 cq
 Du
-dV
-At
-uR
+fX
+PL
+LP
 eK
-At
+PL
 fD
 fY
 dn
@@ -16534,8 +16371,8 @@ mU
 pH
 nJ
 mS
-qr
-qr
+nZ
+nZ
 qB
 tk
 tk
@@ -19690,7 +19527,7 @@ Oo
 Oo
 ww
 jj
-RR
+vx
 Ec
 no
 np
@@ -21759,8 +21596,8 @@ iK
 lI
 tS
 yy
-je
-je
+tS
+tS
 lX
 ms
 hT
@@ -22973,17 +22810,17 @@ ac
 ac
 ac
 Qp
-xP
-xP
-xP
-xP
-PF
-xP
-PF
-xP
-xP
-xP
-xP
+Ot
+Ot
+Ot
+Ot
+mF
+Ot
+mF
+Ot
+Ot
+Ot
+Ot
 BW
 ac
 ac

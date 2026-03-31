@@ -347,6 +347,10 @@
 
 #define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
 
+#define TRAIT_SLEEPIMMUNE "sleep_immunity"
+
+#define TRAIT_NO_FIRE "nonflammable"
+
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"
 /// This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met

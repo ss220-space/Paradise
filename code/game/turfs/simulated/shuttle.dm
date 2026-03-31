@@ -199,3 +199,13 @@
 	name = "skipjack floor"
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/turf/simulated/floor/shuttle/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/shuttle/almost_airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB

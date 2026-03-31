@@ -500,7 +500,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		item = "[name] = /icon ([span_value("[value]")])"
 		#endif
 
-	else if(istype(value, /image))
+	else if(isimage(value))
 		var/image/I = value
 		#ifdef VARSICON
 		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image ([span_value("[value]")]) [icon2html(value, usr)]"

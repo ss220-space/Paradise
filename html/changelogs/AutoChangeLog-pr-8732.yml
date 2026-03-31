@@ -1,4 +1,0 @@
-author: "Bess3"
-delete-after: True
-changes:
-  - bugfix: "Багфикс борг-панели (PR #8732)"

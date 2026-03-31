@@ -338,24 +338,6 @@
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
-/obj/projectile/legionnaire
-	name = "bone"
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "bone"
-	damage = 25
-	armour_penetration = 70
-	speed = 1.2
-
-/obj/projectile/legionnaire/get_ru_names()
-	return list(
-		NOMINATIVE = "кость",
-		GENITIVE = "кости",
-		DATIVE = "кости",
-		ACCUSATIVE = "кость",
-		INSTRUMENTAL = "костью",
-		PREPOSITIONAL = "кости",
-	)
-
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
 	var/turf/startloc = get_turf(src)
 	var/obj/projectile/legionnaire/P = new(startloc)

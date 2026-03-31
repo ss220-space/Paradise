@@ -562,7 +562,7 @@
 /obj/item/reagent_containers/food/drinks/cans/bottler/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		switch(round(reagents.total_volume))
 			if(0 to 9)
@@ -578,7 +578,7 @@
 			if(50 to INFINITY)
 				filling.icon_state = "[icon_state]50"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
