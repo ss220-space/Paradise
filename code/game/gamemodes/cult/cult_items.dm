@@ -788,49 +788,6 @@
 			L.visible_message(span_warning("An unseen force pulls the blood spear from [L]'s hands!"))
 		spear.throw_at(owner, 10, 2, null)
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
-	name = "blood bolt barrage"
-	desc = "Blood for blood."
-	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
-	color = "#ff0000"
-	guns_left = 24
-	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
-	fire_sound = 'sound/magic/wand_teleport.ogg'
-	pickup_sound = 'sound/effects/splat.ogg'
-	drop_sound = 'sound/effects/splat.ogg'
-	item_flags = NOBLUDGEON|DROPDEL
-
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
-	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
-
-/obj/item/ammo_casing/magic/arcane_barrage/blood
-	projectile_type = /obj/projectile/magic/arcane_barrage/blood
-	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
-
-/obj/projectile/magic/arcane_barrage/blood
-	name = "blood bolt"
-	icon_state = "blood_bolt"
-	damage_type = BRUTE
-	impact_effect_type = /obj/effect/temp_visual/cult/sparks
-	hitsound = 'sound/effects/splat.ogg'
-
-/obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
-	if(iscultist(target))
-		damage = 0
-		nodamage = TRUE
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(H.stat != DEAD)
-				H.reagents.add_reagent("unholywater", 4)
-		if(isshade(target) || isconstruct(target))
-			var/mob/living/simple_animal/M = target
-			if(M.health + 5 < M.maxHealth)
-				M.adjustHealth(-5)
-		new /obj/effect/temp_visual/cult/sparks(target)
-	..()
-
 /obj/item/blood_orb
 	name = "orb of blood"
 	icon = 'icons/obj/cult.dmi'

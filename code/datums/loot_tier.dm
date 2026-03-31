@@ -160,10 +160,10 @@
 			/obj/item/ammo_box/magazine/m10mm,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/lasercarbine,
-			/obj/item/ammo_box/magazine/laser,
-			/obj/item/ammo_box/magazine/laser,
-			/obj/item/ammo_box/magazine/laser,
+			/obj/item/gun/projectile/automatic/ik60,
+			/obj/item/ammo_box/magazine/ik60mag,
+			/obj/item/ammo_box/magazine/ik60mag,
+			/obj/item/ammo_box/magazine/ik60mag,
 		),
 		list(
 			/obj/item/gun/projectile/revolver/doublebarrel,
@@ -317,10 +317,10 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/aksu,
-			/obj/item/ammo_box/magazine/aksu,
-			/obj/item/ammo_box/magazine/aksu,
-			/obj/item/ammo_box/magazine/aksu,
+			/obj/item/gun/projectile/automatic/aks74u,
+			/obj/item/ammo_box/magazine/aks74u,
+			/obj/item/ammo_box/magazine/aks74u,
+			/obj/item/ammo_box/magazine/aks74u,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/shotgun/bulldog,
@@ -489,7 +489,7 @@
 		/obj/item/gun/energy/telegun,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow,
 		list(
-			/obj/item/gun/projectile/automatic/ar,
+			/obj/item/gun/projectile/automatic/arg,
 			/obj/item/ammo_box/magazine/m556,
 			/obj/item/ammo_box/magazine/m556,
 			/obj/item/ammo_box/magazine/m556,
@@ -539,9 +539,9 @@
 		),
 		list(
 			/obj/item/gun/projectile/automatic/l6_saw,
-			/obj/item/ammo_box/magazine/a762x51,
-			/obj/item/ammo_box/magazine/a762x51,
-			/obj/item/ammo_box/magazine/a762x51,
+			/obj/item/ammo_box/magazine/l6saw,
+			/obj/item/ammo_box/magazine/l6saw,
+			/obj/item/ammo_box/magazine/l6saw,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/m52,
@@ -675,7 +675,7 @@
 			/obj/item/ammo_box/rubber9mm,
 		),
 		CALIBER_45NR = list(
-			/obj/item/ammo_box/c9mmte,
+			/obj/item/ammo_box/dot45NR,
 		),
 		CALIBER_DOT_357 = list(
 			/obj/item/ammo_box/a357,
@@ -684,7 +684,7 @@
 			/obj/item/ammo_box/fortynr,
 		),
 		CALIBER_7_DOT_62X54MM = list(
-			/obj/item/ammo_box/a762,
+			/obj/item/ammo_box/a762x54,
 		),
 		CALIBER_7_DOT_62X51MM = list(
 			/obj/item/ammo_box/a762x51,
@@ -698,8 +698,8 @@
 			/obj/item/ammo_box/a762x25,
 		),
 		CALIBER_7_DOT_62X38MM = list(
-			/obj/item/ammo_box/n762,
-			/obj/item/ammo_box/nagant,
+			/obj/item/ammo_box/n762x38,
+			/obj/item/ammo_box/n762x38,
 		),
 		CALIBER_DOT_338 = list(
 			/obj/item/ammo_box/a338,
@@ -714,7 +714,7 @@
 			/obj/item/ammo_box/m50,
 		),
 		CALIBER_10MM = list(
-			/obj/item/ammo_box/c10mm,
+			/obj/item/ammo_box/m10mm,
 			/obj/item/ammo_box/m10mm,
 			/obj/item/ammo_box/m10mm/ap,
 			/obj/item/ammo_box/m10mm/hp,
@@ -766,8 +766,8 @@
 			/obj/item/ammo_box/ap45colt,
 		),
 		CALIBER_5_DOT_45X39MM = list(
-			/obj/item/ammo_box/ak814/fusty,
-			/obj/item/ammo_box/ak814,
+			/obj/item/ammo_box/a545x39/fusty,
+			/obj/item/ammo_box/a545x39,
 		),
 		CALIBER_ROCKET = list(
 			/obj/item/ammo_casing/rocket,
