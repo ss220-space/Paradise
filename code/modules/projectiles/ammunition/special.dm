@@ -5,7 +5,6 @@
 	projectile_type = /obj/projectile/magic
 	muzzle_flash_color = COLOR_BLUE_GRAY
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/magic
-	leaves_residue = 0
 
 /obj/item/ammo_casing/magic/change
 	projectile_type = /obj/projectile/magic/change

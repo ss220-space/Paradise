@@ -130,8 +130,8 @@
 /obj/item/gun_module/under/hand/simple/get_ru_names()
 	return list(
 		NOMINATIVE = "прямая рукоятка",
-		GENITIVE = "прямую рукоятку",
-		DATIVE = "прямой рукоятке",
+		GENITIVE = "прямой рукоятки",
+		DATIVE = "прямую рукоятку",
 		ACCUSATIVE = "прямая рукоятка",
 		INSTRUMENTAL = "прямой рукояткой",
 		PREPOSITIONAL = "прямой рукоятке",
@@ -150,9 +150,9 @@
 /obj/item/gun_module/under/hand/angle/get_ru_names()
 	return list(
 		NOMINATIVE = "угловая рукоятка",
-		GENITIVE = "угловую рукоятку",
+		GENITIVE = "угловой рукоятки",
 		DATIVE = "угловой рукоятке",
-		ACCUSATIVE = "угловая рукоятка",
+		ACCUSATIVE = "угловую рукоятку",
 		INSTRUMENTAL = "угловой рукояткой",
 		PREPOSITIONAL = "угловой рукоятке",
 	)

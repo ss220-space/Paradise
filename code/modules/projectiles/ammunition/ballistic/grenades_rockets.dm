@@ -108,7 +108,7 @@
 
 /obj/item/ammo_casing/a40mm/secgl/barricade
 	name = "40mm grenade (barricade)"
-	desc = "Граната калибра 40 мм со слезоточивым газом. Позволяет разогнать толпу митингующих без защиты органов дыхания."
+	desc = "Граната калибра 40 мм, создающая небольшую металлическую баррикаду при детонации. Полезна для быстрого создания укрытий." 
 	projectile_type = /obj/projectile/grenade/a40mm/secgl/barricade
 	icon_state = "secgl_barricade"
 	item_state = "secgl_barricade"

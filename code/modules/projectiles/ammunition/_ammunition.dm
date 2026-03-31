@@ -31,9 +31,7 @@
 	var/click_cooldown_override = 0
 	/// pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/harmful = TRUE
-	/// Остается ли порох на руках и одежде?
-	var/leaves_residue
-	/// Wheter we can pick this shell by clicking on it with the ammo box
+	/// Whether we can pick this shell by clicking on it with the ammo box
 	var/can_be_box_inserted = TRUE
 
 	/// What type of muzzle flash effect will be shown. If null then no effect and flash of light will be shown
@@ -44,7 +42,7 @@
 	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
-	/// Ammo type overlay for magazines (not add ovarlay if null)
+	/// Ammo type overlay for magazines (not add overlay if null)
 	var/bullet_type = null
 
 /obj/item/ammo_casing/Initialize(mapload)
@@ -164,7 +162,7 @@
 
 // MARK: Caseless
 /obj/item/ammo_casing/caseless
-	desc = "A caseless bullet casing."
+	desc = "Безгильзовый патрон."
 
 /obj/item/ammo_casing/caseless/after_fire()
 	qdel(src)

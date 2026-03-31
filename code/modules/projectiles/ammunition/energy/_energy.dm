@@ -5,7 +5,6 @@
 	projectile_type = /obj/projectile/energy
 	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
-	leaves_residue = FALSE
 	/// The amount of energy a cell needs to expend to create this shot.
 	var/e_cost = 100
 	/// Identifier for the firemode, mostly used in icon updates.

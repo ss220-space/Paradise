@@ -74,7 +74,7 @@
 		DATIVE = "тяжёлому глушителю",
 		ACCUSATIVE = "тяжёлый глушитель",
 		INSTRUMENTAL = "тяжёлым глушителем",
-		PREPOSITIONAL = "тёжёлом глушителе"
+		PREPOSITIONAL = "тяжёлом глушителе"
 	)
 
 /obj/item/gun_module/muzzle/suppressor/handmade
