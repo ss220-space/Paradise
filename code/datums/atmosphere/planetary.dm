@@ -17,7 +17,7 @@
 		ATMOSPHERE_MIASMA = 1.2,
 		ATMOSPHERE_WATER_VAPOR = 0.1,
 	)
-	restricted_chance = 100
+	restricted_chance = 30
 
 
 	minimum_temp = LAVALAND_TEMPERATURE
