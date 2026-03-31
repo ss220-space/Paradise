@@ -205,8 +205,6 @@
 /obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
-
-
 /obj/item/organ/internal/heart/demon/shadow
 	name = "heart of darkness"
 	desc = "Оно всё ещё яростно бьётся, излучая ауру страха."

@@ -102,12 +102,6 @@
 /obj/effect/proc_holder/spell/fireball/smoke_spit/update_icon_state()
 	return
 
-
-
-//DESTROYER//
-
-//EMP
-
 /obj/effect/proc_holder/spell/emplosion/terror_emp
 	name = "Электро-магнитный визг"
 	desc = "Издать визг, вызывающий ЭМИ."

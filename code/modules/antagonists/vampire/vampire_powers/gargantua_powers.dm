@@ -144,8 +144,6 @@
 	V.required_blood = 10
 	return V
 
-
-
 /obj/effect/temp_visual/demonic_grasp
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "demonic_grasp"
