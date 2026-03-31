@@ -15,6 +15,9 @@
 /obj/item/stack/ore/uranium,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
+"adf" = (
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/ruin/unpowered)
 "adp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -22262,6 +22265,10 @@
 	icon_state = "vault"
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
+"tpT" = (
+/mob/living/simple_animal/hostile/winter/snowman,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/unpowered)
 "tpV" = (
 /obj/machinery/conveyor{
 	dir = 5;
@@ -25620,6 +25627,9 @@
 /obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
+"vBj" = (
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/unpowered)
 "vBp" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
@@ -80946,8 +80956,8 @@ mEC
 mEC
 pdd
 pdd
-aak
-aak
+vBj
+vBj
 aak
 aak
 aTW
@@ -81203,8 +81213,8 @@ mEC
 mEC
 pdd
 aTW
-aak
-aak
+vBj
+vBj
 aak
 aTW
 pdd
@@ -81460,8 +81470,8 @@ mEC
 mEC
 pdd
 aTW
-aak
-gtL
+vBj
+tpT
 aTW
 pdd
 pdd
@@ -81717,8 +81727,8 @@ mEC
 mEC
 pdd
 aTW
-aak
-aak
+vBj
+vBj
 pdd
 pdd
 pdd
@@ -81974,8 +81984,8 @@ mEC
 mEC
 pdd
 pdd
-aak
-aak
+vBj
+vBj
 aTW
 pdd
 pdd
@@ -82231,9 +82241,9 @@ mEC
 mEC
 aTW
 pdd
-aak
-aak
-aak
+vBj
+vBj
+vBj
 aTW
 pdd
 pdd
@@ -82489,8 +82499,8 @@ mEC
 aTW
 pdd
 aTW
-aak
-aak
+vBj
+vBj
 aTW
 pdd
 aTW
@@ -82746,8 +82756,8 @@ mEC
 mEC
 pdd
 pdd
-aak
-aak
+vBj
+vBj
 aak
 pdd
 pdd
@@ -84807,9 +84817,9 @@ pdd
 pdd
 pdd
 aTW
-aak
-aak
-aak
+aTW
+aTW
+aTW
 pdd
 pdd
 mEC
@@ -85063,9 +85073,9 @@ pdd
 pdd
 pdd
 aTW
-aak
-aak
-aak
+adf
+adf
+aTW
 pdd
 pdd
 mEC
@@ -85320,8 +85330,8 @@ pdd
 pdd
 jbN
 jbN
-aak
-aak
+adf
+adf
 pdd
 pdd
 mEC
