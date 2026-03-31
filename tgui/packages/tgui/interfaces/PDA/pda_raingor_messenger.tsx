@@ -28,20 +28,42 @@ type MessengerAccount = {
 };
 
 type Chat = {
+  chat_id: number;
   name_chat: string;
   description_chat: string;
   can_reply: boolean;
   is_group: boolean;
   is_private: boolean;
-  message_draft: string;
-  owner_chat: MessengerAccount;
-  chat_admins: MessengerAccount[];
+  message_draft?: string;
+  owner_chat?: MessengerAccount;
+  chat_admins?: MessengerAccount[];
   chat_members: MessengerAccount[];
+  messages?: Message[];
+};
+
+type Message = {
+  text_message: string;
+  outgoing: boolean;
+  photo_name?: string;
+  timestamp: number;
+  sender_name: string;
 };
 
 type PageProps = {
   setPage: (page: Page) => void;
   data: RaingorMessengerData;
+};
+
+type MainPageProps = {
+  setPage: (page: Page) => void;
+  data: RaingorMessengerData;
+  setChatId: (chatId: number) => void;
+};
+
+type ChatPageProps = {
+  setPage: (page: Page) => void;
+  data: RaingorMessengerData;
+  chatId: number | null;
 };
 
 type PageBaseProps = {
@@ -52,6 +74,7 @@ type Page = 'main' | 'chat' | 'about';
 
 export const pda_raingor_messenger = (props: unknown) => {
   const [page, setPage] = useState<Page>('main');
+  const [activeChatId, setActiveChatId] = useState<number | null>(null);
   const { data } = useBackend<RaingorMessengerData>();
   const accountName = data?.owner_messenger_account?.name;
 
@@ -89,7 +112,18 @@ export const pda_raingor_messenger = (props: unknown) => {
   let PageContent;
   switch (page) {
     case 'main':
-      PageContent = <MainMenuPage setPage={setPage} data={data} />;
+      PageContent = (
+        <MainMenuPage
+          setPage={setPage}
+          setChatId={setActiveChatId}
+          data={data}
+        />
+      );
+      break;
+    case 'chat':
+      PageContent = (
+        <ChatView setPage={setPage} chatId={activeChatId} data={data} />
+      );
       break;
     default:
       PageContent = <UUErrorPage setPage={setPage} />;
@@ -108,12 +142,16 @@ export const pda_raingor_messenger = (props: unknown) => {
   );
 };
 
-const MainMenuPage = ({ setPage, data }: PageProps) => {
+const MainMenuPage = ({ setPage, setChatId, data }: MainPageProps) => {
   const { owner_messenger_account, chats, targets } = data;
   const { act } = useBackend();
   const [target, setTarget] = useState<string | null>(null);
   const createChat = () => {
     act('create_private_chat', { target });
+  };
+  const openChat = (id: number) => {
+    setChatId(id);
+    setPage('chat');
   };
   return (
     <Box>
@@ -137,7 +175,7 @@ const MainMenuPage = ({ setPage, data }: PageProps) => {
         {chats.length === 0 ? (
           <Box italic className="text-muted" textAlign="center" p={3}>
             <Icon name="info" size={2} mb={2} />
-            <Box>У вас активных чатов</Box>
+            <Box>У вас нет активных чатов</Box>
           </Box>
         ) : (
           chats.map((e) => (
@@ -146,10 +184,12 @@ const MainMenuPage = ({ setPage, data }: PageProps) => {
                 <Icon name="bookmark" size={1} />
                 {e.description_chat}
               </Box>
+              <Button onClick={() => openChat(e.chat_id)}>Открыть чат</Button>
             </Box>
           ))
         )}
       </Section>
+
       <Section>
         <SearchableDropdown
           options={targets}
@@ -160,6 +200,67 @@ const MainMenuPage = ({ setPage, data }: PageProps) => {
         <Button onClick={createChat} disabled={target === null}>
           Выбери с кем хочешь начать диалог
         </Button>
+      </Section>
+    </Box>
+  );
+};
+
+const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
+  const { owner_messenger_account, chats, targets } = data;
+  const { act } = useBackend();
+  const chat =
+    chatId !== null ? chats.find((c) => c.chat_id === chatId) : undefined;
+
+  if (!chat) {
+    return (
+      <Box textAlign="center" p={3}>
+        <Icon name="exclamation-circle" size={2} mb={2} />
+        <Box>Чат не найден или ещё не загружен</Box>
+        <Button
+          fluid
+          className="btn-bank"
+          onClick={() => setPage('main')}
+          mt={2}
+        >
+          <Icon name="step-backward" className="text-gold" mr={1} />
+          <span className="text-white">Вернуться в меню</span>
+        </Button>
+      </Box>
+    );
+  }
+
+  const members = chat.chat_members;
+  return (
+    <Box>
+      <Section>
+        <Box textAlign="center" mb={3}>
+          <Button fluid className="btn-bank" onClick={() => setPage('main')}>
+            <Icon name="step-backward" className="text-gold" mr={1} />
+            <span className="text-white">Вернуться в меню</span>
+          </Button>
+        </Box>
+      </Section>
+
+      <Section title={chat.name_chat}>
+        <Box>Описание чата: {chat.description_chat}</Box>
+        <Box mt={2}>
+          <Box bold mb={1}>
+            Участники чата:
+          </Box>
+
+          {members.length > 0 ? (
+            members.map((member) => (
+              <Box key={member.account_number} ml={2} mb={1}>
+                <Icon name="user" mr={1} />
+                {member.name}
+              </Box>
+            ))
+          ) : (
+            <Box ml={2} color="label">
+              Нет участников
+            </Box>
+          )}
+        </Box>
       </Section>
     </Box>
   );

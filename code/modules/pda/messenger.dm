@@ -1,3 +1,11 @@
+/*
+Чо не забыть сделать:
+* Убрать уже существующие личные чаты из чатов на выбор
+* Сделать защиту на создание дубликатов чатов
+
+*/
+
+
 /datum/data/pda/app/messenger
 	name = "InCrew"
 	icon = "comments-o"
@@ -61,6 +69,7 @@
 	data["can_login"] = can_login
 	return owner_messenger_account
 
+// требуется доработка: Убрать уже существующие личные чаты из чатов на выбор
 /datum/data/pda/app/messenger/proc/get_possible_targets(datum/money_account/exclude_account)
 	var/list/possible_targets = list()
 	for(var/datum/money_account/target_account as anything in GLOB.all_money_accounts)

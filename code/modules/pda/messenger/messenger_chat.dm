@@ -12,6 +12,10 @@
  * Chat log data type, stores information about the chat members,
  * the messages themselves and other metadata.
  */
+
+// ну кароче тк тут не постгря будем вот его юзать для уникальный чатиков
+GLOBAL_VAR_INIT(messenger_chat_id_count, 0)
+
 /datum/messenger_chat
 	var/chat_id
 	/// group name
@@ -37,6 +41,8 @@
 	var/message_draft = ""
 
 /datum/messenger_chat/New(name_chat, description_chat, owner_chat, is_group, is_private)
+	GLOB.messenger_chat_id_count++
+	src.chat_id = GLOB.messenger_chat_id_count
 	src.name_chat = name_chat
 	src.description_chat = description_chat
 	src.owner_chat = owner_chat
@@ -100,7 +106,7 @@
 
 /datum/messenger_chat/proc/get_ui_data(mob/user)
 	var/list/data = list()
-
+	data["chat_id"] = chat_id
 	data["name_chat"] = name_chat
 	data["description_chat"] = description_chat
 	// booleans
@@ -119,12 +125,13 @@
 
 		var/list/chat_admins_list = list()
 		for(var/datum/messenger_account/checked_account as anything in chat_admins)
-			chat_admins_list.Add(checked_account.get_account_info())
+			chat_admins_list += list(checked_account.get_account_info())
 
 		data["chat_admins"] = chat_admins_list
 
-		var/list/chat_members_list = list()
-		for(var/datum/messenger_account/checked_account as anything in chat_members)
-			chat_members_list.Add(checked_account.get_account_info())
+	var/list/chat_members_list = list()
+	for(var/datum/messenger_account/checked_account as anything in chat_members)
+		chat_members_list += list(checked_account.get_account_info())
+	data["chat_members"] = chat_members_list
 
-		data["chat_members"] = chat_members_list
+	return data
