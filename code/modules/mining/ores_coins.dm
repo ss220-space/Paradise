@@ -342,6 +342,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/attacher = UNKNOWN_STATUS_RUS
 	var/datum/wires/explosive/gibtonite/wires
 
+/obj/item/twohanded/required/gibtonite/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/twohanded/required/gibtonite/get_ru_names()
 	return list(
 		NOMINATIVE = "гибтонит",

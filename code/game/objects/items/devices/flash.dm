@@ -46,6 +46,10 @@
 		PREPOSITIONAL = "флешере"
 	)
 
+/obj/item/flash/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/flash/update_icon_state()
 	icon_state = "[initial(icon_state)][broken ? "burnt" : ""]"
 

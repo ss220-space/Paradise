@@ -28,6 +28,10 @@
 	///Did we add the component responsible for spawning shrapnel to this?
 	var/shrapnel_initialized
 
+/obj/item/grenade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()
@@ -120,7 +124,7 @@
 	var/turf/turf = get_turf(base)
 	forceMove(turf)
 	active = TRUE
-	update_appearance()
+	update_appearance(UPDATE_ICON_STATE)
 	playsound(turf, 'sound/weapons/armbomb.ogg', 60, TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grenade, prime)), 1 SECONDS)
 	base.attached_item = null

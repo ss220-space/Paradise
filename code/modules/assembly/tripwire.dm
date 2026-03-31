@@ -77,7 +77,7 @@
 
 /obj/item/tripwire
 	name = "tripwire base"
-	desc = "Металлическое основание для растяжки. Закрепите на стене, добавьте детонатор и протяните кабель."
+	desc = "Металлическое основание для растяжки. Не забудьте про кабель!"
 	icon = 'icons/obj/tripwire.dmi'
 	icon_state = "tripwire_base"
 	var/obj/item/tripwire/linked_to = null
@@ -138,7 +138,7 @@
 	var/turf/user_turf = get_turf(user)
 	var/dir_to_wall = get_dir(user_turf, target)
 
-	if(!(dir_to_wall in list(NORTH, SOUTH, EAST, WEST)))
+	if(!(dir_to_wall in GLOB.cardinal))
 		return
 
 	if(!user.transfer_item_to_loc(src, user_turf))
@@ -178,7 +178,7 @@
 			pixel_y = -7
 
 /obj/item/tripwire/proc/can_be_used_on_tripwire(obj/item)
-	if((isgrenade(item)) || isassembly(item) || is_camera(item) || istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass) || istype(item, /obj/item/flash) || istype(item, /obj/item/twohanded/required/gibtonite))
+	if(HAS_TRAIT(item, TRAIT_CAN_ATTACH_TO_TRIPWIRE))
 		return TRUE
 	return FALSE
 
@@ -212,12 +212,12 @@
 				return FALSE
 
 	if(distance == 0)
-		return (src.wall_dir == turn(target.wall_dir, 180))
+		return (wall_dir == turn(target.wall_dir, 180))
 
-	if(src.x == target.x || src.y == target.y)
+	if(x == target.x || y == target.y)
 		var/dir_to_target = get_dir(src, target)
 		var/dir_to_source = get_dir(target, src)
-		return (src.wall_dir == turn(dir_to_target, 180) && target.wall_dir == turn(dir_to_source, 180))
+		return (wall_dir == turn(dir_to_target, 180) && target.wall_dir == turn(dir_to_source, 180))
 
 	return FALSE
 
@@ -229,9 +229,9 @@
 		if(!is_valid_target(nearby))
 			continue
 
-		var/d = get_dist(src, nearby)
-		if(d < min_dist)
-			min_dist = d
+		var/distance = get_dist(src, nearby)
+		if(distance < min_dist)
+			min_dist = distance
 			best_target = nearby
 
 	return best_target
@@ -257,14 +257,14 @@
 	if(!cable.use_tool(src, user, 3 SECONDS, volume = 50))
 		return
 
-	if(QDELETED(target_base) || target_base.loc != initial_target_loc || src.z != target_base.z || is_active || target_base.is_active || QDELETED(cable) || cable.amount < needed_cable)
+	if(QDELETED(target_base) || target_base.loc != initial_target_loc || z != target_base.z || is_active || target_base.is_active || QDELETED(cable) || cable.amount < needed_cable)
 		return
 
 	if(connect_to(target_base, cable))
 		if(user.mind)
-			var/datum/weakref/W = WEAKREF(user.mind)
-			src.creator_mind = W
-			target_base.creator_mind = W
+			var/datum/weakref/mind_weakref = WEAKREF(user.mind)
+			creator_mind = mind_weakref
+			target_base.creator_mind = mind_weakref
 
 		to_chat(user, span_notice("Вы успешно натянули провод между растяжками."))
 		cable.use(needed_cable)
@@ -295,7 +295,7 @@
 	var/turf/end_turf = get_turf(target_base)
 
 	if(current_turf == end_turf)
-		var/target_dir = (src.wall_dir == NORTH || src.wall_dir == SOUTH) ? NORTH : EAST
+		var/target_dir = (wall_dir == NORTH || wall_dir == SOUTH) ? NORTH : EAST
 		create_bridge(current_turf, wire_color, target_base, target_dir)
 		return
 
@@ -328,20 +328,20 @@
 	LAZYADD(wire_segments, bridge)
 	LAZYADD(target_base.wire_segments, bridge)
 
-/obj/item/tripwire/proc/install_payload(obj/item/I, mob/user)
+/obj/item/tripwire/proc/install_payload(obj/item/item, mob/user)
 	if(attached_item || (linked_to && linked_to.attached_item))
 		to_chat(user, span_warning("На растяжке уже что-то установлено!"))
 		return
 
-	if(!user.transfer_item_to_loc(I, src))
+	if(!user.transfer_item_to_loc(item, src))
 		return
 
-	attached_item = I
+	attached_item = item
 	if(user.mind)
 		payload_mind = WEAKREF(user.mind)
 
 	RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(on_payload_activate), override = TRUE)
-	to_chat(user, span_notice("Вы закрепили [I.name] на растяжке."))
+	to_chat(user, span_notice("Вы закрепили [item.declent_ru(ACCUSATIVE)] на растяжке."))
 	update_appearance()
 
 /obj/item/tripwire/update_overlays()
@@ -474,7 +474,7 @@
 	if(QDELETED(src) || QDELETED(linked_to))
 		return
 
-	if(src.attached_item)
+	if(attached_item)
 		return src
 
 	else if(linked_to.attached_item)

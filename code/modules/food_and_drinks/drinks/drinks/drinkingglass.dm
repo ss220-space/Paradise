@@ -25,6 +25,10 @@
 		PREPOSITIONAL = "стакане",
 	)
 
+/obj/item/reagent_containers/food/drinks/drinkingglass/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		add_fingerprint(user)
