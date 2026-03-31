@@ -15,6 +15,6 @@
 		C.drop_from_active_hand()
 		C.swap_hand()
 		C.drop_from_active_hand()
-		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new
+		var/obj/item/gun/ballistic/shotgun/boltaction/enchanted/GUN = new
 		C.put_in_hands(GUN)
 

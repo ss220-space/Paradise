@@ -1005,9 +1005,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/ballistic
 	name = "Служебные дробовики"
 	contains = list(
-		/obj/item/gun/projectile/shotgun/riot,
-		/obj/item/gun/projectile/shotgun/riot,
-		/obj/item/gun/projectile/shotgun/riot,
+		/obj/item/gun/ballistic/shotgun/riot,
+		/obj/item/gun/ballistic/shotgun/riot,
+		/obj/item/gun/ballistic/shotgun/riot,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
@@ -1026,9 +1026,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/ballisticauto
 	name = "Боевые дробовики"
 	contains = list(
-		/obj/item/gun/projectile/shotgun/automatic/combat,
-		/obj/item/gun/projectile/shotgun/automatic/combat,
-		/obj/item/gun/projectile/shotgun/automatic/combat,
+		/obj/item/gun/ballistic/shotgun/automatic/combat,
+		/obj/item/gun/ballistic/shotgun/automatic/combat,
+		/obj/item/gun/ballistic/shotgun/automatic/combat,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
@@ -1151,8 +1151,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/wt550
 	name = "Пистолет-пулемёты WT-550"
 	contains = list(
-		/obj/item/gun/projectile/automatic/wt550,
-		/obj/item/gun/projectile/automatic/wt550,
+		/obj/item/gun/ballistic/automatic/wt550,
+		/obj/item/gun/ballistic/automatic/wt550,
 	)
 	cost = 35
 	containername = "ящик WT-550"
@@ -1168,8 +1168,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/ga12
 	name = "Дробовики Tkach Ya-Sui GA 12"
 	contains = list(
-		/obj/item/gun/projectile/revolver/ga12,
-		/obj/item/gun/projectile/revolver/ga12,
+		/obj/item/gun/ballistic/revolver/ga12,
+		/obj/item/gun/ballistic/revolver/ga12,
 	)
 	cost = 80
 	containername = "ящик Tkach Ya-Sui GA 12"
@@ -1186,9 +1186,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/lr30
 	name = "Лазерные карабины LR-30"
 	contains = list(
-		/obj/item/gun/projectile/automatic/lr30,
-		/obj/item/gun/projectile/automatic/lr30,
-		/obj/item/gun/projectile/automatic/lr30,
+		/obj/item/gun/ballistic/automatic/lr30,
+		/obj/item/gun/ballistic/automatic/lr30,
+		/obj/item/gun/ballistic/automatic/lr30,
 		/obj/item/ammo_box/magazine/lr30mag,
 		/obj/item/ammo_box/magazine/lr30mag,
 		/obj/item/ammo_box/magazine/lr30mag,
@@ -1286,8 +1286,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/m79
 	name = "Гранатометы М79"
 	contains = list(
-		/obj/item/gun/projectile/bombarda/secgl/m79,
-		/obj/item/gun/projectile/bombarda/secgl/m79,
+		/obj/item/gun/ballistic/bombarda/secgl/m79,
+		/obj/item/gun/ballistic/bombarda/secgl/m79,
 	)
 	cost = 80
 	containername = "ящик с гранатометами М79"
@@ -1325,9 +1325,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/SP_91_RC
 	name = "Пистолет-пулемёты SP-91-RC"
 	contains = list(
-		/obj/item/gun/projectile/automatic/sp91rc,
-		/obj/item/gun/projectile/automatic/sp91rc,
-		/obj/item/gun/projectile/automatic/sp91rc,
+		/obj/item/gun/ballistic/automatic/sp91rc,
+		/obj/item/gun/ballistic/automatic/sp91rc,
+		/obj/item/gun/ballistic/automatic/sp91rc,
 	)
 	cost = 50
 	containername = "ящик SP-91-RC"
@@ -1343,9 +1343,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/sparkle_a12
 	name = "Пистолет-пулемёты A9 \"Искра\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/sparkle_a12,
-		/obj/item/gun/projectile/automatic/sparkle_a12,
-		/obj/item/gun/projectile/automatic/sparkle_a12,
+		/obj/item/gun/ballistic/automatic/sparkle_a12,
+		/obj/item/gun/ballistic/automatic/sparkle_a12,
+		/obj/item/gun/ballistic/automatic/sparkle_a12,
 	)
 	cost = 50
 	containername = "ящик A9 \"Искра\""
@@ -5451,8 +5451,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/under/mafia/white,
 		/obj/item/clothing/under/mafia/sue,
 		/obj/item/clothing/under/mafia/tan,
-		/obj/item/gun/projectile/shotgun/toy/tommygun,
-		/obj/item/gun/projectile/shotgun/toy/tommygun,
+		/obj/item/gun/ballistic/shotgun/toy/tommygun,
+		/obj/item/gun/ballistic/shotgun/toy/tommygun,
 	)
 	cost = 15
 	containername = "ящик со снаряжением мафиози"
@@ -5526,14 +5526,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/foamforce
 	name = "Игрушечные дробовики"
 	contains = list(
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
 	)
 	cost = 10
 	containername = "ящик игрушечных дробовиков"
@@ -6211,8 +6211,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/mosin
 	name = "Винтовки Мосина"
 	contains = list(
-		/obj/item/gun/projectile/shotgun/boltaction,
-		/obj/item/gun/projectile/shotgun/boltaction,
+		/obj/item/gun/ballistic/shotgun/boltaction,
+		/obj/item/gun/ballistic/shotgun/boltaction,
 		/obj/item/ammo_box/speedloader/a762,
 		/obj/item/ammo_box/speedloader/a762,
 		/obj/item/ammo_box/speedloader/a762,
@@ -6497,8 +6497,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/foamforce/bonus
 	name = "Игрушечные пистолеты"
 	contains = list(
-		/obj/item/gun/projectile/automatic/toy/pistol,
-		/obj/item/gun/projectile/automatic/toy/pistol,
+		/obj/item/gun/ballistic/automatic/toy/pistol,
+		/obj/item/gun/ballistic/automatic/toy/pistol,
 		/obj/item/ammo_box/magazine/toy/pistol,
 		/obj/item/ammo_box/magazine/toy/pistol,
 	)
@@ -6705,7 +6705,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/mastiff
 	name = "Дробовик \"Мастиф\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff,
+		/obj/item/gun/ballistic/automatic/shotgun/bulldog/mastiff,
 		/obj/item/ammo_box/magazine/cheap_m12g,
 		/obj/item/ammo_box/magazine/cheap_m12g,
 	)
@@ -6725,7 +6725,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/mini_uzi
 	name = "Пистолет пулемет \"Узи\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/gun/ballistic/automatic/mini_uzi,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/ammo_box/magazine/uzim9mm,
 	)

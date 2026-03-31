@@ -244,7 +244,7 @@
 
 /obj/structure/closet/coffin/graveyard_loot/populate_contents()
 	var/medal = pick(/obj/item/clothing/accessory/medal, /obj/item/clothing/accessory/medal/fluff/elo, /obj/item/clothing/accessory/medal/heart)
-	var/gun = pick(/obj/item/gun/projectile/shotgun/lethal/rusted, /obj/item/gun/projectile/revolver/nagant/rusted, /obj/item/gun/projectile/automatic/pistol)
+	var/gun = pick(/obj/item/gun/ballistic/shotgun/lethal/rusted, /obj/item/gun/ballistic/revolver/nagant/rusted, /obj/item/gun/ballistic/automatic/pistol)
 	switch(rand(1,55))
 		if(1 to 2)
 			spawn_mob = /mob/living/simple_animal/hostile/zombie/space_graveyard/noble

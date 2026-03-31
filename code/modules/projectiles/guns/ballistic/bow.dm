@@ -1,5 +1,5 @@
 // MARK: Generic
-/obj/item/gun/projectile/bow
+/obj/item/gun/ballistic/bow
 	name = "bow"
 	desc = "Прочный лук, сделанный из дерева."
 	gender = MALE
@@ -23,7 +23,7 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 	recoil = null
 
-/obj/item/gun/projectile/bow/get_ru_names()
+/obj/item/gun/ballistic/bow/get_ru_names()
 	return list(
 		NOMINATIVE = "деревянный лук",
 		GENITIVE = "деревянного лука",
@@ -33,12 +33,12 @@
 		PREPOSITIONAL = "деревянном луке",
 	)
 
-/obj/item/gun/projectile/bow/proc/update_state()
+/obj/item/gun/ballistic/bow/proc/update_state()
 	update_slowdown()
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 
-/obj/item/gun/projectile/bow/update_icon_state()
+/obj/item/gun/ballistic/bow/update_icon_state()
 	if(chambered && !ready_to_fire)
 		icon_state = "[initial(icon_state)]_loaded"
 	else if(ready_to_fire)
@@ -46,10 +46,10 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/gun/projectile/bow/proc/update_slowdown()
+/obj/item/gun/ballistic/bow/proc/update_slowdown()
 	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
 
-/obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
+/obj/item/gun/ballistic/bow/dropped(mob/user, slot, silent = FALSE)
 	if(chambered)
 		chambered.forceMove(drop_location())
 		chambered = null
@@ -57,7 +57,7 @@
 		update_state()
 	return ..()
 
-/obj/item/gun/projectile/bow/unload_act(mob/user)
+/obj/item/gun/ballistic/bow/unload_act(mob/user)
 	if(chambered && !ready_to_fire)
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, TRUE)
@@ -65,7 +65,7 @@
 		ready_to_fire = FALSE
 	update_state()
 
-/obj/item/gun/projectile/bow/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/bow/attackby(obj/item/I, mob/user, params)
 	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
@@ -79,19 +79,19 @@
 
 	return ..()
 
-/obj/item/gun/projectile/bow/can_shoot(mob/user)
+/obj/item/gun/ballistic/bow/can_shoot(mob/user)
 	return chambered && ready_to_fire
 
-/obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user)
+/obj/item/gun/ballistic/bow/shoot_with_empty_chamber(mob/living/user)
 	return
 
-/obj/item/gun/projectile/bow/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/bow/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 	ready_to_fire = FALSE
 	update_state()
 
 // MARK: Bone
-/obj/item/gun/projectile/bow/ashen //better than wooden
+/obj/item/gun/ballistic/bow/ashen //better than wooden
 	name = "bone bow"
 	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
 	icon_state = "ashenbow"
@@ -107,7 +107,7 @@
 	slowdown_when_ready = 1
 	accuracy = GUN_ACCURACY_RIFLE
 
-/obj/item/gun/projectile/bow/ashen/get_ru_names()
+/obj/item/gun/ballistic/bow/ashen/get_ru_names()
 	return list(
 		NOMINATIVE = "костяной лук",
 		GENITIVE = "костяного лука",

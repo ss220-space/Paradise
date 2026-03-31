@@ -121,7 +121,7 @@
 								"Desc" = "Find and eliminate your targets quietly and effectively with this kit.",
 								/obj/item/clothing/glasses/hud/security/chameleon = 1,						// 10 TK
 								/obj/item/pen/fancy/bomb = 1,												// 30 TK
-								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
+								/obj/item/gun/ballistic/automatic/pistol = 1,								// 20 TK
 								/obj/item/gun_module/muzzle/suppressor = 1,													// 5 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/hp = 1,									// 5 TK
@@ -149,7 +149,7 @@
 			"PayDay" = list("Name" = "'PayDay' bundle",	// 161.6-163.6 TK
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
-								/obj/item/gun/projectile/automatic/mini_uzi = 1,							// 60 TK
+								/obj/item/gun/ballistic/automatic/mini_uzi = 1,							// 60 TK
 								/obj/item/ammo_box/magazine/uzim9mm = 2,									// 20 TK
 								/obj/item/card/emag = 1,													// 50 TK
 								/obj/item/jammer = 1,														// 10 TK
@@ -190,7 +190,7 @@
 			"Darklord" = list("Name" = "'Darklord' bundle",	// 100-122 TK
 								"Desc" = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT.",
 /*								/obj/item/t_scanner = 1,
-								/obj/item/clothing/gloves/color/yellow/power = 1,*/		// Plan B fot 'coming soon' Martial Art. // I suppose its not coming 
+								/obj/item/clothing/gloves/color/yellow/power = 1,*/		// Plan B fot 'coming soon' Martial Art. // I suppose its not coming
 								/obj/item/melee/energy/sword/saber/red = 2,									// 80 TK
 								/obj/item/dnainjector/telemut/darkbundle = 1,								// 0 TK
 								/obj/item/clothing/suit/hooded/chaplain_hoodie = 1,							// 0 TK
@@ -201,7 +201,7 @@
 
 			"Professional" = list("Name" = "'Professional' Bundle",	// 180-187 TK
 								"Desc" = "Suit up and handle yourself like a professional with a long-distance sniper rifle, additional .50 standard and penetrator rounds and thermal glasses to easily scope out your target.",
-								/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator = 1,   // 100 TK
+								/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate/penetrator = 1,   // 100 TK
 								/obj/item/gun_module/rail/scope/x8 = 1,										// 0 TK
 								/obj/item/ammo_box/magazine/sniper_rounds/compact = 1,						// 10 TK
 								/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator = 2,			// 25 TK
@@ -220,7 +220,7 @@
 								/obj/item/clothing/mask/chameleon = 1,										// 0-20 TK
 								/obj/item/storage/belt/military/traitor/sec = 1,							// 5 TK
 								/obj/item/pinpointer/advpinpointer = 1,										// 20 TK
-								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
+								/obj/item/gun/ballistic/automatic/pistol = 1,								// 20 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/ap = 1,									// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/fire = 1,									// 5 TK
@@ -229,7 +229,7 @@
 			"MetaOps" = list("Name" = "'MetaOps' bundle",	// 140-187 TK
 								"Desc" = "Wreak chaos and disguise yourself as a nuclear operative.",
 								/obj/item/mod/control/pre_equipped/traitor_elite = 1,						// 50 TK
-								/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff = 1,			// 0-45 TK
+								/obj/item/gun/ballistic/automatic/shotgun/bulldog/mastiff = 1,			// 0-45 TK
 								/obj/item/implanter/explosive = 1,											// 10 TK
 								/obj/item/ammo_box/magazine/cheap_m12g = 2,								// 20 TK
 								/obj/item/grenade/plastic/c4 = 2,											// 10 TK
@@ -248,7 +248,7 @@
 			"Grenadier" = list("Name" = "'Grenadier' bundle",	// 95-227 TK
 								"Desc" = "A variety of grenades and pyrotechnics to ensure you can blast your way through any situation.",
 								/obj/item/storage/belt/grenade/demolitionist = 1,							// 10-125TK
-								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
+								/obj/item/gun/ballistic/automatic/pistol = 1,								// 20 TK
 								/obj/item/ammo_box/magazine/m10mm = 2,										// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/fire = 2,									// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK
@@ -259,7 +259,7 @@
 			"Ocelot" = list("Name" = "'Ocelot' bundle",	// 95-227 TK
 								"Desc" = "It does not feel right to shoot an unarmed man… but I will get over it.",
 								/obj/item/kitchen/knife/combat = 1,											// 0 TK
-								/obj/item/gun/projectile/revolver = 2,                                      // 100 TK
+								/obj/item/gun/ballistic/revolver = 2,                                      // 100 TK
 								/obj/item/ammo_box/a357 = 2,												// 0 TK
 								/obj/item/ammo_box/speedloader/a357 = 2,                                    // 5 TK
 								/obj/item/clothing/under/syndicate/tacticool = 1,                           // 0 TK

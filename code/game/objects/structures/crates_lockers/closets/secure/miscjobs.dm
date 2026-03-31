@@ -53,7 +53,7 @@
 
 /obj/structure/closet/secure_closet/syndicate_officer/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
-	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
+	new /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)

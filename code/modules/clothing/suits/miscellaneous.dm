@@ -422,7 +422,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatcaptain"
 	armor = list(MELEE = 25, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 0, ACID = 50)
-	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite)
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/ballistic, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
 /obj/item/clothing/head/hooded/winterhood/captain
@@ -434,7 +434,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, FIRE = 30, ACID = 30)
-	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite)
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/ballistic, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
 /obj/item/clothing/head/hooded/winterhood/security
@@ -808,7 +808,7 @@
 	ignore_suitadjust = TRUE
 	actions_types = null
 	adjust_flavour = null
-	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/ballistic/automatic/pistol,/obj/item/gun/ballistic/revolver,/obj/item/gun/ballistic/revolver/detective)
 
 /obj/item/clothing/suit/jacket/miljacket/navy
 	name = "navy military jacket"
@@ -927,7 +927,7 @@
 	icon_state = "bombersec"
 	item_state = "bombersec"
 	//Inherited from Security armour.
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/ballistic,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -1023,7 +1023,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/projectile,/obj/item/ammo_box)
+	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/ballistic,/obj/item/ammo_box)
 
 /obj/item/clothing/suit/sovietcoat/officer
 	name = "Soviet officer's greatcoat"
@@ -1255,7 +1255,7 @@
 	icon_state = "suragi_jacket_civ"
 	blood_overlay_type = ""
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/ballistic/automatic/pistol,/obj/item/gun/ballistic/revolver,/obj/item/gun/ballistic/revolver/detective)
 
 // Suragi Children
 /obj/item/clothing/suit/storage/suragi_jacket/civ
@@ -1269,7 +1269,7 @@
 	icon_state = "suragi_jacket_sec"
 	item_state = "suragi_jacket_sec"
 	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/ballistic,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 
 /obj/item/clothing/suit/storage/suragi_jacket/cargo
 	name = "Cargo Suragi Jacket"

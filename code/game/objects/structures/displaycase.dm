@@ -287,7 +287,7 @@
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
-	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
+	start_showpiece_type = /obj/item/gun/ballistic/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
 
 /obj/structure/displaycase/dartgun

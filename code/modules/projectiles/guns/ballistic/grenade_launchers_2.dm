@@ -2,7 +2,7 @@
 //Put handheld rocket launchers here if someone ever decides to make something so hilarious ~Paprika
 
 // MARK: Grenade launcher
-/obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
+/obj/item/gun/ballistic/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 	desc = "A break-operated grenade launcher."
 	name = "grenade launcher"
 	icon_state = "dshotgun-sawn"
@@ -12,7 +12,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/revolver/grenadelauncher/multi
+/obj/item/gun/ballistic/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."
 	name = "multi grenade launcher"
 	icon_state = "bulldog"
@@ -20,18 +20,18 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
 	accuracy = GUN_ACCURACY_RIFLE
 
-/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg
+/obj/item/gun/ballistic/revolver/grenadelauncher/multi/cyborg
 	desc = "A 6-shot grenade launcher."
 	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_grenadelnchr"
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_LOW
 
-/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
+/obj/item/gun/ballistic/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
 
 // MARK: Rocket launcher
-/obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
+/obj/item/gun/ballistic/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-9"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
 	icon_state = "rocketlauncher"
@@ -47,7 +47,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
 
-/obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
@@ -61,25 +61,25 @@
 
 	return ..()
 
-/obj/item/gun/projectile/revolver/rocketlauncher/can_shoot(mob/user)
+/obj/item/gun/ballistic/revolver/rocketlauncher/can_shoot(mob/user)
 	if(chambered)
 		return TRUE
 	return FALSE
 
-/obj/item/gun/projectile/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 
-/obj/item/gun/projectile/revolver/rocketlauncher/chamber_round()
+/obj/item/gun/ballistic/revolver/rocketlauncher/chamber_round()
 	if(chambered || !magazine)
 		return
 	if(magazine.ammo_count())
 		chambered = magazine.get_round()
 		chambered.forceMove(src)
 
-/obj/item/gun/projectile/revolver/rocketlauncher/get_ammo(countchambered = TRUE, countempties = TRUE)
+/obj/item/gun/ballistic/revolver/rocketlauncher/get_ammo(countchambered = TRUE, countempties = TRUE)
 	. = ..()
 
-/obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
+/obj/item/gun/ballistic/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo(FALSE) > 0)
@@ -108,15 +108,15 @@
 	else
 		balloon_alert(user, "уже разряжено!")
 
-/obj/item/gun/projectile/revolver/rocketlauncher/update_icon_state()
+/obj/item/gun/ballistic/revolver/rocketlauncher/update_icon_state()
 	return
 
-/obj/item/gun/projectile/revolver/rocketlauncher/update_overlays()
+/obj/item/gun/ballistic/revolver/rocketlauncher/update_overlays()
 	. = ..()
 	if(!chambered)
 		. += "[icon_state]_empty"
 
-/obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
+/obj/item/gun/ballistic/revolver/rocketlauncher/suicide_act(mob/user)
 	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
 	if(can_shoot(user))
 		ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
@@ -139,7 +139,7 @@
 		return OXYLOSS
 
 // MARK: Gyropistol
-/obj/item/gun/projectile/automatic/gyropistol
+/obj/item/gun/ballistic/automatic/gyropistol
 	name = "gyrojet pistol"
 	desc = "A prototype pistol designed to fire self propelled rockets."
 	icon_state = "gyropistol"
@@ -153,8 +153,8 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	..()
 
-/obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
+/obj/item/gun/ballistic/automatic/gyropistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"

@@ -20,7 +20,7 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival/survival_syndi = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/ballistic/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
@@ -41,7 +41,7 @@
 	name = "Syndicate Nuclear Operative"
 	toggle_helmet = FALSE
 	suit = null
-	belt = /obj/item/gun/projectile/automatic/pistol
+	belt = /obj/item/gun/ballistic/automatic/pistol
 	shoes = /obj/item/clothing/shoes/combat
 	l_pocket = null
 	l_hand = null

@@ -128,7 +128,7 @@
 
 //MARK: Enforcer
 /datum/item_skin_data/enforcer
-	item_path = /obj/item/gun/projectile/automatic/pistol/enforcer
+	item_path = /obj/item/gun/ballistic/automatic/pistol/enforcer
 
 /datum/item_skin_data/enforcer/grey_slide
 	name = "Серый затвор"
@@ -184,7 +184,7 @@
 
 //MARK: SP-8
 /datum/item_skin_data/sp8
-	item_path = /obj/item/gun/projectile/automatic/pistol/sp8
+	item_path = /obj/item/gun/ballistic/automatic/pistol/sp8
 
 /datum/item_skin_data/sp8/black
 	name = "Чёрный"
@@ -212,7 +212,7 @@
 
 //MARK: SP-8T
 /datum/item_skin_data/sp8t
-	item_path = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
+	item_path = /obj/item/gun/ballistic/automatic/pistol/sp8/sp8t
 
 /datum/item_skin_data/sp8t/dust
 	name = "Песочный"
@@ -224,7 +224,7 @@
 
 //MARK: Detective revolver
 /datum/item_skin_data/detective_revolver
-	item_path = /obj/item/gun/projectile/revolver/detective
+	item_path = /obj/item/gun/ballistic/revolver/detective
 
 /datum/item_skin_data/detective_revolver/original
 	name = "Оригинальный"
@@ -256,7 +256,7 @@
 
 //MARK: Taurus
 /datum/item_skin_data/taurus_revolver
-	item_path = /obj/item/gun/projectile/revolver/taurus
+	item_path = /obj/item/gun/ballistic/revolver/taurus
 
 /datum/item_skin_data/taurus_revolver/classic
 	name = "Стандартный"
@@ -275,7 +275,7 @@
 
 //MARK: Double barrel
 /datum/item_skin_data/doublebarrel
-	item_path = /obj/item/gun/projectile/revolver/doublebarrel
+	item_path = /obj/item/gun/ballistic/revolver/doublebarrel
 
 /datum/item_skin_data/doublebarrel/default
 	name = "Обычный"

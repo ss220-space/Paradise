@@ -1,7 +1,7 @@
 // In it's own file because bolt-action rifles are inherited from /shotgun for some reason
 // TODO: transform shotguns and bolt-action rifles into two childern of one base type
 
-/obj/item/gun/projectile/shotgun
+/obj/item/gun/ballistic/shotgun
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
 	icon_state = "shotgun"
@@ -19,49 +19,49 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/ballistic/shotgun/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-/obj/item/gun/projectile/shotgun/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/shotgun/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	return ..(FALSE, FALSE)
 
-/obj/item/gun/projectile/shotgun/chamber_round()
+/obj/item/gun/ballistic/shotgun/chamber_round()
 	return
 
-/obj/item/gun/projectile/shotgun/can_shoot(mob/user)
+/obj/item/gun/ballistic/shotgun/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
-/obj/item/gun/projectile/shotgun/unload_act(mob/user)
+/obj/item/gun/ballistic/shotgun/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, 1 SECONDS)
 	pump(user)
 
-/obj/item/gun/projectile/shotgun/proc/pump(mob/M)
+/obj/item/gun/ballistic/shotgun/proc/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc
 	return 1
 
-/obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
+/obj/item/gun/ballistic/shotgun/proc/pump_unload(mob/M)
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
 		playsound(src, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
 
-/obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
+/obj/item/gun/ballistic/shotgun/proc/pump_reload(mob/M)
 	if(!magazine.ammo_count())
 		return 0
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/gun/projectile/shotgun/examine(mob/user)
+/obj/item/gun/ballistic/shotgun/examine(mob/user)
 	. = ..()
 	if(chambered)
 		. += span_notice("A [chambered.BB ? "live" : "spent"] one is in the chamber.")

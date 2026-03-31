@@ -23,7 +23,7 @@
 	force = 10
 
 /obj/item/storage/briefcase/sniperbundle/populate_contents()
-	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
+	new /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate(src)
 	new /obj/item/clothing/accessory/red(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)

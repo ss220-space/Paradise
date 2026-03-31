@@ -158,7 +158,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
 	desc = "Ты, наверное, думаешь, что тебе выпало .357 карат невезения?"
-	typepath = /obj/item/gun/projectile/revolver/capgun
+	typepath = /obj/item/gun/ballistic/revolver/capgun
 	cost = 75
 
 /datum/prize_item/codex_gigas
@@ -260,7 +260,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/tommygun
 	name = "Tommy Gun"
 	desc = "Реплика Томми-гана, стреляющего дротиками из пенопласта."
-	typepath = /obj/item/gun/projectile/shotgun/toy/tommygun
+	typepath = /obj/item/gun/ballistic/shotgun/toy/tommygun
 	cost = 175
 
 /datum/prize_item/chainsaw
@@ -290,13 +290,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/enforce
 	name = "Foam Force Enforce"
 	desc = "Точная копия стандартного вооружения службы безопасности НТ."
-	typepath = /obj/item/gun/projectile/automatic/toy/pistol/enforcer
+	typepath = /obj/item/gun/ballistic/automatic/toy/pistol/enforcer
 	cost = 350
 
 /datum/prize_item/shotgun
 	name = "Foam Force Shotgun"
 	desc = "Помповый донксофт дробовик со скользящим цевьём для быстрой стрельбы."
-	typepath = /obj/item/gun/projectile/shotgun/toy
+	typepath = /obj/item/gun/ballistic/shotgun/toy
 	cost = 400
 
 /datum/prize_item/bike

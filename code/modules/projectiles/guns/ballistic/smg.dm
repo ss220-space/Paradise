@@ -1,5 +1,5 @@
 // MARK: Saber SMG
-/obj/item/gun/projectile/automatic/proto
+/obj/item/gun/ballistic/automatic/proto
 	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
@@ -13,14 +13,14 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
 	)
 
-/obj/item/gun/projectile/automatic/proto/rubber
+/obj/item/gun/ballistic/automatic/proto/rubber
 
-/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+/obj/item/gun/ballistic/automatic/proto/rubber/Initialize(mapload)
 	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
 	. = ..()
 
 // MARK: C-20r SMG
-/obj/item/gun/projectile/automatic/c20r
+/obj/item/gun/ballistic/automatic/c20r
 	name = "C-20r SMG"
 	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
@@ -42,18 +42,18 @@
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.25 SECONDS
 
-/obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
+/obj/item/gun/ballistic/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
 
-/obj/item/gun/projectile/automatic/c20r/ComponentInitialize()
+/obj/item/gun/ballistic/automatic/c20r/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/c20r/update_icon_state()
+/obj/item/gun/ballistic/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/c20r/auto
+/obj/item/gun/ballistic/automatic/c20r/auto
 	name = "C-20rm SMG"
 	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
@@ -61,7 +61,7 @@
 	autofire_delay = 0.15 SECONDS
 	fire_delay = 0.15 SECONDS
 
-/obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
+/obj/item/gun/ballistic/automatic/c20r/auto/get_ru_names()
 	return list(
 		NOMINATIVE = "пистолет-пулемёт C-20rm",
 		GENITIVE = "пистолет-пулемёта C-20rm",
@@ -71,12 +71,12 @@
 		PREPOSITIONAL = "пистолет-пулемёте C-20rm",
 	)
 
-/obj/item/gun/projectile/automatic/c20r/rusted
+/obj/item/gun/ballistic/automatic/c20r/rusted
 	name = "C-20r SMG (Rusted)"
 	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
 	damage_mod = 0.85
 
-/obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
+/obj/item/gun/ballistic/automatic/c20r/rusted/get_ru_names()
 	return list(
 		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
 		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
@@ -86,13 +86,13 @@
 		PREPOSITIONAL = "пистолет-пулемёте C-20r (ржавый)",
 	)
 
-/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+/obj/item/gun/ballistic/automatic/c20r/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 // MARK: WT550
-/obj/item/gun/projectile/automatic/wt550
+/obj/item/gun/ballistic/automatic/wt550
 	name = "WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
@@ -116,11 +116,11 @@
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-/obj/item/gun/projectile/automatic/wt550/update_icon_state()
+/obj/item/gun/ballistic/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
 // MARK: SP-91-RC
-/obj/item/gun/projectile/automatic/sp91rc
+/obj/item/gun/ballistic/automatic/sp91rc
 	name = "SP-91-RC"
 	desc = "Компактный пистолет-пулемёт, предназначенный для \"нелетального\" подавления беспорядков."
 	icon_state = "SP-91-RC"
@@ -140,12 +140,12 @@
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-/obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
+/obj/item/gun/ballistic/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 // MARK: Sparkle-A12
-/obj/item/gun/projectile/automatic/sparkle_a12
+/obj/item/gun/ballistic/automatic/sparkle_a12
 	name = "A9 \"Sparkle\""
 	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый концерном \"Скарборо\". Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. Предназначен для ближнего боя в условиях ограниченного пространства."
 	icon_state = "sparkle-a12"
@@ -167,7 +167,7 @@
 	fire_delay = 1
 	damage_mod = 0.7
 
-/obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
+/obj/item/gun/ballistic/automatic/sparkle_a12/get_ru_names()
 	return list(
 		NOMINATIVE = "А9 \"Искра\"",
 		GENITIVE = "А9 \"Искра\"",
@@ -177,11 +177,11 @@
 		PREPOSITIONAL = "А9 \"Искра\""
 	)
 
-/obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
+/obj/item/gun/ballistic/automatic/sparkle_a12/update_icon_state()
 	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
 
 // MARK: Type-U3 Uzi
-/obj/item/gun/projectile/automatic/mini_uzi
+/obj/item/gun/ballistic/automatic/mini_uzi
 	name = "Type U3 Uzi"
 	desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
@@ -199,7 +199,7 @@
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 // MARK: Tommy Gun
-/obj/item/gun/projectile/automatic/tommygun
+/obj/item/gun/ballistic/automatic/tommygun
 	name = "Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
@@ -215,7 +215,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 // MARK: SFG-5
-/obj/item/gun/projectile/automatic/sfg
+/obj/item/gun/ballistic/automatic/sfg
 	name = "SFG-5"
 	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
 	icon_state = "sfg-5"
@@ -230,11 +230,11 @@
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
-/obj/item/gun/projectile/automatic/sfg/update_icon_state()
+/obj/item/gun/ballistic/automatic/sfg/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 
 // MARK: PPSh
-/obj/item/gun/projectile/automatic/ppsh
+/obj/item/gun/ballistic/automatic/ppsh
 	name = "PPSh submachine gun"
 	desc = "A submachine gun favored by Soviet soldiers."
 	icon_state = "ppsh"
@@ -256,12 +256,12 @@
 	recoil = GUN_RECOIL_HIGH
 
 
-/obj/item/gun/projectile/automatic/ppsh/rusted
+/obj/item/gun/ballistic/automatic/ppsh/rusted
 	name = "Rusted PPSh submachine gun"
 	desc = "An old submachine gun favored by Soviet soldiers."
 	damage_mod = 0.75
 
-/obj/item/gun/projectile/automatic/ppsh/rusted/ComponentInitialize()
+/obj/item/gun/ballistic/automatic/ppsh/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 4, malf_low_bound = 15, malf_high_bound = 71)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 30, misfire_high_bound = 71)

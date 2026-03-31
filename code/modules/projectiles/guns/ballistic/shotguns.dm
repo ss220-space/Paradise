@@ -1,9 +1,9 @@
 // MARK: Lethal
-/obj/item/gun/projectile/shotgun/lethal
+/obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 
 // MARK: Riot shotgun
-/obj/item/gun/projectile/shotgun/riot //for spawn in the armory
+/obj/item/gun/ballistic/shotgun/riot //for spawn in the armory
 	name = "riot shotgun"
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
@@ -19,7 +19,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 
-/obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/shotgun/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
 		if(sawoff(user))
@@ -41,7 +41,7 @@
 
 	return ..()
 
-/obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
+/obj/item/gun/ballistic/shotgun/riot/sawoff(mob/user)
 	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
 		balloon_alert(user, "нужно снять дульный модуль!")
 		return
@@ -85,7 +85,7 @@
 		post_sawoff()
 		return 1
 
-/obj/item/gun/projectile/shotgun/riot/proc/post_sawoff()
+/obj/item/gun/ballistic/shotgun/riot/proc/post_sawoff()
 	name = "assault shotgun"
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
@@ -104,7 +104,7 @@
 	)
 	update_icon()
 
-/obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
+/obj/item/gun/ballistic/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
 		balloon_alert(user, "нужно снять дульный модуль!")
 		return
@@ -137,7 +137,7 @@
 		post_unsaw(user)
 		return 1
 
-/obj/item/gun/projectile/shotgun/riot/proc/post_unsaw()
+/obj/item/gun/ballistic/shotgun/riot/proc/post_unsaw()
 	name = initial(name)
 	desc = initial(desc)
 	w_class = initial(w_class)
@@ -154,43 +154,43 @@
 	)
 	update_icon()
 
-/obj/item/gun/projectile/shotgun/riot/update_icon_state() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
+/obj/item/gun/ballistic/shotgun/riot/update_icon_state() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
 	if(current_skin)
 		icon_state = "[current_skin]"
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/item/gun/projectile/shotgun/riot/short
+/obj/item/gun/ballistic/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
 
-/obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
+/obj/item/gun/ballistic/shotgun/riot/short/Initialize(mapload)
 	. = ..()
 	post_sawoff()
 
-/obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
+/obj/item/gun/ballistic/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
 
 // MARK: Rusted shotgun
-/obj/item/gun/projectile/shotgun/lethal/rusted
+/obj/item/gun/ballistic/shotgun/lethal/rusted
 	desc = "A traditional shotgun. It looks like it has been lying here for a very long time, rust is pouring."
 	accuracy = GUN_ACCURACY_SHOTGUN
 
-/obj/item/gun/projectile/shotgun/lethal/rusted/ComponentInitialize()
+/obj/item/gun/ballistic/shotgun/lethal/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 4)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
 
 // MARK: Basic Auto Shotgun
-/obj/item/gun/projectile/shotgun/automatic
+/obj/item/gun/ballistic/shotgun/automatic
 
-/obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
 	addtimer(CALLBACK(src, PROC_REF(pump), user), 1)
 
 // MARK: Combat shotgun
-/obj/item/gun/projectile/shotgun/automatic/combat
+/obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
 	icon_state = "cshotgun"
@@ -209,7 +209,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 // MARK: Dual Tube
-/obj/item/gun/projectile/shotgun/automatic/dual_tube
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube
 	name = "cycler shotgun"
 	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
@@ -225,18 +225,18 @@
 	)
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/unload_act(mob/user)
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/unload_act(mob/user)
 	if(!chambered && length(magazine.contents))
 		pump()
 	else
 		toggle_tube(user)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/proc/toggle_tube(mob/living/user)
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/proc/toggle_tube(mob/living/user)
 	var/current_mag = magazine
 	var/alt_mag = alternate_magazine
 	magazine = alt_mag
@@ -248,16 +248,16 @@
 		balloon_alert(user, "переключено на второй ствол")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltShiftClick(mob/user)
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/AltShiftClick(mob/user)
 	. = ..()
 	try_detach_gun_module(user)
 
 // MARK: Bulldog
-/obj/item/gun/projectile/automatic/shotgun/bulldog
+/obj/item/gun/ballistic/automatic/shotgun/bulldog
 	name = "'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
@@ -280,25 +280,25 @@
 	recoil = GUN_RECOIL_HIGH
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/ComponentInitialize()
+/obj/item/gun/ballistic/automatic/shotgun/bulldog/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
+/obj/item/gun/ballistic/automatic/shotgun/bulldog/mastiff
 	name = "'Mastiff' Shotgun"
 	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
 	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
 	color = COLOR_ASSEMBLY_BROWN
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
+/obj/item/gun/ballistic/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/update_overlays()
+/obj/item/gun/ballistic/automatic/shotgun/bulldog/update_overlays()
 	. = ..()
 	if(magazine)
 		. += "[magazine.icon_state]"
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/update_weight()
+/obj/item/gun/ballistic/automatic/shotgun/bulldog/update_weight()
 	if(magazine)
 		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
 			w_class = WEIGHT_CLASS_BULKY
@@ -307,7 +307,7 @@
 	else
 		w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/magazine/m12g/XtrLrg) && isstorage(loc))	// To prevent inventory exploits
 		var/obj/item/storage/storage = loc
 		if(storage.max_w_class < WEIGHT_CLASS_BULKY)
@@ -317,7 +317,7 @@
 	return ..()
 
 // MARK: AS-12 Minotaur
-/obj/item/gun/projectile/automatic/shotgun/minotaur
+/obj/item/gun/ballistic/automatic/shotgun/minotaur
 	name = "AS-12 'Minotaur' Shotgun"
 	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
 	icon_state = "minotaur"
@@ -339,16 +339,16 @@
 	)
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/ComponentInitialize()
+/obj/item/gun/ballistic/automatic/shotgun/minotaur/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+/obj/item/gun/ballistic/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
 	..()
 
 // MARK: C.A.T.S.
-/obj/item/gun/projectile/automatic/cats
+/obj/item/gun/ballistic/automatic/cats
 	name = "C.A.T. Shotgun"
 	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
 	icon_state = "tla_cats"
@@ -366,11 +366,11 @@
 	)
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/automatic/cats/update_icon_state()
+/obj/item/gun/ballistic/automatic/cats/update_icon_state()
 	icon_state = "tla_cats[magazine ? "" : "-e"]"
 
 // MARK: Double-barreled
-/obj/item/gun/projectile/revolver/doublebarrel
+/obj/item/gun/ballistic/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
 	icon_state = "dshotgun"
@@ -389,11 +389,11 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	can_air_shoot = FALSE
 
-/obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
+/obj/item/gun/ballistic/revolver/doublebarrel/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
 		if(sawoff(user))
@@ -409,14 +409,14 @@
 
 	return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
+/obj/item/gun/ballistic/revolver/doublebarrel/sawoff(mob/user)
 	. = ..()
 	if(.)
 		weapon_weight = WEAPON_MEDIUM
 		can_holster = TRUE
 		accuracy = GUN_ACCURACY_MINIMAL
 
-/obj/item/gun/projectile/revolver/doublebarrel/unload_act(mob/user)
+/obj/item/gun/ballistic/revolver/doublebarrel/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo() > 0)
@@ -437,7 +437,7 @@
 		balloon_alert(user, "уже разряжено!")
 
 // MARK: Improvised
-/obj/item/gun/projectile/revolver/doublebarrel/improvised
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
@@ -451,7 +451,7 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
@@ -469,10 +469,10 @@
 
 	return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/update_icon_state()
 	icon_state = "ishotgun[slung ? "sling" : sawn_state == SAWN_OFF ? "-sawn" : ""]"
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
 	if(. && slung) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(drop_location(), 10)
@@ -480,7 +480,7 @@
 		update_icon()
 
 // MARK: Cane shotgun
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane
 	name = "cane"
 	desc = "Трость — верный спутник настоящего джентльмена. Или клоуна."
 	gender = FEMALE
@@ -502,7 +502,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_MEDIUM
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_ru_names()
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane/get_ru_names()
 	return list(
 		NOMINATIVE = "трость",
 		GENITIVE = "трости",
@@ -512,21 +512,21 @@
 		PREPOSITIONAL = "трости",
 	)
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 2
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane/update_overlays()
 	return list()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane/attackby(obj/item/I, mob/user, params)
 	if(iscoil(I))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."
 	if(blood_DNA && !istype(src, /obj/effect/decal))
 		if(gender == PLURAL)

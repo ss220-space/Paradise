@@ -13,9 +13,9 @@
 /obj/item/ammo_box/magazine/a762x51 : /obj/item/ammo_box/magazine/l6saw {@OLD}
 /obj/item/ammo_box/magazine/laser : /obj/item/ammo_box/magazine/ik60mag {@OLD}
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/security : /obj/item/gun/projectile/automatic/pistol/enforcer {@OLD}
-/obj/item/gun/projectile/automatic/ar : /obj/item/gun/projectile/automatic/arg {@OLD}
-/obj/item/gun/projectile/automatic/lasercarbine : /obj/item/gun/projectile/automatic/ik60 {@OLD}
-/obj/item/gun/projectile/automatic/aksu/rusted : /obj/item/gun/projectile/automatic/aks74u/rusted {@OLD}
+/obj/item/gun/ballistic/automatic/pistol/enforcer/security : /obj/item/gun/ballistic/automatic/pistol/enforcer {@OLD}
+/obj/item/gun/ballistic/automatic/ar : /obj/item/gun/ballistic/automatic/arg {@OLD}
+/obj/item/gun/ballistic/automatic/lasercarbine : /obj/item/gun/ballistic/automatic/ik60 {@OLD}
+/obj/item/gun/ballistic/automatic/aksu/rusted : /obj/item/gun/ballistic/automatic/aks74u/rusted {@OLD}
 
 /obj/projectile/hivebotbullet : /obj/projectile {@OLD}

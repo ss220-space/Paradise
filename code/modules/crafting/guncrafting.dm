@@ -116,7 +116,7 @@
 			to_chat(user, span_warning("You need at least five feet of wrapping paper to secure the stock."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You tie the wrapping paper around the stock and the barrel to secure it."))
-		var/obj/item/gun/projectile/revolver/doublebarrel/improvised/shotta = new(drop_location())
+		var/obj/item/gun/ballistic/revolver/doublebarrel/improvised/shotta = new(drop_location())
 		transfer_fingerprints_to(shotta)
 		shotta.add_fingerprint(user)
 		investigate_log("[key_name_log(user)] crafted [shotta]", INVESTIGATE_CRAFTING)

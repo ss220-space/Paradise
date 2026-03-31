@@ -1,4 +1,4 @@
-/obj/item/gun/projectile/automatic/speargun
+/obj/item/gun/ballistic/automatic/speargun
 	name = "kinetic speargun"
 	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
 	icon_state = "speargun"
@@ -16,21 +16,21 @@
 	recoil = null
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/speargun/update_icon_state()
+/obj/item/gun/ballistic/automatic/speargun/update_icon_state()
 	return
 
-/obj/item/gun/projectile/automatic/speargun/attack_self()
+/obj/item/gun/ballistic/automatic/speargun/attack_self()
 	return
 
-/obj/item/gun/projectile/automatic/speargun/can_shoot(mob/user)
+/obj/item/gun/ballistic/automatic/speargun/can_shoot(mob/user)
 	if(chambered)
 		return TRUE
 	return FALSE
 
-/obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 
-/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/automatic/speargun/attackby(obj/item/I, mob/user, params)
 	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)

@@ -4,7 +4,7 @@
 		/obj/item/twohanded/spear/secspear,
 		/obj/item/gun/energy,
 		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/gun/projectile,
+		/obj/item/gun/ballistic,
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/melee/baton,
@@ -188,7 +188,7 @@
 	icon_state = "sec_rps"
 	armor=  list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	undyeable = TRUE
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/ballistic,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	pockets_count = 4
 	pockets_max_combined_w_class = 8
 
@@ -626,7 +626,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/ballistic,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
@@ -653,7 +653,7 @@
 //same defense as basic sec armor
 /obj/item/clothing/suit/storage/lawyer/blackjacket/armored
 	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
-	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/ballistic/revolver, /obj/item/gun/ballistic/automatic/pistol)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT

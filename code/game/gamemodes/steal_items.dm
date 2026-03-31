@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/highrisk/secgl_x4
 	id = "secgl_x4"
 	name = "the security grenade launcher GL-08-4"
-	typepath = /obj/item/gun/projectile/bombarda/secgl/x4
+	typepath = /obj/item/gun/ballistic/bombarda/secgl/x4
 	protected_jobs = list(JOB_TITLE_HOS)
 
 /datum/theft_objective/highrisk/captains_jetpack
@@ -313,12 +313,12 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/hard/unica
 	id = "rev_hos"
-	typepath = /obj/item/gun/projectile/revolver/mateba
+	typepath = /obj/item/gun/ballistic/revolver/mateba
 	name = "Unica 6, авторевольвер"
 
 /datum/theft_objective/hard/detective
 	id = "rev_dec"
-	typepath = /obj/item/gun/projectile/revolver/detective
+	typepath = /obj/item/gun/ballistic/revolver/detective
 	name = ".38 Mars, заказной револьвер детектива"
 
 /datum/theft_objective/hard/space_cap
@@ -807,7 +807,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/wt550
 	id = "collect_num_wt550"
-	typepath = /obj/item/gun/projectile/automatic/wt550
+	typepath = /obj/item/gun/ballistic/automatic/wt550
 	name = "пистолеты-пулемёты WT550"
 	min=2
 	max=6
@@ -856,14 +856,14 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/automatic
 	id = "collect_num_automatic"
-	typepath = /obj/item/gun/projectile/automatic
+	typepath = /obj/item/gun/ballistic/automatic
 	name = "любое стрелковое оружие со сьёмным типом магазина"
 	min=2
 	max=6
 
 /datum/theft_objective/collect/number/revolver
 	id = "collect_num_revolver"
-	typepath = /obj/item/gun/projectile/revolver
+	typepath = /obj/item/gun/ballistic/revolver
 	name = "любые револьверы или неавтоматические дробовики"
 	min=2
 	max=6

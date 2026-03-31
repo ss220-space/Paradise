@@ -85,7 +85,7 @@
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
 	items_path = list(
-		/obj/item/gun/projectile/revolver,
+		/obj/item/gun/ballistic/revolver,
 		/obj/item/ammo_box/speedloader/a357,
 		/obj/item/ammo_box/speedloader/a357,
 		/obj/item/ammo_box/speedloader/a357,

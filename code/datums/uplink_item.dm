@@ -782,7 +782,7 @@
 	desc = "Современный дробовик с магнитным механизмом питания, способный стрелять очередями. В зависимости от типа барабана, он может вмещать от 12 до 24 патронов, \
 			что делает его идеальным для ближнего боя. \
 			Обладает большим разнообразием боеприпасов, выбор которых во многом определяет эффективность дробовика и стиль ведения боя."
-	item = /obj/item/gun/projectile/automatic/shotgun/minotaur
+	item = /obj/item/gun/ballistic/automatic/shotgun/minotaur
 	cost = 80
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -813,7 +813,7 @@
 	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
 			Имеет только автоматический режим огня. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/c20r/auto
+	item = /obj/item/gun/ballistic/automatic/c20r/auto
 	cost = 70
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -822,7 +822,7 @@
 	name = "Карабин \"М-90gl\""
 	desc = "Полностью заряженный карабин, оснащённый магазином калибра 5.56 мм на 30 патронов. \
 			Cовместим с глушителем. Имеет подстольный гранатомет под снаряды калибра 40 мм."
-	item = /obj/item/gun/projectile/automatic/m90
+	item = /obj/item/gun/ballistic/automatic/m90
 	cost = 80
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
@@ -831,7 +831,7 @@
 	name = "Ручной пулемёт \"L6 SAW\""
 	desc = "Полностью заряженный ручной пулемёт с ленточным питанием, оснащённый магазином на 50 патронов калибра 5.56x45 мм. \
 			Прекрасно подойдёт для уничтожения живой силы или поддержки пехоты. Требует использования обоих рук для стрельбы."
-	item = /obj/item/gun/projectile/automatic/l6_saw
+	item = /obj/item/gun/ballistic/automatic/l6_saw
 	cost = 175
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -841,7 +841,7 @@
 	desc = "Полностью заряженная винтовка со снайперским прицелом, оснащённая магазином на 5 патронов .50 калибра. Совместима с глушителем. \
 			Требует использования обоих рук для стрельбы. Обладает огромной убойной силой и бронепробитием в зависимости от типа патрона. \
 			Будьте уверены, она не оставит вас равнодушными, а ваши ТК будут потрачены с пользой! Невероятная мощь \"Синдиката\"!"
-	item = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
+	item = /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
 	cost = 100
 	surplus = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -925,7 +925,7 @@
 	desc = "Полностью заряженный игрушечный пистолет-пулемёт, оснащённый магазином на 20 усиленных пенных патронов. \
 			Предназначен для выведения из строя цели, не причиняя ей вреда. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона."
-	item = /obj/item/gun/projectile/automatic/c20r/toy
+	item = /obj/item/gun/ballistic/automatic/c20r/toy
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -935,7 +935,7 @@
 	desc = "Полностью заряженный игрушечный пулемёт с ленточным питанием, оснащённый магазином на 50 усиленных пенных патронов. \
 			Предназначен для выведения из строя цели, не причиняя ей вреда. \
 			Способен ненадолго вывести цель из строя всего одним залпом. Требует использования обоих рук для стрельбы."
-	item = /obj/item/gun/projectile/automatic/l6_saw/toy
+	item = /obj/item/gun/ballistic/automatic/l6_saw/toy
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1350,7 +1350,7 @@
 	desc = "Полностью заряженный игрушечный пистолет компании \"Донксофт\", оснащённый магазином на 8 усиленных пенных патронов. \
 			Как и его огнестрельный аналог, этот пистолет очень компактный и легко помещается в карман. \
 			Предназначен для выведения из строя цели, не причиняя ей вреда."
-	item = /obj/item/gun/projectile/automatic/toy/pistol/riot
+	item = /obj/item/gun/ballistic/automatic/toy/pistol/riot
 	cost = 12
 	surplus = 10
 
@@ -1523,7 +1523,7 @@
 	desc = "Многоразовый реактивный гранатомёт, предварительно заряженный осколочно-фугасной ракетой калибра 84 мм (HE). \
 			Характеристики могут различаться в зависимости от типа используемой ракеты (HE и HEDP). \
 			На стволе можно увидеть надпись \"НТ в той стороне\" и стрелку, указывающую направление выстрела."
-	item = /obj/item/gun/projectile/revolver/rocketlauncher
+	item = /obj/item/gun/ballistic/revolver/rocketlauncher
 	cost = 50
 	surplus = 0 // no way
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

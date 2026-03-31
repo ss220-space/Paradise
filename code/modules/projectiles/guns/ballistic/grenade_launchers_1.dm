@@ -1,5 +1,5 @@
 // MARK: Bombarda
-/obj/item/gun/projectile/bombarda
+/obj/item/gun/ballistic/bombarda
 	name = "Bombarda"
 	desc = "Hand made analog of grenade launcher. Can fire improvised shells."
 	icon = 'icons/obj/weapons/bombarda.dmi'
@@ -17,7 +17,7 @@
 	recoil = GUN_RECOIL_MEGA
 	var/opened = FALSE
 
-/obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/ballistic/bombarda/attackby(obj/item/item, mob/user, params)
 	if(isammocasing(item))
 		add_fingerprint(user)
 		if(!opened)
@@ -34,27 +34,27 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-/obj/item/gun/projectile/bombarda/update_icon_state()
+/obj/item/gun/ballistic/bombarda/update_icon_state()
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
 	item_state = initial(item_state) + (opened ?  "_open" : "")
 
-/obj/item/gun/projectile/bombarda/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/bombarda/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	..(FALSE, empty_chamber)
 
-/obj/item/gun/projectile/bombarda/chamber_round()
+/obj/item/gun/ballistic/bombarda/chamber_round()
 	return
 
-/obj/item/gun/projectile/bombarda/get_ammo(countchambered = FALSE, countempties = FALSE)
+/obj/item/gun/ballistic/bombarda/get_ammo(countchambered = FALSE, countempties = FALSE)
 	return ..(countchambered, countempties)
 
-/obj/item/gun/projectile/bombarda/can_shoot(mob/user)
+/obj/item/gun/ballistic/bombarda/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
 	if(opened)
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
-/obj/item/gun/projectile/bombarda/unload_act(mob/user)
+/obj/item/gun/ballistic/bombarda/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, pump_cooldown)
@@ -63,7 +63,7 @@
 		return
 	open_pump(user)
 
-/obj/item/gun/projectile/bombarda/proc/open_pump(mob/user)
+/obj/item/gun/ballistic/bombarda/proc/open_pump(mob/user)
 	if(opened)
 		return FALSE
 	opened = TRUE
@@ -85,7 +85,7 @@
 	update_icon()
 	return TRUE
 
-/obj/item/gun/projectile/bombarda/chamber_round(spin = TRUE)
+/obj/item/gun/ballistic/bombarda/chamber_round(spin = TRUE)
 	if(!magazine)
 		return
 	if(spin)
@@ -95,11 +95,11 @@
 		return
 	chambered = magazine.stored_ammo[1]
 
-/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
+/obj/item/gun/ballistic/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
 	..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
+/obj/item/gun/ballistic/bombarda/proc/close_pump(mob/user)
 	if(!opened)
 		return FALSE
 	opened = FALSE
@@ -110,7 +110,7 @@
 	return TRUE
 
 // MARK: GL-06
-/obj/item/gun/projectile/bombarda/secgl
+/obj/item/gun/ballistic/bombarda/secgl
 	name = "grenade launcher GL-06"
 	desc = "Однозарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 40 мм гранаты."
 	icon_state = "secgl"
@@ -119,7 +119,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/bombarda/secgl/get_ru_names()
+/obj/item/gun/ballistic/bombarda/secgl/get_ru_names()
 	return list(
 		NOMINATIVE = "ручной гранатомет GL-06",
 		GENITIVE = "ручного гранатомета GL-06",
@@ -130,7 +130,7 @@
 	)
 
 // MARK: GL-08-04
-/obj/item/gun/projectile/bombarda/secgl/x4
+/obj/item/gun/ballistic/bombarda/secgl/x4
 	name = "grenade launcher GL-08-4"
 	desc = "Четырехзарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Применяется для подавления беспорядков с помощью не летальных боеприпасов. Может запускать 40 мм гранаты."
 	icon_state = "secgl_4"
@@ -144,7 +144,7 @@
 	var/high_risk = TRUE
 	fire_delay = 1.5 SECONDS
 
-/obj/item/gun/projectile/bombarda/secgl/x4/get_ru_names()
+/obj/item/gun/ballistic/bombarda/secgl/x4/get_ru_names()
 	return list(
 		NOMINATIVE = "ручной гранатомет GL-08-4",
 		GENITIVE = "ручного гранатомета GL-08-4",
@@ -154,19 +154,19 @@
 		PREPOSITIONAL = "ручном гранатомете GL-08-4",
 	)
 
-/obj/item/gun/projectile/bombarda/secgl/x4/Initialize(mapload, ...)
+/obj/item/gun/ballistic/bombarda/secgl/x4/Initialize(mapload, ...)
 	. = ..()
 	if(high_risk)
 		AddElement(/datum/element/high_value_item)
 
 // MARK: M79
-/obj/item/gun/projectile/bombarda/secgl/m79
+/obj/item/gun/ballistic/bombarda/secgl/m79
 	name = "grenade launcher M79"
 	desc = "Классический однозарядный ручной гранатомёт, разработанный в 1961 году. Использует 40 мм гранаты."
 	icon_state = "m79"
 	item_state = "m79"
 
-/obj/item/gun/projectile/bombarda/secgl/m79/get_ru_names()
+/obj/item/gun/ballistic/bombarda/secgl/m79/get_ru_names()
 	return list(
 		NOMINATIVE = "ручной гранатомет M79",
 		GENITIVE = "ручного гранатомета M79",
@@ -177,14 +177,14 @@
 	)
 
 // MARK: Double bombarda
-/obj/item/gun/projectile/bombarda/bombplet
+/obj/item/gun/ballistic/bombarda/bombplet
 	name = "bombplet"
 	desc = "Двуствольная самодельная бомбарда. Использует 40 мм гранаты."
 	icon_state = "bombplet"
 	item_state = "bombplet"
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/x2
 
-/obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
+/obj/item/gun/ballistic/bombarda/bombplet/get_ru_names()
 	return list(
 		NOMINATIVE = "самодельный двуствольный гранатомет",
 		GENITIVE = "самодельного двуствольного гранатомета",
@@ -198,7 +198,7 @@
 // TODO: move the stuff below into it's own files
 /datum/crafting_recipe/bombarda
 	name = "Bombarda"
-	result = /obj/item/gun/projectile/bombarda
+	result = /obj/item/gun/ballistic/bombarda
 	reqs = list(
 		/obj/item/restraints/handcuffs/cable = 2,
 		/obj/item/stack/tape_roll = 10,
@@ -215,10 +215,10 @@
 // No fun allowed: https://github.com/ss220-space/Paradise/pull/7473#issuecomment-3217889330
 // /datum/crafting_recipe/bombplet
 // 	name = "Bombplet"
-// 	result = /obj/item/gun/projectile/bombarda/bombplet
+// 	result = /obj/item/gun/ballistic/bombarda/bombplet
 // 	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
 // 				/obj/item/stack/tape_roll = 10,
-// 				/obj/item/gun/projectile/bombarda = 2)
+// 				/obj/item/gun/ballistic/bombarda = 2)
 // 	time = 6 SECONDS
 // 	category = CAT_WEAPONRY
 // 	subcategory = CAT_WEAPON

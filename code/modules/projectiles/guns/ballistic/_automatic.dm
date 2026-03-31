@@ -1,4 +1,4 @@
-/obj/item/gun/projectile/automatic
+/obj/item/gun/ballistic/automatic
 	var/select = GUN_BURST_MODE
 	can_tactical = TRUE
 	can_holster = FALSE
@@ -8,12 +8,12 @@
 	var/fire_modes = GUN_MODE_SINGLE_BURST
 	var/autofire_delay = 0.2 SECONDS
 
-/obj/item/gun/projectile/automatic/Initialize(mapload)
+/obj/item/gun/ballistic/automatic/Initialize(mapload)
 	if(fire_modes == GUN_MODE_SINGLE_ONLY)
 		actions_types = null
 	. = ..()
 
-/obj/item/gun/projectile/automatic/ComponentInitialize()
+/obj/item/gun/ballistic/automatic/ComponentInitialize()
 	. = ..()
 	if(fire_modes != GUN_MODE_SINGLE_BURST_AUTO)
 		return
@@ -21,10 +21,10 @@
 	burst_size = 1
 	AddComponent(/datum/component/automatic_fire, autofire_delay)
 
-/obj/item/gun/projectile/automatic/update_icon_state()
+/obj/item/gun/ballistic/automatic/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/update_overlays()
+/obj/item/gun/ballistic/automatic/update_overlays()
 	. = ..()
 	switch(select)
 		if(GUN_SINGLE_MODE)
@@ -32,13 +32,13 @@
 		if(GUN_BURST_MODE)
 			. += "[initial(icon_state)]burst"
 
-/obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
+/obj/item/gun/ballistic/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		toggle_firemode()
 		return TRUE
 	. = ..()
 
-/obj/item/gun/projectile/automatic/proc/toggle_firemode()
+/obj/item/gun/ballistic/automatic/proc/toggle_firemode()
 	if(fire_modes == GUN_MODE_SINGLE_ONLY)
 		return // not available change modes
 	var/mob/living/carbon/human/user = usr
@@ -67,10 +67,10 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/gun/projectile/automatic/can_shoot(mob/user)
+/obj/item/gun/ballistic/automatic/can_shoot(mob/user)
 	return get_ammo()
 
-/obj/item/gun/projectile/automatic/CtrlClick(mob/user)
+/obj/item/gun/ballistic/automatic/CtrlClick(mob/user)
 	if(user.is_in_hands(src) && chambered)
 		process_chamber(TRUE, TRUE)
 		balloon_alert(user, "патрон извлечён")

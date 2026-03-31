@@ -46,14 +46,14 @@
 
 /datum/outfit/lavaland_syndicate
 	name = "Lavaland Syndicate Agent"
-	r_hand = /obj/item/gun/projectile/automatic/sniper_rifle
+	r_hand = /obj/item/gun/ballistic/automatic/sniper_rifle
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland // See del_types above
 	back = /obj/item/storage/backpack
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	r_pocket = /obj/item/gun/ballistic/automatic/pistol
 	id = /obj/item/card/id/syndicate/anyone
 	implants = list(/obj/item/implant/weapons_auth)
 

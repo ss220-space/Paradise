@@ -252,9 +252,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/stechkin
 	name = "Syndicate Stechkin Pistol Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/ballistic/automatic/pistol,
+		/obj/item/gun/ballistic/automatic/pistol,
+		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/gun_module/muzzle/suppressor,
@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/mini_uzi
 	name = "Пистолет пулемет \"Узи\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/gun/ballistic/automatic/mini_uzi,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/ammo_box/magazine/uzim9mm,
 	)
@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/mastiff
 	name = "Дробовик \"Мастиф\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff,
+		/obj/item/gun/ballistic/automatic/shotgun/bulldog/mastiff,
 		/obj/item/ammo_box/magazine/cheap_m12g,
 		/obj/item/ammo_box/magazine/cheap_m12g,
 	)
@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/deagle
 	name = "Syndicate Desert Eagle Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/pistol/deagle,
+		/obj/item/gun/ballistic/automatic/pistol/deagle,
 	)
 	cost = 15000
 	containername = "Syndicate Desert Eagle crate"
@@ -579,9 +579,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/revolver
 	name = "Syndicate .357 Revolver Crate"
 	contains = list(
-		/obj/item/gun/projectile/revolver,
-		/obj/item/gun/projectile/revolver,
-		/obj/item/gun/projectile/revolver,
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/gun/ballistic/revolver,
 	)
 	cost = 5000
 	containername = "Syndicate .357 Revolver crate"
@@ -610,9 +610,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/bulldog
 	name = "Syndicate Bulldog Shotguns Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/shotgun/bulldog,
-		/obj/item/gun/projectile/automatic/shotgun/bulldog,
-		/obj/item/gun/projectile/automatic/shotgun/bulldog,
+		/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+		/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+		/obj/item/gun/ballistic/automatic/shotgun/bulldog,
 	)
 	cost = 4000
 	containername = "Bulldog shotguns crate"
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/sniper_rifle
 	name = "Syndicate Sniper Rifle Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+		/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
 	)
 	cost = 18000
 	containername = "Sniper Rifle crate"
@@ -720,7 +720,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/carbine
 	name = "Syndicate M-90gl Carbine Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/m90,
+		/obj/item/gun/ballistic/automatic/m90,
 	)
 	cost = 16000
 	containername = "M-90gl Carbine crate"
@@ -748,7 +748,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/l6_saw
 	name = "Syndicate L6 Squad Automatic Weapon Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/l6_saw,
+		/obj/item/gun/ballistic/automatic/l6_saw,
 	)
 	cost = 50000
 	containername = "L6 Squad Automatic Weapon crate"
@@ -2427,8 +2427,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/under/mafia/white,
 		/obj/item/clothing/under/mafia/sue,
 		/obj/item/clothing/under/mafia/tan,
-		/obj/item/gun/projectile/shotgun/toy/tommygun,
-		/obj/item/gun/projectile/shotgun/toy/tommygun,
+		/obj/item/gun/ballistic/shotgun/toy/tommygun,
+		/obj/item/gun/ballistic/shotgun/toy/tommygun,
 	)
 	cost = 150
 	containername = "mafia supply crate"
@@ -2474,14 +2474,14 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/misc/foamforce
 	name = "Foam Force Crate"
 	contains = list(
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
-		/obj/item/gun/projectile/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
+		/obj/item/gun/ballistic/shotgun/toy,
 	)
 	cost = 100
 	containername = "foam force crate"
@@ -2489,8 +2489,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/misc/foamforce/bonus
 	name = "Foam Force Pistols Crate"
 	contains = list(
-		/obj/item/gun/projectile/automatic/toy/pistol,
-		/obj/item/gun/projectile/automatic/toy/pistol,
+		/obj/item/gun/ballistic/automatic/toy/pistol,
+		/obj/item/gun/ballistic/automatic/toy/pistol,
 		/obj/item/ammo_box/magazine/toy/pistol,
 		/obj/item/ammo_box/magazine/toy/pistol,
 	)
@@ -2826,7 +2826,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(
 		/obj/item/clothing/glasses/hud/security/chameleon,
 		/obj/item/pen/fancy/bomb,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/hp,
@@ -2868,7 +2868,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'PayDay' Bundle"
 	contains = list(
 		/obj/item/implanter/freedom/prototype,
-		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/gun/ballistic/automatic/mini_uzi,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/card/emag,
@@ -2942,7 +2942,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/syndicate_special/professional
 	name = "Syndicate 'Professional' Bundle"
 	contains = list(
-		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
+		/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate/penetrator,
 		/obj/item/ammo_box/magazine/sniper_rounds/compact,
 		/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator,
 		/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator,
@@ -2967,7 +2967,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/mask/chameleon,
 		/obj/item/storage/belt/military/traitor/sec,
 		/obj/item/pinpointer/advpinpointer,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/ap,
 		/obj/item/ammo_box/magazine/m10mm/fire,
@@ -2982,7 +2982,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'MetaOps' Bundle"
 	contains = list(
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite,
-		/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff,
+		/obj/item/gun/ballistic/automatic/shotgun/bulldog/mastiff,
 		/obj/item/implanter/explosive,
 		/obj/item/ammo_box/magazine/cheap_m12g,
 		/obj/item/ammo_box/magazine/cheap_m12g,
@@ -3015,7 +3015,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'Grenadier' Bundle"
 	contains = list(
 		/obj/item/storage/belt/grenade/demolitionist,
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/fire,
@@ -3040,7 +3040,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/accessory/holster,  // 0 TC
 		/obj/item/storage/belt/military/traitor/sec,  // 0 TC
 		/obj/item/pinpointer/advpinpointer,  // 4 TC
-		/obj/item/gun/projectile/automatic/pistol,  // 4 TC
+		/obj/item/gun/ballistic/automatic/pistol,  // 4 TC
 		/obj/item/ammo_box/magazine/m10mm, // 1 TC
 		/obj/item/ammo_box/magazine/m10mm/ap,  // 1 TC
 		/obj/item/ammo_box/magazine/m10mm/fire,  // 1 TC
@@ -3059,8 +3059,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'Ocelot' Bundle"
 	contains = list(
 		/obj/item/kitchen/knife/combat, // 0 TK
-		/obj/item/gun/projectile/revolver, // 50 TK
-		/obj/item/gun/projectile/revolver, // 50 TK
+		/obj/item/gun/ballistic/revolver, // 50 TK
+		/obj/item/gun/ballistic/revolver, // 50 TK
 		/obj/item/ammo_box/a357, // 0 TK
 		/obj/item/ammo_box/a357, // 0 TK
 		/obj/item/ammo_box/speedloader/a357, // 5 TK

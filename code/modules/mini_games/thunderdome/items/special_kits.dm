@@ -23,7 +23,7 @@
 	new /obj/item/melee/energy/axe(src)
 
 /obj/item/storage/box/thunderdome/bombarda/populate_contents()
-	new /obj/item/gun/projectile/bombarda(src)
+	new /obj/item/gun/ballistic/bombarda(src)
 	//perfectionsm
 	for(var/i = 0, i < 3, i++)
 		new /obj/item/ammo_casing/a40mm/improvised/smoke_shell(src)

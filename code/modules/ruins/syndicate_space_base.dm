@@ -51,7 +51,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
 	back = /obj/item/storage/backpack/syndicate/science
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	r_pocket = /obj/item/gun/ballistic/automatic/pistol
 	id = /obj/item/card/id/syndicate/scientist
 	implants = list(/obj/item/implant/weapons_auth)
 
@@ -216,7 +216,7 @@
 	r_hand = /obj/item/twohanded/dualsaber
 	mask = /obj/item/clothing/mask/chameleon
 	suit = /obj/item/clothing/suit/armor/vest
-	belt = /obj/item/gun/projectile/automatic/pistol/deagle
+	belt = /obj/item/gun/ballistic/automatic/pistol/deagle
 	back = /obj/item/storage/backpack/fluff/syndiesatchel
 	id = /obj/item/card/id/syndicate/comms_officer
 	backpack_contents = list(

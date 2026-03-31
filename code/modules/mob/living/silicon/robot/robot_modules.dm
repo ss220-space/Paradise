@@ -789,7 +789,7 @@
 	. = ..()
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/gun/energy/printer(src)
-	modules += new /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
+	modules += new /obj/item/gun/ballistic/revolver/grenadelauncher/multi/cyborg(src)
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)

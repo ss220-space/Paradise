@@ -362,13 +362,13 @@
 		if(25 to 35) // 10%
 			SynRange = /obj/item/ammo_box/magazine/m10mm
 		if(35 to 40) // 5%
-			SynRange = /obj/item/gun/projectile/automatic/pistol
+			SynRange = /obj/item/gun/ballistic/automatic/pistol
 		if(40 to 47) // 7%
 			SynRange = /obj/item/clothing/accessory/holster
 		if(47 to 50) // 3%
 			SynRange = /obj/item/ammo_box/magazine/smgm45
 		if(50 to 51) // 1%
-			SynRange = /obj/item/gun/projectile/automatic/c20r
+			SynRange = /obj/item/gun/ballistic/automatic/c20r
 		else
 			SynRange = /obj/item/ammo_casing/c10mm
 	. = ..()
@@ -561,19 +561,19 @@
 	var/secgun = rand(1,10)
 	switch(secgun)
 		if(1 to 7) //70%
-			suit_store = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
+			suit_store = /obj/item/gun/ballistic/automatic/pistol/enforcer/lethal
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
 				/obj/item/ammo_box/magazine/enforcer/lethal = 1,
 			)
 		if(8 to 9) //20%
-			suit_store = /obj/item/gun/projectile/automatic/wt550
+			suit_store = /obj/item/gun/ballistic/automatic/wt550
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
 				/obj/item/ammo_box/magazine/wt550m9 = 1,
 			)
 		if(10) //10%
-			suit_store = /obj/item/gun/projectile/shotgun/riot/buckshot
+			suit_store = /obj/item/gun/ballistic/shotgun/riot/buckshot
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
 				/obj/item/ammo_box/shotgun/buck = 1,

@@ -391,7 +391,7 @@
 
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
-	result = /obj/item/gun/projectile/revolver/doublebarrel/improvised
+	result = /obj/item/gun/ballistic/revolver/doublebarrel/improvised
 	reqs = list(
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/pipe = 1,
@@ -405,7 +405,7 @@
 
 /datum/crafting_recipe/irevolver
 	name = "Improvised Revolver"
-	result = /obj/item/gun/projectile/revolver/improvised
+	result = /obj/item/gun/ballistic/revolver/improvised
 	reqs = list(
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/stack/sheet/wood = 2,
@@ -1045,7 +1045,7 @@
 
 /datum/crafting_recipe/bow
 	name = "Wooden Bow"
-	result = /obj/item/gun/projectile/bow
+	result = /obj/item/gun/ballistic/bow
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
 		/obj/item/stack/sheet/sinew = 2,
@@ -1056,15 +1056,15 @@
 
 /datum/crafting_recipe/bone_bow
 	name = "Bone Bow"
-	result = /obj/item/gun/projectile/bow/ashen
+	result = /obj/item/gun/ballistic/bow/ashen
 	time = 8 SECONDS
 	reqs = list(
-		/obj/item/gun/projectile/bow = 1, //it's actually tier 2 bow
+		/obj/item/gun/ballistic/bow = 1, //it's actually tier 2 bow
 		/obj/item/stack/sheet/bone = 4,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 2,
 		/obj/item/stack/sheet/sinew = 2,
 	)
-	blacklist = list(/obj/item/gun/projectile/bow/ashen)
+	blacklist = list(/obj/item/gun/ballistic/bow/ashen)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 

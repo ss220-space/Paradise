@@ -97,7 +97,7 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/garmentbag/warden(src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8(src)
+	new /obj/item/gun/ballistic/automatic/pistol/sp8(src)
 	new /obj/item/ammo_box/magazine/sp8(src)
 	new /obj/item/ammo_box/magazine/sp8(src)
 	new /obj/item/security_voucher(src)
@@ -132,7 +132,7 @@
 	)
 
 /obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
-	new /obj/item/gun/projectile/bombarda/secgl(src)
+	new /obj/item/gun/ballistic/bombarda/secgl(src)
 	new /obj/item/ammo_box/secgl/solid(src)
 	new /obj/item/ammo_box/secgl/solid(src)
 	new /obj/item/ammo_box/secgl/flash(src)
@@ -178,11 +178,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
+	new /obj/item/gun/ballistic/automatic/wt550(src)
+	new /obj/item/gun/ballistic/automatic/wt550(src)
+	new /obj/item/gun/ballistic/automatic/wt550(src)
+	new /obj/item/gun/ballistic/automatic/wt550(src)
+	new /obj/item/gun/ballistic/automatic/wt550(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91
 	name = "security SP-91-RC gun cabinet"
@@ -200,11 +200,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	new /obj/item/gun/ballistic/automatic/sp91rc(src)
+	new /obj/item/gun/ballistic/automatic/sp91rc(src)
+	new /obj/item/gun/ballistic/automatic/sp91rc(src)
+	new /obj/item/gun/ballistic/automatic/sp91rc(src)
+	new /obj/item/gun/ballistic/automatic/sp91rc(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12
 	name = "security Sparkle-A12 gun cabinet"
@@ -222,11 +222,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/ballistic/automatic/sparkle_a12(src)
+	new /obj/item/gun/ballistic/automatic/sparkle_a12(src)
+	new /obj/item/gun/ballistic/automatic/sparkle_a12(src)
+	new /obj/item/gun/ballistic/automatic/sparkle_a12(src)
+	new /obj/item/gun/ballistic/automatic/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
@@ -266,11 +266,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
-	new /obj/item/gun/projectile/automatic/lr30(src)
+	new /obj/item/gun/ballistic/automatic/lr30(src)
+	new /obj/item/gun/ballistic/automatic/lr30(src)
+	new /obj/item/gun/ballistic/automatic/lr30(src)
+	new /obj/item/gun/ballistic/automatic/lr30(src)
+	new /obj/item/gun/ballistic/automatic/lr30(src)
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"

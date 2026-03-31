@@ -1,5 +1,5 @@
 // MARK: L6 SAW
-/obj/item/gun/projectile/automatic/l6_saw
+/obj/item/gun/ballistic/automatic/l6_saw
 	name = "L6 SAW"
 	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
 	icon_state = "l6closed100"
@@ -24,23 +24,23 @@
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-/obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
+/obj/item/gun/ballistic/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
 	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, TRUE)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
+/obj/item/gun/ballistic/automatic/l6_saw/update_icon_state()
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
-/obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
+/obj/item/gun/ballistic/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)
 		balloon_alert(user, "крышка не закрыта!")
 		return FALSE
 	return ..()
 
-/obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
+/obj/item/gun/ballistic/automatic/l6_saw/attack_hand(mob/user)
 	if(loc != user)
 		..()
 		return	//let them pick it up
@@ -56,7 +56,7 @@
 		update_icon()
 		balloon_alert(user, "магазин вынут")
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, mag_type) && !cover_open)
 		balloon_alert(user, "крышка закрыта!")
 		return ATTACK_CHAIN_PROCEED

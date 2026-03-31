@@ -160,7 +160,7 @@
 
 /obj/item/clothing/accessory/holster/armpit
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
-	holster_allow = /obj/item/gun/projectile
+	holster_allow = /obj/item/gun/ballistic
 
 /obj/item/clothing/accessory/holster/waist
 	desc = "A handgun holster. Made of expensive leather."

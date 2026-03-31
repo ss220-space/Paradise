@@ -1,5 +1,5 @@
 // MARK: .38 Mars Special
-/obj/item/gun/projectile/revolver/detective
+/obj/item/gun/ballistic/revolver/detective
 	name = ".38 Mars Special"
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	icon_state = "detective"
@@ -9,12 +9,12 @@
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-/obj/item/gun/projectile/revolver/detective/ComponentInitialize()
+/obj/item/gun/ballistic/revolver/detective/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
 // MARK: Taurus
-/obj/item/gun/projectile/revolver/taurus
+/obj/item/gun/ballistic/revolver/taurus
 	name = "Taurus revolver"
 	desc = "Револьвер под калибр .45 Colt, используемый силовыми структурами \"Нанотрейзен\". \
 			Отличается простотой конструкции, высокой надёжностью и минимальным количеством движущихся частей. Произведён \"Оружейной Ауссек\"."
@@ -31,11 +31,11 @@
 	)
 	can_air_shoot = FALSE
 
-/obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
+/obj/item/gun/ballistic/revolver/taurus/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/revolver/taurus/get_ru_names()
+/obj/item/gun/ballistic/revolver/taurus/get_ru_names()
 	return list(
 		NOMINATIVE = "револьвер \"Таурус\"",
 		GENITIVE = "револьвера \"Таурус\"",
@@ -46,7 +46,7 @@
 	)
 
 // MARK: Finger gun (Mime)
-/obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
+/obj/item/gun/ballistic/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
@@ -65,48 +65,48 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
+/obj/item/gun/ballistic/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	parent_spell = new_parent_spell
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	verbs -= /obj/item/gun/ballistic/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/fingergun/fake
+/obj/item/gun/ballistic/revolver/fingergun/fake
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
-/obj/item/gun/projectile/revolver/fingergun/Destroy()
+/obj/item/gun/ballistic/revolver/fingergun/Destroy()
 	if(parent_spell)
 		parent_spell.current_gun = null
 		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 		parent_spell = null
 	return ..()
 
-/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(mob/living/user)
+/obj/item/gun/ballistic/revolver/fingergun/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, span_notice("You are out of ammo! You holster your fingers."))
 	qdel(src)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/ballistic/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!user.mind?.miming)
 		to_chat(user, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
 	return ..()
 
-/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/fingergun/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+/obj/item/gun/ballistic/revolver/fingergun/attack_self(mob/living/user)
 	. = ..()
 	if(istype(user))
 		to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
 
-/obj/item/gun/projectile/revolver/fingergun/unload_act(mob/user)
+/obj/item/gun/ballistic/revolver/fingergun/unload_act(mob/user)
 	return
 
 // MARK: Unica-6
-/obj/item/gun/projectile/revolver/mateba
+/obj/item/gun/ballistic/revolver/mateba
 	name = "Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
@@ -117,7 +117,7 @@
 	)
 
 // MARK: Tkach Ya-Sui
-/obj/item/gun/projectile/revolver/ga12
+/obj/item/gun/ballistic/revolver/ga12
 	name = "Tkach Ya-Sui GA 12 revolver"
 	desc = "An outdated sidearm rarely seen in use by certain PMCs that operate throughout the frontier systems, featuring a three-shell cylinder. Thats right, shell, this one shoots twelve gauge."
 	icon_state = "12garevolver"
@@ -132,7 +132,7 @@
 	)
 
 // MARK: Golder revolver
-/obj/item/gun/projectile/revolver/golden
+/obj/item/gun/ballistic/revolver/golden
 	name = "golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon_state = "goldrevolver"
@@ -143,7 +143,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 // MARK: Nagant
-/obj/item/gun/projectile/revolver/nagant
+/obj/item/gun/ballistic/revolver/nagant
 	name = "nagant revolver"
 	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
@@ -155,16 +155,16 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 3),
 	)
 
-/obj/item/gun/projectile/revolver/nagant/rusted
+/obj/item/gun/ballistic/revolver/nagant/rusted
 	desc = "An old model of revolver that originated in Russia. This one is a real relic, rust is pouring."
 
-/obj/item/gun/projectile/revolver/nagant/rusted/ComponentInitialize()
+/obj/item/gun/ballistic/revolver/nagant/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
 
 // MARK: .36
-/obj/item/gun/projectile/revolver/c36
+/obj/item/gun/ballistic/revolver/c36
 	name = ".36 revolver"
 	desc = "An old fashion .36 chambered revolver."
 	icon_state = "detective"
@@ -175,7 +175,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 // MARK: Russian Roulette gun
-/obj/item/gun/projectile/revolver/russian
+/obj/item/gun/ballistic/revolver/russian
 	name = "Russian revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
@@ -188,18 +188,18 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
 	)
 
-/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
+/obj/item/gun/ballistic/revolver/russian/Initialize(mapload)
 	. = ..()
 	Spin()
 
-/obj/item/gun/projectile/revolver/russian/proc/Spin()
+/obj/item/gun/ballistic/revolver/russian/proc/Spin()
 	chambered = null
 	var/random = rand(1, magazine.max_ammo)
 	if(random <= get_ammo(FALSE, FALSE))
 		chamber_round()
 	spun = TRUE
 
-/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/russian/attackby(obj/item/I, mob/user, params)
 	if(isspeedloader(I) || isammocasing(I))
 		if(get_ammo() > 0)
 			to_chat(user, span_warning("The [name] can only hold a single bullet."))
@@ -216,7 +216,7 @@
 
 	return ..()
 
-/obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
+/obj/item/gun/ballistic/revolver/russian/attack_self(mob/user)
 	add_fingerprint(user)
 	if(!spun && can_shoot(user))
 		user.visible_message(
@@ -244,7 +244,7 @@
 	else
 		balloon_alert(user, "уже разряжено!")
 
-/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.a_intent == INTENT_HARM) // Flogging action
@@ -281,15 +281,15 @@
 		user.visible_message(span_danger("*click*"))
 		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
-/obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
+/obj/item/gun/ballistic/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"), projectile_message = TRUE)
 
-/obj/item/gun/projectile/revolver/russian/soul
+/obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
 
-/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
+/obj/item/gun/ballistic/revolver/russian/soul/shoot_self(mob/living/user)
 	..()
 	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
 	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
@@ -298,7 +298,7 @@
 	user.visible_message(span_danger("[user.name]'s soul is captured by \the [src]!"), span_userdanger("You've lost the gamble! Your soul is forfeit!"))
 
 // MARK: Capgun
-/obj/item/gun/projectile/revolver/capgun
+/obj/item/gun/ballistic/revolver/capgun
 	name = "cap gun"
 	desc = "Looks almost like the real thing! Ages 8 and up."
 	origin_tech = null
@@ -310,7 +310,7 @@
 	)
 
 // MARK: Improvised .257
-/obj/item/gun/projectile/revolver/improvised
+/obj/item/gun/ballistic/revolver/improvised
 	name = "improvised revolver"
 	desc = "Weapon for crazy fun with friends."
 	icon_state = "irevolver"
@@ -323,12 +323,12 @@
 	recoil = GUN_RECOIL_MEGA
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-/obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
+/obj/item/gun/ballistic/revolver/improvised/Initialize(mapload)
 	. = ..()
 	barrel = new	// I just want it to spawn with barrel.
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvised/update_overlays()
+/obj/item/gun/ballistic/revolver/improvised/update_overlays()
 	. = ..()
 	if(magazine)
 		. += mutable_appearance('icons/obj/weapons/projectile.dmi', magazine.icon_state)
@@ -339,7 +339,7 @@
 			barrel_icon.Shift(WEST, 5)
 		. += barrel_icon
 
-/obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/ballistic/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
 	if(unscrewed)
 		shoot_with_empty_chamber(user)
 		return
@@ -349,7 +349,7 @@
 	user.visible_message(span_biggerdanger("*CRACK*"))
 	playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
-/obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)
+/obj/item/gun/ballistic/revolver/improvised/proc/radial_menu(mob/user)
 	var/list/choices = list()
 
 	if(barrel)
@@ -372,17 +372,17 @@
 			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
 			user.put_in_hands(magazine)
 			magazine = null
-			verbs -= /obj/item/gun/projectile/revolver/verb/spin
+			verbs -= /obj/item/gun/ballistic/revolver/verb/spin
 	playsound(src, 'sound/items/screwdriver.ogg', 40, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvised/attack_hand(mob/user)
+/obj/item/gun/ballistic/revolver/improvised/attack_hand(mob/user)
 	if(loc == user && unscrewed)
 		radial_menu(user)
 		return
 	return ..()
 
-/obj/item/gun/projectile/revolver/improvised/screwdriver_act(mob/user, obj/item/I)
+/obj/item/gun/ballistic/revolver/improvised/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!magazine || !barrel)
 		add_fingerprint(user)
@@ -395,7 +395,7 @@
 	to_chat(user, span_notice("You have [unscrewed ? "disassembled" : "assembled"] the revolver."))
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/revolver/improvised/attackby(obj/item/I, mob/user, params)
 	if(!unscrewed)
 		return ..()
 
@@ -408,7 +408,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .
 		magazine = I
-		verbs |= /obj/item/gun/projectile/revolver/verb/spin
+		verbs |= /obj/item/gun/ballistic/revolver/verb/spin
 		update_icon(UPDATE_OVERLAYS)
 		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL

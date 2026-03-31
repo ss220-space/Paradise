@@ -207,7 +207,7 @@
 /obj/item/storage/box/syndie_kit/caneshotgun/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/ammo_casing/shotgun/assassination(src)
-	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
+	new /obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane(src)
 
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
@@ -848,7 +848,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	)
 
 /obj/item/storage/box/syndie_kit/compact_sniper/populate_contents()
-	new /obj/item/gun/projectile/automatic/sniper_rifle/compact(src)
+	new /obj/item/gun/ballistic/automatic/sniper_rifle/compact(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/compact(src)
 	new /obj/item/ammo_box/sniper_rounds_compact(src)
 
@@ -867,7 +867,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	)
 
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
-	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/gun/ballistic/revolver(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
@@ -887,7 +887,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	)
 
 /obj/item/storage/box/syndie_kit/desert_eagle/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol/deagle(src)
+	new	/obj/item/gun/ballistic/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
@@ -909,7 +909,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	)
 
 /obj/item/storage/box/syndie_kit/desert_eagle_gold/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol/deagle/gold(src)
+	new	/obj/item/gun/ballistic/automatic/pistol/deagle/gold(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
@@ -931,7 +931,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	)
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol(src)
+	new	/obj/item/gun/ballistic/automatic/pistol(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)

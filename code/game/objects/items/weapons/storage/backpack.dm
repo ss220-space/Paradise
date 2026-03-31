@@ -717,14 +717,14 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
-	new /obj/item/gun/projectile/automatic/c20r(src)
+	new /obj/item/gun/ballistic/automatic/c20r(src)
 	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle/populate_contents()
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/ballistic/automatic/shotgun/bulldog(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/clothing/glasses/chameleon/thermal(src)
@@ -823,7 +823,7 @@ TODO Use this name and desc for localisation*/
 	name = "Level 3 Biohazard Emergency kit"
 
 /obj/item/storage/backpack/duffel/security/spiders/populate_contents()
-	new /obj/item/gun/projectile/shotgun/automatic/combat (src)
+	new /obj/item/gun/ballistic/shotgun/automatic/combat (src)
 	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
 	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
@@ -872,7 +872,7 @@ TODO Use this name and desc for localisation*/
 	name = "Wartime Emergency Kit"
 
 /obj/item/storage/backpack/duffel/security/war/populate_contents()
-	new /obj/item/gun/projectile/automatic/arg (src)
+	new /obj/item/gun/ballistic/automatic/arg (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)

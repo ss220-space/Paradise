@@ -34,11 +34,11 @@
 	new /obj/item/storage/box/teargas(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/backpack/duffel/syndie/med(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/ballistic/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/ballistic/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/ballistic/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/ballistic/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/ballistic/automatic/shotgun/bulldog(src)
 	new /obj/item/pda/syndicate(src)
 
 /obj/structure/closet/syndicate/sst
@@ -46,7 +46,7 @@
 
 /obj/structure/closet/syndicate/sst/populate_contents()
 	new /obj/item/ammo_box/magazine/l6saw(src)
-	new /obj/item/gun/projectile/automatic/l6_saw(src)
+	new /obj/item/gun/ballistic/automatic/l6_saw(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/storage/belt/military/sst(src)
 	new /obj/item/clothing/glasses/thermal(src)

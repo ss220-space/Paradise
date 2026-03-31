@@ -90,7 +90,7 @@
 		/obj/item/restraints/handcuffs/toy = 5,
 		/obj/item/extinguisher = 90,
 		/obj/item/storage/box/fakesyndiesuit = 3,
-		//obj/item/gun/projectile/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
+		//obj/item/gun/ballistic/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
 		/obj/item/hand_labeler = 10,
 		/obj/item/paper/crumpled = 10,
 		/obj/item/pen = 10,
@@ -131,7 +131,7 @@
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/ballistic/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 4,
 		/obj/item/implanter/fake_mindshield = 1,
 		/obj/item/soap/syndie = 7,
@@ -254,14 +254,14 @@
 	name = "3. Donksoft gear"
 	lootcount = 8
 	loot = list(
-		/obj/item/gun/projectile/automatic/c20r/toy = 150,
-		/obj/item/gun/projectile/automatic/l6_saw/toy = 100,
-		/obj/item/gun/projectile/automatic/toy/pistol = 200,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 100,
-		/obj/item/gun/projectile/shotgun/toy = 100,
-		/obj/item/gun/projectile/shotgun/toy/crossbow = 100,
-		/obj/item/gun/projectile/shotgun/toy/tommygun = 100,
-		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 100,
+		/obj/item/gun/ballistic/automatic/c20r/toy = 150,
+		/obj/item/gun/ballistic/automatic/l6_saw/toy = 100,
+		/obj/item/gun/ballistic/automatic/toy/pistol = 200,
+		/obj/item/gun/ballistic/automatic/toy/pistol/enforcer/riot = 100,
+		/obj/item/gun/ballistic/shotgun/toy = 100,
+		/obj/item/gun/ballistic/shotgun/toy/crossbow = 100,
+		/obj/item/gun/ballistic/shotgun/toy/tommygun = 100,
+		/obj/item/gun/ballistic/automatic/sniper_rifle/toy = 100,
 		/obj/item/ammo_box/foambox/sniper = 50,
 		/obj/item/ammo_box/foambox = 150,
 		/obj/item/ammo_box/foambox/riot = 100,
@@ -348,8 +348,8 @@
 		/obj/item/storage/box/enforcer_rubber = 100,
 		/obj/item/storage/box/enforcer_lethal = 50,
 		/obj/item/melee/baton/telescopic = 100,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 150,
-		/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100,
+		/obj/item/gun/ballistic/shotgun/automatic/combat = 150,
+		/obj/item/gun/ballistic/shotgun/automatic/dual_tube = 100,
 		/obj/item/ammo_box/shotgun/buck = 150,
 		/obj/item/ammo_box/speedloader/shotgun/buck = 100,
 		/obj/item/grenade/clusterbuster = 100,

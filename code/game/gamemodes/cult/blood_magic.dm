@@ -938,7 +938,7 @@
 			if(uses < BLOOD_BARRAGE_COST)
 				to_chat(user, span_cultitalic("You need [BLOOD_BARRAGE_COST] charges to perform this rite."))
 			else
-				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
+				var/obj/rite = new /obj/item/gun/ballistic/shotgun/boltaction/enchanted/arcane_barrage/blood()
 				uses -= BLOOD_BARRAGE_COST
 				qdel(src)
 				user.swap_hand()

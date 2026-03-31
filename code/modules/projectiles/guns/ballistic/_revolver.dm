@@ -2,7 +2,7 @@
  * Located in it's own file because we have revolver-like weapons which are not revolvers (like grenade launchers)
  */
 
-/obj/item/gun/projectile/revolver
+/obj/item/gun/ballistic/revolver
 	name = ".357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
@@ -18,12 +18,12 @@
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
 
-/obj/item/gun/projectile/revolver/Initialize(mapload)
+/obj/item/gun/ballistic/revolver/Initialize(mapload)
 	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+		verbs -= /obj/item/gun/ballistic/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
+/obj/item/gun/ballistic/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
 		return
 	if(spin)
@@ -31,19 +31,19 @@
 	else
 		chambered = magazine.stored_ammo[1]
 
-/obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user)
+/obj/item/gun/ballistic/revolver/shoot_with_empty_chamber(mob/living/user)
 	. = ..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/ballistic/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	return ..()
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/ballistic/revolver/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-/obj/item/gun/projectile/revolver/unload_act(mob/user)
+/obj/item/gun/ballistic/revolver/unload_act(mob/user)
 	var/num_unloaded = 0
 	chambered = null
 	var/atom/drop_loc = drop_location()
@@ -65,10 +65,10 @@
 		balloon_alert(user, "уже разряжено!")
 
 /// Removes all the shells in the cylinder
-/obj/item/gun/projectile/revolver/proc/unload(user)
+/obj/item/gun/ballistic/revolver/proc/unload(user)
 	return
 
-/obj/item/gun/projectile/revolver/verb/spin()
+/obj/item/gun/ballistic/revolver/verb/spin()
 	set name = "Вращать барабан"
 	set category = VERB_CATEGORY_OBJECT
 	set desc = "Click to spin your revolver's chamber."
@@ -84,15 +84,15 @@
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
 		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 	else
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+		verbs -= /obj/item/gun/ballistic/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/can_shoot(mob/user)
+/obj/item/gun/ballistic/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)
 
-/obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
+/obj/item/gun/ballistic/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
 	. = ..()
 
-/obj/item/gun/projectile/revolver/examine(mob/user)
+/obj/item/gun/ballistic/revolver/examine(mob/user)
 	. = ..()
 	if(!show_live_rounds)
 		return
@@ -100,7 +100,7 @@
 	var/ammo_num = get_ammo(FALSE, FALSE)
 	. += span_notice("[ammo_num] из них боев[declension_ru(ammo_num, "ой", "ые", "ые")]")
 
-/obj/item/gun/projectile/revolver/try_air_fire(datum/source, mob/user)
+/obj/item/gun/ballistic/revolver/try_air_fire(datum/source, mob/user)
 	. = ..()
 	if(!user || (user.a_intent != INTENT_GRAB) || !isturf(user.loc))
 		return NONE
@@ -109,7 +109,7 @@
 
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/item/gun/projectile/revolver/proc/perform_air_fire(mob/user)
+/obj/item/gun/ballistic/revolver/proc/perform_air_fire(mob/user)
 	if(!can_shoot(user))
 		shoot_with_empty_chamber(user)
 		return

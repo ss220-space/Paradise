@@ -36,7 +36,7 @@
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
 	resistance_flags = ACID_PROOF
-	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/ballistic, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")

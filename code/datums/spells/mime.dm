@@ -104,12 +104,12 @@
 
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"
-	var/gun = /obj/item/gun/projectile/revolver/fingergun
-	var/obj/item/gun/projectile/revolver/fingergun/current_gun
+	var/gun = /obj/item/gun/ballistic/revolver/fingergun
+	var/obj/item/gun/ballistic/revolver/fingergun/current_gun
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
 	desc = "Представьте, что вы стреляете из пальцев, как из пистолета! В вашем распоряжении будет 6 пуль. Пау-пау-пау!"
-	gun = /obj/item/gun/projectile/revolver/fingergun/fake
+	gun = /obj/item/gun/ballistic/revolver/fingergun/fake
 
 /obj/effect/proc_holder/spell/mime/fingergun/Destroy()
 	current_gun = null

@@ -107,15 +107,15 @@
 	loot = list(
 		/obj/item/toy/syndicateballoon = 1,
 		/obj/item/toy/katana = 1,
-		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
+		/obj/item/gun/ballistic/shotgun/toy/crossbow = 1,
 	)
 
 /obj/effect/spawner/abandoned_crate/toy_pistols
 	name = "toy pistols loot spawner"
 	loot = list(
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 1,
+		/obj/item/gun/ballistic/automatic/toy/pistol/enforcer = 1,
 		/obj/item/ammo_box/magazine/toy/enforcer = 1,
-		/obj/item/gun/projectile/automatic/toy/pistol = 1,
+		/obj/item/gun/ballistic/automatic/toy/pistol = 1,
 		/obj/item/ammo_box/magazine/toy/pistol = 1,
 	)
 
@@ -230,17 +230,17 @@
 		/obj/item/melee/baton/security = 1,
 		/obj/item/melee/baton = 2,
 		/obj/item/gun/energy/disabler = 1,
-		/obj/item/gun/projectile/automatic/pistol/enforcer = 1,
+		/obj/item/gun/ballistic/automatic/pistol/enforcer = 1,
 		/obj/item/ammo_box/magazine/enforcer = 1,
 		/obj/item/clothing/mask/balaclava = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/ballistic/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 	)
 
 /obj/effect/spawner/abandoned_crate/shotgun_kit
 	name = "shotgun kit loot spawner"
 	loot = list(
-		/obj/item/gun/projectile/shotgun = 1,
+		/obj/item/gun/ballistic/shotgun = 1,
 		/obj/item/storage/belt/bandolier/full = 1,
 	)
 
@@ -370,7 +370,7 @@
 /obj/effect/spawner/abandoned_crate/bombarda
 	name = "bombarda spawner"
 	loot = list(
-		/obj/item/gun/projectile/bombarda = 1,
+		/obj/item/gun/ballistic/bombarda = 1,
 	)
 
 /obj/effect/spawner/abandoned_crate/bombarda/Initialize(mapload)
@@ -380,7 +380,7 @@
 		/obj/item/ammo_casing/a40mm/improvised/smoke_shell
 	)
 	var/num_shells = rand(1, 5)
-	loot = list(/obj/item/gun/projectile/bombarda = 1)
+	loot = list(/obj/item/gun/ballistic/bombarda = 1)
 	for(var/i in 1 to num_shells)
 		var/shell_type = pick(shell_types)
 		loot[shell_type] = (loot[shell_type] || 0) + 1

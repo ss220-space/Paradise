@@ -50,7 +50,7 @@
 	accessories = list(/obj/item/clothing/accessory/holster)
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/color/black
-	backpack_contents = list(/obj/item/ammo_box/speedloader/a357 = 2, /obj/item/gun/projectile/revolver = 1)
+	backpack_contents = list(/obj/item/ammo_box/speedloader/a357 = 2, /obj/item/gun/ballistic/revolver = 1)
 
 /datum/outfit/radial_outfit/death_book/killer
 	name = "Убийца"
@@ -71,7 +71,7 @@
 	accessories = list(/obj/item/clothing/accessory/holster)
 	backpack_contents = list(
 		/obj/item/stamp/chameleon = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/ballistic/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 3,
 		/obj/item/pen/fakesign = 1,
 		/obj/item/storage/box/syndie_kit/knives_kit = 1,

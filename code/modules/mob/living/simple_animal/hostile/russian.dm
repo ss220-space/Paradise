@@ -39,12 +39,12 @@
 	casingtype = /obj/item/ammo_casing/a357
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/russian/ranged,
-		/obj/item/gun/projectile/revolver/mateba,
+		/obj/item/gun/ballistic/revolver/mateba,
 	)
 
 /mob/living/simple_animal/hostile/russian/ranged/mosin
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/russian/ranged,
-		/obj/item/gun/projectile/shotgun/boltaction,
+		/obj/item/gun/ballistic/shotgun/boltaction,
 	)
 	casingtype = /obj/item/ammo_casing/a762x54

@@ -122,7 +122,7 @@
 		/obj/item/radio/uplink/sst = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
-		/obj/item/gun/projectile/revolver = 1,
+		/obj/item/gun/ballistic/revolver = 1,
 		/obj/item/ammo_box/speedloader/a357 = 1,
 	)
 	implants = list(/obj/item/implant/dust)
@@ -155,7 +155,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
 	mask = /obj/item/clothing/mask/gas/syndicate
 	glasses = /obj/item/clothing/glasses/thermal/sunglasses
-	l_hand = /obj/item/gun/projectile/automatic/l6_saw
+	l_hand = /obj/item/gun/ballistic/automatic/l6_saw
 
 	backpack_contents = list(
 		/obj/item/tank/jetpack/oxygen/harness = 1,
@@ -163,7 +163,7 @@
 		/obj/item/ammo_box/magazine/l6saw = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
-		/obj/item/gun/projectile/revolver = 1,
+		/obj/item/gun/ballistic/revolver = 1,
 		/obj/item/ammo_box/speedloader/a357 = 1,
 	)
 
@@ -219,11 +219,11 @@
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
+		/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/gun/ballistic/automatic/proto = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
@@ -376,7 +376,7 @@
 	name = "NT Death Commando"
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	back = /obj/item/mod/control/pre_equipped/apocryphal
-	belt = /obj/item/gun/projectile/revolver/mateba
+	belt = /obj/item/gun/ballistic/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -558,7 +558,7 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/ballistic/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/card/emag = 1,
@@ -737,8 +737,8 @@
 	rank_list = list("Рядовой", "Ефрейтор", "Младший сержант", "Сержант")
 	gloves = null
 	r_pocket = /obj/item/flashlight/seclite
-	r_hand = /obj/item/gun/projectile/shotgun/boltaction
-	belt = /obj/item/gun/projectile/revolver/nagant
+	r_hand = /obj/item/gun/ballistic/shotgun/boltaction
+	belt = /obj/item/gun/ballistic/revolver/nagant
 
 	backpack_contents = list(
 		/obj/item/ammo_box/speedloader/a762 = 4,
@@ -750,7 +750,7 @@
 	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
-	belt = /obj/item/gun/projectile/automatic/pistol/APS
+	belt = /obj/item/gun/ballistic/automatic/pistol/APS
 
 	backpack_contents = list(
 		/obj/item/lighter = 1,
@@ -765,7 +765,7 @@
 	uniform = /obj/item/clothing/under/sovietofficer
 	head = /obj/item/clothing/head/sovietofficerhat
 	glasses = /obj/item/clothing/glasses/sunglasses
-	belt = /obj/item/gun/projectile/revolver/mateba
+	belt = /obj/item/gun/ballistic/revolver/mateba
 	l_pocket = /obj/item/melee/baton/telescopic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -786,11 +786,11 @@
 	belt = /obj/item/storage/belt/military/assault/soviet/full
 	l_pocket = /obj/item/card/emag
 	r_pocket = /obj/item/melee/baton/telescopic
-	l_hand = /obj/item/gun/projectile/automatic/ak814
+	l_hand = /obj/item/gun/ballistic/automatic/ak814
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/ballistic/automatic/pistol/APS = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo = 1,
@@ -803,7 +803,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/gun/ballistic/revolver/mateba = 1,
 		/obj/item/ammo_box/speedloader/a357 = 2,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo = 1,
@@ -814,7 +814,7 @@
 	rank_list = list("Адмирал")
 	uniform = /obj/item/clothing/under/sovietadmiral
 	head = /obj/item/clothing/head/sovietadmiralhat
-	belt = /obj/item/gun/projectile/revolver/mateba
+	belt = /obj/item/gun/ballistic/revolver/mateba
 	l_ear = /obj/item/radio/headset/syndicate
 	r_ear = /obj/item/radio/headset/alt/soviet
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
@@ -859,7 +859,7 @@
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/ert/solgov
 	belt = /obj/item/storage/belt/military/assault/marines/full
-	suit_store = /obj/item/gun/projectile/automatic/shotgun/bulldog
+	suit_store = /obj/item/gun/ballistic/automatic/shotgun/bulldog
 	head = /obj/item/clothing/head/soft/solgov
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -874,7 +874,7 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
@@ -885,7 +885,7 @@
 
 /datum/outfit/admin/solgov/cats
 	name = "Solar Federation Marine (CATS)"
-	suit_store = /obj/item/gun/projectile/automatic/cats
+	suit_store = /obj/item/gun/ballistic/automatic/cats
 	belt = /obj/item/storage/belt/military/assault/marines/cats/full
 	l_pocket = /obj/item/ammo_box/magazine/m45
 
@@ -893,7 +893,7 @@
 	name = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
-	suit_store = /obj/item/gun/projectile/automatic/arg
+	suit_store = /obj/item/gun/ballistic/automatic/arg
 	head = /obj/item/clothing/head/soft/solgov/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	backpack_contents = list(
@@ -901,7 +901,7 @@
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -918,7 +918,7 @@
 	head = /obj/item/clothing/head/beret/solgov/command/elite
 	belt = /obj/item/melee/baton/security/loaded
 	l_hand = null
-	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
@@ -1101,7 +1101,7 @@
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/speedloader/a357
-	r_hand = /obj/item/gun/projectile/automatic/proto
+	r_hand = /obj/item/gun/ballistic/automatic/proto
 
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"

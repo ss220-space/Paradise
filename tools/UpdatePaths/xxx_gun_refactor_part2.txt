@@ -1,2 +1,1 @@
 /obj/item/gun/projectile/@SUBTYPES : /obj/item/gun/ballistic/@SUBTYPES {@OLD}
-/obj/item/weapon/big_chungus/@SUBTYPES : /obj/item/big_chungus/@SUBTYPES{@OLD}

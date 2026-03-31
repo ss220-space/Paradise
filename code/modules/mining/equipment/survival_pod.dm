@@ -513,7 +513,7 @@
 						/obj/item/hierophant_club,
 						/obj/item/melee/energy_katana,
 						/obj/item/his_grace,
-						/obj/item/gun/projectile/automatic/l6_saw,
+						/obj/item/gun/ballistic/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,

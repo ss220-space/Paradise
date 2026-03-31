@@ -24,14 +24,14 @@
 	all_products_free = TRUE
 
 	products = list(
-		/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
-		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
-		/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
-		/obj/item/gun/projectile/automatic/proto = 2,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
-		/obj/item/gun/projectile/automatic/gyropistol = 1,
-		/obj/item/gun/projectile/shotgun = 2,
-		/obj/item/gun/projectile/automatic/arg = 2,
+		/obj/item/gun/ballistic/automatic/pistol/deagle/gold = 2,
+		/obj/item/gun/ballistic/automatic/pistol/deagle/camo = 2,
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 2,
+		/obj/item/gun/ballistic/automatic/proto = 2,
+		/obj/item/gun/ballistic/shotgun/automatic/combat = 2,
+		/obj/item/gun/ballistic/automatic/gyropistol = 1,
+		/obj/item/gun/ballistic/shotgun = 2,
+		/obj/item/gun/ballistic/automatic/arg = 2,
 	)
 	premium = list(
 		/obj/item/ammo_box/magazine/smgm9mm = 2,
@@ -78,9 +78,9 @@
 	vend_reply = "Возвращ+айтесь за доб+авкой!"
 
 	products = list(
-		/obj/item/gun/projectile/automatic/toy = 10,
-		/obj/item/gun/projectile/automatic/toy/pistol= 10,
-		/obj/item/gun/projectile/shotgun/toy = 10,
+		/obj/item/gun/ballistic/automatic/toy = 10,
+		/obj/item/gun/ballistic/automatic/toy/pistol= 10,
+		/obj/item/gun/ballistic/shotgun/toy = 10,
 		/obj/item/toy/sword = 10,
 		/obj/item/ammo_box/foambox = 20,
 		/obj/item/toy/foamblade = 10,
@@ -89,10 +89,10 @@
 		/obj/item/clothing/head/syndicatefake = 5,
 	)
 	contraband = list(
-		/obj/item/gun/projectile/shotgun/toy/crossbow = 10,
-		/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
-		/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
-		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+		/obj/item/gun/ballistic/shotgun/toy/crossbow = 10,
+		/obj/item/gun/ballistic/automatic/c20r/toy/riot = 10,
+		/obj/item/gun/ballistic/automatic/l6_saw/toy/riot = 10,
+		/obj/item/gun/ballistic/automatic/sniper_rifle/toy = 10,
 		/obj/item/ammo_box/foambox/riot = 20,
 		/obj/item/toy/katana = 10,
 		/obj/item/twohanded/dualsaber/toy = 5,

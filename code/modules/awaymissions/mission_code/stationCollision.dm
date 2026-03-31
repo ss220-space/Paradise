@@ -66,18 +66,18 @@
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
-/obj/item/gun/projectile/automatic/c20r/sc_c20r
+/obj/item/gun/ballistic/automatic/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/Initialize(mapload)
+/obj/item/gun/ballistic/automatic/c20r/sc_c20r/Initialize(mapload)
 	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
 
 //Barman's shotgun
-/obj/item/gun/projectile/shotgun/sc_pump
+/obj/item/gun/ballistic/shotgun/sc_pump
 
-/obj/item/gun/projectile/shotgun/sc_pump/Initialize(mapload)
+/obj/item/gun/ballistic/shotgun/sc_pump/Initialize(mapload)
 	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance

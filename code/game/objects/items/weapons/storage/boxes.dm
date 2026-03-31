@@ -628,7 +628,7 @@
 	item_state = "ert"
 
 /obj/item/storage/box/enforcer_rubber/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
+	new /obj/item/gun/ballistic/automatic/pistol/enforcer(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
@@ -639,7 +639,7 @@
 	item_state = "ert"
 
 /obj/item/storage/box/enforcer_lethal/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
+	new /obj/item/gun/ballistic/automatic/pistol/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 
@@ -650,7 +650,7 @@
 	item_state = "ert"
 
 /obj/item/storage/box/enforcer/security/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
+	new /obj/item/gun/ballistic/automatic/pistol/enforcer(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
@@ -1197,9 +1197,9 @@
 	item_state = "pouch_fast"
 
 /obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun/projectile/automatic))
+	if(istype(I, /obj/item/gun/ballistic/automatic))
 		add_fingerprint(user)
-		var/obj/item/gun/projectile/automatic/gun = I
+		var/obj/item/gun/ballistic/automatic/gun = I
 		for(var/obj/item/ammo_box/magazine/magazine in contents)
 			if(!istype(magazine, gun.mag_type))
 				continue
@@ -1250,7 +1250,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/enforcer_kit/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
+	new /obj/item/gun/ballistic/automatic/pistol/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
@@ -1294,7 +1294,7 @@
 	)
 
 /obj/item/storage/box/taurus_kit/populate_contents()
-	new /obj/item/gun/projectile/revolver/taurus(src)
+	new /obj/item/gun/ballistic/revolver/taurus(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
@@ -1307,7 +1307,7 @@
 /obj/item/storage/box/revolver_kit/populate_contents()
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/ammo_box/speedloader/c38(src)
-	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/gun/ballistic/revolver/detective(src)
 	new /obj/item/clothing/accessory/holster/armpit(src)
 
 /obj/item/storage/box/hardmode_box
@@ -1413,7 +1413,7 @@
 	icon_state = "box_hos"
 
 /obj/item/storage/box/unica_kit/populate_contents()
-	new /obj/item/gun/projectile/revolver/mateba(src)
+	new /obj/item/gun/ballistic/revolver/mateba(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)

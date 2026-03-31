@@ -105,9 +105,9 @@
 	products = list(
 		/obj/item/clothing/ears/earmuffs = 2,
 		/obj/item/gun/energy/laser/practice = 2,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
-		/obj/item/gun/projectile/shotgun/toy = 2,
-		/obj/item/gun/projectile/automatic/toy = 2,
+		/obj/item/gun/ballistic/automatic/toy/pistol/enforcer = 2,
+		/obj/item/gun/ballistic/shotgun/toy = 2,
+		/obj/item/gun/ballistic/automatic/toy = 2,
 	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 
