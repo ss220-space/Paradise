@@ -39,10 +39,10 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+	if(I.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(I.get_heat())
+		ignite(I.get_temperature())
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
@@ -84,9 +84,6 @@
 	icons = list("silver","silver_dam")
 
 /turf/simulated/floor/mineral/silver/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -142,12 +139,8 @@
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
 /turf/simulated/floor/mineral/plastitanium/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/mineral/plastitanium/broken_states()
 	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
@@ -156,12 +149,8 @@
 	icon_state = "plastitanium_red"
 
 /turf/simulated/floor/mineral/plastitanium/red/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/mineral/plastitanium/red/airless
 	oxygen = 0
@@ -220,9 +209,6 @@
 	return
 
 /turf/simulated/floor/mineral/bananium/lubed/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -318,12 +304,11 @@
 	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
 /turf/simulated/floor/mineral/abductor/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/mineral/abductor/cold
+	atmos_environment = ENVIRONMENT_COLD
 
 /turf/simulated/floor/plating/abductor2
 	name = "alien plating"
@@ -334,10 +319,3 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
-
-/turf/simulated/floor/plating/abductor/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND

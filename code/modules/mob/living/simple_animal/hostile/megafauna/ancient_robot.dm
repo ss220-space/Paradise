@@ -778,25 +778,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
-/obj/projectile/bullet/ancient_robot_bullet
-	damage = 8
-
-/obj/projectile/bullet/rock
-	name = "thrown rock"
-	damage = 25
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small1"
-
-/obj/projectile/bullet/rock/get_ru_names()
-	return list(
-		NOMINATIVE = "брошенный камень",
-		GENITIVE = "брошенного камня",
-		DATIVE = "брошенному камню",
-		ACCUSATIVE = "брошенный камень",
-		INSTRUMENTAL = "брошенным камнем",
-		PREPOSITIONAL = "брошенном камне",
-	)
-
 /obj/effect/temp_visual/rock
 	name = "floating rock"
 	desc = "Лучше сосредоточьтесь на уклонении, чем разглядывать его."
@@ -813,14 +794,6 @@ Difficulty: Very Hard
 		INSTRUMENTAL = "парящим камнем",
 		PREPOSITIONAL = "парящем камне",
 	)
-
-/obj/projectile/energy/shock_revolver/ancient
-	damage = 5
-
-/obj/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(isancientrobotleg(mover))
-		return TRUE
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
 	icon_state = "target"

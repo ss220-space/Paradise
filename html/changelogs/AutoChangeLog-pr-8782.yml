@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - refactor: "Очистка Input от мусора . (PR #8782)"
+  - refactor: "Рефактор спич контроллера (PR #8782)"

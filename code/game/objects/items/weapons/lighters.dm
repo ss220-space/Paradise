@@ -16,6 +16,8 @@
 	light_range = 2
 	light_on = FALSE
 	custom_price = PAYCHECK_MIN
+	///The amount of heat a lighter has while it's on. We're using the define to ensure lighters can't do things we don't want them to.
+	var/heat_while_on = HIGH_TEMPERATURE_REQUIRED - 100
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
@@ -48,8 +50,8 @@
 	else
 		turn_off_lighter(user)
 
-/obj/item/lighter/get_heat()
-	return lit * 1500
+/obj/item/lighter/get_temperature()
+	return lit * heat
 
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
@@ -59,6 +61,7 @@
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("подпалил", "опалил")
+	heat = heat_while_on
 
 	attempt_light(user)
 	set_light_on(TRUE)
@@ -87,6 +90,7 @@
 	hitsound = SFX_SWING_HIT
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
+	heat = 0
 
 	show_off_message(user)
 	set_light_on(FALSE)
@@ -479,14 +483,15 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unlit"
 	item_state = "match_unlit"
-	var/lit = FALSE
-	var/burnt = FALSE
-	var/smoketime = 5
+	heat = T1000K
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
+	var/lit = FALSE
+	var/burnt = FALSE
+	var/smoketime = 5
 
 /obj/item/match/get_ru_names()
 	return list(
@@ -545,8 +550,8 @@
 	. = ..()
 	desc = lit ? "[DECLENT_RU_CAP(src, NOMINATIVE)], охваченная пламенем." : burnt ? "[DECLENT_RU_CAP(src, NOMINATIVE)]. Повидала всякое." : initial(desc)
 
-/obj/item/match/get_heat()
-	return lit * 1000
+/obj/item/match/get_temperature()
+	return lit * heat
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)

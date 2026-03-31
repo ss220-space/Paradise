@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - balance: "Нёрф лужи гемомансера теперь duration = 5 SECONDS cooldown = 30 SECONDS (PR #8754)"
