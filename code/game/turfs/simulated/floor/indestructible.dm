@@ -85,9 +85,6 @@
 	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/boss/air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
 	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/hierophant

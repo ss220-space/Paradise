@@ -265,14 +265,8 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
 
-/turf/simulated/floor/plating/asteroid/snow/atmosphere
-	atmos_mode = ATMOS_MODE_SEALED
-
 /turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature
 	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/plating/asteroid/snow/temperature
 	temperature = 255.37
-
-/turf/simulated/floor/plating/asteroid/snow/planet
-	atmos_environment = ENVIRONMENT_COLD
