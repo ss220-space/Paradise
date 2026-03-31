@@ -1,3 +1,4 @@
+// MARK: Generic
 /obj/item/gun/energy/gun
 	desc = "A basic energy-based gun with two settings: kill and disable."
 	item_state = null	//so the human update icon uses the icon_state instead.
@@ -16,6 +17,7 @@
 	. = ..()
 	install_sibyl()
 
+// MARK: Cyborg
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	attachable_allowed = GUN_MODULE_CLASS_NONE
@@ -27,6 +29,7 @@
 /obj/item/gun/energy/gun/cyborg/emp_act()
 	return
 
+// MARK: Mini energy gun
 /obj/item/gun/energy/gun/mini
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
@@ -47,6 +50,7 @@
 	. = ..()
 	install_sibyl()
 
+// MARK: X-01 (HoS)
 /obj/item/gun/energy/gun/hos
 	name = "X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
@@ -67,6 +71,7 @@
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
+// MARK: Stun revolver (Blueshield)
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
@@ -85,6 +90,7 @@
 		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
 
+// MARK: PDW-9
 /obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
@@ -109,6 +115,7 @@
 		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
 
+// MARK: Turret gun
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
 	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
@@ -123,6 +130,7 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+// MARK: AEG (Nuclear reactor)
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
@@ -145,6 +153,7 @@
 	. = ..()
 	install_sibyl()
 
+// MARK: Laser Gatling gun
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"
 	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
@@ -226,3 +235,4 @@
 		INSTRUMENTAL = "Гатлинг-пульсером",
 		PREPOSITIONAL = "Гатлинг-пульсере",
 	)
+

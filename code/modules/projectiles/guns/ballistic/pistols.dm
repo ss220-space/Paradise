@@ -1,4 +1,4 @@
-//Stetchkin//
+// MARK: Stetchkin
 /obj/item/gun/projectile/automatic/pistol
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
@@ -22,7 +22,7 @@
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
-//M1911//
+// MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
 	name = "M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
@@ -38,7 +38,7 @@
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
 
-//Enforcer//
+// MARK: Enforcer
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "Enforcer"
 	desc = "A pistol of modern design."
@@ -83,11 +83,7 @@
 	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
 	. = ..()
 
-//СБшный инфорсер//
-/obj/item/gun/projectile/automatic/pistol/enforcer/security
-	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
-
-//SP8 Pistol OBR and Warden//
+// MARK: SP8
 /obj/item/gun/projectile/automatic/pistol/sp8
 	name = "SP-8"
 	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон .40 S&W."
@@ -141,7 +137,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 6, "y" = -2),
 	)
 
-//Desert Eagle//
+// MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
 	desc = "A robust .50 AE handgun."
@@ -174,7 +170,7 @@
 	icon_state = "deaglecamo"
 	item_state = "deagleg"
 
-//APS Pistol//
+// MARK: APS Pistol
 /obj/item/gun/projectile/automatic/pistol/APS
 	name = "stechkin APS pistol"
 	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."

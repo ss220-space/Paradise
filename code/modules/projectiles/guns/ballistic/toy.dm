@@ -1,3 +1,4 @@
+// MARK: SMG
 /obj/item/gun/projectile/automatic/toy
 	name = "foam force SMG"
 	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
@@ -13,6 +14,7 @@
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
 
+// MARK: Pistol
 /obj/item/gun/projectile/automatic/toy/pistol
 	name = "foam force pistol"
 	desc = "A small, easily concealable toy handgun. Ages 8 and up."
@@ -50,6 +52,7 @@
 	desc = "RIOT! Meant to be used for training new caddets who can't be trusted with rubber bullets."
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer/riot
 
+// MARK: Shotgun
 /obj/item/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
 	desc = "A toy shotgun with wood furniture and a four-shell capacity underneath. Ages 8 and up."
@@ -71,6 +74,7 @@
 	if(chambered && !chambered.BB)
 		qdel(chambered)
 
+// MARK: Crossbow
 /obj/item/gun/projectile/shotgun/toy/crossbow
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
@@ -82,6 +86,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	accuracy = GUN_ACCURACY_RIFLE
 
+// MARK: C-20r
 /obj/item/gun/projectile/automatic/c20r/toy
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
@@ -97,6 +102,7 @@
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
 
+// MARK: L6 SAW
 /obj/item/gun/projectile/automatic/l6_saw/toy
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
@@ -112,6 +118,7 @@
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
 
+// MARK: Tommy gun
 /obj/item/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
@@ -120,6 +127,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	accuracy = GUN_ACCURACY_RIFLE
 
+// MARK: Sniper rifle
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"
 	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."

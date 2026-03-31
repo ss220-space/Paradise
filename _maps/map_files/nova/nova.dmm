@@ -82846,13 +82846,13 @@
 	color = "red";
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+/obj/item/gun/projectile/automatic/pistol/enforcer{
 	pixel_y = -3
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+/obj/item/gun/projectile/automatic/pistol/enforcer{
 	pixel_x = 3
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+/obj/item/gun/projectile/automatic/pistol/enforcer{
 	pixel_x = 6;
 	pixel_y = 3
 	},

@@ -1,3 +1,4 @@
+// MARK: Generic
 /obj/item/gun/energy/laser
 	name = "laser gun"
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
@@ -19,6 +20,7 @@
 	. = ..()
 	install_sibyl()
 
+// MARK: Practice
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
@@ -31,8 +33,9 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+// MARK: Retro
 /obj/item/gun/energy/laser/retro
-	name ="retro laser gun"
+	name = "retro laser gun"
 	icon_state = "retro"
 	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
@@ -40,6 +43,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+// MARK: Antique (Captain)
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
 	icon_state = "caplaser"
@@ -74,6 +78,7 @@
 	high_risk = FALSE
 	accuracy = GUN_ACCURACY_SHOTGUN
 
+// MARK: Cyborg
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
@@ -99,8 +104,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
-///Laser Cannon
-
+// MARK: Laser cannon
 /obj/item/gun/energy/lasercannon
 	name = "accelerator laser cannon"
 	desc = "An advanced laser cannon that does more damage the farther away the target is."
@@ -121,8 +125,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
 	)
 
-
-
 /obj/item/gun/energy/lasercannon/cyborg
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
@@ -133,6 +135,7 @@
 /obj/item/gun/energy/lasercannon/cyborg/emp_act()
 	return
 
+// MARK: X-ray
 /obj/item/gun/energy/xray
 	name = "x-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts. These blasts will penetrate solid objects, but will decrease in power the longer they have to travel."
@@ -146,6 +149,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -7),
 	)
 
+// MARK: Immolator
 /obj/item/gun/energy/immolator
 	name = "Immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
@@ -185,8 +189,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-////////Laser Tag////////////////////
-
+// MARK: Laser tag
 /obj/item/gun/energy/laser/tag
 	icon_state = "bluetag"
 	item_state = "laser"
@@ -206,3 +209,14 @@
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
+
+// MARK: Mounted
+/obj/item/gun/energy/laser/mounted
+	name = "mounted laser"
+	desc = "An arm mounted cannon that fires lethal lasers."
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "laser"
+	item_state = "armcannonlase"
+	selfcharge = TRUE
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	attachable_allowed = null

@@ -1,3 +1,4 @@
+// MARK: L6 SAW
 /obj/item/gun/projectile/automatic/l6_saw
 	name = "L6 SAW"
 	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."

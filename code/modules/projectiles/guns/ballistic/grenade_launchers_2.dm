@@ -1,6 +1,7 @@
 //KEEP IN MIND: These are different from gun/grenadelauncher. These are designed to shoot premade rocket and grenade projectiles, not flashbangs or chemistry casings etc.
 //Put handheld rocket launchers here if someone ever decides to make something so hilarious ~Paprika
 
+// MARK: Grenade launcher
 /obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 	desc = "A break-operated grenade launcher."
 	name = "grenade launcher"
@@ -29,72 +30,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
 
-/obj/item/gun/projectile/automatic/gyropistol
-	name = "gyrojet pistol"
-	desc = "A prototype pistol designed to fire self propelled rockets."
-	icon_state = "gyropistol"
-	fire_sound = 'sound/effects/explosion1.ogg'
-	origin_tech = "combat=5"
-	mag_type = /obj/item/ammo_box/magazine/m75
-	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
-	burst_size = 1
-	fire_delay = 0
-	actions_types = null
-	accuracy = GUN_ACCURACY_MINIMAL
-	fire_modes = GUN_MODE_SINGLE_ONLY
-
-/obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
-	..()
-
-/obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"
-
-/obj/item/gun/projectile/automatic/speargun
-	name = "kinetic speargun"
-	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
-	icon_state = "speargun"
-	item_state = "speargun"
-	w_class = WEIGHT_CLASS_BULKY
-	origin_tech = "combat=4;engineering=4"
-	force = 10
-	mag_type = /obj/item/ammo_box/magazine/internal/speargun
-	fire_sound = 'sound/weapons/genhit.ogg'
-	burst_size = 1
-	fire_delay = 0
-	select = 0
-	actions_types = null
-	accuracy = GUN_ACCURACY_DEFAULT
-	recoil = null
-	fire_modes = GUN_MODE_SINGLE_ONLY
-
-/obj/item/gun/projectile/automatic/speargun/update_icon_state()
-	return
-
-/obj/item/gun/projectile/automatic/speargun/attack_self()
-	return
-
-/obj/item/gun/projectile/automatic/speargun/can_shoot(mob/user)
-	if(chambered)
-		return TRUE
-	return FALSE
-
-/obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
-	. = ..()
-
-/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
-	if(isammobox(I) || isammocasing(I))
-		add_fingerprint(user)
-		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
-		if(num_loaded)
-			balloon_alert(user, "копьё заряжено")
-			chamber_round()
-			update_icon()
-			return ATTACK_CHAIN_BLOCKED_ALL
-		balloon_alert(user, "не удалось!")
-		return ATTACK_CHAIN_PROCEED
-
-	return ..()
-
+// MARK: Rocket launcher
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-9"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
@@ -201,3 +137,24 @@
 		user.visible_message("<span class='warning'>[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!<span>")
 		sleep(2 SECONDS)
 		return OXYLOSS
+
+// MARK: Gyropistol
+/obj/item/gun/projectile/automatic/gyropistol
+	name = "gyrojet pistol"
+	desc = "A prototype pistol designed to fire self propelled rockets."
+	icon_state = "gyropistol"
+	fire_sound = 'sound/effects/explosion1.ogg'
+	origin_tech = "combat=5"
+	mag_type = /obj/item/ammo_box/magazine/m75
+	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
+	burst_size = 1
+	fire_delay = 0
+	actions_types = null
+	accuracy = GUN_ACCURACY_MINIMAL
+	fire_modes = GUN_MODE_SINGLE_ONLY
+
+/obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+	..()
+
+/obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"

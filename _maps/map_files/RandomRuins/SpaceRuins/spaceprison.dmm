@@ -2756,7 +2756,7 @@
 	name = "Security Ballistic Weapons";
 	req_access = list(1)
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+/obj/item/gun/projectile/automatic/pistol/enforcer{
 	pixel_x = 3;
 	pixel_y = -3
 	},

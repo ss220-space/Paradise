@@ -1,3 +1,6 @@
+// TODO: Merge it with bolt_action_rifles.dm
+
+// MARK: Generic
 /obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
 	desc = "The kind of gun that will leave you crying for mummy before you even realise your leg's missing."
@@ -26,6 +29,7 @@
 	recoil = GUN_RECOIL_MEGA
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
+// MARK: Syndicate SR
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
@@ -43,6 +47,7 @@
 	QDEL_NULL(magazine)
 	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
+// MARK: Compact Syndicate SR
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
 	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
@@ -58,6 +63,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 12, "y" = -4),
 	)
 
+// MARK: AXMC
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
 	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."

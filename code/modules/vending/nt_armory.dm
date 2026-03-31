@@ -123,7 +123,7 @@
 	products = list(
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/gun/projectile/automatic/lasercarbine = 3,
+		/obj/item/gun/projectile/automatic/ik60 = 3,
 		/obj/item/ammo_box/magazine/ik60mag = 6,
 		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
@@ -165,7 +165,7 @@
 	req_access = list(ACCESS_CENT_SECURITY)
 
 	products = list(
-		/obj/item/gun/projectile/automatic/ar = 3,
+		/obj/item/gun/projectile/automatic/arg = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
 		/obj/item/gun/projectile/automatic/m52 = 3,
 		/obj/item/ammo_box/magazine/m52mag = 6,

@@ -10673,19 +10673,19 @@
 "fdZ" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -38108,31 +38108,31 @@
 "rId" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{

@@ -346,7 +346,7 @@
 	new /obj/item/clothing/shoes/combat (src)
 	new /obj/item/clothing/gloves/combat (src)
 	new /obj/item/clothing/suit/space/hardsuit/ert/security (src)
-	new /obj/item/gun/projectile/automatic/lasercarbine (src)
+	new /obj/item/gun/projectile/automatic/ik60 (src)
 	new /obj/item/clothing/glasses/night (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/storage/backpack/ert/security/trialmoment/prespawn (src)

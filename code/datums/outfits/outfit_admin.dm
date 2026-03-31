@@ -893,7 +893,7 @@
 	name = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
-	suit_store = /obj/item/gun/projectile/automatic/ar
+	suit_store = /obj/item/gun/projectile/automatic/arg
 	head = /obj/item/clothing/head/soft/solgov/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	backpack_contents = list(

@@ -872,7 +872,7 @@ TODO Use this name and desc for localisation*/
 	name = "Wartime Emergency Kit"
 
 /obj/item/storage/backpack/duffel/security/war/populate_contents()
-	new /obj/item/gun/projectile/automatic/ar (src)
+	new /obj/item/gun/projectile/automatic/arg (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)

@@ -109,7 +109,7 @@
 	update_icon()
 	return TRUE
 
-// MARK: Security GL
+// MARK: GL-06
 /obj/item/gun/projectile/bombarda/secgl
 	name = "grenade launcher GL-06"
 	desc = "Однозарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 40 мм гранаты."
@@ -129,6 +129,7 @@
 		PREPOSITIONAL = "ручном гранатомете GL-06",
 	)
 
+// MARK: GL-08-04
 /obj/item/gun/projectile/bombarda/secgl/x4
 	name = "grenade launcher GL-08-4"
 	desc = "Четырехзарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Применяется для подавления беспорядков с помощью не летальных боеприпасов. Может запускать 40 мм гранаты."
@@ -175,8 +176,7 @@
 		PREPOSITIONAL = "ручном гранатомете M79",
 	)
 
-// MARK: Bombplet
-
+// MARK: Double bombarda
 /obj/item/gun/projectile/bombarda/bombplet
 	name = "bombplet"
 	desc = "Двуствольная самодельная бомбарда. Использует 40 мм гранаты."
@@ -194,6 +194,8 @@
 		PREPOSITIONAL = "самодельном двуствольном гранатомете",
 	)
 
+// MARK: Crafts and other shit
+// TODO: move the stuff below into it's own files
 /datum/crafting_recipe/bombarda
 	name = "Bombarda"
 	result = /obj/item/gun/projectile/bombarda

@@ -160,7 +160,7 @@
 			/obj/item/ammo_box/magazine/m10mm,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/lasercarbine,
+			/obj/item/gun/projectile/automatic/ik60,
 			/obj/item/ammo_box/magazine/ik60mag,
 			/obj/item/ammo_box/magazine/ik60mag,
 			/obj/item/ammo_box/magazine/ik60mag,
@@ -317,7 +317,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/aksu,
+			/obj/item/gun/projectile/automatic/aks74u,
 			/obj/item/ammo_box/magazine/aks74u,
 			/obj/item/ammo_box/magazine/aks74u,
 			/obj/item/ammo_box/magazine/aks74u,
@@ -489,7 +489,7 @@
 		/obj/item/gun/energy/telegun,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow,
 		list(
-			/obj/item/gun/projectile/automatic/ar,
+			/obj/item/gun/projectile/automatic/arg,
 			/obj/item/ammo_box/magazine/m556,
 			/obj/item/ammo_box/magazine/m556,
 			/obj/item/ammo_box/magazine/m556,

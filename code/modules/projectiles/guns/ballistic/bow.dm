@@ -1,3 +1,4 @@
+// MARK: Generic
 /obj/item/gun/projectile/bow
 	name = "bow"
 	desc = "Прочный лук, сделанный из дерева."
@@ -30,32 +31,6 @@
 		ACCUSATIVE = "деревянный лук",
 		INSTRUMENTAL = "деревянным луком",
 		PREPOSITIONAL = "деревянном луке",
-	)
-
-/obj/item/gun/projectile/bow/ashen //better than wooden
-	name = "bone bow"
-	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
-	icon_state = "ashenbow"
-	item_state = "ashenbow"
-
-	fire_sound = 'sound/weapons/bows/bonebow_fire.ogg'
-	drop_sound = 'sound/weapons/bows/bonebow_drop.ogg'
-	draw_sound = 'sound/weapons/bows/bonebow_pull.ogg'
-
-	item_flags = NONE
-	flags = NONE
-	force = 10
-	slowdown_when_ready = 1
-	accuracy = GUN_ACCURACY_RIFLE
-
-/obj/item/gun/projectile/bow/ashen/get_ru_names()
-	return list(
-		NOMINATIVE = "костяной лук",
-		GENITIVE = "костяного лука",
-		DATIVE = "костяному луку",
-		ACCUSATIVE = "костяной лук",
-		INSTRUMENTAL = "костяным луком",
-		PREPOSITIONAL = "костяном луке",
 	)
 
 /obj/item/gun/projectile/bow/proc/update_state()
@@ -115,12 +90,36 @@
 	ready_to_fire = FALSE
 	update_state()
 
-// ammo
+// MARK: Bone
+/obj/item/gun/projectile/bow/ashen //better than wooden
+	name = "bone bow"
+	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
+	icon_state = "ashenbow"
+	item_state = "ashenbow"
+
+	fire_sound = 'sound/weapons/bows/bonebow_fire.ogg'
+	drop_sound = 'sound/weapons/bows/bonebow_drop.ogg'
+	draw_sound = 'sound/weapons/bows/bonebow_pull.ogg'
+
+	item_flags = NONE
+	flags = NONE
+	force = 10
+	slowdown_when_ready = 1
+	accuracy = GUN_ACCURACY_RIFLE
+
+/obj/item/gun/projectile/bow/ashen/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной лук",
+		GENITIVE = "костяного лука",
+		DATIVE = "костяному луку",
+		ACCUSATIVE = "костяной лук",
+		INSTRUMENTAL = "костяным луком",
+		PREPOSITIONAL = "костяном луке",
+	)
 
 
-
-
-//quiver
+// MARK: Arrow storages
+// TODO: move it into it's own files
 /obj/item/storage/backpack/quiver
 	name = "quiver"
 	desc = "Колчан для хранения стрел."
