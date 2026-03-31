@@ -6,7 +6,7 @@
 	anchored = FALSE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 10)
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "electrolyzer_off"
+	icon_state = "electrolyzer-off"
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	max_integrity = 250
