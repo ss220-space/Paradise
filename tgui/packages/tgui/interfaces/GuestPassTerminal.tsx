@@ -70,8 +70,9 @@ export const GuestPassTerminal = () => {
                   icon="id-card"
                   color={giver_name ? 'green' : 'default'}
                   onClick={() => act('eject_id')}
-                  content={giver_name || 'Вставьте ID-карту'}
-                />
+                >
+                  {giver_name || 'Вставьте ID-карту'}
+                </Button>
               </Section>
             </Stack.Item>
 
@@ -152,10 +153,11 @@ export const GuestPassTerminal = () => {
                 color="green"
                 icon="print"
                 textAlign="center"
-                content="ВЫДАТЬ ПРОПУСК"
                 disabled={!giver_name}
                 onClick={() => act('issue')}
-              />
+              >
+                ВЫДАТЬ ПРОПУСК
+              </Button>
             </Stack.Item>
           </Stack>
         ) : (
