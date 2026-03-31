@@ -1,3 +1,5 @@
+#define LIVER_DEFAULT_TOX_HEALING -0.1
+
 /obj/item/organ/internal/liver
 	name = "liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала человеку."
@@ -5,7 +7,10 @@
 	icon_state = "liver"
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	slot = INTERNAL_ORGAN_LIVER
+	/// Affects how fast we getting drunk
 	var/alcohol_intensity = 1
+	/// Affects how much tox liver heals
+	var/toxin_healing = LIVER_DEFAULT_TOX_HEALING
 
 /obj/item/organ/internal/liver/get_ru_names()
 	return list(
@@ -27,6 +32,10 @@
 
 	if(owner.life_tick % PROCESS_ACCURACY == 0)
 
+		//Passive toxin healing
+		if(!is_traumatized())
+			owner.adjustToxLoss(toxin_healing * PROCESS_ACCURACY)
+
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
@@ -41,13 +50,6 @@
 		//Detox can heal small amounts of damage
 		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
 			internal_receive_damage(-0.2 * PROCESS_ACCURACY)
-
-		// Get the effectiveness of the liver.
-		var/filter_effect = 3
-		if(is_bruised())
-			filter_effect -= 1
-		if(is_traumatized())
-			filter_effect -= 2
 
 		// Damaged liver means some chemicals are very dangerous
 		if(damage >= min_bruised_damage)
@@ -79,3 +81,5 @@
 		INSTRUMENTAL = "кибернетической печенью",
 		PREPOSITIONAL = "кибернетической печени",
 	)
+
+#undef LIVER_DEFAULT_TOX_HEALING
