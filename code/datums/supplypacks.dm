@@ -2089,20 +2089,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 150
 	containertype = /obj/structure/closet/crate/large
 
-/datum/supply_packs/engineering/miner/n2o
-	name = "Майнер N2O"
-	contains = list(/obj/machinery/atmospherics/miner/n2o)
-	cost = 200
-	containername = "ящик с майнером N2O"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером N2O",
-		GENITIVE = "ящика с майнером N2O",
-		DATIVE = "ящику с майнером N2O",
-		ACCUSATIVE = "ящик с майнером N2O",
-		INSTRUMENTAL = "ящиком с майнером N2O",
-		PREPOSITIONAL = "ящике с майнером N2O",
-	)
-
 /datum/supply_packs/engineering/miner/nitrogen
 	name = "Майнер N2"
 	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
@@ -2143,19 +2129,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером плазмы",
 	)
 
-/datum/supply_packs/engineering/miner/carbon_dioxide
-	name = "Майнер CO2"
-	contains = list(/obj/machinery/atmospherics/miner/carbon_dioxide)
-	containername = "ящик с майнером CO2"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером CO2",
-		GENITIVE = "ящика с майнером CO2",
-		DATIVE = "ящику с майнером CO2",
-		ACCUSATIVE = "ящик с майнером CO2",
-		INSTRUMENTAL = "ящиком с майнером CO2",
-		PREPOSITIONAL = "ящике с майнером CO2",
-	)
-
 /datum/supply_packs/engineering/miner/agent_b
 	name = "Майнер Agent B"
 	contains = list(/obj/machinery/atmospherics/miner/agent_b)
@@ -2171,17 +2144,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/engineering/miner/hydrogen
-	name = "Майнер H2"
-	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
-	cost = 400
-	containername = "ящик с майнером H2"
+	name = "Майнер водяного пара"
+	contains = list(/obj/machinery/atmospherics/miner/water_vapor)
+	cost = 350
+	containername = "ящик с майнером водяного пара"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером H2",
-		GENITIVE = "ящика с майнером H2",
-		DATIVE = "ящику с майнером H2",
-		ACCUSATIVE = "ящик с майнером H2",
-		INSTRUMENTAL = "ящиком с майнером H2",
-		PREPOSITIONAL = "ящике с майнером H2",
+		NOMINATIVE = "ящик с майнером водяного пара",
+		GENITIVE = "ящика с майнером водяного пара",
+		DATIVE = "ящику с майнером водяного пара",
+		ACCUSATIVE = "ящик с майнером водяного пара",
+		INSTRUMENTAL = "ящиком с майнером водяного пара",
+		PREPOSITIONAL = "ящике с майнером водяного пара",
 	)
 
 /datum/supply_packs/engineering/conveyor
