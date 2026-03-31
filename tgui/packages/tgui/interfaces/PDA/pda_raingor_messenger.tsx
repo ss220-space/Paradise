@@ -13,11 +13,13 @@ import {
 } from '../../components';
 
 import { Window } from '../../layouts';
+import { SearchableDropdown } from '../../components/SearchableDropdown';
 
 type RaingorMessengerData = {
   can_login: boolean;
   owner_messenger_account: MessengerAccount;
   chats: Chat[];
+  targets: string[];
 };
 
 type MessengerAccount = {
@@ -107,8 +109,12 @@ export const pda_raingor_messenger = (props: unknown) => {
 };
 
 const MainMenuPage = ({ setPage, data }: PageProps) => {
-  const { owner_messenger_account, chats } = data;
+  const { owner_messenger_account, chats, targets } = data;
   const { act } = useBackend();
+  const [target, setTarget] = useState<string | null>(null);
+  const createChat = () => {
+    act('create_private_chat', { target });
+  };
   return (
     <Box>
       <Section>
@@ -145,7 +151,15 @@ const MainMenuPage = ({ setPage, data }: PageProps) => {
         )}
       </Section>
       <Section>
-        <Button>Выбери с кем хочешь начать диалог</Button>
+        <SearchableDropdown
+          options={targets}
+          value={target}
+          onChange={(t) => setTarget(t)}
+          placeholder="Введите имя аккаунта..."
+        />
+        <Button onClick={createChat} disabled={target === null}>
+          Выбери с кем хочешь начать диалог
+        </Button>
       </Section>
     </Box>
   );

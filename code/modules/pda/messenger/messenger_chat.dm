@@ -40,8 +40,8 @@
 	src.name_chat = name_chat
 	src.description_chat = description_chat
 	src.owner_chat = owner_chat
-	src.chat_admins = list(owner_chat)
-	src.chat_members = list(owner_chat)
+	src.chat_admins = list()
+	src.chat_members = list()
 	src.is_group = is_group
 	src.is_private = is_private
 
@@ -67,10 +67,10 @@
 	if(!added_member)
 		return FALSE
 	// Checking if you are already a member of the chat.
-	if(!check_account_in_list(added_member.owner, chat_members))
+	if(!check_account_in_list(added_member, chat_members))
 		chat_members += added_member
 	// Checking if you are already an admin
-	if(check_account_in_list(added_member.owner, chat_admins))
+	if(check_account_in_list(added_member, chat_admins))
 		return FALSE
 	chat_admins += added_member
 	return TRUE
@@ -83,9 +83,10 @@
 	if(!added_member)
 		return FALSE
 	// Checking if you are already a member of the chat.
-	if(check_account_in_list(added_member.owner, chat_members))
+	if(check_account_in_list(added_member, chat_members))
 		return FALSE
 	chat_members += added_member
+	added_member.add_chat(src)
 	return TRUE
 
 /**

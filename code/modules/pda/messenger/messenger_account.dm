@@ -29,3 +29,13 @@
 	var/count_unread = owner.unread_counts[added_chat.name_chat]
 	count_unread++
 	owner.unread_counts[added_chat.name_chat] = count_unread
+
+/**
+ * Iterates through the input list,
+ * checking whether the account exists in the given list.
+ */
+/proc/check_account_in_list(datum/messenger_account/checked_account, list/checked_list)
+	for(var/datum/messenger_account/selected_account as anything in checked_list)
+		if(selected_account.owner.account_number == checked_account.owner.account_number)
+			return TRUE
+	return FALSE
