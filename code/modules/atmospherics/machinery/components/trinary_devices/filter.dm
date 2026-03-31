@@ -142,7 +142,7 @@
 			FILTER_GAS(TLV_HALON, halon)
 			FILTER_GAS(TLV_HELIUM, helium)
 			FILTER_GAS(TLV_ANTINOBLIUM, antinoblium)
-			FILTER_GAS(TLV_HYPERNOBLIUM, hyper_noblium)
+			FILTER_GAS(TLV_HYPERNOBLIUM, hypernoblium)
 			else
 				filtered_out = null
 

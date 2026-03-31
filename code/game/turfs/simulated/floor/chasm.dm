@@ -169,9 +169,6 @@
 	AddComponent(/datum/component/chasm, null, mapload)	//Don't pass anything for below_turf.
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava

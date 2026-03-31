@@ -1032,11 +1032,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plasteel{
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/moonoutpost19/syndicateoutpost)
 "cr" = (
 /obj/structure/alien/weeds{

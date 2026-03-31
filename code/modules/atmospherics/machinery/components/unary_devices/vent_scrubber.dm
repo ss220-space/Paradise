@@ -60,7 +60,7 @@
 	scrub = parent_type::scrub|SCRUB_N2O
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
-	..()
+	. = ..()
 	icon = null
 	asign_new_area(get_area(src))
 
@@ -300,7 +300,7 @@
 			SCRUB_GAS_SIMPLE(SCRUB_HALON, halon)
 			SCRUB_GAS_SIMPLE(SCRUB_HELIUM, helium)
 			SCRUB_GAS_SIMPLE(SCRUB_ANTINOBLIUM, antinoblium)
-			SCRUB_GAS_SIMPLE(SCRUB_HYPERNOBLIUM, hyper_noblium)
+			SCRUB_GAS_SIMPLE(SCRUB_HYPERNOBLIUM, hypernoblium)
 
 			if(removed.agent_b() > 0)
 				filtered_out.set_agent_b(removed.agent_b())

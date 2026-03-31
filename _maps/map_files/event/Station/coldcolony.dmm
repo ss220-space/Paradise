@@ -2239,9 +2239,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "aMD" = (
 /obj/effect/landmark/start/shaft_miner,
@@ -3573,9 +3571,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	anchored = 1
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "blT" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -4479,11 +4475,7 @@
 "bEv" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "bEF" = (
 /obj/machinery/door/airlock/security/glass{
@@ -9290,11 +9282,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "dor" = (
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/coldcolony/ruin/abandoned_house)
 "dos" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -20617,9 +20605,7 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen{
 	anchored = 1
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "hzq" = (
 /obj/structure/closet/firecloset,
@@ -21555,11 +21541,7 @@
 "hSc" = (
 /obj/machinery/optable/abductor,
 /obj/item/scalpel/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "hSj" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -25825,11 +25807,7 @@
 "jvI" = (
 /obj/structure/closet/abductor,
 /obj/item/surgicaldrill/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "jvP" = (
 /obj/structure/chair,
@@ -27936,9 +27914,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "kja" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -29739,9 +29715,7 @@
 	c_tag = "Atmospherics Nitrogen Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "kPI" = (
 /obj/structure/disposalpipe/segment{
@@ -32740,11 +32714,7 @@
 /obj/machinery/abductor/experiment{
 	stat = 1
 	},
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "lZE" = (
 /obj/structure/girder,
@@ -38422,11 +38392,7 @@
 "oea" = (
 /obj/structure/closet/abductor,
 /obj/item/cautery/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "oeb" = (
 /obj/structure/grille,
@@ -41360,9 +41326,7 @@
 	c_tag = "Atmospherics Oxygen Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "pgc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -41450,11 +41414,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
 "pig" = (
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "pip" = (
 /obj/effect/spawner/window/reinforced,
@@ -43853,11 +43813,7 @@
 "qbx" = (
 /obj/structure/bed/abductor,
 /obj/item/circular_saw/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "qbJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -43953,11 +43909,7 @@
 "qeA" = (
 /obj/effect/mob_spawn/human/abductor,
 /obj/item/wrench/abductor,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "qeI" = (
 /obj/structure/rack,
@@ -53339,9 +53291,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "tzr" = (
 /obj/structure/table,
@@ -55043,11 +54993,7 @@
 "ueG" = (
 /obj/structure/table/abductor,
 /obj/item/hemostat/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "ueY" = (
 /obj/structure/disposalpipe/segment{
@@ -56121,11 +56067,7 @@
 /area/ruin/unpowered)
 "uBh" = (
 /obj/machinery/abductor/gland_dispenser,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "uBr" = (
 /obj/effect/decal/warning_stripes/east,
@@ -56264,11 +56206,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "uEc" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "uEu" = (
 /obj/machinery/door/airlock/glass{
@@ -59721,11 +59659,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "vOu" = (
 /obj/machinery/abductor/pad,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "vOX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -60199,9 +60133,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "vXF" = (
 /obj/machinery/door/airlock/security/glass{
@@ -65529,11 +65461,7 @@
 "xVN" = (
 /obj/structure/table/abductor,
 /obj/item/retractor/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "xVQ" = (
 /obj/effect/decal/warning_stripes/west,

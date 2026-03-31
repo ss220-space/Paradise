@@ -2442,13 +2442,7 @@
 	name = "Server Room";
 	req_access = list(155)
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "civ" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -8328,13 +8322,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "hGD" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "hHP" = (
 /obj/structure/grille,
@@ -11371,13 +11359,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "kCO" = (
 /obj/effect/turf_decal/tile/green{
@@ -14743,13 +14725,7 @@
 	on = 1;
 	pressure_checks = 0
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "noY" = (
 /obj/machinery/door/airlock/syndicate/public/glass{
@@ -16130,13 +16106,7 @@
 	pixel_y = -32;
 	preset = 4
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "opD" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -18046,13 +18016,7 @@
 	server_id = 0027;
 	syndicate = 1
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "pLA" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
@@ -19312,13 +19276,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "qEo" = (
 /obj/structure/cable{
@@ -20919,13 +20877,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "rZX" = (
 /obj/machinery/door/airlock/syndicate/public{
@@ -21539,13 +21491,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 1
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "sGp" = (
 /obj/structure/table/wood,

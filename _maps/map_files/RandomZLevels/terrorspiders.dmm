@@ -7060,23 +7060,15 @@
 	pressure_checks = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/awaymission/UO71/science)
 "qv" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid/telecomms/server{
 	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
+	name = "Server Walkway"
 	},
 /area/awaymission/UO71/science)
 "qw" = (
@@ -7374,24 +7366,16 @@
 	id_with_upload_string = "3";
 	req_access = null
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/awaymission/UO71/science)
 "rb" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid/telecomms/server{
 	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
+	name = "Server Walkway"
 	},
 /area/awaymission/UO71/science)
 "rc" = (
@@ -7744,12 +7728,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid/telecomms/server{
 	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
+	name = "Server Walkway"
 	},
 /area/awaymission/UO71/science)
 "rR" = (
@@ -8258,21 +8239,13 @@
 	pressure_checks = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO71/eng)
 "sM" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO71/eng)
 "sN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8636,21 +8609,13 @@
 	dir = 8;
 	id = "UO71_waste_in"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO71/eng)
 "ty" = (
 /obj/machinery/atmospherics/air_sensor/all{
 	id_tag = "UO71_waste_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO71/eng)
 "tz" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,

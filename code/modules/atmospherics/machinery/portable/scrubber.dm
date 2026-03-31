@@ -96,7 +96,7 @@
 	FILTER_GAS(halon)
 	FILTER_GAS(helium)
 	FILTER_GAS(antinoblium)
-	FILTER_GAS(hyper_noblium)
+	FILTER_GAS(hypernoblium)
 
 	//Remix the resulting gases
 	air_contents.merge(filtered_out)

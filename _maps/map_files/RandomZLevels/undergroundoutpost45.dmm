@@ -1667,12 +1667,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ev" = (
-/turf/simulated/floor/plating{
+/turf/simulated/floor/plating/asteroid/airless{
 	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
+	icon_state = "asteroidplating"
 	},
 /area/awaymission/UO45/caves)
 "ew" = (
@@ -7323,23 +7320,15 @@
 	pressure_checks = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/awaymission/UO45/research)
 "qj" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid/telecomms/server{
 	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
+	name = "Server Walkway"
 	},
 /area/awaymission/UO45/research)
 "qk" = (
@@ -7688,24 +7677,16 @@
 	id_with_upload_string = "3";
 	req_access = null
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/awaymission/UO45/research)
 "qR" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid/telecomms/server{
 	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
+	name = "Server Walkway"
 	},
 /area/awaymission/UO45/research)
 "qS" = (
@@ -8041,12 +8022,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid{
+/turf/simulated/floor/bluegrid/telecomms/server{
 	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 500;
-	oxygen = 0;
-	temperature = 80
+	name = "Server Walkway"
 	},
 /area/awaymission/UO45/research)
 "rB" = (
@@ -8565,21 +8543,13 @@
 	pressure_checks = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO45/engineering)
 "st" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO45/engineering)
 "su" = (
 /obj/structure/disposalpipe/segment,
@@ -8933,21 +8903,13 @@
 	dir = 8;
 	id = "UO45_waste_in"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO45/engineering)
 "tg" = (
 /obj/machinery/atmospherics/air_sensor/all{
 	id_tag = "UO45_waste_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO45/engineering)
 "th" = (
 /obj/structure/cable{
