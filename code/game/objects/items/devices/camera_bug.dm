@@ -96,7 +96,7 @@
 		return TRUE
 
 	if(action == "toggle_advanced")
-		if(!istype(parent, /obj/item/camera_bug/syndicate))
+		if(!is_syndi_camera_bug(parent))
 			return FALSE
 
 		var/obj/item/camera_bug/syndicate/cam_bug = parent
