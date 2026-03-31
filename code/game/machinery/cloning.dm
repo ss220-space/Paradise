@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
 	mess = TRUE
 	update_icon()
-	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично.</font>")
+	connected_message(span_warning("Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично!"))
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			biomass += BIOMASS_BASE_AMOUNT
 			show_message = TRUE
 	if(show_message)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] всасывает и начинает обрабатывать полученную биомассу.")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] всасывает и начинает обрабатывать полученную биомассу.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
 			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-		else if(istype(I, /obj/item/soap))
+		else if(issoap(I))
 			cleaning = TRUE
 		if(!cleaning)
 			return ..()

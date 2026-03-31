@@ -76,7 +76,7 @@
 			C.adjustFireLoss(6969)  //remember - slimes love fire
 		C.death()
 
-		visible_message(span_danger("[capitalize(C.declent_ru(NOMINATIVE))] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(C, NOMINATIVE)] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -221,7 +221,7 @@
 		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
-	else if(istype(target, /obj/structure/closet))
+	else if(iscloset(target))
 		OpenCloset(target)
 
 /obj/projectile/magic/door/proc/CreateDoor(turf/T)

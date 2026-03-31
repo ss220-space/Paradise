@@ -226,6 +226,7 @@
 	sharp = 1
 	can_charge = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
+	heat = T3800K
 
 /obj/item/gun/energy/plasmacutter/get_ru_names()
 	return list(
@@ -242,7 +243,7 @@
 	if(cell)
 		. += span_notice("Заряд [icon2html(src, user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
 
-/obj/item/gun/energy/plasmacutter/get_heat()
+/obj/item/gun/energy/plasmacutter/get_temperature()
 	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
@@ -736,15 +737,19 @@
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
 	)
 
+/obj/item/gun/energy/dominator/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	. = ..()
-	if(sibyl_mod?.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
+	if(sibyl_mod && sibyl_mod.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
 		user.playsound_local(user, sound_voice[select], 50, FALSE)
 		COOLDOWN_START(src, last_sound_effect, 2 SECONDS)
 
@@ -779,13 +784,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
 	ammo_x_offset = 0
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+
+/obj/item/gun/energy/specter/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
 
 /obj/item/gun/energy/specter/get_ru_names()
 	return list(
@@ -1091,7 +1100,7 @@
 	visible_message(span_danger("[src] vents heated plasma!"))
 	var/turf/simulated/turf = get_turf(src)
 	if(istype(turf))
-		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
+		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS, 15, T20C)
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT

@@ -6,6 +6,8 @@
 	maxHealth = 100
 	base_icon = "griefsky"
 	window_name = "Автоматическая Охранная Единица v3.0"
+	bot_type = GRIEF_BOT
+	model = "Griefsky"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword
@@ -111,7 +113,7 @@
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
 		return FALSE
 
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] размахивает своими мечами и отталкивает [arrived]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] размахивает своими мечами и отталкивает [arrived]!"))
 	arrived.Weaken(4 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
@@ -124,7 +126,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!", projectile_message = TRUE)
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!", projectile_message = TRUE)
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
@@ -156,7 +158,7 @@
 				speak("Контакт! [C] [threat] уровня угрозы, место — [location]! Сейчас нашинкую этого ублюдка!", radio_channel)
 			spam_flag = TRUE
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 10 SECONDS)	//to avoid spamming comms of sec for each hit
-			visible_message("[capitalize(declent_ru(NOMINATIVE))] замахивается своими мечами и рубит [C]!")
+			visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] замахивается своими мечами и рубит [C]!")
 
 /mob/living/simple_animal/bot/secbot/griefsky/handle_automated_action()
 	if(!on)
@@ -239,9 +241,9 @@
 			oldtarget_name = C.name
 			speak("Ты больно смелый, как я погляжу, да?!")
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
-			visible_message("[capitalize(declent_ru(NOMINATIVE))] включает свои лазерные мечи!")
+			visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] включает свои лазерные мечи!")
 			icon_state = "[base_icon]-c"
-			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
+			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
@@ -258,10 +260,10 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message(span_boldannounceic("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_boldannounceic("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/obj/item/bot_assembly/secbot_assembly/Sa = new /obj/item/bot_assembly/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
@@ -285,7 +287,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!", projectile_message = TRUE)
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P] своим мечом!", projectile_message = TRUE)
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
@@ -297,7 +299,7 @@
 	if(icon_state != spin_icon)
 		return
 	if(prob(block_chance_melee))
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает атаку [user] своим мечом!")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает атаку [user] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
 
@@ -311,7 +313,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
 	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now
 		user.do_attack_animation(src)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] блокирует атаку [user] своими мечами!")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует атаку [user] своими мечами!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

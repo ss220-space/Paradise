@@ -69,7 +69,7 @@
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meat/burn()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовился!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] приготовился!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_meat(loc)
 	qdel(src)
 
@@ -466,7 +466,7 @@
 	)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилась!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] приготовилась!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_spiderleg(loc)
 	qdel(src)
 
@@ -504,7 +504,7 @@
 	)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилось!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] приготовилось!"))
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
@@ -526,7 +526,7 @@
 	)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилось!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] приготовилось!"))
 	new /obj/item/reagent_containers/food/snacks/goldgrubmeat(loc)
 	qdel(src)
 
@@ -940,7 +940,7 @@
 	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		var/crayon_color = crayon.colourName
 		var/static/list/acceptable_colors = list("blue","green","mime","orange","purple","rainbow","red","yellow")

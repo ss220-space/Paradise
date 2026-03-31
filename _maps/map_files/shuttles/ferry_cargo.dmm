@@ -1,8 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
@@ -24,8 +23,7 @@
 "e" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkbrown";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "darkbrown"
 	},
 /area/shuttle/transport)
 "i" = (
@@ -88,8 +86,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteyellow";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteyellow"
 	},
 /area/shuttle/transport)
 "s" = (
@@ -97,8 +94,7 @@
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/trade_sol/eng,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -116,8 +112,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteyellow";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteyellow"
 	},
 /area/shuttle/transport)
 "x" = (
@@ -186,8 +181,7 @@
 	dir = 4
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;

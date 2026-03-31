@@ -357,3 +357,4 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+

@@ -30,6 +30,19 @@
 	var/agent_b = 0
 	var/hydrogen = 0
 	var/water_vapor = 0
+	var/hyper_noblium = 0
+	var/nitrium = 0
+	var/tritium = 0
+	var/bz = 0
+	var/pluoxium = 0
+	var/miasma = 0
+	var/freon = 0
+	var/healium = 0
+	var/proto_nitrate = 0
+	var/zauker = 0
+	var/halon = 0
+	var/helium = 0
+	var/antinoblium = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -150,7 +163,7 @@
 	if(opacity)
 		directional_opacity = ALL_CARDINALS
 
-	if(istype(loc, /area/space))
+	if(isspacearea(loc))
 		force_no_gravity = TRUE
 
 	ComponentInitialize()
@@ -502,7 +515,7 @@
 	for(var/dir in GLOB.cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T, FALSE))
+			if(!CanAtmosPass(dir))
 				L.Add(T)
 	return L
 
@@ -793,7 +806,7 @@
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 
 	throwned_mob.visible_message(
-		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[DECLENT_RU_CAP(throwned_mob, NOMINATIVE)] с размаху вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	throwned_mob.take_organ_damage(damage)
@@ -1000,7 +1013,11 @@
 		air = get_readonly_air()
 	else
 		air = bound_air
-	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
+
+	var/wind_x_cached = wind_x
+	var/wind_y_cached = wind_y
+
+	var/wind = MAGNITUDE(wind_x_cached, wind_y_cached)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
 	current_wind.alpha = min(255, 5 + wind_strength * 25)
 	return TRUE

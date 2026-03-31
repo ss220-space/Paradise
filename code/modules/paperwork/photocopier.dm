@@ -423,7 +423,7 @@
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_A_O_Y(copyitem)]."))
+		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_A_O_Y(copyitem)]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 		finish_copying()
 	if(count_of_copies) // if there is at least one copy
@@ -439,7 +439,7 @@
 		return
 	if(length(saved_documents) >= max_saved_documents)
 		balloon_alert(usr, "нет памяти!")
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)] в связи с тем, что лимит сохранённых файлов был достигнут. Для продолжения операции освободите память устройства."))
+		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)] в связи с тем, что лимит сохранённых файлов был достигнут. Для продолжения операции освободите память устройства."))
 		return
 	copying = TRUE
 	var/obj/item/O
@@ -709,7 +709,7 @@
 	copymob = target
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
-		visible_message(span_notice("[capitalize(copymob.declent_ru(NOMINATIVE))] сталкива[PLUR_ET_YUT(user)] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(copymob, NOMINATIVE)] сталкива[PLUR_ET_YUT(user)] [copyitem.declent_ru(ACCUSATIVE)] со своего пути!"))
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)

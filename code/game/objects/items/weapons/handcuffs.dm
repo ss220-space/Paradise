@@ -13,8 +13,9 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakout_time = 150 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	breakout_time = 2 MINUTES
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
+	custom_price = PAYCHECK_MIN * 1.2
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	/// If TRUE, these cuffs are disposable
 	var/trashtype = null
@@ -127,6 +128,7 @@
 	item_state = "sinewcuff"
 	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/sinew/get_ru_names()
 	return list(
@@ -147,6 +149,8 @@
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	custom_price = PAYCHECK_MIN
+	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/cable/get_ru_names()
 	return list(
@@ -230,7 +234,7 @@
 		user.put_in_hands(bola, ignore_anim = FALSE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/crayon = I
 		cable_color(crayon.colourName)
@@ -273,6 +277,7 @@
 			Используются для ограничения подвижности заключённых посредством сковывания кистей рук. \
 			Для чего данная модель отделана розовым мехом — вопрос."
 	item_state = "pinkcuff"
+	icon_state = "pinkcuffs"
 
 /obj/item/restraints/handcuffs/pinkcuffs/get_ru_names()
 	return list(
@@ -293,7 +298,6 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "manacle_lock"
 	item_state = "manacle"
-	breakout_time = 2 MINUTES
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
 		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi',

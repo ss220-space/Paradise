@@ -25,7 +25,7 @@
 	sharp = 1
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	toolbox_radial_menu_compatibility = TRUE
 	greyscale_config = /datum/greyscale_config/wirecutters
@@ -216,7 +216,9 @@
 	name = "industrial wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
 			Челюсти способны сжиматься сильнее, чем у аналогов, что облегчает работу."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters_industrial"
+	post_init_icon_state = null
 	random_color = FALSE
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -227,8 +229,6 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_colors = null
-	icon = 'icons/obj/tools.dmi'
-	post_init_icon_state = null
 
 /obj/item/wirecutters/industrial/get_ru_names()
 	return list(

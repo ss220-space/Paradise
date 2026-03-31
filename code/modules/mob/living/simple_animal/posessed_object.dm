@@ -90,7 +90,7 @@
 		drop_r_hand()
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
-		visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] разрывает оковы!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывает оковы!"))
 		var/turf/source_turf = get_turf(src)
 		if(source_turf)
 			forceMove(source_turf)
@@ -101,20 +101,20 @@
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
-	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя — почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
+	to_chat(src, span_shadowling("<b>Ваш дух вселился в [declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя — почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 /mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins(span_adminnotice("Posessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
-		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
+		stack_trace("[src] spawned manually, no object to assign attributes to.")
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
 		message_admins(span_adminnotice("Posessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
-		log_runtime(EXCEPTION("[src] attempted to find a turf to spawn on, and could not."), src)
+		stack_trace("[src] attempted to find a turf to spawn on, and could not.")
 		qdel(src)
 
 	possessed_item = loc
@@ -123,7 +123,7 @@
 
 	update_icon(1)
 
-	visible_message(span_shadowling("[capitalize(src.declent_ru(NOMINATIVE))] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
+	visible_message(span_shadowling("[DECLENT_RU_CAP(src, NOMINATIVE)] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
@@ -133,7 +133,7 @@
 	return TRUE
 
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
-	if(istype(possessed_item, /obj/item/card/id))
+	if(is_id_card(possessed_item))
 		var/obj/item/card/id/possessed_id = possessed_item
 		. = possessed_id.access
 
@@ -142,7 +142,7 @@
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
-	if(!istype(loc, /turf)) // If we're inside a card machine or something similar then you're stuck.
+	if(!isturf(loc)) // If we're inside a card machine or something similar then you're stuck.
 		return
 
 	name = spirit_name

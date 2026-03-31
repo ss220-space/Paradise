@@ -32,7 +32,8 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/light
-	damage = 18
+	damage = 16
+	armour_penetration = -50
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
@@ -121,7 +122,6 @@
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
-	irradiate = 40
 	forcedodge = -1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -219,7 +219,7 @@
 	impact_light_color_override = LIGHT_COLOR_BLUE
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
+	if(isturf(target) || isstructure(target) || ismachinery(target))
 		target.ex_act(EXPLODE_HEAVY)
 	return ..()
 
@@ -501,7 +501,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] взрывается!"))
+		L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] взрывается!"))
 		L.gib()
 
 /obj/projectile/beam/dominator/eliminator

@@ -457,7 +457,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 </html>
 	"}
 
-	if(istype(D, /datum))
+	if(isdatum(D))
 		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
 
 	var/size_string = "size=475x650";
@@ -500,7 +500,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		item = "[name] = /icon ([span_value("[value]")])"
 		#endif
 
-	else if(istype(value, /image))
+	else if(isimage(value))
 		var/image/I = value
 		#ifdef VARSICON
 		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image ([span_value("[value]")]) [icon2html(value, usr)]"
@@ -577,7 +577,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		else if(isclient(D))
 			var/client/C = D
 			href_list[paramname] = C.UID()
-		log_runtime(EXCEPTION("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]"))
+		stack_trace("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]")
 
 	if(href_list["Vars"])
 		debug_variables(locateUID(href_list["Vars"]))
@@ -837,7 +837,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		offer_control(M)
 
 	else if(href_list["delete"])
-		if(!check_rights(R_DEBUG, FALSE))
+		if(!check_rights(R_ADMIN|R_DEBUG))
 			return
 
 		var/datum/D = locateUID(href_list["delete"])
@@ -958,9 +958,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		if(!result || !A)
 			return TRUE
 
-		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
+		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
 
-		log_and_message_admins("modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		log_and_message_admins("modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -1505,7 +1505,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		if(A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится под контролем призраков!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(A, NOMINATIVE)] уже находится под контролем призраков!"))
 			return
 
 		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
@@ -1542,7 +1542,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		if(!A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится под контролем призраков!")
+			to_chat(usr, "[DECLENT_RU_CAP(A, NOMINATIVE)] больше не находится под контролем призраков!")
 			return
 
 		A.stop_deadchat_plays()

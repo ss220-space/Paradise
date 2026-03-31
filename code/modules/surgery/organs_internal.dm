@@ -481,7 +481,7 @@
 		var/can_treat_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 		if(can_treat_robotic || can_treat_organic)
 			if(organ.is_dead())
-				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] мертв[GEND_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
+				to_chat(user, span_warning("[DECLENT_RU_CAP(organ, NOMINATIVE)] мертв[GEND_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
 				continue
 			user.visible_message(
 				span_notice("[user] начина[PLUR_ET_YUT(user)] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
@@ -579,7 +579,7 @@
 			continue
 		organ.on_find(user)
 		organs -= organ
-		organs[capitalize(organ.declent_ru(NOMINATIVE))] = organ
+		organs[DECLENT_RU_CAP(organ, NOMINATIVE)] = organ
 
 	var/obj/item/organ/internal/I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечение органа", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
@@ -686,7 +686,7 @@
 		user.balloon_alert(user, "нет места под орган!")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(isskeleton(target) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
+	if(isskeleton(target) && is_internal_organ_brain(organ) && !istype(organ, /obj/item/organ/internal/brain/golem))
 		user.balloon_alert(user, "нет места под орган!")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -785,7 +785,7 @@
 
 		var/msg = "[user] начина[PLUR_ET_YUT(user)] выливать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 		var/self_msg = "Вы начинаете выливать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
-		if(istype(container, /obj/item/reagent_containers/syringe))
+		if(issyringe(container))
 			msg = "[user] начина[PLUR_ET_YUT(user)] вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 			self_msg = "Вы начинаете вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 		user.visible_message(span_notice(msg), span_notice(self_msg))
@@ -847,7 +847,7 @@
 
 		// now try actually injecting.
 
-		if(istype(C, /obj/item/reagent_containers/syringe))
+		if(issyringe(C))
 			user.visible_message(
 				span_notice("[user] вкалыва[PLUR_ET_YUT(user)] содержимое [tool.declent_ru(GENITIVE)] в [organ.declent_ru(ACCUSATIVE)] [target]."),
 				span_notice("Вы вкалываете содержимое [tool.declent_ru(GENITIVE)] в [organ.declent_ru(ACCUSATIVE)] [target].")
@@ -867,7 +867,7 @@
 				continue
 			if(mito_trans >= MITO_REVIVAL_COST)
 				organ.rejuvenate() // Just like splashing it onto it
-				user.visible_message(span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] восстанавлива[PLUR_ET_YUT(organ)]ся прямо на глазах под воздействием митоколида!"))
+				user.visible_message(span_warning("[DECLENT_RU_CAP(organ, NOMINATIVE)] восстанавлива[PLUR_ET_YUT(organ)]ся прямо на глазах под воздействием митоколида!"))
 			else
 				user.balloon_alert(user, "недостаточно митоколида!")
 

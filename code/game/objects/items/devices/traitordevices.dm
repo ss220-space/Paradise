@@ -123,6 +123,7 @@ effective or pretty fucking useless.
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)
+	to_chat(user, span_warning("[target] успешно облучен[GEND_A_O_Y(target)]."))
 	addtimer(CALLBACK(src, PROC_REF(delayed_effect), target), (wavelength + (intensity * 4)) SECONDS)
 
 /obj/item/rad_laser/proc/reset_cooldown()
@@ -133,8 +134,7 @@ effective or pretty fucking useless.
 	if(QDELETED(target))
 		return
 	if(intensity >= 5)
-		target.Paralyse((intensity * 40 / 3) SECONDS)
-		target.apply_effect(intensity * 10, IRRADIATE)
+		target.apply_effect(round(intensity / 0.075), EFFECT_UNCONSCIOUS) // to save you some math, this is a round(intensity * (4/3)) second long knockout
 
 /obj/item/rad_laser/attack_self(mob/user)
 	..()
@@ -384,7 +384,7 @@ effective or pretty fucking useless.
 	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, 'sound/magic/disintegrate.ogg', 50, TRUE)
 	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
-	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/thing as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
 	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))

@@ -27,6 +27,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/Destroy()
 	QDEL_NULL(active_item)
+	QDEL_LIST(items_list)
 	hand = null
 	return ..()
 
@@ -78,8 +79,10 @@
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	if(emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	if(prob(15/severity) && owner)
-		to_chat(owner, span_warning("[src.declent_ru(NOMINATIVE)] поражён ЭМИ импульсом!"))
+		to_chat(owner, span_warning("[declent_ru(NOMINATIVE)] поражён ЭМИ импульсом!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
@@ -106,7 +109,7 @@
 		return FALSE
 
 	owner.visible_message(span_notice("[owner] убира[PLUR_ET_YUT(owner)] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
-		span_notice("[capitalize(active_item.declent_ru(NOMINATIVE))] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
+		span_notice("[DECLENT_RU_CAP(active_item, NOMINATIVE)] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
 		span_italics("Слышен короткий механический щелчок."))
 
 	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
@@ -189,6 +192,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
 	if(emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
@@ -296,7 +301,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/flash/Extend(obj/item/item)
 	. = ..()
-	active_item.set_light(7, l_on = TRUE)
+	active_item.set_light_range(7)
+	active_item.set_light_on(TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/flash/Retract()
 	if(!active_item || (active_item in src))
@@ -360,6 +366,8 @@
 	parent_organ_zone = BODY_ZONE_L_ARM
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 
 	if(crit_fail || emp_proof)
@@ -422,6 +430,8 @@
 	// To allow repair via nanopaste/screwdriver
 	// also so IPCs don't also catch on fire and fall even more apart upon EMP
 	if(emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	damage = 1
 	crit_fail = TRUE

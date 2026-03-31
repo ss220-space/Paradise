@@ -18,6 +18,7 @@
 
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
+#define JOB_TRAIT "job"
 
 #define CINEMATIC_TRAIT "cinematic"
 
@@ -50,7 +51,6 @@
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
 #define INUGAMI_TRAIT "inugami_gl"
-#define MANTIS_BLADE_TRAIT "mantis_blade"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"
@@ -110,6 +110,9 @@
 
 /// Source trait for /obj/item/mecha_parts/mecha_equipment/cage
 #define MECH_SUPRESSED_TRAIT "mech_supress"
+
+/// Source trait for the Bingle
+#define TRAIT_BINGLE "bingle_trait"
 
 /// Trait associated to resting
 #define RESTING_TRAIT "resting"
@@ -173,8 +176,12 @@
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
 
+/// Trait applied by MODsuits.
 #define MODSUIT_TRAIT "modsuit_trait"
 
 #define TASER_TRAIT "taser"
 
 #define BUTTON_TRAIT "button"
+
+/// Trait given by echolocation component.
+#define ECHOLOCATION_TRAIT "echolocation"

@@ -14,6 +14,7 @@
 	pass_open_check = TRUE
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	custom_price = PAYCHECK_MIN * 0.2
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
@@ -174,8 +175,8 @@
 	var/rounded_vol
 	if(reagents?.total_volume)
 		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
-		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
+		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
+		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay

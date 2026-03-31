@@ -149,10 +149,10 @@
 			if(isturf(thing.loc))
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
-	for(var/mob/M in src)
-		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_loc)
-		visible_message(span_danger("[M] вырыва[PLUR_ET_YUT(M)]ся из нутра [name]!"))
+	for(var/mob/target in src)
+		LAZYREMOVE(stomach_contents, target)
+		target.forceMove(drop_loc)
+		visible_message(span_danger("[target] вырыва[PLUR_ET_YUT(target)]ся из нутра [name]!"))
 
 /// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -242,7 +242,7 @@
 				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
 					var/mob/living/carbon/human/H = M
 					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
+					if((H.gloves?.max_heat_protection_temperature > BURNING_ITEM_MINIMUM_TEMPERATURE) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
 						protected = TRUE
 					if(!protected)
 						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
@@ -654,7 +654,9 @@
 	// but no more than 50. Short throws are quieter. A fast throwing speed also makes the noise sharper.
 	frequency_number = frequency_number + (rand(-5, 5) / 100)
 
-	playsound(src, throwsound, min(8 * min(get_dist(loc, target), range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
+	var/volume = min(8 * min(get_dist(loc, target), range), 50)
+	if(volume >= SOUND_AUDIBLE_VOLUME_MIN)
+		playsound(src, throwsound, volume, vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
 		span_danger("[name][power_throw_text] броса[PLUR_ET_YUT(src)] [thrown_thing.declent_ru(ACCUSATIVE)]."),
@@ -943,6 +945,10 @@ so that different stomachs can handle things in different ways VB*/
 		nightvision = max(nightvision, 8)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
+	if(HAS_TRAIT(src, TRAIT_ECHOLOCATOR))
+		add_sight(SEE_MOBS|SEE_TURFS)
+		lighting_alpha = max(lighting_alpha, LIGHTING_PLANE_ALPHA_INVISIBLE)
+
 	return ..()
 
 /mob/living/carbon/ExtinguishMob()
@@ -1031,3 +1037,22 @@ so that different stomachs can handle things in different ways VB*/
 		return TRUE
 
 	return ..()
+
+/**
+ * If an organ exists in the slot requested, and we are capable of taking damage (we don't have TRAIT_GODMODE), call the damage proc on that organ.
+ *
+ * Arguments:
+ * * slot - organ slot, like [ORGAN_SLOT_HEART]
+ * * amount - damage to be done
+ * * maximum - currently an arbitrarily large number, can be set so as to limit damage
+ * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOTIC
+ *
+ * Returns: The net change in damage from apply_organ_damage()
+ */
+/mob/living/carbon/adjust_organ_loss(slot, amount, maximum, affect_robotic = FALSE)
+	var/obj/item/organ/internal/affected_organ = get_organ_slot(slot)
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+	if(affect_robotic && !affected_organ.is_robotic())
+		return FALSE
+	return affected_organ.internal_receive_damage(min(amount, maximum))

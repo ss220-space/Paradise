@@ -20,7 +20,9 @@
 		"ЧТО ТАК+ОЕ КИЛОМ+ЕТР, Ч+ЁРТ ВОЗЬМ+И!!!",
 		"ЗА СВОБ+ОДУ!!!"
 	)
-	vend_reply = "Зап+омни мо+ё +имя: Liberation Station!"
+	vend_reply = "Зап+омни мо+ё +имя: \"Liberation Station\"!"
+	all_products_free = TRUE
+
 	products = list(
 		/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
 		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
@@ -42,7 +44,7 @@
 		/obj/item/bedsheet/patriot = 3,
 	)
 
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/liberationstation/get_ru_names()
@@ -97,7 +99,7 @@
 		/obj/item/deck/cards/syndicate = 10,
 	)
 
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/toyliberationstation/get_ru_names()

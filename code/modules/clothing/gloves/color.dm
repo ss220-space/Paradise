@@ -80,7 +80,7 @@
 	permeability_coefficient = 0.05
 	item_color = "yellow"
 	resistance_flags = NONE
-	toolspeedmod = 0.2
+	toolspeedmod = 0.6
 	clothing_traits = list(TRAIT_NO_GUNS)
 
 /obj/item/clothing/gloves/color/fyellow/old
@@ -149,7 +149,7 @@
 	desc = "Примитивные перчатки, которые облегчают переноску."
 	icon_state = "goligloves"
 	item_state = "goligloves"
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 20, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/goliath/get_ru_names()
@@ -167,7 +167,7 @@
 	desc = "Pair of gloves with some protection"
 	icon_state = "armored_gloves"
 	item_state = "armored_gloves"
-	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 75, ACID = 75)
 	can_be_cut = FALSE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -316,6 +316,7 @@
 	item_state = "modified"
 	item_color = "modified"
 	surgeryspeedmod = -0.3
+	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/modified/get_ru_names()
 	return list(
@@ -339,6 +340,7 @@
 	actions_types = list(/datum/action/item_action/toggle_defibrillator)
 	surgery_step_time = 0.5 SECONDS
 	surgery_germ_chance = 50
+	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/inugami/get_ru_names()
 	return list(
@@ -404,4 +406,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 30, BOMB = 30, BIO = 30, RAD = 30, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 30, BOMB = 30, BIO = 30, FIRE = 75, ACID = 75)

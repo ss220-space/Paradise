@@ -104,7 +104,7 @@
 	switch(mode)
 		if(CATAPULT_GRAVSLING)
 			if(!locked)
-				if(!istype(target) || target.anchored || istype(target, /obj/mecha))
+				if(!istype(target) || target.anchored || ismecha(target))
 					occupant_message("Unable to lock on [target]")
 					return FALSE
 				locked = target
@@ -463,25 +463,6 @@
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
 
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear
-	name = "exonuclear reactor"
-	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	origin_tech = "powerstorage=4;engineering=4"
-	fuel_name = "uranium" // Our fuel name as a string
-	fuel_type = MAT_URANIUM
-	max_fuel = 50000
-	fuel_per_cycle_active = 30
-	power_per_cycle = 50
-	var/rad_per_cycle = 0.3
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
-	return
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
-	if(..())
-		for(var/mob/living/carbon/M in view(chassis))
-			M.apply_effect((rad_per_cycle * 3), IRRADIATE, 0)
-
 /////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
@@ -659,11 +640,11 @@
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
 	if(holding)
 		occupant_message(span_notice("Вы перестаёте удерживать [holding], и начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] перестаёт удерживать [holding] и начинает удерживать [target]."))
+		chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] перестаёт удерживать [holding] и начинает удерживать [target]."))
 		stop_supressing(holding)
 	else
 		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target]."))
+		chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает удерживать [target]."))
 
 	set_supress_effect(target)
 	if(!do_after_cooldown(target))
@@ -676,14 +657,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/handcuff_action(mob/living/carbon/target)
 	occupant_message(span_notice("Вы начинаете сковывать [target]..."))
-	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает сковывать [target]."))
+	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает сковывать [target]."))
 	if(!do_after_cooldown(target))
 		return FALSE
 	if(!prisoner)
 		change_alert(CAGE_STAGE_TWO)
 	target.apply_restraints(new /obj/item/restraints/handcuffs, ITEM_SLOT_HANDCUFFED, TRUE)
 	occupant_message(span_notice("Вы успешно сковали [target]..."))
-	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] успешно сковал [target]."))
+	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] успешно сковал [target]."))
 	add_attack_logs(chassis.occupant, target, "shackled")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/insert_action(mob/living/carbon/target)
@@ -697,7 +678,7 @@
 
 	change_state("mecha_cage_activate")
 	occupant_message(span_notice("Вы начинаете помещать [target] внутрь клетки..."))
-	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает помещать [target] внутрь клетки."))
+	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает помещать [target] внутрь клетки."))
 	if(!do_after_cooldown(target))
 		change_state("mecha_cage")
 		return FALSE
@@ -709,7 +690,7 @@
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
 	occupant_message(span_notice("[target] успешно помещен[GEND_A_O_Y(target)] в клетку."))
-	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
+	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] поместил [target] в клетку."))
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))

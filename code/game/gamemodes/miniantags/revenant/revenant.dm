@@ -33,6 +33,7 @@
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags_self = PASSMOB | PASSPROJECTILE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	tts_seed = "Sylvanas"
@@ -85,6 +86,7 @@
 		revealed = 0
 		incorporeal_move = INCORPOREAL_REVENANT
 		invisibility = INVISIBILITY_REVENANT
+		pass_flags_self |= PASSPROJECTILE
 		to_chat(src, span_revenboldnotice("Реальность содрогается, и вы растворяетесь в тени."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
@@ -312,6 +314,7 @@
 	revealed = 1
 	invisibility = 0
 	incorporeal_move = INCORPOREAL_NONE
+	pass_flags_self &= ~PASSPROJECTILE
 	if(!unreveal_time)
 		to_chat(src, span_revendanger("Ваша форма становится осязаемой, и смертные могут вас увидеть..."))
 		unreveal_time = world.time + time
@@ -441,7 +444,7 @@
 	..()
 	if(inert)
 		return
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается на частицы при ударе, которые исчезают в никуда."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] рассыпается на частицы при ударе, которые исчезают в никуда."))
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
@@ -457,7 +460,7 @@
 
 	if(!reforming)
 		inert = TRUE
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] оседает и кажется безжизненным."))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] оседает и кажется безжизненным."))
 		return
 
 	var/key_of_revenant
@@ -481,7 +484,7 @@
 	if(!key_of_revenant)
 		qdel(new_revenant)
 		inert = TRUE
-		visible_message(span_revenwarning("[capitalize(src.declent_ru(NOMINATIVE))] оседает и кажется безжизненной."))
+		visible_message(span_revenwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] оседает и кажется безжизненной."))
 		message_admins("No candidates were found for the new revenant. Oh well!")
 		return
 
@@ -499,7 +502,7 @@
 	new_revenant.mind = player_mind
 	new_revenant.possess_by_player(player_mind.key)
 
-	visible_message(span_revenboldnotice("[capitalize(src.declent_ru(NOMINATIVE))] внезапно поднимается в воздух, а затем исчезает."))
+	visible_message(span_revenboldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно поднимается в воздух, а затем исчезает."))
 	message_admins("[key_name_admin(new_revenant)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 	add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", new_revenant)
 

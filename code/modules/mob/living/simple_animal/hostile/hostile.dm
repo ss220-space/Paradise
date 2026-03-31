@@ -532,7 +532,7 @@
 		return
 	if(CheckFriendlyFire(A))
 		return
-	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
 
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
@@ -550,7 +550,7 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, TRUE)
-		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
+		casing.fire(target = targeted_atom, user = src, params = null, distro = null, quiet = FALSE, zone_override = ran_zone(), firer_source_atom = src)
 		casing.after_fire()
 	else if(projectiletype)
 		var/obj/projectile/P = new projectiletype(startloc)

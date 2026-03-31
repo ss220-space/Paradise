@@ -187,7 +187,7 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		if(inserted_id)
 			balloon_alert(user, "слот ID карты занят")
 		else if(user.drop_transfer_item_to_loc(I, src))
@@ -289,7 +289,6 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 
-		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
 		occupantData["paralysis"] = occupant.AmountParalyzed()
@@ -357,7 +356,7 @@
 
 			organData["status"] = organStatus
 
-			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(E) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
 			if(E.has_internal_bleeding())
@@ -413,7 +412,7 @@
 				sleep(3 SECONDS)
 				isPrinting = FALSE
 				return
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -468,9 +467,6 @@
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\t-Термические повреждения: [occupant.getFireLoss()]</font><br>"
-
-		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tГенетические повреждения: [occupant.getCloneLoss()]<br>"
@@ -541,7 +537,7 @@
 
 				internal_bleeding += "Внутреннее кровотечение"
 
-			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
+			if(ischest(e) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
 				splint = "Наложена шина"
@@ -602,7 +598,7 @@
 			if(!infection && !dead)
 				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[capitalize(organ.declent_ru(NOMINATIVE))]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
+			dat += "<td>[DECLENT_RU_CAP(organ, NOMINATIVE)]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
@@ -612,6 +608,6 @@
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
 			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><br>"
 	else
-		dat += "[capitalize(declent_ru(NOMINATIVE))] пуст."
+		dat += "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст."
 
 	return dat

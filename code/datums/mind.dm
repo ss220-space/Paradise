@@ -91,6 +91,9 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	///Owned cyborg skin permissions
+	var/list/cyborg_skin_permissions = list()
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -339,12 +342,12 @@
 
 /datum/mind/proc/memory_edit_clockwork_silicon()
 	. = _memory_edit_header("clockwork")
-	if(istype(current, /mob/living/silicon/robot))
+	if(isrobot(current))
 		if(src in SSticker.mode.clockwork_cult)
 			. += "<a href='byond://?src=[UID()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
 		else
 			. += "<b>NO</b>|<a href='byond://?src=[UID()];siliclock=clockrobot'>clocker</a>"
-	else if(istype(current, /mob/living/silicon/ai))
+	else if(isAI(current))
 		if(src in SSticker.mode.clockwork_cult)
 			. += "no|<b><font color='red'>CLOCKER</font></b>"
 		else
@@ -1243,8 +1246,7 @@
 
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
-					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
-					return
+					CRASH("Invalid target for identity theft objective, cancelling")
 
 				var/datum/objective/escape/escape_with_identity/identity_objective = new
 				identity_objective.owner = src
@@ -2903,6 +2905,7 @@
 		instance_or_path = instance_or_path.type
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
 		if(spell.type == instance_or_path)
+			spell.on_spell_removed(current)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 

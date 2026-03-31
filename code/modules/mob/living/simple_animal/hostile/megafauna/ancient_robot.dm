@@ -226,7 +226,7 @@ Difficulty: Very Hard
 	. = ..()
 	var/newcolor = rgb(241, 137, 172)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	beam_it_up()
+	END_OF_TICK(CALLBACK(src, PROC_REF(beam_it_up)))
 
 /obj/effect/vetus_laser/ex_act(severity, target)
 	return
@@ -292,7 +292,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
+	if(!charging || isancientrobotleg(bumped_living) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(span_danger("[declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
@@ -709,7 +709,7 @@ Difficulty: Very Hard
 		ranged = FALSE
 		visible_message(span_danger("Турель ломается и втягивается обратно в [declent_ru(ACCUSATIVE)]!"))
 	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
 	health_and_snap_check(FALSE)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
@@ -730,12 +730,12 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
 	. = ..()
-	if(!core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
+	if(!core.charging || isancientrobot(bumped_living) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(
-		span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living]!"),
-		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] втаптывает вас в землю!")
+		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в [bumped_living]!"),
+		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] втаптывает вас в землю!")
 	)
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
@@ -819,7 +819,7 @@ Difficulty: Very Hard
 
 /obj/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /mob/living/simple_animal/hostile/ancient_robot_leg))
+	if(isancientrobotleg(mover))
 		return TRUE
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
@@ -854,7 +854,7 @@ Difficulty: Very Hard
 		M.attempt_drill()
 	playsound(T, 'sound/effects/meteorimpact.ogg', 80, TRUE)
 	for(var/mob/living/L in T.contents)
-		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+		if(isancientrobot(L))
 			continue
 		L.adjustBruteLoss(35)
 		to_chat(L, span_userdanger("Вас ударил падающий камень!"))

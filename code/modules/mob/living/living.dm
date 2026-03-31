@@ -53,6 +53,7 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
+	GLOB.respawnable_list -= src
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -119,7 +120,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_YUT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_YUT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustKnockdown(levels * (4 SECONDS))
@@ -141,13 +142,13 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_YUT(src)] на ноги!"),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_YUT(src)] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -371,7 +372,7 @@
 		now_pushing = null
 		return
 
-	if(istype(AM, /obj/structure/window))
+	if(is_window(AM))
 		var/obj/structure/window/window = AM
 		if(window.fulltile)
 			for(var/obj/structure/window/win in get_step(window, dir_to_target))
@@ -807,7 +808,6 @@
 	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
-	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -820,6 +820,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	cure_radiation()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)
@@ -862,6 +863,7 @@
 	update_fire()
 	regenerate_icons()
 	restore_blood()
+	clear_alert(ALERT_BLEEDING)
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
@@ -1379,7 +1381,7 @@
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	if(istype(loc, /obj/structure/closet/critter))
+	if(istype(loc, /obj/structure/closet/crate/critter))
 		return environment.temperature()
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
@@ -1396,7 +1398,7 @@
 		return pod.cabin_air.temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))
 		return environment.temperature()
-	if(istype(get_turf(src), /turf/space))
+	if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
@@ -1433,7 +1435,7 @@
 		for(var/i in 1 to butcher_results[path])
 			new path(loc)
 		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)
@@ -1668,7 +1670,7 @@
 	return
 
 /mob/living/extinguish_light(force = FALSE)
-	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		item.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
@@ -1736,7 +1738,7 @@
 	throwned_mob.take_organ_damage(damage)
 	throwned_mob.Weaken(3 SECONDS)
 	throwned_mob.visible_message(
-		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
+		span_danger("[DECLENT_RU_CAP(throwned_mob, NOMINATIVE)] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
 		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 
@@ -2283,7 +2285,11 @@
 			"[target] спотыка[PLUR_ET_YUT(target)]ся об [declent_ru(GENITIVE)]!", \
 			"[target] опрокидыва[PLUR_ET_YUT(target)]ся на [declent_ru(GENITIVE)]!", \
 			"[target] отлета[PLUR_ET_YUT(target)] с пути [declent_ru(GENITIVE)]!", \
-			"[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
-			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
-			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")
+			"[DECLENT_RU_CAP(src, NOMINATIVE)] сбивает [target]!", \
+			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
+			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/// Prints an ominous message if something bad is going to happen to you
+/mob/living/proc/ominous_nosebleed()
+	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))

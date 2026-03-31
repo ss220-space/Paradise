@@ -23,6 +23,7 @@
 	update_icon()
 
 /obj/item/gun/projectile/Destroy()
+	QDEL_NULL(magazine)
 	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
 

@@ -19,13 +19,14 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_NO_HUNGER,
+		TRAIT_RESIST_HEAT,
 	)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	warning_low_pressure = -INFINITY
 	hazard_low_pressure = -INFINITY

@@ -230,7 +230,7 @@
 			var/obj/item/storage/lockbox/research/modsuit/lockbox = new(get_step(src, dir))
 			real_item.forceMove(lockbox)
 			lockbox.name += " ([real_item.name])"
-			var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
+			var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
 			lockbox.ru_names = list(
 				NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 				GENITIVE = "защищённого кейса ([real_item_ru_name])",
@@ -240,6 +240,7 @@
 				PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
 			)
 			lockbox.origin_tech = real_item.origin_tech
+	playsound(loc, 'sound/machines/rnd_machines/exofab_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	// Clean up
 	being_built = null
@@ -328,7 +329,7 @@
 		return
 	if(!allowed(user) && !isobserver(user))
 		balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 	ui_interact(user)
 
@@ -338,7 +339,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ExosuitFabricator", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "ExosuitFabricator", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

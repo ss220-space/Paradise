@@ -100,6 +100,13 @@
 	cooldown_time = 0.5 SECONDS
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
+	/// list of all traits, that added to magboots
+	var/list/active_traits = list(
+		TRAIT_NO_SLIP_WATER,
+		TRAIT_NO_SLIP_ICE,
+		TRAIT_NO_SLIP_SLIDE,
+		TRAIT_NEGATES_GRAVITY,
+	)
 
 /obj/item/mod/module/magboot/get_ru_names()
 	return list(
@@ -111,21 +118,26 @@
 		PREPOSITIONAL = "модуле магбутсов",
 	)
 
+/obj/item/mod/module/magboot/on_install()
+	. = ..()
+	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
+
+/obj/item/mod/module/magboot/on_uninstall(deleting = FALSE)
+	. = ..()
+	UnregisterSignal(mod, COMSIG_MOD_UPDATE_SPEED)
+
 /obj/item/mod/module/magboot/on_activation()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
-	mod.slowdown += slowdown_active
-	mod.update_equipped_item()
+	mod.wearer.add_traits(active_traits, UNIQUE_TRAIT_SOURCE(src))
+	mod.update_speed()
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
-	mod.slowdown -= slowdown_active
-	mod.update_equipped_item()
+	mod.wearer.remove_traits(active_traits, UNIQUE_TRAIT_SOURCE(src))
+	mod.update_speed()
+
+/obj/item/mod/module/magboot/proc/on_update_speed(datum/source, list/module_slowdowns)
+	SIGNAL_HANDLER
+	if(active)
+		module_slowdowns += slowdown_active
 
 // MARK: Atmos magboots
 /obj/item/mod/module/magboot/atmos
@@ -134,6 +146,13 @@
 			и предотвращает скольжение на влажных, обледенелых или загрязнённых поверхностях. \
 			Функционирует в условиях нулевой гравитации. Благодаря дополнительному усилению сцепления \
 			позволяет безопасно работать с атмосферными трубами с высоким давлением."
+	active_traits = list(
+		TRAIT_NO_SLIP_WATER,
+		TRAIT_NO_SLIP_ICE,
+		TRAIT_NO_SLIP_SLIDE,
+		TRAIT_GUSTPROTECTION,
+		TRAIT_NEGATES_GRAVITY,
+	)
 
 /obj/item/mod/module/magboot/atmos/get_ru_names()
 	return list(
@@ -145,14 +164,6 @@
 		PREPOSITIONAL = "модуле атмосферных магбутсов",
 	)
 
-/obj/item/mod/module/magboot/atmos/on_activation()
-	. = ..()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
-
-/obj/item/mod/module/magboot/atmos/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
-
 // MARK: Adv. magboots
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"
@@ -161,6 +172,13 @@
 			Функционирует в условиях нулевой гравитации. Оснащён системой активного контроля сцепления, \
 			что позволяет не замедлять пользователя при передвижении."
 	slowdown_active = 0
+	active_traits = list(
+		TRAIT_NO_SLIP_WATER,
+		TRAIT_NO_SLIP_ICE,
+		TRAIT_NO_SLIP_SLIDE,
+		TRAIT_NEGATES_GRAVITY,
+		TRAIT_GUSTPROTECTION,
+	)
 
 /obj/item/mod/module/magboot/advanced/get_ru_names()
 	return list(
@@ -172,20 +190,6 @@
 		PREPOSITIONAL = "модуле продвинутых магбутсов",
 	)
 
-/obj/item/mod/module/magboot/advanced/on_activation()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
-
-/obj/item/mod/module/magboot/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
-
 // MARK: Elite magboots
 /obj/item/mod/module/magboot/advanced/elite
 	name = "MOD elite magnetic stability module"
@@ -194,6 +198,12 @@
 			что позволяет не замедлять пользователя при передвижении."
 	complexity = 0
 	removable = FALSE
+	active_traits = list(
+		TRAIT_NO_SLIP_ALL,
+		TRAIT_NO_SLIP_SLIDE,
+		TRAIT_NEGATES_GRAVITY,
+		TRAIT_GUSTPROTECTION,
+	)
 
 /obj/item/mod/module/magboot/advanced/elite/get_ru_names()
 	return list(
@@ -204,18 +214,6 @@
 		INSTRUMENTAL = "модулем элитных магбутсов",
 		PREPOSITIONAL = "модуле элитных магбутсов",
 	)
-
-/obj/item/mod/module/magboot/advanced/elite/on_activation()
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
-	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
-
-/obj/item/mod/module/magboot/advanced/elite/on_deactivation(display_message = TRUE, deleting = FALSE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
-	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
 
 // MARK: Rad. detector
 /// Radiation detector (should be Radiation Protection one day...) - Gives the user rad info in the ui, currently (absolutely useless)
@@ -229,6 +227,8 @@
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	tgui_id = "rad_counter"
+	/// Radiation threat level being perceived.
+	var/perceived_threat_level
 
 /obj/item/mod/module/rad_protection/get_ru_names()
 	return list(
@@ -240,11 +240,32 @@
 		PREPOSITIONAL = "модуле радиационного сканирования",
 	)
 
+/obj/item/mod/module/rad_protection/on_part_activation()
+	AddComponent(/datum/component/geiger_sound)
+	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
+	for(var/obj/item/part in mod.get_parts(all = TRUE))
+		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
+
+/obj/item/mod/module/rad_protection/on_part_deactivation(deleting = FALSE)
+	qdel(GetComponent(/datum/component/geiger_sound))
+	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
+	for(var/obj/item/part in mod.get_parts(all = TRUE))
+		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
+
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
-	.["is_user_irradiated"] = mod.wearer?.radiation || 0
+	.["is_user_irradiated"] = mod.wearer ? HAS_TRAIT(mod.wearer, TRAIT_IRRADIATED) : FALSE
+	.["background_radiation_level"] = perceived_threat_level
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
+
+/obj/item/mod/module/rad_protection/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
+	SIGNAL_HANDLER
+
+	perceived_threat_level = get_perceived_radiation_danger(pulse_information, insulation_to_target)
+	addtimer(VARSET_CALLBACK(src, perceived_threat_level, null), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 // MARK: Grappling hook
 /// Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.

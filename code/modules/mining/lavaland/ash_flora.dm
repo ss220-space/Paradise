@@ -1,6 +1,6 @@
 /obj/structure/flora/ash
 	gender = PLURAL
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "l_mushroom1"
 	base_icon_state = "l_mushroom"
@@ -78,7 +78,7 @@
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
-			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете собирать [declent_ru(ACCUSATIVE)]."),
 		)
 		if(!do_after(user, harvest_time * I.toolspeed, src, category = DA_CAT_TOOL) || harvested)
 			return ATTACK_CHAIN_PROCEED
@@ -91,7 +91,7 @@
 	if(!harvested && !needs_sharp_harvest)
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете собирать [declent_ru(ACCUSATIVE)]."),
 		)
 		if(do_after(user, harvest_time, src))
 			add_fingerprint(user)

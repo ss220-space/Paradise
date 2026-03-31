@@ -420,16 +420,23 @@
 
 /proc/is_species(A, species_datum)
 	. = FALSE
+
+	var/datum/dna/donor
 	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		if(H.dna && istype(H.dna.species, species_datum))
-			. = TRUE
+		var/mob/living/carbon/human/human_donor = A
+		donor = human_donor.dna
+	if(is_organ(A))
+		var/obj/item/organ/organ_donor = A
+		donor = organ_donor.dna
+
+	if(donor && istype(donor.species, species_datum))
+		. = TRUE
 
 /proc/is_monkeybasic(mob/living/carbon/human/target)
 	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
-	if(!ishuman(target) || !istype(target.dna.species, /datum/species/slime))
+	if(!ishuman(target) || !isslimeperson(target))
 		return FALSE
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
@@ -617,7 +624,7 @@
  *	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - JOB_TITLE_JUDGE - JOB_TITLE_BRIGDOC
+	var/sec_positions = GLOB.security_positions - JOB_TITLE_MAGISTRATE - JOB_TITLE_BRIGDOC
 	var/total = 0
 	var/active = 0
 	var/dead = 0
@@ -798,7 +805,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/selected_borg_name = null
 	var/list/available_borgs = list()
 	for(var/mob/living/silicon/robot/borg in GLOB.player_list)
-		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg))
+		if(borg.stat == DEAD || borg.connected_ai || borg.scrambledcodes || isdrone(borg) || iscogscarab(borg) || isclocker(borg) || borg.shell)
 			continue
 		var/borg_name = "[borg.real_name] ([borg.modtype?.name] [borg.braintype])"
 		available_borgs[borg_name] = borg
@@ -898,7 +905,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			base_name += " \[[mob_instance.real_name]\]"
 
 		if(mob_instance.stat == DEAD)
-			if(istype(mob_instance, /mob/dead/observer/))
+			if(isobserver(mob_instance))
 				base_name += " \[ghost\]"
 			else
 				base_name += " \[dead\]"
@@ -964,3 +971,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		var/obj/item/organ/internal/brain/brain = target
 		if(!QDELETED(brain.brainmob?.mind))
 			return brain.brainmob.mind
+
+/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
+/mob/living/proc/parse_zone_with_bodypart(zone)
+	var/obj/item/organ/external/part = get_bodypart(zone)
+
+	return part?.plaintext_zone || parse_zone(zone)

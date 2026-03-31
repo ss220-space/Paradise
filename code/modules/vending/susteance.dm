@@ -23,6 +23,8 @@
 	broken_lightmask_overlay = "snack_broken_lightmask"
 	broken_lightmask_overlay = "snack_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/sustenance
+	default_price = PAYCHECK_MIN / 2 // prisoners are very poor
+	default_premium_price = PAYCHECK_LOWER / 2
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/tofu = 24,
@@ -31,7 +33,7 @@
 	)
 	contraband = list(
 		/obj/item/kitchen/knife = 6,
-		/obj/item/reagent_containers/food/drinks/coffee = 12,
+		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 12,
 		/obj/item/tank/internals/emergency_oxygen = 6,
 		/obj/item/clothing/mask/breath = 6,
 	)

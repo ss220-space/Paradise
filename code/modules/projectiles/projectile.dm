@@ -9,7 +9,7 @@
 	icon_state = "bullet"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSPROJECTILE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
 	animate_movement = NO_STEPS
@@ -84,20 +84,19 @@
 	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
 	var/immolate = 0
 
-	//Effects
-	var/stun = 0
-	var/weaken = 0
-	var/paralyze = 0
-	var/irradiate = 0
-	var/stutter = 0
-	var/slur = 0
-	var/eyeblur = 0
-	var/drowsy = 0
-	var/min_stamina = 0
-	var/stamina = 0
-	var/jitter = 0
-	var/knockdown = 0
-	var/confused = 0
+	// Status effects applied on hit
+	var/stun = 0 SECONDS
+	var/weaken = 0 SECONDS
+	var/paralyze = 0 SECONDS
+	var/stutter = 0 SECONDS
+	var/slur = 0 SECONDS
+	var/eyeblur = 0 SECONDS
+	var/drowsy = 0 SECONDS
+	var/min_stamina = 0 SECONDS
+	var/stamina = 0 SECONDS
+	var/jitter = 0 SECONDS
+	var/knockdown = 0 SECONDS
+	var/confused = 0 SECONDS
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -281,7 +280,7 @@
 
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] попадает вам [organ_hit_text]"))
+			to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
@@ -291,8 +290,8 @@
 								"получа[PLUR_ET_YUT(L)] ранение",
 								"поражён[GEND_A_O_Y(L)]",
 								"прошибает")
-			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
-								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
+			L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] [hit_text] [declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
+								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 		if(immolate)
@@ -312,7 +311,7 @@
 	return were_affects_applied
 
 /obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
-	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
+	return target.apply_effects(blocked, stun, weaken, paralyze, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
 
 /**
  * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -458,7 +457,7 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER && !isliving(original)))
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
 	if(QDELETED(src)) //deleted on last move

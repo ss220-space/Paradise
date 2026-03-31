@@ -11,6 +11,7 @@
 	var/desc = "Если вы это увидели, пишите баг-репорт."
 	var/logmsg
 	var/category = SMITE_CATEGORY_GENERAL
+	var/permissions = R_ADMIN|R_EVENT
 
 /datum/smite/proc/activate(mob/living/target, reason = DEFAULT_SMITE_REASON)
 	apply_effect(target, reason)
@@ -284,7 +285,7 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[DECLENT_RU_CAP(clothing, NOMINATIVE)] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 // MARK: Nugget
@@ -330,7 +331,7 @@
 	var/mob/living/simple_animal/hostile/mob = new type(turf)
 	mob.GiveTarget(mob)
 	mob.toggle_ai(AI_ON)
-	to_chat(target, span_userdanger("[capitalize(mob.declent_ru(NOMINATIVE))] появляется из воздуха! Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[DECLENT_RU_CAP(mob, NOMINATIVE)] появляется из воздуха! Боги наказали вас за [reason]!"))
 	logmsg = "summon angry [mob]."
 
 // MARK: HRP (off)
@@ -416,6 +417,7 @@
 	desc = "Запустите по грешнику ракетой."
 	logmsg = "supply pod."
 	category = SMITE_CATEGORY_DEATH
+	permissions = R_EVENT
 
 /datum/smite/pod/activate(mob/living/target, reason)
 	var/datum/centcom_podlauncher/launcher = new(usr, reason)
@@ -495,6 +497,7 @@
 	var/turf/target_turf = get_turf(target)
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
+	playsound(fallen, 'sound/misc/metal_pipe_falling.ogg', 50, FALSE, 3)
 	to_chat(target, span_userdanger(
 		"Откуда-то сверху на вас пада[PLUR_ET_YUT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \
@@ -631,6 +634,8 @@ ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a playe
 	var/list/categorized_smites = list()
 	for(var/name in all_smites)
 		var/datum/smite/smite_type = all_smites[name]
+		if(!check_rights(smite_type.permissions, FALSE, user))
+			continue
 		var/category = initial(smite_type.category)
 		if(!categorized_smites[category])
 			categorized_smites[category] = list()

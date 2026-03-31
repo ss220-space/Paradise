@@ -187,7 +187,7 @@
 		L += F.contents
 	return L
 
-/obj/item/storage/proc/show_to(mob/user)
+/obj/item/storage/proc/show_to(mob/user, from_inv_observers = FALSE)
 	if(!user.client)
 		return
 	if(QDELETED(src))
@@ -215,13 +215,18 @@
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_mob_qdeleting), TRUE)
+
+	if(from_inv_observers)
+		return
+
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
-		show_to(observe)
+		show_to(observe, TRUE)
 
-/obj/item/storage/proc/hide_from(mob/user)
+/obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
@@ -235,11 +240,20 @@
 	if(user.s_active == src)
 		user.s_active = null
 
+	UnregisterSignal(user, COMSIG_QDELETING)
+
+	if(from_inv_observers)
+		return
+
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
-		hide_from(observe)
+		hide_from(observe, TRUE)
+
+/obj/item/storage/proc/on_mob_qdeleting(mob/source, force)
+	SIGNAL_HANDLER
+	hide_from(source)
 
 /obj/item/storage/proc/hide_from_all_viewers()
 	if(!LAZYLEN(mobs_viewing))
@@ -613,12 +627,12 @@
 	if(length(can_hold))
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -842,9 +856,9 @@
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)
-			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать все предметы с тайла за раз.")
+			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать все предметы с тайла за раз.")
 		if(FALSE)
-			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать один предмет с тайла за раз")
+			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Выбросить содержимое"
@@ -984,9 +998,9 @@
 		if(islist(thing))
 			list_to_object(thing, src)
 		else if(thing == null)
-			log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
+			stack_trace("Null entry found in storage/deserialize.")
 		else
-			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
+			stack_trace("Non-list thing found in storage/deserialize (Thing: [thing])")
 	..()
 
 /obj/item/storage/AllowDrop()

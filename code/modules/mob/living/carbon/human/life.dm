@@ -158,7 +158,7 @@
 				if(3)
 					emote("drool")
 
-/mob/living/carbon/human/handle_mutations_and_radiation()
+/mob/living/carbon/human/handle_mutations(time_since_irradiated, seconds_per_tick)
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			gene.OnMobLife(src)
@@ -180,78 +180,11 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(radiation)
-		if(isnucleation(src))
-			radiation = clamp(radiation, 0, 800) // Типа кристаллы СМ лучше вбирают радиацию и поэтому у нуклей больший запас, а так — что бы эффекты снизу вообще работали
-			switch(radiation)
-				if(1 to 399)
-					radiation = max(radiation-1, 0) // Что бы не копилась бесконечно малое кол-во, но все ещё можно было получать эффект снизу при достаточном облучении
-					return
-				if(400 to INFINITY)
-					if(prob(50))
-						reagents.add_reagent("radium", 1)
-						radiation = max(radiation-50, 0)
-						return
-
-		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
-			radiation = clamp(radiation, 0, 200)
-
-			var/autopsy_damage = 0
-			switch(radiation)
-				if(1 to 49)
-					radiation = max(radiation-1, 0)
-					if(prob(25))
-						apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
-						autopsy_damage = 2
-
-				if(50 to 74)
-					radiation = max(radiation-2, 0)
-					apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
-					autopsy_damage = 2
-					if(prob(5))
-						radiation = max(radiation-5, 0)
-						Weaken(6 SECONDS)
-						to_chat(src, span_danger("Вы чувствуете слабость."))
-						emote("collapse")
-
-				if(75 to 100)
-					radiation = max(radiation-2, 0)
-					apply_damages(burn = 2, tox = 2, spread_damage = TRUE)
-					autopsy_damage = 4
-					if(prob(2))
-						to_chat(src, span_danger("Вы мутируете!"))
-						randmutb(src)
-						check_genes()
-
-				if(101 to 150)
-					radiation = max(radiation-3, 0)
-					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
-					autopsy_damage = 5
-					if(prob(4))
-						to_chat(src, span_danger("Вы мутируете!"))
-						randmutb(src)
-						check_genes()
-
-				if(151 to INFINITY)
-					radiation = max(radiation-3, 0)
-					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
-					autopsy_damage = 5
-					if(prob(6))
-						to_chat(src, span_danger("Вы мутируете!"))
-						randmutb(src)
-						check_genes()
-
-			if(autopsy_damage)
-				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
-				if(chest)
-					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
-
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
 		..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
-
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 
 	if(!lungs || (lungs && lungs.is_dead()))
@@ -311,7 +244,7 @@
 				adjust_bodytemperature(min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX))
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
-	if(bodytemperature > dna.species.heat_level_1)
+	if(bodytemperature > dna.species.heat_level_1 && !HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		//Body temperature is too hot.
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return TRUE	//godmode
@@ -862,14 +795,14 @@
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
 				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
-				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в ваш[GEND_EM_EI_EM_IH(bodypart)] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
+				to_chat(src, span_userdanger("[DECLENT_RU_CAP(thing, NOMINATIVE)] в ваш[GEND_EM_EI_EM_IH(bodypart)] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
 				visible_message(
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_danger("[DECLENT_RU_CAP(thing, NOMINATIVE)] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
+					span_danger("[DECLENT_RU_CAP(thing, NOMINATIVE)] выпадает из [GEND_YOURS(bodypart)] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 				)
 
 /mob/living/carbon/human/proc/handle_pulse(times_fired)

@@ -58,7 +58,7 @@
 	paperamount += paper_result
 	playsound(loc, 'sound/items/pshred.ogg', 75, TRUE)
 	if(paperamount > max_paper)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] переполняется и куски бумаги разлетаются повсюду!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] переполняется и куски бумаги разлетаются повсюду!"))
 		var/atom/drop_loc = drop_location()
 		var/turf/throw_to = get_edge_target_turf(src, pick(GLOB.alldirs))
 		for(var/i = 1 to (paperamount - max_paper))
@@ -133,7 +133,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		add_fingerprint(user)
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(

@@ -28,7 +28,7 @@
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	if(creates_cover && isturf(loc))
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
@@ -114,7 +114,7 @@
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] начина[PLUR_ET_YUT(user)] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -126,7 +126,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] забира[PLUR_ET_YUT(user)]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 

@@ -1146,7 +1146,7 @@
 			lamp.on = TRUE
 			lamp.break_light_tube()
 
-		if(istype(object, /obj/structure/window))
+		if(is_window(object))
 			var/obj/structure/window/window = object
 			window.take_damage(rand(80, 100))
 
@@ -1435,7 +1435,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/coffin/vampire/Destroy()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает, оставляя после себя лишь кучку пепла..."))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает, оставляя после себя лишь кучку пепла..."))
 	new /obj/effect/decal/cleanable/ash(loc)
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
@@ -1592,7 +1592,8 @@
 	if(!fullpower_heal_done && fullpower_unlocked)
 		fullpower_heal_done = TRUE
 
-		human_vampire.radiation = 0
+		human_vampire.cure_radiation()
+
 		human_vampire.set_bodytemperature(human_vampire.dna ? human_vampire.dna.species.body_temperature : BODYTEMP_NORMAL)
 		human_vampire.surgeries.Cut()
 		human_vampire.SetDisgust(0)

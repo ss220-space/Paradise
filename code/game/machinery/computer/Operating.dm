@@ -67,7 +67,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OperatingComputer", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "OperatingComputer", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -165,7 +165,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && isturf(src.loc))) || (issilicon(usr)))
 		usr.set_machine(src)
 
 	. = TRUE

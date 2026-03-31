@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(scan)
 			balloon_alert(user, "занято!")
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					flick(insert_anim, src)
 				else
-					to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] может принять только бумагу, фото и их стопки."))
+					to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] может принять только бумагу, фото и их стопки."))
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			var/cooldown_seconds = cooldown_seconds()
 			if(cooldown_seconds > 0)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не сможет работать ещё [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "а", "ы")]."))
+				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не сможет работать ещё [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "а", "ы")]."))
 				return
 
 			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments) || (destination in GLOB.hidden_ussp))
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return FALSE
 	if(!card)
 		var/obj/item/I = usr.get_active_hand()
-		if(!istype(I, /obj/item/card/id))
+		if(!is_id_card(I))
 			return FALSE
 		if(!usr.drop_transfer_item_to_loc(I, src))
 			return FALSE

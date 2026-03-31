@@ -21,6 +21,16 @@
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 
+/datum/reagents/Destroy()
+	. = ..()
+	QDEL_LIST(reagent_list)
+	reagent_list = null
+	QDEL_LIST(addiction_list)
+	addiction_list = null
+	if(my_atom && my_atom.reagents == src)
+		my_atom.reagents = null
+		my_atom = null
+
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
@@ -227,12 +237,7 @@
 /datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
 	if(!H.dna.species || !H.dna.species.reagent_tag)
 		return FALSE
-	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-		return TRUE
-	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-		return TRUE
-	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+	if(R.process_flags & H.dna.species.reagent_tag)
 		return TRUE
 
 /datum/reagents/proc/metabolize(mob/living/M)
@@ -290,7 +295,7 @@
 				if(overdose_results) // to protect against poorly-coded overdose procs
 					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
 				else
-					log_runtime(EXCEPTION("Reagent '[reagent.name]' does not return an overdose info list!"))
+					stack_trace("Reagent '[reagent.name]' does not return an overdose info list!")
 
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
@@ -543,14 +548,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//Check if this mob's species is set and can process this type of reagent
-		if(H.dna.species && H.dna.species.reagent_tag)
-			if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-				can_process = TRUE
-			if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-				can_process = TRUE
-			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-				can_process = TRUE
+		can_process = can_metabolize(H, R)
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else
 		if(R.process_flags != SYNTHETIC)
@@ -654,7 +652,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			R.volume += amount
 			update_total()
 
@@ -850,7 +848,7 @@
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
-	if(!istype(current_reagent.data, /list))
+	if(!islist(current_reagent.data))
 		return current_reagent.data
 
 	var/list/trans_data = current_reagent.data.Copy()
@@ -951,15 +949,6 @@
 		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
 
 	return clothing_pen
-
-/datum/reagents/Destroy()
-	. = ..()
-	QDEL_LIST(reagent_list)
-	reagent_list = null
-	QDEL_LIST(addiction_list)
-	addiction_list = null
-	if(my_atom && my_atom.reagents == src)
-		my_atom.reagents = null
 
 #undef ADDICTION_TIME
 #undef MINOR_ADDICTION_TIME

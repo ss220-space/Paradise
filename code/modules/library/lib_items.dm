@@ -21,7 +21,7 @@
 	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
@@ -269,7 +269,7 @@
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			attack_self(user)
 		else
 			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
@@ -279,7 +279,7 @@
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, span_notice("[capitalize(store.declent_ru(NOMINATIVE))] выпада[PLUR_ET_YUT(store)] из \"[title]\"!"))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(store, NOMINATIVE)] выпада[PLUR_ET_YUT(store)] из \"[title]\"!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return

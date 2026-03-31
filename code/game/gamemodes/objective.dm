@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	antag_menu_name = "Похищение"
 
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list(JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_ROBOTICIST, JOB_TITLE_CHEMIST)
+	var/list/roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_MAGISTRATE, JOB_TITLE_ROBOTICIST, JOB_TITLE_CHEMIST)
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
@@ -1466,7 +1466,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			continue
 
 		for(var/obj/item/check in player.current.get_contents()) //Check for items
-			if(istype(check, /obj/item/stack/spacecash))
+			if(is_cash(check))
 				var/obj/item/stack/spacecash/current_cash = check
 				cash_sum += current_cash.amount
 
@@ -1736,3 +1736,32 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Геноцид разумной жизни"
 	needs_target = FALSE
 	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
+
+/datum/objective/bingle_lord
+	needs_target = FALSE
+	antag_menu_name = "Создать яму"
+	explanation_text = "Найдите на станции укромное место, где вы сможете быстро напитать вашу яму."
+
+/datum/objective/bingle
+	needs_target = FALSE
+	antag_menu_name = "Защищайте и наращивайте вашу яму."
+	explanation_text = "Тащите в яму всё, что попадётся под ноги."
+
+// If there is any hole with max-size, then the goal is completed
+/datum/objective/bingle/check_completion()
+	if(!team)
+		return FALSE
+	var/datum/team/bingles/bingle_team = team
+	return bingle_team.goal_size_achieved
+
+/datum/objective/serve
+	name = "Служить"
+	antag_menu_name = "Служить"
+	explanation_text = "Вы должны служить... Кому-то..."
+	var/mob/living/serve_to
+
+/datum/objective/serve/New(mob/living/target_to_serve)
+	if(!istype(target_to_serve))
+		return
+	serve_to = target_to_serve
+	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(serve_to)] приказы."

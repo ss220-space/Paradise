@@ -220,6 +220,7 @@
 	for(var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe_instance as anything in subtypesof(exoframe_type))
 		GLOB.exoframe_types[exoframe_instance.id] = exoframe_instance
 
+	init_dice_rolls()
 /**
  * Creates every subtype of a given prototype (excluding the prototype itself) and adds them to a list
  *
@@ -327,6 +328,7 @@
 		EQUIPMENT("Industrial Mining Satchel", /obj/item/storage/bag/ore/bigger, 500),
 		EQUIPMENT("Meson Health Scanner HUD", /obj/item/clothing/glasses/hud/health/meson, 1500),
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
+		EQUIPMENT("Mining Satchel Upgrade", /obj/item/mining_satchel_upgrade, 600)
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("Marker Beacons (10)", /obj/item/stack/marker_beacon/ten, 100),
@@ -564,3 +566,10 @@ GLOBAL_LIST_INIT(body_zone, list(
 	BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
 	BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне"),
 ))
+
+/proc/init_dice_rolls()
+	var/alist/rolls = alist()
+	for(var/roll_path in subtypesof(/datum/dice_roll))
+		var/datum/dice_roll/d_roll = new roll_path()
+		rolls[d_roll.number] = d_roll
+	GLOB.dice_rolls = rolls

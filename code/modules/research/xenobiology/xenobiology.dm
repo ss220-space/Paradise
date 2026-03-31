@@ -204,7 +204,7 @@
 		to_chat(user, span_warning("unknown power prevents you from using sentience potion on [M])"))
 		return ..()
 
-	if(istype(M, /mob/living/simple_animal/hostile/airmob))
+	if(isairmob(M))
 		to_chat(user, span_warning("[M.declent_ru(NOMINATIVE)] не является формой жизни и не может обрести разум."))
 		return ..()
 
@@ -658,7 +658,7 @@
 	name = "slime acidproof potion"
 	id = "Acid Proof"
 	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 25)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
@@ -682,7 +682,7 @@
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
 	id = "Laser Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 5,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 5,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle4"
@@ -696,27 +696,10 @@
 /obj/item/slimepotion/clothing/laserresistance/can_apply(obj/item/clothing/C)
 	return C.armor.laser < 100
 
-/obj/item/slimepotion/clothing/radiation
-	name = "radiation resistance slime potion"
-	id = "Radiation Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 40, FIRE = 0, ACID = 0)
-	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle6"
-	origin_tech = "biotech=5"
-
-	inapplicable_caption = "radiation proof"
-	applied_caption = "radiationproof"
-	applied_color = "#e6e205"
-	color_name = "yellow"
-
-/obj/item/slimepotion/clothing/radiation/can_apply(obj/item/clothing/C)
-	return C.armor.rad < 100
-
 /obj/item/slimepotion/clothing/bio
 	name = "bio resistance slime potion"
 	id = "Bio Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 40, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 40, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle7"
@@ -733,7 +716,7 @@
 /obj/item/slimepotion/clothing/explosionresistencte
 	name = "explosion resistance slime potion"
 	id = "Explosion Resistance"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 15, BIO = 0, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle9"
@@ -769,82 +752,6 @@
 
 /obj/item/slimepotion/clothing/teleportation/cancel_effect(obj/item/clothing/C)
 	C.teleportation = initial(C.teleportation)
-
-/obj/effect/timestop
-	name = "chronofield"
-	desc = "ZA WARUDO"
-	icon = 'icons/effects/160x160.dmi'
-	icon_state = "time"
-	layer = FLY_LAYER
-	pixel_x = -64
-	pixel_y = -64
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	var/mob/living/immune = list() // the one who creates the timestop is immune
-	var/list/stopped_atoms = list()
-	var/freezerange = 1
-	var/duration = 140
-	alpha = 125
-
-/obj/effect/timestop/New()
-	..()
-	for(var/mob/living/living in GLOB.player_list)
-		if(!living.mind)
-			continue
-		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
-			immune |= living
-
-/obj/effect/timestop/proc/timestop()
-	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
-	for(var/i in 1 to duration-1)
-		for(var/A in orange (freezerange, loc))
-			if(isliving(A))
-				var/mob/living/M = A
-				if(M in immune)
-					continue
-				ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-				M.set_anchored(TRUE)
-				if(istype(M, /mob/living/simple_animal/hostile))
-					var/mob/living/simple_animal/hostile/H = M
-					H.AIStatus = AI_OFF
-					H.lose_target()
-				stopped_atoms |= M
-			else if(isprojectile(A))
-				var/obj/projectile/P = A
-				P.paused = TRUE
-				stopped_atoms |= P
-
-		for(var/mob/living/M in stopped_atoms)
-			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them
-				unfreeze_mob(M)
-				stopped_atoms -= M
-		sleep(1)
-
-	//End
-	for(var/mob/living/M in stopped_atoms)
-		unfreeze_mob(M)
-
-	for(var/obj/projectile/P in stopped_atoms)
-		P.paused = FALSE
-	qdel(src)
-	return
-
-/obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	M.set_anchored(FALSE)
-	if(istype(M, /mob/living/simple_animal/hostile))
-		var/mob/living/simple_animal/hostile/H = M
-		H.AIStatus = initial(H.AIStatus)
-
-/obj/effect/timestop/wizard
-	duration = 100
-
-/obj/effect/timestop/wizard/New()
-	..()
-	timestop()
-
-/obj/effect/timestop/clockwork
-	duration = 80
 
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"

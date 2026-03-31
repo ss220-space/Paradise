@@ -45,8 +45,6 @@
 		return FALSE
 	if(iscogscarab(R))
 		return FALSE
-	if(iscogscarab(R))
-		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
 	if(!are_zs_connected(src, R))
@@ -162,6 +160,8 @@
 			synchronization = R.connected_ai,
 			is_hacked =  R.connected_ai && R.emagged,
 			hackable = can_hack(user, R),
+			is_shell = R.shell,
+			occupier = R.mainframe? R.mainframe.name : "None",
 		)
 		data["cyborgs"] += list(cyborg_data)
 	data["show_detonate_all"] = (data["auth"] && length(data["cyborgs"]) > 0 && ishuman(user))
@@ -173,13 +173,13 @@
 	. = FALSE
 	if(!is_authenticated(usr) || (GLOB.disable_robotics_consoles && iscarbon(usr)))
 		to_chat(usr, span_warning("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system
 			if(issilicon(usr))
 				to_chat(usr, span_danger("Access Denied (silicon detected)"))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return
 			safety = !safety
 			to_chat(usr, span_notice("You [safety ? "disarm" : "arm"] the emergency self destruct."))
@@ -187,7 +187,7 @@
 		if("nuke") // Destroys all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
 				to_chat(usr, span_danger("Access Denied (silicon detected)"))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return
 			if(!can_detonate_any(usr, TRUE))
 				return
@@ -227,7 +227,7 @@
 		if("stopbot") // lock or unlock the borg
 			if(isrobot(usr))
 				to_chat(usr, span_danger("Access Denied."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_control(usr, R, TRUE))
@@ -243,8 +243,8 @@
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_hack(usr, R))
 				return
-			var/choice = tgui_alert(usr, "Really hack [R.name]? This cannot be undone.", list("Yes", "No"))
-			if(choice != "Yes")
+			var/choice = tgui_alert(usr, "Действительно взломать [R.declent_ru(ACCUSATIVE)]? Это действие необратимо.", "Подтверждение взлома", list("Да", "Нет"))
+			if(choice != "Да")
 				return
 			add_game_logs("emagged [key_name_log(R)] using robotic console!", usr)
 			message_admins(span_notice("[ADMIN_LOOKUPFLW(usr)] emagged [key_name_admin(R)] using robotic console!"))

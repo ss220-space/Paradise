@@ -402,7 +402,7 @@
 	if(blocked >= 100)
 		return .
 	do_sparks(3, TRUE, target)
-	target.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	target.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"))
 	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
 	if(isturf(target.loc) && !target.loc.density)
 		new /obj/effect/decal/cleanable/ash(target.loc)
@@ -632,7 +632,7 @@
 
 /obj/projectile/ornament/on_hit(atom/target)	//knockback
 	..()
-	if(!istype(target, /mob))
+	if(!ismob(target))
 		return 0
 	var/obj/T = target
 	var/throwdir = get_dir(firer,target)

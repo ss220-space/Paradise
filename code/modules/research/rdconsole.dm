@@ -104,6 +104,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// TGUI theme
 	var/ui_theme = "Nanotrasen"
+	/// List of connected servers
+	var/list/connected_servers = list()
 
 /// A simple helper proc to find the name of a tech with a given ID.
 /proc/CallTechName(ID)
@@ -295,21 +297,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!sync)
 		return
 	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+	connected_servers = SSmachines.get_by_type(/obj/machinery/r_n_d/server)
+	for(var/obj/machinery/r_n_d/server/serv as anything in connected_servers)
 		var/server_processed = FALSE
-		if(S.disabled)
+		if(serv.disabled)
 			continue
-		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
-			log_debug("[name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
-			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
-		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			files.push_data(S.files)
+		if(syndicate != serv.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
+			log_debug("[name] ([COORD(src)]) and [serv.name]([COORD(serv)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
+			continue	//По идее должно блочить скачивание и загрузку на синди/не синди серверы в зависимости от того синди или не синди эта консоль @_@
+		if((id in serv.id_with_upload) || istype(serv, /obj/machinery/r_n_d/server/centcom))
+			files.push_data(serv.files)
 			server_processed = TRUE
-		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
-			S.files.push_data(files)
+		if(((id in serv.id_with_download) && !istype(serv, /obj/machinery/r_n_d/server/centcom)) || serv.hacked)
+			serv.files.push_data(files)
 			server_processed = TRUE
-		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-			S.produce_heat(100)
+		if(!istype(serv, /obj/machinery/r_n_d/server/centcom) && server_processed)
+			serv.produce_heat(100)
 
 	if(linked_imprinter)
 		linked_imprinter.update_components_list()
@@ -334,11 +337,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] в работе!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] в работе!"))
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -357,6 +360,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
+	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -380,7 +384,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
+			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else
 			var/tech_log
 			for(var/T in temp_tech)
@@ -426,13 +430,25 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(machine.busy)
-		to_chat(usr, span_danger("[capitalize(machine.declent_ru(NOMINATIVE))] занят!"))
+		to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
+
+	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
+		if(!rnd_server || QDELETED(rnd_server))
+			continue
+
+		var/console_has_access = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
+		if(being_built && console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
+			add_wait_message("Шаблон печати находится в чёрном списке!", SYNC_RESEARCH_DELAY)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
+			to_chat(usr, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
+			return
+	connected_servers -= null
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
@@ -464,6 +480,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else
 		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
+		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	machine.busy = TRUE
 	use_power(power)
@@ -518,7 +535,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(machine.loc)
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
-					var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
+					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
 					lockbox.ru_names = list(
 						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 						GENITIVE = "защищённого кейса ([real_item_ru_name])",
@@ -539,6 +556,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					new_item.loc = machine.loc
 
 		machine.busy = FALSE
+	if(istype(machine, /obj/machinery/r_n_d/protolathe))
+		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	clear_wait_message()
 	SStgui.update_uis(src)
@@ -661,7 +680,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] занят!"))
+					to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] занят!"))
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -779,14 +798,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return 1
 	if(!allowed(user) && !isobserver(user))
 		balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return TRUE
 	ui_interact(user)
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RndConsole", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "RndConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
@@ -941,8 +960,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
+			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный шаблон"
 			data["disk_data"] = disk_data
-			disk_data["name"] = d_disk.blueprint.name
+			disk_data["name"] = display_name
 			var/b_type = d_disk.blueprint.build_type
 			var/list/lathe_types = list()
 			disk_data["lathe_types"] = lathe_types

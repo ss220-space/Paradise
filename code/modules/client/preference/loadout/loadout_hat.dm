@@ -7,7 +7,7 @@
 	index_name = "hardhat, select"
 	display_name = "Строительная каска"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/hat/hhat/New()
 	..()
@@ -148,28 +148,28 @@
 /datum/gear/hat/beret_job/sci
 	index_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST)
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST)
 
 /datum/gear/hat/beret_job/med
 	index_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST)
 
 /datum/gear/hat/beret_job/eng
 	index_name = "engineering beret"
 	path = /obj/item/clothing/head/beret/eng
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 
 /datum/gear/hat/beret_job/atmos
 	index_name = "atmospherics beret"
 	path = /obj/item/clothing/head/beret/atmos
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/hat/surgicalcap
 	index_name = "surgical cap, select"
 	display_name = "Хирургическая шапочка"
 	path = /obj/item/clothing/head/surgery/purple
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN)
 
 /datum/gear/hat/surgicalcap/New()
 	..()

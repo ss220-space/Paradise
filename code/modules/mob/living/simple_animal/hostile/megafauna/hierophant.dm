@@ -109,28 +109,28 @@ Difficulty: Hard
 	name = "Прыжок к цели"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы мгновенно переместитесь к цели.")
+	chosen_message = span_colossus_alt("Вы мгновенно переместитесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/chaser_swarm
 	name = "Рой преследователей"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "hierophant_squares_indefinite"
-	chosen_message = span_colossus("Вы выпустите рой энергетических преследователей в цель.")
+	chosen_message = span_colossus_alt("Вы выпустите рой энергетических преследователей в цель.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/cross_blasts
 	name = "Перекрёстные взрывы"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "hierophant_blast_indefinite"
-	chosen_message = span_colossus("Вы атакуете цель перекрёстными взрывами.")
+	chosen_message = span_colossus_alt("Вы атакуете цель перекрёстными взрывами.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blink_spam
 	name = "Преследующий прыжок"
 	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "hierophant_club_ready_beacon"
-	chosen_message = span_colossus("Вы многократно телепортируетесь к цели.")
+	chosen_message = span_colossus_alt("Вы многократно телепортируетесь к цели.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/enrage()
@@ -387,7 +387,7 @@ Difficulty: Hard
 		B.damage = 30
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(src, 1)
-	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] растворяется в воздухе!"))
+	visible_message(span_hierophant_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] растворяется в воздухе!"))
 	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	SLEEP_CHECK_DEATH(src, 2)
 	forceMove(T)
@@ -395,7 +395,7 @@ Difficulty: Hard
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(src, 1)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
+	visible_message(span_hierophant_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] материализуется!"))
 	SLEEP_CHECK_DEATH(src, 1) //at this point the blasts we made detonate
 	blinking = FALSE
 
@@ -584,6 +584,10 @@ Difficulty: Hard
 	if(new_caster)
 		caster = new_caster
 
+/obj/effect/temp_visual/hierophant/Destroy()
+	caster = null
+	. = ..()
+
 /obj/effect/temp_visual/hierophant/squares
 	icon_state = "hierophant_squares"
 	duration = 3
@@ -665,6 +669,11 @@ Difficulty: Hard
 		speed = new_speed
 	addtimer(CALLBACK(src, PROC_REF(seek_target)), 1)
 
+/obj/effect/temp_visual/hierophant/chaser/Destroy()
+	target = null
+	targetturf = null
+	. = ..()
+
 /obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
 	if((. != previous_moving_dir && . == more_previouser_moving_dir) || . == 0) //we're alternating, recalculate
@@ -727,12 +736,12 @@ Difficulty: Hard
 	duration = 40
 
 /obj/effect/temp_visual/hierophant/blast
-	icon_state = "hierophant_blast"
 	name = "vortex blast"
+	desc = "Уйдите с пути!"
 	light_range = 2
 	light_power = 2
-	desc = "Уйдите с пути!"
 	duration = 9
+	icon_state = "hierophant_blast"
 	var/damage = 10 //how much damage do we do?
 	var/monster_damage_boost = TRUE //do we deal extra damage to monsters? Used by the boss
 	var/list/hit_things = list() //we hit these already, ignore them
@@ -741,12 +750,12 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/blast/get_ru_names()
 	return list(
-		NOMINATIVE = "взрыв вортекса",
-		GENITIVE = "взрыва вортекса",
-		DATIVE = "взрыву вортекса",
-		ACCUSATIVE = "взрыв вортекса",
-		INSTRUMENTAL = "взрывом вортекса",
-		PREPOSITIONAL = "взрыве вортекса",
+		NOMINATIVE = "вихревой взрыв",
+		GENITIVE = "вихревого взрыва",
+		DATIVE = "вихревому взрыву",
+		ACCUSATIVE = "вихревой взрыв",
+		INSTRUMENTAL = "вихревым взрывом",
+		PREPOSITIONAL = "вихревом взрыве",
 	)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
@@ -762,6 +771,10 @@ Difficulty: Hard
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/temp_visual/hierophant/blast/Destroy()
+	LAZYCLEARLIST(hit_things)
+	. = ..()
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)

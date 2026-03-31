@@ -1,10 +1,10 @@
 import { useBackend } from '../backend';
 import { Button, Section, NumberInput, LabeledList } from '../components';
+import { GASES } from '../constants';
 import { Window } from '../layouts';
 
 type AtmosData = {
   filter_type: string;
-  filter_type_list: Filter[];
 } & AtmosBase;
 
 export interface AtmosBase {
@@ -13,17 +13,12 @@ export interface AtmosBase {
   max_pressure: number;
 }
 
-type Filter = {
-  label: string;
-  gas_type: string;
-};
-
 export const AtmosFilter = (props: unknown) => {
   const { act, data } = useBackend<AtmosData>();
-  const { on, pressure, max_pressure, filter_type, filter_type_list } = data;
+  const { on, pressure, max_pressure, filter_type } = data;
 
   return (
-    <Window width={380} height={140}>
+    <Window width={380} height={220}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -69,13 +64,13 @@ export const AtmosFilter = (props: unknown) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Filter">
-              {filter_type_list.map((filter) => (
+              {GASES.map((filter) => (
                 <Button
                   key={filter.label}
-                  selected={filter.gas_type === filter_type}
+                  selected={filter.tlv === filter_type}
                   onClick={() =>
                     act('set_filter', {
-                      filter: filter.gas_type,
+                      filter: filter.tlv,
                     })
                   }
                 >

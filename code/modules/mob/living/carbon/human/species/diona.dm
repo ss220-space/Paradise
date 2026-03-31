@@ -44,7 +44,7 @@
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	has_organ = list(
 		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/diona,
@@ -89,7 +89,7 @@
 	)
 
 /datum/species/diona/can_understand(mob/other)
-	if(istype(other, /mob/living/simple_animal/diona))
+	if(isnymph(other))
 		return TRUE
 
 	return FALSE

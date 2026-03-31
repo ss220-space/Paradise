@@ -545,8 +545,8 @@
 	if(!check_power(use_energy_cost))
 		return
 	mod.wearer.visible_message(
-		span_warning("[capitalize(declent_ru(NOMINATIVE))] [mod.declent_ru(GENITIVE)] [mod.wearer.declent_ru(GENITIVE)] реагиру[PLUR_ET_UT(src)] на атаку и распыля[PLUR_ET_UT(src)] перцовый газ!"),
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] вашего [mod.declent_ru(GENITIVE)] распыля[PLUR_ET_UT(src)] облако перцового газа!")
+		span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] [mod.declent_ru(GENITIVE)] [mod.wearer.declent_ru(GENITIVE)] реагиру[PLUR_ET_UT(src)] на атаку и распыля[PLUR_ET_UT(src)] перцовый газ!"),
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] вашего [mod.declent_ru(GENITIVE)] распыля[PLUR_ET_UT(src)] облако перцового газа!")
 	)
 	on_use()
 

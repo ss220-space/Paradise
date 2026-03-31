@@ -31,7 +31,7 @@
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce("[highscore]")]": "[span_boldannounceooc("[highscore]")]"]")
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
@@ -446,7 +446,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
+		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

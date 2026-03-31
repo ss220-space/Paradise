@@ -24,6 +24,7 @@
 		return -1
 	target = nOwner.mind
 	update_text()
+	GLOB.employmentContracts |= src
 
 /obj/item/paper/contract/employment/update_text()
 	name = "Документ — Трудовой договор — [target]"
@@ -35,6 +36,10 @@
 	<br>В обмен на незначительные выплаты Раб соглашается работать на Вездесущего и полезного наблюдателя за человечеством до конца своей нынешней и всех своих будущих жизней.\
 	<br>Кроме того, Раб соглашается передать право на владение своей душой отделу лояльности Вездесущего и полезного наблюдателя за человечеством.\
 	<br>В случае, если передача души Раба невозможна, Раб вносит вместо неё залог.<br>Подписано,<br><i>[target]</i>"
+
+/obj/item/paper/contract/employment/Destroy()
+	GLOB.employmentContracts -= src
+	. = ..()
 
 /obj/item/paper/contract/infernal
 	var/datum/devil_contract/contract
@@ -66,7 +71,7 @@
 	update_text()
 
 /obj/item/paper/contract/infernal/suicide_act(mob/user)
-	if(signed && (user == target.current) && istype(user,/mob/living/carbon/human))
+	if(signed && (user == target.current) && ishuman(user))
 		var/mob/living/carbon/human/human = user
 		human.forcesay("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
 		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [GEND_HE_SHE(human)] пытается покончить с собой!"))
@@ -137,7 +142,7 @@
 		balloon_alert(user, "печать сразу исчезает")
 		return ATTACK_CHAIN_PROCEED
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		user.visible_message(
 			("[user.declent_ru(NOMINATIVE)] поднос[PLUR_IT_YAT(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
 			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),

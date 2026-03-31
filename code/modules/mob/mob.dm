@@ -10,6 +10,7 @@
 		observe.stop_orbit()
 		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
+	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
@@ -17,8 +18,7 @@
 	for(var/alert in alerts)
 		clear_alert(alert)
 	if(client)
-		var/client/client_ = client
-		client_.movingmob = null
+		clear_client_in_contents()
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
@@ -30,6 +30,9 @@
 	if(mind?.current == src)
 		mind.current = null
 
+	key = null
+	ckey = null
+	tts_effect_override_source = null
 	return ..()
 
 /mob/Initialize(mapload)
@@ -129,23 +132,9 @@
 	set hidden = TRUE
 
 	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.get_readonly_air()
 
-	if(!environment)
-		return
-
-	var/text = span_notice("Coordinates: [x],[y] \n")
-	text += span_danger("Temperature: [environment.temperature()] \n")
-	text += span_notice("Nitrogen: [environment.nitrogen()] \n")
-	text += span_notice("Oxygen: [environment.oxygen()] \n")
-	text += span_notice("Plasma : [environment.toxins()] \n")
-	text += span_notice("Carbon Dioxide: [environment.carbon_dioxide()] \n")
-	text += span_notice("N2O: [environment.sleeping_agent()] \n")
-	text += span_notice("Agent B: [environment.agent_b()] \n")
-	text += span_notice("Hydrogen: [environment.hydrogen()] \n")
-	text += span_notice("Water Vapor: [environment.water_vapor()] \n")
-
-	to_chat(usr, text)
+	to_chat(usr,"Coordinates: [x],[y] \n")
+	atmos_scan(usr, location, silent = TRUE)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 
@@ -267,7 +256,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<b>[capitalize(declent_ru(NOMINATIVE))]</b> ", "")
+	var/omsg = replacetext(message, "<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -554,7 +543,7 @@
 		return
 
 	var/deathtime = world.time - persistent_client.time_of_death
-	if(istype(src,/mob/dead/observer))
+	if(isobserver(src))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
@@ -799,7 +788,7 @@
 		to_chat(usr, span_warning("[capitalize(picked_mob)] больше недоступен для возрождения!"))
 		return
 
-	if(istype(picked_mob, /mob/living/simple_animal/borer))
+	if(isborer(picked_mob))
 		var/mob/living/simple_animal/borer/borer = picked_mob
 		borer.transfer_personality(usr.client)
 		return

@@ -69,13 +69,15 @@
 	var/list/attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0)
+		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_SIBYL = list("x" = 0, "y" = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
 		ATTACHMENT_SLOT_MUZZLE,
 		ATTACHMENT_SLOT_RAIL,
-		ATTACHMENT_SLOT_UNDER
+		ATTACHMENT_SLOT_UNDER,
+		ATTACHMENT_SLOT_SIBYL
 	)
 
 	var/suppressed = FALSE
@@ -135,8 +137,10 @@
 		if(!attachments_by_slot[attachment])
 			continue
 		qdel(attachments_by_slot[attachment])
-	attachments_by_slot.Cut()
-	attachment_overlays.Cut()
+	LAZYCLEARLIST(attachments_by_slot)
+	LAZYCLEARLIST(attachment_overlays)
+	QDEL_NULL(azoom)
+	QDEL_NULL(chambered)
 	if(accuracy)
 		QDEL_NULL(accuracy)
 	if(recoil)
@@ -178,7 +182,7 @@
 	if(bayonet)
 		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
-			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
+			. += span_notice("[DECLENT_RU_CAP(bayonet, NOMINATIVE)] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/update_overlays()
@@ -191,7 +195,7 @@
 
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
-	if(attachable_offset)
+	if(overlay && attachable_offset)
 		var/x_offset = attachable_offset[module.slot]["x"]
 		var/y_offset = attachable_offset[module.slot]["y"]
 		if(module.overlay_offset)
@@ -240,6 +244,9 @@
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	do_recoil(user, target)
+
+	if(!chambered)
+		return
 
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength
@@ -335,7 +342,7 @@
 			return FALSE
 
 		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
+			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
 			return FALSE
 
 	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
@@ -454,7 +461,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
-			to_chat(user, span_notice("Вы оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
+			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(I, /obj/item/kitchen/knife))
@@ -465,11 +472,11 @@
 			to_chat(user, span_warning("Вы не можете прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
-			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже есть [knife.declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [knife.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
 			return ..()
-		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE )]."))
+		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE)]."))
 		set_bayonet(knife)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -687,7 +694,8 @@
 		gun.zoom(owner, FALSE)
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
+	if(gun)
+		gun.zoom(L, FALSE)
 	..()
 
 /datum/action/toggle_scope_zoom/Destroy()

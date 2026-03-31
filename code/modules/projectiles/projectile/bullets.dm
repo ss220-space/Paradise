@@ -268,7 +268,6 @@
 
 /obj/projectile/bullet/pellet/bioterror
 	damage = 9
-	irradiate = 20
 	tile_dropoff = 0
 
 /obj/projectile/bullet/pellet/bioterror/on_hit(atom/target, blocked = 0, hit_zone)
@@ -584,7 +583,7 @@
 				return TRUE
 			else
 				blocked = 100
-				target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] рикошетит!"), \
+				target.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] рикошетит!"), \
 									span_userdanger("Ваша защита отражает[declent_ru(ACCUSATIVE)]!"))
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)

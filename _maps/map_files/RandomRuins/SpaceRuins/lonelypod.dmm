@@ -33,22 +33,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
-"eL" = (
-/obj/item/clothing/under/pants/blackjeans,
-/obj/item/clothing/shoes/color/black,
-/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
-/obj/item/clothing/head/cowboyhat/black,
-/obj/structure/closet{
-	anchored = 1
-	},
-/obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/light_construct{
-	dir = 1
-	},
-/obj/effect/landmark/costume/random,
-/obj/item/poster/random_contraband,
-/turf/simulated/floor/carpet/black,
-/area/ruin/unpowered)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -178,6 +162,16 @@
 "Bp" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ruin/unpowered)
+"BH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ch" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "Cv" = (
 /obj/item/trash/tray,
 /obj/item/trash/plate,
@@ -211,25 +205,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"Fu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "Fy" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/shuttle/engine/heater{
-	dir = 8;
-	tag = "icon-heater (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "FI" = (
-/obj/structure/closet/walllocker/emerglocker/south{
-	pixel_y = 2
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/wall/shuttle,
 /area/ruin/unpowered)
 "FU" = (
@@ -256,6 +242,22 @@
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Gf" = (
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/shoes/color/black,
+/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
+/obj/item/clothing/head/cowboyhat/black,
+/obj/structure/closet{
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/landmark/costume/random,
+/obj/item/poster/random_contraband,
+/turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
 "GX" = (
 /obj/structure/rack,
@@ -395,8 +397,7 @@
 /area/ruin/unpowered)
 "QG" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
@@ -436,11 +437,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
-"TU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "TW" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -773,7 +769,7 @@ tz
 lI
 LN
 Yf
-TU
+BH
 Zf
 PO
 my
@@ -823,7 +819,7 @@ mE
 lI
 Zf
 Yf
-Fu
+Ch
 Zf
 PO
 my
@@ -866,7 +862,7 @@ my
 my
 my
 PO
-eL
+Gf
 Pc
 PO
 Yf

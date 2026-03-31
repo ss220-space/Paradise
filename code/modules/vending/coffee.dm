@@ -25,10 +25,12 @@
 	vend_overlay = "coffee_vend"
 	vend_lightmask = "coffee_vend_lightmask"
 	refill_canister = /obj/item/vending_refill/coffee
+	default_price = PAYCHECK_MIN * 0.7
+	default_premium_price = PAYCHECK_LOWER * 0.7
 
 	item_slot = TRUE
 	products = list(
-		/obj/item/reagent_containers/food/drinks/coffee = 25,
+		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/food/drinks/chocolate = 10,
@@ -39,17 +41,6 @@
 	)
 	contraband = list(
 		/obj/item/reagent_containers/food/drinks/ice = 10,
-	)
-	prices = list(
-		/obj/item/reagent_containers/food/drinks/coffee = 19,
-		/obj/item/reagent_containers/food/drinks/tea = 19,
-		/obj/item/reagent_containers/food/drinks/h_chocolate = 19,
-		/obj/item/reagent_containers/food/drinks/chocolate = 19,
-		/obj/item/reagent_containers/food/drinks/chicken_soup = 29,
-		/obj/item/reagent_containers/food/drinks/weightloss = 49,
-		/obj/item/reagent_containers/food/drinks/mug = 49,
-		/obj/item/reagent_containers/food/drinks/mug/novelty = 99,
-		/obj/item/reagent_containers/food/drinks/ice = 39,
 	)
 
 /obj/machinery/vending/coffee/get_ru_names()
@@ -62,11 +53,8 @@
 		PREPOSITIONAL = "торговом автомате Solar's Best Hot Drinks",
 	)
 
-/obj/machinery/vending/coffee/free
-	prices = list()
-
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
-	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
+	if(!(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks)))
 		return FALSE
 	if(!..())
 		return FALSE

@@ -10,6 +10,7 @@
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_BLUE
 	resistance_flags = FLAMMABLE
+	custom_price = PAYCHECK_MIN * 0.1
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
 	return list(
@@ -61,7 +62,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]1")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -71,7 +72,7 @@
 				filling.icon_state = "[icon_state]5"
 			if(80 to INFINITY)
 				filling.icon_state = "[icon_state]12"
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
@@ -101,14 +102,14 @@
 	..()
 	set_light_range_power_color(light_intensity, 1, light_color)
 	set_light_on(TRUE)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает гореть синим пламенем!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает гореть синим пламенем!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light_on(FALSE)
 	if(!silent)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] перестаёт гореть!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перестаёт гореть!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
@@ -122,7 +123,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())
 		fire_act()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)

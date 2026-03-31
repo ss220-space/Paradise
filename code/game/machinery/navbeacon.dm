@@ -12,7 +12,7 @@
 	plane = FLOOR_PLANE
 	anchored = TRUE
 	max_integrity = 500
-	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
+	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, fire = 80, acid = 80)
 	var/open = 0		// true if cover is open
 	var/locked = 1		// true if controls are locked
 	var/location = ""	// location response text
@@ -30,7 +30,7 @@
 	if(!T.transparent_floor)
 		hide(T.intact)
 	if(!codes || !length(codes))
-		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
+		stack_trace("Empty codes datum at ([x],[y],[z]) (codes_txt: [codes_txt])")
 	if("patrol" in codes)
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()

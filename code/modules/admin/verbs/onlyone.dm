@@ -29,7 +29,7 @@
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
 				continue
-			if(istype(I, /obj/item/organ))
+			if(is_organ(I))
 				continue
 			qdel(I)
 

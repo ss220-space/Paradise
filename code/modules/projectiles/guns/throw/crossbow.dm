@@ -28,7 +28,7 @@
 
 /obj/item/gun/throw/crossbow/emp_act(severity)
 	if(cell && severity)
-		emp_act(severity)
+		cell.emp_act(severity)
 
 /obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
@@ -261,7 +261,7 @@
 
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_heat())
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())
 		fire_up()
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)

@@ -5,7 +5,7 @@
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = BURN
-	flag = "energy"
+	flag = ENERGY
 	reflectability = REFLECTABILITY_ENERGY
 
 /obj/projectile/energy/get_ru_names()
@@ -97,8 +97,9 @@
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = CLONE
-	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	/// The chance to be irradiated on hit
+	var/radiation_chance = 30
 
 /obj/projectile/energy/declone/get_ru_names()
 	return list(
@@ -109,6 +110,12 @@
 		INSTRUMENTAL = "деклонером",
 		PREPOSITIONAL = "деклонере",
 	)
+
+/obj/projectile/energy/declone/on_hit(atom/target, blocked, hit_zone)
+	if(ishuman(target) && prob(radiation_chance))
+		radiation_pulse(target, max_range = 0, threshold = RAD_FULL_INSULATION)
+
+	return ..()
 
 /obj/projectile/energy/dart
 	name = "dart"
@@ -137,7 +144,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	weaken = 0.1 SECONDS
+	knockdown = 0.5 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
@@ -159,8 +166,16 @@
 	if(!isliving(target))
 		return
 	var/mob/living/living_target = target
+	var/is_robot = isrobot(living_target)
+	if(is_robot || ismachineperson(living_target))
+		living_target.emp_act(EMP_LIGHT)
+		if(is_robot)
+			return
+
 	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
-	living_target.Jitter(10 SECONDS)
+	living_target.Confused(15 SECONDS)
+	living_target.Jitter(5 SECONDS)
+
 
 /obj/projectile/energy/bolt/large
 	damage = 20
@@ -191,9 +206,9 @@
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	damage = 10 //A worse lasergun
-	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
 	var/zap_range = 3
-	var/power = 10000
+	var/power = 1e4
 
 /obj/projectile/energy/shock_revolver/get_ru_names()
 	return list(
@@ -226,7 +241,6 @@
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = TOX
-	irradiate = 20
 
 /obj/projectile/energy/toxplasma/get_ru_names()
 	return list(

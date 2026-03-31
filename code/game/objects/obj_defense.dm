@@ -1,8 +1,7 @@
 /// The essential proc to call when an obj must receive damage of any kind.
 /obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(QDELETED(src))
-		stack_trace("[src] taking damage after deletion")
-		return
+		CRASH("[src] taking damage after deletion")
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE) || obj_integrity <= 0)
@@ -107,7 +106,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger(pick(list("[capitalize(declent_ru(NOMINATIVE))] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!", "[capitalize(P.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
+	visible_message(span_danger(pick(list("[DECLENT_RU_CAP(src, NOMINATIVE)] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!", "[DECLENT_RU_CAP(P, NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 

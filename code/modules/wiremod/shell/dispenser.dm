@@ -75,7 +75,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(item, /obj/item/wrench) || is_circuit_multitool(item) || is_integrated_circuit(item))
+	if(iswrench(item) || is_circuit_multitool(item) || is_integrated_circuit(item))
 		return ..()
 
 	if(item.w_class > max_weight && !istype(item, /obj/item/storage/bag))
@@ -103,6 +103,7 @@
 
 /obj/structure/dispenser_bot/wrench_act(mob/living/user, obj/item/tool)
 	if(locked)
+		balloon_alert(user, "закрыто!")
 		return
 
 	set_anchored(!anchored)
@@ -131,6 +132,13 @@
 	var/list/obj/item/circuit_component/vendor_component/vendor_components = list()
 
 	var/max_vendor_components = 20
+
+/obj/item/circuit_component/dispenser_bot/Destroy()
+	item_list = null
+	item = null
+	on_item_added = null
+	on_item_removed = null
+	. = ..()
 
 /obj/item/circuit_component/dispenser_bot/populate_ports()
 	item_list = add_output_port("Объекты", PORT_TYPE_LIST(PORT_TYPE_ATOM))
@@ -203,14 +211,27 @@
 
 	circuit_size = 0
 
+/obj/item/circuit_component/vendor_component/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	item_to_vend = null
+	vend_item = null
+	. = ..()
+
 /obj/item/circuit_component/vendor_component/register_shell(atom/movable/shell)
 	. = ..()
 	if(!istype(shell, /obj/structure/dispenser_bot))
 		return
 
 	attached_bot = shell
+	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/vendor_component/unregister_shell(atom/movable/shell)
+	if(attached_bot)
+		attached_bot.locked = FALSE
+		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
+
 	attached_bot = null
 	return ..()
 
@@ -229,3 +250,10 @@
 		return
 
 	attached_bot.remove_item(vending_item)
+
+/obj/item/circuit_component/vendor_component/proc/on_set_locked(datum/source, new_value)
+	SIGNAL_HANDLER
+	if(!attached_bot)
+		return
+
+	attached_bot.locked = new_value

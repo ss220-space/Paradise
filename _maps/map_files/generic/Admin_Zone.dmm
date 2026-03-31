@@ -27,8 +27,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet7-0";
-	tag = "icon-carpet7-0 (EAST)"
+	icon_state = "carpet7-0"
 	},
 /area/holodeck/source_meetinghall)
 "an" = (
@@ -69,16 +68,6 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/wood,
 /area/admin)
-"aN" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "aO" = (
 /obj/structure/table/wood,
 /obj/item/dnainjector/antiblind,
@@ -121,8 +110,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet5-1";
-	tag = "icon-carpet5-1 (EAST)"
+	icon_state = "carpet5-1"
 	},
 /area/holodeck/source_theatre)
 "bf" = (
@@ -152,8 +140,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet13-5";
-	tag = "icon-carpet13-5 (EAST)"
+	icon_state = "carpet13-5"
 	},
 /area/holodeck/source_theatre)
 "bx" = (
@@ -174,8 +161,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet9-4";
-	tag = "icon-carpet9-4 (EAST)"
+	icon_state = "carpet9-4"
 	},
 /area/holodeck/source_theatre)
 "bM" = (
@@ -188,8 +174,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet5-0";
-	tag = "icon-carpet5-0 (EAST)"
+	icon_state = "carpet5-0"
 	},
 /area/holodeck/source_meetinghall)
 "bU" = (
@@ -249,6 +234,32 @@
 /obj/effect/turf_decal/mech,
 /obj/mecha/combat/durand/rover/loaded{
 	operation_req_access = list(114)
+	},
+/turf/simulated/floor/wood,
+/area/admin)
+"cB" = (
+/obj/structure/table,
+/obj/item/card/id/centcom{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/card/id,
+/obj/item/card/id/admin{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/door/window/southleft{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 8;
+	name = "security checkpoint"
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/admin)
@@ -380,8 +391,7 @@
 "ea" = (
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/holofloor{
-	icon_state = "snow";
-	tag = "icon-snow"
+	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
 "eb" = (
@@ -451,8 +461,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet14-0";
-	tag = "icon-carpet14-0 (EAST)"
+	icon_state = "carpet14-0"
 	},
 /area/holodeck/source_meetinghall)
 "ez" = (
@@ -506,8 +515,7 @@
 "eW" = (
 /obj/structure/flora/grass/green,
 /turf/simulated/floor/holofloor{
-	icon_state = "snow";
-	tag = "icon-snow"
+	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
 "eY" = (
@@ -524,8 +532,7 @@
 "fa" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet8-0";
-	tag = "icon-carpet8-0 (EAST)"
+	icon_state = "carpet8-0"
 	},
 /area/holodeck/source_meetinghall)
 "fc" = (
@@ -547,8 +554,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet6-0";
-	tag = "icon-carpet6-0 (EAST)"
+	icon_state = "carpet6-0"
 	},
 /area/holodeck/source_meetinghall)
 "fk" = (
@@ -636,12 +642,6 @@
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/admin)
-"ga" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "ge" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/fingergun/fake,
@@ -701,8 +701,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet11-12";
-	tag = "icon-carpet11-12 (EAST)"
+	icon_state = "carpet11-12"
 	},
 /area/holodeck/source_theatre)
 "gK" = (
@@ -784,8 +783,7 @@
 "hM" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
+	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
 "hS" = (
@@ -806,10 +804,13 @@
 /area/tdome/arena)
 "hV" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "snow";
-	tag = "icon-snow"
+	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
+"ic" = (
+/obj/machinery/vending/gun_mods/advanced,
+/turf/simulated/floor/carpet,
+/area/admin)
 "io" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/wt550,
@@ -862,8 +863,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet7-3";
-	tag = "icon-carpet7-3 (EAST)"
+	icon_state = "carpet7-3"
 	},
 /area/holodeck/source_theatre)
 "iK" = (
@@ -1123,6 +1123,12 @@
 /obj/item/pinpointer/advpinpointer,
 /turf/simulated/floor/wood,
 /area/admin)
+"kZ" = (
+/obj/structure/sink/puddle{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "lc" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -1149,8 +1155,7 @@
 /area/admin)
 "lx" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "grimy";
-	tag = "icon-grimy"
+	icon_state = "grimy"
 	},
 /area/holodeck/source_meetinghall)
 "lM" = (
@@ -1180,8 +1185,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet9-0";
-	tag = "icon-carpet9-0 (EAST)"
+	icon_state = "carpet9-0"
 	},
 /area/holodeck/source_meetinghall)
 "mr" = (
@@ -1253,31 +1257,6 @@
 /obj/item/gun/projectile/automatic/proto,
 /turf/simulated/floor/wood,
 /area/admin)
-"nb" = (
-/obj/structure/table,
-/obj/item/card/id/silver{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/card/id/captains_spare,
-/obj/item/card/id/lifetime{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 8;
-	name = "security checkpoint"
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/admin)
 "nc" = (
 /obj/structure/table/holotable,
 /obj/machinery/readybutton,
@@ -1302,8 +1281,7 @@
 "nu" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/holofloor{
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
+	icon_state = "asteroid"
 	},
 /area/holodeck/source_desert)
 "nv" = (
@@ -1389,8 +1367,7 @@
 "oL" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "wood";
-	tag = "icon-wood (EAST)"
+	icon_state = "wood"
 	},
 /area/holodeck/source_theatre)
 "oM" = (
@@ -1592,8 +1569,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet15-0";
-	tag = "icon-carpet15-0 (EAST)"
+	icon_state = "carpet15-0"
 	},
 /area/holodeck/source_meetinghall)
 "qT" = (
@@ -1640,6 +1616,31 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
+"su" = (
+/obj/structure/table,
+/obj/item/card/id/silver{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/card/id/captains_spare,
+/obj/item/card/id/lifetime{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/door/window/southleft{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 8;
+	name = "security checkpoint"
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100)
+	},
+/obj/structure/window/reinforced{
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "fire" = 100, "acid" = 100);
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/admin)
 "sL" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/color/brown,
@@ -1679,8 +1680,7 @@
 "ta" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/holofloor{
-	icon_state = "snow";
-	tag = "icon-snow"
+	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
 "tg" = (
@@ -1746,8 +1746,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet11-0";
-	tag = "icon-carpet11-0 (EAST)"
+	icon_state = "carpet11-0"
 	},
 /area/holodeck/source_meetinghall)
 "ut" = (
@@ -1766,15 +1765,13 @@
 "uC" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/holofloor{
-	icon_state = "snow";
-	tag = "icon-snow"
+	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
 "uI" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/holofloor{
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
+	icon_state = "asteroid"
 	},
 /area/holodeck/source_desert)
 "uK" = (
@@ -1783,32 +1780,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
-"uL" = (
-/obj/structure/table,
-/obj/item/card/id/centcom{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/card/id,
-/obj/item/card/id/admin{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 8;
-	name = "security checkpoint"
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/admin)
 "uN" = (
 /obj/mecha/combat/marauder/mauler/loaded{
 	operation_req_access = list(114)
@@ -1871,8 +1842,7 @@
 "vo" = (
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/holofloor{
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
+	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
 "vw" = (
@@ -1905,8 +1875,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet10-0";
-	tag = "icon-carpet10-0 (EAST)"
+	icon_state = "carpet10-0"
 	},
 /area/holodeck/source_meetinghall)
 "vR" = (
@@ -2020,8 +1989,7 @@
 	},
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "wood";
-	tag = "icon-wood (EAST)"
+	icon_state = "wood"
 	},
 /area/holodeck/source_theatre)
 "wP" = (
@@ -2080,10 +2048,6 @@
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
-/area/admin)
-"xn" = (
-/obj/machinery/vending/gun_mods/free,
-/turf/simulated/floor/carpet,
 /area/admin)
 "xo" = (
 /turf/simulated/floor/holofloor{
@@ -2387,8 +2351,7 @@
 "Bd" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet14-10";
-	tag = "icon-carpet14-10 (EAST)"
+	icon_state = "carpet14-10"
 	},
 /area/holodeck/source_theatre)
 "Bk" = (
@@ -2473,8 +2436,7 @@
 "Bz" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet6-2";
-	tag = "icon-carpet6-2 (EAST)"
+	icon_state = "carpet6-2"
 	},
 /area/holodeck/source_theatre)
 "BG" = (
@@ -2562,8 +2524,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet15-15";
-	tag = "icon-carpet15-15 (EAST)"
+	icon_state = "carpet15-15"
 	},
 /area/holodeck/source_theatre)
 "CE" = (
@@ -2656,8 +2617,7 @@
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet13-0";
-	tag = "icon-carpet13-0 (EAST)"
+	icon_state = "carpet13-0"
 	},
 /area/holodeck/source_meetinghall)
 "DV" = (
@@ -3013,8 +2973,7 @@
 "HP" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/holofloor{
-	icon_state = "snow";
-	tag = "icon-snow"
+	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
 "HQ" = (
@@ -3038,6 +2997,15 @@
 /obj/item/gun/syringe/rapidsyringe,
 /turf/simulated/floor/wood,
 /area/admin)
+"HY" = (
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/obj/item/reagent_containers/food/snacks/charred_krill{
+	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "HZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot,
@@ -3122,8 +3090,7 @@
 /area/holodeck/source_emptycourt)
 "Jn" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "rampbottom";
-	tag = "icon-rampbottom"
+	icon_state = "rampbottom"
 	},
 /area/holodeck/source_theatre)
 "Jp" = (
@@ -3422,12 +3389,6 @@
 /obj/item/gun/projectile/automatic/pistol/deagle/camo,
 /turf/simulated/floor/wood,
 /area/admin)
-"Nv" = (
-/obj/structure/sink/puddle{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "NA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain,
@@ -3597,6 +3558,12 @@
 /obj/item/gun/energy/laser/tag/red,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"PX" = (
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "PY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
@@ -3657,8 +3624,7 @@
 "QG" = (
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/holofloor{
-	icon_state = "grimy";
-	tag = "icon-grimy"
+	icon_state = "grimy"
 	},
 /area/holodeck/source_meetinghall)
 "QK" = (
@@ -3786,8 +3752,7 @@
 "SP" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet4-0";
-	tag = "icon-carpet4-0 (EAST)"
+	icon_state = "carpet4-0"
 	},
 /area/holodeck/source_meetinghall)
 "SQ" = (
@@ -3915,8 +3880,7 @@
 /area/admin)
 "Uf" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
+	icon_state = "asteroid"
 	},
 /area/holodeck/source_desert)
 "Ug" = (
@@ -3996,6 +3960,16 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/wood,
 /area/admin)
+"UY" = (
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/tdome/newtdome/CQC)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4094,15 +4068,6 @@
 	icon_state = "grimy"
 	},
 /area/admin)
-"VM" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
-	},
-/obj/item/reagent_containers/food/snacks/charred_krill{
-	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
 "VO" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/wood,
@@ -4190,8 +4155,7 @@
 "Xk" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
-	icon_state = "carpet10-8";
-	tag = "icon-carpet10-8 (EAST)"
+	icon_state = "carpet10-8"
 	},
 /area/holodeck/source_theatre)
 "Xm" = (
@@ -4455,8 +4419,7 @@
 /area/tdome/arena)
 "ZR" = (
 /turf/simulated/floor/holofloor{
-	icon_state = "asteroid";
-	tag = "icon-asteroid"
+	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
 
@@ -4738,8 +4701,8 @@ kD
 gA
 sZ
 aU
-xn
-xn
+ic
+ic
 wP
 ui
 Us
@@ -13984,8 +13947,8 @@ VX
 fE
 fE
 PH
-uL
-nb
+cB
+su
 TF
 FW
 fE
@@ -61587,7 +61550,7 @@ Ie
 cD
 cD
 cD
-ga
+PX
 EL
 yQ
 yQ
@@ -61843,7 +61806,7 @@ FE
 cD
 Ie
 cD
-ga
+PX
 cD
 RA
 EL
@@ -62355,10 +62318,10 @@ Ie
 cD
 cD
 Ie
-Nv
+kZ
 Uw
 cD
-VM
+HY
 cD
 cD
 Ie
@@ -62871,7 +62834,7 @@ qw
 cD
 Ie
 cD
-ga
+PX
 cD
 mN
 Dz
@@ -63129,7 +63092,7 @@ YS
 cD
 cD
 cD
-aN
+UY
 Dz
 yQ
 yQ

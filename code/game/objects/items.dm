@@ -67,6 +67,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//	causeerrorheresoifixthis
 	var/obj/item/master = null
 
+	/// Price of an item in a vending machine, overriding the base vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
+	var/custom_price
+	/// Price of an item in a vending machine, overriding the base premium vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
+	var/custom_premium_price
+
 	/// flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
 	var/heat_protection = 0
 	/// flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
@@ -114,6 +119,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/allowed = null
 	/// All items can have an uplink hidden inside, just remember to add the triggers.
 	var/obj/item/uplink/hidden/hidden_uplink = null
+	var/heat = 0
 
 	/// Used by security bots to determine if this item is safe for public use.
 	var/needs_permit = FALSE
@@ -121,6 +127,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakout_time = 0
+	/// Flags, that used in breakout do_after
+	var/breakout_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 	var/block_chance = 0
 	var/block_type = ALL
@@ -252,8 +260,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Width in space oriented storages
 	var/storage_display_width = 32
 
-	var/embed_disarm = FALSE
-
 	/// Available skins list (empty for default)
 	var/list/skins = null
 	/// The skin choice if we had a reskin
@@ -286,6 +292,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(isstorage(loc))
 		item_flags |= IN_STORAGE
 
+	var/list/attack_verb_cached = attack_verb
+
+	if(islist(attack_verb_cached))
+		attack_verb = string_list(attack_verb_cached)
+
 	if(!hitsound)
 		if(damtype == FIRE)
 			hitsound = 'sound/items/welder.ogg'
@@ -300,10 +311,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(!move_resist)
 		determine_move_resist()
-
-	// temp disable reason: pelmen
-	//if(embed_disarm)
-		//AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()
@@ -472,7 +479,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
 		var/obj/effect/decal/cleanable/ash/A = new(T)
-		A.desc += "\nПохоже, когда-то это было [src.declent_ru(INSTRUMENTAL)]."
+		A.desc += "\nПохоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
 /obj/item/acid_melt()
@@ -481,7 +488,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/obj/effect/decal/cleanable/molten_object/MO = new(T)
 		MO.pixel_x = rand(-16,16)
 		MO.pixel_y = rand(-16,16)
-		MO.desc = "Похоже, когда-то это было [src.declent_ru(INSTRUMENTAL)]."
+		MO.desc = "Похоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
 /obj/item/proc/afterattack(atom/target, mob/user, proximity, params, status)
@@ -500,10 +507,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				to_chat(user, span_notice("Вы тушите пламя на [src.declent_ru(PREPOSITIONAL)]."))
+				to_chat(user, span_notice("Вы тушите пламя на [declent_ru(PREPOSITIONAL)]."))
 				balloon_alert(user, "потушено")
 			else
-				to_chat(user, span_warning("Вы обжигаете руку о [src.declent_ru(ACCUSATIVE)]!"))
+				to_chat(user, span_warning("Вы обжигаете руку о [declent_ru(ACCUSATIVE)]!"))
 				balloon_alert(user, "горячо!")
 				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
 				return
@@ -514,7 +521,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
-				to_chat(user, span_warning("Кислота на [src.declent_ru(PREPOSITIONAL)] прожигает вашу руку!"))
+				to_chat(user, span_warning("Кислота на [declent_ru(PREPOSITIONAL)] прожигает вашу руку!"))
 				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
 
 	if(throwing)
@@ -570,7 +577,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 	if(!allowed_for_alien())
-		to_chat(user, span_warning("Похоже, [src.declent_ru(NOMINATIVE)] мне бесполезен!"))
+		to_chat(user, span_warning("Похоже, [declent_ru(NOMINATIVE)] мне бесполезен!"))
 		return
 
 	attack_hand(A)
@@ -633,12 +640,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
 		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, span_notice("На [src.declent_ru(PREPOSITIONAL)] уже есть изолента!"))
+			to_chat(user, span_notice("На [declent_ru(PREPOSITIONAL)] уже есть изолента!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!tape.use(1))
 			to_chat(user, span_notice("У вас недостаточно изоленты!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы прикрепляете изоленту к [src.declent_ru(DATIVE)]."))
+		to_chat(user, span_notice("Вы прикрепляете изоленту к [declent_ru(DATIVE)]."))
 		AddComponent(/datum/component/ducttape, x_offset, y_offset)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -664,10 +671,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return FALSE
 
 /obj/item/proc/talk_into(mob/M, text, channel=null)
-	return
-
-/// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
-/obj/item/proc/get_heat()
 	return
 
 /**
@@ -751,9 +754,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Note that hands count as slots.
  *
  * Arguments:
- * * 'user' is mob that equipped it
- * * 'slot' uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
- * * 'initial' is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ * * user - is mob that equipped it
+ * * slot - uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * initial - is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -811,12 +814,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
  * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
  */
-/obj/item/proc/is_equipped(include_pockets = FALSE, include_hands = FALSE)
+/obj/item/proc/is_equipped(include_flags = NONE)
 	if(!ismob(loc))
 		return FALSE
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items(include_pockets, include_hands))
+	if(src in M.get_equipped_items(include_flags))
 		return TRUE
 	else
 		return FALSE
@@ -944,7 +947,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
-	while(L && !istype(L, /turf/))
+	while(L && !isturf(L))
 		L = L.loc
 	return loc
 
@@ -978,13 +981,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] вонза[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] в глаз [target]!"),
-			span_userdanger("[user] вонзает [src.declent_ru(ACCUSATIVE)] вам в глаз!"),
+			span_danger("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] в глаз [target]!"),
+			span_userdanger("[user] вонзает [declent_ru(ACCUSATIVE)] вам в глаз!"),
 		)
 	else
 		user.visible_message(
-			span_danger("[user] вонза[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
-			span_userdanger("Вы вонзаете [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
+			span_danger("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в глаза!"),
+			span_userdanger("Вы вонзаете [declent_ru(ACCUSATIVE)] себе в глаза!"),
 		)
 
 	add_attack_logs(user, target, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
@@ -1042,7 +1045,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(. && living.is_in_hands(src))
 			item_catched = TRUE
 
-		if(get_heat() && !item_catched)
+		if(get_temperature() && !item_catched)
 			living.IgniteMob()
 
 		if(impact_throwforce > 0 && !item_catched)
@@ -1085,15 +1088,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/wash(mob/user, atom/source)
 	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
-	to_chat(user, span_notice("Вы начинаете мыть [src.declent_ru(ACCUSATIVE)]..."))
+	to_chat(user, span_notice("Вы начинаете мыть [declent_ru(ACCUSATIVE)]..."))
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	acid_level = 0
 	user.visible_message(
-		span_notice("[user] мо[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
-		span_notice("Вы моете [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)].")
+		span_notice("[user] мо[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
+		span_notice("Вы моете [declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)].")
 	)
 	return TRUE
 
@@ -1473,3 +1476,29 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(colored_belt_appearance)
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
+
+/// Returns the sharpness of src. If you want to get the sharpness of an item use this.
+/obj/item/proc/get_sharpness()
+	return sharp//ness
+
+/// If an object can successfully be used as a fire starter it will return a message
+/obj/item/proc/ignition_effect(atom/target, mob/user)
+	if(get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+		return span_notice("[user] lights [target] with [src].")
+
+///Returns the temperature of src. If you want to know if an item is hot use this proc.
+/obj/item/proc/get_temperature()
+	if(resistance_flags & ON_FIRE)
+		return max(heat, BURNING_ITEM_MINIMUM_TEMPERATURE)
+	return heat
+	
+/**
+ * Updates all action buttons associated with this item
+ *
+ * Arguments:
+ * * update_flags - Which flags of the action should we update
+ * * force - Force buttons update even if the given button icon state has not changed
+ */
+/obj/item/proc/update_item_action_buttons(update_flags = ALL, force = FALSE)
+	for(var/datum/action/current_action as anything in actions)
+		current_action.build_all_button_icons(update_flags, force)

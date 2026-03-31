@@ -64,6 +64,23 @@
 	icon_state = "water_high_tank" //I was gonna clean my room...
 	tank_volume = 100000
 
+/obj/structure/reagent_dispensers/holywatertank
+	name = "holy water tank"
+	desc = "Бак, заполненный святой водой."
+	tank_volume = 3000
+	reagent_id = "holywater"
+	icon_state = "holywater_tank"
+
+/obj/structure/reagent_dispensers/holywatertank/get_ru_names()
+	return list(
+		NOMINATIVE = "бак святой воды",
+		GENITIVE = "бака святой воды",
+		DATIVE = "баку святой воды",
+		ACCUSATIVE = "бак святой воды",
+		INSTRUMENTAL = "баком святой воды",
+		PREPOSITIONAL = "баке святой воды",
+	)
+
 /obj/structure/reagent_dispensers/oil
 	name = "oil tank"
 	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."

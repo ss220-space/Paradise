@@ -31,7 +31,7 @@
 	. = ..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/revolver/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	return ..()
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
@@ -140,6 +140,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/detective/ComponentInitialize()
 	. = ..()
@@ -162,6 +163,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
 	)
+	can_air_shoot = FALSE
 
 /obj/item/gun/projectile/revolver/taurus/ComponentInitialize()
 	. = ..()
@@ -194,6 +196,7 @@
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 	accuracy = GUN_ACCURACY_DEFAULT
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -241,6 +244,9 @@
 	icon_state = "mateba"
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
+	)
 
 /obj/item/gun/projectile/revolver/ga12
 	name = "Tkach Ya-Sui GA 12 revolver"
@@ -252,6 +258,9 @@
 	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 2),
+	)
 
 /obj/item/gun/projectile/revolver/golden
 	name = "golden revolver"
@@ -261,6 +270,7 @@
 	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEGA
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/nagant
 	name = "nagant revolver"
@@ -270,6 +280,9 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 3),
+	)
 
 /obj/item/gun/projectile/revolver/c36
 	name = ".36 revolver"
@@ -279,6 +292,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
@@ -291,6 +305,9 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+	)
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
 	. = ..()
@@ -304,7 +321,7 @@
 	spun = TRUE
 
 /obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
+	if(isspeedloader(I) || isammocasing(I))
 		if(get_ammo() > 0)
 			to_chat(user, span_warning("The [name] can only hold a single bullet."))
 			return ATTACK_CHAIN_PROCEED
@@ -408,6 +425,9 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+	)
 
 /obj/item/gun/projectile/revolver/improvised
 	name = "improvised revolver"
@@ -420,6 +440,7 @@
 	var/obj/item/weaponcrafting/revolverbarrel/barrel
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
 	. = ..()

@@ -13,6 +13,7 @@
 	throw_speed = 3
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
+	custom_price = PAYCHECK_LOWER
 	var/mode = 1
 	var/advanced = FALSE
 	var/theme
@@ -48,7 +49,7 @@
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] не содержит сохранённых данных."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не содержит сохранённых данных."))
 		return
 	show_results(user)
 
@@ -239,7 +240,7 @@
 
 	if(in_range(user, src))
 		user.put_in_hands(P, ignore_anim = FALSE)
-		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+		user.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	GLOB.copier_items_printed++
 	reports_printed++
 	isPrinting = FALSE
@@ -251,7 +252,7 @@
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
 	if(scan_data)
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_results(user)
 		else
 			. += span_notice("Нужно подойти ближе, чтобы прочесть содержмое.")
@@ -355,7 +356,7 @@
 	return data
 
 // Scan data to TGUI
-/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE)
+/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/list/data = list()
 	var/DNR = !H.ghost_can_reenter()
@@ -551,21 +552,21 @@
 	return data
 
 // This is the output to the chat
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+/proc/healthscan(mob/user, mob/living/target, mode = 1, advanced = FALSE, tochat = TRUE)
 	var/list/scan_data = list()
-	if(!ishuman(M) || ismachineperson(M))
+	if(!ishuman(target) || ismachineperson(target))
 		//these sensors are designed for organic life
 		scan_data += "Состояние: [span_danger("ОШИБКА")]"
 		scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 		scan_data += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font>"
-		scan_data += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)"
+		scan_data += "Температура тела: [target.bodytemperature-T0C] &deg;C ([target.bodytemperature*1.8-459.67] &deg;F)"
 		scan_data += "Уровень крови: --- %, --- u, тип: ---"
 		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font>"
 		scan_data += "Гены не обнаружены."
 		to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
 		return
 
-	var/mob/living/carbon/human/H = M
+	var/mob/living/carbon/human/H = target
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
 	var/OX = H.getOxyLoss() > 50	?	"<b>[H.getOxyLoss()]</b>"		: H.getOxyLoss()
 	var/TX = H.getToxLoss() > 50	?	"<b>[H.getToxLoss()]</b>"		: H.getToxLoss()
@@ -583,6 +584,7 @@
 			scan_data += "Состояние: [span_danger("Смерть")]"
 		else
 			scan_data += "Состояние: [H.stat > 1 ? span_danger("Смерть") : (H.health > 0 ? "[H.health]%" : span_danger("[H.health]%"))]"
+
 	scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 	scan_data += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	scan_data += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
@@ -651,6 +653,8 @@
 			scan_data += span_warning("Обнаружено значительное повреждение мозга.")
 	else
 		scan_data += span_warning(">Мозг не обнаружен.")
+
+	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
@@ -789,7 +793,7 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(!advanced)
 			to_chat(user, span_warning("Для привязки счёта требуется наличие продвинутого модуля сканирования."))
@@ -823,6 +827,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
+	custom_price = PAYCHECK_LOWER / 1.5
 
 /obj/item/healthupgrade/get_ru_names()
 	return list(

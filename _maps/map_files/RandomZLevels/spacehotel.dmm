@@ -1564,7 +1564,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -1586,7 +1586,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -1644,7 +1644,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "gm" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -1653,7 +1653,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "gn" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -2918,7 +2918,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,

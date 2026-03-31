@@ -63,7 +63,7 @@
 		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
-	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать. Отойдите!"))
+	loc.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает вибрировать. Отойдите!"))
 	used = TRUE
 	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
 	return TRUE
@@ -80,9 +80,9 @@
 	var/status = template.check_deploy(deploy_location)
 	switch(status)
 		if(SHELTER_DEPLOY_BAD_AREA)
-			loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] не функционирует в этой зоне."))
+			loc.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не функционирует в этой зоне."))
 		if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
-			loc.visible_message(span_warning("[capitalize(declent_ru(DATIVE))] не хватает места для развертывания! Необходимо очистить площадь [template.width]x[template.height]!"))
+			loc.visible_message(span_warning("[DECLENT_RU_CAP(src, DATIVE)] не хватает места для развертывания! Необходимо очистить площадь [template.width]x[template.height]!"))
 
 	if(status != SHELTER_DEPLOY_ALLOWED)
 		used = FALSE
@@ -110,7 +110,7 @@
 		var/x_component = abs(did_not_stand_back.x - deploy_location.x)
 		var/y_component = abs(did_not_stand_back.y - deploy_location.y)
 		if(ISDIAGONALDIR(dir_to_center))
-			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			throw_dist = ceil(MAGNITUDE(base_x_throw_distance, base_y_throw_distance) - MAGNITUDE(x_component, y_component))
 			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, throw_dist))
 		else if(dir_to_center & (NORTH|SOUTH))
 			throw_dist = base_y_throw_distance - y_component + 1
@@ -179,7 +179,7 @@
 	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_WINDOW_FULLTILE

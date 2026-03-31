@@ -113,7 +113,7 @@
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/item/organ))
+	if(is_organ(O))
 		var/obj/item/organ/Org = O
 		if(!Org.is_robotic())
 			Org.rejuvenate()
@@ -574,37 +574,29 @@
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "очищения"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-1)
-	return ..()
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		update_flags |= affected_mob.adjustToxLoss(-1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/medicine/pen_acid
 	name = "Пентетовая кислота"
 	id = "pen_acid"
-	description = "Диэтилентриаминпентаацетат (сокращённо \"пентетовая кислота\" или \"ДТПА\") - агрессивный хелатирующий агент. Может вызвать повреждение тканей. Используйте с осторожностью."
+	description = "Диэтилентриаминпентаацетат (сокращённо \"ДТПА\") — уменьшает огромное количество токсинов, одновременно выводя из организма другие химические вещества."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	harmless = FALSE
 	taste_description = "очищения"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
+/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-7)
-	if(prob(75))
-		update_flags |= M.adjustToxLoss(-2, FALSE)
-	if(prob(33))
-		if(ishuman(M))
-			var/mob/living/carbon/human/human = M
-			human.take_overall_damage(0.5, 0.5, updating_health = FALSE, affect_robotic = FALSE)
-		else
-			update_flags |= M.adjustBruteLoss(0.5, FALSE)
-			update_flags |= M.adjustFireLoss(0.5, FALSE)
-
+	update_flags |= affected_mob.adjustToxLoss(-2 * REM, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
@@ -835,6 +827,7 @@
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "передышки"
+	metabolized_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1063,7 +1056,7 @@
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
-	taste_description = span_userdanger("нереальной бодрости")
+	taste_description = span_userdanger_alt("нереальной бодрости")
 	var/absorption_applied = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
@@ -1120,13 +1113,13 @@
 	user.AdjustWeakened(-6 SECONDS)
 	user.AdjustKnockdown(-6 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7.5, FALSE)
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+	if(!(user.dna && (user.dna.species.reagent_tag & ORGANIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+	if(user.dna && (user.dna.species.reagent_tag & ORGANIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/user)
