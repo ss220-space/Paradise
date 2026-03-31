@@ -25,7 +25,7 @@
 	///which slot are we trying to quickdraw from/quicksheathe into?
 	var/slot_type = ITEM_SLOT_BELT
 	///what we should call slot_type in messages (including failure messages)
-	var/slot_item_name = ITEM_SLOT_BELT_STRING
+	var/slot_item_name = "пояс"
 
 /datum/keybinding/human/quick_equip_belt/down(client/client)
 	. = ..()
@@ -36,13 +36,13 @@
 	return TRUE
 
 /datum/keybinding/human/quick_equip_belt/quick_equip_bag
-	name = "Быстрая экипировка сумки"
+	name = "Быстрая экипировка рюкзака"
 	keys = list("ShiftV")
 	slot_type = ITEM_SLOT_BACK
-	slot_item_name = ITEM_SLOT_BACK_STRING
+	slot_item_name = "рюкзак"
 
 /datum/keybinding/human/quick_equip_belt/quick_equip_suit_storage
 	name = "Быстрая экипировка хранилища костюма"
 	keys = list("ShiftQ")
 	slot_type = ITEM_SLOT_SUITSTORE
-	slot_item_name = ITEM_SLOT_CLOTH_OUTER_STRING
+	slot_item_name = "хранилище костюма"
