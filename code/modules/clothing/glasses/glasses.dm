@@ -1,8 +1,66 @@
+/obj/item/clothing/glasses
+	name = "glasses"
+	abstract_type = /obj/item/clothing/glasses
+	icon = 'icons/obj/clothing/glasses.dmi'
+	flags_cover = GLASSESCOVERSEYES
+	slot_flags = ITEM_SLOT_EYES
+	materials = list(MAT_GLASS = 250)
+	resistance_flags = NONE
+	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
+	strip_delay = 20 // but seperated to allow items to protect but not impair vision, like space helmets
+	put_on_delay = 25
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
+	/// Bitflags for vision enhancements (e.g., SEE_TURFS, SEE_MOBS).
+	var/vision_flags = 0
+	/// How well the wearer can see in darkness (base human is 2).
+	var/see_in_dark = 2
+	/// Level of invisibility the wearer can see (default SEE_INVISIBLE_LIVING).
+	var/invis_view = SEE_INVISIBLE_LIVING
+	/// Override to allow glasses to see higher invisibility levels than normal.
+	var/invis_override = 0
+	/// Alpha value for lighting plane when worn (affects darkness rendering).
+	var/lighting_alpha
+	/// List of examine extensions (e.g., medical HUD, science HUD).
+	var/examine_extensions = EXAMINE_HUD_NONE
+	/// List of color matrix to override client.color while worn (e.g., grayscale).
+	var/list/color_view = null
+	/// Whether the glasses have prescription lenses.
+	var/prescription = FALSE
+	/// Whether the glasses can be upgraded with prescription lenses.
+	var/prescription_upgradable = FALSE
+	/// Whether the glasses are worn over a hat (affects layering).
+	var/over_hat = FALSE
+	/// Whether the eyewear is rendered above the mask (purely cosmetic).
+	var/over_mask = FALSE
+
 /obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
 	if(prescription_upgradable && prescription)
 		// Pre-upgraded upgradable glasses
 		upgrade_prescription()
+
+/obj/item/clothing/glasses/update_icon_state()
+	if(..())
+		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
+
+/obj/item/clothing/glasses/examine(mob/user)
+	. = ..()
+	. += span_notice("You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.")
+
+/obj/item/clothing/glasses/click_alt(mob/living/carbon/human/user)
+	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	over_mask = !over_mask
+	if(user.glasses == src)
+		user.update_worn_glasses()
+	to_chat(user, span_notice("You adjust [src] to be worn [over_mask ? "over" : "under"] a mask."))
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
 	if(!ishuman(user) || user.incapacitated())
@@ -77,13 +135,12 @@
 		invis_view ^= initial(invis_view)
 
 /obj/item/clothing/glasses/meson
-	name = "Optical Meson Scanner"
+	name = "optical meson scanner"
 	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве."
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -119,7 +176,7 @@
 		REMOVE_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/glasses/meson/sunglasses
-	name = "Meson Sunglasses"
+	name = "meson sunglasses"
 	desc = "An Optical Meson Scanner that protects your eyes"
 	icon_state = "sunmeson"
 	item_state = "sunmeson"
@@ -127,13 +184,13 @@
 	tint = 1
 
 /obj/item/clothing/glasses/meson/heart
-	name = "Heart Meson Glasses"
+	name = "heart meson glasses"
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_meson"
 	item_state = "heart_meson"
 
 /obj/item/clothing/glasses/meson/night
-	name = "Night Vision Optical Meson Scanner"
+	name = "night vision optical meson scanner"
 	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
 			Данная модель оснащена светочувствительной матрицей, повышающей видимость в условиях ограниченного освещения."
 	icon_state = "nvgmeson"
@@ -158,8 +215,7 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
-	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
-			Обладают уникальным дизайном."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. Обладают уникальным дизайном."
 	icon_state = "garm"
 	item_state = "garm"
 	force = 10
@@ -180,7 +236,7 @@
 	)
 
 /obj/item/clothing/glasses/meson/cyber
-	name = "Eye Replacement Implant"
+	name = "eye replacement implant"
 	desc = "An implanted replacement for a left eye with meson vision capabilities."
 	icon_state = "cybereye-green"
 	item_state = "eyepatch"
@@ -192,7 +248,7 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 /obj/item/clothing/glasses/meson/visor
-	name = "Meson Optical Visor"
+	name = "meson optical visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
 	icon_state = "mesonvisor"
 	item_state = "mesonvisor"
@@ -208,7 +264,7 @@
 	)
 
 /obj/item/clothing/glasses/meson/monocle
-	name = "Meson Monocle Scanner"
+	name = "meson monocle scanner"
 	desc = "Моноколь со встроенным мезонным сканером."
 	icon_state = "monomeson"
 	item_state = "monohud"
@@ -253,20 +309,20 @@
 		return TRUE
 
 /obj/item/clothing/glasses/science/night
-	name = "Night Vision Science Goggle"
+	name = "night vision science goggle"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/science/heart
-	name = "Heart Science Glasses"
+	name = "heart science glasses"
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_science"
 	item_state = "heart_science"
 
 /obj/item/clothing/glasses/science/visor
-	name = "Science Optical Visor"
+	name = "science optical visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
 	icon_state = "sciencevisor"
 	item_state = "sciencevisor"
@@ -282,7 +338,7 @@
 	)
 
 /obj/item/clothing/glasses/science/monocle
-	name = "Science HUD monocle"
+	name = "science hud monocle"
 	desc = "Моноколь со встроенным научным ИЛС."
 	icon_state = "monohudsci"
 	item_state = "monohud"
@@ -293,7 +349,7 @@
 	)
 
 /obj/item/clothing/glasses/janitor
-	name = "Janitorial Goggles"
+	name = "janitorial goggles"
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
 	item_state = "purple"
@@ -308,7 +364,7 @@
 	)
 
 /obj/item/clothing/glasses/night
-	name = "Night Vision Goggles"
+	name = "night vision goggles"
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
@@ -363,7 +419,7 @@
 	)
 
 /obj/item/clothing/glasses/material
-	name = "Optical Material Scanner"
+	name = "optical material scanner"
 	desc = "Very confusing glasses."
 	icon_state = "material"
 	item_state = "glasses"
@@ -382,7 +438,7 @@
 	)
 
 /obj/item/clothing/glasses/material/cyber
-	name = "Eye Replacement Implant"
+	name = "eye replacement implant"
 	desc = "An implanted replacement for a left eye with material vision capabilities."
 	icon_state = "cybereye-blue"
 	item_state = "eyepatch"
@@ -393,7 +449,7 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 /obj/item/clothing/glasses/material/lighting
-	name = "Neutron Goggles"
+	name = "neutron goggles"
 	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
 	origin_tech = null
 	vision_flags = NONE
@@ -427,8 +483,8 @@
 	item_state = "hipster_glasses"
 
 /obj/item/clothing/glasses/threedglasses
-	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
 	name = "3D glasses"
+	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
 	icon_state = "3d"
 	item_state = "3d"
 
@@ -444,7 +500,7 @@
 	)
 
 /obj/item/clothing/glasses/gglasses
-	name = "Green Glasses"
+	name = "green glasses"
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
 	item_state = "gglasses"
@@ -462,8 +518,8 @@
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/sunglasses
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	name = "sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
@@ -483,8 +539,8 @@
 	)
 
 /obj/item/clothing/glasses/sunglasses_fake
-	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	name = "cheap sunglasses"
+	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	icon_state = "sun"
 	item_state = "sunglasses"
 	sprite_sheets = list(
@@ -499,12 +555,12 @@
 	)
 
 /obj/item/clothing/glasses/sunglasses_fake/holo
-	desc = "Protects against the holographic UV rays of the holographic sun."
 	name = "holographic sunglasses"
+	desc = "Protects against the holographic UV rays of the holographic sun."
 
 /obj/item/clothing/glasses/thermal_fake
+	name = "phirmel soonglesas"
 	desc = "Cheap plastic sunglasses. Wear thoze if yu are kool."
-	name = "Phirmel Soonglesas"
 	icon_state = "sunthermal"
 	item_state = "sunthermal"
 
@@ -549,8 +605,8 @@
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/glasses/virussunglasses
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	name = "sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
@@ -569,8 +625,8 @@
 	)
 
 /obj/item/clothing/glasses/sunglasses/lasers
-	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
 	name = "high-tech sunglasses"
+	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
 
 /obj/item/clothing/glasses/sunglasses/lasers/Initialize(mapload)
 	. = ..()
@@ -660,7 +716,7 @@
 	item_state = "bigsunglasses"
 
 /obj/item/clothing/glasses/thermal
-	name = "Optical Thermal Scanner"
+	name = "optical thermal scanner"
 	desc = "Thermals in the shape of glasses."
 	icon_state = "thermal"
 	item_state = "thermal"
@@ -668,7 +724,6 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -693,7 +748,7 @@
 	..()
 
 /obj/item/clothing/glasses/thermal/sunglasses
-	name = "Thermal Sunglasses"
+	name = "thermal sunglasses"
 	desc = "How does it even works?.."
 	icon_state = "sunthermal"
 	item_state = "sunthermal"
@@ -701,13 +756,13 @@
 	tint = 1
 
 /obj/item/clothing/glasses/thermal/monocle
-	name = "Thermoncle"
+	name = "thermoncle"
 	desc = "A monocle thermal."
 	icon_state = "thermoncle"
 	flags_cover = null //doesn't protect eyes because it's a monocle, duh
 
 /obj/item/clothing/glasses/thermal/monothermal
-	name = "Thermal Monocle Scanner"
+	name = "thermal monocle scanner"
 	desc = "Моноколь со встроенным термальным сканером."
 	icon_state = "monothermal"
 	item_state = "monohud"
@@ -718,19 +773,19 @@
 	)
 
 /obj/item/clothing/glasses/thermal/eyepatch
-	name = "Optical Thermal Eyepatch"
+	name = "optical thermal eyepatch"
 	desc = "An eyepatch with built-in thermal optics"
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
 
 /obj/item/clothing/glasses/thermal/jensen
-	name = "Optical Thermal Implants"
+	name = "optical thermal implants"
 	desc = "A set of implantable lenses designed to augment your vision"
 	icon_state = "thermalimplants"
 	item_state = "syringe_kit"
 
 /obj/item/clothing/glasses/thermal/cyber
-	name = "Eye Replacement Implant"
+	name = "eye replacement implant"
 	desc = "An implanted replacement for a left eye with thermal vision capabilities."
 	icon_state = "cybereye-red"
 	item_state = "eyepatch"
@@ -817,7 +872,6 @@
 	icon_state = "tajblind_engi"
 	item_state = "tajblind_engi"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_WELDER
 	var/flash_protect_up = FLASH_PROTECTION_NONE
 
@@ -848,7 +902,6 @@
 	icon_state = "tajblind_cargo"
 	item_state = "tajblind_cargo"
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/tajblind/cargo/sunglasses
@@ -869,8 +922,8 @@
 		user.wear_glasses_update(src)
 
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
-	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	name = "cucumber mask"
+	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	heal_bodypart = INTERNAL_ORGAN_EYES
 	icon_state = "cucumbermask"
 	item_state = "cucumbermask"

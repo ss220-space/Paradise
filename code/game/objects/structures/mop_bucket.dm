@@ -70,7 +70,7 @@
 	if(mymop)
 		. += "mopbucket_mop"
 	if(reagents.total_volume > 0)
-		var/image/reagentsImage = image(icon, src, "mopbucket_reagents0")
+		var/mutable_appearance/reagentsImage = mutable_appearance(icon, "mopbucket_reagents0")
 		reagentsImage.alpha = 150
 		switch((reagents.total_volume / reagents.maximum_volume) * 100)
 			if(1 to 25)
@@ -81,7 +81,7 @@
 				reagentsImage.icon_state = "mopbucket_reagents3"
 			if(76 to 100)
 				reagentsImage.icon_state = "mopbucket_reagents4"
-		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
+		reagentsImage.color = mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)

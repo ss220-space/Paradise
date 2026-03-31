@@ -599,3 +599,6 @@ GLOBAL_LIST_INIT(ru_species, list(
 // Flags for the mob_flags var on /mob
 /// May override the names used in screentips of OTHER OBJECTS hovered over.
 #define MOB_HAS_SCREENTIPS_NAME_OVERRIDE (1 << 0)
+
+// Megafauna
+#define MINER_DASH_RANGE 4

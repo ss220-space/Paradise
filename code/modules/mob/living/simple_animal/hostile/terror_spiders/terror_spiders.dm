@@ -435,9 +435,3 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
-
-/obj/projectile/terrorspider
-	name = "basic"
-	damage = 0
-	icon_state = "toxin"
-	damage_type = TOX

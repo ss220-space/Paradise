@@ -47,7 +47,7 @@
 		add_upgrade(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/restraints/handcuffs))
+	if(ishandcuffs(I))
 		add_fingerprint(user)
 		if(!has_upgrade(UPGRADE_CUFFS))
 			balloon_alert(user, "модуль стяжек не установлен!")
