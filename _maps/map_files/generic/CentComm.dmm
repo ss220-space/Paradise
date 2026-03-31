@@ -2001,6 +2001,24 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/syndicate_mothership/control)
+"aTn" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "ninja_pump_left"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_left";
+	name = "interior access button";
+	pixel_x = 23;
+	pixel_y = 25
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "aTJ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -2206,6 +2224,22 @@
 /obj/item/toy/desk/fan,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"aXU" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_left";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "aYk" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2331,6 +2365,22 @@
 	},
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
+"bdt" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_inner_left";
+	locked = 1;
+	name = "Ship External Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "bdw" = (
 /obj/structure/coatrack,
 /obj/structure/window/reinforced{
@@ -2395,18 +2445,6 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/syndicate_mothership/control)
-"bfo" = (
-/obj/machinery/vending/nta{
-	dir = 4;
-	products = list(/obj/item/grenade/flashbang=4,/obj/item/flash=5,/obj/item/flashlight/seclite=4,/obj/item/restraints/legcuffs/bola/energy=8,/obj/item/ammo_box/shotgun=4,/obj/item/ammo_box/shotgun/buck=4,/obj/item/ammo_box/shotgun/rubbershot=4,/obj/item/ammo_casing/shotgun/stunslug=35,/obj/item/ammo_casing/shotgun/ion=14,/obj/item/ammo_casing/shotgun/laserslug=35,/obj/item/ammo_box/speedloader/shotgun=8,/obj/item/ammo_box/magazine/lr30mag=12,/obj/item/ammo_box/magazine/enforcer=18,/obj/item/ammo_box/magazine/enforcer/lethal=28,/obj/item/ammo_box/magazine/sp8=8,/obj/item/ammo_box/magazine/laser=12,/obj/item/ammo_box/magazine/wt550m9=20,/obj/item/ammo_box/magazine/m556=12,/obj/item/ammo_box/a40mm=4,/obj/item/ammo_box/c46x30mm=8,/obj/item/ammo_box/inc46x30mm=4,/obj/item/ammo_box/tox46x30mm=4,/obj/item/ammo_box/ap46x30mm=4,/obj/item/ammo_box/laserammobox=4);
-	req_access = list(104,109)
-	},
-/obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/decal/warning_stripes/white/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "bfx" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -3371,6 +3409,29 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/jail)
+"bDB" = (
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/item/ammo_box/magazine/ik60mag,
+/obj/structure/table/reinforced,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "bDH" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/trader_station/sol)
@@ -3602,28 +3663,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
-"bLb" = (
-/obj/structure/table/abductor{
-	color = "#99ff99";
-	name = "table"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/item/tank/internals/emergency_oxygen/double/ninja,
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1331;
-	id_tag = "ninja_airlock_right";
-	pixel_y = 3;
-	tag_airpump = "ninja_pump_right";
-	tag_chamber_sensor = "ninja_sensor_right";
-	tag_exterior_door = "ninja_outer_right";
-	tag_interior_door = "ninja_inner_right"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "bLi" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -3653,6 +3692,18 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/wall/indestructible/rock,
 /area/syndicate_mothership/outside)
+"bMh" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_outer_left";
+	name = "Ship External Access"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "bMn" = (
 /obj/machinery/door/poddoor/multi_tile/four_tile_hor{
 	icon_state = "open";
@@ -6791,6 +6842,21 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
+"dnb" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "ninja_sensor_right";
+	pixel_x = 12;
+	pixel_y = 25;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "dnB" = (
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
@@ -7947,6 +8013,18 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
+"dMF" = (
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "syndie_cargo_right_sensor";
+	pixel_y = 26;
+	req_access = list(153)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "dMM" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -8219,24 +8297,6 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
-"dUN" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1331;
-	id_tag = "ninja_pump_left"
-	},
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1331;
-	master_tag = "ninja_airlock_left";
-	name = "interior access button";
-	pixel_x = 23;
-	pixel_y = 25
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "dVa" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/airlock/centcom{
@@ -8338,15 +8398,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
-"dXR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "dXS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -8976,79 +9027,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
-"eoz" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
-	layer = 2.9;
-	name = "LMG M249 SAW";
-	req_access = list(114)
-	},
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/ammo_box/magazine/a762x51/ap,
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull"
-	},
-/area/syndicate_mothership/cargo)
 "eoD" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -9069,6 +9047,22 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"eoP" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_inner_right";
+	locked = 1;
+	name = "Ship External Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "eoT" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-28"
@@ -9941,6 +9935,20 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"eMh" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "synd_pump_bottom"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "eMl" = (
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
@@ -10665,19 +10673,19 @@
 "fdZ" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/ar{
+/obj/item/gun/projectile/automatic/arg{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -10967,6 +10975,20 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/bridge)
+"fmL" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_left";
+	name = "interior access button";
+	pixel_x = -12
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 8;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "fmZ" = (
 /obj/machinery/door/airlock/centcom{
 	damage_deflection = 999;
@@ -11238,17 +11260,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"fsI" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_shuttle_pump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "fsS" = (
 /obj/machinery/shuttle_manipulator,
 /turf/simulated/floor/bluegrid,
@@ -12403,6 +12414,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"fTC" = (
+/obj/structure/closet/syndicate/sst,
+/obj/item/ammo_box/magazine/l6saw/bleeding,
+/obj/item/ammo_box/magazine/l6saw,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_mothership/elite_squad)
 "fTZ" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ussp_centcom/secretariat)
@@ -12590,17 +12611,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"fXX" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 2;
-	height = 7;
-	id = "addition_goal_dock";
-	name = "Addition Goal Shuttle dock";
-	width = 10
-	},
-/turf/space,
-/area/space)
 "fXZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14331,6 +14341,18 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
+"gVK" = (
+/obj/machinery/vending/nta{
+	dir = 4;
+	products = list(/obj/item/grenade/flashbang=4,/obj/item/flash=5,/obj/item/flashlight/seclite=4,/obj/item/restraints/legcuffs/bola/energy=8,/obj/item/ammo_box/shotgun=4,/obj/item/ammo_box/shotgun/buck=4,/obj/item/ammo_box/shotgun/rubbershot=4,/obj/item/ammo_casing/shotgun/stunslug=35,/obj/item/ammo_casing/shotgun/ion=14,/obj/item/ammo_casing/shotgun/laserslug=35,/obj/item/ammo_box/speedloader/shotgun=8,/obj/item/ammo_box/magazine/lr30mag=12,/obj/item/ammo_box/magazine/enforcer=18,/obj/item/ammo_box/magazine/enforcer/lethal=28,/obj/item/ammo_box/magazine/sp8=8,/obj/item/ammo_box/magazine/ik60mag=12,/obj/item/ammo_box/magazine/wt550m9=20,/obj/item/ammo_box/magazine/m556=12,/obj/item/ammo_box/a40mm=4,/obj/item/ammo_box/c46x30mm=8,/obj/item/ammo_box/inc46x30mm=4,/obj/item/ammo_box/tox46x30mm=4,/obj/item/ammo_box/ap46x30mm=4,/obj/item/ammo_box/laserammobox=4);
+	req_access = list(104,109)
+	},
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/decal/warning_stripes/white/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "gVO" = (
 /obj/structure/chair/comfy/red{
 	color = "#FFFFFF";
@@ -15069,6 +15091,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
+"hnK" = (
+/obj/structure/table,
+/obj/machinery/computer/library/public{
+	dir = 8;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "hnX" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -16286,6 +16316,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
+"hYu" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "syndie_cargo_left_shuttle_pump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "hYY" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
@@ -17156,6 +17197,24 @@
 	icon_state = "arrivalcorner"
 	},
 /area/centcom/evac)
+"ivU" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "ninja_pump_right"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_right";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "iwt" = (
 /obj/machinery/syndiepad/admin/loadpad,
 /turf/simulated/floor/plasteel{
@@ -19923,16 +19982,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/supply)
-"jGH" = (
-/obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/a762x51/bleeding,
-/obj/item/ammo_box/magazine/a762x51,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/mineral/plastitanium,
-/area/syndicate_mothership/elite_squad)
 "jGP" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -20690,6 +20739,15 @@
 /obj/item/cautery/alien,
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
+"jXP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "jYK" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -20737,6 +20795,15 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
+"jZS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "kag" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/drinks/tea{
@@ -20796,6 +20863,17 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"kbK" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 2;
+	height = 7;
+	id = "addition_goal_dock";
+	name = "Addition Goal Shuttle dock";
+	width = 10
+	},
+/turf/space,
+/area/space)
 "kbP" = (
 /obj/machinery/light{
 	dir = 4
@@ -20825,6 +20903,13 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"kcz" = (
+/obj/structure/closet/syndicate/sst,
+/obj/item/ammo_box/magazine/l6saw/bleeding,
+/obj/item/ammo_box/magazine/l6saw,
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_mothership/elite_squad)
 "kcI" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo18"
@@ -20844,6 +20929,25 @@
 "kcU" = (
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
+"kdD" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "syndie_cargo_right_airlocks";
+	pixel_y = 26;
+	req_access = list(153);
+	tag_airpump = "syndie_cargo_right_shuttle_pump";
+	tag_chamber_sensor = "syndie_cargo_right_sensor";
+	tag_exterior_door = "syndie_cargo_right_shuttle_airlock_exterior";
+	tag_interior_door = "syndie_cargo_right_shuttle_airlock_interior"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "kei" = (
 /obj/structure/chair{
 	dir = 8
@@ -20969,18 +21073,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership/infteam)
-"kgk" = (
-/obj/machinery/door/airlock/hatch{
-	drain_act_protected = 1;
-	frequency = 1331;
-	id_tag = "ninja_outer_left";
-	name = "Ship External Access"
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "kgq" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
@@ -22266,18 +22358,6 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership/elite_squad)
-"kKV" = (
-/obj/structure/window/reinforced,
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/computer/library/public{
-	dir = 1;
-	pixel_y = 5
-	},
-/turf/simulated/floor/carpet/black,
-/area/centcom/zone2)
 "kLh" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien2"
@@ -22358,21 +22438,6 @@
 	icon_state = "alien3"
 	},
 /area/abductor_ship)
-"kMS" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "ninja_sensor_left";
-	pixel_x = -12;
-	pixel_y = 25;
-	req_access = list(150)
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "kMT" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -23600,18 +23665,6 @@
 	icon_state = "darkgrey"
 	},
 /area/syndicate_mothership)
-"lng" = (
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_sensor";
-	pixel_y = 26;
-	req_access = list(153)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "lnx" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/beach/water{
@@ -23969,6 +24022,17 @@
 	icon_state = "darkbluealtstrip"
 	},
 /area/centcom/zone2)
+"lws" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "syndie_cargo_right_shuttle_pump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "lwG" = (
 /obj/item/radio/intercom/specops/directional/west,
 /obj/item/paper_bin/nanotrasen{
@@ -24298,6 +24362,25 @@
 "lDs" = (
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
+"lDB" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "syndie_cargo_left_airlocks";
+	pixel_y = 26;
+	req_access = list(153);
+	tag_airpump = "syndie_cargo_left_shuttle_pump";
+	tag_chamber_sensor = "syndie_cargo_left_sensor";
+	tag_exterior_door = "syndie_cargo_left_shuttle_airlock_exterior";
+	tag_interior_door = "syndie_cargo_left_shuttle_airlock_interior"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "lDH" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
@@ -24538,6 +24621,21 @@
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
+"lKB" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "ninja_sensor_left";
+	pixel_x = -12;
+	pixel_y = 25;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "lKD" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/tree/jungle,
@@ -25996,6 +26094,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/infteam)
+"mss" = (
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "syndie_cargo_left_sensor";
+	pixel_y = 26;
+	req_access = list(153)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "msA" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "applebush"
@@ -26119,6 +26229,15 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
+"mvz" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "mvM" = (
 /obj/structure/urinal{
 	pixel_y = 32
@@ -26926,17 +27045,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership/infteam)
-"mMl" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1331;
-	id_tag = "syndie_cargo_left_shuttle_pump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "mMn" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -27114,22 +27222,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone3)
-"mRa" = (
-/obj/machinery/door/airlock/hatch{
-	drain_act_protected = 1;
-	frequency = 1331;
-	id_tag = "ninja_inner_right";
-	locked = 1;
-	name = "Ship External Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "mRm" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -28247,15 +28339,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
-"nqS" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "nqX" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -28723,22 +28806,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
-"nzK" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1331;
-	master_tag = "ninja_airlock_left";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = 25
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "nzM" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom/syndicate/directional/east,
@@ -31047,21 +31114,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/elite_squad)
-"oyc" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "ninja_sensor_right";
-	pixel_x = 12;
-	pixel_y = 25;
-	req_access = list(150)
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "oyw" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -31383,18 +31435,6 @@
 "oIc" = (
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
-"oID" = (
-/obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "syndie_cargo_left_sensor";
-	pixel_y = 26;
-	req_access = list(153)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "oIM" = (
 /obj/structure/decorative_structures/metal/statue/metal_angel,
 /obj/machinery/light{
@@ -31586,21 +31626,6 @@
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
-"oMB" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/machinery/computer/library/public{
-	dir = 4;
-	pixel_x = 1;
-	pixel_y = 4
-	},
-/obj/machinery/ai_status_display{
-	pixel_y = 32
-	},
-/turf/simulated/floor/carpet/black,
-/area/centcom/zone2)
 "oMM" = (
 /obj/structure/chair/comfy/red,
 /turf/simulated/floor/carpet/black,
@@ -32298,6 +32323,79 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/elite_squad)
+"pdt" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
+	layer = 2.9;
+	name = "LMG M249 SAW";
+	req_access = list(114)
+	},
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/ammo_box/magazine/l6saw/ap,
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/item/gun/projectile/automatic/l6_saw{
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
+	name = "M249 SAW"
+	},
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowfull"
+	},
+/area/syndicate_mothership/cargo)
 "pdE" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -32445,6 +32543,20 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
+"pjn" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_right";
+	name = "interior access button";
+	pixel_x = 10
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 4;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
 "pjV" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -33784,25 +33896,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
-"pSK" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1331;
-	id_tag = "syndie_cargo_left_airlocks";
-	pixel_y = 26;
-	req_access = list(153);
-	tag_airpump = "syndie_cargo_left_shuttle_pump";
-	tag_chamber_sensor = "syndie_cargo_left_sensor";
-	tag_exterior_door = "syndie_cargo_left_shuttle_airlock_exterior";
-	tag_interior_door = "syndie_cargo_left_shuttle_airlock_interior"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "pSN" = (
 /obj/machinery/cryopod/robot,
 /turf/simulated/floor/plasteel{
@@ -33939,24 +34032,6 @@
 	icon_state = "light-fancy-wood"
 	},
 /area/centcom/specops)
-"pUJ" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1331;
-	id_tag = "ninja_pump_right"
-	},
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1331;
-	master_tag = "ninja_airlock_right";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = 25
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "pUO" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Bar";
@@ -34366,6 +34441,13 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/centcom/specops)
+"qfy" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "qfz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -35592,15 +35674,6 @@
 	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
-"qFu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "qFF" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/chair/stool/bar{
@@ -35618,6 +35691,22 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
+"qFZ" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_right";
+	name = "interior access button";
+	pixel_x = 23;
+	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "qGg" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo17"
@@ -36030,15 +36119,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
-"qRJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "qRN" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/storage/box/matches,
@@ -37659,13 +37739,6 @@
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
-"rAk" = (
-/obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/a762x51/bleeding,
-/obj/item/ammo_box/magazine/a762x51,
-/obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/mineral/plastitanium,
-/area/syndicate_mothership/elite_squad)
 "rAu" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 8;
@@ -37729,18 +37802,6 @@
 /obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
-"rCi" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/sign/vacuum{
-	pixel_y = -32
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "rCS" = (
 /obj/structure/shuttle/engine/platform{
 	dir = 1;
@@ -38047,31 +38108,31 @@
 "rId" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/lasercarbine{
+/obj/item/gun/projectile/automatic/ik60{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -38500,6 +38561,28 @@
 	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
+"rTc" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/double/ninja,
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "ninja_airlock_right";
+	pixel_y = 3;
+	tag_airpump = "ninja_pump_right";
+	tag_chamber_sensor = "ninja_sensor_right";
+	tag_exterior_door = "ninja_outer_right";
+	tag_interior_door = "ninja_inner_right"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "rTw" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo3"
@@ -38662,16 +38745,6 @@
 	icon_state = "darkredcornersalt"
 	},
 /area/centcom/jail)
-"rWt" = (
-/obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/a762x51/bleeding,
-/obj/item/ammo_box/magazine/a762x51,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/mineral/plastitanium,
-/area/syndicate_mothership/elite_squad)
 "rWR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -41567,6 +41640,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/jail)
+"tmR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "tmU" = (
 /obj/item/robot_parts/robot_component{
 	desc = "Некая блюспейс сущность, обещала когда нибудь его доделать...";
@@ -43505,14 +43587,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/zone3)
-"ueU" = (
-/obj/structure/table,
-/obj/machinery/computer/library/public{
-	dir = 8;
-	pixel_y = 5
-	},
-/turf/simulated/floor/carpet/black,
-/area/centcom/zone2)
 "ufa" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/decal/cleanable/dirt,
@@ -43937,29 +44011,6 @@
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
-"uoR" = (
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/item/ammo_box/magazine/laser,
-/obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/blue/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "upv" = (
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass,
@@ -43973,6 +44024,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
+"upE" = (
+/obj/structure/closet/syndicate/sst,
+/obj/item/ammo_box/magazine/l6saw/bleeding,
+/obj/item/ammo_box/magazine/l6saw,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_mothership/elite_squad)
 "uqg" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
@@ -44683,22 +44744,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
-"uFB" = (
-/obj/machinery/door/airlock/hatch{
-	drain_act_protected = 1;
-	frequency = 1331;
-	id_tag = "ninja_inner_left";
-	locked = 1;
-	name = "Ship External Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "uFG" = (
 /obj/item/flag/species/machine,
 /turf/simulated/floor/plasteel{
@@ -44753,20 +44798,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
-"uHf" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "ninja_airlock_left";
-	name = "interior access button";
-	pixel_x = -12
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 8;
-	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
-	icon_state = "ninja_walls_direction"
-	},
-/area/shuttle/ninja)
 "uHO" = (
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#55391A";
@@ -45074,20 +45105,6 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"uNo" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "ninja_airlock_right";
-	name = "interior access button";
-	pixel_x = 10
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 4;
-	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
-	icon_state = "ninja_walls_direction"
-	},
-/area/shuttle/ninja)
 "uNq" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -45584,6 +45601,21 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/jail)
+"uYM" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/machinery/computer/library/public{
+	dir = 4;
+	pixel_x = 1;
+	pixel_y = 4
+	},
+/obj/machinery/ai_status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "uZp" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -46101,20 +46133,6 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/zone3)
-"vnw" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "synd_pump_bottom"
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "vny" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -46309,6 +46327,41 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership)
+"vsb" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_outer_right";
+	name = "Ship External Access"
+	},
+/obj/docking_port/mobile{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra";
+	name = "Spider Clan Ombra";
+	port_direction = 2;
+	preferred_direction = 2;
+	roundstart_move = "ombra_home";
+	width = 21
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/docking_port/stationary{
+	area_type = /area/ninja/outside;
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_home";
+	name = "Spider Clan Facility";
+	turf_type = /turf/simulated/floor/indestructible/snow;
+	width = 21
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
 "vsf" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -47145,6 +47198,18 @@
 	icon_state = "ninja_walls_T_alt"
 	},
 /area/shuttle/ninja)
+"vNR" = (
+/obj/structure/window/reinforced,
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/computer/library/public{
+	dir = 1;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/zone2)
 "vOe" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -47982,13 +48047,6 @@
 	icon_state = "plastitanium_red"
 	},
 /area/shuttle/syndicate)
-"wid" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/syndicate)
 "wix" = (
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
@@ -48009,25 +48067,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
-"wiF" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_airlocks";
-	pixel_y = 26;
-	req_access = list(153);
-	tag_airpump = "syndie_cargo_right_shuttle_pump";
-	tag_chamber_sensor = "syndie_cargo_right_sensor";
-	tag_exterior_door = "syndie_cargo_right_shuttle_airlock_exterior";
-	tag_interior_door = "syndie_cargo_right_shuttle_airlock_interior"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/cargo)
 "wiU" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/nt_droppod)
@@ -48175,22 +48214,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
-"wos" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1331;
-	master_tag = "ninja_airlock_right";
-	name = "interior access button";
-	pixel_x = 23;
-	pixel_y = 25
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "woR" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -48594,6 +48617,18 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"wzV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
 "wAc" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
@@ -49610,41 +49645,6 @@
 	icon_state = "plastitanium_red"
 	},
 /area/shuttle/syndicate)
-"xaJ" = (
-/obj/machinery/door/airlock/hatch{
-	drain_act_protected = 1;
-	frequency = 1331;
-	id_tag = "ninja_outer_right";
-	name = "Ship External Access"
-	},
-/obj/docking_port/mobile{
-	dheight = 2;
-	dir = 2;
-	dwidth = 4;
-	height = 10;
-	id = "ombra";
-	name = "Spider Clan Ombra";
-	port_direction = 2;
-	preferred_direction = 2;
-	roundstart_move = "ombra_home";
-	width = 21
-	},
-/obj/structure/fans/tiny/invisible,
-/obj/docking_port/stationary{
-	area_type = /area/ninja/outside;
-	dheight = 2;
-	dir = 2;
-	dwidth = 4;
-	height = 10;
-	id = "ombra_home";
-	name = "Spider Clan Facility";
-	turf_type = /turf/simulated/floor/indestructible/snow;
-	width = 21
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor13"
-	},
-/area/shuttle/ninja)
 "xaN" = (
 /obj/effect/turf_decal{
 	icon = 'icons/obj/syndie_logo.dmi';
@@ -53671,7 +53671,7 @@ ciV
 ciV
 wfY
 ciV
-pSK
+lDB
 gLq
 gLq
 ktr
@@ -53928,8 +53928,8 @@ mzr
 vWC
 sAE
 ciV
-oID
-mMl
+mss
+hYu
 gLq
 ktr
 vHT
@@ -56510,7 +56510,7 @@ lKW
 lKW
 fPv
 qEc
-eoz
+pdt
 ciV
 ciV
 vPe
@@ -58040,8 +58040,8 @@ uNG
 jkX
 sAE
 ciV
-wiF
-fsI
+kdD
+lws
 gLq
 hzK
 xhG
@@ -58297,7 +58297,7 @@ ciV
 ciV
 vlN
 ciV
-lng
+dMF
 gLq
 gLq
 seD
@@ -65204,9 +65204,9 @@ xYT
 xqR
 yiJ
 yiJ
-dXR
+jZS
 bBg
-qFu
+tmR
 xqR
 lDb
 keo
@@ -65461,9 +65461,9 @@ hYm
 slR
 hwZ
 jpA
-nqS
+mvz
 abs
-wid
+qfy
 fhi
 xbV
 ygg
@@ -65718,9 +65718,9 @@ viX
 hNI
 miW
 puD
-vnw
+eMh
 abs
-wid
+qfy
 auf
 kpB
 ygg
@@ -65975,9 +65975,9 @@ mKC
 xqR
 yiJ
 yiJ
-qRJ
+jXP
 sik
-rCi
+wzV
 xqR
 ccA
 keo
@@ -74048,7 +74048,7 @@ mVX
 mVX
 mVX
 mVX
-fXX
+kbK
 mVX
 mVX
 mVX
@@ -76252,9 +76252,9 @@ pbN
 pbN
 qYf
 mZB
-rAk
-rWt
-rAk
+kcz
+upE
+kcz
 mZB
 sPi
 tqP
@@ -78051,9 +78051,9 @@ oWS
 puO
 oVZ
 mZB
-rAk
-jGH
-rAk
+kcz
+fTC
+kcz
 mZB
 sSy
 tsX
@@ -85649,7 +85649,7 @@ tcW
 ova
 ova
 mBj
-kgk
+bMh
 xhP
 xfs
 xDA
@@ -85906,9 +85906,9 @@ hxT
 tcW
 myy
 ykS
-uHf
-kMS
-dUN
+fmL
+lKB
+aTn
 xfs
 xDA
 ykS
@@ -86165,7 +86165,7 @@ ykS
 whe
 vNF
 hNg
-uFB
+bdt
 wQF
 vNF
 xDA
@@ -86422,7 +86422,7 @@ eul
 eul
 mCK
 xIi
-nzK
+aXU
 wSF
 fAv
 tbW
@@ -87450,7 +87450,7 @@ ykS
 eul
 mCK
 mBi
-bLb
+rTc
 xhP
 xhP
 pvn
@@ -88221,7 +88221,7 @@ eul
 eul
 mCK
 uLd
-wos
+qFZ
 byl
 lxP
 tbW
@@ -88478,7 +88478,7 @@ ykS
 rug
 bpJ
 hNg
-mRa
+eoP
 wQF
 bpJ
 bQF
@@ -88733,9 +88733,9 @@ pqv
 tcW
 myE
 ykS
-uNo
-oyc
-pUJ
+pjn
+dnb
+ivU
 bYi
 bQF
 ykS
@@ -88990,7 +88990,7 @@ ykS
 pqv
 kQT
 mBj
-xaJ
+vsb
 xhP
 bYi
 bQF
@@ -93480,10 +93480,10 @@ vwP
 vTz
 onc
 rVH
-ueU
+hnK
 wVc
 vOS
-kKV
+vNR
 lYZ
 lls
 hXu
@@ -93736,7 +93736,7 @@ tZe
 tZe
 rnV
 onc
-oMB
+uYM
 xgQ
 oCh
 nOe
@@ -103048,7 +103048,7 @@ oXE
 kZY
 nAN
 vVE
-bfo
+gVK
 lhS
 xin
 goI
@@ -105624,7 +105624,7 @@ qfj
 pDH
 xin
 tSk
-uoR
+bDB
 nAN
 nAN
 nAN
@@ -106138,7 +106138,7 @@ eFF
 njW
 dCT
 tSk
-uoR
+bDB
 nAN
 nAN
 nAN

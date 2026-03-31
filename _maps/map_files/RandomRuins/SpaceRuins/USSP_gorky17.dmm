@@ -4958,7 +4958,7 @@
 	name = "Gorky17 ammunition locker";
 	req_access = list(123)
 	},
-/obj/item/gun/projectile/automatic/aksu/rusted,
+/obj/item/gun/projectile/automatic/aks74u/rusted,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"

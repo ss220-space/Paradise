@@ -365,13 +365,6 @@
 	. += span_notice("Она отложила [eggslaid] [eggslaid != 1 ? "яиц" : "яйцо"].")
 	. += span_notice("Она прожила [MinutesAlive()] минут.")
 
-/obj/projectile/terrorspider/queen
-	name = "queen venom"
-	icon_state = "toxin3"
-	damage = 40
-	stamina = 40
-	damage_type = BURN
-
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"
 	desc = "Эта многослойная паутина, кажется, способна противостоять давлению воздуха."

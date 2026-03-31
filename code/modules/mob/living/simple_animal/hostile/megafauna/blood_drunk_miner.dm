@@ -1,4 +1,4 @@
-#define MINER_DASH_RANGE 4
+
 
 /*
 
@@ -224,15 +224,6 @@ Difficulty: Medium
 	)
 	return ..()
 
-/obj/projectile/kinetic/miner
-	damage = 20
-	speed = 0.9
-	icon_state = "ka_tracer"
-	range = MINER_DASH_RANGE
-
-/obj/projectile/kinetic/miner/enraged
-	damage = 35
-
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -433,5 +424,3 @@ Difficulty: Medium
 	. = ..()
 	if(. && prob(enraged ? 40 : 12))
 		INVOKE_ASYNC(src, PROC_REF(dash))
-
-#undef MINER_DASH_RANGE
