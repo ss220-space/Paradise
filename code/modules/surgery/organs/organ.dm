@@ -445,3 +445,5 @@
 		dna.deserialize(data["dna"])
 		..()
 
+/obj/item/organ/proc/organ_failure(seconds_per_tick)
+	return
