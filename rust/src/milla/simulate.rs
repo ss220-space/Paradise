@@ -239,12 +239,19 @@ pub(crate) fn flow_air_once_at_index(
 
         for i in 0..GAS_COUNT {
             let incoming = inflow * new_neighbor.gases.values[i];
+            let outgoing = outflow * my_tile.gases.values[i];
             new_gas_values[i] += incoming;
             outgoing_gas_mult[i] += outflow;
 
-            let temperature_weight = incoming * SPECIFIC_HEATS[i];
-            total_weighted_temperature += new_neighbor.temperature() * temperature_weight;
-            total_temperature_weights += temperature_weight;
+            let incoming_heat_cap = incoming * SPECIFIC_HEATS[i];
+            total_weighted_temperature +=
+                new_neighbor.temperature() * incoming_heat_cap * TEMPERATURE_FLOW_RATE;
+            total_temperature_weights += incoming_heat_cap * TEMPERATURE_FLOW_RATE;
+
+            let outgoing_heat_cap = outgoing * SPECIFIC_HEATS[i];
+            total_weighted_temperature -=
+                my_tile.temperature() * outgoing_heat_cap * TEMPERATURE_FLOW_RATE;
+            total_temperature_weights -= outgoing_heat_cap * TEMPERATURE_FLOW_RATE;
         }
     }
 
@@ -276,6 +283,8 @@ pub(crate) fn flow_air_once_at_index(
     if total_temperature_weights > 0.0 {
         let new_temperature = total_weighted_temperature / total_temperature_weights;
         my_new_tile.thermal_energy = new_temperature * my_new_tile.heat_capacity();
+    } else {
+        my_new_tile.thermal_energy = 0.0;
     }
 
     let thermal_diff = (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs();
@@ -626,9 +635,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // Agent B converting CO2 to O2
     if cached_temperature > AGENT_B_CONVERSION_TEMP
-        && my_next_tile.gases.agent_b() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.carbon_dioxide() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.toxins() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.agent_b() > 0.0
+        && my_next_tile.gases.carbon_dioxide() > 0.0
+        && my_next_tile.gases.toxins() > 0.0
     {
         let co2_converted = fraction
             * (my_next_tile.gases.carbon_dioxide() * 0.75)
@@ -655,8 +664,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // NITRIUM DECOMPOSITION
     if cached_temperature <= NITRIUM_DECOMPOSITION_MAX_TEMP
-        && my_next_tile.gases.oxygen() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.nitrium() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.oxygen() >= 0.0
+        && my_next_tile.gases.nitrium() >= 0.0
     {
         let nitrium = my_next_tile.gases.nitrium();
         let heat_efficiency =
@@ -688,8 +697,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // HALON COMBUSTION
     if cached_temperature >= HALON_COMBUSTION_MIN_TEMPERATURE
-        && my_next_tile.gases.halon() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.halon() >= 0.0
+        && my_next_tile.gases.oxygen() >= 0.0
     {
         let halon = my_next_tile.gases.halon();
         let oxygen = my_next_tile.gases.oxygen();
@@ -719,7 +728,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 
     // PROTO-NITRATE HYDROGEN CONVERSION
-    if my_next_tile.gases.proto_nitrate() >= MINIMUM_MOLE_COUNT
+    if my_next_tile.gases.proto_nitrate() >= 0.0
         && my_next_tile.gases.hydrogen() >= PN_HYDROGEN_CONVERSION_THRESHOLD
     {
         let hydrogen = my_next_tile.gases.hydrogen();
@@ -745,8 +754,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // PROTO-NITRATE TRITIUM CONVERSION
     if cached_temperature >= PN_TRITIUM_CONVERSION_MIN_TEMP
         && cached_temperature <= PN_TRITIUM_CONVERSION_MAX_TEMP
-        && my_next_tile.gases.proto_nitrate() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.tritium() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.proto_nitrate() >= 0.0
+        && my_next_tile.gases.tritium() >= 0.0
     {
         let proto_nitrate = my_next_tile.gases.proto_nitrate();
         let tritium = my_next_tile.gases.tritium();
@@ -781,8 +790,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // PROTO-NITRATE BZ RESPONSE
     if cached_temperature >= PN_BZASE_MIN_TEMP
         && cached_temperature <= PN_BZASE_MAX_TEMP
-        && my_next_tile.gases.proto_nitrate() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.bz() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.proto_nitrate() >= 0.0
+        && my_next_tile.gases.bz() >= 0.0
     {
         let proto_nitrate = my_next_tile.gases.proto_nitrate();
         let bz = my_next_tile.gases.bz();
@@ -929,9 +938,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // PLUOXIUM FORMATION
     if cached_temperature >= PLUOXIUM_FORMATION_MIN_TEMP
         && cached_temperature <= PLUOXIUM_FORMATION_MAX_TEMP
-        && my_next_tile.gases.carbon_dioxide() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.tritium() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.carbon_dioxide() >= 0.0
+        && my_next_tile.gases.oxygen() >= 0.0
+        && my_next_tile.gases.tritium() >= 0.0
     {
         let co2 = my_next_tile.gases.carbon_dioxide();
         let oxygen = my_next_tile.gases.oxygen();
@@ -1014,9 +1023,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // FREON FORMATION
     if cached_temperature >= FREON_FORMATION_MIN_TEMPERATURE
-        && my_next_tile.gases.toxins() >= MINIMUM_MOLE_COUNT * 6.0
-        && my_next_tile.gases.carbon_dioxide() >= MINIMUM_MOLE_COUNT * 3.0
-        && my_next_tile.gases.bz() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.toxins() >= 0.0 * 6.0
+        && my_next_tile.gases.carbon_dioxide() >= 0.0 * 3.0
+        && my_next_tile.gases.bz() >= 0.0
     {
         let plasma = my_next_tile.gases.toxins();
         let co2 = my_next_tile.gases.carbon_dioxide();
@@ -1101,8 +1110,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // HEALIUM FORMATION
     if cached_temperature >= HEALIUM_FORMATION_MIN_TEMP
         && cached_temperature <= HEALIUM_FORMATION_MAX_TEMP
-        && my_next_tile.gases.bz() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.freon() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.bz() >= 0.0
+        && my_next_tile.gases.freon() >= 0.0
     {
         let bz = my_next_tile.gases.bz();
         let freon = my_next_tile.gases.freon();
@@ -1126,8 +1135,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // ZAUKER FORMATION
     if cached_temperature >= ZAUKER_FORMATION_MIN_TEMPERATURE
         && cached_temperature <= ZAUKER_FORMATION_MAX_TEMPERATURE
-        && my_next_tile.gases.hypernoblium() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.nitrium() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.hypernoblium() >= 0.0
+        && my_next_tile.gases.nitrium() >= 0.0
     {
         let hypernoblium = my_next_tile.gases.hypernoblium();
         let nitrium = my_next_tile.gases.nitrium();
@@ -1157,8 +1166,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // PROTO-NITRATE FORMATION
     if cached_temperature >= PN_FORMATION_MIN_TEMPERATURE
         && cached_temperature <= PN_FORMATION_MAX_TEMPERATURE
-        && my_next_tile.gases.pluoxium() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.hydrogen() >= MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.pluoxium() >= 0.0
+        && my_next_tile.gases.hydrogen() >= 0.0
     {
         let pluoxium = my_next_tile.gases.pluoxium();
         let hydrogen = my_next_tile.gases.hydrogen();
@@ -1199,7 +1208,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         let mut reaction_rate =
             (antinoblium / ANTINOBLIUM_CONVERSION_DIVISOR).min(total_not_antinoblium);
 
-        if total_not_antinoblium < MINIMUM_MOLE_COUNT && total_not_antinoblium > 0.0 {
+        if total_not_antinoblium < 0.0 && total_not_antinoblium > 0.0 {
             reaction_rate = total_not_antinoblium;
             for i in 0..GAS_COUNT {
                 if i != GAS_ANTINOBLIUM {
@@ -1238,9 +1247,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 
     // MIASMA STERILIZATION
-    if cached_temperature >= MIASTER_STERILIZATION_TEMP
-        && my_next_tile.gases.miasma() > MINIMUM_MOLE_COUNT
-    {
+    if cached_temperature >= MIASTER_STERILIZATION_TEMP && my_next_tile.gases.miasma() > 0.0 {
         let water_vapor = my_next_tile.gases.water_vapor();
         let total_moles = my_next_tile.gases.moles();
 
@@ -1267,8 +1274,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 
     // Nitrous Oxide breaking down into nitrogen and oxygen.
-    if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP
-        && my_next_tile.gases.sleeping_agent() > MINIMUM_MOLE_COUNT
+    if cached_temperature > SLEEPING_GAS_BREAKDOWN_TEMP && my_next_tile.gases.sleeping_agent() > 0.0
     {
         let reaction_percent = (0.00002
             * (cached_temperature - (0.00001 * (cached_temperature.powi(2)))))
@@ -1297,9 +1303,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     }
 
     // ZAUKER DECOMPOSITION
-    if my_next_tile.gases.nitrogen() >= MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.zauker() >= MINIMUM_MOLE_COUNT
-    {
+    if my_next_tile.gases.nitrogen() >= 0.0 && my_next_tile.gases.zauker() >= 0.0 {
         let nitrogen = my_next_tile.gases.nitrogen();
         let zauker = my_next_tile.gases.zauker();
 
@@ -1324,8 +1328,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // TRITIUM COMBUSTION
     if cached_temperature > TRITIUM_MINIMUM_BURN_TEMPERATURE
-        && my_next_tile.gases.tritium() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.tritium() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
     {
         let tritium = my_next_tile.gases.tritium();
         let oxygen = my_next_tile.gases.oxygen();
@@ -1365,8 +1369,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // Plasmafire!
     if cached_temperature > PLASMA_BURN_MIN_TEMP
-        && my_next_tile.gases.toxins() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.toxins() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
     {
         let toxins = my_next_tile.gases.toxins();
         let oxygen = my_next_tile.gases.oxygen();
@@ -1430,8 +1434,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
     // Hydrogen BURNING, also know as Knallgas, which is Swedish. The more you know.
     if cached_temperature > HYDROGEN_MIN_IGNITE_TEMP
-        && my_next_tile.gases.hydrogen() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.hydrogen() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
     {
         // How efficient is the burn?
         // Linear scaling fom 0 to 1 as temperatue goes from minimum to optimal.
@@ -1482,8 +1486,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
     // FREON COMBUSTION
     if cached_temperature >= FREON_TERMINAL_TEMPERATURE
         && cached_temperature <= FREON_MAXIMUM_BURN_TEMPERATURE
-        && my_next_tile.gases.freon() > MINIMUM_MOLE_COUNT
-        && my_next_tile.gases.oxygen() > MINIMUM_MOLE_COUNT
+        && my_next_tile.gases.freon() > 0.0
+        && my_next_tile.gases.oxygen() > 0.0
     {
         let temp_scale = if cached_temperature < FREON_LOWER_TEMPERATURE {
             0.5
@@ -1536,6 +1540,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
                     my_next_tile.updates |= ReasonFlags::CREATE_HOT_ICE;
                 }
             }
+            my_next_tile.updates |= ReasonFlags::HOT;
         }
     }
 
