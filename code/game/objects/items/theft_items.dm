@@ -473,6 +473,9 @@
 	. = ..()
 	if(!sliver)
 		return
+	if(istype(O, /obj/item/nuke_core_container/supermatter))
+		var/obj/item/nuke_core_container/supermatter/container = O
+		container.load(src, user)
 	if(proximity && ismovable(O) && O != sliver)
 		Consume(O, user)
 
@@ -491,14 +494,15 @@
 		var/mob/living/victim = AM
 		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
+		victim.investigate_log("has been gibed by [src].", INVESTIGATE_DEATHS)
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
-		investigate_log("has irradiated [key_name(victim)].", INVESTIGATE_ENGINE)
+		investigate_log("has consumed [key_name(victim)].", INVESTIGATE_ENGINE)
 	else if(AM.flags & SUPERMATTER_IGNORES)
 		return
 	else if(istype(AM, /obj/item/nuke_core_container))
 		return
-	else if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
+	else if(istype(AM, /obj/machinery/power/supermatter_crystal))
 		return
 	else
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)

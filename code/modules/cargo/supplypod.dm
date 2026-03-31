@@ -635,7 +635,7 @@
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/open()
+/obj/structure/closet/supplypod/open(mob/living/user, force = FALSE)
 	return
 
 /obj/structure/closet/supplypod/setClosed() //Ditto

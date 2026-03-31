@@ -36,6 +36,9 @@ GLOBAL_LIST_EMPTY_TYPED(areas_by_type, /area)
 GLOBAL_LIST_EMPTY(landmarks_list)
 /// list of all job spawn points created
 GLOBAL_LIST_EMPTY(start_landmarks_list)
+/// List of generic landmarks placed around the map where there are likely to be players and are identifiable at a glance -
+/// Such as public hallways, department rooms, head of staff offices, and non-generic maintenance locations
+GLOBAL_LIST_EMPTY(generic_event_spawns)
 
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(newplayer_start)

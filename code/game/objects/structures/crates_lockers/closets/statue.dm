@@ -74,7 +74,7 @@
 
 	..()
 
-/obj/structure/closet/statue/open()
+/obj/structure/closet/statue/open(mob/living/user, force = FALSE)
 	return
 
 /obj/structure/closet/statue/close()

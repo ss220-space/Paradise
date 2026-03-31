@@ -1584,3 +1584,8 @@
 #define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
 
 #define COMSIG_IRRADIATED_PROCESS "irradiated_process"
+
+/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
+/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"

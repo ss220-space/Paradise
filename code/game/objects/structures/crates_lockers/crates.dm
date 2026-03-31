@@ -35,7 +35,7 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open(by_hand = FALSE)
+/obj/structure/closet/crate/open(mob/living/user, force = FALSE, by_hand = FALSE)
 	if(opened || !can_open())
 		return FALSE
 

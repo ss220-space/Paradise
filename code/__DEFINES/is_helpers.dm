@@ -327,6 +327,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isminion(A) (istype(A, /mob/living/simple_animal/hostile/blob_minion))
 #define isblobbernaut(M) (istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut))
 
+#define isdead(A) (istype(A, /mob/dead))
+
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
 #define isnewplayer(A) (istype(A, /mob/new_player))
@@ -404,3 +406,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscorevortex(A) (istype(A, /obj/item/assembly/signaler/core/vortex))
 #define iscoreflux(A) (istype(A, /obj/item/assembly/signaler/core/energetic))
 #define iscore(A) (istype(A, /obj/item/assembly/signaler/core))
+
+#define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
+
+/// Not really closed, but the meaning is the same.
+#define isclosedturf(A) (istype(A, iswallturf(A) || ismineralturf(A)))

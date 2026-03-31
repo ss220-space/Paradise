@@ -235,7 +235,7 @@
 /obj/structure/closet/coffin/graveyard_loot
 	var/spawn_mob = null
 
-/obj/structure/closet/coffin/graveyard_loot/open()
+/obj/structure/closet/coffin/graveyard_loot/open(mob/living/user, force = FALSE)
 	..()
 	if(spawn_mob)
 		new spawn_mob(src.loc)

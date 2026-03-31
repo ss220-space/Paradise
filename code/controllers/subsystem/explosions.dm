@@ -137,7 +137,7 @@ SUBSYSTEM_DEF(explosions)
  * Makes a given turf explode.
  *
  * Arguments:
- * - [origin][/turf]: The turf that's exploding.
+ * - [epicenter][/turf]: The turf that's exploding.
  * - devastation_range: The range at which the effects of the explosion are at their strongest.
  * - heavy_impact_range: The range at which the effects of the explosion are relatively severe.
  * - light_impact_range: The range at which the effects of the explosion are relatively weak.

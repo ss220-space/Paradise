@@ -123240,7 +123240,7 @@
 	},
 /area/storage/secure)
 "xuq" = (
-/obj/machinery/atmospherics/supermatter_crystal/engine,
+/obj/machinery/power/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "xus" = (

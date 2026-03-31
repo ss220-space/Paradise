@@ -884,7 +884,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal,
+/obj/machinery/power/supermatter_crystal/shard/hugbox,
 /turf/simulated/floor/engine,
 /area/awaymission/spacebattle/engine)
 "cT" = (

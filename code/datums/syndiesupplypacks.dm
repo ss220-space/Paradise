@@ -1021,7 +1021,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/engineering/engine/supermatter_crystal
 	name = "Supermatter Shard Crate"
 	contains = list(
-		/obj/machinery/atmospherics/supermatter_crystal,
+		/obj/machinery/power/supermatter_crystal,
 	)
 	cost = 50000 //So cargo thinks twice before killing themselves with it //the same reason but for syndies
 	containertype = /obj/structure/closet/crate/secure/syndicate

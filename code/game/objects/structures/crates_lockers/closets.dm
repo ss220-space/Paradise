@@ -116,7 +116,9 @@ GLOBAL_LIST_EMPTY(closets)
 	if(wall_mounted)
 		return TRUE
 
-/obj/structure/closet/proc/can_open()
+/obj/structure/closet/proc/can_open(mob/living/user, force = FALSE)
+	if(force)
+		return TRUE
 	if(welded)
 		return FALSE
 	return TRUE
@@ -146,14 +148,15 @@ GLOBAL_LIST_EMPTY(closets)
 	if(throwing)
 		throwing.finalize()
 
-/obj/structure/closet/proc/before_open()
+/// Proc to write checks before opening a door
+/obj/structure/closet/proc/before_open(mob/living/user, force)
 	return TRUE
 
-/obj/structure/closet/proc/open()
-	if(opened || !can_open())
+/obj/structure/closet/proc/open(mob/living/user, force = FALSE)
+	if(opened || !can_open(user, force))
 		return FALSE
 
-	if(!before_open())
+	if(!before_open(user, force))
 		return FALSE
 
 	dump_contents()
@@ -165,13 +168,13 @@ GLOBAL_LIST_EMPTY(closets)
 	else
 		playsound(loc, 'sound/machines/click.ogg', open_sound_volume, TRUE, -3)
 	set_density(FALSE)
-	after_open()
+	after_open(user, force)
 	return TRUE
 
 /obj/structure/closet/setOpened()
 	open()
 
-///Proc to override for effects after opening a door
+/// Proc to override for effects after opening a door
 /obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
 	return
 

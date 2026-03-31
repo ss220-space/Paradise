@@ -404,7 +404,7 @@ SUBSYSTEM_DEF(air)
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
 
-		if(istype(atmos_machine, /obj/machinery/atmospherics/supermatter_crystal))
+		if(istype(atmos_machine, /obj/machinery/power/supermatter_crystal))
 			supermatters += atmos_machine
 
 		else if(isnull(atmos_machine) || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
@@ -416,7 +416,7 @@ SUBSYSTEM_DEF(air)
 			return
 
 	while(length(supermatters))
-		var/obj/machinery/atmospherics/supermatter_crystal/supermatter = supermatters[length(supermatters)]
+		var/obj/machinery/power/supermatter_crystal/supermatter = supermatters[length(supermatters)]
 		supermatters.len--
 
 		if(isnull(supermatter) || (supermatter.process_atmos(seconds) == PROCESS_KILL))
