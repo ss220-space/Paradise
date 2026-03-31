@@ -426,7 +426,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		targets = valid_targets
 
 		if(!length(targets))
-			to_chat(user, span_warning("Нет доступных целей в прямой видимости!"))
+			user.balloon_alert(user, "нельзя использовать через стены!")
+			revert_cast(user)
 			return FALSE
 
 	before_cast(targets, user)
@@ -677,7 +678,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return
 
 	var/turf/Start = get_turf(user)
-	for(var/direction in GLOB.alldirs)
+	var/alldris_cached = GLOB.alldirs
+	for(var/direction in alldris_cached)
 		var/turf/step_turf = get_step(Start,direction)
 		if(!step_turf.density)
 			target_mob.Move(step_turf)
@@ -707,7 +709,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return FALSE
 
 /proc/is_line_clear(list/path, turf/start, turf/end)
-	if(!path || !path.len)
+	if(!path || !length(path))
 		return FALSE
 	for(var/turf/turf in path)
 		if(turf == start || turf == end)
