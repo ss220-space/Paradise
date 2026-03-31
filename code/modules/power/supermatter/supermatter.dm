@@ -1,4 +1,5 @@
 // Zap constants, speeds up targeting
+#define BIKE (COIL + 1)
 #define COIL (ROD + 1)
 #define ROD (LIVING + 1)
 #define LIVING (MACHINERY + 1)
@@ -183,6 +184,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	/// Cooldown for sending emergency alerts to the common radio channel
 	COOLDOWN_DECLARE(common_radio_cooldown)
 
+	/// How often do we want to process the crystal?
+	var/ticks_per_run = 5
+	/// How long has it been since we processed the crystal?
+	var/tick_counter = 0
+
 /obj/machinery/power/supermatter_crystal/get_ru_names()
 	return list(
 		NOMINATIVE = "кристалл суперматерии",
@@ -201,6 +207,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	uid = gl_uid++
 	set_delam(SM_DELAM_PRIO_NONE, /datum/sm_delam/explosive)
 	//SSair.start_processing_machine(src)
+	SSair.atmos_machinery += src
 	countdown = new(src)
 	countdown.start()
 	GLOB.poi_list |= src
@@ -237,6 +244,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		QDEL_NULL(warp)
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
 	//SSair.stop_processing_machine(src)
+	SSair.atmos_machinery -= src
 	absorbed_gasmix = null
 	QDEL_NULL(radio)
 	GLOB.poi_list -= src
@@ -270,6 +278,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. += delamination_strategy.examine(src)
 	return .
 
+/obj/machinery/power/supermatter_crystal/process_atmos()
+	tick_counter += SSair.wait
+	if(tick_counter >= ticks_per_run)
+		var/datum/milla_safe/supermatter_process/milla = new()
+		milla.invoke_async(src)
+		tick_counter -= ticks_per_run
+
 /datum/milla_safe/supermatter_process
 
 /datum/milla_safe/supermatter_process/on_run(obj/machinery/power/supermatter_crystal/supermatter)
@@ -285,9 +300,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(!istype(local_turf)) //We are in a crate or somewhere that isn't turf, if we return to turf resume processing but for now.
 		return //Yeah just stop.
 
-	if(local_turf.density)
+	if(isclosedturf(local_turf) || local_turf.density)
 		var/turf/did_it_melt = local_turf.ChangeTurf(local_turf.baseturf)
-		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
+		if(!isclosedturf(did_it_melt) || !did_it_melt.density) //In case some joker finds way to place these on indestructible walls
 			visible_message(span_warning("[src] melts through [local_turf]!"))
 		return
 
@@ -298,10 +313,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	// Extra effects should always fire after the compositions are all finished
 	// Some extra effects like [/datum/sm_gas/carbon_dioxide/extra_effects]
 	// needs more than one gas and rely on a fully parsed gas_percentage.
-	for(var/gas_path in current_gas_behavior)
+	var/list/gases = absorbed_gasmix.get_interesting()
+	for(var/tlv_id in gases)
+		var/gas_path = GLOB.tlv_to_gas_path[tlv_id]
+		if(!gas_path)
+			continue
 		var/datum/sm_gas/sm_gas = current_gas_behavior[gas_path]
-		if(sm_gas && gas_percentage[gas_path] > 0)
-			sm_gas.extra_effects(src)
+		sm_gas?.extra_effects(src)
 
 	// PART 3: POWER PROCESSING
 	internal_energy_factors = calculate_internal_energy()
@@ -343,12 +361,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/device_energy = internal_energy * REACTION_POWER_MODIFIER
 
 	/// Do waste on another gasmix so we can keep a copy of the gasmix we use for processing.
-	var/datum/gas_mixture/merged_gasmix = absorbed_gasmix.copy_from()
-	merged_gasmix.set_temperature((merged_gasmix.temperature() + device_energy * waste_multiplier / THERMAL_RELEASE_MODIFIER))
-	merged_gasmix.set_temperature(clamp(merged_gasmix.temperature(), TCMB, 2500 * waste_multiplier))
-	merged_gasmix.set_toxins(merged_gasmix.toxins() + max(device_energy * waste_multiplier / PLASMA_RELEASE_MODIFIER, 0))
-	merged_gasmix.set_oxygen((merged_gasmix.oxygen() + max(((device_energy + merged_gasmix.temperature() * waste_multiplier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)))
-	env.merge(merged_gasmix)
+	absorbed_gasmix.set_temperature((absorbed_gasmix.temperature() + device_energy * waste_multiplier / THERMAL_RELEASE_MODIFIER))
+	absorbed_gasmix.set_temperature(clamp(absorbed_gasmix.temperature(), TCMB, 2500 * waste_multiplier))
+	absorbed_gasmix.set_toxins(absorbed_gasmix.toxins() + max(device_energy * waste_multiplier / PLASMA_RELEASE_MODIFIER, 0))
+	absorbed_gasmix.set_oxygen((absorbed_gasmix.oxygen() + max(((device_energy + absorbed_gasmix.temperature() * waste_multiplier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)))
+	env.merge(absorbed_gasmix)
 	recalculate_atmos_connectivity()
 
 	// PART 6: EXTRA BEHAVIOUR
@@ -579,23 +596,23 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/list/count_down_messages = delamination_strategy.count_down_messages()
 
-	radio.talk_into(
-		src,
+	radio_announce(
 		count_down_messages[1],
+		src,
 		emergency_channel,
-		//list(SPAN_COMMAND)
+		radio,
 	)
 
 	var/delamination_countdown_time = SUPERMATTER_COUNTDOWN_TIME
 	// If a sliver was removed from the supermatter, the countdown time is significantly decreased
 	if(supermatter_sliver_removed == TRUE)
 		delamination_countdown_time = SUPERMATTER_SLIVER_REMOVED_COUNTDOWN_TIME
-		radio.talk_into(
-			src,
+		radio_announce(
 			"WARNING: Projected time until full crystal delamination significantly lower than expected. \
-			Please inspect crystal for structural abnormalities or sabotage!",
+				Please inspect crystal for structural abnormalities or sabotage!",
+			src,
 			emergency_channel,
-			//list(SPAN_COMMAND)
+			radio,
 		)
 
 	for(var/i in delamination_countdown_time to 0 step -10)
@@ -613,11 +630,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		else
 			message = "[i*0.1]..."
 
-		radio.talk_into(
-			src,
+		radio_announce(
 			message,
+			src,
 			emergency_channel,
-			//list(SPAN_COMMAND),
+			radio,
 		)
 
 		if(healed)
@@ -927,13 +944,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. = (zap_energy_accumulation[key] ? zap_energy_accumulation[key] : 0) + energy
 	zap_energy_accumulation[key] = .
 
-/datum/milla_safe/supermatter_electrolyze
-
-/datum/milla_safe/supermatter_electrolyze/on_run(obj/machinery/power/electrolyzer/electrolyzer, zap_str, power_level)
-	var/turf/current_turf = get_turf(electrolyzer)
-	var/datum/gas_mixture/env = get_turf_air(current_turf)
-	env.electrolyze(working_power = zap_str / 200, electrolyzer_args = list(ELECTROLYSIS_ARGUMENT_SUPERMATTER_POWER = power_level))
-
 /**
  * Depletes a portion of the accumulated energy for the given key and returns it. Used for discharging energy from the supermatter.
  * Args:
@@ -944,6 +954,17 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/proc/discharge_energy(key, portion = ZAP_ENERGY_DISCHARGE_PORTION)
 	. = portion * zap_energy_accumulation[key]
 	zap_energy_accumulation[key] -= .
+
+/datum/milla_safe/supermatter_electrolyze
+
+/datum/milla_safe/supermatter_electrolyze/on_run(atom/target, zap_str, power_level)
+	if(!target)
+		return
+	var/turf/current_turf = get_turf(target)
+	if(!current_turf)
+		return
+	var/datum/gas_mixture/env = get_turf_air(current_turf)
+	env.electrolyze(working_power = zap_str / 200, electrolyzer_args = list(ELECTROLYSIS_ARGUMENT_SUPERMATTER_POWER = power_level))
 
 /obj/machinery/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 3.2 MEGA JOULES, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list(), zap_cutoff = 1.2 MEGA JOULES, power_level = 0, zap_icon = DEFAULT_ZAP_ICON_STATE, color = null)
 	if(QDELETED(zapstart))
@@ -965,6 +986,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	for(var/atom/test as anything in oview(zapstart, range))
 		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(targets_hit, test))
 			continue
+
+		if(istype(test, /obj/vehicle/ridden/))
+			var/obj/vehicle/ridden/bike = test
+			if(!HAS_TRAIT(bike, TRAIT_BEING_SHOCKED) && bike.can_buckle)//God's not on our side cause he hates idiots.
+				if(target_type != BIKE)
+					arc_targets = list()
+				arc_targets += test
+				target_type = BIKE
 
 		if(target_type > COIL)
 			continue
@@ -1068,10 +1097,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/turf/target_turf = get_turf(target)
 	var/pressure = 1
 	// Calculate pressure and do electrolysis.
+	var/datum/gas_mixture/air_mixture = target_turf?.get_readonly_air()
 	if(air_mixture)
 		pressure = max(1, air_mixture.return_pressure())
 		var/datum/milla_safe/supermatter_electrolyze/milla = new()
-		milla.invoke_async(src, zap_str, power_level)
+		milla.invoke_async(target, zap_str, power_level)
 		target_turf.recalculate_atmos_connectivity()
 	//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 	var/new_range = clamp(zap_str / pressure * 10, 2, 7)
@@ -1116,7 +1146,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 //	SIGNAL_HANDLER
 //	examine_list += span_info("There's a santa hat placed atop it. How it got there without being dusted is a mystery.")
 
-
+#undef BIKE
 #undef COIL
 #undef ROD
 #undef LIVING

@@ -25,10 +25,11 @@
 	if(!..())
 		return FALSE
 
-	sm.radio.talk_into(
-		sm,
+	radio_announce(
 		"DANGER: HYPERSTRUCTURE OSCILLATION FREQUENCY OUT OF BOUNDS.",
-		sm.damage >= sm.emergency_point ? sm.emergency_channel : sm.warning_channel
+		sm,
+		sm.damage >= sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
+		sm,
 	)
 	var/list/messages = list(
 		"Space seems to be shifting around you...",
