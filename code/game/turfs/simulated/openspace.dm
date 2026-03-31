@@ -21,16 +21,10 @@
 	nitrogen = 0
 
 /turf/simulated/openspace/lavaland
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/openspace/snow_atmosphere
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_COLD
 

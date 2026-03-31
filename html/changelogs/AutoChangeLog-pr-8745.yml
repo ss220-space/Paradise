@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - tweak: "Возваращена необходимость быть определенного возраста для ГСБ (PR #8745)"

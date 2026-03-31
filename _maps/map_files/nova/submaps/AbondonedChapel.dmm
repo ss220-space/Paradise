@@ -406,12 +406,7 @@
 	name = "east fire alarm";
 	pixel_x = 24
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -429,9 +424,8 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 2
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -1055,12 +1049,7 @@
 	},
 /area/maintenance/club)
 "JS" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/club)
@@ -1574,11 +1563,7 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "Zx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1;
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,

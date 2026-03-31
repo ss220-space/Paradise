@@ -191,6 +191,8 @@
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
+		if(HAS_TRAIT(src, TRAIT_NO_FIRE))
+			return FALSE
 		on_fire = TRUE
 		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] загора[PLUR_ET_YUT(src)]ся!"), span_userdanger("Вы загораетесь!"))
 		set_light_range(light_range + 3)

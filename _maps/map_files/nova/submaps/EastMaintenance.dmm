@@ -341,12 +341,8 @@
 /area/maintenance/fore2)
 "eg" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -2809,12 +2805,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/abandonedoffices)
 "Fj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
@@ -2888,12 +2879,7 @@
 	},
 /area/maintenance/fore2)
 "FX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/tracks{
 	layer = 3;
@@ -4124,12 +4110,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "Tx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
 /area/maintenance/backstage)

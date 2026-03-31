@@ -84,7 +84,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(isobserver(user) && user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
+		if(isobserver(user) && user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE, milla_turf_details = check_rights(R_DEBUG, FALSE)))
 			return TRUE
 	return FALSE
 
