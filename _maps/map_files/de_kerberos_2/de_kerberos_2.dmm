@@ -577,6 +577,10 @@
 /obj/effect/landmark/spawner/team2,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
+"afr" = (
+/obj/machinery/power/supermatter_crystal/engine,
+/turf/simulated/floor/engine,
+/area/engineering/supermatter)
 "afy" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -1231,18 +1235,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/westarrival)
-"amk" = (
-/obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/obj/effect/decal/remains/mouse/Pinkie,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "aml" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=A2";
@@ -4464,6 +4456,10 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
+"aJw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "aJy" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -32746,19 +32742,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/shallway)
-"dyG" = (
-/obj/machinery/r_n_d/server/robotics,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "dyI" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/bluegrid,
@@ -32825,6 +32808,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
+"dzl" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0;
+	releasing = 0
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "dzm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -43655,6 +43649,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
+"faT" = (
+/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "faV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -53182,10 +53183,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/office)
-"hmH" = (
-/obj/machinery/power/supermatter_crystal/engine,
-/turf/simulated/floor/engine,
-/area/engineering/supermatter)
 "hmL" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -84594,23 +84591,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
-"oyt" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	external_pressure_bound = 140;
-	external_pressure_bound_default = 140;
-	name = "server vent";
-	on = 1;
-	pressure_checks = 0;
-	releasing = 0
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "oyI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -117809,6 +117789,12 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"vGp" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/effect/decal/remains/mouse/Pinkie,
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "vGv" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -119581,6 +119567,13 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/aisat)
+"wbo" = (
+/obj/machinery/r_n_d/server/core,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "wbx" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -123775,6 +123768,21 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"wXD" = (
+/obj/machinery/camera{
+	c_tag = "Server Room";
+	dir = 8;
+	network = list("SS13","Research")
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "wXY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -128168,19 +128176,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"xSP" = (
-/obj/machinery/r_n_d/server/core,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "xTb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -128197,27 +128192,6 @@
 	icon_state = "vault"
 	},
 /area/aisat/aihallway)
-"xTh" = (
-/obj/machinery/camera{
-	c_tag = "Server Room";
-	dir = 8;
-	network = list("SS13","Research")
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	external_pressure_bound = 140;
-	external_pressure_bound_default = 140;
-	name = "server vent";
-	on = 1;
-	pressure_checks = 0
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "xTn" = (
 /obj/structure/cable,
 /obj/structure/cable{
@@ -129895,16 +129869,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"yjC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "yjG" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/machinery/atmospherics/meter,
@@ -154149,7 +154113,7 @@ bIH
 aYW
 bbk
 cfr
-hmH
+afr
 cfr
 cdZ
 cfr
@@ -162735,8 +162699,8 @@ vsH
 gVl
 mdc
 sPG
-oyt
-xSP
+dzl
+wbo
 wEh
 iVN
 xEA
@@ -162992,8 +162956,8 @@ nYC
 qzC
 yhY
 eeD
-yjC
-amk
+aJw
+vGp
 wEh
 ruT
 gpS
@@ -163249,8 +163213,8 @@ vsH
 xYP
 tSo
 dwg
-xTh
-dyG
+wXD
+faT
 wEh
 tLT
 vZW

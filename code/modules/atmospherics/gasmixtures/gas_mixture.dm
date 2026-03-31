@@ -4,28 +4,8 @@ What are the archived variables for?
 	This prevents race conditions that arise based on the order of tile processing.
 */
 
-#define SPECIFIC_HEAT_TOXIN 200
-#define SPECIFIC_HEAT_AIR 20
-#define SPECIFIC_HEAT_CDO 30
-#define SPECIFIC_HEAT_N2O 40
-#define SPECIFIC_HEAT_AGENT_B 300
-#define SPECIFIC_HEAT_HYDROGEN 15
-#define SPECIFIC_HEAT_WATER_VAPOR 33
-#define SPECIFIC_HEAT_HYPER_NOBLIUM 2000
-#define SPECIFIC_HEAT_NITRIUM 10
-#define SPECIFIC_HEAT_TRITIUM 10
-#define SPECIFIC_HEAT_BZ 20
-#define SPECIFIC_HEAT_PLUOXIUM 80
-#define SPECIFIC_HEAT_MIASMA 20
-#define SPECIFIC_HEAT_FREON 600
-#define SPECIFIC_HEAT_HEALIUM 10
-#define SPECIFIC_HEAT_PROTO_NITRATE 30
-#define SPECIFIC_HEAT_ZAUKER 350
-#define SPECIFIC_HEAT_HALON 175
-#define SPECIFIC_HEAT_HELIUM 15
-#define SPECIFIC_HEAT_ANTINOBLIUM 1
 
-#define HEAT_CAPACITY_GASES1(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, hyper_noblium, nitrium, tritium) \
+#define HEAT_CAPACITY_GASES1(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, hypernoblium, nitrium, tritium) \
 	carbon_dioxide * SPECIFIC_HEAT_CDO + \
 	oxygen * SPECIFIC_HEAT_AIR + \
 	nitrogen * SPECIFIC_HEAT_AIR + \
@@ -34,7 +14,7 @@ What are the archived variables for?
 	agent_b * SPECIFIC_HEAT_AGENT_B + \
 	hydrogen * SPECIFIC_HEAT_HYDROGEN + \
 	water_vapor * SPECIFIC_HEAT_WATER_VAPOR + \
-	hyper_noblium * SPECIFIC_HEAT_HYPER_NOBLIUM + \
+	hypernoblium * SPECIFIC_HEAT_HYPER_NOBLIUM + \
 	nitrium * SPECIFIC_HEAT_NITRIUM + \
 	tritium * SPECIFIC_HEAT_TRITIUM
 
@@ -51,7 +31,6 @@ What are the archived variables for?
 	antinoblium * SPECIFIC_HEAT_ANTINOBLIUM + \
 	innate_heat_capacity
 
-#define MINIMUM_HEAT_CAPACITY 0.0003
 #define QUANTIZE(variable) (round(variable, 0.0001))
 
 /datum/gas_mixture
@@ -72,7 +51,7 @@ What are the archived variables for?
 	var/private_agent_b = 0
 	var/private_hydrogen = 0
 	var/private_water_vapor = 0
-	var/private_hyper_noblium = 0
+	var/private_hypernoblium = 0
 	var/private_nitrium = 0
 	var/private_tritium = 0
 	var/private_bz = 0
@@ -98,7 +77,7 @@ What are the archived variables for?
 	var/private_agent_b_archived = 0
 	var/private_hydrogen_archived = 0
 	var/private_water_vapor_archived = 0
-	var/private_hyper_noblium_archived = 0
+	var/private_hypernoblium_archived = 0
 	var/private_nitrium_archived = 0
 	var/private_tritium_archived = 0
 	var/private_bz_archived = 0
@@ -213,16 +192,16 @@ What are the archived variables for?
 		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
 	private_water_vapor = clamped
 
-/datum/gas_mixture/proc/hyper_noblium()
-	return private_hyper_noblium
+/datum/gas_mixture/proc/hypernoblium()
+	return private_hypernoblium
 
-/datum/gas_mixture/proc/set_hyper_noblium(value)
+/datum/gas_mixture/proc/set_hypernoblium(value)
 	if(isnan(value) || !isnum(value))
 		CRASH("Bad value: [value]")
 	var/clamped = clamp(value, 0, 1e10)
 	if(value != clamped)
 		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
-	private_hyper_noblium = clamped
+	private_hypernoblium = clamped
 
 /datum/gas_mixture/proc/nitrium()
 	return private_nitrium
@@ -378,16 +357,16 @@ What are the archived variables for?
 
 /// PV=nRT - related procedures
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_GASES1(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, private_hydrogen, private_water_vapor, private_hyper_noblium, private_nitrium, private_tritium) + \
+	return HEAT_CAPACITY_GASES1(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, private_hydrogen, private_water_vapor, private_hypernoblium, private_nitrium, private_tritium) + \
 	HEAT_CAPACITY_GASES2(private_bz, private_pluoxium, private_miasma, private_freon, private_healium, private_proto_nitrate, private_zauker, private_halon, private_helium, private_antinoblium, innate_heat_capacity)
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_GASES1(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, private_hydrogen_archived, private_water_vapor_archived, private_hyper_noblium_archived, private_nitrium_archived, private_tritium_archived) + \
+	return HEAT_CAPACITY_GASES1(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, private_hydrogen_archived, private_water_vapor_archived, private_hypernoblium_archived, private_nitrium_archived, private_tritium_archived) + \
 	HEAT_CAPACITY_GASES2(private_bz_archived, private_pluoxium_archived, private_miasma_archived, private_freon_archived, private_healium_archived, private_proto_nitrate_archived, private_zauker_archived, private_halon_archived, private_helium_archived, private_antinoblium_archived, innate_heat_capacity)
 
 /// Calculate moles
 /datum/gas_mixture/proc/total_moles()
-	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b + private_hydrogen + private_water_vapor + private_hyper_noblium + private_nitrium + private_tritium + private_bz + private_pluoxium + private_miasma + private_freon + private_healium + private_proto_nitrate + private_zauker + private_halon + private_helium + private_antinoblium
+	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b + private_hydrogen + private_water_vapor + private_hypernoblium + private_nitrium + private_tritium + private_bz + private_pluoxium + private_miasma + private_freon + private_healium + private_proto_nitrate + private_zauker + private_halon + private_helium + private_antinoblium
 
 /datum/gas_mixture/proc/total_trace_moles()
 	var/moles = private_agent_b
@@ -444,7 +423,7 @@ What are the archived variables for?
 	if(private_antinoblium > ANTINOBLIUM_VISIBILITY_MOLES)
 		result += GLOB.antmaster["[z_plane_offset]"]
 
-	if(private_hyper_noblium >HYPER_NOBLIUM_VISIBILITY_MOLES)
+	if(private_hypernoblium >HYPER_NOBLIUM_VISIBILITY_MOLES)
 		result += GLOB.frmaster["[z_plane_offset]"]
 
 	return result
@@ -641,7 +620,7 @@ What are the archived variables for?
 				var/old_heat_capacity = heat_capacity()
 				private_tritium -= 5 * nob_formed * reduction_factor
 				private_nitrogen -= 10 * nob_formed
-				private_hyper_noblium += nob_formed
+				private_hypernoblium += nob_formed
 				var/energy_released = nob_formed * NOBLIUM_FORMATION_ENERGY / max(private_bz, 1)
 				var/new_heat_capacity = heat_capacity()
 				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -664,12 +643,12 @@ What are the archived variables for?
 				reacting = TRUE
 
 	// ==================== Zauker Formation ====================
-	if(private_hyper_noblium > MINIMUM_MOLE_COUNT && private_nitrium > MINIMUM_MOLE_COUNT)
+	if(private_hypernoblium > MINIMUM_MOLE_COUNT && private_nitrium > MINIMUM_MOLE_COUNT)
 		if(private_temperature >= ZAUKER_FORMATION_MIN_TEMPERATURE && private_temperature <= ZAUKER_FORMATION_MAX_TEMPERATURE)
-			var/heat_efficiency = min(private_temperature * ZAUKER_FORMATION_TEMPERATURE_SCALE, private_hyper_noblium * INVERSE(0.01), private_nitrium * INVERSE(0.5))
+			var/heat_efficiency = min(private_temperature * ZAUKER_FORMATION_TEMPERATURE_SCALE, private_hypernoblium * INVERSE(0.01), private_nitrium * INVERSE(0.5))
 			if(heat_efficiency > 0)
 				var/old_heat_capacity = heat_capacity()
-				private_hyper_noblium -= heat_efficiency * 0.01
+				private_hypernoblium -= heat_efficiency * 0.01
 				private_nitrium -= heat_efficiency * 0.5
 				private_zauker += heat_efficiency * 0.5
 				var/energy_used = heat_efficiency * ZAUKER_FORMATION_ENERGY
@@ -701,7 +680,7 @@ What are the archived variables for?
 		var/antinoblium_moles = private_antinoblium
 		var/total_not_antinoblium_moles = total_moles_before - antinoblium_moles
 		var/reaction_rate = min(antinoblium_moles / ANTINOBLIUM_CONVERSION_DIVISOR, total_not_antinoblium_moles)
-		
+
 		if(total_not_antinoblium_moles < MINIMUM_MOLE_COUNT)
 			reaction_rate = total_not_antinoblium_moles
 			private_agent_b = 0
@@ -723,7 +702,7 @@ What are the archived variables for?
 			private_zauker = 0
 			private_halon = 0
 			private_helium = 0
-			private_hyper_noblium = 0
+			private_hypernoblium = 0
 		else
 			REACT_GAS(agent_b)
 			REACT_GAS(oxygen)
@@ -744,8 +723,8 @@ What are the archived variables for?
 			REACT_GAS(zauker)
 			REACT_GAS(halon)
 			REACT_GAS(helium)
-			REACT_GAS(hyper_noblium)
-		
+			REACT_GAS(hypernoblium)
+
 		private_antinoblium += reaction_rate
 		var/new_heat_capacity = heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -816,35 +795,35 @@ What are the archived variables for?
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/plasma_burn_rate = 0
-		
+
 		var/private_temperature_scale = 0
 		if(private_temperature > PLASMA_UPPER_TEMPERATURE)
 			private_temperature_scale = 1
 		else
 			private_temperature_scale = (private_temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE - PLASMA_MINIMUM_BURN_TEMPERATURE)
-		
+
 		if(private_temperature_scale > 0)
 			var/private_oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - private_temperature_scale
-			
+
 			var/is_super_saturated = (private_oxygen / private_toxins >= SUPER_SATURATION_THRESHOLD)
 
 			if(private_oxygen > private_toxins * PLASMA_OXYGEN_FULLBURN)
 				plasma_burn_rate = (private_toxins * private_temperature_scale) / PLASMA_BURN_RATE_DELTA
 			else
 				plasma_burn_rate = (private_temperature_scale * (private_oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
-			
+
 			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
 				plasma_burn_rate = min(plasma_burn_rate, private_toxins, private_oxygen / private_oxygen_burn_rate)
-				
+
 				private_toxins = QUANTIZE(private_toxins - plasma_burn_rate)
 				private_oxygen = QUANTIZE(private_oxygen - (plasma_burn_rate * private_oxygen_burn_rate))
-				
+
 				if(is_super_saturated)
-					private_tritium += plasma_burn_rate 
+					private_tritium += plasma_burn_rate
 				else
 					private_carbon_dioxide += plasma_burn_rate * 0.75
 					private_water_vapor += plasma_burn_rate * 0.25
-				
+
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * plasma_burn_rate
 				fuel_burnt += plasma_burn_rate * (1 + private_oxygen_burn_rate)
 
@@ -852,7 +831,7 @@ What are the archived variables for?
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
-		
+
 		if(fuel_burnt)
 			reacting = TRUE
 
@@ -911,11 +890,26 @@ What are the archived variables for?
 				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 					private_temperature = max((private_temperature * old_heat_capacity - energy_consumed) / new_heat_capacity, TCMB)
 				reacting = TRUE
-	
+
 	set_dirty()
 	return reacting
 
 #undef REACT_GAS
+
+/**
+ * Calls for electrolyzer_reaction reactions on the gas_mixture.
+ * Arguments:
+ * * working_power - working_power to use for the electrolyzer_reaction reactions.
+ * * electrolyzer_args - electrolysis arguments to use for the electrolyzer_reaction reactions.
+ */
+/datum/gas_mixture/proc/electrolyze(working_power = 0, electrolyzer_args = list())
+	for(var/reaction in GLOB.electrolyzer_reactions)
+		var/datum/electrolyzer_reaction/current_reaction = GLOB.electrolyzer_reactions[reaction]
+
+		if(!current_reaction.reaction_check(air_mixture = src, electrolyzer_args = electrolyzer_args))
+			continue
+
+		current_reaction.react(air_mixture = src, working_power = working_power, electrolyzer_args = electrolyzer_args)
 
 
 /datum/gas_mixture/proc/archive()
@@ -927,7 +921,7 @@ What are the archived variables for?
 	private_agent_b_archived = private_agent_b
 	private_hydrogen_archived = private_hydrogen
 	private_water_vapor_archived = private_water_vapor
-	private_hyper_noblium_archived = private_hyper_noblium
+	private_hypernoblium_archived = private_hypernoblium
 	private_nitrium_archived = private_nitrium
 	private_tritium_archived = private_tritium
 	private_bz_archived = private_bz
@@ -964,7 +958,7 @@ What are the archived variables for?
 	private_agent_b += giver.private_agent_b
 	private_hydrogen += giver.private_hydrogen
 	private_water_vapor += giver.private_water_vapor
-	private_hyper_noblium += giver.private_hyper_noblium
+	private_hypernoblium += giver.private_hypernoblium
 	private_nitrium += giver.private_nitrium
 	private_tritium += giver.private_tritium
 	private_bz += giver.private_bz
@@ -1005,7 +999,7 @@ What are the archived variables for?
 	removed.private_agent_b = QUANTIZE((private_agent_b / sum) * amount)
 	removed.private_hydrogen = QUANTIZE((private_hydrogen / sum) * amount)
 	removed.private_water_vapor = QUANTIZE((private_water_vapor / sum) * amount)
-	removed.private_hyper_noblium = QUANTIZE((private_hyper_noblium / sum) * amount)
+	removed.private_hypernoblium = QUANTIZE((private_hypernoblium / sum) * amount)
 	removed.private_nitrium = QUANTIZE((private_nitrium / sum) * amount)
 	removed.private_tritium = QUANTIZE((private_tritium / sum) * amount)
 	removed.private_bz = QUANTIZE((private_bz / sum) * amount)
@@ -1027,7 +1021,7 @@ What are the archived variables for?
 	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
 	private_hydrogen = max(private_hydrogen - removed.private_hydrogen, 0)
 	private_water_vapor = max(private_water_vapor - removed.private_water_vapor, 0)
-	private_hyper_noblium = max(private_hyper_noblium - removed.private_hyper_noblium, 0)
+	private_hypernoblium = max(private_hypernoblium - removed.private_hypernoblium, 0)
 	private_nitrium = max(private_nitrium - removed.private_nitrium, 0)
 	private_tritium = max(private_tritium - removed.private_tritium, 0)
 	private_bz = max(private_bz - removed.private_bz, 0)
@@ -1064,7 +1058,7 @@ What are the archived variables for?
 	removed.private_agent_b = QUANTIZE(private_agent_b * ratio)
 	removed.private_hydrogen = QUANTIZE(private_hydrogen * ratio)
 	removed.private_water_vapor = QUANTIZE(private_water_vapor * ratio)
-	removed.private_hyper_noblium = QUANTIZE(private_hyper_noblium * ratio)
+	removed.private_hypernoblium = QUANTIZE(private_hypernoblium * ratio)
 	removed.private_nitrium = QUANTIZE(private_nitrium * ratio)
 	removed.private_tritium = QUANTIZE(private_tritium * ratio)
 	removed.private_bz = QUANTIZE(private_bz * ratio)
@@ -1086,7 +1080,7 @@ What are the archived variables for?
 	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
 	private_hydrogen = max(private_hydrogen - removed.private_hydrogen, 0)
 	private_water_vapor = max(private_water_vapor - removed.private_water_vapor, 0)
-	private_hyper_noblium = max(private_hyper_noblium - removed.private_hyper_noblium, 0)
+	private_hypernoblium = max(private_hypernoblium - removed.private_hypernoblium, 0)
 	private_nitrium = max(private_nitrium - removed.private_nitrium, 0)
 	private_tritium = max(private_tritium - removed.private_tritium, 0)
 	private_bz = max(private_bz - removed.private_bz, 0)
@@ -1114,7 +1108,7 @@ What are the archived variables for?
 	private_agent_b = sample.private_agent_b
 	private_hydrogen = sample.private_hydrogen
 	private_water_vapor = sample.private_water_vapor
-	private_hyper_noblium = sample.private_hyper_noblium
+	private_hypernoblium = sample.private_hypernoblium
 	private_nitrium = sample.private_nitrium
 	private_tritium = sample.private_tritium
 	private_bz = sample.private_bz
@@ -1160,7 +1154,7 @@ What are the archived variables for?
 	var/halon = private_halon
 	var/helium = private_helium
 	var/antinoblium = private_antinoblium
-	var/hyper_noblium = private_hyper_noblium
+	var/hypernoblium = private_hypernoblium
 
 	ADD_GAS_IF_EXISTS(oxygen, TLV_O2)
 	ADD_GAS_IF_EXISTS(nitrogen, TLV_N2)
@@ -1182,7 +1176,7 @@ What are the archived variables for?
 	ADD_GAS_IF_EXISTS(halon, TLV_HALON)
 	ADD_GAS_IF_EXISTS(helium, TLV_HELIUM)
 	ADD_GAS_IF_EXISTS(antinoblium, TLV_ANTINOBLIUM)
-	ADD_GAS_IF_EXISTS(hyper_noblium, TLV_HYPERNOBLIUM)
+	ADD_GAS_IF_EXISTS(hypernoblium, TLV_HYPERNOBLIUM)
 
 	return result
 
@@ -1225,7 +1219,7 @@ What are the archived variables for?
 	private_halon = milla[MILLA_INDEX_HALON]
 	private_helium = milla[MILLA_INDEX_HELIUM]
 	private_antinoblium = milla[MILLA_INDEX_ANTINOBLIUM]
-	private_hyper_noblium = milla[MILLA_INDEX_HYPER_NOBLIUM]
+	private_hypernoblium = milla[MILLA_INDEX_HYPER_NOBLIUM]
 	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
@@ -1248,7 +1242,7 @@ What are the archived variables for?
 	var/total_agent_b = 0
 	var/total_hydrogen = 0
 	var/total_water_vapor = 0
-	var/total_hyper_noblium = 0
+	var/total_hypernoblium = 0
 	var/total_nitrium = 0
 	var/total_tritium = 0
 	var/total_bz = 0
@@ -1284,7 +1278,7 @@ What are the archived variables for?
 		total_agent_b += gas.private_agent_b
 		total_hydrogen += gas.private_hydrogen
 		total_water_vapor += gas.private_water_vapor
-		total_hyper_noblium += gas.private_hyper_noblium
+		total_hypernoblium += gas.private_hypernoblium
 		total_nitrium += gas.private_nitrium
 		total_tritium += gas.private_tritium
 		total_bz += gas.private_bz
@@ -1309,7 +1303,7 @@ What are the archived variables for?
 	VALIDATE_GAS_AMOUNT(agent_b)
 	VALIDATE_GAS_AMOUNT(hydrogen)
 	VALIDATE_GAS_AMOUNT(water_vapor)
-	VALIDATE_GAS_AMOUNT(hyper_noblium)
+	VALIDATE_GAS_AMOUNT(hypernoblium)
 	VALIDATE_GAS_AMOUNT(nitrium)
 	VALIDATE_GAS_AMOUNT(tritium)
 	VALIDATE_GAS_AMOUNT(bz)
@@ -1356,7 +1350,7 @@ What are the archived variables for?
 			if(abs(gas.private_water_vapor - total_water_vapor * temp_volume / total_volume) > MINIMUM_MOLE_COUNT)
 				must_share = TRUE
 				break
-			if(abs(gas.private_hyper_noblium - total_hyper_noblium * temp_volume / total_volume) > MINIMUM_MOLE_COUNT)
+			if(abs(gas.private_hypernoblium - total_hypernoblium * temp_volume / total_volume) > MINIMUM_MOLE_COUNT)
 				must_share = TRUE
 				break
 			if(abs(gas.private_nitrium - total_nitrium * temp_volume / total_volume) > MINIMUM_MOLE_COUNT)
@@ -1431,7 +1425,7 @@ What are the archived variables for?
 		gas.private_agent_b = total_agent_b * temp_volume / total_volume
 		gas.private_hydrogen = total_hydrogen * temp_volume / total_volume
 		gas.private_water_vapor = total_water_vapor * temp_volume / total_volume
-		gas.private_hyper_noblium = total_hyper_noblium * temp_volume / total_volume
+		gas.private_hypernoblium = total_hypernoblium * temp_volume / total_volume
 		gas.private_nitrium = total_nitrium * temp_volume / total_volume
 		gas.private_tritium = total_tritium * temp_volume / total_volume
 		gas.private_bz = total_bz * temp_volume / total_volume
@@ -1451,29 +1445,8 @@ What are the archived variables for?
 /datum/gas_mixture/proc/hotspot_expose(temperature, volume)
 	return
 
-#undef SPECIFIC_HEAT_TOXIN
-#undef SPECIFIC_HEAT_AIR
-#undef SPECIFIC_HEAT_CDO
-#undef SPECIFIC_HEAT_N2O
-#undef SPECIFIC_HEAT_AGENT_B
-#undef SPECIFIC_HEAT_HYDROGEN
-#undef SPECIFIC_HEAT_WATER_VAPOR
-#undef SPECIFIC_HEAT_HYPER_NOBLIUM
-#undef SPECIFIC_HEAT_NITRIUM
-#undef SPECIFIC_HEAT_TRITIUM
-#undef SPECIFIC_HEAT_BZ
-#undef SPECIFIC_HEAT_PLUOXIUM
-#undef SPECIFIC_HEAT_MIASMA
-#undef SPECIFIC_HEAT_FREON
-#undef SPECIFIC_HEAT_HEALIUM
-#undef SPECIFIC_HEAT_PROTO_NITRATE
-#undef SPECIFIC_HEAT_ZAUKER
-#undef SPECIFIC_HEAT_HALON
-#undef SPECIFIC_HEAT_HELIUM
-#undef SPECIFIC_HEAT_ANTINOBLIUM
 #undef HEAT_CAPACITY_GASES1
 #undef HEAT_CAPACITY_GASES2
-#undef MINIMUM_HEAT_CAPACITY
 #undef QUANTIZE
 #undef VALIDATE_GAS_AMOUNT
 
@@ -1501,7 +1474,7 @@ What are the archived variables for?
 		readonly.private_agent_b = private_agent_b
 		readonly.private_hydrogen = private_hydrogen
 		readonly.private_water_vapor = private_water_vapor
-		readonly.private_hyper_noblium = private_hyper_noblium
+		readonly.private_hypernoblium = private_hypernoblium
 		readonly.private_nitrium = private_nitrium
 		readonly.private_tritium = private_tritium
 		readonly.private_bz = private_bz
@@ -1561,8 +1534,8 @@ What are the archived variables for?
 	private_water_vapor = value
 	set_dirty()
 
-/datum/gas_mixture/bound_to_turf/set_hyper_noblium(value)
-	private_hyper_noblium = value
+/datum/gas_mixture/bound_to_turf/set_hypernoblium(value)
+	private_hypernoblium = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_nitrium(value)
@@ -1634,7 +1607,7 @@ What are the archived variables for?
 		agent_b = private_agent_b,
 		hydrogen = private_hydrogen,
 		water_vapor = private_water_vapor,
-		hypernoblium = private_hyper_noblium,
+		hypernoblium = private_hypernoblium,
 		nitrium = private_nitrium,
 		tritium = private_tritium,
 		bz = private_bz,
@@ -1667,7 +1640,7 @@ What are the archived variables for?
 	private_agent_b = parent.private_agent_b
 	private_hydrogen = parent.private_hydrogen
 	private_water_vapor = parent.private_water_vapor
-	private_hyper_noblium = parent.private_hyper_noblium
+	private_hypernoblium = parent.private_hypernoblium
 	private_nitrium = parent.private_nitrium
 	private_tritium = parent.private_tritium
 	private_bz = parent.private_bz
@@ -1714,7 +1687,7 @@ What are the archived variables for?
 /datum/gas_mixture/readonly/set_water_vapor(value)
 	CRASH("Attempted to modify a readonly gas_mixture.")
 
-/datum/gas_mixture/readonly/set_hyper_noblium(value)
+/datum/gas_mixture/readonly/set_hypernoblium(value)
 	CRASH("Attempted to modify a readonly gas_mixture.")
 
 /datum/gas_mixture/readonly/set_nitrium(value)

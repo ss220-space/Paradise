@@ -182,12 +182,13 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		var/datum/disease/D = new disease
 		D.Contract(mob)
 
-	mob.apply_damages(brute_damage, burn_damage, oxy_damage, forced = TRUE)
 	if(!mob)
 		return
 
 	if(death)
 		mob.death() // Kills the new mob
+
+	mob.apply_damages(brute_damage, burn_damage, oxy_damage, forced = TRUE, spread_damage = TRUE)
 
 	mob.color = mob_color
 	if(plr && prefs)

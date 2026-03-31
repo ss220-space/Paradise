@@ -6234,8 +6234,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox_mosin
 	name = "Патроны 7,62x54 мм"
 	contains = list(
-		/obj/item/ammo_box/a762,
-		/obj/item/ammo_box/a762,
+		/obj/item/ammo_box/a762x54,
+		/obj/item/ammo_box/a762x54,
 	)
 	credits_cost = 2000
 	containername = "ящик патронов 7,62x54 мм"
@@ -6387,8 +6387,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox_nagant
 	name = "Патргоны 7,62x38 мм"
 	contains = list(
-		/obj/item/ammo_box/nagant,
-		/obj/item/ammo_box/nagant,
+		/obj/item/ammo_box/n762x38,
+		/obj/item/ammo_box/n762x38,
 	)
 	credits_cost = 4000
 	containername = "ящик патронов 7,62x38 мм"
@@ -6404,8 +6404,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox545
 	name = "Патроны 5,45x39 мм"
 	contains = list(
-		/obj/item/ammo_box/ak814,
-		/obj/item/ammo_box/ak814,
+		/obj/item/ammo_box/a545x39,
+		/obj/item/ammo_box/a545x39,
 	)
 	credits_cost = 4500
 	containername = "ящик патронов 5,45x39 мм"

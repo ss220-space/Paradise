@@ -1423,18 +1423,6 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/hydroponics)
-"alO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "alP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1652,19 +1640,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/fsmaint3)
-"ant" = (
-/obj/machinery/r_n_d/server/core,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "anB" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -20430,19 +20405,6 @@
 	icon_state = "brownfull"
 	},
 /area/quartermaster/miningstorage)
-"cYV" = (
-/obj/effect/decal/remains/mouse/Pinkie,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "cYW" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -82825,42 +82787,6 @@
 	icon_state = "darkpurple"
 	},
 /area/medical/genetics)
-"mBv" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/machinery/door/window{
-	color = "red";
-	dir = 1;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/machinery/door/window{
-	color = "red";
-	dir = 2;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "mBE" = (
 /obj/structure/railing{
 	dir = 1
@@ -83327,6 +83253,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/se)
+"mFx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "mFA" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/doctor,
@@ -85199,26 +85131,6 @@
 	icon_state = "dark"
 	},
 /area/hallway/secondary/exit)
-"mSN" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Server Room";
-	dir = 8;
-	network = list("SS13","Research")
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "mSR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -92719,18 +92631,6 @@
 	dir = 1
 	},
 /area/hallway/primary/central/second/west)
-"nZv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "nZx" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -94625,6 +94525,42 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"opd" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/machinery/door/window{
+	color = "red";
+	dir = 1;
+	name = "Secure Armory";
+	req_access = list(1)
+	},
+/obj/machinery/door/window{
+	color = "red";
+	dir = 2;
+	name = "Secure Armory";
+	req_access = list(1)
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	pixel_y = -3
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	pixel_x = 3
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "opi" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -96594,6 +96530,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
+"oEQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "oER" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/floodlight,
@@ -117289,6 +117231,10 @@
 	icon_state = "darkpurple"
 	},
 /area/bridge)
+"rFh" = (
+/obj/machinery/power/supermatter_crystal/engine,
+/turf/simulated/floor/engine,
+/area/engineering/supermatter)
 "rFj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -121579,23 +121525,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/hos)
-"skL" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	external_pressure_bound = 140;
-	external_pressure_bound_default = 140;
-	name = "server vent";
-	on = 1;
-	pressure_checks = 0
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "skR" = (
 /obj/structure/chair/comfy/red{
 	dir = 4
@@ -124009,19 +123938,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/central/east)
-"sDA" = (
-/obj/machinery/r_n_d/server/robotics,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/toxins/server)
 "sDC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -131716,6 +131632,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
+"tHR" = (
+/obj/machinery/r_n_d/server/core,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "tHU" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -139055,6 +138978,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
+"uOh" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Server Room";
+	dir = 8;
+	network = list("SS13","Research")
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "uOk" = (
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
@@ -140729,6 +140666,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"vbe" = (
+/obj/effect/decal/remains/mouse/Pinkie,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "vbf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -144686,10 +144630,6 @@
 	icon_state = "darkredfull"
 	},
 /area/tcommsat/server)
-"vHo" = (
-/obj/machinery/power/supermatter_crystal/engine,
-/turf/simulated/floor/engine,
-/area/engineering/supermatter)
 "vHp" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -147483,6 +147423,17 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/controlroom)
+"wbM" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "wbN" = (
 /obj/machinery/camera{
 	c_tag = "Second Floor Central Ring West Hallway 3";
@@ -155063,6 +155014,13 @@
 	icon_state = "neutralfull"
 	},
 /area/storage/tech)
+"xjk" = (
+/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "xjl" = (
 /obj/machinery/papershredder,
 /obj/structure/disposalpipe/segment{
@@ -205697,9 +205655,9 @@ hpj
 hpj
 hpj
 pjk
-skL
-nZv
-skL
+wbM
+mFx
+wbM
 mcQ
 cis
 eST
@@ -205954,9 +205912,9 @@ jxy
 jxy
 jxy
 pjk
-alO
-cYV
-alO
+oEQ
+vbe
+oEQ
 mcQ
 qFJ
 csA
@@ -206211,9 +206169,9 @@ jxy
 jxy
 jxy
 pjk
-ant
-mSN
-sDA
+tHR
+uOh
+xjk
 mcQ
 jVZ
 hFH
@@ -209878,7 +209836,7 @@ qjd
 ngx
 cdd
 ngx
-vHo
+rFh
 ngx
 xMA
 epr
@@ -241963,7 +241921,7 @@ jhf
 pAI
 vjq
 bhh
-mBv
+opd
 vxl
 eGS
 hlo

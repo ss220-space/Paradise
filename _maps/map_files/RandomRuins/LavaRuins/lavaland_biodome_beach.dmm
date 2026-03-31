@@ -289,6 +289,9 @@
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
+"if" = (
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/beach)
 "iD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/caution,
@@ -1334,7 +1337,7 @@ bE
 bE
 bA
 bG
-QB
+if
 bE
 bR
 bT
