@@ -80,13 +80,13 @@
 	if(!isliving(living_user))
 		return
 
-	if(src.loc != living_user || living_user.incapacitated() || living_user.stat != CONSCIOUS)
+	if(loc != living_user || living_user.incapacitated() || living_user.stat != CONSCIOUS)
 		advanced_console.remove_eye_control(living_user)
 
 /obj/machinery/computer/security/camera_bug/ui_data(mob/user)
 	var/list/data = ..()
 
-	if(istype(parent, /obj/item/camera_bug/syndicate))
+	if(is_syndi_camera_bug(parent))
 		data["is_portable"] = TRUE
 
 	return data

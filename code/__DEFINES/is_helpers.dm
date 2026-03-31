@@ -166,8 +166,9 @@
 
 #define is_module_input(A) (istype(A, /obj/item/circuit_component/module_input))
 
-
 #define is_mmi(A) (istype(A, /obj/item/mmi))
+
+#define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
