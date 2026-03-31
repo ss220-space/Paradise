@@ -153,8 +153,8 @@
 	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	death_sound = 'sound/creatures/cow_death.ogg'
-	damaged_sound = list('sound/creatures/cow_damaged.ogg')
-	talk_sound = list('sound/creatures/cow_talk1.ogg', 'sound/creatures/cow_talk2.ogg')
+	damaged_sound = list('sound/creatures/cow_damaged1.ogg', 'sound/creatures/cow_damaged2.ogg', 'sound/creatures/cow_damaged3.ogg')
+	talk_sound = list('sound/creatures/cow_talk1.ogg', 'sound/creatures/cow_talk2.ogg', 'sound/creatures/cow_talk3.ogg')
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -351,7 +351,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "клюёт"
 	death_sound = 'sound/creatures/chicken_death.ogg'
 	damaged_sound = list('sound/creatures/chicken_damaged1.ogg', 'sound/creatures/chicken_damaged2.ogg')
-	talk_sound = list('sound/creatures/chicken_talk.ogg')
+	talk_sound = list('sound/creatures/chicken_talk1.ogg', 'sound/creatures/chicken_talk2.ogg', 'sound/creatures/chicken_talk3.ogg')
 	health = 15
 	maxHealth = 15
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
