@@ -64,19 +64,13 @@
 /obj/item/gun/energy/laser/retro/old
 	name ="laser gun"
 	desc = "First generation lasergun, developed by Nanotrasen. Suffers from ammo issues but its unique ability to recharge its ammo without the need of a magazine helps compensate. You really hope someone has developed a better lasergun while you were in cryo."
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
-
-/obj/item/ammo_casing/energy/lasergun/old
-	e_cost = 200
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/old)
 
 /obj/item/gun/energy/e_gun/old
 	name = "prototype energy gun"
 	desc = "NT-P:01 Prototype Energy Gun. Early stage development of a unique laser rifle that has multifaceted energy lens allowing the gun to alter the form of projectile it fires on command."
 	icon_state = "protolaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/electrode/old)
-
-/obj/item/ammo_casing/energy/electrode/old
-	e_cost = 1000
 
 // Papers
 /obj/item/paper/fluff/ruins/oldstation

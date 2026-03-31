@@ -32417,7 +32417,7 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/gas,
 /obj/item/cartridge/quartermaster,
-/obj/item/ammo_box/a762,
+/obj/item/ammo_box/a762x54,
 /obj/item/ammo_box/speedloader/a762,
 /obj/machinery/light{
 	dir = 1

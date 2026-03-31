@@ -1162,7 +1162,7 @@
 /datum/uplink_item/ammo/machinegun
 	name = "Ручной пулемёт L6 SAW — магазин 5.56x45 мм"
 	desc = "Магазин на 50 патронов калибра 5.56x45 мм."
-	item = /obj/item/ammo_box/magazine/a762x51
+	item = /obj/item/ammo_box/magazine/l6saw
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
