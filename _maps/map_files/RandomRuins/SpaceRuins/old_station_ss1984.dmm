@@ -4658,15 +4658,11 @@
 	color = "red";
 	dir = 4
 	},
-/obj/item/gun/projectile/shotgun{
-	name = "Remington 871M"
-	},
+/obj/item/gun/ballistic/shotgun,
 /obj/structure/closet/secure_closet/guncabinet{
 	req_access = list(271)
 	},
-/obj/item/gun/projectile/shotgun{
-	name = "Remington 871M"
-	},
+/obj/item/gun/ballistic/shotgun,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "qs" = (
@@ -6801,10 +6797,7 @@
 /obj/item/ammo_box/magazine/enforcer,
 /obj/item/ammo_box/magazine/enforcer,
 /obj/item/circuitboard/holopad,
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	name = "Glock 25";
-	desc = "Rare weapon, engraving reads: Command with style! To the best captain of NRS ABOTC."
-	},
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
 /obj/structure/window/reinforced,
 /obj/item/clothing/suit/space/nasavoid/captain,
 /obj/item/clothing/head/helmet/space/nasavoid/captain,
@@ -8857,7 +8850,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "EX" = (
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/projectile/automatic/sniper_rifle/toy,
+/obj/item/gun/ballistic/automatic/sniper_rifle/toy,
 /obj/item/clothing/suit/armor/vest/jacket,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)

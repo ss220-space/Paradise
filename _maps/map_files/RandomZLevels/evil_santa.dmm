@@ -1163,7 +1163,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "jo" = (
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "jq" = (
@@ -1267,7 +1267,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "jY" = (
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/ballistic/automatic/wt550,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "jZ" = (
@@ -1669,7 +1669,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/cargo/qm,
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /obj/item/storage/firstaid/doctor,
-/obj/item/gun/projectile/revolver/nagant/rusted,
+/obj/item/gun/ballistic/revolver/nagant/rusted,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
@@ -1780,7 +1780,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "ol" = (
-/obj/item/gun/projectile/automatic/toy,
+/obj/item/gun/ballistic/automatic/toy,
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "santa"
@@ -1788,9 +1788,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "om" = (
-/obj/item/gun/projectile/automatic/sfg{
-	name = "Engraved SFG-5"
-	},
+/obj/item/gun/ballistic/automatic/sfg,
 /obj/item/ammo_box/magazine/sfg9mm,
 /obj/structure/pit/closed,
 /obj/item/lighter/zippo/gonzofist,
@@ -2887,7 +2885,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "xQ" = (
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/ballistic/automatic/pistol/APS,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "xS" = (
@@ -3207,7 +3205,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "AY" = (
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
+/obj/item/gun/ballistic/automatic/toy/pistol/enforcer/riot,
 /obj/machinery/conveyor{
 	id = "santa"
 	},
@@ -5419,9 +5417,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Ua" = (
-/obj/item/gun/projectile/shotgun/lethal/rusted{
-	name = "old shotgun"
-	},
+/obj/item/gun/ballistic/shotgun/lethal/rusted,
 /obj/item/storage/firstaid/brute,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
@@ -6001,7 +5997,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "Zn" = (
-/obj/item/gun/projectile/bow,
+/obj/item/gun/ballistic/bow,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},

@@ -96,7 +96,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/spider/terrorweb/queen/builder,
 /obj/effect/mob_spawn/human/doctor,
-/obj/item/gun/projectile/shotgun/boltaction,
+/obj/item/gun/ballistic/shotgun/boltaction,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "v" = (
@@ -153,7 +153,7 @@
 "E" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/mob_spawn/human/corpse/spacebattle/security,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/item/melee/baton,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)

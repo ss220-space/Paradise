@@ -2940,7 +2940,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
 "cLV" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/item/ammo_box/shotgun/buck,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
@@ -3676,7 +3676,7 @@
 "dxq" = (
 /obj/structure/closet/crate,
 /obj/item/extinguisher,
-/obj/item/gun/projectile/bow,
+/obj/item/gun/ballistic/bow,
 /turf/space,
 /area/space)
 "dxu" = (
@@ -4462,7 +4462,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "eme" = (
-/obj/item/gun/projectile/automatic/pistol/deagle/gold,
+/obj/item/gun/ballistic/automatic/pistol/deagle/gold,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "enz" = (
@@ -18602,7 +18602,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds,
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage,
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qgT" = (
@@ -19547,15 +19547,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/gun/projectile/revolver{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/gun/projectile/revolver,
-/obj/item/gun/projectile/revolver{
-	pixel_x = 6;
-	pixel_y = -6
-	},
+/obj/item/gun/ballistic/revolver,
+/obj/item/gun/ballistic/revolver,
+/obj/item/gun/ballistic/revolver,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qJP" = (
@@ -20752,9 +20746,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
@@ -20771,9 +20765,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "rRB" = (
@@ -20781,9 +20775,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/gun/projectile/automatic/l6_saw,
-/obj/item/gun/projectile/automatic/l6_saw,
-/obj/item/gun/projectile/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "rRG" = (
@@ -27678,12 +27672,12 @@
 	dir = 1
 	},
 /obj/structure/closet/syndicate/personal,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/item/restraints/handcuffs,
 /obj/item/restraints/handcuffs,
 /obj/item/restraints/handcuffs{

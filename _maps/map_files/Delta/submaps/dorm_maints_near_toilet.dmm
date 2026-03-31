@@ -586,10 +586,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/capgun{
-	pixel_x = -1;
-	pixel_y = 9
-	},
+/obj/item/gun/ballistic/revolver/capgun,
 /obj/item/ammo_box/speedloader/caps{
 	pixel_x = 7;
 	pixel_y = -4
@@ -686,7 +683,7 @@
 	dir = 4
 	},
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
 /obj/item/clothing/suit/storage/zazalord,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)

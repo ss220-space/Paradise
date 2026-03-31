@@ -370,7 +370,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bJ" = (
@@ -624,7 +624,7 @@
 /area/awaymission/wwgov)
 "cp" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "cq" = (
@@ -1628,7 +1628,7 @@
 "fr" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fs" = (
@@ -2038,7 +2038,7 @@
 /turf/space,
 /area/space/nearstation)
 "gC" = (
-/obj/item/gun/projectile/shotgun,
+/obj/item/gun/ballistic/shotgun,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gD" = (
@@ -2085,7 +2085,7 @@
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
 "gK" = (
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gL" = (

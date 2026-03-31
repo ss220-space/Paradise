@@ -229,7 +229,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/ppsh/rusted,
+/obj/item/gun/ballistic/automatic/ppsh/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "aY" = (
@@ -709,7 +709,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "cs" = (
@@ -2294,7 +2294,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/gun/projectile/automatic/aks74u/rusted,
+/obj/item/gun/ballistic/automatic/aks74u/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hn" = (
@@ -4184,7 +4184,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/obj/item/gun/projectile/revolver/nagant,
+/obj/item/gun/ballistic/revolver/nagant,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -12293,7 +12293,7 @@
 	req_access = list(123)
 	},
 /obj/item/ammo_box/magazine/aks74u,
-/obj/item/gun/projectile/automatic/aks74u/rusted,
+/obj/item/gun/ballistic/automatic/aks74u/rusted,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -15026,7 +15026,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe/floor,
 /obj/item/stamp/chameleon,
-/obj/item/gun/projectile/shotgun/boltaction,
+/obj/item/gun/ballistic/shotgun/boltaction,
 /obj/item/fluff/pyro_wintersec_kit,
 /obj/item/pen/fakesign,
 /obj/item/paper/gorky17/modkit,
@@ -15715,7 +15715,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/aks74u/rusted,
+/obj/item/gun/ballistic/automatic/aks74u/rusted,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15924,7 +15924,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/ppsh/rusted,
+/obj/item/gun/ballistic/automatic/ppsh/rusted,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

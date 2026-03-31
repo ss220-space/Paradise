@@ -86,7 +86,7 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 5000
 	},
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/item/ammo_box/magazine/pistolm9mm,
 /turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)

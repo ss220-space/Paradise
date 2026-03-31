@@ -53,7 +53,7 @@
 /area/admin)
 "ax" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/speargun,
+/obj/item/gun/ballistic/automatic/speargun,
 /turf/simulated/floor/wood,
 /area/admin)
 "aG" = (
@@ -185,7 +185,7 @@
 /area/admin)
 "bX" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver,
+/obj/item/gun/ballistic/revolver,
 /turf/simulated/floor/wood,
 /area/admin)
 "cd" = (
@@ -274,12 +274,12 @@
 /area/holodeck/source_basketball)
 "cG" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/l6_saw/toy,
+/obj/item/gun/ballistic/automatic/l6_saw/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "cH" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/mini_uzi,
+/obj/item/gun/ballistic/automatic/mini_uzi,
 /turf/simulated/floor/wood,
 /area/admin)
 "cP" = (
@@ -302,7 +302,7 @@
 /area/tdome/arena_source)
 "cR" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r,
+/obj/item/gun/ballistic/automatic/c20r,
 /turf/simulated/floor/wood,
 /area/admin)
 "cV" = (
@@ -319,7 +319,7 @@
 /area/admin)
 "cX" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/arg,
+/obj/item/gun/ballistic/automatic/arg,
 /turf/simulated/floor/wood,
 /area/admin)
 "cZ" = (
@@ -354,7 +354,7 @@
 /area/holodeck/source_basketball)
 "dz" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/wood,
 /area/admin)
 "dB" = (
@@ -537,7 +537,7 @@
 /area/holodeck/source_meetinghall)
 "fc" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/grenadelauncher,
+/obj/item/gun/ballistic/revolver/grenadelauncher,
 /turf/simulated/floor/wood,
 /area/admin)
 "fd" = (
@@ -639,12 +639,12 @@
 /area/tdome/arena)
 "fX" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/admin)
 "ge" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/fingergun/fake,
+/obj/item/gun/ballistic/revolver/fingergun/fake,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -657,8 +657,8 @@
 /area/admin)
 "gp" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/boltaction,
-/obj/item/gun/projectile/shotgun/boltaction/enchanted,
+/obj/item/gun/ballistic/shotgun/boltaction,
+/obj/item/gun/ballistic/shotgun/boltaction/enchanted,
 /turf/simulated/floor/wood,
 /area/admin)
 "gr" = (
@@ -773,7 +773,7 @@
 /area/admin)
 "hI" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/sniper_rifle/compact,
+/obj/item/gun/ballistic/automatic/sniper_rifle/compact,
 /turf/simulated/floor/wood,
 /area/admin)
 "hJ" = (
@@ -813,7 +813,7 @@
 /area/admin)
 "io" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/ballistic/automatic/wt550,
 /turf/simulated/floor/wood,
 /area/admin)
 "iu" = (
@@ -837,7 +837,7 @@
 /area/tdome/newtdome/CQC)
 "iz" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/admin)
 "iD" = (
@@ -853,7 +853,7 @@
 /area/admin)
 "iF" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/capgun,
+/obj/item/gun/ballistic/revolver/capgun,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -881,7 +881,7 @@
 /area/admin)
 "iL" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/sniper_rifle/toy,
+/obj/item/gun/ballistic/automatic/sniper_rifle/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "iQ" = (
@@ -962,11 +962,11 @@
 /obj/item/clothing/shoes/cowboy/black,
 /obj/item/clothing/head/cowboyhat/black,
 /obj/structure/rack,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/storage/belt/bandolier,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised,
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised,
 /obj/item/clothing/accessory/holster,
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/ammo_casing/shotgun/improvised,
@@ -992,7 +992,7 @@
 /area/holodeck/source_knightarena)
 "jE" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
 /turf/simulated/floor/wood,
 /area/admin)
 "jG" = (
@@ -1009,16 +1009,16 @@
 /area/tdome/newtdome)
 "jN" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/detective,
+/obj/item/gun/ballistic/revolver/detective,
 /turf/simulated/floor/wood,
 /area/admin)
 "jO" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/storage/belt/bandolier,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised,
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised,
 /obj/item/clothing/accessory/holster,
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/ammo_casing/shotgun/improvised,
@@ -1107,7 +1107,7 @@
 /obj/item/gun/syringe/rapidsyringe,
 /obj/item/reagent_containers/spray/chemsprayer,
 /obj/structure/closet,
-/obj/item/gun/projectile/shotgun/sc_pump,
+/obj/item/gun/ballistic/shotgun/sc_pump,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
@@ -1139,7 +1139,7 @@
 /area/holodeck/source_thunderdomecourt)
 "lg" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane,
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised/cane,
 /turf/simulated/floor/wood,
 /area/admin)
 "lo" = (
@@ -1190,7 +1190,7 @@
 /area/holodeck/source_meetinghall)
 "mr" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/automatic/dual_tube,
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube,
 /turf/simulated/floor/wood,
 /area/admin)
 "mw" = (
@@ -1214,7 +1214,7 @@
 /area/admin)
 "mz" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/riot/short,
+/obj/item/gun/ballistic/shotgun/riot/short,
 /turf/simulated/floor/wood,
 /area/admin)
 "mI" = (
@@ -1254,7 +1254,7 @@
 /area/admin)
 "mX" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /turf/simulated/floor/wood,
 /area/admin)
 "nc" = (
@@ -1585,7 +1585,7 @@
 /area/tdome/tdome1)
 "re" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/gun/ballistic/shotgun/toy/tommygun,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "rx" = (
@@ -1717,7 +1717,7 @@
 /area/holodeck/source_thunderdomecourt)
 "tO" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage,
+/obj/item/gun/ballistic/shotgun/boltaction/enchanted/arcane_barrage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -1923,7 +1923,7 @@
 /area/tdome/tdome2)
 "wq" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
 /turf/simulated/floor/wood,
 /area/admin)
 "wt" = (
@@ -2046,7 +2046,7 @@
 /area/admin)
 "xf" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/toy/pistol,
+/obj/item/gun/ballistic/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "xo" = (
@@ -2073,7 +2073,7 @@
 /area/admin)
 "xx" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /turf/simulated/floor/wood,
 /area/admin)
 "xS" = (
@@ -2453,7 +2453,7 @@
 /area/tdome/newtdome)
 "BN" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
+/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate/penetrator,
 /turf/simulated/floor/wood,
 /area/admin)
 "BT" = (
@@ -2529,12 +2529,12 @@
 /area/admin)
 "CF" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/russian/soul,
+/obj/item/gun/ballistic/revolver/russian/soul,
 /turf/simulated/floor/wood,
 /area/admin)
 "CG" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/golden,
+/obj/item/gun/ballistic/revolver/golden,
 /turf/simulated/floor/wood,
 /area/admin)
 "CH" = (
@@ -2551,7 +2551,7 @@
 /area/admin)
 "CY" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood,
+/obj/item/gun/ballistic/shotgun/boltaction/enchanted/arcane_barrage/blood,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -2559,7 +2559,7 @@
 /area/admin)
 "Dc" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/automatic,
+/obj/item/gun/ballistic/shotgun/automatic,
 /turf/simulated/floor/wood,
 /area/admin)
 "Dn" = (
@@ -2570,7 +2570,7 @@
 /area/holodeck/source_boxingcourt)
 "Do" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/gyropistol,
+/obj/item/gun/ballistic/automatic/gyropistol,
 /turf/simulated/floor/wood,
 /area/admin)
 "Dp" = (
@@ -2617,7 +2617,7 @@
 /area/holodeck/source_meetinghall)
 "DV" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
+/obj/item/gun/ballistic/revolver/grenadelauncher/multi/cyborg,
 /turf/simulated/floor/wood,
 /area/admin)
 "DX" = (
@@ -2689,7 +2689,7 @@
 /area/tdome/newtdome/CQC)
 "EU" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/ballistic/automatic/pistol/APS,
 /turf/simulated/floor/wood,
 /area/admin)
 "EV" = (
@@ -2700,16 +2700,16 @@
 /area/tdome/arena)
 "EZ" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/lethal,
+/obj/item/gun/ballistic/shotgun/lethal,
 /turf/simulated/floor/wood,
 /area/admin)
 "Fb" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/storage/belt/bandolier,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised,
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised,
 /obj/item/clothing/accessory/holster,
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/ammo_casing/shotgun/improvised,
@@ -2908,7 +2908,7 @@
 /area/admin)
 "Hh" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/toy/pistol/riot,
+/obj/item/gun/ballistic/automatic/toy/pistol/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Hu" = (
@@ -3003,7 +3003,7 @@
 /area/tdome/newtdome/CQC)
 "HZ" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/l6_saw/toy/riot,
+/obj/item/gun/ballistic/automatic/l6_saw/toy/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Ic" = (
@@ -3031,16 +3031,16 @@
 /area/admin)
 "Ix" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/toy,
+/obj/item/gun/ballistic/automatic/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "IF" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r/sc_c20r,
+/obj/item/gun/ballistic/automatic/c20r/sc_c20r,
 /turf/simulated/floor/wood,
 /area/admin)
 "IN" = (
-/obj/item/gun/projectile/shotgun/sc_pump,
+/obj/item/gun/ballistic/shotgun/sc_pump,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -3053,12 +3053,12 @@
 /area/admin)
 "IU" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
 /turf/simulated/floor/wood,
 /area/admin)
 "Je" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised,
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised,
 /turf/simulated/floor/wood,
 /area/admin)
 "Jf" = (
@@ -3090,7 +3090,7 @@
 /area/holodeck/source_theatre)
 "Jp" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/nagant,
+/obj/item/gun/ballistic/revolver/nagant,
 /turf/simulated/floor/wood,
 /area/admin)
 "Jr" = (
@@ -3153,7 +3153,7 @@
 /area/admin)
 "Ke" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r/toy,
+/obj/item/gun/ballistic/automatic/c20r/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Kp" = (
@@ -3163,7 +3163,7 @@
 /area/admin)
 "KA" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
 /turf/simulated/floor/wood,
 /area/admin)
 "KL" = (
@@ -3250,7 +3250,7 @@
 /area/holodeck/source_picnicarea)
 "LH" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun,
+/obj/item/gun/ballistic/shotgun,
 /turf/simulated/floor/wood,
 /area/admin)
 "LQ" = (
@@ -3381,7 +3381,7 @@
 /area/admin)
 "Nt" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo,
+/obj/item/gun/ballistic/automatic/pistol/deagle/camo,
 /turf/simulated/floor/wood,
 /area/admin)
 "NA" = (
@@ -3509,7 +3509,7 @@
 /area/holodeck/source_beach)
 "Pt" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/toy/crossbow,
+/obj/item/gun/ballistic/shotgun/toy/crossbow,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "PB" = (
@@ -3561,7 +3561,7 @@
 /area/tdome/newtdome/CQC)
 "PY" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/tommygun,
+/obj/item/gun/ballistic/automatic/tommygun,
 /turf/simulated/floor/wood,
 /area/admin)
 "Qa" = (
@@ -3635,7 +3635,7 @@
 /area/tdome/arena_source)
 "QP" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/sniper_rifle,
+/obj/item/gun/ballistic/automatic/sniper_rifle,
 /turf/simulated/floor/wood,
 /area/admin)
 "QQ" = (
@@ -3680,7 +3680,7 @@
 /area/tdome/newtdome/CQC)
 "RF" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
 /turf/simulated/floor/wood,
 /area/admin)
 "Sc" = (
@@ -3701,7 +3701,7 @@
 /area/admin)
 "Sq" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle/gold,
+/obj/item/gun/ballistic/automatic/pistol/deagle/gold,
 /turf/simulated/floor/wood,
 /area/admin)
 "Su" = (
@@ -3736,12 +3736,12 @@
 /area/admin)
 "SK" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
 /turf/simulated/floor/wood,
 /area/admin)
 "SN" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r/toy/riot,
+/obj/item/gun/ballistic/automatic/c20r/toy/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "SP" = (
@@ -3850,7 +3850,7 @@
 /area/tdome/arena_source)
 "TU" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/gun/ballistic/automatic/pistol/m1911,
 /turf/simulated/floor/wood,
 /area/admin)
 "TV" = (
@@ -3911,7 +3911,7 @@
 /area/admin)
 "Uu" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/bow,
+/obj/item/gun/ballistic/bow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgrey"
@@ -3947,8 +3947,8 @@
 /area/tdome/tdome2)
 "UO" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
+/obj/item/gun/ballistic/automatic/toy/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/toy/pistol/enforcer/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "UR" = (
@@ -4030,7 +4030,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "Vv" = (
-/obj/item/gun/projectile/revolver/grenadelauncher/multi,
+/obj/item/gun/ballistic/revolver/grenadelauncher/multi,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -4082,7 +4082,7 @@
 /area/admin)
 "Wd" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
 /turf/simulated/floor/wood,
 /area/admin)
 "Wg" = (
@@ -4206,7 +4206,7 @@
 /area/admin)
 "XI" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/toy,
+/obj/item/gun/ballistic/shotgun/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "XO" = (
@@ -4218,7 +4218,7 @@
 /area/tdome/tdome2)
 "XT" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
 /turf/simulated/floor/wood,
 /area/admin)
 "XW" = (
@@ -4252,7 +4252,7 @@
 /area/holodeck/source_burntest)
 "Yc" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle,
+/obj/item/gun/ballistic/automatic/pistol/deagle,
 /turf/simulated/floor/wood,
 /area/admin)
 "Yf" = (
@@ -4322,7 +4322,7 @@
 /area/admin)
 "Zd" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /turf/simulated/floor/wood,
 /area/admin)
 "Zg" = (
@@ -4330,11 +4330,11 @@
 /obj/item/clothing/shoes/cowboy/black,
 /obj/item/clothing/head/cowboyhat/black,
 /obj/structure/rack,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/ammo_box/speedloader/a357,
 /obj/item/storage/belt/bandolier,
-/obj/item/gun/projectile/revolver/doublebarrel/improvised,
+/obj/item/gun/ballistic/revolver/doublebarrel/improvised,
 /obj/item/clothing/accessory/holster,
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/ammo_casing/shotgun/improvised,
@@ -4398,7 +4398,7 @@
 /area/holodeck/source_emptycourt)
 "ZM" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
 /turf/simulated/floor/wood,
 /area/admin)
 "ZO" = (

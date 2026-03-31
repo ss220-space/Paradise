@@ -12261,13 +12261,9 @@
 /area/coldcolony/malta/quartermaster/ore_production)
 "euD" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -7
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 7
-	},
-/obj/item/gun/projectile/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	name = "Riot shotguns"
@@ -13925,15 +13921,9 @@
 	anchored = 1;
 	name = "Security SMG's"
 	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/wt550,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/automatic/wt550,
+/obj/item/gun/ballistic/automatic/wt550,
+/obj/item/gun/ballistic/automatic/wt550,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -19918,10 +19908,7 @@
 "hlM" = (
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
-/obj/item/gun/projectile/shotgun/boltaction{
-	name = "Охотничья винтовка";
-	pixel_y = 26
-	},
+/obj/item/gun/ballistic/shotgun/boltaction,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/bridge/vip)
 "hlV" = (
@@ -31011,7 +30998,7 @@
 "lrr" = (
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36569,11 +36556,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/gun/ballistic/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/c45,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/speedloader/a357{
 	pixel_x = -4;
 	pixel_y = 4
@@ -41066,18 +41053,10 @@
 "pai" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -7
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 7
-	},
+/obj/item/gun/ballistic/automatic/sp91rc,
+/obj/item/gun/ballistic/automatic/sp91rc,
+/obj/item/gun/ballistic/automatic/sp91rc,
+/obj/item/gun/ballistic/automatic/sp91rc,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -47369,10 +47348,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = -2;
-	pixel_y = 6
-	},
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -53013,7 +52989,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "tun" = (
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/revolver/nagant,
+/obj/item/gun/ballistic/revolver/nagant,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood/cherry{
 	temperature = 180

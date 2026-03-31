@@ -776,7 +776,7 @@
 /obj/item/storage/secure/briefcase/syndie,
 /obj/item/clothing/under/syndicate/tacticool,
 /obj/item/clothing/mask/balaclava,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "cC" = (
@@ -1415,7 +1415,7 @@
 "ex" = (
 /obj/item/ammo_casing/shotgun,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer,
-/obj/item/gun/projectile/shotgun/lethal,
+/obj/item/gun/ballistic/shotgun/lethal,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
 "ey" = (
@@ -1667,7 +1667,7 @@
 /obj/item/ammo_casing/c10mm,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer,
-/obj/item/gun/projectile/shotgun/lethal,
+/obj/item/gun/ballistic/shotgun/lethal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -2169,7 +2169,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
 "gy" = (
-/obj/item/gun/projectile/shotgun/lethal,
+/obj/item/gun/ballistic/shotgun/lethal,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
 "gA" = (
@@ -2413,7 +2413,7 @@
 	},
 /area/awaymission/spacebattle/hallway10)
 "hl" = (
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
 /turf/space,
 /area/space)
 "hm" = (
@@ -6162,9 +6162,7 @@
 /area/awaymission/spacebattle/living)
 "sf" = (
 /obj/structure/closet/crate/secure/bin,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	icon_state = "enforcer_red"
-	},
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
 /obj/effect/decal/cleanable/blood,
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /turf/simulated/floor/plasteel/dark,
@@ -10182,7 +10180,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "Dr" = (
@@ -17852,7 +17850,7 @@
 /area/awaymission/spacebattle/cruiser)
 "YQ" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},

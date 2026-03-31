@@ -106,7 +106,7 @@
 	item_state = "facehugger_impregnated";
 	stat = 2
 	},
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
 	icon_state = "gib1_flesh"
@@ -5819,7 +5819,7 @@
 /obj/effect/decal/remains/human{
 	desc = "They look like human remains. The skeleton is sitting upright with its legs tucked in and hands still holding onto its arms."
 	},
-/obj/item/gun/projectile/shotgun/sc_pump,
+/obj/item/gun/ballistic/shotgun/sc_pump,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15

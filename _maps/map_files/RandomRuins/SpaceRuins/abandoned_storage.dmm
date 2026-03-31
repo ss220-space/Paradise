@@ -2983,9 +2983,7 @@
 /obj/structure/closet/secure_closet{
 	req_access = list(128)
 	},
-/obj/item/gun/projectile/automatic/pistol/APS{
-	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo. The engraving N.E.K.T.O.E.N is stamped on the side, perhaps it is the owner of the gun or the name of some corporation."
-	},
+/obj/item/gun/ballistic/automatic/pistol/APS,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "WO" = (

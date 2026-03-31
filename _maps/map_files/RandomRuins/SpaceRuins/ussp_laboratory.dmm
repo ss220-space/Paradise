@@ -25,7 +25,7 @@
 /area/ruin/ussp_xeno/engi)
 "ay" = (
 /obj/structure/closet/cabinet,
-/obj/item/gun/projectile/shotgun/toy,
+/obj/item/gun/ballistic/shotgun/toy,
 /obj/item/toy/russian_revolver,
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/under/soviet,
@@ -2249,9 +2249,7 @@
 	pixel_x = 1;
 	pixel_y = 1
 	},
-/obj/item/gun/projectile/revolver/doublebarrel{
-	pixel_y = -4
-	},
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/item/toy/plushie/girly_corgi{
 	pixel_x = 8;
 	pixel_y = -4
@@ -3348,7 +3346,7 @@
 	pixel_x = -30;
 	pixel_y = -1
 	},
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;

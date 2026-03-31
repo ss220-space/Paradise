@@ -20077,15 +20077,9 @@
 	anchored = 1;
 	name = "Riot shotguns"
 	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 3
-	},
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -23454,7 +23448,7 @@
 "cNw" = (
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -65779,7 +65773,7 @@
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/wood,
 /area/security/hos)
@@ -72114,7 +72108,7 @@
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/ballistic/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77465,7 +77459,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,

@@ -65015,7 +65015,7 @@
 	pixel_y = 4
 	},
 /obj/item/clothing/accessory/holster,
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/tox46x30mm,
 /obj/item/ammo_box/inc46x30mm,
 /turf/simulated/floor/carpet/red,
@@ -82846,16 +82846,9 @@
 	color = "red";
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	pixel_x = 6;
-	pixel_y = 3
-	},
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -86574,7 +86567,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
@@ -90786,8 +90779,8 @@
 /turf/simulated/wall/r_wall,
 /area/medical/biostorage)
 "nJS" = (
-/obj/item/gun/projectile/bombarda/secgl/x4,
-/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/ballistic/bombarda/secgl/x4,
+/obj/item/gun/ballistic/bombarda/secgl/x4,
 /obj/structure/safe{
 	known_by = list("hos")
 	},
@@ -119219,7 +119212,7 @@
 "rTh" = (
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -127708,13 +127701,9 @@
 	req_access = list(1)
 	},
 /obj/structure/rack/gunrack,
-/obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -6
-	},
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -808,10 +808,7 @@
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/item/clothing/accessory/cowboyshirt/red,
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 15;
-	pixel_y = -12
-	},
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = -7;
 	pixel_y = 10

@@ -1549,7 +1549,7 @@
 /area/awaymission/academy/headmaster)
 "gE" = (
 /obj/structure/table,
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/gun/ballistic/shotgun/toy/tommygun,
 /obj/item/paper{
 	info = "Наставник, пишу вам обращение и одновременно жалобу. На кой чёрт нам нужен полигон и тренировочное оружие!? МЫ ГРЁБАННЫЕ ВОЛШЕБНИКИ."
 	},
@@ -6614,7 +6614,7 @@
 "Zs" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/east,
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "Zx" = (

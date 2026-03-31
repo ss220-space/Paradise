@@ -2878,7 +2878,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "ka" = (
-/obj/item/gun/projectile/shotgun/toy/crossbow,
+/obj/item/gun/ballistic/shotgun/toy/crossbow,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "kb" = (

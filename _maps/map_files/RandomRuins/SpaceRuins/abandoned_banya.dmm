@@ -138,7 +138,7 @@
 "eY" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/camera_bug,
-/obj/item/gun/projectile/automatic/c20r/toy,
+/obj/item/gun/ballistic/automatic/c20r/toy,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/clothing/head/soviethelmet,
 /turf/simulated/floor/wood,
@@ -434,7 +434,7 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
 /obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /obj/structure/disposalpipe/segment{
 	dir = 4

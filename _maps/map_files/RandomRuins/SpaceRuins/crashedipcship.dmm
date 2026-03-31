@@ -1882,7 +1882,7 @@
 /area/ruin/space/crashedipcship/aft)
 "Fp" = (
 /obj/structure/spacevine,
-/obj/item/gun/projectile/revolver/capgun,
+/obj/item/gun/ballistic/revolver/capgun,
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
 "Fs" = (

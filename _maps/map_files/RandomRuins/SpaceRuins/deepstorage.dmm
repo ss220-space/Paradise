@@ -247,13 +247,8 @@
 /area/ruin/unpowered)
 "ay" = (
 /obj/structure/table,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 2
-	},
+/obj/item/gun/ballistic/automatic/wt550,
+/obj/item/gun/ballistic/automatic/wt550,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
 	},

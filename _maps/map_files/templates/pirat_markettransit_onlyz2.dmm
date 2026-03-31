@@ -43,7 +43,7 @@
 /obj/item/ammo_box/magazine/sfg9mm{
 	pixel_x = 7
 	},
-/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -86,8 +86,8 @@
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = 5
 	},
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
@@ -132,7 +132,7 @@
 /obj/item/ammo_box/magazine/toy/smgm45/riot,
 /obj/item/ammo_box/magazine/toy/smgm45/riot,
 /obj/item/ammo_box/magazine/toy/smgm45/riot,
-/obj/item/gun/projectile/automatic/c20r/toy,
+/obj/item/gun/ballistic/automatic/c20r/toy,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -727,7 +727,7 @@
 /obj/structure/rack{
 	name = "rack 50k"
 	},
-/obj/item/gun/projectile/automatic/l6_saw/toy,
+/obj/item/gun/ballistic/automatic/l6_saw/toy,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -1085,9 +1085,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 3
-	},
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/item/clothing/accessory/holster,
 /obj/item/melee/energy/sword/pirate{
 	pixel_y = 6
@@ -1117,18 +1115,10 @@
 /area/space)
 "WN" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 3
-	},
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = 4;
 	pixel_y = 3

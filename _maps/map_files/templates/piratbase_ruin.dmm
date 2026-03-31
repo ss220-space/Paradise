@@ -1335,7 +1335,7 @@
 /area/ruin/space/pirate_base/prison_solar)
 "dH" = (
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/gun/ballistic/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /turf/simulated/floor/plating,
@@ -3005,7 +3005,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "iC" = (
 /obj/item/trash/spentcasing,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4444,10 +4444,7 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = -2;
-	pixel_y = 6
-	},
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -7798,7 +7795,7 @@
 /obj/structure/safe/floor{
 	known_by = list("m1911")
 	},
-/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/gun/ballistic/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /turf/simulated/floor/plasteel{
@@ -17433,7 +17430,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "YR" = (
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/ballistic/automatic/pistol,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
 "YS" = (

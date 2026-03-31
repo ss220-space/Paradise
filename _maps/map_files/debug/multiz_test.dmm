@@ -233,7 +233,7 @@
 "fK" = (
 /obj/structure/table,
 /obj/item/ammo_box/m10mm,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "gj" = (

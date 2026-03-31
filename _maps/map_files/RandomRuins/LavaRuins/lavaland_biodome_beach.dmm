@@ -623,7 +623,7 @@
 "Tq" = (
 /obj/structure/table,
 /obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "TD" = (

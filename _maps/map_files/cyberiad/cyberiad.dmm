@@ -1223,10 +1223,7 @@
 	pixel_y = 4
 	},
 /obj/item/ammo_box/speedloader/a357,
-/obj/item/gun/projectile/revolver/mateba{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/machinery/door_control{
 	id = "HoSPriv";
 	name = "HoS Office Privacy Shutters Control";
@@ -39419,9 +39416,7 @@
 /area/atmos)
 "cVs" = (
 /obj/structure/closet/secure_closet/cabinet/bar,
-/obj/item/gun/projectile/revolver/doublebarrel{
-	pixel_y = 14
-	},
+/obj/item/gun/ballistic/revolver/doublebarrel,
 /obj/item/storage/fancy/candle_box/eternal{
 	pixel_x = -1;
 	pixel_y = 1
@@ -60431,17 +60426,9 @@
 	anchored = 1;
 	name = "Riot shotguns"
 	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -1;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -1
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -1;
-	pixel_y = 3
-	},
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -71340,7 +71327,7 @@
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/ballistic/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75269,7 +75256,7 @@
 /obj/structure/safe/floor{
 	known_by = list("captain")
 	},
-/obj/item/gun/projectile/revolver/russian,
+/obj/item/gun/ballistic/revolver/russian,
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/captain,

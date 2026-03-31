@@ -912,13 +912,10 @@
 	},
 /area/shuttle/administration)
 "AH" = (
-/obj/item/gun/projectile/shotgun/riot/buckshot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
 /obj/structure/rack/gunrack,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
@@ -1125,13 +1122,10 @@
 	},
 /area/shuttle/administration)
 "Hq" = (
-/obj/item/gun/projectile/shotgun/riot/buckshot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
+/obj/item/gun/ballistic/shotgun/riot/buckshot,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8

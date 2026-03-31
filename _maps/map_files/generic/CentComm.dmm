@@ -8684,10 +8684,10 @@
 /area/centcom/supply)
 "edd" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/projectile/bombarda/secgl,
-/obj/item/gun/projectile/bombarda/secgl,
-/obj/item/gun/projectile/bombarda/secgl,
-/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluealt"
@@ -9560,7 +9560,7 @@
 	},
 /area/centcom/specops)
 "eCm" = (
-/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/gun/ballistic/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
@@ -10603,9 +10603,7 @@
 /area/syndicate_mothership/outside)
 "fcs" = (
 /obj/structure/flora/ausbushes/stalkybush,
-/obj/item/gun/projectile/automatic/pistol{
-	layer = 2.9
-	},
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 85;
 	icon = 'icons/misc/beach.dmi';
@@ -10673,21 +10671,11 @@
 "fdZ" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/arg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/arg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/arg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/arg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/arg{
-	pixel_x = 6
-	},
+/obj/item/gun/ballistic/automatic/arg,
+/obj/item/gun/ballistic/automatic/arg,
+/obj/item/gun/ballistic/automatic/arg,
+/obj/item/gun/ballistic/automatic/arg,
+/obj/item/gun/ballistic/automatic/arg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11739,26 +11727,11 @@
 "fCZ" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_x = 6
-	},
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14780,7 +14753,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -14819,7 +14792,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -16492,46 +16465,16 @@
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	icon_state = "enforcer_black";
-	pixel_x = -6
-	},
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
+/obj/item/gun/ballistic/automatic/pistol/enforcer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18490,7 +18433,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -18529,7 +18472,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -19614,9 +19557,9 @@
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/ammo_box/shotgun/buck,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -19687,7 +19630,7 @@
 	desc = null;
 	name = "Supreme commander's gold medal"
 	},
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
@@ -20320,7 +20263,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -20359,7 +20302,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -21862,7 +21805,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -21901,7 +21844,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -25282,7 +25225,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/item/gun/projectile/automatic/m52,
+/obj/item/gun/ballistic/automatic/m52,
 /obj/item/ammo_box/magazine/m52mag,
 /obj/item/ammo_box/magazine/m52mag,
 /obj/item/ammo_box/magazine/m52mag,
@@ -25569,36 +25512,16 @@
 "mhA" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
+/obj/item/gun/ballistic/automatic/sfg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26504,10 +26427,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "mBV" = (
-/obj/item/gun/projectile/automatic/sniper_rifle{
-	desc = "Оружие с потёртой надписью 'Коатс' и нечитаемыми каракулями возле неё.";
-	name = "Потрёпанная Снайперская Винтовка"
-	},
+/obj/item/gun/ballistic/automatic/sniper_rifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -29038,10 +28958,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 9
 	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = -3;
-	pixel_y = 5
-	},
+/obj/item/gun/ballistic/automatic/pistol,
 /obj/item/lighter/zippo/gonzofist,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
@@ -30805,7 +30722,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -30844,7 +30761,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -31257,9 +31174,9 @@
 "oDO" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack/holorack,
-/obj/item/gun/projectile/bombarda/secgl,
-/obj/item/gun/projectile/bombarda/secgl,
-/obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
+/obj/item/gun/ballistic/bombarda/secgl,
 /obj/item/ammo_box/secgl/exp,
 /obj/item/ammo_box/secgl/exp,
 /obj/item/ammo_box/secgl/exp,
@@ -32351,46 +32268,16 @@
 /obj/item/ammo_box/magazine/l6saw/ap,
 /obj/item/ammo_box/magazine/l6saw/ap,
 /obj/item/ammo_box/magazine/l6saw/ap,
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
@@ -36210,16 +36097,16 @@
 	desc = "A large duffelbag, packed to the brim with Pancor Jackhammer shotgun ammo.";
 	name = "12g duffelbag"
 	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
@@ -36925,26 +36812,11 @@
 	},
 /area/shuttle/syndicate)
 "rhI" = (
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
-/obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
-	name = "M249 SAW"
-	},
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
+/obj/item/gun/ballistic/automatic/l6_saw,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);
@@ -38108,33 +37980,15 @@
 "rId" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/ik60{
-	pixel_x = 6
-	},
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
+/obj/item/gun/ballistic/automatic/ik60,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38914,18 +38768,10 @@
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	icon_state = "enforcer_red"
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	icon_state = "enforcer_red"
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	icon_state = "enforcer_red"
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	icon_state = "enforcer_red"
-	},
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
+/obj/item/gun/ballistic/automatic/pistol/enforcer/lethal,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -39475,7 +39321,7 @@
 	desc = null;
 	name = "Supreme commander's gold medal"
 	},
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/ballistic/revolver/mateba,
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
@@ -39529,15 +39375,9 @@
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/deagle/camo,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/automatic/pistol/deagle/camo,
+/obj/item/gun/ballistic/automatic/pistol/deagle/camo,
+/obj/item/gun/ballistic/automatic/pistol/deagle/camo,
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_y = 32
 	},
@@ -43151,7 +42991,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/ballistic/automatic/proto,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -43190,7 +43030,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/ballistic/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -43956,15 +43796,9 @@
 	},
 /area/centcom/zone1)
 "unV" = (
-/obj/item/gun/projectile/automatic/c20r{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/automatic/c20r,
+/obj/item/gun/ballistic/automatic/c20r,
+/obj/item/gun/ballistic/automatic/c20r,
 /obj/machinery/light/small,
 /obj/item/storage/backpack/duffel/syndie/ammo/smg,
 /obj/item/storage/backpack/duffel/syndie/ammo/smg,
@@ -43995,15 +43829,9 @@
 	},
 /area/syndicate_mothership/control)
 "uoF" = (
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
-/obj/item/gun/projectile/automatic/shotgun/bulldog{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
+/obj/item/gun/ballistic/automatic/shotgun/bulldog,
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
@@ -44042,15 +43870,9 @@
 	},
 /area/centcom/bridge)
 "uqo" = (
-/obj/item/gun/projectile/automatic/m90{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
+/obj/item/gun/ballistic/automatic/m90,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
@@ -44132,15 +43954,9 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone3)
 "urU" = (
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
+/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
+/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate,
 /obj/item/ammo_box/magazine/sniper_rounds{
 	pixel_x = 9;
 	pixel_y = -7
@@ -46717,24 +46533,12 @@
 "vCo" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/gun/projectile/shotgun/automatic/combat{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/shotgun/automatic/combat{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/shotgun/automatic/combat{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/shotgun/automatic/combat{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/shotgun/automatic/combat{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/shotgun/automatic/combat{
-	pixel_x = 6
-	},
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47152,11 +46956,11 @@
 	},
 /area/shuttle/escape)
 "vNh" = (
-/obj/item/gun/projectile/automatic/sniper_rifle,
-/obj/item/gun/projectile/automatic/sniper_rifle,
-/obj/item/gun/projectile/automatic/sniper_rifle,
-/obj/item/gun/projectile/automatic/sniper_rifle,
-/obj/item/gun/projectile/automatic/sniper_rifle,
+/obj/item/gun/ballistic/automatic/sniper_rifle,
+/obj/item/gun/ballistic/automatic/sniper_rifle,
+/obj/item/gun/ballistic/automatic/sniper_rifle,
+/obj/item/gun/ballistic/automatic/sniper_rifle,
+/obj/item/gun/ballistic/automatic/sniper_rifle,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);

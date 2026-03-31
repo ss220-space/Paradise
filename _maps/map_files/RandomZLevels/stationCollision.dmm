@@ -1958,7 +1958,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/gun/ballistic/shotgun/toy/tommygun,
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "fD" = (
@@ -1970,7 +1970,7 @@
 /obj/item/ammo_casing/c10mm,
 /obj/item/clothing/under/syndicate,
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/gun/ballistic/shotgun/toy/tommygun,
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "fE" = (
@@ -2153,7 +2153,7 @@
 /obj/item/ammo_casing/c10mm,
 /obj/item/clothing/under/syndicate,
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/gun/ballistic/shotgun/toy/tommygun,
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "gg" = (

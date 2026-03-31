@@ -1857,7 +1857,7 @@
 "Ti" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
-/obj/item/gun/projectile/bow,
+/obj/item/gun/ballistic/bow,
 /obj/item/storage/backpack/quiver{
 	pixel_x = -7;
 	pixel_y = 7

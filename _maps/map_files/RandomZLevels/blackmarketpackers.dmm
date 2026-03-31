@@ -610,13 +610,9 @@
 /area/awaymission/BMPship/Armory)
 "cc" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/projectile/shotgun/riot/short{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/shotgun/riot/short{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/shotgun/riot/short,
+/obj/item/gun/ballistic/shotgun/riot/short,
+/obj/item/gun/ballistic/shotgun/riot/short,
+/obj/item/gun/ballistic/shotgun/riot/short,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
 /turf/simulated/floor/wood,
