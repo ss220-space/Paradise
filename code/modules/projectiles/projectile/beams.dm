@@ -6,7 +6,7 @@
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	flag = "laser"
+	flag = LASER
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	reflectability = REFLECTABILITY_ENERGY
@@ -84,6 +84,12 @@
 		PREPOSITIONAL = "лазерной дроби",
 	)
 
+/obj/projectile/beam/laser/syndrone
+	name = "light immolation beam"
+	damage = 8
+	icon_state = "scatterlaser"
+	eyeblur = 2 SECONDS
+
 /obj/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
@@ -146,7 +152,7 @@
 	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
-	flag = "energy"
+	flag = ENERGY
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -175,7 +181,7 @@
 	damage = 30
 	shockbull = TRUE
 	damage_type = STAMINA
-	flag = "energy"
+	flag = ENERGY
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	hitsound_wall = 'sound/weapons/sear.ogg'
 	eyeblur = 0
@@ -217,6 +223,10 @@
 	impact_light_intensity = 7
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_BLUE
+
+/obj/projectile/beam/pulse/hitscan/heavy
+	name = "heavy pulse laser"
+	icon_state = "pulse1_bl"
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(isturf(target) || isstructure(target) || ismachinery(target))
@@ -535,7 +545,7 @@
 	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
-	flag = "energy"
+	flag = ENERGY
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	hitsound_wall = 'sound/weapons/sear.ogg'
 	eyeblur = 0
@@ -651,3 +661,36 @@
 	if(isclocker(target))
 		damage = 0
 	return ..()
+
+/obj/projectile/beam/laser/accelerator
+	name = "accelerator laser"
+	icon_state = "scatterlaser"
+	range = 255
+	damage = 8
+	armour_penetration = -35
+	speed = 1
+	tile_dropoff_penetration = -5
+	var/size_per_tile = 0.1
+	var/max_scale = 4
+
+/obj/projectile/beam/laser/accelerator/Range()
+	..()
+	// Damage
+	damage = min(damage + 4, 75)
+	armour_penetration = min(armour_penetration, 25)
+
+	// Transform
+	transform = matrix()
+	transform *= min(1 + (maximum_range - range) * size_per_tile, max_scale)
+
+/obj/projectile/beam/shuriken
+	name = "energy shuriken"
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "shuriken_projectile"
+	damage = 5
+	stamina = 15
+	shockbull = TRUE
+	flag = "energy"
+	hitsound = 'sound/weapons/parry.ogg'
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
+	light_color = LIGHT_COLOR_GREEN

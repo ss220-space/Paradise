@@ -128,8 +128,7 @@
 /area/ruin/space/crashedipcship/aft)
 "cj" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/turf_decal{
 	dir = 6;
@@ -279,8 +278,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "eb" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/item/tank/internals/plasma/full{
 	pixel_y = -3;
@@ -292,11 +290,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "eo" = (
 /obj/effect/turf_decal{
@@ -449,8 +443,7 @@
 /area/ruin/space/crashedipcship/aft)
 "hZ" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/spacevine,
 /obj/machinery/door/airlock/hatch{
@@ -460,8 +453,7 @@
 /area/ruin/space/crashedipcship/middle)
 "ij" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/spacevine,
 /obj/effect/mob_spawn/headcrab,
@@ -570,8 +562,7 @@
 "kP" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -653,11 +644,7 @@
 	icon_state = "medium"
 	},
 /obj/structure/spacevine,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "lH" = (
 /obj/machinery/door/window/survival_pod,
@@ -687,12 +674,10 @@
 /area/ruin/space/crashedipcship/middle)
 "lZ" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/ash,
@@ -765,11 +750,7 @@
 "mL" = (
 /obj/item/stack/sheet/metal,
 /obj/structure/spacevine,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "mO" = (
 /obj/structure/chair/comfy/shuttle{
@@ -835,8 +816,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "nW" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -879,8 +859,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "oI" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/item/stock_parts/capacitor,
 /obj/effect/decal/cleanable/dirt,
@@ -888,8 +867,7 @@
 /area/ruin/space/crashedipcship/engine)
 "oS" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/spacevine,
 /obj/structure/spacevine,
@@ -922,8 +900,7 @@
 /area/ruin/space/crashedipcship/engine)
 "pJ" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1501,8 +1478,7 @@
 "yy" = (
 /obj/machinery/computer/sm_monitor,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
@@ -1529,8 +1505,7 @@
 /area/ruin/space/crashedipcship/middle)
 "yN" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/item/circuitboard/smes,
 /obj/item/stock_parts/cell/high/empty,
@@ -1658,8 +1633,7 @@
 "AC" = (
 /obj/item/book/manual/ripley_build_and_repair,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/turf_decal{
 	dir = 1;
@@ -1761,8 +1735,7 @@
 /area/ruin/space/crashedipcship/middle)
 "Cu" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
@@ -1828,11 +1801,7 @@
 /obj/item/stack/cable_coil,
 /obj/structure/spacevine,
 /obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "Ec" = (
 /obj/effect/turf_decal{
@@ -1950,8 +1919,7 @@
 /area/ruin/space/crashedipcship/aft)
 "FX" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
@@ -1987,8 +1955,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "Gm" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -1997,8 +1964,7 @@
 "GK" = (
 /obj/item/circuitboard/cyborgrecharger,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
@@ -2020,8 +1986,7 @@
 /area/ruin/space/crashedipcship/middle)
 "GW" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/highsecurity{
 	color = "lightblue"
@@ -2257,8 +2222,7 @@
 "Kw" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -2272,8 +2236,7 @@
 /area/ruin/space/crashedipcship/engine)
 "KS" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
@@ -2546,11 +2509,7 @@
 /area/ruin/space/crashedipcship/middle)
 "PE" = (
 /obj/item/stack/sheet/metal,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "Qb" = (
 /obj/effect/turf_decal{
@@ -2767,8 +2726,7 @@
 "TQ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/mob_spawn/human/corpse/ipc,
 /obj/effect/turf_decal{
@@ -2826,8 +2784,7 @@
 /area/ruin/space/crashedipcship/engine)
 "Vs" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2931,8 +2888,7 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/item/tank/internals/plasma/full{
 	pixel_y = -3;
@@ -2944,12 +2900,10 @@
 /obj/item/tank/internals/plasma/empty,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
@@ -3037,8 +2991,7 @@
 /area/ruin/space/crashedipcship/aft)
 "ZK" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/turf_decal{
 	dir = 4;
@@ -3051,11 +3004,7 @@
 "ZU" = (
 /obj/item/stack/cable_coil,
 /obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "ZV" = (
 /obj/structure/table,
@@ -3069,8 +3018,7 @@
 /area/ruin/space/crashedipcship/aft)
 "ZW" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/item/tank/internals/plasma/empty{
 	pixel_x = 5

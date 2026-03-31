@@ -59,7 +59,7 @@
 	if(icon_state == "[base_icon_state]_lid")
 		return
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', "[base_icon_state]")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]")
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
 			if(40 to 55)
@@ -71,7 +71,7 @@
 			if(85 to INFINITY)
 				filling.icon_state = "[base_icon_state]100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/attack_self(mob/user)
@@ -107,7 +107,7 @@
 	if(!reagents.total_volume)
 		return
 
-	var/image/filling = image('icons/obj/reagentfillings.dmi', "[base_icon_state]")
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]")
 	var/percent = round((reagents.total_volume / volume) * 100)
 	switch(percent)
 		if(20 to 40)
@@ -119,7 +119,7 @@
 		if(80 to INFINITY)
 			filling.icon_state = "[base_icon_state]100"
 
-	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	filling.color = mix_color_from_reagents(reagents.reagent_list)
 	. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
