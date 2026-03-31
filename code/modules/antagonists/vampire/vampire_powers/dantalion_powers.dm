@@ -174,9 +174,10 @@
 	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
 	centcom_cancast = FALSE
 	action_icon_state = "subspace_swap"
-	base_cooldown = 5 SECONDS
+	base_cooldown = 10 SECONDS
 	required_blood = 15
 	need_active_overlay = TRUE
+	can_use_through_walls = FALSE
 
 /obj/effect/proc_holder/spell/vampire/switch_places/create_new_targeting()
 	var/datum/spell_targeting/click/T = new

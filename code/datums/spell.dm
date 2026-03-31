@@ -185,6 +185,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
 	var/datum/spell_cooldown/cooldown_handler
 
+	/// Used to determine if a spell can be cast through walls
+	var/can_use_through_walls = TRUE
+
 /**
  * Checks if the user can cast the spell
  *
@@ -412,6 +415,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
+
+	if(!can_use_through_walls)
+		var/list/valid_targets = list()
+		for(var/atom/target in targets)
+			if(!spells_line_opacity_check(user, target))
+				continue
+			valid_targets += target
+
+		targets = valid_targets
+
+		if(!length(targets))
+			to_chat(user, span_warning("Нет доступных целей в прямой видимости!"))
+			return FALSE
 
 	before_cast(targets, user)
 	invocation(user)
@@ -673,3 +689,29 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /// Called when a spell is removed
 /obj/effect/proc_holder/spell/proc/on_spell_removed(mob/user = usr)
 	return
+
+/// Check for non opacity turfs walls between user and target
+/proc/spells_line_opacity_check(mob/user, atom/target)
+	var/turf/start = get_turf(user)
+	var/turf/end = get_turf(target)
+
+	if(is_line_clear(get_line(start, end), start, end))
+		return TRUE
+
+	for(var/direction in GLOB.alldirs)
+		var/turf/side_step = get_step(start, direction)
+		if(side_step && get_dist(side_step, end) < get_dist(start, end))
+			if(!side_step.opacity && is_line_clear(get_line(side_step, end), side_step, end))
+				return TRUE
+
+	return FALSE
+
+/proc/is_line_clear(list/path, turf/start, turf/end)
+	if(!path || !path.len)
+		return FALSE
+	for(var/turf/turf in path)
+		if(turf == start || turf == end)
+			continue
+		if(turf.opacity)
+			return FALSE
+	return TRUE
