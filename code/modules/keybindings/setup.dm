@@ -15,7 +15,7 @@
 	set waitfor = FALSE
 
 	//Reset the buffer
-	reset_held_keys()
+	client_reset_held_keys()
 
 	erase_all_macros()
 
