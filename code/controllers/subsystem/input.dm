@@ -25,43 +25,24 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 
 /datum/controller/subsystem/verb_manager/input/Initialize()
 	setup_default_macro_sets()
+
 	initialized = TRUE
+
 	refresh_client_macro_sets()
+
 	return SS_INIT_SUCCESS
 
-// This is for when macro sets are eventualy datumized
+// This is for when macro sets are eventually datumized
 /datum/controller/subsystem/verb_manager/input/proc/setup_default_macro_sets()
 	macro_set = list(
-		"default" = list(
-			"Any" = "\"KeyDown \[\[*\]\]\"", // Passes any key down to the rebindable input system
-			"Any+UP" = "\"KeyUp \[\[*\]\]\"", // Passes any key up to the rebindable input system
-			"Tab" = "\".winset \\\"mainwindow.macro=legacy input.focus=true input.border=sunken\\\"\"", // Swaps us to legacy mode, forces input to the input bar, sets the input bar colour to salmon pink
-			"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"", // This makes it so backspace can remove default inputs
-			"Escape" = "Open-Escape-Menu",
-		),
-		"legacy" = list(
-			"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.border=line\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white
-			"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"", // This makes it so backspace can remove default inputs
-		),
+		"Any" = "\"KeyDown \[\[*\]\]\"",
+		"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+		"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"",
+		"Tab" = "\".winset \\\"input.focus=true?map.focus=true:input.focus=true\\\"\"",
+		"Escape" = "Open-Escape-Menu",
 	)
 
-	var/list/legacy_default = macro_set["legacy"]
-
-	/// This list defines the keys in legacy mode that get passed on to the rebindable input system
-	/// It cannot be bigger since, while typing, the keys would be passed to whatever they are set in the rebind input system
-	var/static/list/legacy_keys = list(
-		"North", "East", "South", "West",
-		"Northeast", "Southeast", "Northwest", "Southwest",
-		"Insert", "Delete",
-		"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
-	)
-
-	// We use the static list to make only the keys in it passed to legacy mode
-	for(var/i in 1 to length(legacy_keys))
-		var/key = legacy_keys[i]
-		legacy_default[key] = "\"KeyDown [key]\""
-		legacy_default["[key]+UP"] = "\"KeyUp [key]\""
-
+// Badmins just wanna have fun ♪
 /datum/controller/subsystem/verb_manager/input/proc/refresh_client_macro_sets()
 	var/list/clients = GLOB.clients
 	for(var/i in 1 to length(clients))
@@ -95,7 +76,7 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 	movements_per_second = MC_AVG_SECONDS(movements_per_second, moves_this_run, wait TICKS)
 
 /datum/controller/subsystem/verb_manager/input/run_verb_queue()
-	var/deferred_clicks_this_run = 0 //acts like current_clicks but doesnt count clicks that dont get processed by SSinput
+	var/deferred_clicks_this_run = 0 //acts like current_clicks but doesn't count clicks that don't get processed by SSinput
 
 	for(var/datum/callback/verb_callback/queued_click as anything in verb_queue)
 		if(!istype(queued_click))
@@ -119,4 +100,3 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 
 /datum/controller/subsystem/verb_manager/input/get_stat_details()
 	return "M/S:[round(movements_per_second,0.01)] | C/S:[round(clicks_per_second,0.01)] ([round(delayed_clicks_per_second,0.01)] | CD: [round(average_click_delay / (1 SECONDS),0.01)])"
-
