@@ -104,8 +104,6 @@
 	var/active_power_usage = 0
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
-	var/uid
-	var/global/gl_uid = 1
 	var/custom_aghost_alerts=0
 	var/panel_open = 0
 	var/area/myArea
@@ -336,10 +334,6 @@
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-
-/obj/machinery/proc/assign_uid()
-	uid = gl_uid
-	gl_uid++
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

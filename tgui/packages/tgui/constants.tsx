@@ -196,96 +196,174 @@ export const RADIO_CHANNELS: Channel[] = [
   },
 ] as const;
 
-const GASES = [
+export const GASES = [
   {
     id: 'o2',
     name: 'Oxygen',
     label: 'O₂',
     color: 'blue',
+    tlv: 'oxygen',
+    scrubFlag: 1 << 0,
   },
   {
     id: 'n2',
     name: 'Nitrogen',
     label: 'N₂',
-    color: 'red',
+    color: 'yellow',
+    tlv: 'nitrogen',
+    scrubFlag: 1 << 1,
   },
   {
     id: 'co2',
     name: 'Carbon Dioxide',
     label: 'CO₂',
     color: 'grey',
+    tlv: 'carbon_dioxide',
+    scrubFlag: 1 << 2,
   },
   {
     id: 'plasma',
     name: 'Plasma',
     label: 'Plasma',
     color: 'pink',
+    tlv: 'plasma',
+    scrubFlag: 1 << 3,
   },
   {
     id: 'water_vapor',
     name: 'Water Vapor',
     label: 'H₂O',
-    color: 'grey',
+    color: 'lightsteelblue',
+    tlv: 'water_vapor',
+    scrubFlag: 1 << 6,
   },
   {
-    id: 'nob',
+    id: 'hypernoblium',
     name: 'Hyper-noblium',
     label: 'Hyper-nob',
     color: 'teal',
+    tlv: 'hypernoblium',
+    scrubFlag: 1 << 19,
   },
   {
     id: 'n2o',
     name: 'Nitrous Oxide',
     label: 'N₂O',
-    color: 'red',
-  },
-  {
-    id: 'no2',
-    name: 'Nitryl',
-    label: 'NO₂',
-    color: 'brown',
+    color: 'bisque',
+    tlv: 'nitrous_oxide',
+    scrubFlag: 1 << 4,
   },
   {
     id: 'tritium',
     name: 'Tritium',
     label: 'Tritium',
-    color: 'green',
+    color: 'limegreen',
+    tlv: 'tritium',
+    scrubFlag: 1 << 7,
   },
   {
     id: 'bz',
     name: 'BZ',
     label: 'BZ',
-    color: 'purple',
+    color: 'mediumpurple',
+    tlv: 'bz',
+    scrubFlag: 1 << 8,
   },
   {
-    id: 'stim',
-    name: 'Stimulum',
-    label: 'Stimulum',
-    color: 'purple',
-  },
-  {
-    id: 'pluox',
+    id: 'pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
-    color: 'blue',
+    color: 'mediumslateblue',
+    tlv: 'pluoxium',
+    scrubFlag: 1 << 9,
   },
   {
     id: 'miasma',
     name: 'Miasma',
     label: 'Miasma',
     color: 'olive',
+    tlv: 'miasma',
+    scrubFlag: 1 << 10,
+  },
+  {
+    id: 'freon',
+    name: 'Freon',
+    label: 'Freon',
+    color: 'paleturquoise',
+    tlv: 'freon',
+    scrubFlag: 1 << 11,
   },
   {
     id: 'hydrogen',
     name: 'Hydrogen',
     label: 'H₂',
-    color: '#997379',
+    color: 'white',
+    tlv: 'hydrogen',
+    scrubFlag: 1 << 5,
+  },
+  {
+    id: 'healium',
+    name: 'Healium',
+    label: 'Healium',
+    color: 'salmon',
+    tlv: 'healium',
+    scrubFlag: 1 << 13,
+  },
+  {
+    id: 'proto_nitrate',
+    name: 'Proto Nitrate',
+    label: 'Proto-Nitrate',
+    color: 'greenyellow',
+    tlv: 'proto_nitrate',
+    scrubFlag: 1 << 14,
+  },
+  {
+    id: 'zauker',
+    name: 'Zauker',
+    label: 'Zauker',
+    color: 'darkgreen',
+    tlv: 'zauker',
+    scrubFlag: 1 << 15,
+  },
+  {
+    id: 'halon',
+    name: 'Halon',
+    label: 'Halon',
+    color: 'purple',
+    tlv: 'halon',
+    scrubFlag: 1 << 16,
+  },
+  {
+    id: 'helium',
+    name: 'Helium',
+    label: 'He',
+    color: 'aliceblue',
+    tlv: 'helium',
+    scrubFlag: 1 << 17,
+  },
+  {
+    id: 'antinoblium',
+    name: 'Antinoblium',
+    label: 'Anti-Noblium',
+    color: 'maroon',
+    tlv: 'antinoblium',
+    scrubFlag: 1 << 18,
+  },
+  {
+    id: 'nitrium',
+    name: 'Nitrium',
+    label: 'Nitrium',
+    color: 'brown',
+    tlv: 'nitrium',
+    scrubFlag: 1 << 12,
   },
   {
     id: 'ab',
     name: 'Agent B',
     label: 'Agent B',
     color: 'purple',
+    tlv: 'agent_b',
+    scrubFlag: 0,
   },
 ] as const;
 
@@ -294,7 +372,7 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
   return gas?.label || fallbackValue || gasId;
 };
@@ -304,7 +382,7 @@ export const getGasColor = (gasId: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
   return gas?.color;
 };

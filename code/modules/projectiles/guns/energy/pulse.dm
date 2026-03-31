@@ -1,3 +1,4 @@
+// MARK: Rifle (Generic)
 /obj/item/gun/energy/pulse
 	name = "pulse rifle"
 	desc = "A heavy-duty, multifaceted energy rifle with three modes. Preferred by front-line combat personnel."
@@ -29,6 +30,7 @@
 	..()
 	robocharge()
 
+// MARK: Carbine
 /obj/item/gun/energy/pulse/carbine
 	name = "pulse carbine"
 	desc = "A compact variant of the pulse rifle with less firepower but easier storage."
@@ -43,6 +45,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
 	)
 
+// MARK: Pistol
 /obj/item/gun/energy/pulse/pistol
 	name = "pulse pistol"
 	desc = "A pulse rifle in an easily concealed handgun package with low capacity."
@@ -56,6 +59,15 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+// MARK: M1911-P
+/obj/item/gun/energy/pulse/pistol/m1911
+	name = "M1911-P"
+	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
+	icon_state = "m1911"
+	cell_type = /obj/item/stock_parts/cell/infinite
+	accuracy = GUN_ACCURACY_PISTOL
+
+// MARK: Destroyer
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
 	desc = "A heavy-duty, pulse-based energy weapon."
@@ -71,13 +83,7 @@
 	desc = "For when the situation calls for a little more than a pulse destroyer."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
-/obj/item/gun/energy/pulse/pistol/m1911
-	name = "M1911-P"
-	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
-	icon_state = "m1911"
-	cell_type = /obj/item/stock_parts/cell/infinite
-	accuracy = GUN_ACCURACY_PISTOL
-
+// MARK: Turret
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
 	desc = "A heavy, turret-mounted pulse energy cannon."

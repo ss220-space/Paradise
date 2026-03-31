@@ -1,5 +1,4 @@
-#define CHRONO_BEAM_RANGE 3
-#define CHRONO_FRAME_COUNT 22
+
 /obj/item/chrono_eraser
 	name = "Timestream Eradication Device"
 	desc = "The result of outlawed time-bluespace research, this device is capable of wiping a being from the timestream. They never are, they never were, they never will be."
@@ -35,114 +34,6 @@
 /obj/item/chrono_eraser/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
-
-/obj/item/gun/energy/chrono_gun
-	name = "T.E.D. Projection Apparatus"
-	desc = "It's as if they never existed in the first place."
-	icon = 'icons/obj/chronos.dmi'
-	icon_state = "chronogun"
-	item_state = "chronogun"
-	item_flags = DROPDEL
-	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
-	can_charge = FALSE
-	fire_delay = 50
-	var/obj/item/chrono_eraser/TED = null
-	var/obj/structure/chrono_field/field = null
-	var/turf/startpos = null
-
-/obj/item/gun/energy/chrono_gun/Initialize(mapload, obj/item/chrono_eraser/T)
-	. = ..()
-	if(istype(T))
-		TED = T
-		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-	else //admin must have spawned it
-		TED = new(src.loc)
-		qdel(src)
-
-/obj/item/gun/energy/chrono_gun/update_overlays()
-	return list()
-
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
-	if(field)
-		field_disconnect(field)
-	..()
-
-/obj/item/gun/energy/chrono_gun/Destroy()
-	if(TED)
-		TED.PA = null
-		TED = null
-	if(field)
-		field_disconnect(field)
-	return ..()
-
-/obj/item/gun/energy/chrono_gun/proc/field_connect(obj/structure/chrono_field/F)
-	var/mob/living/user = src.loc
-	if(F.gun)
-		if(isliving(user) && F.captured)
-			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
-		src.field_disconnect(F)
-	else
-		startpos = get_turf(src)
-		field = F
-		F.gun = src
-		if(isliving(user) && F.captured)
-			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
-
-/obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
-	if(F && field == F)
-		var/mob/living/user = src.loc
-		if(F.gun == src)
-			F.gun = null
-		if(isliving(user) && F.captured)
-			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
-	field = null
-	startpos = null
-
-/obj/item/gun/energy/chrono_gun/proc/field_check(obj/structure/chrono_field/F)
-	if(F)
-		if(field == F)
-			var/turf/currentpos = get_turf(src)
-			var/mob/living/user = src.loc
-			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !user.incapacitated())
-				return 1
-		field_disconnect(F)
-		return 0
-
-/obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
-	if(TED)
-		TED.pass_mind(M)
-
-/obj/projectile/energy/chrono_beam
-	name = "eradication beam"
-	icon_state = "chronobolt"
-	range = CHRONO_BEAM_RANGE
-	color = null
-	nodamage = TRUE
-	var/obj/item/gun/energy/chrono_gun/gun = null
-
-/obj/projectile/energy/chrono_beam/Destroy()
-	gun = null
-	. = ..()
-
-/obj/projectile/energy/chrono_beam/fire()
-	gun = firer.get_active_hand()
-	if(istype(gun))
-		return ..()
-	else
-		return 0
-
-/obj/projectile/energy/chrono_beam/on_hit(atom/target)
-	if(target && gun && isliving(target))
-		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
-		gun.field_connect(F)
-
-/obj/item/ammo_casing/energy/chrono_beam
-	name = "eradication beam"
-	projectile_type = /obj/projectile/energy/chrono_beam
-	muzzle_flash_color = null
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
-	icon_state = "chronobolt"
-	e_cost = 0
 
 /obj/structure/chrono_field
 	name = "eradication field"
@@ -258,6 +149,3 @@
 
 /obj/structure/chrono_field/blob_act(obj/structure/blob/B)
 	return
-
-#undef CHRONO_BEAM_RANGE
-#undef CHRONO_FRAME_COUNT

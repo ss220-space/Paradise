@@ -132,12 +132,6 @@
 	spider_team?.erase_eggs()
 	to_chat(src, span_userdanger("Все пауки ужаса, кроме вас, вскоре вымрут."))
 
-/obj/projectile/terrorspider/empress
-	name = "empress venom"
-	icon_state = "toxin5"
-	damage = 90
-	damage_type = BRUTE
-
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	canlay = 10
 	spider_spawnfrequency = 1000

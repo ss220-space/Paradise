@@ -59,6 +59,10 @@
 		for(var/turf/simulated/tile as anything in turf.GetAtmosAdjacentTurfs(alldir = TRUE))
 			scrubber.scrub(get_turf_air(tile))
 
+#define FILTER_GAS(gas) \
+	filtered_out.set_##gas(removed.gas()); \
+	removed.set_##gas(0)
+
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(datum/gas_mixture/environment)
 	var/transfer_moles = min(1, volume_rate / environment.volume) * environment.total_moles()
 
@@ -74,29 +78,32 @@
 
 	filtered_out.set_temperature(removed.temperature())
 
-
-	filtered_out.set_toxins(removed.toxins())
-	removed.set_toxins(0)
-
-	filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
-	removed.set_carbon_dioxide(0)
-
-	filtered_out.set_sleeping_agent(removed.sleeping_agent())
-	removed.set_sleeping_agent(0)
-
-	filtered_out.set_agent_b(removed.agent_b())
-	removed.set_agent_b(0)
-
-	filtered_out.set_hydrogen(removed.hydrogen())
-	removed.set_hydrogen(0)
-
-	filtered_out.set_water_vapor(removed.water_vapor())
-	removed.set_water_vapor(0)
+	FILTER_GAS(toxins)
+	FILTER_GAS(carbon_dioxide)
+	FILTER_GAS(sleeping_agent)
+	FILTER_GAS(agent_b)
+	FILTER_GAS(hydrogen)
+	FILTER_GAS(water_vapor)
+	FILTER_GAS(tritium)
+	FILTER_GAS(bz)
+	FILTER_GAS(pluoxium)
+	FILTER_GAS(miasma)
+	FILTER_GAS(freon)
+	FILTER_GAS(nitrium)
+	FILTER_GAS(healium)
+	FILTER_GAS(proto_nitrate)
+	FILTER_GAS(zauker)
+	FILTER_GAS(halon)
+	FILTER_GAS(helium)
+	FILTER_GAS(antinoblium)
+	FILTER_GAS(hyper_noblium)
 
 	//Remix the resulting gases
 	air_contents.merge(filtered_out)
 
 	environment.merge(removed)
+
+#undef FILTER_GAS
 
 /obj/machinery/portable_atmospherics/scrubber/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)

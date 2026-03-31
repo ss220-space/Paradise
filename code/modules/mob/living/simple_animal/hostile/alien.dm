@@ -139,11 +139,6 @@
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
-/obj/projectile/neurotox
-	name = "neurotoxin"
-	damage = 30
-	icon_state = "toxin"
-
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"
 	melee_damage_lower = 0

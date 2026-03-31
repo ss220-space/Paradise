@@ -337,14 +337,6 @@
 	)
 
 // MARK: Dynamic spawners
-/obj/effect/spawner/abandoned_crate/random_toy
-	name = "random toy spawner"
-
-/obj/effect/spawner/abandoned_crate/random_toy/Initialize(mapload)
-	var/prize = pick(subtypesof(/obj/item/toy))
-	loot[prize] = 1
-	return ..()
-
 /obj/effect/spawner/abandoned_crate/random_coins
 	name = "random coins spawner"
 

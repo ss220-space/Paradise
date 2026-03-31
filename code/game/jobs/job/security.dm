@@ -22,6 +22,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
+	min_age_type = JOB_MIN_AGE_COMMAND
 
 /datum/outfit/job/hos
 	name = JOB_TITLE_RU_HOS
