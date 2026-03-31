@@ -686,7 +686,7 @@
 	dir = 4
 	},
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol/enforcer/security,
+/obj/item/gun/projectile/automatic/pistol/enforcer,
 /obj/item/clothing/suit/storage/zazalord,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
