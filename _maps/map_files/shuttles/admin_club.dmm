@@ -318,12 +318,6 @@
 "zG" = (
 /turf/simulated/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/administration)
-"zR" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "Ar" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -443,15 +437,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/shuttle/administration)
-"HD" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
 "HP" = (
@@ -686,11 +671,11 @@
 	height = 18;
 	id = "admin";
 	name = "administration shuttle";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -1209,8 +1194,8 @@ xX
 xX
 xX
 ea
-HD
-zR
+Pm
+pt
 Pm
 xX
 xX
@@ -1230,7 +1215,7 @@ Kz
 xX
 hE
 Pm
-pt
+Pm
 Tu
 xX
 Kz

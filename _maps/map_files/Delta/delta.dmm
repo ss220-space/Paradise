@@ -1256,13 +1256,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/effect/decal/remains/mouse/Pinkie,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
 /area/toxins/server)
 "aml" = (
 /obj/machinery/navbeacon{
@@ -2468,9 +2462,8 @@
 	},
 /area/bridge)
 "avB" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	dir = 4;
-	filter_type = "n2";
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -5697,9 +5690,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "aSH" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor";
-	output = 23
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "air_sensor"
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -7356,7 +7348,7 @@
 /turf/simulated/wall,
 /area/engineering/mechanic_workshop)
 "beO" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -15467,10 +15459,9 @@
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
 "bWs" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
 	dir = 1;
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
@@ -17140,9 +17131,8 @@
 	},
 /area/hallway/secondary/entry)
 "cfg" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	dir = 1;
-	filter_type = "n2";
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -17163,9 +17153,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cfm" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/none{
 	dir = 1;
-	filter_type = -1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -19026,9 +19015,8 @@
 	},
 /area/engineering/controlroom)
 "crk" = (
-/obj/machinery/atmospherics/trinary/filter{
-	dir = 8;
-	filter_type = "n2"
+/obj/machinery/atmospherics/trinary/filter/n2{
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/yellow{
@@ -28871,7 +28859,7 @@
 	dir = 8;
 	frequency = 1443;
 	icon_state = "on";
-	id = "air_in";
+	id = null;
 	on = 1
 	},
 /obj/machinery/sparker{
@@ -30964,7 +30952,7 @@
 /turf/simulated/wall,
 /area/mimeoffice)
 "dvN" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/co2{
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -31597,13 +31585,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "dyI" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -33845,7 +33827,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dJT" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/pl{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -36878,9 +36860,8 @@
 /area/medical/biostorage)
 "dXP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/item/camera_assembly,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -36992,7 +36973,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "dYm" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -38710,9 +38691,8 @@
 	},
 /area/security/processing)
 "enX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -42416,9 +42396,8 @@
 	pixel_y = -7
 	},
 /obj/item/trash/sosjerky,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -47823,9 +47802,8 @@
 	},
 /area/maintenance/starboard)
 "gvS" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -48385,9 +48363,8 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "gCu" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor";
-	output = 127
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "mix_sensor"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -50148,7 +50125,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "gTw" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -63788,7 +63765,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
+	sensors = list("air_sensor"="Air Mix","n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65019,10 +64996,9 @@
 	},
 /area/quartermaster/miningdock)
 "krC" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
 	dir = 1;
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -70329,7 +70305,7 @@
 	},
 /area/maintenance/asmaint4)
 "lHA" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -71930,9 +71906,8 @@
 	},
 /area/storage/eva)
 "mcm" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2o{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
-	filter_type = 4;
 	name = "Фильтр Оксида Азота (NO2)";
 	on = 1;
 	target_pressure = 4500
@@ -79324,8 +79299,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 14;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 14
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = 5;
@@ -81886,12 +81861,6 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
-"omz" = (
-/obj/machinery/computer/area_atmos/area,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/permabrig)
 "omC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82795,8 +82764,8 @@
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
 	name = "Medbay Lockdown";
-	pixel_y = -35;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = -35
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -82914,13 +82883,7 @@
 	pressure_checks = 0;
 	releasing = 0
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "oyI" = (
 /obj/structure/disposalpipe/segment{
@@ -86038,7 +86001,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	id = "tox_in"
+	id = null
 	},
 /turf/space,
 /area/atmos)
@@ -103839,9 +103802,8 @@
 /area/medical/research/nhallway)
 "tfB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
@@ -106472,8 +106434,8 @@
 	pixel_y = 4
 	},
 /obj/item/folder/red{
-	pixel_y = 3;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -110212,12 +110174,12 @@
 	dir = 8
 	},
 /obj/item/storage/box/coffeepack/robusta{
-	pixel_y = 1;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 1
 	},
 /obj/item/storage/fancy/coffee_condi_display{
-	pixel_y = 2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -114313,9 +114275,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/ai)
 "vtW" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -117822,12 +117783,12 @@
 "wjm" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/guarana{
-	pixel_y = 3;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 3
 	},
 /obj/item/reagent_containers/food/drinks/flask/thermos{
-	pixel_y = 9;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -118236,10 +118197,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
 	dir = 4;
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -121026,9 +120986,9 @@
 	name = "Cargo Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "Cargo Warehouse Windows";
-	name = "Cargo Warehouse Windows";
-	dir = 1
+	name = "Cargo Warehouse Windows"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -123026,8 +122986,8 @@
 	},
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
-	pixel_y = 3;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -123392,7 +123352,7 @@
 	dir = 4;
 	frequency = 1443;
 	icon_state = "on";
-	id = "air_in";
+	id = null;
 	on = 1
 	},
 /turf/simulated/floor/engine,
@@ -123961,7 +123921,6 @@
 "xzK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/computer/area_atmos,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "xAb" = (
@@ -125880,13 +125839,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "xSX" = (
 /obj/structure/window/reinforced{
@@ -125925,13 +125878,7 @@
 	on = 1;
 	pressure_checks = 0
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "xTp" = (
 /obj/structure/sign/poster/official/random{
@@ -127605,13 +127552,7 @@
 /area/engineering/engine)
 "yjC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
 /area/toxins/server)
 "yjD" = (
 /obj/machinery/disposal,
@@ -184042,7 +183983,7 @@ wNO
 lXk
 tLD
 lzs
-omz
+xan
 wyT
 pee
 gBH

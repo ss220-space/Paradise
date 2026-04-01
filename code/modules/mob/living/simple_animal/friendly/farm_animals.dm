@@ -472,7 +472,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "клюёт"
 	death_sound = 'sound/creatures/chicken_death.ogg'
 	damaged_sound = list('sound/creatures/chicken_damaged1.ogg', 'sound/creatures/chicken_damaged2.ogg')
-	talk_sound = list('sound/creatures/chicken_talk.ogg')
+	talk_sound = list('sound/creatures/chicken_talk1.ogg', 'sound/creatures/chicken_talk2.ogg', 'sound/creatures/chicken_talk3.ogg')
 	health = 30
 	maxHealth = 30
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS

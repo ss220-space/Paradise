@@ -325,6 +325,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	l_ear = /obj/item/radio/headset/ert/alt
 	box = /obj/item/storage/box/survival/responseteam
 	implants = list(/obj/item/implant/mindshield/ert)
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/map/ert)
 
 	/// Strict job name. Used for logic, so must have a proper defined name.
 	var/ert_job = JOB_TITLE_ERT_MEMBER

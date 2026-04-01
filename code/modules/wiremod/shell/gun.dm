@@ -31,12 +31,6 @@
 	select_name = "circuit"
 	fire_sound = 'sound/weapons/blaster.ogg'
 
-/obj/projectile/energy/wiremod_gun
-	name = "scanning beam"
-	icon_state = "ion"
-	nodamage = TRUE
-	range = 7
-
 /obj/item/stock_parts/cell/emproof/wiremod_gun
 	maxcharge = 2000
 
