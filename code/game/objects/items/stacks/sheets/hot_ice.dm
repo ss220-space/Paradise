@@ -21,7 +21,8 @@
 /obj/item/stack/sheet/hot_ice/proc/hot_ice_melt(mob/user)
 	var/turf/location = get_turf(src)
 	atmos_spawn_air(LINDA_SPAWN_TOXINS, amount * 50, amount * 20 + T300K)
-	message_admins("Hot Ice ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(location)]")
+	if(user)
+		message_admins("Hot Ice ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(location)]")
 	log_game("Hot Ice ignited by [key_name(user)] in [AREACOORD(location)]")
 	qdel(src)
 

@@ -549,7 +549,7 @@
 
 /obj/machinery/portable_atmospherics/canister/nob/init_internal_atmos()
 	. = ..()
-	air_contents.set_hyper_noblium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	air_contents.set_hypernoblium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/portable_atmospherics/canister/pluoxium/init_internal_atmos()
 	. = ..()
