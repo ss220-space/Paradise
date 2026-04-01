@@ -130,8 +130,6 @@
 /obj/item/ammo_box/magazine/smgm9mm/empty
 	start_empty = TRUE
 
-
-
 // MARK: 9mm - SFG-5 SMG
 /obj/item/ammo_box/magazine/sfg9mm
 	name = "SFG Magazine (9mm)"

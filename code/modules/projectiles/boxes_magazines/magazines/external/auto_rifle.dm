@@ -46,8 +46,6 @@
 /obj/item/ammo_box/magazine/ak814/fusty/empty
 	start_empty = TRUE
 
-
-
 // MARK: 5.45x39mm - AKS-74U
 /obj/item/ammo_box/magazine/aks74u
 	name = "AK magazine (5.45x39mm)"
