@@ -302,7 +302,7 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_on_max - If `TRUE` this proc will fail after reaching max_interact_count.
+ * * cancel_on_max - If `TRUE`, when the interaction limit is reached, the currently running action(s) with the same interaction_key and max_interact_count will be cancelled and the proc will fail. Note: Requires either consistent max_interact_count per interaction_key, or unique interaction_key per distinct max_interact_count value.
  * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  * * category - Used to apply proper action speed modifier to passed delay.
  *
@@ -328,7 +328,10 @@
 		CRASH("do_after was passed a non-number delay: [delay || "null"].")
 
 	if(!interaction_key && target)
-		interaction_key = target //Use the direct ref to the target
+		if(cancel_on_max)
+			interaction_key = "[target]+[max_interact_count]"
+		else
+			interaction_key = target //Use the direct ref to the target
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
