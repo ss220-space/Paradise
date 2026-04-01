@@ -17,6 +17,8 @@
 	if(.) // not dead
 		handle_pain()
 		handle_heartbeat()
+		// Handles liver failure effects, if we lack a liver
+		handle_liver(seconds)
 		dna.species.handle_life(src)
 
 		if(!client)

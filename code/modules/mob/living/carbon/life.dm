@@ -383,3 +383,20 @@
 /mob/living/carbon/proc/handle_germs()
 	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
 		germ_level++
+
+//LIVER//
+///Check to see if we have the liver, if not automatically gives you last-stage effects of lacking a liver.
+
+/mob/living/carbon/proc/handle_liver(seconds_per_tick)
+	var/obj/item/organ/internal/liver/liver = get_organ_slot(INTERNAL_ORGAN_LIVER)
+	var/obj/item/organ/internal/organ = safepick(internal_organs)
+	if(liver)
+		return
+
+	adjustToxLoss(0.8 * seconds_per_tick,forced = TRUE)
+	organ.internal_receive_damage(0.2  * seconds_per_tick)
+
+/mob/living/carbon/proc/undergoing_liver_failure()
+	var/obj/item/organ/internal/liver/liver = get_organ_slot(INTERNAL_ORGAN_LIVER)
+	if(liver.status & ORGAN_DEAD)
+		return TRUE
