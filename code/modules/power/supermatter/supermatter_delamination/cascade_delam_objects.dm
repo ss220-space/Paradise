@@ -5,11 +5,9 @@
 	icon_state = "crystal_cascade_1"
 	layer = AREA_LAYER
 	plane = ABOVE_LIGHTING_PLANE
-	opacity = FALSE
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	light_power = 1
 	light_range = 5
 	light_color = COLOR_VIVID_YELLOW
 	move_resist = INFINITY

@@ -410,4 +410,4 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
 
 /// Not really closed, but the meaning is the same.
-#define isclosedturf(A) (istype(A, iswallturf(A) || ismineralturf(A)))
+#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))

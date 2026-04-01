@@ -14,7 +14,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	desc = "Странно полупрозрачный и переливающийся кристалл."
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	density = TRUE
-	anchored = TRUE
 	layer = MOB_LAYER
 	//flags = PREVENT_CONTENTS_EXPLOSION
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF

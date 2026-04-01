@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	if(!sm.gas_percentage[/datum/gas/carbon_dioxide] || !sm.gas_percentage[/datum/gas/oxygen])
 		return
 	var/co2_pp = sm.absorbed_gasmix.return_pressure() * sm.gas_percentage[/datum/gas/carbon_dioxide]
-	var/co2_ratio = clamp((1/2 * (co2_pp - CO2_CONSUMPTION_PP) / (co2_pp + CO2_PRESSURE_SCALING)), 0, 1)
+	var/co2_ratio = clamp((0.5 * (co2_pp - CO2_CONSUMPTION_PP) / (co2_pp + CO2_PRESSURE_SCALING)), 0, 1)
 	var/consumed_co2 = sm.absorbed_gasmix.private_carbon_dioxide * co2_ratio
 	consumed_co2 = min(
 		consumed_co2,
