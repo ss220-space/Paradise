@@ -164,7 +164,7 @@
 
 /datum/gear/donor/strip/cap
 	index_name = "strip, Captain"
-	path = /obj/item/clothing/accessory/head_strip
+	path = /obj/item/clothing/accessory/head_strip/captain
 	allowed_roles = list(JOB_TITLE_CAPTAIN)
 
 /datum/gear/donor/strip/rd
