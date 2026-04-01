@@ -332,7 +332,7 @@
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_on_max)	// we are adding extra one, to catch this on while loop
+			if(cancel_on_max && current_interaction_count == max_interact_count)	// we are adding extra one, to catch this on while loop
 				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
