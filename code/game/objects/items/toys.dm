@@ -2444,10 +2444,10 @@
 
 /obj/item/toy/plushie/krochi
 	name = "плюшевая игрушка кроччи"
-	icon_state = "крочи"
-	item_state = "крочи"
+	icon_state = "krochi"
+	item_state = "krochi"
 
 /obj/item/toy/plushie/ketchup
 	name = "плюшевая игрушка саннаби"
-	icon_state = "разбаньте кетчупа"
-	item_state = "разбаньте кетчупа"
+	icon_state = "ketchup_ban"
+	item_state = "ketchup_ban"

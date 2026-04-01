@@ -94,7 +94,7 @@
 
 /datum/gear/plushie/pizdosik
 	index_name = "Pizdosik Plushie"
-	path = /obj/item/toy/plushie/pizdosik
+	path = /obj/item/toy/plushie/pizdos/pizdosik
 
 /datum/gear/plushie/crochi
 	index_name = "krochi Plushie"
@@ -102,4 +102,4 @@
 
 /datum/gear/plushie/sanabi
 	index_name = "SANABI Plushie"
-	path = /obj/item/toy/plushie/sanabi
+	path = /obj/item/toy/plushie/ketchup
