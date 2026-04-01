@@ -108,7 +108,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "ew" = (
 /obj/structure/stone_tile/surrounding/cracked{
@@ -409,7 +409,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "mx" = (
 /obj/structure/stone_tile/slab,
@@ -581,7 +581,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "pm" = (
 /obj/structure/stone_tile/surrounding_tile/cracked,
@@ -592,7 +592,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "pL" = (
 /obj/effect/decal/ash_rune_centre,
@@ -733,7 +733,7 @@
 /obj/structure/torch_holder/mapping{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "sJ" = (
 /turf/simulated/wall/indestructible/boss,
@@ -806,7 +806,7 @@
 /area/ruin/unpowered/ash_walkers)
 "ub" = (
 /obj/structure/lavaland/ash_walker,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "uw" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -861,7 +861,7 @@
 /area/ruin/unpowered/ash_walkers)
 "vD" = (
 /obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "vH" = (
 /obj/structure/table/wood,
@@ -934,7 +934,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "xu" = (
 /obj/structure/stone_tile/slab,
@@ -965,7 +965,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "xG" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -1090,7 +1090,7 @@
 /obj/structure/torch_holder/mapping{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "AM" = (
 /obj/structure/stone_tile/block{
@@ -1338,7 +1338,7 @@
 /area/ruin/unpowered/ash_walkers)
 "Ff" = (
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "Fk" = (
 /obj/structure/stone_tile,
@@ -1387,7 +1387,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "Gw" = (
 /obj/structure/stone_tile,
@@ -1423,7 +1423,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "HL" = (
 /obj/structure/stone_tile/burnt{
@@ -1472,7 +1472,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "IV" = (
 /obj/structure/stone_tile/block{
@@ -1796,7 +1796,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "QW" = (
 /obj/structure/stone_tile/surrounding_tile,
