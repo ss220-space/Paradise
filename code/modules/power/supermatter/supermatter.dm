@@ -314,11 +314,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	// needs more than one gas and rely on a fully parsed gas_percentage.
 	var/list/gases = absorbed_gasmix.get_interesting()
 	for(var/tlv_id in gases)
-		var/gas_path = GLOB.tlv_to_gas_path[tlv_id]
-		if(!gas_path)
+		var/datum/sm_gas/sm_gas = current_gas_behavior[tlv_id]
+		if(!sm_gas)
 			continue
-		var/datum/sm_gas/sm_gas = current_gas_behavior[gas_path]
-		sm_gas?.extra_effects(src)
+		sm_gas.extra_effects(src)
 
 	// PART 3: POWER PROCESSING
 	internal_energy_factors = calculate_internal_energy()
@@ -685,23 +684,23 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/total_moles = absorbed_gasmix.total_moles()
 	if(total_moles < MINIMUM_MOLE_COUNT) //it's not worth processing small amounts like these, total_moles can also be 0 in vacuume
 		return
+
 	var/list/gases = absorbed_gasmix.get_interesting()
 	for(var/tlv_id in gases)
-		var/gas_path = GLOB.tlv_to_gas_path[tlv_id]
-		if(!gas_path)
-			continue
 		var/mole_count = gases[tlv_id]
 		if(mole_count < MINIMUM_MOLE_COUNT) //save processing power from small amounts like these
 			continue
-		gas_percentage[gas_path] = mole_count / total_moles
-		var/datum/sm_gas/sm_gas = current_gas_behavior[gas_path]
+
+		gas_percentage[tlv_id] = mole_count / total_moles
+		var/datum/sm_gas/sm_gas = current_gas_behavior[tlv_id]
 		if(!sm_gas)
 			continue
-		gas_power_transmission_rate += sm_gas.power_transmission * gas_percentage[gas_path]
-		gas_heat_modifier += sm_gas.heat_modifier * gas_percentage[gas_path]
-		gas_heat_resistance += sm_gas.heat_resistance * gas_percentage[gas_path]
-		gas_heat_power_generation += sm_gas.heat_power_generation * gas_percentage[gas_path]
-		gas_powerloss_inhibition += sm_gas.powerloss_inhibition * gas_percentage[gas_path]
+
+		gas_power_transmission_rate += sm_gas.power_transmission * gas_percentage[tlv_id]
+		gas_heat_modifier += sm_gas.heat_modifier * gas_percentage[tlv_id]
+		gas_heat_resistance += sm_gas.heat_resistance * gas_percentage[tlv_id]
+		gas_heat_power_generation += sm_gas.heat_power_generation * gas_percentage[tlv_id]
+		gas_powerloss_inhibition += sm_gas.powerloss_inhibition * gas_percentage[tlv_id]
 
 	gas_heat_power_generation = clamp(gas_heat_power_generation, 0, 1)
 	gas_powerloss_inhibition = clamp(gas_powerloss_inhibition, 0, 1)
