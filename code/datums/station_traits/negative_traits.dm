@@ -339,12 +339,12 @@
 						light_to_smash.break_light_tube(skip_sound_and_sparks = TRUE)
 						continue
 
-					if(istype(current_thing, /obj/structure/window))
+					if(is_window(current_thing))
 						if(prob(45))
 							current_thing.take_damage(rand(50, 90)) //fulltile windows will be safe
 							continue
 
-					if(istype(current_thing, /obj/structure/table) && prob(40))
+					if(istable(current_thing) && prob(40))
 						current_thing.take_damage(100)
 						continue
 
@@ -421,7 +421,7 @@
 						light_to_smash.break_light_tube(skip_sound_and_sparks = TRUE)
 						continue
 
-					if(istype(current_thing, /obj/structure/window))
+					if(is_window(current_thing))
 						if(prob(45))
 							current_thing.take_damage(rand(40, 90)) //fulltile windows will be safe
 							continue
@@ -489,13 +489,13 @@
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)
 
-					if(istype(current_thing, /obj/item) && prob(50))
+					if(isitem(current_thing) && prob(50))
 						if(istype(current_thing, /obj/item/clothing/suit/armor/reflector))
 							continue
 						qdel(current_thing)
 						continue
 
-					if(istype(current_thing, /obj/vehicle) && prob(70))
+					if(isvehicle(current_thing) && prob(70))
 						qdel(current_thing)
 						continue
 
