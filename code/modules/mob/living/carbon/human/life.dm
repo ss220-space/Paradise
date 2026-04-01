@@ -244,7 +244,7 @@
 				adjust_bodytemperature(min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX))
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
-	if(bodytemperature > dna.species.heat_level_1)
+	if(bodytemperature > dna.species.heat_level_1 && !HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		//Body temperature is too hot.
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return TRUE	//godmode

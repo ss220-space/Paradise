@@ -286,6 +286,7 @@
 	icon_state = "flare"
 	item_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
+	heat = T1000K
 	var/can_fire_cigs = TRUE
 	var/fuel = 0
 	/// Force when enabled
@@ -334,7 +335,7 @@
 		turn_off()
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/get_heat()
+/obj/item/flashlight/flare/get_temperature()
 	return on * 1000
 
 /obj/item/flashlight/flare/proc/turn_on()

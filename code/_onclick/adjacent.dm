@@ -92,6 +92,8 @@ Adjacency (to turf):
 /obj/item/Adjacent(atom/neighbor, atom/target, atom/movable/mover, recurse = 1)
 	if(neighbor == loc)
 		return TRUE
+	if(neighbor?.loc == src)
+		return TRUE
 	if(isitem(loc))
 		if(recurse > 0)
 			return loc.Adjacent(neighbor, target, mover, recurse - 1)
@@ -120,4 +122,3 @@ Adjacency (to turf):
 			return FALSE
 
 	return TRUE
-

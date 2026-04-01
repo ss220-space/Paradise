@@ -447,7 +447,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return ATTACK_CHAIN_BLOCKED_ALL
 

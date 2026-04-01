@@ -43,7 +43,7 @@
 	user = null
 
 /datum/browser/proc/add_head_content(nhead_content)
-	head_content =islist(nhead_content) ? nhead_content : list(nhead_content)
+	head_content = islist(nhead_content) ? nhead_content : list(nhead_content)
 
 /datum/browser/proc/set_window_options(list/nwindow_options)
 	window_options = islist(nwindow_options) ? jointext(nwindow_options, "") : nwindow_options

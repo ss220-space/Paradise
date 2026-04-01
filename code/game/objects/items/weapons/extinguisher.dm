@@ -115,7 +115,7 @@
 /obj/item/extinguisher/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(!I.get_heat())
+	if(!I.get_temperature())
 		return .
 
 	update_appearance(UPDATE_ICON_STATE)

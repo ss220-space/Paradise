@@ -144,50 +144,6 @@
 	V.required_blood = 10
 	return V
 
-/obj/projectile/magic/demonic_grasp
-	name = "demonic grasp"
-	// parry this you filthy casual
-	reflectability = REFLECTABILITY_NEVER
-	icon_state = null
-
-/obj/projectile/magic/demonic_grasp/get_ru_names()
-	return list(
-			NOMINATIVE = "демоническая хватка",
-			GENITIVE = "демонической хватки",
-			DATIVE = "демонической хватке",
-			ACCUSATIVE = "демоническую хватку",
-			INSTRUMENTAL = "демонической хваткой",
-			PREPOSITIONAL = "демонической хватке",
-		)
-
-/obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
-	. = ..()
-	new /obj/effect/temp_visual/demonic_grasp(loc)
-
-/obj/projectile/magic/demonic_grasp/on_hit(mob/living/target, blocked, hit_zone)
-	. = ..()
-	if(!istype(target) || !firer || !target.affects_vampire(firer))
-		return
-
-	var/target_turf = get_turf(target)
-	target.Immobilize(5 SECONDS)
-	playsound(target_turf, 'sound/misc/demon_attack1.ogg', 50, TRUE)
-	new /obj/effect/temp_visual/demonic_grasp(target_turf)
-
-	var/throw_target
-	switch(firer.a_intent)
-		if(INTENT_DISARM)
-			throw_target = get_edge_target_turf(target, get_dir(firer, target))
-			target.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, PROC_REF(create_snare), target)) // shove away
-		if(INTENT_GRAB)
-			throw_target = get_step(firer, get_dir(firer, target))
-			target.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), target)) // pull towards
-		else
-			create_snare(target)
-
-/obj/projectile/magic/demonic_grasp/proc/create_snare(mob/living/target)
-	new /obj/effect/temp_visual/demonic_snare(get_turf(target))
-
 /obj/effect/temp_visual/demonic_grasp
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "demonic_grasp"
