@@ -63,7 +63,7 @@
 /datum/component/bubble_icon_override/proc/get_bubble_icon_target()
 	if(isclothing(parent))
 		var/obj/item/clothing/clothing = parent
-		if(istype(clothing, /obj/item/clothing/accessory))
+		if(isaccessory(clothing))
 			var/obj/item/clothing/under/uniform = clothing.loc
 			if(!istype(uniform))
 				return null
