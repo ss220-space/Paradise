@@ -255,7 +255,7 @@
 			revert_cast()
 			return FALSE
 
-		if(istype(limb,/obj/item/organ/external/chest))
+		if(ischest(limb))
 			// Bullshit, but prevents being able to instagib someone.
 			to_chat(user, span_warning("Вы пытаетесь уместить туловище у себя во рту, но у вас ничего не получается!"))
 			revert_cast()
@@ -486,9 +486,6 @@
 		if(M.fire_stacks)
 			pain_condition -= 0.5
 			thoughts = "поглощен[GEND_A_O_Y(M)] огнем"
-
-		if(M.radiation)
-			pain_condition -= 0.25
 
 		switch(pain_condition)
 			if(0.81 to INFINITY)

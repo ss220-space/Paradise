@@ -17,7 +17,7 @@
 		. += span_notice("Contains <b>[length(grenades)]/[max_grenades]</b> grenades.")
 
 /obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
-	if((istype(I, /obj/item/grenade)))
+	if((isgrenade(I)))
 		add_fingerprint(user)
 		if(length(grenades) >= max_grenades)
 			to_chat(user, span_warning("The [name] cannot hold more grenades."))

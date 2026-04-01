@@ -372,7 +372,7 @@
 		now_pushing = null
 		return
 
-	if(istype(AM, /obj/structure/window))
+	if(is_window(AM))
 		var/obj/structure/window/window = AM
 		if(window.fulltile)
 			for(var/obj/structure/window/win in get_step(window, dir_to_target))
@@ -808,7 +808,6 @@
 	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
-	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -821,6 +820,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	cure_radiation()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)
@@ -1398,7 +1398,7 @@
 		return pod.cabin_air.temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))
 		return environment.temperature()
-	if(istype(get_turf(src), /turf/space))
+	if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
@@ -2289,3 +2289,7 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/// Prints an ominous message if something bad is going to happen to you
+/mob/living/proc/ominous_nosebleed()
+	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))

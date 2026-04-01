@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - experiment: "Попытка убрать эндраунд зависание. (PR #8696)"

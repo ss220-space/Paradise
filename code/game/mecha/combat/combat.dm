@@ -2,7 +2,7 @@
 	force = 30
 	var/maxsize = 2
 	maint_access = FALSE
-	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, bio = 0, fire = 100, acid = 100)
 	destruction_sleep_duration = 4 SECONDS
 	var/am = "d3c2fbcadca903a41161ccc9df9cf948"
 

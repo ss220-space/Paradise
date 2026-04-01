@@ -135,17 +135,17 @@
 /datum/gear/uniform/skirt/job/ce
 	index_name = "skirt, ce"
 	path = /obj/item/clothing/under/rank/chief_engineer/skirt
-	allowed_roles = list(JOB_TITLE_CHIEF)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/uniform/skirt/job/atmos
 	index_name = "skirt, atmos"
 	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/uniform/skirt/job/eng
 	index_name = "skirt, engineer"
 	path = /obj/item/clothing/under/rank/engineer/skirt
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER)
 
 /datum/gear/uniform/skirt/job/roboticist
 	index_name = "skirt, roboticist"
@@ -175,7 +175,7 @@
 /datum/gear/uniform/skirt/job/med
 	index_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
 /datum/gear/uniform/skirt/job/phys
 	index_name = "skirt, physician"
@@ -195,7 +195,7 @@
 /datum/gear/uniform/skirt/job/sci
 	index_name = "skirt, scientist"
 	path = /obj/item/clothing/under/rank/scientist/skirt
-	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT)
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT)
 
 /datum/gear/uniform/skirt/job/cargo
 	index_name = "skirt, cargo"
@@ -269,7 +269,7 @@
 	index_name = "medical scrubs, select"
 	display_name = "Медицинская одежда"
 	path = /obj/item/clothing/under/rank/medical/purple
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN)
 
 /datum/gear/uniform/medical/scrubs/New()
 	..()

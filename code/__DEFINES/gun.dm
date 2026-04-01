@@ -5,6 +5,8 @@
 #define ATTACHMENT_SLOT_RAIL "rail"
 /// Under slot identifier
 #define ATTACHMENT_SLOT_UNDER "under"
+/// Sibyl slot identifier
+#define ATTACHMENT_SLOT_SIBYL "sibyl"
 
 #define GUN_MODULE_CLASS_NONE 0
 // Rail slot types flags
@@ -25,11 +27,13 @@
 #define GUN_MODULE_CLASS_SHOTGUN_UNDER (1<<9)
 #define GUN_MODULE_CLASS_RIFLE_UNDER (1<<10)
 #define GUN_MODULE_CLASS_SNIPER_UNDER (1<<11)
+#define GUN_MODULE_CLASS_ENERGY_WEAPON (1 << 12)
 
 GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
 	ATTACHMENT_SLOT_RAIL = "верхняя планка",
-	ATTACHMENT_SLOT_UNDER = "цевьё"
+	ATTACHMENT_SLOT_UNDER = "цевьё",
+	ATTACHMENT_SLOT_SIBYL = "курок"
 ))
 
 /// Single shot firemode

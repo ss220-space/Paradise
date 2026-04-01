@@ -208,8 +208,7 @@
 "bc" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{

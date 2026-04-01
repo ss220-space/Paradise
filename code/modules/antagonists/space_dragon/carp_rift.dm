@@ -17,7 +17,7 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "Разлом, позвляющий космическим карпам перемещаться на огромные расстояния."
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	light_color = LIGHT_COLOR_PURPLE
@@ -149,7 +149,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_DIM_YELLOW
 		update_light()
-		armor = armor.setRating(melee_value = 100, bullet_value = 100, laser_value = 100, energy_value = 100, bomb_value = 100, bio_value = 100, rad_value = 100, fire_value = 100, acid_value = 100)
+		armor = armor.setRating(melee_value = 100, bullet_value = 100, laser_value = 100, energy_value = 100, bomb_value = 100, bio_value = 100, fire_value = 100, acid_value = 100)
 		resistance_flags = INDESTRUCTIBLE
 		dragon.rifts_charged += 1
 		if(dragon.rifts_charged != 3 && !dragon.objective_complete)

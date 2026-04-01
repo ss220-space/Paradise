@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in slime.bodyparts_by_name)
 				var/obj/item/organ/external/external_organ = slime.bodyparts_by_name[organname]
-				if(istype(external_organ) && external_organ.dna && istype(external_organ.dna.species, /datum/species/slime))
+				if(istype(external_organ) && external_organ.dna && isslimeperson(external_organ.dna.species))
 					external_organ.sync_colour_to_human(slime)
 			slime.update_hair()
 			slime.update_body()

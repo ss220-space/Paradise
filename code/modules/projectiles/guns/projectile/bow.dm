@@ -91,7 +91,7 @@
 	update_state()
 
 /obj/item/gun/projectile/bow/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
 		if(loaded)

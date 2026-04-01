@@ -18,6 +18,7 @@
 
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
+#define JOB_TRAIT "job"
 
 #define CINEMATIC_TRAIT "cinematic"
 
@@ -110,6 +111,9 @@
 /// Source trait for /obj/item/mecha_parts/mecha_equipment/cage
 #define MECH_SUPRESSED_TRAIT "mech_supress"
 
+/// Source trait for the Bingle
+#define TRAIT_BINGLE "bingle_trait"
+
 /// Trait associated to resting
 #define RESTING_TRAIT "resting"
 /// Trait associated to a stat value or range of
@@ -172,6 +176,7 @@
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
 
+/// Trait applied by MODsuits.
 #define MODSUIT_TRAIT "modsuit_trait"
 
 #define TASER_TRAIT "taser"

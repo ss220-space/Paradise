@@ -229,7 +229,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -1103,7 +1103,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(last_used_equipment + last_used_lighting + last_used_environment)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights

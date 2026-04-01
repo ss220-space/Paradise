@@ -417,7 +417,6 @@
 /area/ruin/onehalf/hallway)
 "be" = (
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (EAST)";
 	dir = 4
 	},
 /obj/item/stack/cable_coil/cut{
@@ -460,7 +459,6 @@
 /area/ruin/onehalf/hallway)
 "bi" = (
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (EAST)";
 	dir = 4
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -807,7 +805,6 @@
 	dir = 4
 	},
 /obj/item/shard{
-	tag = "icon-small";
 	icon_state = "small"
 	},
 /turf/space,
@@ -834,7 +831,6 @@
 /area/ruin/onehalf/bridge)
 "cq" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -844,7 +840,6 @@
 /area/ruin/onehalf/bridge)
 "cs" = (
 /obj/structure/chair{
-	tag = "icon-chair (NORTH)";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -893,7 +888,6 @@
 "cy" = (
 /obj/structure/lattice,
 /obj/item/shard{
-	tag = "icon-medium";
 	icon_state = "medium"
 	},
 /turf/space,
@@ -954,11 +948,9 @@
 "cH" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (NORTH)";
 	dir = 1
 	},
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (WEST)";
 	dir = 8
 	},
 /turf/space,
@@ -1000,7 +992,6 @@
 /area/ruin/onehalf/bridge)
 "cN" = (
 /obj/structure/chair/comfy/black{
-	tag = "icon-comfychair (EAST)";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1156,7 +1147,6 @@
 	icon_state = "4-8"
 	},
 /obj/item/shard{
-	tag = "icon-medium";
 	icon_state = "medium"
 	},
 /turf/space,

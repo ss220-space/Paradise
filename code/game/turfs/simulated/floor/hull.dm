@@ -24,4 +24,3 @@
 	desc = "Extremely sturdy exterior hull plating that separates you from the uncaring vacuum of space."
 	explosion_vertical_block = 3
 	icon_state = "reinforced_hull"
-	heat_capacity = INFINITY

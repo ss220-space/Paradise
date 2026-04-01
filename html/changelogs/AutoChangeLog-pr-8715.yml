@@ -1,6 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - sound: "Новые звуки рингтона ПДА. (PR #8715)"
-  - qol: "Список для выбора рингтона в ПДА. (PR #8715)"
-  - bugfix: "ПДА рингтоны снова работают. (PR #8715)"

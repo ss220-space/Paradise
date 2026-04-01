@@ -1,8 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
@@ -38,16 +37,14 @@
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "g" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "h" = (
@@ -98,8 +95,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "s" = (
@@ -130,16 +126,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "y" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "z" = (
@@ -148,8 +142,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "B" = (
@@ -175,8 +168,7 @@
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "G" = (
@@ -200,8 +192,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "J" = (
@@ -220,8 +211,7 @@
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 "O" = (
@@ -242,11 +232,6 @@
 "R" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
-	},
-/area/shuttle/transport)
-"T" = (
-/turf/simulated/wall/shuttle{
-	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
 "V" = (
@@ -300,8 +285,7 @@
 /obj/item/robot_parts/r_leg,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
 
@@ -344,7 +328,7 @@ J
 J
 B
 G
-T
+J
 J
 "}
 (7,1,1) = {"

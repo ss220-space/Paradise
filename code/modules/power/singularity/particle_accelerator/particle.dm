@@ -1,5 +1,5 @@
 /obj/effect/accelerated_particle
-	name = "Accelerated Particles"
+	name = "accelerated particles"
 	desc = "Small things moving very fast."
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "particle"
@@ -43,7 +43,7 @@
 /obj/effect/accelerated_particle/proc/try_irradiate(atom/movable/thing)
 	if(isliving(thing))
 		var/mob/living/living_thing = thing
-		living_thing.apply_effect((energy * 6), IRRADIATE, 0)
+		SSradiation.irradiate(living_thing)
 	else if(istype(thing, /obj/machinery/the_singularitygen))
 		var/obj/machinery/the_singularitygen/singularitygen = thing
 		singularitygen.energy += energy
@@ -51,11 +51,17 @@
 		var/obj/structure/blob/blob = thing
 		blob.take_damage(energy * 0.6)
 
+/// The particles bump the singularity
 /obj/effect/accelerated_particle/Bump(obj/singularity/bumped_singulo)
 	. = ..()
 	if(. || !istype(bumped_singulo))
 		return .
 	bumped_singulo.energy += energy
+	energy = 0
+
+/// The singularity bumps the particles
+/obj/effect/accelerated_particle/singularity_act()
+	return
 
 /obj/effect/accelerated_particle/ex_act(severity, target)
 	qdel(src)
@@ -70,4 +76,3 @@
 	var/turf/check = get_step(src, dir)
 	if(check)
 		forceMove(check)
-
