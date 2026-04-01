@@ -2421,3 +2421,33 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("заробастил")
 	hitsound = 'sound/items/squeaktoy.ogg'
+
+/obj/item/toy/plushie/pizdos
+	name = "плюшевая игрушка пиздоса"
+	icon_state = "pizdos"
+	item_state = "pizdos"
+	var/list/pizdos_sounds = list('sound/effects/pizdosik.ogg', 'sound/effects/pizdos.ogg')
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/pizdos/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, pick(pizdos_sounds), 20, FALSE)
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/pizdos/pizdosik
+	name = "плюшевая игрушка пиздосика"
+	icon_state = "pizdosik"
+	item_state = "pizdosik"
+
+/obj/item/toy/plushie/krochi
+	name = "плюшевая игрушка кроччи"
+	icon_state = "крочи"
+	item_state = "крочи"
+
+/obj/item/toy/plushie/ketchup
+	name = "плюшевая игрушка саннаби"
+	icon_state = "разбаньте кетчупа"
+	item_state = "разбаньте кетчупа"
