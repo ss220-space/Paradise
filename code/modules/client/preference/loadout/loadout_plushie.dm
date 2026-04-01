@@ -87,3 +87,19 @@
 		/obj/item/toy/plushie/hampter/janitor
 	)
 	gear_tweaks += new /datum/gear_tweak/path(hampters, src, TRUE)
+
+/datum/gear/plushie/pizdos
+	index_name = "Pizdos Plushie"
+	path = /obj/item/toy/plushie/pizdos
+
+/datum/gear/plushie/pizdosik
+	index_name = "Pizdosik Plushie"
+	path = /obj/item/toy/plushie/pizdosik
+
+/datum/gear/plushie/crochi
+	index_name = "krochi Plushie"
+	path = /obj/item/toy/plushie/krochi
+
+/datum/gear/plushie/sanabi
+	index_name = "SANABI Plushie"
+	path = /obj/item/toy/plushie/sanabi
