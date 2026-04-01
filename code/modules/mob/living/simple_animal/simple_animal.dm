@@ -442,7 +442,7 @@
 		return
 	for(var/item in loot)
 		new item(drop_loc)
-	loot.Cut()
+	loot = null
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
