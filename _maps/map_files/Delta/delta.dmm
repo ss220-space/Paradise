@@ -38965,6 +38965,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "eue" = (
@@ -46687,17 +46688,7 @@
 	},
 /area/engineering/hardsuitstorage)
 "glH" = (
-/obj/machinery/door/window/southleft{
-	name = "Bar Delivery";
-	req_access = list(25);
-	tag = "icon-left (WEST)"
-	},
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/window/southleft{
 	name = "Bar Delivery";
 	req_access = list(25)
@@ -56944,12 +56935,6 @@
 	},
 /area/bridge/vip)
 "ixL" = (
-/obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -67346,11 +67331,6 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "kXf" = (
-/obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
-	},
-/obj/structure/curtain/open/shower,
 /obj/machinery/door_control{
 	id = "showers";
 	name = "Door Bolt Control";
@@ -67359,22 +67339,10 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/shower{
 	dir = 8
 	},
 /obj/structure/curtain/open/shower,
-/obj/machinery/door_control{
-	id = "showers";
-	name = "Door Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	specialfunctions = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -70998,6 +70966,11 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/restroom)
+"lSF" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel,
+/area/engineering/engine)
 "lSG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -112121,6 +112094,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/test_chamber)
+"uKP" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/engineering/engine)
 "uKQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/secure/briefcase{
@@ -151590,7 +151569,7 @@ uPO
 tab
 bXU
 fFR
-tzM
+uKP
 tzM
 xjM
 uyI
@@ -152361,7 +152340,7 @@ dSF
 tPh
 tPh
 tPh
-tPh
+lSF
 tPh
 tPh
 cPX

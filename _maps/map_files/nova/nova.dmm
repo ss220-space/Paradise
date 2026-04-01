@@ -26725,6 +26725,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -30603,6 +30604,14 @@
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/ai)
+"eyl" = (
+/obj/structure/railing,
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/hallway/primary/central/second/east)
 "eyn" = (
 /obj/structure/chair{
 	dir = 4
@@ -59371,6 +59380,12 @@
 	icon_state = "dark"
 	},
 /area/security/prisonlockers)
+"iMQ" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/hallway/primary/central/second/south)
 "iMS" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -64497,22 +64512,7 @@
 	},
 /area/medical/cmostore)
 "jAj" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/item/radio/intercom/directional/west,
-/obj/structure/curtain/open/shower,
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/shower{
 	dir = 4;
 	pixel_y = 4
@@ -65913,6 +65913,12 @@
 "jKs" = (
 /turf/simulated/wall/r_wall,
 /area/security/checkpoint/south)
+"jKu" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/quartermaster/office)
 "jKB" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -67523,22 +67529,7 @@
 	},
 /area/hallway/primary/central/second/north)
 "jWt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 8;
-	tag = "icon-shower (EAST)"
-	},
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12
@@ -70840,6 +70831,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "kxH" = (
 /obj/machinery/light,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -92683,18 +92675,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "nOi" = (
-/obj/machinery/door/window/brigdoor,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
-	},
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/door/window/brigdoor,
 /obj/machinery/shower{
 	dir = 4;
@@ -113578,6 +113559,13 @@
 "qRd" = (
 /turf/simulated/wall,
 /area/maintenance/asmaint6)
+"qRe" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/hallway/primary/central/second/east)
 "qRh" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
@@ -122645,28 +122633,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/junction{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -123443,6 +123409,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"snb" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/lobby)
 "snf" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -143037,6 +143009,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -148686,6 +148659,13 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"vVX" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/hallway/primary/central/second/west)
 "vVZ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -253841,7 +253821,7 @@ fnc
 fnc
 fnc
 nUf
-ivW
+acx
 ugJ
 pvk
 qub
@@ -256662,7 +256642,7 @@ bkc
 gAz
 mHk
 aop
-fnc
+aAj
 lpF
 arE
 arE
@@ -258724,7 +258704,7 @@ tMg
 tMg
 tMg
 lFo
-ivW
+acx
 ugJ
 pvk
 odS
@@ -259240,7 +259220,7 @@ tMg
 jFd
 oZE
 ugJ
-pvk
+snb
 wGw
 deS
 gaj
@@ -260001,7 +259981,7 @@ nVk
 rNd
 piG
 gJw
-mHk
+vVX
 aop
 fnc
 lpF
@@ -260009,7 +259989,7 @@ tMg
 tMg
 tMg
 lFo
-ivW
+acx
 apJ
 gZx
 oRb
@@ -261033,7 +261013,7 @@ uAB
 lwq
 hCb
 nll
-nll
+iMQ
 gkk
 cwB
 cwB
@@ -262061,7 +262041,7 @@ uAB
 sNF
 cXW
 nll
-nll
+iMQ
 nrD
 hwN
 cwB
@@ -267457,7 +267437,7 @@ uMt
 lQY
 xqA
 fEy
-jKC
+eyl
 sJR
 sJR
 sJR
@@ -269763,7 +269743,7 @@ dAU
 iks
 aBZ
 dMD
-dMD
+qRe
 dMD
 jfJ
 rDj
@@ -270796,7 +270776,7 @@ wSM
 fFn
 nHs
 cSB
-cSB
+jKu
 amM
 gfP
 gfP
@@ -272594,7 +272574,7 @@ cSB
 cSB
 cSB
 cSB
-cSB
+jKu
 xAp
 sCn
 gfP

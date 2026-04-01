@@ -27997,17 +27997,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "kdY" = (
-/obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
-	},
-/obj/structure/curtain/open/shower,
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/shower{
 	dir = 4
 	},
@@ -51388,22 +51378,11 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/cmo)
 "sGl" = (
-/obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
-	},
 /obj/structure/curtain/open/shower,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
