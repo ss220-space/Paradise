@@ -383,6 +383,7 @@ pub(crate) fn post_process(
             if my_next_tile.hotspot_volume > 0.0 {
                 react(my_next_tile, true);
             }
+            do_turf_effects(my_next_tile);
 
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
@@ -825,8 +826,6 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             }
         }
     }
-
-    do_turf_effects(my_next_tile);
 
     // N2O FORMATION
     if cached_temperature >= N2O_FORMATION_MIN_TEMPERATURE
