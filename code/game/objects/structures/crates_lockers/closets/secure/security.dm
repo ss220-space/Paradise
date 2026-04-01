@@ -344,7 +344,7 @@
 /obj/structure/closet/secure_closet/guncabinet/lasercarbine/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/lasercarbine(src)
+		new /obj/item/gun/projectile/automatic/ik60(src)
 	new /obj/item/disk/design_disk/security/laser_carbine_mag(src)
 
 /obj/structure/closet/secure_closet/guncabinet/plasma_pistols

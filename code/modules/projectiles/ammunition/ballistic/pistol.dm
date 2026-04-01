@@ -132,6 +132,9 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	bullet_type = BULLET_TYPE_RUBBER
 
+/obj/item/ammo_casing/c45/empty
+	projectile_type = null
+
 // MARK: .45 Colt
 /obj/item/ammo_casing/c45colt
 	desc = "A .45 Colt bullet casing."

@@ -995,12 +995,12 @@
 	id = "aksu_ammo_box"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
-	build_path = /obj/item/ammo_box/ak814/fusty
+	build_path = /obj/item/ammo_box/a545x39/fusty
 	category = list(AUTOLATHE_CATEGORY_IMPORTED)
 
 /datum/design/laser_carbine_mag
 	id = "lk_mag_empty"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
-	build_path = /obj/item/ammo_box/magazine/laser/empty
+	build_path = /obj/item/ammo_box/magazine/ik60mag/empty
 	category = list(AUTOLATHE_CATEGORY_IMPORTED)

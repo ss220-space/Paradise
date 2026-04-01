@@ -40,6 +40,14 @@
 		PREPOSITIONAL = "автоматном магазине AK-814 (5,45x39 мм)",
 	)
 
+/obj/item/ammo_box/magazine/ak814/fusty
+	ammo_type = /obj/item/ammo_casing/a545/fusty
+
+/obj/item/ammo_box/magazine/ak814/fusty/empty
+	start_empty = TRUE
+
+
+
 // MARK: 5.45x39mm - AKS-74U
 /obj/item/ammo_box/magazine/aks74u
 	name = "AK magazine (5.45x39mm)"
@@ -60,6 +68,9 @@
 		INSTRUMENTAL = "автоматным магазином АКС-74У (5,45x39 мм)",
 		PREPOSITIONAL = "автоматном магазине АКС-74У (5,45x39 мм)",
 	)
+
+/obj/item/ammo_box/magazine/aksu/empty
+	start_empty = TRUE
 
 // MARK: 7.62x51mm - M-52
 /obj/item/ammo_box/magazine/m52mag
@@ -102,6 +113,9 @@
 
 /obj/item/ammo_box/magazine/ik60mag/update_icon_state()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(FALSE)/20, 1)*20]"
+
+/obj/item/ammo_box/magazine/ik60mag/empty
+	start_empty = TRUE
 
 // MARK: Laser - LR-30
 /obj/item/ammo_box/magazine/lr30mag

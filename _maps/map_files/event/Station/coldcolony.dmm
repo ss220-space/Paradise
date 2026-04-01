@@ -14793,6 +14793,14 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/tcomm)
+"fwu" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "fwH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -21380,9 +21388,10 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/resid_serv/library)
 "hUc" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/landmark/start/hangover,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/coldcolony/malta/engineering/atmos)
 "hUh" = (
 /turf/simulated/floor/wood/cherry/cold,
@@ -27772,19 +27781,6 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "kkL" = (
-/obj/machinery/atmospherics/trinary/filter{
-	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
-	filter_type = 3;
-	name = "Фильтр Углекислого Газа (СO2)";
-	on = 1;
-	target_pressure = 4500
-	},
-/obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
 	name = "Фильтр Углекислого Газа (СO2)";
@@ -35519,7 +35515,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -60376,6 +60371,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -64380,6 +64376,7 @@
 /area/coldcolony/malta/medical/virology)
 "xFN" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -65654,6 +65651,7 @@
 /area/coldcolony/malta/engineering/storage)
 "ygu" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "ygz" = (
@@ -101053,7 +101051,7 @@ nvQ
 rRE
 cik
 jXj
-gue
+fwu
 fyv
 hMc
 gue
@@ -101575,7 +101573,7 @@ vvg
 wjX
 tcg
 rHq
-hUc
+lKo
 lKo
 kui
 pYW
@@ -102083,7 +102081,7 @@ rLG
 cWP
 aju
 ggK
-qjZ
+hUc
 xvE
 qRW
 aKM
