@@ -40,7 +40,7 @@
 /datum/station_trait/hangover
 	name = "Последствия корпоратива"
 	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 2
+	weight = 10
 	show_in_report = TRUE
 	report_message = "Вчерашний обязательный тимбилдинг прошёл... слишком эффективно. Постарайтесь не дышать перегаром на атмосферные сенсоры."
 	trait_to_give = STATION_TRAIT_HANGOVER
