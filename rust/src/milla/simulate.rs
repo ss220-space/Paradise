@@ -536,10 +536,6 @@ pub(crate) fn check_interesting(
             reasons |= ReasonFlags::DISPLAY;
         }
 
-        if do_turf_effects(my_next_tile) {
-            reasons |= ReasonFlags::CONDENSATION;
-        }
-
         reasons |= my_next_tile.updates;
 
         if my_next_tile.temperature() > PLASMA_BURN_MIN_TEMP {
@@ -829,6 +825,8 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
             }
         }
     }
+
+    do_turf_effects(my_next_tile);
 
     // N2O FORMATION
     if cached_temperature >= N2O_FORMATION_MIN_TEMPERATURE
@@ -1547,13 +1545,13 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 }
 
 /// Apply the effects of the gas onto the turf itself
-pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
+pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) {
     // Calculate the water saturation pressure using the Arden Buck equation
     let saturation_pressure: f32;
     let water_vapor: f32 = my_next_tile.gases.water_vapor();
 
     if water_vapor < 0.0 {
-        return false;
+        return;
     }
 
     let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
@@ -1582,10 +1580,9 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
         if water_vapor > WATER_VAPOR_MIN_SATURATION_MOLES {
-            return true;
+            my_next_tile.updates |= ReasonFlags::CONDENSATION;
         }
     }
-    false
 }
 
 /// Apply effects caused by the tile's atmos mode.
