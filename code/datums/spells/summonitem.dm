@@ -47,18 +47,32 @@
 		else if(marked_item && (marked_item in hand_items)) //unlinking item to the spell
 			message = span_notice("You remove the mark on [marked_item] to use elsewhere.")
 			name = "Instant Summons"
-			marked_item =		null
+			marked_item = null
 
 		else if(marked_item && !marked_item.loc) //the item was destroyed at some point
 			message = span_warning("You sense your marked item has been destroyed!")
 			name = "Instant Summons"
-			marked_item =		null
+			marked_item = null
+			continue
 
 		else	//Getting previously marked item
-			var/obj/item_to_retrieve = marked_item
+			var/obj/item/item_to_retrieve = marked_item
 			var/infinite_recursion = 0 //I don't want to know how someone could put something inside itself but these are wizards so let's be safe
 
-			while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
+			// Check if it's an external bodypart attached to a mob (loc == owner)
+			if(isexternalorgan(item_to_retrieve))
+				var/obj/item/organ/external/bodypart = item_to_retrieve
+				if(bodypart.owner && bodypart.loc == bodypart.owner && ishuman(bodypart.owner))
+					bodypart.droplimb(silent = FALSE)
+					if(QDELETED(bodypart))
+						message = span_warning("You sense your marked bodypart has been destroyed!")
+						name = "Instant Summons"
+						marked_item = null
+						continue
+					item_to_retrieve = bodypart
+
+			// Normal item retrieval - walk up the containment chain
+			while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10)
 				if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 					var/mob/M = item_to_retrieve.loc
 
@@ -96,15 +110,13 @@
 			if(!item_to_retrieve)
 				return
 
-			var/turf/target_turf = get_turf(target)
-			if(!target_turf)
-				return
-
-			item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
-			playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
+			var/turf/item_turf = get_turf(item_to_retrieve)
+			if(item_turf)
+				item_turf.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
+			playsound(get_turf(target), 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
 			if(!target.put_in_active_hand(item_to_retrieve) && !target.put_in_inactive_hand(item_to_retrieve))
-				item_to_retrieve.loc = target_turf
+				item_to_retrieve.loc = get_turf(target)
 				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears!"))
 			else
 				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears in [target]'s hand!"))
