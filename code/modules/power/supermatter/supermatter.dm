@@ -805,8 +805,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	additive_waste_multiplier[SM_WASTE_GAS] = gas_heat_modifier
 	additive_waste_multiplier[SM_WASTE_SOOTHED] = -0.2 * psy_coeff
 
-	for(var/waste_type, waste_multiplier in additive_waste_multiplier)
-		waste_multiplier += waste_multiplier
+	for(var/waste_type, multiplier in additive_waste_multiplier)
+		waste_multiplier += multiplier
 	waste_multiplier = clamp(waste_multiplier, 0.5, INFINITY)
 	return additive_waste_multiplier
 
@@ -829,8 +829,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	additive_temp_limit[SM_TEMP_LIMIT_LOW_MOLES] =  clamp(2 - absorbed_gasmix.total_moles() / 100, 0, 1) * (T0C + HEAT_PENALTY_THRESHOLD)
 
 	temp_limit = 0
-	for(var/resistance_type, temp_limit in additive_temp_limit)
-		temp_limit += temp_limit
+	for(var/resistance_type, limit in additive_temp_limit)
+		temp_limit += limit
 	temp_limit = max(temp_limit, TCMB)
 
 	return additive_temp_limit

@@ -174,7 +174,7 @@
 
 /obj/effect/old_anomaly/energetic/Initialize(mapload, new_lifespan, drops_core = TRUE, explosive = TRUE)
 	. = ..()
-	explosive = src.explosive
+	src.explosive = explosive
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
