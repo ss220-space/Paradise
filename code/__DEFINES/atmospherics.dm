@@ -58,18 +58,7 @@
 #define BREATH_PERCENTAGE (BREATH_VOLUME/CELL_VOLUME) //Amount of air to take a from a tile
 
 //EXCITED GROUPS
-#define EXCITED_GROUP_BREAKDOWN_CYCLES 10 //number of FULL air controller ticks before an excited group breaks down (averages gas contents across turfs)
-#define EXCITED_GROUP_DISMANTLE_CYCLES 20 //number of FULL air controller ticks before an excited group dismantles and removes its turfs from active
-#define MINIMUM_AIR_RATIO_TO_SUSPEND 0.005 //Minimum ratio of air that must move to/from a tile to suspend group processing
-#define MINIMUM_AIR_TO_SUSPEND (MOLES_CELLSTANDARD * MINIMUM_AIR_RATIO_TO_SUSPEND)	//Minimum amount of air that has to move before a group processing can be suspended
-#define MINIMUM_MOLES_DELTA_TO_MOVE (MOLES_CELLSTANDARD * MINIMUM_AIR_RATIO_TO_SUSPEND) //Either this must be active
-#define MINIMUM_TEMPERATURE_TO_MOVE (T20C + 100) //or this (or both, obviously)
-#define MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND 0.012
-#define MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND 4 //Minimum temperature difference before group processing is suspended
 #define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER 0.5 //Minimum temperature difference before the gas temperatures are just set to be equal
-#define MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION (T20C + 10)
-#define MINIMUM_TEMPERATURE_START_SUPERCONDUCTION (T20C + 200)
-
 
 // Body temperature warning icons
 /// The temperature the red icon is displayed.
@@ -198,6 +187,9 @@
 #define ATMOS_ALARM_WARNING 1
 #define ATMOS_ALARM_DANGER 2
 
+
+/// The minimum heat capacity of a gas
+#define MINIMUM_HEAT_CAPACITY 0.0003
 #define MINIMUM_MOLE_COUNT 0.01
 
 // Ventcrawling bitflags, handled in var/vent_movement
@@ -271,6 +263,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define LAVALAND_OXYGEN 14
 #define LAVALAND_NITROGEN 23
 
+/// The maximum temperature of Lavaland
+#define LAVALAND_MAX_TEMPERATURE 350
+/// The minimum temperature of Icebox
+#define ICEBOX_MIN_TEMPERATURE 180
 
 // Reactions
 #define N2O_DECOMPOSITION_MIN_ENERGY 1400
@@ -709,3 +705,28 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /// The divisor for the maximum antinoblium conversion rate. (1/90 of the antinoblium converts other gases to antinoblium in one reaction tick.)
 #define ANTINOBLIUM_CONVERSION_DIVISOR 90
 
+// Electrolysis:
+// Electrolysis arguments:
+/// Supermatter power argument.
+#define ELECTROLYSIS_ARGUMENT_SUPERMATTER_POWER "electrolyzer_supermatter_power"
+
+#define SPECIFIC_HEAT_TOXIN 200
+#define SPECIFIC_HEAT_AIR 20
+#define SPECIFIC_HEAT_CDO 30
+#define SPECIFIC_HEAT_N2O 40
+#define SPECIFIC_HEAT_AGENT_B 300
+#define SPECIFIC_HEAT_HYDROGEN 15
+#define SPECIFIC_HEAT_WATER_VAPOR 33
+#define SPECIFIC_HEAT_HYPER_NOBLIUM 2000
+#define SPECIFIC_HEAT_NITRIUM 10
+#define SPECIFIC_HEAT_TRITIUM 10
+#define SPECIFIC_HEAT_BZ 20
+#define SPECIFIC_HEAT_PLUOXIUM 80
+#define SPECIFIC_HEAT_MIASMA 20
+#define SPECIFIC_HEAT_FREON 600
+#define SPECIFIC_HEAT_HEALIUM 10
+#define SPECIFIC_HEAT_PROTO_NITRATE 30
+#define SPECIFIC_HEAT_ZAUKER 350
+#define SPECIFIC_HEAT_HALON 175
+#define SPECIFIC_HEAT_HELIUM 15
+#define SPECIFIC_HEAT_ANTINOBLIUM 1

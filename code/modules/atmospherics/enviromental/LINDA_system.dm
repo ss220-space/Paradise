@@ -166,7 +166,7 @@
 		gas.set_antinoblium(gas.antinoblium() + amount)
 
 	if(flag & LINDA_SPAWN_HYPER_NOBLIUM)
-		gas.set_hyper_noblium(gas.hyper_noblium() + amount)
+		gas.set_hypernoblium(gas.hypernoblium() + amount)
 
 	if(flag & LINDA_SPAWN_TRITIUM)
 		gas.set_tritium(gas.tritium() + amount)
@@ -205,6 +205,6 @@
 		gas.set_antinoblium(gas.antinoblium() + amount)
 
 	if(flag & LINDA_SPAWN_HYPER_NOBLIUM)
-		gas.set_hyper_noblium(gas.hyper_noblium() + amount)
+		gas.set_hypernoblium(gas.hypernoblium() + amount)
 
 	blind_release_air(gas)

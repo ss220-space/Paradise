@@ -59,11 +59,8 @@
 /turf/simulated/floor/shuttle,
 /area/ruin/powered)
 "o" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3";
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor3"
 	},
 /area/ruin/powered)
 "p" = (
@@ -73,49 +70,34 @@
 "r" = (
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "s" = (
 /obj/structure/mecha_wreckage/ripley/firefighter,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "t" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "u" = (
 /obj/effect/decal/cleanable/blood/gibs/robot/up,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "v" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "w" = (
@@ -124,21 +106,15 @@
 "x" = (
 /obj/structure/mecha_wreckage/durand,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "y" = (
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "z" = (
@@ -148,11 +124,8 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "A" = (
@@ -160,11 +133,8 @@
 	id_tag = "mecha cargo";
 	name = "Cargo Bay Door"
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3";
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor3"
 	},
 /area/ruin/powered)
 "B" = (
@@ -192,11 +162,8 @@
 "G" = (
 /obj/structure/mecha_wreckage/odysseus,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "H" = (
@@ -217,11 +184,8 @@
 /area/space)
 "L" = (
 /obj/structure/mecha_wreckage/gygax,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3";
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor3"
 	},
 /area/ruin/powered)
 "M" = (
@@ -239,11 +203,8 @@
 "P" = (
 /obj/structure/mecha_wreckage/phazon,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "Q" = (
@@ -275,20 +236,14 @@
 /area/ruin/powered)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3";
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/airless{
+	icon_state = "floor3"
 	},
 /area/ruin/powered)
 

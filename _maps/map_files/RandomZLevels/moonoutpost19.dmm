@@ -1032,11 +1032,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plasteel{
-	nitrogen = 0;
-	oxygen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/moonoutpost19/syndicateoutpost)
 "cr" = (
 /obj/structure/alien/weeds{
@@ -5657,15 +5653,13 @@
 	name = "old sink";
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "lx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ly" = (
@@ -5675,9 +5669,8 @@
 	},
 /obj/item/storage/box/mousetraps,
 /obj/item/clothing/under/waiter,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "lB" = (
@@ -5820,9 +5813,8 @@
 	desc = "They look like human remains. The skeleton is sitting upright with its legs tucked in and hands still holding onto its arms."
 	},
 /obj/item/gun/projectile/shotgun/sc_pump,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "lX" = (
@@ -6944,9 +6936,8 @@
 /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "oL" = (
@@ -6959,9 +6950,8 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "oM" = (
@@ -6975,9 +6965,8 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/storage/fancy/egg_box,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 273.15
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "oO" = (
