@@ -533,13 +533,13 @@
 				return
 			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture_state != FRACTURE_TYPE_OPEN)
 				return
+			bodypart.owner.emote("scream")
 			if(prob(30)) //success
 				bodypart.fracture_state = FRACTURE_TYPE_CLOSED
-			else //fail
-				bodypart.owner.emote("scream")
-				bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
-				bodypart.external_receive_damage(brute = 10)
-				bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
+				return
+			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
+			bodypart.external_receive_damage(brute = 12)
+			bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
 			return
 
 	if(href_list["criminal"])

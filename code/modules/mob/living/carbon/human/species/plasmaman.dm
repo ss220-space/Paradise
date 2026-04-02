@@ -258,11 +258,11 @@
 	SIGNAL_HANDLER
 	switch(fracture_type)
 		if(FRACTURE_TYPE_CRACK)
-			user.reagents.add_reagent("plasma_dust", 8)
+			user.reagents.add_reagent(/datum/reagent/plasma_dust, 8)
 		if(FRACTURE_TYPE_OPEN)
-			user.reagents.add_reagent("plasma_dust", 30)
+			user.reagents.add_reagent(/datum/reagent/plasma_dust, 30)
 		else
-			user.reagents.add_reagent("plasma_dust", 15)
+			user.reagents.add_reagent(/datum/reagent/plasma_dust, 15)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
