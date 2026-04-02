@@ -1426,6 +1426,12 @@
 	/// Return this to signal that the mob should be removed from the vehicle
 	#define EJECT_FROM_VEHICLE (1<<0)
 
+
+/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
+/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"
+
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_EARLY_LEFT_HOST "borer_early_leave"
@@ -1585,7 +1591,3 @@
 
 #define COMSIG_IRRADIATED_PROCESS "irradiated_process"
 
-/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
-#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
-/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
-#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"

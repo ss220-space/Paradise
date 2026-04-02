@@ -767,6 +767,27 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	ruin_template = null
 	return ..()
 
+/**
+ * MARK: Event Spawn
+ * Generic event spawn points
+ *
+ * These are placed in locales where there are likely to be players, and places which are identifiable at a glance -
+ * Such as public hallways, department rooms, head of staff offices, and non-generic maintenance locations
+ *
+ * Used in events to cause effects in locations where it is likely to effect players
+ */
+/obj/effect/landmark/event_spawn
+	name = "generic event spawn"
+	icon_state = "generic_event"
+
+/obj/effect/landmark/event_spawn/Initialize(mapload)
+	. = ..()
+	GLOB.generic_event_spawns += src
+
+/obj/effect/landmark/event_spawn/Destroy()
+	GLOB.generic_event_spawns -= src
+	return ..()
+
 // MARK: OVERRIDE (shit)
 /obj/effect/landmark/start_override
 	name = "start_override"
@@ -812,23 +833,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/game_test/top_right_corner
 	name = "game test zone top right"
 
-/**
- * MARK: Event Spawn
- * Generic event spawn points
- *
- * These are placed in locales where there are likely to be players, and places which are identifiable at a glance -
- * Such as public hallways, department rooms, head of staff offices, and non-generic maintenance locations
- *
- * Used in events to cause effects in locations where it is likely to effect players
- */
-/obj/effect/landmark/event_spawn
-	name = "generic event spawn"
-	icon_state = "generic_event"
-
-/obj/effect/landmark/event_spawn/Initialize(mapload)
-	. = ..()
-	GLOB.generic_event_spawns += src
-
-/obj/effect/landmark/event_spawn/Destroy()
-	GLOB.generic_event_spawns -= src
-	return ..()
