@@ -1,0 +1,60 @@
+@use '../colors';
+
+$status-colors: (
+  'active': colors.$green,
+  'активный': colors.$green,
+  'unconcious': colors.$yellow,
+  'physically unfit': colors.$orange,
+  'deceased': colors.$red,
+  'смерть': colors.$red,
+  'крс': colors.$red,
+  'стабильное': colors.$blue,
+  'нетрудоспособность': colors.$yellow,
+  'ограниченные возможности': colors.$orange,
+);
+
+.row-even {
+  background-color: hsla(0, 0%, 50%, 0.1);
+}
+
+.row-odd {
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+
+.CrewManifest__dept-command .Section__title {
+  border-bottom-color: #526aff;
+}
+
+.CrewManifest__dept-procedure .Section__title {
+  border-bottom-color: #E3027A;
+}
+
+.CrewManifest__dept-security .Section__title {
+  border-bottom-color: #CF0000;
+}
+
+.CrewManifest__dept-engineering .Section__title {
+  border-bottom-color: #A66300;
+}
+
+.CrewManifest__dept-medical .Section__title {
+  border-bottom-color: #009190;
+}
+
+.CrewManifest__dept-science .Section__title {
+  border-bottom-color: #993399;
+}
+
+.CrewManifest__dept-service .Section__title {
+  border-bottom-color: #80A000;
+}
+
+.CrewManifest__dept-supply .Section__title {
+  border-bottom-color: #9F8545;
+}
+
+@each $status, $color in $status-colors {
+  .manifest-indicator-#{$status} {
+    color: $color !important;
+  }
+}
