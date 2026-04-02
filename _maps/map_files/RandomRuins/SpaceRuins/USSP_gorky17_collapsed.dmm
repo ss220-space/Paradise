@@ -2294,7 +2294,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/gun/projectile/automatic/aksu/rusted,
+/obj/item/gun/projectile/automatic/aks74u/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hn" = (
@@ -11699,7 +11699,7 @@
 	req_access = list(123)
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_box/magazine/aksu,
+/obj/item/ammo_box/magazine/aks74u,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -12292,8 +12292,8 @@
 	name = "Gorky17 ammunition locker";
 	req_access = list(123)
 	},
-/obj/item/ammo_box/magazine/aksu,
-/obj/item/gun/projectile/automatic/aksu/rusted,
+/obj/item/ammo_box/magazine/aks74u,
+/obj/item/gun/projectile/automatic/aks74u/rusted,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -15715,7 +15715,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/aksu/rusted,
+/obj/item/gun/projectile/automatic/aks74u/rusted,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

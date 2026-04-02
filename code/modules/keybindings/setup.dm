@@ -19,18 +19,11 @@
 
 	erase_all_macros()
 
-	var/list/macro_sets = SSinput.macro_set
-	for(var/i in 1 to length(macro_sets))
-		var/setname = macro_sets[i]
-		if(setname != "default")
-			winclone(src, "default", setname)
-		var/list/macro_set = macro_sets[setname]
-		for(var/k in 1 to length(macro_set))
-			var/key = macro_set[k]
-			var/command = macro_set[key]
-			winset(src, "[setname]-[key]", "parent=[setname];name=[key];command=[command]")
-
-	winset(src, null, "input.border=line") //screw you, we start in hotkey mode now
+	var/list/macro_set = SSinput.macro_set
+	for(var/k in 1 to length(macro_set))
+		var/key = macro_set[k]
+		var/command = macro_set[key]
+		winset(src, "default-[key]", "parent=default;name=[key];command=[command]")
 
 	calculate_move_dir()
 

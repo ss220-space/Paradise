@@ -548,6 +548,15 @@ pub(crate) fn internal_set_tile(
     if let Some(value) = hypernoblium {
         tile.gases.set_hypernoblium(value);
     }
+    if let Some(value) = environment {
+        let environments;
+        {
+            let global_environments = buffers.environments.read().unwrap();
+            environments = global_environments.clone().into_boxed_slice();
+        }
+        let environment = &environments[value as usize];
+        tile.gases.copy_from(&environment.gases);
+    }
     // Done sooner because we need innate heat capacity to calculate thermal energy from
     // temperature.
     if let Some(value) = innate_heat_capacity {

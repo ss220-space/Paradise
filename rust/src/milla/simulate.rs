@@ -239,19 +239,14 @@ pub(crate) fn flow_air_once_at_index(
 
         for i in 0..GAS_COUNT {
             let incoming = inflow * new_neighbor.gases.values[i];
-            let outgoing = outflow * my_tile.gases.values[i];
+
             new_gas_values[i] += incoming;
             outgoing_gas_mult[i] += outflow;
 
-            let incoming_heat_cap = incoming * SPECIFIC_HEATS[i];
+            let temperature_weight = incoming * SPECIFIC_HEATS[i];
             total_weighted_temperature +=
-                new_neighbor.temperature() * incoming_heat_cap * TEMPERATURE_FLOW_RATE;
-            total_temperature_weights += incoming_heat_cap * TEMPERATURE_FLOW_RATE;
-
-            let outgoing_heat_cap = outgoing * SPECIFIC_HEATS[i];
-            total_weighted_temperature -=
-                my_tile.temperature() * outgoing_heat_cap * TEMPERATURE_FLOW_RATE;
-            total_temperature_weights -= outgoing_heat_cap * TEMPERATURE_FLOW_RATE;
+                new_neighbor.temperature() * temperature_weight * TEMPERATURE_FLOW_RATE;
+            total_temperature_weights += temperature_weight * TEMPERATURE_FLOW_RATE;
         }
     }
 
@@ -283,8 +278,6 @@ pub(crate) fn flow_air_once_at_index(
     if total_temperature_weights > 0.0 {
         let new_temperature = total_weighted_temperature / total_temperature_weights;
         my_new_tile.thermal_energy = new_temperature * my_new_tile.heat_capacity();
-    } else {
-        my_new_tile.thermal_energy = 0.0;
     }
 
     let thermal_diff = (prev_iter.thermal_energy - my_new_tile.thermal_energy).abs();
@@ -390,6 +383,7 @@ pub(crate) fn post_process(
             if my_next_tile.hotspot_volume > 0.0 {
                 react(my_next_tile, true);
             }
+            do_turf_effects(my_next_tile);
 
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
@@ -541,10 +535,6 @@ pub(crate) fn check_interesting(
             != (my_tile.gases.antinoblium() >= ANTINOBLIUM_VISIBILITY_MOLES)
         {
             reasons |= ReasonFlags::DISPLAY;
-        }
-
-        if do_turf_effects(my_next_tile) {
-            reasons |= ReasonFlags::CONDENSATION;
         }
 
         reasons |= my_next_tile.updates;
@@ -1554,13 +1544,13 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 }
 
 /// Apply the effects of the gas onto the turf itself
-pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
+pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) {
     // Calculate the water saturation pressure using the Arden Buck equation
     let saturation_pressure: f32;
     let water_vapor: f32 = my_next_tile.gases.water_vapor();
 
     if water_vapor < 0.0 {
-        return false;
+        return;
     }
 
     let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
@@ -1589,10 +1579,9 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
         if water_vapor > WATER_VAPOR_MIN_SATURATION_MOLES {
-            return true;
+            my_next_tile.updates |= ReasonFlags::CONDENSATION;
         }
     }
-    false
 }
 
 /// Apply effects caused by the tile's atmos mode.

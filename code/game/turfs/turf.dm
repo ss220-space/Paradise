@@ -30,7 +30,7 @@
 	var/agent_b = 0
 	var/hydrogen = 0
 	var/water_vapor = 0
-	var/hyper_noblium = 0
+	var/hypernoblium = 0
 	var/nitrium = 0
 	var/tritium = 0
 	var/bz = 0
