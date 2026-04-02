@@ -207,6 +207,11 @@
 	else if(scan_data["heartCondition"] == "LESS")
 		P.header += "<font color='#d82020'><b>Сердце не обнаружено.</b></font><br>"
 
+	if(scan_data["liverCondition"] == "NECROSIS")
+		P.header += "<font color='#d82020'><b>Обнаружена острая печёночная недостаточность.</b></font><br>"
+	else if(scan_data["liverCondition"] == "LESS")
+		P.header += "<font color='#d82020'><b>Печень не обнаружена.</b></font><br>"
+
 	if(scan_data["staminaStatus"] == 1)
 		P.header += span_notice("Обнаружено переутомление.<br>")
 
@@ -474,6 +479,13 @@
 			data["heartCondition"] = "NECROSIS"
 		else if(!heart)
 			data["heartCondition"] = "LESS"
+
+	/// Dead or missing liver
+	var/obj/item/organ/internal/liver/liver = H.get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver)
+		data["liverCondition"] = "LESS"
+	else if((liver.damage == liver.max_damage) || (liver.status & ORGAN_DEAD))
+		data["liverCondition"] = "NECROSIS"
 
 	if(H.getStaminaLoss())
 		data["staminaStatus"] = TRUE
