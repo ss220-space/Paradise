@@ -62,7 +62,6 @@ type ScanData = {
   timetodefib: number;
   timetodefibText: string;
   heartCondition: string;
-  liverCondition: string;
   damageLocalization: DamageLocalization[];
   fractureList: string[];
   infectedList: string[];
@@ -567,7 +566,6 @@ const StatusInfo = (props: unknown) => {
   const {
     heartCondition,
     brainDamage,
-    liverCondition,
     bleed,
     staminaStatus,
     cloneStatus,
@@ -607,19 +605,6 @@ const StatusInfo = (props: unknown) => {
           </Box>
         )
       )}
-
-      {liverCondition === 'LESS' ? (
-        <Box color="#d82020" mt={1} bold>
-          Печень не обнаружена.
-        </Box>
-      ) : (
-        liverCondition === 'NECROSIS' && (
-          <Box color="#d82020" mt={1} bold>
-            Обнаружена острая печёночная недостаточность.
-          </Box>
-        )
-      )}
-
       {!!bleed && (
         <Box color="#c51e1e" mt={1} bold>
           Обнаружено кровотечение!
