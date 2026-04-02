@@ -227,8 +227,7 @@
 /obj/machinery/vending/pai,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
 "rC" = (
@@ -247,9 +246,7 @@
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-0"
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "sw" = (
 /obj/structure/table/reinforced{
@@ -295,14 +292,12 @@
 "vj" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
 "wk" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
-	layer = 3.1;
 	name = "Mech Bay"
 	},
 /obj/structure/disposalpipe/segment{
@@ -311,8 +306,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "dark";
-	layer = 2
+	icon_state = "dark"
 	},
 /area/assembly/robotics)
 "xu" = (
@@ -402,8 +396,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	layer = 2
+	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
 "Bp" = (
@@ -425,9 +418,7 @@
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/assembly/robotics)
 "BC" = (
 /obj/structure/cable{
@@ -466,9 +457,7 @@
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/assembly/robotics)
 "Hl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -497,9 +486,7 @@
 	id_tag = "RoboPrivat";
 	name = "Robotics Privacy Shutter"
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "Jh" = (
 /obj/machinery/disposal,
@@ -539,8 +526,7 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	layer = 2
+	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
 "Kr" = (
@@ -550,9 +536,7 @@
 	id_tag = "RoboPrivat";
 	name = "Robotics Privacy Shutter"
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "KH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -617,14 +601,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple";
-	layer = 2
+	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
 "Ob" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
-	layer = 3.1;
 	name = "Robotics Lab"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -676,9 +658,7 @@
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/assembly/robotics)
 "QS" = (
 /turf/simulated/floor/plasteel{
@@ -739,9 +719,7 @@
 /area/assembly/robotics)
 "TW" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/assembly/robotics)
 "TZ" = (
 /turf/simulated/floor/plasteel{
@@ -859,7 +837,6 @@
 /area/assembly/robotics)
 "ZM" = (
 /obj/machinery/door/airlock/maintenance{
-	layer = 3.1;
 	name = "Robotics Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -868,8 +845,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /area/maintenance/asmaint2)
 

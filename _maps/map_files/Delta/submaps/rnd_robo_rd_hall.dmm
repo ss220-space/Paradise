@@ -10,18 +10,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "c" = (
 /obj/structure/sign/science{
 	pixel_x = 32
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "d" = (
 /obj/structure/cable{
@@ -30,18 +26,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "e" = (
 /obj/structure/chair/sofa/bench/right/science_pink{
 	dir = 4
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "f" = (
 /obj/structure/cable{
@@ -53,8 +45,7 @@
 	icon_state = "2-8-f"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "j" = (
@@ -117,8 +108,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "o" = (
@@ -133,8 +123,7 @@
 /area/medical/research/shallway)
 "p" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "q" = (
@@ -159,19 +148,13 @@
 	icon_state = "plant-21"
 	},
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/hallway_rd_robo,
-/turf/simulated/floor/glass{
-	icon_state = "glass-1";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "t" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "u" = (
 /obj/structure/cable{
@@ -191,18 +174,14 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "v" = (
 /obj/structure/chair/sofa/bench/left/science_pink{
 	dir = 4
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "x" = (
 /obj/structure/cable{
@@ -214,10 +193,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "y" = (
 /obj/machinery/camera{
@@ -227,10 +203,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "z" = (
 /obj/structure/cable{
@@ -246,67 +219,43 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull";
-	layer = 2
+	icon_state = "darkpurplefull"
 	},
 /area/medical/research/shallway)
 "A" = (
 /obj/structure/extinguisher_cabinet{
-	icon_state = "extinguisher_full_closed";
 	pixel_x = 28
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-0";
-	layer = 2
-	},
-/area/medical/research/shallway)
-"D" = (
-/turf/simulated/floor/glass{
-	icon_state = "glass-1";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "F" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-14"
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-1";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "G" = (
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "H" = (
 /obj/structure/extinguisher_cabinet{
-	icon_state = "extinguisher_full_closed";
 	pixel_x = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "I" = (
 /obj/item/radio/intercom/directional/west,
 /obj/structure/chair/sofa/bench/science_pink{
 	dir = 4
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "K" = (
 /obj/structure/cable{
@@ -323,16 +272,12 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/terminal{
-	dir = 8;
-	layer = 2.01
+	dir = 8
 	},
 /obj/machinery/power/apc{
 	pixel_x = -26
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "M" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -352,19 +297,13 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "P" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-28"
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "Q" = (
 /obj/structure/disposalpipe/segment{
@@ -401,32 +340,14 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
-/area/medical/research/shallway)
-"T" = (
-/turf/simulated/floor/glass{
-	icon_state = "glass-2";
-	layer = 2
-	},
-/area/medical/research/shallway)
-"U" = (
-/turf/simulated/floor/glass{
-	icon_state = "glass-0";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "V" = (
 /obj/structure/sign/poster/official/help_others{
 	name = "Постер — Помогайте другим";
 	pixel_x = -32
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 "W" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/hallway_rd_robo,
@@ -438,10 +359,7 @@
 	},
 /area/medical/research/shallway)
 "Z" = (
-/turf/simulated/floor/glass{
-	icon_state = "glass-3";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/medical/research/shallway)
 
 (1,1,1) = {"
@@ -579,9 +497,9 @@ a
 (7,1,1) = {"
 a
 m
-U
+Z
 k
-T
+Z
 t
 Z
 Z
@@ -625,7 +543,7 @@ a
 m
 A
 X
-T
+Z
 x
 Z
 Z
@@ -634,9 +552,9 @@ G
 O
 S
 Z
-D
+Z
 M
-T
+Z
 Z
 c
 F
