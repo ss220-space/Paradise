@@ -691,29 +691,3 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /// Called when a spell is removed
 /obj/effect/proc_holder/spell/proc/on_spell_removed(mob/user = usr)
 	return
-
-/// Check for non opacity turfs walls between user and target
-/proc/spells_line_opacity_check(mob/user, atom/target)
-	var/turf/start = get_turf(user)
-	var/turf/end = get_turf(target)
-
-	if(is_line_clear(get_line(start, end), start, end))
-		return TRUE
-
-	for(var/direction in GLOB.alldirs)
-		var/turf/side_step = get_step(start, direction)
-		if(side_step && get_dist(side_step, end) < get_dist(start, end))
-			if(!side_step.opacity && is_line_clear(get_line(side_step, end), side_step, end))
-				return TRUE
-
-	return FALSE
-
-/proc/is_line_clear(list/path, turf/start, turf/end)
-	if(!path || !length(path))
-		return FALSE
-	for(var/turf/turf in path)
-		if(turf == start || turf == end)
-			continue
-		if(turf.opacity)
-			return FALSE
-	return TRUE

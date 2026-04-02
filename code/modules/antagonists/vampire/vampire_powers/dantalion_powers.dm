@@ -183,7 +183,6 @@
 	T.range = 7
 	T.click_radius = 1
 	T.try_auto_target = FALSE
-	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = /mob/living
 	return T
 
