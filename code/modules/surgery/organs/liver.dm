@@ -79,25 +79,32 @@
 		else
 			failure_time = 0
 
+/obj/item/organ/liver/handle_failing_organs(seconds_per_tick)
+	if(owner.stat == DEAD)
+		return
+
+	if(HAS_TRAIT(owner, TRAIT_LIVERLESS_METABOLISM))
+		return
+	return ..()
 
 /obj/item/organ/internal/liver/organ_failure(seconds_per_tick)
 	var/obj/item/organ/internal/organ = safepick(owner.internal_organs)
 	switch(failure_time/LIVER_FAILURE_STAGE_SECONDS)
 		if(1)
-			to_chat(owner, span_userdanger("You feel stabbing pain in your abdomen!"))
+			to_chat(owner, span_userdanger("Вы чувствуете острую боль в животе."))
 		if(2)
-			to_chat(owner, span_userdanger("You feel a burning sensation in your gut!"))
+			to_chat(owner, span_userdanger("Вы чувствуете жжение в животе!"))
 			owner.vomit()
 		if(3)
-			to_chat(owner, span_userdanger("You feel painful acid in your throat!"))
+			to_chat(owner, span_userdanger("Вы чувствуете болезненное ощущение кислоты в горле!"))
 			owner.vomit(0, VOMIT_BLOOD, 0 SECONDS)
 		if(4)
-			to_chat(owner, span_userdanger("Overwhelming pain knocks you out!"))
+			to_chat(owner, span_userdanger("Невыносимая боль сбивает вас с ног!"))
 			owner.vomit(0, VOMIT_BLOOD, distance = rand(1,2))
 			owner.emote("Scream")
 			owner.AdjustDizzy(2.5 SECONDS)
 		if(5)
-			to_chat(owner, span_userdanger("You feel as if your guts are about to melt!"))
+			to_chat(owner, span_userdanger("У вас ощущение, будто ваши внутренности вот-вот расплавятся!"))
 			owner.vomit(0, VOMIT_BLOOD, distance = rand(1,3))
 			owner.emote("Scream")
 			owner.AdjustDizzy(5 SECONDS)

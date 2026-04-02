@@ -388,13 +388,19 @@
 ///Check to see if we have the liver, if not automatically gives you last-stage effects of lacking a liver.
 
 /mob/living/carbon/proc/handle_liver(seconds_per_tick)
+	if(HAS_TRAIT(src, TRAIT_NO_DNA))
+		return
+
 	var/obj/item/organ/internal/liver/liver = get_organ_slot(INTERNAL_ORGAN_LIVER)
 	var/obj/item/organ/internal/organ = safepick(internal_organs)
 	if(liver)
 		return
 
+	if(HAS_TRAIT(src, TRAIT_LIVERLESS_METABOLISM))
+		return
+
 	adjustToxLoss(0.8 * seconds_per_tick,forced = TRUE)
-	organ.internal_receive_damage(0.2  * seconds_per_tick)
+	organ.internal_receive_damage(0.2  * seconds_per_tick, silent = TRUE)
 
 /mob/living/carbon/proc/undergoing_liver_failure()
 	var/obj/item/organ/internal/liver/liver = get_organ_slot(INTERNAL_ORGAN_LIVER)

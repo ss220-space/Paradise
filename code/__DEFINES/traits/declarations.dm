@@ -69,6 +69,8 @@
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
+/// This just means that the carbon will always have functional liverless metabolism
+#define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"
