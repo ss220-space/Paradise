@@ -257,14 +257,14 @@
 	if(!floor_gas_mixture)
 		return
 
-	//var/list/floor_gases = floor_gas_mixture.gases
 	var/static/list/gases_to_check = list(
-		/datum/gas/oxygen = list(/obj/item/organ/internal/lungs::safe_oxygen_min, 100),
-		/datum/gas/nitrogen,
-		/datum/gas/carbon_dioxide = list(0, /obj/item/organ/internal/lungs::safe_co2_max)
+		TLV_O2 = list(/obj/item/organ/internal/lungs::safe_oxygen_min, 100),
+		TLV_N2,
+		TLV_CO2 = list(0, /obj/item/organ/internal/lungs::safe_co2_max)
 	)
-	//if(!check_gases(floor_gases, gases_to_check))
-	//	return FALSE
+
+	if(!check_gases(floor_gas_mixture.get_interesting(), gases_to_check))
+		return FALSE
 
 	// Aim for goldilocks temperatures and pressure
 	if((floor_gas_mixture.temperature() <= BODYTEMP_COLD_DAMAGE_LIMIT) || (floor_gas_mixture.temperature() >= BODYTEMP_HEAT_DAMAGE_LIMIT))

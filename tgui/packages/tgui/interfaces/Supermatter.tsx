@@ -12,10 +12,10 @@ import { toFixed } from 'common/math';
 import type { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
-import { getGasFromPath } from '../constants';
+import { getGasColor, getGasFromPath, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
-const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;
+const logScale = (value: number) => Math.log2(16 + Math.max(0, value)) - 4;
 
 type SMGasMetadata = {
   [key: string]: {
@@ -129,7 +129,7 @@ export const SupermatterContent = (props: SupermatterProps) => {
       ([gas_path, amount]) => amount !== 0
     );
   }
-  gas_composition = sortBy(gas_composition, ([gas_path, amount]) => -amount);
+  gas_composition = sortBy(gas_composition, ([_, amount]) => -amount);
 
   return (
     <Stack height="100%">
@@ -349,13 +349,13 @@ export const SupermatterContent = (props: SupermatterProps) => {
           }
         >
           <Stack vertical>
-            {gas_composition.map(([gas_path, amount]) => (
+            {gas_composition.map(([gas_tlv, amount]) => (
               <SupermatterEntry
-                key={gas_path}
-                title={getGasFromPath(gas_path)?.label || 'Unknown'}
+                key={gas_tlv}
+                title={getGasLabel(gas_tlv) || 'Unknown'}
                 content={
                   <ProgressBar
-                    color={getGasFromPath(gas_path)?.color}
+                    color={getGasColor(gas_tlv)}
                     value={amount}
                     minValue={0}
                     maxValue={1}
@@ -364,20 +364,20 @@ export const SupermatterContent = (props: SupermatterProps) => {
                   </ProgressBar>
                 }
                 detail={
-                  gas_metadata[gas_path] ? (
+                  gas_metadata[gas_tlv] ? (
                     <>
-                      {gas_metadata[gas_path].desc && <br />}
-                      {gas_metadata[gas_path].numeric_data.length ? (
+                      {gas_metadata[gas_tlv].desc && <br />}
+                      {gas_metadata[gas_tlv].numeric_data.length ? (
                         <>
                           <Box mb={1}>
                             At <b>100% Composition</b> gives:
                           </Box>
                           <LabeledList>
-                            {gas_metadata[gas_path].numeric_data.map(
-                              (effect) =>
+                            {gas_metadata[gas_tlv].numeric_data.map(
+                              (effect, id) =>
                                 effect.amount !== 0 && (
                                   <LabeledList.Item
-                                    key={gas_path + effect.name}
+                                    key={id}
                                     label={effect.name}
                                     color={
                                       effect.positive
@@ -419,8 +419,8 @@ export type SupermatterData = {
   gas_metadata: SMGasMetadata;
 };
 
-export const Supermatter = (props) => {
-  const { act, data } = useBackend<SupermatterData>();
+export const Supermatter = (_props: unknown) => {
+  const { data } = useBackend<SupermatterData>();
   const { sm_data, gas_metadata } = data;
   return (
     <Window width={700} height={400} theme="ntos">

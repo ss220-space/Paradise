@@ -132,9 +132,12 @@
 		var/delta_time = (SSmachines.times_fired - last_high_energy_accumulation_perspective_machines) * SSmachines.wait / (1 SECONDS)
 		var/accumulated_energy = accumulate_energy(ZAP_ENERGY_ACCUMULATION_HIGH_ENERGY, energy = clamp(internal_energy * 3200, 6.4e6, 3.2e7) * delta_time)
 		if(accumulated_energy)
+			var/cached_zap_cutoff = zap_cutoff
+			var/cached_zap_icon = zap_icon
+			var/cached_internal_energy = internal_energy
 			for(var/i in 1 to zap_count)
 				var/discharged_energy = discharge_energy(ZAP_ENERGY_ACCUMULATION_HIGH_ENERGY, portion = 1 - (1 - ZAP_ENERGY_DISCHARGE_PORTION) ** INVERSE(zap_count))
-				supermatter_zap(src, range = range, zap_str = discharged_energy, zap_flags = flags, zap_cutoff = src.zap_cutoff, power_level = internal_energy, zap_icon = src.zap_icon)
+				supermatter_zap(src, range = range, zap_str = discharged_energy, zap_flags = flags, zap_cutoff = cached_zap_cutoff, power_level = cached_internal_energy, zap_icon = cached_zap_icon)
 		last_high_energy_accumulation_perspective_machines = SSmachines.times_fired
 	if(prob(5))
 		supermatter_anomaly_gen(get_ranged_target_turf(src, pick(GLOB.cardinal), rand(5, 10)), FLUX_ANOMALY, 3)
@@ -157,7 +160,7 @@
 			var/mob/pulled_mob = movable_atom
 			if(pulled_mob.mob_negates_gravity())
 				continue //You can't pull someone nailed to the deck
-		step_towards(movable_atom,center)
+		step_towards(movable_atom, center)
 
 /proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5, has_changed_lifespan = TRUE)
 	var/turf/local_turf = pick(RANGE_TURFS(anomalyrange, anomalycenter))

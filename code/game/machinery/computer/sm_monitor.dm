@@ -52,7 +52,8 @@
 
 /// Refreshes list of active supermatter crystals
 /obj/machinery/computer/sm_monitor/proc/refresh()
-	for(var/supermatter in supermatters)
+	var/list/cached_supermatters = supermatters
+	for(var/supermatter in cached_supermatters)
 		clear_supermatter(supermatter)
 	var/turf/user_turf = get_turf(ui_host())
 	if(!user_turf)
@@ -61,7 +62,7 @@
 		//Exclude Syndicate owned, Delaminating, not within coverage, not on a tile.
 		if(!sm.include_in_cims || !isturf(sm.loc) || !(is_station_level(sm.z) || is_mining_level(sm.z) || sm.z == user_turf.z))
 			continue
-		supermatters += sm
+		cached_supermatters += sm
 		RegisterSignal(sm, COMSIG_QDELETING, PROC_REF(clear_supermatter))
 
 /obj/machinery/computer/sm_monitor/ui_static_data(mob/user)
@@ -74,7 +75,7 @@
 	data["sm_data"] = list()
 	for(var/obj/machinery/power/supermatter_crystal/sm as anything in supermatters)
 		data["sm_data"] += list(sm.sm_ui_data())
-	data["focus_uid"] = focused_supermatter?.uid
+	data["focus_uid"] = focused_supermatter?.UID()
 	return data
 
 /obj/machinery/computer/sm_monitor/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
@@ -84,13 +85,13 @@
 			refresh()
 			return TRUE
 		if("PRG_focus")
-			for(var/obj/machinery/power/supermatter_crystal/sm in supermatters)
-				if(sm.uid == params["focus_uid"])
-					if(focused_supermatter == sm)
-						unfocus_supermatter(sm)
-					else
-						focus_supermatter(sm)
-					return TRUE
+			var/focus_uid = params["focus_uid"]
+			var/obj/machinery/power/supermatter_crystal/sm = locateUID(focus_uid)
+			if(focused_supermatter == sm)
+				unfocus_supermatter(sm)
+			else
+				focus_supermatter(sm)
+			return TRUE
 
 /*
 /// Sends an SM delam alert to the computer if our focused supermatter is delaminating.
@@ -126,7 +127,7 @@
 
 /obj/machinery/computer/sm_monitor/proc/get_status()
 	. = SUPERMATTER_INACTIVE
-	for(var/obj/machinery/power/supermatter_crystal/supermatter in supermatters)
+	for(var/obj/machinery/power/supermatter_crystal/supermatter as anything in supermatters)
 		. = max(., supermatter.get_status())
 
 /obj/machinery/computer/sm_monitor/process()

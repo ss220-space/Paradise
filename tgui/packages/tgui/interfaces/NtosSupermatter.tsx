@@ -7,7 +7,7 @@ import { SupermatterContent, type SupermatterData } from './Supermatter';
 
 type NtosSupermatterData = SupermatterData & { focus_uid?: number };
 
-export const NtosSupermatter = (props) => {
+export const NtosSupermatter = (_props: unknown) => {
   const { act, data } = useBackend<NtosSupermatterData>();
   const { sm_data, gas_metadata, focus_uid } = data;
   const [activeUID, setActiveUID] = useState(0);
@@ -30,17 +30,15 @@ export const NtosSupermatter = (props) => {
           <Section
             title="Detected Supermatters"
             buttons={
-              <Button
-                icon="sync"
-                content="Refresh"
-                onClick={() => act('PRG_refresh')}
-              />
+              <Button icon="sync" onClick={() => act('PRG_refresh')}>
+                Refresh
+              </Button>
             }
           >
             <Table>
               {sm_data.map((sm) => (
                 <Table.Row key={sm.uid}>
-                  <Table.Cell>{`${sm.uid}. ${sm.area_name}`}</Table.Cell>
+                  <Table.Cell>{`${sm.area_name}`}</Table.Cell>
                   <Table.Cell collapsing color="label">
                     Integrity:
                   </Table.Cell>
@@ -62,10 +60,9 @@ export const NtosSupermatter = (props) => {
                     />
                   </Table.Cell>
                   <Table.Cell collapsing>
-                    <Button
-                      content="Details"
-                      onClick={() => setActiveUID(sm.uid)}
-                    />
+                    <Button onClick={() => setActiveUID(sm.uid)}>
+                      Details
+                    </Button>
                   </Table.Cell>
                 </Table.Row>
               ))}

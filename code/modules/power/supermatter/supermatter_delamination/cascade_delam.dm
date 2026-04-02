@@ -15,8 +15,9 @@
 	var/total_moles = sm.absorbed_gasmix.total_moles()
 	if(total_moles < MOLE_PENALTY_THRESHOLD * sm.absorption_ratio)
 		return FALSE
-	for(var/gas_path in list(/datum/gas/antinoblium, /datum/gas/hypernoblium))
-		var/percent = sm.gas_percentage[gas_path]
+	var/cached_gas_percentage = sm.gas_percentage
+	for(var/gas_id in list(TLV_ANTINOBLIUM, TLV_HYPERNOBLIUM))
+		var/percent = cached_gas_percentage[gas_id]
 		if(!percent || percent < 0.4)
 			return FALSE
 	return TRUE

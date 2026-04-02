@@ -255,11 +255,12 @@
 
 /datum/component/supermatter_crystal/proc/intercept_z_fall(datum/source, list/falling_movables, levels)
 	SIGNAL_HANDLER
+	var/cached_parent = parent
 	for(var/atom/movable/hit_object as anything in falling_movables)
-		if(parent == hit_object)
+		if(cached_parent == hit_object)
 			return
 
-		bumped_hit(parent, hit_object)
+		bumped_hit(cached_parent, hit_object)
 	return FALL_INTERCEPTED | FALL_NO_MESSAGE
 
 /datum/component/supermatter_crystal/proc/on_z_impact(datum/source, turf/impacted_turf, levels)
@@ -275,9 +276,9 @@
 			span_userdanger("\The [atom_source] slams into you out of nowhere as your ears are filled with unearthly ringing. Your last thought is \"The fuck.\""),
 			span_hear("You hear an unearthly noise as a wave of heat washes over you."),
 		)
-
+	var/cached_parent = parent
 	for(var/atom/movable/hit_object as anything in impacted_turf)
-		if(parent == hit_object)
+		if(cached_parent == hit_object)
 			return
 
 		if(iseffect(hit_object))

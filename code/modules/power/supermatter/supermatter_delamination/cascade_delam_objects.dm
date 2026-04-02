@@ -54,10 +54,10 @@
 
 	if(!next_turf || locate(/obj/crystal_mass) in next_turf)
 		return
-
+	var/datum/component/supermatter_crystal/cached_sm_comp = sm_comp
 	for(var/atom/movable/checked_atom as anything in next_turf)
 		if(isliving(checked_atom))
-			sm_comp.dust_mob(
+			cached_sm_comp.dust_mob(
 				src,
 				checked_atom,
 				span_danger("\The [src] lunges out on [checked_atom], touching [checked_atom.p_them()]... [checked_atom.p_their()] body begins to shine with a brilliant light before crystallizing from the inside out and joining \the [src]!"),
@@ -65,8 +65,9 @@
 			)
 		else if(istype(checked_atom, /obj/cascade_portal))
 			checked_atom.visible_message(span_userdanger("\The [checked_atom] screeches and closes away as it is hit by \a [src]! Too late!"))
-			playsound(get_turf(checked_atom), 'sound/magic/charge.ogg', 50, TRUE)
-			playsound(get_turf(checked_atom), 'sound/effects/supermatter.ogg', 50, TRUE)
+			var/turf/location = get_turf(checked_atom)
+			playsound(location, 'sound/magic/charge.ogg', 50, TRUE)
+			playsound(location, 'sound/effects/supermatter.ogg', 50, TRUE)
 			qdel(checked_atom)
 		else if(isitem(checked_atom))
 			playsound(get_turf(checked_atom), 'sound/effects/supermatter.ogg', 50, TRUE)

@@ -9,12 +9,13 @@
 /// Just the mobs apparently.
 /datum/sm_delam/proc/effect_irradiate(obj/machinery/power/supermatter_crystal/sm)
 	var/turf/sm_turf = get_turf(sm)
+	var/datum/controller/subsystem/radiation/cached_SSradiation = SSradiation
 	for(var/mob/living/victim in range(DETONATION_RADIATION_RANGE, sm))
 		if(!is_valid_z_level(get_turf(victim), sm_turf))
 			continue
 		if(victim.z == 0)
 			continue
-		SSradiation.irradiate(victim)
+		cached_SSradiation.irradiate(victim)
 	return TRUE
 
 /// Hallucinates and makes mobs in Z level sad.
@@ -238,7 +239,7 @@
 /datum/sm_delam/proc/effect_crystal_mass(obj/machinery/power/supermatter_crystal/sm, avoid)
 	new /obj/crystal_mass(get_turf(sm))
 	var/list/possible_spawns = GLOB.xeno_spawn.Copy()
-	for(var/i in 1 to rand(4,6))
+	for(var/i in 1 to rand(4, 6))
 		var/spawn_location
 		do
 			spawn_location = pick_n_take(possible_spawns)
