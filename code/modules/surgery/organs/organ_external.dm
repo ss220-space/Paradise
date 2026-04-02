@@ -77,7 +77,7 @@
 	/// Damage equal to brute damage after bodypart breaks. Used to calculate bodypart overall damage
 	var/perma_injury = 0
 	/// Fracture type
-	var/fracture_state = FALSE
+	var/datum/fracture_type/fracture = null
 
 	/// Whether bodypart can be amputated
 	var/cannot_amputate = FALSE
@@ -186,6 +186,7 @@
 		QDEL_NULL(tourniquet)
 
 	tourniquet = null
+	fracture = null
 
 	if(owner && !owner.has_embedded_objects())
 		owner.clear_alert(ALERT_EMBEDDED)
@@ -326,7 +327,7 @@
 		// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
 		var/pass_internal_organ_damage = brute_dam >= max_damage
 		pass_internal_organ_damage = pass_internal_organ_damage || (prob(LIMB_DMG_PROB) && ((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG))
-		pass_internal_organ_damage = pass_internal_organ_damage || (has_fracture() && fracture_state != FRACTURE_TYPE_CRACK)
+		pass_internal_organ_damage = pass_internal_organ_damage || (has_fracture() && fracture.pass_internal_organ_damage)
 		pass_internal_organ_damage = pass_internal_organ_damage && LAZYLEN(internal_organs)
 		if(pass_internal_organ_damage)
 			var/obj/item/organ/internal/internal_organ = pick(internal_organs)
@@ -569,7 +570,7 @@ This function completely restores a damaged organ to perfect condition.
 	bleeding_amount = 0
 	bleedsuppress = 0
 	open = ORGAN_CLOSED //Closing all wounds.
-	fracture_state = 0
+	fracture = null
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -688,15 +689,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!prob(inflicted_damage * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
 		return FALSE // bad luck - no fracture
 
-	var/fracture_type
+	var/fracture
 	if(inflicted_damage >= LIMB_OPEN_FRACTURE_MIN_DMG)
-		fracture_type = FRACTURE_TYPE_OPEN
+		fracture = FRACTURE_TYPE_OPEN
 	else if(inflicted_damage >= LIMB_CLOSED_FRACTURE_MIN_DMG)
-		fracture_type = FRACTURE_TYPE_CLOSED
+		fracture = FRACTURE_TYPE_CLOSED
 	else
-		fracture_type = FRACTURE_TYPE_CRACK
+		fracture = FRACTURE_TYPE_CRACK
 
-	if(fracture(silent, fracture_type))
+	if(fracture(silent, fracture))
 		add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
 	return FALSE
@@ -1055,14 +1056,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/stop_bleeding()
 	bleeding_amount = 0
 
-/obj/item/organ/external/proc/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+/obj/item/organ/external/proc/fracture(silent = FALSE, datum/fracture_type/new_fracture = FRACTURE_TYPE_CLOSED)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
 	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
 	if(is_robotic() || cannot_break)
 		return FALSE
-	if(has_fracture() && fracture_state >= fracture_type)
+	if(has_fracture() && fracture.power >= new_fracture.power)
 		return FALSE
 
 	if(owner && !silent)
@@ -1078,28 +1079,20 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(owner.has_pain())
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
-	fracture_state = fracture_type
+	fracture = new_fracture
 	status |= ORGAN_BROKEN
-
-	switch(fracture_type)
-		if(FRACTURE_TYPE_CRACK)
-			broken_description = "Микротрещина"
-		if(FRACTURE_TYPE_CLOSED)
-			broken_description = "Закрытый перелом"
-		if(FRACTURE_TYPE_OPEN)
-			broken_description = "Открытый перелом"
-
+	broken_description = fracture.description
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints(silent = silent)
 
-	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE, fracture_type)
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE, fracture)
 	return TRUE
 
 /obj/item/organ/external/proc/has_fracture()
-	return (status & ORGAN_BROKEN)
+	return (status & ORGAN_BROKEN) && fracture != null
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
@@ -1108,7 +1101,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status &= ~ORGAN_BROKEN
-	fracture_state = FALSE
+	fracture = null
 	perma_injury = 0
 	remove_splint()
 
@@ -1120,7 +1113,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!has_fracture())
 		return FALSE
 
-	if(fracture_state == FRACTURE_TYPE_OPEN)
+	if(!fracture.can_splint)
 		balloon_alert(usr, "наложение шины невозможно!")
 		return FALSE
 

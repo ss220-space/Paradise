@@ -384,7 +384,7 @@
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
 				bodypart.stop_arterial_bleeding()
-				if(bodypart.has_fracture() && bodypart.fracture_state != FRACTURE_TYPE_OPEN)
+				if(bodypart.has_fracture() && bodypart.fracture.can_mend_by_aura_heal)
 					bodypart.mend_fracture()
 		else
 			to_chat(owner, span_warning("...Но ядро ослаблено, оно не достаточно близко к остальным легионам некрополя."))

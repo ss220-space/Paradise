@@ -153,7 +153,7 @@
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 
-		if(bodypart.has_fracture() && bodypart.fracture_state == FRACTURE_TYPE_OPEN && !bodypart.is_splinted())
+		if(bodypart.has_fracture() && bodypart.fracture == FRACTURE_TYPE_OPEN && !bodypart.is_splinted())
 			current_bleed += BODYPART_OPEN_FRACTURE_BLEEDING
 
 		if(bodypart.has_arterial_bleeding() && left_hand_bleed_suppress_lib != bodypart && right_hand_bleed_suppress_lib != bodypart)

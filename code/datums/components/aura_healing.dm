@@ -174,7 +174,7 @@
 						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
 							continue
 
-						if(body_part.fracture_state == FRACTURE_TYPE_OPEN)
+						if(!body_part.fracture.can_mend_by_aura_heal)
 							continue
 
 						if(prob(mend_fractures_chance))
@@ -187,7 +187,7 @@
 						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
 							continue
 
-						if(body_part.fracture_state == FRACTURE_TYPE_OPEN)
+						if(!body_part.fracture.can_mend_by_aura_heal)
 							continue
 
 						if(prob(mend_fractures_chance))

@@ -262,13 +262,7 @@
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		switch(bodypart.fracture_state)
-			if(FRACTURE_TYPE_CRACK)
-				bonus_spread = max(12, bonus_spread)
-			if(FRACTURE_TYPE_CLOSED)
-				bonus_spread = max(23, bonus_spread)
-			if(FRACTURE_TYPE_OPEN)
-				bonus_spread = max(45, bonus_spread)
+		bonus_spread = max(bodypart.fracture.bonus_spread, bonus_spread)
 
 	return bonus_spread
 
@@ -290,13 +284,7 @@
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
 		fractured_limbs += bodypart
-		switch(bodypart.fracture_state)
-			if(FRACTURE_TYPE_CRACK)
-				fall_chance = max(1, fall_chance)
-			if(FRACTURE_TYPE_CLOSED)
-				fall_chance = max(5, fall_chance)
-			if(FRACTURE_TYPE_OPEN)
-				fall_chance = max(10, fall_chance)
+		fall_chance = max(bodypart.fracture.fall_chance, fall_chance)
 
 	if(!fall_chance || !prob(fall_chance))
 		return
@@ -305,11 +293,7 @@
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		switch(bodypart.fracture_state)
-			if(FRACTURE_TYPE_CRACK)
-				bodypart.external_receive_damage(brute = 5)
-			else
-				bodypart.external_receive_damage(brute = 10)
+		bodypart.external_receive_damage(brute = bodypart.fracture)
 
 	Knockdown(3 SECONDS)
 

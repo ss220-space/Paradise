@@ -254,15 +254,9 @@
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
 		H.reagents.add_reagent("pure_plasma", 5)
 
-/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/user, fracture_type)
+/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/user, datum/fracture_type/fracture)
 	SIGNAL_HANDLER
-	switch(fracture_type)
-		if(FRACTURE_TYPE_CRACK)
-			user.reagents.add_reagent(/datum/reagent/plasma_dust, 8)
-		if(FRACTURE_TYPE_OPEN)
-			user.reagents.add_reagent(/datum/reagent/plasma_dust, 30)
-		else
-			user.reagents.add_reagent(/datum/reagent/plasma_dust, 15)
+	user.reagents.add_reagent(/datum/reagent/plasma_dust, fracture.plasma_dust)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)

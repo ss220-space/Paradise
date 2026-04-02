@@ -527,18 +527,18 @@
 
 		if(href_list["open_fracture_limb"])
 			var/obj/item/organ/external/bodypart = locateUID(href_list["open_fracture_limb"])
-			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture_state != FRACTURE_TYPE_OPEN)
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 				return
 			if(!do_after(usr, 10 SECONDS, src, max_interact_count = 1))
 				return
-			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture_state != FRACTURE_TYPE_OPEN)
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
 				return
 			bodypart.owner.emote("scream")
-			if(prob(30)) //success
-				bodypart.fracture_state = FRACTURE_TYPE_CLOSED
+			if(prob(bodypart.fracture.reattach_chance)) //success
+				bodypart.fracture = FRACTURE_TYPE_CLOSED
 				return
 			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
-			bodypart.external_receive_damage(brute = 12)
+			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
 			bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
 			return
 
@@ -1954,13 +1954,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		switch(bodypart.fracture_state)
-			if(FRACTURE_TYPE_CRACK)
-				modifier += 0.5
-			if(FRACTURE_TYPE_CLOSED)
-				modifier += 1
-			if(FRACTURE_TYPE_OPEN)
-				modifier += 2
+		modifier += bodypart.fracture.slowdown_mod
 
 	if(modifier)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
@@ -1980,13 +1974,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		switch(bodypart.fracture_state)
-			if(FRACTURE_TYPE_CRACK)
-				modifier += 0.2
-			if(FRACTURE_TYPE_CLOSED)
-				modifier += 0.4
-			if(FRACTURE_TYPE_OPEN)
-				modifier += 0.8
+		modifier += bodypart.fracture.workspeed_mod
 
 	if(modifier)
 		add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/fractures, multiplicative_slowdown = modifier)
