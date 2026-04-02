@@ -124,6 +124,14 @@
 	unanchor_base()
 	return ..()
 
+/obj/item/tripwire/two_for_craft
+
+/obj/item/tripwire/two_for_craft/Initialize(mapload)
+	. = ..()
+	new /obj/item/tripwire(loc)
+	new /obj/item/tripwire(loc)
+	qdel(src)
+
 ////////////////////////////////////////
 // MARK:	Tripwire setting up
 ////////////////////////////////////////
