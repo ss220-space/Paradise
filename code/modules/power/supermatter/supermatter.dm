@@ -850,7 +850,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/list/additive_damage = list()
 	var/total_moles = absorbed_gasmix.total_moles()
-	var/cached_internal_energy
+	var/cached_internal_energy = internal_energy
 
 	// We dont let external factors deal more damage than the emergency point.
 	// Only cares about the damage before this proc is run. We ignore soon-to-be-applied damage.
