@@ -62,15 +62,31 @@ const ManifestTable = (group: Person[]) => {
             bold={HBC(person.real_rank)}
             className={index % 2 === 0 ? 'row-even' : 'row-odd'}
           >
-            <Table.Cell width="50%" textAlign="left" pt="5px" pb="5px" pl="10px">
+            <Table.Cell
+              width="50%"
+              textAlign="left"
+              pt="5px"
+              pb="5px"
+              pl="10px"
+            >
               {decodeHtmlEntities(person.name)}
             </Table.Cell>
             <Table.Cell width="45%" textAlign="right" pr="2%" pt="5px" pb="5px">
               {decodeHtmlEntities(person.rank)}
             </Table.Cell>
-            <Table.Cell width="5%" textAlign="right" pr="5px" pt="5px" pb="5px" pl="10px">
+            <Table.Cell
+              width="5%"
+              textAlign="right"
+              pr="5px"
+              pt="5px"
+              pb="5px"
+              pl="10px"
+            >
               <Tooltip content={person.active}>
-                <Icon name="circle" className={getStatusIconClass(person.active)} />
+                <Icon
+                  name="circle"
+                  className={getStatusIconClass(person.active)}
+                />
               </Tooltip>
             </Table.Cell>
           </Table.Row>
@@ -107,16 +123,20 @@ type DepartmentSectionProps = {
   children: React.ReactNode;
 };
 
-const DepartmentSection = ({ title, color, deptClass, children }: DepartmentSectionProps) => {
+const DepartmentSection = ({
+  title,
+  color,
+  deptClass,
+  children,
+}: DepartmentSectionProps) => {
   return (
     <Section
-      className={`CrewManifest__dept-${deptClass}`}
+      className={`CrewManifest__dept CrewManifest__dept-${deptClass}`}
       title={
         <Box color={color} fontSize={1.4} fontWeight="bold">
           {title}
         </Box>
       }
-      backgroundColor="rgba(10, 10, 10, 0.75)"
       textAlign="center"
     >
       {children}
@@ -204,11 +224,7 @@ export const CrewManifest = (props: ManifestProps) => {
         {ManifestTable(sup)}
       </DepartmentSection>
 
-      <DepartmentSection
-        title="Без отдела"
-        color="white"
-        deptClass="misc"
-      >
+      <DepartmentSection title="Без отдела" color="white" deptClass="misc">
         {ManifestTable(misc)}
       </DepartmentSection>
     </Box>
