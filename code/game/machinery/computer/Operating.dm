@@ -7,6 +7,7 @@
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
 	light_color = LIGHT_COLOR_BLUE
+	tts_seed = null
 	var/obj/machinery/optable/table
 	var/verbose = TRUE //general speaker toggle
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
