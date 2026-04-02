@@ -36,9 +36,7 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "dI" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -56,10 +54,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-110";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "ey" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -87,10 +82,7 @@
 	},
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass{
-	icon_state = "glass-137";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "gm" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -124,10 +116,7 @@
 /area/toxins/lab)
 "iA" = (
 /obj/machinery/telepad_cargo,
-/turf/simulated/floor/glass{
-	icon_state = "glass-38";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "kt" = (
 /obj/structure/sign/securearea,
@@ -142,9 +131,7 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "kJ" = (
 /obj/structure/closet/firecloset,
@@ -157,12 +144,10 @@
 	icon_state = "1-2-f"
 	},
 /obj/machinery/door/airlock/research{
-	layer = 3.1;
 	name = "Mech Bay"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /area/toxins/lab)
 "nj" = (
@@ -187,9 +172,7 @@
 	dir = 2
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "nZ" = (
 /obj/item/radio/intercom/directional/west,
@@ -312,10 +295,7 @@
 	},
 /area/toxins/lab)
 "wq" = (
-/turf/simulated/floor/glass{
-	icon_state = "glass-110";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "xt" = (
 /turf/simulated/wall,
@@ -329,18 +309,13 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "ym" = (
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-110";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "yE" = (
 /obj/structure/cable{
@@ -348,10 +323,7 @@
 	},
 /obj/item/paper_bin,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass{
-	icon_state = "glass-74";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "yX" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter,
@@ -361,8 +333,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
 "An" = (
@@ -378,12 +349,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
-	},
-/area/toxins/lab)
-"AI" = (
-/turf/simulated/floor/glass{
-	icon_state = "glass-157";
-	layer = 2
 	},
 /area/toxins/lab)
 "Cd" = (
@@ -404,15 +369,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
-	},
-/area/toxins/lab)
-"CA" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-110";
-	layer = 2
 	},
 /area/toxins/lab)
 "Dr" = (
@@ -447,9 +403,7 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "Ee" = (
 /obj/item/disk/tech_disk{
@@ -465,17 +419,11 @@
 	pixel_y = 1
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass{
-	icon_state = "glass-74";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "EQ" = (
 /obj/structure/chair/office/light,
-/turf/simulated/floor/glass{
-	icon_state = "glass-157";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "Fb" = (
 /obj/item/multitool/circuit,
@@ -487,28 +435,19 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
-/turf/simulated/floor/glass{
-	icon_state = "glass-157";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "FW" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/glass{
-	icon_state = "glass-38";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "HB" = (
 /obj/item/multitool/circuit,
 /obj/item/multitool/circuit,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass{
-	icon_state = "glass-157";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "Ie" = (
 /obj/machinery/newscaster{
@@ -542,9 +481,7 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "Nm" = (
 /obj/machinery/light,
@@ -568,10 +505,7 @@
 	pixel_y = 13
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass{
-	icon_state = "glass-137";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "ND" = (
 /obj/structure/cable{
@@ -602,8 +536,7 @@
 "PH" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
 "PS" = (
@@ -624,15 +557,13 @@
 	req_access = list(47)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/toxins/lab)
 "Qr" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
 "QJ" = (
@@ -646,9 +577,7 @@
 	name = "Research Desk Shutters"
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "Sr" = (
 /obj/structure/closet/l3closet/scientist,
@@ -669,7 +598,6 @@
 	icon_state = "4-8-f"
 	},
 /obj/machinery/door/airlock/research/glass{
-	layer = 3.1;
 	name = "Research and Development"
 	},
 /obj/machinery/door/firedoor,
@@ -678,8 +606,7 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/toxins/lab)
 "SX" = (
@@ -696,9 +623,7 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "TS" = (
 /turf/simulated/floor/plasteel{
@@ -721,10 +646,7 @@
 "Vn" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/counter/double,
-/turf/simulated/floor/glass{
-	icon_state = "glass-21";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "Wh" = (
 /obj/machinery/firealarm{
@@ -743,10 +665,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/glass{
-	icon_state = "glass-21";
-	layer = 2
-	},
+/turf/simulated/floor/glass,
 /area/toxins/lab)
 "Wq" = (
 /obj/structure/cable{
@@ -766,9 +685,7 @@
 /area/toxins/lab)
 "Xm" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/toxins/lab)
 "XI" = (
 /obj/structure/cable{
@@ -1013,8 +930,8 @@ Oa
 yi
 eI
 bz
-CA
-AI
+FW
+wq
 uz
 cg
 sT

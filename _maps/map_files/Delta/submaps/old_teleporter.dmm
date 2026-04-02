@@ -7,18 +7,14 @@
 /area/template_noop)
 "e" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "h" = (
 /obj/machinery/light/small{
 	dir = 8;
 	icon_state = "bulb0"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "i" = (
 /obj/effect/decal/cleanable/dirt{
@@ -28,8 +24,7 @@
 	icon_state = "bulb0"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	layer = 2
+	icon_state = "whitepurple"
 	},
 /area/teleporter/abandoned)
 "j" = (
@@ -41,9 +36,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "k" = (
 /obj/effect/decal/cleanable/dirt{
@@ -54,9 +47,7 @@
 	pixel_x = -1;
 	pixel_y = -5
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "l" = (
 /obj/effect/decal/cleanable/dirt{
@@ -72,8 +63,7 @@
 	color = "#58b5c3"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor";
-	layer = 2
+	icon_state = "freezerfloor"
 	},
 /area/teleporter/abandoned)
 "n" = (
@@ -85,9 +75,7 @@
 	dir = 4
 	},
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/old_tele/different,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "p" = (
 /obj/effect/decal/cleanable/dirt{
@@ -98,14 +86,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor";
-	layer = 2
+	icon_state = "freezerfloor"
 	},
 /area/teleporter/abandoned)
 "q" = (
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "r" = (
 /obj/effect/decal/cleanable/dirt{
@@ -113,8 +98,7 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor";
-	layer = 2
+	icon_state = "freezerfloor"
 	},
 /area/teleporter/abandoned)
 "s" = (
@@ -130,15 +114,11 @@
 	},
 /obj/machinery/power/terminal,
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "v" = (
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "w" = (
 /obj/effect/decal/cleanable/dirt{
@@ -146,8 +126,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "y" = (
@@ -157,9 +136,7 @@
 	pixel_x = 12;
 	pixel_y = 10
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "z" = (
 /obj/effect/decal/cleanable/dirt{
@@ -168,17 +145,12 @@
 /obj/machinery/constructable_frame/machine_frame{
 	icon_state = "box_1"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "A" = (
-/obj/machinery/door/airlock/maintenance{
-	layer = 3.1
-	},
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "C" = (
@@ -190,8 +162,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "D" = (
@@ -202,8 +173,7 @@
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitepurple";
-	layer = 2
+	icon_state = "whitepurple"
 	},
 /area/teleporter/abandoned)
 "F" = (
@@ -225,14 +195,9 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/molten_object,
-/obj/item/grown/bananapeel/bluespace{
-	pixel_x = 2;
-	pixel_y = 3
-	},
 /obj/item/circuitboard/bci_implanter,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/obj/item/grown/bananapeel/bluespace,
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "G" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/old_tele,
@@ -248,8 +213,7 @@
 	icon_state = "stickyweb2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "I" = (
@@ -268,8 +232,7 @@
 	icon_state = "bulb0"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor";
-	layer = 2
+	icon_state = "freezerfloor"
 	},
 /area/teleporter/abandoned)
 "K" = (
@@ -290,8 +253,7 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor";
-	layer = 2
+	icon_state = "freezerfloor"
 	},
 /area/teleporter/abandoned)
 "L" = (
@@ -305,9 +267,7 @@
 	dir = 4;
 	icon_state = "stickyweb2"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "N" = (
 /obj/effect/decal/cleanable/dirt{
@@ -321,8 +281,7 @@
 	icon_state = "stickyweb2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor";
-	layer = 2
+	icon_state = "freezerfloor"
 	},
 /area/teleporter/abandoned)
 "O" = (
@@ -336,8 +295,7 @@
 	icon_state = "dirt-203"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	layer = 2
+	icon_state = "whitepurple"
 	},
 /area/teleporter/abandoned)
 "R" = (
@@ -348,21 +306,17 @@
 /area/teleporter/abandoned)
 "T" = (
 /obj/machinery/door/airlock/maintenance{
-	layer = 3.1;
 	name = "Telescience"
 	},
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "V" = (
 /obj/effect/decal/cleanable/dirt{
 	icon_state = "dirt-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "X" = (
@@ -376,8 +330,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "Y" = (
@@ -389,8 +342,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/teleporter/abandoned)
 "Z" = (

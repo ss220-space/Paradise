@@ -14,23 +14,19 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "bP" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	layer = 3.1;
 	name = "Mining Dock"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-sf"
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "cd" = (
 /obj/structure/cable{
@@ -41,25 +37,19 @@
 	icon_state = "pipe-sf"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "fI" = (
 /obj/machinery/door/poddoor/preopen{
 	name = "Cargo Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "go" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/map_effect/marker_helper/submap_def/delta/mining_dock/no_locker,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "gp" = (
 /turf/simulated/wall,
@@ -80,17 +70,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "he" = (
-/obj/structure/weightmachine/stacklifter{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/obj/structure/weightmachine/stacklifter,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "iT" = (
 /obj/structure/chair/sofa/corp/left{
@@ -98,8 +83,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "iZ" = (
@@ -118,17 +102,14 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "mq" = (
 /obj/structure/chair/sofa/corp/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "mL" = (
@@ -144,22 +125,16 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "px" = (
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "qw" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "qJ" = (
 /obj/structure/cable{
@@ -168,16 +143,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	layer = 3.1;
 	name = "Mining Dock"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-sf"
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "rw" = (
 /obj/structure/disposalpipe/segment{
@@ -186,8 +158,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "sA" = (
@@ -199,8 +170,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "ua" = (
@@ -208,17 +178,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	layer = 2
+	dir = 1
 	},
 /area/template_noop)
 "uj" = (
-/obj/structure/weightmachine/weightlifter{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/obj/structure/weightmachine/weightlifter,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "um" = (
 /obj/machinery/light,
@@ -226,8 +191,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "ux" = (
@@ -239,7 +203,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	layer = 3.1;
 	name = "Mining Dock"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -249,16 +212,13 @@
 	dir = 4;
 	icon_state = "pipe-sf"
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "vY" = (
 /obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "vZ" = (
@@ -267,8 +227,7 @@
 "wj" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "zg" = (
@@ -284,8 +243,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "zH" = (
@@ -302,16 +260,14 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/template_noop)
 "AD" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "AX" = (
@@ -321,8 +277,7 @@
 	icon_state = "pipe-tf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/template_noop)
 "BC" = (
@@ -331,20 +286,16 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Cj" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
-	layer = 3.1;
 	name = "Mining Dock Airlock"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Dg" = (
 /obj/structure/chair/office/dark{
@@ -352,23 +303,18 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "DX" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "Ed" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Ht" = (
 /obj/structure/sign/poster/official/minegem{
@@ -384,26 +330,20 @@
 	icon_state = "1-8-f"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "HK" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Kv" = (
-/obj/structure/weightmachine/weightlifter{
-	dir = 1
-	},
+/obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Ld" = (
@@ -411,8 +351,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "Lz" = (
@@ -421,8 +360,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "LQ" = (
@@ -435,15 +373,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "LZ" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "NY" = (
 /obj/machinery/vending/wallmed{
@@ -453,21 +388,17 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Ov" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/weightmachine/stacklifter{
-	dir = 1
-	},
+/obj/structure/weightmachine/stacklifter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Ph" = (
@@ -481,22 +412,19 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "Po" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "PK" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple";
-	layer = 2
+	icon_state = "purple"
 	},
 /area/template_noop)
 "Sl" = (
@@ -507,24 +435,19 @@
 /obj/item/flag/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Ti" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Tk" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "Xn" = (
 /obj/item/radio/intercom/directional/south,
@@ -532,33 +455,26 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "orange";
-	layer = 2
+	icon_state = "orange"
 	},
 /area/template_noop)
 "Ym" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Yo" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "YH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"

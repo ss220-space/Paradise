@@ -7,16 +7,12 @@
 	icon_state = "pipe-j1f"
 	},
 /obj/machinery/chem_heater,
-/turf/simulated/floor/engine{
-	dir = 8;
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "aY" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/se)
 "bz" = (
@@ -31,9 +27,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "dF" = (
 /obj/structure/cable{
@@ -42,10 +36,7 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/engine{
-	dir = 1;
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "ef" = (
 /obj/structure/cable{
@@ -56,8 +47,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "el" = (
@@ -69,8 +59,7 @@
 /obj/machinery/camera,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "ew" = (
@@ -83,8 +72,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "eN" = (
@@ -100,8 +88,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "eT" = (
@@ -117,8 +104,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "fZ" = (
@@ -129,10 +115,7 @@
 	icon_state = "pipe-sf"
 	},
 /obj/machinery/chem_dispenser,
-/turf/simulated/floor/engine{
-	dir = 1;
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "hb" = (
 /obj/structure/cable{
@@ -148,8 +131,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "hx" = (
@@ -170,8 +152,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "hN" = (
@@ -186,8 +167,7 @@
 /obj/item/storage/box/masks,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "hW" = (
@@ -199,15 +179,10 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "iI" = (
-/obj/structure/extinguisher_cabinet{
-	icon_state = "extinguisher_full_closed";
-	pixel_y = -28
-	},
 /obj/structure/coatrack{
 	dir = 4;
 	icon_state = "coatrack1"
@@ -218,10 +193,12 @@
 /obj/machinery/requests_console{
 	pixel_x = 28
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "iX" = (
@@ -232,9 +209,7 @@
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-sf"
 	},
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "kf" = (
 /obj/structure/cable{
@@ -244,9 +219,7 @@
 	icon_state = "2-4-f"
 	},
 /obj/machinery/chem_dispenser,
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "kI" = (
 /obj/structure/cable{
@@ -254,7 +227,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/medical/glass{
-	layer = 3.1;
 	name = "Chemistry Lab"
 	},
 /obj/structure/disposalpipe/segment{
@@ -263,8 +235,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "white";
-	layer = 2
+	icon_state = "white"
 	},
 /area/medical/chemistry)
 "kS" = (
@@ -282,8 +253,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "ml" = (
@@ -302,9 +272,7 @@
 	icon_state = "1-8-f"
 	},
 /obj/machinery/chem_master,
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "mP" = (
 /obj/structure/disposalpipe/segment{
@@ -317,8 +285,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "mV" = (
@@ -333,9 +300,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "oR" = (
 /obj/machinery/disposal,
@@ -343,14 +308,11 @@
 	dir = 1;
 	icon_state = "pipe-tf"
 	},
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "rW" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/se)
 "sI" = (
@@ -361,8 +323,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "sP" = (
@@ -375,8 +336,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "tv" = (
@@ -386,8 +346,7 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/se)
 "tU" = (
@@ -398,10 +357,7 @@
 	},
 /obj/machinery/chem_master,
 /obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/engine{
-	dir = 9;
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "uv" = (
 /obj/structure/sign/redcross{
@@ -416,8 +372,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "vR" = (
@@ -435,15 +390,13 @@
 	},
 /obj/item/reagent_scanner/adv,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "we" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "wh" = (
@@ -472,8 +425,7 @@
 	pixel_x = -11
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	layer = 2
+	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
 "xA" = (
@@ -495,9 +447,7 @@
 	icon_state = "reinforced_table-0"
 	},
 /obj/item/storage/box/beakers,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "yi" = (
 /obj/machinery/door/poddoor/preopen{
@@ -508,9 +458,7 @@
 	name = "Chemistry Privacy Shutter"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "yr" = (
 /obj/structure/cable{
@@ -530,8 +478,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	layer = 2
+	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
 "zp" = (
@@ -548,8 +495,7 @@
 /obj/item/reagent_containers/applicator,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "zB" = (
@@ -557,26 +503,22 @@
 	icon_state = "1-2-f"
 	},
 /obj/machinery/chem_heater,
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "zY" = (
-/obj/machinery/navbeacon{
-	map_json_data = "#?lbr;#?qt;codes#?qt;:#?lbr;#?qt;delivery#?qt;:#?qt;1#?qt;#?rbr;#?rbr;"
-	},
 /obj/structure/plasticflaps,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Chemistry"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "Az" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "Bc" = (
 /obj/structure/disposalpipe/segment{
@@ -591,8 +533,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowcornersiding";
-	layer = 2
+	icon_state = "yellowcornersiding"
 	},
 /area/medical/chemistry)
 "CU" = (
@@ -604,8 +545,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "DF" = (
@@ -621,9 +561,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "GT" = (
 /obj/structure/sign/chemistry,
@@ -647,8 +585,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Iz" = (
@@ -660,15 +597,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "JT" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowcornersiding";
-	layer = 2
+	icon_state = "yellowcornersiding"
 	},
 /area/medical/chemistry)
 "Lm" = (
@@ -679,9 +614,7 @@
 	dir = 4;
 	icon_state = "pipe-sf"
 	},
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "Ls" = (
 /obj/structure/cable{
@@ -696,8 +629,7 @@
 	},
 /obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "LC" = (
@@ -707,9 +639,7 @@
 	dir = 2;
 	name = "Anti-Theft Shield"
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "LO" = (
 /obj/machinery/door_control{
@@ -728,8 +658,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "MI" = (
@@ -738,8 +667,7 @@
 	},
 /obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Nh" = (
@@ -752,14 +680,12 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	layer = 2
+	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
 "Np" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Nv" = (
@@ -775,9 +701,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "NM" = (
 /obj/structure/cable{
@@ -785,8 +709,7 @@
 	},
 /obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "NN" = (
@@ -797,9 +720,7 @@
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-sf"
 	},
-/turf/simulated/floor/engine{
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "OZ" = (
 /obj/structure/table/reinforced{
@@ -817,8 +738,7 @@
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper/precision,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Rn" = (
@@ -843,8 +763,7 @@
 	},
 /obj/item/storage/box/beakers,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "RY" = (
@@ -858,9 +777,7 @@
 /obj/machinery/fishtank/wall{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
+/turf/simulated/floor/plating,
 /area/medical/chemistry)
 "Sr" = (
 /obj/structure/cable{
@@ -870,8 +787,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Ub" = (
@@ -883,8 +799,7 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "Wi" = (
@@ -899,8 +814,7 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "Xj" = (
@@ -917,8 +831,7 @@
 	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Xp" = (
@@ -933,8 +846,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull";
-	layer = 2
+	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "Yk" = (
@@ -943,10 +855,7 @@
 	icon_state = "pipe-tf"
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/engine{
-	dir = 10;
-	layer = 2
-	},
+/turf/simulated/floor/engine,
 /area/medical/chemistry)
 "YM" = (
 /turf/simulated/wall/r_wall,
@@ -960,15 +869,13 @@
 	icon_state = "pipe-sf"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteyellowfull";
-	layer = 2
+	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
 "ZS" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "yellowsiding";
-	layer = 2
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 
