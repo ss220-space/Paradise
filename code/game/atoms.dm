@@ -138,7 +138,7 @@
 	/// Used for changing icon states for different base sprites.
 	var/base_icon_state
 
-	var/tts_seed = "Arthas"
+	var/tts_seed = null
 	var/tts_atom_say_effect = SOUND_EFFECT_RADIO
 
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
