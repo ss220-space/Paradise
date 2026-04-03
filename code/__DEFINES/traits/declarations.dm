@@ -489,5 +489,8 @@
 
 /// If a human has a fracture in their legs or feet (for optimization)
 #define TRAIT_FRACTURE_FALL "fracture_fall"
+/// Suppression implant trait
+#define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
+
 ///Trait applied to turf blocked by a containment field
 #define TRAIT_CONTAINMENT_FIELD "containment_field"

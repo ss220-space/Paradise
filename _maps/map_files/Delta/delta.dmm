@@ -78163,6 +78163,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/item/storage/lockbox/suppression,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
