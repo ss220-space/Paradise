@@ -832,4 +832,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /// Marks the top right of the testing zone.
 /obj/effect/landmark/game_test/top_right_corner
 	name = "game test zone top right"
-
