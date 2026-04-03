@@ -135,9 +135,10 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	environments = list()
-	environments[ENVIRONMENT_LAVALAND] = create_environment(oxygen = LAVALAND_OXYGEN, nitrogen = LAVALAND_NITROGEN, temperature = LAVALAND_TEMPERATURE)
-	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
-	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
+
+	for(var/type in subtypesof(/datum/atmosphere))
+		var/datum/atmosphere/atmosphere = new type()
+		environments[atmosphere.id] = atmosphere.env_id
 
 	setupPlanes()
 	find_last_played_maps()

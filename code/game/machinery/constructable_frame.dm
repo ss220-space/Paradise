@@ -1341,9 +1341,8 @@ to destroy them and players will be able to make replacements.
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;engineering=3"
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/capacitor = 2,
 		/obj/item/stack/cable_coil = 5,
 	)
 

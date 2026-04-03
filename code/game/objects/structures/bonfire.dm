@@ -124,7 +124,7 @@
 /obj/structure/bonfire/proc/check_oxygen()
 	var/turf/turf = get_turf(src)
 	var/datum/gas_mixture/gas = turf.get_readonly_air()
-	if(gas.oxygen() > 13)
+	if(gas.oxygen() > 8)
 		return TRUE
 
 	return FALSE

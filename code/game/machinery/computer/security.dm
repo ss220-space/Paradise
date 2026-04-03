@@ -508,7 +508,7 @@
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 					R.fields["last_modifier_level"] = LAW_LEVEL_HOS
 				if(5)
-					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
+					R.fields["p_stat"] = pick("*Unconscious*", "Active", "Physically Unfit")
 				if(6)
 					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 			continue

@@ -264,9 +264,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -286,9 +283,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -310,9 +304,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -387,9 +378,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -436,9 +424,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -484,9 +469,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -533,9 +515,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -582,9 +561,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -631,9 +607,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -680,9 +653,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -728,9 +698,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -776,9 +743,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -823,9 +787,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -870,9 +831,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -913,9 +871,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -1059,9 +1014,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
@@ -1117,9 +1069,6 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
