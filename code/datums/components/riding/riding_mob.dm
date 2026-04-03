@@ -298,7 +298,7 @@
 	rider.pixel_y += 9
 
 /datum/component/riding/creature/cyborg/get_offsets(pass_index)
-	if(!isrobot(parent))
-		return ..()
 	var/mob/living/silicon/robot/robot = parent
+	if(!robot.selected_skin)
+		return ..()
 	return robot.selected_skin.get_riding_offsets()
