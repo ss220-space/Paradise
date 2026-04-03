@@ -148,11 +148,11 @@
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/plating/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/plating/cold
+	atmos_environment = ENVIRONMENT_COLD
 
 /turf/simulated/floor/plating/airless
 	name = "airless plating"
@@ -294,9 +294,7 @@
 	icon = 'icons/turf/floors/ice_turfs.dmi'
 	base_icon_state = "ice_turfs"
 	icon_state = "unsmooth"
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/plating/ice
 	slowdown = 1
 	smooth = SMOOTH_BITMASK

@@ -957,11 +957,7 @@
 "hE" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/circuitboard/tcomms/core,
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "hF" = (
 /obj/machinery/camera{
@@ -4528,21 +4524,13 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Ib" = (
 /obj/structure/AIcore,
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Ic" = (
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "TWIN-NEXUS HOTEL"
 	},
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Ik" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -6736,11 +6724,7 @@
 /area/ruin/space/spacehotelv1/restoraunt)
 "Xc" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Xe" = (
 /obj/machinery/door/firedoor,

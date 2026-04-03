@@ -3607,14 +3607,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "QF" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Burn-Mix Floor";
-	nitrogen = 0;
-	oxygen = 2500;
-	temperature = 370;
-	toxins = 5000
-	},
+/turf/simulated/floor/holofloor/burn_mix_floor,
 /area/holodeck/source_burntest)
 "QG" = (
 /obj/structure/table/holotable/wood,
@@ -4241,14 +4234,7 @@
 /obj/effect/landmark{
 	name = "Atmospheric Test Start"
 	},
-/turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Burn-Mix Floor";
-	nitrogen = 0;
-	oxygen = 2500;
-	temperature = 370;
-	toxins = 5000
-	},
+/turf/simulated/floor/holofloor/burn_mix_floor,
 /area/holodeck/source_burntest)
 "Yc" = (
 /obj/structure/table/wood,

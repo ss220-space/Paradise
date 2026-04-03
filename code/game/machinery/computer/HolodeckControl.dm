@@ -338,6 +338,14 @@
 	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE
 
+/turf/simulated/floor/holofloor/burn_mix_floor
+	name = "Burn-Mix Floor"
+	icon_state = "engine"
+	nitrogen = 0
+	oxygen = 2500
+	temperature = 370
+	toxins = 5000
+
 /obj/structure/table/holotable/has_prints()
 	return FALSE
 

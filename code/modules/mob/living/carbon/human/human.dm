@@ -28,6 +28,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/Destroy()
+	bleeding_bodyparts.Cut()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bodyparts)
 	SSmobs.cubemonkeys -= src
