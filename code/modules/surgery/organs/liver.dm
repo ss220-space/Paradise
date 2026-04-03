@@ -13,6 +13,7 @@
 	/// Affects how much tox liver heals
 	var/toxin_healing = LIVER_DEFAULT_TOX_HEALING
 	var/failure_time = 0
+	var/regeneration = FALSE
 
 /obj/item/organ/internal/liver/get_ru_names()
 	return list(
@@ -57,8 +58,8 @@
 				if(organ)
 					organ.internal_receive_damage(0.2  * PROCESS_ACCURACY)
 
-		//Detox can heal small amounts of damage
-		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
+		//Detox can heal small amounts of damage, upgraded cyber liver heals all the time when we dont have toxins
+		if(damage && (damage < min_bruised_damage && owner.reagents.has_reagent("charcoal") || (regeneration && (owner.getToxLoss() == 0))))
 			internal_receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Damaged liver means some chemicals are very dangerous
@@ -172,6 +173,41 @@
 		INSTRUMENTAL = "кибернетической печенью",
 		PREPOSITIONAL = "кибернетической печени",
 	)
+
+/obj/item/organ/internal/liver/cybernetic/upgraded
+	name = "upgraded cybernetic liver"
+	desc = "Продвинутая версия кибернетической печени. Имеет большую прочность по сравнению с аналогами, лучше перерабатывает токсины и самовосстанавливается во время бездействия."
+	icon_state = "liver-c-u"
+	origin_tech = "biotech=4, materials=4, engineering=4"
+	max_damage = 120
+	min_bruised_damage = 30
+	min_broken_damage = 90
+	toxin_healing = 2 * LIVER_DEFAULT_TOX_HEALING
+	regeneration = TRUE
+
+/obj/item/organ/internal/liver/cybernetic/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "улучшенная кибернетическая печень",
+		GENITIVE = "улучшенной кибернетической печени",
+		DATIVE = "улучшенной кибернетической печени",
+		ACCUSATIVE = "улучшенную кибернетическую печень",
+		INSTRUMENTAL = "улучшенной кибернетической печенью",
+		PREPOSITIONAL = "улучшенной кибернетической печени",
+	)
+
+/obj/item/organ/internal/liver/cybernetic/upgraded/insert(mob/living/carbon/target, special)
+	. = ..()
+
+	if(HAS_TRAIT(target, TRAIT_ADVANCED_CYBERIMPLANTS))
+		toxin_healing += -0.1 // better tox healing
+		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/organ/internal/liver/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
+	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
+		toxin_healing = initial(toxin_healing)
+		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+	. = ..()
 
 #undef LIVER_FAILURE_STAGE_SECONDS
 #undef LIVER_DEFAULT_TOX_HEALING
