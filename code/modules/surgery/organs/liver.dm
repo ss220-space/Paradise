@@ -148,11 +148,11 @@
 
 	switch(failure_time)
 		if(0 to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			examine_list += span_notice("[H]'s eyes are slightly yellow.")
+			examine_list += span_notice("[GEND_HIS_HER_CAP(H)] глаза выглядят слегка жёлтыми.")
 		if(3 * LIVER_FAILURE_STAGE_SECONDS to 4 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			examine_list += span_notice("[H]'s eyes are completely yellow, and [H.p_they()] [H.p_are()] visibly suffering.")
+			examine_list += span_notice("[GEND_HIS_HER_CAP(H)] глаза полностью желтые и [GEND_HE_SHE(H)] явно страдает.")
 		if(4 * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
-			examine_list += span_danger("[H]'s eyes are completely yellow and swelling with pus. [H.p_they()] won't last long.")
+			examine_list += span_danger("[GEND_HIS_HER_CAP(H)] глаза полностью желтые и опухшие от гноя. [GEND_HE_SHE_CAP(H)] долго не продержится.")
 
 /obj/item/organ/internal/liver/cybernetic
 	name = "cybernetic liver"
