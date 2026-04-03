@@ -1330,20 +1330,14 @@
 /area/awaymission/northblock)
 "eh" = (
 /obj/machinery/sleeper,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "ei" = (
 /obj/machinery/vending/snack,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "ej" = (
@@ -1392,11 +1386,8 @@
 /area/awaymission/northblock)
 "ep" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "eq" = (
@@ -1408,11 +1399,8 @@
 /area/awaymission/northblock)
 "er" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "es" = (
@@ -1457,11 +1445,8 @@
 /area/awaymission/northblock)
 "ex" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "ey" = (
@@ -1547,28 +1532,19 @@
 /area/awaymission/northblock)
 "eJ" = (
 /obj/structure/closet/syndicate,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "eK" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "eL" = (
 /obj/machinery/door/airlock/centcom,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "eM" = (
@@ -1670,20 +1646,14 @@
 	desc = "A dark little medical robot. She looks somewhat underwhelmed.";
 	name = "Nightingale"
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "eX" = (
 /obj/structure/table,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "eY" = (
@@ -1751,43 +1721,31 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "fg" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "fh" = (
 /obj/structure/table,
 /obj/item/paper/sc_safehint_paper_shuttle,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "fi" = (
 /obj/machinery/sleeper{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4";
-	nitrogen = 0.01;
-	oxygen = 0.01;
-	temperature = 2.7
+/turf/simulated/floor/shuttle/almost_airless{
+	icon_state = "floor4"
 	},
 /area/awaymission/syndishuttle)
 "fj" = (

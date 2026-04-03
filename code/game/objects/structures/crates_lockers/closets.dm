@@ -485,7 +485,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 	spawn(0)
 		if(do_after(user, breakout_time, src))
-			if(!src || !user || user.stat != CONSCIOUS || user.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+			if(!src || !user || user.stat != CONSCIOUS || user.loc != src || opened) //closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
 				return
 
 			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

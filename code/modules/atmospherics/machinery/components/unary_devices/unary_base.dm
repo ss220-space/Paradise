@@ -1,7 +1,6 @@
 /obj/machinery/atmospherics/unary
 	initialize_directions = SOUTH
 	layer = TURF_LAYER+0.1
-	var/id_tag
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
 	/// Our one pipe node (we're unary)

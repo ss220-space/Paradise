@@ -6,7 +6,7 @@
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
 	recommended_enemies = 3
-	var/protected_species_vampire = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC)
+	var/protected_species_vampire = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC, SPECIES_PLASMAMAN, SPECIES_SLIMEPERSON)
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<b>The current game mode is - Traitor+Vampire!</b>")

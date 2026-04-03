@@ -13,7 +13,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakout_time = 150 SECONDS
+	breakout_time = 2 MINUTES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	custom_price = PAYCHECK_MIN * 1.2
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
@@ -128,6 +128,7 @@
 	item_state = "sinewcuff"
 	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/sinew/get_ru_names()
 	return list(
@@ -149,6 +150,7 @@
 	breakout_time = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 	custom_price = PAYCHECK_MIN
+	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/cable/get_ru_names()
 	return list(
@@ -296,7 +298,6 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "manacle_lock"
 	item_state = "manacle"
-	breakout_time = 2 MINUTES
 	cuffsound = 'sound/items/zippoclose.ogg'
 	onmob_sheets = list(
 		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi',

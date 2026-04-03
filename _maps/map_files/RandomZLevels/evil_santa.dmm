@@ -6,9 +6,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ac" = (
@@ -576,9 +575,7 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/red{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "fj" = (
 /obj/structure/sign/barsign{
@@ -692,9 +689,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ge" = (
@@ -962,9 +958,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "hT" = (
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "hW" = (
 /obj/effect/bump_teleporter{
@@ -1100,9 +1094,8 @@
 	calibrated = 0;
 	calibrating_on_activating = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "iZ" = (
@@ -1129,9 +1122,8 @@
 	dir = 6
 	},
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ji" = (
@@ -1235,9 +1227,7 @@
 	name = "Mining lantern";
 	on = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "jK" = (
 /turf/simulated/wall/indestructible/rock,
@@ -1436,9 +1426,7 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "lC" = (
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "lG" = (
 /obj/machinery/icemachine{
@@ -1501,9 +1489,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "mh" = (
 /obj/item/gift,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "mj" = (
 /turf/simulated/floor/wood/oak,
@@ -1932,9 +1918,7 @@
 "po" = (
 /obj/structure/flora/tree/pine/xmas,
 /obj/effect/mapping_helpers/light,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "pv" = (
 /obj/machinery/light{
@@ -1996,9 +1980,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "pT" = (
@@ -2183,9 +2166,8 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "rC" = (
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "rD" = (
@@ -2903,9 +2885,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "xW" = (
@@ -3081,9 +3062,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "zG" = (
@@ -3190,9 +3170,8 @@
 /obj/machinery/gateway{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "AV" = (
@@ -3400,9 +3379,8 @@
 /obj/machinery/gateway{
 	density = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "CN" = (
@@ -3470,9 +3448,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Dy" = (
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "DD" = (
 /obj/effect/bump_teleporter{
@@ -3596,9 +3572,8 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "EZ" = (
 /obj/structure/mineral_door/ginger,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Fc" = (
@@ -3977,9 +3952,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "HY" = (
@@ -4080,9 +4054,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "IS" = (
 /mob/living/simple_animal/hostile/winter/santa/stage_1,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "IU" = (
 /obj/item/melee/candy_sword,
@@ -4336,9 +4308,8 @@
 	name = "Mining lantern";
 	on = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Lm" = (
@@ -4521,9 +4492,7 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "MR" = (
 /obj/structure/decorative_structures/garland{
@@ -4670,9 +4639,8 @@
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Ob" = (
@@ -4947,9 +4915,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "Ql" = (
 /obj/structure/flora/tree/pine/xmas,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Qq" = (
 /obj/machinery/light,
@@ -5782,9 +5748,8 @@
 /obj/machinery/gateway{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Xj" = (
@@ -5930,9 +5895,8 @@
 	name = "Santa's Little Helper remains"
 	},
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	slowdown = 0;
-	temperature = 293.15
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature{
+	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "YP" = (
@@ -5984,9 +5948,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Ze" = (
-/turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15
-	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Zh" = (
 /obj/effect/bump_teleporter{
