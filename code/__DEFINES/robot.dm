@@ -11,7 +11,7 @@
 #define AI_MECH_HACK 3
 
 
-// Since each cyborgs skins have different height and width, they need unusual riding offsets
+// Since each cyborgs skin have different height and width, they need unusual riding offsets
 
 #define CYBORG_RIDING_OFFSET_DRAKE list(TEXT_NORTH = list(0, 10), TEXT_SOUTH = list(0, 10), TEXT_EAST = list(0, 10), TEXT_WEST = list(0, 10))
 
