@@ -58,9 +58,13 @@
 				if(organ)
 					organ.internal_receive_damage(0.2  * PROCESS_ACCURACY)
 
-		//Detox can heal small amounts of damage, upgraded cyber liver heals all the time when we dont have toxins
-		if(damage && (damage < min_bruised_damage && owner.reagents.has_reagent("charcoal") || (regeneration && (owner.getToxLoss() == 0))))
-			internal_receive_damage(-0.2 * PROCESS_ACCURACY)
+		if(damage)
+			//Detox can heal small amounts of damage
+			if((damage < min_bruised_damage && owner.reagents.has_reagent("charcoal")))
+				internal_receive_damage(-0.2 * PROCESS_ACCURACY)
+			//Upgraded cyber liver heals all the time when we dont have toxins
+			if(regeneration && (owner.getToxLoss() == 0))
+				internal_receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Damaged liver means some chemicals are very dangerous
 		if(damage >= min_bruised_damage)
