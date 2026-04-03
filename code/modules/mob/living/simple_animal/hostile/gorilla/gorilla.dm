@@ -39,7 +39,7 @@
 	var/list/carriable_cache
 	/// A lazylist of all crates we are carrying
 	var/list/atom/movable/crates_in_hand
-	/// Chance to dismember while unconcious
+	/// Chance to dismember while unconscious
 	var/dismember_chance = 10
 	/// Amount of stamina lost on a successful hit
 	var/stamina_damage = 20
