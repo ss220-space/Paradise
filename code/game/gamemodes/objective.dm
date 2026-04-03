@@ -33,6 +33,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/check_cryo = TRUE
 	/// This name displays in antag menu
 	var/antag_menu_name
+	var/special_object_type
+	var/area/special_object_spawn_area
+	var/object_sended
+	var/list/special_object_uplink_data
+	var/static/list/possible_spawn_areas
 
 /datum/objective/New(text, datum/team/team_to_join)
 	GLOB.all_objectives += src
@@ -40,6 +45,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(special_object_type)
+		select_area_for_spawn()
 
 /datum/objective/Destroy(force)
 	for(var/datum/mind/user in get_owners())
@@ -55,6 +62,71 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/proc/check_anatag_menu_ability()
 	return TRUE
+
+/datum/objective/proc/can_send_object()
+	if(!special_object_type)
+		return FALSE
+
+	if(!special_object_spawn_area)
+		return FALSE
+
+	if(object_sended)
+		return FALSE
+
+	return TRUE
+
+/datum/objective/proc/get_uplink_data()
+	if(!can_send_object())
+		return
+
+	var/list/special_object_uplink_data = src.special_object_uplink_data
+
+	if(special_object_uplink_data)
+		return special_object_uplink_data
+
+	special_object_uplink_data = list()
+	special_object_uplink_data["objective_uid"] = UID()
+	special_object_uplink_data["objective_name"] = name
+	special_object_uplink_data["description"] = explanation_text
+	var/atom/spawn_item = new special_object_type(null)
+	special_object_uplink_data["item_name"] = DECLENT_RU_CAP(spawn_item, NOMINATIVE)
+	qdel(spawn_item)
+	special_object_uplink_data["area_name"] = special_object_spawn_area.name
+	return special_object_uplink_data
+
+/datum/objective/proc/spawn_objective_item(mob/user)
+	if(!can_send_object())
+		return
+
+	var/area/delivery_area = get_area(user)
+	if(delivery_area.type != special_object_spawn_area.type)
+		to_chat(user, span_warning("You must be in [special_object_spawn_area.name]."))
+		return
+
+	object_sended = TRUE
+	podspawn(list(
+		"target" = get_turf(user),
+		"style" = /datum/pod_style/syndicate,
+		"spawn" = special_object_type,
+	))
+
+/datum/objective/proc/select_area_for_spawn()
+	var/list/possible_spawn_areas = src.possible_spawn_areas
+
+	if(!possible_spawn_areas)
+		possible_spawn_areas = list()
+		for(var/area/maintenance/area in GLOB.areas)
+			possible_spawn_areas += area
+		src.possible_spawn_areas = possible_spawn_areas
+
+	var/area/spawn_area = pick(possible_spawn_areas)
+	special_object_spawn_area = spawn_area
+	replace_in_name("%AREA%", special_object_spawn_area.name)
+
+/// Replaces a word in the name of the proc. Also does it for the description
+/datum/objective/proc/replace_in_name(replace, word)
+	name = replacetext(name, replace, word)
+	explanation_text = replacetext(explanation_text, replace, word)
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
@@ -808,6 +880,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	antag_menu_name = "Украсть предмет"
 	var/datum/theft_objective/steal_target
 	var/type_theft_flag = THEFT_FLAG_HIGHRISK
+	var/allow_special_items = FALSE
 
 /datum/objective/steal/proc/get_theft_list_objectives(type_theft_flag)
 	switch(type_theft_flag)
@@ -835,6 +908,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/thefttype = pick_n_take(theft_types)
 		var/datum/theft_objective/new_theft_objective = new thefttype
 
+		if(!allow_special_items && new_theft_objective.special_equipment)
+			continue
+
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/player in get_owners())
 			if(player.assigned_role in new_theft_objective.protected_jobs)
@@ -854,7 +930,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		steal_target.generate_explanation_text(src)
 
 		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+			special_object_type = steal_target.special_equipment
+			select_area_for_spawn()
 
 		return TRUE
 
@@ -890,30 +967,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		steal_target = new new_target
 		steal_target.generate_explanation_text(src)
 		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+			special_object_type = steal_target.special_equipment
+			select_area_for_spawn()
 	if(steal_target)
 		return TRUE
 	return FALSE
 
-/datum/objective/steal/proc/give_kit(obj/item/item_path)
-	var/item = new item_path
-	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_POCKET_LEFT,
-		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
-		"left hand" = ITEM_SLOT_HAND_LEFT,
-		"right hand" = ITEM_SLOT_HAND_RIGHT,
-	)
 
-	for(var/datum/mind/player in get_owners())
-		var/mob/living/carbon/human/human_owner = player.current
-		var/where = human_owner.equip_in_one_of_slots(item, slots)
-		if(where)
-			to_chat(human_owner, span_notice("<br><br>В вашем [where] находится коробка с [span_bold("предметами и инструкциями")], которые помогут вам в воровстве.<br>"))
-		else
-			to_chat(human_owner, span_userdanger("К сожалению, вам не удалось получить набор для кражи. Это очень плохо, и вам следует немедленно обратиться за помощью к администраторам (нажмите F1)."))
-			message_admins("[ADMIN_LOOKUPFLW(human_owner)] Failed to spawn with their [item_path] theft kit.")
-			qdel(item)
+/datum/objective/steal/with_special_items
+	allow_special_items = TRUE
 
 /datum/objective/steal/hard
 	type_theft_flag = THEFT_FLAG_HARD
@@ -1765,3 +1827,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return
 	serve_to = target_to_serve
 	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(serve_to)] приказы."
+
+/datum/objective/supermatter_cascade
+	name = "Destroy the station by causing a crystallizing resonance cascade"
+	explanation_text = "Destroy the station by causing a supermatter cascade. Go to %AREA% to retrieve the destabilizing crystal \
+		and use it on the supermatter."
+	needs_target = FALSE
+	special_object_type = /obj/item/destabilizing_crystal
+
+/datum/objective/supermatter_cascade/check_completion()
+	. = ..()
+	if(!.)
+		return SSsupermatter_cascade.cascade_successful

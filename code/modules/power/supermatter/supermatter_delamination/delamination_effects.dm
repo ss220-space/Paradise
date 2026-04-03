@@ -233,6 +233,7 @@
 
 /datum/sm_delam/proc/effect_evac_rift_end_step4()
 	//SSticker.news_report = SUPERMATTER_CASCADE
+	SSsupermatter_cascade.cascade_successful = TRUE
 	SSticker.force_ending = TRUE
 
 /// Scatters crystal mass over the event spawns as long as they are at least 30 tiles away from whatever we want to avoid.

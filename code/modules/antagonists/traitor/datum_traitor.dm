@@ -127,6 +127,11 @@
 			add_objective(/datum/objective/hijack)
 			return
 
+	if(prob(10))
+		add_objective(/datum/objective/supermatter_cascade)
+		add_objective(/datum/objective/survive)
+		return
+
 	for(var/i = objective_count, i < objective_amount)
 		forge_single_objective()
 		i += 1
@@ -146,6 +151,9 @@
 	var/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/escape)
+
+/datum/antagonist/traitor/get_steal_objective_type()
+	return /datum/objective/steal/with_special_items
 
 /**
  * Assigning exchange role.

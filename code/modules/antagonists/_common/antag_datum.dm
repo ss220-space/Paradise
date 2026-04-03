@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 10 SECONDS)
 	if(!length(candidates))
 		return FALSE
-		
+
 	if(QDELETED(owner.current))
 		return
 
@@ -485,4 +485,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 			add_objective(/datum/objective/maroon)
 
 	else
-		add_objective(/datum/objective/steal)
+		add_objective(get_steal_objective_type())
+
+/datum/antagonist/proc/get_steal_objective_type()
+	return /datum/objective/steal

@@ -6,3 +6,4 @@ PROCESSING_SUBSYSTEM_DEF(supermatter_cascade)
 
 	///Is a cascade happening right now?
 	var/cascade_initiated = FALSE
+	var/cascade_successful = FALSE
