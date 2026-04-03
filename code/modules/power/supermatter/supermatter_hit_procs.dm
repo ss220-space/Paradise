@@ -10,7 +10,7 @@
 	if(projectile.flag != BULLET)
 		log_activation(who = projectile.firer, how = projectile.firer_source_atom)
 	else
-		external_damage_immediate += projectile.damage * bullet_energy * 0.1
+		external_damage_immediate += projectile.damage * bullet_energy * 0.01
 		// Stop taking damage at emergency point, yell to players at danger point.
 		// This isn't clean and we are repeating [/obj/machinery/power/supermatter_crystal/proc/calculate_damage], sorry for this.
 		var/damage_to_be = damage + external_damage_immediate * clamp((emergency_point - damage) / emergency_point, 0, 1)

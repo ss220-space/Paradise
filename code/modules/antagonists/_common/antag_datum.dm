@@ -57,6 +57,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
+		objective.on_remove_objective(owner)
 
 		if(!objective.team)
 			qdel(objective)
@@ -349,6 +350,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 	if(!new_objective.needs_target)
 		objectives += new_objective
+		new_objective.on_add_objective(owner)
 		return new_objective
 
 	var/found_valid_target = FALSE
@@ -385,6 +387,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 		new_objective.antag_menu_name = "Свободная цель"
 		new_objective.target = null
 
+	new_objective.on_add_objective(owner)
 	objectives += new_objective
 	return new_objective
 

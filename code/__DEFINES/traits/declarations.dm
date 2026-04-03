@@ -412,6 +412,9 @@
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 
+/// Ignores darkness for hearing
+#define TRAIT_HIJACK "hijack"
+
 //important_recursive_contents traits
 /*
  * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.

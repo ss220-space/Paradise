@@ -96,7 +96,7 @@
 	SSticker.mode.traitors -= owner
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
-	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+	if(HAS_TRAIT(owner, TRAIT_HIJACK))
 		antag_hud_name = hijack_antag_hud_name
 	else
 		antag_hud_name = syndicate_antag_hud_name
@@ -123,14 +123,14 @@
 	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
 	if(hijacker_antag && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
-		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-			add_objective(/datum/objective/hijack)
-			return
+		if(!(HAS_TRAIT(owner, TRAIT_HIJACK)))
+			if(!prob(40))
+				add_objective(/datum/objective/hijack)
+				return
 
-	if(prob(10))
-		add_objective(/datum/objective/supermatter_cascade)
-		add_objective(/datum/objective/survive)
-		return
+			add_objective(/datum/objective/supermatter_cascade)
+			add_objective(/datum/objective/survive)
+			return
 
 	for(var/i = objective_count, i < objective_amount)
 		forge_single_objective()

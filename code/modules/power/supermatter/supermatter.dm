@@ -63,7 +63,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/danger_point = 60
 	///The point at which we consider the supermatter to be [SUPERMATTER_STATUS_EMERGENCY]
 	var/emergency_point = 75
-	var/emergency_channel = ENG_FREQ // Need null to actually broadcast, lol.
+	var/emergency_channel = PUB_FREQ // Need null to actually broadcast, lol.
 	///The point at which we delam [SUPERMATTER_STATUS_DELAMINATING].
 	var/explosion_point = 100
 	///Are we exploding?

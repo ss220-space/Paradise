@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/object_sended
 	var/list/special_object_uplink_data
 	var/static/list/possible_spawn_areas
+	var/static/list/cached_names = list()
 
 /datum/objective/New(text, datum/team/team_to_join)
 	GLOB.all_objectives += src
@@ -62,6 +63,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/proc/check_anatag_menu_ability()
 	return TRUE
+
+/datum/objective/proc/on_add_objective(datum/mind)
+	return
+
+/datum/objective/proc/on_remove_objective(datum/mind)
+	return
 
 /datum/objective/proc/can_send_object()
 	if(!special_object_type)
@@ -88,9 +95,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	special_object_uplink_data["objective_uid"] = UID()
 	special_object_uplink_data["objective_name"] = name
 	special_object_uplink_data["description"] = explanation_text
-	var/atom/spawn_item = new special_object_type(null)
-	special_object_uplink_data["item_name"] = DECLENT_RU_CAP(spawn_item, NOMINATIVE)
-	qdel(spawn_item)
+	var/special_object_type_cached = special_object_type
+	var/item_name = cached_names[special_object_type_cached]
+	if(!item_name)
+		var/atom/spawn_item = new special_object_type_cached(null)
+		item_name = DECLENT_RU_CAP(spawn_item, NOMINATIVE)
+		cached_names[special_object_type_cached] = item_name
+		qdel(spawn_item)
+
+	special_object_uplink_data["item_name"] = item_name
 	special_object_uplink_data["area_name"] = special_object_spawn_area.name
 	return special_object_uplink_data
 
@@ -607,6 +620,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Угоните шаттл, эвакуировавшись без лояльного Nanotrasen экипажа на борту, будучи свободным. \
 	Агенты Синдикта, другие враги Nanotrasen, борги, питомцы, и заложники в наручниках/связывающих устройствах могут быть на шаттле живыми."
 	needs_target = FALSE
+
+/datum/objective/hijack/on_add_objective(datum/mind)
+	ADD_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/objective/hijack/on_remove_objective(datum/mind)
+	REMOVE_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/objective/hijack/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -1839,3 +1858,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	. = ..()
 	if(!.)
 		return SSsupermatter_cascade.cascade_successful
+
+/datum/objective/supermatter_cascade/on_add_objective(datum/mind)
+	ADD_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/objective/supermatter_cascade/on_remove_objective(datum/mind)
+	REMOVE_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
