@@ -309,6 +309,13 @@
 /obj/machinery/atmospherics/miner/antinoblium/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_antinoblium(count)
 
+/obj/machinery/atmospherics/miner/water_vapor
+	name = "Water Vapor Gas Miner"
+	overlay_color = COLOR_GAS_MINER_WATER_VAPOR
+
+/obj/machinery/atmospherics/miner/water_vapor/add_gas_to(datum/gas_mixture/merger, count)
+	merger.set_water_vapor(count)
+
 #undef GASMINER_POWER_NONE
 #undef GASMINER_POWER_STATIC
 #undef GASMINER_POWER_MOLES

@@ -1219,7 +1219,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	if(air_mixture)
 		pressure = max(1, air_mixture.return_pressure())
 		var/datum/milla_safe/supermatter_electrolyze/milla = new()
-		milla.invoke_async(src, zap_str, power_level)
+		milla.invoke_async(target, zap_str, power_level)
 	//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 	var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 	var/zap_count = 1
@@ -1234,8 +1234,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 /datum/milla_safe/supermatter_electrolyze
 
-/datum/milla_safe/supermatter_electrolyze/on_run(obj/machinery/power/electrolyzer/electrolyzer, zap_str, power_level)
-	var/turf/location = get_turf(electrolyzer)
+/datum/milla_safe/supermatter_electrolyze/on_run(atom/target, zap_str, power_level)
+	if(!target)
+		return
+
+	var/turf/location = get_turf(target)
+	if(!location)
+		return
+
 	var/datum/gas_mixture/env = get_turf_air(location)
 	env.electrolyze(working_power = zap_str / 200, electrolyzer_args = list(ELECTROLYSIS_ARGUMENT_SUPERMATTER_POWER = power_level))
 
