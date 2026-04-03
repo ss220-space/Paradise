@@ -1252,6 +1252,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/westarrival)
+"amk" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/effect/decal/remains/mouse/Pinkie,
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "aml" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=A2";
@@ -9578,10 +9584,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/storage/eva)
-"bsL" = (
-/obj/machinery/power/supermatter_crystal/engine,
-/turf/simulated/floor/engine,
-/area/engineering/supermatter)
 "bsM" = (
 /obj/structure/toilet{
 	dir = 1
@@ -17303,6 +17305,10 @@
 "cge" = (
 /turf/simulated/floor/engine/n2,
 /area/atmos)
+"cgf" = (
+/obj/machinery/power/supermatter_crystal/engine,
+/turf/simulated/floor/engine,
+/area/engineering/supermatter)
 "cgg" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -20427,17 +20433,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
-"cyA" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	external_pressure_bound = 140;
-	external_pressure_bound_default = 140;
-	name = "server vent";
-	on = 1;
-	pressure_checks = 0;
-	releasing = 0
-	},
-/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
-/area/toxins/server)
 "cyD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -31589,6 +31584,13 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/shallway)
+"dyG" = (
+/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "dyI" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/bluegrid,
@@ -51759,13 +51761,6 @@
 	icon_state = "grimy"
 	},
 /area/library/game_zone)
-"hni" = (
-/obj/machinery/r_n_d/server/core,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
-/area/toxins/server)
 "hnE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -71050,13 +71045,6 @@
 	icon_state = "neutralfull"
 	},
 /area/bridge/vip)
-"lRv" = (
-/obj/machinery/r_n_d/server/robotics,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
-/area/toxins/server)
 "lRO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet/red,
@@ -78159,30 +78147,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"nta" = (
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/lock_buster,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/storage/lockbox/mindshield,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "ntd" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -82890,6 +82854,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
+"oyt" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0;
+	releasing = 0
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "oyI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -104096,6 +104071,31 @@
 	icon_state = "red"
 	},
 /area/security/lobby)
+"tiv" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/lock_buster,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/lockbox/mindshield,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/item/storage/lockbox/suppression,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "tiy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -106476,21 +106476,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/bridge)
-"tJl" = (
-/obj/machinery/camera{
-	c_tag = "Server Room";
-	dir = 8;
-	network = list("SS13","Research")
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	external_pressure_bound = 140;
-	external_pressure_bound_default = 140;
-	name = "server vent";
-	on = 1;
-	pressure_checks = 0
-	},
-/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
-/area/toxins/server)
 "tJn" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -118316,10 +118301,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/chief)
-"woX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/bluegrid/telecomms/mainframe,
-/area/toxins/server)
 "wpg" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -121722,12 +121703,6 @@
 	icon_state = "red"
 	},
 /area/security/brig)
-"xch" = (
-/obj/machinery/light/small,
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/obj/effect/decal/remains/mouse/Pinkie,
-/turf/simulated/floor/bluegrid/telecomms/mainframe,
-/area/toxins/server)
 "xci" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -125860,6 +125835,13 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
+"xSP" = (
+/obj/machinery/r_n_d/server/core,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "xSX" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -125884,6 +125866,21 @@
 	icon_state = "vault"
 	},
 /area/aisat/aihallway)
+"xTh" = (
+/obj/machinery/camera{
+	c_tag = "Server Room";
+	dir = 8;
+	network = list("SS13","Research")
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0
+	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
+/area/toxins/server)
 "xTp" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -127554,6 +127551,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"yjC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
+/area/toxins/server)
 "yjD" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -151828,7 +151829,7 @@ bIH
 aYW
 wqM
 cfr
-bsL
+cgf
 cfr
 cdZ
 cfr
@@ -160414,8 +160415,8 @@ vsH
 gVl
 wpp
 sPG
-cyA
-hni
+oyt
+xSP
 wEh
 iVN
 xEA
@@ -160671,8 +160672,8 @@ nYC
 qzC
 yhY
 eeD
-woX
-xch
+yjC
+amk
 wEh
 ruT
 gpS
@@ -160928,8 +160929,8 @@ vsH
 kvI
 tSo
 dwg
-tJl
-lRv
+xTh
+dyG
 wEh
 tLT
 vZW
@@ -181170,7 +181171,7 @@ vNX
 gxx
 ePU
 wCH
-nta
+tiv
 lhS
 jBq
 tNf
