@@ -1,3 +1,5 @@
+#define DISPLAY_STAND_GLASS_REQUIREMENT 2
+
 /obj/machinery/display_stand
 	name = "display stand"
 	desc = "Напольный информационный дисплей с экраном. По хорошему, вы не должны это видеть."
@@ -55,7 +57,7 @@
 /obj/machinery/display_stand/power_change(forced = FALSE)
 	. = ..()
 	if((stat & (BROKEN|NOPOWER)))
-		stop_speaking()
+		stop_speaking(FALSE)
 		set_light_on(FALSE)
 	else
 		set_light(l_range = 3, l_power = 0.7, l_color = light_color, l_on = TRUE)
@@ -64,7 +66,7 @@
 /obj/machinery/display_stand/take_damage(amount, type = BRUTE, flag = 0)
 	. = ..()
 	if(stat & BROKEN)
-		stop_speaking()
+		stop_speaking(FALSE)
 		set_light_on(FALSE)
 		update_icon(UPDATE_OVERLAYS)
 
@@ -89,7 +91,7 @@
 			new /obj/item/shard(drop_location())
 
 /obj/machinery/display_stand/Destroy(force)
-	stop_speaking()
+	stop_speaking(FALSE)
 	if(cooldown_timer)
 		deltimer(cooldown_timer)
 		cooldown_timer = 0
@@ -130,14 +132,14 @@
 
 	add_fingerprint(user)
 	var/obj/item/stack/sheet/glass/glass = I
-	if(glass.get_amount() < 2)
+	if(glass.get_amount() < DISPLAY_STAND_GLASS_REQUIREMENT)
 		to_chat(user, span_warning("Нужно два листа стекла для починки."))
 		return ATTACK_CHAIN_PROCEED
 	glass.play_tool_sound(src)
 	to_chat(user, span_notice("Вы начинаете заменять стекло..."))
 	if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || !(stat & BROKEN) || QDELETED(glass))
 		return ATTACK_CHAIN_PROCEED
-	if(!glass.use(2))
+	if(!glass.use(DISPLAY_STAND_GLASS_REQUIREMENT))
 		to_chat(user, span_warning("В процессе починки у вас закончилось стекло..."))
 		return ATTACK_CHAIN_PROCEED
 	stat &= ~BROKEN
@@ -160,15 +162,16 @@
 		return
 
 	if(cooldown_timer)
+		to_chat(user, span_warning("Стенд перезаряжается."))
 		return
 
 	if(is_speaking)
-		stop_speaking()
+		stop_speaking(TRUE)
 		atom_say("...")
-		return
+		return TRUE
 
 	start_speaking()
-	return
+	return TRUE
 
 /obj/machinery/display_stand/proc/start_speaking()
 	if(!length(speech_lines))
@@ -183,6 +186,9 @@
 	speak_next_line()
 
 /obj/machinery/display_stand/proc/speak_next_line()
+	if(!src)
+		return
+
 	if(speech_index > speech_lines.len)
 		speech_timer = 0
 		stop_speaking()
@@ -195,7 +201,7 @@
 
 	speech_timer = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/display_stand, speak_next_line)), speech_interval, TIMER_STOPPABLE)
 
-/obj/machinery/display_stand/proc/stop_speaking()
+/obj/machinery/display_stand/proc/stop_speaking(start_cooldown = TRUE)
 	if(speech_timer)
 		deltimer(speech_timer)
 		speech_timer = 0
@@ -203,13 +209,16 @@
 	is_speaking = FALSE
 	speech_index = 0
 
-	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(cooldown_finished)), cooldown_delay, TIMER_STOPPABLE)
+	if(start_cooldown)
+		cooldown_timer = addtimer(CALLBACK(src, PROC_REF(cooldown_finished)), cooldown_delay, TIMER_STOPPABLE)
 
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(l_range = 3, l_power = 0.7, l_color = light_color, l_on = TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/display_stand/proc/cooldown_finished()
+	if(!src)
+		return
 	cooldown_timer = 0
 
 /obj/machinery/display_stand/type_1
