@@ -132,6 +132,9 @@
 		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 			death()
 
+/mob/living/carbon/human/proc/add_bleeding_bodypart(obj/item/organ/external/bodypart)
+	bleeding_bodyparts |= bodypart
+
 /mob/living/carbon/human/proc/calculate_current_bleeding()
 	//not calculate bleeding for fake dath
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -141,8 +144,10 @@
 	var/internal_bleeding_rate = 0
 	var/has_arterial_bleed = FALSE
 	// calculate total bleeding from bodyparts
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+	var/list/bleeding_bodyparts_cache = bleeding_bodyparts
+	for(var/obj/item/organ/external/bodypart as anything in bleeding_bodyparts_cache)
 		if(bodypart.is_robotic())
+			bleeding_bodyparts_cache -= bodypart
 			continue
 
 		if(bodypart.tourniquet) //all bloodloss suppressed
@@ -177,6 +182,9 @@
 
 		if(bodypart.open)
 			current_bleed += OPEN_BODYPART_BLEEDING
+
+		if(bodypart.bleeding_amount <= 0 && !bodypart.has_internal_bleeding() && !embedded_length && !bodypart.open)
+			bleeding_bodyparts_cache -= bodypart
 
 	// calculate bleed rate with regenretion and current bleed
 	var/prev_bleed_rate = bleed_rate

@@ -466,6 +466,7 @@
 
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
+			owner.add_bleeding_bodypart(src)
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
@@ -848,6 +849,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		)
 
 	open = ORGAN_ORGANIC_OPEN
+	owner.add_bleeding_bodypart(src)
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
@@ -976,6 +978,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status |= ORGAN_INT_BLEED
+	owner.add_bleeding_bodypart(src)
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
@@ -1009,6 +1012,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	bleeding_amount = LIMB_ARTERIAL_BLEEDING_SIZE
+	owner.add_bleeding_bodypart(src)
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
@@ -1333,6 +1337,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/thing, throw_alert = TRUE)
 	LAZYOR(embedded_objects, thing)
+	owner.add_bleeding_bodypart(src)
 	thing.forceMove(src)
 	if(throw_alert)
 		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
