@@ -650,3 +650,25 @@
 		return TRUE
 
 	return FALSE
+
+///Called when we want to change the value of the `panel_open` variable. Boolean.
+/obj/machinery/proc/set_panel_open(new_value)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	if(panel_open == new_value)
+		return
+	var/old_value = panel_open
+	panel_open = new_value
+	on_set_panel_open(old_value)
+
+///Called when the value of `panel_open` changes, so we can react to it.
+/obj/machinery/proc/on_set_panel_open(old_value)
+	PROTECTED_PROC(TRUE)
+
+	return
+
+/// Toggles the panel_open var. Defined for convienience
+/obj/machinery/proc/toggle_panel_open()
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	set_panel_open(!panel_open)

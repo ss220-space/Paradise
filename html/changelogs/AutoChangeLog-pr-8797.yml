@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Костер теперь горит на лаве. (PR #8797)"

@@ -50,7 +50,7 @@
 /area/coldcolony/malta/research)
 "abx" = (
 /obj/structure/snowman/built,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "aby" = (
 /turf/simulated/floor/wood{
@@ -59,7 +59,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "abG" = (
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "abH" = (
 /obj/effect/decal/warning_stripes/north,
@@ -124,9 +124,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "acm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -200,7 +198,7 @@
 /area/coldcolony/malta/hallway/service/central)
 "adm" = (
 /mob/living/simple_animal/hostile/winter/reindeer,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ado" = (
 /obj/machinery/atmospherics/binary/pump/on{
@@ -295,7 +293,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "adZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -329,9 +327,8 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "aer" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/ruin/unpowered)
 "aev" = (
@@ -348,7 +345,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "aeR" = (
 /obj/structure/disposalpipe/segment{
@@ -794,9 +791,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 5
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "anY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -947,9 +942,7 @@
 "apx" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "apT" = (
 /obj/structure/cable{
@@ -1127,9 +1120,7 @@
 /area/coldcolony/malta/hallway/service/north)
 "asr" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "ast" = (
 /obj/structure/disposalpipe/junction/reversed{
@@ -1246,9 +1237,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "auB" = (
 /obj/machinery/door/airlock/silver{
@@ -1315,9 +1304,7 @@
 "avg" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "avt" = (
 /obj/structure/table,
@@ -1399,9 +1386,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "awU" = (
 /obj/machinery/door/poddoor{
@@ -1802,9 +1787,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "aDY" = (
 /obj/machinery/disposal,
@@ -1901,9 +1884,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "aFA" = (
 /obj/structure/table,
@@ -1942,10 +1923,9 @@
 /area/coldcolony/malta/research/explab)
 "aGX" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "aHa" = (
@@ -2165,9 +2145,7 @@
 	opened = 1
 	},
 /obj/random/technology_scanner,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "aLB" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -2228,9 +2206,7 @@
 "aMn" = (
 /obj/structure/table_frame,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "aMv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -2239,9 +2215,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "aMD" = (
 /obj/effect/landmark/start/shaft_miner,
@@ -2351,7 +2325,7 @@
 	dir = 9;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "aOQ" = (
 /obj/structure/sign/poster/official/random{
@@ -2386,7 +2360,7 @@
 "aPj" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/tree/dead,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "aPt" = (
 /obj/machinery/computer/med_data,
@@ -2499,9 +2473,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "aRq" = (
 /obj/structure/fence{
@@ -2510,7 +2482,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "aRx" = (
 /obj/structure/window/reinforced{
@@ -2593,7 +2565,7 @@
 "aTd" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "aTf" = (
 /obj/structure/cable{
@@ -2911,9 +2883,7 @@
 "aZE" = (
 /obj/structure/chair/sofa/pew/right,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "aZN" = (
 /obj/structure/grille,
@@ -3149,7 +3119,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bdG" = (
 /obj/machinery/vending/coffee{
@@ -3301,9 +3271,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "bhK" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "big" = (
 /obj/structure/cable{
@@ -3573,9 +3541,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	anchored = 1
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "blT" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -3603,9 +3569,8 @@
 	},
 /area/coldcolony/ruin/sm_chamber)
 "bmt" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "bmy" = (
@@ -3909,9 +3874,8 @@
 /area/coldcolony/malta/research/hor)
 "bsa" = (
 /obj/item/flag/ussp,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "bsi" = (
@@ -3950,9 +3914,8 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "btl" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken4";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken4"
 	},
 /area/ruin/unpowered)
 "btK" = (
@@ -3981,7 +3944,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bug" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -4047,7 +4010,7 @@
 	desc = "THERE IS FUCKING MINE!!!";
 	name = "MINE!!!"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bvS" = (
 /obj/item/paper{
@@ -4057,9 +4020,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "bvX" = (
 /obj/structure/table/wood,
@@ -4097,7 +4058,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "bwE" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bwR" = (
 /obj/structure/rack,
@@ -4268,9 +4229,7 @@
 /area/coldcolony/malta/maintenance/research)
 "bAK" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "bAX" = (
 /obj/structure/table,
@@ -4479,11 +4438,7 @@
 "bEv" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "bEF" = (
 /obj/machinery/door/airlock/security/glass{
@@ -4513,10 +4468,9 @@
 /area/coldcolony/malta/resid_serv/hydroponics)
 "bEX" = (
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "bFc" = (
@@ -4667,7 +4621,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "bIy" = (
 /obj/structure/snowman/high,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bIR" = (
 /obj/machinery/door/window/brigdoor{
@@ -4839,9 +4793,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "bMa" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -4909,9 +4861,7 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "bNn" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "bNw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -4925,9 +4875,7 @@
 	status = 2
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "bNB" = (
 /obj/effect/landmark/start/brig_physician,
@@ -4936,9 +4884,7 @@
 	},
 /area/coldcolony/malta/security/medbay)
 "bNF" = (
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "bNI" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -5008,9 +4954,7 @@
 /area/coldcolony/malta/security/permabrig)
 "bOv" = (
 /obj/item/chair/wood/wings,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "bOF" = (
 /obj/effect/turf_decal/siding/wood{
@@ -5037,9 +4981,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "bPa" = (
 /obj/structure/closet/cabinet,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "bPb" = (
 /obj/structure/sign/poster/contraband/wanted{
@@ -5082,9 +5024,7 @@
 /area/coldcolony/malta/maintenance/dormitory)
 "bQi" = (
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "bQt" = (
 /obj/machinery/recharger{
@@ -5134,9 +5074,7 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "bRw" = (
 /obj/structure/closet/secure_closet/brig,
@@ -5171,9 +5109,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "bRU" = (
 /obj/structure/table/reinforced,
@@ -5221,7 +5157,7 @@
 /obj/item/vending_refill/clothing/science,
 /obj/structure/closet/crate/sci,
 /obj/item/circuitboard/vendor,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bSq" = (
 /obj/structure/bed,
@@ -5587,7 +5523,7 @@
 "bXG" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bXH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5618,7 +5554,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "bXT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5690,9 +5626,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 10
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "bZf" = (
 /turf/simulated/floor/plasteel{
@@ -5752,9 +5686,7 @@
 /obj/item/clothing/head/fedora/brownfedora,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /obj/item/clothing/under/sovietofficer,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "cav" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5944,7 +5876,7 @@
 /obj/structure/cable/orange{
 	icon_state = "8-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cdD" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -5985,7 +5917,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-5"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ceo" = (
 /obj/effect/decal/warning_stripes/northeast,
@@ -6116,9 +6048,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/noreact,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "chJ" = (
 /turf/simulated/floor/plating,
@@ -6300,9 +6230,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "clf" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "cli" = (
 /obj/structure/table/wood,
@@ -6385,7 +6313,7 @@
 /obj/structure/sign/poster/contraband/free_tonto{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cmF" = (
 /turf/simulated/wall,
@@ -6448,7 +6376,7 @@
 /obj/item/stack/ore/gold{
 	amount = 3
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cnG" = (
 /turf/simulated/floor/wood/fancy/cherry,
@@ -6475,10 +6403,9 @@
 /obj/item/stack/ore/diamond{
 	amount = 7
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "coS" = (
@@ -6603,9 +6530,7 @@
 /area/coldcolony/malta/security/customs)
 "crF" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "crG" = (
 /obj/structure/closet/toolcloset,
@@ -6728,9 +6653,7 @@
 "cuu" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "cuz" = (
 /obj/machinery/light,
@@ -6886,9 +6809,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "cxg" = (
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "cxn" = (
 /obj/structure/table,
@@ -6940,9 +6861,8 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "cxM" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/ruin/unpowered)
 "cxT" = (
@@ -7114,7 +7034,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cAV" = (
 /obj/structure/door_assembly/door_assembly_science,
@@ -7169,9 +7089,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 6
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "cBL" = (
 /obj/machinery/computer/med_data,
@@ -7308,9 +7226,7 @@
 	health = 90;
 	maxHealth = 90
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "cEE" = (
 /obj/structure/table/reinforced,
@@ -7417,9 +7333,7 @@
 "cFE" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "cFP" = (
 /obj/machinery/door/poddoor/shutters{
@@ -7488,9 +7402,7 @@
 	dir = 1
 	},
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "cHa" = (
 /obj/machinery/door/window/brigdoor{
@@ -7653,7 +7565,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cJy" = (
 /obj/effect/baseturf_helper/asteroid,
@@ -7664,9 +7576,7 @@
 "cJA" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "cJB" = (
 /obj/structure/sign/directions/security{
@@ -7714,9 +7624,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "cKN" = (
 /obj/structure/disposalpipe/segment{
@@ -7823,14 +7731,12 @@
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cNA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/space_heater,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "cNL" = (
 /obj/structure/disposalpipe/segment{
@@ -7867,7 +7773,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-10"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cPo" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -7932,15 +7838,13 @@
 "cPX" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "cQe" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cQf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8093,9 +7997,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "cTm" = (
 /obj/structure/disposalpipe/segment{
@@ -8179,7 +8081,7 @@
 "cUB" = (
 /obj/structure/fence,
 /obj/effect/turf_decal/stripes,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cUN" = (
 /obj/structure/disposalpipe/segment{
@@ -8376,7 +8278,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "cYI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8552,9 +8454,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "dav" = (
 /obj/structure/closet/emcloset,
@@ -8622,7 +8522,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-5"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dbv" = (
 /obj/structure/rack,
@@ -8647,20 +8547,18 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dch" = (
 /obj/structure/fence/door{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dcz" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "dcD" = (
 /obj/machinery/door/airlock{
@@ -8675,9 +8573,7 @@
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "dcK" = (
 /obj/structure/bed,
@@ -9048,7 +8944,7 @@
 /area/coldcolony/malta/research/chargebay)
 "dkR" = (
 /obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dlo" = (
 /turf/simulated/floor/carpet/arcade,
@@ -9096,9 +8992,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "dlU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
@@ -9238,7 +9132,7 @@
 	dir = 8;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dnF" = (
 /turf/simulated/wall/rust,
@@ -9290,11 +9184,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "dor" = (
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/coldcolony/ruin/abandoned_house)
 "dos" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -9325,7 +9215,7 @@
 /mob/living/simple_animal/hostile/pirate{
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "doW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9385,9 +9275,7 @@
 	pixel_x = 32
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "dqo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -9420,9 +9308,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "drb" = (
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "drF" = (
 /obj/effect/decal/cleanable/generic,
@@ -9430,9 +9316,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "drJ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -9456,9 +9340,8 @@
 "dsW" = (
 /obj/structure/table/reinforced,
 /obj/item/analyzer,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "dsY" = (
@@ -9517,9 +9400,7 @@
 /area/coldcolony/malta/research/test_chamber)
 "duc" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "duy" = (
 /obj/structure/grille,
@@ -9542,9 +9423,7 @@
 "duK" = (
 /obj/effect/mob_spawn/human/bartender,
 /obj/item/kitchen/knife/combat,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "duM" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -9675,9 +9554,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "dwV" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -9732,20 +9609,16 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "dxN" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dya" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "dyp" = (
 /mob/living/simple_animal/cow/Betsy,
@@ -10703,7 +10576,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dSb" = (
 /obj/structure/lattice,
@@ -10728,9 +10601,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "dST" = (
 /obj/structure/cable{
@@ -11050,7 +10921,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "dXZ" = (
 /obj/effect/baseturf_helper/asteroid,
@@ -11061,18 +10932,14 @@
 "dYv" = (
 /obj/structure/table/reinforced,
 /obj/item/trash/broken_ashtray,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "dYL" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/decal/rail_way{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "dYR" = (
 /obj/structure/window/reinforced{
@@ -11178,7 +11045,7 @@
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ebl" = (
 /obj/machinery/power/apc{
@@ -11253,9 +11120,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "eds" = (
 /obj/machinery/power/apc{
@@ -11437,9 +11302,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "eeM" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "eeO" = (
 /obj/item/poster/random_contraband,
@@ -12058,9 +11921,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/crowbar/red,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "era" = (
 /obj/structure/cable{
@@ -12159,9 +12020,7 @@
 	},
 /area/coldcolony/malta/bridge/nuke_storage)
 "ett" = (
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "ety" = (
 /obj/structure/disposalpipe/junction/reversed{
@@ -12237,23 +12096,22 @@
 /obj/random/tool,
 /obj/random/tool,
 /obj/random/toolbox,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "euq" = (
 /obj/structure/cable/orange{
 	icon_state = "1-10"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "euz" = (
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "euC" = (
 /obj/effect/turf_decal/loading_area,
@@ -12707,9 +12565,7 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "eCV" = (
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary,
@@ -12785,9 +12641,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "eDR" = (
 /obj/structure/rack,
@@ -12836,24 +12690,20 @@
 "eFj" = (
 /obj/structure/flora/grass/both,
 /mob/living/simple_animal/pet/dog/fox/forest/winter,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "eFm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "eFo" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/snow/sand/edge,
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "eFq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12913,9 +12763,7 @@
 "eHc" = (
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "eHn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13133,9 +12981,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "eMo" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "eMs" = (
 /obj/machinery/door/airlock/security/glass{
@@ -13199,9 +13045,7 @@
 	dir = 8
 	},
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "eNu" = (
 /obj/structure/cable{
@@ -13361,9 +13205,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "ePi" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -13393,9 +13235,7 @@
 /area/coldcolony/malta/bridge/nuke_storage)
 "ePA" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "ePL" = (
 /obj/item/radio/intercom/directional/south,
@@ -13477,7 +13317,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "eQk" = (
 /obj/machinery/status_display{
@@ -13525,9 +13365,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "eQQ" = (
 /obj/structure/dresser,
@@ -13553,9 +13391,7 @@
 "eRr" = (
 /obj/structure/closet/crate,
 /obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "eRt" = (
 /obj/structure/cable{
@@ -13577,10 +13413,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "eRB" = (
@@ -13828,9 +13663,7 @@
 /area/coldcolony/malta/security/reception)
 "eXd" = (
 /obj/effect/decal/ants,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "eXu" = (
 /obj/effect/landmark/start/doctor,
@@ -13967,9 +13800,7 @@
 	dir = 4
 	},
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "eYR" = (
 /turf/simulated/floor/carpet/orange,
@@ -14035,10 +13866,9 @@
 /obj/item/clothing/head/fluff/arachno_mask,
 /obj/item/clothing/head/fluff/kiahat,
 /obj/item/clothing/head/fluff/blacksombrero,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "eZW" = (
@@ -14053,7 +13883,7 @@
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "faO" = (
 /obj/structure/table/wood,
@@ -14110,7 +13940,7 @@
 "fcF" = (
 /obj/structure/flora/tree/pine,
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "fcG" = (
 /obj/structure/cable{
@@ -14157,7 +13987,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 18
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "fdF" = (
 /obj/machinery/vending/coffee,
@@ -14178,7 +14008,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "few" = (
 /obj/machinery/door/firedoor,
@@ -14222,7 +14052,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "fgt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -14300,9 +14130,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "fif" = (
 /obj/structure/chair{
@@ -14320,9 +14148,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "fip" = (
 /obj/item/shard,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "fiE" = (
 /turf/simulated/floor/plating,
@@ -14876,9 +14702,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "fvv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -14988,9 +14812,7 @@
 "fwo" = (
 /obj/structure/table/reinforced,
 /obj/item/trash/candy,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "fwt" = (
 /obj/machinery/door/airlock/maintenance{
@@ -15077,16 +14899,14 @@
 "fxH" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/candy/cash,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "fxJ" = (
 /obj/structure/flora/grass/both,
 /obj/structure/cable/orange{
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "fxX" = (
 /obj/structure/table,
@@ -15170,9 +14990,7 @@
 /area/coldcolony/ruin/sm_division)
 "fza" = (
 /obj/effect/mist,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "fzp" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -15212,9 +15030,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "fAN" = (
 /obj/structure/closet/crate,
@@ -15224,7 +15040,7 @@
 	},
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/dropper,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "fAP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15322,9 +15138,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "fCR" = (
 /obj/structure/railing{
@@ -15333,9 +15147,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "fCS" = (
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "fCV" = (
 /obj/structure/table/wood,
@@ -15408,9 +15220,7 @@
 "fEl" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "fEs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15566,9 +15376,7 @@
 "fGW" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "fHf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -15585,9 +15393,7 @@
 /area/coldcolony/malta/research)
 "fHH" = (
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "fHJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15613,9 +15419,7 @@
 /area/coldcolony/malta/hallway/service/central)
 "fHP" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "fHQ" = (
 /obj/machinery/door/firedoor,
@@ -15758,7 +15562,7 @@
 	health = 90;
 	maxHealth = 90
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "fKR" = (
 /turf/simulated/floor/plasteel,
@@ -15946,9 +15750,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "fOG" = (
 /obj/item/clothing/gloves/color/white,
@@ -16199,9 +16001,7 @@
 "fSJ" = (
 /obj/item/crowbar,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "fSL" = (
 /obj/item/storage/toolbox/emergency,
@@ -16401,10 +16201,9 @@
 /obj/item/stack/ore/titanium{
 	amount = 11
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "fWz" = (
@@ -16563,9 +16362,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "fZo" = (
 /obj/structure/kitchenspike,
@@ -16643,10 +16440,9 @@
 /obj/item/stack/ore/gold{
 	amount = 8
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "gbr" = (
@@ -16790,7 +16586,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gfy" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -16799,10 +16595,9 @@
 	},
 /obj/item/access_control,
 /obj/item/airlock_electronics,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "gfB" = (
@@ -16811,7 +16606,7 @@
 	dir = 9;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gga" = (
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -17063,14 +16858,14 @@
 	dir = 10;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "glj" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -2;
 	pixel_y = 7
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "glm" = (
 /obj/structure/cable{
@@ -17286,9 +17081,7 @@
 "gof" = (
 /obj/item/reagent_containers/food/snacks/carpmeat,
 /obj/effect/decal/ants,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "goC" = (
 /obj/structure/cable{
@@ -17337,9 +17130,7 @@
 /area/coldcolony/malta/bridge/hop)
 "gpl" = (
 /obj/item/chair/wood,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "gpv" = (
 /obj/machinery/camera{
@@ -17413,9 +17204,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "gqE" = (
 /obj/effect/turf_decal/bot,
@@ -17550,7 +17339,7 @@
 /area/coldcolony/malta/maintenance/bar)
 "gsK" = (
 /obj/structure/barricade/security,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gsW" = (
 /obj/structure/table/wood,
@@ -17595,7 +17384,7 @@
 	c_tag = "Bridge Hangar Exterior";
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "guc" = (
 /obj/effect/spawner/window/reinforced,
@@ -17954,9 +17743,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "gBf" = (
 /turf/simulated/floor/plasteel{
@@ -18163,9 +17950,7 @@
 /area/coldcolony/malta/security/securehallway)
 "gEy" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "gEB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18193,9 +17978,8 @@
 /area/coldcolony/malta/bridge/vip)
 "gET" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken4";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken4"
 	},
 /area/ruin/unpowered)
 "gFd" = (
@@ -18276,9 +18060,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "gGz" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18406,9 +18188,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "gJO" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "gJQ" = (
 /obj/effect/landmark/start/cargo_technician,
@@ -18597,7 +18377,7 @@
 	pixel_y = -21
 	},
 /obj/structure/flora/bush,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gNe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -18629,7 +18409,7 @@
 /area/coldcolony/malta/resid_serv/library)
 "gNA" = (
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gNE" = (
 /obj/structure/sign/poster/contraband/rebels_unite{
@@ -18637,9 +18417,8 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "gNG" = (
@@ -18798,9 +18577,7 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 3.3
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "gPb" = (
 /turf/simulated/wall/r_wall,
@@ -18825,10 +18602,9 @@
 /obj/item/stack/ore/uranium{
 	amount = 9
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "gPl" = (
@@ -18861,9 +18637,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "gPP" = (
 /obj/structure/rack/gunrack,
@@ -18912,7 +18686,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 18
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gQG" = (
 /obj/machinery/disposal,
@@ -19003,9 +18777,8 @@
 /area/shuttle/pirate_corvette)
 "gTe" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 180
+/turf/simulated/floor/plasteel/cold{
+	icon_state = "showroomfloor"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "gTh" = (
@@ -19123,7 +18896,7 @@
 	dir = 6;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gWl" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -19162,7 +18935,7 @@
 	dir = 8;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gWC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -19293,9 +19066,7 @@
 /area/coldcolony/malta/quartermaster/miningeva)
 "gZm" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "gZt" = (
 /turf/simulated/floor/plating,
@@ -19580,7 +19351,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hfi" = (
 /obj/structure/closet/walllocker/emerglocker/directional/south,
@@ -19672,9 +19443,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "hgQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19900,7 +19669,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hlA" = (
 /turf/simulated/floor/plating,
@@ -19955,9 +19724,7 @@
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/stack/cable_coil,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "hmr" = (
 /obj/effect/turf_decal/arrows{
@@ -20229,9 +19996,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "hpD" = (
 /obj/structure/bed,
@@ -20314,9 +20079,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "hsd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20486,9 +20249,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 180
+/turf/simulated/floor/plasteel/cold{
+	icon_state = "showroomfloor"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "hwb" = (
@@ -20575,9 +20337,8 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "hxB" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken4";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken4"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "hyp" = (
@@ -20617,9 +20378,7 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen{
 	anchored = 1
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "hzq" = (
 /obj/structure/closet/firecloset,
@@ -20726,7 +20485,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "hBQ" = (
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hCe" = (
 /obj/structure/cable/orange{
@@ -20735,7 +20494,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hCg" = (
 /obj/structure/chair/barber,
@@ -20808,9 +20567,7 @@
 /obj/structure/sign/poster/official/cohiba_robusto_ad{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "hCY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21267,9 +21024,7 @@
 /area/coldcolony/malta/hallway/service/north)
 "hMv" = (
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "hMH" = (
 /obj/structure/chair/comfy/shuttle/dark{
@@ -21550,16 +21305,12 @@
 "hRZ" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hSc" = (
 /obj/machinery/optable/abductor,
 /obj/item/scalpel/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "hSj" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -21744,7 +21495,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hWP" = (
 /turf/simulated/wall/r_wall,
@@ -21819,16 +21570,14 @@
 /obj/structure/closet/secure_closet/cabinet,
 /obj/item/clothing/gloves/color/light_brown,
 /obj/item/clothing/suit/fluff/dusty_jacket,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "hZj" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "hZv" = (
 /obj/effect/decal/snow/sand/edge{
@@ -22062,7 +21811,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "icX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22104,7 +21853,7 @@
 	dir = 5;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "iea" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22210,9 +21959,7 @@
 "ifW" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "igi" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -22248,9 +21995,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "igv" = (
 /obj/machinery/door/airlock/external{
@@ -22312,9 +22057,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "ihk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -22392,9 +22135,7 @@
 /area/coldcolony/malta/security/customs)
 "iil" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "iis" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -22430,7 +22171,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ijf" = (
 /turf/simulated/floor/plasteel{
@@ -22456,9 +22197,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "ijK" = (
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "ijR" = (
 /obj/effect/landmark/start/intern,
@@ -22485,9 +22224,7 @@
 "ild" = (
 /obj/structure/table/wood,
 /obj/item/trash/popcorn,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ilo" = (
 /obj/structure/window/reinforced{
@@ -22500,9 +22237,7 @@
 /area/shuttle/pirate_corvette)
 "ilH" = (
 /obj/structure/bed/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "ilQ" = (
 /obj/machinery/power/apc{
@@ -22661,9 +22396,7 @@
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/structure/table_frame,
 /obj/item/shard,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ioQ" = (
 /obj/structure/rack{
@@ -22799,9 +22532,8 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/sorting)
 "irw" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "irJ" = (
@@ -22863,9 +22595,7 @@
 "isO" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "itn" = (
 /obj/effect/decal/warning_stripes/blue,
@@ -22895,9 +22625,7 @@
 "itH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "iuq" = (
 /obj/machinery/button/windowtint{
@@ -23076,9 +22804,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ixw" = (
 /obj/structure/bed,
@@ -23111,7 +22837,7 @@
 /obj/effect/decal/rail_way{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "iyh" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -23127,7 +22853,7 @@
 	dir = 10;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "iyZ" = (
 /obj/structure/disposalpipe/segment,
@@ -23527,9 +23253,7 @@
 /area/coldcolony/malta/bridge)
 "iFL" = (
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "iFT" = (
 /turf/simulated/wall/r_wall,
@@ -23655,9 +23379,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "iIy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -23839,9 +23561,8 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/resid_serv/hydroponics)
 "iKY" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken2";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken2"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "iLb" = (
@@ -24058,7 +23779,7 @@
 	dir = 5;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "iRM" = (
 /obj/structure/disposalpipe/segment{
@@ -24118,9 +23839,7 @@
 "iSo" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/baseturf_helper/asteroid,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "iSr" = (
 /obj/structure/window/reinforced{
@@ -24371,7 +24090,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "iWu" = (
 /obj/structure/window/reinforced{
@@ -24555,9 +24274,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "iZy" = (
 /obj/machinery/door_control{
@@ -24610,9 +24327,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "iZT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24715,7 +24430,7 @@
 /area/coldcolony/ruin/abandoned_garage)
 "jcD" = (
 /obj/structure/gravemarker/cross,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jcF" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -24741,9 +24456,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "jcN" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "jcS" = (
 /obj/machinery/door/airlock/glass{
@@ -24914,9 +24627,7 @@
 "jfJ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "jfP" = (
 /obj/item/storage/box/lights/tubes,
@@ -24948,7 +24659,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jge" = (
 /turf/simulated/floor/plasteel{
@@ -25006,9 +24717,7 @@
 "jhl" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/shard,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "jhx" = (
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -25153,7 +24862,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jkL" = (
 /obj/structure/table,
@@ -25183,9 +24892,7 @@
 "jla" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "jlb" = (
 /obj/structure/bed,
@@ -25253,9 +24960,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "jlV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25379,7 +25084,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jmZ" = (
 /turf/simulated/wall/r_wall,
@@ -25400,9 +25105,7 @@
 "jnw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "jnC" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
@@ -25519,9 +25222,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "jpb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25584,9 +25285,7 @@
 /area/coldcolony/malta/bridge/ntrep)
 "jqB" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "jrh" = (
 /obj/structure/closet,
@@ -25685,9 +25384,7 @@
 /area/coldcolony/malta/medical/medbay)
 "jtl" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "jty" = (
 /obj/structure/railing,
@@ -25763,7 +25460,7 @@
 /obj/structure/sign/poster/contraband/Enlist_Gorlex{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "juo" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -25825,11 +25522,7 @@
 "jvI" = (
 /obj/structure/closet/abductor,
 /obj/item/surgicaldrill/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "jvP" = (
 /obj/structure/chair,
@@ -26044,7 +25737,7 @@
 /obj/structure/cable/orange{
 	icon_state = "5-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jzq" = (
 /obj/structure/closet/emcloset,
@@ -26165,9 +25858,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-10"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "jBz" = (
 /obj/structure/table,
@@ -26208,9 +25899,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "jCi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -26267,9 +25956,7 @@
 "jCG" = (
 /obj/structure/table/wood,
 /obj/item/paper,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "jDc" = (
 /obj/machinery/vending/tool,
@@ -26296,7 +25983,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jDE" = (
 /obj/docking_port/stationary{
@@ -26309,7 +25996,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 11
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jDL" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -26347,9 +26034,7 @@
 /area/coldcolony/malta/security/processing)
 "jEt" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "jEu" = (
 /obj/structure/grille,
@@ -26737,9 +26422,7 @@
 /area/coldcolony/malta/turret_protected/ai_upload)
 "jMa" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "jMq" = (
 /obj/machinery/vending/snack,
@@ -26839,7 +26522,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jOt" = (
 /turf/simulated/floor/wood/fancy/light{
@@ -26915,7 +26598,7 @@
 /area/coldcolony/malta/security/medbay)
 "jPR" = (
 /obj/vehicle/ridden/snowmobile/key,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jPZ" = (
 /obj/effect/decal/cleanable/generic,
@@ -26985,7 +26668,7 @@
 	network = list("SS13","MiniSat");
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jRT" = (
 /obj/structure/filingcabinet/filingcabinet,
@@ -26998,7 +26681,7 @@
 /obj/structure/cable/orange{
 	icon_state = "5-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jSh" = (
 /turf/simulated/floor/plasteel{
@@ -27043,9 +26726,7 @@
 "jTC" = (
 /obj/structure/table/glass,
 /obj/item/clothing/shoes/ducky,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "jTT" = (
 /obj/effect/decal/cleanable/dust,
@@ -27178,9 +26859,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "jVx" = (
 /obj/structure/sink{
@@ -27239,9 +26918,7 @@
 	pixel_y = -5
 	},
 /obj/effect/mist,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "jWK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -27436,9 +27113,7 @@
 /area/coldcolony/malta/medical/medbay)
 "kan" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "kap" = (
 /obj/structure/disposalpipe/trunk{
@@ -27475,7 +27150,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 10
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kaE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -27688,9 +27363,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "kdK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -27809,7 +27482,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "kgc" = (
 /obj/structure/fence/door,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kgd" = (
 /obj/machinery/door/firedoor,
@@ -27936,9 +27609,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "kja" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -28047,9 +27718,7 @@
 /area/coldcolony/malta/security/brigstaff)
 "kki" = (
 /obj/effect/decal/cleanable/spiderling_remains,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "kkr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -28159,10 +27828,9 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "kmG" = (
 /obj/machinery/computer/shuttle,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "knb" = (
@@ -28226,9 +27894,7 @@
 "kns" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "knO" = (
 /obj/structure/grille,
@@ -28294,9 +27960,8 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "kpt" = (
@@ -28307,9 +27972,7 @@
 "kpE" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "kpG" = (
 /obj/structure/table/glass,
@@ -28463,7 +28126,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ksP" = (
 /obj/structure/closet/secure_closet/medical3,
@@ -28500,9 +28163,7 @@
 /obj/item/screwdriver,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "ksU" = (
 /obj/structure/rack,
@@ -28517,9 +28178,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "ktw" = (
 /turf/simulated/floor/carpet,
@@ -28611,9 +28270,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "kvD" = (
 /turf/simulated/floor/plasteel{
@@ -28657,9 +28314,7 @@
 	},
 /area/coldcolony/malta/security/permahallway)
 "kwb" = (
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "kwm" = (
 /obj/structure/cable{
@@ -28810,13 +28465,11 @@
 /obj/structure/wooden_sign{
 	name = "GET THE FUCK OUT!"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kyF" = (
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "kyR" = (
 /obj/structure/table,
@@ -28920,7 +28573,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kAm" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -28943,7 +28596,7 @@
 /obj/item/stack/ore/plasma{
 	amount = 7
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kAP" = (
 /obj/structure/flora/grass/both,
@@ -28962,9 +28615,8 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "kBl" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken3";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken3"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "kBp" = (
@@ -29321,9 +28973,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "kHC" = (
 /obj/machinery/computer/monitor,
@@ -29478,9 +29128,7 @@
 /obj/structure/closet,
 /obj/item/weldingtool,
 /obj/item/clothing/head/welding/slavic,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "kKR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -29620,7 +29268,7 @@
 	dir = 8;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kNe" = (
 /obj/machinery/disposal,
@@ -29663,7 +29311,7 @@
 	dir = 1
 	},
 /obj/structure/fence/post,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kNU" = (
 /turf/simulated/floor/plasteel{
@@ -29678,7 +29326,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kOf" = (
 /obj/structure/sign/poster/official/random,
@@ -29739,9 +29387,7 @@
 	c_tag = "Atmospherics Nitrogen Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "kPI" = (
 /obj/structure/disposalpipe/segment{
@@ -29780,15 +29426,11 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "kQo" = (
 /obj/structure/dresser,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "kQJ" = (
 /obj/machinery/light{
@@ -29962,7 +29604,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kVg" = (
 /obj/structure/rack,
@@ -30060,9 +29702,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "kWZ" = (
 /obj/structure/chair{
@@ -30211,7 +29851,7 @@
 /obj/structure/cable/orange{
 	icon_state = "5-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "kZZ" = (
 /obj/structure/table/wood,
@@ -30256,9 +29896,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "lbI" = (
@@ -30274,9 +29913,7 @@
 "lbV" = (
 /obj/effect/mob_spawn/human/abductor,
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "lcc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -30331,9 +29968,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 10
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "lcW" = (
 /obj/structure/window/reinforced{
@@ -30405,9 +30040,7 @@
 /area/coldcolony/malta/bridge)
 "leK" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "leW" = (
 /obj/machinery/porta_turret,
@@ -30664,10 +30297,9 @@
 /area/coldcolony/malta/security/customs)
 "ljq" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "ljy" = (
@@ -30675,7 +30307,7 @@
 /obj/item/vending_refill/pai,
 /obj/structure/closet/crate/sci,
 /obj/item/circuitboard/vendor,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ljE" = (
 /obj/structure/chair{
@@ -30729,9 +30361,7 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "llx" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/ruin/unpowered)
 "llK" = (
 /obj/structure/table/glass,
@@ -30885,9 +30515,7 @@
 	obj_integrity = 95;
 	stat = 1
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "loD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -30959,9 +30587,7 @@
 /area/coldcolony/malta/security/main)
 "lqy" = (
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "lqH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -31004,9 +30630,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "lrr" = (
 /obj/structure/table/wood,
@@ -31240,9 +30864,7 @@
 "lxa" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "lxn" = (
 /obj/structure/cable{
@@ -31275,9 +30897,7 @@
 /obj/item/clothing/suit/fluff/dusty_jacket,
 /obj/structure/closet/wardrobe,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "lyd" = (
 /obj/structure/disposalpipe/segment{
@@ -31311,7 +30931,7 @@
 /area/coldcolony/malta/turret_protected/ai)
 "lyE" = (
 /mob/living/simple_animal/pet/dog/fox/forest/winter,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lyQ" = (
 /turf/simulated/wall,
@@ -31487,7 +31107,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lCC" = (
 /obj/structure/grille/broken,
@@ -31498,9 +31118,7 @@
 	dir = 8
 	},
 /obj/item/stack/rods,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "lCK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -31673,9 +31291,7 @@
 	start_charge = 30
 	},
 /obj/structure/cable,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "lFH" = (
 /obj/structure/table/glass,
@@ -31734,9 +31350,7 @@
 	status = 2
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "lGI" = (
 /obj/structure/grille,
@@ -31753,7 +31367,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lGY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -31859,13 +31473,11 @@
 	health = 90;
 	maxHealth = 90
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "lJh" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lJo" = (
 /obj/effect/baseturf_helper/asteroid,
@@ -31903,7 +31515,7 @@
 	dir = 5;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lJK" = (
 /obj/machinery/portable_atmospherics/scrubber,
@@ -31929,9 +31541,7 @@
 "lJW" = (
 /obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "lJZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -32317,7 +31927,7 @@
 	light_range = 6;
 	name = "Street lamp"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lQO" = (
 /obj/structure/table,
@@ -32382,9 +31992,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "lRs" = (
 /obj/structure/window/full/reinforced/ice,
@@ -32609,7 +32217,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lWM" = (
 /obj/effect/decal/cleanable/dust,
@@ -32726,7 +32334,7 @@
 "lYH" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "lYO" = (
 /obj/structure/toilet{
@@ -32740,11 +32348,7 @@
 /obj/machinery/abductor/experiment{
 	stat = 1
 	},
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "lZE" = (
 /obj/structure/girder,
@@ -32811,9 +32415,7 @@
 	},
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "maT" = (
 /obj/structure/window/full/reinforced/ice,
@@ -32930,9 +32532,8 @@
 	},
 /area/coldcolony/malta/chapel/office)
 "mcw" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "mcA" = (
@@ -33047,9 +32648,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "mem" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -33068,9 +32667,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "meY" = (
@@ -33124,10 +32722,9 @@
 "mgw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "mgC" = (
@@ -33195,9 +32792,7 @@
 	melee_damage_upper = 30;
 	name = "evil reindeer"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "mht" = (
 /obj/structure/cable{
@@ -33351,9 +32946,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "mlN" = (
 /obj/structure/bed,
@@ -33574,9 +33167,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes/vintage,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "mqF" = (
 /obj/structure/table/reinforced,
@@ -33604,7 +33195,7 @@
 /area/coldcolony/malta/research/robotics)
 "mqQ" = (
 /mob/living/simple_animal/hostile/bear/polar,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "mqZ" = (
 /obj/structure/disposalpipe/segment{
@@ -33677,9 +33268,7 @@
 "mtM" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "mtY" = (
 /obj/structure/sign/directions/engineering{
@@ -33709,9 +33298,8 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "mul" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 180
+/turf/simulated/floor/plasteel/cold{
+	icon_state = "showroomfloor"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "muy" = (
@@ -34036,7 +33624,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 12
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "mzR" = (
 /obj/structure/bed,
@@ -34177,9 +33765,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/ruin/unpowered)
 "mCf" = (
 /obj/machinery/light{
@@ -34205,9 +33791,7 @@
 	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "mCy" = (
 /obj/item/chair/wood,
@@ -34491,9 +34075,7 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "mJf" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "mJi" = (
 /turf/simulated/floor/plasteel/white,
@@ -34567,9 +34149,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "mLh" = (
 /obj/structure/disposalpipe/segment{
@@ -34653,9 +34233,7 @@
 /area/coldcolony/malta/security/permahallway)
 "mMi" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "mMt" = (
 /obj/structure/grille,
@@ -34676,9 +34254,7 @@
 	pixel_y = 13
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/ruin/unpowered)
 "mML" = (
 /obj/effect/decal/warning_stripes/west,
@@ -34737,9 +34313,7 @@
 "mNF" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "mNL" = (
 /obj/effect/spawner/window/reinforced,
@@ -34803,9 +34377,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "mPC" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -34933,7 +34505,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "mQZ" = (
 /obj/structure/cable{
@@ -35228,7 +34800,7 @@
 	pixel_x = -8
 	},
 /obj/item/vending_refill/medical,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "mUF" = (
 /obj/structure/chair/office/dark{
@@ -35303,9 +34875,7 @@
 "mWu" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "mWR" = (
 /obj/machinery/door/airlock/freezer,
@@ -35317,7 +34887,7 @@
 "mXd" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "mXg" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -35513,9 +35083,7 @@
 "mZL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "nac" = (
 /turf/simulated/floor/plasteel{
@@ -35599,7 +35167,7 @@
 /obj/item/stack/ore/gold{
 	amount = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nbt" = (
 /obj/machinery/kitchen_machine/grill,
@@ -35707,9 +35275,8 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "ndo" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "ndr" = (
@@ -36073,9 +35640,7 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "nlb" = (
 /obj/structure/cable{
@@ -36138,7 +35703,7 @@
 	c_tag = "Outpost Entrance Exterior";
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nmw" = (
 /obj/structure/cable{
@@ -36260,9 +35825,8 @@
 "noO" = (
 /obj/effect/decal/snow/sand/edge,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken2";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken2"
 	},
 /area/ruin/unpowered)
 "noW" = (
@@ -36279,9 +35843,7 @@
 /obj/structure/chair/sofa/pew{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "npA" = (
 /obj/structure/cable{
@@ -36765,9 +36327,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "nBD" = (
 /obj/machinery/constructable_frame/machine_frame,
@@ -36786,9 +36346,7 @@
 /area/shuttle/pirate_corvette)
 "nBL" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "nBQ" = (
 /turf/simulated/wall,
@@ -36945,9 +36503,7 @@
 /obj/structure/cable/orange{
 	icon_state = "8-9"
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "nEn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -36961,7 +36517,7 @@
 	icon_state = "crateopen";
 	opened = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nEv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -37148,15 +36704,11 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "nGM" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "nGR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -37166,9 +36718,8 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "nGU" = (
@@ -37366,7 +36917,7 @@
 	network = list("SS13","MiniSat");
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nLc" = (
 /obj/structure/chair/comfy/blue{
@@ -37458,7 +37009,7 @@
 /obj/structure/sign/directions/science{
 	pixel_y = 42
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nNC" = (
 /obj/structure/chair/comfy/shuttle/dark{
@@ -37483,9 +37034,7 @@
 /area/coldcolony/malta/maintenance/medbay)
 "nOw" = (
 /obj/effect/baseturf_helper/asteroid,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "nOO" = (
 /obj/machinery/disposal,
@@ -37503,7 +37052,7 @@
 "nOW" = (
 /obj/effect/mob_spawn/human/corpse/russian,
 /obj/item/pickaxe,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nOX" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -37551,9 +37100,7 @@
 /obj/structure/chair/sofa/pew/left{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "nQd" = (
 /turf/simulated/wall/r_wall/rust,
@@ -37570,7 +37117,7 @@
 	info = "<color=black><i>Много людей отправили закладывать новый город... Но вот только строительство затянулось настолько, что мы проебали уже все полимеры На орбите остался лишь один несчастный фрегат устаревшего образца... Ещё и запасы плазмы, как жидкой так и в твёрдом состоянии на планете куда меньше, чем нам заверяли.. Хотя бы иногда отправляют еды и на том спасибо...</i></font>";
 	info_links = "<color=black><i>Много людей отправили закладывать новый город... Но вот только строительство затянулось настолько, что мы проебали уже все полимеры На орбите остался лишь один несчастный фрегат устаревшего образца... Ещё и запасы плазмы, как жидкой так и в твёрдом состоянии на планете куда меньше, чем нам заверяли.. Хотя бы иногда отправляют еды и на том спасибо...</i></font>"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nQi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -37879,7 +37426,7 @@
 /area/coldcolony/ruin/sm_lab)
 "nUD" = (
 /obj/structure/flora/bush,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nVb" = (
 /obj/structure/table/wood,
@@ -37956,9 +37503,7 @@
 	dir = 8
 	},
 /obj/structure/barricade/wooden,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "nWx" = (
 /obj/structure/sign/securearea,
@@ -38042,7 +37587,7 @@
 	dir = 6;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nXO" = (
 /obj/structure/closet/cabinet,
@@ -38422,11 +37967,7 @@
 "oea" = (
 /obj/structure/closet/abductor,
 /obj/item/cautery/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "oeb" = (
 /obj/structure/grille,
@@ -38526,9 +38067,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "ogc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -38666,9 +38205,7 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "ohT" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "oib" = (
 /mob/living/simple_animal/cock/Commandor,
@@ -38735,9 +38272,8 @@
 /area/coldcolony/ruin/sm_lab)
 "ojB" = (
 /obj/effect/decal/ants,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "ojE" = (
@@ -38748,9 +38284,7 @@
 "ojI" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ojR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -38782,9 +38316,8 @@
 	},
 /area/coldcolony/malta/hallway/service/central)
 "ojX" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken2";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken2"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "okk" = (
@@ -38834,10 +38367,9 @@
 /area/coldcolony/malta/hallway/service/north)
 "okS" = (
 /obj/machinery/computer,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "olf" = (
@@ -38852,10 +38384,9 @@
 "olh" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/turf_decal/siding/wideplating,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "oli" = (
@@ -38929,9 +38460,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ons" = (
 /obj/structure/disposalpipe/segment,
@@ -39015,7 +38544,7 @@
 /area/shuttle/pirate_corvette)
 "opf" = (
 /obj/effect/mob_spawn/human/corpse/russian,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "opu" = (
 /obj/effect/decal/warning_stripes/red/partial,
@@ -39147,9 +38676,7 @@
 "oqJ" = (
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "oqX" = (
 /obj/structure/table,
@@ -39219,7 +38746,7 @@
 /obj/structure/fence/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "osH" = (
 /obj/structure/closet/crate,
@@ -39984,9 +39511,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "oIe" = (
 /obj/effect/turf_decal/arrows{
@@ -40041,9 +39566,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "oIF" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -40098,9 +39621,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "oJn" = (
 /obj/structure/closet/firecloset,
@@ -40130,7 +39651,7 @@
 /obj/structure/fence{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "oJD" = (
 /obj/machinery/door_control{
@@ -40158,9 +39679,8 @@
 /area/coldcolony/malta/security/permabrig)
 "oJH" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "oJI" = (
@@ -40305,9 +39825,7 @@
 /obj/structure/chair/sofa/pew/right{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "oMe" = (
 /turf/simulated/wall/rust,
@@ -40336,7 +39854,7 @@
 "oMO" = (
 /obj/effect/mine/stun,
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "oMR" = (
 /obj/structure/cable{
@@ -40480,7 +39998,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "oPJ" = (
 /obj/effect/mine/explosive,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "oPP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -40614,7 +40132,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "oRN" = (
 /obj/structure/closet/fireaxecabinet{
@@ -40631,9 +40149,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "oSt" = (
 /obj/effect/decal/cleanable/dirt,
@@ -40782,7 +40298,7 @@
 "oUi" = (
 /obj/structure/flora/grass/green,
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "oUz" = (
 /obj/effect/decal/warning_stripes/northwest,
@@ -40796,7 +40312,7 @@
 	dir = 1
 	},
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "oUN" = (
 /obj/structure/cable{
@@ -40815,9 +40331,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "oVe" = (
 /obj/structure/cable{
@@ -41196,7 +40710,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pcG" = (
 /turf/simulated/floor/plasteel{
@@ -41268,9 +40782,8 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/ruin/unpowered)
 "pdN" = (
@@ -41337,13 +40850,11 @@
 /obj/structure/sign/poster/contraband/power_people{
 	pixel_y = -32
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "pfA" = (
 /obj/structure/snowman/short,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pfG" = (
 /obj/item/stock_parts/manipulator,
@@ -41360,9 +40871,7 @@
 	c_tag = "Atmospherics Oxygen Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "pgc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -41450,11 +40959,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
 "pig" = (
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "pip" = (
 /obj/effect/spawner/window/reinforced,
@@ -41485,9 +40990,7 @@
 /area/coldcolony/malta/research/hallway)
 "piX" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "pjd" = (
 /obj/structure/chair/office/dark{
@@ -41521,9 +41024,7 @@
 "pjE" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "pjN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -41546,9 +41047,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "pkx" = (
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "pky" = (
 /obj/item/flag/cargo,
@@ -41634,15 +41133,11 @@
 /area/coldcolony/malta/bridge/vip)
 "plB" = (
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "plM" = (
 /obj/structure/table/wood/poker,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "pmk" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -41736,9 +41231,7 @@
 	pixel_x = 3;
 	pixel_y = -8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "pni" = (
 /obj/structure/closet/secure_closet/atmos_personal,
@@ -41756,7 +41249,7 @@
 "pnG" = (
 /obj/structure/flora/grass/brown,
 /turf/simulated/mineral/random{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
+	turf_type = /turf/simulated/floor/plating/asteroid/snow
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "pnH" = (
@@ -41809,10 +41302,9 @@
 /area/coldcolony/malta/medical/morgue)
 "poc" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "pof" = (
@@ -41827,15 +41319,14 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "ppl" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken"
 	},
 /area/ruin/unpowered)
 "ppy" = (
 /obj/effect/mine/stun,
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ppK" = (
 /obj/structure/chair/stool,
@@ -41967,7 +41458,7 @@
 "pqO" = (
 /obj/effect/mine/stun,
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pqU" = (
 /obj/structure/cable{
@@ -42032,17 +41523,14 @@
 /area/coldcolony/malta/resid_serv/hydroponics)
 "prR" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "pss" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 5
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/ruin/unpowered)
 "psx" = (
@@ -42175,9 +41663,7 @@
 /area/coldcolony/malta/turret_protected/ai)
 "puE" = (
 /obj/structure/bed,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "puF" = (
 /obj/structure/cable{
@@ -42314,7 +41800,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pww" = (
 /obj/structure/table/wood,
@@ -42495,9 +41981,7 @@
 /obj/structure/fence/door/opened{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "pAo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -42515,9 +41999,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "pAH" = (
 /obj/structure/closet/crate,
@@ -42759,9 +42241,7 @@
 /area/coldcolony/malta/research/chargebay)
 "pET" = (
 /obj/effect/decal/cleanable/tomato_smudge,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "pFb" = (
 /turf/simulated/floor/plasteel{
@@ -42917,7 +42397,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pIZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -42963,9 +42443,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "pJZ" = (
 /obj/structure/cable{
@@ -43090,9 +42568,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "pMB" = (
 /obj/structure/reagent_dispensers/watertank/high,
@@ -43122,9 +42598,8 @@
 "pMQ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/broken_bottle,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken3";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken3"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "pNm" = (
@@ -43222,7 +42697,7 @@
 "pOc" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pOe" = (
 /obj/structure/table/reinforced,
@@ -43276,9 +42751,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "pOw" = (
 /obj/structure/closet/crate/sci,
@@ -43298,9 +42771,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged)
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "pPc" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -43352,9 +42823,7 @@
 /obj/effect/decal/snow/sand/surround{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "pQk" = (
 /obj/structure/table/reinforced,
@@ -43382,7 +42851,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 6
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pQZ" = (
 /obj/item/radio/intercom/directional/west,
@@ -43511,9 +42980,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "pTC" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -43853,11 +43320,7 @@
 "qbx" = (
 /obj/structure/bed/abductor,
 /obj/item/circular_saw/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "qbJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -43939,10 +43402,9 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "qdX" = (
 /obj/structure/ore_box,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "qen" = (
@@ -43953,11 +43415,7 @@
 "qeA" = (
 /obj/effect/mob_spawn/human/abductor,
 /obj/item/wrench/abductor,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "qeI" = (
 /obj/structure/rack,
@@ -44528,10 +43986,9 @@
 /area/coldcolony/malta/engineering/atmos)
 "qpB" = (
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "qpU" = (
@@ -44693,7 +44150,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-5"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qrK" = (
 /turf/simulated/floor/plasteel{
@@ -44779,9 +44236,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/pants/white,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "qsv" = (
 /obj/structure/window/reinforced{
@@ -44859,10 +44314,9 @@
 /obj/item/stack/ore/silver{
 	amount = 9
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "qtN" = (
@@ -45010,7 +44464,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qwy" = (
 /obj/item/radio/intercom/directional/north,
@@ -45022,9 +44476,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "qwF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -45281,7 +44733,7 @@
 "qBi" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qBD" = (
 /obj/structure/table,
@@ -45317,9 +44769,7 @@
 "qBT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "qBY" = (
 /obj/structure/disposalpipe/segment{
@@ -45573,7 +45023,7 @@
 	dir = 6;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qFY" = (
 /turf/simulated/floor/plasteel{
@@ -45930,9 +45380,7 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "qMk" = (
 /obj/effect/spawner/window/reinforced,
@@ -46017,7 +45465,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qOr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46168,9 +45616,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "qRC" = (
 /obj/effect/spawner/window/reinforced,
@@ -46221,9 +45667,7 @@
 "qSq" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "qSA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -46244,7 +45688,7 @@
 /area/coldcolony/malta/maintenance/engineering)
 "qSG" = (
 /obj/structure/flora/tree/dead,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qSH" = (
 /obj/structure/table/wood,
@@ -46285,13 +45729,12 @@
 "qUo" = (
 /obj/structure/flora/tree/pine,
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "qUp" = (
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "qUx" = (
@@ -46803,9 +46246,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "rcs" = (
 /obj/machinery/door/poddoor/preopen{
@@ -46873,9 +46314,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "rdA" = (
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "rdM" = (
 /obj/structure/table,
@@ -47023,11 +46462,9 @@
 	dir = 1
 	},
 /obj/effect/baseturf_helper/asteroid/snow{
-	baseturf = /turf/simulated/floor/plating/asteroid/snow/planet
+	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "rfE" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -47341,7 +46778,7 @@
 	c_tag = "Research SouthEast Exterior";
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rkK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -47479,9 +46916,8 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "rmJ" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken6";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "rmQ" = (
@@ -47490,7 +46926,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rmU" = (
 /obj/structure/cable{
@@ -47518,9 +46954,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "rnA" = (
 /obj/structure/cable{
@@ -47553,7 +46987,7 @@
 	network = list("SS13","MiniSat");
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rod" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -47851,9 +47285,7 @@
 /area/coldcolony/malta/medical/sleeper)
 "rsL" = (
 /obj/structure/chair/sofa/pew/left,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "rsT" = (
 /obj/machinery/vending/artvend,
@@ -47886,11 +47318,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rtA" = (
 /obj/structure/flora/ash/rock/style_random,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rtH" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -47945,9 +47377,8 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "rup" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken3";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken3"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "ruu" = (
@@ -48013,9 +47444,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 6
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "rvQ" = (
 /obj/effect/decal/snow/sand/edge{
@@ -48168,7 +47597,7 @@
 /obj/item/stack/ore/silver{
 	amount = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rzA" = (
 /turf/simulated/wall/indestructible/rock{
@@ -48270,9 +47699,7 @@
 /area/coldcolony/malta/security/magistrateoffice)
 "rBz" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "rBA" = (
 /obj/item/clothing/head/beanie,
@@ -48286,9 +47713,7 @@
 "rBJ" = (
 /obj/structure/table/wood,
 /obj/item/toy/russian_revolver,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/ruin/unpowered)
 "rBM" = (
 /obj/effect/landmark/spawner/blob,
@@ -48600,9 +48025,7 @@
 /area/coldcolony/malta/maintenance/bridge)
 "rIA" = (
 /obj/machinery/papershredder,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "rIP" = (
 /obj/structure/closet/crate/sci,
@@ -48635,9 +48058,7 @@
 /obj/structure/chair/sofa/pew/right{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "rJH" = (
 /obj/structure/disposalpipe/segment,
@@ -48663,9 +48084,7 @@
 "rKQ" = (
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "rLb" = (
 /obj/structure/chair{
@@ -48785,7 +48204,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rMD" = (
 /obj/structure/plasticflaps/mining,
@@ -49038,9 +48457,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "rRR" = (
 /obj/machinery/door/airlock/maintenance{
@@ -49062,7 +48479,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "rSb" = (
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rSe" = (
 /obj/structure/disposalpipe/junction/reversed{
@@ -49247,7 +48664,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rVT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -49337,9 +48754,7 @@
 	status = 2
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "rXQ" = (
 /obj/structure/target_stake{
@@ -49355,7 +48770,7 @@
 	dir = 9;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "rXS" = (
 /obj/structure/disposalpipe/segment{
@@ -49504,7 +48919,7 @@
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "sbC" = (
 /obj/machinery/computer/rdconsole/cargo{
@@ -49794,7 +49209,7 @@
 /obj/structure/fence/post{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "shZ" = (
 /obj/structure/chair,
@@ -49814,18 +49229,14 @@
 /obj/item/lighter/zippo/engraved{
 	pixel_x = 8
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "sio" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "siB" = (
 /obj/structure/closet/secure_closet/medical2,
@@ -49970,9 +49381,7 @@
 	pixel_y = -4
 	},
 /obj/effect/decal/ants,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "snl" = (
 /obj/machinery/recharge_station,
@@ -50025,10 +49434,9 @@
 /area/coldcolony/malta/hallway/service/east)
 "snM" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "snO" = (
@@ -50036,9 +49444,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 4
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "soe" = (
 /obj/machinery/roboquest_pad,
@@ -50118,7 +49524,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "spj" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -50177,9 +49583,7 @@
 /area/coldcolony/malta/security/customs)
 "spX" = (
 /obj/structure/table/wood/fancy/red,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "spY" = (
 /obj/structure/sink{
@@ -50223,7 +49627,7 @@
 	dir = 10;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "sre" = (
 /obj/structure/cable{
@@ -50360,9 +49764,7 @@
 	opened = 1
 	},
 /obj/item/reagent_containers/food/snacks/bun,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "stp" = (
 /obj/structure/table/wood,
@@ -50574,9 +49976,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "sxW" = (
 /obj/machinery/newscaster{
@@ -50601,9 +50001,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "syi" = (
 /obj/structure/table/reinforced,
@@ -50633,9 +50031,8 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "szw" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken4";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken4"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "szx" = (
@@ -50788,7 +50185,7 @@
 	dir = 6;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "sBU" = (
 /turf/simulated/floor/plasteel{
@@ -50801,7 +50198,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "sCQ" = (
 /obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "sCU" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -50953,9 +50350,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "sFw" = (
 /obj/structure/cable{
@@ -51061,9 +50456,7 @@
 	},
 /area/coldcolony/malta/security/brig)
 "sGS" = (
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "sGT" = (
 /obj/structure/cable{
@@ -51177,7 +50570,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "sIS" = (
 /obj/structure/table/wood,
@@ -51294,7 +50687,7 @@
 /area/coldcolony/malta/bridge/vip)
 "sKt" = (
 /obj/item/snowball,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "sKD" = (
 /obj/effect/spawner/window/reinforced,
@@ -51325,9 +50718,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "sLc" = (
 /obj/machinery/alarm{
@@ -51412,9 +50803,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "sMQ" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -51637,9 +51026,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor";
-	temperature = 180
+/turf/simulated/floor/plasteel/cold{
+	icon_state = "showroomfloor"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "sSd" = (
@@ -51723,9 +51111,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "sTT" = (
 /obj/item/trash/candy,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "sUa" = (
 /obj/structure/flora/ausbushes/brflowers,
@@ -51880,9 +51266,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = -5
 	},
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "sWP" = (
 /turf/simulated/floor/plasteel,
@@ -52002,9 +51386,7 @@
 "sZY" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "tab" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -52227,9 +51609,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "tdO" = (
 /obj/structure/plasticflaps,
@@ -52373,9 +51753,7 @@
 "tgY" = (
 /obj/structure/table/wood,
 /obj/item/healthanalyzer,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "tgZ" = (
 /turf/simulated/wall,
@@ -52385,7 +51763,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "thh" = (
 /obj/structure/cable{
@@ -52834,7 +52212,7 @@
 /obj/item/stack/ore/iron{
 	amount = 9
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "trA" = (
 /obj/machinery/light/small{
@@ -52890,21 +52268,20 @@
 /obj/item/stack/ore/silver{
 	amount = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tsc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken2";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken2"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "tsm" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tsw" = (
 /turf/simulated/wall/rust,
@@ -52945,7 +52322,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ttu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -53015,9 +52392,7 @@
 /obj/structure/safe/floor,
 /obj/item/gun/projectile/revolver/nagant,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "tuu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -53031,7 +52406,7 @@
 /obj/structure/signpost{
 	desc = "На указателе написанно: Запад — Рем. мастерская, медблок, жилой блок. Север — Охрана, администрация. Юг — Инженерия."
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tuz" = (
 /obj/machinery/disposal,
@@ -53242,9 +52617,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mist,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "txq" = (
 /obj/machinery/atmospherics/trinary/mixer{
@@ -53339,9 +52712,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine/n2{
-	nitrogen = 10000
-	},
+/turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "tzr" = (
 /obj/structure/table,
@@ -53657,9 +53028,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "tET" = (
 /obj/structure/cable{
@@ -53769,10 +53138,9 @@
 /obj/effect/turf_decal/siding/wideplating{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "tGK" = (
@@ -53888,9 +53256,7 @@
 /area/coldcolony/malta/maintenance/brig)
 "tJy" = (
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "tJF" = (
 /obj/structure/chair/office/dark{
@@ -54009,7 +53375,7 @@
 	dir = 8;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tMj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -54038,9 +53404,7 @@
 "tMW" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "tMZ" = (
 /obj/structure/table,
@@ -54092,9 +53456,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "tOb" = (
 /obj/structure/disposalpipe/segment{
@@ -54133,7 +53495,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 29
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tPF" = (
 /obj/structure/bed/dogbed{
@@ -54191,7 +53553,7 @@
 	dir = 5;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tQU" = (
 /obj/structure/chair,
@@ -54351,7 +53713,7 @@
 /area/coldcolony/malta/engineering/engine)
 "tTj" = (
 /obj/structure/fence,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "tTp" = (
 /turf/simulated/floor/plating,
@@ -54667,9 +54029,7 @@
 "tYh" = (
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "tYs" = (
 /obj/machinery/door/airlock/bananium{
@@ -54770,9 +54130,7 @@
 	},
 /obj/item/multitool,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "uac" = (
 /obj/structure/chair/office/dark{
@@ -55043,11 +54401,7 @@
 "ueG" = (
 /obj/structure/table/abductor,
 /obj/item/hemostat/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "ueY" = (
 /obj/structure/disposalpipe/segment{
@@ -55123,7 +54477,7 @@
 	dir = 6;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ugy" = (
 /obj/machinery/door/airlock/security/glass{
@@ -55329,9 +54683,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 5
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ukB" = (
 /obj/machinery/door/firedoor,
@@ -55468,9 +54820,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 9
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "unn" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -55525,9 +54875,8 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/ruin/unpowered)
 "uog" = (
@@ -55722,10 +55071,9 @@
 /area/coldcolony/malta/outer/roadblock)
 "uqt" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "uqN" = (
@@ -55841,9 +55189,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "uuZ" = (
 /obj/structure/table_frame/wood,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "uvb" = (
 /obj/effect/spawner/random_spawners/rodent,
@@ -55904,7 +55250,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "uvL" = (
 /obj/machinery/portable_atmospherics/scrubber,
@@ -56121,11 +55467,7 @@
 /area/ruin/unpowered)
 "uBh" = (
 /obj/machinery/abductor/gland_dispenser,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "uBr" = (
 /obj/effect/decal/warning_stripes/east,
@@ -56191,7 +55533,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "uCv" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -56264,11 +55606,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "uEc" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "uEu" = (
 /obj/machinery/door/airlock/glass{
@@ -56669,9 +56007,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "uNQ" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "uOE" = (
 /obj/structure/table/reinforced,
@@ -56719,9 +56055,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "uPc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -56788,9 +56122,7 @@
 	dir = 8
 	},
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "uQu" = (
 /obj/effect/decal/cleanable/glass,
@@ -56820,9 +56152,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "uQz" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "uQB" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -56842,9 +56172,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 10
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "uQX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -56932,9 +56260,8 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/captain)
 "uSN" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "uSU" = (
@@ -57166,9 +56493,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "uWW" = (
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "uXd" = (
 /obj/structure/cable{
@@ -57188,7 +56513,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "uXY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -57208,9 +56533,8 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "uYk" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken3";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken3"
 	},
 /area/ruin/unpowered)
 "uYv" = (
@@ -57267,7 +56591,7 @@
 	dir = 4;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "uYP" = (
 /obj/effect/spawner/random_spawners/rodent,
@@ -57301,7 +56625,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 6
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "uZM" = (
 /obj/effect/turf_decal/siding/white{
@@ -57346,9 +56670,8 @@
 	},
 /area/coldcolony/malta/security/lobby)
 "vbe" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "vbo" = (
@@ -57380,9 +56703,7 @@
 /obj/structure/fence/door/opened{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "vcn" = (
 /obj/machinery/conveyor{
@@ -57424,9 +56745,7 @@
 "vdI" = (
 /obj/machinery/suit_storage_unit/pirate,
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "vdL" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -57539,7 +56858,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "veW" = (
 /obj/structure/table/wood,
@@ -57605,15 +56924,13 @@
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vgn" = (
 /obj/structure/cable/orange{
 	icon_state = "4-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vgq" = (
 /obj/structure/cable{
@@ -57862,7 +57179,7 @@
 /obj/structure/cable/orange{
 	icon_state = "9-10"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vkU" = (
 /obj/structure/sign/poster/official/random,
@@ -57875,9 +57192,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "vlh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -57924,9 +57239,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vlx" = (
 /obj/structure/table/glass,
@@ -57955,7 +57268,7 @@
 "vlI" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vmb" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -58110,7 +57423,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 15
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "von" = (
 /obj/structure/bed,
@@ -58232,9 +57545,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "vqs" = (
 /obj/machinery/light{
@@ -58341,9 +57652,7 @@
 	dir = 5
 	},
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vrS" = (
 /obj/item/stack/sheet/wood{
@@ -58483,7 +57792,7 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
 	width = 21
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vtQ" = (
 /obj/machinery/light{
@@ -58503,9 +57812,7 @@
 /area/coldcolony/malta/maintenance/cargo)
 "vuv" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "vuw" = (
 /obj/structure/table/reinforced,
@@ -58903,9 +58210,7 @@
 	pixel_x = -28
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "vzF" = (
 /obj/structure/table,
@@ -59088,9 +58393,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "vCF" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken2";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken2"
 	},
 /area/ruin/unpowered)
 "vCG" = (
@@ -59116,7 +58420,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vDh" = (
 /obj/structure/cable{
@@ -59243,9 +58547,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/barber)
 "vEK" = (
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vFf" = (
 /obj/structure/table/wood,
@@ -59382,7 +58684,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-6"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vHk" = (
 /obj/structure/disposalpipe/segment{
@@ -59403,7 +58705,7 @@
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vHq" = (
 /obj/structure/table,
@@ -59668,9 +58970,7 @@
 "vNG" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vNP" = (
 /obj/machinery/power/apc{
@@ -59715,17 +59015,11 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "vOu" = (
 /obj/machinery/abductor/pad,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "vOX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -59749,7 +59043,7 @@
 /area/coldcolony/ruin/syndie_outpost)
 "vPw" = (
 /turf/simulated/mineral/random{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
+	turf_type = /turf/simulated/floor/plating/asteroid/snow
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "vPC" = (
@@ -59802,7 +59096,7 @@
 /obj/structure/cable/orange{
 	icon_state = "6-10"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "vQQ" = (
 /obj/machinery/vending/cigarette,
@@ -60149,7 +59443,7 @@
 "vXa" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/simulated/mineral/random{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
+	turf_type = /turf/simulated/floor/plating/asteroid/snow
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "vXd" = (
@@ -60199,9 +59493,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine/o2{
-	oxygen = 10000
-	},
+/turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "vXF" = (
 /obj/machinery/door/airlock/security/glass{
@@ -60223,9 +59515,7 @@
 	charges = 2;
 	max_charges = 2
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "vYs" = (
 /obj/machinery/disposal,
@@ -60317,9 +59607,7 @@
 /area/coldcolony/malta/research/xenobiology)
 "waQ" = (
 /obj/machinery/vending/boozeomat,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "waW" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -60461,7 +59749,7 @@
 	dir = 9;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wec" = (
 /obj/effect/landmark/start/civilian,
@@ -60556,9 +59844,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "wfA" = (
 /obj/structure/table,
@@ -60584,9 +59870,7 @@
 "wgh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wgl" = (
 /obj/structure/cable{
@@ -60650,9 +59934,7 @@
 "wha" = (
 /obj/structure/mineral_door/wood,
 /obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "whk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -60834,9 +60116,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wiX" = (
 /obj/machinery/light_switch/directional/west,
@@ -60874,9 +60154,8 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken4";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken4"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wjk" = (
@@ -60968,9 +60247,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_house)
 "wkV" = (
 /obj/structure/table/wood,
@@ -61117,9 +60394,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "wnE" = (
 /obj/structure/chair/comfy/black,
@@ -61199,9 +60474,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "woJ" = (
 /obj/structure/disposalpipe/segment{
@@ -61270,9 +60543,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "wpV" = (
 /obj/item/radio/intercom/directional/east,
@@ -61287,9 +60558,8 @@
 "wqe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken4";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken4"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wqn" = (
@@ -61304,9 +60574,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wqS" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -61345,9 +60613,8 @@
 /area/coldcolony/malta/bridge/meeting_room)
 "wsg" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken7";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken7"
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wsj" = (
@@ -61389,9 +60656,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "wtt" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "wtv" = (
 /obj/machinery/optable,
@@ -61432,9 +60697,7 @@
 "wub" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wul" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -61526,9 +60789,7 @@
 "wwA" = (
 /obj/structure/window/full/reinforced/ice,
 /obj/structure/grille,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "wwE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -61664,9 +60925,7 @@
 "wyz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wyB" = (
 /obj/structure/closet/secure_closet/ntrep,
@@ -61736,9 +60995,7 @@
 "wBz" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wCa" = (
 /obj/machinery/light{
@@ -61848,9 +61105,7 @@
 "wEa" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/trash/spentcasing,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wEc" = (
 /obj/structure/cable{
@@ -61972,9 +61227,7 @@
 	dir = 8;
 	use_power = 0
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "wFH" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -62099,7 +61352,7 @@
 "wHE" = (
 /obj/structure/flora/grass/green,
 /obj/structure/flora/tree/dead,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wHR" = (
 /obj/structure/closet/chefcloset,
@@ -62171,7 +61424,7 @@
 /obj/item/stack/ore/titanium{
 	amount = 6
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wJd" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -62335,7 +61588,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wMt" = (
 /obj/structure/disposalpipe/segment,
@@ -62379,9 +61632,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "wNt" = (
 /turf/simulated/wall/rust,
@@ -62514,9 +61765,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "wOY" = (
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "wPd" = (
 /obj/structure/table/wood,
@@ -62583,7 +61832,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wQK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -62658,9 +61907,7 @@
 	start_charge = 1
 	},
 /obj/structure/cable,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "wSn" = (
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -62792,7 +62039,7 @@
 /area/coldcolony/malta/research/lab)
 "wVa" = (
 /obj/structure/flora/ausbushes/pointybush,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wVf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -63121,7 +62368,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xaB" = (
 /obj/effect/baseturf_helper/asteroid,
@@ -63186,9 +62433,7 @@
 /obj/effect/decal/rail_way{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xcj" = (
 /obj/machinery/atm{
@@ -63201,7 +62446,7 @@
 /area/coldcolony/malta/quartermaster/office)
 "xcr" = (
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xcH" = (
 /obj/structure/cable{
@@ -63234,17 +62479,13 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xdQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "xdR" = (
 /turf/simulated/wall/rust,
@@ -63273,7 +62514,7 @@
 "xdZ" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/tree/pine,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xep" = (
 /turf/simulated/wall/mineral/titanium,
@@ -63572,9 +62813,7 @@
 "xjM" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "xjN" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -63730,15 +62969,11 @@
 	pixel_x = -8
 	},
 /obj/effect/decal/ants,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xml" = (
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xmm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -64081,7 +63316,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xtl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -64098,9 +63333,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xtI" = (
 /obj/structure/rack,
@@ -64130,9 +63363,7 @@
 "xtW" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "xuk" = (
 /obj/structure/cable{
@@ -64713,7 +63944,7 @@
 "xDP" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/tree/dead,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xEi" = (
 /obj/structure/disposalpipe/segment,
@@ -64792,15 +64023,12 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xHb" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/cold{
 	dir = 8;
-	icon_state = "neutralfull";
-	temperature = 180
+	icon_state = "neutralfull"
 	},
 /area/ruin/unpowered)
 "xHj" = (
@@ -64878,9 +64106,8 @@
 	},
 /area/coldcolony/malta/medical/genetics)
 "xIo" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/coldcolony/ruin/abandoned_house)
 "xIz" = (
@@ -64921,9 +64148,8 @@
 	},
 /area/coldcolony/malta/security/hos)
 "xIP" = (
-/turf/simulated/floor/wood/cherry{
-	icon_state = "wood-cherry-broken5";
-	temperature = 180
+/turf/simulated/floor/wood/cherry/cold{
+	icon_state = "wood-cherry-broken5"
 	},
 /area/ruin/unpowered)
 "xIT" = (
@@ -64998,9 +64224,7 @@
 "xKl" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/shoes/sandal/white,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "xKE" = (
 /obj/effect/decal/rail_way{
@@ -65009,7 +64233,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xKF" = (
 /obj/structure/cable{
@@ -65214,7 +64438,7 @@
 /area/coldcolony/malta/engineering/control)
 "xOz" = (
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xOJ" = (
 /obj/machinery/porta_turret,
@@ -65302,9 +64526,7 @@
 /obj/effect/decal/rail_way{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid{
-	temperature = 180
-	},
+/turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "xQZ" = (
 /obj/machinery/door/airlock/maintenance{
@@ -65375,7 +64597,7 @@
 	desc = "BEARS!";
 	name = "DANGER!"
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "xTh" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -65393,9 +64615,7 @@
 	pixel_x = -3;
 	pixel_y = -5
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "xTl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -65529,11 +64749,7 @@
 "xVN" = (
 /obj/structure/table/abductor,
 /obj/item/retractor/alien,
-/turf/simulated/floor/mineral/abductor{
-	nitrogen = 82;
-	oxygen = 22;
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "xVQ" = (
 /obj/effect/decal/warning_stripes/west,
@@ -65825,7 +65041,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ybw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -65888,7 +65104,7 @@
 /area/coldcolony/malta/bridge/vip)
 "ycW" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ydu" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -65928,9 +65144,7 @@
 /obj/structure/sign/poster/official/vodka{
 	pixel_x = 32
 	},
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "yeG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -65976,9 +65190,7 @@
 /area/coldcolony/malta/engineering/storage)
 "ygt" = (
 /obj/effect/decal/ants,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "ygu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -66001,7 +65213,7 @@
 "yhh" = (
 /obj/structure/flora/grass/green,
 /obj/effect/decal/snow/sand/edge,
-/turf/simulated/floor/plating/asteroid/snow/planet,
+/turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "yhl" = (
 /obj/structure/chair/sofa/pew/right{
@@ -66108,9 +65320,7 @@
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
-/turf/simulated/floor/carpet{
-	temperature = 180
-	},
+/turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "yjo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -66132,9 +65342,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
+/turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "ykg" = (
 /obj/item/storage/toolbox/mechanical{
