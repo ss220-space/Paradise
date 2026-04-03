@@ -329,7 +329,7 @@
 
 	if(!interaction_key && target)
 		if(cancel_on_max)
-			interaction_key = "[target]+[max_interact_count]"
+			interaction_key = "[UID_of(target)]+[max_interact_count]"
 		else
 			interaction_key = target //Use the direct ref to the target
 	if(interaction_key) //Do we have a interaction_key now?

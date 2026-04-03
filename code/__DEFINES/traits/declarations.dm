@@ -487,5 +487,8 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// Suppression implant trait
+#define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
+
 ///Trait applied to turf blocked by a containment field
 #define TRAIT_CONTAINMENT_FIELD "containment_field"

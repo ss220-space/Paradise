@@ -53198,6 +53198,7 @@
 	req_access = list(1)
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/storage/lockbox/suppression,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"

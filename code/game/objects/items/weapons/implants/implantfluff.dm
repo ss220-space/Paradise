@@ -174,8 +174,15 @@
 	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
 	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
 
+/datum/implant_fluff/suppression
+	name = "Био-чип Cybersun Industries MA-SUPP"
+	life = "Пожизненная гарантия."
+	notes = "Разработан по заказу Nanotrasen после инцидента 1984-MA-003. Рекомендуется для использования на заключенных, обученных техникам боевых искусств."
+	function = "Нейронный ингибитор, блокирующий моторные паттерны, связанные с комбинациями боевых искусств и защитными манёврами."
+
 /datum/implant_fluff/fake_mindshield
 	name = "Fake Mindshield Bio-Chip"
 	life = "Неизвестно: ни один из собранных образцов не был активен достаточно, чтобы определить время функционирования."
 	notes = "Разработка Синдиката, позволяющая имитировать имплант Защиты Разума. Не защищает разум от порабощения."
 	function = "Позволяет включать и выключать отображение импланта защиты разума на ИЛС-очках службы безопасности."
+
