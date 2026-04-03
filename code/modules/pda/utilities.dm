@@ -1,12 +1,12 @@
 /datum/data/pda/utility/flashlight
-	name = "Enable Flashlight"
-	icon = "lightbulb-o"
+	name = "Вкл фонарь"
+	icon = "lightbulb"
 	/// Is the flashlight function on?
 	var/fon = FALSE
 
 /datum/data/pda/utility/flashlight/start()
 	fon = !fon
-	name = fon ? "Disable Flashlight" : "Enable Flashlight"
+	name = fon ? "Выкл фонарь" : "Вкл фонарь"
 	pda.update_shortcuts()
 	pda.update_icon(UPDATE_OVERLAYS)
 	pda.set_light_on(fon)
@@ -14,8 +14,8 @@
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/honk
-	name = "Honk Synthesizer"
-	icon = "smile-o"
+	name = "Хонк-синтезатор"
+	icon = "smile"
 	category = "Clown"
 
 	var/last_honk //Also no honk spamming that's bad too
@@ -26,7 +26,7 @@
 		last_honk = world.time
 
 /datum/data/pda/utility/toggle_door
-	name = "Toggle Door"
+	name = "Переключатель дверей"
 	icon = "external-link-alt"
 	var/remote_door_id = ""
 
@@ -41,8 +41,8 @@
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/scanmode/medical
-	base_name = "Med Scanner"
-	icon = "heart-o"
+	base_name = "Анализатор здоровья"
+	icon = "heart"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."), span_notice("You analyze [M]'s vitals."))
@@ -50,7 +50,7 @@
 	healthscan(user, M, 1)
 
 /datum/data/pda/utility/scanmode/dna
-	base_name = "DNA Scanner"
+	base_name = "Сканер ДНК"
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
@@ -82,7 +82,7 @@
 	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/reagent
-	base_name = "Reagent Scanner"
+	base_name = "Сканер реагентов"
 	icon = "flask"
 
 /datum/data/pda/utility/scanmode/reagent/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
@@ -105,7 +105,7 @@
 	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/gas
-	base_name = "Gas Scanner"
+	base_name = "Газоанализатор"
 	icon = "tachometer-alt"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/scanned_atom, mob/user)
