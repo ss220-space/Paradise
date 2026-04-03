@@ -95,10 +95,10 @@
 /mob/living/carbon/human/proc/apply_current_blood_level_effect()
 	switch(blood_volume)
 		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
-			apply_damage(BLOOD_PALE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_PALE_DAMAGE)
 
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
-			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_OKAY_DAMAGE)
 			if(prob(5))
 				Confused(2 SECONDS)
 				var/symptom = pick("слабость",
@@ -107,7 +107,7 @@
 				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
 		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-			apply_damage(BLOOD_BAD_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_BAD_DAMAGE)
 			if(prob(5))
 				EyeBlurry(12 SECONDS)
 				Confused(12 SECONDS)
@@ -118,7 +118,7 @@
 				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
 		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-			apply_damage(BLOOD_SURVIVE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_SURVIVE_DAMAGE)
 			if(prob(15))
 				Confused(10 SECONDS)
 				Slowed(15 SECONDS)
@@ -131,6 +131,9 @@
 
 		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 			death()
+
+/mob/living/carbon/human/proc/adjust_blood_loss_damage(amount) //if you want override damage type
+	adjustOxyLoss(amount)
 
 /mob/living/carbon/human/proc/add_bleeding_bodypart(obj/item/organ/external/bodypart)
 	bleeding_bodyparts |= bodypart

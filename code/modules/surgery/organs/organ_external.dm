@@ -173,6 +173,7 @@
 	if(owner)
 		owner.bodyparts_by_name[limb_zone] = null
 		LAZYREMOVE(owner.splinted_limbs, src)
+		owner.bleeding_bodyparts -= src
 
 	QDEL_LIST(embedded_objects)
 	QDEL_NULL(hidden)
@@ -207,6 +208,8 @@
 
 	owner.bodyparts_by_name[limb_zone] = src
 	owner.bodyparts |= src
+	if(bleeding_amount > 0 || has_internal_bleeding() || LAZYLEN(embedded_objects) || open)
+		owner.bleeding_bodyparts |= src
 
 	for(var/atom/movable/thing in src)
 		thing.attempt_become_organ(src, owner, special)
@@ -225,6 +228,7 @@
 	remove_splint(silent = TRUE)
 	remove_all_embedded_objects()
 	remove_tourniquet()
+	owner.bleeding_bodyparts -= src
 
 	. = ..()
 
@@ -466,7 +470,7 @@
 
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
-			owner.add_bleeding_bodypart(src)
+			owner?.add_bleeding_bodypart(src)
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
@@ -1337,7 +1341,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/thing, throw_alert = TRUE)
 	LAZYOR(embedded_objects, thing)
-	owner.add_bleeding_bodypart(src)
+	owner?.add_bleeding_bodypart(src)
 	thing.forceMove(src)
 	if(throw_alert)
 		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
