@@ -113,7 +113,7 @@
 	if(!do_after(user, breakout_time, src))
 		return
 
-	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+	//closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
 	if(!src || !user || user.incapacitated(INC_IGNORE_RESTRAINED) || user.loc != src || opened)
 		return
 

@@ -170,11 +170,11 @@
 
 /obj/effect/proc_holder/spell/vampire/switch_places
 	name = "Подпространственный обмен"
-	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации. Возможно использовать сквозь стены."
+	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации. Невозможно использовать сквозь стены."
 	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
 	centcom_cancast = FALSE
 	action_icon_state = "subspace_swap"
-	base_cooldown = 5 SECONDS
+	base_cooldown = 10 SECONDS
 	required_blood = 15
 	need_active_overlay = TRUE
 
@@ -183,7 +183,6 @@
 	T.range = 7
 	T.click_radius = 1
 	T.try_auto_target = FALSE
-	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = /mob/living
 	return T
 

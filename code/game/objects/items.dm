@@ -127,6 +127,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakout_time = 0
+	/// Flags, that used in breakout do_after
+	var/breakout_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 	var/block_chance = 0
 	var/block_type = ALL

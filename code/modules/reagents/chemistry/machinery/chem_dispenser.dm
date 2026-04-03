@@ -378,9 +378,9 @@
 	icon_state = "soda_dispenser"
 	beaker_overlay_name = "bar_beaker"
 	ui_title = "Фонтан Напитков 10000"
-	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
-	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	dispensable_reagents = list("banana", "berryjuice", "carrotjuice", "coffee", "cola", "dr_gibb", "grapejuice", "hot_coco", "ice", "lemon_lime",
+	"lemonjuice", "limejuice", "milk", "orangejuice", "potato", "sodawater", "soymilk", "space_up", "spacemountainwind", "sugar",
+	"tea", "tomatojuice", "tonic", "water", "watermelonjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza

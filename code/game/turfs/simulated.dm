@@ -157,7 +157,7 @@
 		merged.set_agent_b(merged.agent_b() / turf_count)
 		merged.set_hydrogen(merged.hydrogen() / turf_count)
 		merged.set_water_vapor(merged.water_vapor() / turf_count)
-		merged.set_hyper_noblium(merged.hyper_noblium() / turf_count)
+		merged.set_hypernoblium(merged.hypernoblium() / turf_count)
 		merged.set_nitrium(merged.nitrium() / turf_count)
 		merged.set_tritium(merged.tritium() / turf_count)
 		merged.set_bz(merged.bz() / turf_count)
