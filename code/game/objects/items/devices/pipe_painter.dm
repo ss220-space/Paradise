@@ -27,7 +27,7 @@
 		return
 
 	var/turf/T = P.loc
-	if(P.level < 2 && T.level==1 && isturf(T) && T.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You must remove the plating first."))
 		return
 

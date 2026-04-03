@@ -43,6 +43,7 @@
 			dpdir |= REVERSE_DIR(dir)
 
 	update()
+	AddElement(/datum/element/undertile)
 
 /obj/structure/disposalpipe/Destroy()
 	spew_forth()
@@ -99,7 +100,7 @@
 
 	if(isfloorturf(expel_to))
 		floorturf = expel_to
-		if(floorturf.intact)	// pop the tile if present
+		if(floorturf.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)	// pop the tile if present
 			floorturf.remove_tile(null, TRUE, TRUE)
 
 	if(direction) // direction is specified
@@ -134,23 +135,6 @@
 		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 	else
 		SET_PLANE_IMPLICIT(src, GAME_PLANE)
-	hide(our_turf.intact)	// space never hides pipes
-
-// hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
-/obj/structure/disposalpipe/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
-	update_icon(UPDATE_ICON_STATE)
-
-// update actual icon_state depending on visibility
-// if invisible, append "f" to icon_state to show faded version
-// this will be revealed if a T-scanner is used
-// if visible, use regular icon_state
-/obj/structure/disposalpipe/update_icon_state()
-	if(invisibility)
-		icon_state = "[base_icon_state]f"
-	else
-		icon_state = base_icon_state
 
 // pipe affected by explosion
 /obj/structure/disposalpipe/ex_act(severity, target)
@@ -175,7 +159,7 @@
 
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/our_turf = loc
-	if(isturf(our_turf) && (our_turf.intact || (our_turf.transparent_floor == TURF_TRANSPARENT)))
+	if(isturf(our_turf) && HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You cannot interact with something that's under the floor!"))
 		return ATTACK_CHAIN_BLOCKED_ALL	// prevent interaction with T-scanner revealed pipes and pipes under glass
 	return ..()
@@ -185,7 +169,7 @@
 	if(!I.tool_use_check(user, 0))
 		return .
 	var/turf/our_turf = loc
-	if(isturf(our_turf) && (our_turf.intact || (our_turf.transparent_floor == TURF_TRANSPARENT)))
+	if(isturf(our_turf) && HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You can't interact with something that's under the floor!"))
 		return .
 	WELDER_ATTEMPT_SLICING_MESSAGE
