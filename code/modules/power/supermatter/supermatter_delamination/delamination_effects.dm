@@ -55,7 +55,7 @@
 /// Spawns anomalies all over the station. Half instantly, the other half over time.
 /datum/sm_delam/proc/effect_anomaly(obj/machinery/power/supermatter_crystal/sm)
 	var/anomalies = 10
-	var/list/anomaly_types = list(GRAVITATIONAL_ANOMALY = 55, /*HALLUCINATION_ANOMALY = 45, DIMENSIONAL_ANOMALY = 35, BIOSCRAMBLER_ANOMALY = 35, */FLUX_ANOMALY = 25, PYRO_ANOMALY = 5, VORTEX_ANOMALY = 1)
+	var/list/anomaly_types = list(GRAVITATIONAL_ANOMALY = 55, /*HALLUCINATION_ANOMALY = 45, DIMENSIONAL_ANOMALY = 35, BIOSCRAMBLER_ANOMALY = 35, */FLUX_ANOMALY = 20, PYRO_ANOMALY = 10, VORTEX_ANOMALY = 1)
 	var/list/anomaly_places = GLOB.xeno_spawn // i'am sorry, it must be GLOB.generic_event_spawns - littleboobs
 
 	// Spawns this many anomalies instantly. Spawns the rest with callbacks.
@@ -137,7 +137,7 @@
 	*/
 	if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
 		SSshuttle.emergency.mode = SHUTTLE_STRANDED
-		SSshuttle.remove_hostile_environment(src)
+		SSshuttle.add_hostile_environment(src)
 		return
 
 	// say goodbye to that shuttle of yours

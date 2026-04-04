@@ -901,6 +901,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/is_in_milla_safe_code()
 	return in_milla_safe_code || length(sleepers) > 0
+
 /datum/controller/subsystem/air/proc/on_milla_tick_finished()
 	milla_idle = TRUE
 	run_sleepless_callbacks()

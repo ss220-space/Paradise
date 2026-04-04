@@ -22,6 +22,10 @@
 	var/maximum_fire_delay = 10 SECONDS
 	/// Minimum delay between each emitter shot
 	var/minimum_fire_delay = 2 SECONDS
+	///Modifier to the preceeding two numbers
+	var/fire_rate_mod = 1
+	///Deactivates the "pause every 3 shots" system
+	var/no_shot_counter = FALSE
 	/// When was the last emitter shot
 	var/last_shot = 0
 	/// Number of shots made (gets reset every few shots)
@@ -38,6 +42,8 @@
 	var/datum/effect_system/spark_spread/sparks
 	/// Amount of power inside
 	var/charge = 0
+	/// the disk in the gun
+	var/obj/item/emitter_disk/diskie
 
 /obj/machinery/power/emitter/get_ru_names()
 	return list(
@@ -99,7 +105,7 @@
 	else if(!powered)
 		. += span_notice("Его дисплей состояния слабо светится.")
 	else
-		. += span_notice("На его дисплее состояния указано: Излучает луч в диапазоне между <b>[DisplayTimeText(minimum_fire_delay)]</b> и <b>[DisplayTimeText(maximum_fire_delay)]</b>.")
+		. += span_notice("На его дисплее состояния указано: Излучает луч в диапазоне между <b>[DisplayTimeText(minimum_fire_delay * fire_rate_mod)]</b> и <b>[DisplayTimeText(maximum_fire_delay * fire_rate_mod)]</b>.")
 		. += span_notice("Потребляемая мощность: <b>[display_power(active_power_usage)]</b>.")
 
 /obj/machinery/power/emitter/RefreshParts()
@@ -274,11 +280,11 @@
 		projectile.pixel_y = -1
 
 	last_shot = world.time
-	if(shot_number < 3)
-		fire_delay = 20
+	if(shot_number < 3 || no_shot_counter)
+		fire_delay = 20 * fire_rate_mod
 		shot_number ++
 	else
-		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
+		fire_delay = rand(minimum_fire_delay, maximum_fire_delay) * fire_rate_mod
 		shot_number = 0
 
 	projectile.setDir(dir)
@@ -310,6 +316,28 @@
 			return ATTACK_CHAIN_PROCEED
 		locked = !locked
 		to_chat(user, span_notice("The controls are now [locked ? "locked." : "unlocked."]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(panel_open && istype(item, /obj/item/emitter_disk))
+		var/obj/item/emitter_disk/config_disk = item
+		if(!user.transfer_item_to_loc(config_disk, src))
+			balloon_alert(user, "stuck in hand!")
+			return
+		if(diskie)
+			user.put_in_hands(diskie)
+			balloon_alert(user, "disks swapped!")
+		else
+			balloon_alert(user, "disk inserted")
+		diskie = config_disk
+		projectile_type = diskie.stored_proj
+		projectile_sound = diskie.stored_sound
+		fire_rate_mod = diskie.fire_rate_mod
+		no_shot_counter = diskie.no_shot_counter
+		playsound(src, 'sound/machines/card_slide.ogg', 50)
+		to_chat(user, span_notice("You update the [src]'s diode configuration with the [config_disk]."))
+		update_appearance()
+		if(diskie.consumable)
+			qdel(diskie)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -386,3 +414,65 @@
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		disconnect_from_network()
 		welded = FALSE
+
+/obj/item/emitter_disk
+	name = "Diode Disk: Debugger"
+	desc = "This disk can be used on an emitter with an open panel to reset its projectile. Unless this was handed to you by an admin, you should report this on github."
+	icon = 'icons/obj/devices/floppy_disks.dmi'
+	icon_state = "datadisk6"
+	var/laser_color = COLOR_VIBRANT_LIME
+	var/stored_proj = /obj/projectile/beam/emitter/hitscan
+	var/stored_sound = 'sound/weapons/emitter.ogg'
+	var/consumed_on_removal = TRUE
+	var/consumable = TRUE
+	var/fire_rate_mod = 1
+	var/no_shot_counter = FALSE
+
+/obj/item/emitter_disk/stamina
+	name = "Diode Disk: Electrodisruptive"
+	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will increase the integrity of supermatter crystals and exhaust living creatures. The disk will be consumed in the process."
+	stored_proj = /obj/projectile/beam/emitter/hitscan/bluelens
+	consumed_on_removal = FALSE
+	consumable = FALSE
+	laser_color = COLOR_TRUE_BLUE
+
+/obj/item/emitter_disk/healing
+	name = "Diode Disk: Bioregenerative"
+	desc = "This disk can be installed into an emitter with an open panel to make it shoot lasers which will heal the physical damages of living creatures."
+	stored_proj = /obj/projectile/beam/emitter/hitscan/bioregen
+	consumed_on_removal = FALSE
+	consumable = FALSE
+	laser_color = COLOR_YELLOW
+
+/obj/item/emitter_disk/incendiary
+	name = "Diode Disk: Conflagratory"
+	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will set living creatures ablaze."
+	stored_proj = /obj/projectile/beam/emitter/hitscan/incend
+	consumed_on_removal = FALSE
+	consumable = FALSE
+	laser_color = COLOR_RED_LIGHT
+
+/obj/item/emitter_disk/sanity
+	name = "Diode Disk: Psychosiphoning"
+	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will depress living creatures and calm supermatter crystals."
+	stored_proj = /obj/projectile/beam/emitter/hitscan/psy
+	consumed_on_removal = FALSE
+	consumable = FALSE
+	laser_color = COLOR_TONGUE_PINK
+
+/obj/item/emitter_disk/magnetic
+	name = "Diode Disk: Magnetogenerative"
+	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will attract nearby objects."
+	stored_proj = /obj/projectile/beam/emitter/hitscan/magnetic
+	consumed_on_removal = FALSE
+	consumable = FALSE
+	laser_color = COLOR_SILVER
+
+/obj/item/emitter_disk/blast
+	name = "Diode Disk: Hyperconcussive"
+	desc = "This disk, loaded with proprietary syndicate firmware, can be used on an emitter with an open panel to make it shoot beams of concussive force which will cause small explosions."
+	stored_proj = /obj/projectile/beam/emitter/hitscan/blast
+	consumed_on_removal = FALSE
+	consumable = FALSE
+	laser_color = COLOR_SYNDIE_RED //magnetic is already grey
+	fire_rate_mod = 2

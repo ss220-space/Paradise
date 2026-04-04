@@ -63,7 +63,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/danger_point = 60
 	///The point at which we consider the supermatter to be [SUPERMATTER_STATUS_EMERGENCY]
 	var/emergency_point = 75
-	var/emergency_channel = PUB_FREQ // Need null to actually broadcast, lol.
+	var/emergency_channel = null // Need null to actually broadcast, lol.
 	///The point at which we delam [SUPERMATTER_STATUS_DELAMINATING].
 	var/explosion_point = 100
 	///Are we exploding?
@@ -189,6 +189,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		PREPOSITIONAL = "кристалле суперматерии"
 	)
 
+/obj/machinery/power/supermatter_crystal/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/supermatter_crystal, PROC_REF(wrench_act_callback), PROC_REF(consume_callback))
+
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	current_gas_behavior = init_sm_gas()
@@ -204,13 +208,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
 
-	//AddElement(/datum/element/bsa_blocker)
+	AddElement(/datum/element/bsa_blocker)
 	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, PROC_REF(force_delam))
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_FREEZE, PROC_REF(time_frozen))
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_UNFREEZE, PROC_REF(time_unfrozen))
 	RegisterSignal(src, COMSIG_ATOM_BULLET_ACT, PROC_REF(eat_bullets))
 
-	AddComponent(/datum/component/supermatter_crystal, CALLBACK(src, PROC_REF(wrench_act_callback)), CALLBACK(src, PROC_REF(consume_callback)))
 	soundloop = new(src, TRUE)
 
 	//if(!isnull(check_holidays(FESTIVE_SEASON)))
@@ -1109,6 +1112,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	COOLDOWN_START(src, common_radio_cooldown, SUPERMATTER_COMMON_RADIO_DELAY)
 	return TRUE
+
+/obj/machinery/power/supermatter_crystal/attack_ai(mob/user)
+	return
 
 ///obj/machinery/power/supermatter_crystal/proc/holiday_lights()
 //	holiday_lights = TRUE

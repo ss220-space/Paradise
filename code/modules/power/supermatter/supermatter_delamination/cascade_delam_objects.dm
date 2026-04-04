@@ -10,29 +10,27 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	light_range = 5
 	light_color = COLOR_VIVID_YELLOW
+	light_system = MOVABLE_LIGHT
 	move_resist = INFINITY
-	///All dirs we can expand to
-	var/list/available_dirs = list(NORTH,SOUTH,EAST,WEST,UP,DOWN)
-	///Handler that helps with properly killing mobs that the crystal grows over
-	var/datum/component/supermatter_crystal/sm_comp
+	var/list/possible_dirs
 	///Cooldown on the expansion process
 	COOLDOWN_DECLARE(sm_wall_cooldown)
+
+/obj/crystal_mass/ComponentInitialize()
+	AddElement(/datum/element/supermatter_crystal, null, null)
 
 /obj/crystal_mass/Initialize(mapload, dir_to_remove)
 	. = ..()
 	icon_state = "crystal_cascade_[rand(1,6)]"
 	START_PROCESSING(SSsupermatter_cascade, src)
-
-	sm_comp = AddComponent(/datum/component/supermatter_crystal, null, null)
-
 	playsound(src, 'sound/misc/cracking_crystal.ogg', 45, TRUE)
-
-	available_dirs -= dir_to_remove
 
 	var/turf/our_turf = get_turf(src)
 
 	if(our_turf)
 		our_turf.opacity = FALSE
+		possible_dirs = is_multi_z_level(our_turf.z)? GLOB.cardinals_multiz.Copy() : GLOB.cardinal.Copy()
+		possible_dirs -= dir_to_remove
 
 	// Ideally this'd be part of the SM component, but the SM itself snowflakes bullets (emitters are bullets).
 	RegisterSignal(src, COMSIG_ATOM_BULLET_ACT, PROC_REF(eat_bullets))
@@ -42,26 +40,33 @@
 	if(!COOLDOWN_FINISHED(src, sm_wall_cooldown))
 		return
 
-	if(!available_dirs || available_dirs.len <= 0)
-		return PROCESS_KILL
 
 	COOLDOWN_START(src, sm_wall_cooldown, rand(0, 3 SECONDS))
 
-	var/picked_dir = pick_n_take(available_dirs)
+	if(!possible_dirs)
+		return PROCESS_KILL
+
+	var/picked_dir = pick_n_take(possible_dirs)
+
+	if(!picked_dir)
+		possible_dirs = null
+		return PROCESS_KILL
+
 	var/turf/next_turf = get_step_multiz(src, picked_dir)
 
 	icon_state = "crystal_cascade_[rand(1,6)]"
 
-	if(!next_turf || locate(/obj/crystal_mass) in next_turf)
+	if(!next_turf || (locate(/obj/crystal_mass) in next_turf))
 		return
-	var/datum/component/supermatter_crystal/cached_sm_comp = sm_comp
+
 	for(var/atom/movable/checked_atom as anything in next_turf)
 		if(isliving(checked_atom))
-			cached_sm_comp.dust_mob(
-				src,
-				checked_atom,
-				span_danger("\The [src] lunges out on [checked_atom], touching [checked_atom.p_them()]... [checked_atom.p_their()] body begins to shine with a brilliant light before crystallizing from the inside out and joining \the [src]!"),
-				span_userdanger("The crystal mass lunges on you and hits you in the chest. As your vision is filled with a blinding light, you think to yourself \"Damn it.\""),
+			SEND_SIGNAL(\
+				src, \
+				COMSIG_CRYSTAL_MASS_CONSUME,\
+				checked_atom, \
+				span_danger("\The [src] lunges out on [checked_atom], touching [checked_atom.p_them()]... [checked_atom.p_their()] body begins to shine with a brilliant light before crystallizing from the inside out and joining \the [src]!"),\
+				span_userdanger("The crystal mass lunges on you and hits you in the chest. As your vision is filled with a blinding light, you think to yourself \"Damn it.\"")\
 			)
 		else if(istype(checked_atom, /obj/cascade_portal))
 			checked_atom.visible_message(span_userdanger("\The [checked_atom] screeches and closes away as it is hit by \a [src]! Too late!"))
@@ -72,8 +77,11 @@
 		else if(isitem(checked_atom))
 			playsound(get_turf(checked_atom), 'sound/effects/supermatter.ogg', 50, TRUE)
 			qdel(checked_atom)
+		else if(iscloset(checked_atom))
+			playsound(get_turf(checked_atom), 'sound/effects/supermatter.ogg', 50, TRUE)
+			qdel(checked_atom, TRUE)
 
-	new /obj/crystal_mass(next_turf, get_dir(next_turf, src))
+	new /obj/crystal_mass(next_turf, get_dir_multiz(next_turf, src))
 
 /obj/crystal_mass/proc/eat_bullets(datum/source, obj/projectile/hitting_projectile)
 	SIGNAL_HANDLER
@@ -104,8 +112,11 @@
 
 /obj/crystal_mass/Destroy()
 	STOP_PROCESSING(SSsupermatter_cascade, src)
-	sm_comp = null
 	return ..()
+
+/obj/crystal_mass/attack_ai(mob/user)
+	return
+
 
 /obj/cascade_portal
 	name = "bluespace rift"

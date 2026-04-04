@@ -61,6 +61,8 @@
 #define COMSIG_GUN_CHAMBER_PROCESSED "gun_chamber_processed"
 
 
+#define COMSIG_CRYSTAL_MASS_CONSUME "crystal_mass_consume"
+
 // /obj access signals
 
 #define COMSIG_OBJ_ALLOWED "door_try_to_activate"

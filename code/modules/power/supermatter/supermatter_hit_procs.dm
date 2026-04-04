@@ -17,17 +17,17 @@
 		if(damage_to_be > danger_point)
 			visible_message(span_notice("[src] compresses under stress, resisting further impacts!"))
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-	//if(istype(projectile, /obj/projectile/beam/emitter/hitscan))
-	//	var/obj/projectile/beam/emitter/hitscan/mahlaser = projectile
-	//	if(mahlaser?.integrity_heal)
-	//		damage = max(0, damage - mahlaser?.integrity_heal)
-	//	if(mahlaser?.energy_reduction)
-	//		internal_energy = max(0, internal_energy - mahlaser?.energy_reduction)
-	//	if(mahlaser?.psi_change)
-	//		psy_coeff = clamp(psy_coeff + mahlaser?.psi_change, 0, 1)
+	if(istype(projectile, /obj/projectile/beam/emitter/hitscan))
+		var/obj/projectile/beam/emitter/hitscan/mahlaser = projectile
+		if(mahlaser?.integrity_heal)
+			damage = max(0, damage - mahlaser?.integrity_heal)
+		if(mahlaser?.energy_reduction)
+			internal_energy = max(0, internal_energy - mahlaser?.energy_reduction)
+		if(mahlaser?.psi_change)
+			psy_coeff = clamp(psy_coeff + mahlaser?.psi_change, 0, 1)
 	external_power_immediate += projectile.damage * bullet_energy
-	//if(istype(projectile, /obj/projectile/beam/emitter/hitscan/magnetic))
-	//	absorption_ratio = clamp(absorption_ratio + 0.05, 0.15, 1)
+	if(istype(projectile, /obj/projectile/beam/emitter/hitscan/magnetic))
+		absorption_ratio = clamp(absorption_ratio + 0.05, 0.15, 1)
 
 	qdel(projectile)
 
@@ -112,6 +112,11 @@
 		user.investigate_log("attached [destabilizing_crystal] to a supermatter crystal.", INVESTIGATE_ENGINE)
 		to_chat(user, span_danger("\The [destabilizing_crystal] snaps onto \the [src]."))
 
+		radio_announce(
+			"Обнаружена интеграция неизвестного вещества в гиперструктуру кристалла!",
+			src,
+			emergency_channel
+		)
 		set_delam(SM_DELAM_PRIO_IN_GAME, /datum/sm_delam/cascade)
 		external_damage_immediate += 10
 		external_power_trickle += 500

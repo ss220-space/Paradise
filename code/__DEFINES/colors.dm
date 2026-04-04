@@ -143,6 +143,7 @@
 #define COLOR_MAGENTA "#ff00ff"
 #define COLOR_STRONG_MAGENTA "#b800b8"
 #define COLOR_PURPLE "#800080"
+#define COLOR_TONGUE_PINK "#ff6ea0"
 #define COLOR_VIOLET "#b900f7"
 #define COLOR_VOID_PURPLE "#53277e"
 #define COLOR_STRONG_VIOLET "#6927c5"
