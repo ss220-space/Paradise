@@ -1,5 +1,5 @@
 /datum/data/pda/app/status_display
-	name = "Status Display"
+	name = "Панель статуса"
 	icon = "list-alt"
 	template = "pda_status_display"
 	category = "Utilities"
@@ -39,7 +39,7 @@
 					post_status(params["statdisp"])
 
 /datum/data/pda/app/signaller
-	name = "Signaler System"
+	name = "Сигнальная система"
 	icon = "rss"
 	template = "pda_signaler"
 	category = "Utilities"
@@ -77,7 +77,7 @@
 				R.code = clamp(text2num(params["code"]), 1, 100)
 
 /datum/data/pda/app/power
-	name = "Power Monitor"
+	name = "Монитор энергопитания"
 	icon = "bolt"
 	template = "pda_power"
 	category = "Engineering"
@@ -144,7 +144,7 @@
 	has_back = TRUE
 
 /datum/data/pda/app/crew_records/medical
-	name = "Medical Records"
+	name = "Реестр пациентов"
 	icon = "heartbeat"
 	template = "pda_medical"
 	category = "Medical"
@@ -170,7 +170,7 @@
 			break
 
 /datum/data/pda/app/crew_records/security
-	name = "Security Records"
+	name = "Записи СБ"
 	icon = "id-badge"
 	template = "pda_security"
 	category = "Security"
@@ -196,7 +196,7 @@
 			break
 
 /datum/data/pda/app/secbot_control
-	name = "Security Bot Access"
+	name = "Боты СБ"
 	icon = "rss"
 	template = "pda_secbot"
 	category = "Security"
@@ -278,7 +278,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "summon"))
 
 /datum/data/pda/app/mule_control
-	name = "Delivery Bot Control"
+	name = "Боты Снабжения"
 	icon = "truck"
 	template = "pda_mule"
 	category = "Quartermaster"
@@ -365,7 +365,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "home"))
 
 /datum/data/pda/app/supply
-	name = "Supply Records"
+	name = "Журнал поставок"
 	icon = "archive"
 	template = "pda_supplyrecords"
 	category = "Quartermaster"
@@ -413,7 +413,7 @@
 	data["supply"] = supplyData
 
 /datum/data/pda/app/janitor
-	name = "Custodial Locator"
+	name = "Локатор уборщика"
 	icon = "trash"
 	template = "pda_janitor"
 	category = "Utilities"

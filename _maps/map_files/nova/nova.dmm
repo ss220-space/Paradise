@@ -105380,6 +105380,7 @@
 /obj/item/storage/box/trackimp,
 /obj/item/lock_buster,
 /obj/item/storage/lockbox/mindshield,
+/obj/item/storage/lockbox/suppression,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -1,6 +1,6 @@
-/////////////////////////////////////////////
-//Guest pass ////////////////////////////////
-/////////////////////////////////////////////
+////////////////////////////////////////////
+// MARK: Guest pass
+////////////////////////////////////////////
 /obj/item/card/id/guest
 	name = "guest pass"
 	desc = "Allows temporary access to station areas."
@@ -9,7 +9,7 @@
 
 	var/temp_access = list() //to prevent agent cards stealing access as permanent
 	var/expiration_time = 0
-	var/reason = "NOT SPECIFIED"
+	var/reason = ""
 
 /obj/item/card/id/guest/GetAccess()
 	if(world.time > expiration_time)
@@ -28,9 +28,9 @@
 		. += span_notice("[get_access_desc(A)].")
 	. += span_notice("Issuing reason: [reason].")
 
-/////////////////////////////////////////////
-//Guest pass terminal////////////////////////
-/////////////////////////////////////////////
+////////////////////////////////////////////
+// MARK: Guest pass terminal
+////////////////////////////////////////////
 
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
@@ -41,12 +41,21 @@
 
 	var/obj/item/card/id/giver
 	var/list/accesses = list()
-	var/giv_name = "NOT SPECIFIED"
-	var/reason = "NOT SPECIFIED"
+	var/giv_name = ""
+	var/reason = ""
 	var/duration = 5
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
+	var/list/region_map = list(
+		"Service" = REGION_GENERAL,
+		"Security" = REGION_SECURITY,
+		"Medical" = REGION_MEDBAY,
+		"Science" = REGION_RESEARCH,
+		"Engineering" = REGION_ENGINEERING,
+		"Supply" = REGION_SUPPLY,
+		"Command" = REGION_COMMAND
+	)
 	var/uid
 
 /obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
@@ -73,171 +82,148 @@
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
 	return giver.access
 
-/obj/machinery/computer/guestpass/attack_ai(mob/user)
-	return attack_hand(user)
-
-/obj/machinery/computer/guestpass/attack_hand(mob/user as mob)
-	if(..())
-		return
-
-	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-
-	if(mode == 1) //Logs
-		dat += "<h3>Activity log</h3><br>"
-		for(var/entry in internal_log)
-			dat += "[entry]<br><hr>"
-		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
-		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
-	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
-		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
-		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
-		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
-		dat += "Reason:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
-		dat += "Duration (minutes):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
-		dat += "Access to areas:<br>"
-		if(giver?.access)
-			for(var/A in get_changeable_accesses())
-				var/area = get_access_desc(A)
-				if(A in accesses)
-					area = "<b>[area]</b>"
-				dat += "<a href='byond://?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
-		dat += "<br><a href='byond://?src=[UID()];action=issue'>Issue pass</a><br>"
-
-	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "guestpass")
-
-/obj/machinery/computer/guestpass/Topic(href, href_list)
-	if(..())
-		return 1
-	usr.set_machine(src)
-	if(href_list["mode"])
-		mode = text2num(href_list["mode"])
-
-	if(href_list["choice"])
-		switch(href_list["choice"])
-			if("giv_name")
-				var/nam = strip_html_simple(tgui_input_text(usr, "Person pass is issued to", "Name", giv_name))
-				if(nam)
-					giv_name = nam
-			if("reason")
-				var/reas = strip_html_simple(tgui_input_text(usr, "Reason why pass is issued", "Reason", reason))
-				if(reas)
-					reason = reas
-			if("duration")
-				var/dur = tgui_input_number(usr, "Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration")
-				if(dur)
-					if(dur > 0 && dur <= 30)
-						duration = dur
-					else
-						to_chat(usr, span_warning("Invalid duration."))
-			if("access")
-				var/A = text2num(href_list["access"])
-				if(A in accesses)
-					accesses.Remove(A)
-				else
-					if(giver?.access && (A in get_changeable_accesses()))
-						accesses.Add(A)
-	if(href_list["action"])
-		switch(href_list["action"])
-			if("id")
-				if(giver)
-					if(ishuman(usr))
-						giver.loc = usr.loc
-						if(!usr.get_active_hand())
-							giver.forceMove_turf()
-							usr.put_in_hands(giver, ignore_anim = FALSE)
-						giver = null
-					else
-						giver.loc = src.loc
-						giver = null
-					accesses.Cut()
-				else
-					var/obj/item/I = usr.get_active_hand()
-					if(is_id_card(I))
-						usr.drop_transfer_item_to_loc(I, src)
-						giver = I
-				updateUsrDialog()
-			if("print")
-				var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
-				for(var/entry in internal_log)
-					dat += "[entry]<br><hr>"
-				var/obj/item/paper/P = new/obj/item/paper( loc )
-				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-				P.name = "activity log"
-				P.info = dat
-			if("issue")
-				if(giver)
-					var/number = add_zero("[rand(0,9999)]", 4)
-					var/entry = "\[[station_time()]\] Pass #[number] issued by [giver.registered_name] ([giver.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
-					for(var/i=1 to length(accesses))
-						var/A = accesses[i]
-						if(A)
-							var/area = get_access_desc(A)
-							entry += "[i > 1 ? ", [area]" : "[area]"]"
-					entry += ". Expires at [station_time(world.time + duration*10*60)]."
-					internal_log.Add(entry)
-
-					var/obj/item/card/id/guest/pass = new(src.loc)
-					pass.temp_access = accesses.Copy()
-					pass.registered_name = giv_name
-					pass.expiration_time = world.time + duration*10*60
-					pass.reason = reason
-					pass.name = "guest pass #[number]"
-				else
-					to_chat(usr, span_warning("Cannot issue pass without issuing ID."))
-	updateUsrDialog()
-	return
+/obj/machinery/computer/guestpass/syndicate
+	name = "Syndicate guest pass terminal"
 
 /obj/machinery/computer/guestpass/hop
 	name = "HoP guest pass terminal"
 
-/obj/machinery/computer/guestpass/hop/get_changeable_accesses()
-	. = ..()
-	if(. && (ACCESS_CHANGE_IDS in .))
-		return get_all_accesses()
+/obj/machinery/computer/guestpass/attack_hand(mob/user)
+	if(..())
+		return
+	ui_interact(user)
 
-/obj/machinery/computer/guestpass/syndicate
-	name = "Syndicate guest pass terminal"
+/obj/machinery/computer/guestpass/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "GuestPassTerminal", name)
+		ui.open()
 
-/obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
-	. = ..()
-	if(. && (ACCESS_CHANGE_IDS in .))
-		return get_taipan_syndicate_access()
+/obj/machinery/computer/guestpass/ui_data(mob/user)
+	var/list/data = list()
+	data["mode"] = mode
+	data["giver_name"] = giver ? "[giver.registered_name] ([giver.assignment])" : null
+	data["giv_name"] = "[giv_name]"
+	data["reason"] = "[reason]"
+	data["duration"] = duration
+	data["logs"] = internal_log ? internal_log : list()
 
-/obj/machinery/computer/guestpass/syndicate/attack_hand(mob/user as mob)
+	var/list/regions = list()
+	var/list/selectedAccess = list()
+	var/list/grantableList = list()
+
+	if(giver)
+		selectedAccess = accesses
+		grantableList = get_changeable_accesses()
+
+		for(var/region in region_map)
+			var/list/accs = list()
+			for(var/region_ref in get_region_accesses(region_map[region]))
+				var/access_name = get_access_desc(region_ref)
+				if(!access_name)
+					continue
+
+				accs += list(list(
+					"ref" = region_ref,
+					"desc" = "[access_name]",
+					"name" = "[access_name]"
+				))
+
+			if(length(accs))
+				regions += list(list(
+					"name" = region,
+					"regid" = region_map[region],
+					"accesses" = accs
+				))
+
+	data["regions"] = regions
+	data["selectedAccess"] = selectedAccess
+	data["grantableList"] = grantableList
+	return data
+
+/obj/machinery/computer/guestpass/ui_act(action, params)
 	if(..())
 		return
 
-	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	switch(action)
+		if("set_mode")
+			mode = text2num(params["mode"])
+			return TRUE
 
-	if(mode == 1) //Logs
-		dat += "<h3>Activity log</h3><br>"
-		for(var/entry in internal_log)
-			dat += "[entry]<br><hr>"
-		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
-		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
-	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
-		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
-		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
-		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
-		dat += "Reason:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
-		dat += "Duration (minutes):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
-		dat += "Access to areas:<br>"
-		if(giver?.access)
-			for(var/A in get_changeable_accesses())
-				var/area = get_syndicate_access_desc(A)
-				if(A in accesses)
-					area = "<b>[area]</b>"
-				dat += "<a href='byond://?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
-		dat += "<br><a href='byond://?src=[UID()];action=issue'>Issue pass</a><br>"
+		if("eject_id")
+			if(!giver)
+				return TRUE
+			if(ishuman(usr))
+				giver.forceMove(usr.loc)
+				usr.put_in_hands(giver)
+			else
+				giver.forceMove(loc)
+			giver = null
+			accesses.Cut()
+			return TRUE
 
-	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "guestpass")
+		if("set_name")
+			giv_name = strip_html_simple(params["value"])
+			return TRUE
+
+		if("set_reason")
+			reason = strip_html_simple(params["value"])
+			return TRUE
+
+		if("set_duration")
+			var/value_duration = text2num(params["value"])
+			duration = clamp(round(value_duration), 1, 30)
+			return TRUE
+
+		if("toggle_access")
+			var/value_id = text2num(params["id"])
+			if(value_id in accesses)
+				accesses -= value_id
+			else if(value_id in get_changeable_accesses())
+				accesses |= value_id
+			return TRUE
+
+		if("grant_all")
+			accesses |= get_changeable_accesses()
+			return TRUE
+
+		if("deny_all")
+			accesses.Cut()
+			return TRUE
+
+		if("grant_region")
+			var/rid = text2num(params["region"])
+			accesses |= (get_region_accesses(rid) & get_changeable_accesses())
+			return TRUE
+
+		if("deny_region")
+			var/rid = text2num(params["region"])
+			accesses -= get_region_accesses(rid)
+			return TRUE
+
+		if("issue")
+			if(!giver)
+				to_chat(usr, span_warning("Необходима ID-карта для авторизации!"))
+				return TRUE
+
+			var/number = add_zero("[rand(0,9999)]", 4)
+			var/current_time = station_time_timestamp()
+			var/current_date = GLOB.current_date_string
+			var/expire_timestamp = world.time + (duration * 600)
+			var/expire_time_only = time2text(expire_timestamp, "hh:mm:ss")
+			var/safe_giv_name = giv_name ? giv_name : "неизвестного"
+			var/safe_reason = reason ? reason : "не указана"
+			var/log_msg = "[current_date] [current_time] Пропуск #[number]: выдан \"[giver.registered_name]\" для \"[safe_giv_name]\". Причина: \"[safe_reason]\". Истекает в [current_date] [expire_time_only]."
+			internal_log += log_msg
+
+			var/obj/item/card/id/guest/pass = new(src.loc)
+			if(pass)
+				pass.temp_access = accesses.Copy()
+				pass.registered_name = (safe_giv_name == "неизвестного") ? "Guest" : safe_giv_name
+				pass.expiration_time = expire_timestamp
+				pass.reason = (safe_reason == "не указана") ? "None" : safe_reason
+				pass.name = "temporary pass #[number]"
+
+			playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
+			accesses.Cut()
+			return TRUE
