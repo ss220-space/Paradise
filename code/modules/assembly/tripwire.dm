@@ -472,7 +472,7 @@
 		var/creator_info = key_name(owner.creator_mind?.resolve())
 		var/deployer_info = key_name(owner.payload_mind?.resolve())
 
-		investigate_log("Tripwire activated by [key_name(user)] at [ADMIN_COORDJMP(owner_turf)]. Payload: [owner.attached_item.name]. Creator: [creator_info]. Payload eployer: [deployer_info].", INVESTIGATE_BOMB)
+		investigate_log("Tripwire activated by [key_name(user)] at [ADMIN_COORDJMP(owner_turf)]. Payload: [owner.attached_item.name]. Creator: [creator_info]. Payload deployer: [deployer_info].", INVESTIGATE_BOMB)
 		SEND_SIGNAL(owner, COMSIG_TRIPWIRE_TRIGGERED, user)
 
 	owner.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
