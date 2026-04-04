@@ -16,7 +16,7 @@
 
 /obj/item/cartridge/Destroy()
 	QDEL_NULL(radio)
-	QDEL_LIST(programs)
+	programs.Cut()
 	QDEL_LIST(messenger_plugins)
 	return ..()
 
