@@ -297,6 +297,7 @@
 
 	if(nom.incorporeal_move || HAS_TRAIT(nom, TRAIT_GODMODE)) //try to keep supermatter sliver's + hemostat's dust conditions in sync with this too
 		return
+
 	var/atom/atom_source = source
 	if(!vis_msg)
 		vis_msg = span_danger("[nom] reaches out and touches [atom_source], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!")
@@ -317,7 +318,11 @@
 /datum/element/supermatter_crystal/proc/consume(atom/source, atom/movable/consumed_object)
 	if(consumed_object.flags & SUPERMATTER_IGNORES)
 		return
+
 	if(HAS_TRAIT(consumed_object, TRAIT_GODMODE))
+		return
+
+	if(HAS_TRAIT(consumed_object, TRAIT_SUPERMATTER_IMMUNE))
 		return
 
 	var/atom/atom_source = source
