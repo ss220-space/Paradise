@@ -48,8 +48,8 @@
 								playsound(pda, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
 /datum/data/pda/app/notekeeper
-	name = "Notekeeper"
-	icon = "sticky-note-o"
+	name = "Заметки"
+	icon = "sticky-note"
 	template = "pda_notes"
 
 	var/note
@@ -83,7 +83,7 @@
 				pda.close(usr)
 
 /datum/data/pda/app/manifest
-	name = "Crew Manifest"
+	name = "Манифест экипажа"
 	icon = "user"
 	template = "pda_manifest"
 	update = PDA_APP_UPDATE_SLOW
@@ -93,7 +93,7 @@
 	data["manifest"] = GLOB.PDA_Manifest
 
 /datum/data/pda/app/atmos_scanner
-	name = "Atmospheric Scan"
+	name = "Атмосферный сканер"
 	icon = "fire"
 	template = "pda_atmos_scan"
 	category = "Utilities"
