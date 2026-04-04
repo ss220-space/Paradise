@@ -16,7 +16,6 @@
 	unread_counts[added_chat.name_chat] = 0
 	active_chat += added_chat
 
-
 /datum/messenger_account/proc/get_account_info()
 	var/list/member = list()
 

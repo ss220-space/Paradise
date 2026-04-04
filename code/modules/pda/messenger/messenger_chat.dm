@@ -14,8 +14,6 @@
  */
 
 // ну кароче тк тут не постгря будем вот его юзать для уникальный чатиков
-GLOBAL_VAR_INIT(messenger_chat_id_count, 0)
-
 /datum/messenger_chat
 	var/chat_id
 	/// group name
@@ -41,8 +39,7 @@ GLOBAL_VAR_INIT(messenger_chat_id_count, 0)
 	var/message_draft = ""
 
 /datum/messenger_chat/New(name_chat, description_chat, owner_chat, is_group, is_private)
-	GLOB.messenger_chat_id_count++
-	src.chat_id = GLOB.messenger_chat_id_count
+	src.chat_id = src.UID()
 	src.name_chat = name_chat
 	src.description_chat = description_chat
 	src.owner_chat = owner_chat
@@ -99,10 +96,11 @@ GLOBAL_VAR_INIT(messenger_chat_id_count, 0)
  * Adds a message to the chat log and optionally shows the chat in recents.
  * Call this instead of adding to messages directly.
  */
-/datum/messenger_chat/proc/add_message(datum/messenger_message/added_message, datum/messenger_account/account)
+/datum/messenger_chat/proc/add_message(datum/messenger_message/added_message)
 	messages += added_message
-	increment_unread_counts(src, account)
 	return added_message
+
+// сделать прок с инкрементом непрочитанных сообщений
 
 /datum/messenger_chat/proc/get_ui_data(mob/user)
 	var/list/data = list()
@@ -113,25 +111,30 @@ GLOBAL_VAR_INIT(messenger_chat_id_count, 0)
 	data["can_reply"] = can_reply
 	data["is_group"] = is_group
 	data["is_private"] = is_private
-
 	data["message_draft"] = message_draft
-
-	var/list/messages_data = list()
-	for(var/datum/messenger_message/message as anything in messages)
-		messages_data += list(message.get_ui_data(user))
 
 	if(is_group)
 		data["owner_chat"] = owner_chat.get_account_info()
+		data["chat_admins"] = get_admins()
 
-		var/list/chat_admins_list = list()
-		for(var/datum/messenger_account/checked_account as anything in chat_admins)
-			chat_admins_list += list(checked_account.get_account_info())
+	data["chat_members"] = get_members()
+	data["messages"] = get_messages(user)
+	return data
 
-		data["chat_admins"] = chat_admins_list
+/datum/messenger_chat/proc/get_admins()
+	var/list/chat_admins_list = list()
+	for(var/datum/messenger_account/checked_account as anything in chat_admins)
+		chat_admins_list += list(checked_account.get_account_info())
+	return chat_admins_list
 
+/datum/messenger_chat/proc/get_members()
 	var/list/chat_members_list = list()
 	for(var/datum/messenger_account/checked_account as anything in chat_members)
 		chat_members_list += list(checked_account.get_account_info())
-	data["chat_members"] = chat_members_list
+	return	chat_members_list
 
-	return data
+/datum/messenger_chat/proc/get_messages(mob/user)
+	var/list/messages_list = list()
+	for(var/datum/messenger_message/message as anything in messages)
+		messages_list += list(message.get_ui_data(user))
+	return messages_list

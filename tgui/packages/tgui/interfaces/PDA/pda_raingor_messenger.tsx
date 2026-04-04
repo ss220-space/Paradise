@@ -5,6 +5,7 @@ import {
   Button,
   Dropdown,
   Icon,
+  Input,
   LabeledList,
   NumberInput,
   Section,
@@ -42,6 +43,7 @@ type Chat = {
 };
 
 type Message = {
+  message_id: number;
   text_message: string;
   outgoing: boolean;
   photo_name?: string;
@@ -206,10 +208,11 @@ const MainMenuPage = ({ setPage, setChatId, data }: MainPageProps) => {
 };
 
 const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
-  const { owner_messenger_account, chats, targets } = data;
+  const { chats } = data;
   const { act } = useBackend();
   const chat =
     chatId !== null ? chats.find((c) => c.chat_id === chatId) : undefined;
+  const [messageDraft, setMessageDraft] = useState<string>('');
 
   if (!chat) {
     return (
@@ -261,6 +264,38 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
             </Box>
           )}
         </Box>
+      </Section>
+
+      <Section>
+        <Box>список сообщений</Box>
+        <Box>
+          {chat.messages?.map((e) => (
+            <Box key={e.message_id}>
+              <Box>{e.timestamp}</Box>
+              <Box> Типа аватарка, а сбоку его имя: {e.sender_name}</Box>
+              <Box>{e.text_message} </Box>
+            </Box>
+          ))}
+        </Box>
+      </Section>
+
+      <Section>
+        тип тут ввод
+        <input
+          type="text"
+          value={messageDraft}
+          onChange={(e) => setMessageDraft(e.target.value)}
+        />
+        <Button
+          onClick={() =>
+            act('sendMessage', {
+              'sendedMessage': messageDraft,
+              'chatId': chatId,
+            })
+          }
+        >
+          отравить сообщение
+        </Button>
       </Section>
     </Box>
   );

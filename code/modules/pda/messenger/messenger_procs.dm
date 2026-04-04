@@ -24,3 +24,15 @@
 	created_new_private_chat.add_member_in_chat(interlocutor_messenger_account)
 
 	return
+
+/proc/send_message_to_chat(sended_message, chat_id, datum/messenger_account/last_login_owner)
+	var/datum/messenger_chat/chat = locateUID(chat_id)
+	var/datum/messenger_message/new_message = new /datum/messenger_message(
+		sended_message,
+		FALSE,
+		last_login_owner.owner.owner_name,
+		last_login_owner.owner.UID()
+	)
+
+	chat.add_message(new_message)
+	// добавить инкремент

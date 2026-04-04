@@ -2,6 +2,7 @@
  * Chat message data type, stores data about messages themselves.
  */
 /datum/messenger_message
+	var/message_id
 	/// The message itself.
 	var/text_message
 	/// Whether the message is sent by the user or not.
@@ -16,6 +17,7 @@
 	var/sender_ref
 
 /datum/messenger_message/New(text, outgoing, sender_name, sender_ref, photo_name = null)
+	src.message_id = src.UID()
 	src.text_message = text
 	src.outgoing = outgoing
 	src.photo_name = photo_name
@@ -25,6 +27,7 @@
 
 /datum/messenger_message/proc/get_ui_data(mob/user)
 	var/list/data = list()
+	data["message_id"] = message_id
 	data["text_message"] = text_message
 	data["outgoing"] = outgoing
 	data["photo_name"] = photo_name
