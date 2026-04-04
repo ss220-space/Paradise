@@ -139,7 +139,7 @@
 	name = "ash walker lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали пеплоходцу."
 	safe_oxygen_min = 8 // can breathe on lavaland
-	safe_co2_max = 12
+	safe_co2_max = 17
 	safe_toxins_max = 1
 	BZ_trip_balls_min = 3
 
