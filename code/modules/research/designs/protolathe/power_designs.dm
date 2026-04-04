@@ -86,7 +86,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/grounding_rod
 	category = list(
-		CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING
+		CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING,
 	)
 
 /datum/design/diode_disk_stamina
@@ -97,7 +97,7 @@
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/stamina
 	category = list(
-		PROTOLATHE_CATEGORY_EQUIPMENT
+		PROTOLATHE_CATEGORY_EQUIPMENT,
 	)
 
 /datum/design/diode_disk_healing
@@ -108,7 +108,7 @@
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/healing
 	category = list(
-		PROTOLATHE_CATEGORY_EQUIPMENT
+		PROTOLATHE_CATEGORY_EQUIPMENT,
 	)
 
 /datum/design/diode_disk_incendiary
@@ -119,7 +119,7 @@
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/incendiary
 	category = list(
-		PROTOLATHE_CATEGORY_EQUIPMENT
+		PROTOLATHE_CATEGORY_EQUIPMENT,
 	)
 
 /datum/design/diode_disk_sanity
@@ -130,7 +130,7 @@
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/sanity
 	category = list(
-		PROTOLATHE_CATEGORY_EQUIPMENT
+		PROTOLATHE_CATEGORY_EQUIPMENT,
 	)
 
 /datum/design/diode_disk_magnetic
@@ -141,5 +141,5 @@
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/magnetic
 	category = list(
-		PROTOLATHE_CATEGORY_EQUIPMENT
+		PROTOLATHE_CATEGORY_EQUIPMENT,
 	)

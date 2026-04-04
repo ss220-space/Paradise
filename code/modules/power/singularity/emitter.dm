@@ -146,7 +146,7 @@
 	var/laser_color = COLOR_VIBRANT_LIME
 	if(!powered)
 		laser_color = COLOR_ORANGE //stank low power orange
-	else if (diskie)
+	else if(diskie)
 		laser_color = diskie.laser_color
 	var/mutable_appearance/overlay = mutable_appearance(icon, "emitter_overlay")
 	overlay.color = laser_color
