@@ -507,7 +507,11 @@
 	var/is_projectile = isprojectile(mover)
 	if(!density || is_projectile)
 		if(is_projectile)
-			return projectile_allow_through(mover, border_dir)
+			var/allow = projectile_allow_through(mover, border_dir)
+			if(allow && stat != DEAD && (!last_bullet_miss_sound || world.time - last_bullet_miss_sound > 5))
+				last_bullet_miss_sound = world.time
+				playsound_local(src, SFX_BULLET_MISS, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
+			return allow
 		return TRUE
 	if(mover.throwing)
 		return body_position == LYING_DOWN || mover.throwing.thrower == src

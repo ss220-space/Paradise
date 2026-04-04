@@ -196,3 +196,6 @@
 	var/image/halbody
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
+
+	// Used to protect against miss sound spam
+	var/last_bullet_miss_sound = 0

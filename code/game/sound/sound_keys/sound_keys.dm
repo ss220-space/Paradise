@@ -534,3 +534,14 @@
 		'sound/machines/button_alternate.ogg',
 		'sound/machines/button_meloboom.ogg',
 	)
+
+/datum/sound_effect/bullet_miss
+	key = SFX_BULLET_MISS
+	file_paths = list(
+		'sound/effects/bullet_miss_1.ogg',
+		'sound/effects/bullet_miss_2.ogg',
+		'sound/effects/bullet_miss_3.ogg',
+		'sound/effects/bullet_miss_4.ogg',
+		'sound/effects/bullet_miss_5.ogg',
+		'sound/effects/bullet_miss_6.ogg',
+	)
