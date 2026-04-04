@@ -72,15 +72,6 @@
 		if(organ.owner && iscarbon(organ.owner))
 			return list(organ, organ.owner, "external_organ")
 
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		for(var/obj/item/organ/external/EP in H.bodyparts)
-			if(EP.hidden && EP.hidden == marked_item)
-				return list(EP.hidden, H, "hidden")
-
-		for(var/obj/item/I in H.contents)
-			if(I == marked_item)
-				return list(I, H, "contents")
-
 	return null
 
 
@@ -96,7 +87,7 @@
 		if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 			to_chat(target, span_warning("Неизвестная сила мешает призвать отмеченный предмет!"))
 			return
-		teleportate_item_to_target(item_to_retrieve, target)
+		teleport_item_to_target(item_to_retrieve, target)
 		return
 
 	if(!isturf(item_to_retrieve.loc) && item_to_retrieve.loc)
@@ -151,104 +142,37 @@
 			infinite_recursion += 1
 
 		if(!QDELETED(item_to_retrieve))
-			teleportate_item_to_target(item_to_retrieve, target, organ_owner_for_teleport)
+			teleport_item_to_target(item_to_retrieve, target, organ_owner_for_teleport)
 		return
 
 	var/list/found = find_item_in_any_mob()
 	if(found)
-		var/obj/found_item = found[1]
+		var/obj/item/found_item = found[1]
 		var/mob/living/carbon/owner_mob = found[2]
 		var/location_type = found[3]
 		var/turf/item_turf = get_turf(owner_mob)
 
-		switch(location_type)
-			if("internal_organ")
-				var/obj/item/organ/internal/internal_organ = found_item
-				internal_organ.remove(owner_mob)
-				if(item_turf)
-					internal_organ.forceMove(item_turf)
-				teleportate_item_to_target(internal_organ, target, owner_mob)
-				return
+		if(location_type == "internal_organ")
+			var/obj/item/organ/internal/internal_organ = found_item
+			internal_organ.remove(owner_mob)
+			if(item_turf)
+				internal_organ.forceMove(item_turf)
+			teleport_item_to_target(internal_organ, target, owner_mob)
+			return
 
-			if("hidden")
-				if(!ishuman(owner_mob))
-					return
-				var/mob/living/carbon/human/H = owner_mob
-				var/obj/item/organ/external/affected_organ
-				for(var/obj/item/organ/external/EP in H.bodyparts)
-					if(EP.hidden == found_item)
-						affected_organ = EP
-						break
-
-				if(affected_organ)
-					affected_organ.hidden = null
-					if(item_turf)
-						found_item.forceMove(item_turf)
-					teleportate_item_to_target(found_item, target)
-					return
-
-			if("contents")
-				if(item_turf)
-					found_item.forceMove(item_turf)
-				teleportate_item_to_target(found_item, target)
-				return
-
-			if("external_organ")
-				var/obj/item/organ/external/external_organ = found_item
-				external_organ.droplimb(1, DROPLIMB_SHARP)
-				teleportate_item_to_target(external_organ, target)
-				return
+		if(location_type == "external_organ")
+			var/obj/item/organ/external/external_organ = found_item
+			external_organ.droplimb(1, DROPLIMB_SHARP)
+			teleport_item_to_target(external_organ, target)
+			return
 
 	if(item_to_retrieve.loc && item_to_retrieve.forceMove(item_to_retrieve.loc))
-		teleportate_item_to_target(item_to_retrieve, target)
+		teleport_item_to_target(item_to_retrieve, target)
 		return
 
 	to_chat(target, span_warning("У вас не получается призвать привязанный предмет!"))
 
-
-/obj/effect/proc_holder/spell/summonitem/proc/do_instant_summon_old_variant(mob/living/target, mob/user) // Remove it later, or create old variant of speel
-	var/obj/item_to_retrieve = marked_item
-	var/infinite_recursion = 0 //I don't want to know how someone could put something inside itself but these are wizards so let's be safe
-
-	while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
-		if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
-			var/mob/M = item_to_retrieve.loc
-
-			if(issilicon(M) || !M.drop_item_ground(item_to_retrieve)) //Items in silicons warp the whole silicon
-				var/turf/target_turf = get_turf(target)
-				if(!target_turf)
-					return
-
-				M.visible_message(span_warning("[M] suddenly disappears!"), span_danger("A force suddenly pulls you away!"))
-				M.forceMove(target_turf)
-				M.loc.visible_message(span_caution("[M] suddenly appears!"))
-				item_to_retrieve = null
-				break
-
-			if(ishuman(M)) //Edge case housekeeping
-				var/mob/living/carbon/human/human = M
-				if(human.remove_embedded_object(item_to_retrieve))
-					to_chat(human, span_warning("The [item_to_retrieve] that was embedded into you has mysteriously vanished. How fortunate!"))
-
-		else
-			if(istype(item_to_retrieve.loc,/obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
-				var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
-				P.disconnect()
-				P.update_icon()
-			if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
-				break
-			item_to_retrieve = item_to_retrieve.loc
-			if(ismodstorage(item_to_retrieve))
-				var/obj/item/storage/backpack/modstorage/bag = item_to_retrieve
-				if(bag.source && bag.source.mod)
-					item_to_retrieve = bag.source.mod //Grab the modsuit.
-
-		infinite_recursion += 1
-
-	teleportate_item_to_target(item_to_retrieve, target)
-
-
-/obj/effect/proc_holder/spell/summonitem/proc/teleportate_item_to_target(obj/item_to_retrieve, mob/living/target, mob/living/organ_owner = null)
+/obj/effect/proc_holder/spell/summonitem/proc/teleport_item_to_target(obj/item_to_retrieve, mob/living/target, mob/living/organ_owner = null)
 	if(!item_to_retrieve)
 		return
 
