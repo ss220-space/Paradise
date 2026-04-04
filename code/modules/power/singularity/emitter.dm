@@ -146,6 +146,8 @@
 	var/laser_color = COLOR_VIBRANT_LIME
 	if(!powered)
 		laser_color = COLOR_ORANGE //stank low power orange
+	else if (diskie)
+		laser_color = diskie.laser_color
 	var/mutable_appearance/overlay = mutable_appearance(icon, "emitter_overlay")
 	overlay.color = laser_color
 	. += overlay
@@ -342,6 +344,24 @@
 
 	return ..()
 
+/obj/machinery/power/emitter/proc/remove_disk(mob/user)
+	if(!diskie)
+		return
+	if(diskie.consumed_on_removal)
+		qdel(diskie)
+	else
+		user.put_in_hands(diskie)
+	diskie = null
+	playsound(src, 'sound/machines/card_slide.ogg', 50, TRUE)
+	update_appearance()
+	return TRUE
+
+/obj/machinery/power/emitter/proc/set_projectile()
+	projectile_type = initial(projectile_type)
+	projectile_sound = initial(projectile_sound)
+	fire_rate_mod = initial(fire_rate_mod)
+	no_shot_counter = initial(no_shot_counter)
+
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/item)
 	. = TRUE
 	if(active)
@@ -350,8 +370,10 @@
 	default_deconstruction_screwdriver(user, "[base_icon_state]_open", base_icon_state, item)
 
 /obj/machinery/power/emitter/crowbar_act(mob/living/user, obj/item/item)
-	. = TRUE
+	if(panel_open && diskie)
+		return remove_disk(user)
 	default_deconstruction_crowbar(user, item)
+	return TRUE
 
 /obj/machinery/power/emitter/emag_act(mob/user)
 	if(!emagged)
@@ -419,7 +441,8 @@
 	name = "Diode Disk: Debugger"
 	desc = "This disk can be used on an emitter with an open panel to reset its projectile. Unless this was handed to you by an admin, you should report this on github."
 	icon = 'icons/obj/devices/floppy_disks.dmi'
-	icon_state = "datadisk6"
+	icon_state = "datadisk4"
+	var/disk_overlay = "o_E"
 	var/laser_color = COLOR_VIBRANT_LIME
 	var/stored_proj = /obj/projectile/beam/emitter/hitscan
 	var/stored_sound = 'sound/weapons/emitter.ogg'
@@ -428,9 +451,14 @@
 	var/fire_rate_mod = 1
 	var/no_shot_counter = FALSE
 
+/obj/item/emitter_disk/update_overlays()
+	. = ..()
+	. += disk_overlay
+
 /obj/item/emitter_disk/stamina
 	name = "Diode Disk: Electrodisruptive"
 	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will increase the integrity of supermatter crystals and exhaust living creatures. The disk will be consumed in the process."
+	icon_state = "datadisk7"
 	stored_proj = /obj/projectile/beam/emitter/hitscan/bluelens
 	consumed_on_removal = FALSE
 	consumable = FALSE
@@ -439,6 +467,7 @@
 /obj/item/emitter_disk/healing
 	name = "Diode Disk: Bioregenerative"
 	desc = "This disk can be installed into an emitter with an open panel to make it shoot lasers which will heal the physical damages of living creatures."
+	icon_state = "datadisk2"
 	stored_proj = /obj/projectile/beam/emitter/hitscan/bioregen
 	consumed_on_removal = FALSE
 	consumable = FALSE
@@ -447,6 +476,7 @@
 /obj/item/emitter_disk/incendiary
 	name = "Diode Disk: Conflagratory"
 	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will set living creatures ablaze."
+	icon_state = "datadisk9"
 	stored_proj = /obj/projectile/beam/emitter/hitscan/incend
 	consumed_on_removal = FALSE
 	consumable = FALSE
@@ -455,6 +485,7 @@
 /obj/item/emitter_disk/sanity
 	name = "Diode Disk: Psychosiphoning"
 	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will depress living creatures and calm supermatter crystals."
+	icon_state = "datadisk1"
 	stored_proj = /obj/projectile/beam/emitter/hitscan/psy
 	consumed_on_removal = FALSE
 	consumable = FALSE
@@ -463,6 +494,7 @@
 /obj/item/emitter_disk/magnetic
 	name = "Diode Disk: Magnetogenerative"
 	desc = "This disk can be used on an emitter with an open panel to make it shoot lasers which will attract nearby objects."
+	icon_state = "datadisk6"
 	stored_proj = /obj/projectile/beam/emitter/hitscan/magnetic
 	consumed_on_removal = FALSE
 	consumable = FALSE
@@ -471,6 +503,8 @@
 /obj/item/emitter_disk/blast
 	name = "Diode Disk: Hyperconcussive"
 	desc = "This disk, loaded with proprietary syndicate firmware, can be used on an emitter with an open panel to make it shoot beams of concussive force which will cause small explosions."
+	icon_state = "datadisk0"
+	disk_overlay = "o_syndicate"
 	stored_proj = /obj/projectile/beam/emitter/hitscan/blast
 	consumed_on_removal = FALSE
 	consumable = FALSE
