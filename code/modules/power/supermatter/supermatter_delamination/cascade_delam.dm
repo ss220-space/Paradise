@@ -47,9 +47,9 @@
 	message_admins("[sm] is heading towards a cascade. [ADMIN_VERBOSEJMP(sm)]")
 	sm.investigate_log("is heading towards a cascade.", INVESTIGATE_ENGINE)
 
-	sm.warp = new(sm)
-	sm.vis_contents += sm.warp
-	animate(sm.warp, time = 1, transform = matrix().Scale(0.5,0.5))
+	sm.cascade_warp = new(sm)
+	sm.vis_contents += sm.cascade_warp
+	animate(sm.cascade_warp, time = 1, transform = matrix().Scale(0.5,0.5))
 	animate(time = 9, transform = matrix())
 
 	addtimer(CALLBACK(src, PROC_REF(announce_cascade), sm), 2 MINUTES)
@@ -58,8 +58,8 @@
 	message_admins("[sm] will no longer cascade. [ADMIN_VERBOSEJMP(sm)]")
 	sm.investigate_log("will no longer cascade.", INVESTIGATE_ENGINE)
 
-	sm.vis_contents -= sm.warp
-	QDEL_NULL(sm.warp)
+	sm.vis_contents -= sm.cascade_warp
+	QDEL_NULL(sm.cascade_warp)
 
 /datum/sm_delam/cascade/delaminate(obj/machinery/power/supermatter_crystal/sm)
 	message_admins("Supermatter [sm] at [ADMIN_VERBOSEJMP(sm)] triggered a cascade delam.")

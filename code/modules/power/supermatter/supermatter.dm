@@ -31,6 +31,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/datum/gas_mixture/absorbed_gasmix
 	/// The current gas behaviors for this particular crystal
 	var/list/current_gas_behavior
+	/// The last air sample's total molar count, will always be above or equal to 0
+	var/combined_gas = 0
 
 	///Refered to as EER on the monitor. This value effects gas output, damage, and power generation.
 	var/internal_energy = 0
@@ -151,6 +153,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/hue_angle_shift = 0
 	///Reference to the warp effect
 	var/obj/effect/warp_effect/supermatter/warp
+	///Reference to the warp effect
+	var/obj/effect/warp_effect/supermatter/cascade_warp
 	///The power threshold required to transform the powerloss function into a linear function from a cubic function.
 	var/powerloss_linear_threshold = 0
 	///The offset of the linear powerloss function set so the transition is differentiable.
@@ -178,6 +182,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/ticks_per_run = 5
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
+
+	///A variable to have the warp effect for singulo SM work properly
+	var/pulse_stage = 0
+	var/list/darkness_effects = list()
+
 
 /obj/machinery/power/supermatter_crystal/get_ru_names()
 	return list(
@@ -230,6 +239,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(warp)
 		vis_contents -= warp
 		QDEL_NULL(warp)
+	if(cascade_warp)
+		vis_contents -= cascade_warp
+		QDEL_NULL(cascade_warp)
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
 	//SSair.stop_processing_machine(src)
 	SSair.atmos_machinery -= src
@@ -239,6 +251,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
+	QDEL_LIST(darkness_effects)
 	return ..()
 
 /obj/machinery/power/supermatter_crystal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
@@ -359,6 +372,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	processing_sound()
 	handle_high_power()
 	psychological_examination()
+	lights()
+	sm_filters()
 
 	// handle the engineers that saved the engine from cascading, if there were any
 	if(get_status() < SUPERMATTER_EMERGENCY && !isnull(saviors))
@@ -670,6 +685,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	gas_powerloss_inhibition = 0
 
 	var/total_moles = absorbed_gasmix.total_moles()
+	combined_gas = total_moles
 	if(total_moles < MINIMUM_MOLE_COUNT) //it's not worth processing small amounts like these, total_moles can also be 0 in vacuume
 		return
 
@@ -780,10 +796,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	additive_transmission_rate[SM_ZAP_BASE] = BASE_POWER_TRANSMISSION_RATE
 	additive_transmission_rate[SM_ZAP_GAS] = BASE_POWER_TRANSMISSION_RATE * gas_power_transmission_rate
 
-	zap_transmission_rate = 0
+	var/zap_transmission_rate = 0
 	for(var/transmission_types, transmission_rate in additive_transmission_rate)
 		zap_transmission_rate += transmission_rate
-	zap_transmission_rate = max(zap_transmission_rate, 0)
+	src.zap_transmission_rate = max(zap_transmission_rate, 0)
 	return additive_transmission_rate
 
 /**
@@ -799,7 +815,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
  * Returns: The factors that have influenced the calculation. list[FACTOR_DEFINE] = number
  */
 /obj/machinery/power/supermatter_crystal/proc/calculate_waste_multiplier()
-	waste_multiplier = 0
+	src.waste_multiplier = 0
 	if(disable_gas)
 		return
 	/// Tell people the heat output in energy. More informative than telling them the heat multiplier.
@@ -807,10 +823,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	additive_waste_multiplier[SM_WASTE_BASE] = 1
 	additive_waste_multiplier[SM_WASTE_GAS] = gas_heat_modifier
 	additive_waste_multiplier[SM_WASTE_SOOTHED] = -0.2 * psy_coeff
-
+	var/waste_multiplier = 0
 	for(var/waste_type, multiplier in additive_waste_multiplier)
 		waste_multiplier += multiplier
-	waste_multiplier = clamp(waste_multiplier, 0.5, INFINITY)
+	src.waste_multiplier = clamp(waste_multiplier, 0.5, INFINITY)
 	return additive_waste_multiplier
 
 /**
@@ -922,6 +938,108 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	delamination_strategy = new_delam
 	delamination_strategy.on_select(src)
 	return TRUE
+
+
+/obj/machinery/power/supermatter_crystal/proc/sm_filters()
+	var/new_filter = isnull(get_filter("ray"))
+	var/cached_internal_energy = internal_energy
+	var/cached_damage = damage
+	ray_filter_helper(1, cached_internal_energy ? clamp((cached_damage / 100) * cached_internal_energy, 50, 125) : 1, (gas_heat_power_generation > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR), clamp(cached_damage / 600, 1, 10), clamp(cached_damage / 10, 12, 100))
+	// Filter animation persists even if the filter itself is changed externally.
+	// Probably prone to breaking. Treat with suspicion.
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)
+
+	if(cached_internal_energy > POWER_PENALTY_THRESHOLD)
+		ray_filter_helper(1, cached_internal_energy ? clamp((cached_damage / 100) * cached_internal_energy, 50, 175) : 1, SUPERMATTER_TESLA_COLOUR, clamp(cached_damage / 300, 1, 20), clamp(cached_damage / 5, 12, 200))
+		if(prob(25))
+			new /obj/effect/warp_effect/bsg(get_turf(src)) //Some extra visual effect to the shocking sm which is a bit less interesting.
+		if(final_countdown)
+			add_filter(name = "icon", priority = 2, params = list(
+				type = "layer",
+				icon = new/icon('icons/obj/engines_and_power/tesla/energy_ball.dmi', "energy_ball", frame = rand(1, 12)),
+				flags = FILTER_UNDERLAY
+			))
+		else
+			remove_filter("icon")
+
+	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+		ray_filter_helper(1, cached_internal_energy ? clamp((cached_damage / 100) * cached_internal_energy, 50, 125) : 1, SUPERMATTER_SINGULARITY_RAYS_COLOUR, clamp(cached_damage / 300, 1, 30), clamp(cached_damage / 5, 12, 300))
+
+		add_filter(name = "outline", priority = 2, params = list(
+			type = "outline",
+			size = 1,
+			color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR
+		))
+		if(!warp)
+			warp = new(src)
+			vis_contents += warp
+		if(pulse_stage == 4)
+			animate(warp, time = 6, transform = matrix().Scale(0.5, 0.5))
+			animate(time = 14, transform = matrix())
+			pulse_stage = 0
+		else
+			pulse_stage++
+		if(final_countdown)
+			add_filter(name = "icon", priority = 3, params = list(
+				type = "layer",
+				icon = new/icon('icons/effects/96x96.dmi', "singularity_s3", frame = rand(1,8)),
+				flags = FILTER_OVERLAY
+			))
+		else
+			remove_filter("icon")
+	else
+		vis_contents -= warp
+		remove_filter("outline")
+		QDEL_NULL(warp)
+
+// Change how bright the rock is
+/obj/machinery/power/supermatter_crystal/proc/lights()
+	var/cached_internal_energy = internal_energy
+	var/cached_damage = damage
+	set_light(
+		l_range = 4 + cached_internal_energy / 200,
+		l_power = 1 + cached_internal_energy / 1000,
+		l_color = gas_heat_power_generation > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR,
+	)
+
+	if(cached_internal_energy > POWER_PENALTY_THRESHOLD)
+		set_light(
+			l_range = 4 + clamp(cached_damage * cached_internal_energy, 50, 500),
+			l_power = 3,
+			l_color = SUPERMATTER_TESLA_COLOUR,
+		)
+	if(combined_gas > MOLE_PENALTY_THRESHOLD && get_integrity_percent() > SUPERMATTER_DANGER_PERCENT)
+		set_light(
+			l_range = 4 + clamp((450 - cached_damage) / 10, 1, 50),
+			l_power = 3,
+			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
+		)
+	if(combined_gas <= MOLE_PENALTY_THRESHOLD || get_integrity_percent() >= SUPERMATTER_DANGER_PERCENT)
+		for(var/obj/darkness_effect in darkness_effects)
+			qdel(darkness_effect)
+		return
+
+	var/darkness_strength = clamp((cached_damage - 450) / 75, 1, 8) / 2
+	var/darkness_aoe = clamp((cached_damage - 450) / 25, 1, 25)
+	set_light(
+		l_range = 4 + darkness_aoe,
+		l_power = -1 - darkness_strength,
+		l_color = "#ddd6cf",
+	)
+	if(!length(darkness_effects) && !moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
+		darkness_effects += new /obj/effect/abstract(locate(x - 3, y + 3, z))
+		darkness_effects += new /obj/effect/abstract(locate(x + 3, y + 3, z))
+		darkness_effects += new /obj/effect/abstract(locate(x - 3, y - 3, z))
+		darkness_effects += new /obj/effect/abstract(locate(x + 3, y - 3, z))
+	else
+		for(var/obj/object as anything in darkness_effects)
+			object.set_light(
+				l_range = 0 + darkness_aoe,
+				l_power = -1 - darkness_strength / 1.25,
+				l_color = "#ddd6cf",
+			)
 
 /**
  * Accumulates energy for the zap_energy_accumulation key.
