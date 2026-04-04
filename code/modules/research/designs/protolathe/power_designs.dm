@@ -92,6 +92,7 @@
 /datum/design/diode_disk_stamina
 	id = "diode_disk_stamina"
 	build_type = PROTOLATHE
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_PLASMA = 5)
 	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_GOLD = SMALL_MATERIAL_AMOUNT)
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/stamina
@@ -99,10 +100,10 @@
 		PROTOLATHE_CATEGORY_EQUIPMENT
 	)
 
-
 /datum/design/diode_disk_healing
 	id = "diode_disk_healing"
 	build_type = PROTOLATHE
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIO = 5)
 	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_SILVER = SMALL_MATERIAL_AMOUNT) //silver is medical metal. Why? who knows.
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/healing
@@ -113,6 +114,7 @@
 /datum/design/diode_disk_incendiary
 	id = "diode_disk_incendiary"
 	build_type = PROTOLATHE
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_POWERSTORAGE = 5)
 	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS =SMALL_MATERIAL_AMOUNT, MAT_DIAMOND = SMALL_MATERIAL_AMOUNT * 0.5, MAT_PLASMA = SMALL_MATERIAL_AMOUNT * 2)
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/incendiary
@@ -123,6 +125,7 @@
 /datum/design/diode_disk_sanity
 	id = "diode_disk_sanity"
 	build_type = PROTOLATHE
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 5)
 	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS =SMALL_MATERIAL_AMOUNT, MAT_URANIUM = SMALL_MATERIAL_AMOUNT * 0.5) //Uranium, the metal of love and warmth (from decay heat).
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/sanity
@@ -133,7 +136,8 @@
 /datum/design/diode_disk_magnetic
 	id = "diode_disk_magnetic"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS =SMALL_MATERIAL_AMOUNT, MAT_TITANIUM = SMALL_MATERIAL_AMOUNT * 0.5)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_MAGNETS = 5)
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_TITANIUM = SMALL_MATERIAL_AMOUNT * 0.5)
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/magnetic
 	category = list(
