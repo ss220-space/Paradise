@@ -539,7 +539,7 @@
 		allow = !prob(total_hit_chance)
 
 	if(allow && COOLDOWN_FINISHED(src, bullet_miss_cooldown))
-		COOLDOWN_START(src, bullet_miss_cooldown, 5)
+		COOLDOWN_START(src, bullet_miss_cooldown, 0.5 SECONDS)
 		if(projectile.flag == ENERGY || projectile.flag == LASER)
 			playsound_local(src, SFX_ENERGY_MISS, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
 		else
