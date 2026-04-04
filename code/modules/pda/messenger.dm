@@ -8,7 +8,7 @@
 
 /datum/data/pda/app/messenger
 	name = "InCrew"
-	icon = "comments-o"
+	icon = "comments"
 	title = "InCrew"
 	notify_icon = "comments"
 	template = "pda_raingor_messenger"

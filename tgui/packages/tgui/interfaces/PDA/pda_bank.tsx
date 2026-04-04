@@ -130,7 +130,7 @@ export const pda_bank = (props: unknown) => {
       PageContent = <UUErrorPage setPage={setPage} />;
   }
   return (
-    <Window width={600} height={950}>
+    <Window width={600} height={850}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>

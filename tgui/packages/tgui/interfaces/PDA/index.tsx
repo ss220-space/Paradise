@@ -56,7 +56,7 @@ export const PDA = () => {
 
   if (!owner) {
     return (
-      <Window width={350} height={105}>
+      <Window width={600} height={850}>
         <Window.Content>
           <Section title="Ошибка">
             Не найден пользователь. Пожалуйста, обновите данные через ID-карту.
@@ -71,7 +71,7 @@ export const PDA = () => {
   const theme = THEME_MAP[app.template] || data.current_theme || 'nanotrasen';
 
   return (
-    <Window width={750} height={950} theme={theme}>
+    <Window width={600} height={850} theme={theme}>
       <Window.Content style={{ padding: 0 }}>
         <Box
           style={{
