@@ -134,12 +134,7 @@ export const SupermatterContent = (props: SupermatterProps) => {
   return (
     <Stack height="100%">
       <Stack.Item grow>
-        <Section
-          fill
-          scrollable
-          title={`${uid}. ${area_name}`}
-          buttons={sectionButton}
-        >
+        <Section fill scrollable title={`${area_name}`} buttons={sectionButton}>
           <Stack vertical>
             <SupermatterEntry
               title="Integrity"
