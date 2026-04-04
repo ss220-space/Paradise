@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define BAN_CHAPEL "chapel"
 #define BAN_HURTPRIEST "hurtpriest"
 #define BAN_AVOIDWATER "avoidwater"
-#define BAN_STRIKEUNCONCIOUS "strikeunconcious"
+#define BAN_STRIKEUNCONSCIOUS "strikeunconscious"
 #define BAN_HURTLIZARD "hurtlizard"
 #define BAN_HURTANIMAL "hurtanimal"
 

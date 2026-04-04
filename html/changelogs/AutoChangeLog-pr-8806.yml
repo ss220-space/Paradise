@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - code_imp: "Теперь do-after с cancel_on_max работает только либо если max_interact_count одинаковый, либо одинаковый interaction_key. (PR #8806)"

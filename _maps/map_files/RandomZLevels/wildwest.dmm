@@ -253,7 +253,7 @@
 /area/awaymission/wwmines)
 "bj" = (
 /obj/effect/mine/dnascramble,
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
 "bk" = (
@@ -278,7 +278,7 @@
 /area/awaymission/wwrefine)
 "bq" = (
 /obj/effect/mine/dnascramble,
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "br" = (
@@ -287,7 +287,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "bs" = (
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
 "bt" = (
@@ -559,7 +559,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "ch" = (
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "ci" = (
@@ -667,7 +667,7 @@
 /area/awaymission/wwmines)
 "cx" = (
 /obj/effect/mine/gas/plasma,
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
 "cy" = (
@@ -913,7 +913,7 @@
 /area/awaymission/wwmines)
 "dm" = (
 /obj/effect/mine/gas/plasma,
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "dn" = (

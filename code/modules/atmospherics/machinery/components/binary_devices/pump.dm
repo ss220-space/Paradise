@@ -24,7 +24,6 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/target_pressure = ONE_ATMOSPHERE
 
-	var/id = null
 
 /obj/machinery/atmospherics/binary/pump/Initialize(mapload)
 	. = ..()
@@ -63,13 +62,6 @@ Thus, the two variables affect pump operation are set in New():
 
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()
-
-/obj/machinery/atmospherics/binary/pump/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-
-	radio_connection = null
-	return ..()
 
 /obj/machinery/atmospherics/binary/pump/on
 	icon_state = "map_on"
@@ -121,63 +113,36 @@ Thus, the two variables affect pump operation are set in New():
 
 	return TRUE
 
-/obj/machinery/atmospherics/binary/pump/proc/broadcast_status()
-	if(!radio_connection)
-		return 0
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	signal.data = list(
-		"tag" = id,
-		"device" = "AGP",
+/obj/machinery/atmospherics/binary/pump/get_data()
+	var/list/data = list(
+		"name" = name,
+		"machine_type" = "AGP",
+		"uid" = UID(),
 		"power" = on,
 		"target_output" = target_pressure,
-		"sigtype" = "status"
 	)
+	return data
 
-	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
-	return 1
-
-/obj/machinery/atmospherics/binary/pump/atmos_init()
-	..()
-	if(!frequency)
-		return
-
-	set_frequency(frequency)
-
-/obj/machinery/atmospherics/binary/pump/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
-		return 0
-
+/obj/machinery/atmospherics/binary/pump/update_params(list/params)
 	var/old_on = on //for logging
 
-	if(signal.data["power"])
-		on = text2num(signal.data["power"])
+	if("power" in params)
+		on = params["power"]
 
-	if(signal.data["power_toggle"])
+	if("power_toggle" in params)
 		on = !on
 
-	if(signal.data["set_output_pressure"])
-		target_pressure = between(
+	if("set_output_pressure" in params)
+		target_pressure = clamp(
+			params["set_output_pressure"],
 			0,
-			text2num(signal.data["set_output_pressure"]),
-			ONE_ATMOSPHERE*50
+			ONE_ATMOSPHERE * 50
 		)
 
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)
 
-	if(signal.data["status"])
-		spawn(2)
-			broadcast_status()
-		return //do not update_icon
-
-	spawn(2)
-		broadcast_status()
-	update_icon()
-	return
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/atmospherics/binary/pump/attack_hand(mob/user)
 	if(..())

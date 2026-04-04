@@ -1,0 +1,7 @@
+author: "RaingGOR"
+delete-after: True
+changes:
+  - qol: "кпк стал модным и удобным (PR #8752)"
+  - local: "все приложения в кпк (PR #8752)"
+  - refactor: "тему починил в scss (catNT) (PR #8752)"
+  - tweak: "рабочий впн? Но зачем же он.... (PR #8752)"

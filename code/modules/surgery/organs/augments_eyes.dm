@@ -248,19 +248,14 @@
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 		return
 
-	var/datum/hud/human/user_hud = user.hud_used
-	holomap_datum.base_map.loc = user_hud.mini_holomap  // Put the image on the holomap hud
-	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+	user.hud_used.mini_holomap.icon = holomap_datum.map_icon
 
-	playsound(user, 'sound/effects/holomap_open.ogg', 125)
-	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
 	user.hud_used.mini_holomap.used_station_map = src
 	user.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
 	user.hud_used.mini_holomap.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	user.client.screen |= user.hud_used.mini_holomap
-	user.client.images |= holomap_datum.base_map
 
 	if(holomap_datum.bogus)
 		to_chat(user, span_warning("Ошибка инициализации голокарты. Этот сектор пространства невозможно отобразить."))
@@ -274,7 +269,11 @@
 	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size/2)
 	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size/2)
 	var/list/crop_params = list(CROP_X1 = crop_x, CROP_Y1 = crop_y, CROP_X2 = crop_x + crop_size, CROP_Y2 = crop_y + crop_size)
-	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays(user), show_legend = FALSE, crop = crop_params)
+	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, show_legend = FALSE, crop = crop_params)
+	var/list/image/overlays = holomap_datum.create_overlays(handle_overlays(user))
+	user.hud_used.mini_holomap.cut_overlays()
+	for(var/image/overlay in overlays)
+		user.hud_used.mini_holomap.add_overlay(overlay)
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/handle_overlays(mob/user)
@@ -315,31 +314,19 @@
 		return
 
 	current_z_level = moved_mob.loc.z
-	var/image/old_map = holomap_datum.base_map
 	setup_holomap(moved_mob)
-	holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
-	moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
-	moved_mob.client.images |= holomap_datum.base_map
-	moved_mob.client.images -= old_map
+	moved_mob.hud_used.mini_holomap.icon = holomap_datum.map_icon
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 
 	to_chat(user, span_interface("Мини-карта исчезает."))
 	if(!user.client)
 		holomap_datum.reset_map()
 		return
 
-	animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-	addtimer(CALLBACK(src, PROC_REF(remove_mini_map), user), 5)
-
-/obj/item/organ/internal/cyberimp/eyes/map/proc/remove_mini_map(mob/user)
-	if(!user || !user.client)
-		return
 	user.client.screen -= user.hud_used.mini_holomap
-	user.client.images -= holomap_datum.base_map
 	user.hud_used.mini_holomap.used_station_map = null
 	user.hud_used.mini_holomap.used_base_map = null
 	holomap_datum.reset_map()

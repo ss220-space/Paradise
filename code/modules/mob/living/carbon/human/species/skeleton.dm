@@ -19,6 +19,7 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_NO_HUNGER,
+		TRAIT_RESIST_HEAT,
 	)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
