@@ -451,6 +451,10 @@
 	var/fire_rate_mod = 1
 	var/no_shot_counter = FALSE
 
+/obj/item/emitter_disk/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_ICON)
+
 /obj/item/emitter_disk/update_overlays()
 	. = ..()
 	. += disk_overlay
