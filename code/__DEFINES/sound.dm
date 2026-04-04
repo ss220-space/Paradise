@@ -230,6 +230,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_BODYFALL "bodyfall"
 #define SFX_BULLET_MISS "bullet_miss"
 #define SFX_ENERGY_MISS "energy_miss"
+#define SFX_ARROW_MISS "arrow_miss"
 #define SFX_CAN_OPEN "can_open"
 #define SFX_CLOWN_STEP "clown_step"
 #define SFX_DESECRATION "desecration"

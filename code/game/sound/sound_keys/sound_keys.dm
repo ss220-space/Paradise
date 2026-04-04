@@ -549,5 +549,19 @@
 /datum/sound_effect/energy_miss
 	key = SFX_ENERGY_MISS
 	file_paths = list(
-		'sound/items/reagent_containers/watersplash.ogg', // Placeholder
+		'sound/effects/laser_miss_1.ogg',
+		'sound/effects/laser_miss_2.ogg',
+		'sound/effects/laser_miss_3.ogg',
+		'sound/effects/laser_miss_4.ogg',
+		'sound/effects/laser_miss_5.ogg',
+	)
+
+/datum/sound_effect/arrow_miss
+	key = SFX_ARROW_MISS
+	file_paths = list(
+		'sound/effects/arrow_miss_1.ogg',
+		'sound/effects/arrow_miss_2.ogg',
+		'sound/effects/arrow_miss_3.ogg',
+		'sound/effects/arrow_miss_4.ogg',
+		'sound/effects/arrow_miss_5.ogg',
 	)

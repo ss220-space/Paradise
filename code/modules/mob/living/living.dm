@@ -542,6 +542,8 @@
 		COOLDOWN_START(src, bullet_miss_cooldown, 0.5 SECONDS)
 		if(projectile.flag == ENERGY || projectile.flag == LASER)
 			playsound_local(src, SFX_ENERGY_MISS, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
+		else if(istype(projectile, /obj/projectile/bullet/reusable/arrow))
+			playsound_local(src, SFX_ARROW_MISS, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
 		else
 			playsound_local(src, SFX_BULLET_MISS, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
 
