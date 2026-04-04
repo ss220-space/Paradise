@@ -112,7 +112,7 @@
 		if(gas_ratio[TLV_ANTINOBLIUM] > 0)
 			air.set_antinoblium(ppratio_to_moles(gas_ratio[TLV_ANTINOBLIUM]))
 		if(gas_ratio[TLV_HYPERNOBLIUM] > 0)
-			air.set_hyper_noblium(ppratio_to_moles(gas_ratio[TLV_HYPERNOBLIUM]))
+			air.set_hypernoblium(ppratio_to_moles(gas_ratio[TLV_HYPERNOBLIUM]))
 
 		for(var/turf/turf in block(cornerA, cornerB))
 			if(issimulatedturf(turf))

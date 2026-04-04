@@ -5,6 +5,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM  // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "90560B"
 	taste_description = "burning"
+	can_synth = FALSE
 
 /datum/reagent/freon/on_mob_metabolize(mob/living/breather)
 	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
@@ -22,6 +23,7 @@
 	color = "90560B"
 	taste_description = "minty"
 	metabolized_traits = list(TRAIT_RESIST_HEAT)
+	can_synth = FALSE
 
 /datum/reagent/halon/on_mob_metabolize(mob/living/breather)
 	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
@@ -38,6 +40,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	color = "90560B"
 	taste_description = "rubbery"
+	can_synth = FALSE
 
 /datum/reagent/healium/on_mob_end_metabolize(mob/living/breather)
 	breather.SetSleeping(1 SECONDS)
@@ -58,6 +61,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM // Because nitrium/freon/hyper-nob are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "90560B"
 	taste_description = "searingly cold"
+	can_synth = FALSE
 
 /datum/reagent/hypernoblium/on_mob_life(mob/living/carbon/breather)
 	if(isplasmaman(breather))
@@ -73,6 +77,7 @@
 	taste_description = "sourness"
 	addiction_chance = 50
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE)
+	can_synth = FALSE
 
 /datum/reagent/nitrium_high_metabolization/on_mob_life(mob/living/carbon/breather)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -87,6 +92,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "90560B"
 	taste_description = "burning"
+	can_synth = FALSE
 
 /datum/reagent/nitrium_low_metabolization/on_mob_metabolize(mob/living/breather)
 	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
@@ -103,6 +109,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	color = COLOR_GRAY
 	taste_description = "irradiated air"
+	can_synth = FALSE
 
 /datum/reagent/pluoxium/on_mob_life(mob/living/carbon/breather)
 	if(!HAS_TRAIT(breather, TRAIT_KNOCKEDOUT))
@@ -122,6 +129,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	color = "90560B"
 	taste_description = "bitter"
+	can_synth = FALSE
 
 /datum/reagent/zauker/on_mob_life(mob/living/breather)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -138,6 +146,7 @@
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	can_synth = FALSE
 
 /datum/reagent/bz_metabolites/on_mob_life(mob/living/carbon/target)
 	target.Hallucinate(12.5 * REM)
