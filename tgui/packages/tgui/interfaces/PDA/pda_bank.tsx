@@ -82,7 +82,7 @@ export const pda_bank = (props: unknown) => {
 
   if (!loginState.logged_in) {
     return (
-      <Window width={600} height={850}>
+      <Window width={750} height={950}>
         <Window.Content>
           <Stack fill vertical>
             <Section
@@ -130,7 +130,7 @@ export const pda_bank = (props: unknown) => {
       PageContent = <UUErrorPage setPage={setPage} />;
   }
   return (
-    <Window width={600} height={950}>
+    <Window width={750} height={950}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>
