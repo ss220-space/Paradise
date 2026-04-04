@@ -453,7 +453,7 @@
 
 /obj/item/emitter_disk/Initialize(mapload)
 	. = ..()
-	update_appearance(UPDATE_ICON)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/emitter_disk/update_overlays()
 	. = ..()
