@@ -6,7 +6,7 @@
 	force = 2
 	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = GRENADE_EMPTY
-	var/list/beakers = list()
+	var/list/obj/item/beakers = list()
 	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle)
 	var/affected_area = 3
 	var/obj/item/assembly_holder/nadeassembly = null
@@ -31,8 +31,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	if(!no_splash)
-		QDEL_LIST(beakers)
+	QDEL_LIST(beakers)
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)

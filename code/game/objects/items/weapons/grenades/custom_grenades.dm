@@ -6,13 +6,13 @@
 /obj/item/grenade/chem_grenade/dirt/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/list/muck = list("blood","carbon","flour")
+	var/list/muck = list(/datum/reagent/blood, /datum/reagent/carbon, /datum/reagent/consumable/flour)
 	var/filth = pick(muck)
 	muck -= filth
 
 	B1.reagents.add_reagent(filth, 25)
 	if(prob(25))
-		muck += "radium"
+		muck += /datum/reagent/radium
 		B1.reagents.add_reagent(pick(muck), 25)
 
 	beakers += B1
@@ -27,10 +27,10 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("blood",60)
+	B1.reagents.add_reagent(/datum/reagent/blood, 60)
 	if(prob(5))
-		B1.reagents.add_reagent("blood",1) // Quality control problems, causes a mess
-	B2.reagents.add_reagent("cryoxadone",30)
+		B1.reagents.add_reagent(/datum/reagent/blood, 1) // Quality control problems, causes a mess
+	B2.reagents.add_reagent(/datum/reagent/medicine/cryoxadone, 30)
 
 	beakers += B1
 	beakers += B2
@@ -44,7 +44,7 @@
 /obj/item/grenade/chem_grenade/holywater/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/large/B = new(src)
-	B.reagents.add_reagent("holywater",100)
+	B.reagents.add_reagent(/datum/reagent/holywater, 100)
 	beakers += B
 
 /obj/item/grenade/chem_grenade/hellwater
@@ -57,11 +57,11 @@
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
-	B1.reagents.add_reagent("hell_water",80)
-	B1.reagents.add_reagent("sugar",20)
-	B2.reagents.add_reagent("hell_water", 60)
-	B2.reagents.add_reagent("potassium", 20)
-	B2.reagents.add_reagent("phosphorus", 20)
+	B1.reagents.add_reagent(/datum/reagent/hellwater, 80)
+	B1.reagents.add_reagent(/datum/reagent/consumable/sugar, 20)
+	B2.reagents.add_reagent(/datum/reagent/hellwater, 60)
+	B2.reagents.add_reagent(/datum/reagent/potassium, 20)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 20)
 
 /obj/item/grenade/chem_grenade/drugs
 	payload_name = "miracle"
@@ -73,11 +73,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("space_drugs", 25)
-	B1.reagents.add_reagent("lsd", 25)
-	B1.reagents.add_reagent("potassium", 25)
-	B2.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent(/datum/reagent/space_drugs, 25)
+	B1.reagents.add_reagent(/datum/reagent/lsd, 25)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 25)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 25)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 25)
 
 	beakers += B1
 	beakers += B2
@@ -93,11 +93,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("ethanol", 75)
-	B1.reagents.add_reagent("potassium", 25)
-	B2.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("sugar", 25)
-	B2.reagents.add_reagent("ethanol", 25)
+	B1.reagents.add_reagent(/datum/reagent/consumable/ethanol, 75)
+	B1.reagents.add_reagent(/datum/reagent/potassium, 25)
+	B2.reagents.add_reagent(/datum/reagent/phosphorus, 25)
+	B2.reagents.add_reagent(/datum/reagent/consumable/sugar, 25)
+	B2.reagents.add_reagent(/datum/reagent/consumable/ethanol, 25)
 
 	beakers += B1
 	beakers += B2
@@ -114,7 +114,7 @@
 /obj/item/grenade/chem_grenade/lube/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	B1.reagents.add_reagent("lube",50)
+	B1.reagents.add_reagent(/datum/reagent/lube, 50)
 	beakers += B1
 
 /obj/item/grenade/chem_grenade/lube/remote/Initialize(mapload)
@@ -138,10 +138,10 @@
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
-	B1.reagents.add_reagent("glycerol",30) // todo: someone says NG is overpowered, test.
-	B1.reagents.add_reagent("sacid",15)
-	B2.reagents.add_reagent("sacid",15)
-	B2.reagents.add_reagent("facid",30)
+	B1.reagents.add_reagent(/datum/reagent/glycerol, 30) // todo: someone says NG is overpowered, test.
+	B1.reagents.add_reagent(/datum/reagent/acid, 15)
+	B2.reagents.add_reagent(/datum/reagent/acid, 15)
+	B2.reagents.add_reagent(/datum/reagent/acid/facid, 30)
 	beakers += B1
 	beakers += B2
 
@@ -172,8 +172,8 @@
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
-	B1.reagents.add_reagent("water",100)
-	B2.reagents.add_reagent("potassium",100)
+	B1.reagents.add_reagent(/datum/reagent/water, 100)
+	B2.reagents.add_reagent(/datum/reagent/potassium, 100)
 	beakers += B1
 	beakers += B2
 
@@ -206,8 +206,8 @@
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
-	B1.reagents.add_reagent("uranium",50)
-	B2.reagents.add_reagent("iron",50)
+	B1.reagents.add_reagent(/datum/reagent/uranium, 50)
+	B2.reagents.add_reagent(/datum/reagent/iron, 50)
 	beakers += B1
 	beakers += B2
 
@@ -234,7 +234,7 @@
 	var/obj/item/slime_extract/gold/B1 = new(src)
 	B1.Uses = rand(1,3)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
-	B2.reagents.add_reagent("plasma",5 * B1.Uses)
+	B2.reagents.add_reagent(/datum/reagent/plasma, 5 * B1.Uses)
 	beakers += B1
 	beakers += B2
 
@@ -260,7 +260,7 @@
 	var/obj/item/slime_extract/silver/B1 = new(src)
 	B1.Uses = rand(1,3)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
-	B2.reagents.add_reagent("plasma",5 * B1.Uses)
+	B2.reagents.add_reagent(/datum/reagent/plasma, 5 * B1.Uses)
 	beakers += B1
 	beakers += B2
 
@@ -269,7 +269,7 @@
 // --------------------------------------
 
 /obj/item/storage/box/syndie_kit/remotegrenade
-	name = "Remote Grenade Kit"
+	name = "remote grenade kit"
 
 /obj/item/storage/box/syndie_kit/remotegrenade/populate_contents()
 	new /obj/item/grenade/chem_grenade/explosion/remote(src)
@@ -277,7 +277,7 @@
 	new /obj/item/assembly/signaler(src)
 
 /obj/item/storage/box/syndie_kit/remoteemp
-	name = "Remote EMP Kit"
+	name = "remote emp kit"
 
 /obj/item/storage/box/syndie_kit/remoteemp/populate_contents()
 	new /obj/item/grenade/chem_grenade/emp/remote(src)
@@ -285,7 +285,7 @@
 	new /obj/item/assembly/signaler(src)
 
 /obj/item/storage/box/syndie_kit/remotelube
-	name = "Remote Lube Kit"
+	name = "remote lube kit"
 
 /obj/item/storage/box/syndie_kit/remotelube/populate_contents()
 	new /obj/item/grenade/chem_grenade/lube(src)
