@@ -20,7 +20,7 @@
 /obj/item/clothing/accessory/head_strip/attack_self(mob/user)
 	. = ..()
 	if(.)
-		return .
+		return
 	fluff_attack_self_action(user)
 
 /obj/item/clothing/accessory/head_strip/proc/fluff_attack_self_action(mob/user)
