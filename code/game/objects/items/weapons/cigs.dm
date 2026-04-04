@@ -25,6 +25,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	attack_verb = null
 	container_type = INJECTABLE
 	undyeable = TRUE
+	heat = T1000K
 	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
@@ -83,7 +84,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(lighting_item))
 		return .
 
-	if(lighting_item.get_heat())
+	if(lighting_item.get_temperature())
 		light()
 		return .|ATTACK_CHAIN_BLOCKED
 
@@ -245,7 +246,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
 	)
 
-/obj/item/clothing/mask/cigarette/get_heat()
+/obj/item/clothing/mask/cigarette/get_temperature()
 	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
@@ -351,7 +352,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			COOLDOWN_START(src, smoking_cooldown, 30)
 	.=..()
 
-/obj/item/clothing/mask/cigarette/get_heat()
+/obj/item/clothing/mask/cigarette/get_temperature()
 	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol

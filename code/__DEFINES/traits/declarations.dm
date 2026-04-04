@@ -347,6 +347,10 @@
 
 #define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
 
+#define TRAIT_SLEEPIMMUNE "sleep_immunity"
+
+#define TRAIT_NO_FIRE "nonflammable"
+
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"
 /// This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
@@ -482,6 +486,9 @@
 // Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
+
+/// Suppression implant trait
+#define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
 
 ///Trait applied to turf blocked by a containment field
 #define TRAIT_CONTAINMENT_FIELD "containment_field"

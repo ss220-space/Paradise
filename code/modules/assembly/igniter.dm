@@ -58,5 +58,5 @@
 		activate()
 	add_fingerprint(user)
 
-/obj/item/assembly/igniter/get_heat()
+/obj/item/assembly/igniter/get_temperature()
 	return 20000

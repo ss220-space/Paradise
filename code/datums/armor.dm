@@ -65,7 +65,6 @@ GLOBAL_LIST_EMPTY(armor_cache)
 /datum/armor/Destroy(force)
 	GLOB.armor_cache -= tag
 	GLOB.armor_by_type -= type
-	tag = null
 	return ..()
 
 

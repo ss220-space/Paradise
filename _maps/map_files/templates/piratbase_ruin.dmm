@@ -37,8 +37,7 @@
 /obj/item/reagent_containers/food/snacks/bun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "af" = (
@@ -190,12 +189,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "aB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "aC" = (
@@ -529,8 +523,7 @@
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/pirate_base/atmos)
 "bC" = (
@@ -742,8 +735,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "cg" = (
@@ -1195,8 +1187,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "dm" = (
@@ -1518,8 +1509,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "ee" = (
@@ -1762,8 +1752,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "eS" = (
@@ -1903,12 +1892,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "fk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
 	health = 150;
@@ -2596,8 +2580,7 @@
 "hq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/space/pirate_base/atmos)
 "hr" = (
@@ -2763,8 +2746,7 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "hN" = (
@@ -2930,8 +2912,7 @@
 /obj/structure/table_frame/wood,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "io" = (
@@ -2952,8 +2933,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "ir" = (
@@ -3084,8 +3064,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "iR" = (
@@ -3432,8 +3411,7 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "jW" = (
@@ -3758,8 +3736,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "kV" = (
@@ -3848,12 +3825,8 @@
 /area/ruin/space/pirate_base/lab_maint)
 "ll" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
@@ -4905,8 +4878,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "om" = (
@@ -5101,8 +5073,7 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "oL" = (
@@ -5557,8 +5528,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "qh" = (
@@ -6160,9 +6130,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "rX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/item/clothing/suit/bio_suit/scientist,
 /turf/simulated/floor/engine,
@@ -6390,16 +6359,10 @@
 	},
 /area/shuttle/pirate_corvette)
 "sM" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "sN" = (
@@ -6548,12 +6511,8 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
 "ti" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6708,8 +6667,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "tB" = (
@@ -6996,12 +6954,8 @@
 	color = "#F0E68C"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
@@ -7384,8 +7338,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "vi" = (
@@ -7396,8 +7349,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "vl" = (
@@ -7753,8 +7705,7 @@
 "wi" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "wj" = (
@@ -7918,8 +7869,7 @@
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/ruin/space/pirate_base/atmos)
 "wL" = (
@@ -8114,8 +8064,7 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTH)"
+	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "xn" = (
@@ -8230,12 +8179,7 @@
 /turf/space,
 /area/space)
 "xC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8285,8 +8229,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "xL" = (
@@ -8433,12 +8376,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
@@ -8714,12 +8652,8 @@
 /area/ruin/space/pirate_base/observ)
 "yV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9835,8 +9769,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Cn" = (
@@ -10576,8 +10509,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "ES" = (
@@ -10628,12 +10560,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -10849,12 +10776,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "FD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10968,8 +10891,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "FU" = (
@@ -11202,12 +11124,8 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "GD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -11347,12 +11265,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "GU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11455,12 +11368,8 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -11678,8 +11587,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "HT" = (
@@ -11935,12 +11843,8 @@
 "IL" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12072,8 +11976,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Jh" = (
@@ -12196,8 +12099,7 @@
 /area/ruin/space/pirate_base/mining)
 "Jy" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/northwest,
@@ -12595,12 +12497,8 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "KD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 Prison Mining";
@@ -12622,8 +12520,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "KF" = (
@@ -12642,8 +12539,7 @@
 /area/ruin/space/pirate_base/lab_solar)
 "KI" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/southwest,
@@ -12787,8 +12683,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "KV" = (
@@ -12857,8 +12752,7 @@
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Li" = (
@@ -13221,8 +13115,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Mm" = (
@@ -13330,8 +13223,7 @@
 /mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "MG" = (
@@ -13730,8 +13622,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "NF" = (
@@ -13794,12 +13685,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/pirate_base/observ)
 "NP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -14478,8 +14365,7 @@
 /obj/item/kitchen/utensil/spoon,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "PS" = (
@@ -14649,8 +14535,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Qz" = (
@@ -14684,12 +14569,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "QD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -15093,12 +14973,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "RT" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /obj/machinery/light{
 	dir = 4
@@ -16023,8 +15899,7 @@
 /obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Ut" = (
@@ -16393,8 +16268,7 @@
 /obj/item/storage/backpack/satchel_tox,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Vx" = (
@@ -17278,8 +17152,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Yc" = (
@@ -17419,12 +17292,7 @@
 	},
 /area/ruin/space/pirate_base/lab_medical)
 "Yw" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /mob/living/simple_animal/hostile/pirate/ranged{
 	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
@@ -17709,12 +17577,8 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Zi" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -17875,8 +17739,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner";
-	tag = "icon-whitepurplecorner (EAST)"
+	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
 "Zy" = (

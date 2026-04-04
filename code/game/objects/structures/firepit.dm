@@ -28,7 +28,7 @@
 			I.fire_act()
 		return ..()
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		add_fingerprint(user)
 		if(active)
 			to_chat(user, span_warning("The [name] is already lit!"))

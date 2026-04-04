@@ -307,12 +307,10 @@
 	name = "Погружение в кровь"
 	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь всё, что не является стеной или космосом. После этого за вами остаётся кровавый след."
 	gain_desc = "Вы получили способность превращаться в лужу крови, что позволяет вам уходить от преследователей с большой мобильностью."
-	jaunt_duration = 8 SECONDS
 	clothes_req = FALSE
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_pool"
-	base_cooldown = 25 SECONDS
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
 	jaunt_water_effect = FALSE
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out

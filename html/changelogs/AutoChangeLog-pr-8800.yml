@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь пар корректно исчезает при конденсации. (PR #8800)"

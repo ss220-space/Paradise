@@ -650,7 +650,7 @@
 	item_state = "ert"
 
 /obj/item/storage/box/enforcer/security/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
@@ -1250,7 +1250,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/enforcer_kit/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)

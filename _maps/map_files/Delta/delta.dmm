@@ -547,8 +547,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "aeG" = (
@@ -1257,13 +1256,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/effect/decal/remains/mouse/Pinkie,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
 /area/toxins/server)
 "aml" = (
 /obj/machinery/navbeacon{
@@ -1347,8 +1340,7 @@
 /area/engineering/mechanic_workshop/expedition)
 "amQ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -2470,9 +2462,8 @@
 	},
 /area/bridge)
 "avB" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	dir = 4;
-	filter_type = "n2";
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -2622,8 +2613,7 @@
 /area/engineering/controlroom)
 "awU" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/arrival/station)
@@ -2918,8 +2908,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "azf" = (
@@ -3009,8 +2998,7 @@
 "aAa" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/shuttle/plating,
@@ -5702,9 +5690,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "aSH" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor";
-	output = 23
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "air_sensor"
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -7361,7 +7348,7 @@
 /turf/simulated/wall,
 /area/engineering/mechanic_workshop)
 "beO" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -9530,8 +9517,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "bsB" = (
@@ -13694,8 +13680,7 @@
 /area/medical/research)
 "bNJ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -15474,10 +15459,9 @@
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
 "bWs" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
 	dir = 1;
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
@@ -17147,9 +17131,8 @@
 	},
 /area/hallway/secondary/entry)
 "cfg" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	dir = 1;
-	filter_type = "n2";
 	name = "nitrogen filter";
 	on = 1
 	},
@@ -17170,9 +17153,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cfm" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
+/obj/machinery/atmospherics/trinary/filter/flipped/none{
 	dir = 1;
-	filter_type = -1;
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -18861,8 +18843,7 @@
 /area/clownoffice)
 "cpP" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/maintenance/tourist)
 "cpQ" = (
@@ -19034,9 +19015,8 @@
 	},
 /area/engineering/controlroom)
 "crk" = (
-/obj/machinery/atmospherics/trinary/filter{
-	dir = 8;
-	filter_type = "n2"
+/obj/machinery/atmospherics/trinary/filter/n2{
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/yellow{
@@ -21743,8 +21723,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "cEn" = (
@@ -23413,8 +23392,7 @@
 	},
 /obj/effect/turf_decal/siding/white/end,
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/noslip,
 /area/engineering/controlroom)
@@ -25775,8 +25753,7 @@
 "cXD" = (
 /obj/machinery/door/window/southleft{
 	name = "Bar Delivery";
-	req_access = list(25);
-	tag = "icon-left (WEST)"
+	req_access = list(25)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26507,8 +26484,7 @@
 "dbm" = (
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -27761,8 +27737,7 @@
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "dgY" = (
@@ -28064,8 +28039,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "die" = (
@@ -28885,7 +28859,7 @@
 	dir = 8;
 	frequency = 1443;
 	icon_state = "on";
-	id = "air_in";
+	id = null;
 	on = 1
 	},
 /obj/machinery/sparker{
@@ -30978,7 +30952,7 @@
 /turf/simulated/wall,
 /area/mimeoffice)
 "dvN" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/co2{
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -31611,13 +31585,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "dyI" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -31954,8 +31922,7 @@
 /obj/effect/landmark/start/captain,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 6;
-	tag = "icon-shower (EAST)"
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -33860,7 +33827,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dJT" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/pl{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -34571,8 +34538,7 @@
 	},
 /obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/starboard)
 "dNm" = (
@@ -34637,8 +34603,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "dNv" = (
@@ -36895,9 +36860,8 @@
 /area/medical/biostorage)
 "dXP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/item/camera_assembly,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -37009,7 +36973,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "dYm" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -37529,8 +37493,7 @@
 /area/crew_quarters/kitchen)
 "ebt" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -37860,8 +37823,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "eeD" = (
@@ -38059,8 +38021,7 @@
 "egO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/tourist)
 "egR" = (
@@ -38730,9 +38691,8 @@
 	},
 /area/security/processing)
 "enX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -39080,8 +39040,7 @@
 /obj/structure/table/glass,
 /obj/item/twohanded/required/kirbyplants{
 	layer = 5.1;
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreencorner"
@@ -39909,8 +39868,7 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "eBF" = (
@@ -41451,8 +41409,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "eTE" = (
@@ -42086,8 +42043,7 @@
 	pixel_y = -12
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/crew_quarters/theatre)
 "fat" = (
@@ -42440,9 +42396,8 @@
 	pixel_y = -7
 	},
 /obj/item/trash/sosjerky,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -43224,8 +43179,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/engineering)
 "foZ" = (
@@ -43403,8 +43357,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "frJ" = (
@@ -43935,8 +43888,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/starboard)
 "fye" = (
@@ -45613,8 +45565,7 @@
 	},
 /obj/machinery/light,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -46118,8 +46069,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/crew_quarters/theatre)
 "fZj" = (
@@ -46570,8 +46520,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gfO" = (
@@ -46997,8 +46946,7 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gmi" = (
@@ -47470,8 +47418,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gre" = (
@@ -47712,8 +47659,7 @@
 "gue" = (
 /obj/effect/landmark/spawner/ninja_teleport,
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
@@ -47856,9 +47802,8 @@
 	},
 /area/maintenance/starboard)
 "gvS" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -48418,9 +48363,8 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "gCu" = (
-/obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor";
-	output = 127
+/obj/machinery/atmospherics/air_sensor/all{
+	id_tag = "mix_sensor"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -49845,15 +49789,13 @@
 /area/maintenance/tourist)
 "gPC" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/tourist)
 "gPJ" = (
@@ -50183,7 +50125,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "gTw" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -50300,8 +50242,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/eastright{
 	name = "Hydroponics Delivery";
-	req_access = list(35);
-	tag = "icon-right"
+	req_access = list(35)
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -50440,8 +50381,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gWu" = (
@@ -50760,8 +50700,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "gZC" = (
@@ -50790,7 +50729,6 @@
 /area/library)
 "gZP" = (
 /obj/machinery/shower{
-	tag = "icon-shower (EAST)";
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/white/end,
@@ -53201,8 +53139,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "hDv" = (
@@ -53834,8 +53771,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "hKL" = (
@@ -54700,8 +54636,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "hVw" = (
@@ -54831,8 +54766,7 @@
 /area/medical/virology)
 "hWA" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/tourist)
 "hWB" = (
@@ -57201,8 +57135,7 @@
 "izG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/crew_quarters/theatre)
 "izL" = (
@@ -57500,8 +57433,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
+	dir = 4
 	},
 /obj/effect/turf_decal/siding/white/end{
 	dir = 1
@@ -58416,8 +58348,7 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "iOo" = (
@@ -58703,8 +58634,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "iSO" = (
@@ -59453,8 +59383,7 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -59580,8 +59509,7 @@
 /mob/living/simple_animal/hostile/lizard/croco/Gena,
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -60516,8 +60444,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "jnj" = (
@@ -63838,7 +63765,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
+	sensors = list("air_sensor"="Air Mix","n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65069,10 +64996,9 @@
 	},
 /area/quartermaster/miningdock)
 "krC" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
 	dir = 1;
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -66878,8 +66804,7 @@
 "kNU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/tourist)
 "kOi" = (
@@ -69702,8 +69627,7 @@
 /area/toxins/test_area)
 "lym" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = 33
@@ -69906,8 +69830,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "lAL" = (
@@ -70382,7 +70305,7 @@
 	},
 /area/maintenance/asmaint4)
 "lHA" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -70484,8 +70407,7 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -70933,8 +70855,7 @@
 	id = "vir_work_zone1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/medical/virology/lab)
 "lPb" = (
@@ -71985,9 +71906,8 @@
 	},
 /area/storage/eva)
 "mcm" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2o{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
-	filter_type = 4;
 	name = "Фильтр Оксида Азота (NO2)";
 	on = 1;
 	target_pressure = 4500
@@ -72522,8 +72442,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "miw" = (
@@ -72965,8 +72884,7 @@
 /area/maintenance/asmaint)
 "mna" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plasteel{
@@ -73518,8 +73436,7 @@
 /area/maintenance/kitchen)
 "msz" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-25";
-	tag = "icon-plant-25"
+	icon_state = "plant-25"
 	},
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
@@ -74497,8 +74414,7 @@
 /area/hallway/secondary/entry/commercial)
 "mDr" = (
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /obj/structure/table,
 /obj/machinery/status_display{
@@ -74864,8 +74780,7 @@
 	dir = 1
 	},
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/noslip,
 /area/engineering/controlroom)
@@ -76183,8 +76098,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "mVw" = (
@@ -76449,8 +76363,7 @@
 "mYF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -77303,8 +77216,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "njf" = (
@@ -78251,6 +78163,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/item/storage/lockbox/suppression,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78475,8 +78388,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "nvQ" = (
@@ -79388,8 +79300,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/coffee_cart_rack{
-	pixel_y = 14;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 14
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = 5;
@@ -79784,8 +79696,7 @@
 /obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "nLF" = (
@@ -81912,8 +81823,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "olS" = (
@@ -81950,12 +81860,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
-	},
-/area/security/permabrig)
-"omz" = (
-/obj/machinery/computer/area_atmos/area,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/security/permabrig)
 "omC" = (
@@ -82861,8 +82765,8 @@
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
 	name = "Medbay Lockdown";
-	pixel_y = -35;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = -35
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -82980,13 +82884,7 @@
 	pressure_checks = 0;
 	releasing = 0
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "oyI" = (
 /obj/structure/disposalpipe/segment{
@@ -83217,6 +83115,7 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -28
 	},
+/obj/machinery/station_map/security/directional/south,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "oAp" = (
@@ -83399,8 +83298,7 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "oCo" = (
@@ -83440,10 +83338,10 @@
 /area/security/checkpoint/south)
 "oCG" = (
 /obj/machinery/light,
+/obj/machinery/papershredder,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "oDd" = (
@@ -84586,8 +84484,7 @@
 "oRQ" = (
 /mob/living/simple_animal/moth,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/tourist)
 "oRS" = (
@@ -84815,8 +84712,7 @@
 /obj/item/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "oUP" = (
@@ -86089,8 +85985,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "pkp" = (
@@ -86107,7 +86002,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	id = "tox_in"
+	id = null
 	},
 /turf/space,
 /area/atmos)
@@ -86342,8 +86237,7 @@
 	pixel_y = 5
 	},
 /obj/item/twohanded/required/kirbyplants{
-	pixel_y = 12;
-	tag = "plant-dead"
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -90073,8 +89967,7 @@
 /area/atmos/control)
 "qcw" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/curtain/open/shower,
 /obj/machinery/door_control{
@@ -91383,8 +91276,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qqO" = (
@@ -91636,8 +91528,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qsM" = (
@@ -91774,8 +91665,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qtz" = (
@@ -94171,8 +94061,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "qVc" = (
@@ -94974,8 +94863,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "reH" = (
@@ -95035,8 +94923,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "rfj" = (
@@ -95053,8 +94940,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "rfm" = (
@@ -97817,8 +97703,7 @@
 /area/maintenance/kitchen)
 "rLr" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -98134,8 +98019,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "rPc" = (
@@ -99823,8 +99707,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "sja" = (
@@ -102241,9 +102124,6 @@
 /area/aisat/maintenance)
 "sLr" = (
 /obj/machinery/light,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 22
@@ -102457,8 +102337,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "sNQ" = (
@@ -103924,9 +103803,8 @@
 /area/medical/research/nhallway)
 "tfB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/o2{
 	desc = "Отфильтровывает кислород из трубы и отправляет его в камеру хранения";
-	filter_type = 1;
 	name = "Фильтр Кислорода (O2)";
 	on = 1;
 	target_pressure = 4500
@@ -105397,8 +105275,7 @@
 /obj/item/soap,
 /obj/machinery/light,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/tourist)
 "txq" = (
@@ -106316,8 +106193,7 @@
 /area/engineering/supermatter)
 "tGG" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -106559,8 +106435,8 @@
 	pixel_y = 4
 	},
 /obj/item/folder/red{
-	pixel_y = 3;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -107060,8 +106936,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "tOc" = (
@@ -108473,8 +108348,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/crew_quarters/trading)
 "udT" = (
@@ -109196,8 +109070,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -110302,12 +110175,12 @@
 	dir = 8
 	},
 /obj/item/storage/box/coffeepack/robusta{
-	pixel_y = 1;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 1
 	},
 /obj/item/storage/fancy/coffee_condi_display{
-	pixel_y = 2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -111539,8 +111412,7 @@
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -112852,8 +112724,7 @@
 /obj/structure/curtain/open/shower,
 /obj/effect/landmark/spawner/blob,
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -113809,8 +113680,7 @@
 /obj/item/vending_refill/youtool,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "vmX" = (
@@ -113938,8 +113808,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "voL" = (
@@ -114407,9 +114276,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/ai)
 "vtW" = (
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/n2{
 	desc = "Отфильтровывает азот из трубы и отправляет его в камеру хранения";
-	filter_type = 2;
 	name = "Фильтр Азота (N2)";
 	on = 1;
 	target_pressure = 4500
@@ -114672,16 +114540,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"vwX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
-/area/maintenance/engineering)
 "vwY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -115442,8 +115300,7 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "vDi" = (
@@ -117097,8 +116954,7 @@
 /area/quartermaster/sorting)
 "vXZ" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -117311,8 +117167,7 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "waS" = (
@@ -117929,12 +117784,12 @@
 "wjm" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/guarana{
-	pixel_y = 3;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 3
 	},
 /obj/item/reagent_containers/food/drinks/flask/thermos{
-	pixel_y = 9;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -117988,8 +117843,7 @@
 /obj/random/tool,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "wjU" = (
@@ -118344,10 +118198,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/trinary/filter{
+/obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
 	dir = 4;
-	filter_type = 3;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
 	target_pressure = 4500
@@ -119088,8 +118941,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/maintenance/fpmaint)
 "wuY" = (
@@ -120708,8 +120560,7 @@
 /area/crew_quarters/kitchen)
 "wNZ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-25";
-	tag = "icon-plant-25"
+	icon_state = "plant-25"
 	},
 /obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/carpet/red,
@@ -121136,9 +120987,9 @@
 	name = "Cargo Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "Cargo Warehouse Windows";
-	name = "Cargo Warehouse Windows";
-	dir = 1
+	name = "Cargo Warehouse Windows"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -123136,8 +122987,8 @@
 	},
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
-	pixel_y = 3;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -123502,7 +123353,7 @@
 	dir = 4;
 	frequency = 1443;
 	icon_state = "on";
-	id = "air_in";
+	id = null;
 	on = 1
 	},
 /turf/simulated/floor/engine,
@@ -124071,7 +123922,6 @@
 "xzK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/computer/area_atmos,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "xAb" = (
@@ -125387,8 +125237,7 @@
 "xNb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -125991,13 +125840,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "xSX" = (
 /obj/structure/window/reinforced{
@@ -126036,13 +125879,7 @@
 	on = 1;
 	pressure_checks = 0
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe/gcircuit,
 /area/toxins/server)
 "xTp" = (
 /obj/structure/sign/poster/official/random{
@@ -127716,13 +127553,7 @@
 /area/engineering/engine)
 "yjC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/bluegrid/telecomms/mainframe,
 /area/toxins/server)
 "yjD" = (
 /obj/machinery/disposal,
@@ -156692,7 +156523,7 @@ gMw
 iKD
 srk
 euu
-vwX
+euu
 wkZ
 eTz
 yhX
@@ -184153,7 +183984,7 @@ wNO
 lXk
 tLD
 lzs
-omz
+xan
 wyT
 pee
 gBH
