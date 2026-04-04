@@ -716,7 +716,7 @@
 			storage.handle_item_insertion(thing)
 		return
 	if(!length(storage.contents))
-		balloon_alert(usr, "[slot_item_name] пуст")
+		balloon_alert(src, "[slot_item_name] пуст")
 		return
 	var/obj/item/stored = storage.contents[length(storage.contents)]
 	if(!stored || stored.on_found(src))
