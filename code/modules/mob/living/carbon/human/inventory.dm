@@ -697,7 +697,7 @@
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)
 	if(!equipped_item) // We also let you equip an item like this
 		if(!thing)
-			balloon_alert(usr, "отсутствует [slot_item_name]")
+			balloon_alert(src, "отсутствует [slot_item_name]")
 			return
 		if(equip_to_slot_if_possible(thing, slot_type))
 			update_held_items()
