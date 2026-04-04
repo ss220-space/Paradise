@@ -53,7 +53,7 @@
 	desc = "Плотно сшитая круглая нашивка из синего бархата с позолотой, по центру красуется логотип корпорации Nanotrasen прошитый золотыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся управление станцией."
 	icon_state = "capstrip"
 	item_state = "capstrip"
-	strip_ru_name = "Капитан"
+	strip_ru_name = JOB_TITLE_RU_CAPTAIN
 
 /obj/item/clothing/accessory/head_strip/captain/get_bubble_override()
 	return "CAP"
@@ -63,7 +63,7 @@
 	desc = "Плотно сшитая круглая нашивка из фиолетового бархата, по центру красуется логотип корпорации Nanotrasen прошитый розоватыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области исследований."
 	icon_state = "rdstrip"
 	item_state = "rdstrip"
-	strip_ru_name = "Научный руководитель"
+	strip_ru_name = JOB_TITLE_RU_RD
 
 /obj/item/clothing/accessory/head_strip/rd/get_bubble_override()
 	return "RD"
@@ -73,7 +73,7 @@
 	desc = "Плотно сшитая круглая нашивка из серо-желтого бархата, по центру красуется логотип корпорации Nanotrasen прошитый голубыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области инженерии."
 	icon_state = "cestrip"
 	item_state = "cestrip"
-	strip_ru_name = "Старший инженер"
+	strip_ru_name = JOB_TITLE_RU_CHIEF_ENGINEER
 
 /obj/item/clothing/accessory/head_strip/ce/get_bubble_override()
 	return "CE"
@@ -83,7 +83,7 @@
 	desc = "Плотно сшитая круглая нашивка из серого бархата, по центру красуется логотип корпорации Nanotrasen прошитый желтыми металлическими нитями. Если присмотреться, можно заметить проходящее по нитям электричество и небольшие искорки."
 	icon_state = "t4cestrip"
 	item_state = "t4cestrip"
-	strip_ru_name = "Главный инженер"
+	strip_ru_name = "Супер" + JOB_TITLE_RU_CHIEF_ENGINEER
 
 /obj/item/clothing/accessory/head_strip/t4ce/get_bubble_override()
 	return "T4CE"
@@ -93,7 +93,7 @@
 	desc = "Плотно сшитая круглая нашивка из голубого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области медицины."
 	icon_state = "cmostrip"
 	item_state = "cmostrip"
-	strip_ru_name = "Главный врач"
+	strip_ru_name = JOB_TITLE_RU_CMO
 
 /obj/item/clothing/accessory/head_strip/cmo/get_bubble_override()
 	return "CMO"
@@ -103,7 +103,7 @@
 	desc = "Плотно сшитая круглая нашивка из синего бархата с красной окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся управление персоналом."
 	icon_state = "hopstrip"
 	item_state = "hopstrip"
-	strip_ru_name = "Глава персонала"
+	strip_ru_name = JOB_TITLE_RU_HOP
 
 /obj/item/clothing/accessory/head_strip/hop/get_bubble_override()
 	return "HOP"
@@ -113,7 +113,7 @@
 	desc = "Плотно сшитая круглая нашивка из черно-красного бархата, по центру красуется логотип корпорации Nanotrasen прошитый бело-красными металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи при службе на корпорацию."
 	icon_state = "hosstrip"
 	item_state = "hosstrip"
-	strip_ru_name = "Глава службы безопасности"
+	strip_ru_name = JOB_TITLE_RU_HOS
 
 /obj/item/clothing/accessory/head_strip/hos/get_bubble_override()
 	return "HOS"
@@ -123,7 +123,7 @@
 	desc = "Плотно сшитая круглая нашивка из коричневого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи в области логистики и погрузки."
 	icon_state = "qmstrip"
 	item_state = "qmstrip"
-	strip_ru_name = "Квартирмейстер"
+	strip_ru_name = JOB_TITLE_RU_QUARTERMASTER
 
 /obj/item/clothing/accessory/head_strip/qm/get_bubble_override()
 	return "QM"
@@ -133,7 +133,7 @@
 	desc = "Плотно сшитая круглая нашивка из синего бархата с темно-синей окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся успехи при службе на корпорацию."
 	icon_state = "bsstrip"
 	item_state = "bsstrip"
-	strip_ru_name = "Блющит"
+	strip_ru_name = JOB_TITLE_RU_BLUESHIELD
 
 /obj/item/clothing/accessory/head_strip/bs/get_bubble_override()
 	return "BS"
@@ -143,7 +143,7 @@
 	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся заслуги при службе на корпорацию."
 	icon_state = "ntrstrip"
 	item_state = "ntrstrip"
-	strip_ru_name = "Представитель НаноТразен"
+	strip_ru_name = JOB_TITLE_RU_REPRESENTATIVE
 
 /obj/item/clothing/accessory/head_strip/ntr/get_bubble_override()
 	return "NTR"
@@ -194,7 +194,7 @@
 	icon_state = "lawyerbadge"
 	item_state = "lawyerbadge"
 	gender = MALE
-	strip_ru_name = "Значок адвоката"
+	strip_ru_name = JOB_TITLE_RU_LAWYER
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge/get_bubble_override()
 	return "lawyer"
@@ -210,7 +210,7 @@
 	icon_state = "cheesebadge"
 	item_state = "cheesebadge"
 	gender = MALE
-	strip_ru_name = "Сырный значок"
+	strip_ru_name = "Сыр"
 
 /obj/item/clothing/accessory/head_strip/cheese_badge/get_bubble_override()
 	return "cheese"
@@ -224,7 +224,7 @@
 	desc = "Плотно сшитая круглая нашивка с изображением клоуна. Идеально подойдет для совершения военных преступлений, ведь это не военное преступление, если тебе было весело!"
 	icon_state = "clownstrip"
 	item_state = "clownstrip"
-	strip_ru_name = "Клоун"
+	strip_ru_name = JOB_TITLE_RU_CLOWN
 
 /obj/item/clothing/accessory/head_strip/clown/get_bubble_override()
 	return "clown"
