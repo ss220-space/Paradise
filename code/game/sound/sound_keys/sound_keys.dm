@@ -545,3 +545,9 @@
 		'sound/effects/bullet_miss_5.ogg',
 		'sound/effects/bullet_miss_6.ogg',
 	)
+
+/datum/sound_effect/energy_miss
+	key = SFX_ENERGY_MISS
+	file_paths = list(
+		'sound/items/reagent_containers/watersplash.ogg', // Placeholder
+	)

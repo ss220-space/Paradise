@@ -384,10 +384,6 @@
 		if(forcedodge >= 1)
 			forcedodge -= 1
 		loc = bumped_turf
-		if(ismob(bumped_atom) && !(bumped_atom in permutated))
-			var/mob/M = bumped_atom
-			if(M.client && M.stat != DEAD)
-				M.playsound_local(M, SFX_BULLET_MISS, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
 		if(bumped_atom)
 			LAZYADD(permutated, bumped_atom)
 		return FALSE
