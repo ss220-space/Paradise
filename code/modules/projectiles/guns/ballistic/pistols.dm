@@ -78,10 +78,7 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
-
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal/Initialize(mapload)
-	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
-	. = ..()
+	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
 // MARK: SP8
 /obj/item/gun/projectile/automatic/pistol/sp8
