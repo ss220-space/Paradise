@@ -148,7 +148,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 			var/volume = mob.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
 				continue
-		SEND_SOUND(mob, sound(message_sound, channel = CHANNEL_ANNOUNCER))
+		var/volume_mod = 100 * mob?.client?.prefs?.get_channel_volume(CHANNEL_ANNOUNCER)
+		SEND_SOUND(mob, sound(
+				message_sound,
+				channel = CHANNEL_ANNOUNCER,
+				volume = volume_mod,
+			))
 
 /datum/announcer/proc/announce_log(message, message_title)
 	add_game_logs("has made \a [config.log_name]: [message_title] – [message] – [author]", usr)

@@ -353,7 +353,11 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, span_darkmblue("<b>Приятной игры!</b>"))
-	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound(), channel = CHANNEL_ANNOUNCER))
+	SEND_SOUND(world, sound(
+			SSstation.announcer.get_rand_welcome_sound(),
+			channel = CHANNEL_ANNOUNCER,
+			volume = 40,
+		))
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))
