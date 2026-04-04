@@ -709,7 +709,7 @@
 		if(!thing)
 			equipped_item.attack_hand(src)
 		else
-			balloon_alert(usr, "[slot_item_name] занят")
+			balloon_alert(src, "[slot_item_name] занят")
 		return
 	if(thing)
 		if(storage.can_be_inserted(thing))
