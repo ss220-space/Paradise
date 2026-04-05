@@ -220,8 +220,8 @@
 	desc = "Распылитель с увеличенным объёмом, изготовленный с использованием блюспейс-технологий. Оно точно того стоило?"
 	icon_state = "cleaner_bluespace"
 	item_state = "cleaner_bs"
-	spray_maxrange = 3
-	spray_currentrange = 3
+	spray_maxrange = 4
+	spray_currentrange = 4
 	volume = 450
 
 /obj/item/reagent_containers/spray/blue_cleaner/get_ru_names()
