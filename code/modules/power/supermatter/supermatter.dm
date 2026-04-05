@@ -1123,9 +1123,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	COOLDOWN_START(src, common_radio_cooldown, SUPERMATTER_COMMON_RADIO_DELAY)
 	return TRUE
 
-/obj/machinery/power/supermatter_crystal/attack_ai(mob/user)
-	return
-
 ///obj/machinery/power/supermatter_crystal/proc/holiday_lights()
 //	holiday_lights = TRUE
 //	RegisterSignal(src, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(holiday_item_interaction))

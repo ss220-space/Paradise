@@ -77,7 +77,7 @@
 			return ATTACK_CHAIN_BLOCKED
 
 		to_chat(user, span_danger("You extract a sliver from \the [src]. \The [src] begins to react violently!"))
-		new /obj/item/nuke_core/supermatter_sliver(src.drop_location())
+		new /obj/item/nuke_core/supermatter_sliver(get_turf(user))
 		supermatter_sliver_removed = TRUE
 		external_power_trickle += 800
 		log_activation(who = user, how = scalpel)
@@ -138,3 +138,6 @@
 /obj/machinery/power/supermatter_crystal/proc/consume_callback(matter_increase, damage_increase)
 	external_power_trickle += matter_increase
 	external_damage_immediate += damage_increase
+
+/obj/machinery/power/supermatter_crystal/attack_ai(mob/user)
+	return
