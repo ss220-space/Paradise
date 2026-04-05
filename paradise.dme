@@ -2262,6 +2262,7 @@
 #include "code\modules\assembly\shock_kit.dm"
 #include "code\modules\assembly\signaler.dm"
 #include "code\modules\assembly\timer.dm"
+#include "code\modules\assembly\tripwire.dm"
 #include "code\modules\assembly\voice.dm"
 #include "code\modules\asset_cache\asset_cache_client.dm"
 #include "code\modules\asset_cache\asset_cache_item.dm"
