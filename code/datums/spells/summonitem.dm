@@ -61,19 +61,14 @@
 	if(reason)
 		to_chat(target, span_notice(reason))
 
-/obj/effect/proc_holder/spell/summonitem/proc/find_item_in_any_mob()
-	if(is_internal_organ(marked_item))
-		var/obj/item/organ/internal/organ = marked_item
-		if(organ.owner && iscarbon(organ.owner))
-			return list(organ, organ.owner, "internal_organ")
-
-	if(isexternalorgan(marked_item))
-		var/obj/item/organ/external/organ = marked_item
-		if(organ.owner && iscarbon(organ.owner))
-			return list(organ, organ.owner, "external_organ")
-
-	return null
-
+/obj/effect/proc_holder/spell/summonitem/proc/extract_internal_organ(obj/item/organ/internal/internal_organ, mob/owner)
+	if(!ismob(owner))
+		return null
+	internal_organ.remove(owner)
+	var/turf/organ_turf = get_turf(owner)
+	if(organ_turf)
+		internal_organ.forceMove(organ_turf)
+	return organ_turf
 
 /obj/effect/proc_holder/spell/summonitem/proc/do_instant_summon(mob/living/target, mob/user)
 	var/obj/item_to_retrieve = marked_item
@@ -83,11 +78,30 @@
 		unlink_item_to_spell(target, user, null)
 		return
 
+	// Internal organs have loc = null, check this case first
+	if(is_internal_organ(item_to_retrieve))
+		var/obj/item/organ/internal/internal_organ = item_to_retrieve
+		if(internal_organ.owner)
+			var/mob/living/owner_mob = internal_organ.owner
+			extract_internal_organ(internal_organ, owner_mob)
+			teleport_item_to_target(internal_organ, target, owner_mob)
+			return
+
 	if(isturf(item_to_retrieve.loc))
 		if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 			to_chat(target, span_warning("Неизвестная сила мешает призвать отмеченный предмет!"))
 			return
 		teleport_item_to_target(item_to_retrieve, target)
+		return
+
+	if(isexternalorgan(item_to_retrieve))
+		var/obj/item/organ/external/external_organ = item_to_retrieve
+		if(ismob(external_organ.loc))
+			var/mob/item_owner = external_organ.loc
+			var/atom/movable/thing = external_organ.droplimb(1, DROPLIMB_SHARP)
+			if(thing)
+				thing.forceMove(get_turf(item_owner))
+				teleport_item_to_target(thing, target)
 		return
 
 	if(!isturf(item_to_retrieve.loc) && item_to_retrieve.loc)
@@ -102,19 +116,11 @@
 			if(ismob(item_to_retrieve.loc))
 				var/mob/item_owner = item_to_retrieve.loc
 
-				if(isexternalorgan(item_to_retrieve))
-					var/obj/item/organ/external/external_organ = item_to_retrieve
-					var/atom/movable/thing = external_organ.droplimb(1, DROPLIMB_SHARP)
-					if(thing)
-						thing.forceMove(get_turf(item_owner))
-					break
-
 				if(is_internal_organ(item_to_retrieve))
 					var/obj/item/organ/internal/internal_organ = item_to_retrieve
 					if(ismob(item_owner))
 						organ_owner_for_teleport = item_owner
-						internal_organ.remove(item_owner)
-						internal_organ.forceMove(get_turf(item_owner))
+						extract_internal_organ(internal_organ, item_owner)
 					break
 
 				if(ishuman(item_owner))
@@ -145,28 +151,7 @@
 			teleport_item_to_target(item_to_retrieve, target, organ_owner_for_teleport)
 		return
 
-	var/list/found = find_item_in_any_mob()
-	if(found)
-		var/obj/item/found_item = found[1]
-		var/mob/living/carbon/owner_mob = found[2]
-		var/location_type = found[3]
-		var/turf/item_turf = get_turf(owner_mob)
-
-		if(location_type == "internal_organ")
-			var/obj/item/organ/internal/internal_organ = found_item
-			internal_organ.remove(owner_mob)
-			if(item_turf)
-				internal_organ.forceMove(item_turf)
-			teleport_item_to_target(internal_organ, target, owner_mob)
-			return
-
-		if(location_type == "external_organ")
-			var/obj/item/organ/external/external_organ = found_item
-			external_organ.droplimb(1, DROPLIMB_SHARP)
-			teleport_item_to_target(external_organ, target)
-			return
-
-	if(item_to_retrieve.loc && item_to_retrieve.forceMove(item_to_retrieve.loc))
+	if(item_to_retrieve.loc && item_to_retrieve.forceMove(get_turf(target)))
 		teleport_item_to_target(item_to_retrieve, target)
 		return
 
