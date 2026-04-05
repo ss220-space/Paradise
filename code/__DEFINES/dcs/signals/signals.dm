@@ -1591,3 +1591,7 @@
 #define COMSIG_ACCOUNT_SUSPENDED "account_suspended"
 /// Signal about account unfreezing (argument: account)
 #define COMSIG_ACCOUNT_UNSUSPENDED "account_unsuspended"
+/// Called on tripwire activation (/obj/item/tripwire)
+#define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
+// Called on payload installing at tripwire
+#define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"
