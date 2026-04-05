@@ -109,3 +109,6 @@
 	var/emp_damage_multiplier_internal = 1
 	/// EMP damage multiplier for external organs
 	var/emp_damage_multiplier_external = 1
+
+	/// Bleeding bodyparts (optimisation)
+	var/list/bleeding_bodyparts = list()
