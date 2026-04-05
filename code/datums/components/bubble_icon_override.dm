@@ -5,7 +5,7 @@
  */
 /datum/component/bubble_icon_override
 	dupe_mode = COMPONENT_DUPE_ALLOWED
-	can_transfer = TRUE
+	can_transfer = TRUE //sure why not
 	/// The override to the default bubble icon for the atom
 	var/bubble_icon
 	/// The priority of this bubble icon compared to others
@@ -25,6 +25,7 @@
 	if(isclothing(parent))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
 		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_dropped))
+		// For accessories, also track movement and uniform signals
 		if(isaccessory(parent))
 			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_accessory_moved))
 			update_uniform_monitoring()
