@@ -268,14 +268,16 @@
 	if(QDELETED(target_base) || target_base.loc != initial_target_loc || z != target_base.z || is_active || target_base.is_active || QDELETED(cable) || cable.amount < needed_cable)
 		return
 
-	if(connect_to(target_base, cable))
-		if(user.mind)
-			var/datum/weakref/mind_weakref = WEAKREF(user.mind)
-			creator_mind = mind_weakref
-			target_base.creator_mind = mind_weakref
+	if(!connect_to(target_base, cable))
+		return
 
-		to_chat(user, span_notice("Вы успешно натянули провод между растяжками."))
-		cable.use(needed_cable)
+	if(user.mind)
+		var/datum/weakref/mind_weakref = WEAKREF(user.mind)
+		creator_mind = mind_weakref
+		target_base.creator_mind = mind_weakref
+
+	to_chat(user, span_notice("Вы успешно натянули провод между растяжками."))
+	cable.use(needed_cable)
 
 /obj/item/tripwire/proc/connect_to(obj/item/tripwire/target, obj/item/stack/cable_coil/cable)
 	linked_to = target
