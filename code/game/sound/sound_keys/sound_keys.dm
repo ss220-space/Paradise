@@ -648,3 +648,10 @@
 		'sound/machines/sm/accent/normal/32.ogg',
 		'sound/machines/sm/accent/normal/33.ogg',
 	)
+
+/datum/sound_effect/polaroid
+	key = SFX_POLAROID_PHOTO_PRINTING
+	file_paths = list(
+		'sound/items/polaroid1.ogg',
+		'sound/items/polaroid2.ogg',
+	)
