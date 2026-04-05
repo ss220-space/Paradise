@@ -224,7 +224,7 @@
 	var/list/skins = list()
 	for(var/I in bible_variants)
 		var/icons = bible_variants[I] // Get the accociated list
-		var/image/bible_image = image('icons/obj/library.dmi', icon_state = icons["state"])
+		var/image/bible_image = image('icons/obj/library/books.dmi', icon_state = icons["state"])
 		skins[I] = bible_image
 
 	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), user), TRUE)

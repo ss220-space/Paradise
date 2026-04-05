@@ -6,7 +6,8 @@
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
 	icon = 'icons/obj/library/machines.dmi'
-	icon_state = "bigscanner"
+	icon_state = "photocopier_closed"
+	base_icon_state = "photocopier"
 	anchored = TRUE
 	density = TRUE
 	idle_power_usage = 30
@@ -17,7 +18,7 @@
 
 	COOLDOWN_DECLARE(copying_cooldown)
 
-	var/insert_anim = "bigscanner_work"
+	var/insert_anim = "photocopier_paper_load-in"
 	///Is the photocopier performing an action currently?
 	var/copying = FALSE
 
@@ -97,6 +98,22 @@
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
 	forms = new
+
+/obj/machinery/photocopier/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state]_[toner > 0 	|| max_copies_reached ? "closed" : "open"]"
+
+/obj/machinery/photocopier/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(copyitem)
+		. += "photocopier_loaded"
+	if(copying)
+		underlays += emissive_appearance(icon, "photocopier_work_lightmask", src)
+	underlays += emissive_appearance(icon, "photocopier_lightmask", src)
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	src.add_hiddenprint(user)
@@ -314,6 +331,7 @@
 		copyitem.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_hands(copyitem)
+		flick_overlay_view(mutable_appearance(icon, "photocopier_load-out"),  1 SECONDS)
 		to_chat(usr, span_notice("Вы вынимаете [copyitem.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 		copyitem = null
 
@@ -344,20 +362,32 @@
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
+		playsound(src, 'sound/machines/lock_2.ogg', 25)
+		flick(icon, "[base_icon_state]_opening")
+		update_appearance(UPDATE_ICON_STATE)
 	if(copying) //are we in the process of copying something already?
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
 		balloon_alert(usr, "недостаточно чернил!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
+		playsound(src, 'sound/machines/lock_2.ogg', 25)
+		flick(icon, "[base_icon_state]_opening")
+		update_appearance(UPDATE_ICON_STATE)
 		return FALSE
 	if(max_copies_reached)
 		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
 		return FALSE
+		playsound(src, 'sound/machines/lock_2.ogg', 25)
+		flick(icon, "[base_icon_state]_opening")
+		update_appearance(UPDATE_ICON_STATE)
 	if(total_copies >= MAX_COPIES_PRINTABLE)
 		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
+		playsound(src, 'sound/machines/lock_2.ogg', 25)
+		flick(icon, "[base_icon_state]_opening")
+		update_appearance(UPDATE_ICON_STATE)
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
 		balloon_alert(usr, "сканер пуст!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается красная лампочка, обозначая то, что в устройстве нечего копировать."))
@@ -442,6 +472,8 @@
 		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)] в связи с тем, что лимит сохранённых файлов был достигнут. Для продолжения операции освободите память устройства."))
 		return
 	copying = TRUE
+	flick_overlay_view(mutable_appearance(emissive_appearance(icon, "photocopier_work_lightmask", src)), 4 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, "photocopier_work"), 4 SECONDS)
 	var/obj/item/O
 	//Instead of calling copy() we jump ahead and use the procs that do the heavy lifting to avoid using toner since we're only scanning
 	if(istype(copyitem, /obj/item/paper))
@@ -462,6 +494,7 @@
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Документ успешно отсканирован!", FALSE)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -629,6 +662,7 @@
 
 	toner--
 	copying = TRUE
+	flick_overlay_view(mutable_appearance(icon, "photocopier_work"), 4 SECONDS)
 	playsound(loc, pick(print_sounds), 50)
 	use_power(active_power_usage)
 	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
@@ -652,7 +686,8 @@
 			return ..()
 		copyitem = I
 		to_chat(user, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-		flick(insert_anim, src)
+		flick_overlay_view(mutable_appearance(icon, "photocopier_load-in"), 1 SECONDS)
+		update_appearance(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/toner))
@@ -665,6 +700,9 @@
 			return ..()
 		balloon_alert(user, "вставлено")
 		src.toner += toner.toner_amount
+		flick(icon, "[base_icon_state]_closing")
+		update_appearance(UPDATE_ICON_STATE)
+		playsound(src, 'sound/machines/lock_2.ogg', 25)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

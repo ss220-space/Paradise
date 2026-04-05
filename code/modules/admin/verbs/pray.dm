@@ -13,14 +13,14 @@
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
-	var/image/cross = image('icons/obj/library.dmi',"bible")
+	var/image/cross = image('icons/obj/library/books.dmi',"bible")
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
 	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker?.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
-		cross = image('icons/obj/library.dmi',"bible_kingyellow")
+		cross = image('icons/obj/library/books.dmi',"bible_kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
 	else if(iscultist(usr))
