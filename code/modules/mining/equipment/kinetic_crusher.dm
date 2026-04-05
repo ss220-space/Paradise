@@ -711,7 +711,7 @@
 	)
 
 /obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
-	return "После взрыва метки, позволяет вам совершить рывок на <b>3</b> клетки, если вы находитесь в намерении помощи"
+	return "После взрыва метки позволяет совершить рывок на <b>3</b> клетки, если вы находитесь в намерении помощи"
 
 /obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_DASH)
