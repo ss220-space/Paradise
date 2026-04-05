@@ -86,7 +86,7 @@
 
 	. = ATTACK_CHAIN_PROCEED
 
-	if(!ishuman(user) || SSticker?.mode.name != "monkey")	//don't have dexterity
+	if(ismonkey(user))
 		balloon_alert(user, "вы слишком неуклюжи!")
 		return .
 
