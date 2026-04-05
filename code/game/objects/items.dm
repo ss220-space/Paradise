@@ -1508,7 +1508,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(resistance_flags & ON_FIRE)
 		return max(heat, BURNING_ITEM_MINIMUM_TEMPERATURE)
 	return heat
-	
+
 /**
  * Updates all action buttons associated with this item
  *
@@ -1519,3 +1519,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/update_item_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
 		current_action.build_all_button_icons(update_flags, force)
+
+/// What item does if activated when attached to tripwire
+/obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	SIGNAL_HANDLER
+	return
