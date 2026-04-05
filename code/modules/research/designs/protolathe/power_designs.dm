@@ -115,7 +115,7 @@
 	id = "diode_disk_incendiary"
 	build_type = PROTOLATHE
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_POWERSTORAGE = 5)
-	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS =SMALL_MATERIAL_AMOUNT, MAT_DIAMOND = SMALL_MATERIAL_AMOUNT * 0.5, MAT_PLASMA = SMALL_MATERIAL_AMOUNT * 2)
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_DIAMOND = SMALL_MATERIAL_AMOUNT * 0.5, MAT_PLASMA = SMALL_MATERIAL_AMOUNT * 2)
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/incendiary
 	category = list(
@@ -126,7 +126,7 @@
 	id = "diode_disk_sanity"
 	build_type = PROTOLATHE
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 5)
-	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS =SMALL_MATERIAL_AMOUNT, MAT_URANIUM = SMALL_MATERIAL_AMOUNT * 0.5) //Uranium, the metal of love and warmth (from decay heat).
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_URANIUM = SMALL_MATERIAL_AMOUNT * 0.5) //Uranium, the metal of love and warmth (from decay heat).
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/sanity
 	category = list(
@@ -142,4 +142,21 @@
 	build_path = /obj/item/emitter_disk/magnetic
 	category = list(
 		PROTOLATHE_CATEGORY_EQUIPMENT,
+	)
+
+/datum/design/diode_disk_blast
+	id = "diode_disk_blast"
+	build_type = PROTOLATHE
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ILLEGAL = 5, RESEARCH_TREE_ENGINEERING = 5)
+	materials = list(
+		MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5,
+		MAT_GLASS = SMALL_MATERIAL_AMOUNT,
+		MAT_TITANIUM = SMALL_MATERIAL_AMOUNT * 0.5,
+		MAT_URANIUM = SMALL_MATERIAL_AMOUNT * 0.5,
+		MAT_GOLD = SMALL_MATERIAL_AMOUNT
+	)
+	construction_time = 0.5 SECONDS
+	build_path = /obj/item/emitter_disk/blast
+	category = list(
+		PROTOLATHE_CATEGORY_ILLEGAL,
 	)

@@ -536,7 +536,7 @@
 	desc = "A diode configuration disk that allows an emitter to shoot potent explosive lasers. \
 	Please note that this will halve the fire-rate of the emitter."
 	item = /obj/item/emitter_disk/blast
-	cost = 5
+	cost = 10
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/uplink_item/jobspecific/supertoolbox
