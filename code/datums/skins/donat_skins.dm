@@ -300,3 +300,17 @@
 /datum/item_skin_data/doublebarrel/rosewood
 	name = "Палисандровый"
 	icon_state = "dshotgun-p"
+
+//MARK: Riot shotgun
+/datum/item_skin_data/riotshotgun
+	item_path = /obj/item/gun/projectile/shotgun/riot
+
+/datum/item_skin_data/riotshotgun/default
+	name = "Помповый дробовик"
+	icon_state = "riotshotgun"
+	donation_tier = 1
+
+/datum/item_skin_data/riotshotgun/winchester1887
+	name = "Рычажный дробовик"
+	icon_state = "winchester"
+	donation_tier = 1

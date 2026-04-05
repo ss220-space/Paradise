@@ -19,6 +19,10 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
 
+/obj/item/gun/projectile/shotgun/riot/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
