@@ -18,6 +18,8 @@
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
+	var/reload_sound = 'sound/weapons/gun_interactions/shotgunpump.ogg'
+	var/reload_sound_volume = 60
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
@@ -42,7 +44,7 @@
 	pump(user)
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	playsound(M, reload_sound, reload_sound_volume, FALSE)
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc

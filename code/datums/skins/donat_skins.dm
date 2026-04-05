@@ -334,3 +334,12 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
 	)
+
+
+/datum/item_skin_data/gun/riotshotgun/winchester1887/on_apply(obj/item/target)
+	. = ..()
+	var/obj/item/gun/projectile/shotgun/riot/shotgun = target
+	if(!istype(shotgun))
+		return
+	shotgun.reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
+	shotgun.reload_sound_volume = 100
