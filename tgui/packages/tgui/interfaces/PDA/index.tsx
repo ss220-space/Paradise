@@ -4,6 +4,13 @@ import { Box, Button, Section, Icon } from '../../components';
 import { Window } from '../../layouts';
 import { routingError } from '../../routes';
 
+const PDA_UI = {
+  window: {
+    width: 580,
+    height: 850,
+  },
+};
+
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
@@ -58,7 +65,7 @@ export const PDA = () => {
 
   if (!owner) {
     return (
-      <Window width={350} height={105}>
+      <Window width={PDA_UI.window.width} height={PDA_UI.window.height}>
         <Window.Content>
           <Section title="Ошибка">
             Не найден пользователь. Пожалуйста, обновите данные через ID-карту.
@@ -73,7 +80,11 @@ export const PDA = () => {
   const theme = THEME_MAP[app.template] || data.current_theme || 'nanotrasen';
 
   return (
-    <Window width={750} height={950} theme={theme}>
+    <Window
+      width={PDA_UI.window.width}
+      height={PDA_UI.window.height}
+      theme={theme}
+    >
       <Window.Content style={{ padding: 0 }}>
         <Box
           style={{
