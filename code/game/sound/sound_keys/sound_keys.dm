@@ -564,6 +564,7 @@
 		'sound/effects/arrow_miss_3.ogg',
 		'sound/effects/arrow_miss_4.ogg',
 		'sound/effects/arrow_miss_5.ogg',
+	)
 
 /datum/sound_effect/polaroid
 	key = SFX_POLAROID_PHOTO_PRINTING
