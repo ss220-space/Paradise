@@ -51,7 +51,7 @@
 /obj/item/mimejutsu_scroll
 	name = "Mimejutsu manual"
 	desc =	"Старое пособие по боевому искусству мимов."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "mimemanual"
 	item_state = "mimemanual"
 	var/used = FALSE

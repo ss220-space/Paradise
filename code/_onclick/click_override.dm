@@ -21,7 +21,7 @@
 /obj/item/badminBook/
 	name = "old book"
 	desc = "An old, leather bound tome."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "book"
 	var/datum/middleClickOverride/clickBehavior = new /datum/middleClickOverride/badminClicker
 

@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/libraryscanner
 	name = "scanner"
 	desc = "Крупная машина для сканирования печатной литературы."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
 	density = TRUE
@@ -222,7 +222,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/bookbinder
 	name = "Book Binder"
 	desc = "Крупное устройство для скрепления листов бумаги в книжный переплёт."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/machines.dmi'
 	icon_state = "binder"
 	anchored = TRUE
 	density = TRUE

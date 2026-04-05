@@ -728,7 +728,7 @@
 	name = "spell book"
 	desc = "Легендарная книга заклинаний, используемая могущественными магами."
 	gender = FEMALE
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "spellbook"

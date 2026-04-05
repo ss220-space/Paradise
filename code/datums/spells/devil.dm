@@ -545,7 +545,7 @@
 	name = "Информация о дьяволе"
 	desc = "Позволяет вам узнать о своих слабостях, а так же о вашем прогрессе в повышении ранга."
 
-	action_icon = 'icons/obj/library.dmi'
+	action_icon = 'icons/obj/library/books.dmi'
 	action_icon_state = "demonomicon"
 
 	clothes_req = FALSE

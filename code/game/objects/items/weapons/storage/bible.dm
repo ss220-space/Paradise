@@ -4,7 +4,7 @@
 	gender = FEMALE
 	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5

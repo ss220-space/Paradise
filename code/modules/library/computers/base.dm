@@ -3,7 +3,7 @@
 /obj/machinery/computer/library
 	name = "visitor computer"
 	desc = "Старый библиотечный компьютер с ограниченным функционалом — специально для посетителей книжного храма."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/machines.dmi'
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null

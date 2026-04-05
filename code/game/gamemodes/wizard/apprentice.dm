@@ -89,7 +89,7 @@
 /obj/item/contract/apprentice_choose_book
 	name = "магический учебник"
 	desc = "Магический учебник, позволяющий ученику-владельцу определиться в своем обучении."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "book15"
 
 	var/mob/living/carbon/human/owner

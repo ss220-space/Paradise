@@ -120,7 +120,7 @@
 /obj/item/book_of_babel
 	name = "Book of Babel"
 	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "book1"
 	w_class = 2
 

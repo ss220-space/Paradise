@@ -14,7 +14,7 @@
 	name = "bookcase"
 	desc = "Большой книжный шкаф."
 	gender = MALE
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/machines.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
 	density = TRUE
@@ -220,7 +220,7 @@
 	name = "book"
 	desc = "Напечатанная книга в твёрдом переплёте."
 	gender = FEMALE
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "book"
@@ -423,7 +423,7 @@
 	name = "barcode scanner"
 	desc = "Небольшое устройство для считывания штрих-кода с книг."
 	gender = MALE
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "scanner"

@@ -5,7 +5,7 @@
 /obj/machinery/photocopier
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/machines.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
 	density = TRUE

@@ -468,7 +468,7 @@
 /obj/item/CQC_manual
 	name = "old manual"
 	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "cqcmanual"
 	item_state = "cqcmanual"
 
@@ -566,7 +566,7 @@
 	name = "\"Aggressive Marketing Technique\""
 	desc = "Лишь беглый взгляд по обложке этого журнала принёс вам 23 кредита чистой прибыли! О как!"
 	gender = MALE
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "mr_cheng_manual"
 	item_state = "mr_cheng_manual"
 
@@ -596,7 +596,7 @@
 	name = "Commandos knife techniques manual"
 	desc = "Тонкая чёрная книжка. На обложке изображён мужчина с ножами в руках. \nСодержит руководство по изучению техники владения ножами с наглядной демонстрацией применения приёмов."
 	gender = MALE
-	icon = 'icons/obj/library.dmi'
+	icon = 'icons/obj/library/books.dmi'
 	icon_state = "throwingknives"
 	item_state = "throwingknives"
 
