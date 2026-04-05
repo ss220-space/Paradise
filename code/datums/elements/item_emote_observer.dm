@@ -15,6 +15,7 @@
 	RegisterSignal(target, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 /datum/element/item_emote_observer/Detach(datum/target)
+	. = ..()
 	UnregisterSignal(target, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 
 /datum/element/item_emote_observer/proc/on_equip(datum/source, mob/user, slot)
