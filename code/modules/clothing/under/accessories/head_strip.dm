@@ -6,6 +6,8 @@
 	gender = FEMALE
 	/// Russian name of the strip for localization (without quotes, just the keyword)
 	var/strip_ru_name = null
+	/// Cooldown for fluff attack
+	COOLDOWN_DECLARE(fluff_cooldown)
 
 /obj/item/clothing/accessory/head_strip/Initialize(mapload)
 	. = ..()
@@ -24,6 +26,10 @@
 	fluff_attack_self_action(user)
 
 /obj/item/clothing/accessory/head_strip/proc/fluff_attack_self_action(mob/user)
+	if(!COOLDOWN_FINISHED(src, fluff_cooldown))
+		return
+
+	COOLDOWN_START(src, fluff_cooldown, 5 SECONDS)
 	balloon_alert_to_viewers("показыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "[declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
