@@ -7,12 +7,16 @@
 	var/icon = null
 	/// Skin icon_state
 	var/icon_state
+	/// Inhands item state
+	var/item_state
 	/// Icon for radial menu (if null - use icon_state)
 	var/menu_icon_state = null
 	/// Minimal donater tier (0 for allow all players)
 	var/donation_tier = 0
 
 /datum/item_skin_data/proc/on_apply(obj/item/target)
+	if(item_state)
+		target.item_state = item_state
 	return TRUE
 
 
@@ -21,8 +25,9 @@
 	var/attachable_offset = null
 
 /datum/item_skin_data/gun/on_apply(obj/item/target)
+	. = ..()
 	if(!isgun(target))
-		return FALSE
+		return
 	var/obj/item/gun/gun = target
 	if(attachable_offset)
 		gun.attachable_offset = attachable_offset
@@ -328,6 +333,7 @@
 /datum/item_skin_data/gun/riotshotgun/winchester1887
 	name = "Рычажный дробовик"
 	icon_state = "winchester"
+	item_state = "winchester"
 	donation_tier = 1
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
