@@ -169,7 +169,7 @@
 
 /obj/item/lighter/zippo/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/emote_observer, emote_key = "twirl")
+	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)

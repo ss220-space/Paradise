@@ -347,4 +347,4 @@
 	if(!istype(shotgun))
 		return
 	shotgun.reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
-	shotgun.AddComponent(/datum/component/emote_observer, emote_key = "twirl")
+	shotgun.AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
