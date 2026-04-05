@@ -577,6 +577,13 @@
 	if(!SSdbcore.IsConnected())
 		return
 
+	#ifdef FAST_LOAD
+	if(TRUE)
+		donator_level = DONATOR_LEVEL_MAX
+		donor_loadout_points()
+		return
+	#endif
+
 	if(check_rights(R_ADMIN, FALSE, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
 		donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
