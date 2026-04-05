@@ -126,15 +126,15 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /// [/obj/machinery/power/supermatter_crystal/process_atmos]
 /datum/sm_delam/proc/filters(obj/machinery/power/supermatter_crystal/sm)
 	var/new_filter = isnull(sm.get_filter("ray"))
-
+	var/cached_internal_energy = sm.internal_energy
+	var/cached_damage = sm.damage
 	sm.add_filter(name = "ray", priority = 1, params = list(
 		type = "rays",
-		size = clamp(sm.internal_energy / 50, 1, 100),
+		size = cached_internal_energy ? clamp((cached_damage / 100) * cached_internal_energy, 50, 125) : 1,
 		color = (sm.gas_heat_power_generation > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR),
-		factor = clamp(sm.damage / 10, 1, 10),
-		density = clamp(sm.damage, 12, 100)
+		factor = clamp(cached_damage / 600, 1, 10),
+		density =  clamp(cached_damage / 10, 12, 100)
 	))
-
 	// Filter animation persists even if the filter itself is changed externally.
 	// Probably prone to breaking. Treat with suspicion.
 	if(new_filter)
@@ -144,11 +144,12 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 // Change how bright the rock is.
 /// [/obj/machinery/power/supermatter_crystal/process_atmos]
 /datum/sm_delam/proc/lights(obj/machinery/power/supermatter_crystal/sm)
+	var/cached_internal_energy = sm.internal_energy
 	sm.set_light(
-		l_range = ROUND_UP(clamp(sm.internal_energy / 500, 4, 10)),
-		l_power = ROUND_UP(clamp(sm.internal_energy / 1000, 1, 5)),
+		l_range = 4 + cached_internal_energy / 200,
+		l_power = 1 + cached_internal_energy / 1000,
 		l_color = sm.gas_heat_power_generation > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR,
-		l_on = !!sm.internal_energy,
+		l_on = !!cached_internal_energy,
 	)
 
 /// Returns a set of messages to be spouted during delams
