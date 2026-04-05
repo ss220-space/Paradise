@@ -25,31 +25,31 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
     <Button
       color="transparent"
       onClick={onClick}
+      width="90px"
       style={{
-        width: '90px',
         padding: '4px',
         display: 'flex',
         justifyContent: 'center',
       }}
     >
       <Box
+        width="100%"
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          width: '100%',
         }}
       >
         <Box
+          position="relative"
+          width="58px"
+          height="58px"
+          mb="6px"
           style={{
-            position: 'relative',
-            width: '58px',
-            height: '58px',
             borderRadius: '16px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: '6px',
             background: 'rgba(255,255,255,0.04)',
             border: '1px solid rgba(255,255,255,0.06)',
           }}
@@ -64,12 +64,12 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
 
           {isNotifying && (
             <Box
+              position="absolute"
+              top="3px"
+              right="3px"
+              width="10px"
+              height="10px"
               style={{
-                position: 'absolute',
-                top: '3px',
-                right: '3px',
-                width: '10px',
-                height: '10px',
                 borderRadius: '50%',
                 background: '#ff4d4f',
                 boxShadow: '0 0 6px rgba(255,77,79,0.7)',
@@ -79,14 +79,14 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
         </Box>
 
         <Box
+          fontSize="9px"
+          width="100%"
+          color="#ddd"
+          textAlign="center"
+          minHeight="24px"
           style={{
-            fontSize: '9px',
-            width: '100%',
-            color: '#ddd',
-            textAlign: 'center',
             lineHeight: '1.2',
             wordBreak: 'break-word',
-            minHeight: '24px',
           }}
         >
           {app.name}
@@ -109,9 +109,9 @@ export const pda_main_menu = () => {
   return (
     <Box style={{ padding: '10px' }}>
       <Box
+        mb="10px"
+        p="10px"
         style={{
-          marginBottom: '10px',
-          padding: '10px',
           borderRadius: '10px',
         }}
       >
