@@ -23,65 +23,75 @@ GLOBAL_LIST_EMPTY(all_radios)
 		GLOB.all_radios["[freq]"] -= radio
 
 /datum/radio_frequency
-	var/frequency as num
-	var/list/obj/devices = list()
+	/// The frequency of this radio frequency. Of course.
+	var/frequency
+	/// List of filters -> list of devices
+	var/list/list/datum/weakref/devices = list()
 	var/custom = FALSE
 
+/// If range > 0, only post to devices on the same z_level and within range
+/// Use range = -1, to restrain to the same z_level without limiting range
 /datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)
+	// If checking range, find the source turf
 	var/turf/start_point
 	if(range)
 		start_point = get_turf(source)
 		if(!start_point)
 			qdel(signal)
-			return 0
+			return
+
 	if(filter)
 		send_to_filter(source, signal, filter, start_point, range)
-		send_to_filter(source, signal, RADIO_DEFAULT, start_point, range)
 	else
-		//Broadcast the signal to everyone!
-		for(var/next_filter in devices)
-			send_to_filter(source, signal, next_filter, start_point, range)
+		send_to_filter(source, signal, RADIO_DEFAULT, start_point, range)
 
-//Sends a signal to all machines belonging to a given filter. Should be called by post_signal()
+	// Broadcast the signal to everyone!
+	for(var/next_filter in devices)
+		send_to_filter(source, signal, next_filter, start_point, range)
+
+/// Sends a signal to all machines belonging to a given filter. Should be called by post_signal()
 /datum/radio_frequency/proc/send_to_filter(obj/source, datum/signal/signal, filter, turf/start_point = null, range = null)
 	if(range && !start_point)
 		return
 
-	for(var/obj/device in devices[filter])
+	for(var/datum/weakref/device_ref as anything in devices[filter])
+		var/obj/device = device_ref.resolve()
+		if(!device)
+			devices[filter] -= device_ref
+			continue
 		if(device == source)
 			continue
 		if(range)
 			var/turf/end_point = get_turf(device)
 			if(!end_point)
 				continue
-			if(start_point.z!=end_point.z || get_dist(start_point, end_point) > range)
+			if(start_point.z != end_point.z || get_dist(start_point, end_point) > range)
 				continue
 
 		device.receive_signal(signal, TRANSMISSION_RADIO, frequency)
 
-/datum/radio_frequency/proc/add_listener(obj/device as obj, filter as text|null)
+/// Handles adding a listener to the radio frequency.
+/datum/radio_frequency/proc/add_listener(obj/device, filter)
 	if(!filter)
 		filter = RADIO_DEFAULT
-	//log_admin("add_listener(device=[device],filter=[filter]) frequency=[frequency]")
-	var/list/obj/devices_line = devices[filter]
-	if(!devices_line)
-		devices_line = new
-		devices[filter] = devices_line
-	devices_line+=device
-//			var/list/obj/devices_line___ = devices[filter_str]
-//			var/l = devices_line___.len
-	//log_admin("DEBUG: devices_line.len=[length(devices_line)]")
-	//log_admin("DEBUG: devices(filter_str).len=[l]")
 
+	var/datum/weakref/new_listener = WEAKREF(device)
+	if(isnull(new_listener))
+		return stack_trace("null, non-datum, or qdeleted device")
+	var/list/devices_line = devices[filter]
+	if(!devices_line)
+		devices[filter] = devices_line = list()
+	devices_line += new_listener
+
+/// Handles removing a listener from this radio frequency.
 /datum/radio_frequency/proc/remove_listener(obj/device)
 	for(var/devices_filter in devices)
 		var/list/devices_line = devices[devices_filter]
-		devices_line-=device
-		while(null in devices_line)
-			devices_line -= null
-		if(devices_line.len==0)
+		if(!devices_line)
 			devices -= devices_filter
-			qdel(devices_line)
+		devices_line -= WEAKREF(device)
+		if(!length(devices_line))
+			devices -= devices_filter
 
 /datum/signal
 	var/obj/source
