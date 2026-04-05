@@ -116,8 +116,6 @@
 				l_color = "#ddd6cf",
 			)
 
-
-
 /// When we have too much power.
 /datum/sm_delam/tesla
 
@@ -146,7 +144,6 @@
 	effect_tesla(sm)
 	effect_explosion(sm)
 	return ..()
-
 
 /datum/sm_delam/tesla/filters(obj/machinery/power/supermatter_crystal/sm)
 	..()
