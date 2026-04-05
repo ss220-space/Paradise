@@ -4,9 +4,10 @@
 	icon_state = null
 	item_state = null
 	gender = FEMALE
-	/// Russian name of the strip for localization (without quotes, just the keyword)
+	actions_types = list(/datum/action/item_action/show_head_strip)
+	/// Name in Russian of the accessory without quotes, just the keyword
 	var/strip_ru_name = null
-	/// Cooldown for fluff attack
+	/// Cooldown for displaying accessory
 	COOLDOWN_DECLARE(fluff_cooldown)
 
 /obj/item/clothing/accessory/head_strip/Initialize(mapload)
@@ -26,11 +27,13 @@
 	fluff_attack_self_action(user)
 
 /obj/item/clothing/accessory/head_strip/proc/fluff_attack_self_action(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(!COOLDOWN_FINISHED(src, fluff_cooldown))
 		return
 
-	COOLDOWN_START(src, fluff_cooldown, 5 SECONDS)
-	balloon_alert_to_viewers("показыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "[declent_ru(ACCUSATIVE)]")
+	user.balloon_alert_to_viewers("показыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "[declent_ru(NOMINATIVE)]")
+	COOLDOWN_START(src, fluff_cooldown, 1 SECONDS)
 
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	. = ..()
@@ -203,6 +206,7 @@
 	return "lawyer"
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge/fluff_attack_self_action(mob/user)
+	. = ..()
 	if(prob(1))
 		user.say("Показания противоречат доказательствам!")
 	user.point_at(src)
@@ -219,6 +223,7 @@
 	return "cheese"
 
 /obj/item/clothing/accessory/head_strip/cheese_badge/fluff_attack_self_action(mob/user)
+	. = ..()
 	if(prob(1))
 		user.say("СЫЫ-Ы-Ы-Ы-Ы-РР!")
 
