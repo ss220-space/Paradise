@@ -20,6 +20,7 @@
 	recoil = GUN_RECOIL_HIGH
 	var/reload_sound = 'sound/weapons/gun_interactions/shotgunpump.ogg'
 	var/reload_sound_volume = 60
+	var/available_reload_animation = TRUE
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
@@ -48,6 +49,8 @@
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc
+	if(available_reload_animation)
+		flick(icon_state + "_reload", src)
 	return 1
 
 /obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)

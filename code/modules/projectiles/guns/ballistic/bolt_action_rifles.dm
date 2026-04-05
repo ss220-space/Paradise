@@ -19,6 +19,7 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4),
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	available_reload_animation = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, TRUE)
