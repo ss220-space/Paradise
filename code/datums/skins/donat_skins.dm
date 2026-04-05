@@ -12,6 +12,21 @@
 	/// Minimal donater tier (0 for allow all players)
 	var/donation_tier = 0
 
+/datum/item_skin_data/proc/on_apply(obj/item/target)
+	return TRUE
+
+
+/datum/item_skin_data/gun
+	/// Override attachables offset for gun (see more gun.dm)
+	var/attachable_offset = null
+
+/datum/item_skin_data/gun/on_apply(obj/item/target)
+	if(!isgun(target))
+		return FALSE
+	var/obj/item/gun/gun = target
+	if(attachable_offset)
+		gun.attachable_offset = attachable_offset
+		gun.update_attachment_overlays()
 
 //MARK: Security baton
 /datum/item_skin_data/security_baton
@@ -302,15 +317,20 @@
 	icon_state = "dshotgun-p"
 
 //MARK: Riot shotgun
-/datum/item_skin_data/riotshotgun
+/datum/item_skin_data/gun/riotshotgun
 	item_path = /obj/item/gun/projectile/shotgun/riot
 
-/datum/item_skin_data/riotshotgun/default
+/datum/item_skin_data/gun/riotshotgun/default
 	name = "Помповый дробовик"
 	icon_state = "riotshotgun"
 	donation_tier = 1
 
-/datum/item_skin_data/riotshotgun/winchester1887
+/datum/item_skin_data/gun/riotshotgun/winchester1887
 	name = "Рычажный дробовик"
 	icon_state = "winchester"
 	donation_tier = 1
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
+	)

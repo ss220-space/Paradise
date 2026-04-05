@@ -61,14 +61,22 @@
 	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)
 		return
 
-	var/datum/item_skin_data/skin = skin_options[choice]
-	item.current_skin = skin.icon_state
+	var/datum/item_skin_data/selected_skin = null
+	for(var/datum/item_skin_data/skin as anything in item.skins)
+		if(skin.name == choice)
+			selected_skin = skin
+			break
+
+	var/image/skin_image = skin_options[choice]
+	item.current_skin = skin_image.icon_state
 	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин \"[choice]\".")
-	if(skin.icon != null)
-		item.icon = skin.icon
-	item.base_icon_state = skin.icon_state
-	item.icon_state = skin.icon_state
+	if(skin_image.icon != null)
+		item.icon = skin_image.icon
+	item.base_icon_state = skin_image.icon_state
+	item.icon_state = skin_image.icon_state
 	item.exists_skin_change = FALSE
 	item.skins = null
+	if(selected_skin)
+		selected_skin.on_apply(item)
 	item.update_icon()
 	item.update_equipped_item()

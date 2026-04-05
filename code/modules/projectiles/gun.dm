@@ -209,6 +209,20 @@
 	attachment_overlays[module.slot] = overlay
 	update_icon()
 
+/obj/item/gun/proc/update_attachment_overlays()
+	for(var/slot in attachment_overlays)
+		var/image/overlay = attachment_overlays[slot]
+		if(!overlay)
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		var/x_offset = attachable_offset[slot]["x"]
+		var/y_offset = attachable_offset[slot]["y"]
+		if(module.overlay_offset)
+			x_offset += module.overlay_offset["x"]
+			y_offset += module.overlay_offset["y"]
+		overlay.pixel_w = x_offset
+		overlay.pixel_z = y_offset
+
 /obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
 	if(attachment_overlays[module.slot])
 		attachment_overlays[module.slot] = null
