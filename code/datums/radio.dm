@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 		device.receive_signal(signal, TRANSMISSION_RADIO, frequency)
 
 /// Handles adding a listener to the radio frequency.
-/datum/radio_frequency/proc/add_listener(obj/device, filter as text|null)
+/datum/radio_frequency/proc/add_listener(obj/device, filter)
 	if(!filter)
 		filter = RADIO_DEFAULT
 
