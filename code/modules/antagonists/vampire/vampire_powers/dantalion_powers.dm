@@ -174,7 +174,6 @@
 	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
 	centcom_cancast = FALSE
 	action_icon_state = "subspace_swap"
-	base_cooldown = 10 SECONDS
 	required_blood = 15
 	need_active_overlay = TRUE
 
