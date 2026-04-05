@@ -25,9 +25,9 @@
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 6),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -6),
 	)
 	can_air_shoot = FALSE
 
@@ -113,7 +113,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 2),
 	)
 
 // MARK: Tkach Ya-Sui
@@ -128,7 +128,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 2),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 2),
 	)
 
 // MARK: Golder revolver
@@ -152,7 +152,7 @@
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 3),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = 3),
 	)
 
 /obj/item/gun/projectile/revolver/nagant/rusted
@@ -185,7 +185,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
 	)
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
@@ -306,7 +306,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
 	)
 
 // MARK: Improvised .257

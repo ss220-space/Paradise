@@ -336,9 +336,9 @@
 	item_state = "winchester"
 	donation_tier = 1
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -4),
 	)
 
 /datum/item_skin_data/gun/riotshotgun/winchester1887/on_apply(obj/item/target)

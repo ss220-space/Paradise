@@ -67,10 +67,10 @@
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
 	var/list/attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_SIBYL = list("x" = 0, "y" = 0)
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_SIBYL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
@@ -190,8 +190,8 @@
 
 /obj/item/gun/update_overlays()
 	. = ..()
-	for(var/slot in attachment_overlays)
-		var/image/overlay = attachment_overlays[slot]
+	for(var/slot, overlay_value in attachment_overlays)
+		var/image/overlay = overlay_value
 		if(!overlay)
 			continue
 		. += overlay
@@ -199,29 +199,29 @@
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
 	if(overlay && attachable_offset)
-		var/x_offset = attachable_offset[module.slot]["x"]
-		var/y_offset = attachable_offset[module.slot]["y"]
+		var/x_offset = attachable_offset[module.slot][ATTACHMENT_OFFSET_X]
+		var/y_offset = attachable_offset[module.slot][ATTACHMENT_OFFSET_Y]
 		if(module.overlay_offset)
-			x_offset += module.overlay_offset["x"]
-			y_offset += module.overlay_offset["y"]
+			x_offset += module.overlay_offset[ATTACHMENT_OFFSET_X]
+			y_offset += module.overlay_offset[ATTACHMENT_OFFSET_Y]
 		overlay.pixel_w = x_offset
 		overlay.pixel_z = y_offset
 	attachment_overlays[module.slot] = overlay
 	update_icon()
 
 /obj/item/gun/proc/update_attachment_overlays()
-	for(var/slot in attachment_overlays)
-		var/image/overlay = attachment_overlays[slot]
-		if(!overlay)
+	for(var/slot, overlay in attachment_overlays)
+		var/image/overlay_img = overlay
+		if(!overlay_img)
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		var/x_offset = attachable_offset[slot]["x"]
-		var/y_offset = attachable_offset[slot]["y"]
+		var/x_offset = attachable_offset[slot][ATTACHMENT_OFFSET_X]
+		var/y_offset = attachable_offset[slot][ATTACHMENT_OFFSET_Y]
 		if(module.overlay_offset)
-			x_offset += module.overlay_offset["x"]
-			y_offset += module.overlay_offset["y"]
-		overlay.pixel_w = x_offset
-		overlay.pixel_z = y_offset
+			x_offset += module.overlay_offset[ATTACHMENT_OFFSET_X]
+			y_offset += module.overlay_offset[ATTACHMENT_OFFSET_Y]
+		overlay_img.pixel_w = x_offset
+		overlay_img.pixel_z = y_offset
 
 /obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
 	if(attachment_overlays[module.slot])
