@@ -205,26 +205,26 @@
 	else
 		Weaken(stun_duration)
 
-/mob/living/carbon/proc/help_shake_act(mob/living/carbon/helper)
-	if(helper == src && ishuman(src))
+/mob/living/carbon/proc/help_shake_act(mob/living/carbon/shaker)
+	if(shaker == src && ishuman(src))
 		check_self_for_injuries()
 		return
 
 	if(on_fire)
 		var/self_message = span_warning("Вы пытаетесь потушить [name].")
-		if(prob(30) && ishuman(helper)) // 30% chance of burning your hands
-			var/mob/living/carbon/human/human_helper = helper
+		if(prob(30) && ishuman(shaker)) // 30% chance of burning your hands
+			var/mob/living/carbon/human/human_shaker = shaker
 			var/protected = FALSE // Protected from the fire
 
-			if((human_helper.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(human_helper, TRAIT_RESIST_HEAT))
+			if((human_shaker.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(human_shaker, TRAIT_RESIST_HEAT))
 				protected = TRUE
 
 			if(!protected)
-				human_helper.apply_damage(5, BURN, def_zone = human_helper.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				human_shaker.apply_damage(5, BURN, def_zone = human_shaker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
-				human_helper.update_icons()
+				human_shaker.update_icons()
 
-		helper.visible_message(span_warning("[helper] пыта[PLUR_ET_YUT(helper)]ся потушить [name]."), self_message)
+		shaker.visible_message(span_warning("[shaker] пыта[PLUR_ET_YUT(shaker)]ся потушить [name]."), self_message)
 		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		adjust_fire_stacks(-0.5)
 		return
@@ -233,22 +233,22 @@
 		return
 
 	if(player_logged)
-		helper.visible_message(
-			span_notice("[helper] встряхива[PLUR_ET_YUT(helper)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(helper)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."),
-			span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(helper)]. Вероятно, у н[GEND_HIS_HER(src)] КРС.")
+		shaker.visible_message(
+			span_notice("[shaker] встряхива[PLUR_ET_YUT(shaker)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(shaker)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."),
+			span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(shaker)]. Вероятно, у н[GEND_HIS_HER(src)] КРС.")
 		)
 
 	if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 		if(buckled)
-			balloon_alert(helper, "цель пристёгнута!")
+			balloon_alert(shaker, "цель пристёгнута!")
 			return
 
-		add_attack_logs(helper, src, "Shaked", ATKLOG_ALL)
+		add_attack_logs(shaker, src, "Shaked", ATKLOG_ALL)
 
 		if(ishuman(src))
 			var/mob/living/carbon/human/human_src = src
 			if(human_src.w_uniform)
-				human_src.w_uniform.add_fingerprint(helper)
+				human_src.w_uniform.add_fingerprint(shaker)
 
 		set_resting(FALSE, instant = TRUE)
 		AdjustSleeping(-10 SECONDS)
@@ -263,31 +263,31 @@
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		if(!player_logged)
-			helper.visible_message(
-				span_notice("[helper] тряс[PLUR_YOT_UT(helper)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),
+			shaker.visible_message(
+				span_notice("[shaker] тряс[PLUR_YOT_UT(shaker)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),
 				span_notice("Вы трясёте [name], пытаясь поднять [GEND_HIS_HER(src)]."),
 			)
 		return
 
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-	if(helper.zone_selected == BODY_ZONE_HEAD)
-		helper.visible_message(
-			span_notice("[helper] глад[PLUR_IT_YAT(helper)] [name] по голове."),
+	if(shaker.zone_selected == BODY_ZONE_HEAD)
+		shaker.visible_message(
+			span_notice("[shaker] глад[PLUR_IT_YAT(shaker)] [name] по голове."),
 			span_notice("Вы гладите [name] по голове."),
 		)
 	else
-		helper.visible_message(
-			span_notice("[helper] [pick("обнима[PLUR_ET_YUT(helper)]", "тепло обнима[PLUR_ET_YUT(helper)]", "прижима[PLUR_ET_YUT(helper)] к груди", "приобнима[PLUR_ET_YUT(helper)]", "прижима[PLUR_ET_YUT(helper)] к груди голову", "приобнима[PLUR_ET_YUT(helper)] за плечи")] [name]."),
+		shaker.visible_message(
+			span_notice("[shaker] [pick("обнима[PLUR_ET_YUT(shaker)]", "тепло обнима[PLUR_ET_YUT(shaker)]", "прижима[PLUR_ET_YUT(shaker)] к груди", "приобнима[PLUR_ET_YUT(shaker)]", "прижима[PLUR_ET_YUT(shaker)] к груди голову", "приобнима[PLUR_ET_YUT(shaker)] за плечи")] [name]."),
 			span_notice("Вы обнимаете [name]."),
 		)
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/human_src = src
 		if(human_src.wear_suit)
-			human_src.wear_suit.add_fingerprint(helper)
+			human_src.wear_suit.add_fingerprint(shaker)
 		else if(human_src.w_uniform)
-			human_src.w_uniform.add_fingerprint(helper)
+			human_src.w_uniform.add_fingerprint(shaker)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/human_src = src
