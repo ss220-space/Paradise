@@ -53,16 +53,18 @@
 	. = ..()
 	if(!poster_structure)
 		return
+
 	if(is_unfurled)
 		roll_up(user)
-	else
-		is_unfurled = TRUE
-		name = "poster \"[poster_structure.original_name]\""
-		icon_state = poster_structure.icon_state
-		desc = poster_structure.desc
-		ru_names = poster_structure.build_item_ru_names()
-		playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
-		to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
+		return
+
+	is_unfurled = TRUE
+	name = "\"[poster_structure.original_name]\""
+	icon_state = poster_structure.icon_state
+	desc = poster_structure.desc
+	ru_names = poster_structure.ru_names
+	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
+	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
 
 /obj/item/poster/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -128,20 +130,14 @@
 		original_name = name
 		name = "poster — [original_name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги.\n[desc]"
-		ru_names = build_item_ru_names()
-
-/obj/structure/sign/poster/proc/build_item_ru_names()
-	var/list/cached = get_ru_names_cached()
-	if(!cached || !cached[NOMINATIVE])
-		return null
-	return list(
-		NOMINATIVE = "постер \"[cached[NOMINATIVE]]\"",
-		GENITIVE = "постера \"[cached[GENITIVE]]\"",
-		DATIVE = "постеру \"[cached[DATIVE]]\"",
-		ACCUSATIVE = "постер \"[cached[ACCUSATIVE]]\"",
-		INSTRUMENTAL = "постером \"[cached[INSTRUMENTAL]]\"",
-		PREPOSITIONAL = "постере \"[cached[PREPOSITIONAL]]\"",
-	)
+		ru_names = list(
+			NOMINATIVE = "постер \"[original_name]\"",
+			GENITIVE = "постера \"[original_name]\"",
+			DATIVE = "постеру \"[original_name]\"",
+			ACCUSATIVE = "постер \"[original_name]\"",
+			INSTRUMENTAL = "постером \"[original_name]\"",
+			PREPOSITIONAL = "постере \"[original_name]\"",
+		)
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
