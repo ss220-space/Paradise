@@ -44,4 +44,3 @@
 	name = "Быстрая экипировка хранилища костюма"
 	keys = list("ShiftQ")
 	slot_type = ITEM_SLOT_SUITSTORE
-	slot_item_name = "хранилище костюма"
