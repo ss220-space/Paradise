@@ -702,6 +702,7 @@
 		if(equip_to_slot_if_possible(thing, slot_type))
 			update_held_items()
 		return
+
 	var/obj/item/storage/storage
 	if(isstorage(equipped_item))
 		storage = equipped_item
