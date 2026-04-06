@@ -1,5 +1,4 @@
 /obj/structure/closet/walllocker
-	desc = "A wall mounted storage locker."
 	desc = "Это настоенное складское устройство."
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
@@ -27,7 +26,6 @@
 
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"
-	desc = "A wall mounted locker with emergency supplies."
 	desc = "Это настенное устройство для хранения респираторов и кислородных баллонов."
 	icon_state = "emerg"
 	icon_closed = "emerg"

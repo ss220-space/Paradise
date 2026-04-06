@@ -3,7 +3,6 @@
 
 /obj/structure/closet/cardboard
 	name = "large cardboard box"
-	desc = "Just a box..."
 	desc = "Просто коробка..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
@@ -241,8 +240,6 @@
 #undef SNAKE_ALERT_COOLDOWN
 
 /obj/structure/closet/cardboard/agent/nullspace
-	name = "блюспейс коробка"
-	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
 	name = "блюспейс-коробка"
 	desc = "Коробка, пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
 	gender = FEMALE
@@ -250,12 +247,6 @@
 
 /obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс коробка",
-		GENITIVE = "блюспейс коробки",
-		DATIVE = "блюспейс коробке",
-		ACCUSATIVE = "блюспейс коробку",
-		INSTRUMENTAL = "блюспейс коробкой",
-		PREPOSITIONAL = "блюспейс коробке",
 		NOMINATIVE = "блюспейс-коробка",
 		GENITIVE = "блюспейс-коробки",
 		DATIVE = "блюспейс-коробке",

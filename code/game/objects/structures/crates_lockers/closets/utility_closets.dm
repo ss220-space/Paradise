@@ -14,7 +14,6 @@
  */
 /obj/structure/closet/emcloset
 	name = "emergency closet"
-	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
 	desc = "Это устройство для хранения респираторов и кислородных баллонов."
 	icon_state = "emergency"
 
@@ -65,7 +64,6 @@
 // MARK: Fire Closet
 /obj/structure/closet/firecloset
 	name = "fire-safety closet"
-	desc = "It's a storage unit for fire-fighting supplies."
 	desc = "Это устройство для хранения противопожарных принадлежностей."
 	icon_state = "firecloset"
 
@@ -102,7 +100,6 @@
  */
 /obj/structure/closet/toolcloset
 	name = "tool closet"
-	desc = "It's a storage unit for tools."
 	desc = "Это устройство для хранения инструментов."
 	icon_state = "toolcloset"
 
@@ -153,7 +150,6 @@
  */
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
-	desc = "It's a storage unit for rad-protective suits."
 	desc = "Это устройство для хранения радзащитного саняржения."
 	icon_state = "toolcloset"
 	custom_door_overlay = "radsuit"
@@ -179,7 +175,6 @@
  */
 /obj/structure/closet/bombcloset
 	name = "EOD closet"
-	desc = "It's a storage unit for explosion-protective suits."
 	desc = "Это устройство для хранения взрывозащитных костюмов."
 	icon_state = "bombsuit"
 
@@ -201,11 +196,9 @@
 
 /obj/structure/closet/bombclosetsecurity
 	name = "EOD closet"
-	desc = "It's a storage unit for explosion-protective suits."
 	desc = "Это устройство для хранения взрывозащитных костюмов."
 	icon_state = "bombsuitsec"
 
-/obj/structure/closet/bombcloset/get_ru_names()
 /obj/structure/closet/bombclosetsecurity/get_ru_names()
     return list(
         NOMINATIVE = "шкафчик для ОВУ",
@@ -227,7 +220,6 @@
  */
 /obj/structure/closet/hydrant //wall mounted fire closet
 	name = "fire-safety closet"
-	desc = "It's a storage unit for fire-fighting supplies."
 	desc = "Это настенное устройство для хранения противопожарных принадлежностей."
 	icon_state = "hydrant"
 	anchored = TRUE
@@ -257,7 +249,6 @@
  */
 /obj/structure/closet/medical_wall //wall mounted medical closet
 	name = "first-aid closet"
-	desc = "It's wall-mounted storage unit for first aid supplies."
 	desc = "Это настенное устройство для хранения принадлежностей для оказания первой помощи."
 	icon_state = "medical_wall"
 	anchored = TRUE

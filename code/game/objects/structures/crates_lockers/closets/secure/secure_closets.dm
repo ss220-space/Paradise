@@ -2,7 +2,6 @@
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
-	desc = "It's an immobile card-locked storage unit."
 	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте."
 	icon_state = "secure"
 	locked = TRUE
@@ -96,7 +95,6 @@
 /obj/structure/closet/secure_closet/update_desc(updates = ALL)
 	. = ..()
 	if(broken)
-		desc = "It appears to be broken."
 		desc = "Похоже, он сломан."
 	else
 		desc = initial(desc)

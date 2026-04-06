@@ -1,6 +1,5 @@
 /obj/structure/closet/athletic_mixed
 	name = "athletic wardrobe"
-	desc = "It's a storage unit for athletic wear."
 	desc = "Это устройство для хранения спортивной одежды."
 	custom_door_overlay = "mixed"
 
@@ -28,7 +27,6 @@
 
 /obj/structure/closet/boxinggloves
 	name = "boxing gloves"
-	desc = "It's a storage unit for gloves for use in the boxing ring."
 	desc = "Это устройство для хранения перчаток, используемых на боксерском ринге."
 
 /obj/structure/closet/boxinggloves/get_ru_names()
@@ -49,7 +47,6 @@
 
 /obj/structure/closet/masks
 	name = "mask closet"
-	desc = "IT'S A STORAGE UNIT FOR FIGHTER MASKS OLE!"
 	desc = "ЭТО СКЛАДСКОЕ УСТРОЙСТВО ДЛЯ БОКСЕРСКИХ МАСОК!"
 
 /obj/structure/closet/masks/get_ru_names()
@@ -69,18 +66,11 @@
 
 /obj/structure/closet/lasertag/red
 	name = "red laser tag equipment"
-	desc = "It's a storage unit for laser tag equipment."
 	desc = "Это складское устройство для снаряжения лазертага."
 	custom_door_overlay = "red"
 
 /obj/structure/closet/lasertag/red/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик для красного снаряжения лазертага",
-        GENITIVE = "шкафчика для красного снаряжения лазертага",
-        DATIVE = "шкафчику для красного снаряжения лазертага",
-        ACCUSATIVE = "шкафчик для красного снаряжения лазертага",
-        INSTRUMENTAL = "шкафчиком для красного снаряжения лазертага",
-        PREPOSITIONAL = "шкафчике для красного снаряжения лазертага",
         NOMINATIVE = "шкафчик для лазертага (красные)",
         GENITIVE = "шкафчика для лазертага (красные)",
         DATIVE = "шкафчику для лазертага (красные)",
@@ -100,18 +90,11 @@
 
 /obj/structure/closet/lasertag/blue
 	name = "blue laser tag equipment"
-	desc = "It's a storage unit for laser tag equipment."
 	desc = "Это складское устройство для снаряжения лазертага."
 	custom_door_overlay = "blue"
 
 /obj/structure/closet/lasertag/blue/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик для синего снаряжения лазертага",
-        GENITIVE = "шкафчика для синего снаряжения лазертага",
-        DATIVE = "шкафчику для синего снаряжения лазертага",
-        ACCUSATIVE = "шкафчик для синего снаряжения лазертага",
-        INSTRUMENTAL = "шкафчиком для синего снаряжения лазертага",
-        PREPOSITIONAL = "шкафчике для синего снаряжения лазертага",
         NOMINATIVE = "шкафчик для лазертага (синие)",
         GENITIVE = "шкафчика для лазертага (синие)",
         DATIVE = "шкафчику для лазертага (синие)",

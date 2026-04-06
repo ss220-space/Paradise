@@ -1,8 +1,6 @@
 //I still dont think this should be a closet but whatever
 /obj/structure/closet/fireaxecabinet
 	name = "fire axe cabinet"
-	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
-	desc = "Там есть небольшая этикетка с надписью: \"Использовать только при чрезвычайной ситуации.\" а также подробная информация о безопасном использовании топора. Как будто."
 	desc = "Небольшая табличка гласит: \"Только для экстренных случаев\" и содержит инструкцию по безопасной эксплуатации топора. Ага, конечно."
 	icon_state = "fireaxe_full_0hits"
 	icon_closed = "fireaxe_full_0hits"
@@ -47,10 +45,8 @@
 /obj/structure/closet/fireaxecabinet/examine(mob/user)
 	. = ..()
 	if(!smashed)
-		. += span_notice("Use a multitool to lock/unlock it.")
 		. += span_notice("Используйте мультиметр, чтобы открыть/закрыть это.")
 	else
-		. += span_notice("It is damaged beyond repair.")
 		. += span_notice("Оно повреждено настолько, что восстановление невозможно.")
 
 /obj/structure/closet/fireaxecabinet/multitool_act(mob/living/user, obj/item/I)
@@ -59,12 +55,10 @@
 
 	. = TRUE
 	if(locked)
-		to_chat(user, span_warning("Resetting circuitry..."))
 		to_chat(user, span_warning("Сброс схемы..."))
 		if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || !locked)
 			return .
 		locked = FALSE
-		to_chat(user, span_caution("You disable the locking modules."))
 		to_chat(user, span_caution("Вы отключаете модуль блокировки."))
 		update_icon(UPDATE_ICON_STATE)
 		return .
@@ -74,7 +68,6 @@
 		operate_panel()
 		return .
 
-	to_chat(user, span_warning("Resetting circuitry..."))
 	to_chat(user, span_warning("Сброс схемы..."))
 	playsound(user, 'sound/machines/lockenable.ogg', 50, TRUE)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || locked)
@@ -82,7 +75,6 @@
 
 	locked = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_caution("You re-enable the locking modules."))
 	to_chat(user, span_caution("Вы повторно активируете модуль блокировки."))
 
 /obj/structure/closet/fireaxecabinet/attackby(obj/item/I, mob/living/user, params)
@@ -98,7 +90,6 @@
 		user.do_attack_animation(src)
 		playsound(user, 'sound/effects/glasshit.ogg', 100, TRUE) //We don't want this playing every time
 		if(I.force < 15)
-			to_chat(user, span_notice("The cabinet's protective glass glances off the hit."))
 			to_chat(user, span_notice("Ударная поверхность скользит по защитному стеклу шкафа."))
 			return .
 
@@ -115,8 +106,6 @@
 		if(!fireaxe)
 			var/obj/item/twohanded/fireaxe/placed_axe = I
 			if(HAS_TRAIT(placed_axe, TRAIT_WIELDED))
-				to_chat(user, span_warning("Unwield [placed_axe] first."))
-				to_chat(user, span_warning("Сначала возьмите [placed_axe] в одну руку."))
 				to_chat(user, span_warning("Сначала возьмите [placed_axe.declent_ru(ACCUSATIVE)] в одну руку."))
 				return .
 			if(!user.drop_transfer_item_to_loc(placed_axe, src))
@@ -124,7 +113,6 @@
 				return .
 			fireaxe = placed_axe
 			has_axe = "full"
-			to_chat(user, span_notice("You place [placed_axe] back in the [name]."))
 			to_chat(user, span_notice("Вы кладёте [placed_axe] обратно в [name]."))
 			update_icon(UPDATE_ICON_STATE)
 			return .
@@ -142,7 +130,6 @@
 
 /obj/structure/closet/fireaxecabinet/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, span_warning("The cabinet won't budge!"))
 		to_chat(user, span_warning("Шкаф не сдвигается с места!"))
 		return
 
@@ -170,8 +157,6 @@
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user)
 	if(localopened && fireaxe)
 		fireaxe.forceMove(loc)
-		to_chat(user, span_notice("You telekinetically remove \the [fireaxe]."))
-		to_chat(user, span_notice("Вы телекинетически удаляете [fireaxe]."))
 		to_chat(user, span_notice("Вы телекинетически удаляете [fireaxe.declent_ru(ACCUSATIVE)]."))
 		has_axe = "empty"
 		fireaxe = null
@@ -181,17 +166,13 @@
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user)
 	if(smashed)
-		to_chat(user, span_warning("The security of the cabinet is compromised."))
-		to_chat(user, span_warning("Безопасность шкафа скомпрометирована.."))
 		to_chat(user, span_warning("Безопасность шкафа скомпрометирована."))
 		return
 
 	locked = !locked
 	if(locked)
-		to_chat(user, span_warning("Cabinet locked."))
 		to_chat(user, span_warning("Шкаф заблокирован."))
 	else
-		to_chat(user, span_notice("Cabinet unlocked."))
 		to_chat(user, span_notice("Шкаф разблокирован."))
 
 /obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
@@ -232,8 +213,6 @@
 //mining "fireaxe"
 /obj/structure/fishingrodcabinet
 	name = "fishing cabinet"
-	desc = "There is a small label that reads \"Fo* Em**gen*y u*e *nly\". All the other text is scratched out and replaced with various fish weights."
-	desc = "Там есть небольшая этикетка с надписью: \"Ис*о*ьзо**ть *о*ько п*и ч*ез*ыча**ой си*уа**и.\". Весь остальной текст зачеркнут и заменен различными значениями веса рыбы."
 	desc = "Небольшая табличка гласит: \"Т**ько *ля эк*тре**ных сл*ча*в\", весь остальной текст зачеркнут и заменен различными значениями веса рыбы."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "fishingrod"
@@ -267,15 +246,11 @@
 	if(istype(I, /obj/item/twohanded/fishing_rod))
 		var/obj/item/twohanded/fishing_rod/rod = I
 		if(HAS_TRAIT(rod, TRAIT_WIELDED))
-			to_chat(user, span_warning("Unwield [rod] first."))
-			to_chat(user, span_warning("Сначала возьмите [rod] в одну руку."))
 			to_chat(user, span_warning("Сначала возьмите [rod.declent_ru(ACCUSATIVE)] в одну руку."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(rod, src))
 			return ..()
 		olreliable = rod
-		to_chat(user, span_notice("You place [rod] back in [src]."))
-		to_chat(user, span_notice("Вы кладёте [rod] обратно в [src]."))
 		to_chat(user, span_notice("Вы кладёте [rod.declent_ru(ACCUSATIVE)] обратно в [src.declent_ru(ACCUSATIVE)]."))
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -294,8 +269,6 @@
 	add_fingerprint(user)
 	olreliable.forceMove_turf()
 	user.put_in_hands(olreliable, ignore_anim = FALSE)
-	to_chat(user, span_notice("You take [olreliable] from [src]."))
-	to_chat(user, span_notice("Вы берёте [olreliable] из [src]."))
 	to_chat(user, span_notice("Вы берёте [olreliable.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)]."))
 	olreliable = null
 	update_icon(UPDATE_OVERLAYS)

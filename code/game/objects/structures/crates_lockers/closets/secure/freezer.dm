@@ -1,5 +1,4 @@
 /obj/structure/closet/secure_closet/freezer
-	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 	desc = "Это холодильный шкафчик с дверью, запираемой ID-картой. Этот имеет свинцовую облицовку."
 
 /obj/structure/closet/secure_closet/freezer/ex_act(severity)
@@ -46,7 +45,6 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
-	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
 	desc = "Этот холодильник выглядит довольно пыльным, внутри ещё осталось что-нибудь съедобное?"
 	req_access = list()
 

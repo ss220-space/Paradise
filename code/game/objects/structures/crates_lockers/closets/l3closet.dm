@@ -1,6 +1,5 @@
 /obj/structure/closet/l3closet
 	name = "level-3 biohazard suit closet"
-	desc = "It's a storage unit for level-3 biohazard gear."
 	desc = "Это устройство для хранения биозащитного снаряжения 3 уровня."
 	icon_state = "bio"
 

@@ -103,7 +103,6 @@
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
-	desc = "Store dangerous chemicals in here."
 	desc = "Здесь хранятся опасные химические вещества."
 	icon_state = "res"
 	custom_door_overlay = "rchemical"

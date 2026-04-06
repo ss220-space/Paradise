@@ -1,6 +1,5 @@
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
-	desc = "A storage unit that moves and stores through the fourth dimension."
 	desc = "Складское устройство, которое перемещается и хранит данные в четвертом измерении."
 	density = FALSE
 	icon_state = "bluespace"

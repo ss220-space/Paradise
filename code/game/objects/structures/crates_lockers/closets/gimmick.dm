@@ -1,6 +1,5 @@
 /obj/structure/closet/cabinet
 	name = "cabinet"
-	desc = "Old will forever be in fashion."
 	desc = "Старое всегда будет в моде."
 	icon_state = "cabinet"
 	overlay_sparking = "c_sparking"
@@ -27,7 +26,6 @@
 
 /obj/structure/closet/acloset
 	name = "strange closet"
-	desc = "It looks alien!"
 	desc = "Выглядит чужеродно!"
 	icon_state = "acloset"
 
@@ -43,7 +41,6 @@
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"
-	desc = "It's a storage unit for things that have no right being here."
 	desc = "Это устройство для хранения вещей, которым здесь не место."
 	icon_state = "syndicate1"
 
@@ -59,7 +56,6 @@
 
 /obj/structure/closet/gimmick/russian
 	name = "russian surplus closet"
-	desc = "It's a storage unit for Russian standard-issue surplus."
 	desc = "Это устройство для хранения российских излишков продукции."
 
 /obj/structure/closet/gimmick/russian/get_ru_names()
@@ -86,7 +82,6 @@
 
 /obj/structure/closet/gimmick/tacticool
 	name = "tacticool gear closet"
-	desc = "It's a storage unit for Tacticool gear."
 	desc = "Это устройство для хранения тактикульного снаряжения."
 
 /obj/structure/closet/gimmick/tacticool/get_ru_names()
@@ -117,7 +112,6 @@
 
 /obj/structure/closet/thunderdome
 	name = "Thunderdome closet"
-	desc = "Everything you need!"
 	desc = "Всё, что вам нужно!"
 	icon_state = "syndicate"
 	anchored = TRUE

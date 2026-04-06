@@ -1,7 +1,6 @@
 // MARK: Basic crate
 /obj/structure/closet/crate
 	name = "crate"
-	desc = "A rectangular steel crate."
 	desc = "Прямоугольный стальной ящик."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
@@ -53,9 +52,6 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
-				var/response = tgui_alert(usr, "Этот ящик упакован очень плотно, ни один предмет из него не поместится обратно. Вы уверены, что хотите его открыть?", "Compressed Materials Warning", list("Yes", "No"))
-				if(response != "Yes" || !Adjacent(usr))
 				var/response = tgui_alert(usr, "Этот ящик упакован очень плотно, ни один предмет из него не поместится обратно. Вы уверены, что хотите его открыть?", "Предупреждение о сжатых материалах", list("Да", "Нет"))
 				if(response != "Да" || !Adjacent(usr))
 					return FALSE
@@ -132,7 +128,6 @@
 		return
 
 	if(I.use_tool(src, user))
-		to_chat(user, span_notice("You cut away the wiring."))
 		to_chat(user, span_notice("Вы обрезали проводку."))
 		playsound(loc, I.usesound, 100, TRUE)
 		rigged = FALSE
@@ -178,7 +173,6 @@
 
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
-	desc = "A rectangular plastic crate."
 	desc = "Прямоугольный пластиковый ящик."
 	icon_state = "plasticcrate"
 
@@ -194,7 +188,6 @@
 
 
 /obj/structure/closet/crate/internals
-	desc = "A internals crate."
 	desc = "Ящик для хранения респираторов и кислородных баллонов."
 	name = "internals crate"
 	icon_state = "o2crate"
@@ -210,7 +203,6 @@
     )
 
 /obj/structure/closet/crate/trashcart
-	desc = "A heavy, metal trashcart with wheels."
 	desc = "Тяжелый металлический мусорный контейнер на колесах."
 	name = "trash Cart"
 	icon_state = "trashcart"
@@ -239,7 +231,6 @@
     )
 
 /obj/structure/closet/crate/trashcart/gibs
-	desc = "A heavy, metal trashcart with wheels. You better don't ask."
 	desc = "Тяжелый металлический мусорный контейнер на колесах. Лучше не спрашивай."
 	name = "trash cart with gibs"
 	icon_state = "trashcartgib"
@@ -255,7 +246,6 @@
     )
 
 /obj/structure/closet/crate/medical
-	desc = "A medical crate."
 	desc = "Медицинский ящик."
 	name = "medical crate"
 	icon_state = "medicalcrate"
@@ -271,7 +261,6 @@
     )
 
 /obj/structure/closet/crate/rcd
-	desc = "A crate for the storage of the RCD."
 	desc = "Ящик для хранения УБС."
 	name = "RCD crate"
 
@@ -292,7 +281,6 @@
 	new /obj/item/rcd(src)
 
 /obj/structure/closet/crate/freezer
-	desc = "A freezer."
 	desc = "Морозильная камера."
 	name = "Freezer"
 	icon_state = "freezer"
@@ -332,8 +320,6 @@
 	return newgas
 
 /obj/structure/closet/crate/can
-	desc = "A large can, looks like a bin to me."
-	desc = "Большая банка, мне кажется, это мусорное ведро."
 	desc = "Большая банка... Кажется, это мусорное ведро."
 	name = "garbage can"
 	icon_state = "largebin"
@@ -356,7 +342,6 @@
 	default_unfasten_wrench(user, I, 40)
 
 /obj/structure/closet/crate/radiation
-	desc = "A crate with a radiation sign on it."
 	desc = "Ящик со знаком радиации."
 	name = "radioactive gear crate"
 	icon_state = "radiation"
@@ -382,19 +367,12 @@
 	new /obj/item/clothing/head/radiation(src)
 
 /obj/structure/closet/crate/vault
-	desc = "Ящик с ценностями."
 	desc = "Ящик для ценностей."
 	name = "vault crate"
 	icon_state = "vaultcrate"
 
 /obj/structure/closet/crate/vault/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с ценностями",
-		GENITIVE = "ящика с ценностями",
-		DATIVE = "ящику с ценностями",
-		ACCUSATIVE = "ящик с ценностями",
-		INSTRUMENTAL = "ящиком с ценностями",
-		PREPOSITIONAL = "ящике с ценностями",
 		NOMINATIVE = "ящик для ценностей",
 		GENITIVE = "ящика для ценностей",
 		DATIVE = "ящику для ценностей",
@@ -420,7 +398,6 @@
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
-	desc = "All you need to destroy those pesky weeds and pests."
 	desc = "Всё, что вам нужно, чтобы уничтожить эти надоедливые сорняки и вредителей."
 	icon_state = "hydrocrate"
 
@@ -501,7 +478,6 @@
 
 //syndie crates by Furukai
 /obj/structure/closet/crate/syndicate
-	desc = "Definitely a property of an evil corporation!"
 	desc = "Несомненно, это собственность злой корпорации!"
 	icon_state = "syndiecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium

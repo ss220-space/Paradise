@@ -1,5 +1,4 @@
 /obj/structure/closet/malf/suits
-	desc = "It's a storage unit for operational gear."
 	desc = "Это устройство для хранения снаряжения оперативников"
 	icon_state = "syndicate"
 

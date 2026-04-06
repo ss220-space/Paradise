@@ -1,6 +1,5 @@
 /obj/structure/closet/secure_closet/cabinet //Tribute to all those poor mappers who gave their life copypasting these sacred strings // :(
 	name = "secure cabinet"
-	desc = "Old will forever be in fashion."
 	desc = "Старое всегда будет в моде."
 	icon_state = "cabinet"
 	overlay_sparking = "c_sparking"

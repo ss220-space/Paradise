@@ -1,6 +1,5 @@
 /obj/structure/closet/crate/large
 	name = "large crate"
-	desc = "A hefty wooden crate. You'll need a crowbar to get it open."
 	desc = "Тяжелый деревянный ящик. Вам понадобится лом, чтобы открыть его."
 	icon_state = "largecrate"
 	base_icon_state = "largecrate"
@@ -39,7 +38,6 @@
 	if(manifest)
 		tear_manifest(user)
 	else
-		to_chat(user, span_warning("You need a crowbar to pry this open!"))
 		to_chat(user, span_warning("Вам нужен лом, чтобы открыть это!"))
 
 /obj/structure/closet/crate/large/crowbar_act(mob/living/user, obj/item/item)
@@ -60,11 +58,6 @@
 		thing.forceMove(loc)
 
 	user.visible_message(
-		span_notice("[user] pries [src] open."),
-		span_notice("You pry open [src]."),
-		span_hear("You hear splitting wood."),
-		span_notice("[user] вскрывает [src]."),
-		span_notice("Вы вскрываете [src]."),
 		span_notice("[user] вскрывает [src.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы вскрываете [src.declent_ru(ACCUSATIVE)]."),
 		span_hear("Вы слышите треск раскалывающегося дерева."),

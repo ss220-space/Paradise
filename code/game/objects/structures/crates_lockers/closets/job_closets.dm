@@ -13,7 +13,6 @@
  */
 /obj/structure/closet/gmcloset
 	name = "formal closet"
-	desc = "It's a storage unit for formal clothing."
 	desc = "Это устройство для хранения формальной одежды."
 	custom_door_overlay = "black"
 
@@ -51,8 +50,7 @@
  * Chef
  */
 /obj/structure/closet/chefcloset
-	desc = "It's a storage unit for foodservice garments."
-	name = "шкафчик повара"
+	name = "chef's closet"
 	desc = "Это устройство для хранения формы сервиса общественного питания."
 	icon_state = "chef"
 
@@ -91,7 +89,6 @@
  */
 /obj/structure/closet/jcloset
 	name = "custodial closet"
-	desc = "It's a storage unit for janitorial clothes and gear."
 	desc = "Это устройство для хранения одежды и снаряжения уборщиков."
 	icon_state = "janitor"
 
@@ -141,7 +138,6 @@
  */
 /obj/structure/closet/lawcloset
 	name = "legal closet"
-	desc = "It's a storage unit for courtroom apparel and items."
 	desc = "Это устройство для хранения одежды и принадлежностей, необходимых в зале суда."
 	custom_door_overlay = "blue"
 
@@ -176,7 +172,6 @@
 
 /obj/structure/closet/paramedic
 	name = "paramedic wardrobe"
-	desc = "It's a storage unit for paramedic equipment."
 	desc = "Это устройство для хранения снаряжения парамедика."
 	icon_state = "paramed"
 
@@ -212,7 +207,6 @@
 
 /obj/structure/closet/librarian
 	name = "librarian wardrobe"
-	desc = "It's a storage unit for librarian clothes and gear."
 	desc = "Это устройство для хранения одежды и принадлежностей библиотекаря."
 	custom_door_overlay = "black"
 
@@ -243,17 +237,10 @@
 /obj/structure/closet/burial
 	icon_state = "chaplain"
 	name = "burial clothes"
-	desc = "В данном ящике хранится траурная одежда."
 	desc = "Это устройство для хранения погребальной одежды."
 
 /obj/structure/closet/burial/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с траурной одеждой",
-		GENITIVE = "ящика с траурной одеждой",
-		DATIVE = "ящику с траурной одеждой",
-		ACCUSATIVE = "ящик с траурной одеждой",
-		INSTRUMENTAL = "ящиком с траурной одеждой",
-		PREPOSITIONAL = "ящике с траурной одеждой",
 		NOMINATIVE = "шкафчик для погребальной одежды",
 		GENITIVE = "шкафчика для погребальной одежды",
 		DATIVE = "шкафчику для погребальной одежды",

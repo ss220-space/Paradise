@@ -1,5 +1,4 @@
 /obj/structure/closet/secure_closet/personal
-	desc = "It's a secure locker for personnel. The first card swiped gains control."
 	desc = "Это защищённый шкафчик для персонала. Первая проведённая ID-карта получает доступ."
 	name = "personal closet"
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
@@ -60,7 +59,6 @@
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	name = "personal cabinet"
-	desc = "It's a secure cabinet for personnel. The first card swiped gains control."
 	desc = "Это защищённый шкаф для персонала. Первая проведённая ID-карта получает доступ."
 	icon_state = "cabinet"
 	overlay_sparking = "c_sparking"
@@ -88,7 +86,6 @@
 
 /obj/structure/closet/secure_closet/personal/update_desc(updates = ALL)
 	. = ..()
-	desc = registered_name ? "Owned by [registered_name]." : initial(desc)
 	desc = registered_name ? "Принадлежит [registered_name]." : initial(desc)
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/I, mob/user, params)

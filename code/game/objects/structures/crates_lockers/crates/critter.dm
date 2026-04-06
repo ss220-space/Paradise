@@ -1,6 +1,5 @@
 /obj/structure/closet/crate/critter
 	name = "critter crate"
-	desc = "A crate designed for safe transport of animals. It has an oxygen tank for safe transport in space."
 	desc = "Ящик, предназначенный для безопасной транспортировки животных. Он оснащён кислородным баллоном для безопасной перевозки в космосе."
 	icon_state = "critter"
 	base_icon_state = "critter"

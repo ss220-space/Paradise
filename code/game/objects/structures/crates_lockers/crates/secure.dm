@@ -6,7 +6,6 @@
 // MARK: Secure crate
 /obj/structure/closet/crate/secure
 	name = "secure crate"
-	desc = "A secure crate."
 	desc = "Защищённый ящик."
 	icon_state = "securecrate"
 	overlay_locked = "securecrater"
@@ -50,10 +49,7 @@
 
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
-		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
-		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		to_chat(user, span_danger("Система защиты от вскрытия ящика активируется!"))
-		investigate_log("[key_name_log(user)] взорвал [src]", INVESTIGATE_BOMB)
 		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/movable in src)
@@ -181,7 +177,6 @@
 
 // MARK: Specific secure crates
 /obj/structure/closet/crate/secure/weapon
-	desc = "A secure weapons crate."
 	desc = "Защищённый оружейный ящик."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
@@ -221,7 +216,6 @@
     )
 
 /obj/structure/closet/crate/secure/plasma
-	desc = "A secure plasma crate."
 	desc = "Защищённый плазменный ящик."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
@@ -242,7 +236,6 @@
     )
 
 /obj/structure/closet/crate/secure/gear
-	desc = "A secure gear crate."
 	desc = "Защищённый ящик для снаряжения."
 	name = "gear crate"
 	icon_state = "secgearcrate"
@@ -258,7 +251,6 @@
     )
 
 /obj/structure/closet/crate/secure/hydrosec
-	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
 	desc = "Ящик с замком, раскрашенный в цветовую гамму, характерную для ботаников станции."
 	name = "secure hydroponics crate"
 	icon_state = "hydrosecurecrate"
@@ -274,7 +266,6 @@
     )
 
 /obj/structure/closet/crate/secure/bin
-	desc = "A secure bin."
 	desc = "Защищённое мусорное ведро."
 	name = "secure bin"
 	icon_state = "largebins"
@@ -295,7 +286,6 @@
 
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
-	desc = "A hefty metal crate with an electronic locking system."
 	desc = "Массивный металлический ящик с электронным замком."
 	icon_state = "largemetal"
 	overlay_locked = "largemetalr"
@@ -334,13 +324,11 @@
 		break
 
 /obj/structure/closet/crate/secure/large/reinforced
-	desc = "A hefty, reinforced metal crate with an electronic locking system."
 	desc = "Массивный усиленный металлический ящик с электронным замком."
 	icon_state = "largermetal"
 
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
-	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	desc = "Ящик с замком, раскрашенный в цветовую гамму, характерную для ученых станции."
 	icon_state = "scisecurecrate"
 
@@ -356,8 +344,6 @@
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
-	desc = "An engineering crate."
-	desc = "Инженерный ящик."
 	desc = "Инженерный ящик. Обычно в нём хранятся материалы, снаряжение или инструменты, но иногда его воруют грузчики."
 	icon_state = "engicrate"
 
@@ -373,7 +359,6 @@
 
 /obj/structure/closet/crate/secure/engineering
 	name = "secure engineering crate"
-	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	desc = "Ящик с замком, окрашенный в цветовую схему инженеров станции."
 	icon_state = "engisecurecrate"
 
@@ -389,7 +374,6 @@
 
 /obj/structure/closet/crate/secure/biohazard
 	name = "secure biohazard crate"
-	desc = "An protected biohazard crate."
 	desc = "Защищённый биологический ящик."
 	icon_state = "biohazard"
 
@@ -405,7 +389,6 @@
 
 /obj/structure/closet/crate/secure/syndicate
 	name = "secure suspicious crate"
-	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
 	desc = "Это определённо собственность злой корпорации! И у неё защищённый замок! И микрофон?"
 	icon_state = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium

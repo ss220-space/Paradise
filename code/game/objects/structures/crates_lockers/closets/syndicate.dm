@@ -1,6 +1,5 @@
 /obj/structure/closet/syndicate
 	name = "armoury closet"
-	desc = "Why is this here?"
 	desc = "Зачем это здесь?"
 	icon_state = "syndicate"
 
@@ -15,7 +14,6 @@
     )
 
 /obj/structure/closet/syndicate/personal
-	desc = "It's a storage unit for operative gear."
 	desc = "Это устройство для хранения снаряжения оперативников."
 
 /obj/structure/closet/syndicate/personal/populate_contents()
@@ -27,7 +25,6 @@
 	new /obj/item/clothing/glasses/night(src)
 
 /obj/structure/closet/syndicate/suits
-	desc = "It's a storage unit for operative space gear."
 	desc = "Это устройство для хранения снаряжения оперативников."
 
 /obj/structure/closet/syndicate/suits/populate_contents()
@@ -36,7 +33,6 @@
 	new /obj/item/tank/jetpack/oxygen/harness(src)
 
 /obj/structure/closet/syndicate/nuclear
-	desc = "It's a storage unit for a Syndicate boarding party."
 	desc = "Это устройство для хранения вещей абордажнной группы Синдиката."
 
 /obj/structure/closet/syndicate/nuclear/populate_contents()
@@ -56,7 +52,6 @@
 	new /obj/item/pda/syndicate(src)
 
 /obj/structure/closet/syndicate/sst
-	desc = "It's a storage unit for an elite syndicate strike team's gear."
 	desc = "Это устройство для хранения снаряжения элитной ударной группы Синдиката."
 
 /obj/structure/closet/syndicate/sst/populate_contents()
@@ -70,7 +65,6 @@
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src)
 
 /obj/structure/closet/syndicate/resources
-	desc = "An old, dusty locker."
 	desc = "Старый, пыльный шкафчик."
 
 /obj/structure/closet/syndicate/resources/populate_contents()
@@ -85,7 +79,6 @@
 	if(pickednum == 1)
 		var/obj/item/paper/P = new /obj/item/paper(src)
 		P.name = "IOU"
-		P.info = "Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!"
 		P.info = "Извини, дружище, нам нужны были деньги, поэтому мы продали твою партию. Ничего страшного, в этот раз мы точно удвоим свои деньги!"
 
 	//Metal (common ore)
@@ -133,7 +126,6 @@
 		new /obj/item/tank/jetpack/carbondioxide(src)
 
 /obj/structure/closet/syndicate/resources/everything
-	desc = "It's an emergency storage closet for repairs."
 	desc = "Это аварийный шкафчик для хранения материалов, нужных для проведения ремонтных работ."
 
 /obj/structure/closet/syndicate/resources/everything/populate_contents()
@@ -160,8 +152,6 @@
 //Adding syndicate closets for "Taipan". Sprites by Элл Гууд
 /obj/structure/closet/secure_closet/syndicate
 	name = "Syndicate Locker"
-	desc = "It's an immobile card-locked storage unit. A big 'S' letter on it indicates that it belongs to the syndicate."
-	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте. Большая буква «S» на нем указывает на то, что он принадлежит Синдикату."
 	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте. Большая буква \"S\" на нем указывает на то, что он принадлежит Синдикату."
 	req_access = list(150)
 	layer = 2.9 // ensures the loot they drop always appears on top of them.

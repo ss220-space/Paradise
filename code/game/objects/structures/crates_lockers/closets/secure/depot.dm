@@ -1,6 +1,5 @@
 /obj/structure/closet/secure_closet/syndicate/depot
 	name = "depot supply closet"
-	desc = "A red and black lootbox full of things the Head of Security is going to flip their shit over."
 	desc = "Красно-черный лутбокс, полный вещей, от которых глава службы безопасности придет в ярость."
 	locked = FALSE
 	anchored = TRUE
@@ -43,8 +42,6 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
 	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, span_warning("The [src] resists your attack!"))
-		to_chat(M, span_warning("[src] сопротивляется вашей атаке!"))
 		to_chat(M, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сопротивляется вашей атаке!"))
 		return
 	return ..()
@@ -55,8 +52,6 @@
 
 	if(istype(I, /obj/item/rcs))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Bluespace interference prevents [I] from locking onto [src]!"))
-		to_chat(user, span_warning("Блюспейс помехи мешают [I] захватить [src]!"))
 		to_chat(user, span_warning("Блюспейс помехи мешают [I.declent_ru(DATIVE)] захватить [src.declent_ru(ACCUSATIVE)]!"))
 		return ATTACK_CHAIN_PROCEED
 

@@ -1,6 +1,5 @@
 /obj/structure/closet/secure_closet/medical1
 	name = "medicine closet"
-	desc = "Filled with medical junk."
 	desc = "Забит медицинским хламом."
 	icon_state = "medical"
 	req_access = list(ACCESS_MEDICAL)
@@ -32,7 +31,6 @@
 
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
-	desc = "Used to knock people out."
 	desc = "Используется для того, чтобы вырубать людей."
 	icon_state = "medical"
 	req_access = list(ACCESS_SURGERY)
@@ -113,7 +111,6 @@
 //Exam Room
 /obj/structure/closet/secure_closet/exam
 	name = "exam room closet"
-	desc = "Filled with exam room materials."
 	desc = "Заполнено принадлежностями для проведения экзаменов."
 	icon_state = "medical"
 	req_access = list(ACCESS_MEDICAL)
@@ -147,7 +144,6 @@
 // Psychiatrist's pill bottle
 /obj/item/storage/pill_bottle/psychiatrist
 	name = "psychiatrist's pill bottle"
-	desc = "Contains various pills to calm or sedate patients."
 	desc = "Содержит различные таблетки для успокоения или седации пациентов."
 	wrapper_color = COLOR_IRISH_GREEN
 
@@ -269,7 +265,6 @@
 
 /obj/structure/closet/secure_closet/chemical
 	name = "chemical closet"
-	desc = "Store dangerous chemicals in here."
 	desc = "Здесь хранятся опасные химические вещества."
 	icon_state = "medical"
 	custom_door_overlay = "chemical"
@@ -293,7 +288,6 @@
 
 /obj/structure/closet/secure_closet/medical_wall
 	name = "first aid closet"
-	desc = "It's a secure wall-mounted storage unit for first aid supplies."
 	desc = "Это защищённое настенное устройство для хранения принадлежностей для оказания первой помощи."
 	icon_state = "medical_wall"
 	overlay_sparking = "m_sparking"
@@ -318,7 +312,6 @@
 
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
-	desc = "A locker with a Paramedic EVA suit."
 	desc = "Это шкафчик для хранения снаряжения парамадика для ВКД."
 	icon_state = "paramedEVA"
 	req_access = list(ACCESS_PARAMEDIC)
