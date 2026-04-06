@@ -93,14 +93,16 @@
 	name = "assault shotgun"
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
-	current_skin = "riotshotgun-short"
-	item_state = "riotshotgun-short"			//phil235 is it different with different skin?
-	item_color = "riotshotgun-short"
+	weapon_weight = WEAPON_LIGHT
+	current_skin = icon_state + "-short"
+	item_state = item_state + "-short"		//phil235 is it different with different skin?
+	item_color = item_color + "-short"
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
+	damage_mod = 0.75
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 1),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 5),
@@ -145,12 +147,14 @@
 	name = initial(name)
 	desc = initial(desc)
 	w_class = initial(w_class)
+	weapon_weight = initial(weapon_weight)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
 	slot_flags &= ~ITEM_SLOT_BELT
 	slot_flags |= ITEM_SLOT_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
+	damage_mod = 1
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 1),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 5),

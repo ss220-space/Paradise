@@ -26,7 +26,7 @@
 		return FALSE
 
 	// The item is equipped in their hands, register emote signal.
-	RegisterSignal(user, COMSIG_MOB_EMOTE, PROC_REF(on_emote), override = TRUE)
+	RegisterSignal(user, COMSIG_MOB_EMOTE, PROC_REF(on_emote))
 
 /datum/element/item_emote_observer/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER

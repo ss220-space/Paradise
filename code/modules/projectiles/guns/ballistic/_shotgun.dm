@@ -18,7 +18,9 @@
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
+	/// Sound for pump action
 	var/reload_sound = 'sound/weapons/gun_interactions/shotgunpump.ogg'
+	/// Available reload animation (pump action animation)
 	var/available_reload_animation = TRUE
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
