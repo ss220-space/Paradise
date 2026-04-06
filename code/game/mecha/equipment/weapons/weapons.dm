@@ -306,7 +306,7 @@
 	icon_state = "mecha_gun"
 	origin_tech = "materials=2;combat=2"
 	equip_cooldown = 0.6 SECONDS
-	projectile = /obj/projectile/bullet
+	projectile = /obj/projectile/bullet/five_mm
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 100
 	projectile_energy_cost = 5

@@ -131,3 +131,8 @@
 		INSTRUMENTAL = "старой пулей FMJ 7,62x25 мм TT",
 		PREPOSITIONAL = "старой пуле FMJ 7,62x25 мм TT",
 	)
+
+// MARK: MECH 5mm
+//5mm bullet casing. Used by mech gun
+/obj/projectile/bullet/five_mm
+	damage = 10
