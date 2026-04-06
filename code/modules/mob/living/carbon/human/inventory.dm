@@ -707,6 +707,7 @@
 	var/obj/item/storage/storage
 	if(isstorage(equipped_item))
 		storage = equipped_item
+
 	if(!storage)
 		if(!thing)
 			equipped_item.attack_hand(src)
