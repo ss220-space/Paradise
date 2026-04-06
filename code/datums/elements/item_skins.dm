@@ -34,7 +34,7 @@
 		return
 	if(!item.skins || !length(item.skins))
 		return
-	if(!istype(user)) //only humans use skins
+	if(!istype(user) && user.client) //only humans use skins
 		return
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
