@@ -1,8 +1,19 @@
 /obj/structure/closet/secure_closet/chaplain
 	name = "chapel wardrobe"
 	desc = "A lockable storage unit for Nanotrasen-approved religious attire."
+	desc = "Запираемый шкафчик для религиозной одежды, одобренной компанией Nanotrasen."
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	icon_state = "chaplain"
+
+/obj/structure/closet/secure_closet/chaplain/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик священника",
+        GENITIVE = "шкафчика священника",
+        DATIVE = "шкафчику священника",
+        ACCUSATIVE = "шкафчик священника",
+        INSTRUMENTAL = "шкафчиком священника",
+        PREPOSITIONAL = "шкафчике священника",
+    )
 
 /obj/structure/closet/secure_closet/chaplain/populate_contents()
 	new /obj/item/storage/backpack/cultpack(src)

@@ -3,6 +3,16 @@
 	req_access = list(ACCESS_CE)
 	icon_state = "ce"
 
+/obj/structure/closet/secure_closet/engineering_chief/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик главного инженера",
+        GENITIVE = "шкафчика главного инженера",
+        DATIVE = "шкафчику главного инженера",
+        ACCUSATIVE = "шкафчик главного инженера",
+        INSTRUMENTAL = "шкафчиком главного инженера",
+        PREPOSITIONAL = "шкафчике главного инженера",
+    )
+
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/industrial(src)
@@ -40,6 +50,16 @@
 	icon_state = "toolcloset"
 	custom_door_overlay = "engelec"
 
+/obj/structure/closet/secure_closet/engineering_electrical/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик электроснабжения",
+        GENITIVE = "шкафчика электроснабжения",
+        DATIVE = "шкафчику электроснабжения",
+        ACCUSATIVE = "шкафчик электроснабжения",
+        INSTRUMENTAL = "шкафчиком электроснабжения",
+        PREPOSITIONAL = "шкафчике электроснабжения",
+    )
+
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)
@@ -58,6 +78,16 @@
 	icon_state = "toolcloset"
 	custom_door_overlay = "engweld"
 
+/obj/structure/closet/secure_closet/engineering_welding/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик сварочных принадлежностей",
+        GENITIVE = "шкафчика сварочных принадлежностей",
+        DATIVE = "шкафчику сварочных принадлежностей",
+        ACCUSATIVE = "шкафчик сварочных принадлежностей",
+        INSTRUMENTAL = "шкафчиком сварочных принадлежностей",
+        PREPOSITIONAL = "шкафчике сварочных принадлежностей",
+    )
+
 /obj/structure/closet/secure_closet/engineering_welding/populate_contents()
 	new /obj/item/clothing/head/welding(src)
 	new /obj/item/clothing/head/welding(src)
@@ -70,6 +100,16 @@
 	name = "engineer's locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "toolcloset"
+
+/obj/structure/closet/secure_closet/engineering_personal/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик инженера",
+        GENITIVE = "шкафчика инженера",
+        DATIVE = "шкафчику инженера",
+        ACCUSATIVE = "шкафчик инженера",
+        INSTRUMENTAL = "шкафчиком инженера",
+        PREPOSITIONAL = "шкафчике инженера",
+    )
 
 /obj/structure/closet/secure_closet/engineering_personal/populate_contents()
 	if(prob(50))
@@ -94,6 +134,16 @@
 	name = "technician's locker"
 	req_access = list(ACCESS_ATMOSPHERICS)
 	icon_state = "atm"
+
+/obj/structure/closet/secure_closet/atmos_personal/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик атмосферного техника",
+        GENITIVE = "шкафчика атмосферного техника",
+        DATIVE = "шкафчику атмосферного техника",
+        ACCUSATIVE = "шкафчик атмосферного техника",
+        INSTRUMENTAL = "шкафчиком атмосферного техника",
+        PREPOSITIONAL = "шкафчике атмосферного техника",
+    )
 
 /obj/structure/closet/secure_closet/atmos_personal/populate_contents()
 	new /obj/item/radio/headset/headset_eng(src)

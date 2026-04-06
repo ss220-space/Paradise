@@ -1,6 +1,7 @@
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
+	desc = "Складское устройство, которое перемещается и хранит данные в четвертом измерении."
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
@@ -8,6 +9,16 @@
 	pass_flags = PASSDOOR|PASSTABLE|PASSGRILLE|PASSBLOB|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSVEHICLE|PASSITEM
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
+
+/obj/structure/closet/bluespace/get_ru_names()
+    return list(
+        NOMINATIVE = "блюспейс-шкафчик",
+        GENITIVE = "блюспейс-шкафчика",
+        DATIVE = "блюспейс-шкафчику",
+        ACCUSATIVE = "блюспейс-шкафчик",
+        INSTRUMENTAL = "блюспейс-шкафчиком",
+        PREPOSITIONAL = "блюспейс-шкафчике",
+    )
 
 /obj/structure/closet/bluespace/Initialize(mapload)
 	. = ..()

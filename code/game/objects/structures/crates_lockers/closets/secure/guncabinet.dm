@@ -13,6 +13,16 @@
 		/obj/item/gun/projectile/automatic/sparkle_a12 = "sp91",
 	)
 
+/obj/structure/closet/secure_closet/guncabinet/get_ru_names()
+    return list(
+        NOMINATIVE = "оружейный шкаф",
+        GENITIVE = "оружейного шкафа",
+        DATIVE = "оружейному шкафу",
+        ACCUSATIVE = "оружейный шкаф",
+        INSTRUMENTAL = "оружейным шкафом",
+        PREPOSITIONAL = "оружейном шкафе",
+    )
+
 /obj/structure/closet/secure_closet/guncabinet/Initialize(mapload)
 	. = ..()
 	// we need to update our guns inside, after closet is filled

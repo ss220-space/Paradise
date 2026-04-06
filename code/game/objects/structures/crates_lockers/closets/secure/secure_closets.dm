@@ -3,12 +3,23 @@
 /obj/structure/closet/secure_closet
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
+	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте."
 	icon_state = "secure"
 	locked = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
+
+/obj/structure/closet/secure_closet/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённый шкафчик",
+        GENITIVE = "защищённого шкафчика",
+        DATIVE = "защищённому шкафчику",
+        ACCUSATIVE = "защищённый шкафчик",
+        INSTRUMENTAL = "защищённым шкафчиком",
+        PREPOSITIONAL = "защищённом шкафчике",
+    )
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -86,6 +97,7 @@
 	. = ..()
 	if(broken)
 		desc = "It appears to be broken."
+		desc = "Похоже, он сломан."
 	else
 		desc = initial(desc)
 

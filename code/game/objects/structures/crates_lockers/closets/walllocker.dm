@@ -1,5 +1,6 @@
 /obj/structure/closet/walllocker
 	desc = "A wall mounted storage locker."
+	desc = "Это настоенное складское устройство."
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
 	icon_state = "wall-locker"
@@ -10,6 +11,16 @@
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
 
+/obj/structure/closet/walllocker/get_ru_names()
+    return list(
+        NOMINATIVE = "настенный шкафчик",
+        GENITIVE = "настенного шкафчика",
+        DATIVE = "настенному шкафчику",
+        ACCUSATIVE = "настенный шкафчик",
+        INSTRUMENTAL = "настенным шкафчиком",
+        PREPOSITIONAL = "настенном шкафчике",
+    )
+
 /obj/structure/closet/walllocker/close()
 	. = ..()
 	density = FALSE // It's a locker in a wall, you aren't going to be walking into it.
@@ -17,9 +28,20 @@
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"
 	desc = "A wall mounted locker with emergency supplies."
+	desc = "Это настенное устройство для хранения респираторов и кислородных баллонов."
 	icon_state = "emerg"
 	icon_closed = "emerg"
 	icon_opened = "emergopen"
+
+/obj/structure/closet/walllocker/emerglocker/get_ru_names()
+    return list(
+        NOMINATIVE = "аварийный шкафчик",
+        GENITIVE = "аварийного шкафчика",
+        DATIVE = "аварийному шкафчику",
+        ACCUSATIVE = "аварийный шкафчик",
+        INSTRUMENTAL = "аварийным шкафчиком",
+        PREPOSITIONAL = "аварийном шкафчике",
+    )
 
 #define EMERGENCY_CONTENTS_SMALL "small"
 #define EMERGENCY_CONTENTS_AID "aid"

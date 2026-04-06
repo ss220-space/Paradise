@@ -3,6 +3,16 @@
 	req_access = list(ACCESS_HYDROPONICS)
 	icon_state = "hydro"
 
+/obj/structure/closet/secure_closet/hydroponics/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик ботаника",
+        GENITIVE = "шкафчика ботаника",
+        DATIVE = "шкафчику ботаника",
+        ACCUSATIVE = "шкафчик ботаника",
+        INSTRUMENTAL = "шкафчиком ботаника",
+        PREPOSITIONAL = "шкафчике ботаника",
+    )
+
 /obj/structure/closet/secure_closet/hydroponics/populate_contents()
 	switch(rand(1,2))
 		if(1)

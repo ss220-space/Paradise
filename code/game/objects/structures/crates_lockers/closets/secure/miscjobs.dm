@@ -3,6 +3,16 @@
 	req_access = list(ACCESS_CLOWN)
 	icon_state = "clown"
 
+/obj/structure/closet/secure_closet/clown/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик клоуна",
+        GENITIVE = "шкафчика клоуна",
+        DATIVE = "шкафчику клоуна",
+        ACCUSATIVE = "шкафчик клоуна",
+        INSTRUMENTAL = "шкафчиком клоуна",
+        PREPOSITIONAL = "шкафчике клоуна",
+    )
+
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	switch(rand(0, 1))
 		if(0)
@@ -27,6 +37,16 @@
 	req_access = list(ACCESS_MIME)
 	icon_state = "mime"
 
+/obj/structure/closet/secure_closet/mime/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик мима",
+        GENITIVE = "шкафчика мима",
+        DATIVE = "шкафчику мима",
+        ACCUSATIVE = "шкафчик мима",
+        INSTRUMENTAL = "шкафчиком мима",
+        PREPOSITIONAL = "шкафчике мима",
+    )
+
 /obj/structure/closet/secure_closet/mime/populate_contents()
 	switch(rand(0, 1))
 		if(0)
@@ -50,6 +70,16 @@
 /obj/structure/closet/secure_closet/syndicate_officer
 	name = "officer's locker"
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
+
+/obj/structure/closet/secure_closet/syndicate_officer/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик офицера",
+        GENITIVE = "шкафчика офицера",
+        DATIVE = "шкафчику офицера",
+        ACCUSATIVE = "шкафчик офицера",
+        INSTRUMENTAL = "шкафчиком офицера",
+        PREPOSITIONAL = "шкафчике офицера",
+    )
 
 /obj/structure/closet/secure_closet/syndicate_officer/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)

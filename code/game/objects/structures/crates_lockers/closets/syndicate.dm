@@ -1,10 +1,22 @@
 /obj/structure/closet/syndicate
 	name = "armoury closet"
 	desc = "Why is this here?"
+	desc = "Зачем это здесь?"
 	icon_state = "syndicate"
+
+/obj/structure/closet/syndicate/get_ru_names()
+    return list(
+        NOMINATIVE = "оружейный шкафчик",
+        GENITIVE = "оружейного шкафчика",
+        DATIVE = "оружейному шкафчику",
+        ACCUSATIVE = "оружейный шкафчик",
+        INSTRUMENTAL = "оружейным шкафчиком",
+        PREPOSITIONAL = "оружейном шкафчике",
+    )
 
 /obj/structure/closet/syndicate/personal
 	desc = "It's a storage unit for operative gear."
+	desc = "Это устройство для хранения снаряжения оперативников."
 
 /obj/structure/closet/syndicate/personal/populate_contents()
 	new /obj/item/clothing/under/syndicate(src)
@@ -16,6 +28,7 @@
 
 /obj/structure/closet/syndicate/suits
 	desc = "It's a storage unit for operative space gear."
+	desc = "Это устройство для хранения снаряжения оперативников."
 
 /obj/structure/closet/syndicate/suits/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
@@ -24,6 +37,7 @@
 
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party."
+	desc = "Это устройство для хранения вещей абордажнной группы Синдиката."
 
 /obj/structure/closet/syndicate/nuclear/populate_contents()
 	new /obj/item/ammo_box/magazine/m10mm(src)
@@ -43,6 +57,7 @@
 
 /obj/structure/closet/syndicate/sst
 	desc = "It's a storage unit for an elite syndicate strike team's gear."
+	desc = "Это устройство для хранения снаряжения элитной ударной группы Синдиката."
 
 /obj/structure/closet/syndicate/sst/populate_contents()
 	new /obj/item/ammo_box/magazine/l6saw(src)
@@ -56,6 +71,7 @@
 
 /obj/structure/closet/syndicate/resources
 	desc = "An old, dusty locker."
+	desc = "Старый, пыльный шкафчик."
 
 /obj/structure/closet/syndicate/resources/populate_contents()
 	var/common_min = 30 //Minimum amount of minerals in the stack for common minerals
@@ -70,6 +86,7 @@
 		var/obj/item/paper/P = new /obj/item/paper(src)
 		P.name = "IOU"
 		P.info = "Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!"
+		P.info = "Извини, дружище, нам нужны были деньги, поэтому мы продали твою партию. Ничего страшного, в этот раз мы точно удвоим свои деньги!"
 
 	//Metal (common ore)
 	if(pickednum >= 2)
@@ -117,6 +134,7 @@
 
 /obj/structure/closet/syndicate/resources/everything
 	desc = "It's an emergency storage closet for repairs."
+	desc = "Это аварийный шкафчик для хранения материалов, нужных для проведения ремонтных работ."
 
 /obj/structure/closet/syndicate/resources/everything/populate_contents()
 	var/list/resources = list(
@@ -143,15 +161,36 @@
 /obj/structure/closet/secure_closet/syndicate
 	name = "Syndicate Locker"
 	desc = "It's an immobile card-locked storage unit. A big 'S' letter on it indicates that it belongs to the syndicate."
+	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте. Большая буква «S» на нем указывает на то, что он принадлежит Синдикату."
 	req_access = list(150)
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	max_integrity = 300
 	icon_state = "syndicate_secure"
 	custom_open_overlay = "syndicate_secure"
 
+/obj/structure/closet/secure_closet/syndicate/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик Синдиката",
+        GENITIVE = "шкафчика Синдиката",
+        DATIVE = "шкафчику Синдиката",
+        ACCUSATIVE = "шкафчик Синдиката",
+        INSTRUMENTAL = "шкафчиком Синдиката",
+        PREPOSITIONAL = "шкафчике Синдиката",
+    )
+
 /obj/structure/closet/secure_closet/syndicate/comms_officer
 	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
 	name = "Syndicate Comms Officer's Locker"
+
+/obj/structure/closet/secure_closet/syndicate/comms_officer/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик офицера связи Синдиката",
+        GENITIVE = "шкафчика офицера связи Синдиката",
+        DATIVE = "шкафчику офицера связи Синдиката",
+        ACCUSATIVE = "шкафчик офицера связи Синдиката",
+        INSTRUMENTAL = "шкафчиком офицера связи Синдиката",
+        PREPOSITIONAL = "шкафчике офицера связи Синдиката",
+    )
 
 /obj/structure/closet/secure_closet/syndicate/comms_officer/populate_contents()
 	new /obj/item/clothing/glasses/night(src)
@@ -182,6 +221,16 @@
 	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "syndicate_rd_secure"
 
+/obj/structure/closet/secure_closet/syndicate/research_director/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик научного руководителя Синдиката",
+        GENITIVE = "шкафчика научного руководителя Синдиката",
+        DATIVE = "шкафчику научного руководителя Синдиката",
+        ACCUSATIVE = "шкафчик научного руководителя Синдиката",
+        INSTRUMENTAL = "шкафчиком научного руководителя Синдиката",
+        PREPOSITIONAL = "шкафчике научного руководителя Синдиката",
+    )
+
 /obj/structure/closet/secure_closet/syndicate/research_director/populate_contents()
 	new /obj/item/clothing/glasses/night(src)
 	new /obj/item/pda/syndicate/no_cartridge/rd(src)
@@ -210,6 +259,16 @@
 	req_access = list(ACCESS_SYNDICATE_CARGO)
 	icon_state = "syndicate_cargo_secure"
 
+/obj/structure/closet/secure_closet/syndicate/cargo/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик грузчика Синдиката",
+        GENITIVE = "шкафчика грузчика Синдиката",
+        DATIVE = "шкафчику грузчика Синдиката",
+        ACCUSATIVE = "шкафчик грузчика Синдиката",
+        INSTRUMENTAL = "шкафчиком грузчика Синдиката",
+        PREPOSITIONAL = "шкафчике грузчика Синдиката",
+    )
+
 /obj/structure/closet/secure_closet/syndicate/cargo/populate_contents()
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
@@ -228,6 +287,16 @@
 	name = "Syndicate Medical Doctor's Locker"
 	req_access = list(ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndicate_med_secure"
+
+/obj/structure/closet/secure_closet/syndicate/medbay/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик врача Синдиката",
+        GENITIVE = "шкафчика врача Синдиката",
+        DATIVE = "шкафчику врача Синдиката",
+        ACCUSATIVE = "шкафчик врача Синдиката",
+        INSTRUMENTAL = "шкафчиком врача Синдиката",
+        PREPOSITIONAL = "шкафчике врача Синдиката",
+    )
 
 /obj/structure/closet/secure_closet/syndicate/medbay/populate_contents()
 	new /obj/item/storage/backpack/duffel/syndie/surgery(src)
@@ -253,6 +322,16 @@
 	req_access = list(ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndicate_hydro_secure"
 
+/obj/structure/closet/secure_closet/syndicate/hydro/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик ботаника Синдиката",
+        GENITIVE = "шкафчика ботаника Синдиката",
+        DATIVE = "шкафчику ботаника Синдиката",
+        ACCUSATIVE = "шкафчик ботаника Синдиката",
+        INSTRUMENTAL = "шкафчиком ботаника Синдиката",
+        PREPOSITIONAL = "шкафчике ботаника Синдиката",
+    )
+
 /obj/structure/closet/secure_closet/syndicate/hydro/populate_contents()
 	new /obj/item/clothing/suit/apron(src)
 	new /obj/item/clothing/suit/apron/overalls(src)
@@ -272,6 +351,16 @@
 	name = "Syndicate Chef's Locker"
 	req_access = list(ACCESS_SYNDICATE_KITCHEN)
 	icon_state = "syndicate_fridge_secure"
+
+/obj/structure/closet/secure_closet/syndicate/chef/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик повара Синдиката",
+        GENITIVE = "шкафчика повара Синдиката",
+        DATIVE = "шкафчику повара Синдиката",
+        ACCUSATIVE = "шкафчик повара Синдиката",
+        INSTRUMENTAL = "шкафчиком повара Синдиката",
+        PREPOSITIONAL = "шкафчике повара Синдиката",
+    )
 
 /obj/structure/closet/secure_closet/syndicate/chef/populate_contents()
 	new /obj/item/clothing/under/waiter(src)

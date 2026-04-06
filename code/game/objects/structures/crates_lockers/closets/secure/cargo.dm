@@ -3,6 +3,16 @@
 	req_access = list(ACCESS_CARGO)
 	icon_state = "cargo"
 
+/obj/structure/closet/secure_closet/cargotech/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик грузчика",
+        GENITIVE = "шкафчика гручика",
+        DATIVE = "шкафчику грузчика",
+        ACCUSATIVE = "шкафчик грузчика",
+        INSTRUMENTAL = "шкафчиком грузчика",
+        PREPOSITIONAL = "шкафчике грузчика",
+    )
+
 /obj/structure/closet/secure_closet/cargotech/populate_contents()
 	new /obj/item/clothing/under/rank/cargotech(src)
 	new /obj/item/clothing/under/rank/cargotech/skirt(src)
@@ -18,6 +28,16 @@
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)
 	icon_state = "qm"
+
+/obj/structure/closet/secure_closet/quartermaster/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик квартирмейстера",
+        GENITIVE = "шкафчика квартирмейстера",
+        DATIVE = "шкафчику квартирмейстера",
+        ACCUSATIVE = "шкафчик квартирмейстера",
+        INSTRUMENTAL = "шкафчиком квартирмейстера",
+        PREPOSITIONAL = "шкафчике квартирмейстера",
+    )
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/storage/backpack/cargo(src)

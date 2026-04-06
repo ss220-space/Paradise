@@ -14,7 +14,18 @@
 /obj/structure/closet/gmcloset
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
+	desc = "Это устройство для хранения формальной одежды."
 	custom_door_overlay = "black"
+
+/obj/structure/closet/gmcloset/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик для формальной одежды",
+        GENITIVE = "шкафчика для формальной одежды",
+        DATIVE = "шкафчику для формальной одежды",
+        ACCUSATIVE = "шкафчик для формальной одежды",
+        INSTRUMENTAL = "шкафчиком для формальной одежды",
+        PREPOSITIONAL = "шкафчике для формальной одежды",
+    )
 
 /obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
@@ -42,7 +53,19 @@
 /obj/structure/closet/chefcloset
 	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
+	name = "шкафчик повара"
+	desc = "Это устройство для хранения формы сервиса общественного питания."
 	icon_state = "chef"
+
+/obj/structure/closet/chefcloset/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик повара",
+        GENITIVE = "шкафчика повара",
+        DATIVE = "шкафчику повара",
+        ACCUSATIVE = "шкафчик повара",
+        INSTRUMENTAL = "шкафчиком повара",
+        PREPOSITIONAL = "шкафчике повара",
+    )
 
 /obj/structure/closet/chefcloset/populate_contents()
 	new /obj/item/clothing/under/waiter(src)
@@ -70,7 +93,18 @@
 /obj/structure/closet/jcloset
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
+	desc = "Это устройство для хранения одежды и снаряжения уборщиков."
 	icon_state = "janitor"
+
+/obj/structure/closet/jcloset/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик уборщика",
+        GENITIVE = "шкафчика уборщика",
+        DATIVE = "шкафчику уборщика",
+        ACCUSATIVE = "шкафчик уборщика",
+        INSTRUMENTAL = "шкафчиком уборщика",
+        PREPOSITIONAL = "шкафчике уборщика",
+    )
 
 /obj/structure/closet/jcloset/populate_contents()
 	new /obj/item/flashlight(src)
@@ -109,7 +143,18 @@
 /obj/structure/closet/lawcloset
 	name = "legal closet"
 	desc = "It's a storage unit for courtroom apparel and items."
+	desc = "Это устройство для хранения одежды и принадлежностей, необходимых в зале суда."
 	custom_door_overlay = "blue"
+
+/obj/structure/closet/lawcloset/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик адвоката",
+        GENITIVE = "шкафчика адвоката",
+        DATIVE = "шкафчику адвоката",
+        ACCUSATIVE = "шкафчик адвоката",
+        INSTRUMENTAL = "шкафчиком адвоката",
+        PREPOSITIONAL = "шкафчике адвоката",
+    )
 
 /obj/structure/closet/lawcloset/populate_contents()
 	new /obj/item/storage/box/tapes(src)
@@ -133,7 +178,18 @@
 /obj/structure/closet/paramedic
 	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
+	desc = "Это устройство для хранения снаряжения парамедика."
 	icon_state = "paramed"
+
+/obj/structure/closet/paramedic/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик парамедика",
+        GENITIVE = "шкафчика парамедика",
+        DATIVE = "шкафчику парамедика",
+        ACCUSATIVE = "шкафчик парамедика",
+        INSTRUMENTAL = "шкафчиком парамедика",
+        PREPOSITIONAL = "шкафчике парамедика",
+    )
 
 /obj/structure/closet/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
@@ -158,7 +214,18 @@
 /obj/structure/closet/librarian
 	name = "librarian wardrobe"
 	desc = "It's a storage unit for librarian clothes and gear."
+	desc = "Это устройство для хранения одежды и принадлежностей библиотекаря."
 	custom_door_overlay = "black"
+
+/obj/structure/closet/librarian/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик библиотекаря",
+        GENITIVE = "шкафчика библиотекаря",
+        DATIVE = "шкафчику библиотекаря",
+        ACCUSATIVE = "шкафчик библиотекаря",
+        INSTRUMENTAL = "шкафчиком библиотекаря",
+        PREPOSITIONAL = "шкафчике библиотекаря",
+    )
 
 /obj/structure/closet/librarian/populate_contents()
 	new /obj/item/clothing/under/suit_jacket/red(src)
@@ -178,6 +245,7 @@
 	icon_state = "chaplain"
 	name = "burial clothes"
 	desc = "В данном ящике хранится траурная одежда."
+	desc = "Это устройство для хранения погребальной одежды."
 
 /obj/structure/closet/burial/get_ru_names()
 	return list(
@@ -187,6 +255,12 @@
 		ACCUSATIVE = "ящик с траурной одеждой",
 		INSTRUMENTAL = "ящиком с траурной одеждой",
 		PREPOSITIONAL = "ящике с траурной одеждой",
+		NOMINATIVE = "шкафчик для погребальной одежды",
+		GENITIVE = "шкафчика для погребальной одежды",
+		DATIVE = "шкафчику для погребальной одежды",
+		ACCUSATIVE = "шкафчик для погребальной одежды",
+		INSTRUMENTAL = "шкафчиком для погребальной одежды",
+		PREPOSITIONAL = "шкафчике для погребальной одежды",
 	)
 
 /obj/structure/closet/burial/populate_contents()

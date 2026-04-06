@@ -4,6 +4,7 @@
 /obj/structure/closet/cardboard
 	name = "large cardboard box"
 	desc = "Just a box..."
+	desc = "Просто коробка..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
 	resistance_flags = FLAMMABLE
@@ -22,6 +23,16 @@
 	COOLDOWN_DECLARE(recently_alerted_cd)
 	/// The cooldown timestamp used for movement.
 	COOLDOWN_DECLARE(recently_moved_cd)
+
+/obj/structure/closet/cardboard/get_ru_names()
+    return list(
+        NOMINATIVE = "большая картонная коробка",
+        GENITIVE = "большой картонной коробки",
+        DATIVE = "большой картонной коробке",
+        ACCUSATIVE = "большую картонную коробку",
+        INSTRUMENTAL = "большой картонной коробкой",
+        PREPOSITIONAL = "большой картонной коробке",
+    )
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
 	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || !relaymove_multiz_check(direction))
@@ -232,6 +243,8 @@
 /obj/structure/closet/cardboard/agent/nullspace
 	name = "блюспейс коробка"
 	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
+	name = "блюспейс-коробка"
+	desc = "Коробка, пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
 	gender = FEMALE
 	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
@@ -243,6 +256,12 @@
 		ACCUSATIVE = "блюспейс коробку",
 		INSTRUMENTAL = "блюспейс коробкой",
 		PREPOSITIONAL = "блюспейс коробке",
+		NOMINATIVE = "блюспейс-коробка",
+		GENITIVE = "блюспейс-коробки",
+		DATIVE = "блюспейс-коробке",
+		ACCUSATIVE = "блюспейс-коробку",
+		INSTRUMENTAL = "блюспейс-коробкой",
+		PREPOSITIONAL = "блюспейс-коробке",
 	)
 
 /obj/structure/closet/cardboard/agent/nullspace/go_invisible()

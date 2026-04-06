@@ -7,6 +7,7 @@
 /obj/structure/closet/crate/secure
 	name = "secure crate"
 	desc = "A secure crate."
+	desc = "Защищённый ящик."
 	icon_state = "securecrate"
 	overlay_locked = "securecrater"
 	overlay_unlocked = "securecrateg"
@@ -21,6 +22,16 @@
 	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
 	can_be_emissive = TRUE
+
+/obj/structure/closet/crate/secure/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённый ящик",
+        GENITIVE = "защищённого ящика",
+        DATIVE = "защищённому ящику",
+        ACCUSATIVE = "защищённый ящик",
+        INSTRUMENTAL = "защищённым ящиком",
+        PREPOSITIONAL = "защищённом ящике",
+    )
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -41,6 +52,8 @@
 	if(user)
 		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		to_chat(user, span_danger("Система защиты от вскрытия ящика активируется!"))
+		investigate_log("[key_name_log(user)] взорвал [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/movable in src)
 		qdel(movable)
@@ -168,6 +181,7 @@
 // MARK: Specific secure crates
 /obj/structure/closet/crate/secure/weapon
 	desc = "A secure weapons crate."
+	desc = "Защищённый оружейный ящик."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
 	overlay_locked = "heavycrate_locked"
@@ -175,6 +189,16 @@
 	overlay_sparking = "heavycrate_sparks"
 	overlay_broken = "heavycrate_hacking"
 	overlay_lightmask = "heavysecurecrate_lightmask"
+
+/obj/structure/closet/crate/secure/weapon/get_ru_names()
+    return list(
+        NOMINATIVE = "оружейный ящик",
+        GENITIVE = "оружейного ящика",
+        DATIVE = "оружейному ящику",
+        ACCUSATIVE = "оружейный ящик",
+        INSTRUMENTAL = "оружейным ящиком",
+        PREPOSITIONAL = "оружейном ящике",
+    )
 
 /obj/structure/closet/crate/secure/weapon/veihit
 	name = "highrisk crate"
@@ -185,8 +209,19 @@
 	overlay_broken = "mortar_hacking"
 	overlay_lightmask = "mortar_lightmask"
 
+/obj/structure/closet/crate/secure/weapon/veihit/get_ru_names()
+    return list(
+        NOMINATIVE = "ящик для особо ценных предметов",
+        GENITIVE = "ящика для особо ценных предметов",
+        DATIVE = "ящику для особо ценных предметов",
+        ACCUSATIVE = "ящик для особо ценных предметов",
+        INSTRUMENTAL = "ящиком для особо ценных предметов",
+        PREPOSITIONAL = "ящике для особо ценных предметов",
+    )
+
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
+	desc = "Защищённый плазменный ящик."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
 	overlay_locked = "heavycrate_locked"
@@ -195,18 +230,51 @@
 	overlay_broken = "heavycrate_hacking"
 	overlay_lightmask = "heavysecurecrate_lightmask"
 
+/obj/structure/closet/crate/secure/plasma/get_ru_names()
+    return list(
+        NOMINATIVE = "плазменный ящик",
+        GENITIVE = "плазменного ящика",
+        DATIVE = "плазменному ящику",
+        ACCUSATIVE = "плазменный ящик",
+        INSTRUMENTAL = "плазменным ящиком",
+        PREPOSITIONAL = "плазменном ящике",
+    )
+
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."
+	desc = "Защищённый ящик для снаряжения."
 	name = "gear crate"
 	icon_state = "secgearcrate"
 
+/obj/structure/closet/crate/secure/gear/get_ru_names()
+    return list(
+        NOMINATIVE = "ящик для снаряжения",
+        GENITIVE = "ящика для снаряжения",
+        DATIVE = "ящику для снаряжения",
+        ACCUSATIVE = "ящик для снаряжения",
+        INSTRUMENTAL = "ящиком для снаряжения",
+        PREPOSITIONAL = "ящике для снаряжения",
+    )
+
 /obj/structure/closet/crate/secure/hydrosec
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
+	desc = "Ящик с замком, раскрашенный в цветовую гамму, характерную для ботаников станции."
 	name = "secure hydroponics crate"
 	icon_state = "hydrosecurecrate"
 
+/obj/structure/closet/crate/secure/hydrosec/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённый ботанический ящик",
+        GENITIVE = "защищённого ботанического ящика",
+        DATIVE = "защищённому ботаническому ящику",
+        ACCUSATIVE = "защищённый ботанический ящик",
+        INSTRUMENTAL = "защищённым ботаническим ящиком",
+        PREPOSITIONAL = "защищённом ботаническом ящике",
+    )
+
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
+	desc = "Защищённое мусорное ведро."
 	name = "secure bin"
 	icon_state = "largebins"
 	overlay_locked = "largebinr"
@@ -214,13 +282,34 @@
 	overlay_sparking = "largebinsparks"
 	overlay_broken = "largebinemag"
 
+/obj/structure/closet/crate/secure/bin/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённое мусорное ведро",
+        GENITIVE = "защищённого мусорного ведра",
+        DATIVE = "защищённому мусорному ведру",
+        ACCUSATIVE = "защищённое мусорное ведро",
+        INSTRUMENTAL = "защищённым мусорным ведрои",
+        PREPOSITIONAL = "защищённом мусорном ведре",
+    )
+
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
 	desc = "A hefty metal crate with an electronic locking system."
+	desc = "Массивный металлический ящик с электронным замком."
 	icon_state = "largemetal"
 	overlay_locked = "largemetalr"
 	overlay_unlocked = "largemetalg"
 	overlay_broken = ""
+
+/obj/structure/closet/crate/secure/large/get_ru_names()
+    return list(
+        NOMINATIVE = "большой ящик",
+        GENITIVE = "большого ящика",
+        DATIVE = "большому ящику",
+        ACCUSATIVE = "большой ящик",
+        INSTRUMENTAL = "большим ящиком",
+        PREPOSITIONAL = "большом ящике",
+    )
 
 /obj/structure/closet/crate/secure/large/close()
 	. = ..()
@@ -245,34 +334,90 @@
 
 /obj/structure/closet/crate/secure/large/reinforced
 	desc = "A hefty, reinforced metal crate with an electronic locking system."
+	desc = "Массивный усиленный металлический ящик с электронным замком."
 	icon_state = "largermetal"
 
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
+	desc = "Ящик с замком, раскрашенный в цветовую гамму, характерную для ученых станции."
 	icon_state = "scisecurecrate"
+
+/obj/structure/closet/crate/secure/scisec/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённый исследовательский ящик",
+        GENITIVE = "защищённого исследовательский ящика",
+        DATIVE = "защищённому исследовательский ящику",
+        ACCUSATIVE = "защищённый исследовательский ящик",
+        INSTRUMENTAL = "защищённым исследовательский ящиком",
+        PREPOSITIONAL = "защищённом исследовательский ящике",
+    )
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	desc = "An engineering crate."
+	desc = "Инженерный ящик."
 	icon_state = "engicrate"
+
+/obj/structure/closet/crate/engineering/get_ru_names()
+    return list(
+        NOMINATIVE = "инженерный ящик",
+        GENITIVE = "инженерного ящика",
+        DATIVE = "инженерному ящику",
+        ACCUSATIVE = "инженерный ящик",
+        INSTRUMENTAL = "инженерным ящиком",
+        PREPOSITIONAL = "инженерном ящике",
+    )
 
 /obj/structure/closet/crate/secure/engineering
 	name = "secure engineering crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
+	desc = "Ящик с замком, окрашенный в цветовую схему инженеров станции."
 	icon_state = "engisecurecrate"
+
+/obj/structure/closet/crate/secure/engineering/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённый инженерный ящик",
+        GENITIVE = "защищённого инженерного ящика",
+        DATIVE = "защищённому инженерному ящику",
+        ACCUSATIVE = "защищённый инженерный ящик",
+        INSTRUMENTAL = "защищённым инженерным ящиком",
+        PREPOSITIONAL = "защищённом инженерном ящике",
+    )
 
 /obj/structure/closet/crate/secure/biohazard
 	name = "secure biohazard crate"
 	desc = "An protected biohazard crate."
+	desc = "Защищённый биологический ящик."
 	icon_state = "biohazard"
+
+/obj/structure/closet/crate/secure/biohazard/get_ru_names()
+    return list(
+        NOMINATIVE = "защищённый биозащитный ящик",
+        GENITIVE = "защищённого биозащитного ящика",
+        DATIVE = "защищённому биозащитному ящику",
+        ACCUSATIVE = "защищённый биозащитный ящик",
+        INSTRUMENTAL = "защищённым биозащитным ящиком",
+        PREPOSITIONAL = "защищённом биозащитном ящике",
+    )
 
 /obj/structure/closet/crate/secure/syndicate
 	name = "secure suspicious crate"
 	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
+	desc = "Это определённо собственность злой корпорации! И у неё защищённый замок! И микрофон?"
 	icon_state = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/syndicate/get_ru_names()
+    return list(
+        NOMINATIVE = "подозрительный защищённый ящик",
+        GENITIVE = "подозрительного защищённого ящика",
+        DATIVE = "подозрительному защищённому ящику",
+        ACCUSATIVE = "подозрительный защищённый ящик",
+        INSTRUMENTAL = "подозрительным защищённым ящиком",
+        PREPOSITIONAL = "подозрительном защищённом ящике",
+    )
 
 // MARK: Blood crates
 /obj/structure/closet/crate/secure/blood

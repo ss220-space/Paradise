@@ -1,6 +1,7 @@
 /obj/structure/closet/coffin
 	name = "coffin"
 	desc = "It's a burial receptacle for the dearly departed."
+	desc = "Это место захоронения усопших."
 	icon_state = "coffin"
 	icon_closed = "coffin"
 	icon_opened = "coffin_open"
@@ -12,6 +13,16 @@
 	open_sound_volume = 25
 	no_overlays = TRUE
 
+/obj/structure/closet/coffin/get_ru_names()
+    return list(
+        NOMINATIVE = "гроб",
+        GENITIVE = "гроба",
+        DATIVE = "гробу",
+        ACCUSATIVE = "гроб",
+        INSTRUMENTAL = "гробом",
+        PREPOSITIONAL = "гробе",
+    )
+
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"
 	icon_state = "sarc"
@@ -20,3 +31,13 @@
 	open_sound = 'sound/effects/stonedoor_openclose.ogg'
 	close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	material_drop = /obj/item/stack/sheet/mineral/sandstone
+
+/obj/structure/closet/coffin/sarcophagus/get_ru_names()
+    return list(
+        NOMINATIVE = "саркофаг",
+        GENITIVE = "саркофага",
+        DATIVE = "саркофагу",
+        ACCUSATIVE = "саркофаг",
+        INSTRUMENTAL = "саркофагом",
+        PREPOSITIONAL = "саркофаге",
+    )

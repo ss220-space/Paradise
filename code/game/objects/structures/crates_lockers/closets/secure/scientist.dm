@@ -3,6 +3,16 @@
 	req_access = list(ACCESS_TOX_STORAGE)
 	icon_state = "res"
 
+/obj/structure/closet/secure_closet/scientist/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик учёного",
+        GENITIVE = "шкафчика учёного",
+        DATIVE = "шкафчику учёного",
+        ACCUSATIVE = "шкафчик учёного",
+        INSTRUMENTAL = "шкафчиком учёного",
+        PREPOSITIONAL = "шкафчике учёного",
+    )
+
 /obj/structure/closet/secure_closet/scientist/populate_contents()
 	new /obj/item/storage/backpack/science(src)
 	new /obj/item/storage/backpack/science(src)
@@ -30,6 +40,16 @@
 	req_access = list(ACCESS_ROBOTICS)
 	icon_state = "res"
 
+/obj/structure/closet/secure_closet/roboticist/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик роботехника",
+        GENITIVE = "шкафчика роботехника",
+        DATIVE = "шкафчику роботехника",
+        ACCUSATIVE = "шкафчик роботехника",
+        INSTRUMENTAL = "шкафчиком роботехника",
+        PREPOSITIONAL = "шкафчике роботехника",
+    )
+
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
 	new /obj/item/mod/core/standard(src)
 	new /obj/item/mod/core/standard(src)
@@ -48,6 +68,16 @@
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
 	icon_state = "rd"
+
+/obj/structure/closet/secure_closet/RD/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик научного руководителя",
+        GENITIVE = "шкафчика научного руководителя",
+        DATIVE = "шкафчику научного руководителя",
+        ACCUSATIVE = "шкафчик научного руководителя",
+        INSTRUMENTAL = "шкафчиком научного руководителя",
+        PREPOSITIONAL = "шкафчике научного руководителя",
+    )
 
 /obj/structure/closet/secure_closet/RD/populate_contents()
 	new /obj/item/cartridge/rd(src)
@@ -74,9 +104,20 @@
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
 	desc = "Store dangerous chemicals in here."
+	desc = "Здесь хранятся опасные химические вещества."
 	icon_state = "res"
 	custom_door_overlay = "rchemical"
 	req_access = list(ACCESS_TOX_STORAGE)
+
+/obj/structure/closet/secure_closet/research_reagents/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик для исследовательских химикатов",
+        GENITIVE = "шкафчика для исследовательских химикатов",
+        DATIVE = "шкафчику для исследовательских химикатов",
+        ACCUSATIVE = "шкафчик для исследовательских химикатов",
+        INSTRUMENTAL = "шкафчиком для исследовательских химикатов",
+        PREPOSITIONAL = "шкафчике для исследовательских химикатов",
+    )
 
 /obj/structure/closet/secure_closet/research_reagents/populate_contents()
 	new /obj/item/reagent_containers/glass/bottle/reagent/morphine(src)

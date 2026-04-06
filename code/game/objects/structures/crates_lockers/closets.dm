@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
+	desc = "Это базовое складское устройство."
 	gender = MALE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
@@ -49,6 +50,16 @@ GLOBAL_LIST_EMPTY(closets)
 	var/material_drop_amount = 2
 	var/ignore_shoves = FALSE
 	var/no_throw_opens = FALSE
+
+/obj/structure/closet/get_ru_names()
+    return list(
+        NOMINATIVE = "шкафчик",
+        GENITIVE = "шкафчика",
+        DATIVE = "шкафчику",
+        ACCUSATIVE = "шкафчик",
+        INSTRUMENTAL = "шкафчиком",
+        PREPOSITIONAL = "шкафчике",
+    )
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
