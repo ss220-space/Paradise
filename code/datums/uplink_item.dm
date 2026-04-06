@@ -802,6 +802,12 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
+/datum/uplink_item/dangerous/revolver_rsh12
+	name = "Комплект с револьвером \"РШ-12\""
+	desc = "Набор с крупнокалиберным револьвером \"РШ-12\". Поставляется с несколькими пачками патронов калибра 12.7x55 мм и кобурой для переноски."
+	item = /obj/item/storage/box/syndie_kit/rsh12_revolver
+	cost = 60
+
 /datum/uplink_item/dangerous/deagle
 	name = "Комплект с пистолетом \"Пустынный Орёл\""
 	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
