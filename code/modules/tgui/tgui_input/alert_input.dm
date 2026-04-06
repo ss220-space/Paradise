@@ -86,6 +86,7 @@
 /datum/tgui_alert/Destroy(force)
 	SStgui.close_uis(src)
 	state = null
+	LAZYCLEARLIST(buttons)
 	deltimer(deletion_timer)
 	return ..()
 

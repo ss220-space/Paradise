@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - map: "Исправлены ошибки с атмосом на картах. (PR #8796)"

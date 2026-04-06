@@ -163,7 +163,7 @@
 
 	GLOB.bots_list -= src
 
-	QDEL_NULL(path)
+	QDEL_LIST(path)
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 
@@ -176,7 +176,7 @@
 
 	QDEL_NULL(bot_core)
 
-	. = ..()
+	return ..()
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
