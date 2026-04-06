@@ -79,6 +79,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
+/// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
+#define CALIBER_12_DOT_7X55MM "12.7x55 мм"
 
 // Intermediate cartridges
 /// Used in AR-15 type rifles (TSF)
