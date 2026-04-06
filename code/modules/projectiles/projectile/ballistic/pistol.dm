@@ -112,10 +112,9 @@
 //MARK: 12.7x55
 /obj/projectile/bullet/cc130pt
 	damage = 65
-	tile_dropoff = 3
+	tile_dropoff = 1
 	ricochet_chance = 25
 	speed = 1
-	range = 20
 
 
 // MARK: .50AE
