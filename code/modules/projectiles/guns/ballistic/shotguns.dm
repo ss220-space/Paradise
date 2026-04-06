@@ -230,6 +230,10 @@
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/Destroy()
+	QDEL_NULL(alternate_magazine)
+	return ..()
+
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/unload_act(mob/user)
 	if(!chambered && length(magazine.contents))
 		pump()

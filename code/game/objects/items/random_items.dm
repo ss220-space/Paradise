@@ -274,13 +274,23 @@
 	name = "tactical grenades"
 	desc = "A box with 6 tactical grenades."
 	icon_state = "box_flashbang"
-	var/list/grenadelist = list(/obj/item/grenade/chem_grenade/metalfoam, /obj/item/grenade/chem_grenade/incendiary,
-	/obj/item/grenade/chem_grenade/antiweed, /obj/item/grenade/chem_grenade/cleaner, /obj/item/grenade/chem_grenade/teargas,
-	/obj/item/grenade/chem_grenade/holywater, /obj/item/grenade/chem_grenade/meat,
-	/obj/item/grenade/chem_grenade/dirt, /obj/item/grenade/chem_grenade/lube, /obj/item/grenade/smokebomb,
-	/obj/item/grenade/chem_grenade/drugs, /obj/item/grenade/chem_grenade/ethanol) // holy list batman
 
 /obj/item/storage/box/grenades/populate_contents()
+	var/static/list/grenade_list = list(
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/chem_grenade/holywater,
+		/obj/item/grenade/chem_grenade/meat,
+		/obj/item/grenade/chem_grenade/dirt,
+		/obj/item/grenade/chem_grenade/lube,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/chem_grenade/drugs,
+		/obj/item/grenade/chem_grenade/ethanol,
+	)
+
 	for(var/i in 1 to 6)
-		var/nade = pick(grenadelist)
-		new nade(src)
+		var/grenade = pick(grenade_list)
+		new grenade(src)

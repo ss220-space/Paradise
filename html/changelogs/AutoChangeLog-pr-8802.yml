@@ -1,4 +1,0 @@
-author: "NightDawnFox"
-delete-after: True
-changes:
-  - bugfix: "возвращение найт вижена мезонам (PR #8802)"

@@ -6,6 +6,7 @@
 	armour_penetration = 100
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
+	ricochet_chance = 0
 
 /obj/projectile/hook/get_ru_names()
 	return list(

@@ -467,6 +467,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/tripwire
+	name = "Самодельная растяжка"
+	result = /obj/item/tripwire/two_for_craft
+	reqs = list(/obj/item/stack/rods)
+	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	time = 5 SECONDS
+
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"
 	result = /obj/item/camera/spooky
