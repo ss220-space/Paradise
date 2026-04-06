@@ -15,6 +15,7 @@
 	internal_damage_threshold = 35
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
+	bola_acceptable = TRUE
 
 	mech_type = MECH_TYPE_GYGAX
 

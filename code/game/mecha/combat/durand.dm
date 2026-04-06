@@ -13,6 +13,7 @@
 	maint_access = TRUE
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
+	boosted_step_in = 3.3
 
 	mech_type = MECH_TYPE_DURAND
 

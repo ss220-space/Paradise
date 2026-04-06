@@ -49,6 +49,8 @@
 	max_equip = 4
 	wreckage = null
 	ui_theme = "syndicate"
+	boosted_step_in = 2
+	bola_acceptable = TRUE
 
 /obj/mecha/combat/lockersyndie/get_ru_names()
 	return list(

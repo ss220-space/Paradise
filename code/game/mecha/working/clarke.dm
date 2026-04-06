@@ -16,6 +16,7 @@
 	normal_step_energy_drain = 2
 	stepsound = 'sound/mecha/mechmove04.ogg'
 	turnsound = 'sound/mecha/mechmove04.ogg'
+	boosted_step_in = 1.5
 
 	mech_type = MECH_TYPE_CLARKE
 

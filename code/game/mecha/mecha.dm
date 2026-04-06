@@ -130,6 +130,10 @@
 	///Is mecha strafing currently
 	var/strafe = FALSE
 
+	/// The speed of mecha, if he is upgraded by a improved control system module.
+	/// Left 'null' here, if you want make your mecha dont be upgradable by this module.
+	var/boosted_step_in = null
+
 	///Mech subtype. Currently used in paintkits.
 	var/mech_type = MECH_TYPE_NONE
 

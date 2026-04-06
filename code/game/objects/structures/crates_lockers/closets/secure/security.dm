@@ -451,26 +451,28 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/mech_mods/populate_contents()
-	// Pick armour
-	if(prob(50))
-		new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
-	else
-		new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster(src)
-	// Pick support equipment
-	if(prob(50))
-		new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
-	else
-		new /obj/item/mecha_parts/mecha_equipment/repair_droid(src)
-	// Pick alternative non-lethal weapon
-	if(prob(50))
-		new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser(src)
-	else
-		new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola(src)
-	// Pick lethal weapon
-	if(prob(50))
-		new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser(src)
-	else
-		new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/machine_gun(src)
+	var/obj/item/thing_to_spawn
+	var/list/mod_list = list(
+		list(
+			/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 1,
+			/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 1,
+		),
+		list(
+			/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 1,
+			/obj/item/mecha_parts/mecha_equipment/repair_droid = 1,
+		),
+		list(
+			/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser = 1,
+			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola = 1,
+		),
+		list(
+			/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser = 1,
+			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/machine_gun = 1,
+		),
+	)
+	for(var/list/equipment_list as anything in mod_list)
+		thing_to_spawn = pickweight(equipment_list)
+		new thing_to_spawn(src)
 	// Someday...
 	if(prob(0.01))
 		new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium(src)

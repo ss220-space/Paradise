@@ -310,7 +310,7 @@
 	icon_state = "mecha_gun"
 	origin_tech = "materials=2;combat=2"
 	equip_cooldown = 0.6 SECONDS
-	projectile = /obj/projectile/bullet/five_mm
+	projectile = /obj/projectile/bullet
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 100
 	projectile_energy_cost = 5
@@ -606,9 +606,10 @@
 	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/hercules))
-			return TRUE
+	if(!..())
+		return FALSE
+	if(M.bola_acceptable)
+		return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)

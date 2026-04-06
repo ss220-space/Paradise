@@ -12,6 +12,7 @@
 	deflect_chance = 15
 	step_energy_drain = 6
 	normal_step_energy_drain = 6
+	boosted_step_in = 1.8
 	var/builtin_hud_user = 0
 
 	mech_type = MECH_TYPE_ODYSSEUS

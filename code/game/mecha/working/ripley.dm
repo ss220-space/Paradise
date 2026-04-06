@@ -13,6 +13,7 @@
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	stepsound = 'sound/mecha/ripley_step.ogg'
+	boosted_step_in = 3.5
 	var/hides = 0
 	var/plates = 0
 

@@ -365,10 +365,6 @@
 	damage = 18
 	armour_penetration = 30
 
-//5mm bullet casing. Used by mech gun
-/obj/projectile/bullet/five_mm
-	damage = 10
-
 //.45 bullet casing
 /obj/projectile/bullet/midbullet
 	damage = 23

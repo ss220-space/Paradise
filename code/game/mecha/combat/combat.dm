@@ -5,6 +5,8 @@
 	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, bio = 0, fire = 100, acid = 100)
 	destruction_sleep_duration = 4 SECONDS
 	var/am = "d3c2fbcadca903a41161ccc9df9cf948"
+	/// Can we install bola launcher on this mecha?
+	var/bola_acceptable = FALSE
 
 /obj/mecha/combat/moved_inside(mob/living/carbon/human/H)
 	if(..())

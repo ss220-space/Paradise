@@ -2,52 +2,60 @@
 	name = "Включить мигалки"
 	desc = "Переключить мигалки."
 	button_icon_state = "mech_flashlights"
-	var/in_use = FALSE
 
 /datum/action/innate/mecha/mech_toggle_flashlights/Activate()
+	if(!istype(chassis, /obj/mecha/combat/hercules))
+		stack_trace("The limited mecha-action was used by someone for whom it was not intended")
+		qdel()
+		return
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
-	if(istype(chassis, /obj/mecha/combat/hercules))
-		var/obj/mecha/combat/hercules/mecha = chassis
-		if(mecha.flashlights_working)
-			mecha.soundloop.stop()
-			mecha.flashlights_working = FALSE
-			mecha.update_icon(UPDATE_OVERLAYS)
-			button_icon_state = "mech_flashlights"
-			UpdateButtonIcon()
-			return
-		mecha.soundloop.start()
-		mecha.flashlights_working = TRUE
+	var/obj/mecha/combat/hercules/mecha = chassis
+	if(mecha.flashlights_working)
+		mecha.soundloop.stop()
+		mecha.flashlights_working = FALSE
 		mecha.update_icon(UPDATE_OVERLAYS)
-		button_icon_state = "mech_flashlights-on"
+		mecha.flashlights_overlay = mutable_appearance('icons/obj/mecha/flashlights.dmi', "flashlights")
+		mecha.add_overlay(mecha.flashlights_overlay)
+		button_icon_state = "mech_flashlights"
 		UpdateButtonIcon()
+		return
+	mecha.soundloop.start()
+	mecha.flashlights_working = TRUE
+	mecha.update_icon(UPDATE_OVERLAYS)
+	mecha.flashlights_overlay = mutable_appearance('icons/obj/mecha/flashlights.dmi', "flashlights-working")
+	mecha.add_overlay(mecha.flashlights_overlay)
+	button_icon_state = "mech_flashlights-on"
+	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_stunbaton
 	name = "Переключить электро-шокеры"
 	desc = "Переключить встроенный стан-батон экзокостюма."
 	button_icon_state = "mech_stun"
-	var/in_use = FALSE
 	var/old_damage_type = null
 
 /datum/action/innate/mecha/mech_toggle_stunbaton/Activate()
+	if(!istype(chassis, /obj/mecha/combat/hercules))
+		stack_trace("The limited mecha-action was used by someone for whom it was not intended")
+		qdel()
+		return
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
-	if(istype(chassis, /obj/mecha/combat/hercules))
-		var/obj/mecha/combat/hercules/mecha = chassis
-		if(mecha.stun_enabled)
-			mecha.damtype = old_damage_type
-			mecha.stun_enabled = FALSE
-			button_icon_state = "mech_stun"
-			mecha.balloon_alert(mecha.occupant, "электрошокеры отключены")
-			UpdateButtonIcon()
-			return
-		old_damage_type = mecha.damtype
-		mecha.damtype = STAMINA
-		mecha.stun_enabled = TRUE
-		playsound(mecha, SFX_SPARKS, HALFWAY_SOUND_VOLUME, TRUE)
-		mecha.balloon_alert(mecha.occupant, "электрошокеры включены")
-		button_icon_state = "mech_stun-on"
+	var/obj/mecha/combat/hercules/mecha = chassis
+	if(mecha.stun_enabled)
+		mecha.damtype = old_damage_type
+		mecha.stun_enabled = FALSE
+		button_icon_state = "mech_stun"
+		mecha.balloon_alert(mecha.occupant, "электрошокеры отключены")
 		UpdateButtonIcon()
+		return
+	old_damage_type = mecha.damtype
+	mecha.damtype = STAMINA
+	mecha.stun_enabled = TRUE
+	playsound(mecha, SFX_SPARKS, HALFWAY_SOUND_VOLUME, TRUE)
+	mecha.balloon_alert(mecha.occupant, "электрошокеры включены")
+	button_icon_state = "mech_stun-on"
+	UpdateButtonIcon()
 
 /obj/mecha/combat/hercules
 	name = "Hercules"
@@ -64,15 +72,19 @@
 	wreckage = /obj/structure/mecha_wreckage/hercules
 	stepsound = 'sound/mecha/ripley_step.ogg'
 	operation_req_access = list(ACCESS_BRIG)
+	boosted_step_in = 4.5
+	bola_acceptable = TRUE
+
 	var/builtin_hud_user = FALSE
+
 	/// Integrated stunbaton status
 	var/stun_enabled = FALSE
 	var/datum/action/innate/mecha/mech_toggle_stunbaton/stun_action = new
+
 	/// overlays and action for flashlights
 	var/datum/looping_sound/ambulance_alarm/soundloop
+	var/mutable_appearance/flashlights_overlay
 	var/flashlights_working = FALSE
-	var/flashlights_overlay
-	var/flashlights_overlay_working
 	var/datum/action/innate/mecha/mech_toggle_flashlights/flashlights_action = new
 
 	ui_theme = "security"
@@ -91,9 +103,8 @@
 
 /obj/mecha/combat/hercules/Initialize(mapload)
 	. = ..()
-	/// Initialize overlays
-	flashlights_overlay = image('icons/obj/mecha/flashlights.dmi', src, "flashlights")
-	flashlights_overlay_working = image('icons/obj/mecha/flashlights.dmi', src, "flashlights-working")
+	flashlights_overlay = mutable_appearance('icons/obj/mecha/flashlights.dmi', "flashlights")
+	add_overlay(flashlights_overlay)
 
 	/// Initialize equipment
 	var/obj/item/mecha_parts/mecha_equipment/equipment = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler/lightweight
@@ -104,39 +115,34 @@
 
 	trackers += new /obj/item/mecha_parts/mecha_tracking(src)
 
-	update_icon(UPDATE_OVERLAYS)
 	soundloop = new(src)
 
 /obj/mecha/combat/hercules/Destroy()
 	. = ..()
 	QDEL_NULL(soundloop)
 
-/obj/mecha/combat/hercules/update_overlays()
-	. = ..()
-	if(flashlights_working)
-		add_overlay(flashlights_overlay_working)
-	else
-		add_overlay(flashlights_overlay)
-
 /obj/mecha/combat/hercules/moved_inside(mob/living/carbon/human/H)
 	. = ..()
-	if(. && ishuman(H))
-		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message(span_warning("[H.glasses] prevent you from using the built-in security hud."))
-		else
-			var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-			hud.show_to(H)
-			builtin_hud_user = TRUE
+	if(!. || !ishuman(H))
+		return
+	if(!istype(H.glasses, /obj/item/clothing/glasses/hud))
+		occupant_message(span_warning("[H.glasses] prevent you from using the built-in security hud."))
+		return
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	hud.show_to(H)
+	builtin_hud_user = TRUE
 
 /obj/mecha/combat/hercules/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
-	if(.)
-		if(occupant.client)
-			var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-			hud.show_to(occupant)
-			builtin_hud_user = TRUE
+	if(!.)
+		return
+	if(!occupant.client)
+		return
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	hud.show_to(occupant)
+	builtin_hud_user = TRUE
 
-/obj/mecha/combat/hercules/proc/remove_builin_hud()
+/obj/mecha/combat/hercules/proc/remove_builtin_hud()
 	if(!builtin_hud_user)
 		return
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
@@ -144,6 +150,6 @@
 	builtin_hud_user = FALSE
 
 /obj/mecha/combat/hercules/go_out()
-	remove_builin_hud()
+	remove_builtin_hud()
 
 	. = ..()

@@ -509,47 +509,35 @@
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
 	selectable = MODULE_SELECTABLE_NONE
-	var/ripley_step_in = 2.5
-	var/odyss_step_in = 1.8
-	var/clarke_step_in = 1.5
-	var/durand_step_in = 3.3
-	var/locker_step_in = 2
-	var/hercules_step_in = 4.5
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/mech)
-	if(..())
-		if(istype(mech, /obj/mecha/medical) || istype(mech, /obj/mecha/combat/lockersyndie) || istype(mech, /obj/mecha/working) || istype(mech, /obj/mecha/combat/durand) || istype(mech, /obj/mecha/combat/hercules))
-			return TRUE
+	if(!..())
+		return FALSE
+	if(mech.boosted_step_in)
+		return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
-	if(istype(loc, /obj/mecha/working/ripley)) // for ripley/firefighter
-		var/obj/mecha/working/ripley/R = loc
-		R.slow_pressure_step_in = ripley_step_in
-	if(istype(loc, /obj/mecha/medical/odysseus)) // odyss
-		var/obj/mecha/medical/odysseus/O = loc
-		O.step_in = odyss_step_in
-	if(istype(loc, /obj/mecha/working/clarke)) // clerke
-		var/obj/mecha/working/clarke/K = loc
-		K.fast_pressure_step_in = clarke_step_in  // that's why
-	if(istype(loc, /obj/mecha/combat/durand)) // dura
-		var/obj/mecha/combat/durand/D = loc
-		D.step_in = durand_step_in
-	if(istype(loc, /obj/mecha/combat/lockersyndie)) // syndilocker
-		var/obj/mecha/combat/lockersyndie/L = loc
-		L.step_in = locker_step_in
-	if(istype(loc, /obj/mecha/combat/hercules)) // hercules
-		var/obj/mecha/combat/hercules/hercules = loc
-		hercules.step_in = hercules_step_in
+	if(!ismecha(loc))
+		return
+	var/obj/mecha/mecha = loc
+	mecha.step_in = mecha.boosted_step_in
+	if(!istype(mecha, /obj/mecha/working))
+		return
+	var/obj/mecha/working/industrial_mech = mecha
+	industrial_mech.slow_pressure_step_in = industrial_mech.fast_pressure_step_in
+	industrial_mech.fast_pressure_step_in = industrial_mech.fast_pressure_step_in
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
-	if(ismecha(loc))
-		var/obj/mecha/O = loc
-		O.step_in = initial(O.step_in)
-	if(istype(loc, /obj/mecha/working))
-		var/obj/mecha/working/industrial_mech = loc
-		industrial_mech.slow_pressure_step_in = initial(industrial_mech.slow_pressure_step_in)
-		industrial_mech.fast_pressure_step_in = initial(industrial_mech.fast_pressure_step_in)
+	if(!ismecha(loc))
+		return
+	var/obj/mecha/mecha = loc
+	mecha.step_in = initial(mecha.step_in)
+	if(!istype(mecha, /obj/mecha/working))
+		return
+	var/obj/mecha/working/industrial_mech = mecha
+	industrial_mech.slow_pressure_step_in = industrial_mech.fast_pressure_step_in
+	industrial_mech.fast_pressure_step_in = industrial_mech.fast_pressure_step_in
 
 // SCS-3 CAGE
 
