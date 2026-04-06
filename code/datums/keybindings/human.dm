@@ -39,7 +39,6 @@
 	name = "Быстрая экипировка рюкзака"
 	keys = list("ShiftV")
 	slot_type = ITEM_SLOT_BACK
-	slot_item_name = "рюкзак"
 
 /datum/keybinding/human/quick_equip_belt/quick_equip_suit_storage
 	name = "Быстрая экипировка хранилища костюма"
