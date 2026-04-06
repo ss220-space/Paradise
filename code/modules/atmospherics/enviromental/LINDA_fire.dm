@@ -42,24 +42,126 @@
 	/// How often do we update?
 	var/update_interval = 1
 
-/obj/effect/hotspot/New()
-	..()
+	var/static/mutable_appearance/sparkle_overlay_static
+	var/static/mutable_appearance/lightning_overlay_static
+	var/static/mutable_appearance/fusion_overlay_static
+	var/static/mutable_appearance/rainbow_overlay_static
+
+	var/last_temperature = 0
+	var/last_fuel_burnt = 0
+
+/obj/effect/hotspot/Initialize(mapload)
+	. = ..()
 	dir = pick(GLOB.cardinal)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	if(sparkle_overlay_static)
+		return
+	sparkle_overlay_static = mutable_appearance('icons/effects/effects.dmi', "shieldsparkles")
+	sparkle_overlay_static.blend_mode = BLEND_ADD
+	lightning_overlay_static = mutable_appearance(icon, "overcharged")
+	lightning_overlay_static.blend_mode = BLEND_ADD
+	fusion_overlay_static = mutable_appearance('icons/effects/tile_effects.dmi', "fusion_gas")
+	fusion_overlay_static.blend_mode = BLEND_ADD
+	rainbow_overlay_static = mutable_appearance('icons/mob/screen_gen.dmi', "druggy")
+	rainbow_overlay_static.blend_mode = BLEND_ADD
+	rainbow_overlay_static.appearance_flags = RESET_COLOR
+
+
+/obj/effect/hotspot/proc/gauss_lerp(x, x1, x2)
+	var/d = (x - (x1 + x2) * 0.5) / ((x2 - x1) / 3)
+	return NUM_E ** -(d * d)
 
 /obj/effect/hotspot/proc/update_visuals(fuel_burnt)
-	color = heat2color(temperature)
-	var/list/rgb = rgb2num(color)
+	if(last_temperature == temperature && last_fuel_burnt == fuel_burnt)
+		return
+	var/cached_temperature = temperature
+	last_temperature = temperature
+	last_fuel_burnt = fuel_burnt
+
+	cut_overlays()
+
+	var/heat_r = heat2color_r(cached_temperature)
+	var/heat_g = heat2color_g(cached_temperature)
+	var/heat_b = heat2color_b(cached_temperature)
+	var/heat_a = 255
+	var/greyscale_fire = 1 //This determines how greyscaled the fire is.
+
+	if(cached_temperature < FREON_MAXIMUM_BURN_TEMPERATURE)
+		heat_r = 0
+		heat_g = LERP(255, cached_temperature, 1.2)
+		heat_b = LERP(255, cached_temperature, 0.9)
+		heat_a = 100
+
+	else if(cached_temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
+		var/normal_amt = gauss_lerp(cached_temperature, 1000, 3000)
+		heat_r = LERP(heat_r, 255, normal_amt)
+		heat_g = LERP(heat_g, 255, normal_amt)
+		heat_b = LERP(heat_b, 255, normal_amt)
+		heat_a -= gauss_lerp(cached_temperature, -5000, 5000) * 128
+		greyscale_fire -= normal_amt
+
+	if(cached_temperature > 40000) //Past this temperature the fire will gradually turn a bright purple
+		var/purple_amt = cached_temperature < LERP(40000, 200000, 0.5) ? gauss_lerp(cached_temperature, 40000, 200000) : 1
+		heat_r = LERP(heat_r, 255, purple_amt)
+
+	if(cached_temperature > 200000 && cached_temperature < 500000) //Somewhere at this temperature nitryl happens.
+		var/sparkle_amt = gauss_lerp(cached_temperature, 200000, 500000)
+		sparkle_overlay_static.alpha = sparkle_amt * 255
+		add_overlay(sparkle_overlay_static)
+
+	if(cached_temperature > 400000 && cached_temperature < 1500000) //Lightning because very anime.
+		add_overlay(lightning_overlay_static)
+
+	if(cached_temperature > 4500000) //This is where noblium happens. Some fusion-y effects.
+		var/fusion_amt = cached_temperature < LERP(4500000, 12000000, 0.5) ? gauss_lerp(cached_temperature, 4500000, 12000000) : 1
+		fusion_overlay_static.alpha = fusion_amt * 255
+		rainbow_overlay_static.alpha = fusion_amt * 255
+		heat_r = LERP(heat_r, 150, fusion_amt)
+		heat_g = LERP(heat_g, 150, fusion_amt)
+		heat_b = LERP(heat_b, 150, fusion_amt)
+		add_overlay(fusion_overlay_static)
+		add_overlay(rainbow_overlay_static)
+
+	var/r = LERP(250, heat_r, greyscale_fire)
+	var/g = LERP(160, heat_g, greyscale_fire)
+	var/b = LERP(25, heat_b, greyscale_fire)
+
+	var/new_light_color = rgb(r, g, b)
+
 	if(isnull(light_color))
-		light_color = color
-		set_light(l_color = color)
+		light_color = new_light_color
+		set_light_color(new_light_color)
 	else
 		var/list/light_rgb = rgb2num(light_color)
-		var/r_delta = abs(rgb[1] - light_rgb[1])
-		var/g_delta = abs(rgb[2] - light_rgb[2])
-		var/b_delta = abs(rgb[3] - light_rgb[3])
-		if(r_delta > 10 || g_delta > 10 || b_delta)
-			set_light(l_color = color)
+		var/r_delta = abs(r - light_rgb[1])
+		var/g_delta = abs(g - light_rgb[2])
+		var/b_delta = abs(b - light_rgb[3])
 
+		if(r_delta > 10 || g_delta > 10 || b_delta > 10)
+			set_light_color(new_light_color)
+			light_color = new_light_color
+
+	heat_r /= 255
+	heat_g /= 255
+	heat_b /= 255
+
+	var/greyscale_fire_reversed = 1 - greyscale_fire
+
+	color = list(
+		LERP(0.3, 1, greyscale_fire_reversed) * heat_r,
+		0.3 * heat_g * greyscale_fire,
+		0.3 * heat_b * greyscale_fire,
+		0.59 * heat_r * greyscale_fire,
+		LERP(0.59, 1, greyscale_fire_reversed) * heat_g,
+		0.59 * heat_b * greyscale_fire,
+		0.11 * heat_r * greyscale_fire,
+		0.11 * heat_g * greyscale_fire,
+		LERP(0.11, 1, greyscale_fire_reversed) * heat_b,
+		0, 0, 0
+	)
 	if(fuel_burnt > 1)
 		icon_state = "3"
 	else if(fuel_burnt > 0.1)
@@ -68,15 +170,9 @@
 		icon_state = "1"
 
 
-/obj/effect/hotspot/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-
 /obj/effect/hotspot/proc/perform_exposure()
+	if(temperature < FREON_MAXIMUM_BURN_TEMPERATURE)
+		return
 	for(var/atom/item in loc.contents)
 		if(!QDELETED(item) && item != src && !(item.resistance_flags & (INDESTRUCTIBLE|FIRE_PROOF))) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(temperature, volume)
@@ -84,7 +180,7 @@
 // Garbage collect itself by nulling reference to it
 
 /obj/effect/hotspot/Destroy()
-	set_light(0)
+	set_light_on(FALSE)
 	var/turf/simulated/T = loc
 	if(istype(T) && T.active_hotspot == src)
 		T.active_hotspot = null
@@ -94,24 +190,11 @@
 	color = heat2color(temperature)
 	set_light(l_color = color)
 
-// TODO: Vestigal, kept temporarily to avoid a merge conflict.
-/obj/effect/hotspot/proc/DestroyTurf()
-	if(issimulatedturf(loc))
-		var/turf/simulated/T = loc
-		if(T.to_be_destroyed && !T.changing_turf)
-			var/chance_of_deletion
-			if(T.heat_capacity) //beware of division by zero
-				chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with prob(23456), min() was redundant --rastaf0
-			else
-				chance_of_deletion = 100
-			if(prob(chance_of_deletion))
-				T.ChangeTurf(T.baseturf)
-			else
-				T.to_be_destroyed = 0
-				T.max_fire_temperature_sustained = 0
-
 /obj/effect/hotspot/proc/on_atom_entered(datum/source, mob/living/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	if(temperature < FREON_MAXIMUM_BURN_TEMPERATURE)
+		return
 
 	if(istype(entered))
 		entered.fire_act()

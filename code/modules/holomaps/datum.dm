@@ -138,7 +138,7 @@
 
 /datum/station_holomap/proc/initialize_holomap_bogus()
 	bogus = TRUE
-	var/icon/big_map = icon(image('icons/misc/480x480.dmi', "stationmap"))
-	big_map.Crop(crop_x, crop_y, crop_x + crop_w, crop_y + crop_h)
-	base_map = image(big_map)
+	map_icon = icon('icons/misc/480x480.dmi', "stationmap_r")
+	map_icon.Crop(crop_x, crop_y, crop_x + crop_w, crop_y + crop_h)
+	base_map = image(map_icon)
 	update_map()

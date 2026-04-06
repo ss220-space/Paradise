@@ -226,6 +226,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_KATANA_SWING "katana_swing"
 #define SFX_KNIFE_SWING "knife_swing"
 #define SFX_RAPIER_SWING "rapier_swing"
+#define SFX_POLAROID_PHOTO_PRINTING "polaroid"
 // Below is a list copied from TG, most of their defines are empty (without datum and sounds). But there are also those used by us.
 #define SFX_BODYFALL "bodyfall"
 #define SFX_BULLET_MISS "bullet_miss"

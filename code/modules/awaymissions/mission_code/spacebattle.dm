@@ -418,12 +418,6 @@
 	faction = list("syndicate")
 	projectiletype = /obj/projectile/beam/laser/syndrone
 
-/obj/projectile/beam/laser/syndrone
-	name = "light immolation beam"
-	damage = 8
-	icon_state = "scatterlaser"
-	eyeblur = 2 SECONDS
-
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
 	do_sparks(3, TRUE, src)
 	var/turf/T = get_turf(src)

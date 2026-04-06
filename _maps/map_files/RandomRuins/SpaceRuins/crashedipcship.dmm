@@ -290,11 +290,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "eo" = (
 /obj/effect/turf_decal{
@@ -648,11 +644,7 @@
 	icon_state = "medium"
 	},
 /obj/structure/spacevine,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "lH" = (
 /obj/machinery/door/window/survival_pod,
@@ -758,11 +750,7 @@
 "mL" = (
 /obj/item/stack/sheet/metal,
 /obj/structure/spacevine,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "mO" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1813,11 +1801,7 @@
 /obj/item/stack/cable_coil,
 /obj/structure/spacevine,
 /obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "Ec" = (
 /obj/effect/turf_decal{
@@ -2525,11 +2509,7 @@
 /area/ruin/space/crashedipcship/middle)
 "PE" = (
 /obj/item/stack/sheet/metal,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "Qb" = (
 /obj/effect/turf_decal{
@@ -3024,11 +3004,7 @@
 "ZU" = (
 /obj/item/stack/cable_coil,
 /obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass{
-	oxygen = 0;
-	nitrogen = 0;
-	name = "grass patch airless"
-	},
+/turf/simulated/floor/grass/lavaland_air,
 /area/ruin/space/crashedipcship/aft)
 "ZV" = (
 /obj/structure/table,

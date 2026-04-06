@@ -102,8 +102,6 @@
 	var/total_health = 100
 	/// Maximum stamina of this species, MUST be lower than MAX_STAMINA_LOSS
 	var/total_stamina = BASE_MAX_STAMINA
-	/// What type of damage does this species take if it's low on blood?
-	var/blood_damage_type = OXY
 	/// Species default genes
 	var/list/default_genes
 	/// Species movement speed. Positive numbers make it move slower, negative numbers make it move faster
@@ -294,8 +292,8 @@
 	return length(result) > 1 ? result : result[tags[1]]
 
 /proc/get_rand_age(datum/species/species)
-	var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
-	return rand(age_limits[SPECIES_AGE_MIN], age_limits[SPECIES_AGE_MAX])
+	var/age_limits = get_age_limits(species, list(JOB_MIN_AGE_COMMAND, SPECIES_AGE_MAX))
+	return rand(age_limits[JOB_MIN_AGE_COMMAND], age_limits[SPECIES_AGE_MAX])
 
 /**
  * Handles creation of mob organs.

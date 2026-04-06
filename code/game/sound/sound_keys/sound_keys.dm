@@ -534,3 +534,10 @@
 		'sound/machines/button_alternate.ogg',
 		'sound/machines/button_meloboom.ogg',
 	)
+
+/datum/sound_effect/polaroid
+	key = SFX_POLAROID_PHOTO_PRINTING
+	file_paths = list(
+		'sound/items/polaroid1.ogg',
+		'sound/items/polaroid2.ogg',
+	)
