@@ -56,6 +56,8 @@
 				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
 				var/response = tgui_alert(usr, "Этот ящик упакован очень плотно, ни один предмет из него не поместится обратно. Вы уверены, что хотите его открыть?", "Compressed Materials Warning", list("Yes", "No"))
 				if(response != "Yes" || !Adjacent(usr))
+				var/response = tgui_alert(usr, "Этот ящик упакован очень плотно, ни один предмет из него не поместится обратно. Вы уверены, что хотите его открыть?", "Предупреждение о сжатых материалах", list("Да", "Нет"))
+				if(response != "Да" || !Adjacent(usr))
 					return FALSE
 				break
 
@@ -332,6 +334,7 @@
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
 	desc = "Большая банка, мне кажется, это мусорное ведро."
+	desc = "Большая банка... Кажется, это мусорное ведро."
 	name = "garbage can"
 	icon_state = "largebin"
 	anchored = TRUE

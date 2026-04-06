@@ -65,6 +65,8 @@
 		span_hear("You hear splitting wood."),
 		span_notice("[user] вскрывает [src]."),
 		span_notice("Вы вскрываете [src]."),
+		span_notice("[user] вскрывает [src.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы вскрываете [src.declent_ru(ACCUSATIVE)]."),
 		span_hear("Вы слышите треск раскалывающегося дерева."),
 	)
 	qdel(src)

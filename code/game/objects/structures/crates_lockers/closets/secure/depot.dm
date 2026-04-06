@@ -45,6 +45,7 @@
 	if(isanimal(M) && ("syndicate" in M.faction))
 		to_chat(M, span_warning("The [src] resists your attack!"))
 		to_chat(M, span_warning("[src] сопротивляется вашей атаке!"))
+		to_chat(M, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сопротивляется вашей атаке!"))
 		return
 	return ..()
 
@@ -56,6 +57,7 @@
 		add_fingerprint(user)
 		to_chat(user, span_warning("Bluespace interference prevents [I] from locking onto [src]!"))
 		to_chat(user, span_warning("Блюспейс помехи мешают [I] захватить [src]!"))
+		to_chat(user, span_warning("Блюспейс помехи мешают [I.declent_ru(DATIVE)] захватить [src.declent_ru(ACCUSATIVE)]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()

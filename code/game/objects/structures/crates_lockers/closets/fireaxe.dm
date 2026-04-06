@@ -3,6 +3,7 @@
 	name = "fire axe cabinet"
 	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
 	desc = "Там есть небольшая этикетка с надписью: \"Использовать только при чрезвычайной ситуации.\" а также подробная информация о безопасном использовании топора. Как будто."
+	desc = "Небольшая табличка гласит: \"Только для экстренных случаев\" и содержит инструкцию по безопасной эксплуатации топора. Ага, конечно."
 	icon_state = "fireaxe_full_0hits"
 	icon_closed = "fireaxe_full_0hits"
 	icon_opened = "fireaxe_full_open"
@@ -116,6 +117,7 @@
 			if(HAS_TRAIT(placed_axe, TRAIT_WIELDED))
 				to_chat(user, span_warning("Unwield [placed_axe] first."))
 				to_chat(user, span_warning("Сначала возьмите [placed_axe] в одну руку."))
+				to_chat(user, span_warning("Сначала возьмите [placed_axe.declent_ru(ACCUSATIVE)] в одну руку."))
 				return .
 			if(!user.drop_transfer_item_to_loc(placed_axe, src))
 				to_chat(user, span_warning("[placed_axe] stays stuck to your hands!"))
@@ -170,6 +172,7 @@
 		fireaxe.forceMove(loc)
 		to_chat(user, span_notice("You telekinetically remove \the [fireaxe]."))
 		to_chat(user, span_notice("Вы телекинетически удаляете [fireaxe]."))
+		to_chat(user, span_notice("Вы телекинетически удаляете [fireaxe.declent_ru(ACCUSATIVE)]."))
 		has_axe = "empty"
 		fireaxe = null
 		update_icon(UPDATE_ICON_STATE)
@@ -180,6 +183,7 @@
 	if(smashed)
 		to_chat(user, span_warning("The security of the cabinet is compromised."))
 		to_chat(user, span_warning("Безопасность шкафа скомпрометирована.."))
+		to_chat(user, span_warning("Безопасность шкафа скомпрометирована."))
 		return
 
 	locked = !locked
@@ -230,6 +234,7 @@
 	name = "fishing cabinet"
 	desc = "There is a small label that reads \"Fo* Em**gen*y u*e *nly\". All the other text is scratched out and replaced with various fish weights."
 	desc = "Там есть небольшая этикетка с надписью: \"Ис*о*ьзо**ть *о*ько п*и ч*ез*ыча**ой си*уа**и.\". Весь остальной текст зачеркнут и заменен различными значениями веса рыбы."
+	desc = "Небольшая табличка гласит: \"Т**ько *ля эк*тре**ных сл*ча*в\", весь остальной текст зачеркнут и заменен различными значениями веса рыбы."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "fishingrod"
 	anchored = TRUE
@@ -264,12 +269,14 @@
 		if(HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("Unwield [rod] first."))
 			to_chat(user, span_warning("Сначала возьмите [rod] в одну руку."))
+			to_chat(user, span_warning("Сначала возьмите [rod.declent_ru(ACCUSATIVE)] в одну руку."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(rod, src))
 			return ..()
 		olreliable = rod
 		to_chat(user, span_notice("You place [rod] back in [src]."))
 		to_chat(user, span_notice("Вы кладёте [rod] обратно в [src]."))
+		to_chat(user, span_notice("Вы кладёте [rod.declent_ru(ACCUSATIVE)] обратно в [src.declent_ru(ACCUSATIVE)]."))
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -289,6 +296,7 @@
 	user.put_in_hands(olreliable, ignore_anim = FALSE)
 	to_chat(user, span_notice("You take [olreliable] from [src]."))
 	to_chat(user, span_notice("Вы берёте [olreliable] из [src]."))
+	to_chat(user, span_notice("Вы берёте [olreliable.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)]."))
 	olreliable = null
 	update_icon(UPDATE_OVERLAYS)
 

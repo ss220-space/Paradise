@@ -319,6 +319,7 @@
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
 	desc = "A locker with a Paramedic EVA suit."
+	desc = "Это шкафчик для хранения снаряжения парамадика для ВКД."
 	icon_state = "paramedEVA"
 	req_access = list(ACCESS_PARAMEDIC)
 

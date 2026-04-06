@@ -206,6 +206,7 @@
 	icon_state = "bombsuitsec"
 
 /obj/structure/closet/bombcloset/get_ru_names()
+/obj/structure/closet/bombclosetsecurity/get_ru_names()
     return list(
         NOMINATIVE = "шкафчик для ОВУ",
         GENITIVE = "шкафчика для ОВУ",

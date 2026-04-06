@@ -162,6 +162,7 @@
 	name = "Syndicate Locker"
 	desc = "It's an immobile card-locked storage unit. A big 'S' letter on it indicates that it belongs to the syndicate."
 	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте. Большая буква «S» на нем указывает на то, что он принадлежит Синдикату."
+	desc = "Это стационарное складское устройство с замком, открывающимся по ID-карте. Большая буква \"S\" на нем указывает на то, что он принадлежит Синдикату."
 	req_access = list(150)
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	max_integrity = 300

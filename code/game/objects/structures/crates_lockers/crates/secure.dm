@@ -54,6 +54,7 @@
 		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		to_chat(user, span_danger("Система защиты от вскрытия ящика активируется!"))
 		investigate_log("[key_name_log(user)] взорвал [src]", INVESTIGATE_BOMB)
+		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/movable in src)
 		qdel(movable)
@@ -357,6 +358,7 @@
 	name = "engineering crate"
 	desc = "An engineering crate."
 	desc = "Инженерный ящик."
+	desc = "Инженерный ящик. Обычно в нём хранятся материалы, снаряжение или инструменты, но иногда его воруют грузчики."
 	icon_state = "engicrate"
 
 /obj/structure/closet/crate/engineering/get_ru_names()

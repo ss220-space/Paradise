@@ -51,7 +51,6 @@
  * Chef
  */
 /obj/structure/closet/chefcloset
-	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
 	name = "шкафчик повара"
 	desc = "Это устройство для хранения формы сервиса общественного питания."
