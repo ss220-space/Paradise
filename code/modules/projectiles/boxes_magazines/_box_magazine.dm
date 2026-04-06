@@ -211,6 +211,9 @@
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
 		user.put_in_hands(casing)
 
+/obj/item/ammo_box/click_alt(mob/user)
+	attack_self(user)
+
 /obj/item/ammo_box/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)] В [GEND_EM_EI_EM_IH(src)] осталось [length(stored_ammo)] патрон[DECL_CREDIT(length(stored_ammo))] из [max_ammo] возможных!"
