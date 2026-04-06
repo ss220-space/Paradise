@@ -719,6 +719,7 @@
 		if(storage.can_be_inserted(thing))
 			storage.handle_item_insertion(thing)
 		return
+
 	if(!length(storage.contents))
 		balloon_alert(src, "[slot_item_name] пуст")
 		return
