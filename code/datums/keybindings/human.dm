@@ -27,6 +27,10 @@
 	///what we should call slot_type in messages (including failure messages)
 	var/slot_item_name = "пояс"
 
+/datum/keybinding/human/quick_equip_belt/New()
+	. = ..()
+	slot_item_name = parse_slot_flags(slot_type)
+
 /datum/keybinding/human/quick_equip_belt/down(client/client)
 	. = ..()
 	if(.)
