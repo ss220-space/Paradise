@@ -695,6 +695,7 @@
 		return
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)
+
 	if(!equipped_item) // We also let you equip an item like this
 		if(!thing)
 			balloon_alert(src, "отсутствует [slot_item_name]")
