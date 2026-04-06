@@ -6,8 +6,8 @@
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
 	icon = 'icons/obj/library/machines.dmi'
-	icon_state = "photocopier_closed"
-	base_icon_state = "photocopier"
+	icon_state = "photocopier_default_closed"
+	base_icon_state = "photocopier_default"
 	anchored = TRUE
 	density = TRUE
 	idle_power_usage = 30
@@ -55,7 +55,8 @@
 								'sound/machines/printer_dotmatrix2.ogg',
 								'sound/machines/printer_dotmatrix3.ogg',
 								'sound/machines/printer_dotmatrix4.ogg')
-	var/syndicate = FALSE
+	/// type of photocopier
+	var/faction = "default"
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
 					форм, обратитесь в Отдел\
@@ -76,9 +77,9 @@
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
-	syndicate = TRUE
-	icon_state = "syndiebigscanner"
-	insert_anim = "syndiebigscanner_work"
+	faction = "syndicate"
+	icon_state = "photocopier_syndie_closed"
+	base_icon_state = "photocopier_syndie"
 	info_box = "При использовании любой из данных форм,\
 				обратите внимание на все пункты снизу. \
 				Синдикат напоминает, что в ваших же интересах \
@@ -94,6 +95,18 @@
 		INSTRUMENTAL = "ксероксом \"Синдиката\"",
 		PREPOSITIONAL = "ксероксе \"Синдиката\"",
 	)
+
+/obj/machinery/photocopier/nanotrasen
+	name = "Nanotrasen photocopier"
+	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
+	faction = "nanotrasen"
+	icon_state = "photocopier_nanotrasen_closed"
+	base_icon_state = "photocopier_nanotrasen"
+	info_box = "Если у вас есть пожелания или\
+				идеи для улучшения стандартных\
+				форм, обратитесь в Отдел\
+				стандартизации \"Нанотрейзен\"."
+	ui_theme = "syndicate"
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -644,9 +657,9 @@
 		var/req_access = initial(ff.access)
 		if(req_access && !(req_access in access))
 			continue
-		if(syndicate && !(ff in subtypesof(/obj/item/paper/form/syndieform))) //Если у нас синдипритер, нам не нужны другие формы
+		if(faction == "Синдикат" && !(ff in subtypesof(/obj/item/paper/form/syndieform))) //Если у нас синдипритер, нам не нужны другие формы
 			continue
-		if(!syndicate && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
+		if(faction != "Синдикат" && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
 			continue
 		var/form[0]
 		form["path"] = F

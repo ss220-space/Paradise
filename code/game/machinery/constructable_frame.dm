@@ -1371,3 +1371,42 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/capacitor/adv = 1,
 		/obj/item/stock_parts/micro_laser/high = 2,
 	)
+
+/obj/item/circuitboard/photocopier
+	board_name = "Ксерокс"
+	build_path = /obj/machinery/photocopier
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	origin_tech = "material=1"
+	req_components = list(
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/paper = 5,
+		/obj/item/stock_parts/micro_laser = 1
+	)
+	/// available machine types
+	var/list/photocopier_types = list("Нанотрейзен", "Обычная")
+	/// selected type
+	var/build_type = "Обычная"
+
+/obj/item/circuitboard/photocopier/emag_act(mob/user)
+	. = ..()
+	photocopier_types += "Синдикат"
+	do_sparks(5, FALSE, src.loc)
+
+/obj/item/circuitboard/photocopier/attack_self(mob/user)
+	. = ..()
+	var/choice = tgui_input_list(usr, "Выберите тип модели ксерокса.", "модель ксерокса", photocopier_types)
+	switch(choice)
+		if("Обычная")
+			build_path = /obj/machinery/photocopier
+		if("Нанотрейзен")
+			build_path = /obj/machinery/photocopier/nanotrasen
+		if("Синдикат")
+			build_path = /obj/machinery/photocopier/syndie
+	build_type = choice
+	playsound(user.loc, 'sound/machines/click.ogg', 25)
+
+/obj/item/circuitboard/photocopier/examine(mob/user)
+	. = ..()
+	desc = "Текущая модель сборки - [build_type]"
