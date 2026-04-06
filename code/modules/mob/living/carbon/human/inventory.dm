@@ -712,6 +712,7 @@
 		else
 			balloon_alert(src, "[slot_item_name] занят")
 		return
+
 	if(thing)
 		if(storage.can_be_inserted(thing))
 			storage.handle_item_insertion(thing)
