@@ -735,7 +735,9 @@
 	},
 /area/vox_station)
 "amK" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
 	},
@@ -6378,7 +6380,9 @@
 	},
 /area/centcom/zone1)
 "daB" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -9608,7 +9612,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "eCT" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
 	dir = 5
@@ -10972,7 +10978,9 @@
 	},
 /area/shuttle/administration)
 "flX" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/bridge)
 "fmL" = (
@@ -22807,7 +22815,7 @@
 	},
 /area/centcom/jail)
 "kTP" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/centcom/zone2)
 "kTW" = (
@@ -23984,9 +23992,7 @@
 	color = "#444444";
 	dir = 8
 	},
-/obj/machinery/photocopier{
-	anchored = 0
-	},
+/obj/machinery/photocopier/nanotrasen,
 /obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
@@ -26947,7 +26953,7 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -30342,7 +30348,7 @@
 	},
 /area/centcom/specops)
 "ohJ" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/wood,
 /area/centcom/zone2)
 "ohN" = (
@@ -31774,7 +31780,9 @@
 	},
 /area/centcom/bridge)
 "oOQ" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -33123,7 +33131,9 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone3)
 "pwF" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/bridge)
@@ -34874,7 +34884,9 @@
 	},
 /area/shuttle/administration)
 "qoV" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -34912,7 +34924,7 @@
 /obj/structure/sign/poster/official/ian{
 	pixel_y = 31
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "qpQ" = (
@@ -36264,7 +36276,9 @@
 /obj/structure/cable{
 	icon_state = "2-6"
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "qVY" = (
@@ -43422,7 +43436,9 @@
 	},
 /area/shuttle/assault_pod)
 "ubx" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = 2
+	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -43672,7 +43688,7 @@
 /area/centcom/zone1)
 "ugK" = (
 /obj/machinery/light,
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -47347,8 +47363,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "vPW" = (
-/obj/machinery/photocopier,
-/obj/structure/table/wood,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "vQc" = (
@@ -48849,7 +48864,9 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "wGf" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen{
+	pixel_x = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
