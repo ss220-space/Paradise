@@ -623,7 +623,12 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/vip)
 "alA" = (
-/obj/machinery/tcomms/core/station,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil/cyan{
+	amount = 2
+	},
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
