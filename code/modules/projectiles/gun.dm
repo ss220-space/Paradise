@@ -129,6 +129,7 @@
 		accuracy = GUN_ACCURACY_DEFAULT
 	else if(!istype(accuracy, /datum/gun_accuracy))
 		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
@@ -837,3 +838,47 @@
 /obj/item/gun/equipped(mob/user, slot, initial)
 	reset_direction()
 	return ..()
+
+/obj/item/gun/proc/tripwire_fire(atom/target_atom, mob/living/victim)
+	if(!chambered && !process_chamber())
+		return
+
+	shoot_live_shot(src, victim, FALSE, FALSE)
+
+	if(!chambered)
+		return
+
+	var/obj/item/ammo_casing/casing = chambered
+	var/list/projectiles = list()
+	if(casing.BB)
+		projectiles += casing.BB
+		casing.BB = null
+
+	if(casing.pellets > 1)
+		for(var/i in 2 to casing.pellets)
+			projectiles += new casing.projectile_type(src)
+
+	var/obj/item/tripwire/tripwire = loc
+	var/dir_to_spawn = istype(tripwire) ? tripwire.dir : get_dir(victim, src)
+	var/turf/spawn_location = get_step(get_turf(src), dir_to_spawn) || get_turf(src)
+
+	for(var/obj/projectile/projectile in projectiles)
+		projectile.loc = spawn_location
+		projectile.original = victim
+		projectile.firer = null
+		projectile.firer_source_atom = src
+		projectile.def_zone = ran_zone(BODY_ZONE_CHEST)
+		var/target_angle = get_angle(spawn_location, victim)
+		var/spread = (casing.pellets > 1) ? rand(-10, 10) : 0
+		projectile.fire(target_angle + spread)
+
+	casing.update_appearance()
+	casing.after_fire()
+	process_chamber()
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/gun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
+	if(!can_trigger_gun(victim))
+		return
+
+	tripwire_fire(victim, victim)

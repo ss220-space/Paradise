@@ -88,6 +88,7 @@
 
 	reagents.set_reacting(FALSE)
 	RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
@@ -289,30 +290,40 @@
 	else
 		user.newtonian_move(REVERSE_DIR(direction))
 
-	//Get all the turfs that can be shot at
+	spray_at(target)
+
+//Water spray creation
+/obj/item/extinguisher/proc/spray_at(atom/target)
+	var/direction = get_dir(src, target)
 	var/turf/T = get_turf(target)
-	var/turf/T1 = get_step(T,turn(direction, 90))
-	var/turf/T2 = get_step(T,turn(direction, -90))
-	var/list/the_targets = list(T,T1,T2)
+	var/turf/T1 = get_step(T, turn(direction, 90))
+	var/turf/T2 = get_step(T, turn(direction, -90))
+	var/list/the_targets = list(T, T1, T2)
+
 	if(precision)
 		var/turf/T3 = get_step(T1, turn(direction, 90))
-		var/turf/T4 = get_step(T2,turn(direction, -90))
-		the_targets.Add(T3,T4)
+		var/turf/T4 = get_step(T2, turn(direction, -90))
+		the_targets.Add(T3, T4)
 
 	var/list/water_particles = list()
+
 	for(var/a in 1 to 5)
+		if(reagents.total_volume < 1)
+			break
+
 		var/obj/effect/particle_effect/water/extinguisher/water = new (get_turf(src))
 		var/my_target = pick(the_targets)
 		water_particles[water] = my_target
-		// If precise, remove turf from targets so it won't be picked more than once
+
 		if(precision)
 			the_targets -= my_target
+
 		var/datum/reagents/water_reagents = new(5)
 		water.reagents = water_reagents
 		water_reagents.my_atom = water
 		reagents.trans_to(water, 1)
 
-	//Make em move dat ass, hun
+	playsound(loc, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 	move_particles(water_particles)
 
 //Particle movement loop
@@ -392,6 +403,22 @@
 	if(!blowing_up)
 		return
 	icon_state = new_state
+
+/obj/item/extinguisher/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	if(QDELETED(src))
+		return
+	if(!reagents || !length(reagents.reagent_list))
+		return
+	var/temperature = reagents.chem_temp
+	var/turf/turf = get_turf(base)
+	if(temperature > EXTINGUISHER_TEMP_HIGH && safety)
+		forceMove(turf)
+		INVOKE_ASYNC(src, PROC_REF(steam_explosion))
+		base.attached_item = null
+		base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+		return
+	if(!safety)
+		spray_at(user)
 
 #undef EXTINGUISHER_TEMP_MED
 #undef EXTINGUISHER_TEMP_HIGH
