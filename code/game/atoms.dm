@@ -1563,18 +1563,29 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
+#define ANGLE_DIR_POS 1
+#define ANGLE_DIR_NEG -1
+#define HALF_ROTATION_ANGLE 180
+#define RICOCHET_RAND_MAX_ANGLE rand(0, 15)
+
 /atom/proc/handle_ricochet(obj/projectile/ricocheting_projectile)
 	var/turf/p_turf = get_turf(ricocheting_projectile)
 	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
-	var/face_angle = dir2angle(face_direction)
-	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180 + rand(-30, 30)))
-	var/a_incidence_s = abs(incidence_s)
-	if(a_incidence_s > 90 && a_incidence_s < 270)
+	var/normal_angle = dir2angle(face_direction)
+	var/normal_dir = ricocheting_projectile.Angle < 0 ? ANGLE_DIR_NEG : ANGLE_DIR_POS
+	var/ricochet_angle = GET_ANGLE_OF_INCIDENCE(normal_angle, (ricocheting_projectile.Angle + HALF_ROTATION_ANGLE + normal_dir * RICOCHET_RAND_MAX_ANGLE))
+	var/ricochet_angle_abs = abs(ricochet_angle)
+	if(ricochet_angle_abs > 90 && ricochet_angle_abs < 270)
 		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	var/new_angle_s = SIMPLIFY_DEGREES(normal_angle + ricochet_angle)
 	ricocheting_projectile.set_angle(new_angle_s)
 	visible_message(span_warning("[ricocheting_projectile] reflects off [src]!"))
 	return TRUE
+
+#undef ANGLE_DIR_POS
+#undef ANGLE_DIR_NEG
+#undef HALF_ROTATION_ANGLE
+#undef RICOCHET_RAND_MAX_ANGLE
 
 /// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
 /atom/proc/CanPass(atom/movable/mover, border_dir)

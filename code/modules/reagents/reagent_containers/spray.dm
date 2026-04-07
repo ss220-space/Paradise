@@ -162,6 +162,8 @@
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Стильный дизайн, специально для самого продуктивного работника станции!"
 	icon_state = "cleaner_janitor"
 	item_state = "cleaner_jan"
+	spray_maxrange = 6
+	spray_currentrange = 6
 
 /obj/item/reagent_containers/spray/cleaner/janitor/get_ru_names()
 	return list(
@@ -200,6 +202,8 @@
 	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами \"Нанотрейзен\" для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
 	icon_state = "cleaner_tactical"
 	item_state = "cleaner_tactical"
+	spray_maxrange = 5
+	spray_currentrange = 5
 
 /obj/item/reagent_containers/spray/cleaner/tactical/get_ru_names()
 	return list(
@@ -338,7 +342,7 @@
 /obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
 	var/list/Sprays = new/list(3)
 	for(var/i in 1 to 3) // intialize sprays
-		if(reagents.total_volume < 1) 
+		if(reagents.total_volume < 1)
 			break
 		var/obj/effect/decal/chempuff/D = new/obj/effect/decal/chempuff(get_turf(src))
 		D.create_reagents(amount_per_transfer_from_this)
@@ -357,7 +361,7 @@
 	for(var/i in 1 to length(Sprays))
 		spawn()
 			var/obj/effect/decal/chempuff/D = Sprays[i]
-			if(!D) 
+			if(!D)
 				continue
 
 			// Spreads the sprays a little bit

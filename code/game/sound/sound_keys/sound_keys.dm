@@ -535,6 +535,37 @@
 		'sound/machines/button_meloboom.ogg',
 	)
 
+/datum/sound_effect/bullet_miss
+	key = SFX_BULLET_MISS
+	file_paths = list(
+		'sound/effects/bullet_miss_1.ogg',
+		'sound/effects/bullet_miss_2.ogg',
+		'sound/effects/bullet_miss_3.ogg',
+		'sound/effects/bullet_miss_4.ogg',
+		'sound/effects/bullet_miss_5.ogg',
+		'sound/effects/bullet_miss_6.ogg',
+	)
+
+/datum/sound_effect/energy_miss
+	key = SFX_ENERGY_MISS
+	file_paths = list(
+		'sound/effects/laser_miss_1.ogg',
+		'sound/effects/laser_miss_2.ogg',
+		'sound/effects/laser_miss_3.ogg',
+		'sound/effects/laser_miss_4.ogg',
+		'sound/effects/laser_miss_5.ogg',
+	)
+
+/datum/sound_effect/arrow_miss
+	key = SFX_ARROW_MISS
+	file_paths = list(
+		'sound/effects/arrow_miss_1.ogg',
+		'sound/effects/arrow_miss_2.ogg',
+		'sound/effects/arrow_miss_3.ogg',
+		'sound/effects/arrow_miss_4.ogg',
+		'sound/effects/arrow_miss_5.ogg',
+	)
+
 /datum/sound_effect/polaroid
 	key = SFX_POLAROID_PHOTO_PRINTING
 	file_paths = list(
