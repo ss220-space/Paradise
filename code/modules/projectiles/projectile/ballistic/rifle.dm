@@ -108,6 +108,7 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	ricochet_chance = 0
 
 // MARK: .50L - Compact Syndicate SR
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.

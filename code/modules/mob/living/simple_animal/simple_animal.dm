@@ -437,10 +437,12 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
-/mob/living/simple_animal/proc/drop_loot()
-	if(length(loot))
-		for(var/i in loot)
-			new i(loc)
+/mob/living/simple_animal/proc/drop_loot(drop_loc)
+	if(!length(loot))
+		return
+	for(var/item in loot)
+		new item(drop_loc)
+	loot = null
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -472,6 +474,9 @@
 		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
+	if(!isatom(the_target))
+		stack_trace("Invalid target in CanAttack(): [the_target]")
+		return FALSE
 	if(see_invisible < the_target.invisibility)
 		return FALSE
 	if(ismob(the_target))

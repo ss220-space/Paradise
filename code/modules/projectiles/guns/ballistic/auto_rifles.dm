@@ -24,6 +24,10 @@
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
 
+/obj/item/gun/projectile/automatic/m90/Destroy()
+	QDEL_NULL(underbarrel)
+	return ..()
+
 /obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 0)
 		underbarrel.afterattack(target, user, flag, params)

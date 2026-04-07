@@ -235,6 +235,8 @@
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 
 #define TRAIT_SHRAPNEL "shrapnel"
+/// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item
+#define TRAIT_CAN_ATTACH_TO_TRIPWIRE "tripwire_attachable"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

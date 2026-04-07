@@ -46,6 +46,10 @@
 		PREPOSITIONAL = "флешере"
 	)
 
+/obj/item/flash/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/flash/update_icon_state()
 	icon_state = "[initial(icon_state)][broken ? "burnt" : ""]"
 
@@ -216,6 +220,18 @@
 		flash_carbon(target, null, 20 SECONDS, FALSE)
 	burn_out()
 	..()
+
+/obj/item/flash/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/owner_turf = get_turf(base)
+	playsound(owner_turf, 'sound/weapons/flash.ogg', 100, TRUE)
+	flick("[icon_state]_flash", src)
+	base.set_light(2, 1, COLOR_WHITE)
+	addtimer(CALLBACK(base, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
+
+	for(var/mob/living/living_mob in viewers(3, owner_turf))
+		if(living_mob.flash_eyes(affect_silicon = TRUE))
+			living_mob.AdjustConfused(6 SECONDS)
+			living_mob.visible_message(span_disarm("<b>[html_encode(living_mob.name)]</b> ахает и пытается прикрыть глаза!"))
 
 /**
  * MARK: Cyborg flash
