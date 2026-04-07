@@ -924,6 +924,7 @@
 #include "code\datums\screentips\atom_context.dm"
 #include "code\datums\screentips\item_context.dm"
 #include "code\datums\screentips\screentips.dm"
+#include "code\datums\skins\boxes_skins.dm"
 #include "code\datums\skins\donat_skins.dm"
 #include "code\datums\spell_cooldown\spell_charges.dm"
 #include "code\datums\spell_cooldown\spell_cooldown.dm"

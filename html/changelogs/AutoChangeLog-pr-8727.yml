@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - tweak: "Удалены нелогичные углы рикошета. (PR #8727)"

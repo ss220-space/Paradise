@@ -196,3 +196,6 @@
 	var/image/halbody
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
+
+	// Cooldown for projectile miss sound (5 deciseconds)
+	COOLDOWN_DECLARE(bullet_miss_cooldown)

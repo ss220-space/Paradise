@@ -25,51 +25,72 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
     <Button
       color="transparent"
       onClick={onClick}
+      width="90px"
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '85px',
         padding: '4px',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
       <Box
+        width="100%"
         style={{
-          width: '52px',
-          height: '52px',
-          borderRadius: '14px',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '6px',
-          margin: '0 auto',
         }}
       >
-        <i
-          className={`fa fa-${iconName}`}
+        <Box
+          position="relative"
+          width="58px"
+          height="58px"
+          mb="6px"
           style={{
-            fontSize: '20px',
-            color: '#fff',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.06)',
           }}
-        />
-      </Box>
+        >
+          <i
+            className={`fa fa-${iconName}`}
+            style={{
+              fontSize: '20px',
+              color: '#fff',
+            }}
+          />
 
-      <Box
-        style={{
-          fontSize: '9px',
-          width: '80px',
-          color: '#ddd',
-          textAlign: 'center',
-          lineHeight: '1.1',
-          whiteSpace: 'normal',
-          wordBreak: 'break-word',
-          overflow: 'hidden',
-          minHeight: '22px',
-          maxHeight: '33px',
-          margin: '0 auto',
-        }}
-      >
-        {app.name}
+          {isNotifying && (
+            <Box
+              position="absolute"
+              top="3px"
+              right="3px"
+              width="10px"
+              height="10px"
+              style={{
+                borderRadius: '50%',
+                background: '#ff4d4f',
+                boxShadow: '0 0 6px rgba(255,77,79,0.7)',
+              }}
+            />
+          )}
+        </Box>
+
+        <Box
+          fontSize="9px"
+          width="100%"
+          color="#ddd"
+          textAlign="center"
+          minHeight="24px"
+          style={{
+            lineHeight: '1.2',
+            wordBreak: 'break-word',
+          }}
+        >
+          {app.name}
+        </Box>
       </Box>
     </Button>
   );
@@ -81,12 +102,16 @@ export const pda_main_menu = () => {
 
   const allApps: App[] = Object.values(apps || {}).flat();
 
+  const notifyList = Array.isArray(notifying)
+    ? notifying
+    : Object.keys(notifying || {});
+
   return (
     <Box style={{ padding: '10px' }}>
       <Box
+        mb="10px"
+        p="10px"
         style={{
-          marginBottom: '10px',
-          padding: '10px',
           borderRadius: '10px',
         }}
       >
@@ -109,7 +134,7 @@ export const pda_main_menu = () => {
       <Box
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))',
           gap: '12px 8px',
           justifyItems: 'center',
         }}
@@ -118,7 +143,7 @@ export const pda_main_menu = () => {
           <AppIcon
             key={app.uid}
             app={app}
-            isNotifying={notifying.includes(app.uid)}
+            isNotifying={notifyList.includes(app.uid)}
             onClick={() => act('StartProgram', { program: app.uid })}
           />
         ))}

@@ -278,3 +278,27 @@
 	dismounted_rider.Knockdown(4 SECONDS)
 	dismounted_rider.visible_message(span_warning("[AM] pushes [dismounted_rider] off of [AM.p_them()]!"), \
 						span_warning("[AM] pushes you off of [AM.p_them()]!"))
+
+/datum/component/riding/creature/cyborg
+	can_be_driven = FALSE
+
+/datum/component/riding/creature/cyborg/Initialize(mob/living/riding_mob, force, ride_check_flags, potion_boost)
+	if(!isrobot(parent))
+		return COMPONENT_INCOMPATIBLE
+	return ..()
+
+/datum/component/riding/creature/cyborg/post_vehicle_mob_buckle(atom/movable/ridden, atom/movable/rider)
+	// Cyborgs seats have advanced safety system, so crew wont fall off and hurt themselves
+	ADD_TRAIT(rider, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/component/riding/creature/cyborg/handle_unbuckle(mob/living/rider)
+	. = ..()
+	REMOVE_TRAIT(rider, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src))
+	// For some reason, after unbuckling, game is substracting atom's 'pixel_y' var by 9.
+	rider.pixel_y += 9
+
+/datum/component/riding/creature/cyborg/get_offsets(pass_index)
+	var/mob/living/silicon/robot/robot = parent
+	if(!robot.selected_skin)
+		return ..()
+	return robot.selected_skin.get_riding_offsets()
