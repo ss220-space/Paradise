@@ -268,13 +268,12 @@
 			projectiles_to_fire += new projectile_type(src)
 
 	var/turf/spawn_location = get_step(trigger_turf, base.dir) || trigger_turf
-	var/reverse_direction = REVERSE_DIR(base.dir)
 	var/base_angle = get_angle(spawn_location, victim)
 
 	for(var/obj/projectile/current_projectile in projectiles_to_fire)
 		current_projectile.loc = spawn_location
 		current_projectile.damage *= TRIPWIRE_SHELL_DAMAGE_MULTIPLIER
-		current_projectile.firer = null // Очищаем владельца, чтобы попасть в victim
+		current_projectile.firer = null
 		var/firing_spread = (pellets > 1) ? rand(-15, 15) : rand(-5, 5)
 		current_projectile.fire(base_angle + firing_spread)
 

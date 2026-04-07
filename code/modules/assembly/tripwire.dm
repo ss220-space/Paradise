@@ -361,9 +361,24 @@
 
 	var/mutable_appearance/mutable_appearance = mutable_appearance(attached_item.icon, attached_item.icon_state)
 	var/matrix/matrix = matrix()
+
 	matrix.Scale(0.8, 0.8)
-	matrix.Turn(180)
-	matrix.Translate(0, 8)
+	var/target_angle = dir2angle(dir) + 90
+	if(istype(attached_item, /obj/item/ammo_casing/shotgun))
+		target_angle += 180
+
+	matrix.Turn(target_angle)
+
+	switch(dir)
+		if(1)
+			matrix.Translate(0, 6)
+		if(2)
+			matrix.Translate(0, 8)
+		if(4)
+			matrix.Translate(2, 4)
+		if(8)
+			matrix.Translate(-3, 4)
+
 	mutable_appearance.transform = matrix
 	. += mutable_appearance
 
