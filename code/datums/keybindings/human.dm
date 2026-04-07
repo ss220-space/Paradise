@@ -29,7 +29,8 @@
 
 /datum/keybinding/human/quick_equip_belt/New()
 	. = ..()
-	slot_item_name = parse_slot_flags(slot_type)
+	var/list/names_list = parse_slot_flags(slot_type)
+	slot_item_name = names_list?[1] || slot_item_name
 
 /datum/keybinding/human/quick_equip_belt/down(client/client)
 	. = ..()
