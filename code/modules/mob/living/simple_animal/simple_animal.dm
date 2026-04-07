@@ -441,7 +441,7 @@
 	if(!length(loot))
 		return
 	for(var/item in loot)
-		new item(loc)
+		new item(drop_location())
 	loot = null
 
 /mob/living/simple_animal/death(gibbed)
