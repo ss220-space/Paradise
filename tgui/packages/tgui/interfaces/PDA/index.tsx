@@ -183,9 +183,6 @@ const PDAHeader = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '2px',
-              padding: '1px 3px',
-              background: 'rgba(0,0,0,0.3)',
-              borderRadius: '3px',
             }}
           >
             <Box
