@@ -1374,6 +1374,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/photocopier
 	board_name = "Ксерокс"
+	desc = "Текущая модель сборки - Обычная"
 	build_path = /obj/machinery/photocopier
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
@@ -1385,14 +1386,31 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/micro_laser = 1
 	)
 	/// available machine types
-	var/list/photocopier_types = list("Нанотрейзен", "Обычная")
+	var/list/photocopier_types = list("Обычная")
 	/// selected type
 	var/build_type = "Обычная"
 
 /obj/item/circuitboard/photocopier/emag_act(mob/user)
 	. = ..()
+	if("Синдикат" in photocopier_types)
+		return
 	photocopier_types += "Синдикат"
 	do_sparks(5, FALSE, src.loc)
+
+/obj/item/circuitboard/photocopier/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(is_id_card(I))
+		var/obj/item/card/id/card = I
+		if(has_access(list(ACCESS_SYNDICATE), TRUE, card.access))
+			if("Синдикат" in photocopier_types)
+				return
+			photocopier_types += "Синдикат"
+		if(has_access(list(ACCESS_BUILD_NT), TRUE, card.access))
+			if("Нанотрейзен" in photocopier_types)
+				return
+			photocopier_types += "Нанотрейзен"
+		playsound(user.loc, 'sound/machines/click.ogg', 25)
+
 
 /obj/item/circuitboard/photocopier/attack_self(mob/user)
 	. = ..()
@@ -1404,6 +1422,10 @@ to destroy them and players will be able to make replacements.
 			build_path = /obj/machinery/photocopier/nanotrasen
 		if("Синдикат")
 			build_path = /obj/machinery/photocopier/syndie
+		else
+			if(!choice)
+				choice = "Обычная"
+				build_path = /obj/machinery/photocopier
 	build_type = choice
 	playsound(user.loc, 'sound/machines/click.ogg', 25)
 

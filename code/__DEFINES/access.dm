@@ -73,8 +73,10 @@
 #define ACCESS_MINISAT 75
 #define ACCESS_MINERAL_STOREROOM 76
 #define ACCESS_NETWORK 77
+#define ACCESS_BUILD_NT 90
 
 #define ACCESS_WEAPONS 99 //Weapon authorization for secbots
+
 
 	//BEGIN CENTCOM ACCESS
 #define ACCESS_CENT_GENERAL 101//General facilities.
