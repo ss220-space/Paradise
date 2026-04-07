@@ -34,7 +34,7 @@
 		return
 	if(!item.skins || !length(item.skins))
 		return
-	if(!istype(user)) //only humans use skins
+	if(!istype(user) && user.client) //only humans use skins
 		return
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
@@ -46,7 +46,9 @@
 		skin_options[skin.name] = image(icon = (skin.icon ? skin.icon : item.icon), icon_state = (skin.menu_icon_state ? skin.menu_icon_state : skin.icon_state) )
 
 	if(!length(skin_options))
-		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
+		if(!user.client.donate_offer_text_shown)
+			to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
+			user.client.donate_offer_text_shown = TRUE
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(show_select_skins_radial_menu), item, user, skin_options)

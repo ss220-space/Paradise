@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - map: "Исправлены аномалии обработки атмоса на Тайпане и на плыже лавы. (PR #8784)"

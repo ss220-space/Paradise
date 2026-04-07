@@ -222,7 +222,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
-	QDEL_NULL(darkness_effects)
+	QDEL_LIST(darkness_effects)
 	supermatter_explosive_effects = null
 	return ..()
 

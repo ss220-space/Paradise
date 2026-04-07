@@ -1584,3 +1584,8 @@
 #define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
 
 #define COMSIG_IRRADIATED_PROCESS "irradiated_process"
+
+/// Called on tripwire activation (/obj/item/tripwire)
+#define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
+// Called on payload installing at tripwire
+#define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"
