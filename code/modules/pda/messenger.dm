@@ -22,6 +22,7 @@
 /datum/data/pda/app/messenger/update_ui(mob/user, list/data)
 	// выполняем вход в аккаунт
 	var/datum/messenger_account/owner_messenger_account = login_in_messenger(data)
+	var/datum/messenger_account/owner_messenger_account = login_in_messenger(data)
 
 	// Проверяем на то, что если человек не смог залогиниться ему в UI высветило сообщение о обязательном логине
 	if(!can_login)
@@ -63,6 +64,9 @@
 	// так как тут выше был money_account запихиваем возможные таргеты
 	data["targets"] = get_possible_targets(owner_money_account)
 
+	// так как тут выше был money_account запихиваем возможные таргеты
+	data["targets"] = get_possible_targets(owner_money_account)
+
 	// берем аккаунт мессенджера из аккаунта человека+
 	var/datum/messenger_account/owner_messenger_account = owner_money_account.messenger_profile
 	if(!owner_messenger_account)
@@ -71,6 +75,7 @@
 	// делаем скриншот, что бы заново не надо было вставлять айди карту
 	can_login = TRUE
 	last_login_owner = owner_messenger_account
+	data["can_login"] = can_login
 	data["can_login"] = can_login
 	return owner_messenger_account
 

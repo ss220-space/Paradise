@@ -15,11 +15,13 @@ import {
 
 import { Window } from '../../layouts';
 import { SearchableDropdown } from '../../components/SearchableDropdown';
+import { SearchableDropdown } from '../../components/SearchableDropdown';
 
 type RaingorMessengerData = {
   can_login: boolean;
   owner_messenger_account: MessengerAccount;
   chats: Chat[];
+  targets: string[];
   targets: string[];
 };
 
