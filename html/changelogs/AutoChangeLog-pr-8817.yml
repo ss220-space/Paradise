@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - refactor: "оптимизация кровотечений (PR #8817)"

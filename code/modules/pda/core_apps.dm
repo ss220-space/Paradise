@@ -14,7 +14,8 @@
 
 	var/list/notifying = list()
 	for(var/datum/data/pda/P in pda.notifying_programs)
-		notifying["[P.UID()]"] = TRUE
+		notifying += "[P.UID()]"
+
 	data["notifying"] = notifying
 
 /datum/data/pda/app/main_menu/ui_act(action, list/params)

@@ -24,8 +24,8 @@
 
 /obj/item/gun/projectile/Destroy()
 	QDEL_NULL(magazine)
-	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
+	return ..()
 
 /obj/item/gun/projectile/update_name(updates = ALL)
 	. = ..()

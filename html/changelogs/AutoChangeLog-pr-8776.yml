@@ -1,5 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - add: "Добавлен ТГУИ для консоли выдачи пропусков (PR #8776)"
-  - del: "Удален HTML интерфейс консоли выдачи пропусков (PR #8776)"
