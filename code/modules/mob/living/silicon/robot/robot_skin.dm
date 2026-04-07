@@ -14,32 +14,38 @@
 /datum/robot_skin/tall/meka
 	name = "Meka"
 	required_permit = MEKA_PERMISSION
+	donator_tier = 4
 
 /datum/robot_skin/tall/fmeka
 	name = "Female Meka"
 	required_permit = FMEKA_PERMISSION
+	donator_tier = 4
 
 /datum/robot_skin/tall/mmeka
 	name = "Male Meka"
 	required_permit = MMEKA_PERMISSION
+	donator_tier = 4
 
 /datum/robot_skin/paladin
 	name = "Paladin"
 	panelprefix = "paladin"
 	eye_prefix = "paladin"
 	required_permit = PALADIN_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/robot_drone
 	name = "Robot drone"
 	panelprefix = "robot_drone"
 	eye_prefix = ""
 	required_permit = ROBOT_DRONE_PERMISSION
+	donator_tier = 3
 
 /datum/robot_skin/protectron
 	name = "Protectron"
 	panelprefix = "protectron"
 	eye_prefix = ""
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/coffin
 	name = "Coffin"
@@ -58,46 +64,56 @@
 	panelprefix = "raptor"
 	eye_prefix = ""
 	required_permit = RAPTOR_PERMISSION
+	donator_tier = 3
 
 /datum/robot_skin/doll
 	name = "Doll"
 	eye_prefix = ""
 	required_permit = DOLL_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/buddy
 	name = "Buddy"
 	panelprefix = "buddy"
 	eye_prefix = ""
 	required_permit = BUDDY_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/mine
 	name = "Mine"
 	required_permit = MINE_PERMISSION
+	donator_tier = 3
 
 /datum/robot_skin/eyebot
 	name = "Eyebot"
 	required_permit = EYEBOT_PERMISSION
+	donator_tier = 3
 
 /datum/robot_skin/seek
 	name = "Seek"
 	required_permit = SEEK_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/noble_h
 	panelprefix = "Noble"
 	eye_prefix = "Noble-H"
 	required_permit = SEEK_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/mech
 	name = "Mech"
 	required_permit = MECH_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/heavy
 	name = "Heavy"
 	required_permit = HEAVY_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/spider
 	name = "Spider"
 	required_permit = SPIDER_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/robot
 	name = "Robot"
@@ -369,6 +385,7 @@
 	icon_base_prefix = "handyeng"
 	eye_prefix = "handyeng"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/basic/antique
 	name = "Antique"
@@ -470,6 +487,7 @@
 	icon_base_prefix = "securitron"
 	eye_prefix = "securitron"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/eve
 	name = "Eve"
@@ -653,6 +671,7 @@
 	icon_base_prefix = "handy-service"
 	eye_prefix = "handy-service"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/basic/waitress
 	name = "Waitress"
@@ -853,6 +872,7 @@
 	icon_base_prefix = "mrgutsy"
 	eye_prefix = "mrgutsy"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
 
 /datum/robot_skin/xenoborg
 	name = "Xenoborg"
@@ -898,18 +918,21 @@
 	icon_base_prefix = "ninja_sec"
 	eye_prefix = "ninja_sec"
 	required_permit = NINJA_ALT_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/ninja_engi
 	name = "Ninja engi"
 	icon_base_prefix = "ninja_engi"
 	eye_prefix = "ninja_engi"
 	required_permit = NINJA_ALT_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/ninja_medical
 	name = "Ninja medical"
 	icon_base_prefix = "ninja_medical"
 	eye_prefix = "ninja_medical"
 	required_permit = NINJA_ALT_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/wide
 	icon_file = 'icons/mob/64x32robots.dmi'
