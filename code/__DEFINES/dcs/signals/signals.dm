@@ -1589,3 +1589,9 @@
 #define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
 // Called on payload installing at tripwire
 #define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"
+
+/// Called whenever an admin manually deletes an object, via the "Delete" verb, before qdel() is called: (client/deleting_admin)
+#define COMSIG_ADMIN_DELETING "parent_admin_deleting"
+/// handler for vv_do_topic (usr, href_list)
+#define COMSIG_VV_TOPIC "vv_topic"
+	#define COMPONENT_VV_HANDLED (1<<0)

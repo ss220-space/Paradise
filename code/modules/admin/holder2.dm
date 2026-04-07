@@ -29,6 +29,9 @@ GLOBAL_PROTECT(href_token)
 	var/datum/spawn_menu/spawn_menu
 	var/datum/spawnpanel/spawn_panel
 
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
+
 /datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin rank creation blocked: Advanced ProcCall detected."))

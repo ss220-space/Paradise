@@ -1615,13 +1615,6 @@
 	if(!QDELETED(comp))
 		qdel(comp)
 
-/atom/movable/vv_get_dropdown()
-	. = ..()
-	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
-	else
-		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
-
 /atom/movable/proc/fall_up_in_space()
 	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
 					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
