@@ -826,7 +826,7 @@
 	if(!..())
 		return FALSE
 
-	robot.can_buckle = TRUE
+	robot.AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Grant(robot, src)
 	if(emagged)
 		launch_action.Grant(robot, src)
@@ -836,7 +836,7 @@
 	if(!..())
 		return FALSE
 
-	robot.can_buckle = FALSE
+	robot.RemoveElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Remove(robot, src)
 	launch_action.Remove(robot, src) //REMOVE IT!!!
 	return TRUE
@@ -873,6 +873,7 @@
 	robot.eject_riders_harmfull()
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
+	name = "VERY STRANGE robotic mounted seat module"
 	emagged = TRUE
 
 /obj/item/borg/upgrade/ai

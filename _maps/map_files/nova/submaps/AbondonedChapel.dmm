@@ -1060,6 +1060,16 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"KA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rat,
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east fire alarm";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/club)
 "La" = (
 /obj/item/storage/toolbox/electrical,
 /obj/item/stack/tape_roll{
@@ -2028,7 +2038,7 @@ rY
 am
 LI
 Bz
-aS
+KA
 Na
 kG
 gO

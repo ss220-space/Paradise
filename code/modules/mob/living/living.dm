@@ -522,18 +522,27 @@
 	// DEAD mobs are fine to skip if they are not dense or lying
 	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
+
+	var/allow = FALSE
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-		return !prob(def_zone_hit_chance)
+		allow = !prob(def_zone_hit_chance)
 	//if this is clicked target in lying down
-	if(projectile.original == src)
+	else if(projectile.original == src)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-		return !prob(def_zone_hit_chance)
+		allow = !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
-	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
-	return !prob(total_hit_chance)
+	else
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+		allow = !prob(total_hit_chance)
+
+	if(allow && COOLDOWN_FINISHED(src, bullet_miss_cooldown))
+		COOLDOWN_START(src, bullet_miss_cooldown, 0.5 SECONDS)
+		playsound_local(src, projectile.miss_sound, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
+
+	return allow
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
 	if(pulling && pulling.loc == loc && pulling.density && !pulling.CanPass(mover, border_dir))
