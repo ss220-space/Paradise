@@ -8,6 +8,7 @@
 	var/list/unread_counts = list()
 	/// money_account how user account
 	var/datum/money_account/owner
+	var/photo
 
 /datum/messenger_account/New(datum/money_account/owner_account)
 	src.owner = owner_account
@@ -20,11 +21,20 @@
 	unread_counts -= deleted_chat.name_chat
 	active_chat -= deleted_chat
 
+/datum/messenger_account/proc/set_photo()
+	if(!!photo)
+		return
+	var/datum/data/record/general_record = GLOB.data_core.find_general_record_by_name(owner.owner_name)
+	if(general_record)
+		src.photo = general_record.fields["photo-south"]
+
 /datum/messenger_account/proc/get_account_info()
 	var/list/member = list()
+	set_photo()
 
 	member["name"] = owner.owner_name
 	member["account_number"] = owner.account_number
+	member["photo"] = photo
 
 	return member
 

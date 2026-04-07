@@ -6,6 +6,7 @@ import {
   Dropdown,
   Icon,
   Input,
+  Image,
   LabeledList,
   NumberInput,
   Section,
@@ -26,6 +27,7 @@ type RaingorMessengerData = {
 type MessengerAccount = {
   name: string;
   account_number: number;
+  photo: string;
 };
 
 type Chat = {
@@ -173,6 +175,14 @@ const MainMenuPage = ({ setPage, setChatId, data }: MainPageProps) => {
             Информация о пользователе
           </Box>
           <Box>{owner_messenger_account.name || 'Неизвестно'}</Box>
+          <Image
+            src={owner_messenger_account.photo}
+            style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '8px',
+            }}
+          />
         </Stack>
       </Section>
 
