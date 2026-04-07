@@ -38,13 +38,14 @@
 		if("create_private_chat")
 			var/target_name = params["target"]
 			create_private_chat(target_name, last_login_owner)
-		if("sendMessage")
+		if("send_мessage")
 			var/sended_message = params["sendedMessage"]
 			var/chat_id = params["chatId"]
 			send_message_to_chat(sended_message, chat_id, last_login_owner)
-
-		// if("open_chat")
-		// if("delete_chat")
+		if("delete_chat")
+			var/chat_id = params["chatId"]
+			var/datum/messenger_chat/chat = locateUID(chat_id)
+			qdel(chat)
 
 // Логинимся и возвращаем аккаунт, либо выдаем null
 /datum/data/pda/app/messenger/proc/login_in_messenger(list/data)

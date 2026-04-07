@@ -1,11 +1,6 @@
 /* TODO LIST:
 * 1. не забудь добавить потом что если овнер ливнет, то надо взять первого админа,
 * а если их нет, то чат удаляется;
-* 2. базовый круд
-*
-*
-*
-*
 */
 
 /**
@@ -47,6 +42,11 @@
 	src.chat_members = list()
 	src.is_group = is_group
 	src.is_private = is_private
+
+/datum/messenger_chat/Destroy()
+	for(var/datum/messenger_account/member as anything in chat_members)
+		member.delete_chat(src)
+	. = ..()
 
 /**
  * Can update multiple fields at once.

@@ -219,7 +219,10 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
   const chat =
     chatId !== null ? chats.find((c) => c.chat_id === chatId) : undefined;
   const [messageDraft, setMessageDraft] = useState<string>('');
-
+  const deleteChat = () => {
+    act('delete_chat', { chatId });
+    setPage('main');
+  };
   if (!chat) {
     return (
       <Box textAlign="center" p={3}>
@@ -273,6 +276,11 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
       </Section>
 
       <Section>
+        <Box> Удалить личные сообщения?</Box>
+        <Button onClick={deleteChat}>Удалить</Button>
+      </Section>
+
+      <Section>
         <Box>список сообщений</Box>
         <Box>
           {chat.messages?.map((e) => (
@@ -294,7 +302,7 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
         />
         <Button
           onClick={() =>
-            act('sendMessage', {
+            act('send_мessage', {
               'sendedMessage': messageDraft,
               'chatId': chatId,
             })
