@@ -76,6 +76,28 @@ type PageBaseProps = {
 
 type Page = 'main' | 'chat' | 'about';
 
+export const Avatar = ({ account_photo }) => {
+  return (
+    <Box
+      width="48px"
+      height="48px"
+      overflow="hidden"
+      position="relative"
+      style={{
+        borderRadius: '50%',
+      }}
+    >
+      <Image
+        src={account_photo}
+        width="72px"
+        height="72px"
+        ml="-12px"
+        mt="-2px"
+      />
+    </Box>
+  );
+};
+
 export const pda_raingor_messenger = (props: unknown) => {
   const [page, setPage] = useState<Page>('main');
   const [activeChatId, setActiveChatId] = useState<number | null>(null);
@@ -175,14 +197,7 @@ const MainMenuPage = ({ setPage, setChatId, data }: MainPageProps) => {
             Информация о пользователе
           </Box>
           <Box>{owner_messenger_account.name || 'Неизвестно'}</Box>
-          <Image
-            src={owner_messenger_account.photo}
-            style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '8px',
-            }}
-          />
+          <Avatar account_photo={owner_messenger_account.photo} />
         </Stack>
       </Section>
 
@@ -296,7 +311,14 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
           {chat.messages?.map((e) => (
             <Box key={e.message_id}>
               <Box>{e.timestamp}</Box>
-              <Box> Типа аватарка, а сбоку его имя: {e.sender_name}</Box>
+              <Box>
+                <Stack>
+                  <Stack.Item>
+                    <Avatar account_photo={e.photo_name} />
+                  </Stack.Item>
+                  <Stack.Item>{e.sender_name}</Stack.Item>
+                </Stack>
+              </Box>
               <Box>{e.text_message} </Box>
             </Box>
           ))}

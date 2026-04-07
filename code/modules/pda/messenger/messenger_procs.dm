@@ -27,11 +27,13 @@
 
 /proc/send_message_to_chat(sended_message, chat_id, datum/messenger_account/last_login_owner)
 	var/datum/messenger_chat/chat = locateUID(chat_id)
+	last_login_owner.set_photo()
 	var/datum/messenger_message/new_message = new /datum/messenger_message(
 		sended_message,
 		FALSE,
 		last_login_owner.owner.owner_name,
-		last_login_owner.owner.UID()
+		last_login_owner.owner.UID(),
+		last_login_owner.photo
 	)
 
 	chat.add_message(new_message)
