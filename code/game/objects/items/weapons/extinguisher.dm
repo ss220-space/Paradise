@@ -275,7 +275,6 @@
 
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
 		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
-	playsound(loc, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 
 	var/direction = get_dir(src,target)
 
