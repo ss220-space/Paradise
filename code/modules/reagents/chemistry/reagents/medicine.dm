@@ -28,25 +28,6 @@
 	var/update_flags = STATUS_UPDATE_HEALTH
 	return ..() | update_flags
 
-/datum/reagent/medicine/sterilizine
-	name = "Стерилизин"
-	id = "sterilizine"
-	description = "Стерилизует раны для подготовки к операции."
-	reagent_state = LIQUID
-	color = "#C8A5DC" // rgb: 200, 165, 220
-	taste_description = "антисептика"
-
-	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
-		M.germ_level -= min(volume*20, M.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
-	O.germ_level -= min(volume*20, O.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
-	T.germ_level -= min(volume*20, T.germ_level)
-
 /datum/reagent/medicine/synaptizine
 	name = "Синаптизин"
 	id = "synaptizine"

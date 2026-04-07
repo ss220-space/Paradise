@@ -17,7 +17,7 @@
 			"synthflesh" = list("volume" = 30, "reward" = 80),
 			"facid" = list("volume" = 15, "reward" = 100),
 			"minttoxin" = list("volume" = 15, "reward" = 100),
-			"sterilizine" = list("volume" = 30, "reward" = 100),
+			"antihol" = list("volume" = 30, "reward" = 100),
 			"fomepizole" = list("volume" = 20, "reward" = 125),
 			"mitocholide" = list("volume" = 30, "reward" = 150),
 			"pen_acid" = list("volume" = 30, "reward" = 175),
