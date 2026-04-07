@@ -4,8 +4,6 @@
 * Сделать защиту на создание дубликатов чатов
 
 */
-
-
 /datum/data/pda/app/messenger
 	name = "InCrew"
 	icon = "comments"
@@ -21,7 +19,6 @@
 
 /datum/data/pda/app/messenger/update_ui(mob/user, list/data)
 	// выполняем вход в аккаунт
-	var/datum/messenger_account/owner_messenger_account = login_in_messenger(data)
 	var/datum/messenger_account/owner_messenger_account = login_in_messenger(data)
 
 	// Проверяем на то, что если человек не смог залогиниться ему в UI высветило сообщение о обязательном логине
@@ -64,9 +61,6 @@
 	// так как тут выше был money_account запихиваем возможные таргеты
 	data["targets"] = get_possible_targets(owner_money_account)
 
-	// так как тут выше был money_account запихиваем возможные таргеты
-	data["targets"] = get_possible_targets(owner_money_account)
-
 	// берем аккаунт мессенджера из аккаунта человека+
 	var/datum/messenger_account/owner_messenger_account = owner_money_account.messenger_profile
 	if(!owner_messenger_account)
@@ -76,14 +70,19 @@
 	can_login = TRUE
 	last_login_owner = owner_messenger_account
 	data["can_login"] = can_login
-	data["can_login"] = can_login
 	return owner_messenger_account
 
-// требуется доработка: Убрать уже существующие личные чаты из чатов на выбор
+// передает в UI возможные тагреты для создания личных/групповых чатов
 /datum/data/pda/app/messenger/proc/get_possible_targets(datum/money_account/exclude_account)
+	// делам список с аккаунтами с которыми уже есть чат
+	var/list/used_targets = list()
+	for(var/datum/messenger_chat/removeable_chat as anything in exclude_account.messenger_profile.active_chat)
+		removeable_chat.get_created_private_chat_users(used_targets, exclude_account)
+
 	var/list/possible_targets = list()
 	for(var/datum/money_account/target_account as anything in GLOB.all_money_accounts)
-		if(!target_account.suspended && !(target_account.owner_name == exclude_account.owner_name))
+		if(!(target_account.owner_name == exclude_account.owner_name) && \
+			!check_account_in_list(target_account.messenger_profile, used_targets))
 			possible_targets.Add(target_account.owner_name)
 	return possible_targets
 

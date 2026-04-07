@@ -138,3 +138,12 @@
 	for(var/datum/messenger_message/message as anything in messages)
 		messages_list += list(message.get_ui_data(user))
 	return messages_list
+
+// метод который позволяет узнать с каким аккаунтом уже есть приватный чат
+/datum/messenger_chat/proc/get_created_private_chat_users(list/used_targets, var/datum/messenger_account/exclude_account)
+	if(is_group)
+		return
+
+	for(var/datum/messenger_account/checked_acc as anything in chat_members)
+		if(checked_acc != exclude_account)
+			used_targets += checked_acc
