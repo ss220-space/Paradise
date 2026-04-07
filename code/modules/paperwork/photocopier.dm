@@ -1,6 +1,10 @@
 #define PHOTOCOPIER_DELAY 15
 ///Global limit on copied papers and photos, bundles are counted as a sum of their parts
 #define MAX_COPIES_PRINTABLE 300
+///fractions
+#define FACTION_DEFAULT "default"
+#define FACTION_NT "nanotrasen"
+#define FACTION_SYNDIE "syndicate"
 
 /obj/machinery/photocopier
 	name = "photocopier"
@@ -56,7 +60,7 @@
 								'sound/machines/printer_dotmatrix3.ogg',
 								'sound/machines/printer_dotmatrix4.ogg')
 	/// type of photocopier
-	var/faction = "default"
+	var/faction = FACTION_DEFAULT
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
 					форм, обратитесь в Отдел\
@@ -99,14 +103,14 @@
 /obj/machinery/photocopier/nanotrasen
 	name = "Nanotrasen photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
-	faction = "nanotrasen"
+	faction = FACTION_NT
 	icon_state = "photocopier_nanotrasen_closed"
 	base_icon_state = "photocopier_nanotrasen"
 	info_box = "Если у вас есть пожелания или\
 				идеи для улучшения стандартных\
 				форм, обратитесь в Отдел\
 				стандартизации \"Нанотрейзен\"."
-	ui_theme = "syndicate"
+	ui_theme = "ntos"
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -118,7 +122,7 @@
 
 /obj/machinery/photocopier/update_overlays()
 	. = ..()
-	underlays.Cut()
+	LAZYCLEARLIST(underlays)
 
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -374,10 +378,9 @@
  */
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
 	if(stat & (BROKEN|NOPOWER))
-		return FALSE
 		playsound(src, 'sound/machines/lock_2.ogg', 25)
-		flick(icon, "[base_icon_state]_opening")
 		update_appearance(UPDATE_ICON_STATE)
+		return FALSE
 	if(copying) //are we in the process of copying something already?
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
@@ -390,16 +393,14 @@
 		return FALSE
 	if(max_copies_reached)
 		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
-		return FALSE
 		playsound(src, 'sound/machines/lock_2.ogg', 25)
-		flick(icon, "[base_icon_state]_opening")
 		update_appearance(UPDATE_ICON_STATE)
+		return FALSE
 	if(total_copies >= MAX_COPIES_PRINTABLE)
 		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 		playsound(src, 'sound/machines/lock_2.ogg', 25)
-		flick(icon, "[base_icon_state]_opening")
 		update_appearance(UPDATE_ICON_STATE)
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
 		balloon_alert(usr, "сканер пуст!")
@@ -657,9 +658,9 @@
 		var/req_access = initial(ff.access)
 		if(req_access && !(req_access in access))
 			continue
-		if(faction == "Синдикат" && !(ff in subtypesof(/obj/item/paper/form/syndieform))) //Если у нас синдипритер, нам не нужны другие формы
+		if(faction == FACTION_SYNDIE && !(ff in subtypesof(/obj/item/paper/form/syndieform))) //Если у нас синдипритер, нам не нужны другие формы
 			continue
-		if(faction != "Синдикат" && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
+		if(faction != FACTION_SYNDIE && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
 			continue
 		var/form[0]
 		form["path"] = F

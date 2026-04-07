@@ -1374,7 +1374,6 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/photocopier
 	board_name = "Ксерокс"
-	desc = "Текущая модель сборки - Обычная"
 	build_path = /obj/machinery/photocopier
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
@@ -1414,7 +1413,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/photocopier/attack_self(mob/user)
 	. = ..()
-	var/choice = tgui_input_list(usr, "Выберите тип модели ксерокса.", "модель ксерокса", photocopier_types)
+	var/choice = tgui_input_list(user, "Выберите тип модели ксерокса.", "модель ксерокса", photocopier_types)
 	switch(choice)
 		if("Обычная")
 			build_path = /obj/machinery/photocopier
@@ -1431,4 +1430,4 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/photocopier/examine(mob/user)
 	. = ..()
-	desc = "Текущая модель сборки - [build_type]"
+	. += span_notice("Текущая модель сборки - [build_type].")
