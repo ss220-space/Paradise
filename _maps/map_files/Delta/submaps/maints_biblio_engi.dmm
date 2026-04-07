@@ -177,9 +177,7 @@
 	icon_state = "dirt-55"
 	},
 /obj/structure/chair/sofa/bench/left/security_red{
-	dir = 8;
-	icon = 'tmp/gags/icons/gags-bench_left-#ef3340.dmi';
-	icon_state = "bench_left"
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
@@ -310,9 +308,7 @@
 /area/maintenance/engineering)
 "EN" = (
 /obj/structure/chair/sofa/bench/left/security_red{
-	dir = 4;
-	icon = 'tmp/gags/icons/gags-bench_left-#ef3340.dmi';
-	icon_state = "bench_left"
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
