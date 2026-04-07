@@ -142,3 +142,12 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/old_tele/different
 	name = "немного другая старая телепортерная"
+
+//Maints biblio - engineering
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_biblio_engineering
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/maints_biblio_engineering
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/maints_biblio_engineering/engineering
+	name = "техи между библиотекой и инженеркой стали окультными"

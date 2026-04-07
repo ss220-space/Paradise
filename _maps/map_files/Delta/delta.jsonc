@@ -132,6 +132,17 @@
 		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/old_tele",
 		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/old_tele",
 		"submaps_can_repeat": true
+	},
+
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x" : 11,
+		"submap_size_y" : 8,
+		"submap_size_z" : 1,
+		"submaps_dmm": "_maps/map_files/Delta/submaps/maints_biblio_engi.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_biblio_engineering",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/maints_biblio_engineering",
+		"submaps_can_repeat": true
 	}
 
 ]
