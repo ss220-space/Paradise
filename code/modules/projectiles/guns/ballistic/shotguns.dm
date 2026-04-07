@@ -19,10 +19,6 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
 	)
 
-/obj/item/gun/projectile/shotgun/riot/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins)
-
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
@@ -179,6 +175,25 @@
 
 /obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
+
+//MARK: Winchester
+/obj/item/gun/projectile/shotgun/winchester
+	name = "lever action shotgun"
+	desc = "Ружье рычажного действия под калибр 12х70 мм. Производится с 1887 года компанией \"Winchester Arms Company\"."
+	icon_state = "winchester"
+	item_state = "winchester"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester
+	sawn_desc = "Come with me if you want to live."
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -4),
+	)
+	reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
+
 
 // MARK: Rusted shotgun
 /obj/item/gun/projectile/shotgun/lethal/rusted
