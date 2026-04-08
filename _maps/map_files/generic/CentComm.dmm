@@ -741,6 +741,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone3)
+"amT" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/snow,
+/area/ninja/outside)
 "amV" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/indestructible/vox{
@@ -1346,6 +1352,15 @@
 /obj/structure/shuttle/engine/huge,
 /turf/space,
 /area/space)
+"aDx" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/beach/sand{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "asteroid"
+	},
+/area/centcom/evac)
 "aDQ" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -4112,7 +4127,9 @@
 	},
 /area/centcom/jail)
 "bYb" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "bYi" = (
@@ -4654,18 +4671,22 @@
 /area/syndicate_mothership/jail)
 "ckt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
 "ckC" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
+	},
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
@@ -6900,12 +6921,14 @@
 	},
 /area/centcom/specops)
 "dov" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
+	},
+/obj/structure/chair/stool{
+	dir = 1
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
@@ -7248,7 +7271,9 @@
 	},
 /area/syndicate_mothership/infteam)
 "dwJ" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "dxk" = (
@@ -7611,6 +7636,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"dDW" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/landmark/spawner/syndie,
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership)
 "dDZ" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -14841,6 +14873,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
+"hfk" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/centcom/evac)
 "hfl" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -15133,6 +15171,12 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/centcom/jail)
+"hpI" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/zone1)
 "hqm" = (
 /obj/effect/turf_decal/tile{
 	alpha = 128;
@@ -16042,7 +16086,9 @@
 	},
 /area/centcom/specops)
 "hOr" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/beach/sand{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "asteroid"
@@ -19850,7 +19896,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "jEu" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "jEv" = (
@@ -21354,6 +21402,12 @@
 /obj/effect/turf_decal/stripes/gold,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
+"klF" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/elite_squad)
 "kms" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp/green,
@@ -23470,7 +23524,9 @@
 /turf/simulated/floor/beach/sand,
 /area/centcom/evac)
 "ljs" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -23733,14 +23789,8 @@
 	},
 /area/shuttle/ninja)
 "lrP" = (
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
-	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern"
-	},
 /obj/structure/flora/ausbushes/sparsegrass,
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "lsd" = (
@@ -24412,13 +24462,7 @@
 "lEY" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/genericbush,
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
-	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern"
-	},
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "lFm" = (
@@ -25036,7 +25080,9 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
 "lWc" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/effect/landmark/spawner/syndie,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
@@ -25527,7 +25573,9 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
 "mgd" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "mgC" = (
@@ -25705,7 +25753,9 @@
 	},
 /area/wizard_station)
 "mle" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -25721,13 +25771,7 @@
 	},
 /area/centcom/evac)
 "mlk" = (
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
-	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern"
-	},
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "mll" = (
@@ -29985,6 +30029,15 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"nYp" = (
+/obj/effect/landmark/spawner/prisonsecuritywarp,
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/centcom/jail)
 "nYu" = (
 /obj/item/flag/syndi,
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
@@ -32863,7 +32916,9 @@
 	},
 /area/centcom/zone3)
 "psE" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -33128,11 +33183,13 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/bridge)
 "pxs" = (
-/obj/structure/chair/stool,
 /obj/structure/sign/poster/contraband/punch_shit{
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/prisonsecuritywarp,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -33259,7 +33316,9 @@
 "pAV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -33635,8 +33694,10 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "pMI" = (
-/obj/structure/chair/stool/bar,
 /obj/structure/window/reinforced,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "pMN" = (
@@ -35013,7 +35074,9 @@
 	},
 /area/centcom/specops)
 "qso" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
 "qst" = (
@@ -35206,7 +35269,9 @@
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo14"
 	},
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
 "qwd" = (
@@ -35291,9 +35356,11 @@
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo15"
 	},
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/stripes/black{
 	dir = 4
+	},
+/obj/structure/chair/stool{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
@@ -35675,16 +35742,11 @@
 	},
 /area/centcom/specops)
 "qFF" = (
-/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
-	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern"
+	dir = 4
 	},
-/turf/simulated/floor/grass,
-/area/centcom/evac)
+/turf/simulated/floor/carpet,
+/area/centcom/zone1)
 "qFV" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -37533,6 +37595,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"ruT" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/zone1)
 "rvc" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/decal/warning_stripes/yellow,
@@ -38014,18 +38082,10 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
-	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern";
-	pixel_x = 4;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
 "rHo" = (
@@ -39810,7 +39870,9 @@
 	},
 /area/centcom/specops)
 "sAg" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -40257,6 +40319,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
+"sJr" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/snow,
+/area/ninja/outside)
 "sJw" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_Grenade";
@@ -40321,13 +40389,7 @@
 "sKR" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/chair/stool/bar{
-	icon = 'icons/obj/lighting.dmi';
-	icon_state = "lantern-on";
-	light_color = "#FFBF00";
-	light_range = 6;
-	name = "lantern"
-	},
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "sLt" = (
@@ -43301,9 +43363,11 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "tWu" = (
-/obj/structure/chair/stool/bar,
 /obj/structure/curtain/open/shower/security{
 	pixel_x = -32
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -45738,8 +45802,10 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "vdf" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/spawner/prisonsecuritywarp,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -64704,7 +64770,7 @@ keo
 wUZ
 xBV
 wWV
-xBV
+dDW
 aHS
 keo
 aae
@@ -64961,7 +65027,7 @@ keo
 wNz
 xBV
 qHC
-xBV
+dDW
 nIK
 keo
 aaf
@@ -76494,9 +76560,9 @@ vPe
 jWb
 kLM
 lDs
-mgd
-mgd
-mgd
+klF
+klF
+klF
 lDs
 kKP
 ofX
@@ -90234,7 +90300,7 @@ ycO
 tdj
 ckC
 ykS
-bYb
+sJr
 ykS
 ykS
 cxG
@@ -90749,7 +90815,7 @@ buy
 cli
 cHT
 cUD
-bYb
+amT
 ykS
 kjK
 dGF
@@ -96604,8 +96670,8 @@ hjL
 tJJ
 pqb
 pxs
-vdf
-vdf
+nYp
+nYp
 hwc
 xmb
 fXZ
@@ -99887,7 +99953,7 @@ onc
 pzx
 sAi
 tWd
-jEu
+ruT
 ihM
 mJH
 hLa
@@ -100144,7 +100210,7 @@ onc
 cVM
 sAi
 gmC
-jEu
+ruT
 ihM
 xAJ
 lQY
@@ -100401,7 +100467,7 @@ onc
 pFP
 sAi
 sRv
-jEu
+ruT
 ihM
 meZ
 aVH
@@ -100915,7 +100981,7 @@ onc
 nBT
 sAi
 gmC
-jEu
+ruT
 ihM
 kAE
 dsj
@@ -101172,7 +101238,7 @@ onc
 uBh
 sAi
 tWd
-jEu
+ruT
 ihM
 hxR
 dsj
@@ -101429,7 +101495,7 @@ onc
 xTi
 sAi
 eCI
-jEu
+ruT
 ihM
 ffO
 aVH
@@ -101686,7 +101752,7 @@ onc
 byB
 sAi
 tWd
-jEu
+ruT
 ihM
 xAJ
 lQY
@@ -101943,7 +102009,7 @@ onc
 cte
 wUF
 gmC
-jEu
+ruT
 ihM
 xYe
 arb
@@ -102185,7 +102251,7 @@ dwJ
 dwJ
 dZA
 fkh
-qFF
+lrP
 dZA
 phM
 skw
@@ -102200,7 +102266,7 @@ onc
 onc
 xHc
 tWd
-jEu
+ruT
 pNo
 ihM
 ihM
@@ -102694,9 +102760,9 @@ gdL
 qwy
 fkh
 phM
-dwJ
-dwJ
-dwJ
+hfk
+hfk
+hfk
 dZA
 phM
 fkh
@@ -103470,7 +103536,7 @@ qsv
 qsv
 gYq
 gpF
-qFF
+lrP
 dZA
 dZA
 skw
@@ -103487,8 +103553,8 @@ onc
 kAE
 tak
 fPG
-saA
-saA
+qFF
+qFF
 kAE
 tak
 hWf
@@ -103719,7 +103785,7 @@ kiX
 fkh
 fkh
 fkh
-qFF
+lrP
 upv
 dZA
 kiX
@@ -103972,7 +104038,7 @@ mVX
 mVX
 wLM
 vgN
-qFF
+lrP
 fkh
 fkh
 vXo
@@ -104251,7 +104317,7 @@ pyu
 oga
 onc
 uNF
-jEu
+ruT
 wUF
 ycL
 aZv
@@ -104508,7 +104574,7 @@ pyu
 rpk
 onc
 tWd
-jEu
+ruT
 wUF
 kAE
 aTZ
@@ -104516,7 +104582,7 @@ bBI
 eNm
 fPG
 ljs
-saA
+hpI
 kAE
 tak
 xSv
@@ -105256,7 +105322,7 @@ mVX
 mVX
 wLM
 rUx
-hOr
+aDx
 fkh
 fkh
 fkh
@@ -105513,7 +105579,7 @@ mVX
 mVX
 wLM
 rUx
-hOr
+aDx
 pHc
 fkh
 fkh
@@ -105770,7 +105836,7 @@ mVX
 mVX
 wLM
 rUx
-hOr
+aDx
 hOr
 hOr
 fkh

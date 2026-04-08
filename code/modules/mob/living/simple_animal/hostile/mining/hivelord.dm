@@ -39,6 +39,12 @@
 		PREPOSITIONAL = "рое",
 	)
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/drop_loot(drop_loc)
+	if(is_station_level(z))
+		return
+
+	return ..()
+
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)

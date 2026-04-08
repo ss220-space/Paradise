@@ -42,7 +42,10 @@ type Person = {
   active: string;
 };
 
-const getStatusIconClass = (status: string) => {
+const getStatusIconClass = (status: string | null) => {
+  if (!status) {
+    return 'manifest-indicator-active';
+  }
   const normalized = status
     .toLowerCase()
     .replace(/\*/g, '')

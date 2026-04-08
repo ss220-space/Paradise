@@ -3251,10 +3251,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"mU" = (
-/obj/structure/bed/dogbed,
-/turf/simulated/wall/r_wall,
-/area/mine/production)
 "mV" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/window/reinforced/clockwork{
@@ -6030,7 +6026,9 @@
 	},
 /area/mine/living_quarters)
 "FK" = (
-/obj/structure/chair/stool/holostool,
+/obj/structure/chair/stool/holostool{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "FN" = (
@@ -7122,6 +7120,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -7980,7 +7981,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "Sv" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -9145,6 +9148,10 @@
 "ZA" = (
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -25
 	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -26385,7 +26392,7 @@ fw
 lh
 vS
 IZ
-mU
+aR
 dd
 TV
 dA
