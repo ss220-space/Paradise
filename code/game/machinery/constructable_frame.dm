@@ -1382,52 +1382,54 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/paper = 5,
-		/obj/item/stock_parts/micro_laser = 1
+		/obj/item/stock_parts/micro_laser = 1,
 	)
 	/// available machine types
-	var/list/photocopier_types = list("Обычная")
+	var/list/photocopier_types = list(FACTION_DEFAULT)
 	/// selected type
-	var/build_type = "Обычная"
+	var/build_type = FACTION_DEFAULT
 
 /obj/item/circuitboard/photocopier/emag_act(mob/user)
 	. = ..()
 	if("Синдикат" in photocopier_types)
 		return
-	photocopier_types += "Синдикат"
+	photocopier_types += FACTION_SYNDIE
 	do_sparks(5, FALSE, src.loc)
 
-/obj/item/circuitboard/photocopier/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/photocopier/attackby(obj/item/item, mob/user, params)
 	. = ..()
-	if(is_id_card(I))
-		var/obj/item/card/id/card = I
-		if(has_access(list(ACCESS_SYNDICATE), TRUE, card.access))
-			if("Синдикат" in photocopier_types)
-				return
-			photocopier_types += "Синдикат"
-		if(has_access(list(ACCESS_BUILD_NT), TRUE, card.access))
-			if("Нанотрейзен" in photocopier_types)
-				return
-			photocopier_types += "Нанотрейзен"
-		playsound(user.loc, 'sound/machines/click.ogg', 25)
+	if(!is_id_card(item))
+		return
+
+	var/obj/item/card/id/card = item
+	if(has_access(list(ACCESS_SYNDICATE), TRUE, card.access))
+		if(FACTION_SYNDIE in photocopier_types)
+			return
+		photocopier_types += FACTION_SYNDIE
+
+	if(has_access(list(ACCESS_CONSTRUCTION), TRUE, card.access))
+		if(FACTION_NT in photocopier_types)
+			return
+
+		photocopier_types += FACTION_NT
+	playsound(user.loc, 'sound/machines/click.ogg', 25)
 
 
 /obj/item/circuitboard/photocopier/attack_self(mob/user)
 	. = ..()
 	var/choice = tgui_input_list(user, "Выберите тип модели ксерокса.", "модель ксерокса", photocopier_types)
+	if(!choice)
+		return
 	switch(choice)
-		if("Обычная")
+		if(FACTION_DEFAULT)
 			build_path = /obj/machinery/photocopier
-		if("Нанотрейзен")
+		if(FACTION_NT)
 			build_path = /obj/machinery/photocopier/nanotrasen
-		if("Синдикат")
+		if(FACTION_SYNDIE)
 			build_path = /obj/machinery/photocopier/syndie
-		else
-			if(!choice)
-				choice = "Обычная"
-				build_path = /obj/machinery/photocopier
 	build_type = choice
 	playsound(user.loc, 'sound/machines/click.ogg', 25)
 
 /obj/item/circuitboard/photocopier/examine(mob/user)
 	. = ..()
-	. += span_notice("Текущая модель сборки - [build_type].")
+	. += span_notice("Текущая модель сборки — [build_type].")

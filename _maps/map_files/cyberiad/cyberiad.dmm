@@ -41825,9 +41825,7 @@
 	c_tag = "Quartermaster's Office";
 	dir = 8
 	},
-/obj/machinery/photocopier/nanotrasen{
-	pixel_x = -2
-	},
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -55892,9 +55890,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hWl" = (
-/obj/machinery/photocopier/nanotrasen{
-	pixel_x = -2
-	},
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluefull"
@@ -72748,9 +72744,7 @@
 	},
 /area/security/prisonershuttle)
 "put" = (
-/obj/machinery/photocopier/nanotrasen{
-	pixel_x = -2
-	},
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "puw" = (
