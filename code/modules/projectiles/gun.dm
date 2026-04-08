@@ -281,10 +281,7 @@
 				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
 				COOLDOWN_START(src, pb_cooldown, pb_cooldown_duration)
 				if(pb_knockback > 0 && isliving(target))
-					var/mob/living/living_target = target
-					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
-						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
-						living_target.throw_at(throw_target, pb_knockback, 2)
+					do_pb_knockback(user, target)
 			else
 				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
@@ -295,6 +292,13 @@
 			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
+
+
+/obj/item/gun/proc/do_pb_knockback(mob/living/user, atom/target)
+	var/mob/living/living_target = target
+	if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
+		var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
+		living_target.throw_at(throw_target, pb_knockback, 2)
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)

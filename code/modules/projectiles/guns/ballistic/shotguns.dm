@@ -184,6 +184,7 @@
 	item_state = "winchester"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester
 	sawn_desc = "Come with me if you want to live."
+	pb_knockback = 0 // no knockback for this gun
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
@@ -193,6 +194,15 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -4),
 	)
 	reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
+
+
+/obj/item/gun/projectile/shotgun/winchester/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
+
+/obj/item/gun/projectile/shotgun/winchester/do_pb_knockback(mob/living/user, atom/target)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(pump), user), 1) //auto reload after point blank shot
 
 
 // MARK: Rusted shotgun
