@@ -46,12 +46,13 @@
 		return FALSE
 
 	// The gun is equipped in their hands, give them the zoom ability.
-	action.Grant(user)
+	if(user)
+		action.Grant(user)
 
 /datum/component/laser_sight/proc/on_attach_module(datum/source, mob/user, obj/item/gun, obj/item/gun_module/gun_mod)
 	SIGNAL_HANDLER
 
-	if(!user.is_in_hands(gun))
+	if(user && !user.is_in_hands(gun))
 		return
 	on_equip(src, user, ITEM_SLOT_HANDS)
 

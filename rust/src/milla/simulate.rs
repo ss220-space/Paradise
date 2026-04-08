@@ -1756,6 +1756,7 @@ pub(crate) fn normalise_hotspot(tile: &mut Tile) {
     if tile.hotspot_temperature < min_temp
         || !has_fuel
         || tile.gases.oxygen() <= REACTION_SIGNIFICANCE_MOLES
+        || tile.temperature() < min_temp
     {
         tile.thermal_energy += hotspot_extra_thermal_energy;
         tile.hotspot_temperature = 0.0;

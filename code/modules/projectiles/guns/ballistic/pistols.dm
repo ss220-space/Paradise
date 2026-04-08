@@ -10,7 +10,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	burst_size = 1
 	fire_delay = 0
-	accuracy = GUN_ACCURACY_PISTOL_UPLINK
+	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
@@ -39,6 +39,7 @@
 	recoil = GUN_RECOIL_LOW
 
 // MARK: Enforcer
+
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "Enforcer"
 	desc = "A pistol of modern design."
@@ -46,7 +47,7 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_PISTOL_ENFORCER
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(

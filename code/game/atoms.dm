@@ -25,8 +25,8 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "говорит"
-	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
-	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
+	/// What icon the mob uses for speechbubbles
+	var/bubble_icon = "default"
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 	/// The icon state that will be switched to during initialization.
 	/// Mostly intended for things that have a special map icon.

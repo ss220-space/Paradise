@@ -30,7 +30,9 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
     <Button
       color="transparent"
       onClick={onClick}
+      width="90px"
       style={{
+        padding: '4px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -39,11 +41,13 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
       }}
     >
       <Box
+        width="100%"
         style={{
           width: APP_ICON_SIZE,
           height: APP_ICON_SIZE,
           borderRadius: '0.9rem',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '0.4rem',
@@ -90,6 +94,10 @@ export const pda_main_menu = () => {
     ? notifying
     : Object.keys(notifying || {});
 
+  const notifyList = Array.isArray(notifying)
+    ? notifying
+    : Object.keys(notifying || {});
+
   return (
     <Box style={{ padding: '0.75rem' }}>
       <Box
@@ -127,6 +135,7 @@ export const pda_main_menu = () => {
           <AppIcon
             key={app.uid}
             app={app}
+            isNotifying={notifyList.includes(app.uid)}
             isNotifying={notifyList.includes(app.uid)}
             onClick={() => act('StartProgram', { program: app.uid })}
           />
