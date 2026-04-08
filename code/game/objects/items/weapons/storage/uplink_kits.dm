@@ -952,9 +952,9 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/rsh12_revolver/populate_contents()
 	new	/obj/item/gun/projectile/revolver/rsh_12(src)
-	new /obj/item/ammo_box/cc130pt(src)
-	new /obj/item/ammo_box/cc130pt(src)
-	new /obj/item/ammo_box/cc130pt(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/syndie_kit/combat_exoframe

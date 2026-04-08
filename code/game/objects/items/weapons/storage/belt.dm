@@ -701,9 +701,9 @@
 
 /obj/item/storage/belt/military/assault/rsh_12/full/populate_contents()
 	new	/obj/item/gun/projectile/revolver/rsh_12/admin(src)
-	new /obj/item/ammo_box/cc130pt(src)
-	new /obj/item/ammo_box/cc130pt(src)
-	new /obj/item/ammo_box/cc130pt(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"

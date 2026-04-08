@@ -110,7 +110,7 @@
 	ricochet_chance = 20
 
 //MARK: 12.7x55
-/obj/projectile/bullet/cc130pt
+/obj/projectile/bullet/c12_dot_7X55
 	damage = 75
 	ricochet_chance = 33
 	speed = 1

@@ -21,7 +21,7 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/rsh_12
 	name = "rsh-12 revolver cylinder"
-	ammo_type = /obj/item/ammo_casing/cc130pt
+	ammo_type = /obj/item/ammo_casing/c12_dot_7X55
 	caliber = CALIBER_12_DOT_7X55MM
 	max_ammo = 5
 
