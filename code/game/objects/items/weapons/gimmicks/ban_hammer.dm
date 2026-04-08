@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 
 	var/file_content = file2text(BH_FAKE_PM_STRINGS)
 	if(!file_content)
-		return list("Привет, есть минутка?")
+		return BH_NULL_MESSAGE
 
 	var/list/raw_lines = splittext(file_content, "\n")
 	var/list/cleaned_messages = list()
