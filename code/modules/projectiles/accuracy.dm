@@ -133,6 +133,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	max_spread = 10
 	spread_increase_step = 2
 
+/datum/gun_accuracy/pistol/stechkin
+	min_spread = 2
+	max_spread = 7
 /datum/gun_accuracy/rifle
 	head = 90
 	chest = 120
