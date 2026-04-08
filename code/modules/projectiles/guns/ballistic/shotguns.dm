@@ -195,6 +195,15 @@
 	)
 	reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
 
+/obj/item/gun/projectile/shotgun/winchester/get_ru_names()
+	return list(
+		NOMINATIVE = "рычажный дробовик",
+		GENITIVE = "рычажного дробовика",
+		DATIVE = "рычажному дробовику",
+		ACCUSATIVE = "рычажный дробовик",
+		INSTRUMENTAL = "рычажным дробовиком",
+		PREPOSITIONAL = "рычажном дробовике",
+	)
 
 /obj/item/gun/projectile/shotgun/winchester/ComponentInitialize()
 	. = ..()
