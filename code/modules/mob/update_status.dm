@@ -34,9 +34,6 @@
 
 // Procs that give information about the status of the mob
 
-/mob/proc/can_hear()
-	return TRUE
-
 /mob/proc/has_vision(information_only = FALSE)
 	return 1
 

@@ -123,7 +123,7 @@
 	to_chat(world, chat_box_purple(span_purple("<b>[start_text]</b>\n\
 		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
 		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[DECL_SEC_MIN(CONFIG_GET(number/vote_period) / 10)], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
-	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
+	SEND_SOUND(world, sound('sound/ambience/misc/alarm4.ogg'))
 
 /datum/vote/proc/tick()
 	if(remaining() == 0)

@@ -121,6 +121,9 @@
 	var/processing_flags = START_PROCESSING_ON_INIT
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
+	/// Do we want to hook into on_enter_area and on_exit_area?
+	/// Disables some optimizations
+	var/always_area_sensitive = FALSE
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -138,6 +141,8 @@
 
 	power_change()
 
+	setup_area_power_relationship()
+
 /obj/machinery/Destroy()
 	if(myArea)
 		LAZYREMOVE(myArea.machinery_cache, src)
@@ -146,6 +151,36 @@
 	SSmachines.unregister_machine(src)
 	end_processing()
 	return ..()
+
+/obj/machinery/proc/setup_area_power_relationship()
+	var/area/our_area = get_area(src)
+	if(our_area)
+		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
+
+	RegisterSignal(src, COMSIG_ENTER_AREA, PROC_REF(on_enter_area))
+	RegisterSignal(src, COMSIG_EXIT_AREA, PROC_REF(on_exit_area))
+	return TRUE
+
+/obj/machinery/proc/remove_area_power_relationship()
+	var/area/our_area = get_area(src)
+	if(our_area)
+		UnregisterSignal(our_area, COMSIG_AREA_POWER_CHANGE)
+
+	UnregisterSignal(src, COMSIG_ENTER_AREA)
+	UnregisterSignal(src, COMSIG_EXIT_AREA)
+
+/obj/machinery/proc/on_enter_area(datum/source, area/area_to_register)
+	SIGNAL_HANDLER
+	if(use_power == NO_POWER_USE)
+		return
+	power_change()
+	RegisterSignal(area_to_register, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
+
+/obj/machinery/proc/on_exit_area(datum/source, area/area_to_unregister)
+	SIGNAL_HANDLER
+	if(use_power == NO_POWER_USE)
+		return
+	UnregisterSignal(area_to_unregister, COMSIG_AREA_POWER_CHANGE)
 
 /obj/machinery/add_debris_element()
 	AddElement(/datum/element/debris, null, -40, 8, 0.7)
@@ -168,12 +203,10 @@
 	if(myArea == get_area(src))
 		return
 	LAZYREMOVE(myArea.machinery_cache, src)
-	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
 	if(!myArea)
 		return
 	LAZYADD(myArea.machinery_cache, src)
-	//message_admins("[src] entered [myArea]")
 	power_change()
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
@@ -241,6 +274,10 @@
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(new_use_power)
 	use_power = new_use_power
+	if(use_power == NO_POWER_USE)
+		setup_area_power_relationship()
+	else if(new_use_power == NO_POWER_USE)
+		remove_area_power_relationship()
 
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))

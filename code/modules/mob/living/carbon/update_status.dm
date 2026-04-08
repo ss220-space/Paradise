@@ -21,10 +21,3 @@
 	else
 		return
 	update_stamina_hud()
-
-/mob/living/carbon/can_hear()
-	. = ..()
-	var/obj/item/organ/internal/ears/ears = get_organ_slot(INTERNAL_ORGAN_EARS)
-	if(!ears)
-		return FALSE
-

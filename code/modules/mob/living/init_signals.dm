@@ -53,6 +53,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DEAF), PROC_REF(on_hearing_loss))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DEAF), PROC_REF(on_hearing_regain))
+
 /// Called when [TRAIT_KNOCKEDOUT] is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
 	SIGNAL_HANDLER
@@ -268,3 +271,13 @@
 	if(src in hud.hud_users_all_z_levels)
 		hud.hide_from(src)
 
+/// Called when [TRAIT_DEAF] is added to the mob.
+/mob/living/proc/on_hearing_loss()
+	SIGNAL_HANDLER
+	refresh_looping_ambience()
+	stop_sound_channel(CHANNEL_AMBIENCE)
+
+/// Called when [TRAIT_DEAF] is added to the mob.
+/mob/living/proc/on_hearing_regain()
+	SIGNAL_HANDLER
+	refresh_looping_ambience()

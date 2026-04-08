@@ -338,3 +338,6 @@
 
 	/// Mob bitflags
 	var/mob_flags = NONE
+
+	/// A ref of the area we're taking our ambient loop from.
+	var/area/ambience_tracked_area

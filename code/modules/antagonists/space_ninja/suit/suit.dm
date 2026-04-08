@@ -694,8 +694,8 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(prob(stealth_ambient_chance))
 		var/sounds = pick(
-			'sound/ambience/ambifailure.ogg',
-			'sound/ambience/ambigen5.ogg',
+			'sound/ambience/misc/ambifailure.ogg',
+			'sound/ambience/general/ambigen5.ogg',
 			'sound/machines/ventcrawl.ogg',
 			'sound/effects/noise_scan.ogg',
 			'sound/effects/footstep/wood1.ogg',

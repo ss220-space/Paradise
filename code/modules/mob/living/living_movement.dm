@@ -34,6 +34,9 @@
 	if(old_area.has_gravity != new_area.has_gravity)
 		refresh_gravity()
 
+	if(new_area != ambience_tracked_area)
+		update_ambience_area(new_area)
+
 /mob/living/update_config_movespeed()
 	update_move_intent_slowdown()
 	return ..()

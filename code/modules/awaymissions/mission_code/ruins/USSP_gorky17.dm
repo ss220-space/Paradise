@@ -86,7 +86,7 @@
 	requires_power = FALSE
 	has_gravity = FALSE
 	outdoors = TRUE
-	ambientsounds = list('sound/ambience/apathy.ogg')
+	ambientsounds = list('sound/ambience/spooky/apathy.ogg')
 	sound_environment = SOUND_AREA_SPACE
 
 /area/ruin/space/USSP_gorky17/solars
@@ -95,7 +95,7 @@
 	outdoors = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	ambientsounds = ENGINEERING_SOUNDS
+	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
 
@@ -107,20 +107,22 @@
 
 /area/ruin/space/USSP_gorky17/collapsed
 	fire = TRUE
-	ambientsounds = list('sound/ambience/spooky/howled_4.ogg',\
-						'sound/ambience/spooky/psy_amb.ogg',\
-						'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',\
-						'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',\
-						'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',\
-						'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',\
-						'sound/ambience/spooky/ugrnd_drip_3.ogg',\
-						'sound/ambience/spooky/ugrnd_drip_4.ogg',\
-						'sound/ambience/spooky/ugrnd_drip_5.ogg',\
-						'sound/ambience/spooky/ugrnd_drip_6.ogg',\
-						'sound/ambience/spooky/ugrnd_drip_7.ogg',\
-						'sound/ambience/spooky/ugrnd_lab_3.ogg',\
-						'sound/ambience/spooky/ugrnd_whispers_1.ogg',\
-						'sound/ambience/spooky/ugrnd_whispers_4.ogg')
+	ambientsounds = list(
+		'sound/ambience/spooky/howled_4.ogg',
+		'sound/ambience/spooky/psy_amb.ogg',
+		'sound/ambience/spooky/rnd_ugrnd_amb_4.ogg',
+		'sound/ambience/spooky/rnd_ugrnd_amb_5.ogg',
+		'sound/ambience/spooky/ugrnd_ambient_banging_1.ogg',
+		'sound/ambience/spooky/ugrnd_ambient_banging_2.ogg',
+		'sound/ambience/spooky/ugrnd_drip_3.ogg',
+		'sound/ambience/spooky/ugrnd_drip_4.ogg',
+		'sound/ambience/spooky/ugrnd_drip_5.ogg',
+		'sound/ambience/spooky/ugrnd_drip_6.ogg',
+		'sound/ambience/spooky/ugrnd_drip_7.ogg',
+		'sound/ambience/spooky/ugrnd_lab_3.ogg',
+		'sound/ambience/spooky/ugrnd_whispers_1.ogg',
+		'sound/ambience/spooky/ugrnd_whispers_4.ogg',
+	)
 
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth
 	name = "Gorky17 North sol maintenance"
@@ -205,7 +207,7 @@
 	has_gravity = FALSE
 	fire = FALSE
 	outdoors = TRUE
-	ambientsounds = list('sound/ambience/apathy.ogg')
+	ambientsounds = list('sound/ambience/spooky/apathy.ogg')
 	sound_environment = SOUND_AREA_SPACE
 
 /area/ruin/space/USSP_gorky17/collapsed/solars
@@ -213,7 +215,7 @@
 	requires_power = FALSE
 	fire = FALSE
 	outdoors = TRUE
-	ambientsounds = ENGINEERING_SOUNDS
+	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
 	static_lighting = FALSE

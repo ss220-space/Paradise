@@ -65,7 +65,3 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/can_safely_leave_loc()
 	return FALSE //You're not supposed to be ethereal jaunting, brains
-
-/mob/living/carbon/brain/can_hear()
-	return TRUE
-

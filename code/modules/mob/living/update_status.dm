@@ -42,10 +42,6 @@
 
 // Querying status of the mob
 
-// Whether the mob can hear things
-/mob/living/can_hear()
-	return !HAS_TRAIT(src, TRAIT_DEAF)
-
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
