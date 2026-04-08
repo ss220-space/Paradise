@@ -61,10 +61,7 @@
 								'sound/machines/printer_dotmatrix4.ogg')
 	/// type of photocopier
 	var/faction = FACTION_DEFAULT
-	var/info_box = "Если у вас есть пожелания или\
-					идеи для улучшения стандартных\
-					форм, обратитесь в Отдел\
-					стандартизации \"Нанотрейзен\"."
+	var/info_box = null
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
@@ -81,7 +78,7 @@
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
-	faction = "syndicate"
+	faction = FACTION_SYNDIE
 	icon_state = "photocopier_syndie_closed"
 	base_icon_state = "photocopier_syndie"
 	info_box = "При использовании любой из данных форм,\
@@ -102,7 +99,7 @@
 
 /obj/machinery/photocopier/nanotrasen
 	name = "Nanotrasen photocopier"
-	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
+	desc = "Устройство для сканирования и печати важных документов. Абсолютно оригинальная корпоративная разработка."
 	faction = FACTION_NT
 	icon_state = "photocopier_nanotrasen_closed"
 	base_icon_state = "photocopier_nanotrasen"
@@ -112,13 +109,23 @@
 				стандартизации \"Нанотрейзен\"."
 	ui_theme = "ntos"
 
+/obj/machinery/photocopier/nanotrasen/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс \"Нанотрейзен\"",
+		GENITIVE = "ксерокса \"Нанотрейзен\"",
+		DATIVE = "ксероксу \"Нанотрейзен\"",
+		ACCUSATIVE = "ксерокс \"Нанотрейзен\"",
+		INSTRUMENTAL = "ксероксом \"Нанотрейзен\"",
+		PREPOSITIONAL = "ксероксе \"Нанотрейзен\"",
+	)
+
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
 	forms = new
 
 /obj/machinery/photocopier/update_icon_state()
 	. = ..()
-	icon_state = "[base_icon_state]_[toner > 0 	|| max_copies_reached ? "closed" : "open"]"
+	icon_state = "[base_icon_state]_[toner > 0 || max_copies_reached ? "closed" : "open"]"
 
 /obj/machinery/photocopier/update_overlays()
 	. = ..()
@@ -256,8 +263,8 @@
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
-			balloon_alert(usr, "недостаточно чернил!")
-			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
+			playsound(src, 'sound/machines/triple_beep.ogg')
+			atom_say("Недостаточно чернил для выполнения операции!", FALSE)
 			return null
 		total_copies++
 
@@ -385,8 +392,8 @@
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
-		balloon_alert(usr, "недостаточно чернил!")
-		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
+		playsound(src, 'sound/machines/triple_beep.ogg')
+		atom_say("Недостаточно чернил для выполнения операции!", FALSE)
 		playsound(src, 'sound/machines/lock_2.ogg', 25)
 		flick(icon, "[base_icon_state]_opening")
 		update_appearance(UPDATE_ICON_STATE)
@@ -397,12 +404,15 @@
 		update_appearance(UPDATE_ICON_STATE)
 		return FALSE
 	if(total_copies >= MAX_COPIES_PRINTABLE)
-		visible_message(span_warning("На экране сканера появляется надпись: \"ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ\""))
+		playsound(src, 'sound/machines/button_meloboom.ogg')
+		atom_say("ДОСТИГНУТО МАКСИМАЛЬНОЕ КОЛИЧЕСТВО КОПИЙ, КСЕРОКС ОТКЛЮЧЕН ОТ СЕТИ: ПОЖАЛУЙСТА, СВЯЖИТЕСЬ С СИСТЕМНЫМ АДМИНИСТРАТОРОМ.", FALSE)
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
 		playsound(src, 'sound/machines/lock_2.ogg', 25)
 		update_appearance(UPDATE_ICON_STATE)
+		return FALSE
 	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
+		playsound(src, 'sound/machines/triple_beep.ogg')
 		balloon_alert(usr, "сканер пуст!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается красная лампочка, обозначая то, что в устройстве нечего копировать."))
 		return FALSE
