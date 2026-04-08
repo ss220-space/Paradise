@@ -244,10 +244,15 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
 	projectile_type = null
 
+//////////////////////
 // MARK: Tripwire shot
+//////////////////////
 #define TRIPWIRE_SHELL_DAMAGE_MULTIPLIER 0.5
 
-/obj/item/ammo_casing/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
+/obj/item/ammo_casing/shotgun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
+	INVOKE_ASYNC(src, PROC_REF(tripwire_fire), base, victim)
+
+/obj/item/ammo_casing/shotgun/proc/tripwire_fire(obj/item/tripwire/base, mob/living/victim)
 	if(!BB)
 		return
 

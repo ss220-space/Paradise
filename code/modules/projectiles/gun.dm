@@ -881,4 +881,4 @@
 	if(!can_trigger_gun(victim))
 		return
 
-	tripwire_fire(victim, victim)
+	INVOKE_ASYNC(src, PROC_REF(tripwire_fire), victim, victim)
