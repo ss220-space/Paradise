@@ -409,6 +409,7 @@
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 		),
+		/obj/item/storage/box/syndie_kit/rsh12_revolver,
 		/obj/item/shield/energy,
 		/obj/item/twohanded/spear/grey_tide,
 		/obj/item/kitchen/knife/ghostface_knife/devil,
