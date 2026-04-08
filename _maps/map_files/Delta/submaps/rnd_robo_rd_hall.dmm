@@ -271,9 +271,6 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/terminal{
-	dir = 8
-	},
 /obj/machinery/power/apc{
 	pixel_x = -26
 	},

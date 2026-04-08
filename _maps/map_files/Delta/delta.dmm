@@ -92632,14 +92632,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
-"qDM" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/counter,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/medical/research)
 "qDP" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -161484,7 +161476,7 @@ uLT
 xDW
 hyI
 kGp
-qDM
+kGp
 hyI
 nBu
 uUW

@@ -238,10 +238,6 @@
 /obj/structure/cable{
 	icon_state = "0-8-f"
 	},
-/obj/machinery/power/terminal{
-	dir = 1;
-	icon_state = "term-f"
-	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)

@@ -112,7 +112,6 @@
 /obj/machinery/power/apc/worn_out{
 	pixel_y = -26
 	},
-/obj/machinery/power/terminal,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
@@ -181,7 +180,6 @@
 	icon_state = "dirt-21"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/structure/safe/floor,
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-0"
 	},
@@ -197,6 +195,9 @@
 /obj/effect/decal/cleanable/molten_object,
 /obj/item/circuitboard/bci_implanter,
 /obj/item/grown/bananapeel/bluespace,
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 5
+	},
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "G" = (

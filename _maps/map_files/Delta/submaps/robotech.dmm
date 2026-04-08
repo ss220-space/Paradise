@@ -131,6 +131,12 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
+"gf" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "hp" = (
 /obj/structure/sink{
 	dir = 8;
@@ -155,6 +161,18 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"hY" = (
+/obj/machinery/camera{
+	c_tag = "Mech Lab";
+	dir = 1;
+	network = list("Research","SS13")
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "jI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -163,6 +181,15 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"ky" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
 "kL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -177,6 +204,10 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"lt" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/assembly/chargebay)
 "lF" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/robo,
 /turf/template_noop,
@@ -230,6 +261,14 @@
 	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
+"qf" = (
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
+"qP" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "rC" = (
 /obj/machinery/door/firedoor,
 /obj/item/folder,
@@ -248,6 +287,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
+"sq" = (
+/turf/simulated/wall/r_wall,
+/area/assembly/chargebay)
 "sw" = (
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-9"
@@ -374,6 +416,12 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
+"zg" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "zj" = (
 /obj/structure/cable{
 	icon_state = "1-2-f"
@@ -437,6 +485,12 @@
 	},
 /turf/simulated/wall,
 /area/assembly/robotics)
+"FJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "Gn" = (
 /obj/structure/window/reinforced{
 	color = "#58b5c3"
@@ -476,6 +530,10 @@
 "Hq" = (
 /turf/template_noop,
 /area/template_noop)
+"HJ" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
 "IH" = (
 /obj/structure/cable{
 	icon_state = "1-2-f"
@@ -488,6 +546,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
+"Jf" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/computer/roboquest,
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
 "Jh" = (
 /obj/machinery/disposal,
 /obj/machinery/light{
@@ -548,6 +613,15 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"KV" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
 "Lu" = (
 /obj/structure/cable{
 	icon_state = "4-8-f"
@@ -571,10 +645,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2-f"
-	},
-/obj/machinery/power/terminal{
-	dir = 8;
-	icon_state = "term-f"
 	},
 /obj/machinery/mecha_part_fabricator,
 /obj/machinery/light{
@@ -637,12 +707,39 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"Pd" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "Pg" = (
 /obj/structure/chair/office/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/assembly/robotics)
+"Pq" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/assembly/chargebay)
+"PQ" = (
+/obj/effect/map_effect/marker_helper/submap_def/delta/rnd/robo/extra_safe,
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
@@ -717,6 +814,16 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
+"SE" = (
+/obj/machinery/recharge_station,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
+"Tu" = (
+/turf/simulated/wall,
+/area/assembly/chargebay)
 "TW" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -748,6 +855,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -807,6 +915,21 @@
 	icon_state = "whitepurple"
 	},
 /area/assembly/robotics)
+"Yt" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/reagent_dispensers/oil,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "purple"
+	},
+/area/assembly/chargebay)
 "YE" = (
 /obj/machinery/optable{
 	dir = 8
@@ -862,8 +985,12 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (2,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
@@ -890,8 +1017,12 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (4,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
@@ -918,8 +1049,12 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (6,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
@@ -946,8 +1081,12 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (8,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
@@ -974,8 +1113,12 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (10,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
@@ -1002,8 +1145,12 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (12,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
@@ -1030,9 +1177,13 @@ Hq
 Hq
 Hq
 Hq
+Hq
+Hq
 "}
 (14,1,1) = {"
 Hq
+lt
+Tu
 th
 th
 th
@@ -1047,6 +1198,8 @@ Hq
 "}
 (15,1,1) = {"
 Hq
+gf
+zg
 th
 Vs
 yt
@@ -1061,6 +1214,8 @@ Hq
 "}
 (16,1,1) = {"
 Hq
+HJ
+HJ
 cq
 QS
 hO
@@ -1075,6 +1230,8 @@ Hq
 "}
 (17,1,1) = {"
 Hq
+Pq
+Pq
 oV
 TZ
 hO
@@ -1089,11 +1246,13 @@ Hq
 "}
 (18,1,1) = {"
 Hq
+FJ
+hY
 Dx
 Uw
 hO
 yw
-sz
+PQ
 kL
 gb
 dT
@@ -1103,6 +1262,8 @@ Hq
 "}
 (19,1,1) = {"
 Hq
+qf
+qP
 Kr
 sz
 Gn
@@ -1117,6 +1278,8 @@ Hq
 "}
 (20,1,1) = {"
 Hq
+ky
+Jf
 IH
 RH
 zj
@@ -1131,6 +1294,8 @@ Hq
 "}
 (21,1,1) = {"
 Hq
+KV
+SE
 Kr
 Bp
 Pg
@@ -1145,6 +1310,8 @@ Hq
 "}
 (22,1,1) = {"
 Hq
+Pd
+Yt
 dt
 By
 rC
@@ -1159,6 +1326,8 @@ Hq
 "}
 (23,1,1) = {"
 Hq
+sq
+sq
 dt
 pC
 vj
@@ -1172,6 +1341,8 @@ dt
 Hq
 "}
 (24,1,1) = {"
+Hq
+Hq
 Hq
 Hq
 Hq
