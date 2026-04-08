@@ -439,10 +439,14 @@
 	icon_state = "rsh-12"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rsh_12
 	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_MEGA
-	attachable_allowed = GUN_MODULE_CLASS_NONE
-	can_air_shoot = FALSE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+	)
 	/// Opened state flag
 	var/opened = FALSE
 

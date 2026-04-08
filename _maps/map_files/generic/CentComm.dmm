@@ -9586,10 +9586,6 @@
 /obj/structure/closet/cabinet{
 	req_access = list(114)
 	},
-/obj/item/ammo_box/cc130pt,
-/obj/item/ammo_box/cc130pt,
-/obj/item/ammo_box/cc130pt,
-/obj/item/gun/projectile/revolver/rsh_12,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "eCq" = (

@@ -699,6 +699,12 @@
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/melee/baton/telescopic(src)
 
+/obj/item/storage/belt/military/assault/rsh_12/full/populate_contents()
+	new	/obj/item/gun/projectile/revolver/rsh_12(src)
+	new /obj/item/ammo_box/cc130pt(src)
+	new /obj/item/ammo_box/cc130pt(src)
+	new /obj/item/ammo_box/cc130pt(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
