@@ -370,13 +370,13 @@
 	matrix.Turn(target_angle)
 
 	switch(dir)
-		if(1)
+		if(NORTH)
 			matrix.Translate(0, 6)
-		if(2)
+		if(SOUTH)
 			matrix.Translate(0, 8)
-		if(4)
+		if(EAST)
 			matrix.Translate(2, 4)
-		if(8)
+		if(WEST)
 			matrix.Translate(-3, 4)
 
 	mutable_appearance.transform = matrix

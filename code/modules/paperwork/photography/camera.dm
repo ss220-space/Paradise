@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
 	interaction_flags_click = NONE
-	var/list/matter = list("metal" = 2000)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	var/pictures_max = 10
 	var/pictures_left = 10
 	var/on = 1

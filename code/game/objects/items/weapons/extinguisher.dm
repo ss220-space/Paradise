@@ -4,6 +4,7 @@
 #define EXTINGUISHER_TEMP_DETONATION (T100C + 35)
 #define EXTINGUISHER_EXPLOSION_FRAME_DELAY (0.2 SECONDS)
 #define EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER 0.2
+#define EXTINGUISHER_PARTICLES_AMOUNT 5
 
 /obj/item/extinguisher
 	name = "fire extinguisher"
@@ -294,19 +295,19 @@
 //Water spray creation
 /obj/item/extinguisher/proc/spray_at(atom/target)
 	var/direction = get_dir(src, target)
-	var/turf/T = get_turf(target)
-	var/turf/T1 = get_step(T, turn(direction, 90))
-	var/turf/T2 = get_step(T, turn(direction, -90))
-	var/list/the_targets = list(T, T1, T2)
+	var/turf/target_turf = get_turf(target)
+	var/turf/target_turf_1 = get_step(target_turf, turn(direction, 90))
+	var/turf/target_turf_2 = get_step(target_turf, turn(direction, -90))
+	var/list/the_targets = list(target_turf, target_turf_1, target_turf_2)
 
 	if(precision)
-		var/turf/T3 = get_step(T1, turn(direction, 90))
-		var/turf/T4 = get_step(T2, turn(direction, -90))
-		the_targets.Add(T3, T4)
+		var/turf/target_turf_3 = get_step(target_turf_1, turn(direction, 90))
+		var/turf/target_turf_4 = get_step(target_turf_2, turn(direction, -90))
+		the_targets.Add(target_turf_3, target_turf_4)
 
 	var/list/water_particles = list()
 
-	for(var/a in 1 to 5)
+	for(var/a in 1 to EXTINGUISHER_PARTICLES_AMOUNT)
 		if(reagents.total_volume < 1)
 			break
 
@@ -425,3 +426,4 @@
 #undef EXTINGUISHER_TEMP_DETONATION
 #undef EXTINGUISHER_EXPLOSION_FRAME_DELAY
 #undef EXTINGUISHER_STEAM_BY_VOLUME_MULTIPLIER
+#undef EXTINGUISHER_PARTICLES_AMOUNT

@@ -472,7 +472,7 @@
 	result = /obj/item/tripwire/two_for_craft
 	reqs = list(
 		/obj/item/stack/rods = 1
-		)
+	)
 	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

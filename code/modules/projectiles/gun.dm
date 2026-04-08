@@ -839,7 +839,7 @@
 	reset_direction()
 	return ..()
 
-/obj/item/gun/proc/tripwire_fire(atom/target_atom, mob/living/victim)
+/obj/item/gun/proc/tripwire_fire(obj/item/tripwire/base, mob/living/victim)
 	if(!chambered && !process_chamber())
 		return
 
@@ -858,8 +858,7 @@
 		for(var/i in 2 to casing.pellets)
 			projectiles += new casing.projectile_type(src)
 
-	var/obj/item/tripwire/tripwire = loc
-	var/dir_to_spawn = istype(tripwire) ? tripwire.dir : get_dir(victim, src)
+	var/dir_to_spawn = istype(base) ? base.dir : get_dir(victim, src)
 	var/turf/spawn_location = get_step(get_turf(src), dir_to_spawn) || get_turf(src)
 
 	for(var/obj/projectile/projectile in projectiles)
@@ -878,4 +877,7 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/gun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
-	INVOKE_ASYNC(src, PROC_REF(tripwire_fire), victim, victim)
+	if(!can_shoot(base))
+		shoot_with_empty_chamber(base)
+		return
+	INVOKE_ASYNC(src, PROC_REF(tripwire_fire), base, victim)
