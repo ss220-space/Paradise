@@ -339,6 +339,26 @@
 			take_overall_damage(brute = pressure_damage, used_weapon = "Low Pressure")
 			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
+	handle_gas_interaction(src, readonly_environment)
+
+/**
+ *	Handles exposure to the skin of various gases.
+ */
+/mob/living/carbon/human/proc/handle_gas_interaction(mob/living/carbon/human/human, datum/gas_mixture/environment)
+	/// Some non-clothing items may end up in these slots, e.g. flowers worn on the head, so we should consider clothing_flags as potentially nonexistant as a var.
+	/// Otherwise we will get a very spammy runtime.
+	var/suit_flags = astype(human?.wear_suit, /obj/item/clothing)?.clothing_flags
+	var/head_flags = astype(human?.head, /obj/item/clothing)?.clothing_flags
+
+	if((suit_flags & STOPSPRESSUREDMAGE) && (head_flags & STOPSPRESSUREDMAGE))
+		return
+
+	for(var/gas_id, gas_amount in environment.get_interesting())
+		switch(gas_id)
+			if(TLV_ANTINOBLIUM) // Antinoblium - irradiates the target.
+				if(gas_amount >= MOLES_GAS_VISIBLE && prob(min(gas_amount, 100)))
+					SSradiation.irradiate(human)
+
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
 	. = ..()

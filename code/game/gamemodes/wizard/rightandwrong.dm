@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/projectile/revolver,
 	/obj/item/gun/projectile/revolver/detective,
 	/obj/item/gun/projectile/automatic/pistol/deagle/camo,
+	/obj/item/storage/box/syndie_kit/rsh12_revolver,
 	/obj/item/gun/projectile/automatic/gyropistol,
 	/obj/item/gun/energy/pulse,
 	/obj/item/gun/projectile/automatic/pistol,

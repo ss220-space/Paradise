@@ -370,9 +370,9 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
 
 ///How much a mob's sprite should be moved when they're lying down
-#define PIXEL_Y_OFFSET_LYING -6
+#define PIXEL_Y_OFFSET_LYING -3
 ///How much a mob's sprite should be moved when they're lying up (on the ceiling)
-#define PIXEL_Y_OFFSET_LYING_REVERSED 6
+#define PIXEL_Y_OFFSET_LYING_REVERSED 3
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent

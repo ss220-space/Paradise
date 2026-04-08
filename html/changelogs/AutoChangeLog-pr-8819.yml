@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - bugfix: "фонарик слепит если направить в глаза (PR #8819)"

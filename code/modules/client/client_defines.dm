@@ -94,6 +94,8 @@
 
 	// Donator stuff.
 	var/donator_level = 0
+	/// Hold flag about shown donate offer
+	var/donate_offer_text_shown = FALSE
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE

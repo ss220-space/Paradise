@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - balance: "Свап данталиона: увеличено КД до 10с + убрана возможность использовать через сены (PR #8814)"

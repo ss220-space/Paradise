@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "действия с do_after теперь не залипают. (PR #8805)"

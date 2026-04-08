@@ -28,8 +28,8 @@
 
 /obj/item/gun/projectile/Destroy()
 	QDEL_NULL(magazine)
-	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
+	return ..()
 
 /obj/item/gun/projectile/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ballistic))

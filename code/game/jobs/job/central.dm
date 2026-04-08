@@ -90,7 +90,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/captain
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
 	back = /obj/item/storage/backpack/ert/security
-	belt = /obj/item/storage/belt/military/assault
+	belt = /obj/item/storage/belt/military/assault/rsh_12/full
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
