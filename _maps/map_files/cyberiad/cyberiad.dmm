@@ -864,7 +864,7 @@
 	name = "west bump";
 	pixel_x = -26
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -3354,7 +3354,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "aoN" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7623,7 +7623,7 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "aCg" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/magistrateoffice)
 "aCh" = (
@@ -19585,7 +19585,7 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "byV" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -24193,7 +24193,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bSb" = (
@@ -26939,7 +26939,7 @@
 	},
 /area/medical/sleeper)
 "caB" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -27157,7 +27157,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
 "cbm" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -30933,7 +30933,10 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/structure/table/wood,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cph" = (
@@ -35767,7 +35770,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cIx" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -37016,7 +37019,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cNx" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/library)
 "cNy" = (
@@ -41743,6 +41746,7 @@
 /turf/simulated/floor/wood,
 /area/library)
 "deB" = (
+/obj/structure/table/reinforced,
 /obj/machinery/computer/guestpass{
 	pixel_x = 28
 	},
@@ -41750,8 +41754,8 @@
 	c_tag = "Quartermaster's Office";
 	dir = 8
 	},
-/obj/machinery/photocopier/nanotrasen{
-	pixel_x = -2
+/obj/machinery/photocopier{
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52933,7 +52937,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "gIM" = (
@@ -53438,7 +53442,7 @@
 	},
 /area/hallway/primary/starboard/west)
 "gSP" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/chief)
 "gSV" = (
@@ -55782,7 +55786,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hWl" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/structure/table,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluefull"
@@ -58215,7 +58222,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "iZh" = (
@@ -61468,7 +61475,10 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/structure/table/wood,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -64220,7 +64230,7 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -71281,7 +71291,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "oRr" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/structure/table/wood,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west fire alarm";
@@ -72590,7 +72603,10 @@
 	},
 /area/security/prisonershuttle)
 "put" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/structure/table/wood,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "puw" = (
@@ -73978,7 +73994,7 @@
 /area/atmos/distribution)
 "pZb" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77209,7 +77225,7 @@
 	c_tag = "Lawyer Office";
 	dir = 4
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "rtf" = (
@@ -83691,11 +83707,14 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "uik" = (
+/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /obj/item/stack/tape_roll,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -83746,7 +83765,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/photocopier,
+/obj/structure/table/wood,
+/obj/machinery/photocopier{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

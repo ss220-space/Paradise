@@ -3484,7 +3484,7 @@
 /area/coldcolony/malta/maintenance/engineering)
 "bli" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5980,7 +5980,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "chc" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -8765,7 +8765,7 @@
 	},
 /area/coldcolony/malta/resid_serv/bar)
 "dgL" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
 "dhb" = (
@@ -12197,7 +12197,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/east)
 "ewv" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/light,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
@@ -14495,7 +14495,7 @@
 	},
 /area/coldcolony/malta/research/lab)
 "frv" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -16405,7 +16405,7 @@
 	},
 /area/coldcolony/malta/engineering/engine)
 "gaW" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/structure/sign/nuke{
 	pixel_x = 32
 	},
@@ -18650,7 +18650,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_division)
 "gPY" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -23261,7 +23261,7 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "iGD" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23367,7 +23367,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/prison/cell_block/A)
 "iIL" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -27603,7 +27603,7 @@
 /area/coldcolony/malta/hallway/service/south)
 "kjq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "kjz" = (
@@ -30731,7 +30731,7 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "luE" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -34980,7 +34980,7 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/bridge/checkpoint)
 "mZc" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -35316,7 +35316,7 @@
 "neN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -35765,7 +35765,7 @@
 	},
 /area/coldcolony/malta/security/permahallway)
 "nnZ" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -37998,7 +37998,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "ofI" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -26
@@ -39722,7 +39722,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/vip)
 "oLi" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
@@ -41221,7 +41221,7 @@
 	},
 /area/coldcolony/ruin/sm_division)
 "pnP" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -42446,7 +42446,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "pKO" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -42586,7 +42586,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "pNs" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -45164,7 +45164,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge)
 "qJn" = (
@@ -46448,7 +46448,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "rfY" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -50832,7 +50832,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "sOw" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -51920,7 +51920,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "tma" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
@@ -51963,7 +51963,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/research/hor)
 "tnO" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
 "tnP" = (
@@ -54357,7 +54357,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_maintenance)
 "ufq" = (
-/obj/machinery/photocopier/nanotrasen,
+/obj/machinery/photocopier,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/coldcolony/malta/civilian/vacantoffice)
