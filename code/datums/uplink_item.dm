@@ -46,6 +46,8 @@
 
 	return .
 
+#undef UPLINK_DISCOUNTS
+
 /datum/uplink_item
 	/// Uplink name.
 	var/name = "item name"
@@ -127,7 +129,6 @@
  * * buyer - mob who performs the transaction.
  */
 /datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer, put_in_hands = TRUE)
-
 	if(!istype(target_uplink))
 		return FALSE
 
@@ -145,72 +146,66 @@
 		return FALSE
 
 	. = TRUE
-
 	buyer.set_machine(target_uplink)
 
 	var/obj/spawned = spawn_item(buyer, target_uplink)
-
 	if(!spawned)
 		return .
 
-	if(category == "Снаряжение со скидкой" && refundable)
-		var/obj/item/refund_item
-		if(istype(spawned, refund_path))
-			refund_item = spawned
-		else
-			refund_item = locate(refund_path) in spawned
+	// Process refundable discount items
+	handle_discount_refund(spawned)
 
-		if(!item_to_refund_cost)
-			item_to_refund_cost = list()
+	// Log the purchase
+	log_purchase(buyer)
 
-		if(refund_item)
-			item_to_refund_cost[refund_item.UID()] = cost
-		else
-			stack_trace("Can not find [refund_path] in [src]")
-
-	if(limited_stock > 0)
-		limited_stock--
-		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
-		if(!buyer.mind.special_role)
-			message_admins("[key_name_admin(buyer)] purchased [name] (discounted to [cost]), as a non antagonist.")
-	else
-		add_game_logs("purchased [name].", buyer)
-		if(!buyer.mind.special_role)
-			message_admins("[key_name_admin(buyer)] purchased [name], as a non antagonist.")
-
+	// Place item in hands if requested
 	if(put_in_hands)
 		buyer.put_in_any_hand_if_possible(spawned)
 
-	var/list/items_to_log = list()
-
-	if(istype(spawned, /obj/item/storage/box))
-		items_to_log += spawned
-		for(var/obj/item/item_in_box in spawned.contents)
-			if(istype(item_in_box, /obj/item/implanter))
-				var/obj/item/implanter/bought_implanter = item_in_box
-				if(!bought_implanter.imp)
-					continue
-
-				items_to_log += bought_implanter.imp
-				continue
-
-			items_to_log += item_in_box
-
-	else if(istype(spawned, /obj/item/implanter))
-		var/obj/item/implanter/bought_implanter = spawned
-		if(bought_implanter.imp)
-			items_to_log += bought_implanter.imp
-
-	else
-		items_to_log += spawned
-
+	// Append item icons to the uplink's purchase log
+	var/list/items_to_log = spawned.get_uplink_log_items()
 	for(var/atom/atom_to_display in items_to_log)
 		target_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
 
 	return spawned
 
-//Discounts (dynamically filled above)
+/// Handles refund tracking for discount category items.
+/datum/uplink_item/proc/handle_discount_refund(obj/spawned)
+	if(category != "Снаряжение со скидкой" || !refundable)
+		return
 
+	var/obj/item/refund_item
+	if(istype(spawned, refund_path))
+		refund_item = spawned
+	else
+		refund_item = locate(refund_path) in spawned
+
+	if(!item_to_refund_cost)
+		item_to_refund_cost = list()
+
+	if(refund_item)
+		item_to_refund_cost[refund_item.UID()] = cost
+	else
+		stack_trace("Can not find [refund_path] in [src]")
+
+/// Logs the purchase to game logs and admins, and reduces limited stock if applicable.
+/datum/uplink_item/proc/log_purchase(mob/buyer)
+	var/log_message
+	var/admin_message
+
+	if(limited_stock > 0)
+		limited_stock--
+		log_message = "purchased [name]. [name] was discounted to [cost]."
+		admin_message = "[key_name_admin(buyer)] purchased [name] (discounted to [cost]), as a non antagonist."
+	else
+		log_message = "purchased [name]."
+		admin_message = "[key_name_admin(buyer)] purchased [name], as a non antagonist."
+
+	add_game_logs(log_message, buyer)
+	if(!buyer.mind.special_role)
+		message_admins(span_adminnotice(admin_message))
+
+//Discounts (dynamically filled above)
 /datum/uplink_item/discounts
 	category = "Снаряжение со скидкой"
 
@@ -2697,5 +2692,3 @@
 	desc = "Коробка с экипировкой, предназначенной только для контрактников."
 	item = /obj/item/storage/box/syndie_kit/contractor_loadout
 	cost = 40
-
-#undef UPLINK_DISCOUNTS
