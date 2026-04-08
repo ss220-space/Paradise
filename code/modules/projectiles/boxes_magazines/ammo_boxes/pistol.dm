@@ -306,7 +306,7 @@
 	ammo_type = /obj/item/ammo_casing/cc130pt
 	max_ammo = 20
 
-/obj/item/ammo_box/expansive45colt/get_ru_names()
+/obj/item/ammo_box/cc130pt/get_ru_names()
 	return list(
 		NOMINATIVE = "коробка патронов (12.7x55 мм)",
 		GENITIVE = "коробки патронов (12.7x55 мм)",
