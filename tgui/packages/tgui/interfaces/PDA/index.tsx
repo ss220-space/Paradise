@@ -296,7 +296,7 @@ const PDAFooter = () => {
     <Box
       style={{
         display: 'grid',
-        gridTemplateColumns: '1.35fr 1.15fr 1.15fr',
+        gridTemplateColumns: '1.15fr 1.15fr 1.15fr',
         gap: '0.5rem',
         padding: '0.5rem',
         borderTop: '1px solid #222',

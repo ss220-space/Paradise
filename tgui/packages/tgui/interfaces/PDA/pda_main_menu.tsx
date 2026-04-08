@@ -17,84 +17,10 @@ type App = {
   icon: string;
 };
 
-// const AppIcon = ({ app, isNotifying, onClick }) => {
-//   const rawIconName = isNotifying ? app.notify_icon : app.icon;
-//   const iconName = rawIconName || 'cube';
-
-//   return (
-//     <Button
-//       color="transparent"
-//       onClick={onClick}
-//       width="90px"
-//       style={{
-//         padding: '4px',
-//         display: 'flex',
-//         justifyContent: 'center',
-//       }}
-//     >
-//       <Box
-//         width="100%"
-//         style={{
-//           display: 'flex',
-//           flexDirection: 'column',
-//           alignItems: 'center',
-//         }}
-//       >
-//         <Box
-//           position="relative"
-//           width="58px"
-//           height="58px"
-//           mb="6px"
-//           style={{
-//             borderRadius: '16px',
-//             display: 'flex',
-//             alignItems: 'center',
-//             justifyContent: 'center',
-//             background: 'rgba(255,255,255,0.04)',
-//             border: '1px solid rgba(255,255,255,0.06)',
-//           }}
-//         >
-//           <i
-//             className={`fa fa-${iconName}`}
-//             style={{
-//               fontSize: '20px',
-//               color: '#fff',
-//             }}
-//           />
-
-//           {isNotifying && (
-//             <Box
-//               position="absolute"
-//               top="3px"
-//               right="3px"
-//               width="10px"
-//               height="10px"
-//               style={{
-//                 borderRadius: '50%',
-//                 background: '#ff4d4f',
-//                 boxShadow: '0 0 6px rgba(255,77,79,0.7)',
-//               }}
-//             />
-//           )}
-//         </Box>
-
-//         <Box
-//           fontSize="9px"
-//           width="100%"
-//           color="#ddd"
-//           textAlign="center"
-//           minHeight="24px"
-//           style={{
-//             lineHeight: '1.2',
-//             wordBreak: 'break-word',
-//           }}
-//         >
-//           {app.name}
-//         </Box>
-//       </Box>
-//     </Button>
-//   );
-// };
+const APP_ICON_SIZE = '4.4rem';
+const APP_BUTTON_WIDTH = '7.2rem';
+const APP_TEXT_SIZE = '1rem';
+const APP_ICON_FONT_SIZE = '2rem';
 
 const AppIcon = ({ app, isNotifying, onClick }) => {
   const rawIconName = isNotifying ? app.notify_icon : app.icon;
@@ -108,57 +34,43 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '85px',
-        padding: '4px',
+        width: APP_BUTTON_WIDTH,
+        padding: '0.35rem',
       }}
     >
       <Box
         style={{
-          width: '52px',
-          height: '52px',
-          borderRadius: '14px',
+          width: APP_ICON_SIZE,
+          height: APP_ICON_SIZE,
+          borderRadius: '0.9rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '6px',
+          marginBottom: '0.4rem',
           margin: '0 auto',
         }}
       >
         <i
           className={`fa fa-${iconName}`}
           style={{
-            fontSize: '20px',
+            fontSize: APP_ICON_FONT_SIZE,
             color: '#fff',
           }}
         />
-        {isNotifying && (
-          <Box
-            position="absolute"
-            top="3px"
-            right="3px"
-            width="10px"
-            height="10px"
-            style={{
-              borderRadius: '50%',
-              background: '#ff4d4f',
-              boxShadow: '0 0 6px rgba(255,77,79,0.7)',
-            }}
-          />
-        )}
       </Box>
 
       <Box
         style={{
-          fontSize: '9px',
-          width: '80px',
+          fontSize: APP_TEXT_SIZE,
+          width: '100%',
           color: '#ddd',
           textAlign: 'center',
-          lineHeight: '1.1',
+          lineHeight: '1.2',
           whiteSpace: 'normal',
           wordBreak: 'break-word',
           overflow: 'hidden',
-          minHeight: '22px',
-          maxHeight: '33px',
+          minHeight: '2.4rem',
+          maxHeight: '3.4rem',
           margin: '0 auto',
         }}
       >
@@ -179,12 +91,12 @@ export const pda_main_menu = () => {
     : Object.keys(notifying || {});
 
   return (
-    <Box style={{ padding: '10px' }}>
+    <Box style={{ padding: '0.75rem' }}>
       <Box
-        mb="10px"
-        p="10px"
+        mb="0.75rem"
+        p="0.75rem"
         style={{
-          borderRadius: '10px',
+          borderRadius: '0.75rem',
         }}
       >
         <Button
@@ -195,8 +107,8 @@ export const pda_main_menu = () => {
           onClick={() => act('UpdateInfo')}
           tooltip={idInserted ? 'Обновить данные из ID' : 'Вставьте ID карту'}
           style={{
-            padding: '6px 10px',
-            fontSize: '11px',
+            padding: '0.5rem 0.75rem',
+            fontSize: '1rem',
           }}
         >
           Sync
@@ -206,8 +118,8 @@ export const pda_main_menu = () => {
       <Box
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))',
-          gap: '12px 8px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(6rem, 1fr))',
+          gap: '0.8rem 0.6rem',
           justifyItems: 'center',
         }}
       >
