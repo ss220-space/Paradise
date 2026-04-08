@@ -878,7 +878,4 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/gun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
-	if(!can_trigger_gun(victim))
-		return
-
 	INVOKE_ASYNC(src, PROC_REF(tripwire_fire), victim, victim)

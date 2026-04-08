@@ -971,7 +971,7 @@
 
 /datum/design/camera
 	id = "camera"
-	build_path = AUTOLATHE
+	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/camera
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
