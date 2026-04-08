@@ -315,6 +315,7 @@ const PDAFooter = () => {
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
+          padding: '10% 20%',
         }}
         onClick={() => act('Back')}
       >
@@ -332,6 +333,7 @@ const PDAFooter = () => {
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
+          padding: '10% 20%',
         }}
         onClick={() => act('Home')}
       >
@@ -348,6 +350,7 @@ const PDAFooter = () => {
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
+          padding: '10% 20%',
         }}
         onClick={() => act('CycleTheme')}
       >
