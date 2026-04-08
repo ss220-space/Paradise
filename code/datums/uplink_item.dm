@@ -181,14 +181,31 @@
 	if(put_in_hands)
 		buyer.put_in_any_hand_if_possible(spawned)
 
-	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
-		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += span_fontsize4(icon2base64html(box_item))
+	var/list/items_to_log = list()
+
+	if(istype(spawned, /obj/item/storage/box))
+		items_to_log += spawned
+		for(var/obj/item/item_in_box in spawned.contents)
+			if(istype(item_in_box, /obj/item/implanter))
+				var/obj/item/implanter/bought_implanter = item_in_box
+				if(!bought_implanter.imp)
+					continue
+
+				items_to_log += bought_implanter.imp
+				continue
+
+			items_to_log += item_in_box
+
 	else if(istype(spawned, /obj/item/implanter))
 		var/obj/item/implanter/bought_implanter = spawned
-		target_uplink.purchase_log += span_fontsize4(icon2base64html(bought_implanter.imp))
+		if(bought_implanter.imp)
+			items_to_log += bought_implanter.imp
+
 	else
-		target_uplink.purchase_log += span_fontsize4(icon2base64html(spawned))
+		items_to_log += spawned
+
+	for(var/atom/atom_to_display in items_to_log)
+		target_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
 
 	return spawned
 
