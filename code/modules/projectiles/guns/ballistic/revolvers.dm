@@ -432,7 +432,6 @@
 
 
 //MARK: Rsh-12
-//https://discord.com/channels/617003227182792704/859003461378113546/1163772000779649074
 /obj/item/gun/projectile/revolver/rsh_12
 	name = "RSh-12"
 	desc = "Крупнокалиберный револьвер под калибр 12.7х55 мм. \

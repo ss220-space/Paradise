@@ -9586,6 +9586,10 @@
 /obj/structure/closet/cabinet{
 	req_access = list(114)
 	},
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/gun/projectile/revolver/rsh_12,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "eCq" = (
@@ -10688,6 +10692,10 @@
 /obj/item/gun/projectile/automatic/arg{
 	pixel_x = 6
 	},
+/obj/item/gun/projectile/revolver/rsh_12,
+/obj/item/gun/projectile/revolver/rsh_12,
+/obj/item/gun/projectile/revolver/rsh_12,
+/obj/item/gun/projectile/revolver/rsh_12,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34065,6 +34073,14 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
+/obj/item/ammo_box/cc130pt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -113,7 +113,7 @@
 /obj/projectile/bullet/cc130pt
 	damage = 65
 	tile_dropoff = 1
-	ricochet_chance = 25
+	ricochet_chance = 33
 	speed = 1
 
 

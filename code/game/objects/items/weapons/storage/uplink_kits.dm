@@ -937,8 +937,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 
 /obj/item/storage/box/syndie_kit/rsh12_revolver
-	name = "stechkin pistol kit"
-	desc = "Коробка, содержащая пистолет \"FK-69 Стечкин\", и три дополнительных магазина."
+	name = "RSh-12 revolver kit"
+	desc = "Коробка, содержащая револьвер \"РШ-12\", и три пачки патронов калибра 12.7х55."
 
 /obj/item/storage/box/syndie_kit/stecrsh12_revolverkin_pistol/get_ru_names()
 	return list(
