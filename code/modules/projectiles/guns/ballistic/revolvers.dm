@@ -441,11 +441,11 @@
 	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_MEGA
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 11, "y" = -5),
 	)
 	/// Opened state flag
 	var/opened = FALSE
@@ -480,10 +480,16 @@
 		return FALSE
 
 /obj/item/gun/projectile/revolver/rsh_12/attackby(obj/item/item, mob/user, params)
-	if(opened)
-		return ..()
+	if(!opened && isammocasing(item))
+		user.balloon_alert(user, "надо открыть барабан!")
+		to_chat(user, span_notice("Надо открыть барабан чтобы зарядить патрон."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	user.balloon_alert(user, "надо открыть барабан!")
-	to_chat(user, span_notice("Надо открыть барабан чтобы зарядить патрон."))
-	return ATTACK_CHAIN_SUCCESS
+	return ..()
 
+/obj/item/gun/projectile/revolver/rsh_12/admin
+	pb_knockback = 3
+	starting_attachment_types = list(
+		/obj/item/gun_module/rail/scope/collimator/pistol,
+		/obj/item/gun_module/under/laser/point,
+	)
