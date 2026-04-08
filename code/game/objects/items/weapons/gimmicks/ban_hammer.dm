@@ -1,5 +1,6 @@
-#define BH_BH_FAKE_PM_STRINGS "strings/fake_pms_texts.txt"
+#define BH_FAKE_PM_STRINGS "strings/fake_pms_texts.txt"
 #define BH_ADMIN_NULL_CKEY "rusifikator"
+#define BH_ADMIN_NULL_ROLE "Главный Администратор Проекта"
 #define BH_ADMIN_PM "PM"
 
 GLOBAL_LIST_EMPTY(fake_pm_messages)
@@ -37,8 +38,8 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 	if(!target_client)
 		return
 
-	var/chosen_admin_name = "Главный Администратор Проекта"
-	var/chosen_admin_rank = BH_ADMIN
+	var/chosen_admin_name = BH_ADMIN_NULL_CKEY
+	var/chosen_admin_rank = "Главный Администратор Проекта"
 	var/list/active_admins = GLOB.admins - GLOB.de_admins
 	var/list/valid_online_candidates = list()
 
@@ -55,8 +56,9 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 
 	if(length(GLOB.admin_datums))
 		var/list/valid_offline_ckeys = list()
-		for(var/admin_ckey in GLOB.admin_datums)
-			var/datum/admins/admin_datum = GLOB.admin_datums[admin_ckey]
+		var/list/admin_datums_cached = GLOB.admin_datums
+		for(var/admin_ckey in admin_datums_cached)
+			var/datum/admins/admin_datum = admin_datums_cached[admin_ckey]
 			if(admin_datum && (admin_datum.rights & R_ADMIN))
 				valid_offline_ckeys += admin_ckey
 
@@ -94,3 +96,8 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 	var/full_message = chat_box_ahelp(span_adminhelp("[type_help] from-<b>[admin_rank] <a href=''>[admin_name]</a></b>:<br><br>[span_emojienabled("[message_text]")]<br>"))
 	to_chat(target, full_message)
 	SEND_SOUND(target, sound('sound/effects/adminhelp.ogg'))
+
+#undef BH_FAKE_PM_STRINGS
+#undef BH_ADMIN_NULL_CKEY
+#undef BH_ADMIN_NULL_ROLE
+#undef BH_ADMIN_PM
