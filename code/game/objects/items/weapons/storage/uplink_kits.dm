@@ -940,7 +940,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "RSh-12 revolver kit"
 	desc = "Коробка, содержащая револьвер \"РШ-12\", и три пачки патронов калибра 12.7х55."
 
-/obj/item/storage/box/syndie_kit/stecrsh12_revolverkin_pistol/get_ru_names()
+/obj/item/storage/box/syndie_kit/rsh12_revolver/get_ru_names()
 	return list(
 		NOMINATIVE = "набор \"РШ-12\"",
 		GENITIVE = "набора \"РШ-12\"",

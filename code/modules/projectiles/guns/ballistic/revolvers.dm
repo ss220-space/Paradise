@@ -451,7 +451,7 @@
 		NOMINATIVE = "револьвер \"РШ-12\"",
 		GENITIVE = "револьвера \"РШ-12\"",
 		DATIVE = "револьверу \"РШ-12\"",
-		ACCUSATIVE = "револьверу \"РШ-12\"",
+		ACCUSATIVE = "револьвер \"РШ-12\"",
 		INSTRUMENTAL = "револьвером \"РШ-12\"",
 		PREPOSITIONAL = "револьвере \"РШ-12\"",
 	)
@@ -479,7 +479,7 @@
 	if(opened)
 		return ..()
 
-	user.balloon_alert("надо открыть барабан!")
+	user.balloon_alert(user, "надо открыть барабан!")
 	to_chat(user, span_notice("Надо открыть барабан чтобы зарядить патрон."))
 	return ATTACK_CHAIN_SUCCESS
 
