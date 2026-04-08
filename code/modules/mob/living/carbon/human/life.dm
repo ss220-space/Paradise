@@ -350,7 +350,7 @@
 	var/suit_flags = astype(human?.wear_suit, /obj/item/clothing)?.clothing_flags
 	var/head_flags = astype(human?.head, /obj/item/clothing)?.clothing_flags
 
-	if((suit_flags & STOPSPRESSUREDMAGE) && (head_flags & STOPSPRESSUREDMAGE))
+	if((suit_flags & STOPSPRESSUREDAMAGE) && (head_flags & STOPSPRESSUREDAMAGE))
 		return
 
 	for(var/gas_id, gas_amount in environment.get_interesting())
