@@ -311,6 +311,8 @@ const PDAFooter = () => {
         style={{
           opacity: app.has_back ? 1 : 0.35,
           pointerEvents: app.has_back ? 'auto' : 'none',
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
         }}
@@ -326,6 +328,8 @@ const PDAFooter = () => {
         style={{
           opacity: app.is_home ? 0.45 : 1,
           pointerEvents: app.is_home ? 'none' : 'auto',
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
         }}
@@ -339,7 +343,12 @@ const PDAFooter = () => {
         icon="palette"
         color="transparent"
         tooltip={`Тема: ${THEME_NAMES[current_theme] || current_theme}`}
-        style={{ justifyContent: 'center', textAlign: 'center' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
         onClick={() => act('CycleTheme')}
       >
         {THEME_NAMES[current_theme] || current_theme}
