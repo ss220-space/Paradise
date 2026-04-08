@@ -2,7 +2,7 @@
 #define BH_ADMIN_NULL_CKEY "rusifikator"
 #define BH_ADMIN_NULL_ROLE "Главный Администратор Проекта"
 #define BH_ADMIN_PM "PM"
-
+#define BH_NULL_MESSAGE list("Привет, есть минутка?")
 GLOBAL_LIST_EMPTY(fake_pm_messages)
 
 /proc/get_fake_pm_messages()
@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 		cleaned_messages += cleaned_line
 
 	if(!length(cleaned_messages))
-		return list("Привет, есть минутка?")
+		return
 
 	GLOB.fake_pm_messages = cleaned_messages
 	return GLOB.fake_pm_messages
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 		return
 
 	var/chosen_admin_name = BH_ADMIN_NULL_CKEY
-	var/chosen_admin_rank = "Главный Администратор Проекта"
+	var/chosen_admin_rank = BH_ADMIN_NULL_ROLE
 	var/list/active_admins = GLOB.admins - GLOB.de_admins
 	var/list/valid_online_candidates = list()
 
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 		var/mob/living_mob = target
 		return living_mob.client
 
-	return null
+	return
 
 /proc/fake_admin_pm(target, message_text, admin_name, admin_rank, type_help = BH_ADMIN_PM)
 	if(!target)
@@ -101,3 +101,4 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 #undef BH_ADMIN_NULL_CKEY
 #undef BH_ADMIN_NULL_ROLE
 #undef BH_ADMIN_PM
+#undef BH_NULL_MESSAGE
