@@ -116,7 +116,7 @@ export const pda_main_menu = () => {
             overflow: 'hidden',
           }}
         >
-          Синхронизировать кпк с ID картой
+          Синхронизировать кпк с ID-картой
         </Button>
       </Box>
 
