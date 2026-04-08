@@ -37,15 +37,9 @@
 	foldable_amt = 1
 
 /obj/item/storage/box/get_uplink_log_items()
-	var/list/log_items = list()
+	. = list()
 	for(var/obj/item/contained_item in contents)
-		if(istype(contained_item, /obj/item/implanter))
-			var/obj/item/implanter/implanter_item = contained_item
-			if(implanter_item.imp)
-				log_items += implanter_item.imp
-			continue
-		log_items += contained_item
-	return log_items
+		. += contained_item.get_uplink_log_items()
 
 /obj/item/storage/box/large
 	name = "large box"

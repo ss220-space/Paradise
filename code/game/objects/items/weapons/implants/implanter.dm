@@ -75,7 +75,6 @@
 	return ..()
 
 /obj/item/implanter/get_uplink_log_items()
-	var/list/log_items = list()
+	. = list()
 	if(imp)
-		log_items += imp
-	return log_items
+		. += imp
