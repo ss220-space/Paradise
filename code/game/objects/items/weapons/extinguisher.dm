@@ -296,14 +296,14 @@
 /obj/item/extinguisher/proc/spray_at(atom/target)
 	var/direction = get_dir(src, target)
 	var/turf/target_turf = get_turf(target)
-	var/turf/target_turf_1 = get_step(target_turf, turn(direction, 90))
-	var/turf/target_turf_2 = get_step(target_turf, turn(direction, -90))
-	var/list/the_targets = list(target_turf, target_turf_1, target_turf_2)
+	var/turf/adjacent_turf_right = get_step(target_turf, turn(direction, 90))
+	var/turf/adjacent_turf_left = get_step(target_turf, turn(direction, -90))
+	var/list/the_targets = list(target_turf, adjacent_turf_right, adjacent_turf_left)
 
 	if(precision)
-		var/turf/target_turf_3 = get_step(target_turf_1, turn(direction, 90))
-		var/turf/target_turf_4 = get_step(target_turf_2, turn(direction, -90))
-		the_targets.Add(target_turf_3, target_turf_4)
+		var/turf/far_adjacent_turf_right = get_step(adjacent_turf_right, turn(direction, 90))
+		var/turf/far_adjacent_turf_left = get_step(adjacent_turf_left, turn(direction, -90))
+		the_targets.Add(far_adjacent_turf_right, far_adjacent_turf_left)
 
 	var/list/water_particles = list()
 
