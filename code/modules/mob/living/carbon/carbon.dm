@@ -205,77 +205,92 @@
 	else
 		Weaken(stun_duration)
 
-/mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(health >= HEALTH_THRESHOLD_CRIT)
-		if(src == M && ishuman(src))
-			check_self_for_injuries()
-		else
-			if(player_logged)
-				M.visible_message(span_notice("[M] встряхива[PLUR_ET_YUT(M)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."), \
-				span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(M)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."))
-			if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-				if(buckled)
-					balloon_alert(M, "цель пристёгнута!")
-					return
-				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(H.w_uniform)
-						H.w_uniform.add_fingerprint(M)
-				set_resting(FALSE, instant = TRUE)
-				AdjustSleeping(-10 SECONDS)
-				AdjustParalysis(-6 SECONDS)
-				AdjustStunned(-6 SECONDS)
-				AdjustWeakened(-6 SECONDS)
-				adjustStaminaLoss(-10)
-				if(body_position != STANDING_UP && !resting && !buckled)
-					get_up(instant = TRUE)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-				if(!player_logged)
-					M.visible_message( \
-						span_notice("[M] тряс[PLUR_YOT_UT(M)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
-						span_notice("Вы трясёте [name], пытаясь поднять [GEND_HIS_HER(src)]."),\
-						)
+/mob/living/carbon/proc/help_shake_act(mob/living/carbon/shaker)
+	if(shaker == src && ishuman(src))
+		check_self_for_injuries()
+		return
 
-			else if(on_fire)
-				var/self_message = span_warning("Вы пытаетесь потушить [name].")
-				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
-					var/mob/living/carbon/human/H = M
-					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > BURNING_ITEM_MINIMUM_TEMPERATURE) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
-						protected = TRUE
-					if(!protected)
-						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-						self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
-						H.update_icons()
+	if(on_fire)
+		var/self_message = span_warning("Вы пытаетесь потушить [name].")
+		if(prob(30) && ishuman(shaker)) // 30% chance of burning your hands
+			var/mob/living/carbon/human/human_shaker = shaker
+			var/protected = FALSE // Protected from the fire
 
-				M.visible_message(span_warning("[M] пыта[PLUR_ET_YUT(M)]ся потушить [name]."), self_message)
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-				adjust_fire_stacks(-0.5)
+			if((human_shaker.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(human_shaker, TRAIT_RESIST_HEAT))
+				protected = TRUE
 
-			// BEGIN HUGCODE - N3X
-			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-				if(M.zone_selected == BODY_ZONE_HEAD)
-					M.visible_message(\
-					span_notice("[M] глад[PLUR_IT_YAT(M)] [name] по голове."),\
-					span_notice("Вы гладите [name] по голове."),\
-					)
-				else
+			if(!protected)
+				human_shaker.apply_damage(5, BURN, def_zone = human_shaker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
+				human_shaker.update_icons()
 
-					M.visible_message(\
-					span_notice("[M] [pick("обнима[PLUR_ET_YUT(M)]", "тепло обнима[PLUR_ET_YUT(M)]", "прижима[PLUR_ET_YUT(M)] к груди", "приобнима[PLUR_ET_YUT(M)]", "прижима[PLUR_ET_YUT(M)] к груди голову", "приобнима[PLUR_ET_YUT(M)] за плечи")] [name]."),\
-					span_notice("Вы обнимаете [name]."),\
-					)
-					if(ishuman(src))
-						var/mob/living/carbon/human/H = src
-						if(H.wear_suit)
-							H.wear_suit.add_fingerprint(M)
-						else if(H.w_uniform)
-							H.w_uniform.add_fingerprint(M)
+		shaker.visible_message(span_warning("[shaker] пыта[PLUR_ET_YUT(shaker)]ся потушить [name]."), self_message)
+		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		adjust_fire_stacks(-0.5)
+		return
+
+	if(health < HEALTH_THRESHOLD_CRIT)
+		return
+
+	if(player_logged)
+		shaker.visible_message(
+			span_notice("[shaker] встряхива[PLUR_ET_YUT(shaker)] [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(shaker)]. Вероятно, у н[GEND_HIS_HER(src)] КРС."),
+			span_notice("Вы встряхиваете [name], но он[GEND_A_O_I(src)] не отвеча[PLUR_ET_YUT(shaker)]. Вероятно, у н[GEND_HIS_HER(src)] КРС.")
+		)
+
+	if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+		if(buckled)
+			balloon_alert(shaker, "цель пристёгнута!")
+			return
+
+		add_attack_logs(shaker, src, "Shaked", ATKLOG_ALL)
+
+		if(ishuman(src))
+			var/mob/living/carbon/human/human_src = src
+			if(human_src.w_uniform)
+				human_src.w_uniform.add_fingerprint(shaker)
+
+		set_resting(FALSE, instant = TRUE)
+		AdjustSleeping(-10 SECONDS)
+		AdjustParalysis(-6 SECONDS)
+		AdjustStunned(-6 SECONDS)
+		AdjustWeakened(-6 SECONDS)
+		adjustStaminaLoss(-10)
+
+		if(body_position != STANDING_UP && !resting && !buckled)
+			get_up(instant = TRUE)
+
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+		if(!player_logged)
+			shaker.visible_message(
+				span_notice("[shaker] тряс[PLUR_YOT_UT(shaker)] [name], пытаясь поднять [GEND_HIS_HER(src)]."),
+				span_notice("Вы трясёте [name], пытаясь поднять [GEND_HIS_HER(src)]."),
+			)
+		return
+
+	// BEGIN HUGCODE - N3X
+	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	if(shaker.zone_selected == BODY_ZONE_HEAD)
+		shaker.visible_message(
+			span_notice("[shaker] глад[PLUR_IT_YAT(shaker)] [name] по голове."),
+			span_notice("Вы гладите [name] по голове."),
+		)
+	else
+		shaker.visible_message(
+			span_notice("[shaker] [pick("обнима[PLUR_ET_YUT(shaker)]", "тепло обнима[PLUR_ET_YUT(shaker)]", "прижима[PLUR_ET_YUT(shaker)] к груди", "приобнима[PLUR_ET_YUT(shaker)]", "прижима[PLUR_ET_YUT(shaker)] к груди голову", "приобнима[PLUR_ET_YUT(shaker)] за плечи")] [name]."),
+			span_notice("Вы обнимаете [name]."),
+		)
+
+	if(ishuman(src))
+		var/mob/living/carbon/human/human_src = src
+		if(human_src.wear_suit)
+			human_src.wear_suit.add_fingerprint(shaker)
+		else if(human_src.w_uniform)
+			human_src.w_uniform.add_fingerprint(shaker)
 
 /mob/living/carbon/proc/check_self_for_injuries()
-	var/mob/living/carbon/human/H = src
+	var/mob/living/carbon/human/human_src = src
 	visible_message(span_notice("[name] осматрива[PLUR_ET_YUT(src)] себя."),
 					span_notice("Вы осматриваете себя на наличие травм."))
 
@@ -294,54 +309,64 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 
-	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+	var/static/list/ignore_fracture_zones = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_CHEST,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+
+	for(var/obj/item/organ/external/bodypart as anything in human_src.bodyparts)
 		missing -= bodypart.limb_zone
-		var/status = ""
+		var/list/part_statuses = list()
 		var/brutedamage = bodypart.brute_dam
 		var/burndamage = bodypart.burn_dam
 
-		switch(brutedamage)
-			if(0.1 to 20)
-				status += "ушиблен[GEND_A_O_Y(bodypart)]"
-			if(20 to 40)
-				status += "побит[GEND_A_O_Y(bodypart)]"
-			if(40 to INFINITY)
-				status += "искалечен[GEND_A_O_Y(bodypart)]"
-		if(brutedamage > 0 && burndamage > 0)
-			status += " и "
+		if(brutedamage > 0)
+			if(brutedamage < 20)
+				part_statuses += "ушиблен[GEND_A_O_Y(bodypart)]"
+			else if(brutedamage < 40)
+				part_statuses += "побит[GEND_A_O_Y(bodypart)]"
+			else
+				part_statuses += "искалечен[GEND_A_O_Y(bodypart)]"
 
-		switch(burndamage)
-			if(0.1 to 10)
-				status += "покрыт[GEND_A_O_Y(bodypart)] волдырями"
-			if(10 to 40)
-				status += "обожен[GEND_A_O_Y(bodypart)]"
-			if(40 to INFINITY)
-				status += "сло[PLUR_IT_YAT(bodypart)]ся кусками обожённой плоти"
+		if(burndamage > 0)
+			if(burndamage < 10)
+				part_statuses += "покрыт[GEND_A_O_Y(bodypart)] волдырями"
+			else if(burndamage < 40)
+				part_statuses += "обожен[GEND_A_O_Y(bodypart)]"
+			else
+				part_statuses += "сло[PLUR_IT_YAT(bodypart)]ся кусками обожжённой плоти"
 
-		if(bodypart.bleeding_amount)
-			if(brutedamage > 0 && burndamage > 0)
-				status += ", "
+		if(bodypart.has_fracture())
+			if(!(bodypart.limb_zone in ignore_fracture_zones))
+				if(bodypart.is_splinted())
+					part_statuses += "зафиксирован[GEND_A_O_Y(bodypart)] шиной"
+				else
+					part_statuses += "сломан[GEND_A_O_Y(bodypart)]"
+
+		if(bodypart.bleeding_amount > 0)
 			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 			if(suppressed)
-				status += " перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным"
+				part_statuses += "перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным"
 			else if(bodypart.has_arterial_bleeding())
-				status += " хлещет кровь"
+				part_statuses += "из н[GEND_HIS_HER(bodypart)] хлещет кровь"
 			else if(bodypart.has_heavy_bleeding())
-				status += " обильно кровоточ[PLUR_IT_AT(bodypart)]"
+				part_statuses += "обильно кровоточ[PLUR_IT_AT(bodypart)]"
 			else
-				status += " кровоточ[PLUR_IT_AT(bodypart)]"
-		else
-			if(bodypart.bleedsuppress)
-				if(brutedamage > 0 && burndamage > 0)
-					status += ", "
-				status += " перевязан[GEND_A_O_Y(bodypart)] чем-то"
+				part_statuses += "кровоточ[PLUR_IT_AT(bodypart)]"
+		else if(bodypart.bleedsuppress > 0)
+			part_statuses += "перевязан[GEND_A_O_Y(bodypart)]"
 
 		if(bodypart.status & ORGAN_MUTATED)
-			status = "выгляд[PLUR_IT_YAT(bodypart)] неестественно"
+			part_statuses = list("выгляд[PLUR_IT_YAT(bodypart)] неестественно")
 
-		var/msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
-		if(!isnull(status) && status != "")
-			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] [status].")
+		var/msg
+		if(!length(part_statuses))
+			msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
+		else
+			var/status_text = russian_list(part_statuses, "")
+			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] [status_text].")
+
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
@@ -350,8 +375,9 @@
 		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
 			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 
-	for(var/t in missing)
-		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
+	if(LAZYLEN(missing))
+		for(var/limb_part in missing)
+			status_list += span_boldannounceic("У вас отсутствует [parse_zone(limb_part)]!")
 
 	if(staminaloss)
 		if(staminaloss > 30)
@@ -361,8 +387,8 @@
 
 	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
-	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETON)) && (!H.w_uniform) && (!H.wear_suit))
-		H.play_xylophone()
+	if((isskeleton(human_src) || HAS_TRAIT(human_src, TRAIT_SKELETON)) && (!human_src.w_uniform) && (!human_src.wear_suit))
+		human_src.play_xylophone()
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	. = ..()

@@ -6781,6 +6781,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"

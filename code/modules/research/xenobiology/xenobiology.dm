@@ -597,7 +597,7 @@
 	if(!istype(C))
 		to_chat(user, span_warning("The potion can only be used on clothing!"))
 		return
-	if(istype(C, /obj/item/clothing/neck) || istype(C, /obj/item/clothing/accessory))
+	if(istype(C, /obj/item/clothing/neck) || isaccessory(C))
 		to_chat(user, span_warning("The potion can not be used on that!'"))
 		return
 	if(!can_apply(C))

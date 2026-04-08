@@ -79,6 +79,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
+/// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
+#define CALIBER_12_DOT_7X55MM "12.7x55 мм"
 
 // Intermediate cartridges
 /// Used in AR-15 type rifles (TSF)
@@ -162,8 +164,12 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
 /// Pistol accuracy (near default)
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
+/// Enforcer accuracy
+#define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
+/// Stechkin accuracy
+#define GUN_ACCURACY_PISTOL_STECHKIN new /datum/gun_accuracy/pistol/stechkin()
 /// Rifle accuracy (more than default)
 #define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
 /// Laser rifle accuracy (default but lesser spread)

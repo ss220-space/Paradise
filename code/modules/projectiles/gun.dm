@@ -115,6 +115,9 @@
 
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
+	/// Point blank shot cooldown
+	var/pb_cooldown_duration = 3 SECONDS
+	COOLDOWN_DECLARE(pb_cooldown)
 	/// Shots counter
 	var/shots_counter = 0
 
@@ -243,6 +246,9 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	if(pointblank && !COOLDOWN_FINISHED(src, pb_cooldown))
+		pointblank = FALSE
+
 	do_recoil(user, target)
 
 	if(!chambered)
@@ -262,6 +268,7 @@
 		if(message)
 			if(pointblank)
 				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
+				COOLDOWN_START(src, pb_cooldown, pb_cooldown_duration)
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin

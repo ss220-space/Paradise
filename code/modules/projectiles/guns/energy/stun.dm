@@ -16,7 +16,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
@@ -45,7 +45,7 @@
 	selfcharge = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead
 	attachable_allowed = null
-	
+
 // MARK: Disablers
 /obj/item/gun/energy/disabler
 	name = "disabler"
