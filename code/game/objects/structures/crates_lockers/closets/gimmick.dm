@@ -86,12 +86,12 @@
 
 /obj/structure/closet/gimmick/tacticool/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик для тактикульным снаряжением",
-        GENITIVE = "шкафчика для тактикульным снаряжением",
-        DATIVE = "шкафчику для тактикульным снаряжением",
-        ACCUSATIVE = "шкафчик для тактикульным снаряжением",
-        INSTRUMENTAL = "шкафчиком для тактикульным снаряжением",
-        PREPOSITIONAL = "шкафчиком для тактикульным снаряжением",
+        NOMINATIVE = "шкафчик для тактикульного снаряжением",
+        GENITIVE = "шкафчика для тактикульного снаряжением",
+        DATIVE = "шкафчику для тактикульного снаряжением",
+        ACCUSATIVE = "шкафчик для тактикульного снаряжением",
+        INSTRUMENTAL = "шкафчиком для тактикульного снаряжением",
+        PREPOSITIONAL = "шкафчиком для тактикульного снаряжением",
     )
 
 /obj/structure/closet/gimmick/tacticool/populate_contents()

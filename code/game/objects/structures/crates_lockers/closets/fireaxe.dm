@@ -157,7 +157,7 @@
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user)
 	if(localopened && fireaxe)
 		fireaxe.forceMove(loc)
-		to_chat(user, span_notice("Вы телекинетически удаляете [fireaxe.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы телекинетически вытаскиваете [fireaxe.declent_ru(ACCUSATIVE)]."))
 		has_axe = "empty"
 		fireaxe = null
 		update_icon(UPDATE_ICON_STATE)

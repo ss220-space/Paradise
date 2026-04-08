@@ -1,5 +1,5 @@
 /obj/structure/closet/malf/suits
-	desc = "Это устройство для хранения снаряжения оперативников"
+	desc = "Это устройство для хранения снаряжения оперативников."
 	icon_state = "syndicate"
 
 /obj/structure/closet/malf/suits/populate_contents()

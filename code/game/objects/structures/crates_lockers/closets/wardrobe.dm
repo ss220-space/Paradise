@@ -1,6 +1,6 @@
 /obj/structure/closet/wardrobe
 	name = "wardrobe"
-	desc = "Это устройство для хранения стандартной одежды Nanotrasen."
+	desc = "Это устройство для хранения стандартной одежды Нанотрейзен."
 
 /obj/structure/closet/wardrobe/get_ru_names()
     return list(
@@ -193,7 +193,7 @@
 
 /obj/structure/closet/wardrobe/orange
 	name = "prison wardrobe"
-	desc = "Это устройство для хранения стандартной формы заключённых Nanotrasen."
+	desc = "Это устройство для хранения стандартной формы заключённых Нанотрейзен."
 	custom_door_overlay = "orange"
 
 /obj/structure/closet/wardrobe/orange/get_ru_names()

@@ -52,12 +52,12 @@
 
 /obj/structure/closet/secure_closet/engineering_electrical/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик электроснабжения",
-        GENITIVE = "шкафчика электроснабжения",
-        DATIVE = "шкафчику электроснабжения",
-        ACCUSATIVE = "шкафчик электроснабжения",
-        INSTRUMENTAL = "шкафчиком электроснабжения",
-        PREPOSITIONAL = "шкафчике электроснабжения",
+        NOMINATIVE = "шкафчик электрика",
+        GENITIVE = "шкафчика электрика",
+        DATIVE = "шкафчику электрика",
+        ACCUSATIVE = "шкафчик электрика",
+        INSTRUMENTAL = "шкафчиком электрика",
+        PREPOSITIONAL = "шкафчике электрика",
     )
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()

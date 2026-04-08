@@ -148,7 +148,7 @@
 
 /obj/structure/closet/secure_closet/pilot_sniper
 	name = "sniper gun cabinet"
-	desc = "Защищённый шкаф для хранения снайперской винтовки LSR-39 Queen blade."
+	desc = "Защищённый шкаф для хранения снайперской винтовки LSR-39 \"Queen blade\"."
 	req_access = list(ACCESS_PILOT)
 	icon_state = "sniper"
 
@@ -406,12 +406,12 @@
 
 /obj/structure/closet/secure_closet/ntrep/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик представителя NanoTrasen",
-        GENITIVE = "шкафчика представителя NanoTrasen",
-        DATIVE = "шкафчику представителя NanoTrasen",
-        ACCUSATIVE = "шкафчик представителя NanoTrasen",
-        INSTRUMENTAL = "шкафчиком представителя NanoTrasen",
-        PREPOSITIONAL = "шкафчике представителя NanoTrasen",
+        NOMINATIVE = "шкафчик представителя Нанотрейзен",
+        GENITIVE = "шкафчика представителя Нанотрейзен",
+        DATIVE = "шкафчику представителя Нанотрейзен",
+        ACCUSATIVE = "шкафчик представителя Нанотрейзен",
+        INSTRUMENTAL = "шкафчиком представителя Нанотрейзен",
+        PREPOSITIONAL = "шкафчике представителя Нанотрейзен",
     )
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
