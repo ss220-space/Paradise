@@ -39,10 +39,10 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+	if(I.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(I.get_heat())
+		ignite(I.get_temperature())
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
@@ -84,9 +84,6 @@
 	icons = list("silver","silver_dam")
 
 /turf/simulated/floor/mineral/silver/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -142,12 +139,8 @@
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
 /turf/simulated/floor/mineral/plastitanium/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/mineral/plastitanium/broken_states()
 	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
@@ -156,12 +149,8 @@
 	icon_state = "plastitanium_red"
 
 /turf/simulated/floor/mineral/plastitanium/red/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/mineral/plastitanium/red/airless
 	oxygen = 0
@@ -189,7 +178,7 @@
 	honk()
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
-	.=..()
+	. = ..()
 	if(!.)
 		honk()
 
@@ -220,9 +209,6 @@
 	return
 
 /turf/simulated/floor/mineral/bananium/lubed/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -249,16 +235,47 @@
 	icon_state = "uranium"
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
-	var/last_event = 0
+	/// Mutex to prevent infinite recursion when propagating radiation pulses
 	var/active = null
+	/// Cooldown for radiation pulses
+	COOLDOWN_DECLARE(radiation_cooldown)
 
-/turf/simulated/floor/mineral/uranium/Initialize(mapload)
+/turf/simulated/floor/mineral/uranium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	AddComponent(/datum/component/radioactivity, \
-				rad_per_interaction = 1, \
-				rad_interaction_radius = 3, \
-				rad_interaction_cooldown = 1.5 SECONDS \
+	if(.)
+		return
+	if(isliving(arrived))
+		radiate()
+
+/turf/simulated/floor/mineral/uranium/attackby(obj/item/W, mob/user, list/modifiers)
+	. = ..()
+	if(!.)
+		radiate()
+
+/turf/simulated/floor/mineral/uranium/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(!.)
+		radiate()
+
+/turf/simulated/floor/mineral/uranium/proc/radiate()
+	if(active)
+		return
+
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+
+	active = TRUE
+	radiation_pulse(
+		src,
+		max_range = 1,
+		threshold = RAD_VERY_LIGHT_INSULATION,
+		chance = (URANIUM_IRRADIATION_CHANCE / 3),
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
 	)
+	for(var/turf/simulated/floor/mineral/uranium/uranium_floor in orange(1, src))
+		uranium_floor.radiate()
+	COOLDOWN_START(src, radiation_cooldown, 15)
+	active = FALSE
 
 // ALIEN ALLOY
 /turf/simulated/floor/mineral/abductor
@@ -287,12 +304,11 @@
 	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
 /turf/simulated/floor/mineral/abductor/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/mineral/abductor/cold
+	atmos_environment = ENVIRONMENT_COLD
 
 /turf/simulated/floor/plating/abductor2
 	name = "alien plating"
@@ -303,10 +319,3 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
-
-/turf/simulated/floor/plating/abductor/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND

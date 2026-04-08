@@ -33,6 +33,10 @@
 
 	var/datum/port/output/signal
 
+/obj/item/circuit_component/assembly_input/Destroy()
+	signal = null
+	. = ..()
+
 /obj/item/circuit_component/assembly_input/populate_ports()
 	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
@@ -54,12 +58,18 @@
 
 	var/datum/port/input/signal
 
+/obj/item/circuit_component/assembly_output/Destroy()
+	if(attached_assembly)
+		unregister_shell(attached_assembly)
+	signal = null
+	. = ..()
+
 /obj/item/circuit_component/assembly_output/populate_ports()
 	signal = add_input_port("Вызов", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/assembly_output/register_shell(atom/movable/shell)
 	. = ..()
-	if(!istype(shell, /obj/item/assembly))
+	if(!isassembly(shell))
 		return
 
 	attached_assembly = shell

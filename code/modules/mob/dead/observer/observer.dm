@@ -25,6 +25,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
 	hud_type = /datum/hud/ghost
+	looting_icon_mode = LOOT_ICON_FLAT_ICON
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -120,6 +121,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
+		ghostimage.loc = null
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	if(orbit_menu)
@@ -253,8 +255,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		warningmsg = "Вы совершили самоубийство в раунде слишком рано."
 	else if(stat != DEAD)
 		warningmsg = "Вы живы."
+		if(isrobot(src))
+			var/mob/living/silicon/robot/robot = src
+			if(robot.mainframe)
+				var/mob/living/silicon/ai/AI = robot.mainframe
+				robot.evacuate_ai(DANGER_LVL_NONE)
+				AI.view_core()
+				to_chat(AI, span_warningbig("Для выгрузки вам нужно находиться в своем ядре."))
+				to_chat(AI, span_warningbig("Используйте команду \"Выгрузить ядро ИИ\" в категории \"OOC\" для этого."))
 		if(isAI(src))
-			warningmsg = "Вы живой ИИ! Вам, вероятно, следует использовать OOC -> Wipe Core."
+			warningmsg = "Вы живой ИИ! Вам, вероятно, следует использовать \"OOC\" -> \"Выгрузить ядро ИИ\"."
 	else if(GLOB.non_respawnable_keys[ckey])
 		warningmsg = "Вы потеряли право на возрождение."
 
@@ -666,7 +676,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(target && target != usr)
 			spawn(0)
 				var/turf/pos = get_turf(A)
-				var/turf/T=get_turf(target)
+				var/turf/T = get_turf(target)
 				if(T != pos)
 					if(!T)
 						return
@@ -762,10 +772,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Освещённость"
 	set desc = "Choose how much darkness you want to see."
 	set category = VERB_CATEGORY_GHOST
-	var/list/ghost_darkness_levels = list("Стандартное освещение" = LIGHTING_PLANE_ALPHA_VISIBLE,
-											"Темнее" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
-											"Ярче" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
-											"Полное освещение" = LIGHTING_PLANE_ALPHA_INVISIBLE)
+	var/list/ghost_darkness_levels = list(
+		"Стандартное освещение" = LIGHTING_PLANE_ALPHA_VISIBLE,
+		"Темнее" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
+		"Ярче" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
+		"Полное освещение" = LIGHTING_PLANE_ALPHA_INVISIBLE,
+	)
 	var/desired_dark = tgui_input_list(usr, "Выберите, на сколько хорошо вы хотите видеть", "Выбор освещения", ghost_darkness_levels)
 	if(isnull(desired_dark))
 		return

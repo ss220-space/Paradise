@@ -1275,8 +1275,7 @@
 /area/ruin/space/USSP_gorky17/utility)
 "fb" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "fe" = (
@@ -1490,7 +1489,7 @@
 	},
 /area/ruin/space/USSP_gorky17/common)
 "fQ" = (
-/obj/structure/largecrate/evil{
+/obj/structure/closet/crate/large/evil{
 	name = "Supply Crate"
 	},
 /turf/simulated/floor/plating,
@@ -2432,7 +2431,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/dorms)
 "jq" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
@@ -2471,9 +2470,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
 "jE" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -3005,7 +3002,7 @@
 	},
 /area/ruin/space/USSP_gorky17/gate)
 "lx" = (
-/obj/structure/largecrate/chick,
+/obj/structure/closet/crate/large/chick,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "lA" = (
@@ -3054,7 +3051,7 @@
 	},
 /area/ruin/space/USSP_gorky17/rnd)
 "lE" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "lF" = (
@@ -4713,7 +4710,7 @@
 	},
 /area/ruin/space/USSP_gorky17/rnd)
 "rz" = (
-/obj/structure/largecrate/lisa,
+/obj/structure/closet/crate/large/lisa,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "rA" = (
@@ -4961,7 +4958,7 @@
 	name = "Gorky17 ammunition locker";
 	req_access = list(123)
 	},
-/obj/item/gun/projectile/automatic/aksu/rusted,
+/obj/item/gun/projectile/automatic/aks74u/rusted,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -7637,8 +7634,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "Ck" = (
@@ -8344,7 +8340,7 @@
 	},
 /area/ruin/space/USSP_gorky17/medbay)
 "ED" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -8705,8 +8701,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "FP" = (
@@ -10011,7 +10006,9 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/asteroids)
 "Kt" = (
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/sofa/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -11079,8 +11076,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "Om" = (
@@ -12611,8 +12607,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "TT" = (
@@ -12647,8 +12642,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "TX" = (
@@ -12741,7 +12735,7 @@
 	},
 /area/ruin/space/USSP_gorky17/arrival)
 "Uu" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -13149,8 +13143,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/space/USSP_gorky17/dinning)
 "VT" = (
@@ -14122,7 +14115,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/dorms)
 "ZK" = (
-/obj/structure/largecrate/schrodinger,
+/obj/structure/closet/crate/large/schrodinger,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "ZL" = (

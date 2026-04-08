@@ -414,7 +414,7 @@
 			Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
-	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
@@ -489,7 +489,7 @@
 			В комплект входит аккумулятор, который можно заменить с помощью кусачек."
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 7
-	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 //Bartender
 
@@ -529,7 +529,7 @@
 			Для активации устройства необходимо встать на кабель с питанием."
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 33
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Набор экспериментальных инструментов"
@@ -537,8 +537,8 @@
 	item = /obj/item/storage/toolbox/syndisuper
 	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
-			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, \
+			JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
 //SCI
 
@@ -601,7 +601,7 @@
 	name = "Летопись вашей погибели"
 	desc = "Магический артефакт, захваченный \"Синдикатом\" для своих агентов. Эта книга рассказывает о том, как погибали целые миры, и тот, кто её прочтёт, сможет на время ощутить себя одним из тех, кто несёт ответственность за эти события."
 	item = /obj/item/death_book
-	cost = 60
+	cost = 50
 	job = list(JOB_TITLE_LIBRARIAN)
 
 //Botanist
@@ -622,7 +622,7 @@
 			Кроме того, для передвижения внутри вентиляции вам потребуются свободные руки."
 	item = /obj/item/clothing/under/contortionist
 	cost = 50
-	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Энергетический пожарный топор"
@@ -630,14 +630,14 @@
 			Однако для повторного заряда требуется определённое время. Кроме того, этот топор значительно острее обычного и может пробивать лёгкую броню."
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 18
-	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/combat_rcd
 	name = "УБС \"Синдиката\""
 	desc = "Способно разрушать укреплённые стены. Имеет 500 единиц материи вместо стандартных 100."
 	item = /obj/item/rcd/combat
 	cost = 25
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/poisonbottle
@@ -645,7 +645,7 @@
 	desc = "Синдикат отправит вам флакон с 40 единицами случайно выбранного яда. Этот яд может быть как совершенно неэффективным, так и крайне смертельным."
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
-	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/poison_pen
@@ -689,7 +689,7 @@
 			Благодаря усовершенствованной гидравлической системе повышает мобильность пользователя без потери боевых характеристик. \
 			Поставляется с одноразовым автоимплантером для установки на месте."
 	item = /obj/item/storage/box/syndie_kit/combat_exoframe
-	cost = 43
+	cost = 28
 	race = list(SPECIES_MACNINEPERSON)
 
 //Slime People
@@ -1162,7 +1162,7 @@
 /datum/uplink_item/ammo/machinegun
 	name = "Ручной пулемёт L6 SAW — магазин 5.56x45 мм"
 	desc = "Магазин на 50 патронов калибра 5.56x45 мм."
-	item = /obj/item/ammo_box/magazine/a762x51
+	item = /obj/item/ammo_box/magazine/l6saw
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1287,7 +1287,7 @@
 			Однако, чтобы освоить этот путь, вам придётся полностью отказаться от применения любого оружия дальнего боя. Обратите внимание, что техники этого \
 			искусства не будут эффективны, если вы зависимы от каких-либо препаратов. Недоступно для изучения генокрадам и вампирам."
 	item = /obj/item/sleeping_carp_scroll
-	cost = 55
+	cost = 75
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE
@@ -2299,6 +2299,13 @@
 	cost = 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/implants/fake_mindshield
+	name = "Фальшивый имплант защиты разума"
+	desc = "Имплант, который можно вживить в организм для имитации импланта защиты разума. Активируется по желанию владельца и позволяет включать или отключать своё отображение на ИЛС службы безопасности. \
+			Однако не обладает функционалом настоящего импланта защиты разума."
+	item = /obj/item/implanter/fake_mindshield
+	cost = 5
+
 /**
  * MARK: Cybernetic Implants
  */
@@ -2362,6 +2369,15 @@
 	item = /obj/item/autoimplanter/oneuse/laserblade
 	cost = 38
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
+
+/datum/uplink_item/cyber_implants/nuke_map
+	name = "Имплант миникарты отряда \"Атом\""
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. \
+			Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
+	item = /obj/item/storage/box/cyber_implants/nuke_map
+	cost = 33
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 
 /**
  * MARK: Pointless Badassery

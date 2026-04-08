@@ -5,18 +5,19 @@
 	icon_state = "syndicate"
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
+	var/temp_amount = null
 
 /obj/item/grenade/gas/prime()
 	. = ..()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
-		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
+		release_air(target_turf)
 
 /obj/item/grenade/gas/proc/release_air(turf/simulated/target_turf)
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 
-	target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
+	target_turf.atmos_spawn_air(spawn_contents, spawn_amount, temp_amount)
 	qdel(src)
 
 /obj/item/grenade/gas/plasma
@@ -25,33 +26,35 @@
 /obj/item/grenade/gas/knockout
 	name = "knockout grenade"
 	desc = "A grenade that releases pure N2O gas."
-	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_N2O
+	spawn_contents = LINDA_SPAWN_N2O
+	temp_amount = T20C
 
 /obj/item/grenade/gas/oxygen
 	name = "oxygen grenade"
 	desc = "A grenade that releases pure O2 gas."
 	origin_tech = "materials=3;magnets=4"
 	icon_state = "oxygen"
-	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_OXYGEN
+	spawn_contents = LINDA_SPAWN_OXYGEN
 	spawn_amount = 500
+	temp_amount = T20C
 
 /obj/item/grenade/gluon
-	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."
 	name = "gluon grenade"
+	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."
 	icon_state = "gluon"
-	var/range = 4
-	var/rad_damage = 60
+	var/freeze_range = 4
+	var/rad_range = 4
+	var/rad_threshold = RAD_EXTREME_INSULATION
 	var/stamina_damage = 30
+	var/temp_adjust = -230
 
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
-	for(var/turf/T in view(range, loc))
-		if(isfloorturf(T))
-			var/turf/simulated/F = T
-			F.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
-			for(var/mob/living/carbon/L in T)
-				L.apply_damage(stamina_damage, STAMINA)
-				L.apply_effect(rad_damage, IRRADIATE)
-				L.adjust_bodytemperature(-230)
+	radiation_pulse(src, max_range = rad_range, threshold = rad_threshold, chance = 100)
+	for(var/turf/simulated/floor/floor_turf in view(freeze_range, loc))
+		floor_turf.MakeSlippery(TURF_WET_PERMAFROST, 2 MINUTES)
+		for(var/mob/living/carbon/victim in floor_turf)
+			victim.adjustStaminaLoss(stamina_damage)
+			victim.adjust_bodytemperature(temp_adjust)
 	qdel(src)

@@ -511,3 +511,64 @@
 		'sound/effects/industrial_scan/industrial_scan2.ogg',
 		'sound/effects/industrial_scan/industrial_scan3.ogg',
 	)
+
+/datum/sound_effect/sizzle
+	key = SFX_SIZZLE
+	file_paths = list(
+		'sound/effects/wounds/sizzle1.ogg',
+		'sound/effects/wounds/sizzle2.ogg',
+	)
+
+/datum/sound_effect/closet_toggle_lock
+	key = SFX_CLOSET_TOGGLE_LOCK
+	file_paths = list(
+		'sound/machines/lock_1.ogg',
+		'sound/machines/lock_2.ogg',
+		'sound/machines/lock_3.ogg',
+	)
+
+/datum/sound_effect/button_denied
+	key = SFX_BUTTON_DENIED
+	file_paths = list(
+		'sound/machines/button.ogg',
+		'sound/machines/button_alternate.ogg',
+		'sound/machines/button_meloboom.ogg',
+	)
+
+/datum/sound_effect/bullet_miss
+	key = SFX_BULLET_MISS
+	file_paths = list(
+		'sound/effects/bullet_miss_1.ogg',
+		'sound/effects/bullet_miss_2.ogg',
+		'sound/effects/bullet_miss_3.ogg',
+		'sound/effects/bullet_miss_4.ogg',
+		'sound/effects/bullet_miss_5.ogg',
+		'sound/effects/bullet_miss_6.ogg',
+	)
+
+/datum/sound_effect/energy_miss
+	key = SFX_ENERGY_MISS
+	file_paths = list(
+		'sound/effects/laser_miss_1.ogg',
+		'sound/effects/laser_miss_2.ogg',
+		'sound/effects/laser_miss_3.ogg',
+		'sound/effects/laser_miss_4.ogg',
+		'sound/effects/laser_miss_5.ogg',
+	)
+
+/datum/sound_effect/arrow_miss
+	key = SFX_ARROW_MISS
+	file_paths = list(
+		'sound/effects/arrow_miss_1.ogg',
+		'sound/effects/arrow_miss_2.ogg',
+		'sound/effects/arrow_miss_3.ogg',
+		'sound/effects/arrow_miss_4.ogg',
+		'sound/effects/arrow_miss_5.ogg',
+	)
+
+/datum/sound_effect/polaroid
+	key = SFX_POLAROID_PHOTO_PRINTING
+	file_paths = list(
+		'sound/items/polaroid1.ogg',
+		'sound/items/polaroid2.ogg',
+	)

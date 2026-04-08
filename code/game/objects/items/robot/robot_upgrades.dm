@@ -111,6 +111,9 @@
 		if(user)
 			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
 		return FALSE
+	if(robot.shell)
+		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("cant apply on a AI shell!")]")
+		return FALSE
 
 	if(!robot.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
@@ -267,10 +270,17 @@
 	if(!..())
 		return FALSE
 
+	var/is_orebag_upgraded
+
 	for(var/obj/item/storage/bag/ore/cyborg/orebag in robot.module.modules)
+		is_orebag_upgraded |= orebag.aoe
 		qdel(orebag)
 
-	robot.module.modules += new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	var/obj/item/storage/bag/ore/holding/cyborg/ore_soh = new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	if(is_orebag_upgraded)
+		ore_soh.aoe = TRUE
+
+	robot.module.modules += ore_soh
 	robot.module.rebuild()
 	return TRUE
 
@@ -816,7 +826,7 @@
 	if(!..())
 		return FALSE
 
-	robot.can_buckle = TRUE
+	robot.AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Grant(robot, src)
 	if(emagged)
 		launch_action.Grant(robot, src)
@@ -826,7 +836,7 @@
 	if(!..())
 		return FALSE
 
-	robot.can_buckle = FALSE
+	robot.RemoveElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Remove(robot, src)
 	launch_action.Remove(robot, src) //REMOVE IT!!!
 	return TRUE
@@ -863,4 +873,79 @@
 	robot.eject_riders_harmfull()
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
+	name = "VERY STRANGE robotic mounted seat module"
 	emagged = TRUE
+
+/obj/item/borg/upgrade/ai
+	name = "B.O.R.I.S. module"
+	desc = "Модуль Блюспейс Ориентированной Роботической Искусственной Сети. При установке в киборга, позволяет ИИ управлять им напрямую."
+	icon_state = "r_boris"
+
+/obj/item/borg/upgrade/ai/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль Б.О.Р.И.С.",
+		GENITIVE = "модуля Б.О.Р.И.С.",
+		DATIVE = "модулю Б.О.Р.И.С.",
+		ACCUSATIVE = "модуль Б.О.Р.И.С.",
+		INSTRUMENTAL = "модулем Б.О.Р.И.С.",
+		PREPOSITIONAL = "модуле Б.О.Р.И.С.",
+	)
+
+/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/robot, mob/living/user = usr)
+	. = ..()
+	if(!.)
+		return .
+	if(robot.key)
+		to_chat(user, span_warning("Зафиксированы активные вычислительные процессы. Подключение невозможно."))
+		return FALSE
+	robot.make_shell(src)
+
+/obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/robot/robot, mob/living/user = usr)
+	if(!..())
+		return FALSE
+
+	robot.undeploy()
+	robot.revert_shell()
+	return TRUE
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr
+	name = "mining cyborg satchel upgrade"
+	desc = "Магнитное улучшение сумки для руды, позволяющее собирать руду в области 3 на 3."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "magnets=3,materials=3;engineering=2"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль рудного магнита",
+		GENITIVE = "модуля рудного магнита",
+		DATIVE = "модулю рудного магнита",
+		ACCUSATIVE = "модуль рудного магнита",
+		INSTRUMENTAL = "модулем рудного магнита",
+		PREPOSITIONAL = "модуле рудного магнита",
+	)
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/changed = FALSE
+
+	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
+		mining_satchel.aoe = TRUE
+		changed = TRUE
+
+	return changed
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/changed = FALSE
+
+	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
+		mining_satchel.aoe = FALSE
+		changed = TRUE
+
+	return changed

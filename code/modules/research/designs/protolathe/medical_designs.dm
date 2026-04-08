@@ -466,6 +466,42 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/thermals
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cyberimp_citizen_map
+	id = "ci-map"
+	req_tech = list(RESEARCH_TREE_BIOTECH = 2, RESEARCH_TREE_PROGRAMMING = 2)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/map
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_sec_map
+	id = "ci-map-sec"
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_PROGRAMMING = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_SILVER = 750, MAT_GOLD = 750)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/map/security
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_med_map
+	id = "ci-map-med"
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_PROGRAMMING = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_SILVER = 750, MAT_GOLD = 750)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/map/medical
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_fire_map
+	id = "ci-map-fire"
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_PROGRAMMING = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_SILVER = 750, MAT_GOLD = 750)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/map/fire
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cyberimp_antidrop
 	id = "ci-antidrop"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BIOTECH = 5)

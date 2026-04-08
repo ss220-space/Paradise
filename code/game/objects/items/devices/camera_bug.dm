@@ -35,6 +35,7 @@
 	integrated_console.network = list("SS13")
 
 /obj/item/camera_bug/Destroy()
+	integrated_console.parent = null
 	QDEL_NULL(integrated_console)
 	return ..()
 

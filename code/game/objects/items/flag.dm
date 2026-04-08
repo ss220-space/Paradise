@@ -15,7 +15,7 @@
 
 /obj/item/flag/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || (resistance_flags & ON_FIRE))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature() || (resistance_flags & ON_FIRE))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
@@ -258,7 +258,7 @@
 			used = TRUE
 
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grenade))
+	if(isgrenade(I))
 		if(boobytrap)
 			to_chat(user, span_warning("There is already [boobytrap] installed."))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
@@ -273,7 +273,7 @@
 		add_attack_logs(user, src, "has hidden [I] ready for detonation in", ATKLOG_MOST)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
+	if(I.get_temperature() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		add_game_logs("has lit the [src] trapped with [boobytrap] by [key_name_log(trapper)] at [AREACOORD(bombturf)].", user)
 		investigate_log("[key_name_log(user)] has lit the [src] trapped with [boobytrap] by [key_name_log(trapper)].", INVESTIGATE_BOMB)

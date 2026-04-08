@@ -1,4 +1,4 @@
-#define MINER_DASH_RANGE 4
+
 
 /*
 
@@ -78,7 +78,7 @@ Difficulty: Medium
 /obj/item/clothing/suit/hooded/explorer/blood
 	name = "empowered explorer suit"
 	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
@@ -95,7 +95,7 @@ Difficulty: Medium
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
 	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/hooded/explorer/blood/get_ru_names()
 	return list(
@@ -176,21 +176,21 @@ Difficulty: Medium
 	name = "Рывок к цели"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы рывком движетесь к цели.")
+	chosen_message = span_colossus_alt("Вы рывком движетесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Стрелять из кинетического ускорителя"
 	button_icon = 'icons/obj/weapons/energy.dmi'
 	button_icon_state = "kineticgun"
-	chosen_message = span_colossus("Вы стреляете из кинетического ускорителя.")
+	chosen_message = span_colossus_alt("Вы стреляете из кинетического ускорителя.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Трансформировать оружие"
 	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
-	chosen_message = span_colossus("Вы трансформируете своё оружие.")
+	chosen_message = span_colossus_alt("Вы трансформируете своё оружие.")
 	chosen_attack_num = 3
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/OpenFire()
@@ -223,15 +223,6 @@ Difficulty: Medium
 		priority = INFINITY,
 	)
 	return ..()
-
-/obj/projectile/kinetic/miner
-	damage = 20
-	speed = 0.9
-	icon_state = "ka_tracer"
-	range = MINER_DASH_RANGE
-
-/obj/projectile/kinetic/miner/enraged
-	damage = 35
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(
 	amount = 0,
@@ -433,5 +424,3 @@ Difficulty: Medium
 	. = ..()
 	if(. && prob(enraged ? 40 : 12))
 		INVOKE_ASYNC(src, PROC_REF(dash))
-
-#undef MINER_DASH_RANGE

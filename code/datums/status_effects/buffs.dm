@@ -268,7 +268,7 @@
 /datum/status_effect/hippocraticOath
 	id = "Hippocratic Oath"
 	tick_interval = 25
-	examine_text = span_notice("Кажется, они окружены аурой исцеления и доброжелательности.")
+	examine_text = span_notice_alt("Кажется, они окружены аурой исцеления и доброжелательности.")
 	alert_type = null
 
 	var/datum/component/aura_healing/aura_healing
@@ -510,7 +510,7 @@
 
 /datum/status_effect/panacea/tick(seconds_between_ticks)
 	owner.heal_damages(tox = 5, brain = 5)	//Has the same healing as 20 charcoal, but happens faster
-	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
+	owner.adjustToxLoss(-70) //Same radiation healing as pentetic
 	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
 	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)

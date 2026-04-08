@@ -7,9 +7,6 @@
 	layer_offset = GAS_SCRUBBER_OFFSET
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 	can_unwrench = TRUE
-	frequency = ATMOS_TANKS_FREQ
-	multitool_menu_type = /datum/multitool_menu/idtag/freq/outlet_injector
-
 	var/injecting = 0
 	var/volume_rate = 50
 	var/id
@@ -19,14 +16,13 @@
 
 /obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
 	. = ..()
-	if(id && !id_tag)//I'm not dealing with any more merge conflicts
-		id_tag = id
+	if(id)
+		register_id(id, src, GLOB.injectors_by_tag)
 
 /obj/machinery/atmospherics/unary/outlet_injector/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
+	if(id && weak_reference == GLOB.injectors_by_tag[id])
+		GLOB.injectors_by_tag -= id
+	. = ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!powered())
@@ -86,71 +82,36 @@
 		parent.update = TRUE
 	flick("inject", src)
 
-/obj/machinery/atmospherics/unary/outlet_injector/proc/broadcast_status()
-	if(!radio_connection)
-		return FALSE
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	signal.data = list(
-		"tag" = id_tag,
-		"device" = "AO",
+/obj/machinery/atmospherics/unary/outlet_injector/get_data()
+	var/list/data = list(
+		"name" = name,
+		"machine_type" = "AO",
+		"uid" = UID(),
 		"power" = on,
-		"volume_rate" = volume_rate,
-		"sigtype" = "status"
+		"volume_rate" = volume_rate
 	)
 
-	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
+	return data
 
-	return TRUE
+/obj/machinery/atmospherics/unary/outlet_injector/update_params(list/params)
 
-/obj/machinery/atmospherics/unary/outlet_injector/atmos_init()
-	..()
-	set_frequency(frequency)
+	if("power" in params)
+		on = params["power"]
 
-/obj/machinery/atmospherics/unary/outlet_injector/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
-		return 0
-
-	if(signal.data["power"] != null)
-		on = text2num(signal.data["power"])
-
-	if(signal.data["power_toggle"] != null)
+	if("power_toggle" in params)
 		on = !on
 
-	if(signal.data["inject"] != null)
+
+	if("inject" in params)
 		INVOKE_ASYNC(src, PROC_REF(inject))
 		return
 
-	if(signal.data["set_volume_rate"] != null)
-		var/number = text2num(signal.data["set_volume_rate"])
-		volume_rate = between(0, number, air_contents.volume)
+	if("set_volume_rate" in params)
+		var/number = params["set_volume_rate"]
+		volume_rate = clamp(number, 0, air_contents.volume)
 
-	if(signal.data["status"])
-		addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
-		return //do not update_icon
+	update_appearance(UPDATE_ICON)
 
-		//log_admin("DEBUG \[[world.timeofday]\]: outlet_injector/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
-		//return
-	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
-	update_icon()
-
-	/*hide(var/i) //to make the little pipe section invisible, the icon changes.
-		if(node)
-			if(on)
-				icon_state = "[i == 1 && issimulatedturf(loc) ? "h" : "" ]on"
-			else
-				icon_state = "[i == 1 && issimulatedturf(loc) ? "h" : "" ]off"
-		else
-			icon_state = "[i == 1 && issimulatedturf(loc) ? "h" : "" ]exposed"
-			on = 0
-		return*/
-
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	multitool_menu_interact(user, I)
 
 /obj/machinery/atmospherics/unary/outlet_injector/hide(i)
 	update_underlays()

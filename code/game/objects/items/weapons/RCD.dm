@@ -14,7 +14,7 @@
 	origin_tech = "engineering=4;materials=2"
 	usesound = 'sound/items/deconstruct.ogg'
 	req_access = list(ACCESS_ENGINE)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	toolbox_radial_menu_compatibility = TRUE
 
@@ -47,7 +47,7 @@
 	/// A list of access numbers which have been checked off by the user in the UI.
 	var/list/selected_accesses = list()
 	/// List of areas where we can't deconstruct stuff
-	var/static/list/areas_blacklist = list(/area/lavaland/surface/outdoors/necropolis, /area/mine/necropolis)
+	var/static/list/areas_blacklist = list(/area/lavaland/surface/outdoors/necropolis)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()
 
@@ -480,6 +480,12 @@
 	power_use_multiplier = 250
 	var/obj/mecha/chassis = null
 
+/obj/item/rcd/mecha_ref/Destroy()
+	var/obj/item/mecha_parts/mecha_equipment/rcd/holder = loc
+	if(istype(holder))
+		holder.rcd_holder = null
+	return ..()
+
 /obj/item/rcd/mecha_ref/useResource(amount, mob/user)
 	if(!chassis)
 		return
@@ -487,6 +493,6 @@
 	return chassis.use_power(power_use_multiplier)
 
 /obj/item/rcd/mecha_ref/checkResource(amount, mob/user)
-	if(!chassis)
-		return
+	if(!chassis || !chassis.cell)
+		return 0
 	return chassis.cell.charge >= power_use_multiplier

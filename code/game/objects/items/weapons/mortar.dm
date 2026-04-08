@@ -206,7 +206,7 @@
 	SStgui.update_uis(src)
 
 /obj/structure/mortar/attackby(obj/item/item, mob/user)
-	if(!istype(item, /obj/item/mortar_shell))
+	if(!ismortarcasing(item))
 		return ATTACK_CHAIN_PROCEED
 	var/obj/item/mortar_shell/mortar_shell = item
 

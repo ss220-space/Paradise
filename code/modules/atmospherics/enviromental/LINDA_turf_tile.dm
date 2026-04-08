@@ -14,6 +14,19 @@
 		air.set_agent_b(agent_b)
 		air.set_hydrogen(hydrogen)
 		air.set_water_vapor(water_vapor)
+		air.set_tritium(tritium)
+		air.set_bz(bz)
+		air.set_pluoxium(pluoxium)
+		air.set_miasma(miasma)
+		air.set_freon(freon)
+		air.set_nitrium(nitrium)
+		air.set_healium(healium)
+		air.set_proto_nitrate(proto_nitrate)
+		air.set_zauker(zauker)
+		air.set_halon(halon)
+		air.set_helium(helium)
+		air.set_antinoblium(antinoblium)
+		air.set_hypernoblium(hypernoblium)
 		air.set_temperature(temperature)
 		return air
 	air.set_oxygen(0)
@@ -24,6 +37,19 @@
 	air.set_agent_b(0)
 	air.set_hydrogen(0)
 	air.set_water_vapor(0)
+	air.set_tritium(0)
+	air.set_bz(0)
+	air.set_pluoxium(0)
+	air.set_miasma(0)
+	air.set_freon(0)
+	air.set_nitrium(0)
+	air.set_healium(0)
+	air.set_proto_nitrate(0)
+	air.set_zauker(0)
+	air.set_halon(0)
+	air.set_helium(0)
+	air.set_antinoblium(0)
+	air.set_hypernoblium(0)
 	air.set_temperature(0)
 	return air
 
@@ -47,7 +73,6 @@
 			for(var/overlay in atmos_overlay_types)
 				vis_contents -= overlay
 			atmos_overlay_types = null
-			SSturfs_visualization.turfs_visualisation -= src
 		return
 
 	var/list/new_overlay_types = air.return_visuals(z)
@@ -61,28 +86,9 @@
 			vis_contents += new_overlay_types - atmos_overlay_types //don't add overlays that already exist
 		else
 			vis_contents += new_overlay_types
-		SSturfs_visualization.turfs_visualisation |= src
-	else
-		SSturfs_visualization.turfs_visualisation -= src
 
 	UNSETEMPTY(new_overlay_types)
 	src.atmos_overlay_types = new_overlay_types
-
-/turf/simulated/proc/tile_graphic(datum/gas_mixture/air)
-	if(blocks_air)
-		return
-	if(!istype(air))
-		air = get_readonly_air()
-
-	if(air.toxins() > MOLES_PLASMA_VISIBLE)
-		return "plasma"
-
-	if(air.sleeping_agent() > 1)
-		return "sleeping_agent"
-
-	if(air.water_vapor() > MOLES_WATER_VAPOR_VISIBLE)
-		return "water_vapor"
-	return null
 
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
@@ -125,7 +131,7 @@
 	var/datum/gas_mixture/my_air = my_turf.get_readonly_air()
 
 	var/air = my_air.total_moles() / MOLES_CELLSTANDARD
-	var/wind = sqrt(flow_x ** 2 + flow_y ** 2)
+	var/wind = MAGNITUDE(flow_x, flow_y)
 	var/force = wind * air * (MOVE_FORCE_DEFAULT / 5)
 
 	if(force < force_needed)
@@ -181,7 +187,30 @@
 /turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
-	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature)
+	var/list/air = list(
+		oxygen,
+		carbon_dioxide,
+		nitrogen,
+		toxins,
+		sleeping_agent,
+		agent_b,
+		hydrogen,
+		water_vapor,
+		tritium,
+		bz,
+		pluoxium,
+		miasma,
+		freon,
+		nitrium,
+		healium,
+		proto_nitrate,
+		zauker,
+		halon,
+		helium,
+		antinoblium,
+		hypernoblium,
+		temperature
+	)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
 
 /turf/simulated/Initialize_Atmos(milla_tick)
@@ -214,10 +243,10 @@
 		return list(milla_atmos_airtight, milla_superconductivity)
 
 	var/milla_atmos_airtight = list(
-		!CanAtmosPass(NORTH, FALSE),
-		!CanAtmosPass(EAST, FALSE),
-		!CanAtmosPass(SOUTH, FALSE),
-		!CanAtmosPass(WEST, FALSE))
+		!CanAtmosPass(NORTH),
+		!CanAtmosPass(EAST),
+		!CanAtmosPass(SOUTH),
+		!CanAtmosPass(WEST))
 
 	var/milla_superconductivity = list(
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
@@ -226,7 +255,7 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 
 	for(var/obj/O in src)
-		if(istype(O, /obj/item))
+		if(isitem(O))
 			// Items can't block atmos.
 			continue
 		if(!O.CanAtmosPass(NORTH))

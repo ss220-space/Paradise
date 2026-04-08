@@ -17,6 +17,12 @@
 
 	var/current_type
 
+/obj/item/circuit_component/typecast/Destroy()
+	typecast_options = null
+	input_value = null
+	output_value = null
+	. = ..()
+
 /obj/item/circuit_component/typecast/populate_ports()
 	current_type = typecast_options.value
 	input_value = add_input_port("Ввод", PORT_TYPE_ANY)

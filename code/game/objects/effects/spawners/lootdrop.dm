@@ -127,11 +127,13 @@
 		/obj/item/clothing/head/helmet/biker = 2,
 		/obj/item/mod/construction/broken_core = 4,
 		/obj/effect/spawner/random_spawners/mod/maint = 10,
+		/obj/item/tripod/camera = 15,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 4,
+		/obj/item/implanter/fake_mindshield = 1,
 		/obj/item/soap/syndie = 7,
 		/obj/item/stack/tape_roll/thick = 7,
 		/obj/item/gun/syringe/syndicate = 2,

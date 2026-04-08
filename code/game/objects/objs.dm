@@ -56,6 +56,12 @@
 	/// Is this object emagged?
 	var/emagged = FALSE
 
+/obj/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, obj_flags))
+		if((obj_flags & DANGEROUS_POSSESSION) && !(var_value & DANGEROUS_POSSESSION))
+			return FALSE
+	return ..()
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -74,6 +80,16 @@
 		T.add_blueprints_preround(src)
 
 	add_debris_element()
+
+/obj/Destroy(force)
+	if(!ismachinery(src))
+		if(!speed_process)
+			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+		else
+			STOP_PROCESSING(SSfastprocess, src)
+	SStgui.close_uis(src)
+	QDEL_NULL(multitool_menu)
+	return ..()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -96,16 +112,6 @@
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
 	return
-
-/obj/Destroy(force)
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
-	return ..()
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -147,7 +153,7 @@
 			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
-		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
+		if(isAI(usr) || isrobot(usr))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE

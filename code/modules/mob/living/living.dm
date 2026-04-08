@@ -53,6 +53,7 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
+	GLOB.respawnable_list -= src
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -371,7 +372,7 @@
 		now_pushing = null
 		return
 
-	if(istype(AM, /obj/structure/window))
+	if(is_window(AM))
 		var/obj/structure/window/window = AM
 		if(window.fulltile)
 			for(var/obj/structure/window/win in get_step(window, dir_to_target))
@@ -521,18 +522,27 @@
 	// DEAD mobs are fine to skip if they are not dense or lying
 	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
+
+	var/allow = FALSE
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-		return !prob(def_zone_hit_chance)
+		allow = !prob(def_zone_hit_chance)
 	//if this is clicked target in lying down
-	if(projectile.original == src)
+	else if(projectile.original == src)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-		return !prob(def_zone_hit_chance)
+		allow = !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
-	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
-	return !prob(total_hit_chance)
+	else
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+		allow = !prob(total_hit_chance)
+
+	if(allow && COOLDOWN_FINISHED(src, bullet_miss_cooldown))
+		COOLDOWN_START(src, bullet_miss_cooldown, 0.5 SECONDS)
+		playsound_local(src, projectile.miss_sound, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
+
+	return allow
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
 	if(pulling && pulling.loc == loc && pulling.density && !pulling.CanPass(mover, border_dir))
@@ -807,7 +817,6 @@
 	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
-	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -820,6 +829,7 @@
 	CureEpilepsy()
 	CureCoughing()
 	CureNervous()
+	cure_radiation()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetDeaf(0)
@@ -862,6 +872,7 @@
 	update_fire()
 	regenerate_icons()
 	restore_blood()
+	clear_alert(ALERT_BLEEDING)
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
@@ -1379,7 +1390,7 @@
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	if(istype(loc, /obj/structure/closet/critter))
+	if(istype(loc, /obj/structure/closet/crate/critter))
 		return environment.temperature()
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
@@ -1396,7 +1407,7 @@
 		return pod.cabin_air.temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))
 		return environment.temperature()
-	if(istype(get_turf(src), /turf/space))
+	if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
@@ -1668,7 +1679,7 @@
 	return
 
 /mob/living/extinguish_light(force = FALSE)
-	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		item.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
@@ -2287,3 +2298,7 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/// Prints an ominous message if something bad is going to happen to you
+/mob/living/proc/ominous_nosebleed()
+	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))

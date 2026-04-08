@@ -48,6 +48,11 @@
 
 	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
+/obj/item/clothing/Initialize(mapload)
+	if(LAZYLEN(clothing_traits))
+		clothing_traits = string_list(clothing_traits)
+	. = ..()
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -249,77 +254,6 @@
 		CRASH("No original_ear found.")
 	return original_ear.attack_hand(user, pickupfireoverride)
 
-//Glasses
-/obj/item/clothing/glasses
-	name = "glasses"
-	icon = 'icons/obj/clothing/glasses.dmi'
-	flags_cover = GLASSESCOVERSEYES
-	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
-	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
-	abstract_type = /obj/item/clothing/glasses
-	var/vision_flags = 0
-	var/see_in_dark = 0 //Base human is 2
-	var/invis_view = SEE_INVISIBLE_LIVING
-	var/invis_override = 0
-	var/lighting_alpha
-	/// List of things added to examine text, like security or medical records.
-	var/examine_extensions = EXAMINE_HUD_NONE
-
-	var/list/color_view = null//overrides client.color while worn
-	var/prescription = FALSE
-	var/prescription_upgradable = FALSE
-	var/over_hat = FALSE
-	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
-	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
-	put_on_delay = 25
-	resistance_flags = NONE
-
-	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
-	)
-
-/*
- * SEE_SELF  // can see self, no matter what
- * SEE_MOBS  // can see all mobs, no matter what
- * SEE_OBJS  // can see all objs, no matter what
- * SEE_TURFS // can see all turfs (and areas), no matter what
- * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
- *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
- * BLIND     // can't see anything
- */
-
-/obj/item/clothing/glasses/update_icon_state()
-	if(..())
-		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
-
-/obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
-	set name = "Подогнать очки"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Adjust your eyewear to be worn over or under a mask."
-	set src in usr
-
-	var/mob/living/carbon/human/user = usr
-	if(!istype(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
-		return
-
-	var/action_fluff = "You adjust \the [src]"
-	if(user.glasses == src)
-		if(!user.can_unEquip(src))
-			to_chat(usr, "[src] is stuck to you!")
-			return
-		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
-			action_fluff = "You remove \the [src] and adjust it"
-
-	over_mask = !over_mask
-	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
-
 //Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
@@ -480,7 +414,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(istype(src.loc, /mob))
+	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(0)
 				for(var/mob/V in viewers(user, 1))
@@ -844,7 +778,7 @@
 	abstract_type = /obj/item/clothing/suit
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
@@ -980,7 +914,7 @@
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -1004,7 +938,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -1089,7 +1023,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
@@ -1381,6 +1315,8 @@
 		trait_or_traits = list(trait_or_traits)
 
 	LAZYOR(clothing_traits, trait_or_traits)
+	if(clothing_traits) // because we might be null
+		clothing_traits = string_list(clothing_traits)
 	var/mob/wearer = loc
 	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
 		for(var/new_trait in trait_or_traits)

@@ -633,37 +633,6 @@
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 
-/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
-	var/list/items = ..()
-	if(belt)
-		items += belt
-	if(l_ear)
-		items += l_ear
-	if(r_ear)
-		items += r_ear
-	if(glasses)
-		items += glasses
-	if(gloves)
-		items += gloves
-	if(neck)
-		items += neck
-	if(shoes)
-		items += shoes
-	if(wear_id)
-		items += wear_id
-	if(wear_pda)
-		items += wear_pda
-	if(w_uniform)
-		items += w_uniform
-	if(include_pockets)
-		if(l_store)
-			items += l_store
-		if(r_store)
-			items += r_store
-		if(s_store)
-			items += s_store
-	return items
-
 /**
  * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
  *
@@ -720,3 +689,42 @@
 /mob/living/carbon/human/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
 
+/// take the most recent item out of a slot or place held item in a slot
+/mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "пояс")
+	if(incapacitated())
+		return
+	var/obj/item/thing = get_active_hand()
+	var/obj/item/equipped_item = get_item_by_slot(slot_type)
+
+	if(!equipped_item) // We also let you equip an item like this
+		if(!thing)
+			balloon_alert(src, "отсутствует [slot_item_name]")
+			return
+		if(equip_to_slot_if_possible(thing, slot_type))
+			update_held_items()
+		return
+
+	var/obj/item/storage/storage
+	if(isstorage(equipped_item))
+		storage = equipped_item
+
+	if(!storage)
+		if(!thing)
+			equipped_item.attack_hand(src)
+		else
+			balloon_alert(src, "[slot_item_name] занят")
+		return
+
+	if(thing)
+		if(storage.can_be_inserted(thing))
+			storage.handle_item_insertion(thing)
+		return
+
+	if(!length(storage.contents))
+		balloon_alert(src, "[slot_item_name] пуст")
+		return
+
+	var/obj/item/stored = storage.contents[length(storage.contents)]
+	if(!stored || stored.on_found(src))
+		return
+	stored.attack_hand(src) // take out thing from item in storage slot

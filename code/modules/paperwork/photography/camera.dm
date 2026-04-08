@@ -46,6 +46,7 @@
 	list(new /obj/item/circuit_component/camera,\
 	new /obj/item/circuit_component/remotecam/polaroid),\
 	SHELL_CAPACITY_SMALL)
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
 /obj/item/camera/examine(mob/user)
 	. = ..()
@@ -102,7 +103,7 @@
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
-			if(see_ghosts && istype(M,/mob/dead/observer))
+			if(see_ghosts && isobserver(M))
 				var/mob/dead/observer/O = M
 				if(O.orbiting)
 					continue
@@ -221,7 +222,7 @@
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/datum/picture/P = new()
-	if(istype(src,/obj/item/camera/digital) && istype(user, /mob/living/carbon/human))
+	if(istype(src,/obj/item/camera/digital) && ishuman(user))
 		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
 	else
@@ -275,6 +276,31 @@
 		'sound/hallucinations/wail.ogg',
 	)
 	SEND_SOUND(user, sound(pick(creepyasssounds)))
+
+/obj/item/camera/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	INVOKE_ASYNC(src, PROC_REF(tripwire_capture), base, user)
+
+/obj/item/camera/proc/tripwire_capture(obj/item/tripwire/base, mob/user)
+	if(!on || !pictures_left)
+		playsound(get_turf(base), 'sound/machines/click.ogg', 50, TRUE)
+		return
+
+	var/turf/owner_turf = get_turf(base)
+	captureimage(owner_turf, base)
+	playsound(owner_turf, SFX_POLAROID_PHOTO_PRINTING, 75, TRUE, -3)
+	var/obj/item/photo/photo_item = locate(/obj/item/photo) in base
+
+	if(photo_item)
+		photo_item.forceMove(owner_turf)
+
+	if(flashing_lights)
+		base.set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+		addtimer(CALLBACK(base, TYPE_PROC_REF(/atom, set_light), 0, 0), 2 SECONDS)
+
+	pictures_left--
+	on = FALSE
+	update_appearance(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
 
 /*
  * Digital Camera
@@ -375,6 +401,17 @@
 
 	/// The camera this circut is attached to.
 	var/obj/item/camera/camera
+
+/obj/item/circuit_component/camera/Destroy()
+	if(camera)
+		unregister_usb_parent(camera)
+	photographed_atom = null
+	picture_taken = null
+	picture_target = null
+	picture_coord_x = null
+	picture_coord_y = null
+	adjust_size = null
+	. = ..()
 
 /obj/item/circuit_component/camera/populate_ports()
 	picture_taken = add_output_port("Снимок сделан", PORT_TYPE_SIGNAL)

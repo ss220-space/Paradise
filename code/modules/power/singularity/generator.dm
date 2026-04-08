@@ -1,40 +1,38 @@
-/////SINGULARITY SPAWNER
 /obj/machinery/the_singularitygen
-	name = "Gravitational Singularity Generator"
+	name = "gravitational singularity generator"
 	desc = "An odd device which produces a Gravitational Singularity when set up."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "TheSingGen"
 	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
+	/// Current energy level of the generator; when it reaches, gen is spawned.
 	var/energy = 0
+	/// Type path of the object to create.
 	var/creation_type = /obj/singularity
 
 /obj/machinery/the_singularitygen/process()
-	var/turf/T = get_turf(src)
-	if(src.energy >= 200)
-		message_admins("A [creation_type] has been created at [ADMIN_COORDJMP(src)]")
-		investigate_log("A [creation_type] has been created at [AREACOORD(src)] last touched by [fingerprintslast]", INVESTIGATE_ENGINE)
+	var/turf/current_turf = get_turf(src)
+	if(energy < 200)
+		return
 
-		var/obj/singularity/S = new creation_type(T, 50)
-		transfer_fingerprints_to(S)
-		if(src) qdel(src)
+	message_admins("A [creation_type] has been created at [ADMIN_COORDJMP(src)]")
+	investigate_log("A [creation_type] has been created at [AREACOORD(src)] last touched by [fingerprintslast]", INVESTIGATE_ENGINE)
 
-/obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/I)
+	var/obj/created_object = create_object(current_turf)
+	transfer_fingerprints_to(created_object)
+	qdel(src)
+
+/obj/machinery/the_singularitygen/proc/create_object(turf/target_turf)
+	return new creation_type(target_turf, 50)
+
+/obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/wrench)
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
+	if(!wrench.use_tool(src, user, volume = wrench.tool_volume))
+		return
 	set_anchored(!anchored)
 	if(anchored)
-		user.visible_message(
-			span_notice("[user] has secured [src] to the floor."),
-			span_notice("You have secured [src] to the floor."),
-			span_italics("You hear a ratchet"),
-		)
+		WRENCH_ANCHOR_MESSAGE
 	else
-		user.visible_message(
-			span_notice("[user] has unsecured [src] from floor."),
-			span_notice("You have unsecured [src] from floor."),
-			span_italics("You hear a ratchet"),
-		)
+		WRENCH_UNANCHOR_MESSAGE
 

@@ -95,10 +95,10 @@
 /mob/living/carbon/human/proc/apply_current_blood_level_effect()
 	switch(blood_volume)
 		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
-			apply_damage(BLOOD_PALE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_PALE_DAMAGE)
 
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
-			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_OKAY_DAMAGE)
 			if(prob(5))
 				Confused(2 SECONDS)
 				var/symptom = pick("слабость",
@@ -107,7 +107,7 @@
 				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
 		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-			apply_damage(BLOOD_BAD_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_BAD_DAMAGE)
 			if(prob(5))
 				EyeBlurry(12 SECONDS)
 				Confused(12 SECONDS)
@@ -118,7 +118,7 @@
 				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
 		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-			apply_damage(BLOOD_SURVIVE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			adjust_blood_loss_damage(BLOOD_SURVIVE_DAMAGE)
 			if(prob(15))
 				Confused(10 SECONDS)
 				Slowed(15 SECONDS)
@@ -132,6 +132,12 @@
 		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 			death()
 
+/mob/living/carbon/human/proc/adjust_blood_loss_damage(amount) //if you want override damage type
+	adjustOxyLoss(amount)
+
+/mob/living/carbon/human/proc/add_bleeding_bodypart(obj/item/organ/external/bodypart)
+	bleeding_bodyparts |= bodypart
+
 /mob/living/carbon/human/proc/calculate_current_bleeding()
 	//not calculate bleeding for fake dath
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -141,8 +147,10 @@
 	var/internal_bleeding_rate = 0
 	var/has_arterial_bleed = FALSE
 	// calculate total bleeding from bodyparts
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+	var/list/bleeding_bodyparts_cache = bleeding_bodyparts
+	for(var/obj/item/organ/external/bodypart as anything in bleeding_bodyparts_cache)
 		if(bodypart.is_robotic())
+			bleeding_bodyparts_cache -= bodypart
 			continue
 
 		if(bodypart.tourniquet) //all bloodloss suppressed
@@ -177,6 +185,9 @@
 
 		if(bodypart.open)
 			current_bleed += OPEN_BODYPART_BLEEDING
+
+		if(bodypart.bleeding_amount <= 0 && !bodypart.has_internal_bleeding() && !embedded_length && !bodypart.open)
+			bleeding_bodyparts_cache -= bodypart
 
 	// calculate bleed rate with regenretion and current bleed
 	var/prev_bleed_rate = bleed_rate
@@ -238,15 +249,14 @@
 		return FALSE
 
 	. = TRUE
-
 	AdjustBlood(-amt)
 
-	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
-		return .
+	//Blood loss still happens in locker, floor stays clean
+	if(!isturf(loc))
+		return
 
 	if(amt >= 10)
 		add_splatter_floor(loc)
-
 	else
 		add_splatter_floor(loc, small_drip = TRUE)
 
@@ -463,8 +473,9 @@
 		if("O+")
 			return list("O-", "O+")
 
+
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
 	var/check_blood = get_blood_id()
 	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
@@ -518,7 +529,7 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -537,7 +548,7 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -555,7 +566,7 @@
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -572,6 +583,25 @@
 	if(shift_x || shift_y)
 		oil.off_floor = TRUE
 		oil.layer = BELOW_MOB_LAYER
+
+/**
+ * This proc is a helper for spraying blood for things like slashing/piercing wounds and dismemberment.
+ *
+ * The strength of the splatter in the second argument determines how much it can dirty and how far it can go
+ *
+ * Arguments:
+ * * splatter_direction: Which direction the blood is flying
+ * * splatter_strength: How many tiles it can go, and how many items it can pass over and dirty
+ */
+/mob/living/carbon/proc/spray_blood(splatter_direction, splatter_strength = 3)
+	if(!isturf(loc))
+		return
+	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, splatter_strength)
+
+	our_splatter.blood_dna_info = get_blood_dna_list()
+	our_splatter.transfer_mob_blood_dna(src)
+	var/turf/target_turf = get_ranged_target_turf(src, splatter_direction, splatter_strength)
+	our_splatter.fly_towards(target_turf, splatter_strength)
 
 #undef EXOTIC_BLEED_MULTIPLIER
 #undef BLOOD_REGENERATION

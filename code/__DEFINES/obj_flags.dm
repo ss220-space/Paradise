@@ -18,6 +18,8 @@
 #define IGNORE_HITS (1<<6)
 /// Objects will ignore blob_act
 #define IGNORE_BLOB_ACT (1<<7)
+/// Admin possession yes/no
+#define DANGEROUS_POSSESSION (1<<8)
 
 // Flags for the item_flags var on /obj/item
 
@@ -27,7 +29,12 @@
 #define IN_INVENTORY (1<<1)
 /// Is this item inside a storage object?
 #define IN_STORAGE (1<<2)
-/// For all things that are technically items but used for various different stuff <= wow thanks for the fucking insight sherlock
+/**
+ * for all things that are technically items but don't want to be treated as such, given on a case-by-case basis
+ * examples of use are hand items, omni-toolsets, non-limb limbs (hand eater, mounted chainsaw, many null rods), borg modules, bodyparts, organs, etc.
+ * This is used for general exclusion, such as preventing insertions into other items
+ * Basically, these aren't "real" items. <= wow thanks for the fucking insight sherlock
+*/
 #define ABSTRACT (1<<3)
 /// This flags makes it so an item cannot be picked up in hands
 #define NOPICKUP (1<<4)
@@ -57,6 +64,8 @@
 #define SKIP_ATTACK_MESSAGE (1<<16)
 /// Checks whether the item was upgraded with a speed potion
 #define SPEEDPOTION_APPLIED (1<<17)
+/// Has contextual screentips when HOVERING OVER OTHER objects
+#define ITEM_HAS_CONTEXTUAL_SCREENTIPS (1<<18)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

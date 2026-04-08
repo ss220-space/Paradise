@@ -12,13 +12,13 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { Access, AccessList } from './common/AccessList';
-import { COLORS } from '../constants';
+import { COLORS, JOBS_RU } from '../constants';
 import { ReactNode } from 'react';
 
 const deptCols = COLORS.department;
 
 export const CardComputerLoginWarning = () => (
-  <Section fill title="Warning">
+  <Section fill title="Предупреждение">
     <Stack fill>
       <Stack.Item
         bold
@@ -38,14 +38,14 @@ export const CardComputerLoginWarning = () => (
           />
         </Icon.Stack>
         <br />
-        Not logged in
+        Пользователь не авторизован
       </Stack.Item>
     </Stack>
   </Section>
 );
 
 export const CardComputerNoCard = () => (
-  <Section fill title="Card Missing">
+  <Section fill title="Предупреждение">
     <Stack fill>
       <Stack.Item
         bold
@@ -65,14 +65,14 @@ export const CardComputerNoCard = () => (
           />
         </Icon.Stack>
         <br />
-        No card to modify
+        ID-карта для модификации отсутствует
       </Stack.Item>
     </Stack>
   </Section>
 );
 
 export const CardComputerNoRecords = () => (
-  <Section fill title="Records">
+  <Section fill title="Просмотр записей">
     <Stack fill>
       <Stack.Item
         bold
@@ -87,7 +87,7 @@ export const CardComputerNoRecords = () => (
           <Icon name="slash" size={5} color="red" />
         </Icon.Stack>
         <br />
-        No records
+        Записи отсутствуют
       </Stack.Item>
     </Stack>
   </Section>
@@ -177,7 +177,7 @@ export const CardComputer = (props: unknown) => {
         selected={data.mode === 0}
         onClick={() => act('mode', { mode: 0 })}
       >
-        Job Transfers
+        Смена должности
       </Tabs.Tab>
       {!data.target_dept && (
         <Tabs.Tab
@@ -185,7 +185,7 @@ export const CardComputer = (props: unknown) => {
           selected={data.mode === 2}
           onClick={() => act('mode', { mode: 2 })}
         >
-          Access Modification
+          Модификация доступа
         </Tabs.Tab>
       )}
       <Tabs.Tab
@@ -193,44 +193,44 @@ export const CardComputer = (props: unknown) => {
         selected={data.mode === 1}
         onClick={() => act('mode', { mode: 1 })}
       >
-        Job Management
+        Управление вакансиями
       </Tabs.Tab>
       <Tabs.Tab
         icon="scroll"
         selected={data.mode === 3}
         onClick={() => act('mode', { mode: 3 })}
       >
-        Records
+        Логи
       </Tabs.Tab>
       <Tabs.Tab
         icon="users"
         selected={data.mode === 4}
         onClick={() => act('mode', { mode: 4 })}
       >
-        Department
+        Управление отделом
       </Tabs.Tab>
     </Tabs>
   );
 
   let authBlock = (
-    <Section title="Authentication">
+    <Section title="Авторизация">
       <LabeledList>
-        <LabeledList.Item label="Login/Logout">
+        <LabeledList.Item label="Карта для авторизации">
           <Button
             icon={data.scan_name ? 'sign-out-alt' : 'id-card'}
             selected={!!data.scan_name}
             onClick={() => act('scan')}
           >
-            {data.scan_name ? 'Log Out: ' + data.scan_name : '-----'}
+            {data.scan_name ? 'Извлечь и выйти: ' + data.scan_name : '-----'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Card To Modify">
+        <LabeledList.Item label="Карта для модификации">
           <Button
             icon={data.modify_name ? 'eject' : 'id-card'}
             selected={!!data.modify_name}
             onClick={() => act('modify')}
           >
-            {data.modify_name ? 'Remove Card: ' + data.modify_name : '-----'}
+            {data.modify_name ? 'Извлечь: ' + data.modify_name : '-----'}
           </Button>
         </LabeledList.Item>
       </LabeledList>
@@ -248,13 +248,13 @@ export const CardComputer = (props: unknown) => {
       } else {
         bodyBlock = (
           <>
-            <Section title="Card Information">
+            <Section title="Информация на карте">
               {!data.target_dept && (
                 <>
-                  <LabeledList.Item label="Registered Name">
+                  <LabeledList.Item label="Имя сотрудника">
                     <Button
                       icon={
-                        !data.modify_owner || data.modify_owner === 'Unknown'
+                        !data.modify_owner || data.modify_owner === 'НЕ ЗАДАНО'
                           ? 'exclamation-triangle'
                           : 'pencil-alt'
                       }
@@ -264,7 +264,7 @@ export const CardComputer = (props: unknown) => {
                       {data.modify_owner}
                     </Button>
                   </LabeledList.Item>
-                  <LabeledList.Item label="Account Number">
+                  <LabeledList.Item label="Номер счёта">
                     <Button
                       icon={
                         data.account_number
@@ -274,23 +274,25 @@ export const CardComputer = (props: unknown) => {
                       selected={!!data.account_number}
                       onClick={() => act('account')}
                     >
-                      {data.account_number ? data.account_number : 'None'}
+                      {data.account_number ? data.account_number : 'НЕ ЗАДАНО'}
                     </Button>
                   </LabeledList.Item>
                 </>
               )}
-              <LabeledList.Item label="Latest Transfer">
+              <LabeledList.Item label="Последняя запись">
                 {data.modify_lastlog || '---'}
               </LabeledList.Item>
             </Section>
             <Section
               title={
-                data.target_dept ? 'Department Job Transfer' : 'Job Transfer'
+                data.target_dept
+                  ? 'Выбор должности в отделе'
+                  : 'Выбор должности'
               }
             >
               <LabeledList>
                 {data.target_dept ? (
-                  <LabeledList.Item label="Department">
+                  <LabeledList.Item label="Отдел">
                     {data.jobs_dept.map((v) => (
                       <Button
                         selected={data.modify_rank === v}
@@ -298,13 +300,13 @@ export const CardComputer = (props: unknown) => {
                         color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                         onClick={() => act('assign', { assign_target: v })}
                       >
-                        {v}
+                        {JOBS_RU[v] ? JOBS_RU[v] : v}
                       </Button>
                     ))}
                   </LabeledList.Item>
                 ) : (
                   <>
-                    <LabeledList.Item label="Special">
+                    <LabeledList.Item label="Особые">
                       {data.jobs_top.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -312,12 +314,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Engineering"
+                      label="Инженерия"
                       labelColor={deptCols.engineering}
                     >
                       {data.jobs_engineering.map((v) => (
@@ -327,12 +329,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Medical"
+                      label="Медицина"
                       labelColor={deptCols.medical}
                     >
                       {data.jobs_medical.map((v) => (
@@ -342,12 +344,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Science"
+                      label="Наука"
                       labelColor={deptCols.science}
                     >
                       {data.jobs_science.map((v) => (
@@ -357,12 +359,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Security"
+                      label="Безопасность"
                       labelColor={deptCols.security}
                     >
                       {data.jobs_security.map((v) => (
@@ -372,12 +374,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Service"
+                      label="Обслуживание"
                       labelColor={deptCols.service}
                     >
                       {data.jobs_service.map((v) => (
@@ -387,12 +389,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Supply"
+                      label="Снабжение"
                       labelColor={deptCols.supply}
                     >
                       {data.jobs_supply.map((v) => (
@@ -402,12 +404,12 @@ export const CardComputer = (props: unknown) => {
                           color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Restricted"
+                      label="Ограниченные"
                       labelColor={deptCols.procedure}
                     >
                       {data.jobs_karma.map((v) => (
@@ -417,13 +419,13 @@ export const CardComputer = (props: unknown) => {
                           key={v}
                           onClick={() => act('assign', { assign_target: v })}
                         >
-                          {v}
+                          {JOBS_RU[v] ? JOBS_RU[v] : v}
                         </Button>
                       ))}
                     </LabeledList.Item>
                   </>
                 )}
-                <LabeledList.Item label="Civilian">
+                <LabeledList.Item label="Гражданские">
                   {data.jobs_civilian.map((v) => (
                     <Button
                       selected={data.modify_rank === v}
@@ -431,13 +433,13 @@ export const CardComputer = (props: unknown) => {
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
                       onClick={() => act('assign', { assign_target: v })}
                     >
-                      {v}
+                      {JOBS_RU[v] ? JOBS_RU[v] : v}
                     </Button>
                   ))}
                 </LabeledList.Item>
                 {!!data.iscentcom && (
                   <LabeledList.Item
-                    label="CentCom"
+                    label="ЦентКом"
                     labelColor={deptCols.centcom}
                   >
                     {data.jobs_centcom.map((v) => (
@@ -449,44 +451,43 @@ export const CardComputer = (props: unknown) => {
                         }
                         onClick={() => act('assign', { assign_target: v })}
                       >
-                        {v}
+                        {JOBS_RU[v] ? JOBS_RU[v] : v}
                       </Button>
                     ))}
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Demotion">
+                <LabeledList.Item label="Разжалование">
                   <Button
-                    disabled={
-                      data.modify_assignment === 'Demoted' ||
-                      data.modify_assignment === 'Terminated'
-                    }
+                    disabled={data.modify_assignment === 'Разжалован'}
                     key="Demoted"
-                    tooltip="Assistant access, 'demoted' title."
+                    tooltip="Минимальный доступ, должность 'Разжалован'."
                     color="red"
                     icon="times"
                     onClick={() => act('demote')}
                   >
-                    Demoted
+                    Понизить
                   </Button>
                 </LabeledList.Item>
                 {!!data.canterminate && (
-                  <LabeledList.Item label="Non-Crew">
+                  <LabeledList.Item label="Увольнение">
                     <Button
-                      disabled={data.modify_assignment === 'Terminated'}
+                      disabled={
+                        data.modify_assignment === 'Контракт расторгнут'
+                      }
                       key="Terminate"
-                      tooltip="Zero access. Not crew."
+                      tooltip="Увольнение и расторжения трудового контракта. Сотрудик лишится всех уровней доступа и перестанет быть членом экипажа."
                       color="red"
                       icon="eraser"
                       onClick={() => act('terminate')}
                     >
-                      Terminated
+                      Уволить
                     </Button>
                   </LabeledList.Item>
                 )}
               </LabeledList>
             </Section>
             {!data.target_dept && (
-              <Section title="Card Skins">
+              <Section title="Внешний вид карты">
                 {data.card_skins.map((v) => (
                   <Button
                     selected={data.current_skin === v.skin}
@@ -523,32 +524,32 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = (
           <Stack fill vertical>
             <Section color={data.cooldown_time ? 'red' : ''}>
-              Next Change Available:
-              {data.cooldown_time ? data.cooldown_time : 'Now'}
+              Следующее изменение доступно:
+              {data.cooldown_time ? data.cooldown_time : 'Сейчас'}
             </Section>
-            <Section fill scrollable title="Job Slots">
+            <Section fill scrollable title="Рабочие позиции">
               <Table>
                 <Table.Row height={2}>
                   <Table.Cell bold textAlign="center">
-                    Title
+                    Название
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Used Slots
+                    Занято позиций
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Total Slots
+                    Всего позиций
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Free Slots
+                    Открытые позиции
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Close Slot
+                    Закрыть позицию
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Open Slot
+                    Открыть позицию
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Priority
+                    Приоритет
                   </Table.Cell>
                 </Table.Row>
                 {data.job_slots.map((slotData) => (
@@ -559,7 +560,9 @@ export const CardComputer = (props: unknown) => {
                   >
                     <Table.Cell textAlign="center">
                       <Box color={slotData.is_priority ? 'green' : ''}>
-                        {slotData.title}
+                        {JOBS_RU[slotData.title]
+                          ? JOBS_RU[slotData.title]
+                          : slotData.title}
                       </Box>
                     </Table.Cell>
                     <Table.Cell textAlign="center">
@@ -601,7 +604,7 @@ export const CardComputer = (props: unknown) => {
                       {(data.target_dept && (
                         <Box color="green">
                           {data.priority_jobs.indexOf(slotData.title) > -1
-                            ? 'Yes'
+                            ? 'Да'
                             : ''}
                         </Box>
                       )) || (
@@ -614,7 +617,7 @@ export const CardComputer = (props: unknown) => {
                             act('prioritize_job', { job: slotData.title })
                           }
                         >
-                          {slotData.is_priority ? 'Yes' : 'No'}
+                          {slotData.is_priority ? 'Да' : 'Нет'}
                         </Button>
                       )}
                     </Table.Cell>
@@ -683,7 +686,7 @@ export const CardComputer = (props: unknown) => {
           <Section
             fill
             scrollable
-            title="Records"
+            title="Логи"
             buttons={
               <Button
                 icon="times"
@@ -694,25 +697,33 @@ export const CardComputer = (props: unknown) => {
                 }
                 onClick={() => act('wipe_all_logs')}
               >
-                Delete All Records
+                Удалить все логи
               </Button>
             }
           >
             <Table>
               <Table.Row height={2}>
-                <Table.Cell bold>Crewman</Table.Cell>
-                <Table.Cell bold>Old Rank</Table.Cell>
-                <Table.Cell bold>New Rank</Table.Cell>
-                <Table.Cell bold>Authorized By</Table.Cell>
-                <Table.Cell bold>Time</Table.Cell>
-                <Table.Cell bold>Reason</Table.Cell>
-                {!!data.iscentcom && <Table.Cell bold>Deleted By</Table.Cell>}
+                <Table.Cell bold>Сотрудник</Table.Cell>
+                <Table.Cell bold>Старая должность</Table.Cell>
+                <Table.Cell bold>Новая должность</Table.Cell>
+                <Table.Cell bold>Авторизованный аккаунт</Table.Cell>
+                <Table.Cell bold>Время</Table.Cell>
+                <Table.Cell bold>Причина</Table.Cell>
+                {!!data.iscentcom && <Table.Cell bold>Кем удалено</Table.Cell>}
               </Table.Row>
               {data.records.map((record) => (
                 <Table.Row key={record.timestamp} height={2}>
                   <Table.Cell>{record.transferee}</Table.Cell>
-                  <Table.Cell>{record.oldvalue}</Table.Cell>
-                  <Table.Cell>{record.newvalue}</Table.Cell>
+                  <Table.Cell>
+                    {JOBS_RU[record.oldvalue]
+                      ? JOBS_RU[record.oldvalue]
+                      : record.oldvalue}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {JOBS_RU[record.newvalue]
+                      ? JOBS_RU[record.newvalue]
+                      : record.newvalue}
+                  </Table.Cell>
                   <Table.Cell>{record.whodidit}</Table.Cell>
                   <Table.Cell>{record.timestamp}</Table.Cell>
                   <Table.Cell>{record.reason}</Table.Cell>
@@ -730,7 +741,7 @@ export const CardComputer = (props: unknown) => {
                   disabled={!data.authenticated || data.records.length === 0}
                   onClick={() => act('wipe_my_logs')}
                 >
-                  Delete MY Records
+                  Удалить мои логи
                 </Button>
               </Box>
             )}
@@ -743,18 +754,22 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = <CardComputerLoginWarning />;
       } else {
         bodyBlock = (
-          <Section fill scrollable title="Your Team">
+          <Section fill scrollable title="Подотчётный отдел">
             <Table>
               <Table.Row height={2}>
-                <Table.Cell bold>Name</Table.Cell>
-                <Table.Cell bold>Rank</Table.Cell>
-                <Table.Cell bold>Sec Status</Table.Cell>
-                <Table.Cell bold>Actions</Table.Cell>
+                <Table.Cell bold>Имя</Table.Cell>
+                <Table.Cell bold>Должность</Table.Cell>
+                <Table.Cell bold>Охранный статус</Table.Cell>
+                <Table.Cell bold>Действия</Table.Cell>
               </Table.Row>
               {data.people_dept.map((record) => (
                 <Table.Row key={record.title} height={2}>
                   <Table.Cell>{record.name}</Table.Cell>
-                  <Table.Cell>{record.title}</Table.Cell>
+                  <Table.Cell>
+                    {JOBS_RU[record.title]
+                      ? JOBS_RU[record.title]
+                      : record.title}
+                  </Table.Cell>
                   <Table.Cell>{record.crimstat}</Table.Cell>
                   <Table.Cell>
                     <Button
@@ -775,14 +790,14 @@ export const CardComputer = (props: unknown) => {
       break;
     default:
       bodyBlock = (
-        <Section title="Warning" color="red">
-          ERROR: Unknown Mode.
+        <Section title="Предупреждение" color="red">
+          ОШИБКА: неизвестный режим работы
         </Section>
       );
   }
 
   return (
-    <Window width={800} height={800}>
+    <Window width={850} height={800}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>{authBlock}</Stack.Item>

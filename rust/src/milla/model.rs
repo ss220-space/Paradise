@@ -82,6 +82,97 @@ impl GasSet {
         self.values[GAS_WATER_VAPOR] = value;
         self.dirty.store(true, Relaxed);
     }
+    pub(crate) fn tritium(&self) -> f32 {
+        self.values[GAS_TRITIUM]
+    }
+    pub(crate) fn set_tritium(&mut self, value: f32) {
+        self.values[GAS_TRITIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn bz(&self) -> f32 {
+        self.values[GAS_BZ]
+    }
+    pub(crate) fn set_bz(&mut self, value: f32) {
+        self.values[GAS_BZ] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn pluoxium(&self) -> f32 {
+        self.values[GAS_PLUOXIUM]
+    }
+    pub(crate) fn set_pluoxium(&mut self, value: f32) {
+        self.values[GAS_PLUOXIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn miasma(&self) -> f32 {
+        self.values[GAS_MIASMA]
+    }
+    pub(crate) fn set_miasma(&mut self, value: f32) {
+        self.values[GAS_MIASMA] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn freon(&self) -> f32 {
+        self.values[GAS_FREON]
+    }
+    pub(crate) fn set_freon(&mut self, value: f32) {
+        self.values[GAS_FREON] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn nitrium(&self) -> f32 {
+        self.values[GAS_NITRIUM]
+    }
+    pub(crate) fn set_nitrium(&mut self, value: f32) {
+        self.values[GAS_NITRIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn healium(&self) -> f32 {
+        self.values[GAS_HEALIUM]
+    }
+    pub(crate) fn set_healium(&mut self, value: f32) {
+        self.values[GAS_HEALIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn proto_nitrate(&self) -> f32 {
+        self.values[GAS_PROTO_NITRATE]
+    }
+    pub(crate) fn set_proto_nitrate(&mut self, value: f32) {
+        self.values[GAS_PROTO_NITRATE] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn zauker(&self) -> f32 {
+        self.values[GAS_ZAUKER]
+    }
+    pub(crate) fn set_zauker(&mut self, value: f32) {
+        self.values[GAS_ZAUKER] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn halon(&self) -> f32 {
+        self.values[GAS_HALON]
+    }
+    pub(crate) fn set_halon(&mut self, value: f32) {
+        self.values[GAS_HALON] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn helium(&self) -> f32 {
+        self.values[GAS_HELIUM]
+    }
+    pub(crate) fn set_helium(&mut self, value: f32) {
+        self.values[GAS_HELIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn antinoblium(&self) -> f32 {
+        self.values[GAS_ANTINOBLIUM]
+    }
+    pub(crate) fn set_antinoblium(&mut self, value: f32) {
+        self.values[GAS_ANTINOBLIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
+    pub(crate) fn hypernoblium(&self) -> f32 {
+        self.values[GAS_HYPER_NOBLIUM]
+    }
+    pub(crate) fn set_hypernoblium(&mut self, value: f32) {
+        self.values[GAS_HYPER_NOBLIUM] = value;
+        self.dirty.store(true, Relaxed);
+    }
     pub(crate) fn set_dirty(&mut self) {
         self.dirty.store(true, Relaxed);
     }
@@ -220,32 +311,34 @@ bitflags! {
 }
 
 /// A single tile in the atmos model.
-#[repr(align(64))]
 #[derive(Debug, Clone)]
 pub(crate) struct Tile {
-    /// Which directions this tile cannot transmit gases in.
-    pub(crate) airtight_directions: AirtightDirections,
     /// The gases this tile holds.
     pub(crate) gases: GasSet,
-    /// How much thermal energy this tile has, in joules.
-    pub(crate) thermal_energy: f32,
-    /// The general behavior of this tile.
-    pub(crate) mode: AtmosMode,
     /// How well this tile conducts heat in each direction
     pub(crate) superconductivity: Superconductivity,
+    /// How much thermal energy this tile has, in joules.
+    pub(crate) thermal_energy: f32,
+    /// How strongly the air in this tile is flowing towards +axis.
+    pub(crate) wind: [f32; AXES.len()],
     /// How much heat capacity the tile itself has, in joules per kelvin.
     pub(crate) innate_heat_capacity: f32,
     /// How hot the tile's hotspot is. A hotspot is a sub-tile reagion that's caught fire.
     pub(crate) hotspot_temperature: f32,
     /// How much of the tile the hotspot covers. 1.0 would be the entire tile.
     pub(crate) hotspot_volume: f32,
-    /// How strongly the air in this tile is flowing towards +axis.
-    pub(crate) wind: [f32; AXES.len()],
-    /// Is there a wall in this direction?
-    pub(crate) wall: [bool; AXES.len()],
-    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
+    /// The general behavior of this tile.
+    pub(crate) mode: AtmosMode,
+    /// Which directions this tile cannot transmit gases in.
+    pub(crate) airtight_directions: AirtightDirections,
+    /// Is there a wall in this direction?
+    pub(crate) wall: [bool; AXES.len()],
+    pub(crate) updates: ReasonFlags,
+    pub(crate) radiation_energy: f32,
+    pub(crate) hallucination_strength: f32,
+    pub(crate) nuclear_particles: f32,
 }
 
 impl Tile {
@@ -261,8 +354,11 @@ impl Tile {
             hotspot_volume: 0.0,
             wind: [0.0, 0.0],
             wall: [false, false],
-            gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
             fuel_burnt: 0.0,
+            updates: ReasonFlags::NONE,
+            radiation_energy: 0.0,
+            hallucination_strength: 0.0,
+            nuclear_particles: 0.0,
         }
     }
     /// The total heat capacity of this tile and its gases, in joules per kelvin.
@@ -319,10 +415,6 @@ impl Tile {
         for axis in 0..AXES.len() {
             self.wind[axis] = other.wind[axis];
             self.wall[axis] = other.wall[axis];
-            for gas in 0..GAS_COUNT {
-                self.gas_flow[axis][gas][GAS_FLOW_IN] = other.gas_flow[axis][gas][GAS_FLOW_IN];
-                self.gas_flow[axis][gas][GAS_FLOW_OUT] = other.gas_flow[axis][gas][GAS_FLOW_OUT];
-            }
         }
         self.fuel_burnt = other.fuel_burnt;
     }
@@ -349,6 +441,19 @@ impl From<&Tile> for Vec<ByondValue> {
             ByondValue::from(value.gases.agent_b()),
             ByondValue::from(value.gases.hydrogen()),
             ByondValue::from(value.gases.water_vapor()),
+            ByondValue::from(value.gases.tritium()),
+            ByondValue::from(value.gases.bz()),
+            ByondValue::from(value.gases.pluoxium()),
+            ByondValue::from(value.gases.miasma()),
+            ByondValue::from(value.gases.freon()),
+            ByondValue::from(value.gases.nitrium()),
+            ByondValue::from(value.gases.healium()),
+            ByondValue::from(value.gases.proto_nitrate()),
+            ByondValue::from(value.gases.zauker()),
+            ByondValue::from(value.gases.halon()),
+            ByondValue::from(value.gases.helium()),
+            ByondValue::from(value.gases.antinoblium()),
+            ByondValue::from(value.gases.hypernoblium()),
             ByondValue::from(value.mode),
             ByondValue::from(environment_id as f32),
             ByondValue::from(value.superconductivity.north),
@@ -368,11 +473,17 @@ impl From<&Tile> for Vec<ByondValue> {
 
 bitflags! {
     #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub(crate) struct ReasonFlags: u8 {
+    pub(crate) struct ReasonFlags: u16 {
+        const NONE = 0;
         const DISPLAY = 1 << 0;
         const HOT = 1 << 1;
         const WIND = 1 << 2;
         const CONDENSATION = 1 << 3;
+        const RADIATION_PULSE = 1 << 4;
+        const CREATE_HOT_ICE = 1 << 5;
+        const CREATE_RESIN = 1 << 6;
+        const HALLUCINATION = 1 << 7;
+        const NUCLEAR_PARTICLES = 1 << 8;
     }
 }
 
@@ -408,6 +519,9 @@ impl From<&InterestingTile> for Vec<ByondValue> {
             ByondValue::from(value.reasons.bits() as f32),
             ByondValue::from(value.wind_x),
             ByondValue::from(value.wind_y),
+            ByondValue::from(value.tile.radiation_energy),
+            ByondValue::from(value.tile.hallucination_strength),
+            ByondValue::from(value.tile.nuclear_particles),
         ]);
 
         ret
@@ -560,6 +674,17 @@ impl Buffers {
         tile.gases.recalculate();
         environments.push(tile);
         id
+    }
+
+    pub(crate) fn clear_and_free_z_levels(&self) {
+        let mut active = self.buffer_a.write().unwrap();
+        let mut inactive = self.buffer_b.write().unwrap();
+
+        active.0.clear();
+        inactive.0.clear();
+
+        active.0.shrink_to_fit();
+        inactive.0.shrink_to_fit();
     }
 }
 

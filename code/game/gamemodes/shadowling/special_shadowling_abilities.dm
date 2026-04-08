@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	user.visible_message(span_warning("Вещи [user] неожиданно начали сползать. С них стекает обильное количество фиолетовой жижи, которая формируется вокруг них."), \
 						span_shadowling("Вы сбрасываете одежду, которая может помешать вашему вылуплению и начинаете выделять смолу, которая защитит вас."))
 	user.Stun(35 SECONDS, TRUE)
-	for(var/obj/item/item as anything in user.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		user.drop_item_ground(item, force = TRUE)
 
 	sleep(5 SECONDS)
@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
  * Testing purpose.
  */
 /mob/living/carbon/human/proc/make_unhatched_shadowling()
-	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(item, force = TRUE)
 
 	var/newNameId = pick(GLOB.possibleShadowlingNames)

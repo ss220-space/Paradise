@@ -27,7 +27,14 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
-	var/list/skin_permissions = list()
+/obj/item/mmi/Destroy()
+	QDEL_NULL(brainmob)
+	robot = null
+	mecha = null
+	QDEL_NULL(radio)
+	QDEL_NULL(radio_action)
+	QDEL_NULL(held_brain)
+	. = ..()
 
 /obj/item/mmi/update_icon_state()
 	if(held_brain)
@@ -48,7 +55,7 @@
 		name = initial(name)
 
 /obj/item/mmi/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/organ/internal/brain)) //Time to stick a brain in it --NEO
+	if(is_internal_organ_brain(I)) //Time to stick a brain in it --NEO
 		add_fingerprint(user)
 		var/obj/item/organ/internal/brain/brain = I
 		if(brainmob)
@@ -69,8 +76,8 @@
 
 		if(held_brain)
 			to_chat(user, span_userdanger("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
-			log_runtime(EXCEPTION("[user] tried to stick a [brain.name] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
-			return ATTACK_CHAIN_PROCEED
+			. = ATTACK_CHAIN_PROCEED
+			CRASH("[user] tried to stick a [brain.name] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 
 		if(brain.brainmob.mind && !brain.brainmob.mind.hasSoul)
 			to_chat(user, span_warning("Нельзя поместить в НКИ мозг существа, потерявшего душу."))
@@ -171,7 +178,7 @@
 			brain_path = /obj/item/organ/internal/brain
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
 	held_brain.dna = brainmob.dna.Clone()
-	held_brain.name = "\the [brainmob.name]’s [initial(held_brain.name)]"
+	held_brain.name = "[brainmob.name]’s [initial(held_brain.name)]"
 	brainmob.update_sight()
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
@@ -179,11 +186,11 @@
 //problem i was having with alien/nonalien brain drops.
 /obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
-		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
+		stack_trace("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
 		to_chat(brainmob, span_userdanger("Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!"))
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
-		held_brain.name = "\the [brainmob.name]’s [initial(held_brain.name)]"
+		held_brain.name = "[brainmob.name]’s [initial(held_brain.name)]"
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.

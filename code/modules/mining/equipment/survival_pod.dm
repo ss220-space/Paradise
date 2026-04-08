@@ -110,7 +110,7 @@
 		var/x_component = abs(did_not_stand_back.x - deploy_location.x)
 		var/y_component = abs(did_not_stand_back.y - deploy_location.y)
 		if(ISDIAGONALDIR(dir_to_center))
-			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			throw_dist = ceil(MAGNITUDE(base_x_throw_distance, base_y_throw_distance) - MAGNITUDE(x_component, y_component))
 			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, throw_dist))
 		else if(dir_to_center & (NORTH|SOUTH))
 			throw_dist = base_y_throw_distance - y_component + 1
@@ -179,7 +179,7 @@
 	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_WINDOW_FULLTILE
@@ -209,9 +209,6 @@
 	floor_tile = /obj/item/stack/tile/pod/light
 
 /turf/simulated/floor/pod/light/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -221,9 +218,6 @@
 	floor_tile = /obj/item/stack/tile/pod/dark
 
 /turf/simulated/floor/pod/dark/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 

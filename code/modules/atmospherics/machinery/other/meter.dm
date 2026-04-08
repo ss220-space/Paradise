@@ -10,14 +10,12 @@
 	greyscale_config = /datum/greyscale_config/meter
 	greyscale_colors = COLOR_GRAY
 	max_integrity = 150
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
-	frequency = ATMOS_DISTRO_FREQ
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 40, ACID = 0)
 	idle_power_usage = 2
 	active_power_usage = 5
 
 	var/obj/machinery/atmospherics/pipe/target = null
 	var/id
-	var/id_tag
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..(mapload)
@@ -28,12 +26,14 @@
 
 	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
-	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
-		id_tag = id
+	if(id)
+		register_id(id, src, GLOB.sensors_by_tag)
 
 /obj/machinery/atmospherics/meter/Destroy()
 	SSair.atmos_machinery -= src
 	target = null
+	if(id && weak_reference == GLOB.sensors_by_tag[id])
+		GLOB.sensors_by_tag -= id
 	return ..()
 
 /obj/machinery/atmospherics/meter/update_icon_state()
@@ -89,35 +89,15 @@
 	set_greyscale_colors(colors = new_colors)
 
 /obj/machinery/atmospherics/meter/process_atmos()
-	if(!target || (stat & (BROKEN|NOPOWER)))
-		update_icon(UPDATE_ICON_STATE)
-		return
+	update_appearance(UPDATE_ICON_STATE)
 
+/obj/machinery/atmospherics/meter/get_data()
 	var/datum/gas_mixture/environment = target.return_obj_air()
-	if(!environment)
-		update_icon(UPDATE_ICON_STATE)
-		return
-
-	update_icon(UPDATE_ICON_STATE)
-
-	if(!frequency)
-		return
-
-	var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
-
-	if(!radio_connection)
-		return
-
-	var/datum/signal/signal = new
-	signal.source = src
-	signal.transmission_method = 1
-	signal.data = list(
-		"tag" = id_tag,
-		"device" = "AM",
-		"pressure" = round(environment.return_pressure()),
-		"sigtype" = "status",
-	)
-	radio_connection.post_signal(src, signal)
+	var/list/data = list()
+	data[TLV_TEMPERATURE] = environment.temperature()
+	data[TLV_PRESSURE] = environment.return_pressure()
+	data["name"] = name
+	return data
 
 /obj/machinery/atmospherics/meter/proc/status()
 	var/t = ""
@@ -133,7 +113,7 @@
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
+	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
 		. += span_boldnotice("You are too far away to read it.")
 
 	else if(stat & (NOPOWER|BROKEN))
@@ -149,7 +129,7 @@
 		. += span_warning("The connect error light is blinking.")
 
 /obj/machinery/atmospherics/meter/Click()
-	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
+	if(isAI(usr)) // ghosts can call ..() for examine
 		usr.examinate(src)
 		return 1
 
@@ -180,6 +160,14 @@
 
 	///The component parent object
 	var/obj/machinery/atmospherics/meter/connected_meter
+
+/obj/item/circuit_component/atmos_meter/Destroy()
+	if(connected_meter)
+		unregister_usb_parent(connected_meter)
+	request_data = null
+	pressure = null
+	temperature = null
+	. = ..()
 
 /obj/item/circuit_component/atmos_meter/populate_ports()
 	request_data = add_input_port("Запрос данных счётчика", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_meter_data))

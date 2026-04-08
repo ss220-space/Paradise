@@ -40,6 +40,7 @@
 
 	var/track = ""
 	var/mob/mob_to_track = null
+
 	if(changed_voice)
 		if(impersonating)
 			mob_to_track = impersonating
@@ -52,8 +53,8 @@
 			mob_to_track = speaker
 
 	if(mob_to_track)
-		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>[speaker_name] ([jobname])</a>"
-		track += "&nbsp;<a href='byond://?src=[UID()];open=[mob_to_track.UID()]'>\[Open\]</a>"
+		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>\[СЛЕД\]</a>"
+		track += "&nbsp;<a href='byond://?src=[UID()];open=[mob_to_track.UID()]'>\[ОТКР\]</a>"
 
 	return track
 

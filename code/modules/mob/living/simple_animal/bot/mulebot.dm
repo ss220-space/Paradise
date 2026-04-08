@@ -89,6 +89,8 @@
 	unload(0)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
+	passenger = null
+	target = null
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/get_cell()
@@ -116,7 +118,7 @@
 			)
 		return .
 
-	if(istype(I,/obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!open)
 			balloon_alert(user, "техпанель закрыта!")

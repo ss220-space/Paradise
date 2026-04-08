@@ -132,7 +132,7 @@
 
 	var/deathtime = world.time - src.timeofdeath
 	var/joinedasobserver = 0
-	if(istype(src,/mob/dead/observer))
+	if(isobserver(src))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, span_warning("Используя antagHUD, вы отказались от возможности присоединиться к раунду."))

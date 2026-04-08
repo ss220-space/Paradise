@@ -39,7 +39,7 @@
 	var/list/carriable_cache
 	/// A lazylist of all crates we are carrying
 	var/list/atom/movable/crates_in_hand
-	/// Chance to dismember while unconcious
+	/// Chance to dismember while unconscious
 	var/dismember_chance = 10
 	/// Amount of stamina lost on a successful hit
 	var/stamina_damage = 20
@@ -284,7 +284,7 @@
 		if(istype(delivery.wrapped, /obj/structure/closet/crate))
 			is_correct_delivery = TRUE
 
-	if(istype(target_object, /obj/structure/closet) || is_big_delivery)
+	if(iscloset(target_object) || is_big_delivery)
 		var/obj/structure/closet/check_crate = target_object
 
 		if(a_intent == INTENT_HELP)

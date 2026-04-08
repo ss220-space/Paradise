@@ -13,7 +13,7 @@
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	max_integrity = 300 //max_integrity is base health
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 	cares_about_temperature = TRUE
@@ -195,6 +195,48 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
+
+/obj/mecha/Destroy()
+
+	for(var/atom/movable/cargo_thing as anything in cargo)
+		cargo -= cargo_thing
+		cargo_thing.forceMove(drop_location())
+		step_rand(cargo_thing)
+
+	if(occupant)
+		occupant.SetSleeping(destruction_sleep_duration)
+	go_out()
+	var/mob/living/silicon/ai/AI
+	for(var/mob/M in src) //Let's just be ultra sure
+		if(isAI(M))
+			occupant = null
+			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+		else
+			M.forceMove(loc)
+	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+		E.detach(loc)
+		qdel(E)
+	equipment.Cut()
+	QDEL_NULL(cell)
+	QDEL_NULL(internal_tank)
+	if(AI)
+		AI.gib() //No wreck, no AI to recover
+	STOP_PROCESSING(SSobj, src)
+	GLOB.poi_list.Remove(src)
+	var/turf/location = get_turf(src)
+	if(location)
+		location.blind_release_air(cabin_air)
+	else
+		qdel(cabin_air)
+	cabin_air = null
+	QDEL_NULL(spark_system)
+	QDEL_NULL(smoke_system)
+	QDEL_LIST(trackers)
+	QDEL_NULL(ui_view)
+	QDEL_NULL(radio)
+	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	GLOB.mechas_list -= src //global mech list
+	return ..()
 
 ////////////////////////
 ////// Helpers /////////
@@ -595,7 +637,7 @@
 
 	//high velocity mechas in your face!
 	var/breakthrough = FALSE
-	if(istype(bumped_atom, /obj/structure/window))
+	if(is_window(bumped_atom))
 		qdel(bumped_atom)
 		breakthrough = TRUE
 
@@ -604,7 +646,7 @@
 		grille.obj_break()
 		breakthrough = TRUE
 
-	else if(istype(bumped_atom, /obj/structure/table))
+	else if(istable(bumped_atom))
 		qdel(bumped_atom)
 		breakthrough = TRUE
 
@@ -815,46 +857,6 @@
 	if(A in trackers)
 		trackers -= A
 
-/obj/mecha/Destroy()
-
-	for(var/atom/movable/cargo_thing as anything in cargo)
-		cargo -= cargo_thing
-		cargo_thing.forceMove(drop_location())
-		step_rand(cargo_thing)
-
-	if(occupant)
-		occupant.SetSleeping(destruction_sleep_duration)
-	go_out()
-	var/mob/living/silicon/ai/AI
-	for(var/mob/M in src) //Let's just be ultra sure
-		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
-		else
-			M.forceMove(loc)
-	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-		E.detach(loc)
-		qdel(E)
-	equipment.Cut()
-	QDEL_NULL(cell)
-	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
-	var/turf/location = get_turf(src)
-	if(location)
-		location.blind_release_air(cabin_air)
-	else
-		qdel(cabin_air)
-	cabin_air = null
-	QDEL_NULL(spark_system)
-	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
-	QDEL_NULL(ui_view)
-	GLOB.mechas_list -= src //global mech list
-	return ..()
-
 //TODO
 /obj/mecha/emp_act(severity)
 	if(get_charge())
@@ -904,7 +906,7 @@
 		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list(TOGGLE_ID, TOGGLE_MAINTENANCE))
 		if(!choose || !Adjacent(user))
@@ -1193,6 +1195,7 @@
 			AI.forceMove(card)
 			occupant = null
 			AI.controlled_mech = null
+			AI.require_power = TRUE
 			AI.remote_control = null
 			update_icon(UPDATE_ICON_STATE)
 			to_chat(AI, span_notice("You have been downloaded to a mobile storage device. Wireless connection offline."))
@@ -1238,6 +1241,7 @@
 	AI.eyeobj?.forceMove(src)
 	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/aiEye, update_visibility))
 	AI.controlled_mech = src
+	AI.require_power = FALSE
 	AI.remote_control = src
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? span_boldnotice("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
@@ -1518,6 +1522,7 @@
 
 			to_chat(AI, span_notice("Returning to core..."))
 			AI.controlled_mech = null
+			AI.require_power = TRUE
 			AI.remote_control = null
 			RemoveActions(occupant, 1)
 			mob_container = AI
@@ -1852,11 +1857,11 @@
 /obj/mecha/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 
-	if(!phasing || is_teleport_allowed(new_turf.z))
+	if(!new_turf || !phasing || is_teleport_allowed(new_turf.z))
 		return
 
 	phasing = FALSE
-	occupant_message("<font color='#f00'>Phasing is malfunctioning.</font>")
+	occupant_message(span_warning("Phasing is malfunctioning."))
 
 	if(!phasing_action.owner)
 		return
