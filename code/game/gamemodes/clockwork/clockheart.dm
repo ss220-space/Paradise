@@ -15,7 +15,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	var/cur_enchant = null
 	var/list/enchants
-	var/list/blessings = list(/obj/item/gun/energy/clockwork, /obj/item/gun/energy/clockwork/sniper)
 	var/list/enchanted_before = FALSE
 	var/curse_dial = TRUE
 	var/curse_upper = TRUE

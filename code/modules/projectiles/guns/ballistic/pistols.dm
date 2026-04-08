@@ -47,7 +47,7 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
+	accuracy = GUN_ACCURACY_PISTOL_ENFORCER
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
