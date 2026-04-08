@@ -130,14 +130,22 @@
 		original_name = name
 		name = "poster — [original_name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги.\n[desc]"
-		ru_names = list(
-			NOMINATIVE = "постер \"[original_name]\"",
-			GENITIVE = "постера \"[original_name]\"",
-			DATIVE = "постеру \"[original_name]\"",
-			ACCUSATIVE = "постер \"[original_name]\"",
-			INSTRUMENTAL = "постером \"[original_name]\"",
-			PREPOSITIONAL = "постере \"[original_name]\"",
-		)
+		ru_names = build_poster_ru_names()
+
+/obj/structure/sign/poster/proc/build_poster_ru_names()
+	if(!original_name)
+		return null
+	var/list/base_names = get_ru_names()
+	if(!base_names || !base_names[NOMINATIVE])
+		return null
+	return list(
+		NOMINATIVE = "[base_names[NOMINATIVE]] \"[original_name]\"",
+		GENITIVE = "[base_names[GENITIVE]] \"[original_name]\"",
+		DATIVE = "[base_names[DATIVE]] \"[original_name]\"",
+		ACCUSATIVE = "[base_names[ACCUSATIVE]] \"[original_name]\"",
+		INSTRUMENTAL = "[base_names[INSTRUMENTAL]] \"[original_name]\"",
+		PREPOSITIONAL = "[base_names[PREPOSITIONAL]] \"[original_name]\"",
+	)
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
