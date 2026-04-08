@@ -494,3 +494,6 @@
 
 ///Trait applied to turf blocked by a containment field
 #define TRAIT_CONTAINMENT_FIELD "containment_field"
+
+/// Prevents the projectile itself from ricocheting.
+#define TRAIT_NO_RICOCHET "no_ricochet"

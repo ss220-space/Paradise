@@ -110,6 +110,10 @@
 	breakthings = FALSE
 	ricochet_chance = 0
 
+/obj/projectile/bullet/sniper/penetrator/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_RICOCHET, INNATE_TRAIT)
+
 // MARK: .50L - Compact Syndicate SR
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	knockdown = 4 SECONDS
