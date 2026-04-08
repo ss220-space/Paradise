@@ -32,7 +32,6 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
       onClick={onClick}
       width="90px"
       style={{
-        padding: '4px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -94,10 +93,6 @@ export const pda_main_menu = () => {
     ? notifying
     : Object.keys(notifying || {});
 
-  const notifyList = Array.isArray(notifying)
-    ? notifying
-    : Object.keys(notifying || {});
-
   return (
     <Box style={{ padding: '0.75rem' }}>
       <Box
@@ -117,9 +112,11 @@ export const pda_main_menu = () => {
           style={{
             padding: '0.5rem 0.75rem',
             fontSize: '1rem',
+            borderRadius: '0.5rem',
+            overflow: 'hidden',
           }}
         >
-          Sync
+          Синхронизировать кпк с ID картой
         </Button>
       </Box>
 
@@ -135,7 +132,6 @@ export const pda_main_menu = () => {
           <AppIcon
             key={app.uid}
             app={app}
-            isNotifying={notifyList.includes(app.uid)}
             isNotifying={notifyList.includes(app.uid)}
             onClick={() => act('StartProgram', { program: app.uid })}
           />
