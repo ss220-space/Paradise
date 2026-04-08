@@ -1581,6 +1581,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return FALSE
 	var/new_angle = SIMPLIFY_DEGREES(normal_angle + ricochet_angle)
 	ricocheting_projectile.set_angle(new_angle)
+	visible_message(span_warning("[DECLENT_RU_CAP(ricocheting_projectile, NOMINATIVE)] рикошетит от [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 #undef ANGLE_DIR_POS
