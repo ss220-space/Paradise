@@ -8837,7 +8837,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -10585,13 +10585,10 @@
 	},
 /area/quartermaster/storage)
 "bxE" = (
-/obj/structure/table/wood,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/photocopier{
-	pixel_y = 10
-	},
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
@@ -12374,7 +12371,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/bar)
 "bFJ" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -15022,7 +15019,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -15960,7 +15957,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16227,7 +16224,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/heads/hop)
 "cak" = (
@@ -17487,7 +17484,7 @@
 	},
 /area/library)
 "cgU" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17704,7 +17701,7 @@
 	},
 /area/bridge/vip)
 "ciG" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
@@ -19624,7 +19621,7 @@
 /area/hydroponics)
 "cuS" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/structure/sign/poster/official/mge{
 	pixel_y = 32
 	},
@@ -20942,7 +20939,7 @@
 	},
 /area/engineering/hardsuitstorage)
 "cAM" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -23613,7 +23610,7 @@
 	},
 /area/maintenance/starboard)
 "cOe" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -24559,7 +24556,7 @@
 	},
 /area/tcommsat/chamber)
 "cRC" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -26039,7 +26036,7 @@
 	},
 /area/security/detectives_office)
 "cYK" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/camera{
 	c_tag = "Psychiatrist";
 	dir = 8;
@@ -30687,7 +30684,7 @@
 /area/engineering/controlroom)
 "duh" = (
 /obj/structure/window/reinforced,
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -31750,7 +31747,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -38086,7 +38083,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "egy" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -39066,7 +39063,7 @@
 	},
 /area/engineering/break_room)
 "eqY" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -50865,7 +50862,7 @@
 	},
 /area/security/podbay)
 "haX" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -55544,7 +55541,7 @@
 	},
 /area/hallway/primary/central/west)
 "igk" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/power/apc{
 	dir = 4;
 	pixel_x = 26
@@ -59384,7 +59381,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/structure/sign/poster/official/obey{
 	pixel_y = -32
 	},
@@ -62440,7 +62437,7 @@
 	},
 /area/crew_quarters/trading)
 "jHV" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -63427,7 +63424,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "jVx" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -76075,7 +76072,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "mTD" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
@@ -82819,7 +82816,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "owp" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -97740,7 +97737,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -98610,7 +98607,7 @@
 	},
 /area/crew_quarters/fitness)
 "rTF" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -103890,7 +103887,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/heads/hop)
 "ten" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -104722,7 +104719,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "tnm" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -105080,7 +105077,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -106025,7 +106022,7 @@
 	},
 /area/security/permabrig)
 "tDa" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "tDc" = (
@@ -106371,7 +106368,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "tGs" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreencorner"
 	},
@@ -109058,7 +109055,7 @@
 	},
 /area/maintenance/bar)
 "uiA" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/power/apc{
 	dir = 4;
 	pixel_x = 26
@@ -109142,7 +109139,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "ujB" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -28
 	},
@@ -112988,7 +112985,7 @@
 	},
 /area/engineering/hardsuitstorage)
 "vcw" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)
@@ -116929,7 +116926,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -120624,7 +120621,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
 "wMC" = (
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 28
@@ -122030,7 +122027,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/photocopier,
+/obj/machinery/photocopier/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "xdB" = (
