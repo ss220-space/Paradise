@@ -104,7 +104,6 @@ Difficulty: Medium
 			other.loot = list(/obj/item/storm_staff)
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			return ..()
-	UnlockBlastDoors("11119")
 	elimination = FALSE
 	return ..()
 

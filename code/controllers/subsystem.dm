@@ -40,6 +40,9 @@
 	///Bitmap of what game states can this subsystem fire at. See [RUNLEVELS_DEFAULT] for more details.
 	var/runlevels = RUNLEVELS_DEFAULT //points of the game at which the SS can fire
 
+	///A list of var names present on this subsystem to be checked during CheckQueue. See [SS_HIBERNATE] for usage.
+	var/list/hibernate_checks
+
 	/*
 	 * The following variables are managed by the MC and should not be modified directly.
 	 */
@@ -55,6 +58,9 @@
 
 	/// Scheduled world.time for next fire()
 	var/next_fire = 0
+
+	/// The subsystem had no work during CheckQueue and was not queued.
+	var/hibernating
 
 	/// Running average of the amount of milliseconds it takes the subsystem to complete a run (including all resumes but not the time spent paused)
 	var/cost = 0
@@ -203,6 +209,8 @@
 /// (we loop thru a linked list until we get to the end or find the right point)
 /// (this lets us sort our run order correctly without having to re-sort the entire already sorted list)
 /datum/controller/subsystem/proc/enqueue()
+	hibernating = FALSE
+
 	var/SS_priority = priority
 	var/SS_flags = flags
 	var/datum/controller/subsystem/queue_node
@@ -296,6 +304,9 @@
 	return ..()
 
 /datum/controller/subsystem/proc/state_letter()
+	if(hibernating)
+		return "H"
+
 	switch(state)
 		if(SS_RUNNING)
 			. = "R"
@@ -309,6 +320,9 @@
 			. = " "
 
 /datum/controller/subsystem/proc/state_colour()
+	if(hibernating) // If its hibernating, colour it grey
+		return "<font color='#808080'>"
+
 	switch(state)
 		if(SS_RUNNING) // If its actively processing, colour it green
 			. = "<font color='#32a852'>"

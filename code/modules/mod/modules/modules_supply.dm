@@ -366,7 +366,7 @@
 		)
 
 /obj/item/mod/module/magnet/on_deactivation(display_message = TRUE, deleting = FALSE)
-	if(istype(mod.wearer.pulling, /obj/structure/closet))
+	if(iscloset(mod.wearer.pulling))
 		mod.wearer.stop_pulling()
 
 /obj/item/mod/module/magnet/proc/check_locker(obj/structure/closet/locker)
@@ -421,7 +421,7 @@
 	return ..()
 
 /obj/item/mod/armor/mod_ash_accretion
-	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
@@ -598,29 +598,6 @@
 	if(!mod.wearer.stat)
 		return
 	on_deactivation()
-
-// MARK: Mining bomb
-/obj/projectile/bullet/reusable/mining_bomb
-	name = "mining bomb"
-	desc = "Это бомба. Может не стоит её так долго разглядывать?"
-	icon_state = "mine_bomb"
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	damage = 0
-	range = 6
-	flag = "bomb"
-	light_range = 1
-	light_color = LIGHT_COLOR_ORANGE
-	ammo_type = /obj/structure/mining_bomb
-
-/obj/projectile/bullet/reusable/mining_bomb/get_ru_names()
-	return list(
-		NOMINATIVE = "шахтёрская бомба",
-		GENITIVE = "шахтёрской бомбы",
-		DATIVE = "шахтёрскую бомбу",
-		ACCUSATIVE = "шахтёрскую бомбу",
-		INSTRUMENTAL = "шахтёрской бомбой",
-		PREPOSITIONAL = "шахтёрской бомбе",
-	)
 
 /obj/structure/mining_bomb
 	name = "mining bomb"

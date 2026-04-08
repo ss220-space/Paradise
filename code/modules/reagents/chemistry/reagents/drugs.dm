@@ -507,7 +507,6 @@
 		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
 		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.emote("faint")
-		M.apply_effect(volume, IRRADIATE, negate_armor = 1)
 		M.adjustToxLoss(volume)
 		M.adjustBrainLoss(volume * 2)
 	else

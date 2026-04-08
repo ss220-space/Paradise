@@ -69,7 +69,7 @@
 
 /obj/item/circuit_component/assembly_output/register_shell(atom/movable/shell)
 	. = ..()
-	if(!istype(shell, /obj/item/assembly))
+	if(!isassembly(shell))
 		return
 
 	attached_assembly = shell

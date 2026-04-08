@@ -30,7 +30,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
-	ROLE_DEVIL = 14
+	ROLE_DEVIL = 14,
+	ROLE_BINGLE = 14,
 ))
 
 /proc/player_old_enough_antag(client/C, role, req_job_rank)
@@ -71,11 +72,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR 0
-#define TAB_GAME 1
-#define TAB_SPEC 2
-#define TAB_KEYS 3
-#define TAB_TOGGLES 4
 
 /datum/preferences
 	var/client/parent
@@ -794,11 +790,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 #undef MAX_SAVE_SLOTS
 #undef MAX_SAVE_SLOTS_MEMBER
-#undef TAB_CHAR
-#undef TAB_GAME
-#undef TAB_SPEC
-#undef TAB_KEYS
-#undef TAB_TOGGLES
 
 /datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.index_name]
@@ -818,7 +809,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	metadata["[tweak]"] = new_metadata
 	tweak.update_gear_intro(new_metadata)
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_CMO, JOB_TITLE_QUARTERMASTER, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_CMO, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MAGISTRATE), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
@@ -872,13 +863,13 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
-				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[GetPlayerAltTitle(job)]</a>"
+				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[get_job_title_ru(GetPlayerAltTitle(job))]</a>"
 			else
-				rank = job.title
+				rank = get_job_title_ru(job.title)
 			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
-				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
+				rank = "<font class='text-muted'>[get_job_title_ru(GetPlayerAltTitle(job))]</font>"
 			lastJob = job
-			if(jobban_isbanned(user, job.title))
+			if(jobban_isbanned(user, job_title_ru_to_en(job.title)))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЗАБАНЕНО]</b></span></td></tr>"
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
@@ -1244,7 +1235,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 /datum/preferences/proc/GetPlayerAltTitle(datum/job/job)
 	return player_alt_titles.Find(job.title) > 0 \
 		? player_alt_titles[job.title] \
-		: job.title
+		: get_job_title_ru(job.title)
 
 /datum/preferences/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry
@@ -1480,9 +1471,10 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if("alt_title")
 				var/datum/job/job = locateUID(href_list["job"])
 				if(job)
-					var/choices = list(job.title) + job.alt_titles
-					var/choice = tgui_input_list(user, "Выберите альтернативное название для должности \"[job.title]\".", "Альтернативные названия", choices)
+					var/choices = list(get_job_title_ru(job.title)) + job.alt_titles
+					var/choice = tgui_input_list(user, "Выберите альтернативное название для должности \"[get_job_title_ru(job.title)]\".", "Альтернативные названия", choices)
 					if(choice)
+						choice = job_title_ru_to_en(choice)
 						SetPlayerAltTitle(job, choice)
 						SetChoices(user)
 			if("input")

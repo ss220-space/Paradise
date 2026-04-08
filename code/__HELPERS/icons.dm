@@ -954,7 +954,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
 	var/atom/A = obj
-	var/key = "[istype(A.icon, /icon) ? "\ref[A.icon]" : A.icon]:[A.icon_state]"
+	var/key = "[isicon(A.icon) ? "\ref[A.icon]" : A.icon]:[A.icon_state]"
 	if(!GLOB.bicon_cache[key]) // Doesn't exist, make it.
 		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
 		if(ishuman(obj)) // Shitty workaround for a BYOND issue.
@@ -1061,7 +1061,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	/// If successful, this looks like "icons/path/to/dmi_file.dmi"
 	var/icon_path = ""
 
-	if(isatom(icon) || istype(icon, /image) || istype(icon, /mutable_appearance))
+	if(isatom(icon) || isimage(icon) || istype(icon, /mutable_appearance))
 		var/atom/atom_icon = icon
 		icon = atom_icon.icon
 		// Atom icons compiled in from 'icons/path/to/dmi_file.dmi' are weird and not really icon objects that you generate with icon().

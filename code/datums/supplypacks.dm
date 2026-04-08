@@ -73,12 +73,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/required_tech
 
 /datum/supply_packs/New()
+	..()
 	manifest += "<ul>"
 	for(var/path in contains)
-		if(!path)	continue
-		var/atom/movable/AM = new path(locate(1, 1, 1))
-		var/content_name = AM.declent_ru(NOMINATIVE)
-		qdel(AM)
+		if(!path)
+			continue
+		var/atom/movable/dummy = new path(locate(1, 1, 1))
+		var/content_name = dummy.declent_ru(NOMINATIVE)
+		qdel(dummy)
 		manifest += "<li>[content_name]</li>"
 		// Add the name to the UI manifest
 		ui_manifest += "[content_name]"
@@ -968,9 +970,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/sibyl
 	name = "Модули \"Sibyl\""
 	contains = list(
-		/obj/item/sibyl_system_mod,
-		/obj/item/sibyl_system_mod,
-		/obj/item/sibyl_system_mod,
+		/obj/item/gun_module/sibyl,
+		/obj/item/gun_module/sibyl,
+		/obj/item/gun_module/sibyl,
 	)
 	cost = 25								//По 6 за один блокиратор
 	containername = "ящик модулей \"Sibyl\""
@@ -1376,6 +1378,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с имплантом \"Щит разума\"",
 	)
 	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 4)
+
+/datum/supply_packs/security/armory/suppression
+	name = "Имплант \"Подавления\""
+	contains = list(
+		/obj/item/storage/lockbox/suppression/cargo,
+	)
+	cost = 200
+	containername = "ящик с имплантом \"Подавления\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с имплантом \"Подавления\"",
+		GENITIVE = "ящика с имплантом \"Подавления\"",
+		DATIVE = "ящику с имплантом \"Подавления\"",
+		ACCUSATIVE = "ящик с имплантом \"Подавления\"",
+		INSTRUMENTAL = "ящиком с имплантом \"Подавления\"",
+		PREPOSITIONAL = "ящике с имплантом \"Подавления\"",
+	)
+	required_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_BIOTECH = 7)
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Имплант слежения"
@@ -1863,9 +1882,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/coil
 	name = "Тесла-катушки"
 	contains = list(
-		/obj/machinery/power/tesla_coil,
-		/obj/machinery/power/tesla_coil,
-		/obj/machinery/power/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
 	)
 	cost = 45
 	containername = "ящик тесла-катушек"
@@ -1881,8 +1900,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/grounding
 	name = "Заземлители"
 	contains = list(
-		/obj/machinery/power/grounding_rod,
-		/obj/machinery/power/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
 	)
 	cost = 10
 	containername = "ящик заземлителей"
@@ -1898,9 +1917,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/collector
 	name = "Радиационные накопители"
 	contains = list(
-		/obj/machinery/power/rad_collector,
-		/obj/machinery/power/rad_collector,
-		/obj/machinery/power/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
+		/obj/machinery/power/energy_accumulator/rad_collector,
 	)
 	cost = 45
 	containername = "ящик радиационных накопителей"
@@ -2089,20 +2108,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 150
 	containertype = /obj/structure/closet/crate/large
 
-/datum/supply_packs/engineering/miner/n2o
-	name = "Майнер N2O"
-	contains = list(/obj/machinery/atmospherics/miner/n2o)
-	cost = 200
-	containername = "ящик с майнером N2O"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером N2O",
-		GENITIVE = "ящика с майнером N2O",
-		DATIVE = "ящику с майнером N2O",
-		ACCUSATIVE = "ящик с майнером N2O",
-		INSTRUMENTAL = "ящиком с майнером N2O",
-		PREPOSITIONAL = "ящике с майнером N2O",
-	)
-
 /datum/supply_packs/engineering/miner/nitrogen
 	name = "Майнер N2"
 	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
@@ -2143,19 +2148,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с майнером плазмы",
 	)
 
-/datum/supply_packs/engineering/miner/carbon_dioxide
-	name = "Майнер CO2"
-	contains = list(/obj/machinery/atmospherics/miner/carbon_dioxide)
-	containername = "ящик с майнером CO2"
-	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером CO2",
-		GENITIVE = "ящика с майнером CO2",
-		DATIVE = "ящику с майнером CO2",
-		ACCUSATIVE = "ящик с майнером CO2",
-		INSTRUMENTAL = "ящиком с майнером CO2",
-		PREPOSITIONAL = "ящике с майнером CO2",
-	)
-
 /datum/supply_packs/engineering/miner/agent_b
 	name = "Майнер Agent B"
 	contains = list(/obj/machinery/atmospherics/miner/agent_b)
@@ -2171,17 +2163,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/engineering/miner/hydrogen
-	name = "Майнер H2"
-	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
-	cost = 400
-	containername = "ящик с майнером H2"
+	name = "Майнер водяного пара"
+	contains = list(/obj/machinery/atmospherics/miner/water_vapor)
+	cost = 350
+	containername = "ящик с майнером водяного пара"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с майнером H2",
-		GENITIVE = "ящика с майнером H2",
-		DATIVE = "ящику с майнером H2",
-		ACCUSATIVE = "ящик с майнером H2",
-		INSTRUMENTAL = "ящиком с майнером H2",
-		PREPOSITIONAL = "ящике с майнером H2",
+		NOMINATIVE = "ящик с майнером водяного пара",
+		GENITIVE = "ящика с майнером водяного пара",
+		DATIVE = "ящику с майнером водяного пара",
+		ACCUSATIVE = "ящик с майнером водяного пара",
+		INSTRUMENTAL = "ящиком с майнером водяного пара",
+		PREPOSITIONAL = "ящике с майнером водяного пара",
 	)
 
 /datum/supply_packs/engineering/conveyor
@@ -6234,8 +6226,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox_mosin
 	name = "Патроны 7,62x54 мм"
 	contains = list(
-		/obj/item/ammo_box/a762,
-		/obj/item/ammo_box/a762,
+		/obj/item/ammo_box/a762x54,
+		/obj/item/ammo_box/a762x54,
 	)
 	credits_cost = 2000
 	containername = "ящик патронов 7,62x54 мм"
@@ -6387,8 +6379,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox_nagant
 	name = "Патргоны 7,62x38 мм"
 	contains = list(
-		/obj/item/ammo_box/nagant,
-		/obj/item/ammo_box/nagant,
+		/obj/item/ammo_box/n762x38,
+		/obj/item/ammo_box/n762x38,
 	)
 	credits_cost = 4000
 	containername = "ящик патронов 7,62x38 мм"
@@ -6404,8 +6396,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox545
 	name = "Патроны 5,45x39 мм"
 	contains = list(
-		/obj/item/ammo_box/ak814,
-		/obj/item/ammo_box/ak814,
+		/obj/item/ammo_box/a545x39,
+		/obj/item/ammo_box/a545x39,
 	)
 	credits_cost = 4500
 	containername = "ящик патронов 5,45x39 мм"

@@ -957,11 +957,7 @@
 "hE" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/circuitboard/tcomms/core,
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "hF" = (
 /obj/machinery/camera{
@@ -1264,7 +1260,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/aftportmaints)
 "jH" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -1362,12 +1358,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom6)
 "ko" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/sepia{
 	slowdown = 0
@@ -1656,7 +1648,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "nd" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -1818,12 +1810,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "oi" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -1874,12 +1862,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "ov" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "oC" = (
@@ -2060,7 +2043,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -2082,7 +2065,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -2346,12 +2329,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "sb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "sd" = (
@@ -2401,12 +2379,8 @@
 	},
 /area/ruin/space/spacehotelv1/barber)
 "sm" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
@@ -2641,7 +2615,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "tI" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -2675,12 +2649,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
 "tY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -3024,12 +2993,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "wG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -3111,7 +3076,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/machinery/door_control{
@@ -3180,12 +3145,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom2)
 "xP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -3606,12 +3566,8 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/entryhallway)
 "AY" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom6)
@@ -4123,12 +4079,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
 "EK" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4424,12 +4375,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "GG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom5)
@@ -4577,21 +4524,13 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Ib" = (
 /obj/structure/AIcore,
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Ic" = (
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "TWIN-NEXUS HOTEL"
 	},
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Ik" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -4910,12 +4849,8 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Kv" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -5085,12 +5020,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ly" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom2)
 "LA" = (
@@ -5236,12 +5166,8 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "Ms" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -5483,12 +5409,8 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom6)
 "NU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
@@ -5555,12 +5477,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom4)
 "OC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -5831,7 +5749,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -5841,7 +5759,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5857,12 +5775,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "PX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Qd" = (
@@ -6106,7 +6019,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -6147,12 +6060,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Sj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/plasteel{
@@ -6294,7 +6203,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -6497,7 +6406,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -6629,12 +6538,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom6)
 "VF" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
@@ -6770,7 +6674,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "WA" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -6820,11 +6724,7 @@
 /area/ruin/space/spacehotelv1/restoraunt)
 "Xc" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/light{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Xe" = (
 /obj/machinery/door/firedoor,
@@ -8796,7 +8696,7 @@ NM
 lY
 uW
 lS
-rq
+KQ
 AZ
 Uk
 XD
@@ -8871,7 +8771,7 @@ rc
 uW
 uW
 AZ
-KQ
+rq
 AZ
 Uk
 Uk
@@ -9021,7 +8921,7 @@ xO
 BT
 BT
 AZ
-rq
+KQ
 AZ
 qR
 qR
@@ -9096,7 +8996,7 @@ vK
 yj
 BT
 Db
-KQ
+rq
 AZ
 qR
 IB
@@ -9336,7 +9236,7 @@ OF
 Rn
 ui
 bs
-Ka
+nG
 ex
 fg
 dw
@@ -9411,7 +9311,7 @@ OF
 Rn
 ui
 TC
-lU
+IP
 ex
 sD
 Fc
@@ -9636,7 +9536,7 @@ UF
 Hk
 ui
 TC
-IP
+lU
 ex
 pR
 dw
@@ -9711,7 +9611,7 @@ tz
 ag
 ui
 wd
-nG
+Ka
 ex
 TQ
 wP

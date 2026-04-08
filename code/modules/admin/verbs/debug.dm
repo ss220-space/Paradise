@@ -581,7 +581,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
 		H.regenerate_icons()
 		// Grey translator fix for admin equip
-	if(istype(H.dna.species, /datum/species/grey))
+	if(isgrey(H))
 		var/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/retranslator = new
 		retranslator.insert(H)
 
@@ -663,12 +663,12 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
+	for(var/obj/machinery/power/energy_accumulator/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/energy_accumulator/rad_collector))
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
 				Plasma.air_contents.set_toxins(70)
-				Rad.drainratio = 0
+				Rad.drain_ratio = 0
 				Rad.loaded_tank = Plasma
 				Plasma.loc = Rad
 

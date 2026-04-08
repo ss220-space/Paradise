@@ -58,7 +58,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		to_chat(user, span_warning("You should unfold [src] before changing it."))
 		return ATTACK_CHAIN_PROCEED
@@ -70,7 +70,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || !Adjacent(user))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature() || !Adjacent(user))
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL

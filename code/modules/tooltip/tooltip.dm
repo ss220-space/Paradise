@@ -37,6 +37,7 @@ Notes:
 	var/showing = 0
 	var/queueHide = 0
 	var/init = 0
+	var/atom/last_target
 
 /datum/tooltip/New(client/C)
 	if(C)
@@ -45,9 +46,20 @@ Notes:
 
 	..()
 
+/datum/tooltip/Destroy(force, ...)
+	last_target = null
+	return ..()
+
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
 	if(!thing || !params || (!title && !content) || !owner || !isnum(ICON_SIZE_ALL))
 		return FALSE
+
+	if(!isnull(last_target))
+		UnregisterSignal(last_target, COMSIG_QDELETING)
+
+	RegisterSignal(thing, COMSIG_QDELETING, PROC_REF(on_target_qdel))
+
+	last_target = thing
 
 	if(!init)
 		//Initialize some vars
@@ -94,6 +106,12 @@ Notes:
 
 /datum/tooltip/proc/do_hide()
 	winshow(owner, control, FALSE)
+
+/datum/tooltip/proc/on_target_qdel()
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(hide))
+	last_target = null
 
 //Open a tooltip for user, at a location based on params
 //Theme is a CSS class in tooltip.html, by default this wrapper chooses a CSS class based on the user's UI_style (Midnight, Plasmafire, Retro, etc)

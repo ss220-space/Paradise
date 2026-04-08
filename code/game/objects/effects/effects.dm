@@ -1,7 +1,5 @@
-
-//objects in /obj/effect should never be things that are attackable, use obj/structure instead.
-//Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
-
+// Objects in /obj/effect should never be things that are attackable, use obj/structure instead.
+// Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
 	abstract_type = /obj/effect
@@ -17,7 +15,8 @@
 	return
 
 /obj/effect/singularity_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 	return FALSE
 
 /obj/effect/fire_act(exposed_temperature, exposed_volume)
@@ -39,6 +38,9 @@
 	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity, target)
+	if(QDELETED(src))
+		return FALSE
+
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			qdel(src)
@@ -64,7 +66,7 @@
 	layer = TURF_LAYER
 	icon = null
 	icon_state = null
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 
 // Most of these overrides procs below are overkill, but better safe than sorry.
 /obj/effect/abstract/swarmer_act()

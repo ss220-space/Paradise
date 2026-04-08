@@ -11,8 +11,9 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
-	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
+	///The powernet our machine is connected to.
+	var/datum/powernet/powernet = null
 
 /obj/machinery/power/Destroy(force)
 	disconnect_from_network()
@@ -44,9 +45,9 @@
 	else
 		return 0
 
-/obj/machinery/power/proc/avail()
+/obj/machinery/power/proc/avail(amount)
 	if(powernet)
-		return powernet.avail
+		return amount ? powernet.avail >= amount : powernet.avail
 	else
 		return 0
 
@@ -306,7 +307,7 @@
 		return FALSE	//to avoid spamming with insulated glvoes on
 
 	var/area/source_area
-	if(istype(power_source, /area))
+	if(isarea(power_source))
 		source_area = power_source
 		power_source = source_area.get_apc()
 	if(istype(power_source, /obj/structure/cable))
@@ -318,7 +319,7 @@
 
 	if(istype(power_source, /datum/powernet))
 		PN = power_source
-	else if(istype(power_source, /obj/item/stock_parts/cell))
+	else if(iscell(power_source))
 		cell = power_source
 	else if(isapc(power_source))
 		var/obj/machinery/power/apc/apc = power_source
@@ -353,7 +354,7 @@
 	else if(istype(power_source, /datum/powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
-	else if(istype(power_source, /obj/item/stock_parts/cell))
+	else if(iscell(power_source))
 		cell.use(drained_energy)
 	return drained_energy
 

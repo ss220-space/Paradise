@@ -36,7 +36,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper bundles
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -58,7 +58,7 @@
 		fire_act()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/paper/paper = papers[page]
 		if(!istype(paper))	// photo

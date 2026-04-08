@@ -26,7 +26,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
-	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
@@ -126,11 +126,17 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 
+	var/open_time = manual_open_time
+	if(ishuman(user))
+		var/datum/strength_level/level = user.get_strength_level()
+		if(level)
+			open_time = manual_open_time / max(0.1, level.door_open_speed_modifier)
+
 	user.visible_message(
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	if(do_after(user, manual_open_time, src))
+	if(do_after(user, open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),

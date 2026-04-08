@@ -315,9 +315,9 @@
 #define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
 
 ///How much a mob's sprite should be moved when they're lying down
-#define PIXEL_Y_OFFSET_LYING -6
+#define PIXEL_Y_OFFSET_LYING -3
 ///How much a mob's sprite should be moved when they're lying up (on the ceiling)
-#define PIXEL_Y_OFFSET_LYING_REVERSED 6
+#define PIXEL_Y_OFFSET_LYING_REVERSED 3
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -383,9 +383,11 @@
 #define ZAP_MOB_DAMAGE (1<<3)
 #define ZAP_MOB_STUN (1<<4)
 #define ZAP_GENERATES_POWER (1<<5)
+/// Zaps with this flag will generate less power through tesla coils
+#define ZAP_LOW_POWER_GEN (1<<6)
 
 #define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
-#define ZAP_TESLA_FLAGS ZAP_DEFAULT_FLAGS | ZAP_MACHINE_EXPLOSIVE
+#define ZAP_TESLA_FLAGS ZAP_DEFAULT_FLAGS | ZAP_MACHINE_EXPLOSIVE | ZAP_GENERATES_POWER
 #define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
 #define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
@@ -507,7 +509,7 @@
 #define SSD_LAYER 1
 
 /// Get the client from the var
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (isclient(I) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1
@@ -527,3 +529,10 @@
 
 #define CARBON_MAX_RADIATION 200
 #define NUCLEATION_MAX_RADIATION 800
+
+// Flags for the mob_flags var on /mob
+/// May override the names used in screentips of OTHER OBJECTS hovered over.
+#define MOB_HAS_SCREENTIPS_NAME_OVERRIDE (1 << 0)
+
+// Megafauna
+#define MINER_DASH_RANGE 4

@@ -14,9 +14,10 @@
 #define CHANNEL_RADIO_NOISE 1012 // radio headset noise
 #define CHANNEL_BOSS_MUSIC 1011
 #define CHANNEL_INTERACTION_SOUNDS 1010	// item pickup/equip/drop sounds
+#define CHANNEL_ESCAPEMENU 1009
 // THIS SHOULD ALWAYS BE THE LOWEST ONE!
 // KEEP IT UPDATED
-#define CHANNEL_HIGHEST_AVAILABLE 1009
+#define CHANNEL_HIGHEST_AVAILABLE 1008
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
@@ -225,9 +226,12 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_KATANA_SWING "katana_swing"
 #define SFX_KNIFE_SWING "knife_swing"
 #define SFX_RAPIER_SWING "rapier_swing"
+#define SFX_POLAROID_PHOTO_PRINTING "polaroid"
 // Below is a list copied from TG, most of their defines are empty (without datum and sounds). But there are also those used by us.
 #define SFX_BODYFALL "bodyfall"
 #define SFX_BULLET_MISS "bullet_miss"
+#define SFX_ENERGY_MISS "energy_miss"
+#define SFX_ARROW_MISS "arrow_miss"
 #define SFX_CAN_OPEN "can_open"
 #define SFX_CLOWN_STEP "clown_step"
 #define SFX_DESECRATION "desecration"

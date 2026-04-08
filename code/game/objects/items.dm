@@ -119,6 +119,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/allowed = null
 	/// All items can have an uplink hidden inside, just remember to add the triggers.
 	var/obj/item/uplink/hidden/hidden_uplink = null
+	var/heat = 0
 
 	/// Used by security bots to determine if this item is safe for public use.
 	var/needs_permit = FALSE
@@ -126,6 +127,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakout_time = 0
+	/// Flags, that used in breakout do_after
+	var/breakout_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 	var/block_chance = 0
 	var/block_type = ALL
@@ -257,8 +260,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Width in space oriented storages
 	var/storage_display_width = 32
 
-	var/embed_disarm = FALSE
-
 	/// Available skins list (empty for default)
 	var/list/skins = null
 	/// The skin choice if we had a reskin
@@ -310,10 +311,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(!move_resist)
 		determine_move_resist()
-
-	// temp disable reason: pelmen
-	//if(embed_disarm)
-		//AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()
@@ -676,10 +673,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/talk_into(mob/M, text, channel=null)
 	return
 
-/// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
-/obj/item/proc/get_heat()
-	return
-
 /**
  * When item is officially left user
  */
@@ -761,9 +754,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Note that hands count as slots.
  *
  * Arguments:
- * * 'user' is mob that equipped it
- * * 'slot' uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
- * * 'initial' is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ * * user - is mob that equipped it
+ * * slot - uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * initial - is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -953,7 +946,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
-	while(L && !istype(L, /turf/))
+	while(L && !isturf(L))
 		L = L.loc
 	return loc
 
@@ -1051,7 +1044,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(. && living.is_in_hands(src))
 			item_catched = TRUE
 
-		if(get_heat() && !item_catched)
+		if(get_temperature() && !item_catched)
 			living.IgniteMob()
 
 		if(impact_throwforce > 0 && !item_catched)
@@ -1483,7 +1476,33 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
+/// Returns the sharpness of src. If you want to get the sharpness of an item use this.
+/obj/item/proc/get_sharpness()
+	return sharp//ness
+
 /// If an object can successfully be used as a fire starter it will return a message
 /obj/item/proc/ignition_effect(atom/target, mob/user)
-	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	if(get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		return span_notice("[user] lights [target] with [src].")
+
+///Returns the temperature of src. If you want to know if an item is hot use this proc.
+/obj/item/proc/get_temperature()
+	if(resistance_flags & ON_FIRE)
+		return max(heat, BURNING_ITEM_MINIMUM_TEMPERATURE)
+	return heat
+
+/**
+ * Updates all action buttons associated with this item
+ *
+ * Arguments:
+ * * update_flags - Which flags of the action should we update
+ * * force - Force buttons update even if the given button icon state has not changed
+ */
+/obj/item/proc/update_item_action_buttons(update_flags = ALL, force = FALSE)
+	for(var/datum/action/current_action as anything in actions)
+		current_action.build_all_button_icons(update_flags, force)
+
+/// What item does if activated when attached to tripwire
+/obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	SIGNAL_HANDLER
+	return

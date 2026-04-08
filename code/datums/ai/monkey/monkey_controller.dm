@@ -123,7 +123,7 @@ have ways of interacting with a specific mob and control it.
 	for(var/obj/item/item in held_weapons)
 		if(HAS_TRAIT(item, TRAIT_NEEDS_TWO_HANDS) || blackboard[BB_MONKEY_BLACKLISTITEMS][item])
 			continue
-		if(gun_neurons_activated && istype(item, /obj/item/gun))
+		if(gun_neurons_activated && isgun(item))
 			// We have a gun, why bother looking for something inferior
 			// Also yes it is intentional that monkeys dont know how to pick the best gun
 			return item
@@ -134,7 +134,7 @@ have ways of interacting with a specific mob and control it.
 	for(var/obj/item/item in choices)
 		if(HAS_TRAIT(item, TRAIT_NEEDS_TWO_HANDS) || blackboard[BB_MONKEY_BLACKLISTITEMS][item])
 			continue
-		if(gun_neurons_activated && istype(item, /obj/item/gun))
+		if(gun_neurons_activated && isgun(item))
 			return item
 		if(item.force <= top_force)
 			continue
@@ -194,7 +194,7 @@ have ways of interacting with a specific mob and control it.
 
 /datum/ai_controller/monkey/proc/on_hitby(datum/source, atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/mob/living/living_pawn = pawn
 		var/obj/item/I = AM
 		var/mob/thrown_by = locateUID(I.thrownby)

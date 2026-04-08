@@ -15,13 +15,12 @@
 #define ENERGY "energy"
 #define BOMB "bomb"
 #define BIO "bio"
-#define RAD "rad"
 #define FIRE "fire"
 #define ACID "acid"
 #define MAGIC "magic"
 
 /// All armors
-#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
+#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE)
 
 #define STUN "stun"
 #define WEAKEN "weaken"
@@ -30,13 +29,13 @@
 #define PARALYZE "paralize"
 #define SLEEP "sleep"
 #define IMMOBILIZE "immobilize"
-#define IRRADIATE "irradiate"
 #define STUTTER "stutter"
 #define SLUR "slur"
 #define EYE_BLUR "eye_blur"
 #define DROWSY "drowsy"
 #define JITTER "jitter"
 #define CONFUSED "confused"
+#define EFFECT_UNCONSCIOUS "unconscious"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
@@ -273,3 +272,8 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+
+/// The amount of energy needed to increase the burn force by 1 damage during electrocution.
+#define JOULES_PER_DAMAGE (25 KILO JOULES)
+/// Calculates the amount of burn force when applying this much energy to a mob via electrocution from an energy source.
+#define ELECTROCUTE_DAMAGE(energy) (energy >= 1 KILO JOULES ? clamp(20 + round(energy / JOULES_PER_DAMAGE), 20, 195) + rand(-5,5) : 0)

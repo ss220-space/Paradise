@@ -686,7 +686,7 @@
 		user.balloon_alert(user, "нет места под орган!")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(isskeleton(target) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
+	if(isskeleton(target) && is_internal_organ_brain(organ) && !istype(organ, /obj/item/organ/internal/brain/golem))
 		user.balloon_alert(user, "нет места под орган!")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -785,7 +785,7 @@
 
 		var/msg = "[user] начина[PLUR_ET_YUT(user)] выливать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 		var/self_msg = "Вы начинаете выливать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
-		if(istype(container, /obj/item/reagent_containers/syringe))
+		if(issyringe(container))
 			msg = "[user] начина[PLUR_ET_YUT(user)] вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 			self_msg = "Вы начинаете вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 		user.visible_message(span_notice(msg), span_notice(self_msg))
@@ -847,7 +847,7 @@
 
 		// now try actually injecting.
 
-		if(istype(C, /obj/item/reagent_containers/syringe))
+		if(issyringe(C))
 			user.visible_message(
 				span_notice("[user] вкалыва[PLUR_ET_YUT(user)] содержимое [tool.declent_ru(GENITIVE)] в [organ.declent_ru(ACCUSATIVE)] [target]."),
 				span_notice("Вы вкалываете содержимое [tool.declent_ru(GENITIVE)] в [organ.declent_ru(ACCUSATIVE)] [target].")
@@ -941,10 +941,12 @@
 		msg = "[user] вставля[PLUR_ET_YUT(user)] кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы вставляете кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+		affected.owner.add_bleeding_bodypart(affected)
 	if(target_zone == BODY_ZONE_HEAD)
 		msg = "[user] вставля[PLUR_ET_YUT(user)] кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы вставляете кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+		affected.owner.add_bleeding_bodypart(affected)
 	else
 		msg = "[user] закрыва[PLUR_ET_YUT(user)] края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы закрываете края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."

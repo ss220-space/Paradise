@@ -31,12 +31,6 @@
 	select_name = "circuit"
 	fire_sound = 'sound/weapons/blaster.ogg'
 
-/obj/projectile/energy/wiremod_gun
-	name = "scanning beam"
-	icon_state = "ion"
-	nodamage = TRUE
-	range = 7
-
 /obj/item/stock_parts/cell/emproof/wiremod_gun
 	maxcharge = 2000
 
@@ -71,7 +65,7 @@
 
 /obj/item/circuit_component/wiremod_gun/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_PROJECTILE_ON_HIT, PROC_REF(handle_shot))
-	if(!istype(shell, /obj/item/gun/energy))
+	if(!isenergygun(shell))
 		return
 
 	RegisterSignal(shell, COMSIG_GUN_CHAMBER_PROCESSED, PROC_REF(handle_chamber))

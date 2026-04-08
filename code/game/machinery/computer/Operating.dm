@@ -165,7 +165,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && isturf(src.loc))) || (issilicon(usr)))
 		usr.set_machine(src)
 
 	. = TRUE

@@ -481,8 +481,12 @@
 	log_smes()
 	..()
 
+/obj/machinery/power/smes/full
+	charge = 50 * STANDARD_BATTERY_CHARGE
+
 /obj/machinery/power/smes/engineering
-	charge = 2e6 // Engineering starts with some charge for singulo
+	charge = 50 * STANDARD_BATTERY_CHARGE // Engineering starts with some charge for singulo //sorry little one, singulo as engine is gone
+	output_level = 90 KILO WATTS
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

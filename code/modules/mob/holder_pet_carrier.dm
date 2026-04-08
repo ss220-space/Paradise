@@ -173,7 +173,7 @@
 
 	spawn(0)
 		if(do_after(L, (breakout_time), target_atom))
-			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
 				to_chat(L, span_warning("Побег прерван!"))
 				return
 
@@ -223,7 +223,7 @@
 		try_free_content(user = drag_user)
 		return FALSE
 
-	if(opened && (istype(over_object, /obj/structure/table) || isfloorturf(over_object) \
+	if(opened && (istable(over_object) || isfloorturf(over_object) \
 		&& length(contents) && loc == drag_user && !drag_user.incapacitated() && !HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED) && drag_user.Adjacent(over_object)))
 
 		if(alert(drag_user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")

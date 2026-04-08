@@ -128,7 +128,7 @@
 		update_state()
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	if(istype(I, /obj/item/soap) && paint_color)
+	if(issoap(I) && paint_color)
 		add_fingerprint(user)
 		balloon_alert(user, "краска смыта")
 		paint_color = null

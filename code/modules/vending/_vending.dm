@@ -58,7 +58,7 @@
 	density = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 70)
 	abstract_type = /obj/machinery/vending
 
 	// All the overlay controlling variables
@@ -1217,7 +1217,7 @@
 	currently_vending = product_record
 	var/paid = FALSE
 
-	if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
+	if(is_cash(usr.get_active_hand()))
 		var/obj/item/stack/spacecash/cash = usr.get_active_hand()
 		paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 	else if(get_card_account(usr))

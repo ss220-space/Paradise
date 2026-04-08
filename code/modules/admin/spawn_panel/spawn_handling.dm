@@ -96,7 +96,7 @@
 		pod = new()
 
 	for(var/i in 1 to amount)
-		if(istype(atom_to_spawn, /turf))
+		if(isturf(atom_to_spawn))
 			var/turf/original_turf = target
 			var/turf/created_turf = original_turf.ChangeTurf(atom_to_spawn.type)
 			if(created_turf && atom_name)
@@ -146,5 +146,5 @@
 		new /obj/effect/pod_landingzone(target, pod)
 
 	log_admin("[key_name(user)] created [amount == 1 ? "an instance" : "[amount] instances"] of [atom_to_spawn.type]")
-	if(istype(atom_to_spawn, /mob))
+	if(ismob(atom_to_spawn))
 		message_admins("[key_name_admin(user)] created [amount == 1 ? "an instance" : "[amount] instances"] of [atom_to_spawn.type]")

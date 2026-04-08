@@ -6,12 +6,12 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	circuit = /obj/item/circuitboard/drone_control
 
-	//Used when pinging drones.
-	var/drone_call_area = "Engineering"
-	//Used to enable or disable drone fabrication.
+	/// The linked fabricator
 	var/obj/machinery/drone_fabricator/dronefab
-	var/request_cooldown = 30 SECONDS
-	var/last_drone_request_time = 0
+	/// Used when pinging drones
+	var/drone_call_area = "Engineering"
+	/// Cooldown for area pings
+	COOLDOWN_DECLARE(ping_cooldown)
 
 /obj/machinery/computer/drone_control/get_ru_names()
 	return list(
@@ -23,8 +23,9 @@
 		PREPOSITIONAL = "консоли управления дронами",
 	)
 
-/obj/machinery/computer/drone_control/attack_ai(mob/user)
-	return src.attack_hand(user)
+/obj/machinery/computer/drone_control/Initialize(mapload)
+	. = ..()
+	find_fab()
 
 /obj/machinery/computer/drone_control/attack_hand(mob/user)
 	if(..())
@@ -35,124 +36,117 @@
 		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
-	interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/drone_control/attack_ghost(mob/user)
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/drone_control/interact(mob/user)
+/obj/machinery/computer/drone_control/ui_state(mob/user)
+	return GLOB.default_state
 
-	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += "<b>Ремонтные дроны</b><br>"
+/obj/machinery/computer/drone_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "DroneConsole", DECLENT_RU_CAP(src, NOMINATIVE))
+		ui.open()
 
-	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-		dat += "<br>[D.real_name] ([D.stat == 2 ? "<font color='red'>НЕАКТИВЕН" : "<font color='green'>АКТИВЕН"]</font>)"
-		dat += "<br>Заряд батареи: [D.cell.charge]/[D.cell.maxcharge]."
-		dat += "<br>Текущее местоположение: [get_area(D)]."
-		dat += "<br><a href='byond://?src=[UID()];resync=[D.UID()]'>Синхронизировать</a> | <a href='byond://?src=[UID()];shutdown=[D.UID()]'>Отключить</a>"
+/obj/machinery/computer/drone_control/ui_data(mob/user)
+	var/list/data = list()
+	data["drone_fab"] = FALSE
+	data["fab_power"] = null
+	data["drone_prod"] = null
+	data["drone_progress"] = null
+	if(dronefab)
+		data["drone_fab"] = TRUE
+		data["fab_power"] = dronefab.stat & NOPOWER ? FALSE : TRUE
+		data["drone_prod"] = dronefab.produce_drones
+		data["drone_progress"] = dronefab.drone_progress
+	data["selected_area"] = drone_call_area
+	data["ping_cd"] = !COOLDOWN_FINISHED(src, ping_cooldown)
 
-	dat += "<br><b><a href='byond://?src=[UID()];request_help=1'>Запросить нового дрона</a></b>"
+	data["drones"] = list()
+	for(var/mob/living/silicon/robot/drone/drone in GLOB.silicon_mob_list)
+		var/area/area = get_area(drone)
+		var/turf/turf = get_turf(drone)
+		var/list/drone_data = list(
+			name = drone.real_name,
+			uid = drone.UID(),
+			stat = drone.stat,
+			client = drone.client ? TRUE : FALSE,
+			health = round(drone.health / drone.maxHealth, 0.1),
+			charge = round(drone.cell.charge / drone.cell.maxcharge, 0.1),
+			location = "[area] ([turf.x], [turf.y])",
+			sync_cd = !COOLDOWN_FINISHED(drone, sync_cooldown),
+		)
+		data["drones"] += list(drone_data)
+	return data
 
-	dat += "<br><br><b>Запросить присутствие дрона в зоне:</b> <a href='byond://?src=[UID()];setarea=1'>[drone_call_area]</a> (<a href='byond://?src=[UID()];ping=1'>Отправить пинг</a>)"
+/obj/machinery/computer/drone_control/ui_static_data(mob/user)
+	var/list/data = list()
+	data["area_list"] = GLOB.TAGGERLOCATIONS
+	return data
 
-	dat += "<br><br><b>Фабрикатор дронов</b>: "
-	dat += "[dronefab ? "<a href='byond://?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "АКТИВЕН" : "НЕАКТИВЕН"]</a>" : "<font color='red'><b>ФАБРИКАТОР НЕ ОБНАРУЖЕН.</b></font> (<a href='byond://?src=[UID()];search_fab=1'>Поиск</a>)"]"
-	user << browse(dat, "window=computer;size=400x500")
-	onclose(user, "computer")
-	return
-
-/obj/machinery/computer/drone_control/proc/request_help()
-	if((last_drone_request_time + request_cooldown) > world.time)
-		return
-	notify_ghosts(message = "Требуется дрон для починки и обслуживания.", ghost_sound = null,
-		title="Фабрикатор дронов", source = dronefab, action = NOTIFY_ATTACK)
-	last_drone_request_time = world.time
-
-/obj/machinery/computer/drone_control/Topic(href, href_list)
+/obj/machinery/computer/drone_control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	if(!allowed(usr) && !usr.can_admin_interact())
-		to_chat(usr, span_warning("Доступ запрещён."))
-		playsound(src, SFX_BUTTON_DENIED, 20)
+	. = TRUE
+	switch(action)
+		if("find_fab")
+			find_fab(usr)
+
+		if("toggle_fab")
+			if(QDELETED(dronefab))
+				dronefab = null
+				return
+
+			dronefab.produce_drones = !dronefab.produce_drones
+			to_chat(usr, span_notice("Вы [dronefab.produce_drones ? "включаете" : "отключаете"] производство дронов в ближайшем фабрикаторе."))
+			var/toggle = dronefab.produce_drones ? "enabled" : "disabled"
+			message_admins("[key_name_admin(usr)] [toggle == "enabled" ? "enabled" : "disabled"] maintenance drone production from the control console.")
+			log_game("[key_name(usr)] [toggle == "enabled" ? "enabled" : "disabled"] maintenance drone production from the control console.")
+
+		if("set_area")
+			drone_call_area = params["area"]
+
+		if("ping")
+			COOLDOWN_START(src, ping_cooldown, 1 MINUTES) // to prevent chat spam
+			to_chat(usr, span_notice("Вы отправляете запрос на обслуживание для всех активных дронов, выделяя зону [drone_call_area]."))
+			for(var/mob/living/silicon/robot/drone/drone in GLOB.silicon_mob_list)
+				if(drone.client && drone.stat == CONSCIOUS)
+					to_chat(drone, span_boldnotice("-- Запрошено присутствие дрона в зоне: [drone_call_area]."))
+
+		if("resync")
+			var/mob/living/silicon/robot/drone/drone = locateUID(params["uid"])
+			if(drone)
+				COOLDOWN_START(drone, sync_cooldown, 1 MINUTES) // to prevent chat spam
+				to_chat(usr, span_notice("Вы отправляете директиву на синхронизацию законов для дрона."))
+				drone.law_resync()
+
+		if("shutdown")
+			var/mob/living/silicon/robot/drone/drone = locateUID(params["uid"])
+			if(drone)
+				to_chat(usr, span_warning("Вы отправляете команду на уничтожение несчастного дрона."))
+				if(drone != usr) // Don't need to bug admins about a suicide
+					message_admins("[key_name_admin(usr)] issued shutdown order for drone [key_name_admin(drone)] from control console.")
+				log_game("[key_name(usr)] issued shutdown order for [key_name(drone)] from control console.")
+				drone.shut_down()
+
+/obj/machinery/computer/drone_control/proc/find_fab(mob/user)
+	if(dronefab)
 		return
 
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
-		usr.set_machine(src)
+	for(var/obj/machinery/drone_fabricator/fabricator in get_area(src))
+		if(fabricator.stat & NOPOWER)
+			continue
 
-	if(href_list["setarea"])
-
-		//Probably should consider using another list, but this one will do.
-		var/t_area = tgui_input_list(usr, "Выберите зону для отправки пинга.", "Установить целевую зону", GLOB.TAGGERLOCATIONS, null)
-
-		if(!t_area || GLOB.TAGGERLOCATIONS[t_area])
+		dronefab = fabricator
+		if(!user)
 			return
 
-		drone_call_area = t_area
-		to_chat(usr, span_notice("Вы установили целевую зону на [drone_call_area]."))
+		to_chat(user, span_notice("Фабрикатор дронов обнаружен."))
 
-	else if(href_list["request_help"])
-		if(!dronefab || !dronefab.produce_drones)
-			to_chat(usr, span_warning("Вы не можете запросить дрона, если нет рабочего фабрикатора."))
-		else
-			if((last_drone_request_time + request_cooldown) > world.time)
-				to_chat(usr, span_notice("Вы не можете отправлять запросы на производство слишком часто."))
-				return
-			to_chat(usr, span_notice("Вы отправили запрос на производство в фабрикатор."))
-			request_help()
+	if(!user)
+		return
 
-	else if(href_list["ping"])
-
-		to_chat(usr, span_notice("Вы отправляете запрос на обслуживание для всех активных дронов, выделяя зону [drone_call_area]."))
-		for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-			if(D.client && D.stat == 0)
-				to_chat(D, "-- Запрошено присутствие дрона в зоне: [drone_call_area].")
-
-	else if(href_list["resync"])
-
-		var/mob/living/silicon/robot/drone/D = locateUID(href_list["resync"])
-
-		if(D.stat != 2)
-			to_chat(usr, span_warning("Вы отправляете директиву на синхронизацию законов для дрона."))
-			D.law_resync()
-
-	else if(href_list["shutdown"])
-
-		var/mob/living/silicon/robot/drone/D = locateUID(href_list["shutdown"])
-
-		if(D.stat != 2)
-			to_chat(usr, span_warning("Вы отправляете команду на уничтожение несчастного дрона."))
-			add_attack_logs(usr, src, "issued kill order from control console", ATKLOG_FEW)
-			D.shut_down()
-
-	else if(href_list["search_fab"])
-		if(dronefab)
-			return
-
-		for(var/obj/machinery/drone_fabricator/fab in get_area(src))
-
-			if(fab.stat & NOPOWER)
-				continue
-
-			dronefab = fab
-			to_chat(usr, span_notice("Фабрикатор дронов обнаружен."))
-			return
-
-		to_chat(usr, span_warning("Не удалось обнаружить фабрикатор дронов."))
-
-	else if(href_list["toggle_fab"])
-
-		if(!dronefab)
-			return
-
-		if(get_dist(src,dronefab) > 3)
-			dronefab = null
-			to_chat(usr, span_warning("Не удалось обнаружить фабрикатор дронов."))
-			return
-
-		dronefab.produce_drones = !dronefab.produce_drones
-		dronefab.update_icon(UPDATE_ICON_STATE)
-		to_chat(usr, span_notice("Вы [dronefab.produce_drones ? "включаете" : "отключаете"] производство дронов в ближайшем фабрикаторе."))
-
-	src.updateUsrDialog()
+	to_chat(user, span_warning("Не удалось обнаружить фабрикатор дронов."))

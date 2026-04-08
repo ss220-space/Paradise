@@ -176,9 +176,6 @@
 	extra_font = (target.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\t-Burn Severity %: [target.getFireLoss()]</font><br>"
 
-	extra_font = (target.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-	dat += "[extra_font]\tRadiation Level %: [target.radiation]</font><br>"
-
 	extra_font = (target.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tGenetic Tissue Damage %: [target.getCloneLoss()]<br>"
 
@@ -233,7 +230,7 @@
 		var/lung_ruptured = ""
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding = "<br>Internal bleeding"
-		if(istype(bodypart, /obj/item/organ/external/chest) && target.is_lung_ruptured())
+		if(ischest(bodypart) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
 		if(bodypart.is_splinted())
 			splint = "Splinted:"
@@ -290,10 +287,13 @@
 		dat += "<td>[organ.name]</td><td>N/A</td><td>[organ.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
+
 	if(HAS_TRAIT(target, TRAIT_BLIND))
 		dat += "<font color='red'>Cataracts detected.</font><br>"
+
 	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
+
 	if(HAS_TRAIT(target, TRAIT_NEARSIGHTED))
 		dat += "<font color='red'>Retinal misalignment detected.</font><br>"
 

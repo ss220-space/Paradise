@@ -110,7 +110,7 @@
 		if(!is_station_level(usr.z))
 			to_chat(usr, span_warning("The beacon cannot guide from this place! It must be on station!"))
 			return FALSE
-		if(istype(A, /area/space))
+		if(isspacearea(A))
 			to_chat(usr, span_warning("The beacon must be inside the station itself to properly work."))
 			return FALSE
 		if(!A.type == /area) //The only one that is made by blueprints
@@ -199,7 +199,7 @@
 	if(istype(result, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = result
 		W.ini_dir = W.dir
-	else if(istype(result, /obj/structure/window))
+	else if(is_window(result))
 		var/obj/structure/window/W = result
 		W.ini_dir = W.dir
 		W.set_anchored(FALSE)

@@ -87,15 +87,20 @@
 				if(!QDELETED(room))
 					INVOKE_ASYNC(room, PROC_REF(load_room_async))
 			pending_landmarks.Cut()
+			loader_landmark = null
+			qdel(src)
+			return
 		else
 			pending_landmarks |= src
-		return
+			return
 
 	var/list/room_list = (dir == NORTH) ? north_room_templates : south_room_templates
 	var/datum/map_template/map_template = safepick(room_list)
 	if(map_template)
 		room_list -= map_template
 		load(map_template)
+
+	qdel(src)
 
 /obj/effect/landmark/map_loader/hotel_room/proc/load_templates()
 	if(templates_loaded)

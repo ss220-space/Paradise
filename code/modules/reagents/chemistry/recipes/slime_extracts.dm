@@ -761,20 +761,6 @@
 	if(P)
 		P.forceMove(get_turf(holder.my_atom))
 
-/datum/chemical_reaction/slimepotionrad
-	name = "Slime Radiation Resistence Potion"
-	id = "m_slime_potion_RadR"
-	result = null
-	required_reagents = list("water" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/pyrite
-	required_other = 1
-
-/datum/chemical_reaction/slimepotionrad/on_reaction(datum/reagents/holder)
-	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/clothing/radiation/R = new
-	R.forceMove(get_turf(holder.my_atom))
-
 //Rainbow :o)
 /datum/chemical_reaction/slimeRNG
 	name = "Random Core"
