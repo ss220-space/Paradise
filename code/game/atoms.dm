@@ -1569,17 +1569,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 #define RICOCHET_RAND_MAX_ANGLE rand(0, 15)
 
 /atom/proc/handle_ricochet(obj/projectile/ricocheting_projectile)
-	var/turf/p_turf = get_turf(ricocheting_projectile)
-	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
+	if(HAS_TRAIT(ricocheting_projectile, TRAIT_NO_RICOCHET))
+		return FALSE
+	var/turf/projectile_turf = get_turf(ricocheting_projectile)
+	var/face_direction = get_dir(src, projectile_turf) || get_dir(src, ricocheting_projectile)
 	var/normal_angle = dir2angle(face_direction)
 	var/normal_dir = ricocheting_projectile.Angle < 0 ? ANGLE_DIR_NEG : ANGLE_DIR_POS
 	var/ricochet_angle = GET_ANGLE_OF_INCIDENCE(normal_angle, (ricocheting_projectile.Angle + HALF_ROTATION_ANGLE + normal_dir * RICOCHET_RAND_MAX_ANGLE))
 	var/ricochet_angle_abs = abs(ricochet_angle)
 	if(ricochet_angle_abs > 90 && ricochet_angle_abs < 270)
 		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(normal_angle + ricochet_angle)
-	ricocheting_projectile.set_angle(new_angle_s)
-	visible_message(span_warning("[ricocheting_projectile] reflects off [src]!"))
+	var/new_angle = SIMPLIFY_DEGREES(normal_angle + ricochet_angle)
+	ricocheting_projectile.set_angle(new_angle)
+	visible_message(span_warning("[DECLENT_RU_CAP(ricocheting_projectile, NOMINATIVE)] рикошетит от [declent_ru(GENITIVE)]!"))
 	return TRUE
 
 #undef ANGLE_DIR_POS
