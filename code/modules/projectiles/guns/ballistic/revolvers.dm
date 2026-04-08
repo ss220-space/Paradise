@@ -429,3 +429,67 @@
 		update_icon(UPDATE_OVERLAYS)
 		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+
+//MARK: Rsh-12
+/obj/item/gun/projectile/revolver/rsh_12
+	name = "RSh-12"
+	desc = "Крупнокалиберный револьвер под калибр 12.7х55 мм. \
+			Отличается высокой убойностью и страшной отдачей. Произведён \"Оружейной Ауссек\"."
+	icon_state = "rsh-12"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rsh_12
+	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEGA
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 11, "y" = -5),
+	)
+	/// Opened state flag
+	var/opened = FALSE
+
+/obj/item/gun/projectile/revolver/rsh_12/get_ru_names()
+	return list(
+		NOMINATIVE = "револьвер \"РШ-12\"",
+		GENITIVE = "револьвера \"РШ-12\"",
+		DATIVE = "револьверу \"РШ-12\"",
+		ACCUSATIVE = "револьвер \"РШ-12\"",
+		INSTRUMENTAL = "револьвером \"РШ-12\"",
+		PREPOSITIONAL = "револьвере \"РШ-12\"",
+	)
+
+/obj/item/gun/projectile/revolver/rsh_12/attack_self(mob/living/user)
+	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
+	if(opened)
+		opened = FALSE
+		user.balloon_alert(user, "закрыто!")
+	else
+		opened = TRUE
+		user.balloon_alert(user, "открыто!")
+		unload_act(user)
+	update_icon()
+
+/obj/item/gun/projectile/revolver/rsh_12/update_icon_state()
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
+
+/obj/item/gun/projectile/revolver/rsh_12/can_shoot(mob/user)
+	. = ..()
+	if(. && opened)
+		return FALSE
+
+/obj/item/gun/projectile/revolver/rsh_12/attackby(obj/item/item, mob/user, params)
+	if(!opened && isammocasing(item))
+		user.balloon_alert(user, "надо открыть барабан!")
+		to_chat(user, span_notice("Надо открыть барабан чтобы зарядить патрон."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/item/gun/projectile/revolver/rsh_12/admin
+	pb_knockback = 3
+	starting_attachment_types = list(
+		/obj/item/gun_module/rail/scope/collimator/pistol,
+		/obj/item/gun_module/under/laser/point,
+	)

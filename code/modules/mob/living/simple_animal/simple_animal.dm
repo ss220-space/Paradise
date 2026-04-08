@@ -437,11 +437,11 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
-/mob/living/simple_animal/proc/drop_loot(drop_loc)
+/mob/living/simple_animal/proc/drop_loot()
 	if(!length(loot))
 		return
 	for(var/item in loot)
-		new item(drop_loc)
+		new item(drop_location())
 	loot = null
 
 /mob/living/simple_animal/death(gibbed)

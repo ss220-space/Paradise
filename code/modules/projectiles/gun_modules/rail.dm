@@ -17,7 +17,7 @@
 	old_zoom_amount = target_gun.zoom_amt
 	target_gun.zoom_amt = zoom_amount
 	target_gun.build_zooming()
-	if(user.is_in_hands(target_gun))
+	if(user && user.is_in_hands(target_gun))
 		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
 	RegisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE, PROC_REF(zoom_toogle))
 
@@ -222,7 +222,7 @@
 
 /obj/item/gun_module/rail/hud/medical
 	name = "med hud scope"
-	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
+	desc = "Коллиматорный прицел с медицинским ИЛС, предназначенный для установки на прицельную планку стрелкового оружия."
 	icon_state = "coll_med"
 	item_state = "coll_med"
 	overlay_state = "coll_med_o"
@@ -243,7 +243,7 @@
 
 /obj/item/gun_module/rail/hud/security
 	name = "security hud scope"
-	desc = "Коллиматорный прицел с охранным ИЛС, предназначенный для установки на прицельную планку стрелкового оружия. Несовместим с пистолетами."
+	desc = "Коллиматорный прицел с охранным ИЛС, предназначенный для установки на прицельную планку стрелкового оружия."
 	icon_state = "coll_sec"
 	item_state = "coll_sec"
 	overlay_state = "coll_sec_o"

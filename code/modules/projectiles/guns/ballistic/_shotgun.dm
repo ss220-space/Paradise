@@ -14,7 +14,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	weapon_weight = WEAPON_HEAVY
-	pb_knockback = 2
+	pb_knockback = 1
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
