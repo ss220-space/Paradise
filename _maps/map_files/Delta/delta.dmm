@@ -20096,22 +20096,10 @@
 /area/hydroponics)
 "cxk" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Riot shotguns"
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random_spawners/security_shotguns,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

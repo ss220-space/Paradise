@@ -1137,7 +1137,7 @@
 	return TRUE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
+	if(isaccessory(I))
 		if(attach_accessory(I, user, unequip = TRUE))
 			return ATTACK_CHAIN_BLOCKED_ALL
 

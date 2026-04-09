@@ -1156,7 +1156,7 @@
 		update_worn_mask()
 	if(clean_feet)
 		feet_blood_color = null
-		qdel(feet_blood_DNA)
+		feet_blood_DNA = null
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
 		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_worn_shoes()

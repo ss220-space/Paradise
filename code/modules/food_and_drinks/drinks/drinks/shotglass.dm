@@ -72,7 +72,7 @@
 				filling.icon_state = "[icon_state]5"
 			if(80 to INFINITY)
 				filling.icon_state = "[icon_state]12"
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware

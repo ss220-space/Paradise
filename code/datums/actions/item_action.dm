@@ -364,6 +364,9 @@
 /datum/action/item_action/change_holotool_color
 	name = "Сменить цвет голотула"
 
+/datum/action/item_action/show_head_strip
+	name = "Показать нашивку"
+
 // MARK: Cleave attack
 /datum/action/item_action/toggle_cleave_attack
 	name = "Переключить режим атаки со взмахом"
