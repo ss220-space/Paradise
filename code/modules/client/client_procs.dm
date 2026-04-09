@@ -577,6 +577,11 @@
 	if(!SSdbcore.IsConnected())
 		return
 
+	if(check_rights(R_ADMIN, FALSE, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+		donator_level = DONATOR_TIER_I
+		donor_loadout_points()
+		return
+
 	//Donator stuff.
 	var/datum/db_query/query_donor_select = SSdbcore.NewQuery({"
 		SELECT CAST(SUM(amount) as UNSIGNED INTEGER) FROM [CONFIG_GET(string/utility_database)].[format_table_name("budget")]
