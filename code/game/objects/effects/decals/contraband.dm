@@ -45,6 +45,7 @@
 	icon_state = poster_structure.poster_item_icon_state
 
 /obj/item/poster/update_desc()
+	. = ..()
 	if(!poster_structure)
 		return
 	if(is_unfurled)
