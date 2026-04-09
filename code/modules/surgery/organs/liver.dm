@@ -1,4 +1,5 @@
-#define LIVER_FAILURE_STAGE_SECONDS 60 //amount of seconds before liver failure reaches a new stage
+///amount of seconds before liver failure reaches a new stage
+#define LIVER_FAILURE_STAGE_SECONDS 60
 #define LIVER_DEFAULT_TOX_HEALING -0.1
 
 /obj/item/organ/internal/liver
@@ -34,55 +35,54 @@
 	return ..()
 
 /obj/item/organ/internal/liver/on_life()
-	if(germ_level > INFECTION_LEVEL_ONE)
-		if(prob(1))
-			to_chat(owner, span_warning("Ваша кожа зудит."))
-	if(germ_level > INFECTION_LEVEL_TWO)
-		if(prob(1))
-			owner.vomit()
+	if(germ_level > INFECTION_LEVEL_ONE && prob(1))
+		to_chat(owner, span_warning("Ваша кожа зудит."))
+	if(germ_level > INFECTION_LEVEL_TWO && prob(1))
+		owner.vomit()
 
-	if(owner.life_tick % PROCESS_ACCURACY == 0)
+	if(owner.life_tick % PROCESS_ACCURACY != 0)
+		return
 
-		//Passive toxin healing
-		if(!is_traumatized())
-			owner.adjustToxLoss(toxin_healing * PROCESS_ACCURACY)
+	//Passive toxin healing
+	if(!is_traumatized())
+		owner.adjustToxLoss(toxin_healing * PROCESS_ACCURACY)
 
-		//High toxins levels are dangerous
-		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
-			//Healthy liver suffers on its own
-			if(damage < min_broken_damage)
-				internal_receive_damage(0.2 * PROCESS_ACCURACY)
-			//Damaged one shares the fun
-			else
-				var/obj/item/organ/internal/organ = safepick(owner.internal_organs)
-				if(organ)
-					organ.internal_receive_damage(0.2  * PROCESS_ACCURACY)
-
-		if(damage)
-			//Detox can heal small amounts of damage
-			if((damage < min_bruised_damage && owner.reagents.has_reagent("charcoal")))
-				internal_receive_damage(-0.2 * PROCESS_ACCURACY)
-			//Upgraded cyber liver heals all the time when we dont have toxins
-			if(regeneration && (owner.getToxLoss() == 0))
-				internal_receive_damage(-0.2 * PROCESS_ACCURACY)
-
-		// Damaged liver means some chemicals are very dangerous
-		if(damage >= min_bruised_damage)
-			for(var/datum/reagent/R in owner.reagents.reagent_list)
-				// Ethanol and all drinks are bad
-				if(istype(R, /datum/reagent/consumable/ethanol))
-					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
-
-			// Can't cope with toxins at all
-			for(var/toxin in GLOB.liver_toxins)
-				if(owner.reagents.has_reagent(toxin))
-					owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
-
-		if((damage == max_damage) || (status & ORGAN_DEAD))
-			failure_time += PROCESS_ACCURACY
-			organ_failure(PROCESS_ACCURACY)
+	//High toxins levels are dangerous
+	if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
+		//Healthy liver suffers on its own
+		if(damage < min_broken_damage)
+			internal_receive_damage(0.2 * PROCESS_ACCURACY)
+		//Damaged one shares the fun
 		else
-			failure_time = 0
+			var/obj/item/organ/internal/organ = safepick(owner.internal_organs)
+			if(organ)
+				organ.internal_receive_damage(0.2  * PROCESS_ACCURACY)
+
+	if(damage)
+		//Detox can heal small amounts of damage
+		if((damage < min_bruised_damage && owner.reagents.has_reagent("charcoal")))
+			internal_receive_damage(-0.2 * PROCESS_ACCURACY)
+		//Upgraded cyber liver heals all the time when we dont have toxins
+		if(regeneration && (owner.getToxLoss() == 0))
+			internal_receive_damage(-0.2 * PROCESS_ACCURACY)
+
+	// Damaged liver means some chemicals are very dangerous
+	if(damage >= min_bruised_damage)
+		for(var/datum/reagent/R in owner.reagents.reagent_list)
+			// Ethanol and all drinks are bad
+			if(istype(R, /datum/reagent/consumable/ethanol))
+				owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
+
+		// Can't cope with toxins at all
+		for(var/toxin in GLOB.liver_toxins)
+			if(owner.reagents.has_reagent(toxin))
+				owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
+
+	if((damage == max_damage) || (status & ORGAN_DEAD))
+		failure_time += PROCESS_ACCURACY
+		organ_failure(PROCESS_ACCURACY)
+	else
+		failure_time = 0
 
 /obj/item/organ/liver/handle_failing_organs(seconds_per_tick)
 	if(owner.stat == DEAD)
@@ -144,20 +144,21 @@
 				owner.emote("drool")
 
 /obj/item/organ/internal/liver/proc/on_owner_examine(datum/source, mob/user, list/examine_list)
-	var/mob/living/carbon/human/H = owner
-	if(!H || failure_time <= 0)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/human/human_owner = owner
+	if(!human_owner || failure_time <= 0)
 		return
 
-	if(H.is_eyes_covered())
+	if(human_owner.is_eyes_covered())
 		return
 
 	switch(failure_time)
 		if(0 to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			examine_list += span_notice("[GEND_HIS_HER_CAP(H)] глаза выглядят слегка жёлтыми.")
+			examine_list += span_notice("[GEND_HIS_HER_CAP(human_owner)] глаза выглядят слегка жёлтыми.")
 		if(3 * LIVER_FAILURE_STAGE_SECONDS to 4 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			examine_list += span_notice("[GEND_HIS_HER_CAP(H)] глаза полностью жёлтые и [GEND_HE_SHE(H)] явно страдает.")
+			examine_list += span_notice("[GEND_HIS_HER_CAP(human_owner)] глаза полностью жёлтые и [GEND_HE_SHE(human_owner)] явно страдает.")
 		if(4 * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
-			examine_list += span_danger("[GEND_HIS_HER_CAP(H)] глаза полностью жёлтые и опухшие от гноя. [GEND_HE_SHE_CAP(H)] долго не продержится.")
+			examine_list += span_danger("[GEND_HIS_HER_CAP(human_owner)] глаза полностью жёлтые и опухшие от гноя. [GEND_HE_SHE_CAP(human_owner)] долго не продержится.")
 
 /obj/item/organ/internal/liver/cybernetic
 	name = "cybernetic liver"
