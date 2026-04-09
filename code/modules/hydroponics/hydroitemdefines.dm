@@ -315,7 +315,7 @@
 			if(93 to INFINITY)
 				filling.icon_state = "plastic_jug100"
 
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())

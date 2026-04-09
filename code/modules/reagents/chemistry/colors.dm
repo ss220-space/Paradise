@@ -29,3 +29,17 @@ GLOBAL_LIST_INIT(random_color_list, list("#00aedb","#a200ff","#f47835","#d41243"
 		else
 			color = BlendRGB(reagent_color, color, vol_temp/vol_counter)
 	return color
+
+/proc/get_color_matrix_from_reagents(list/reagent_list)
+	var/list/mixed_color = ReadRGB(mix_color_from_reagents(reagent_list))
+
+	if(!mixed_color)
+		return
+
+	return list(
+			0.5, 0,   0,   0,
+			0,   0.5, 0,   0,
+			0,   0,   0.5, 0,
+			0,   0,   0,   1,
+			mixed_color[1], mixed_color[2], mixed_color[3], 0
+		)

@@ -9,8 +9,8 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -7),
 	)
 
 /obj/item/gun/energy/gun/sibyl/Initialize(mapload)
@@ -63,8 +63,8 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 10),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -10),
 	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
@@ -145,8 +145,8 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -8),
 	)
 
 /obj/item/gun/energy/gun/nuclear/sibyl/Initialize(mapload)

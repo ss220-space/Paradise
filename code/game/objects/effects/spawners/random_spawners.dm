@@ -493,3 +493,10 @@
 	return ..()
 
 
+/obj/effect/spawner/random_spawners/security_shotguns
+	name = "shotguns closet spawner"
+	icon_state = "guncabinet_ballistic"
+	result = list(
+		/obj/structure/closet/secure_closet/guncabinet/riot_shotgun = 50,
+		/obj/structure/closet/secure_closet/guncabinet/winchester = 50,
+	)

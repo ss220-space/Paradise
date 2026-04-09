@@ -18,6 +18,10 @@
 	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
+	/// Sound for pump action
+	var/reload_sound = 'sound/weapons/gun_interactions/shotgunpump.ogg'
+	/// Available reload animation (pump action animation)
+	var/available_reload_animation = TRUE
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
@@ -42,10 +46,12 @@
 	pump(user)
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	playsound(M, reload_sound, 60, TRUE)
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc
+	if(available_reload_animation)
+		flick(icon_state + "_reload", src)
 	return 1
 
 /obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
