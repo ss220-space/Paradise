@@ -29,12 +29,28 @@
 	if(!new_poster_structure && poster_type)
 		poster_structure = new poster_type(src)
 
-	if(poster_structure)
-		desc = poster_structure.poster_item_desc
+	update_icon_state()
+	update_desc()
 
 /obj/item/poster/Destroy()
 	poster_structure = null
 	. = ..()
+
+/obj/item/poster/update_icon_state()
+	if(!poster_structure)
+		return
+	if(is_unfurled)
+		icon_state = poster_structure.icon_state
+		return
+	icon_state = poster_structure.poster_item_icon_state
+
+/obj/item/poster/update_desc()
+	if(!poster_structure)
+		return
+	if(is_unfurled)
+		desc = poster_structure.desc
+		return
+	desc = poster_structure.poster_item_desc
 
 /obj/item/poster/proc/roll_up(mob/user)
 	if(!is_unfurled)
@@ -42,9 +58,8 @@
 	is_unfurled = FALSE
 	name = "rolled-up poster"
 	ru_names = null
-	if(poster_structure)
-		icon_state = poster_structure.poster_item_icon_state
-		desc = poster_structure.poster_item_desc
+	update_icon_state()
+	update_desc()
 	if(user)
 		playsound(src, 'sound/effects/pageturn3.ogg', 30, TRUE)
 		to_chat(user, span_notice("Вы аккуратно сворачиваете постер."))
@@ -60,8 +75,8 @@
 
 	is_unfurled = TRUE
 	name = "\"[poster_structure.original_name]\""
-	icon_state = poster_structure.icon_state
-	desc = poster_structure.desc
+	update_icon_state()
+	update_desc()
 	ru_names = poster_structure.ru_names
 	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
 	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
@@ -134,10 +149,10 @@
 
 /obj/structure/sign/poster/proc/build_poster_ru_names()
 	if(!original_name)
-		return null
+		return
 	var/list/base_names = get_ru_names()
 	if(!base_names || !base_names[NOMINATIVE])
-		return null
+		return
 	return list(
 		NOMINATIVE = "[base_names[NOMINATIVE]] \"[original_name]\"",
 		GENITIVE = "[base_names[GENITIVE]] \"[original_name]\"",
