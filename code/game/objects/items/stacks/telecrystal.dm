@@ -2,7 +2,6 @@
 	name = "telecrystal"
 	desc = "Кажется, что он переполнен загадочной и притягательной энергией."
 	gender = MALE
-	description_antag = "Телекристалл можно активировать, используя на устройствах с активным аплинком."
 	singular_name = "telecrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"

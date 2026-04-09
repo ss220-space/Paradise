@@ -64,6 +64,106 @@
 		if(0 to 25)
 			. +=  span_warning("Да [GEND_HE_SHE(src)] развалива[PLUR_ET_YUT(src)][GEND_SYA_AS_OS_IS(src)] на глазах!")
 
+	if(armor.has_any_armor() || (flags_cover & (HEADCOVERSMOUTH|MASKCOVERSMOUTH|GLASSESCOVERSEYES|MASKCOVERSEYES|HEADCOVERSEYES|PEPPERPROOF)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		. += span_notice("Имеется <a href='byond://?src=[UID()];list_armor=1'>бирка</a>, указывающая защитные характеристики.")
+
+/obj/item/clothing/examine_tags(mob/user)
+	. = ..()
+	if(clothing_flags & THICKMATERIAL)
+		.["плотный"] = "Выполнен из плотного материала, защищающего от уколов."
+	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		.["устойчивый к давлению"] = "Способен защитить носителя от экстремального давления."
+	if((clothing_traits & TRAIT_QUICK_CARRY) || (clothing_traits & TRAIT_QUICKER_CARRY))
+		.["тактильный"] = "Уменьшает время для поднятия существ в пожарный захват на [(clothing_traits & TRAIT_QUICKER_CARRY) ? "две секунды" : "одну секунду"]."
+	if(clothing_traits & FINGERS_COVERED)
+		.["закрывающий пальцы"] = "Пальцы носителя закрыты."
+	if(clothing_traits & TRAIT_FAST_CUFFING)
+		.["сдерживающий"] = "Позволяет носителю заковывать существ в наручники быстрее."
+	if((item_flags & BANGPROTECT_MINOR) || (item_flags & BANGPROTECT_TOTAL))
+		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
+	if(flash_protect > FLASH_PROTECTION_NONE)
+		.["защищающий зрение"] = "Обеспечивает [flash_protect == FLASH_PROTECTION_FLASH ? "умеренную защиту от вспышек cвета" : "сильную защиту от интенсивного света, в том числе от сварочного огня"]."
+
+/obj/item/clothing/examine_descriptor(mob/user)
+	return "предмет одежды"
+
+/obj/item/clothing/Topic(href, href_list)
+	. = ..()
+
+	if(href_list["list_armor"])
+		var/list/readout = list()
+
+		var/added_damage_header = FALSE
+		for(var/damage_key in ARMOR_LIST_DAMAGE)
+			var/rating = armor.getRating(damage_key)
+			if(!rating)
+				continue
+			if(!added_damage_header)
+				readout += "<b><u>БРОНЯ (1-10)</u></b>"
+				added_damage_header = TRUE
+			readout += "- [armor_to_protection_name(damage_key)] [armor_to_protection_class(rating)]"
+
+		var/added_durability_header = FALSE
+		for(var/durability_key in ARMOR_LIST_DURABILITY)
+			var/rating = armor.getRating(durability_key)
+			if(!rating)
+				continue
+			if(!added_durability_header)
+				readout += "<b><u>СОПРОТИВЛЕНИЕ (1-10)</u></b>"
+				added_durability_header = TRUE
+			readout += "- [armor_to_protection_name(durability_key)] [armor_to_protection_class(rating)]"
+
+		readout += "<b><u>ПОКРЫТИЕ</u></b>"
+		if((flags_cover & HEADCOVERSMOUTH) || (flags_cover & PEPPERPROOF))
+			var/list/things_blocked = list()
+			if(flags_cover & PEPPERPROOF)
+				things_blocked += span_tooltip("Защищает носителя от эффектов перцового спрея и аэрозольного капсаицина.", "перцовый спрей")
+			if(length(things_blocked))
+				readout += "- Блокирует [russian_list(things_blocked)]."
+
+		var/list/parts_covered = list()
+		if((body_parts_covered & HEAD) && !(slot_flags == ITEM_SLOT_MASK)) // because we don't want masks to be displayed as "Покрывает голову" when they actually don't
+			parts_covered += "голову"
+		else
+			if((flags_cover & GLASSESCOVERSEYES) || (flags_cover & MASKCOVERSEYES) || (flags_cover & HEADCOVERSEYES))
+				parts_covered += "глаза"
+			if((flags_cover & MASKCOVERSMOUTH) || (flags_cover & HEADCOVERSMOUTH))
+				parts_covered += "рот"
+		if(body_parts_covered & UPPER_TORSO)
+			parts_covered += "грудь"
+		if(body_parts_covered & LOWER_TORSO)
+			parts_covered += "живот"
+		if(body_parts_covered & ARMS)
+			parts_covered += "руки"
+		if(body_parts_covered & HANDS)
+			parts_covered += "ладони"
+		if(body_parts_covered & LEGS)
+			parts_covered += "ноги"
+		if(body_parts_covered & FEET)
+			parts_covered += "ступни"
+		if(length(parts_covered))
+			readout += "- Покрывает [russian_list(parts_covered)] носителя."
+
+		if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+			var/output_string = "Защищает"
+			if(!(clothing_flags & STOPSPRESSUREDAMAGE))
+				output_string = "Если герметизировано, то защищает"
+			readout += "- [output_string] носителя от экстремального давления."
+
+		if(max_heat_protection_temperature)
+			readout += "- Защищает владельца от перегрева вплоть до [max_heat_protection_temperature]° по Кельвину ([(T0C - max_heat_protection_temperature) * -1] °C)."
+
+		if(min_cold_protection_temperature)
+			readout += "- Защищает владельца от [min_cold_protection_temperature <= SPACE_SUIT_MIN_TEMP_PROTECT ? span_tooltip("Достаточно, чтобы предотвратить потерю тепла в открытом космосе.", \
+			"низких температур вплоть до [min_cold_protection_temperature]° по Кельвину ([(T0C - min_cold_protection_temperature) * -1] °C)") : "низких температур вплоть до \
+			[min_cold_protection_temperature]° по Кельвину ([(T0C - min_cold_protection_temperature) * -1] °C)"]."
+
+		if(!length(readout))
+			readout += "Нет информации о прочности или защите."
+
+		var/formatted_readout = span_notice("<b>ЗАЩИТНЫЕ ХАРАКТЕРИСТИКИ</b><hr>[jointext(readout, "\n")]")
+		to_chat(usr, chat_box_examine(formatted_readout))
+
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return FALSE
@@ -909,7 +1009,7 @@
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
@@ -934,7 +1034,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1

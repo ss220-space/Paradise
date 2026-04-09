@@ -64,21 +64,23 @@
 #define SKIP_ATTACK_MESSAGE (1<<16)
 /// Checks whether the item was upgraded with a speed potion
 #define SPEEDPOTION_APPLIED (1<<17)
+/// If an item has had its /datum/element/weapon_description initialized or not.
+#define WEAPON_DESCRIPTION_INITIALIZED (1<<18)
 /// Has contextual screentips when HOVERING OVER OTHER objects
-#define ITEM_HAS_CONTEXTUAL_SCREENTIPS (1<<18)
+#define ITEM_HAS_CONTEXTUAL_SCREENTIPS (1<<19)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
 /// Prevents usage of syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag
 #define THICKMATERIAL (1<<0)
 /// Used for external suit or helmet to stop pressure damage
-#define STOPSPRESSUREDMAGE (1<<1)
+#define STOPSPRESSUREDAMAGE (1<<1)
 /// Used for masks and helmets to allow internals usage
 #define AIRTIGHT (1<<2)
 /// Blocks the effect that chemical clouds would have on a mob, mask and helmets ONLY!
 #define BLOCK_GAS_SMOKE_EFFECT (1<<3)
-/// Prevents capsaicin effects, mask and helmets ONLY!
-#define BLOCK_CAPSAICIN (1<<4)
+/// Prevents pepper spray effects, mask and helmets ONLY!
+#define PEPPERPROOF (1<<4)
 /// Whether this item ignores any manipulations with slowdown variable, like slime speed potions
 #define FIXED_SLOWDOWN (1<<5)
 /// Checks for finger coverage, prevents damage from nettles

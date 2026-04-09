@@ -166,7 +166,6 @@
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
-	burst_size = 6
 	can_charge = FALSE
 	cell_type = /obj/item/stock_parts/cell/laser/gatling
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
@@ -174,11 +173,11 @@
 	charge_delay = 5
 	recharge_rate = 600
 	slowdown = 0.4
-	var/force_unwielded = 10
-	var/force_wielded = 20
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	var/force_unwielded = 10
+	var/force_wielded = 20
 
 /obj/item/gun/energy/gun/minigun/get_ru_names()
 	return list(
@@ -190,13 +189,22 @@
 		PREPOSITIONAL = "Гатлинг-лазере",
 	)
 
-/obj/item/gun/energy/gun/minigun/Initialize(mapload)
+/obj/item/gun/energy/gun/minigun/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_unwielded = src.force_unwielded, \
 		force_wielded = src.force_wielded, \
 		require_twohands = TRUE \
 	)
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		0.4 SECONDS, \
+		TRUE, \
+		0.05, \
+		0.25, \
+		1 SECONDS \
+	)
+
 
 /obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	..()

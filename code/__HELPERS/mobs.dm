@@ -421,6 +421,13 @@
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
+/// Returns the total amount of do_afters this mob is taking part in
+/mob/proc/do_after_count()
+	var/count = 0
+	for(var/key, value in do_afters)
+		count += value
+	return count
+
 /proc/is_species(A, species_datum)
 	. = FALSE
 

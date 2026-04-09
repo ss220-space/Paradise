@@ -258,14 +258,14 @@
 	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", "[timer_set]")
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
-		loc.visible_message(span_notice("[icon2html(src, viewers(src))] timer set for [timer_set] seconds."))
+		loc.visible_message(span_notice("[get_examine_icon(viewers(src))] timer set for [timer_set] seconds."))
 	if(tgui_alert(user, "Would you like to start the countdown now?", "Countdown", list("Yes", "No")) == "Yes" && can_interact(user))
 		if(defused || active)
 			if(defused)
-				loc.visible_message(span_notice("[icon2html(src, viewers(src))] Device error: User intervention required."))
+				loc.visible_message(span_notice("[get_examine_icon(viewers(src))] Device error: User intervention required."))
 			return
 		else
-			loc.visible_message(span_danger("[icon2html(src, viewers(src))] [timer_set] seconds until detonation, please clear the area."))
+			loc.visible_message(span_danger("[get_examine_icon(viewers(src))] [timer_set] seconds until detonation, please clear the area."))
 			activate()
 			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
