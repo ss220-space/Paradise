@@ -81,7 +81,7 @@
 				reagentsImage.icon_state = "mopbucket_reagents3"
 			if(76 to 100)
 				reagentsImage.icon_state = "mopbucket_reagents4"
-		reagentsImage.color = mix_color_from_reagents(reagents.reagent_list)
+		reagentsImage.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += reagentsImage
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)
