@@ -127,7 +127,7 @@
 /obj/structure/closet/secure_closet/freezer/vault
 	name = "vault locker"
 	icon_state = "vault"
-	desc = "Это шкафчик-сейф с дверью, запираемый ID-картой.. Имеет свинцовую облицовку для большей надёжности."
+	desc = "Это шкафчик-сейф с дверью, запираемый ID-картой. Имеет свинцовую облицовку для большей надёжности."
 	req_access = list(ACCESS_HEADS_VAULT)
 
 /obj/structure/closet/secure_closet/freezer/vault/get_ru_names()
