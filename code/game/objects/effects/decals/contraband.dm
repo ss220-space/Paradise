@@ -29,8 +29,7 @@
 	if(!new_poster_structure && poster_type)
 		poster_structure = new poster_type(src)
 
-	update_icon(UPDATE_ICON_STATE)
-	update_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
 
 /obj/item/poster/Destroy()
 	poster_structure = null
