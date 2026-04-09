@@ -78,22 +78,6 @@
 		unlink_item_to_spell(target, user, null)
 		return
 
-	// Internal organs have loc = null, check this case first
-	if(is_internal_organ(item_to_retrieve))
-		var/obj/item/organ/internal/internal_organ = item_to_retrieve
-		if(internal_organ.owner)
-			var/mob/living/owner_mob = internal_organ.owner
-			extract_internal_organ(internal_organ, owner_mob)
-			teleport_item_to_target(internal_organ, target, owner_mob)
-			return
-
-	if(isturf(item_to_retrieve.loc))
-		if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
-			to_chat(target, span_warning("Неизвестная сила мешает призвать отмеченный предмет!"))
-			return
-		teleport_item_to_target(item_to_retrieve, target)
-		return
-
 	if(isexternalorgan(item_to_retrieve))
 		var/obj/item/organ/external/external_organ = item_to_retrieve
 		if(ismob(external_organ.loc))
@@ -104,7 +88,15 @@
 				teleport_item_to_target(thing, target)
 		return
 
-	if(!isturf(item_to_retrieve.loc) && item_to_retrieve.loc)
+	if(is_internal_organ(item_to_retrieve))
+		var/obj/item/organ/internal/internal_organ = item_to_retrieve
+		if(internal_organ.owner)
+			var/mob/living/owner_mob = internal_organ.owner
+			extract_internal_organ(internal_organ, owner_mob)
+			teleport_item_to_target(internal_organ, target, owner_mob)
+			return
+
+	if(item_to_retrieve.loc)
 		var/infinite_recursion = 0
 		var/mob/living/organ_owner_for_teleport
 
@@ -121,6 +113,13 @@
 					if(ismob(item_owner))
 						organ_owner_for_teleport = item_owner
 						extract_internal_organ(internal_organ, item_owner)
+					break
+
+				if(isexternalorgan(item_to_retrieve))
+					var/obj/item/organ/external/external_organ = item_to_retrieve
+					if(ismob(item_owner))
+						SEND_SIGNAL(item_owner, COMSIG_CARBON_LOSE_ORGAN, external_organ)
+						SEND_SIGNAL(external_organ, COMSIG_ORGAN_REMOVED, item_owner)
 					break
 
 				if(ishuman(item_owner))
