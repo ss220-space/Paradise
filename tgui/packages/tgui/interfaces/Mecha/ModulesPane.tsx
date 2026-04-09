@@ -199,7 +199,8 @@ export const ModulesPane = (props) => {
                 maxValue={radio_data.maxFrequency / 10}
                 value={radio_data.frequency / 10}
                 format={(value) => toFixed(value, 1)}
-                onDrag={(value) =>
+                tickWhileDragging
+                onChange={(value) =>
                   act('set_frequency', {
                     new_frequency: value * 10,
                   })

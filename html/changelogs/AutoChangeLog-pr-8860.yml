@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - config: "Бинглы отключены. Теперь точно. (PR #8860)"

@@ -501,15 +501,17 @@ SUBSYSTEM_DEF(air)
 					// Wasn't an active hotspot before, add it.
 					hotspots += simulated_turf
 				else
-					simulated_turf.active_hotspot.temperature = temperature
-					simulated_turf.active_hotspot.fuel_burnt = fuel_burnt
-					simulated_turf.active_hotspot.data_tick = milla_tick
+					var/obj/effect/hotspot/active_hotspot = simulated_turf.active_hotspot
+					active_hotspot.temperature = temperature
+					active_hotspot.fuel_burnt = fuel_burnt
+					active_hotspot.data_tick = milla_tick
 					if(hotspot_volume > 0)
-						simulated_turf.active_hotspot.temperature = hotspot_temperature
-						simulated_turf.active_hotspot.volume = hotspot_volume * CELL_VOLUME
+						active_hotspot.temperature = hotspot_temperature
+						active_hotspot.volume = hotspot_volume * CELL_VOLUME
 					else
-						simulated_turf.active_hotspot.temperature = temperature
-						simulated_turf.active_hotspot.volume = CELL_VOLUME
+						active_hotspot.temperature = temperature
+						active_hotspot.volume = CELL_VOLUME
+					active_hotspot.coldfire_possible = !!currentrun[offset + MILLA_INDEX_FREON]
 
 				turf.temperature_expose(temperature)
 				var/radiated_temperature = temperature * FIRE_SPREAD_RADIOSITY_SCALE

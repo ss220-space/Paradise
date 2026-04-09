@@ -1009,7 +1009,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/gun/projectile/shotgun/riot,
 		/obj/item/gun/projectile/shotgun/riot,
-		/obj/item/gun/projectile/shotgun/riot,
+		/obj/item/gun/projectile/shotgun/winchester,
+		/obj/item/gun/projectile/shotgun/winchester,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
