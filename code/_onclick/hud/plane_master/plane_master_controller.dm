@@ -31,21 +31,21 @@
 	return returned_planes
 
 ///Full override so we can just use filterrific
-/atom/movable/plane_master_controller/add_filter(name, priority, list/params)
+/atom/movable/plane_master_controller/add_filter(name, priority, list/params, update = TRUE)
 	. = ..()
 	for(var/atom/movable/screen/plane_master/pm_iterator as anything in get_planes())
-		pm_iterator.add_filter(name, priority, params)
+		pm_iterator.add_filter(name, priority, params, update)
 
 ///Full override so we can just use filterrific
-/atom/movable/plane_master_controller/remove_filter(name_or_names)
+/atom/movable/plane_master_controller/remove_filter(name_or_names, update = TRUE)
 	. = ..()
 	for(var/atom/movable/screen/plane_master/pm_iterator as anything in get_planes())
-		pm_iterator.remove_filter(name_or_names)
+		pm_iterator.remove_filter(name_or_names, update)
 
-/atom/movable/plane_master_controller/update_filters()
+/atom/movable/plane_master_controller/update_filters(start_index = null)
 	. = ..()
 	for(var/atom/movable/screen/plane_master/pm_iterator as anything in get_planes())
-		pm_iterator.update_filters()
+		pm_iterator.update_filters(start_index)
 
 ///Gets all filters for this controllers plane masters
 /atom/movable/plane_master_controller/proc/get_filters(name)
@@ -83,3 +83,11 @@
 		RENDER_PLANE_GAME,
 	)
 
+/// Exists for convienience when referencing all non-master render plates.
+/// This is the whole game and the UI, but not the escape menu.
+/atom/movable/plane_master_controller/non_master
+	name = PLANE_MASTERS_NON_MASTER
+	controlled_planes = list(
+		RENDER_PLANE_GAME,
+		RENDER_PLANE_NON_GAME,
+	)

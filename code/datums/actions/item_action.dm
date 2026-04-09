@@ -364,6 +364,9 @@
 /datum/action/item_action/change_holotool_color
 	name = "Сменить цвет голотула"
 
+/datum/action/item_action/show_head_strip
+	name = "Показать нашивку"
+
 // MARK: Cleave attack
 /datum/action/item_action/toggle_cleave_attack
 	name = "Переключить режим атаки со взмахом"
@@ -453,6 +456,27 @@
 
 	var/obj/item/voice_changer/V = target
 	V.set_voice(usr)
+
+/datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
+	var/obj/item/voice_changer/changer = target
+	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		var/obj/item/clothing/mask/chameleon/mask = changer.parent
+		var/datum/action/item_action/chameleon/change/mask_action = locate() in mask.actions
+		if(mask_action)
+			if(!mask_action.check_chameleon_access(grant_to))
+				return FALSE
+
+	return ..()
+
+/datum/action/item_action/voice_changer/voice/Grant(mob/grant_to)
+	var/obj/item/voice_changer/changer = target
+	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		var/obj/item/clothing/mask/chameleon/mask = changer.parent
+		var/datum/action/item_action/chameleon/change/mask_action = locate() in mask.actions
+		if(mask_action && !mask_action.check_chameleon_access(grant_to))
+			return FALSE
+
+	return ..()
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory

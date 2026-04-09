@@ -51,6 +51,11 @@
 	QDEL_NULL(keyslot2)
 	return ..()
 
+/obj/item/radio/headset/examine_tags(mob/user)
+	. = ..()
+	if((item_flags & BANGPROTECT_MINOR) || (item_flags & BANGPROTECT_TOTAL))
+		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
+
 /obj/item/radio/headset/get_internal_channels()
 	return list()
 
@@ -499,7 +504,7 @@
 	)
 
 /obj/item/radio/headset/headset_iaa
-	name = "internal affairs radio headset"
+	name = "lawyer radio headset"
 	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местным юридическим персоналом."
@@ -508,16 +513,16 @@
 
 /obj/item/radio/headset/headset_iaa/get_ru_names()
 	return list(
-		NOMINATIVE = "радиочастотная гарнитура Агента Внутренних Дел",
-		GENITIVE = "радиочастотную гарнитуру Агента Внутренних Дел",
-		DATIVE = "радиочастотной гарнитуры Агента Внутренних Дел",
-		ACCUSATIVE = "радиочастотную гарнитуру Агента Внутренних Дел",
-		INSTRUMENTAL = "радиочастотной гарнитурой Агента Внутренних Дел",
-		PREPOSITIONAL = "радиочастотной гарнитуре Агента Внутренних Дел",
+		NOMINATIVE = "радиочастотная гарнитура Адвоката",
+		GENITIVE = "радиочастотную гарнитуру Адвоката",
+		DATIVE = "радиочастотной гарнитуры Адвоката",
+		ACCUSATIVE = "радиочастотную гарнитуру Адвоката",
+		INSTRUMENTAL = "радиочастотной гарнитурой Адвоката",
+		PREPOSITIONAL = "радиочастотной гарнитуре Адвоката",
 	)
 
 /obj/item/radio/headset/headset_iaa/alt
-	name = "internal affairs bowman headset"
+	name = "lawyer bowman headset"
 	desc = "Тактическая гарнитура, выполненная из ударопрочного полимера. \
 			Система активного шумоподавления защищает органы слуха пользователя от громких звуков. \
 			Встроенное телекоммуникационное оборудование позволяет поддерживать устойчивую двустороннюю связь \
@@ -528,12 +533,12 @@
 
 /obj/item/radio/headset/headset_iaa/alt/get_ru_names()
 	return list(
-		NOMINATIVE = "тактическая гарнитура Агента Внутренних Дел",
-		GENITIVE = "тактическую гарнитуру Агента Внутренних Дел",
-		DATIVE = "тактической гарнитуры Агента Внутренних Дел",
-		ACCUSATIVE = "тактическую гарнитуру Агента Внутренних Дел",
-		INSTRUMENTAL = "тактической гарнитурой Агента Внутренних Дел",
-		PREPOSITIONAL = "тактической гарнитуре Агента Внутренних Дел",
+		NOMINATIVE = "тактическая гарнитура Адвоката",
+		GENITIVE = "тактическую гарнитуру Адвоката",
+		DATIVE = "тактической гарнитуры Адвоката",
+		ACCUSATIVE = "тактическую гарнитуру Адвоката",
+		INSTRUMENTAL = "тактической гарнитурой Адвоката",
+		PREPOSITIONAL = "тактической гарнитуре Адвоката",
 	)
 
 /obj/item/radio/headset/headset_eng

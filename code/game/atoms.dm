@@ -1,3 +1,9 @@
+/**
+ * The base type for nearly all physical objects in SS13
+
+ * Lots and lots of functionality lives here, although in general we are striving to move
+ * as much as possible to the components/elements system
+ */
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -19,8 +25,8 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "говорит"
-	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
-	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
+	/// What icon the mob uses for speechbubbles
+	var/bubble_icon = "default"
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 	/// The icon state that will be switched to during initialization.
 	/// Mostly intended for things that have a special map icon.
@@ -186,84 +192,13 @@
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
 
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
+
 	var/looting_icon_mode
 
-/atom/New(loc, ...)
-	SHOULD_CALL_PARENT(TRUE)
-	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		GLOB._preloader.load(src)
-	. = ..()
-	attempt_init(arglist(args))
-	if(SSdemo?.initialized)
-		SSdemo.mark_new(src)
-
-// This is distinct from /tg/ because of our space management system
-// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
-/atom/proc/attempt_init(...)
-	var/do_initialize = SSatoms.initialized
-	if(do_initialize != INITIALIZATION_INSSATOMS)
-		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
-		if(SSatoms.InitAtom(src, args))
-			// we were deleted
-			return
-
-//Called after New if the map is being loaded. mapload = TRUE
-//Called from base of New if the map is not being loaded. mapload = FALSE
-//This base must be called or derivatives must set initialized to TRUE
-//must not sleep
-//Other parameters are passed from New (excluding loc), this does not happen if mapload is TRUE
-//Must return an Initialize hint. Defined in __DEFINES/subsystems.dm
-
-//Note: the following functions don't call the base for optimization and must copypasta:
-// /turf/Initialize
-// /turf/simulated/space/Initialize
-
-/atom/proc/Initialize(mapload, ...)
-	SHOULD_CALL_PARENT(TRUE)
-
-	var/list/names = ru_names
-	if(names && !GLOB.cached_ru_names[type])
-		GLOB.cached_ru_names[type] = names
-	ru_names = null
-
-	if(flags & INITIALIZED)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	flags |= INITIALIZED
-
-	SET_PLANE_IMPLICIT(src, plane)
-
-	if(greyscale_config && greyscale_colors)
-		update_greyscale()
-
-	if(color)
-		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
-
-	if(light_system == STATIC_LIGHT && light_power && light_range)
-		update_light()
-
-	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
-
-	if(post_init_icon_state)
-		icon_state = post_init_icon_state
-
-	SETUP_SMOOTHING()
-
-	ComponentInitialize()
-	InitializeAIController()
-
-	if(LAZYLEN(hud_possible))
-		hud_possible = string_assoc_list(hud_possible)
-
-	return INITIALIZE_HINT_NORMAL
-
-//called if Initialize returns INITIALIZE_HINT_LATELOAD
-/atom/proc/LateInitialize()
-	return
-
-// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
-	return
+	/// Text that appears preceding the name in [/atom/proc/examine_title]
+	var/examine_thats = "Это"
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -439,6 +374,7 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
+///Is this atom within 1 tile of another atom
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
@@ -487,18 +423,33 @@
 			found += A.search_contents_for(path, filter_path)
 	return found
 
-//All atoms
-/atom/proc/examine(mob/user, infix = "", suffix = "")
-	var/f_name = "."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
-		f_name = ", "
-		if(blood_color != "#030303")
-			f_name += span_danger("в кровавых следах.")
-		else
-			f_name += "в масляных следах."
-	. = list("[icon2html(src, user)] Это <b>[declent_ru(NOMINATIVE)]</b>[f_name] [suffix]")
+/**
+ * Called when a mob examines this atom: [/mob/verb/examinate]
+ *
+ * Default behaviour is to get the name and icon of the object and its reagents where
+ * the [TRANSPARENT] flag is set on the reagents holder
+ *
+ * Produces a signal [COMSIG_ATOM_EXAMINE], for modifying the list returned from this proc
+ */
+/atom/proc/examine(mob/user)
+	. = list()
+	. += get_name_chaser(user)
+
 	if(desc)
 		. += desc
+
+	var/list/tags_list = examine_tags(user)
+	var/list/post_descriptor = examine_post_descriptor(user)
+	var/post_desc_string = length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""
+	if(length(tags_list))
+		var/tag_string = list()
+		for(var/atom_tag in tags_list)
+			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
+		// some regex to ensure that we don't add another "and" if the final element's main text (not tooltip) has one
+		tag_string = russian_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], regex(@">.*?и .*?<"))) ? " " : " и ")
+		. += "Это [tag_string] [examine_descriptor(user)][post_desc_string]."
+	else if(post_desc_string)
+		. += "Это [examine_descriptor(user)][post_desc_string]."
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
@@ -519,20 +470,134 @@
 			else
 				. += span_danger("Внутри ничего нет.")
 
-	//Detailed description
-	var/descriptions
-	if(get_description_info())
-		descriptions += "<a href='byond://?src=[UID()];description_info=`'>\[Справка\]</a> "
-	if(get_description_antag())
-		if(isAntag(user) || isobserver(user))
-			descriptions += "<a href='byond://?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
-	if(get_description_fluff())
-		descriptions += "<a href='byond://?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
-
-	if(descriptions)
-		. += descriptions
-
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/**
+ * A list of "tags" displayed after atom's description in examine.
+ * This should return an assoc list of tags -> tooltips for them. If item is null, then no tooltip is assigned.
+ *
+ * * TGUI tooltips (not the main text) in chat cannot use HTML stuff at all, so
+ * trying something like `<b><big>ffff</big></b>` will not work for tooltips.
+ *
+ * For example:
+ * ```byond
+ * . = list()
+ * .["small"] = "It is a small item."
+ * .["fireproof"] = "It is made of fire-retardant materials."
+ * .["and conductive"] = "It's made of conductive materials and whatnot. Blah blah blah." // having "and " in the end tag's main text/key works too!
+ * ```
+ * will result in
+ *
+ * It is a *small*, *fireproof* *and conductive* item.
+ *
+ * where "item" is pulled from [/atom/proc/examine_descriptor]
+ */
+/atom/proc/examine_tags(mob/user)
+	. = list()
+	if(abstract_type == type)
+		.[span_hypnophrase("abstract")] = "Это абстрактный концепт, который вы не должны были увидеть! Сообщите об этом Высшим Силам!"
+
+	if(resistance_flags & INDESTRUCTIBLE)
+		.["неразрушим[genderize_examine_descriptor("ый", "ая")]"] = "Чрезвычайно прочн[genderize_examine_descriptor("ый", "ая")]! Уничтожить практически невозможно."
+	else
+		if(resistance_flags & LAVA_PROOF)
+			.["лавастойк[genderize_examine_descriptor("ий", "ая")]"] = "Чрезвычайно устойчив[genderize_examine_descriptor("ый", "ая")] к экстремальным температурам! Может выдержать даже воздействие лавы!"
+		if(resistance_flags & (ACID_PROOF | UNACIDABLE))
+			.["кислотостойк[genderize_examine_descriptor("ий", "ая")]"] = "Выглядит очень прочным. Ни одна кислота такое не разъест."
+		if(resistance_flags & FREEZE_PROOF)
+			.["морозостойк[genderize_examine_descriptor("ий", "ая")]"] = "Сделано из морозостойких материалов."
+		if(resistance_flags & FIRE_PROOF)
+			.["огнеупорн[genderize_examine_descriptor("ый", "ая")]"] = "Сделано из огнеупорных материалов."
+		if(resistance_flags & FLAMMABLE)
+			.["легковоспламеняющ[genderize_examine_descriptor("ий", "ая")]ся"] = "Может легко загореться."
+
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_TAGS, user, .)
+
+/// What this atom should be called in examine tags
+/atom/proc/examine_descriptor(mob/user)
+	return "объект"
+
+/// Gender of the examine descriptor word
+/// For example, "объект" is "male", while "машинерия" is "female"
+/atom/proc/examine_descriptor_gender()
+	return "male"
+
+/// Returns the correct form of the examine descriptor based on provided gender
+/atom/proc/genderize_examine_descriptor(male_word, female_word, gender)
+	if(!gender)
+		gender = examine_descriptor_gender()
+	return gender == "male" ? male_word : female_word
+
+/// Returns a list of strings to be displayed after the descriptor
+/// TODO: имплементировать тута custom_materials
+/atom/proc/examine_post_descriptor(mob/user)
+	return
+
+/**
+ * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
+ *
+ * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
+ * moments, while allowing people to manually double-examine to take a closer look
+ *
+ * Produces a signal [COMSIG_ATOM_EXAMINE_MORE]
+ */
+/atom/proc/examine_more(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
+	. = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_MORE, user, .)
+	SEND_SIGNAL(user, COMSIG_MOB_EXAMINING_MORE, src, .)
+
+/**
+ * Get the name of this object for examine
+ *
+ * You can override what is returned from this proc by registering to listen for the
+ * [COMSIG_ATOM_GET_EXAMINE_NAME] signal
+ */
+/atom/proc/get_examine_name(mob/user)
+	var/list/override = list(null, "<em>[get_visible_name()]</em>")
+	SEND_SIGNAL(src, COMSIG_ATOM_GET_EXAMINE_NAME, user, override)
+
+	if(!isnull(override[EXAMINE_POSITION_BEFORE]))
+		override -= null // There is no article, don't try to join it
+		return "\a [jointext(override, " ")]"
+	return "[declent_ru(NOMINATIVE)]"
+
+/mob/living/get_examine_name(mob/user)
+	var/visible_name = get_visible_name()
+	var/list/name_override = list(visible_name)
+	if(SEND_SIGNAL(user, COMSIG_LIVING_PERCEIVE_EXAMINE_NAME, src, visible_name, name_override) & COMPONENT_EXAMINE_NAME_OVERRIDEN)
+		return name_override[1]
+	return visible_name
+
+/// Icon displayed in examine
+/atom/proc/get_examine_icon(mob/user)
+	return icon2html(src, user)
+
+/**
+ * Formats the atom's name into a string for use in examine (as the "title" of the atom)
+ *
+ * * user - the mob examining the atom
+ * * thats - whether to include "Это" or not
+ */
+/atom/proc/examine_title(mob/user, thats = FALSE)
+	var/examine_icon = get_examine_icon(user)
+	return "[examine_icon ? "[examine_icon] " : ""][thats ? "[examine_thats] ":""]<em>[get_examine_name(user)]</em>"
+
+/// Used to insert text after the name but before the description in examine()
+/atom/proc/get_name_chaser(mob/user, list/name_chaser = list())
+	return name_chaser
+
+/**
+ * Used by mobs to determine the name for someone wearing a mask, or with a disfigured or missing face.
+ * By default just returns the atom's name.
+ *
+ * * add_id_name - If TRUE, ID information such as honorifics or name (if mismatched) are appended
+ * * force_real_name - If TRUE, will always return real_name and add (as face_name/id_name) if it doesn't match their appearance
+ */
+/atom/proc/get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
+	return name
 
 /**
  * Updates the appearence of the icon
@@ -584,7 +649,7 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays()
+		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
 		// Ok, so its rather this or required inheritance in every [update_overlays()]
@@ -633,6 +698,8 @@
 
 			switch(length(new_overlays))
 				if(0)
+					if(full_control)
+						POST_OVERLAY_CHANGE(src)
 					managed_overlays = null
 				if(1)
 					add_overlay(new_overlays)
@@ -719,20 +786,6 @@
 	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
 		if(existing.dupe_id == id)
 			qdel(existing)
-
-/atom/Topic(href, href_list)
-	. = ..()
-	if(.)
-		return TRUE
-	if(href_list["description_info"])
-		to_chat(usr, span_notice("<div class='examine'>[get_description_info()]</div>"))
-		return TRUE
-	if(href_list["description_antag"])
-		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
-		return TRUE
-	if(href_list["description_fluff"])
-		to_chat(usr,  span_notice("<div class='examine'>[get_description_fluff()]</div>"))
-		return TRUE
 
 /atom/proc/relaymove()
 	return
@@ -1455,7 +1508,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		datum_flags |= DF_VAR_EDITED
 		return .
 
-	if(!GLOB.debug2)
+	if(!GLOB.debugging_enabled)
 		flags |= ADMIN_SPAWNED
 
 	. = ..()
@@ -1519,53 +1572,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/Exited(atom/movable/departed, atom/newLoc)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
-
-/*
-	Adds an instance of colour_type to the atom's atom_colours list
-*/
-/atom/proc/add_atom_colour(coloration, colour_priority)
-	if(!atom_colours || !length(atom_colours))
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(!coloration)
-		return
-	if(colour_priority > length(atom_colours))
-		return
-	atom_colours[colour_priority] = coloration
-	update_atom_colour()
-
-/*
-	Removes an instance of colour_type from the atom's atom_colours list
-*/
-/atom/proc/remove_atom_colour(colour_priority, coloration)
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(colour_priority > length(atom_colours))
-		return
-	if(coloration && atom_colours[colour_priority] != coloration)
-		return //if we don't have the expected color (for a specific priority) to remove, do nothing
-	atom_colours[colour_priority] = null
-	update_atom_colour()
-
-/*
-	Resets the atom's color to null, and then sets it to the highest priority
-	colour available
-*/
-/atom/proc/update_atom_colour()
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	color = null
-	for(var/C in atom_colours)
-		if(islist(C))
-			var/list/L = C
-			if(length(L))
-				color = L
-				return
-		else if(C)
-			color = C
-			return
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1675,18 +1681,31 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
+#define ANGLE_DIR_POS 1
+#define ANGLE_DIR_NEG -1
+#define HALF_ROTATION_ANGLE 180
+#define RICOCHET_RAND_MAX_ANGLE rand(0, 15)
+
 /atom/proc/handle_ricochet(obj/projectile/ricocheting_projectile)
-	var/turf/p_turf = get_turf(ricocheting_projectile)
-	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
-	var/face_angle = dir2angle(face_direction)
-	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180 + rand(-30, 30)))
-	var/a_incidence_s = abs(incidence_s)
-	if(a_incidence_s > 90 && a_incidence_s < 270)
+	if(HAS_TRAIT(ricocheting_projectile, TRAIT_NO_RICOCHET))
 		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	ricocheting_projectile.set_angle(new_angle_s)
-	visible_message(span_warning("[ricocheting_projectile] reflects off [src]!"))
+	var/turf/projectile_turf = get_turf(ricocheting_projectile)
+	var/face_direction = get_dir(src, projectile_turf) || get_dir(src, ricocheting_projectile)
+	var/normal_angle = dir2angle(face_direction)
+	var/normal_dir = ricocheting_projectile.Angle < 0 ? ANGLE_DIR_NEG : ANGLE_DIR_POS
+	var/ricochet_angle = GET_ANGLE_OF_INCIDENCE(normal_angle, (ricocheting_projectile.Angle + HALF_ROTATION_ANGLE + normal_dir * RICOCHET_RAND_MAX_ANGLE))
+	var/ricochet_angle_abs = abs(ricochet_angle)
+	if(ricochet_angle_abs > 90 && ricochet_angle_abs < 270)
+		return FALSE
+	var/new_angle = SIMPLIFY_DEGREES(normal_angle + ricochet_angle)
+	ricocheting_projectile.set_angle(new_angle)
+	visible_message(span_warning("[DECLENT_RU_CAP(ricocheting_projectile, NOMINATIVE)] рикошетит от [declent_ru(GENITIVE)]!"))
 	return TRUE
+
+#undef ANGLE_DIR_POS
+#undef ANGLE_DIR_NEG
+#undef HALF_ROTATION_ANGLE
+#undef RICOCHET_RAND_MAX_ANGLE
 
 /// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
 /atom/proc/CanPass(atom/movable/mover, border_dir)
@@ -1834,9 +1853,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	pixel_y = pixel_y + base_pixel_y - .
 
-/atom/proc/get_visible_name(add_id_name = TRUE)
-	return name
-
 /atom/proc/GetVoice()
 	return name
 
@@ -1895,37 +1911,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
-
-/// Update the screentip to reflect what we're hovering over
-/atom/MouseEntered(location, control, params)
-	SSmouse_entered.hovers[usr.client] = src
-
-/// Fired whenever this atom is the most recent to be hovered over in the tick.
-/// Preferred over MouseEntered if you do not need information such as the position of the mouse.
-/// Especially because this is deferred over a tick, do not trust that `client` is not null.
-/atom/proc/on_mouse_enter(client/client)
-	SHOULD_NOT_SLEEP(TRUE)
-
-	var/mob/user = client?.mob
-	if(isnull(user))
-		return
-
-	// Face directions on harm intent
-	if(user.face_mouse && !user.incapacitated())
-		user.face_atom(src)
-
-	// Screentips
-	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	if(!active_hud)
-		return
-
-	var/screentip_mode = user.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-
-	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [user.client.prefs.screentip_color]'>[declent_ru(NOMINATIVE)]</span>"
 
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
@@ -1986,3 +1971,24 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return input
 
 #undef ENCODE_HTML_EMPHASIS
+
+/**
+ * Wash this atom
+ *
+ * This will clean it off any temporary stuff like blood. Override this in your item to add custom cleaning behavior.
+ * Returns true if any washing was necessary and thus performed
+ * Arguments:
+ * * clean_types: any of the CLEAN_ constants
+ * Returns: A bitflag if it successfully cleaned something: e.g. COMPONENT_CLEANED, or NONE if not. COMPONENT_CLEANED_GAIN_XP being flipped on signals whether the cleaning should yield cleaning xp.
+ */
+/atom/proc/wash_tg(clean_types)
+	SHOULD_CALL_PARENT(TRUE)
+	. = SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, clean_types)
+	if(.)
+		return
+
+	// Basically "if has washable coloration"
+	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
+		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		return COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	return NONE

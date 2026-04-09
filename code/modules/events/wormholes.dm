@@ -63,7 +63,7 @@
 /obj/effect/portal/wormhole/can_teleport(atom/movable/M, silent = FALSE)
 	. = ..()
 
-	if(istype(M, /obj/singularity))
+	if(issingularity(M))
 		. = FALSE
 
 /obj/effect/portal/wormhole/teleport(atom/movable/M)

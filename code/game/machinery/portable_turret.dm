@@ -19,7 +19,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 
@@ -567,7 +567,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		var/obj/spacepod/SP = target
 		return assess_and_assign(SP.pilot)
 
-	if(istype(target, /obj/vehicle))
+	if(isvehicle(target))
 		var/obj/vehicle/T = target
 		if(T.has_buckled_mobs())
 			for(var/m in T.buckled_mobs)
@@ -905,7 +905,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(TURRET_BUILD_ARMOR_SECURED)
-			if(istype(I, /obj/item/gun/energy)) //the gun installation part
+			if(isenergygun(I)) //the gun installation part
 				var/obj/item/gun/energy/new_gun = I
 				if(isrobot(user) || !new_gun.turret_check())
 					return ATTACK_CHAIN_PROCEED

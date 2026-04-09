@@ -221,7 +221,7 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			else
 				body += "<a href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</a> | "
 
-			if(istype(M, /mob/dead/observer))
+			if(isobserver(M))
 				body += "<a href='byond://?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
 				body += {"<a href='byond://?_src_=holder;togglerespawnability=[M.UID()]'>Toggle Respawnability</a> | "}
 
@@ -714,7 +714,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)
@@ -724,7 +724,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 
 /proc/formatLocation(location)
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)

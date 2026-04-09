@@ -7,7 +7,7 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
 
 /obj/structure/closet/secure_closet/can_open()
@@ -113,7 +113,7 @@
 	if(!do_after(user, breakout_time, src))
 		return
 
-	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+	//closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
 	if(!src || !user || user.incapacitated(INC_IGNORE_RESTRAINED) || user.loc != src || opened)
 		return
 

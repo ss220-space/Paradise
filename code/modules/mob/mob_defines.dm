@@ -1,3 +1,11 @@
+/**
+ * The mob, usually meant to be a creature of some type
+ *
+ * Has a client attached that is a living person (most of the time), although I have to admit
+ * sometimes it's hard to tell they're sentient
+ *
+ * Has a lot of the creature game world logic, such as health etc
+ */
 /mob
 	density = TRUE
 	layer = MOB_LAYER
@@ -176,11 +184,8 @@
 	var/job = null // Living
 
 	var/datum/dna/dna = null // Carbon
-	var/radiation = 0 // Carbon
-	var/max_radiation = CARBON_MAX_RADIATION // Carbon
 
 	//see: setup.dm for list of mutations
-
 	var/voice_name = "неизвестный голос"
 
 	/// Used for checking whether hostile simple animals will attack you, possibly more stuff later
@@ -330,3 +335,6 @@
 	var/tts_effect_override = SOUND_EFFECT_NONE
 	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
 	var/obj/item/tts_effect_override_source = null
+
+	/// Mob bitflags
+	var/mob_flags = NONE

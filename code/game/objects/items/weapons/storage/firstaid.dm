@@ -242,6 +242,35 @@
 /obj/item/storage/firstaid/adv/empty/populate_contents()
 	return
 
+/obj/item/storage/firstaid/premium
+	name = "premium first-aid kit"
+	desc = "Это аптечка для экстренной первой помощи, премиальная версия."
+	icon_state = "advfirstaid"
+	item_state = "medkit_advanced"
+	med_bot_skin = "adv"
+
+/obj/item/storage/firstaid/premium/get_ru_names()
+	return list(
+		NOMINATIVE = "аптечка первой помощи (Премиум)",
+		GENITIVE = "аптечки первой помощи (Премиум)",
+		DATIVE = "аптечке первой помощи (Премиум)",
+		ACCUSATIVE = "аптечку первой помощи (Премиум)",
+		INSTRUMENTAL = "аптечкой первой помощи (Премиум)",
+		PREPOSITIONAL = "аптечке первой помощи (Премиум)",
+	)
+
+/obj/item/storage/firstaid/premium/populate_contents()
+	new /obj/item/stack/medical/bruise_pack/extended(src)
+	new /obj/item/stack/medical/bruise_pack/extended(src)
+	new /obj/item/stack/medical/ointment/extended(src)
+	new /obj/item/stack/medical/ointment/extended(src)
+	new /obj/item/stack/medical/suture/advanced(src)
+	new /obj/item/stack/medical/suture/advanced(src)
+	new /obj/item/stack/medical/splint(src)
+
+/obj/item/storage/firstaid/premium/empty/populate_contents()
+	return
+
 /obj/item/storage/firstaid/paramed
 	name = "paramed first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при, специализированная версия для Парамедика."
@@ -264,10 +293,9 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/suture/advanced(src)
 
 /obj/item/storage/firstaid/paramed/empty/populate_contents()
 	return
@@ -454,8 +482,8 @@
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам \"Нанотрейзен\" в обязательным порядке."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "crew_medpouch"
+	icon_state = "blue_medpack"
+	item_state = "blue_medpack"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(
 		/obj/item/reagent_containers/hypospray/autoinjector,
@@ -476,6 +504,10 @@
 		INSTRUMENTAL = "экстренной аптечкой",
 		PREPOSITIONAL = "экстренной аптечке",
 	)
+
+/obj/item/storage/firstaid/crew/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew)
 
 /obj/item/storage/firstaid/crew/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
@@ -627,6 +659,14 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
+
+/obj/item/storage/pill_bottle/filled/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)

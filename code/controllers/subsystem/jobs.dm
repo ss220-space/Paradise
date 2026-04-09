@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(jobs)
 			J.total_positions += (J.positions_highpop - positions_lowpop)
 
 /datum/controller/subsystem/jobs/proc/Debug(text)
-	if(GLOB.debug2)
+	if(GLOB.debugging_enabled)
 		job_debug.Add(text)
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
@@ -566,7 +566,7 @@ SUBSYSTEM_DEF(jobs)
 		mark_spawn = locate("start*[rank]") // use old stype
 
 	if(!mark_spawn || SSticker.shuttle_start) // No spawn, then spawn on latejoin mark
-		log_runtime(EXCEPTION("No landmark start for [rank]."))
+		stack_trace("No landmark start for [rank].")
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = pick(GLOB.latejoin_prisoner)
 		else
@@ -754,6 +754,8 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", charyoung, list("[job.title]", "charyoung"))
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
+	if(!job)
+		return
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
 	if(human.client.donator_level > 0)
 		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
@@ -811,17 +813,15 @@ SUBSYSTEM_DEF(jobs)
 		for(var/datum/job/job in occupations)
 			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
-			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+			else if(tgtcard.assignment == JOB_TITLE_RU_DEMOTED || tgtcard.assignment == JOB_TITLE_RU_TERMINATED)
 				jobs_to_formats[job.title] = "grey"
-			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != JOB_TITLE_CIVILIAN)
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged
-		if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+		if(tgtcard.assignment == JOB_TITLE_RU_DEMOTED || tgtcard.assignment == JOB_TITLE_RU_TERMINATED)
 			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 

@@ -220,7 +220,7 @@
 				clear_fullscreen("brute")
 
 /mob/living/simple_animal/slime/ObjBump(obj/object)
-	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (istype(object, /obj/structure/window) && !istype(object, /obj/structure/grille)))
+	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (is_window(object) && !istype(object, /obj/structure/grille)))
 		return
 
 	var/probab = 10
@@ -450,7 +450,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is [icon2html(src, user)] \a <em>[src]</em>!"
+	. += "<span class='notice'>This is [get_examine_icon(user)] \a <em>[src]</em>!"
 	if(stat == DEAD)
 		. += span_deadsay("It is limp and unresponsive.")
 	else

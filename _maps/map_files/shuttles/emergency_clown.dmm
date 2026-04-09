@@ -45,9 +45,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -60,9 +58,7 @@
 	},
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -112,8 +108,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
@@ -127,8 +122,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/item/toy/snappop/phoenix,
 /turf/simulated/floor/plasteel{
@@ -136,9 +130,7 @@
 	},
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aH" = (
@@ -158,9 +150,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
 /turf/simulated/floor/noslip,
@@ -192,8 +182,7 @@
 "aQ" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
@@ -215,8 +204,7 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/item/multitool/ai_detect,
 /turf/simulated/floor/noslip,
@@ -313,8 +301,7 @@
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -323,8 +310,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -349,8 +335,7 @@
 "bm" = (
 /obj/machinery/sleeper{
 	dir = 1;
-	icon_state = "sleeper";
-	tag = "icon-sleeper (NORTH)"
+	icon_state = "sleeper"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)

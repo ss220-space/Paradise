@@ -272,29 +272,73 @@
 	new /obj/item/gun/projectile/automatic/lr30(src)
 	new /obj/item/gun/projectile/automatic/lr30(src)
 
+
+/obj/structure/closet/secure_closet/guncabinet/riot_shotgun
+	name = "security riot shotgun cabinet"
+	desc = "Защищённый шкаф для хранения помповых дробовиков."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/riot_shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф помповых дробовиков",
+		GENITIVE = "шкафа помповых дробовиков",
+		DATIVE = "шкафу помповых дробовиков",
+		ACCUSATIVE = "шкаф помповых дробовиков",
+		INSTRUMENTAL = "шкафом помповых дробовиков",
+		PREPOSITIONAL = "шкафе помповых дробовиков",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/riot_shotgun/populate_contents()
+	new /obj/item/gun/projectile/shotgun/riot(src)
+	new /obj/item/gun/projectile/shotgun/riot(src)
+	new /obj/item/gun/projectile/shotgun/riot(src)
+
+/obj/structure/closet/secure_closet/guncabinet/winchester
+	name = "security lever action shotgun cabinet"
+	desc = "Защищённый шкаф для хранения рычажных дробовиков."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/winchester/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф рычажных дробовиков",
+		GENITIVE = "шкафа рычажных дробовиков",
+		DATIVE = "шкафу рычажных дробовиков",
+		ACCUSATIVE = "шкаф рычажных дробовиков",
+		INSTRUMENTAL = "шкафом рычажных дробовиков",
+		PREPOSITIONAL = "шкафе рычажных дробовиков",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/winchester/populate_contents()
+	new /obj/item/gun/projectile/shotgun/winchester(src)
+	new /obj/item/gun/projectile/shotgun/winchester(src)
+	new /obj/item/gun/projectile/shotgun/winchester(src)
+
+
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
 	req_access = list(ACCESS_BRIG)
 	icon_state = "brigmed"
 
 /obj/structure/closet/secure_closet/brigdoc/populate_contents()
+	new /obj/item/storage/backpack/duffel/medical(src)
 	if(prob(50))
 		new /obj/item/storage/backpack/medic(src)
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
-	new /obj/item/storage/firstaid/regular(src)
-	new /obj/item/storage/firstaid/fire(src)
-	new /obj/item/storage/firstaid/adv(src)
-	new /obj/item/storage/firstaid/o2(src)
-	new /obj/item/storage/firstaid/toxin(src)
-	new /obj/item/clothing/suit/storage/brigdoc(src)
-	new /obj/item/clothing/under/rank/security/brigphys(src)
-	new /obj/item/clothing/shoes/color/white(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/storage/belt/medical/surgery/loaded(src)
+	new /obj/item/handheld_defibrillator/(src)
+	new /obj/item/handheld_defibrillator/(src)
+	new /obj/item/reagent_containers/hypospray/safety(src)
+	new /obj/item/reagent_containers/hypospray/safety(src)
 	new /obj/item/sensor_device/advanced/security(src)
 	new /obj/item/radio/headset/headset_brigphys(src)
-	new /obj/item/clothing/shoes/sandal/white(src)
+	new /obj/item/storage/garmentbag/brigdoc(src)
+	new /obj/item/storage/box/autoinjectors(src)
+	new /obj/item/storage/firstaid/premium(src)
+	new /obj/item/implantcase(src)
 
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"

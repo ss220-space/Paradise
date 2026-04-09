@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(!job_name || !LAZYLEN(allowed_roles))
 		return TRUE
 
-	if(job_name in allowed_roles)
+	if(job_title_ru_to_en(job_name) in allowed_roles)
 		return TRUE
 
 	if(cl && !silent)
@@ -81,3 +81,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear/proc/get_header_tips()
 	return
+
+/datum/gear/proc/get_spawn_path(job_name, metadata)
+	return path

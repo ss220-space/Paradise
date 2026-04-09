@@ -3,7 +3,7 @@
 SUBSYSTEM_DEF(processing)
 	name = "Processing"
 	priority = FIRE_PRIORITY_PROCESS
-	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT
+	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT|SS_HIBERNATE
 	wait = 10
 	ss_id = "processing"
 
@@ -11,6 +11,13 @@ SUBSYSTEM_DEF(processing)
 	var/list/processing = list()
 	var/list/currentrun = list()
 	offline_implications = "Objects using the default processor will no longer process. Shuttle call recommended."
+
+/datum/controller/subsystem/processing/PreInit()
+	. = ..()
+	hibernate_checks = list(
+		NAMEOF(src, processing),
+		NAMEOF(src, currentrun),
+	)
 
 /datum/controller/subsystem/processing/get_stat_details()
 	return "[stat_tag]:[length(processing)]"

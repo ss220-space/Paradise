@@ -418,12 +418,6 @@
 	faction = list("syndicate")
 	projectiletype = /obj/projectile/beam/laser/syndrone
 
-/obj/projectile/beam/laser/syndrone
-	name = "light immolation beam"
-	damage = 8
-	icon_state = "scatterlaser"
-	eyeblur = 2 SECONDS
-
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
 	do_sparks(3, TRUE, src)
 	var/turf/T = get_turf(src)
@@ -689,7 +683,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, FIRE = 50, ACID = 90)
 	icon_state = "hardsuit1-syndi"
 	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged

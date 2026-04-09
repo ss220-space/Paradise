@@ -111,7 +111,7 @@
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return .|ATTACK_CHAIN_BLOCKED
-	var/temperature = get_heat()
+	var/temperature = get_temperature()
 	if(temperature && target.reagents && !ismob(target) && !istype(target, /obj/item/clothing/mask/cigarette))
 		to_chat(user, span_notice("Вы нагрели [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]."))
 		target.reagents.temperature_reagents(temperature)

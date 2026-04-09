@@ -183,7 +183,7 @@
 		after_transfer(target)
 		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
-	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
+	else if(isglassreagentcontainer(target) && !target.is_open_container())
 		balloon_alert(user, "закрыто!")
 		return
 
@@ -191,9 +191,9 @@
 	. = ..()
 	if(reagents.total_volume)
 		var/percent = round((reagents.total_volume / volume) * 10) // We round the 1's place off of our percent for easy image processing.
-		var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "[icon_state][percent]")
+		var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/iv.dmi', "[icon_state][percent]")
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		switch(mode)

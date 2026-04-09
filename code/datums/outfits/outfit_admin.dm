@@ -75,7 +75,7 @@
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 	)
 
-	var/id_access = SYNDICATE_AGENT
+	var/id_access = JOB_TITLE_SYNDICATE_AGENT
 	var/uplink_uses = 100
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -160,7 +160,7 @@
 	backpack_contents = list(
 		/obj/item/tank/jetpack/oxygen/harness = 1,
 		/obj/item/radio/uplink/sst = 1,
-		/obj/item/ammo_box/magazine/a762x51 = 1,
+		/obj/item/ammo_box/magazine/l6saw = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
@@ -237,6 +237,10 @@
 
 	implants = list(
 		/obj/item/implant/mindshield/ert,
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 	)
 
 /datum/outfit/admin/special_reaction_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -396,6 +400,10 @@
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/security,
+	)
 
 /datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -885,7 +893,7 @@
 	name = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
-	suit_store = /obj/item/gun/projectile/automatic/ar
+	suit_store = /obj/item/gun/projectile/automatic/arg
 	head = /obj/item/clothing/head/soft/solgov/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	backpack_contents = list(

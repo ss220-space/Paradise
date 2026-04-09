@@ -19,8 +19,8 @@
 		PREPOSITIONAL = "самодельной взрывчатке",
 	)
 
-/obj/item/grenade/iedcasing/New()
-	..()
+/obj/item/grenade/iedcasing/Initialize(mapload)
+	. = ..()
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")
 	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[randfloat(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[randfloat(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
@@ -146,7 +146,7 @@
 	if(active)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		trigger(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

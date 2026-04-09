@@ -474,3 +474,11 @@
 		/obj/structure/closet/secure_closet/guncabinet/sp91 = 33,
 		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)
+
+/obj/effect/spawner/random_spawners/security_shotguns
+	name = "shotguns closet spawner"
+	icon_state = "guncabinet_ballistic"
+	result = list(
+		/obj/structure/closet/secure_closet/guncabinet/riot_shotgun = 50,
+		/obj/structure/closet/secure_closet/guncabinet/winchester = 50,
+	)

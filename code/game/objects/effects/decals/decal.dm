@@ -1,6 +1,7 @@
 // MARK: decal
 /obj/effect/decal
 	name = "decal"
+	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	abstract_type = /obj/effect/decal
@@ -12,6 +13,26 @@
 
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
+
+	if(never_should_have_come_here(loc))
+		/**
+		 * Someday, someone will definitely clean it up to the end.
+		 */
+		//if(mapload)
+		//	stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in [get_area(src)]. Please remove it or allow it to pass never_should_have_come_here if it's intended.")
+		return INITIALIZE_HINT_QDEL
+
+	var/static/list/loc_connections = list(
+		COMSIG_TURF_CHANGE = PROC_REF(on_decal_move),
+	)
+	while(isopenspaceturf(loc) && can_z_move(DOWN, z_move_flags = ZMOVE_ALLOW_ANCHORED))
+		zMove(DOWN, z_move_flags = ZMOVE_ALLOW_ANCHORED)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/force_move_pulled)
+
+	add_reagents_to_decal()
+
+/obj/effect/decal/proc/add_reagents_to_decal()
 	create_reagents(100)
 
 	if(!scoop_reagents)
@@ -19,8 +40,20 @@
 
 	reagents.add_reagent_list(scoop_reagents)
 
+/// Checks if we are allowed to be in `here_turf`, and returns that result. Subtypes should override this when necessary.
+/obj/effect/decal/proc/never_should_have_come_here(turf/here_turf)
+	return iswallturf(here_turf) || ismineralturf(here_turf) || (isgroundlessturf(here_turf) && !GET_TURF_BELOW(here_turf))
+
+/obj/effect/decal/proc/on_decal_move(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
+	SIGNAL_HANDLER
+	post_change_callbacks += CALLBACK(src, PROC_REF(sanity_check_self))
+
+/obj/effect/decal/proc/sanity_check_self(turf/changed)
+	if(changed == loc && never_should_have_come_here(changed) && !QDELETED(src))
+		qdel(src)
+
 /obj/effect/decal/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/reagent_containers/glass) && !istype(item, /obj/item/reagent_containers/food/drinks))
+	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks))
 		return ATTACK_CHAIN_PROCEED
 
 	add_fingerprint(user)

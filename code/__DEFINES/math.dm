@@ -121,7 +121,6 @@
 #define LORENTZ_CUMULATIVE_DISTRIBUTION(x, y, s) ( (1/PI)*TORADIANS(arctan((x-y)/s)) + 1/2 )
 
 #define RULE_OF_THREE(a, b, x) ((a*x)/b)
-// )
 
 /// Converts a probability/second chance to probability/seconds_per_tick chance
 /// For example, if you want an event to happen with a 10% per second chance, but your proc only runs every 5 seconds, do `if(prob(100*SPT_PROB_RATE(0.1, 5)))`
@@ -129,14 +128,12 @@
 
 /// Like SPT_PROB_RATE but easier to use, simply put `if(SPT_PROB(10, 5))`
 #define SPT_PROB(prob_per_second_percent, seconds_per_tick) (prob(100*SPT_PROB_RATE((prob_per_second_percent)/100, (seconds_per_tick))))
-// )
 
 /// The number of cells in a taxicab circle (rasterized diamond) of radius X.
 #define DIAMOND_AREA(X) (1 + 2*(X)*((X)+1))
 
 /// rand() but for floats, returns a random floating point number between L and H
 #define randfloat(L, H) ((L) + rand() * ((H) - (L)))
-
 
 /// Tests if the value is in the given range.
 #define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))
@@ -146,3 +143,6 @@
 #define POW3(x) ((x) * (x) * (x))
 
 #define MAGNITUDE(dx, dy) (sqrt(POW2(dx) + POW2(dy)))
+
+#define SI_COEFFICIENT "coefficient"
+#define SI_UNIT "unit"

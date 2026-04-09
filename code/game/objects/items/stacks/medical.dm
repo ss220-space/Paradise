@@ -178,6 +178,9 @@
 		return FALSE
 	. = ..()
 
+/obj/item/stack/medical/attack_self(mob/user)
+	attack(user, user, null, user.zone_selected)
+
 // MARK: Targeting filter
 
 /obj/item/stack/medical/proc/get_priority_targeting(mob/living/target, mob/living/user)
@@ -208,6 +211,8 @@
 	return target_bodypart.limb_zone
 
 /obj/item/stack/medical/proc/filter_max_bleeding_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(!current)
+		return FALSE
 	if(current.is_robotic() || current.bleeding_amount <= 0 || current.bleeding_amount <= current.bleedsuppress)
 		return FALSE
 	if(!max)
@@ -217,6 +222,8 @@
 	return FALSE
 
 /obj/item/stack/medical/proc/filter_max_brute_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(!current)
+		return FALSE
 	if(current.is_robotic() || current.brute_dam <= 0)
 		return FALSE
 	if(!max)
@@ -226,6 +233,8 @@
 	return FALSE
 
 /obj/item/stack/medical/proc/filter_max_burn_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(!current)
+		return FALSE
 	if(current.is_robotic() || current.burn_dam <= 0)
 		return FALSE
 	if(!max)
@@ -235,6 +244,8 @@
 	return FALSE
 
 /obj/item/stack/medical/proc/filter_max_damage_bodypart(obj/item/organ/external/current, obj/item/organ/external/max)
+	if(!current)
+		return FALSE
 	if(current.is_robotic() || current.burn_dam <= 0 && current.brute_dam <= 0)
 		return FALSE
 	if(!max)
@@ -860,6 +871,11 @@
 
 	var/selected_zone = get_priority_targeting(target, user, def_zone)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
+
+	if(!affecting)
+		target.balloon_alert(user, "нет конечности!")
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
 
 	if(affecting.bleeding_amount <= 0)
 		target.balloon_alert(user, "нечего зашивать!")

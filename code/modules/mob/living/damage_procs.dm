@@ -35,7 +35,6 @@
 	. = STATUS_UPDATE_NONE
 	if(damage <= 0)
 		return .
-
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced)
 
 	switch(damagetype)
@@ -262,13 +261,6 @@
 			Weaken(effect * blocked)
 		if(PARALYZE)
 			Paralyse(effect * blocked)
-		if(IRRADIATE)
-			if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
-				return FALSE
-			var/rad_damage = effect
-			if(!negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
-				rad_damage = max(effect * ((100-run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm."))/100),0)
-			radiation += rad_damage
 		if(SLUR)
 			Slur(effect * blocked)
 		if(STUTTER)
@@ -283,12 +275,14 @@
 			Knockdown(effect * blocked)
 		if(CONFUSED)
 			AdjustConfused(effect * blocked)
+		if(EFFECT_UNCONSCIOUS)
+			unconscious(effect * blocked)
 
 	updatehealth("apply effect")
 	return TRUE
 
 /// Applies multiple status effects at once via [apply_effect][/mob/living/proc/apply_effect]
-/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0, confused = 0)
+/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0, confused = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
@@ -297,8 +291,6 @@
 		apply_effect(weaken, WEAKEN, blocked)
 	if(paralyze)
 		apply_effect(paralyze, PARALYZE, blocked)
-	if(irradiate)
-		apply_effect(irradiate, IRRADIATE, blocked)
 	if(slur)
 		apply_effect(slur, SLUR, blocked)
 	if(stutter)
@@ -974,3 +966,12 @@
 	to_chat(src, span_warning("Неудача! Вы ощущаете слабость, потянув за рычаг, надеюсь оно того стоило."))
 	src.adjustCloneLoss(5)
 	return FALSE
+
+/mob/living/proc/adjust_organ_loss(slot, amount, maximum, required_organ_flag)
+	return
+
+/mob/living/proc/set_organ_loss(slot, amount, maximum, required_organ_flag)
+	return
+
+/mob/living/proc/get_organ_loss(slot, required_organ_flag)
+	return

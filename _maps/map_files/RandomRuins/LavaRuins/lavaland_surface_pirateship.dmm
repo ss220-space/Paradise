@@ -178,7 +178,7 @@
 /area/ruin/powered/pirateship)
 "gi" = (
 /obj/item/trash/tapetrash,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
@@ -244,8 +244,7 @@
 "gO" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -630,9 +629,7 @@
 /area/ruin/powered/pirateship)
 "nD" = (
 /obj/machinery/power/emitter{
-	anchored = 1;
-	dir = 1;
-	state = 2
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -1057,8 +1054,7 @@
 /area/lavaland/surface/outdoors)
 "yd" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/window/reinforced{
@@ -1318,8 +1314,7 @@
 /area/ruin/powered/pirateship)
 "CX" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -1849,8 +1844,7 @@
 "Oe" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -1954,7 +1948,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "PA" = (
@@ -2231,8 +2225,7 @@
 /area/lavaland/surface/outdoors)
 "Uj" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -2344,8 +2337,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)

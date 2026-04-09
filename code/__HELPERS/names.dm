@@ -60,7 +60,9 @@ GLOBAL_VAR(station_name)
  * * new_designation - The new station name
  */
 /proc/change_station_name(new_designation)
+	var/old_name = GLOB.station_name
 	GLOB.station_name = new_designation
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_STATION_NAME_CHANGED, new_designation, old_name)
 
 GLOBAL_VAR(english_station_name)
 /// Returns the English station name, falling back to appropriate defaults if not set
@@ -196,7 +198,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 						if(length(names))
 							. += pick(names)
 					if(2)
-						. += pick(GLOB.jobs)//Returns a job.
+						. += get_job_title_ru(pick(GLOB.jobs)) //Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1, 2))//Places or things.

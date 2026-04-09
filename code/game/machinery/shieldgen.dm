@@ -214,15 +214,15 @@
 
 	if(active)
 		add_fingerprint(user)
-		user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] deactivated the shield generator."), \
-			span_notice("[icon2html(src, user)] You deactivate the shield generator."), \
+		user.visible_message(span_notice("[get_examine_icon(viewers(src))] [user] deactivated the shield generator."), \
+			span_notice("[get_examine_icon(user)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
 			add_fingerprint(user)
-			user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] activated the shield generator."), \
-				span_notice("[icon2html(src, user)] You activate the shield generator."), \
+			user.visible_message(span_notice("[get_examine_icon(viewers(src))] [user] activated the shield generator."), \
+				span_notice("[get_examine_icon(user)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
@@ -238,7 +238,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		add_fingerprint(user)
 		if(!malfunction)
 			to_chat(user, span_warning("The [name] is not malfunctioning!"))
@@ -295,7 +295,7 @@
 			shields_down()
 		set_anchored(FALSE)
 	else
-		if(istype(get_turf(src), /turf/space))
+		if(isspaceturf(get_turf(src)))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
 		set_anchored(TRUE)

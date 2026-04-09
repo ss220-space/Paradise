@@ -258,6 +258,23 @@
 		PREPOSITIONAL = "медицинском поясе",
 	)
 
+/obj/item/storage/belt/medical/filled/populate_contents()
+	new /obj/item/reagent_containers/applicator/brute(src)
+	new /obj/item/reagent_containers/applicator/burn(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
+	new /obj/item/storage/pill_bottle/filled(src)
+
+/obj/item/storage/belt/medical/filled/paramed/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /obj/item/storage/belt/medical/surgery
 	name = "surgical belt"
 	desc = "Универсальный хирургический пояс, предназначенный для размещения и переноски хирургических инструментов. \
@@ -682,6 +699,12 @@
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/melee/baton/telescopic(src)
 
+/obj/item/storage/belt/military/assault/rsh_12/full/populate_contents()
+	new	/obj/item/gun/projectile/revolver/rsh_12/admin(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -784,11 +807,6 @@
 	for(var/I in 1 to 16)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 	update_icon()
-
-/obj/item/storage/belt/bandolier/booze
-	description_antag = "Этот патронташ содержит 16 опьяняющих патронов, способных превратить противника или жертву в беззащитное существо. \
-						Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения. \
-						На трезвых они действуют не так сильно!"
 
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)

@@ -71,7 +71,7 @@
 		to_chat(user, span_warning("You can't dash right now!"))
 		return
 
-	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(isturf(user.loc) && !(isspaceturf(user.loc)))
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
 				M.stop_pulling()
@@ -103,14 +103,14 @@
 					hit = 1
 				else if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
-						if(istype(S,/obj/structure/window))
+						if(is_window(S))
 							hit = 1
 						if(istype(S,/obj/structure/grille))
 							hit = 1
 			else if(i > 6)
 				if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
-						if(istype(S,/obj/structure/window))
+						if(is_window(S))
 							S.ex_act(EXPLODE_HEAVY)
 						if(istype(S,/obj/structure/grille))
 							qdel(S)
@@ -233,7 +233,7 @@
 		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
-	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(isturf(user.loc) && !(isspaceturf(user.loc)))
 
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
@@ -434,20 +434,6 @@
 			if(prob(3))
 				M.Knockdown(4 SECONDS)
 		sleep(1)
-
-//Harchok
-/obj/projectile/energy/hulkspit
-	name = "spit"
-	icon_state = "neurotoxin"
-	damage = 15
-	damage_type = TOX
-
-/obj/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.Knockdown(4 SECONDS)
-		M.adjust_fire_stacks(20)
-		M.IgniteMob()
 
 /obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"

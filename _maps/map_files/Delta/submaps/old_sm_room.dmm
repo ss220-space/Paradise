@@ -34,6 +34,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"aA" = (
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing,
@@ -87,8 +93,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/spawner/ninja_teleport,
@@ -463,6 +468,16 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bookcase/random/fiction,
 /turf/simulated/floor/wood/dark,
+/area/template_noop)
+"kf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/template_noop)
 "kl" = (
 /obj/structure/table/wood,
@@ -979,8 +994,7 @@
 /area/template_noop)
 "uv" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1009,6 +1023,10 @@
 	pixel_y = 9
 	},
 /obj/effect/spawner/random_spawners/blood_5,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/template_noop)
 "vU" = (
@@ -1409,12 +1427,8 @@
 	name = "Монтировка легендарная";
 	toolspeed = 0.35
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /obj/machinery/alarm{
 	dir = 8;
@@ -1444,8 +1458,7 @@
 	},
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "Jh" = (
@@ -1888,7 +1901,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "Xt" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2331,7 +2344,7 @@ tB
 tB
 tB
 kt
-Qc
+aA
 MU
 pp
 OJ
@@ -3282,7 +3295,7 @@ iv
 cI
 iR
 ZT
-pg
+kf
 kt
 tB
 tB

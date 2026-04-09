@@ -28,6 +28,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/Destroy()
+	bleeding_bodyparts.Cut()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bodyparts)
 	SSmobs.cubemonkeys -= src
@@ -121,7 +122,7 @@
 	rename_character(null, "Комплексный роботизированный блок [rand(1, 9999)]")
 	update_dna()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(istype(bodypart, /obj/item/organ/external/chest) || istype(bodypart, /obj/item/organ/external/groin))
+		if(ischest(bodypart) || isgroin(bodypart))
 			continue
 		qdel(bodypart)
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -410,6 +411,9 @@
 /**
  * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
  * Useful when player is being seen by other mobs.
+ *
+ * Arguments:
+ * * if_no_id - What to return if we have no ID or PDA
  */
 /mob/living/carbon/human/proc/get_id_name(if_no_id = UNKNOWN_NAME_RUS)
 	var/obj/item/card/id/id = wear_id?.GetID()
@@ -1077,7 +1081,6 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
-	max_radiation = dna.species.max_radiation
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1469,7 +1472,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF))
+		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF_ENGINEER))
 			. = 100
 		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
 			. = 300
@@ -1485,7 +1488,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(prob(current_size * 5) && hand_item.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand_item))
 				step_towards(hand_item, src)
 				to_chat(src, span_warning("[S] вырывает [hand_item.declent_ru(ACCUSATIVE)] из вашей хватки!"))
-	apply_effect(current_size * 3, IRRADIATE)
 
 /mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
@@ -1711,7 +1713,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/list/equip_list = data["equip"]
 	var/turf/T = get_turf(src)
 	if(!islist(data["limbs"]))
-		throw EXCEPTION("Expected a limbs list, but found none")
+		CRASH("Expected a limbs list, but found none")
 
 	if(islist(data["dna"]))
 		dna.deserialize(data["dna"])

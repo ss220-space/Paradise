@@ -1011,3 +1011,7 @@
 	unsuitable_gender = FEMALE
 	species_allowed = list(SPECIES_HUMAN)
 	glasses_over = 1
+
+/datum/sprite_accessory/hair/braided_twintails
+	name = "Braided twintails"
+	icon_state = "braided_twintails"

@@ -4,6 +4,9 @@
 	sort_category = "Импланты"
 	implantable = TRUE
 
+/datum/gear/implant/proc/resolve_implant_path(datum/outfit/job/job)
+	return path
+
 /datum/gear/implant/
 
 //Eye implants
@@ -12,13 +15,13 @@
 	index_name = "Meson Scanner Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/meson
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/implant/security
 	index_name = "Security Hud Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/security
-	allowed_roles = list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC)
 
 /datum/gear/implant/medical
 	index_name = "Medical Hud Implant"
@@ -37,3 +40,17 @@
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/science
 	allowed_roles = list(JOB_TITLE_CHEMIST, JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST)
+
+/datum/gear/implant/universal
+	index_name = "Universal Eye Implant"
+	cost = 3
+	path = /obj/item/organ/internal/cyberimp/eyes/hud/universal
+
+/datum/gear/implant/universal/resolve_implant_path(datum/outfit/job/job)
+	if(!istype(job) || !job.implant_variant)
+		return null
+	return job.implant_variant
+
+/datum/gear/implant/map_implant
+	index_name = "Minimap implant"
+	path = /obj/item/organ/internal/cyberimp/eyes/map

@@ -16,6 +16,8 @@
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
+	/// Sound to play when the projectile misses a mob (passes through without hitting)
+	var/miss_sound = SFX_BULLET_MISS
 	/// Body part at which the projectile was aimed.
 	var/def_zone = ""
 	/// Mob who shot projectile.
@@ -84,20 +86,19 @@
 	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
 	var/immolate = 0
 
-	//Effects
-	var/stun = 0
-	var/weaken = 0
-	var/paralyze = 0
-	var/irradiate = 0
-	var/stutter = 0
-	var/slur = 0
-	var/eyeblur = 0
-	var/drowsy = 0
-	var/min_stamina = 0
-	var/stamina = 0
-	var/jitter = 0
-	var/knockdown = 0
-	var/confused = 0
+	// Status effects applied on hit
+	var/stun = 0 SECONDS
+	var/weaken = 0 SECONDS
+	var/paralyze = 0 SECONDS
+	var/stutter = 0 SECONDS
+	var/slur = 0 SECONDS
+	var/eyeblur = 0 SECONDS
+	var/drowsy = 0 SECONDS
+	var/min_stamina = 0 SECONDS
+	var/stamina = 0 SECONDS
+	var/jitter = 0 SECONDS
+	var/knockdown = 0 SECONDS
+	var/confused = 0 SECONDS
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -312,7 +313,7 @@
 	return were_affects_applied
 
 /obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
-	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
+	return target.apply_effects(blocked, stun, weaken, paralyze, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
 
 /**
  * Checks whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -458,7 +459,7 @@
 		else if(T != loc)
 			step_towards(src, T)
 			hitscan_last = loc
-		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER && !isliving(original)))
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
 	if(QDELETED(src)) //deleted on last move

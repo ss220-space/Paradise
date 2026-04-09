@@ -391,7 +391,7 @@
 			var/obj/item/implant/I = O
 			if(I.implanted)
 				continue
-		if(istype(O,/obj/item/organ))
+		if(is_organ(O))
 			continue
 		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now

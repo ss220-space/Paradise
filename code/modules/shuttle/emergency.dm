@@ -190,7 +190,7 @@
 				continue
 			if(H.wear_suit && H.wear_suit.breakout_time) //straight jacket
 				continue
-			if(istype(H.loc, /obj/structure/closet)) //locked/welded locker, all aboard the clown train honk honk
+			if(iscloset(H.loc)) //locked/welded locker, all aboard the clown train honk honk
 				var/obj/structure/closet/C = H.loc
 				if(C.welded || C.locked)
 					continue
@@ -352,7 +352,7 @@
 /obj/docking_port/mobile/pod/Initialize(mapload)
 	. = ..()
 	if(id == "pod")
-		log_runtime(EXCEPTION("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc."))
+		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
 
 /obj/docking_port/mobile/pod/cancel()
 	return

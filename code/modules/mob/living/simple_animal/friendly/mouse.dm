@@ -247,7 +247,7 @@
 		REMOVE_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
 
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
-	if(istype(M, /mob/living/simple_animal/pet/cat))
+	if(iscat(M))
 		var/mob/living/simple_animal/pet/cat/C = M
 		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
 			apply_damage(15, BRUTE) //3x от ХП обычной мыши или полное хп крысы
@@ -270,7 +270,7 @@
 
 /mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] Squeek!"))
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -598,7 +598,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 
 /mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
 		death()
 		splat(user = arrived)
 

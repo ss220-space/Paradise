@@ -22,8 +22,6 @@
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 
-	init_datum_subtypes(/datum/fake_administrator, GLOB.cached_fake_admins, null, "type")
-
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)
@@ -328,6 +326,7 @@
 		EQUIPMENT("Industrial Mining Satchel", /obj/item/storage/bag/ore/bigger, 500),
 		EQUIPMENT("Meson Health Scanner HUD", /obj/item/clothing/glasses/hud/health/meson, 1500),
 		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
+		EQUIPMENT("Mining Satchel Upgrade", /obj/item/mining_satchel_upgrade, 600)
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("Marker Beacons (10)", /obj/item/stack/marker_beacon/ten, 100),

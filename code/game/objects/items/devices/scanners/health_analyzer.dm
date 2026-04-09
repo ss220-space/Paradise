@@ -252,7 +252,7 @@
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
 	if(scan_data)
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_results(user)
 		else
 			. += span_notice("Нужно подойти ближе, чтобы прочесть содержмое.")
@@ -356,7 +356,7 @@
 	return data
 
 // Scan data to TGUI
-/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE)
+/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/list/data = list()
 	var/DNR = !H.ghost_can_reenter()
@@ -552,21 +552,21 @@
 	return data
 
 // This is the output to the chat
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+/proc/healthscan(mob/user, mob/living/target, mode = 1, advanced = FALSE, tochat = TRUE)
 	var/list/scan_data = list()
-	if(!ishuman(M) || ismachineperson(M))
+	if(!ishuman(target) || ismachineperson(target))
 		//these sensors are designed for organic life
 		scan_data += "Состояние: [span_danger("ОШИБКА")]"
 		scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 		scan_data += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font>"
-		scan_data += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)"
+		scan_data += "Температура тела: [target.bodytemperature-T0C] &deg;C ([target.bodytemperature*1.8-459.67] &deg;F)"
 		scan_data += "Уровень крови: --- %, --- u, тип: ---"
 		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font>"
 		scan_data += "Гены не обнаружены."
 		to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
 		return
 
-	var/mob/living/carbon/human/H = M
+	var/mob/living/carbon/human/H = target
 	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
 	var/OX = H.getOxyLoss() > 50	?	"<b>[H.getOxyLoss()]</b>"		: H.getOxyLoss()
 	var/TX = H.getToxLoss() > 50	?	"<b>[H.getToxLoss()]</b>"		: H.getToxLoss()
@@ -584,6 +584,7 @@
 			scan_data += "Состояние: [span_danger("Смерть")]"
 		else
 			scan_data += "Состояние: [H.stat > 1 ? span_danger("Смерть") : (H.health > 0 ? "[H.health]%" : span_danger("[H.health]%"))]"
+
 	scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 	scan_data += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	scan_data += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
@@ -653,17 +654,19 @@
 	else
 		scan_data += span_warning(">Мозг не обнаружен.")
 
+	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
+
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
-		var/limb = bodypart.name
 		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
-				scan_data += span_warning("Обнаружен перелом в [limb].")
+				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]]")
 		if(bodypart.has_infected_wound())
-			scan_data += span_warning("Заражение в [limb].")
+			scan_data += span_warning("Заражение в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
+
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)
@@ -784,13 +787,14 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		balloon_alert(user, "модуль установлен")
-		playsound(loc, I.usesound, 50, TRUE)
+		if(I.usesound)
+			playsound(loc, I.usesound, 50, TRUE)
 		advanced = TRUE
 		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(!advanced)
 			to_chat(user, span_warning("Для привязки счёта требуется наличие продвинутого модуля сканирования."))
@@ -804,7 +808,8 @@
 
 		connected_acc = id.associated_account_number
 		to_chat(user, span_notice("Аккаунт привязан."))
-		playsound(loc, I.usesound, 50, TRUE)
+		if(I.usesound)
+			playsound(loc, I.usesound, 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()

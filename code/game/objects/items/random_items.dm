@@ -215,11 +215,11 @@
 //       If you didn't run, pray.
 // -------------------------------------
 
-/obj/structure/largecrate/evil
+/obj/structure/closet/crate/large/evil
 	name = "Mysterious Crate"
 	desc = "What could it be?"
 
-/obj/structure/largecrate/evil/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/closet/crate/large/evil/crowbar_act(mob/living/user, obj/item/I)
 	var/cached_name = name
 	var/atom/cached_loc = loc
 	. = ..()
@@ -243,7 +243,7 @@
 
 #define TANGERINES_COUNT 10
 
-/obj/structure/largecrate/tangerines/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/closet/crate/large/tangerines/crowbar_act(mob/living/user, obj/item/I)
 	var/turf/cached_loc = get_turf(loc)
 	. = ..()
 	for(var/i in 1 to TANGERINES_COUNT)
@@ -251,11 +251,11 @@
 
 #undef TANGERINES_COUNT
 
-/obj/structure/largecrate/schrodinger
+/obj/structure/closet/crate/large/schrodinger
 	name = "Schrodinger's Crate"
 	desc = "What happens if you open it?"
 
-/obj/structure/largecrate/schrodinger/crowbar_act(mob/living/user, obj/item/I)
+/obj/structure/closet/crate/large/schrodinger/crowbar_act(mob/living/user, obj/item/I)
 	var/atom/cached_loc = loc
 	. = ..()
 	sleep(0.2 SECONDS)
@@ -274,13 +274,23 @@
 	name = "tactical grenades"
 	desc = "A box with 6 tactical grenades."
 	icon_state = "box_flashbang"
-	var/list/grenadelist = list(/obj/item/grenade/chem_grenade/metalfoam, /obj/item/grenade/chem_grenade/incendiary,
-	/obj/item/grenade/chem_grenade/antiweed, /obj/item/grenade/chem_grenade/cleaner, /obj/item/grenade/chem_grenade/teargas,
-	/obj/item/grenade/chem_grenade/holywater, /obj/item/grenade/chem_grenade/meat,
-	/obj/item/grenade/chem_grenade/dirt, /obj/item/grenade/chem_grenade/lube, /obj/item/grenade/smokebomb,
-	/obj/item/grenade/chem_grenade/drugs, /obj/item/grenade/chem_grenade/ethanol) // holy list batman
 
 /obj/item/storage/box/grenades/populate_contents()
+	var/static/list/grenade_list = list(
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/chem_grenade/holywater,
+		/obj/item/grenade/chem_grenade/meat,
+		/obj/item/grenade/chem_grenade/dirt,
+		/obj/item/grenade/chem_grenade/lube,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grenade/chem_grenade/drugs,
+		/obj/item/grenade/chem_grenade/ethanol,
+	)
+
 	for(var/i in 1 to 6)
-		var/nade = pick(grenadelist)
-		new nade(src)
+		var/grenade = pick(grenade_list)
+		new grenade(src)

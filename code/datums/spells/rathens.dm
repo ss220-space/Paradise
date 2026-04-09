@@ -38,9 +38,9 @@
 			for(var/obj/item/organ/external/E as anything in H.bodyparts)
 				if(istype(E, /obj/item/organ/external/head))
 					continue
-				if(istype(E, /obj/item/organ/external/chest))
+				if(ischest(E))
 					continue
-				if(istype(E, /obj/item/organ/external/groin))
+				if(isgroin(E))
 					continue
 				if(prob(7))
 					to_chat(H, span_userdanger("Your [E] was severed by the explosion!"))

@@ -56,6 +56,12 @@
 	/// Is this object emagged?
 	var/emagged = FALSE
 
+/obj/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, obj_flags))
+		if((obj_flags & DANGEROUS_POSSESSION) && !(var_value & DANGEROUS_POSSESSION))
+			return FALSE
+	return ..()
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -147,7 +153,7 @@
 			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
-		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
+		if(isAI(usr) || isrobot(usr))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -363,3 +369,12 @@
 /// ImageButton element in TGUI, for example
 /obj/proc/get_short_name()
 	return declent_ru(NOMINATIVE)
+
+/**
+ * Returns a list of obj's that should be displayed in the uplink purchase log.
+ * Override for specific types.
+ */
+/obj/proc/get_uplink_log_items()
+	RETURN_TYPE(/list)
+	SHOULD_CALL_PARENT(FALSE)
+	return list(src)

@@ -178,10 +178,6 @@
 	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 	harmful = TRUE
 
-/obj/projectile/beam/pulse/hitscan/heavy
-	name = "heavy pulse laser"
-	icon_state = "pulse1_bl"
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
