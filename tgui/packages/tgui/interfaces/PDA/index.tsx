@@ -106,22 +106,21 @@ export const PDA = () => {
       height={PDA_UI.window.height}
       theme={theme}
     >
-      <Window.Content style={{ padding: 0, height: '100%' }}>
+      <Window.Content p={0} height="100%">
         <Box
+          height="100%"
           style={{
             display: 'grid',
             gridTemplateRows: 'auto 1fr minmax(4rem, 9%)',
-            height: '100%',
             overflow: 'hidden',
           }}
         >
           <PDAHeader />
-
           <Box
+            p={0.75}
+            minHeight={0}
             style={{
               overflowY: 'auto',
-              minHeight: 0,
-              padding: '0.75rem',
             }}
           >
             <AppComponent />
@@ -211,18 +210,18 @@ const PDAHeader = () => {
           </Box>
 
           <Box
+            width={1.4}
+            height={0.7}
             style={{
-              width: '1.4rem',
-              height: '0.7rem',
               border: '1px solid #4a9eff',
               borderRadius: '0.15rem',
               position: 'relative',
             }}
           >
             <Box
+              width="80%"
+              height="100%"
               style={{
-                width: '80%',
-                height: '100%',
                 background: 'linear-gradient(90deg, #4a9eff 0%, #5af 100%)',
               }}
             />
@@ -252,8 +251,8 @@ const PDAHeader = () => {
 
         <Box
           bold
+          minWidth={0}
           style={{
-            minWidth: 0,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
