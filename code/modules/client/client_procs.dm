@@ -577,11 +577,6 @@
 	if(!SSdbcore.IsConnected())
 		return
 
-	if(check_rights(R_ADMIN, FALSE, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
-		donator_level = DONATOR_TIER_I
-		donor_loadout_points()
-		return
-
 	//Donator stuff.
 	var/datum/db_query/query_donor_select = SSdbcore.NewQuery({"
 		SELECT CAST(SUM(amount) as UNSIGNED INTEGER) FROM [CONFIG_GET(string/utility_database)].[format_table_name("budget")]
@@ -599,15 +594,20 @@
 	if(query_donor_select.NextRow())
 		var/total = query_donor_select.item[1]
 		if(total >= 100)
-			donator_level = 1
+			donator_level = DONATOR_TIER_I
 		if(total >= 300)
-			donator_level = 2
+			donator_level = DONATOR_TIER_II
 		if(total >= 500)
-			donator_level = 3
+			donator_level = DONATOR_TIER_III
 		if(total >= 1000)
 			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
 	qdel(query_donor_select)
+
+	if(check_rights(R_ADMIN, FALSE, mob) && donator_level < DONATOR_TIER_I) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+		donator_level = DONATOR_TIER_I
+		donor_loadout_points()
+		return
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
