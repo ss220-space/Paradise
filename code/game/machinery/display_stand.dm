@@ -112,7 +112,7 @@
 		"Nanotrasen скрывает правду.",
 		"Плазменный кризис — их вина.",
 		"Не верьте пропаганде.",
-		"Нахуй Nanotrasen!"
+		"Нахуй Nanotrasen!",
 	)
 	light_color = COLOR_RED_LIGHT
 	set_light(l_range = 3, l_power = 0.7, l_color = light_color, l_on = TRUE)
@@ -160,7 +160,7 @@
 		return
 
 	if(cooldown_timer)
-		balloon_alert(user, "Стенд перезаряжается.")
+		balloon_alert(user, "стенд перезаряжается")
 		return
 
 	if(is_speaking)
