@@ -12,7 +12,7 @@ import { toFixed } from 'common/math';
 import type { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
-import { getGasColor, getGasFromPath, getGasLabel } from '../constants';
+import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
 const logScale = (value: number) => Math.log2(16 + Math.max(0, value)) - 4;
@@ -100,7 +100,6 @@ const SupermatterEntry = (props: SupermatterEntryProps) => {
 export const SupermatterContent = (props: SupermatterProps) => {
   const {
     sectionButton,
-    uid,
     area_name,
     integrity,
     integrity_factors,

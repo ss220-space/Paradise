@@ -488,8 +488,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	data["absorbed_ratio"] = absorption_ratio
 	var/list/formatted_gas_percentage = list()
 	var/list/cached_gas_percentage = gas_percentage
-	for(var/gas_id, gas_value in cached_gas_percentage)
-		formatted_gas_percentage[gas_id] = gas_value || 0
+	for(var/datum/gas/gas_path as anything in subtypesof(/datum/gas))
+		var/gas_id = gas_path.id
+		formatted_gas_percentage[gas_id] = cached_gas_percentage[gas_id] || 0
 	data["gas_composition"] = formatted_gas_percentage
 	data["gas_temperature"] = absorbed_gasmix.temperature()
 	data["gas_total_moles"] = absorbed_gasmix.total_moles()
@@ -685,20 +686,21 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/cached_current_gas_behavior = current_gas_behavior
 
 	var/list/gases = absorbed_gasmix.get_interesting()
+	var/cached_gas_percentage = gas_percentage
 	for(var/tlv_id, mole_count in gases)
 		if(mole_count < MINIMUM_MOLE_COUNT) //save processing power from small amounts like these
 			continue
 
-		gas_percentage[tlv_id] = mole_count / total_moles
+		cached_gas_percentage[tlv_id] = mole_count / total_moles
 		var/datum/sm_gas/sm_gas = cached_current_gas_behavior[tlv_id]
 		if(!sm_gas)
 			continue
 
-		gas_power_transmission_rate += sm_gas.power_transmission * gas_percentage[tlv_id]
-		gas_heat_modifier += sm_gas.heat_modifier * gas_percentage[tlv_id]
-		gas_heat_resistance += sm_gas.heat_resistance * gas_percentage[tlv_id]
-		gas_heat_power_generation += sm_gas.heat_power_generation * gas_percentage[tlv_id]
-		gas_powerloss_inhibition += sm_gas.powerloss_inhibition * gas_percentage[tlv_id]
+		gas_power_transmission_rate += sm_gas.power_transmission * cached_gas_percentage[tlv_id]
+		gas_heat_modifier += sm_gas.heat_modifier * cached_gas_percentage[tlv_id]
+		gas_heat_resistance += sm_gas.heat_resistance * cached_gas_percentage[tlv_id]
+		gas_heat_power_generation += sm_gas.heat_power_generation * cached_gas_percentage[tlv_id]
+		gas_powerloss_inhibition += sm_gas.powerloss_inhibition * cached_gas_percentage[tlv_id]
 
 	gas_heat_power_generation = clamp(gas_heat_power_generation, 0, 1)
 	gas_powerloss_inhibition = clamp(gas_powerloss_inhibition, 0, 1)
