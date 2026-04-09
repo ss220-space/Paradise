@@ -17,6 +17,28 @@ const THEME_MAP: Record<string, string> = {
   pda_bank: 'raingor_company',
 };
 
+const THEME_NAMES: Record<string, string> = {
+  nanotrasen: 'NT Classic',
+  ntos_darkmode: 'Dark Mode',
+  ntos_roboblue: 'RoboBlue',
+  ntos_cat: 'NT Cat',
+  ntos_roboquest: 'RoboQuest',
+  ntos_spooky: 'Spooky',
+  ntos_synth: 'Synth',
+  ntos_terminal: 'Terminal',
+  abductor: 'Abductor',
+  admin: 'Admin',
+  cargo: 'Cargo',
+  changeling: 'Changeling',
+  clockwork: 'Clockwork',
+  hackerman: 'Hacker',
+  honker: 'Honker',
+  infernal: 'Infernal',
+  malfunction: 'Malfunction',
+  safe: 'Safe',
+  spider_clan: 'Spider Clan',
+};
+
 const GetApp = (name) => {
   if (name === 'index') {
     return routingError('notFound', name);
@@ -60,7 +82,7 @@ type App = {
 };
 
 export const PDA = () => {
-  const { data, act } = useBackend<PDAData>();
+  const { data } = useBackend<PDAData>();
   const { app, owner } = data;
 
   if (!owner) {
@@ -76,7 +98,6 @@ export const PDA = () => {
   }
 
   const AppComponent = GetApp(app.template);
-
   const theme = THEME_MAP[app.template] || data.current_theme || 'nanotrasen';
 
   return (
@@ -85,18 +106,26 @@ export const PDA = () => {
       height={PDA_UI.window.height}
       theme={theme}
     >
-      <Window.Content style={{ padding: 0 }}>
+      <Window.Content p={0} height="100%">
         <Box
+          height="100%"
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%',
+            display: 'grid',
+            gridTemplateRows: 'auto 1fr minmax(4rem, 9%)',
+            overflow: 'hidden',
           }}
         >
           <PDAHeader />
-          <Box style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
+          <Box
+            p={0.75}
+            minHeight={0}
+            style={{
+              overflowY: 'auto',
+            }}
+          >
             <AppComponent />
           </Box>
+
           <PDAFooter />
         </Box>
       </Window.Content>
@@ -118,21 +147,18 @@ const PDAHeader = () => {
   const [pressed, setPressed] = useState(false);
 
   return (
-    <Box style={{ marginBottom: '0', padding: '0' }}>
-      {/* STATUS BAR */}
+    <Box>
       <Box
-        px={2}
-        py={0.5}
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
-          fontSize: '10px',
-          padding: '4px 8px',
+          padding: '0.4rem 0.75rem',
           borderBottom: '1px solid var(--color-border)',
+          fontSize: '0.75rem',
+          gap: '0.5rem',
         }}
       >
-        {/* 🔑 VPN + 📶 */}
         <Box
           onClick={() => act('VPNConnect')}
           onMouseDown={() => setPressed(true)}
@@ -140,78 +166,63 @@ const PDAHeader = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '0.5rem',
             cursor: 'pointer',
+            justifySelf: 'start',
           }}
         >
           <Box
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '3px',
-              padding: '1px 5px',
+              gap: '0.25rem',
+              padding: '0.15rem 0.4rem',
               background: 'rgba(74, 158, 255, 0.1)',
-              borderRadius: '3px',
+              borderRadius: '0.2rem',
               border: '1px solid rgba(74, 158, 255, 0.3)',
-              transform: pressed ? 'scale(0.95)' : 'scale(1)',
-              transition: 'all 0.1s ease',
+              transform: pressed ? 'scale(0.96)' : 'scale(1)',
+              transition: 'transform 0.1s ease',
             }}
           >
-            <Icon name="key" style={{ color: '#4a9eff', fontSize: '10px' }} />
-            <Box
-              style={{ color: '#4a9eff', fontSize: '8px', fontWeight: 'bold' }}
-            >
+            <Icon name="key" style={{ color: '#4a9eff' }} />
+            <Box bold style={{ color: '#4a9eff' }}>
               VPN
             </Box>
           </Box>
 
-          <Icon name="wifi" style={{ color: '#4a9eff', fontSize: '11px' }} />
+          <Icon name="wifi" style={{ color: '#4a9eff' }} />
         </Box>
 
-        {/* 🕐 */}
-        <Box bold style={{ color: '#888', fontSize: '11px' }}>
+        <Box bold style={{ color: '#888', justifySelf: 'center' }}>
           {stationTime}
         </Box>
 
-        {/* 🔋  */}
-        <Box style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <Box bold style={{ color: '#4a9eff', fontSize: '10px' }}>
+        <Box
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.35rem',
+            justifySelf: 'end',
+          }}
+        >
+          <Box bold style={{ color: '#4a9eff' }}>
             87%
           </Box>
+
           <Box
+            width={1.4}
+            height={0.7}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '2px',
-              padding: '1px 3px',
-              background: 'rgba(0,0,0,0.3)',
-              borderRadius: '3px',
+              border: '1px solid #4a9eff',
+              borderRadius: '0.15rem',
+              position: 'relative',
             }}
           >
             <Box
+              width="80%"
+              height="100%"
               style={{
-                width: '20px',
-                height: '9px',
-                border: '1px solid #4a9eff',
-                borderRadius: '2px',
-                padding: '1px',
-              }}
-            >
-              <Box
-                style={{
-                  width: '16px',
-                  height: '7px',
-                  background: 'linear-gradient(90deg, #4a9eff 0%, #5af 100%)',
-                  borderRadius: '1px',
-                }}
-              />
-            </Box>
-            <Box
-              style={{
-                width: '2px',
-                height: '4px',
-                background: '#4a9eff',
-                borderRadius: '0 1px 1px 0',
+                background: 'linear-gradient(90deg, #4a9eff 0%, #5af 100%)',
               }}
             />
           </Box>
@@ -220,39 +231,42 @@ const PDAHeader = () => {
 
       {/* MAIN HEADER */}
       <Box
-        px={2}
-        py={1.5}
         style={{
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: 'auto auto 1fr auto auto',
           alignItems: 'center',
-          gap: '8px',
-          padding: '8px',
+          gap: '0.5rem',
+          padding: '0.6rem 0.75rem',
         }}
       >
-        {/* ID Card */}
         <Button
           icon={idInserted ? 'id-card' : 'id-card-o'}
           color={idInserted ? 'good' : 'bad'}
           onClick={() => act('Authenticate')}
-          style={{ padding: '4px 8px', fontSize: '10px' }}
         >
           {idInserted ? idLink : 'No ID'}
         </Button>
 
-        {/* App Icon + Name */}
-        <Icon name={app?.icon || 'cube'} mr={1} style={{ color: '#6496c8' }} />
-        <Box bold style={{ flexGrow: 1, fontSize: '13px', color: '#ddd' }}>
+        <Icon name={app?.icon || 'cube'} style={{ color: '#6496c8' }} />
+
+        <Box
+          bold
+          minWidth={0}
+          style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {app?.name || 'PDA'}
         </Box>
 
-        {/* Cartridges */}
         {cartridge_name ? (
           <Button
             icon="sd-card"
             color="transparent"
             tooltip={`Eject: ${cartridge_name}`}
             onClick={() => act('Eject')}
-            style={{ fontSize: '9px', color: '#888' }}
           >
             {cartridge_name}
           </Button>
@@ -264,7 +278,6 @@ const PDAHeader = () => {
             color="transparent"
             tooltip={`Eject: ${request_cartridge_name}`}
             onClick={() => act('Eject_Request')}
-            style={{ fontSize: '9px', color: '#888' }}
           >
             {request_cartridge_name}
           </Button>
@@ -277,81 +290,70 @@ const PDAHeader = () => {
 const PDAFooter = () => {
   const { act, data } = useBackend<PDAData>();
   const { app, current_theme } = data;
-  const themeNames: Record<string, string> = {
-    'nanotrasen': 'NT Classic',
-    'ntos_darkmode': 'Dark Mode',
-    'ntos_roboblue': 'RoboBlue',
 
-    'ntos_cat': 'NT Cat',
-    'ntos_roboquest': 'RoboQuest',
-    'ntos_spooky': 'Spooky',
-    'ntos_synth': 'Synth',
-    'ntos_terminal': 'Terminal',
-
-    'abductor': 'Abductor',
-    'admin': 'Admin',
-    'cargo': 'Cargo',
-    'changeling': 'Changeling',
-    'clockwork': 'Clockwork',
-    'hackerman': 'Hacker',
-    'honker': 'Honker',
-    'infernal': 'Infernal',
-    'malfunction': 'Malfunction',
-    'safe': 'Safe',
-    'spider_clan': 'Spider Clan',
-  };
   return (
     <Box
+      p={0.5}
       style={{
-        height: '56px',
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        background: '#151821',
+        display: 'grid',
+        gridTemplateColumns: '1.15fr 1.15fr 1.15fr',
+        gap: '0.5rem',
         borderTop: '1px solid #222',
+        background: '#151821',
+        alignItems: 'stretch',
       }}
     >
-      {/* BACK */}
       <Button
+        fluid
         icon="arrow-left"
         color="transparent"
+        textAlign="center"
         style={{
-          opacity: app.has_back ? 1 : 0.4,
+          opacity: app.has_back ? 1 : 0.35,
           pointerEvents: app.has_back ? 'auto' : 'none',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10% 20%',
         }}
-        onClick={() => {
-          if (app.has_back) {
-            act('Back');
-          } else {
-            act('Home'); // fallback
-          }
-        }}
+        onClick={() => act('Back')}
       >
         Back
       </Button>
 
-      {/* HOME */}
       <Button
+        fluid
         icon="home"
         color="transparent"
+        textAlign="center"
         style={{
-          opacity: app.is_home ? 0.4 : 1,
+          opacity: app.is_home ? 0.45 : 1,
           pointerEvents: app.is_home ? 'none' : 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10% 20%',
         }}
         onClick={() => act('Home')}
       >
         Home
       </Button>
 
-      {/* THEME */}
       <Button
+        fluid
         icon="palette"
         color="transparent"
+        tooltip={`Тема: ${THEME_NAMES[current_theme] || current_theme}`}
+        textAlign="center"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10% 20%',
+        }}
         onClick={() => act('CycleTheme')}
-        tooltip={`Тема: ${themeNames[current_theme] || current_theme}`}
-        style={{ fontSize: '10px', padding: '4px 8px' }}
       >
-        {themeNames[current_theme] || current_theme}
+        {THEME_NAMES[current_theme] || current_theme}
       </Button>
     </Box>
   );

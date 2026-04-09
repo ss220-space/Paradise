@@ -2950,7 +2950,7 @@
 	name = "Hardsuit storage";
 	req_access = list(125)
 	},
-/obj/machinery/suit_storage_unit/cmo/sec_storage{
+/obj/machinery/suit_storage_unit/medical{
 	name = "Gorky17 medical suit storage unit";
 	req_access = list(122,123,124,125,126)
 	},

@@ -8,6 +8,10 @@
 /// Sibyl slot identifier
 #define ATTACHMENT_SLOT_SIBYL "sibyl"
 
+// Keys for attachment X/Y offset values
+#define ATTACHMENT_OFFSET_X "x"
+#define ATTACHMENT_OFFSET_Y "y"
+
 //MARK: Modules type flags
 #define GUN_MODULE_CLASS_NONE 0
 // Rail slot types flags

@@ -214,7 +214,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
 	if(chassis)
-		chassis.occupant_message("[icon2html(src, chassis.occupant)] [message]")
+		chassis.occupant_message("[get_examine_icon(chassis.occupant)] [message]")
 
 /obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
 	return

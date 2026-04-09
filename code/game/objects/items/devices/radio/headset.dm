@@ -51,6 +51,11 @@
 	QDEL_NULL(keyslot2)
 	return ..()
 
+/obj/item/radio/headset/examine_tags(mob/user)
+	. = ..()
+	if((item_flags & BANGPROTECT_MINOR) || (item_flags & BANGPROTECT_TOTAL))
+		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
+
 /obj/item/radio/headset/get_internal_channels()
 	return list()
 

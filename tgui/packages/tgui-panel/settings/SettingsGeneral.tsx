@@ -172,9 +172,10 @@ export const SettingsGeneral = (_props: unknown) => {
             step={0.01}
             minValue={0.8}
             maxValue={5}
+            tickWhileDragging
             value={lineHeight}
             format={(value) => toFixed(value, 2)}
-            onDrag={(e, value) =>
+            onChange={(e, value) =>
               dispatch(
                 updateSettings({
                   lineHeight: value,

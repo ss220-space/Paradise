@@ -202,6 +202,7 @@
 		),
 		list(
 			/obj/item/gun/projectile/shotgun/riot,
+			/obj/item/gun/projectile/shotgun/winchester,
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/speedloader/shotgun,
