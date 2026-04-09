@@ -29,8 +29,8 @@
 	if(!new_poster_structure && poster_type)
 		poster_structure = new poster_type(src)
 
-	update_icon_state()
-	update_desc()
+	update_icon(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_DESC)
 
 /obj/item/poster/Destroy()
 	poster_structure = null
@@ -59,8 +59,8 @@
 	is_unfurled = FALSE
 	name = "rolled-up poster"
 	ru_names = null
-	update_icon_state()
-	update_desc()
+	update_icon(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_DESC)
 	if(user)
 		playsound(src, 'sound/effects/pageturn3.ogg', 30, TRUE)
 		to_chat(user, span_notice("Вы аккуратно сворачиваете постер."))
@@ -76,8 +76,8 @@
 
 	is_unfurled = TRUE
 	name = "\"[poster_structure.original_name]\""
-	update_icon_state()
-	update_desc()
+	update_icon(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_DESC)
 	ru_names = poster_structure.ru_names
 	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
 	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
