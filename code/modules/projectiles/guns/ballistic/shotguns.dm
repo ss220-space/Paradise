@@ -209,7 +209,7 @@
 	. = ..()
 	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
 
-/obj/item/gun/projectile/shotgun/winchester/do_pb_knockback(mob/living/user, atom/target)
+/obj/item/gun/projectile/shotgun/winchester/do_pointblank_shot(mob/living/user, atom/target)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(pump), user), 1) //auto reload after point blank shot
 

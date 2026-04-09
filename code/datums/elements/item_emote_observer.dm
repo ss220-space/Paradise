@@ -41,7 +41,7 @@
 		return //not interesting emote
 
 	var/obj/item/parent_item = user.get_active_hand()
-	if(parent_item == null || !istype(parent_item))
+	if(!parent_item || !istype(parent_item))
 		return
 
 	INVOKE_ASYNC(parent_item, TYPE_PROC_REF(/obj/item, attack_self), user)
