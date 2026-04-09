@@ -1,7 +1,8 @@
 name: Mark stale issues and pull requests
+
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs at midnight UTC every day
+    - cron: "0 0 * * *"
 
 permissions:
   contents: read
@@ -16,7 +17,9 @@ jobs:
       staled_prs: ${{ steps.filter-prs.outputs.result }}
 
     steps:
-      - uses: actions/stale@v10
+      - name: Mark stale issues and pull requests
+        uses: actions/stale@v10
+        id: stale
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           stale-pr-message: "Данный PR считается устаревшим, так как не обновлялся достаточно долгое время. Это означает, что он будет автоматически закрыт в течении 7 дней. Если это ошибка и PR в разработке, то сообщите об этом @Ревьювер в Discord."
@@ -32,15 +35,26 @@ jobs:
           #exempt-issue-labels: "RED LABEL"
           exempt-pr-labels: "🛑 Не закрывать"
           operations-per-run: 300
+      - name: Filter staled pull requests for announcement
+        id: filter-prs
+        uses: actions/github-script@v8
+        with:
+          script: |
+            return JSON.parse(`${{steps.stale.outputs.staled-issues-prs}}`)
+                       .filter(issue => !!issue.pull_request)
+                       .map(pr => ({
+                        title: pr.title,
+                        number: pr.number,
+                        html_url: pr.pull_request.html_url,
+                       }));
 
   announce:
     runs-on: ubuntu-24.04
     needs: stale
     if: ${{ needs.stale.outputs.staled_prs != '[]' }}
     strategy:
-     matrix:
-      pull_request: ${{ fromJSON(needs.stale.outputs.staled_prs) }}
-
+      matrix:
+        pull_request: ${{ fromJSON(needs.stale.outputs.staled_prs) }}
     steps:
       - name: "Check for DISCORD_WEBHOOK"
         id: secrets_set
@@ -50,7 +64,6 @@ jobs:
           unset SECRET_EXISTS
           if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
           echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
-
       - name: Send Discord notification
         uses: tgstation/discord-notify@v3
         if: >
