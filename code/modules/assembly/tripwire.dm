@@ -464,7 +464,7 @@
 ////////////////////////////////////////
 // MARK:	Trigger & payloads
 ////////////////////////////////////////
-#define TRIPWIRE_GRENADE_DETONATION_TIME 1 SECONDS
+#define TRIPWIRE_GRENADE_DETONATION_TIME 0.6 SECONDS
 
 /obj/item/tripwire/proc/on_payload_activate(datum/source, mob/user)
 	SIGNAL_HANDLER
