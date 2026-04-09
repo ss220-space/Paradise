@@ -31,7 +31,7 @@
 
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
-	desc = "Используется для того, чтобы вырубать людей."
+	desc = "Последнее средство от бессонницы. Почти."
 	icon_state = "medical"
 	req_access = list(ACCESS_SURGERY)
 
@@ -111,18 +111,18 @@
 //Exam Room
 /obj/structure/closet/secure_closet/exam
 	name = "exam room closet"
-	desc = "Заполнено принадлежностями для проведения экзаменов."
+	desc = "Заполнено принадлежностями для проведения осмотра."
 	icon_state = "medical"
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/exam/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик экзаменационной",
-        GENITIVE = "шкафчика экзаменационной",
-        DATIVE = "шкафчику экзаменационной",
-        ACCUSATIVE = "шкафчик экзаменационной",
-        INSTRUMENTAL = "шкафчиком экзаменационной",
-        PREPOSITIONAL = "шкафчике экзаменационной",
+        NOMINATIVE = "шкафчик смотровой",
+        GENITIVE = "шкафчика смотровой",
+        DATIVE = "шкафчику смотровой",
+        ACCUSATIVE = "шкафчик смотровой",
+        INSTRUMENTAL = "шкафчиком смотровой",
+        PREPOSITIONAL = "шкафчике смотровой",
     )
 
 /obj/structure/closet/secure_closet/exam/populate_contents()
@@ -272,12 +272,12 @@
 
 /obj/structure/closet/secure_closet/chemical/get_ru_names()
     return list(
-        NOMINATIVE = "химический шкафчик",
-        GENITIVE = "химического шкафчика",
-        DATIVE = "химическому шкафчику",
-        ACCUSATIVE = "химический шкафчик",
-        INSTRUMENTAL = "химическим шкафчиком",
-        PREPOSITIONAL = "химическом шкафчике",
+        NOMINATIVE = "шкафчик для пластырей и таблеток",
+        GENITIVE = "шкафчика для пластырей и таблеток",
+        DATIVE = " шкафчику для пластырей и таблеток",
+        ACCUSATIVE = "шкафчик для пластырей и таблеток",
+        INSTRUMENTAL = "шкафчиком для пластырей и таблеток",
+        PREPOSITIONAL = "шкафчике для пластырей и таблеток",
     )
 
 /obj/structure/closet/secure_closet/chemical/populate_contents()

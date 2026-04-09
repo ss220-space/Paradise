@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/freezer
-	desc = "Это холодильный шкафчик с дверью, запираемой ID-картой. Этот имеет свинцовую облицовку."
+	desc = "Это холодильный шкафчик с дверью, запираемый ID-картой. Имеет свинцовую облицовку для большей надёжности."
 
 /obj/structure/closet/secure_closet/freezer/ex_act(severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
@@ -50,12 +50,12 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/get_ru_names()
     return list(
-        NOMINATIVE = "технический холодильник",
-        GENITIVE = "технического холодильника",
-        DATIVE = "техническому холодильнику",
-        ACCUSATIVE = "технический холодильник",
-        INSTRUMENTAL = "техническим холодильником",
-        PREPOSITIONAL = "техническом холодильнике",
+        NOMINATIVE = "старый холодильник",
+        GENITIVE = "старого холодильника",
+        DATIVE = "старому холодильнику",
+        ACCUSATIVE = "старый холодильник",
+        INSTRUMENTAL = "старым холодильником",
+        PREPOSITIONAL = "старом холодильнике",
     )
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/populate_contents()
@@ -127,7 +127,7 @@
 /obj/structure/closet/secure_closet/freezer/vault
 	name = "vault locker"
 	icon_state = "vault"
-	desc = "It's a card-locked storage unit. This one is lead-lined."
+	desc = "Это шкафчик-сейф с дверью, запираемый ID-картой.. Имеет свинцовую облицовку для большей надёжности."
 	req_access = list(ACCESS_HEADS_VAULT)
 
 /obj/structure/closet/secure_closet/freezer/vault/get_ru_names()

@@ -71,12 +71,12 @@
 
 /obj/structure/closet/secure_closet/RD/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик научного руководителя",
-        GENITIVE = "шкафчика научного руководителя",
-        DATIVE = "шкафчику научного руководителя",
-        ACCUSATIVE = "шкафчик научного руководителя",
-        INSTRUMENTAL = "шкафчиком научного руководителя",
-        PREPOSITIONAL = "шкафчике научного руководителя",
+        NOMINATIVE = "шкафчик директора исследований",
+        GENITIVE = "шкафчика директора исследований",
+        DATIVE = "шкафчику директора исследований",
+        ACCUSATIVE = "шкафчик директора исследований",
+        INSTRUMENTAL = "шкафчиком директора исследований",
+        PREPOSITIONAL = "шкафчике директора исследований",
     )
 
 /obj/structure/closet/secure_closet/RD/populate_contents()
@@ -110,12 +110,12 @@
 
 /obj/structure/closet/secure_closet/research_reagents/get_ru_names()
     return list(
-        NOMINATIVE = "шкафчик для исследовательских химикатов",
-        GENITIVE = "шкафчика для исследовательских химикатов",
-        DATIVE = "шкафчику для исследовательских химикатов",
-        ACCUSATIVE = "шкафчик для исследовательских химикатов",
-        INSTRUMENTAL = "шкафчиком для исследовательских химикатов",
-        PREPOSITIONAL = "шкафчике для исследовательских химикатов",
+        NOMINATIVE = "шкафчик для химикатов",
+        GENITIVE = "шкафчика для химикатов",
+        DATIVE = "шкафчику для химикатов",
+        ACCUSATIVE = "шкафчик для химикатов",
+        INSTRUMENTAL = "шкафчиком для химикатов",
+        PREPOSITIONAL = "шкафчике для химикатов",
     )
 
 /obj/structure/closet/secure_closet/research_reagents/populate_contents()
