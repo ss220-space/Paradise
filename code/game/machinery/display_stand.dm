@@ -1,5 +1,3 @@
-#define DISPLAY_STAND_GLASS_REQUIREMENT 2
-
 /obj/machinery/display_stand
 	name = "display stand"
 	desc = "Напольный информационный дисплей с экраном. По хорошему, вы не должны это видеть."
@@ -132,14 +130,14 @@
 
 	add_fingerprint(user)
 	var/obj/item/stack/sheet/glass/glass = object
-	if(glass.get_amount() < DISPLAY_STAND_GLASS_REQUIREMENT)
+	if(glass.get_amount() < 2)
 		to_chat(user, span_warning("Нужно два листа стекла для починки."))
 		return ATTACK_CHAIN_PROCEED
 	glass.play_tool_sound(src)
 	to_chat(user, span_notice("Вы начинаете заменять стекло..."))
 	if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || !(stat & BROKEN) || QDELETED(glass))
 		return ATTACK_CHAIN_PROCEED
-	if(!glass.use(DISPLAY_STAND_GLASS_REQUIREMENT))
+	if(!glass.use(2))
 		to_chat(user, span_warning("В процессе починки у вас закончилось стекло..."))
 		return ATTACK_CHAIN_PROCEED
 	stat &= ~BROKEN
