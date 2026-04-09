@@ -200,8 +200,8 @@
 		/datum/component/automatic_fire, \
 		0.4 SECONDS, \
 		TRUE, \
-		0.2, \
-		0.1, \
+		0.05, \
+		0.25, \
 		1 SECONDS \
 	)
 
