@@ -18,10 +18,10 @@
 	var/list/speech_lines = list()
 	var/speech_index = 0
 	var/speech_timer = 0
-	var/is_speaking = FALSE
-	var/speech_interval = 5 SECONDS
-	var/cooldown_timer = 0
-	var/cooldown_delay = 30 SECONDS
+	var/is_speaking = FALSE			// Флаг: воспроизводит ли стенд речь прямо сейчас
+	var/speech_interval = 5 SECONDS		// Интервал между строками речи
+	var/cooldown_timer = 0			// Таймер перезарядки после остановки речи
+	var/cooldown_delay = 30 SECONDS		// Задержка перезарядки после остановки речи
 
 /obj/machinery/display_stand/get_ru_names()
 	return list(
@@ -65,10 +65,11 @@
 
 /obj/machinery/display_stand/take_damage(amount, type = BRUTE, flag = 0)
 	. = ..()
-	if(stat & BROKEN)
-		stop_speaking(FALSE)
-		set_light_on(FALSE)
-		update_icon(UPDATE_OVERLAYS)
+	if(!(stat & BROKEN))
+		return
+	stop_speaking(FALSE)
+	set_light_on(FALSE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/display_stand/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -81,14 +82,14 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/display_stand/obj_break(damage_flag)
-	if(!(obj_flags & NODECONSTRUCT))
-		if(!(stat & BROKEN))
-			playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-			stat |= BROKEN
-			update_icon(UPDATE_OVERLAYS)
-			set_light_on(FALSE)
-			new /obj/item/shard(drop_location())
-			new /obj/item/shard(drop_location())
+	if((obj_flags & NODECONSTRUCT) || (stat & BROKEN))
+		return
+	playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+	stat |= BROKEN
+	update_icon(UPDATE_OVERLAYS)
+	set_light_on(FALSE)
+	new /obj/item/shard(drop_location())
+	new /obj/item/shard(drop_location())
 
 /obj/machinery/display_stand/Destroy(force)
 	stop_speaking(FALSE)
@@ -104,34 +105,33 @@
 	return ..()
 
 /obj/machinery/display_stand/proc/on_emag(mob/user)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (BROKEN|NOPOWER) || emagged)
 		return
-	if(!emagged)
-		emagged = TRUE
-		active_icon_state = "emagged"
-		icon_state = "emagged"
-		speech_lines = list(
-			"Nanotrasen скрывает правду.",
-			"Плазменный кризис — их вина.",
-			"Не верьте пропаганде.",
-			"Нахуй Nanotrasen!"
-		)
-		light_color = COLOR_RED_LIGHT
-		set_light(l_range = 3, l_power = 0.7, l_color = light_color, l_on = TRUE)
-		update_icon(UPDATE_OVERLAYS)
-		playsound(loc, SFX_SPARKS, 30, TRUE)
-		do_sparks(5, TRUE, src)
-		AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
+	emagged = TRUE
+	active_icon_state = "emagged"
+	icon_state = "emagged"
+	speech_lines = list(
+		"Nanotrasen скрывает правду.",
+		"Плазменный кризис — их вина.",
+		"Не верьте пропаганде.",
+		"Нахуй Nanotrasen!"
+	)
+	light_color = COLOR_RED_LIGHT
+	set_light(l_range = 3, l_power = 0.7, l_color = light_color, l_on = TRUE)
+	update_icon(UPDATE_OVERLAYS)
+	playsound(loc, SFX_SPARKS, 30, TRUE)
+	do_sparks(5, TRUE, src)
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 
-/obj/machinery/display_stand/attackby(obj/item/I, mob/user, params)
+/obj/machinery/display_stand/attackby(obj/item/object, mob/user, params)
 	if(!(stat & BROKEN))
 		return ..()
 
-	if(!istype(I, /obj/item/stack/sheet/glass))
+	if(!istype(object, /obj/item/stack/sheet/glass))
 		return ..()
 
 	add_fingerprint(user)
-	var/obj/item/stack/sheet/glass/glass = I
+	var/obj/item/stack/sheet/glass/glass = object
 	if(glass.get_amount() < DISPLAY_STAND_GLASS_REQUIREMENT)
 		to_chat(user, span_warning("Нужно два листа стекла для починки."))
 		return ATTACK_CHAIN_PROCEED
@@ -148,9 +148,9 @@
 	to_chat(user, span_notice("Вы починили [src]."))
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/obj/machinery/display_stand/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/display_stand/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
-	default_unfasten_wrench(user, I)
+	default_unfasten_wrench(user, tool)
 
 /obj/machinery/display_stand/attack_hand(mob/living/user)
 	. = ..()
@@ -162,7 +162,7 @@
 		return
 
 	if(cooldown_timer)
-		to_chat(user, span_warning("Стенд перезаряжается."))
+		balloon_alert(user, "Стенд перезаряжается.")
 		return
 
 	if(is_speaking)
