@@ -215,7 +215,7 @@
 
 	data["availableExperiments"] = available_experiments
 
-	if(!isnull(loaded_item) && !isnull(linked_console.files))
+	if(!isnull(loaded_item) && !isnull(linked_console?.files))
 		var/list/item_data = list()
 
 		item_data["name"] = loaded_item.name

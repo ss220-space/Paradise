@@ -150,6 +150,7 @@
 		/obj/item/gun/projectile/revolver/mateba = 3,
 		/obj/item/gun/projectile/shotgun/automatic = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/gun/projectile/shotgun/winchester = 2,
 		/obj/item/gun/projectile/automatic/ak814 = 1,
 		/obj/item/gun/projectile/shotgun/riot/buckshot = 3,
 		/obj/item/gun/projectile/shotgun/boltaction = 1,

@@ -14,9 +14,9 @@
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
 	)
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
@@ -89,18 +89,20 @@
 	name = "assault shotgun"
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
-	current_skin = "riotshotgun-short"
-	item_state = "riotshotgun-short"			//phil235 is it different with different skin?
-	item_color = "riotshotgun-short"
+	weapon_weight = WEAPON_LIGHT
+	current_skin = icon_state + "-short"
+	item_state = item_state + "-short"		//phil235 is it different with different skin?
+	item_color = item_color + "-short"
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
+	damage_mod = 0.75
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
 	)
 	update_icon()
 
@@ -141,16 +143,18 @@
 	name = initial(name)
 	desc = initial(desc)
 	w_class = initial(w_class)
+	weapon_weight = initial(weapon_weight)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
 	slot_flags &= ~ITEM_SLOT_BELT
 	slot_flags |= ITEM_SLOT_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
+	damage_mod = 1
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
 	)
 	update_icon()
 
@@ -171,6 +175,44 @@
 
 /obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
+
+//MARK: Winchester
+/obj/item/gun/projectile/shotgun/winchester
+	name = "lever action shotgun"
+	desc = "Ружье рычажного действия под калибр 12х70 мм. Производится с 1887 года компанией \"Winchester Arms Company\"."
+	icon_state = "winchester"
+	item_state = "winchester"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester
+	sawn_desc = "Come with me if you want to live."
+	pb_knockback = 0 // no knockback for this gun
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -4),
+	)
+	reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
+
+/obj/item/gun/projectile/shotgun/winchester/get_ru_names()
+	return list(
+		NOMINATIVE = "рычажный дробовик",
+		GENITIVE = "рычажного дробовика",
+		DATIVE = "рычажному дробовику",
+		ACCUSATIVE = "рычажный дробовик",
+		INSTRUMENTAL = "рычажным дробовиком",
+		PREPOSITIONAL = "рычажном дробовике",
+	)
+
+/obj/item/gun/projectile/shotgun/winchester/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
+
+/obj/item/gun/projectile/shotgun/winchester/do_pointblank_shot(mob/living/user, atom/target)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(pump), user), 1) //auto reload after point blank shot
+
 
 // MARK: Rusted shotgun
 /obj/item/gun/projectile/shotgun/lethal/rusted
@@ -202,9 +244,9 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 22, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -4),
 	)
 	recoil = GUN_RECOIL_HIGH
 
@@ -221,7 +263,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
 	)
 	recoil = GUN_RECOIL_HIGH
 
@@ -277,9 +319,9 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = -6),
 	)
 	recoil = GUN_RECOIL_HIGH
 	fire_modes = GUN_MODE_SINGLE_ONLY
@@ -337,9 +379,9 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 0),
-		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_HIGH
 
@@ -365,8 +407,8 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 6),
 	)
 	recoil = GUN_RECOIL_HIGH
 

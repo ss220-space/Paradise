@@ -42,7 +42,7 @@
 			if(91 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/dropper/on_reagent_change()

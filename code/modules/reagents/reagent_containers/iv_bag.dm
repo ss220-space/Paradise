@@ -193,7 +193,7 @@
 		var/percent = round((reagents.total_volume / volume) * 10) // We round the 1's place off of our percent for easy image processing.
 		var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/iv.dmi', "[icon_state][percent]")
 
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		switch(mode)

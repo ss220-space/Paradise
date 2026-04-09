@@ -67,10 +67,10 @@
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
 	var/list/attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_SIBYL = list("x" = 0, "y" = 0)
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_SIBYL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
@@ -190,8 +190,8 @@
 
 /obj/item/gun/update_overlays()
 	. = ..()
-	for(var/slot in attachment_overlays)
-		var/image/overlay = attachment_overlays[slot]
+	for(var/slot, overlay_value in attachment_overlays)
+		var/image/overlay = overlay_value
 		if(!overlay)
 			continue
 		. += overlay
@@ -199,15 +199,26 @@
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
 	if(overlay && attachable_offset)
-		var/x_offset = attachable_offset[module.slot]["x"]
-		var/y_offset = attachable_offset[module.slot]["y"]
-		if(module.overlay_offset)
-			x_offset += module.overlay_offset["x"]
-			y_offset += module.overlay_offset["y"]
-		overlay.pixel_w = x_offset
-		overlay.pixel_z = y_offset
+		apply_attachment_offset(module.slot, overlay, module)
 	attachment_overlays[module.slot] = overlay
 	update_icon()
+
+/obj/item/gun/proc/update_attachment_overlays()
+	for(var/slot, overlay in attachment_overlays)
+		var/image/overlay_img = overlay
+		if(!overlay_img)
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		apply_attachment_offset(slot, overlay_img, module)
+
+/obj/item/gun/proc/apply_attachment_offset(slot, image/overlay_img, obj/item/gun_module/module)
+	var/x_offset = attachable_offset[slot][ATTACHMENT_OFFSET_X]
+	var/y_offset = attachable_offset[slot][ATTACHMENT_OFFSET_Y]
+	if(module.overlay_offset)
+		x_offset += module.overlay_offset[ATTACHMENT_OFFSET_X]
+		y_offset += module.overlay_offset[ATTACHMENT_OFFSET_Y]
+	overlay_img.pixel_w = x_offset
+	overlay_img.pixel_z = y_offset
 
 /obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
 	if(attachment_overlays[module.slot])
@@ -267,13 +278,7 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
-				COOLDOWN_START(src, pb_cooldown, pb_cooldown_duration)
-				if(pb_knockback > 0 && isliving(target))
-					var/mob/living/living_target = target
-					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
-						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
-						living_target.throw_at(throw_target, pb_knockback, 2)
+				do_pointblank_shot(user, target)
 			else
 				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
@@ -284,6 +289,19 @@
 			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
+
+
+/obj/item/gun/proc/do_pointblank_shot(mob/living/user, atom/target)
+	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
+	if(pb_knockback > 0 && isliving(target))
+		do_pb_knockback(user, target)
+
+/obj/item/gun/proc/do_pb_knockback(mob/living/user, mob/living/target)
+	if(target.move_resist > MOVE_FORCE_NORMAL) // no knockbacking prince of terror or somethin
+		return
+	COOLDOWN_START(src, pb_cooldown, pb_cooldown_duration)
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, pb_knockback, 2)
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)
