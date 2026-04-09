@@ -20700,8 +20700,8 @@
 	},
 /area/tcommsat/chamber)
 "dbW" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -24980,11 +24980,11 @@
 	},
 /area/storage/primary)
 "dKP" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -69702,8 +69702,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -69712,6 +69710,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/closet/crate/secure/blood/mixed,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -92546,9 +92546,6 @@
 /area/maintenance/secpost)
 "nYG" = (
 /obj/structure/closet/secure_closet/paramedic,
-/obj/item/defibrillator/loaded,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -138378,11 +138375,11 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/casino)
 "uJD" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -140376,9 +140373,9 @@
 	},
 /area/toxins/mixing)
 "uZu" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -155275,7 +155272,6 @@
 	},
 /area/crew_quarters/sleep/secondary)
 "xmb" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/machinery/firealarm{
 	pixel_y = 25
 	},
@@ -155283,6 +155279,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},

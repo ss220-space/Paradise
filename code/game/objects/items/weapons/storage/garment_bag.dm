@@ -283,3 +283,13 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/shoes/color/white(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
+
+/obj/item/storage/garmentbag/paramedic/populate_contents()
+	new /obj/item/clothing/head/soft/paramedic(src)
+	new /obj/item/clothing/under/rank/medical/paramedic(src)
+	new /obj/item/clothing/under/rank/medical/paramedic/skirt(src)
+	new /obj/item/clothing/suit/storage/paramedic(src)
+	new	/obj/item/clothing/suit/storage/paramedic_jacket(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/shoes/color/black(src)
+	new /obj/item/clothing/mask/surgical(src)

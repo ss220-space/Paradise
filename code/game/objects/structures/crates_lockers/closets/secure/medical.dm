@@ -210,10 +210,13 @@
 	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/sensor_device(src)
-	new /obj/item/key/ambulance(src)
+	new /obj/item/sensor_device(src)
+	new /obj/item/pinpointer/crew(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/tank/jetpack/carbondioxide(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/key/ambulance(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
