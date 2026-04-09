@@ -483,8 +483,8 @@
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам \"Нанотрейзен\" в обязательным порядке."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "crew_medpouch"
+	icon_state = "blue_medpack"
+	item_state = "blue_medpack"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(
 		/obj/item/reagent_containers/hypospray/autoinjector,
