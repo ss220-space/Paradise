@@ -294,11 +294,11 @@ const PDAFooter = () => {
 
   return (
     <Box
+      p={0.5}
       style={{
         display: 'grid',
         gridTemplateColumns: '1.15fr 1.15fr 1.15fr',
         gap: '0.5rem',
-        padding: '0.5rem',
         borderTop: '1px solid #222',
         background: '#151821',
         alignItems: 'stretch',
@@ -308,13 +308,13 @@ const PDAFooter = () => {
         fluid
         icon="arrow-left"
         color="transparent"
+        textAlign="center"
         style={{
           opacity: app.has_back ? 1 : 0.35,
           pointerEvents: app.has_back ? 'auto' : 'none',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          textAlign: 'center',
           padding: '10% 20%',
         }}
         onClick={() => act('Back')}
@@ -326,13 +326,13 @@ const PDAFooter = () => {
         fluid
         icon="home"
         color="transparent"
+        textAlign="center"
         style={{
           opacity: app.is_home ? 0.45 : 1,
           pointerEvents: app.is_home ? 'none' : 'auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          textAlign: 'center',
           padding: '10% 20%',
         }}
         onClick={() => act('Home')}
@@ -345,11 +345,11 @@ const PDAFooter = () => {
         icon="palette"
         color="transparent"
         tooltip={`Тема: ${THEME_NAMES[current_theme] || current_theme}`}
+        textAlign="center"
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          textAlign: 'center',
           padding: '10% 20%',
         }}
         onClick={() => act('CycleTheme')}

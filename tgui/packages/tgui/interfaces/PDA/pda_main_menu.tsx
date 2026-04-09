@@ -30,26 +30,24 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
     <Button
       color="transparent"
       onClick={onClick}
-      width="90px"
+      width={APP_BUTTON_WIDTH}
+      p={0.35}
       style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: APP_BUTTON_WIDTH,
-        padding: '0.35rem',
       }}
     >
       <Box
-        width="100%"
+        width={APP_ICON_SIZE}
+        height={APP_ICON_SIZE}
+        mb={0.4}
         style={{
-          width: APP_ICON_SIZE,
-          height: APP_ICON_SIZE,
           borderRadius: '0.9rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '0.4rem',
           margin: '0 auto',
         }}
       >
@@ -63,17 +61,17 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
       </Box>
 
       <Box
+        width="100%"
+        color="ddd"
+        textAlign="center"
+        lineHeight={1.2}
+        fontSize={APP_TEXT_SIZE}
+        overflow="hidden"
+        minHeight={2.4}
+        maxHeight={3.4}
         style={{
-          fontSize: APP_TEXT_SIZE,
-          width: '100%',
-          color: '#ddd',
-          textAlign: 'center',
-          lineHeight: '1.2',
           whiteSpace: 'normal',
           wordBreak: 'break-word',
-          overflow: 'hidden',
-          minHeight: '2.4rem',
-          maxHeight: '3.4rem',
           margin: '0 auto',
         }}
       >
