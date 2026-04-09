@@ -396,6 +396,7 @@
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
+	strength_level = 5
 
 /datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -413,11 +414,6 @@
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.update_hud_set()
-
-	if(!HASBIT(SEND_SIGNAL(H, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
-		return
-
-	SEND_SIGNAL(H, COMSIG_STRENGTH_LEVEL_UP, 5)
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
@@ -1404,4 +1400,3 @@
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
 		ADD_TRAIT(R, TRAIT_NODROP, INNATE_TRAIT)
-

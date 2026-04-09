@@ -32,6 +32,9 @@
 
 	var/list/chameleon_extras //extra types for chameleon outfit changes, mostly guns
 
+	// 0 = default(no professional strength).
+	var/strength_level = 0
+
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
 	var/calc_used_slots = FALSE
@@ -106,6 +109,15 @@
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc
 	return
+
+/datum/outfit/proc/apply_strength(mob/living/carbon/human/human, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+	if(!strength_level)
+		return
+	if(!HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return
+	SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, strength_level)
 
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, datum/component/prom_component = null, list/comp_args = list())
 	if(!isnull(prom_component))
@@ -187,6 +199,7 @@
 				prom.RawAddComponent((list(component_to_add) + component_args))
 
 	post_equip(H, visualsOnly)
+	apply_strength(H, visualsOnly)
 
 	if(!visualsOnly)
 		apply_fingerprints(H)

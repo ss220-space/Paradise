@@ -336,6 +336,8 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	box = /obj/item/storage/box/survival/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
+	strength_level = 4
+
 
 //Ranks
 #define MEDIUM_RANK_HOURS 200
@@ -366,11 +368,6 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 /datum/outfit/job/centcom/response_team/post_equip(mob/H)
 	. = ..()
 	to_chat(H, special_message)
-
-	if(!HASBIT(SEND_SIGNAL(H, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
-		return
-
-	SEND_SIGNAL(H, COMSIG_STRENGTH_LEVEL_UP, 4)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
