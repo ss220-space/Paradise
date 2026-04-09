@@ -17,7 +17,7 @@
 	old_zoom_amount = target_gun.zoom_amt
 	target_gun.zoom_amt = zoom_amount
 	target_gun.build_zooming()
-	if(user.is_in_hands(target_gun))
+	if(user && user.is_in_hands(target_gun))
 		target_gun.ZoomGrantCheck(null, user, ITEM_SLOT_HANDS)
 	RegisterSignal(target_gun, COMSIG_GUN_ZOOM_TOGGLE, PROC_REF(zoom_toogle))
 

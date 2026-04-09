@@ -41,6 +41,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// What dye registry should be looked at when dying this item; see washing_machine.dm
 	var/dying_key
 
+	/// Used in obj/item/examine to give additional notes on what the weapon does, separate from the predetermined output variables
+	var/offensive_notes
+	/// Used in obj/item/examine to determines whether or not to detail an item's statistics even if it does not meet the force requirements
+	var/override_notes = FALSE
+
 	/// The click cooldown given after attacking. Lower numbers means faster attacks
 	var/attack_speed = CLICK_CD_MELEE
 
@@ -405,6 +410,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	LAZYREMOVE(actions, action)
 	qdel(action)
 
+/// Adds the weapon_description element, which shows the 'warning label' for especially dangerous objects.
+/// Override this for item types with special notes.
+/obj/item/proc/add_weapon_description()
+	AddElement(/datum/element/weapon_description)
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -423,24 +432,29 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	forceMove(voring_core)
 
 /obj/item/examine(mob/user)
-	var/size
-	switch(src.w_class)
-		if(WEIGHT_CLASS_TINY)
-			size = "крохотного"
-		if(WEIGHT_CLASS_SMALL)
-			size = "маленького"
-		if(WEIGHT_CLASS_NORMAL)
-			size = "среднего"
-		if(WEIGHT_CLASS_BULKY)
-			size = "большого"
-		if(WEIGHT_CLASS_HUGE)
-			size = "огромного"
-		if(WEIGHT_CLASS_GIGANTIC)
-			size = "гигантского"
+	// lazily initialize the weapon description element if it hasn't been already
+	if(!(item_flags & WEAPON_DESCRIPTION_INITIALIZED))
+		add_weapon_description()
+		item_flags |= WEAPON_DESCRIPTION_INITIALIZED
+	return ..()
 
-	. = ..(user, "", "Предмет <b>[size]</b> размера.")
+/obj/item/examine_tags(mob/user)
+	var/list/parent_tags = ..()
+	parent_tags.Insert(1, weight_class_to_text(w_class)) // To make size display first, otherwise it looks goofy
+	. = parent_tags
+	.[weight_class_to_text(w_class)] = weight_class_to_tooltip(w_class)
 
-	/// Mob has a research scanner active.
+	if(siemens_coefficient == 0)
+		.["изолирующий"] = "Сделано из хорошо изолированного материала, блокирующего прохождение любого электрического тока."
+	else if(siemens_coefficient <= 0.5)
+		.["частично изолирующий"] = "Сделано из плохо изолированного материала, который лишь ослабит, но не заблокирует прохождение электрического тока."
+
+/obj/item/examine_descriptor(mob/user)
+	return "предмет"
+
+/obj/item/examine_more(mob/user)
+	. = ..()
+
 	if(user.research_scanner || user.check_smart_brain())
 		var/msg = "*--------* <br>"
 
@@ -474,6 +488,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(exists_skin_change)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы выбрать скин.")
 
+/obj/item/Topic(href, href_list)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_TOPIC, usr, href_list)
 
 /obj/item/burn()
 	if(!QDELETED(src))

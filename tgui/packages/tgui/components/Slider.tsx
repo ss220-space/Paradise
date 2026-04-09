@@ -26,6 +26,8 @@ type Props = {
   color: string;
   /** Disables the slider. */
   disabled: boolean;
+  /** onChange also fires when you drag the input. */
+  tickWhileDragging: boolean;
   /**
    * If set, this value will be used to set the fill percentage of the
    * progress bar filler independently of the main value.
@@ -35,11 +37,6 @@ type Props = {
   format: (value: number) => string;
   /** Adjust value by this amount when dragging the input. */
   onChange: (event: Event, value: number) => void;
-  /**
-   * An event which fires when you release the input or successfully enter
-   * a number.
-   */
-  onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the slider based on whether the value lands in the
    * range between `from` and `to`.
@@ -75,11 +72,11 @@ export const Slider = (props: Props) => {
   const {
     // Draggable props (passthrough)
     animated,
+    tickWhileDragging,
     format,
     maxValue,
     minValue,
     onChange,
-    onDrag,
     step,
     stepPixelSize,
     suppressFlicker,
@@ -102,11 +99,11 @@ export const Slider = (props: Props) => {
       dragMatrix={[1, 0]}
       {...{
         animated,
+        tickWhileDragging,
         format,
         maxValue,
         minValue,
         onChange,
-        onDrag,
         step,
         stepPixelSize,
         suppressFlicker,

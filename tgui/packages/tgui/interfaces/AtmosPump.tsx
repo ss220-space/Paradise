@@ -45,8 +45,9 @@ export const AtmosPump = (props: unknown) => {
                 step={step}
                 minValue={0}
                 maxValue={max_rate}
+                tickWhileDragging
                 value={rate}
-                onDrag={(value) =>
+                onChange={(value) =>
                   act('custom_rate', {
                     rate: value,
                   })

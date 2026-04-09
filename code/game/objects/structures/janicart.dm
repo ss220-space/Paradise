@@ -229,6 +229,6 @@
 				reagentsImage.icon_state = "cart_reagents3"
 			if(76 to 100)
 				reagentsImage.icon_state = "cart_reagents4"
-		reagentsImage.color = mix_color_from_reagents(reagents.reagent_list)
+		reagentsImage.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += reagentsImage
 

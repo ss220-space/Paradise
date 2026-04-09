@@ -36,35 +36,6 @@
 	get_kill()
 	. = ..()
 
-/datum/status_effect/staring
-	id = "staring"
-	alert_type = null
-	var/mob/living/target
-	var/target_gender
-	var/target_species
-
-/datum/status_effect/staring/on_creation(mob/living/new_owner, new_duration, new_target, new_target_gender, new_target_species)
-	if(!new_duration)
-		qdel(src)
-		return
-	duration = new_duration
-	. = ..()
-	target = new_target
-	target_gender = new_target_gender
-	target_species = new_target_species
-
-/datum/status_effect/staring/proc/catch_look(mob/living/opponent)
-	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		to_chat(opponent, span_notice("[owner.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		var/list/loved_ones = list(MALE, FEMALE)
-		if(!ishuman(owner) || !(target_gender in loved_ones) || !(owner.gender in loved_ones))
-			return
-		var/mob/living/carbon/human/human_owner = owner
-		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name && prob(5))
-			owner.emote("blush")
-			to_chat(owner, span_danger("Вы чувствуете что-то жгучее в груди..."))
-
 /datum/status_effect/high_five
 	id = "high_five"
 	duration = 10 SECONDS

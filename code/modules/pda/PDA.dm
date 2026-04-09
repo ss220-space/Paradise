@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		return FALSE
 
 	if(hidden_uplink && hidden_uplink.check_trigger(user, lowertext(new_tone), lowertext(lock_code)))
-		to_chat(user, "КПК издает тихий звуковой сигнал.")
+		to_chat(user, span_notice("КПК издает тихий звуковой сигнал."))
 		close(user)
 		return TRUE
 

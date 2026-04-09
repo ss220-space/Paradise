@@ -45,3 +45,9 @@
 
 /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+
+// MARK: Winchester
+/obj/item/ammo_box/magazine/internal/shot/winchester
+	name = "winchester internal tube magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	max_ammo = 5

@@ -12107,17 +12107,7 @@
 /area/coldcolony/malta/quartermaster/ore_production)
 "euD" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -7
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 7
-	},
-/obj/item/gun/projectile/shotgun/riot,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Riot shotguns"
-	},
+/obj/effect/spawner/random_spawners/security_shotguns,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13742,22 +13732,10 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "eYk" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Security SMG's"
-	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/wt550,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18625,20 +18603,11 @@
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "gPP" = (
-/obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/energy/laser{
-	pixel_x = -8
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = 10
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = 1
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random_spawners/security_lasers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40531,19 +40500,6 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "pai" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -7
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 7
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -49413,23 +49369,6 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "soJ" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Lethal Bullets"
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/light{
 	dir = 4
@@ -61849,15 +61788,24 @@
 /area/coldcolony/ruin/abandoned_banya)
 "wSn" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/rack/gunrack,
-/obj/item/gun/energy/gun{
-	pixel_x = -7
-	},
-/obj/item/gun/energy/gun{
-	pixel_x = 9
-	},
-/obj/item/gun/energy/gun,
 /obj/structure/window/reinforced,
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Lethal Bullets"
+	},
+/obj/item/ammo_box/magazine/enforcer/lethal{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/ammo_box/magazine/enforcer/lethal,
+/obj/item/ammo_box/magazine/enforcer/lethal{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/enforcer/lethal{
+	pixel_x = -6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

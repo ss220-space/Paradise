@@ -10720,6 +10720,10 @@
 /obj/item/gun/projectile/automatic/arg{
 	pixel_x = 6
 	},
+/obj/item/gun/projectile/revolver/rsh_12,
+/obj/item/gun/projectile/revolver/rsh_12,
+/obj/item/gun/projectile/revolver/rsh_12,
+/obj/item/gun/projectile/revolver/rsh_12,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34126,6 +34130,14 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
+/obj/item/ammo_box/c12_dot_7X55,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

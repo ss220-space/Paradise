@@ -97,7 +97,8 @@ export const Pacman = (_props: unknown) => {
                         maxValue={output_max}
                         step={1}
                         className="mt-1"
-                        onDrag={(value) =>
+                        tickWhileDragging
+                        onChange={(value) =>
                           act('change_power', {
                             change_power: value,
                           })
