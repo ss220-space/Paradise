@@ -293,10 +293,9 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/suture/advanced(src)
 
 /obj/item/storage/firstaid/paramed/empty/populate_contents()
 	return
