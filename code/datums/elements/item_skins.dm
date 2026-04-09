@@ -38,6 +38,8 @@
 		return
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
+	if(!user.is_in_hands(item)) // can not apply skin if item not in hands
+		return
 
 	var/list/skin_options = list()
 	for(var/datum/item_skin_data/skin as anything in item.skins)
