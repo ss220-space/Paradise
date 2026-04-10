@@ -488,7 +488,7 @@
 
 /datum/gear/donor/hos_cape
 	donator_tier = 4
-	index_name = "Head of security cape"
+	index_name = "Marine cape"
 	path = /obj/item/clothing/neck/cloak/hos_cape
 	allowed_roles = list(JOB_TITLE_HOS)
 

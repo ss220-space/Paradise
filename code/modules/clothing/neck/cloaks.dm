@@ -127,7 +127,7 @@
 	item_state = "spacecloak"
 
 /obj/item/clothing/neck/cloak/civil_cape
-	name = "standart cape cloak"
+	name = "standard cape cloak"
 	desc = "Тёмная, почти чёрная накидка из плотной ткани. По краям — глубокие синие вставки. Застёгивается на два металлические заклепки. Известна тем, что при намокании начинает источать слабый запах формальдегида — производственный брак, который так и не исправили.."
 	icon_state = "civil_cape"
 
