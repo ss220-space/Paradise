@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Get pull requests with required label and check for merge conflicts
         id: get_labeled_prs
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const label_needed = '${{ env.REQUIRED_LABEL }}';
@@ -155,7 +155,7 @@ jobs:
           echo "merged_prs=${MERGED_PRS[*]}" >> $GITHUB_OUTPUT
 
       - name: Generate changelog YAML for merged PRs
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -208,7 +208,7 @@ jobs:
         env:
           CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
           MERGED_PRS: ${{ steps.prepare_testmerge_branch.outputs.merged_prs }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const { parseChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/changelogParser.js');
@@ -270,7 +270,7 @@ jobs:
             }
 
       - name: Comment on merged PRs
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
