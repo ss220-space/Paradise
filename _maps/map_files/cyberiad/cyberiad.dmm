@@ -6147,7 +6147,6 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
-/obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66325,7 +66324,9 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/obj/effect/spawner/random_spawners/security_exosuit,
+/obj/effect/spawner/random_spawners/security_exosuit{
+	id = "StationArmory"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -69748,7 +69749,9 @@
 /area/maintenance/apmaint)
 "oaf" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/effect/landmark/sec_mech_lethal_equipment_spawn,
+/obj/effect/spawner/sec_mech_lethal_equipment_spawn{
+	id = "StationArmory"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"

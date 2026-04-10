@@ -43906,7 +43906,6 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/vehicle/ridden/secway,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -102767,7 +102766,9 @@
 /area/atmos/control)
 "pAI" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/effect/landmark/sec_mech_lethal_equipment_spawn,
+/obj/effect/spawner/sec_mech_lethal_equipment_spawn{
+	id = "StationArmory"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -157637,7 +157638,9 @@
 /area/hallway/secondary/entry/commercial)
 "xEE" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/effect/spawner/random_spawners/security_exosuit,
+/obj/effect/spawner/random_spawners/security_exosuit{
+	id = "StationArmory"
+	},
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/security/securearmory)
 "xEN" = (

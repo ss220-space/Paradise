@@ -480,10 +480,16 @@
 		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)
 
-/obj/effect/landmark/sec_mech_lethal_equipment_spawn
+/obj/effect/spawner/sec_mech_lethal_equipment_spawn
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "guncabinet_mech"
 	name = "place, where closet with combat exosiut modules will be spawned"
+	invisibility = INVISIBILITY_ABSTRACT
+	var/id = STANDART_HERCULES_SPAWNER_ID
+
+/obj/effect/spawner/sec_mech_lethal_equipment_spawn/Initialize(mapload)
+	. = ..()
+	QDEL_IN(src, 1) // A delay to make sure, that there no mech spawners, that would like to use us.
 
 /obj/effect/spawner/random_spawners/security_exosuit
 	name = "maybe \"Hercules\" secutiry exosuit"
@@ -492,15 +498,16 @@
 		SEC_MECH_SPAWN_SUCSESS = 1,
 		SEC_MECH_SPAWN_UNSUCSESS = 2,
 	)
+	var/id = STANDART_HERCULES_SPAWNER_ID
 
 /obj/effect/spawner/random_spawners/security_exosuit/after_spawn(result)
 	if(result == SEC_MECH_SPAWN_SUCSESS)
-		var/list/marks = list()
-		marks += GLOB.landmarks_list
-		for(var/obj/effect/landmark/sec_mech_lethal_equipment_spawn/mark in marks)
-			var/spawn_zone = get_turf(mark)
-			new /obj/structure/closet/secure_closet/guncabinet/mech_mods(spawn_zone)
-			break
+		for(var/obj/effect/spawner/sec_mech_lethal_equipment_spawn/mark in world.contents)
+			if(mark.id == id)
+				var/spawn_zone = get_turf(mark)
+				new /obj/structure/closet/secure_closet/guncabinet/mech_mods(spawn_zone)
+				qdel(mark)
+
 /obj/effect/spawner/random_spawners/security_shotguns
 	name = "shotguns closet spawner"
 	icon_state = "guncabinet_ballistic"

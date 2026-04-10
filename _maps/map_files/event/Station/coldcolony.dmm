@@ -16393,6 +16393,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/sec_mech_lethal_equipment_spawn{
+	id = "StationArmory"
+	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "gbj" = (
@@ -56838,7 +56841,9 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "vgz" = (
-/obj/effect/landmark/sec_mech_lethal_equipment_spawn,
+/obj/effect/spawner/random_spawners/security_exosuit{
+	id = "StationArmory"
+	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "vgP" = (
@@ -58186,7 +58191,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/security_exosuit,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "vBy" = (
