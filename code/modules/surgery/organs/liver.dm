@@ -204,7 +204,7 @@
 	. = ..()
 
 	if(HAS_TRAIT(target, TRAIT_ADVANCED_CYBERIMPLANTS))
-		toxin_healing += -0.1 // better tox healing
+		toxin_healing += LIVER_DEFAULT_TOX_HEALING // better tox healing
 		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/organ/internal/liver/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
