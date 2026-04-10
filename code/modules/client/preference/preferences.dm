@@ -69,6 +69,15 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	else
 		return max(0, days - C.player_age)
 
+/// Checks whether a role should be disabled due to a mutually exclusive role selection
+/// Civilian/Prisoner/Investor — only one can be selected, the others are disabled
+/proc/is_job_title_muted(job_support_low, job_title)
+	var/any_mutual_role_selected = job_support_low & (JOB_FLAG_CIVILIAN | JOB_FLAG_PRISONER | JOB_FLAG_INVESTOR)
+	if(!any_mutual_role_selected)
+		return FALSE
+
+	return !(job_title in list(JOB_TITLE_CIVILIAN, JOB_TITLE_PRISONER, JOB_TITLE_INVESTOR))
+
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
@@ -866,7 +875,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[get_job_title_ru(GetPlayerAltTitle(job))]</a>"
 			else
 				rank = get_job_title_ru(job.title)
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) && (job.title != JOB_TITLE_INVESTOR) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER) && (job.title != JOB_TITLE_INVESTOR) || (job_support_low & JOB_FLAG_INVESTOR) && (job.title != JOB_TITLE_INVESTOR))
+			if(is_job_title_muted(job_support_low, job.title))
 				rank = "<font class='text-muted'>[get_job_title_ru(GetPlayerAltTitle(job))]</font>"
 			lastJob = job
 			if(jobban_isbanned(user, job_title_ru_to_en(job.title)))
@@ -897,15 +906,6 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN))
-				html += "</td><td></td></tr>"
-				continue
-			if((job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
-				html += "</td><td></td></tr>"
-				continue
-			if((job_support_low & JOB_FLAG_INVESTOR) && (job.title != JOB_TITLE_INVESTOR))
-				html += "</td><td></td></tr>"
-				continue
 
 			html += "</td><td width='40%'>"
 
