@@ -13,14 +13,21 @@
 	. = ..()
 
 	if(!length(loot))
+<<<<<<< Updated upstream
 		return INITIALIZE_HINT_QDEL
+=======
+		return
+>>>>>>> Stashed changes
 
 	for(var/atom in loot)
 		for(var/i in 1 to loot[atom])
 			new atom(loc)
 
+<<<<<<< Updated upstream
 	return INITIALIZE_HINT_QDEL
 
+=======
+>>>>>>> Stashed changes
 // MARK: Thematic spawners
 /obj/effect/spawner/abandoned_crate/booze
 	name = "alcohol loot spawner"
@@ -329,6 +336,7 @@
 		/obj/item/card/emag_broken = 1,
 	)
 
+<<<<<<< Updated upstream
 /obj/effect/spawner/abandoned_crate/random_seeds
 	name = "random seeds spawner"
 	loot = list(
@@ -342,6 +350,14 @@
 
 /obj/effect/spawner/abandoned_crate/random_toy/Initialize(mapload)
 	var/prize = pick(subtypesof(/obj/item/toy))
+=======
+// MARK: Dynamic spawners
+/obj/effect/spawner/abandoned_crate/random_toy_prize
+	name = "random toy prize spawner"
+
+/obj/effect/spawner/abandoned_crate/random_toy_prize/Initialize(mapload)
+	var/prize = pick(subtypesof(/obj/item/toy/prize))
+>>>>>>> Stashed changes
 	loot[prize] = 1
 	return ..()
 
@@ -375,6 +391,16 @@
 		loot[part_type] = (loot[part_type] || 0) + 1
 	return ..()
 
+<<<<<<< Updated upstream
+=======
+/obj/effect/spawner/abandoned_crate/random_seeds
+	name = "random seeds spawner"
+	loot = list(
+		/obj/item/seeds/random = 1,
+		/obj/item/seeds/firelemon = 1,
+	)
+
+>>>>>>> Stashed changes
 /obj/effect/spawner/abandoned_crate/bombarda
 	name = "bombarda spawner"
 	loot = list(
@@ -407,6 +433,7 @@
 		loot[cannabis_type] = (loot[cannabis_type] || 0) + 1
 
 	return ..()
+<<<<<<< Updated upstream
 
 /obj/effect/spawner/abandoned_crate/bwoink
 	name = "bwoink spawner"
@@ -421,3 +448,5 @@
 	for(var/obj/effect/mine/sound/bwoink/mine in loc)
 		mine.set_anchored(FALSE)
 		mine.move_resist = MOVE_RESIST_DEFAULT
+=======
+>>>>>>> Stashed changes

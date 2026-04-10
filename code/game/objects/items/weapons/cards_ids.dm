@@ -152,6 +152,11 @@
 		var/mob/living/carbon/human/human = loc
 		SetOwnerInfo(human)
 
+/obj/item/card/id/proc/set_info()
+	if(ishuman(loc) && blood_type == "\[UNSET\]")
+		var/mob/living/carbon/human/human = loc
+		SetOwnerInfo(human)
+
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
 

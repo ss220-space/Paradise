@@ -432,6 +432,7 @@
 
 // prevents explosion implants from auto activating upon death
 #define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
+<<<<<<< Updated upstream
 
 /// Mob is an echolocator
 #define TRAIT_ECHOLOCATOR "echolocator"
@@ -442,3 +443,5 @@
 // Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
+=======
+>>>>>>> Stashed changes

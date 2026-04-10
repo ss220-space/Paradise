@@ -172,7 +172,10 @@
 	new /obj/item/camera_film(src)
 	new /obj/item/laser_pointer(src)
 	new /obj/item/tripod/camera(src)
+<<<<<<< Updated upstream
 	new /obj/item/tripod/camera(src)
+=======
+>>>>>>> Stashed changes
 
 /obj/structure/closet/burial
 	icon_state = "chaplain"

@@ -39,7 +39,11 @@
 			/obj/effect/spawner/abandoned_crate/toy_balloon = 5,
 			/obj/effect/spawner/abandoned_crate/toy_weapons = 8,
 			/obj/effect/spawner/abandoned_crate/toy_pistols = 8,
+<<<<<<< Updated upstream
 			/obj/effect/spawner/abandoned_crate/random_toy = 3,
+=======
+			/obj/effect/spawner/abandoned_crate/random_toy_prize = 3,
+>>>>>>> Stashed changes
 			) = 49,
 
 		// Tools and equipment
@@ -198,7 +202,11 @@
 	// Attempt to update tgui ui, open and update if needed.
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+<<<<<<< Updated upstream
 		ui = new(user, src, "AbandonedCrate", DECLENT_RU_CAP(src, NOMINATIVE))
+=======
+		ui = new(user, src, "AbandonedCrate", capitalize(declent_ru(NOMINATIVE)))
+>>>>>>> Stashed changes
 		ui.open()
 
 /obj/structure/closet/crate/secure/loot/ui_data(mob/user)
@@ -304,8 +312,11 @@
 	if(locked)
 		return FALSE
 	return ..()
+<<<<<<< Updated upstream
 
 /obj/structure/closet/crate/secure/loot/can_vv_get(var_name)
 	if(var_name == NAMEOF(src, code) && !check_rights(R_PERMISSIONS, FALSE))
 		return FALSE
 	return ..()
+=======
+>>>>>>> Stashed changes

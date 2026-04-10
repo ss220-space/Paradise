@@ -1292,6 +1292,26 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
+<<<<<<< Updated upstream
+=======
+"aBL" = (
+/obj/structure/closet/crate,
+/obj/item/bot_assembly/bucket_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/toy/crayon,
+/obj/item/toy/crayon/blue,
+/obj/item/toy/crayon/red,
+/obj/item/toy/crayon/green,
+/obj/item/storage/backpack,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/vox{
+	icon_state = "darkfull";
+	name = "floor"
+	},
+/area/vox_station)
+>>>>>>> Stashed changes
 "aBV" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -20967,6 +20987,15 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+<<<<<<< Updated upstream
+=======
+"kco" = (
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
+>>>>>>> Stashed changes
 "kcI" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo18"
@@ -38601,6 +38630,19 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+<<<<<<< Updated upstream
+=======
+"rOi" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
+/area/shuttle/escape)
+>>>>>>> Stashed changes
 "rOl" = (
 /obj/effect/decal/syndie_logo,
 /obj/effect/turf_decal/stripes/black{
@@ -44785,6 +44827,19 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/supplypod/loading/ert)
+<<<<<<< Updated upstream
+=======
+"uAh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+>>>>>>> Stashed changes
 "uAi" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/peppermill{
@@ -44895,6 +44950,19 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+<<<<<<< Updated upstream
+=======
+"uDh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+>>>>>>> Stashed changes
 "uDo" = (
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 2000;
@@ -52139,6 +52207,23 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
+<<<<<<< Updated upstream
+=======
+"ybu" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+>>>>>>> Stashed changes
 "ybz" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/tree/jungle,

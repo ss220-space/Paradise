@@ -839,11 +839,15 @@
 #include "code\datums\elements\after_attack\_after_attack.dm"
 #include "code\datums\elements\after_attack\attack_effect_sleep.dm"
 #include "code\datums\elements\decals\_decal.dm"
+<<<<<<< Updated upstream
 #include "code\datums\elements\screentips\contextual_screentip_bare_hands.dm"
 #include "code\datums\elements\screentips\contextual_screentip_item_typechecks.dm"
 #include "code\datums\elements\screentips\contextual_screentip_mob_typechecks.dm"
 #include "code\datums\elements\screentips\contextual_screentip_sharpness.dm"
 #include "code\datums\elements\screentips\contextual_screentip_tools.dm"
+=======
+#include "code\datums\elements\tts_modifier.dm"
+>>>>>>> Stashed changes
 #include "code\datums\emote\emote.dm"
 #include "code\datums\emote\emote_verbs.dm"
 #include "code\datums\greyscale\_greyscale_config.dm"
@@ -871,7 +875,10 @@
 #include "code\datums\keybindings\movement.dm"
 #include "code\datums\keybindings\robot.dm"
 #include "code\datums\keybindings\silicon.dm"
+<<<<<<< Updated upstream
 #include "code\datums\looping_sounds\burning.dm"
+=======
+>>>>>>> Stashed changes
 #include "code\datums\looping_sounds\film_roll.dm"
 #include "code\datums\looping_sounds\item_sounds.dm"
 #include "code\datums\looping_sounds\looping_sound.dm"
@@ -3355,6 +3362,10 @@
 #include "code\modules\paperwork\photography\photo.dm"
 #include "code\modules\paperwork\photography\silicon_camera.dm"
 #include "code\modules\paperwork\photography\tripod.dm"
+<<<<<<< Updated upstream
+=======
+#include "code\modules\paperwork\photography\video_camera.dm"
+>>>>>>> Stashed changes
 #include "code\modules\pda\ai.dm"
 #include "code\modules\pda\app.dm"
 #include "code\modules\pda\cart.dm"

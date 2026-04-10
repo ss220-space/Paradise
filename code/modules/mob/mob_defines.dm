@@ -338,6 +338,9 @@
 	var/tts_effect_override = SOUND_EFFECT_NONE
 	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
 	var/obj/item/tts_effect_override_source = null
+<<<<<<< Updated upstream
 
 	/// Mob bitflags
 	var/mob_flags = NONE
+=======
+>>>>>>> Stashed changes

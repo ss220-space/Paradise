@@ -56,36 +56,51 @@
 		if("add_zeroth_law")
 			if(zeroth_law && is_admin(ui.user) && !owner.laws.zeroth_law)
 				owner.set_zeroth_law(zeroth_law)
+<<<<<<< Updated upstream
 				notify_owner_shell()
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin used law manager, new zero law was added '[zeroth_law]'")
+=======
+>>>>>>> Stashed changes
 				SSticker?.score?.save_silicon_laws(owner, ui.user, "admin used law manager, new zero law was added '[zeroth_law]'")
 
 		if("add_devil_law")
 			if(devil_law && is_malf(ui.user))
 				owner.add_devil_law(devil_law)
+<<<<<<< Updated upstream
 				notify_owner_shell()
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new devil law was added '[devil_law]'")
+=======
+>>>>>>> Stashed changes
 				SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, new devil law was added '[devil_law]'")
 
 		if("add_ion_law")
 			if(ion_law && is_malf(ui.user))
 				owner.add_ion_law(ion_law)
+<<<<<<< Updated upstream
 				notify_owner_shell()
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new ion law was added '[ion_law]'")
+=======
+>>>>>>> Stashed changes
 				SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, new ion law was added '[ion_law]'")
 
 		if("add_inherent_law")
 			if(inherent_law && is_malf(ui.user))
 				owner.add_inherent_law(inherent_law)
+<<<<<<< Updated upstream
 				notify_owner_shell()
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new inherent law was added '[inherent_law]'")
+=======
+>>>>>>> Stashed changes
 				SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, new inherent law was added '[inherent_law]'")
 
 		if("add_supplied_law")
 			if(supplied_law && supplied_law_position >= 1 && MIN_SUPPLIED_LAW_NUMBER <= MAX_SUPPLIED_LAW_NUMBER && is_malf(ui.user))
 				owner.add_supplied_law(supplied_law_position, supplied_law)
+<<<<<<< Updated upstream
 				notify_owner_shell()
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new supplied law was added '[supplied_law]'")
+=======
+>>>>>>> Stashed changes
 				SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, new supplied law was added '[supplied_law]'")
 
 		if("change_zeroth_law")
@@ -137,8 +152,11 @@
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law
 						AL.law = new_law
+<<<<<<< Updated upstream
 						notify_owner_shell()
 						SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, law '[old_law]' was changed to '[new_law]'")
+=======
+>>>>>>> Stashed changes
 						SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, law '[old_law]' was changed to '[new_law]'")
 
 		if("delete_law")
@@ -151,8 +169,11 @@
 				if(AL && is_malf(ui.user))
 					var/old_law = AL.law
 					owner.delete_law(AL)
+<<<<<<< Updated upstream
 					notify_owner_shell()
 					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, law '[old_law]' was deleted")
+=======
+>>>>>>> Stashed changes
 					SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, law '[old_law]' was deleted")
 
 		if("state_laws")
@@ -170,10 +191,13 @@
 					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
 					ALs.sync(owner, FALSE, TRUE)
 					current_view = 0
+<<<<<<< Updated upstream
 					if(isAI(owner))
 						var/mob/living/silicon/ai/AI = owner
 						AI.notify_shell()
 					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
+=======
+>>>>>>> Stashed changes
 					SSticker?.score?.save_silicon_laws(owner, ui.user, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
 
 		if("notify_laws")

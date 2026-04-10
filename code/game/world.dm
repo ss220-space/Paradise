@@ -1,4 +1,17 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+<<<<<<< Updated upstream
+=======
+#define CLEAR_RUST_CACHE \
+	log_world("Starting UUID clear", TRUE); \
+	var/uuid_start = world.timeofday; \
+	rustlib_clear_uuid_storage(); \
+	log_world("UUID clear took [world.timeofday - uuid_start]ms", TRUE); \
+	\
+	log_world("Starting icon cache clear", TRUE); \
+	var/icon_start = world.timeofday; \
+	rustlib_iconforge_cleanup_all(); \
+	log_world("Icon cache clear took [world.timeofday - icon_start]ms", TRUE); \
+>>>>>>> Stashed changes
 
 #ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
@@ -128,6 +141,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
+<<<<<<< Updated upstream
+=======
+		CLEAR_RUST_CACHE
+>>>>>>> Stashed changes
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
@@ -163,6 +180,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			C << link("byond://[CONFIG_GET(string/server)]")
 
 	// And begin the real shutdown
+<<<<<<< Updated upstream
+=======
+	CLEAR_RUST_CACHE
+>>>>>>> Stashed changes
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
 		sleep(0)

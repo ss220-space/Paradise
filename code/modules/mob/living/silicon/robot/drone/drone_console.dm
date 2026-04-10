@@ -90,6 +90,7 @@
 	if(..())
 		return
 
+<<<<<<< Updated upstream
 	. = TRUE
 	switch(action)
 		if("find_fab")
@@ -134,6 +135,11 @@
 
 /obj/machinery/computer/drone_control/proc/find_fab(mob/user)
 	if(dronefab)
+=======
+	if(!allowed(usr) && !usr.can_admin_interact())
+		to_chat(usr, span_warning("Доступ запрещён."))
+		playsound(src, SFX_BUTTON_DENIED, 20)
+>>>>>>> Stashed changes
 		return
 
 	for(var/obj/machinery/drone_fabricator/fabricator in get_area(src))

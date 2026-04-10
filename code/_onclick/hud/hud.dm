@@ -159,8 +159,11 @@
 
 	mymob = null
 	QDEL_NULL(screentip_text)
+<<<<<<< Updated upstream
 
 	QDEL_NULL(mini_holomap)
+=======
+>>>>>>> Stashed changes
 	. = ..()
 
 /datum/hud/proc/client_refresh(datum/source)

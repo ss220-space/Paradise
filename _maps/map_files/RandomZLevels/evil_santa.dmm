@@ -2912,6 +2912,16 @@
 /obj/item/reagent_containers/food/drinks/mug/comms,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+<<<<<<< Updated upstream
+=======
+"xK" = (
+/obj/structure/closet/crate/large/evil{
+	desc = "A hefty wooden crate.";
+	name = "large crate"
+	},
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
+>>>>>>> Stashed changes
 "xN" = (
 /turf/simulated/wall/shuttle,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -5129,6 +5139,13 @@
 /obj/item/clothing/head/helmet/space/santahat,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
+<<<<<<< Updated upstream
+=======
+"Rv" = (
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
+>>>>>>> Stashed changes
 "Rw" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/carpet/green,

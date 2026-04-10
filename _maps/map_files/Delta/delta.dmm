@@ -63702,6 +63702,10 @@
 "jWR" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+<<<<<<< Updated upstream
+=======
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+>>>>>>> Stashed changes
 /obj/machinery/light{
 	dir = 8
 	},
@@ -124948,6 +124952,19 @@
 	icon_state = "purple"
 	},
 /area/medical/virology/lab)
+<<<<<<< Updated upstream
+=======
+"xIZ" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
+>>>>>>> Stashed changes
 "xJd" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
