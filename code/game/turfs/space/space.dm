@@ -78,7 +78,6 @@
 		set_light_on(FALSE)
 
 /turf/space/AfterChange(flags = NONE, oldType)
-	SSturfs_visualization.turfs_visualisation -= src
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)

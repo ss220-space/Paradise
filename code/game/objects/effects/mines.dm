@@ -33,7 +33,7 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message(span_danger("[victim] sets off [icon2html(src, viewers(src))] [src]!"))
+	visible_message(span_danger("[victim] sets off [get_examine_icon(viewers(src))] [src]!"))
 	do_sparks(3, TRUE, src)
 	mineEffect(victim)
 	triggered = 1
@@ -77,7 +77,7 @@
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.apply_effect(radiation_amount, IRRADIATE, 0)
+	SSradiation.irradiate(victim)
 	if(HAS_TRAIT(victim, TRAIT_NO_DNA))
 		return
 	randmutb(victim)

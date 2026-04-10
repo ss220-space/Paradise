@@ -23,7 +23,7 @@
 /datum/dna2/record/Destroy(force)
 	dna = null
 	mind = null
-	. = ..()
+	return ..()
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
@@ -308,33 +308,20 @@
 		update_icon()
 		SStgui.update_uis(src)
 
-// Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
-/obj/machinery/dna_scannernew/proc/radiation_check()
-	if(!occupant)
-		return TRUE
-
-	if(HAS_TRAIT(occupant, TRAIT_NO_DNA))
-		return TRUE
-
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Ваша одежда кажется теплой.", "Ваша одежда кажется теплой.")
-	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
-		return TRUE
-	return FALSE
-
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/scan_consolenew
-	var/selected_ui_block = 1.0
-	var/selected_ui_subblock = 1.0
-	var/selected_se_block = 1.0
-	var/selected_se_subblock = 1.0
+	var/selected_ui_block = 1
+	var/selected_ui_subblock = 1
+	var/selected_se_block = 1
+	var/selected_se_subblock = 1
 	var/selected_ui_target = 1
 	var/selected_ui_target_hex = 1
-	var/radiation_duration = 2.0
-	var/radiation_intensity = 1.0
+	var/radiation_duration = 2
+	var/radiation_intensity = 1
 	var/list/datum/dna2/record/buffers[3]
 	var/irradiating = 0
 	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
@@ -495,9 +482,11 @@
 		occupantData["uniqueEnzymes"] = connected.occupant.dna.unique_enzymes
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes
-		occupantData["radiationLevel"] = connected.occupant.radiation
-	data["occupant"] = occupantData
 
+		var/datum/status_effect/genetic_damage/genetic_damage = connected.occupant.has_status_effect(/datum/status_effect/genetic_damage)
+		data["radiationLevel"] = genetic_damage ? round((genetic_damage.total_damage / genetic_damage.minimum_before_tox_damage) * 100, 0.1) : 0
+
+	data["occupant"] = occupantData
 	data["isBeakerLoaded"] = connected.beaker ? 1 : 0
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
@@ -530,6 +519,8 @@
 		return TRUE
 
 	. = TRUE
+
+	var/radiation = rand((100 + radiation_intensity + radiation_duration) / connected.damage_coeff, (200 + radiation_intensity + radiation_duration) / connected.damage_coeff)
 	switch(action)
 		if("selectMenuKey")
 			var/key = params["key"]
@@ -553,10 +544,7 @@
 			if(!connected.occupant)
 				return
 
-			var/radiation = (((radiation_intensity * 3) + radiation_duration * 3) / connected.damage_coeff)
-			connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-			if(connected.radiation_check())
-				return
+			connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 			if(prob(95))
 				if(prob(75))
@@ -601,20 +589,13 @@
 				return
 
 			if(prob((80 + (radiation_duration / 2))))
-				var/radiation = (radiation_intensity + radiation_duration)
-				connected.occupant.apply_effect(radiation,IRRADIATE,0)
-
-				if(connected.radiation_check())
-					return
+				connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 				block = miniscrambletarget(num2text(selected_ui_target), radiation_intensity, radiation_duration)
 				connected.occupant.dna.SetUISubBlock(selected_ui_block, selected_ui_subblock, block)
 				connected.occupant.UpdateAppearance()
 			else
-				var/radiation = ((radiation_intensity * 2) + radiation_duration)
-				connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-				if(connected.radiation_check())
-					return
+				connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
@@ -654,16 +635,12 @@
 
 			irradiating = 0
 			connected.locked = lock_state
-			
+
 			var/precision_coeff = connected.precision_coeff
 
 			if(connected.occupant)
 				if(prob((80 + ((radiation_duration / 2) + POW3(precision_coeff)))))
-					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-
-					if(connected.radiation_check())
-						return 1
+					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					var/real_SE_block=selected_se_block
 					block = miniscramble(block, radiation_intensity, radiation_duration)
@@ -677,11 +654,7 @@
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
 					connected.occupant.check_genes()
 				else
-					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-
-					if(connected.radiation_check())
-						return
+					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
@@ -754,11 +727,7 @@
 					irradiating = 0
 					connected.locked = lock_state
 
-					var/radiation = (rand(20,50) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-
-					if(connected.radiation_check())
-						return
+					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 

@@ -64,6 +64,106 @@
 		if(0 to 25)
 			. +=  span_warning("Да [GEND_HE_SHE(src)] развалива[PLUR_ET_YUT(src)][GEND_SYA_AS_OS_IS(src)] на глазах!")
 
+	if(armor.has_any_armor() || (flags_cover & (HEADCOVERSMOUTH|MASKCOVERSMOUTH|GLASSESCOVERSEYES|MASKCOVERSEYES|HEADCOVERSEYES|PEPPERPROOF)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		. += span_notice("Имеется <a href='byond://?src=[UID()];list_armor=1'>бирка</a>, указывающая защитные характеристики.")
+
+/obj/item/clothing/examine_tags(mob/user)
+	. = ..()
+	if(clothing_flags & THICKMATERIAL)
+		.["плотный"] = "Выполнен из плотного материала, защищающего от уколов."
+	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		.["устойчивый к давлению"] = "Способен защитить носителя от экстремального давления."
+	if((clothing_traits & TRAIT_QUICK_CARRY) || (clothing_traits & TRAIT_QUICKER_CARRY))
+		.["тактильный"] = "Уменьшает время для поднятия существ в пожарный захват на [(clothing_traits & TRAIT_QUICKER_CARRY) ? "две секунды" : "одну секунду"]."
+	if(clothing_traits & FINGERS_COVERED)
+		.["закрывающий пальцы"] = "Пальцы носителя закрыты."
+	if(clothing_traits & TRAIT_FAST_CUFFING)
+		.["сдерживающий"] = "Позволяет носителю заковывать существ в наручники быстрее."
+	if((item_flags & BANGPROTECT_MINOR) || (item_flags & BANGPROTECT_TOTAL))
+		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
+	if(flash_protect > FLASH_PROTECTION_NONE)
+		.["защищающий зрение"] = "Обеспечивает [flash_protect == FLASH_PROTECTION_FLASH ? "умеренную защиту от вспышек cвета" : "сильную защиту от интенсивного света, в том числе от сварочного огня"]."
+
+/obj/item/clothing/examine_descriptor(mob/user)
+	return "предмет одежды"
+
+/obj/item/clothing/Topic(href, href_list)
+	. = ..()
+
+	if(href_list["list_armor"])
+		var/list/readout = list()
+
+		var/added_damage_header = FALSE
+		for(var/damage_key in ARMOR_LIST_DAMAGE)
+			var/rating = armor.getRating(damage_key)
+			if(!rating)
+				continue
+			if(!added_damage_header)
+				readout += "<b><u>БРОНЯ (1-10)</u></b>"
+				added_damage_header = TRUE
+			readout += "- [armor_to_protection_name(damage_key)] [armor_to_protection_class(rating)]"
+
+		var/added_durability_header = FALSE
+		for(var/durability_key in ARMOR_LIST_DURABILITY)
+			var/rating = armor.getRating(durability_key)
+			if(!rating)
+				continue
+			if(!added_durability_header)
+				readout += "<b><u>СОПРОТИВЛЕНИЕ (1-10)</u></b>"
+				added_durability_header = TRUE
+			readout += "- [armor_to_protection_name(durability_key)] [armor_to_protection_class(rating)]"
+
+		readout += "<b><u>ПОКРЫТИЕ</u></b>"
+		if((flags_cover & HEADCOVERSMOUTH) || (flags_cover & PEPPERPROOF))
+			var/list/things_blocked = list()
+			if(flags_cover & PEPPERPROOF)
+				things_blocked += span_tooltip("Защищает носителя от эффектов перцового спрея и аэрозольного капсаицина.", "перцовый спрей")
+			if(length(things_blocked))
+				readout += "- Блокирует [russian_list(things_blocked)]."
+
+		var/list/parts_covered = list()
+		if((body_parts_covered & HEAD) && !(slot_flags == ITEM_SLOT_MASK)) // because we don't want masks to be displayed as "Покрывает голову" when they actually don't
+			parts_covered += "голову"
+		else
+			if((flags_cover & GLASSESCOVERSEYES) || (flags_cover & MASKCOVERSEYES) || (flags_cover & HEADCOVERSEYES))
+				parts_covered += "глаза"
+			if((flags_cover & MASKCOVERSMOUTH) || (flags_cover & HEADCOVERSMOUTH))
+				parts_covered += "рот"
+		if(body_parts_covered & UPPER_TORSO)
+			parts_covered += "грудь"
+		if(body_parts_covered & LOWER_TORSO)
+			parts_covered += "живот"
+		if(body_parts_covered & ARMS)
+			parts_covered += "руки"
+		if(body_parts_covered & HANDS)
+			parts_covered += "ладони"
+		if(body_parts_covered & LEGS)
+			parts_covered += "ноги"
+		if(body_parts_covered & FEET)
+			parts_covered += "ступни"
+		if(length(parts_covered))
+			readout += "- Покрывает [russian_list(parts_covered)] носителя."
+
+		if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+			var/output_string = "Защищает"
+			if(!(clothing_flags & STOPSPRESSUREDAMAGE))
+				output_string = "Если герметизировано, то защищает"
+			readout += "- [output_string] носителя от экстремального давления."
+
+		if(max_heat_protection_temperature)
+			readout += "- Защищает владельца от перегрева вплоть до [max_heat_protection_temperature]° по Кельвину ([(T0C - max_heat_protection_temperature) * -1] °C)."
+
+		if(min_cold_protection_temperature)
+			readout += "- Защищает владельца от [min_cold_protection_temperature <= SPACE_SUIT_MIN_TEMP_PROTECT ? span_tooltip("Достаточно, чтобы предотвратить потерю тепла в открытом космосе.", \
+			"низких температур вплоть до [min_cold_protection_temperature]° по Кельвину ([(T0C - min_cold_protection_temperature) * -1] °C)") : "низких температур вплоть до \
+			[min_cold_protection_temperature]° по Кельвину ([(T0C - min_cold_protection_temperature) * -1] °C)"]."
+
+		if(!length(readout))
+			readout += "Нет информации о прочности или защите."
+
+		var/formatted_readout = span_notice("<b>ЗАЩИТНЫЕ ХАРАКТЕРИСТИКИ</b><hr>[jointext(readout, "\n")]")
+		to_chat(usr, chat_box_examine(formatted_readout))
+
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return FALSE
@@ -253,77 +353,6 @@
 	if(!original_ear)
 		CRASH("No original_ear found.")
 	return original_ear.attack_hand(user, pickupfireoverride)
-
-//Glasses
-/obj/item/clothing/glasses
-	name = "glasses"
-	icon = 'icons/obj/clothing/glasses.dmi'
-	flags_cover = GLASSESCOVERSEYES
-	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
-	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
-	abstract_type = /obj/item/clothing/glasses
-	var/vision_flags = 0
-	var/see_in_dark = 0 //Base human is 2
-	var/invis_view = SEE_INVISIBLE_LIVING
-	var/invis_override = 0
-	var/lighting_alpha
-	/// List of things added to examine text, like security or medical records.
-	var/examine_extensions = EXAMINE_HUD_NONE
-
-	var/list/color_view = null//overrides client.color while worn
-	var/prescription = FALSE
-	var/prescription_upgradable = FALSE
-	var/over_hat = FALSE
-	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
-	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
-	put_on_delay = 25
-	resistance_flags = NONE
-
-	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
-	)
-
-/*
- * SEE_SELF  // can see self, no matter what
- * SEE_MOBS  // can see all mobs, no matter what
- * SEE_OBJS  // can see all objs, no matter what
- * SEE_TURFS // can see all turfs (and areas), no matter what
- * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
- *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
- * BLIND     // can't see anything
- */
-
-/obj/item/clothing/glasses/update_icon_state()
-	if(..())
-		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
-
-/obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
-	set name = "Подогнать очки"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Adjust your eyewear to be worn over or under a mask."
-	set src in usr
-
-	var/mob/living/carbon/human/user = usr
-	if(!istype(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
-		return
-
-	var/action_fluff = "You adjust \the [src]"
-	if(user.glasses == src)
-		if(!user.can_unEquip(src))
-			to_chat(usr, "[src] is stuck to you!")
-			return
-		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
-			action_fluff = "You remove \the [src] and adjust it"
-
-	over_mask = !over_mask
-	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //Gloves
 /obj/item/clothing/gloves
@@ -849,7 +878,7 @@
 	abstract_type = /obj/item/clothing/suit
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
@@ -980,12 +1009,12 @@
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -1005,11 +1034,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -1094,7 +1123,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
@@ -1208,7 +1237,7 @@
 	return TRUE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
+	if(isaccessory(I))
 		if(attach_accessory(I, user, unequip = TRUE))
 			return ATTACK_CHAIN_BLOCKED_ALL
 

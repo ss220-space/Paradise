@@ -55,7 +55,6 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,

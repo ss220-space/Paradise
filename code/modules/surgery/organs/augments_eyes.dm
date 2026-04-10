@@ -219,6 +219,15 @@
 	current_turf = null
 	return ..()
 
+/obj/item/organ/internal/cyberimp/eyes/map/remove(mob/living/carbon/target, special)
+	. = ..()
+	hide_mini_map(target)
+
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/is_implanted_minimap_implant(mob/living/carbon/target, implant_type)
+	var/obj/item/organ/internal/eye_implant = target.get_organ_slot(INTERNAL_ORGAN_EYE_HUD_DEVICE)
+	return istype(eye_implant, implant_type)
+
 /obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
@@ -239,19 +248,14 @@
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 		return
 
-	var/datum/hud/human/user_hud = user.hud_used
-	holomap_datum.base_map.loc = user_hud.mini_holomap  // Put the image on the holomap hud
-	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+	user.hud_used.mini_holomap.icon = holomap_datum.map_icon
 
-	playsound(user, 'sound/effects/holomap_open.ogg', 125)
-	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
 	user.hud_used.mini_holomap.used_station_map = src
 	user.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
 	user.hud_used.mini_holomap.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	user.client.screen |= user.hud_used.mini_holomap
-	user.client.images |= holomap_datum.base_map
 
 	if(holomap_datum.bogus)
 		to_chat(user, span_warning("Ошибка инициализации голокарты. Этот сектор пространства невозможно отобразить."))
@@ -265,7 +269,11 @@
 	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size/2)
 	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size/2)
 	var/list/crop_params = list(CROP_X1 = crop_x, CROP_Y1 = crop_y, CROP_X2 = crop_x + crop_size, CROP_Y2 = crop_y + crop_size)
-	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays(user), show_legend = FALSE, crop = crop_params)
+	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, show_legend = FALSE, crop = crop_params)
+	var/list/image/overlays = holomap_datum.create_overlays(handle_overlays(user))
+	user.hud_used.mini_holomap.cut_overlays()
+	for(var/image/overlay in overlays)
+		user.hud_used.mini_holomap.add_overlay(overlay)
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/handle_overlays(mob/user)
@@ -306,30 +314,19 @@
 		return
 
 	current_z_level = moved_mob.loc.z
-	moved_mob.client.images -= holomap_datum.base_map
 	setup_holomap(moved_mob)
-	holomap_datum.base_map.loc = moved_mob.hud_used.mini_holomap
-	moved_mob.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
-	moved_mob.client.images |= holomap_datum.base_map
+	moved_mob.hud_used.mini_holomap.icon = holomap_datum.map_icon
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 
 	to_chat(user, span_interface("Мини-карта исчезает."))
 	if(!user.client)
 		holomap_datum.reset_map()
 		return
 
-	animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-	addtimer(CALLBACK(src, PROC_REF(remove_mini_map), user), 5)
-
-/obj/item/organ/internal/cyberimp/eyes/map/proc/remove_mini_map(mob/user)
-	if(!user || !user.client)
-		return
 	user.client.screen -= user.hud_used.mini_holomap
-	user.client.images -= holomap_datum.base_map
 	user.hud_used.mini_holomap.used_station_map = null
 	user.hud_used.mini_holomap.used_base_map = null
 	holomap_datum.reset_map()
@@ -350,7 +347,7 @@
 	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
 		if(check == user)
 			continue
-		if(!ismindshielded(check))
+		if(!ismindshielded(check) && !is_implanted_minimap_implant(check, /obj/item/organ/internal/cyberimp/eyes/map/security))
 			continue
 		var/turf/check_turf = get_turf(check)
 		create_overlay_icon("security", check_turf, mindshields)
@@ -358,6 +355,32 @@
 	create_overlays_entry(extra_overlays, "Mindshields", icon_name = "security", markers = mindshields)
 	return extra_overlays
 
+
+/obj/item/organ/internal/cyberimp/eyes/map/ert
+	name = "special reaction team map implant "
+	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов ОБР."
+	icon_state = "security_map_implant"
+	eye_colour = "#e41618"
+
+/obj/item/organ/internal/cyberimp/eyes/map/ert/handle_overlays(mob/user)
+	var/list/extra_overlays = ..()
+	if(holomap_datum.bogus)
+		return extra_overlays
+
+	var/list/mindshields = list()
+	var/list/ert_mindshieds = list()
+	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
+		if(check == user)
+			continue
+		var/turf/check_turf = get_turf(check)
+		if(isertmindshielded(check) || is_implanted_minimap_implant(check, /obj/item/organ/internal/cyberimp/eyes/map/ert))
+			create_overlay_icon("ert", check_turf, ert_mindshieds)
+		else if(ismindshielded(check) || is_implanted_minimap_implant(check, /obj/item/organ/internal/cyberimp/eyes/map/security))
+			create_overlay_icon("security", check_turf, mindshields)
+
+	create_overlays_entry(extra_overlays, "ERT Members", icon_name = "ert", markers = ert_mindshieds)
+	create_overlays_entry(extra_overlays, "Mindshields", icon_name = "security", markers = mindshields)
+	return extra_overlays
 
 /obj/item/organ/internal/cyberimp/eyes/map/medical
 	name = "medical map implant "

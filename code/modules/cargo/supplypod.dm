@@ -9,7 +9,7 @@
 	pixel_x = SUPPLYPOD_X_OFFSET //2x2 sprite
 	layer = BELOW_OBJ_LAYER //So that the crate inside doesn't appear underneath
 	can_weld_shut = FALSE
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, FIRE = 100, ACID = 80)
 	anchored = TRUE //So it cant slide around after landing
 	density = FALSE
 	ignore_shoves = TRUE
@@ -708,7 +708,7 @@
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "smoke"
 	desc = ""
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 0
 
@@ -733,7 +733,7 @@
 	name = "debris"
 	desc = "Небольшой кратер из обломков. При ближайшем рассмотрении выясняется, что обломки состоят в основном из фрагментов металла. Вы почти уверены, что они скоро рассеется."
 	icon = 'icons/obj/supplypods.dmi'
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER // We want this to go right below the layer of supplypods and supplypod_rubble's forground.
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER // We want this to go right below the layer of supplypods and supplypod_rubble's forground.
 	icon_state = "rubble_bg"
 	pixel_x = SUPPLYPOD_X_OFFSET
 	var/foreground = "rubble_fg"
@@ -778,7 +778,7 @@
 	desc = ""
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "LZ_Slider"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 
 /obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
 	. = ..()
@@ -793,7 +793,7 @@
 	desc = "Голографическая проекция, обозначающая зону приземления чего-либо. Наверное, лучше стоять в стороне."
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "LZ"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	light_range = 2
 	alpha = 0
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone

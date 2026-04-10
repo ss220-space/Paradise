@@ -795,7 +795,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bs" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/n2{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_n2_sensor"
 	},
@@ -1146,7 +1146,7 @@
 /turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ch" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/o2{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_o2_sensor"
 	},
@@ -1181,7 +1181,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cm" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/all{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_tox_sensor"
 	},
@@ -1578,10 +1578,10 @@
 /obj/structure/closet/crate/secure/weapon{
 	req_access = list(150)
 	},
-/obj/item/ammo_box/c10mm{
+/obj/item/ammo_box/m10mm{
 	pixel_y = 6
 	},
-/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/m10mm,
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = -5;
 	pixel_y = 5
@@ -3869,9 +3869,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/simulated/floor/plasteel/hight_cap,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "iU" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -3932,9 +3930,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/simulated/floor/plasteel/hight_cap,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "iY" = (
 /obj/structure/table,

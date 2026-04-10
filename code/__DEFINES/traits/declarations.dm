@@ -55,7 +55,10 @@
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
-#define TRAIT_FAKEDEATH "fakedeath"	//Makes the owner appear as dead to most forms of medical examination
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
+/// Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_FAKEDEATH "fakedeath"
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
@@ -73,7 +76,7 @@
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
-/// Make some nuild actions quicker
+/// Make some build actions quicker
 #define TRAIT_QUICK_BUILD "quick-build"
 /// Prevents mob from riding mobs when buckled onto something
 #define TRAIT_CANT_RIDE "cant_ride"
@@ -119,6 +122,9 @@
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
+/// This mob heals from bingle holes.
+#define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
+
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT "knockedout"
@@ -227,8 +233,12 @@
 #define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
 /// Combat exoframe EMP nutrition shield flag
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
+/// Item still allows you to examine items while blind and actively held.
+#define TRAIT_BLIND_TOOL "blind_tool"
 
 #define TRAIT_SHRAPNEL "shrapnel"
+/// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item
+#define TRAIT_CAN_ATTACH_TO_TRIPWIRE "tripwire_attachable"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"
@@ -292,8 +302,6 @@
 #define TRAIT_PLANT_ORIGIN "plant_origin"
 /// Another damn biotype
 #define TRAIT_NO_INTORGANS "no_internal_organs"
-/// This mob is completely immune to the radiation damage and effects
-#define TRAIT_RADIMMUNE "rad_immunity"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
 /// This mob is completely immune to viruses and diseases
@@ -342,6 +350,10 @@
 #define TRAIT_BEING_OFFERED "offered"
 
 #define TRAIT_TOXIC_FUEL_PROTECTED "toxic_fuel_protected"
+
+#define TRAIT_SLEEPIMMUNE "sleep_immunity"
+
+#define TRAIT_NO_FIRE "nonflammable"
 
 /// Ignore Crew monitor Z levels
 #define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"
@@ -425,6 +437,42 @@
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
 
+// Radiation defines
+/// Marks that this object is irradiated
+#define TRAIT_IRRADIATED "irradiated"
+/// Immune to being irradiated
+#define TRAIT_RADIMMUNE "rad_immunity"
+/// Harmful radiation effects, the toxin damage and the burns, will not occur while this trait is active
+#define TRAIT_HALT_RADIATION_EFFECTS "halt_radiation_effects"
+/// This clothing protects the user from radiation.
+/// This should not be used on clothing_traits, but should be applied to the clothing itself.
+#define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
+/// Whether or not this item will allow the radiation SS to go through standard
+/// radiation processing as if this wasn't already irradiated.
+/// Basically, without this, COMSIG_IN_RANGE_OF_IRRADIATION won't fire once the object is irradiated.
+#define TRAIT_BYPASS_EARLY_IRRADIATED_CHECK "radiation_bypass_early_irradiated_check"
+
+// METABOLISMS
+// Various jobs on the station have historically had better reactions
+// to various drinks and foodstuffs. Security liking donuts is a classic
+// example. Through years of training/abuse, their livers have taken
+// a liking to those substances. Steal a sec officer's liver, eat donuts good.
+
+// These traits are applied to /obj/item/organ/internal/liver
+#define TRAIT_BALLMER_SCIENTIST "ballmer_scientist"
+#define TRAIT_COMEDY_METABOLISM "comedy_metabolism"
+#define TRAIT_CORONER_METABOLISM "coroner_metabolism"
+#define TRAIT_CULINARY_METABOLISM "culinary_metabolism"
+#define TRAIT_ENGINEER_METABOLISM "engineer_metabolism"
+#define TRAIT_HUMAN_AI_METABOLISM "human_ai_metabolism"
+#define TRAIT_LAW_ENFORCEMENT_METABOLISM "law_enforcement_metabolism"
+#define TRAIT_MAINTENANCE_METABOLISM "maintenance_metabolism"
+#define TRAIT_MEDICAL_METABOLISM "medical_metabolism"
+#define TRAIT_PRETENDER_ROYAL_METABOLISM "pretender_royal_metabolism"
+#define TRAIT_ROYAL_METABOLISM "royal_metabolism"
+
+/// Trait used to ensure that things don't get animated as falling in multiple times
+#define TRAIT_FALLING_INTO_BINGLE_HOLE "falling_into_bingle_pit"
 /// Immune to being afflicted by time stop (spell)
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 
@@ -442,3 +490,12 @@
 // Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
+
+/// Suppression implant trait
+#define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
+
+///Trait applied to turf blocked by a containment field
+#define TRAIT_CONTAINMENT_FIELD "containment_field"
+
+/// Prevents the projectile itself from ricocheting.
+#define TRAIT_NO_RICOCHET "no_ricochet"

@@ -43,7 +43,8 @@ export const DelayHelper = (props) => {
             maxValue={10}
             minValue={0}
             inline
-            onDrag={(e, value) => {
+            tickWhileDragging
+            onChange={(e, value) => {
               act('editTiming', {
                 reverse: reverse,
                 timer: '' + (i + 1),

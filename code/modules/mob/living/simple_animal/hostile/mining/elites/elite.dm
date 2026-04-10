@@ -13,6 +13,7 @@
 	name = "elite"
 	desc = "Элитный монстр, найденный в одном из странных опухолей на Лазисе."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
+	abstract_type = /mob/living/simple_animal/hostile/asteroid/elite
 	faction = list("boss")
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE

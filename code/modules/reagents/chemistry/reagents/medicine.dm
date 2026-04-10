@@ -574,37 +574,29 @@
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "очищения"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-1)
-	return ..()
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		update_flags |= affected_mob.adjustToxLoss(-1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/medicine/pen_acid
 	name = "Пентетовая кислота"
 	id = "pen_acid"
-	description = "Диэтилентриаминпентаацетат (сокращённо \"пентетовая кислота\" или \"ДТПА\") - агрессивный хелатирующий агент. Может вызвать повреждение тканей. Используйте с осторожностью."
+	description = "Диэтилентриаминпентаацетат (сокращённо \"ДТПА\") — уменьшает огромное количество токсинов, одновременно выводя из организма другие химические вещества."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	harmless = FALSE
 	taste_description = "очищения"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
+/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-7)
-	if(prob(75))
-		update_flags |= M.adjustToxLoss(-2, FALSE)
-	if(prob(33))
-		if(ishuman(M))
-			var/mob/living/carbon/human/human = M
-			human.take_overall_damage(0.5, 0.5, updating_health = FALSE, affect_robotic = FALSE)
-		else
-			update_flags |= M.adjustBruteLoss(0.5, FALSE)
-			update_flags |= M.adjustFireLoss(0.5, FALSE)
-
+	update_flags |= affected_mob.adjustToxLoss(-2 * REM, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid

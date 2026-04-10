@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(closets)
 	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 70, ACID = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
@@ -485,7 +485,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 	spawn(0)
 		if(do_after(user, breakout_time, src))
-			if(!src || !user || user.stat != CONSCIOUS || user.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+			if(!src || !user || user.stat != CONSCIOUS || user.loc != src || opened) //closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
 				return
 
 			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

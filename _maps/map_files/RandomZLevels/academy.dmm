@@ -166,8 +166,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "aS" = (
@@ -308,8 +307,7 @@
 /area/awaymission/academy/headmaster)
 "bz" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	tag = "icon-vault"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "bB" = (
@@ -371,8 +369,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	tag = "icon-vault"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "bR" = (
@@ -415,8 +412,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "ca" = (
@@ -453,8 +449,7 @@
 "cl" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "cn" = (
@@ -491,8 +486,7 @@
 /obj/item/caution,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "green";
-	tag = "icon-green (EAST)"
+	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
 "cx" = (
@@ -643,8 +637,7 @@
 /obj/item/twohanded/toy/chainsaw,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "dh" = (
@@ -711,8 +704,7 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "dr" = (
@@ -963,14 +955,12 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "green";
-	tag = "icon-green (SOUTHWEST)"
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "en" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	tag = "icon-green"
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "ep" = (
@@ -1356,15 +1346,13 @@
 	faction = list("faithless")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	tag = "icon-vault"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "fP" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	tag = "icon-vault"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "fS" = (
@@ -1443,8 +1431,7 @@
 "gg" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "gh" = (
@@ -1463,8 +1450,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "gj" = (
@@ -1472,8 +1458,7 @@
 /obj/item/storage/belt/security,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "gk" = (
@@ -1570,8 +1555,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "gF" = (
@@ -1602,8 +1586,7 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "gM" = (
@@ -1636,8 +1619,7 @@
 /obj/item/gun/energy/floragun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "gU" = (
@@ -1698,13 +1680,6 @@
 	icon_state = "escape"
 	},
 /area/awaymission/academy/classrooms)
-"hn" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green";
-	tag = "icon-green (EAST)"
-	},
-/area/awaymission/academy/academyaft)
 "ho" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2101,8 +2076,7 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "iJ" = (
@@ -2177,8 +2151,7 @@
 /area/awaymission/academy/academyaft)
 "iV" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l"
+	icon_state = "propulsion_l"
 	},
 /turf/space,
 /area/awaymission/academy/academyaft)
@@ -2188,8 +2161,7 @@
 /area/awaymission/academy/academyaft)
 "iX" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r"
+	icon_state = "propulsion_r"
 	},
 /turf/space,
 /area/awaymission/academy/academyaft)
@@ -2496,8 +2468,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "kx" = (
@@ -2615,8 +2586,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "kX" = (
@@ -2758,8 +2728,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "lM" = (
@@ -2864,8 +2833,7 @@
 "mD" = (
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
 "mM" = (
@@ -3137,8 +3105,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "pQ" = (
@@ -3553,8 +3520,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "ud" = (
@@ -3945,8 +3911,7 @@
 /area/awaymission/academy/classrooms)
 "xF" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -4189,8 +4154,7 @@
 /area/awaymission/academy/academyaft)
 "zQ" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -4418,8 +4382,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "CW" = (
@@ -5099,8 +5062,7 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/headmaster)
 "Kp" = (
@@ -5122,8 +5084,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "Kv" = (
@@ -5150,8 +5111,7 @@
 /area/awaymission/academy/academyaft)
 "KC" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28";
-	tag = "icon-plant-28"
+	icon_state = "plant-28"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
@@ -5236,8 +5196,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "Lk" = (
@@ -5281,8 +5240,7 @@
 /obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "LO" = (
@@ -5384,8 +5342,7 @@
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "MJ" = (
@@ -5454,8 +5411,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/skeleton/head,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
 "Ob" = (
@@ -5574,8 +5530,7 @@
 /area/awaymission/academy/classrooms)
 "Pe" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -5756,8 +5711,7 @@
 /obj/machinery/light_construct,
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	tag = "icon-green"
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "Ro" = (
@@ -5808,8 +5762,7 @@
 /obj/item/kitchen/rollingpin,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/classrooms)
 "RH" = (
@@ -5935,8 +5888,7 @@
 /area/awaymission/academy/classrooms)
 "SI" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
@@ -5959,8 +5911,7 @@
 /area/awaymission/academy/headmaster)
 "SU" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -6157,8 +6108,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
 "Uk" = (
@@ -6422,8 +6372,7 @@
 "Xa" = (
 /obj/structure/glowshroom,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
 "Xb" = (
@@ -6481,8 +6430,7 @@
 	name = "Human remains"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "green";
-	tag = "icon-green"
+	icon_state = "green"
 	},
 /area/awaymission/academy/classrooms)
 "Xu" = (
@@ -6584,8 +6532,7 @@
 /area/awaymission/academy/academyaft)
 "YI" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28";
-	tag = "icon-plant-28"
+	icon_state = "plant-28"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -6641,8 +6588,7 @@
 /area/awaymission/academy/academyaft)
 "Zi" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22";
-	tag = "icon-plant-22"
+	icon_state = "plant-22"
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
@@ -11846,7 +11792,7 @@ cA
 hH
 ho
 cw
-hn
+My
 WO
 hH
 ZD

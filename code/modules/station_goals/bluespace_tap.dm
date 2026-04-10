@@ -31,7 +31,7 @@
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce("[highscore]")]": "[span_boldannounceooc("[highscore]")]"]")
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product

@@ -1,6 +1,6 @@
 /datum/data/pda/app/request_console
-	name = "Request Consoles"
-	title = "Request Consoles"
+	name = "Консоль запросов"
+	title = "Консоль запросов"
 	icon = "archive"
 	template = "pda_request_console"
 	category = "Request Console"

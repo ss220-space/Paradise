@@ -74,23 +74,39 @@
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
+
+///from base of atom/examine(): (/mob, list/examine_text)
+#define COMSIG_ATOM_EXAMINE "atom_examine"
 ///from base of atom/examine(): (/mob)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
+/// from base of atom/examine(): (/mob, list/examine_text)
+#define COMSIG_CARBON_MID_EXAMINE "carbon_mid_examine"
+///from base of atom/examine_tags(): (/mob, list/examine_tags)
+#define COMSIG_ATOM_EXAMINE_TAGS "atom_examine_tags"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
 	//Positions for overrides list
-	#define EXAMINE_POSITION_ARTICLE (1<<0)
-	#define EXAMINE_POSITION_BEFORE (1<<1)
-	//End positions
-	#define COMPONENT_EXNAME_CHANGED (1<<0)
-	///from base of [/atom/proc/update_appearance]: (updates)
-	#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
-	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
-	#define COMSIG_ATOM_NO_UPDATE_NAME UPDATE_NAME
-	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its desc.
-	#define COMSIG_ATOM_NO_UPDATE_DESC UPDATE_DESC
-	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its icon.
-	#define COMSIG_ATOM_NO_UPDATE_ICON UPDATE_ICON
+	#define EXAMINE_POSITION_BEFORE 1
+	#define EXAMINE_POSITION_NAME 2
+///from base of atom/examine(): (/mob, list/examine_text, can_see_inside)
+#define COMSIG_ATOM_REAGENT_EXAMINE "atom_reagent_examine"
+	/// Stop the generic reagent examine text
+	#define STOP_GENERIC_REAGENT_EXAMINE (1<<0)
+	/// Allows the generic reaegent examine text regardless of whether the user can scan reagents.
+	#define ALLOW_GENERIC_REAGENT_EXAMINE (1<<1)
+///from base of atom/examine_more(): (/mob, examine_list)
+#define COMSIG_ATOM_EXAMINE_MORE "atom_examine_more"
+/// from atom/examine_more(): (/atom/examining, examine_list)
+#define COMSIG_MOB_EXAMINING_MORE "mob_examining_more"
+
+///from base of [/atom/proc/update_appearance]: (updates)
+#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
+/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
+#define COMSIG_ATOM_NO_UPDATE_NAME UPDATE_NAME
+/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its desc.
+#define COMSIG_ATOM_NO_UPDATE_DESC UPDATE_DESC
+/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its icon.
+#define COMSIG_ATOM_NO_UPDATE_ICON UPDATE_ICON
 ///from base of [/atom/proc/update_name]: (updates)
 #define COMSIG_ATOM_UPDATE_NAME "atom_update_name"
 ///from base of [/atom/proc/update_desc]: (updates)
@@ -140,8 +156,6 @@
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
 ///from base of atom/emag_act(): (/mob/user)
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
-///from base of atom/rad_act(intensity)
-#define COMSIG_ATOM_RAD_ACT "atom_rad_act"
 ///from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"
 ///from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
@@ -491,6 +505,16 @@
 #define COMSIG_MOB_ATTACKED_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_THROW "mob_throw"
+
+///from base of /mob/verb/examinate(): (atom/target, list/examine_strings)
+#define COMSIG_MOB_EXAMINING "mob_examining"
+///from base of /mob/verb/examinate(): (atom/target)
+#define COMSIG_MOB_EXAMINATE "mob_examinate"
+///from /mob/living/handle_eye_contact(): (mob/living/other_mob)
+#define COMSIG_MOB_EYECONTACT "mob_eyecontact"
+	/// return this if you want to block printing this message to this person, if you want to print your own (does not affect the other person's message)
+	#define COMSIG_BLOCK_EYECONTACT (1<<0)
+
 ///called when a user is getting new weapon and we want to remove previous weapon to clear hands
 #define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 /// from base of /mob/verb/examinate(): (atom/target)
@@ -504,6 +528,7 @@
 ////from /mob/living/say(): ()
 #define COMSIG_MOB_SAY "mob_say"
 	#define COMPONENT_UPPERCASE_SPEECH (1<<0)
+	#define COMPONENT_SMALL_SPEECH (1<<1)
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1
 	// #define SPEECH_BUBBLE_TYPE 2
@@ -667,7 +692,7 @@
 /// From mob/living/proc/on_fall
 #define COMSIG_LIVING_THUD "living_thud"
 
-/// from /datum/component/singularity/proc/can_move(), as well as /obj/singularity/energy_ball/proc/can_move()
+/// from /datum/component/singularity/proc/can_move(), as well as /obj/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
 #define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
 	/// When returned from `COMSIG_ATOM_SINGULARITY_TRY_MOVE`, the singularity will move to that turf
@@ -733,6 +758,11 @@
 
 ///From post-can inject check of syringe after attack (mob/user)
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"
+
+/// From /mob/living/get_examine_name(mob/user) : (mob/examined, visible_name, list/name_override)
+/// Allows mobs to override how they perceive others when examining
+#define COMSIG_LIVING_PERCEIVE_EXAMINE_NAME "living_perceive_examine_name"
+	#define COMPONENT_EXAMINE_NAME_OVERRIDEN (1<<0)
 
 /// From /mob/add_language() (language_name)
 #define COMSIG_MOB_LANGUAGE_ADD "mob_language_add"
@@ -844,6 +874,11 @@
 
 /// Source: /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 #define COMSIG_ANIMAL_HANDLE_ENVIRONMENT "animal_handle_environment"
+
+/// Sent to bingles to evolve
+#define COMSIG_BINGLE_EVOLVE "bingle_evolve"
+/// Sent to all bingles to evolve
+#define COMSIG_MASS_BINGLE_EVOLVE "mass_bingle_evolve"
 
 // /obj signals
 
@@ -1138,14 +1173,6 @@
 #define COMSIG_INSTRUMENT_TEMPO_CHANGE "instrument_tempo_change"
 
 /*******Component Specific Signals*******/
-//Janitor
-
-///(): Returns bitflags of wet values.
-#define COMSIG_TURF_IS_WET "check_turf_wet"
-///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"
-///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 //Creamed
 
@@ -1569,6 +1596,13 @@
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
 
+/// from internal loop in /atom/proc/propagate_radiation_pulse: (atom/pulse_source)
+#define COMSIG_ATOM_PROPAGATE_RAD_PULSE "atom_propagate_radiation_pulse"
+
+/// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
+/// Consumers are allowed to mutate the scan_results list to add extra information
+#define COMSIG_LIVING_HEALTHSCAN "living_healthscan"
+
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
 #define COMSIG_LUNGE_DUAL_STRIKE "lunge_dual_strike"
@@ -1580,3 +1614,10 @@
 
 /// Sent after removing a camera from the cameranet datum (/datum/cameranet/proc/removeCamera(obj/machinery/camera/c))
 #define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
+
+#define COMSIG_IRRADIATED_PROCESS "irradiated_process"
+
+/// Called on tripwire activation (/obj/item/tripwire)
+#define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
+// Called on payload installing at tripwire
+#define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"

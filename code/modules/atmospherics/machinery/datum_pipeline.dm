@@ -225,37 +225,40 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	for(var/i = 1; i <= length(pipelines); i++)
 		var/datum/pipeline/pipeline = pipelines[i]
 
-		if(!istype(pipeline) || QDELETED(pipeline) || isnull(pipeline.air))
+		if(QDELETED(pipeline) || isnull(pipeline.air))
 			continue
 
 		gas_mixtures += pipeline.air
 		gas_mixtures += pipeline.other_airs
 
-		for(var/obj/machinery/atmospherics/binary/valve/valve in pipeline.other_atmosmch)
-			if(QDELETED(valve))
+		for(var/atom/atm as anything in pipeline.other_atmosmch)
+			if(QDELETED(atm))
 				continue
 
-			if(valve.open)
-				pipelines |= valve.parent1
-				pipelines |= valve.parent2
-
-		for(var/obj/machinery/atmospherics/trinary/tvalve/triple_valve in pipeline.other_atmosmch)
-			if(QDELETED(triple_valve))
+			if(istype(atm, /obj/machinery/atmospherics/binary/valve))
+				var/obj/machinery/atmospherics/binary/valve/valve = atm
+				if(valve.open)
+					pipelines |= valve.parent1
+					pipelines |= valve.parent2
 				continue
-			if(!triple_valve.state)
-				if(src != triple_valve.parent2) // otherwise dc'd side connects to both other sides!
-					pipelines |= triple_valve.parent1
-					pipelines |= triple_valve.parent3
-			else
-				if(src != triple_valve.parent3)
-					pipelines |= triple_valve.parent1
-					pipelines |= triple_valve.parent2
 
-		for(var/obj/machinery/atmospherics/unary/portables_connector/connector in pipeline.other_atmosmch)
-			if(QDELETED(connector))
+			if(istype(atm, /obj/machinery/atmospherics/unary/portables_connector))
+				var/obj/machinery/atmospherics/unary/portables_connector/connector = atm
+				if(connector.connected_device)
+					gas_mixtures += connector.portableConnectorReturnAir()
 				continue
-			if(connector.connected_device)
-				gas_mixtures += connector.portableConnectorReturnAir()
+
+			if(istype(atm, /obj/machinery/atmospherics/trinary/tvalve))
+				var/obj/machinery/atmospherics/trinary/tvalve/triple_valve = atm
+				if(!triple_valve.state)
+					if(src != triple_valve.parent2) // otherwise dc'd side connects to both other sides!
+						pipelines |= triple_valve.parent1
+						pipelines |= triple_valve.parent3
+				else
+					if(src != triple_valve.parent3)
+						pipelines |= triple_valve.parent1
+						pipelines |= triple_valve.parent2
+
 
 	if(length(members))
 		share_many_airs(gas_mixtures, members[1])

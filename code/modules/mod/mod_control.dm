@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
 		/datum/action/item_action/mod/deploy,
 		/datum/action/item_action/mod/activate,
@@ -148,10 +148,9 @@
 		else
 			. += span_notice("Слот для ядра пуст.")
 
-/obj/item/mod/control/get_description_info()
-	if(extended_desc)
-		return extended_desc
-	return
+/obj/item/mod/control/examine_more(mob/user)
+	. = ..()
+	. += "<i>[extended_desc]</i>"
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)

@@ -6,7 +6,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, FIRE = 20, ACID = 20)
 	var/obj/item/projector
 
 /obj/structure/holosign/get_ru_names()
@@ -136,16 +136,21 @@
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering
+	name = "engineering holobarrier"
+	desc = "A short engineering holographic barrier used for designating hazardous zones, slightly blocks radiation. Can only be passed by walking."
 	icon_state = "holosign_engi"
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
-	name = "holo firelock"
+	name = "holofirelock"
 	desc = "Голографический барьер, похожий на пожарный шлюз. Он не препятствует прохождению твёрдых предметов, но не позволяет газу проникать внутрь."
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
 	layer = ABOVE_MOB_LAYER
 	alpha = 150
+	rad_insulation = RAD_LIGHT_INSULATION
+	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 
 /obj/structure/holosign/barrier/atmos/get_ru_names()
 	return list(

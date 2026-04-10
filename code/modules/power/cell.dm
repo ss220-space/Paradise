@@ -208,10 +208,8 @@
 	ex_act(EXPLODE_DEVASTATE)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
-	if(charge >= 1000)
-		return clamp(20 + round(charge / 25000), 20, 195) + rand(-5, 5)
-	else
-		return 0
+	// Wouldn't want it to consider more energy than whatever is actually in the cell if for some strange reason someone set the STANDARD_CELL_CHARGE to below 1kJ.
+	return ELECTROCUTE_DAMAGE(charge / max(0.001 * STANDARD_CELL_CHARGE, 1))
 
 // MARK: Cell variants
 /obj/item/stock_parts/cell/empty/New()

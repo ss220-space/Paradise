@@ -133,11 +133,7 @@
 /area/ruin/unpowered)
 "ly" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood/fancy/birch{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/wood/fancy/birch/airless,
 /area/ruin/unpowered/no_grav)
 "lA" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
@@ -232,11 +228,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/fancy/birch{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/wood/fancy/birch/airless,
 /area/ruin/unpowered/no_grav)
 "rA" = (
 /obj/item/reagent_containers/food/drinks/bottle/unholywater,
@@ -489,11 +481,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood/fancy/birch{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
-	},
+/turf/simulated/floor/wood/fancy/birch/airless,
 /area/ruin/unpowered/no_grav)
 "FE" = (
 /obj/item/fish_eggs/clownfish{

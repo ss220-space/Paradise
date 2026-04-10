@@ -1,7 +1,3 @@
-#define MAX_WATER_TEMPERATURE_CHANGE 10
-#define MIN_TEMPERATURE_DIFF 10
-#define BASE_WATER_VOLUME 1
-
 /datum/species
 	var/name                     // Species name.
 	var/name_plural			 // Pluralized name (since "[name]s" is not always valid)
@@ -106,8 +102,6 @@
 	var/total_health = 100
 	/// Maximum stamina of this species, MUST be lower than MAX_STAMINA_LOSS
 	var/total_stamina = BASE_MAX_STAMINA
-	/// What type of damage does this species take if it's low on blood?
-	var/blood_damage_type = OXY
 	/// Species default genes
 	var/list/default_genes
 	/// Species movement speed. Positive numbers make it move slower, negative numbers make it move faster
@@ -298,8 +292,8 @@
 	return length(result) > 1 ? result : result[tags[1]]
 
 /proc/get_rand_age(datum/species/species)
-	var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
-	return rand(age_limits[SPECIES_AGE_MIN], age_limits[SPECIES_AGE_MAX])
+	var/age_limits = get_age_limits(species, list(JOB_MIN_AGE_COMMAND, SPECIES_AGE_MAX))
+	return rand(age_limits[JOB_MIN_AGE_COMMAND], age_limits[SPECIES_AGE_MAX])
 
 /**
  * Handles creation of mob organs.
@@ -1227,6 +1221,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	human.sync_lighting_plane_alpha()
 
+#define MAX_WATER_TEMPERATURE_CHANGE 10
+#define MIN_TEMPERATURE_DIFF 10
+#define BASE_WATER_VOLUME 1
+
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	var/temperature_diff = temperature - M.bodytemperature
 	var/temperature_diff_abs = abs(temperature_diff)
@@ -1235,13 +1233,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return
 
 	var/effectiveness = min(volume / BASE_WATER_VOLUME, 1)
-
-
 	var/final_change = min(min(temperature_diff_abs, MAX_WATER_TEMPERATURE_CHANGE) * effectiveness, temperature_diff_abs)
 
 	final_change = (temperature_diff > 0)? final_change : -final_change
-
 	M.adjust_bodytemperature(final_change)
+
+#undef MAX_WATER_TEMPERATURE_CHANGE
+#undef MIN_TEMPERATURE_DIFF
+#undef BASE_WATER_VOLUME
 
 /datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
@@ -1315,6 +1314,45 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/compressor_grind(location)
 	return
 
-#undef MAX_WATER_TEMPERATURE_CHANGE
-#undef MIN_TEMPERATURE_DIFF
-#undef BASE_WATER_VOLUME
+/**
+ * Species based handling for irradiation
+ *
+ * Arguments:
+ * - [source][/mob/living/carbon/human]: The mob requesting handling
+ * - time_since_irradiated: The amount of time since the mob was first irradiated
+ * - seconds_per_tick: The amount of time that has passed since the last tick
+ */
+/datum/species/proc/handle_radiation(mob/living/carbon/human/source, time_since_irradiated, seconds_per_tick)
+	if(time_since_irradiated > RAD_MOB_KNOCKDOWN && SPT_PROB(RAD_MOB_KNOCKDOWN_PROB, seconds_per_tick))
+		if(!source.IsParalyzed())
+			source.emote("collapse")
+		source.Paralyse(RAD_MOB_KNOCKDOWN_AMOUNT)
+		to_chat(source, span_danger("You feel weak."))
+
+	if(time_since_irradiated > RAD_MOB_VOMIT && SPT_PROB(RAD_MOB_VOMIT_PROB, seconds_per_tick))
+		source.vomit(VOMIT_BLOOD, lost_nutrition = 10)
+
+	if(time_since_irradiated > RAD_MOB_MUTATE && SPT_PROB(RAD_MOB_MUTATE_PROB, seconds_per_tick))
+		to_chat(source, span_danger("You mutate!"))
+		randmutb(source)
+		source.emote("gasp")
+		source.check_genes()
+
+	if(time_since_irradiated > RAD_MOB_HAIRLOSS && SPT_PROB(RAD_MOB_HAIRLOSS_PROB, seconds_per_tick))
+		var/obj/item/organ/external/head/head = source.get_bodypart(BODY_ZONE_HEAD)
+		if(!(head.h_style == "Bald")) // && (head?.head_flags & (HEAD_HAIR|HEAD_FACIAL_HAIR)))
+			to_chat(source, span_danger("Your hair starts to fall out in clumps..."))
+			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
+
+/datum/species/proc/go_bald(mob/living/carbon/human/target)
+	if(QDELETED(target))	//may be called from a timer
+		return
+
+	var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	target.update_hair()
+	target.update_fhair()

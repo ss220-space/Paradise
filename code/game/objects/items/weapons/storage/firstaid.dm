@@ -293,10 +293,9 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/suture/advanced(src)
 
 /obj/item/storage/firstaid/paramed/empty/populate_contents()
 	return
@@ -483,8 +482,8 @@
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам \"Нанотрейзен\" в обязательным порядке."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "crew_medpouch"
+	icon_state = "blue_medpack"
+	item_state = "blue_medpack"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(
 		/obj/item/reagent_containers/hypospray/autoinjector,
@@ -505,6 +504,10 @@
 		INSTRUMENTAL = "экстренной аптечкой",
 		PREPOSITIONAL = "экстренной аптечке",
 	)
+
+/obj/item/storage/firstaid/crew/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew)
 
 /obj/item/storage/firstaid/crew/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)

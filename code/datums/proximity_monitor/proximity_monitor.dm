@@ -83,7 +83,7 @@
 		return
 	ignore_if_not_on_turf = does_ignore
 	// Update the ignore_if_not_on_turf
-	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, !ignore_if_not_on_turf)
+	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, ignore_if_not_on_turf)
 
 /datum/proximity_monitor/proc/on_uncrossed()
 	SIGNAL_HANDLER

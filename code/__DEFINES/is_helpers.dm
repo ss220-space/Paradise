@@ -13,6 +13,8 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
+#define isimage(thing) (istype(thing, /image))
+
 #define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
 
 // Mobs
@@ -64,6 +66,10 @@
 
 #define isvampireanimal(A) (istype(A, /mob/living/simple_animal/hostile/vampire))
 
+#define isbingle(A) (istype(A, /mob/living/simple_animal/hostile/bingle))
+
+#define is_binglelord(A) (istype(A, /mob/living/simple_animal/hostile/bingle/lord))
+
 // Objects
 #define isobj(A) (istype(A, /obj)) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
@@ -106,6 +112,8 @@
 #define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define isenergygun(A) (istype(A, /obj/item/gun/energy))
 
 #define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
 
@@ -337,6 +345,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
+#define ismonkey(A) (is_species(A, /datum/species/monkey))
 #define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
 #define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
 #define isneara(A) (is_species(A, /datum/species/monkey/skrell))
@@ -384,6 +393,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_window(A) (istype(A, /obj/structure/window))
 
+#define ishandcuffs(A) (istype(A, /obj/item/restraints/handcuffs))
+
+#define isstraightjacket(A) (istype(A, /obj/item/clothing/suit/straight_jacket))
+
 #define isanomaly(A) (istype(A, /obj/effect/anomaly))
 #define iscoreatmos(A) (istype(A, /obj/item/assembly/signaler/core/atmospheric))
 #define iscorebluespace(A) (istype(A, /obj/item/assembly/signaler/core/bluespace))
@@ -391,3 +404,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscorevortex(A) (istype(A, /obj/item/assembly/signaler/core/vortex))
 #define iscoreflux(A) (istype(A, /obj/item/assembly/signaler/core/energetic))
 #define iscore(A) (istype(A, /obj/item/assembly/signaler/core))
+
+#define isorgan(A) (istype(A, /obj/item/organ))
+
+#define isaccessory(A) (istype(A, /obj/item/clothing/accessory))

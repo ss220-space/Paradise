@@ -58,7 +58,7 @@
 /// Binds the mob to the object and sets up the naming and everything.
 /// Returns FALSE if we don't bind, TRUE if we succeed.
 /datum/component/object_possession/proc/bind_to_new_object(obj/target)
-	if(issingularity(target) && CONFIG_GET(flag/forbid_singulo_possession))
+	if((target.obj_flags & DANGEROUS_POSSESSION) && CONFIG_GET(flag/forbid_singulo_possession))
 		to_chat(parent, "[target] сопротивляется вашему контролю.", confidential = TRUE)
 		return FALSE
 

@@ -42,7 +42,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 600 // base vending integrity * 2
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70) // base vending protection
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, fire = 50, acid = 70) // base vending protection
 	resistance_flags = FIRE_PROOF
 
 	// All the overlay controlling variables

@@ -171,7 +171,7 @@
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -190,7 +190,7 @@
 			if(91 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())
@@ -408,7 +408,7 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -494,7 +494,7 @@
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
 	paintable = FALSE
 
@@ -667,7 +667,7 @@
 	if(!reagents.total_volume)
 		return
 
-	var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]30")
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]30")
 	var/percent = round((reagents.total_volume / volume) * 100)
 	switch(percent)
 		if(0 to 30)
@@ -677,5 +677,5 @@
 		if(60 to INFINITY)
 			filling.icon_state = "[icon_state]100"
 
-	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling

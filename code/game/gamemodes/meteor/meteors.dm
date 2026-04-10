@@ -373,17 +373,19 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 //Radiation meteor
 /obj/effect/meteor/irradiated
 	name = "glowing meteor"
+	desc = "An irradiated chunk of space rock. You could probably stop and appreciate its incandescent green glow, if it weren't moving so fast."
 	icon_state = "glowing"
 	heavy = TRUE
+	hits = 9
 	meteordrop = /obj/item/stack/ore/uranium
-	threat = 15
+	threat = 35
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	. = ..()
-	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 4, flash_range = 3, adminlog = FALSE, cause = src)
-	new /obj/effect/decal/cleanable/greenglow/filled(get_turf(src))
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(40, IRRADIATE)
+	explosion(src, heavy_impact_range = 1, light_impact_range = 3, flash_range = 6, adminlog = FALSE, cause = src)
+	for(var/turf/simulated/floor/surviving_ground in range(2, get_turf(src)))
+		if(prob(70))
+			new /obj/effect/decal/cleanable/greenglow/radioactive(get_turf(surviving_ground))
 
 //Station buster Tunguska
 /obj/effect/meteor/tunguska

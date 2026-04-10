@@ -15,13 +15,13 @@
 	index_name = "Meson Scanner Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/meson
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/implant/security
 	index_name = "Security Hud Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/security
-	allowed_roles = list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC)
 
 /datum/gear/implant/medical
 	index_name = "Medical Hud Implant"

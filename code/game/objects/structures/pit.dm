@@ -4,7 +4,7 @@
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "pit1"
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
+	armor = list(melee = 50, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, fire = 50, acid = 50)
 	layer = 2.9
 	var/storage_capacity = 30
 	var/open = TRUE
