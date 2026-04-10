@@ -124,3 +124,23 @@
 	desc = "Hole, a blackhole on your back!"
 	icon_state = "spacecloak"
 	item_state = "spacecloak"
+
+/obj/item/clothing/neck/cloak/officer_cloak
+	name = "officer cloak"
+	desc = "Officer black cloak."
+	icon_state = "officer_cloak"
+
+/obj/item/clothing/neck/cloak/officer_cloak_red
+	name = "officer cloak red"
+	desc = "Officer red cloak."
+	icon_state = "officer_cloak_red"
+
+/obj/item/clothing/neck/cloak/commander_cloak
+	name = "commander cloak"
+	desc = "Commander black cloak."
+	icon_state = "commander_cloak"
+
+/obj/item/clothing/neck/cloak/commander_cloak_red
+	name = "commander cloak red"
+	desc = "Commander red cloak."
+	icon_state = "commander_cloak_red"
