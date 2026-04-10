@@ -5822,10 +5822,9 @@
 /turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "aSK" = (
-/obj/machinery/door/airlock/medical,
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16216,10 +16215,11 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "bYs" = (
-/obj/machinery/door/airlock/medical,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26161,7 +26161,7 @@
 "dbM" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/medical,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -31113,13 +31113,16 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -31367,9 +31370,10 @@
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/turbine)
 "dDf" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -37430,11 +37434,12 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -40050,9 +40055,12 @@
 	},
 /area/maintenance/kitchen)
 "eUy" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -40942,9 +40950,12 @@
 	},
 /area/maintenance/asmaint4)
 "feY" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -42729,16 +42740,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/medical/glass{
-	id = "cloninglab";
-	name = "Genetics Lab";
-	req_access = list(9)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -43608,9 +43614,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49863,8 +49872,11 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/medical,
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -50671,7 +50683,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -50679,6 +50690,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53072,7 +53087,7 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "psychoffice"
 	},
-/turf/simulated/wall,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/medical/psych)
 "hSO" = (
 /obj/effect/decal/cleanable/blood/tracks,
@@ -54674,13 +54689,9 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "imV" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access = list(33)
-	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -60598,7 +60609,6 @@
 "jCg" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/ussptracksuit_red,
-/obj/effect/mob_spawn/human/corpse/usspconscript,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -60929,9 +60939,10 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "jGD" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63845,7 +63856,6 @@
 /turf/simulated/wall,
 /area/maintenance/consarea_virology)
 "krI" = (
-/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -65782,10 +65792,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70087,11 +70098,11 @@
 	},
 /area/hallway/primary/central/se)
 "lUc" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -77505,14 +77516,11 @@
 	},
 /area/hallway/primary/central/south)
 "nzD" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "psychoffice"
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "psychoffice"
-	},
-/turf/simulated/wall,
-/area/medical/psych)
+/area/medical/cloning)
 "nzN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -84723,7 +84731,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -84732,6 +84739,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84903,7 +84911,7 @@
 "pkr" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/medical,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -90938,9 +90946,12 @@
 /turf/simulated/wall/r_wall,
 /area/quartermaster/sorting)
 "qvK" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -93863,11 +93874,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/machinery/door/airlock/medical/glass{
-	id = "cloninglab";
-	name = "Genetics Lab";
-	req_access = list(9)
 	},
 /turf/simulated/floor/plating/airless,
 /area/medical/chemistry)
@@ -104678,11 +104684,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -106790,9 +106799,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -108442,9 +108451,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -108723,13 +108732,13 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/airlock/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -110946,11 +110955,14 @@
 	},
 /area/engineering/hardsuitstorage)
 "uTJ" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -112592,9 +112604,12 @@
 	},
 /area/medical/cryo)
 "vnT" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -117838,9 +117853,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -124613,12 +124629,12 @@
 	},
 /area/security/securearmory)
 "xVJ" = (
-/obj/machinery/door/airlock/medical,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -165224,10 +165240,10 @@ cUy
 dBZ
 liV
 kzQ
-nzD
+hSN
 hSN
 fgK
-nzD
+hSN
 hSN
 qzs
 uTJ
@@ -169096,8 +169112,8 @@ gHw
 lHx
 uZw
 krI
-xrg
-epF
+nzD
+omz
 xxZ
 xlq
 qfA

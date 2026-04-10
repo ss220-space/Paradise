@@ -32,21 +32,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse
 	name = "дополнительные баррикады, установленные перед входом в старую ботанику"
 
-// dorm maints near toilet submap
-
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/dorm_maints_near_toilet
-
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/dorm_maints_near_toilet
-
-/obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/old_poker
-	name = "заброшенная покерная зона вместо старой комнаты под туалетами"
-
-/obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/laundry
-	name = "заброшенная комната для стирки вместо старой комнаты под туалетами"
-
-/obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/gaming_room
-	name = "заброшенная игровая с игрушками вместо старой комнаты под туалетами"
-
 // old sm room
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_sm_room

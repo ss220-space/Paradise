@@ -126985,7 +126985,6 @@
 /area/medical/medbay)
 "xHP" = (
 /obj/structure/sign/nosmoking_2,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/dorm_maints_near_toilet,
 /turf/simulated/wall/r_wall,
 /area/medical/biostorage)
 "xHR" = (
