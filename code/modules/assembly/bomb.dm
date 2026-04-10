@@ -16,6 +16,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
 /obj/item/onetankbomb/examine(mob/user)
 	. = ..()
@@ -77,13 +78,12 @@
 /obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
 	audible_message("[get_examine_icon(hearers(loc))] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-	sleep(1 SECONDS)
-	if(!src)
+	if(QDELETED(src))
 		return
 	if(status)
-		bombtank.detonate()	//if its not a dud, boom (or not boom if you made shitty mix) the ignite proc is below, in this file
-	else
-		bombtank.release()
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, detonate)), 1 SECONDS)
+		return
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, release)), 1 SECONDS)
 
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
 	if(!bombassembly)
@@ -116,6 +116,13 @@
 		return
 
 	bombassembly.hear_message(M, msg)
+
+/obj/item/onetankbomb/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/turf = get_turf(base)
+	forceMove(turf)
+	receive_signal()
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
