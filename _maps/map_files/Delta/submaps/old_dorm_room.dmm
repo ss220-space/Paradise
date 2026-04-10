@@ -73,8 +73,8 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "gb" = (
-/obj/structure/rack,
 /obj/item/storage/toolbox/emergency/old,
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "gz" = (
@@ -94,14 +94,17 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/template_noop)
 "jm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/rods{
-	amount = 4
+/obj/machinery/door/airlock{
+	id_tag = "cabin3";
+	name = "Cabin"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
 /area/template_noop)
 "kC" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -205,9 +208,11 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "Di" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/template_noop)
 "DU" = (
 /turf/simulated/wall,
@@ -306,6 +311,8 @@
 /area/template_noop)
 "Rg" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "RO" = (
@@ -343,7 +350,7 @@
 "TN" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/medical,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/template_noop)
 "TQ" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -387,6 +394,9 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "Wf" = (
+/obj/item/stack/rods{
+	amount = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -396,10 +406,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/passage,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/wall,
 /area/template_noop)
 "XU" = (
 /obj/structure/cable{
@@ -539,16 +546,16 @@ lt
 lt
 uo
 DU
-MU
-jm
-yP
+DU
+DU
+DU
 TN
 lt
 gz
-Di
-Rg
+DU
 Ed
-MU
+Ed
+DU
 XI
 lt
 "}
@@ -558,8 +565,8 @@ DU
 Gx
 Hn
 Wf
-yP
-Ui
+MU
+Ed
 lt
 DU
 gb
@@ -571,11 +578,11 @@ lt
 "}
 (10,1,1) = {"
 lt
-DU
+jm
 yP
 Ui
 yP
-Ui
+Di
 hT
 lt
 ZS
@@ -600,7 +607,7 @@ Lo
 Tl
 XU
 Qt
-MU
+DU
 lt
 "}
 (12,1,1) = {"
