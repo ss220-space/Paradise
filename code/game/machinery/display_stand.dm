@@ -16,10 +16,14 @@
 	var/list/speech_lines = list()
 	var/speech_index = 0
 	var/speech_timer = 0
-	var/is_speaking = FALSE			// Флаг: воспроизводит ли стенд речь прямо сейчас
-	var/speech_interval = 5 SECONDS		// Интервал между строками речи
-	var/cooldown_timer = 0			// Таймер перезарядки после остановки речи
-	var/cooldown_delay = 30 SECONDS		// Задержка перезарядки после остановки речи
+	// Is the stand playing speech right now?
+	var/is_speaking = FALSE
+	// The spacing between lines of speech
+	var/speech_interval = 5 SECONDS
+	// Cooldown timer after speech stops
+	var/cooldown_timer = 0
+	// Delay in recharging after speech stops
+	var/cooldown_delay = 30 SECONDS
 
 /obj/machinery/display_stand/get_ru_names()
 	return list(
