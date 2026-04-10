@@ -80,6 +80,7 @@
 	desc = "Металлическое основание для растяжки. Не забудьте про кабель!"
 	icon = 'icons/obj/tripwire.dmi'
 	icon_state = "tripwire_base"
+	w_class = WEIGHT_CLASS_SMALL
 	var/obj/item/tripwire/linked_to = null
 	var/obj/item/attached_item = null
 	var/is_active = FALSE
@@ -87,7 +88,6 @@
 	var/list/wire_segments
 	var/wall_dir = 0
 	var/breaking = FALSE
-
 	var/datum/weakref/creator_mind = null
 	var/datum/weakref/payload_mind = null
 
