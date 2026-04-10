@@ -28,7 +28,7 @@
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	if(creates_cover && isturf(loc))
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
@@ -260,6 +260,12 @@
 		if(0 to 25)
 			if(!broken)
 				. += span_warning("Оно разваливается на части!")
+
+/obj/structure/examine_descriptor(mob/user)
+	return "структура"
+
+/obj/structure/examine_descriptor_gender()
+	return "female"
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE

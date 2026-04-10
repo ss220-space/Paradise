@@ -289,7 +289,6 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 
-		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
 		occupantData["paralysis"] = occupant.AmountParalyzed()
@@ -468,9 +467,6 @@
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\t-Термические повреждения: [occupant.getFireLoss()]</font><br>"
-
-		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tГенетические повреждения: [occupant.getCloneLoss()]<br>"

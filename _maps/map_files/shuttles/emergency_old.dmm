@@ -111,8 +111,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
@@ -148,8 +147,7 @@
 "aL" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -161,8 +159,7 @@
 "aM" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -181,8 +178,7 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -250,8 +246,7 @@
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
@@ -262,8 +257,7 @@
 	pixel_x = -30
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -319,8 +313,7 @@
 "ev" = (
 /obj/machinery/sleeper{
 	dir = 1;
-	icon_state = "sleeper";
-	tag = "icon-sleeper (NORTH)"
+	icon_state = "sleeper"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -362,8 +355,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle/objective_check,

@@ -97,6 +97,9 @@ h2.alert {
   visibility: hidden;
 }
 
+.infoplain {
+}
+
 // MARK: MOTD
 .motd {
   color: hsl(214, 38%, 74%);
@@ -467,6 +470,17 @@ h2.alert {
   font-weight: bold;
 }
 
+.smallnotice {
+  color: hsl(227, 87.7%, 68%);
+  font-size: 90%;
+}
+
+.smallnoticeital {
+  color: hsl(227, 87.7%, 68%);
+  font-style: italic;
+  font-size: 90%;
+}
+
 .hear {
   color: hsl(227, 87.7%, 68%);
   font-style: italic;
@@ -631,6 +645,35 @@ h2.alert {
   color: hsl(119, 84%, 45%);
   font-family: 'Courier New', cursive, sans-serif;
   font-style: italic;
+}
+
+.hypnophrase {
+  color: hsl(0, 0%, 12.5%);
+  font-weight: bold;
+  animation: hypnocolor 1500ms infinite;
+  animation-direction: alternate;
+}
+
+@keyframes hypnocolor {
+  0% {
+    color: hsl(0, 0%, 12.5%);
+  }
+
+  25% {
+    color: hsl(265.8, 97.7%, 34.1%);
+  }
+
+  50% {
+    color: hsl(272, 86.3%, 60%);
+  }
+
+  75% {
+    color: hsl(266.2, 69.6%, 36.1%);
+  }
+
+  100% {
+    color: hsl(191.9, 83.4%, 71.6%);
+  }
 }
 
 .shadowling {
@@ -904,6 +947,34 @@ h2.alert {
 
 .boxed_message.left_align_text {
   text-align: left;
+}
+
+// MARK:  HELPER CLASSES
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed;
+}
+
+.fieldset_legend {
+  position: relative;
+  max-width: 95%;
+  font-size: 120%;
+  background-color: var(--color-section);
+  padding: var(--space-s) var(--space-m);
+  border-color: inherit;
+  z-index: 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: var(--border-thickness-tiny) solid;
+    border-color: inherit;
+    border-radius: var(--border-radius-medium);
+    mask-image: linear-gradient(to top, black 50%, transparent 50%);
+    z-index: -1;
+  }
 }
 
 /**

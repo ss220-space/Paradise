@@ -319,7 +319,7 @@
 					safe_thing = victim.wear_mask
 				if(isclothing(victim.wear_mask))
 					var/obj/item/clothing/cloth = victim.wear_mask
-					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+					if(cloth.clothing_flags & PEPPERPROOF)
 						mouth_covered = TRUE
 						eyes_covered = TRUE
 						safe_thing = victim.wear_mask
@@ -332,7 +332,7 @@
 					safe_thing = victim.head
 				if(isclothing(victim.head))
 					var/obj/item/clothing/cloth = victim.head
-					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+					if(cloth.clothing_flags & PEPPERPROOF)
 						mouth_covered = TRUE
 						eyes_covered = TRUE
 						safe_thing = victim.head
@@ -527,7 +527,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)))
+	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_MAGISTRATE)))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags

@@ -173,7 +173,7 @@
 
 	spawn(0)
 		if(do_after(L, (breakout_time), target_atom))
-			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
 				to_chat(L, span_warning("Побег прерван!"))
 				return
 

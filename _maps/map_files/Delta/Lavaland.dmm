@@ -867,9 +867,7 @@
 	},
 /area/mine/living_quarters)
 "cO" = (
-/obj/machinery/power/smes{
-	charge = 1e+006
-	},
+/obj/machinery/power/smes/full,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -1066,8 +1064,7 @@
 	network = list("Labor    Camp")
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/mine/laborcamp)
 "dq" = (
@@ -1325,8 +1322,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (NORTHWEST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "eo" = (
@@ -1343,8 +1339,7 @@
 "ep" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (NORTHEAST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "eq" = (
@@ -1632,8 +1627,7 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/mine/living_quarters)
 "fw" = (
@@ -1862,8 +1856,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (SOUTHWEST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "gt" = (
@@ -1872,8 +1865,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "gu" = (
@@ -1888,8 +1880,7 @@
 "gw" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (SOUTHEAST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "gx" = (
@@ -2732,8 +2723,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "kW" = (
@@ -3261,10 +3251,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"mU" = (
-/obj/structure/bed/dogbed,
-/turf/simulated/wall/r_wall,
-/area/mine/production)
 "mV" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/window/reinforced/clockwork{
@@ -3531,8 +3517,7 @@
 	},
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitegreenfull"
 	},
 /area/mine/living_quarters)
 "oN" = (
@@ -4337,8 +4322,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/mime,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
 "ug" = (
@@ -5650,8 +5634,7 @@
 /area/mine/living_quarters)
 "CY" = (
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
@@ -5716,8 +5699,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
 "Dg" = (
@@ -6004,8 +5986,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bedsheet/patriot,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
 "Fq" = (
@@ -6045,7 +6026,9 @@
 	},
 /area/mine/living_quarters)
 "FK" = (
-/obj/structure/chair/stool/holostool,
+/obj/structure/chair/stool/holostool{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "FN" = (
@@ -7074,8 +7057,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/mine/living_quarters)
 "Ma" = (
@@ -7137,6 +7119,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/firealarm{
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -7288,8 +7273,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/mine/laborcamp)
 "NE" = (
@@ -7997,7 +7981,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "Sv" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -8500,8 +8486,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
 "VO" = (
@@ -9163,6 +9148,10 @@
 "ZA" = (
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -25
 	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -26403,7 +26392,7 @@ fw
 lh
 vS
 IZ
-mU
+aR
 dd
 TV
 dA

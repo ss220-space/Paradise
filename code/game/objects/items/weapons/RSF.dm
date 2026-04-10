@@ -11,7 +11,7 @@ RSF
 	icon_state = "rsf"
 	var/matter = 0
 	var/mode = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	var/list/configured_items = list()
 
 /obj/item/rsf/New(use_rsf_list = TRUE)

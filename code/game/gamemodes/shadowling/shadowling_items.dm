@@ -31,7 +31,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	heat_protection = null //You didn't expect a light-sensitive creature to have heat resistance, did you?
 	max_heat_protection_temperature = null
-	armor = list(melee = 25, bullet = 25, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
+	armor = list(melee = 25, bullet = 25, laser = 0, energy = 10, bomb = 25, bio = 100, fire = 100, acid = 100)
 	item_flags = ABSTRACT|DROPDEL
 	species_restricted = null
 
@@ -105,7 +105,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	item_flags = ABSTRACT|DROPDEL
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 

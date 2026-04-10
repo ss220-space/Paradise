@@ -47,7 +47,7 @@
 		/obj/item/ammo_box/magazine/enforcer/lethal = 8,
 		/obj/item/ammo_box/magazine/sp8 = 8,
 
-		/obj/item/ammo_box/magazine/laser = 12,
+		/obj/item/ammo_box/magazine/ik60mag = 12,
 		/obj/item/ammo_box/magazine/wt550m9 = 20,
 		/obj/item/ammo_box/magazine/m556 = 12,
 		/obj/item/ammo_box/a40mm = 4,
@@ -123,8 +123,8 @@
 	products = list(
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/gun/projectile/automatic/lasercarbine = 3,
-		/obj/item/ammo_box/magazine/laser = 6,
+		/obj/item/gun/projectile/automatic/ik60 = 3,
+		/obj/item/ammo_box/magazine/ik60mag = 6,
 		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
@@ -165,7 +165,7 @@
 	req_access = list(ACCESS_CENT_SECURITY)
 
 	products = list(
-		/obj/item/gun/projectile/automatic/ar = 3,
+		/obj/item/gun/projectile/automatic/arg = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
 		/obj/item/gun/projectile/automatic/m52 = 3,
 		/obj/item/ammo_box/magazine/m52mag = 6,
@@ -217,6 +217,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/gun/projectile/shotgun/winchester = 3,
 		/obj/item/ammo_box/shotgun/rubbershot = 6,
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
@@ -254,6 +255,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/gun/projectile/shotgun/winchester = 2,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
 		/obj/item/ammo_box/shotgun = 2,
 		/obj/item/ammo_box/magazine/enforcer = 6,
@@ -297,7 +299,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
 		/obj/item/gun/projectile/automatic/l6_saw = 6,
-		/obj/item/ammo_box/magazine/a762x51/ap = 12,
+		/obj/item/ammo_box/magazine/l6saw/ap = 12,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 6,
 		/obj/item/gun/energy/immolator = 6,
 		/obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12,

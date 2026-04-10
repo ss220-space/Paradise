@@ -133,6 +133,7 @@
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
+		radiation_pulse(src, max_range = 15, threshold = RAD_EXTREME_INSULATION, chance = 50)
 		pulse()
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
@@ -467,9 +468,9 @@
 	empulse(src, 8, 10)
 
 /obj/singularity/proc/pulse()
-	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
-		if(R.z == z && get_dist(R, src) <= 15) // Better than using orange() every process
-			R.receive_pulse(energy)
+	for(var/obj/machinery/power/energy_accumulator/rad_collector/collector as anything in GLOB.rad_collectors)
+		if(collector.z == z && get_dist(collector, src) <= 15) // Better than using orange() every process
+			collector.receive_pulse(energy)
 
 /obj/singularity/proc/update_warp()
 	if(!warp)

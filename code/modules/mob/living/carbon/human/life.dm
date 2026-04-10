@@ -81,7 +81,7 @@
 		var/obj/item/clothing/suit = wear_suit
 		var/obj/item/clothing/helmet = head
 		// Complete set of pressure-proof suit worn, assume fully sealed.
-		if((suit.clothing_flags & STOPSPRESSUREDMAGE) && (helmet.clothing_flags & STOPSPRESSUREDMAGE))
+		if((suit.clothing_flags & STOPSPRESSUREDAMAGE) && (helmet.clothing_flags & STOPSPRESSUREDAMAGE))
 			return ONE_ATMOSPHERE
 
 	if(ismovable(loc))
@@ -158,7 +158,7 @@
 				if(3)
 					emote("drool")
 
-/mob/living/carbon/human/handle_mutations_and_radiation()
+/mob/living/carbon/human/handle_mutations(time_since_irradiated, seconds_per_tick)
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			gene.OnMobLife(src)
@@ -180,66 +180,11 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(radiation)
-		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
-			radiation = clamp(radiation, 0, max_radiation)
-
-			var/autopsy_damage = 0
-			switch(radiation)
-				if(1 to 49)
-					radiation = max(radiation-1, 0)
-					if(prob(25))
-						apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
-						autopsy_damage = 2
-
-				if(50 to 74)
-					radiation = max(radiation-2, 0)
-					apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
-					autopsy_damage = 2
-					if(prob(5))
-						radiation = max(radiation-5, 0)
-						Weaken(6 SECONDS)
-						to_chat(src, span_danger("Вы чувствуете слабость."))
-						emote("collapse")
-
-				if(75 to 100)
-					radiation = max(radiation-2, 0)
-					apply_damages(burn = 2, tox = 2, spread_damage = TRUE)
-					autopsy_damage = 4
-					if(prob(2))
-						to_chat(src, span_danger("Вы мутируете!"))
-						randmutb(src)
-						check_genes()
-
-				if(101 to 150)
-					radiation = max(radiation-3, 0)
-					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
-					autopsy_damage = 5
-					if(prob(4))
-						to_chat(src, span_danger("Вы мутируете!"))
-						randmutb(src)
-						check_genes()
-
-				if(151 to INFINITY)
-					radiation = max(radiation-3, 0)
-					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
-					autopsy_damage = 5
-					if(prob(6))
-						to_chat(src, span_danger("Вы мутируете!"))
-						randmutb(src)
-						check_genes()
-
-			if(autopsy_damage)
-				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
-				if(chest)
-					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
-
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
 		..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
-
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 
 	if(!lungs || (lungs && lungs.is_dead()))
@@ -299,7 +244,7 @@
 				adjust_bodytemperature(min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX))
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
-	if(bodytemperature > dna.species.heat_level_1)
+	if(bodytemperature > dna.species.heat_level_1 && !HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		//Body temperature is too hot.
 		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return TRUE	//godmode
@@ -393,6 +338,26 @@
 			var/pressure_damage = LOW_PRESSURE_DAMAGE * physiology.pressure_mod * physiology.brute_mod
 			take_overall_damage(brute = pressure_damage, used_weapon = "Low Pressure")
 			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
+
+	handle_gas_interaction(src, readonly_environment)
+
+/**
+ *	Handles exposure to the skin of various gases.
+ */
+/mob/living/carbon/human/proc/handle_gas_interaction(mob/living/carbon/human/human, datum/gas_mixture/environment)
+	/// Some non-clothing items may end up in these slots, e.g. flowers worn on the head, so we should consider clothing_flags as potentially nonexistant as a var.
+	/// Otherwise we will get a very spammy runtime.
+	var/suit_flags = astype(human?.wear_suit, /obj/item/clothing)?.clothing_flags
+	var/head_flags = astype(human?.head, /obj/item/clothing)?.clothing_flags
+
+	if((suit_flags & STOPSPRESSUREDAMAGE) && (head_flags & STOPSPRESSUREDAMAGE))
+		return
+
+	for(var/gas_id, gas_amount in environment.get_interesting())
+		switch(gas_id)
+			if(TLV_ANTINOBLIUM) // Antinoblium - irradiates the target.
+				if(gas_amount >= MOLES_GAS_VISIBLE && prob(min(gas_amount, 100)))
+					SSradiation.irradiate(human)
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()

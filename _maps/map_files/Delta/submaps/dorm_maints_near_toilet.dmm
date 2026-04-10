@@ -219,9 +219,8 @@
 /area/template_noop)
 "jV" = (
 /obj/structure/table,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 1
 	},
 /obj/structure/bedsheetbin,
 /obj/structure/window/reinforced{
@@ -483,8 +482,7 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "yu" = (
@@ -514,8 +512,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "yT" = (
@@ -669,6 +666,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -689,7 +690,7 @@
 	dir = 4
 	},
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol/enforcer/security,
+/obj/item/gun/projectile/automatic/pistol/enforcer,
 /obj/item/clothing/suit/storage/zazalord,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
@@ -720,8 +721,7 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "DP" = (
@@ -808,8 +808,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/coatrack,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "Gj" = (
@@ -851,8 +850,7 @@
 /area/template_noop)
 "HD" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Ih" = (

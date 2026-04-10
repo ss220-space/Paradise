@@ -56,6 +56,12 @@
 	/// Is this object emagged?
 	var/emagged = FALSE
 
+/obj/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, obj_flags))
+		if((obj_flags & DANGEROUS_POSSESSION) && !(var_value & DANGEROUS_POSSESSION))
+			return FALSE
+	return ..()
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -363,3 +369,12 @@
 /// ImageButton element in TGUI, for example
 /obj/proc/get_short_name()
 	return declent_ru(NOMINATIVE)
+
+/**
+ * Returns a list of obj's that should be displayed in the uplink purchase log.
+ * Override for specific types.
+ */
+/obj/proc/get_uplink_log_items()
+	RETURN_TYPE(/list)
+	SHOULD_CALL_PARENT(FALSE)
+	return list(src)

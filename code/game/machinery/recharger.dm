@@ -63,7 +63,7 @@
 		to_chat(user, span_warning("[src] blinks red as you try to insert [I]."))
 		return .
 
-	if(istype(I, /obj/item/gun/energy))
+	if(isenergygun(I))
 		var/obj/item/gun/energy/e_gun = I
 		if(!e_gun.can_charge)
 			to_chat(user, span_warning("Your gun has no external power connector."))
@@ -147,7 +147,7 @@
 		..(severity)
 		return
 
-	if(istype(charging, /obj/item/gun/energy))
+	if(isenergygun(charging))
 		var/obj/item/gun/energy/E = charging
 		if(E.cell)
 			E.cell.emp_act(severity)
@@ -202,7 +202,7 @@
 	if(!check_cell_needs_recharging(C))
 		return FALSE
 
-	if(istype(charging, /obj/item/gun/energy))
+	if(isenergygun(charging))
 		recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
 
 		var/obj/item/gun/energy/E = charging

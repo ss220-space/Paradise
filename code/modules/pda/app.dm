@@ -47,6 +47,8 @@
 		balloon_recipients += target_living
 		SStgui.update_user_uis(target_living, pda) // Update the receiving user's PDA UI so that they can see the new message
 
+	balloon_recipients -= target_living
+
 	if(!pda.silent)
 		pda.play_ringtone(balloon_recipients)
 
@@ -95,17 +97,17 @@
 
 /datum/data/pda/utility/scanmode/New(obj/item/cartridge/C)
 	..(C)
-	name = "Enable [base_name]"
+	name = "Вкл [base_name]"
 
 /datum/data/pda/utility/scanmode/start()
 	if(pda.scanmode)
-		pda.scanmode.name = "Enable [pda.scanmode.base_name]"
+		pda.scanmode.name = "Вкл [pda.scanmode.base_name]"
 
 	if(pda.scanmode == src)
 		pda.scanmode = null
 	else
 		pda.scanmode = src
-		name = "Disable [base_name]"
+		name = "Выкл [base_name]"
 
 	pda.update_shortcuts()
 	return TRUE

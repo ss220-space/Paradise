@@ -7,8 +7,7 @@
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "aN" = (
@@ -90,8 +89,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "bQ" = (
@@ -169,26 +167,17 @@
 	pixel_x = -6;
 	pixel_y = -3
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "dA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /obj/machinery/light/small/built{
 	dir = 8
@@ -266,12 +255,7 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
 	},
@@ -333,8 +317,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "gD" = (
@@ -406,12 +389,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /obj/structure/coatrack,
 /obj/item/clothing/suit/storage/labcoat/cmo{
@@ -565,8 +544,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "lZ" = (
@@ -607,8 +585,7 @@
 /area/shuttle/abandoned)
 "mA" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -645,8 +622,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "nv" = (
@@ -677,8 +653,7 @@
 /obj/item/clothing/shoes/color/blue,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "oy" = (
@@ -790,8 +765,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "re" = (
@@ -938,12 +912,7 @@
 /area/shuttle/abandoned)
 "sU" = (
 /obj/structure/table/tray,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/retractor,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
@@ -975,8 +944,7 @@
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "tQ" = (
@@ -1000,8 +968,7 @@
 	},
 /obj/machinery/door/airlock/medical,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "ux" = (
@@ -1248,8 +1215,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "zf" = (
@@ -1395,8 +1361,7 @@
 	},
 /obj/item/clothing/under/rank/medical/purple,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "CD" = (
@@ -1440,8 +1405,7 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "DO" = (
@@ -1565,8 +1529,7 @@
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "GK" = (
@@ -1627,8 +1590,7 @@
 /area/shuttle/abandoned)
 "Il" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "IA" = (
@@ -1689,8 +1651,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "Jw" = (
@@ -1709,8 +1670,7 @@
 /area/shuttle/abandoned)
 "JI" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (NORTH)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -1868,12 +1828,8 @@
 	},
 /area/shuttle/abandoned)
 "Nx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /obj/structure/closet/l3closet,
 /turf/simulated/floor/plasteel{
@@ -1959,9 +1915,7 @@
 	},
 /area/shuttle/abandoned)
 "Op" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)"
-	},
+/obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "Oq" = (
@@ -1976,8 +1930,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "Oy" = (
@@ -2053,8 +2006,7 @@
 /area/shuttle/abandoned)
 "RU" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	tag = "icon-propulsion (NORTH)"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
@@ -2081,8 +2033,7 @@
 	name = "Легендарная монтировка"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "Sm" = (
@@ -2132,12 +2083,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /obj/structure/rack,
 /obj/item/extinguisher/mini,
@@ -2197,8 +2144,7 @@
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 "UZ" = (
@@ -2236,12 +2182,7 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2272,8 +2213,7 @@
 /obj/machinery/power/smes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/shuttle/abandoned)
 "WZ" = (
@@ -2311,15 +2251,13 @@
 	health = 45
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "XH" = (
 /obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	icon_state = "whitebluefull"
 	},
 /area/shuttle/abandoned)
 "XK" = (
@@ -2343,12 +2281,8 @@
 /area/shuttle/abandoned)
 "Ym" = (
 /obj/structure/rack,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
@@ -2454,8 +2388,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue"
+	icon_state = "whiteblue"
 	},
 /area/shuttle/abandoned)
 

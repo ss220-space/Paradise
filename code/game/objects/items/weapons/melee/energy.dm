@@ -4,13 +4,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	item_flags = NOSHARPENING
 	light_power = 2
 	light_range = 2
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+	heat = T3500K
 	var/active = 0
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
@@ -80,8 +81,8 @@
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/energy/get_heat()
-	return active * 3500
+/obj/item/melee/energy/get_temperature()
+	return active * heat
 
 /obj/item/melee/energy/axe
 	name = "energy axe"

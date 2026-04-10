@@ -342,6 +342,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/attacher = UNKNOWN_STATUS_RUS
 	var/datum/wires/explosive/gibtonite/wires
 
+/obj/item/twohanded/required/gibtonite/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/twohanded/required/gibtonite/get_ru_names()
 	return list(
 		NOMINATIVE = "гибтонит",
@@ -502,6 +506,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			if(!QDELETED(src))
 				qdel(src)
 
+/obj/item/twohanded/required/gibtonite/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/turf = get_turf(base)
+	forceMove(turf)
+	GibtoniteReaction(null, 1)
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+
 /obj/item/stack/ore/ex_act(severity, target)
 	if(!severity || severity <= EXPLODE_HEAVY)
 		return
@@ -583,6 +594,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
+
+/obj/item/coin/uranium/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_CHANCE)
 
 /obj/item/coin/clown
 	cmineral = "bananium"

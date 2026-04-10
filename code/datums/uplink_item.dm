@@ -46,6 +46,8 @@
 
 	return .
 
+#undef UPLINK_DISCOUNTS
+
 /datum/uplink_item
 	/// Uplink name.
 	var/name = "item name"
@@ -127,7 +129,6 @@
  * * buyer - mob who performs the transaction.
  */
 /datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer, put_in_hands = TRUE)
-
 	if(!istype(target_uplink))
 		return FALSE
 
@@ -145,52 +146,66 @@
 		return FALSE
 
 	. = TRUE
-
 	buyer.set_machine(target_uplink)
 
 	var/obj/spawned = spawn_item(buyer, target_uplink)
-
 	if(!spawned)
 		return .
 
-	if(category == "Снаряжение со скидкой" && refundable)
-		var/obj/item/refund_item
-		if(istype(spawned, refund_path))
-			refund_item = spawned
-		else
-			refund_item = locate(refund_path) in spawned
+	// Process refundable discount items
+	handle_discount_refund(spawned)
 
-		if(!item_to_refund_cost)
-			item_to_refund_cost = list()
+	// Log the purchase
+	log_purchase(buyer)
 
-		if(refund_item)
-			item_to_refund_cost[refund_item.UID()] = cost
-		else
-			stack_trace("Can not find [refund_path] in [src]")
-
-	if(limited_stock > 0)
-		limited_stock--
-		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
-		if(!buyer.mind.special_role)
-			message_admins("[key_name_admin(buyer)] purchased [name] (discounted to [cost]), as a non antagonist.")
-	else
-		add_game_logs("purchased [name].", buyer)
-		if(!buyer.mind.special_role)
-			message_admins("[key_name_admin(buyer)] purchased [name], as a non antagonist.")
-
+	// Place item in hands if requested
 	if(put_in_hands)
 		buyer.put_in_any_hand_if_possible(spawned)
 
-	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
-		for(var/atom/box_item in spawned)
-			target_uplink.purchase_log += span_fontsize4(icon2base64html(box_item))
-	else
-		target_uplink.purchase_log += span_fontsize4(icon2base64html(spawned))
+	// Append item icons to the uplink's purchase log
+	var/list/items_to_log = spawned.get_uplink_log_items()
+	for(var/atom/atom_to_display in items_to_log)
+		target_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
 
 	return spawned
 
-//Discounts (dynamically filled above)
+/// Handles refund tracking for discount category items.
+/datum/uplink_item/proc/handle_discount_refund(obj/spawned)
+	if(category != "Снаряжение со скидкой" || !refundable)
+		return
 
+	var/obj/item/refund_item
+	if(istype(spawned, refund_path))
+		refund_item = spawned
+	else
+		refund_item = locate(refund_path) in spawned
+
+	if(!item_to_refund_cost)
+		item_to_refund_cost = list()
+
+	if(refund_item)
+		item_to_refund_cost[refund_item.UID()] = cost
+	else
+		stack_trace("Can not find [refund_path] in [src]")
+
+/// Logs the purchase to game logs and admins, and reduces limited stock if applicable.
+/datum/uplink_item/proc/log_purchase(mob/buyer)
+	var/log_message
+	var/admin_message
+
+	if(limited_stock > 0)
+		limited_stock--
+		log_message = "purchased [name]. [name] was discounted to [cost]."
+		admin_message = "[key_name_admin(buyer)] purchased [name] (discounted to [cost]), as a non antagonist."
+	else
+		log_message = "purchased [name]."
+		admin_message = "[key_name_admin(buyer)] purchased [name], as a non antagonist."
+
+	add_game_logs(log_message, buyer)
+	if(!buyer.mind.special_role)
+		message_admins(span_adminnotice(admin_message))
+
+//Discounts (dynamically filled above)
 /datum/uplink_item/discounts
 	category = "Снаряжение со скидкой"
 
@@ -414,7 +429,7 @@
 			Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
-	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
@@ -489,7 +504,7 @@
 			В комплект входит аккумулятор, который можно заменить с помощью кусачек."
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 7
-	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 //Bartender
 
@@ -529,7 +544,7 @@
 			Для активации устройства необходимо встать на кабель с питанием."
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 33
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Набор экспериментальных инструментов"
@@ -537,8 +552,8 @@
 	item = /obj/item/storage/toolbox/syndisuper
 	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
-			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, \
+			JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
 //SCI
 
@@ -622,7 +637,7 @@
 			Кроме того, для передвижения внутри вентиляции вам потребуются свободные руки."
 	item = /obj/item/clothing/under/contortionist
 	cost = 50
-	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Энергетический пожарный топор"
@@ -630,14 +645,14 @@
 			Однако для повторного заряда требуется определённое время. Кроме того, этот топор значительно острее обычного и может пробивать лёгкую броню."
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 18
-	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/uplink_item/jobspecific/combat_rcd
 	name = "УБС \"Синдиката\""
 	desc = "Способно разрушать укреплённые стены. Имеет 500 единиц материи вместо стандартных 100."
 	item = /obj/item/rcd/combat
 	cost = 25
-	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF_ENGINEER)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/poisonbottle
@@ -645,7 +660,7 @@
 	desc = "Синдикат отправит вам флакон с 40 единицами случайно выбранного яда. Этот яд может быть как совершенно неэффективным, так и крайне смертельным."
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
-	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/poison_pen
@@ -1162,7 +1177,7 @@
 /datum/uplink_item/ammo/machinegun
 	name = "Ручной пулемёт L6 SAW — магазин 5.56x45 мм"
 	desc = "Магазин на 50 патронов калибра 5.56x45 мм."
-	item = /obj/item/ammo_box/magazine/a762x51
+	item = /obj/item/ammo_box/magazine/l6saw
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -2677,5 +2692,3 @@
 	desc = "Коробка с экипировкой, предназначенной только для контрактников."
 	item = /obj/item/storage/box/syndie_kit/contractor_loadout
 	cost = 40
-
-#undef UPLINK_DISCOUNTS
