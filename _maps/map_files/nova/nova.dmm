@@ -1497,14 +1497,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
-<<<<<<< Updated upstream
-=======
-"amm" = (
-/obj/effect/landmark/spawner/honk_squad,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/shuttle,
-/area/shuttle/arrival/station)
->>>>>>> Stashed changes
 "amn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -9495,14 +9487,6 @@
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
-<<<<<<< Updated upstream
-=======
-"btz" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
->>>>>>> Stashed changes
 "btJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11362,16 +11346,6 @@
 	dir = 1
 	},
 /area/quartermaster/office)
-<<<<<<< Updated upstream
-=======
-"bFO" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/engineering/aienter)
->>>>>>> Stashed changes
 "bFQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -11588,19 +11562,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/medbay)
-<<<<<<< Updated upstream
-=======
-"bHj" = (
-/obj/structure/closet/crate/critter,
-/obj/effect/spawner/lootdrop/maintenance/double,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/maintenance/apmaint)
->>>>>>> Stashed changes
 "bHl" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/wall/r_wall/coated,
@@ -12974,14 +12935,6 @@
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
-<<<<<<< Updated upstream
-=======
-"bRB" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/exit)
->>>>>>> Stashed changes
 "bRE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -16476,15 +16429,6 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-<<<<<<< Updated upstream
-=======
-"csJ" = (
-/obj/structure/closet/crate/critter,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/disposal)
->>>>>>> Stashed changes
 "csP" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -16867,20 +16811,6 @@
 	icon_state = "floorgrime"
 	},
 /area/maintenance/fsmaint)
-<<<<<<< Updated upstream
-=======
-"cvl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/bot_assembly/toolbox_tiles,
-/turf/simulated/floor/plating,
-/area/maintenance/tourist)
->>>>>>> Stashed changes
 "cvL" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/item/twohanded/required/kirbyplants,
@@ -17846,13 +17776,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
-<<<<<<< Updated upstream
-=======
-"cEl" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint3)
->>>>>>> Stashed changes
 "cEr" = (
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/southeast,
@@ -18923,16 +18846,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningstorage)
-<<<<<<< Updated upstream
-=======
-"cMC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/bot_assembly/toolbox_tiles,
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
->>>>>>> Stashed changes
 "cMD" = (
 /obj/structure/sign/nosmoking_2,
 /turf/simulated/wall/r_wall,
@@ -27628,19 +27541,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/civilian/vacantoffice)
-<<<<<<< Updated upstream
-=======
-"edn" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plating,
-/area/maintenance/tourist)
->>>>>>> Stashed changes
 "edt" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -34061,23 +33961,6 @@
 	icon_state = "asteroid"
 	},
 /area/hydroponics)
-<<<<<<< Updated upstream
-=======
-"faw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Departure Lounge East Enter"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "escape"
-	},
-/area/hallway/secondary/exit/maint)
->>>>>>> Stashed changes
 "fax" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -41253,22 +41136,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/customs)
-<<<<<<< Updated upstream
-=======
-"gdh" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/command)
->>>>>>> Stashed changes
 "gdl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -44113,21 +43980,6 @@
 	tag = "icon-whitepurple (WEST)"
 	},
 /area/medical/research/nhallway)
-<<<<<<< Updated upstream
-=======
-"gzg" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/pipe/multiz{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel/dark,
-/area/engineering/controlroom)
->>>>>>> Stashed changes
 "gzl" = (
 /obj/structure/table/wood,
 /obj/machinery/light,
@@ -45477,16 +45329,6 @@
 	dir = 1
 	},
 /area/maintenance/trading)
-<<<<<<< Updated upstream
-=======
-"gKl" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/hallway/secondary/entry/lounge)
->>>>>>> Stashed changes
 "gKr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -60526,16 +60368,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
-<<<<<<< Updated upstream
-=======
-"iZJ" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/hallway/primary/central/second/east)
->>>>>>> Stashed changes
 "iZM" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -69044,15 +68876,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
-<<<<<<< Updated upstream
-=======
-"kma" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel/dark,
-/area/engineering/controlroom)
->>>>>>> Stashed changes
 "kmb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -69983,13 +69806,6 @@
 	icon_state = "red"
 	},
 /area/security/customs)
-<<<<<<< Updated upstream
-=======
-"ktU" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
->>>>>>> Stashed changes
 "ktX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -72407,14 +72223,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/bridge/meeting_room)
-<<<<<<< Updated upstream
-=======
-"kOo" = (
-/obj/structure/closet/crate/large,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/tourist)
->>>>>>> Stashed changes
 "kOr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -74275,16 +74083,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/theatre)
-<<<<<<< Updated upstream
-=======
-"lbJ" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkpurple"
-	},
-/area/assembly/chargebay)
->>>>>>> Stashed changes
 "lbK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -76058,32 +75856,6 @@
 	icon_state = "red"
 	},
 /area/security/warden)
-<<<<<<< Updated upstream
-=======
-"lqD" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Virology Main Hall";
-	dir = 9;
-	network = list("Medical","SS13")
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitegreen"
-	},
-/area/medical/virology/lab)
->>>>>>> Stashed changes
 "lqH" = (
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 1
@@ -78844,19 +78616,6 @@
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint6)
-<<<<<<< Updated upstream
-=======
-"lNK" = (
-/obj/item/toy/figure/ninja,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1379;
-	id_tag = "ex_pump"
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/engine/insulated,
-/area/maintenance/apmaint)
->>>>>>> Stashed changes
 "lNR" = (
 /turf/simulated/wall,
 /area/engineering/aienter)
@@ -82611,16 +82370,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
-<<<<<<< Updated upstream
-=======
-"mpm" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/hallway/secondary/exit)
->>>>>>> Stashed changes
 "mpo" = (
 /turf/simulated/wall,
 /area/crew_quarters/cabin1)
@@ -83882,33 +83631,6 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/bridge/meeting_room)
-<<<<<<< Updated upstream
-=======
-"mAq" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/commercial)
-"mAt" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/chair/comfy/black{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/quartermaster/office)
->>>>>>> Stashed changes
 "mAw" = (
 /obj/effect/turf_decal/arrows/white,
 /obj/effect/turf_decal/number/number_2{
@@ -84461,22 +84183,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-<<<<<<< Updated upstream
-=======
-"mFk" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/crew_quarters/fitness)
->>>>>>> Stashed changes
 "mFo" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "packageSort1"
@@ -84869,20 +84575,6 @@
 	icon_state = "dark"
 	},
 /area/engineering/mechanic_workshop/hangar)
-<<<<<<< Updated upstream
-=======
-"mIB" = (
-/obj/machinery/light/small,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowfull"
-	},
-/area/quartermaster/sorting)
->>>>>>> Stashed changes
 "mIH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -92335,24 +92027,6 @@
 	icon_state = "white"
 	},
 /area/medical/biostorage)
-<<<<<<< Updated upstream
-=======
-"nLG" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/northeast,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/engineering/break_room)
->>>>>>> Stashed changes
 "nLM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -97778,16 +97452,6 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
-<<<<<<< Updated upstream
-=======
-"oDk" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/arrival/station)
->>>>>>> Stashed changes
 "oDn" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -102089,15 +101753,6 @@
 	},
 /turf/simulated/wall,
 /area/hallway/primary/central/south)
-<<<<<<< Updated upstream
-=======
-"piV" = (
-/obj/structure/closet/crate/critter,
-/obj/item/clothing/mask/facehugger/toy,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/apmaint)
->>>>>>> Stashed changes
 "piY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -107457,16 +107112,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/storage/tech)
-<<<<<<< Updated upstream
-=======
-"pWE" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/hallway/primary/central/second/west)
->>>>>>> Stashed changes
 "pWF" = (
 /obj/structure/chair{
 	dir = 4
@@ -110543,14 +110188,6 @@
 /obj/structure/ladder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-<<<<<<< Updated upstream
-=======
-"quH" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/commercial)
->>>>>>> Stashed changes
 "quN" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 1
@@ -111509,18 +111146,6 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
-<<<<<<< Updated upstream
-=======
-"qBq" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel,
-/area/engineering/engine)
->>>>>>> Stashed changes
 "qBu" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
@@ -118972,16 +118597,6 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
-<<<<<<< Updated upstream
-=======
-"rGe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/critter,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel,
-/area/maintenance/apmaint)
->>>>>>> Stashed changes
 "rGh" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -125880,20 +125495,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-<<<<<<< Updated upstream
-=======
-"sGh" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
-	},
-/area/assembly/robotics)
->>>>>>> Stashed changes
 "sGi" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -128797,25 +128398,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-<<<<<<< Updated upstream
-=======
-"tbg" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
-/obj/item/radio/intercom/directional/north,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
-	},
-/area/toxins/test_chamber)
->>>>>>> Stashed changes
 "tbi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -129555,37 +129137,6 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/gravitygenerator)
-<<<<<<< Updated upstream
-=======
-"tfW" = (
-/obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/brigstaff)
-"tga" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/machinery/camera{
-	c_tag = "Pod East";
-	dir = 8;
-	network = list("SS13","Security")
-	},
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
-	},
-/area/engineering/mechanic_workshop/hangar)
->>>>>>> Stashed changes
 "tgk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -131029,27 +130580,6 @@
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/theatre)
-<<<<<<< Updated upstream
-=======
-"trR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
->>>>>>> Stashed changes
 "trW" = (
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dust,
@@ -132553,16 +132083,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
-<<<<<<< Updated upstream
-=======
-"tCV" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/hallway/primary/starboard)
->>>>>>> Stashed changes
 "tDc" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26;
@@ -137965,14 +137485,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
-<<<<<<< Updated upstream
-=======
-"ury" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/additional)
->>>>>>> Stashed changes
 "urD" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -139834,33 +139346,6 @@
 	dir = 1
 	},
 /area/security/brig)
-<<<<<<< Updated upstream
-=======
-"uFZ" = (
-/obj/structure/table,
-/obj/item/bot_assembly/secbot_assembly{
-	created_name = "Officer Podsky";
-	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
-	name = "Обломки офицера Подски";
-	pixel_y = 10
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/item/extinguisher{
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/security/podbay)
->>>>>>> Stashed changes
 "uGb" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/engine,
@@ -147750,29 +147235,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
-<<<<<<< Updated upstream
-=======
-"vPp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/medical/morgue)
->>>>>>> Stashed changes
 "vPr" = (
 /obj/machinery/papershredder,
 /obj/machinery/camera{

@@ -87,18 +87,12 @@
 				if(!QDELETED(room))
 					INVOKE_ASYNC(room, PROC_REF(load_room_async))
 			pending_landmarks.Cut()
-<<<<<<< Updated upstream
 			loader_landmark = null
 			qdel(src)
 			return
 		else
 			pending_landmarks |= src
 			return
-=======
-		else
-			pending_landmarks |= src
-		return
->>>>>>> Stashed changes
 
 	var/list/room_list = (dir == NORTH) ? north_room_templates : south_room_templates
 	var/datum/map_template/map_template = safepick(room_list)
@@ -106,11 +100,8 @@
 		room_list -= map_template
 		load(map_template)
 
-<<<<<<< Updated upstream
 	qdel(src)
 
-=======
->>>>>>> Stashed changes
 /obj/effect/landmark/map_loader/hotel_room/proc/load_templates()
 	if(templates_loaded)
 		return

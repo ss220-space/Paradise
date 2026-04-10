@@ -501,11 +501,7 @@
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
 		investigate_log("has irradiated [key_name(victim)].", INVESTIGATE_ENGINE)
-<<<<<<< Updated upstream
 	else if(issingularity(AM))
-=======
-	else if(istype(AM, /obj/singularity))
->>>>>>> Stashed changes
 		return
 	else if(istype(AM, /obj/item/nuke_core_container))
 		return

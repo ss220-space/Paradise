@@ -5,11 +5,7 @@ on:
 
 jobs:
   notify:
-<<<<<<< Updated upstream
     runs-on: ubuntu-24.04
-=======
-    runs-on: ubuntu-latest
->>>>>>> Stashed changes
     steps:
       - name: "Check for DISCORD_WEBHOOK"
         id: secrets_set
@@ -21,29 +17,12 @@ jobs:
           echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
 
       - name: Send Discord notification
-<<<<<<< Updated upstream
         uses: MiraHell/discord-notify@v3.3
-=======
-        uses: tgstation/discord-notify@v3
->>>>>>> Stashed changes
         if: ${{ steps.secrets_set.outputs.SECRETS_ENABLED }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-<<<<<<< Updated upstream
           message: GET_ACTION
-=======
-          message: ${{ format('{0}{1}',
-              (github.event.action == 'closed' &&
-                (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
-                format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
-              ) ||
-              github.event.action == ('opened' || 'reopened') &&
-                format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
-              ),
-            (steps.process_body.outputs.CLEAN_BODY) || ''
-            )}}
->>>>>>> Stashed changes
           include_image: false
           show_author: true
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403077083076366546/1984.png?ex=68963cdc&is=6894eb5c&hm=7f654bcb85dec940417a6e393b461382e7284d545f8336807bc753a38b040e01&

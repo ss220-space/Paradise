@@ -19,11 +19,7 @@
 	desc = "A wall mounted locker with emergency supplies."
 	icon_state = "emerg"
 	icon_closed = "emerg"
-<<<<<<< Updated upstream
 	icon_opened = "emergopen"
-=======
-	icon_opened = "emerg_open"
->>>>>>> Stashed changes
 
 #define EMERGENCY_CONTENTS_SMALL "small"
 #define EMERGENCY_CONTENTS_AID "aid"

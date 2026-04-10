@@ -6,11 +6,7 @@ on:
     types: [opened]
 jobs:
   remove_guide_comments:
-<<<<<<< Updated upstream
     runs-on: ubuntu-24.04
-=======
-    runs-on: ubuntu-latest
->>>>>>> Stashed changes
     steps:
       - name: Checkout
         uses: actions/checkout@v6

@@ -25,7 +25,6 @@ jobs:
           mv tgui/public/ dmdoc/assets
         # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
 
-<<<<<<< Updated upstream
       - name: "Deploy Documentation"
         uses: crazy-max/ghaction-github-pages@v5
         with:
@@ -35,14 +34,3 @@ jobs:
           jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-=======
-    - name: 'Deploy Documentation'
-      uses: crazy-max/ghaction-github-pages@v5
-      with:
-        target_branch: dmdoc
-        keep_history: false
-        build_dir: dmdoc
-        jekyll: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> Stashed changes

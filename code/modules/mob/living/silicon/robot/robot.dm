@@ -222,7 +222,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/Destroy()
 	SStgui.close_uis(wires)
 
-<<<<<<< Updated upstream
 	evacuate_ai(DANGER_LVL_MAY_DIE)
 
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
@@ -230,13 +229,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		if(mmi_drop_location)
 			mmi.forceMove(mmi_drop_location)
-=======
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.forceMove(T)
->>>>>>> Stashed changes
 
 		if(mmi.brainmob)
 			mind.transfer_to(mmi.brainmob)
@@ -248,11 +240,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		mmi = null
 
-<<<<<<< Updated upstream
 	if(shell)
 		GLOB.available_ai_shells -= src
-=======
->>>>>>> Stashed changes
 	if(connected_ai)
 		connected_ai.connected_robots -= src
 		connected_ai = null
@@ -276,10 +265,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(lamp_button)
 	QDEL_NULL(thruster_button)
 	QDEL_NULL(robot_modules_background)
-<<<<<<< Updated upstream
 	QDEL_NULL(undeployment_action)
-=======
->>>>>>> Stashed changes
 	QDEL_LIST(components)
 	QDEL_LIST(upgrades)
 	QDEL_LIST(module_actions)
@@ -1770,11 +1756,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		var/permit_required = !isnull(new_skin.required_permit)
 		var/donator_tier_required = !isnull(new_skin.donator_tier)
 		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
-<<<<<<< Updated upstream
 			var/has_permit = permit_required && mind?.cyborg_skin_permissions[new_skin.required_permit]
-=======
-			var/has_permit = permit_required && mmi?.skin_permissions[new_skin.required_permit]
->>>>>>> Stashed changes
 			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
 
 			if(!has_permit && !has_donator)

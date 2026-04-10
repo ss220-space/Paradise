@@ -261,13 +261,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
-<<<<<<< Updated upstream
-=======
-"bf" = (
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/plating,
-/area/awaymission/wwrefine)
->>>>>>> Stashed changes
 "bg" = (
 /obj/effect/mine/dnascramble,
 /turf/simulated/floor/plating/ironsand,
@@ -1079,13 +1072,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
-<<<<<<< Updated upstream
-=======
-"dv" = (
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
->>>>>>> Stashed changes
 "dw" = (
 /obj/item/paper{
 	info = "We've discovered something floating in space. We can't really tell how old it is, but it is scraped and bent to hell. There object is the size of about a room with double doors that we have yet to break into.   It is a lot sturdier than we could have imagined.  We have decided to call it 'The Vault' ";
@@ -1352,17 +1338,6 @@
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwgov)
-<<<<<<< Updated upstream
-=======
-"ef" = (
-/obj/structure/closet/crate/large,
-/obj/machinery/light/small{
-	dir = 1;
-	tag = "icon-bulb1 (NORTH)"
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
->>>>>>> Stashed changes
 "eg" = (
 /obj/structure/window/reinforced{
 	dir = 4
