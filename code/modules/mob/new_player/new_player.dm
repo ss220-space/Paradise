@@ -297,8 +297,6 @@
 		return 0
 	if(!job.can_novice_play(client))
 		return 0
-	if(!job.check_custom_requirements(client))
-		return 0
 
 	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == JOB_TITLE_CIVILIAN)
@@ -347,7 +345,7 @@
 /mob/new_player/proc/random_job()
 	var/jobs_available = list()
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && job.check_custom_requirements(client))
 			jobs_available += job.title
 	if(!length(jobs_available))
 		return FALSE
@@ -415,6 +413,12 @@
 
 	if(thisjob.species_in_blacklist(client))
 		var/msg = "Должность [rank] недоступна для данной расы. Пожалуйста, попробуйте другую."
+		to_chat(src, msg)
+		alert(msg)
+		return FALSE
+
+	if(!thisjob.check_custom_requirements(client))
+		var/msg = "Должность [rank] доступна только после получения достижения \"Опора проекта\". Пожалуйста, попробуйте другую."
 		to_chat(src, msg)
 		alert(msg)
 		return FALSE

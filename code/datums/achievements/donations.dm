@@ -27,6 +27,6 @@
 
 /datum/award/achievement/donations/project_pillar
 	name = "Опора проекта"
-	desc = "Ваш вклад в 50 000 рублей стал фундаментальной опорой для развития проекта! Открывает роль \"Инвесторр\""
+	desc = "Ваш вклад в 50 000 рублей стал фундаментальной опорой для развития проекта! Открывает роль \"Инвестор\""
 	database_id = MEDAL_DONATION_PROJECT_PILLAR
 	icon_state = "outdebted"

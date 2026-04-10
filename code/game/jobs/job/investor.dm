@@ -8,7 +8,6 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/investor
 	l_ear = /obj/item/radio/headset/headset_com
-	pda = /obj/item/pda
 	back = /obj/item/storage/backpack/satcheldeluxe
 
 /datum/job/investor
@@ -20,10 +19,12 @@
 	spawn_positions = -1
 	supervisors = "Капитаном"
 	selection_color = "#e6e6e6"
+	transfer_allowed = FALSE
 	access = list(ACCESS_HEADS, ACCESS_ALL_PERSONAL_LOCKERS)
 	minimal_access = list(ACCESS_HEADS, ACCESS_ALL_PERSONAL_LOCKERS)
 	outfit = /datum/outfit/job/investor
 	insurance_type = INSURANCE_TYPE_DELUXE
+	paycheck = PAYCHECK_MAX
 
 /datum/job/investor/check_custom_requirements(client/C)
 	. = ..()
