@@ -1135,10 +1135,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		ShowChoices(user)
 		return
 
-	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER)
+	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER || role == JOB_TITLE_INVESTOR)
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
+			job_support_low |= job.flag
+			job_support_low &= ~(JOB_FLAG_CIVILIAN | JOB_FLAG_PRISONER | JOB_FLAG_INVESTOR)
 			job_support_low |= job.flag
 		SetChoices(user)
 		return 1
