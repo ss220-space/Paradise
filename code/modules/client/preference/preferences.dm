@@ -866,7 +866,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[get_job_title_ru(GetPlayerAltTitle(job))]</a>"
 			else
 				rank = get_job_title_ru(job.title)
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) && (job.title != JOB_TITLE_INVESTOR) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER) && (job.title != JOB_TITLE_INVESTOR) || (job_support_low & JOB_FLAG_INVESTOR) && (job.title != JOB_TITLE_INVESTOR))
 				rank = "<font class='text-muted'>[get_job_title_ru(GetPlayerAltTitle(job))]</font>"
 			lastJob = job
 			if(jobban_isbanned(user, job_title_ru_to_en(job.title)))
@@ -890,6 +890,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(job.species_in_blacklist(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НЕДОСТУПНО ДЛЯ ДАННОЙ РАСЫ]</b></span></td></tr>"
 				continue
+			if(!job.check_custom_requirements(user.client))
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НУЖНО ДОСТИЖЕНИЕ]</b></span></td></tr>"
+				continue
 			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
@@ -898,6 +901,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				html += "</td><td></td></tr>"
 				continue
 			if((job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
+				html += "</td><td></td></tr>"
+				continue
+			if((job_support_low & JOB_FLAG_INVESTOR) && (job.title != JOB_TITLE_INVESTOR))
 				html += "</td><td></td></tr>"
 				continue
 
@@ -937,11 +943,16 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
 				html += "</td></tr>"
-				// index += 1
-				// html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 				continue
 			if(job.title == JOB_TITLE_PRISONER)//Prisoner is special
 				if(job_support_low & JOB_FLAG_PRISONER)
+					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
+				else
+					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
+				html += "</td></tr>"
+				continue
+			if(job.title == JOB_TITLE_INVESTOR)//Investor is special
+				if(job_support_low & JOB_FLAG_INVESTOR)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"

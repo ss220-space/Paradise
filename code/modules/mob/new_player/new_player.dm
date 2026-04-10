@@ -297,6 +297,8 @@
 		return 0
 	if(!job.can_novice_play(client))
 		return 0
+	if(!job.check_custom_requirements(client))
+		return 0
 
 	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == JOB_TITLE_CIVILIAN)

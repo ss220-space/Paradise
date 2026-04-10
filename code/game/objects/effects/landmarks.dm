@@ -574,6 +574,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	name = JOB_TITLE_CHAPLAIN
 	icon_state = "Chap"
 
+/obj/effect/landmark/start/investor
+	name = JOB_TITLE_INVESTOR
+	icon_state = "Investor"
+
 // MARK: COSTUME
 /// Costume spawner, selects a random subclass and disappears
 /obj/effect/landmark/costume/random/Initialize(mapload)

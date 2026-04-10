@@ -142,6 +142,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.species_in_blacklist(player.client))
 			return 0
+		if(!job.check_custom_requirements(player.client))
+			return 0
 
 		var/position_limit = job.total_positions
 		if(!latejoin)
