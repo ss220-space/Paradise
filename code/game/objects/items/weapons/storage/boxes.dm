@@ -863,7 +863,8 @@
 	use_to_pickup = 1
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade/populate_contents()
-	new /obj/item/grenade/chem_grenade/metalfoam(src, rand(2,5))
+	for(var/I in 1 to rand(2,5))
+		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
 /obj/item/storage/box/barber
 	name = "Barber Starter Kit"
