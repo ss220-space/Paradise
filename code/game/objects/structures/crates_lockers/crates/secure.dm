@@ -262,6 +262,16 @@
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	icon_state = "engisecurecrate"
 
+/obj/structure/closet/crate/atmosperics
+	name = "atmospherics crate"
+	desc = "An atmospherics crate."
+	icon_state = "atmoscrate"
+
+/obj/structure/closet/crate/secure/atmosperics
+	name = "secure atmospherics crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's atmospherics."
+	icon_state = "atmossecurecrate"
+
 /obj/structure/closet/crate/secure/biohazard
 	name = "secure biohazard crate"
 	desc = "An protected biohazard crate."

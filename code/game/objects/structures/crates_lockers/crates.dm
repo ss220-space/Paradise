@@ -324,6 +324,31 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
+/obj/structure/closet/crate/engineering/atmosperics
+	name = "atmospherics crate"
+	desc = "An atmospherics crate."
+	icon_state = "atmoscrate"
+
+/obj/structure/closet/crate/secure/engineering/atmosperics
+	name = "secure atmospherics crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's atmospherics."
+	icon_state = "atmossecurecrate"
+
+/obj/structure/closet/crate/engineering/atmosperics/heater
+	name = "atmospherics temperature control unit crate"
+	desc = "An atmospherics crate with parts for self-assembly of the temperature control unit."
+	icon_state = "atmoscrate"
+
+/obj/structure/closet/crate/engineering/atmosperics/heater/populate_contents()
+	new /obj/item/circuitboard/thermomachine(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/stack/sheet/glass(src)
+	new /obj/item/stack/sheet/metal(src, 5)
+	new /obj/item/stack/cable_coil(src, 6)
+
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()
 	new /obj/item/storage/backpack/industrial(src)
