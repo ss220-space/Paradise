@@ -68,7 +68,7 @@
 	icon = 'icons/map_icons/objects.dmi'
 	icon_state = "/obj/structure/chair/sofa/bench"
 	greyscale_config = /datum/greyscale_config/bench_middle
-	greyscale_colors = "#af7d28"
+	greyscale_colors = COLOR_BENCH_BROWN
 	post_init_icon_state = "bench_middle"
 	comfort = 0.1
 
