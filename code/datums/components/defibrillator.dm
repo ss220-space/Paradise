@@ -6,6 +6,8 @@
 	var/robotic
 	/// If it should penetrate space suits
 	var/ignore_hardsuits
+	/// If the user has intent to harm and safeties are off, then it will cause a heart attack instead of reviving.
+	var/heart_attack_chance
 	/// Whether the safeties are enabled or not
 	var/safety
 	/// If the defib is actively performing a defib cycle
@@ -31,12 +33,13 @@
  * * cooldown - Minimum time possible between shocks.
  * * speed_multiplier - Speed multiplier for defib do-afters.
  * * ignore_hardsuits - If true, the defib can zap through hardsuits.
+ * * heart_attack_chance - If safeties are off, the % chance for this to cause a heart attack on harm intent.
  * * safe_by_default - If true, safety will be enabled by default.
  * * emp_proof - If true, safety won't be switched by emp. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * emag_proof - If true, safety won't be switched by emag. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * actual_unit - Unit which the component's parent is based from, such as a large defib unit or a borg. The actual_unit will make the sounds and be the "origin" of visible messages, among other things.
  */
-/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
+/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, heart_attack_chance = 0, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -44,6 +47,7 @@
 	src.speed_multiplier = speed_multiplier
 	src.cooldown = cooldown
 	src.ignore_hardsuits = ignore_hardsuits
+	src.heart_attack_chance = heart_attack_chance
 	safety = safe_by_default
 	src.emp_proof = emp_proof
 	src.emag_proof = emag_proof
@@ -118,6 +122,8 @@
 
 	var/parent_unit = locateUID(actual_unit_uid)
 	var/should_cause_harm = user.a_intent == INTENT_HARM && !safety
+	var/should_cause_disarm = user.a_intent == INTENT_DISARM && !safety
+	var/should_do_offensive_shock = should_cause_harm || should_cause_disarm
 
 	// Find what the defib should be referring to itself as
 	var/atom/defib_ref
@@ -147,9 +153,18 @@
 		user.balloon_alert(user, "неподходящая цель!")
 		return
 
-	if(should_cause_harm)
-		combat_fibrillate(user, target)
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
+	if(should_do_offensive_shock)
+		busy = TRUE
+
+		var/shock_success = FALSE
+		if(should_cause_harm)
+			shock_success = combat_fibrillate(user, target)
+		else if(should_cause_disarm)
+			shock_success = disarm_fibrillate(user, target)
+
+		if(shock_success)
+			SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
+
 		busy = FALSE
 		return
 
@@ -296,10 +311,10 @@
  * * user - wielder of the defib
  * * target - person getting shocked
  */
-/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
+/datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
-		return
-	busy = TRUE
+		return FALSE
+
 	target.visible_message(
 		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
 		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
@@ -317,6 +332,50 @@
 	target.shock_internal_organs(100)
 	set_cooldown(cooldown)
 	busy = FALSE
+
+/**
+ * Inflict burn damage and potentially trigger a heart attack on someone.
+ *
+ * Arguments:
+ * * user - wielder of the defib
+ * * target - person getting shocked
+ */
+/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return FALSE
+
+	if(!do_after(user, 3 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
+		return FALSE
+
+	target.visible_message(
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
+	)
+	playsound(get_turf(parent), 'sound/machines/defib_charge.ogg', 50, FALSE)
+	if(!do_after(user, 2 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
+		return FALSE
+
+	var/damage = ignore_hardsuits ? 70 : 40
+	var/obj/item/organ/external/limb_to_hit = target.get_organ(BODY_ZONE_CHEST)
+	var/armor = target.run_armor_check(limb_to_hit, MELEE)
+	target.apply_damage(damage, BURN, limb_to_hit, armor)
+
+	if(ignore_hardsuits)
+		target.Weaken(4 SECONDS)
+	else
+		target.Knockdown(3 SECONDS)
+
+	if(prob(heart_attack_chance))
+		add_attack_logs(user, target, "Gave a heart attack with [parent]")
+		target.set_heartattack(TRUE)
+
+	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+	target.emote("scream")
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
+	add_attack_logs(user, target, "Shocked with [parent]")
+	target.shock_internal_organs(100)
+	set_cooldown(cooldown)
+	return TRUE
 
 /*
  * Pass excess shock from a defibrillation into someone else.
