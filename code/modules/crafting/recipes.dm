@@ -2117,3 +2117,12 @@
 		/datum/reagent/medicine/synthflesh = 120,
 	)
 	category = CAT_MISC
+
+/datum/crafting_recipe/firstaidkit
+	name = "Экстренная аптечка"
+	result = /obj/item/storage/firstaid/crew
+	time = 5
+	reqs = list(
+		/obj/item/stack/sheet/cloth = 2,
+	)
+	category = CAT_MISC
