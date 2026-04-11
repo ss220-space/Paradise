@@ -34,19 +34,27 @@
 		return
 	if(!item.skins || !length(item.skins))
 		return
-	if(!istype(user)) //only humans use skins
+	if(!istype(user) && user.client) //only humans use skins
 		return
 	if(item.current_skin) //already exists skin, no reskin allowed
 		return
+	if(!user.is_in_hands(item)) // can not apply skin if item not in hands
+		return
 
 	var/list/skin_options = list()
+	var/user_ckey = user.client.ckey
+	var/user_donator_level = user.client.donator_level
 	for(var/datum/item_skin_data/skin as anything in item.skins)
-		if(skin.donation_tier > user.client.donator_level)
+		if(skin.allowed_ckeys && !(user_ckey in skin.allowed_ckeys))
+			continue
+		else if(skin.donation_tier > user_donator_level)
 			continue
 		skin_options[skin.name] = image(icon = (skin.icon ? skin.icon : item.icon), icon_state = (skin.menu_icon_state ? skin.menu_icon_state : skin.icon_state) )
 
 	if(!length(skin_options))
-		to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
+		if(!user.client.donate_offer_text_shown)
+			to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
+			user.client.donate_offer_text_shown = TRUE
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(show_select_skins_radial_menu), item, user, skin_options)
@@ -59,14 +67,22 @@
 	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)
 		return
 
-	var/datum/item_skin_data/skin = skin_options[choice]
-	item.current_skin = skin.icon_state
+	var/datum/item_skin_data/selected_skin = null
+	for(var/datum/item_skin_data/skin as anything in item.skins)
+		if(skin.name == choice)
+			selected_skin = skin
+			break
+
+	var/image/skin_image = skin_options[choice]
+	item.current_skin = skin_image.icon_state
 	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин \"[choice]\".")
-	if(skin.icon != null)
-		item.icon = skin.icon
-	item.base_icon_state = skin.icon_state
-	item.icon_state = skin.icon_state
+	if(skin_image.icon != null)
+		item.icon = skin_image.icon
+	item.base_icon_state = skin_image.icon_state
+	item.icon_state = skin_image.icon_state
 	item.exists_skin_change = FALSE
 	item.skins = null
+	if(selected_skin)
+		selected_skin.on_apply(item)
 	item.update_icon()
 	item.update_equipped_item()

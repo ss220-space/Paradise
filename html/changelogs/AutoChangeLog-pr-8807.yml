@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь при do_after с .cancel_on_max используется UID а не имя (PR #8807)"

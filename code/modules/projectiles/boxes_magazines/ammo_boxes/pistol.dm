@@ -297,6 +297,25 @@
 		PREPOSITIONAL = "коробке патронов (бронебойный .45 Colt)",
 	)
 
+//MARK: 12.7x55
+/obj/item/ammo_box/c12_dot_7X55
+	name = "ammo box (12.7x55 mm)"
+	desc = "Коробка, содержащая патроны калибра 12.7x55 мм."
+	icon_state = "box_12.7"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c12_dot_7X55
+	max_ammo = 20
+
+/obj/item/ammo_box/c12_dot_7X55/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (12.7x55 мм)",
+		GENITIVE = "коробки патронов (12.7x55 мм)",
+		DATIVE = "коробке патронов (12.7x55 мм)",
+		ACCUSATIVE = "коробку патронов (12.7x55 мм)",
+		INSTRUMENTAL = "коробкой патронов (12.7x55 мм)",
+		PREPOSITIONAL = "коробке патронов (12.7x55 мм)",
+	)
+
 // MARK: .50AE
 /obj/item/ammo_box/m50
 	name = "ammo box (.50AE)"

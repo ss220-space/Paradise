@@ -272,6 +272,48 @@
 	new /obj/item/gun/projectile/automatic/lr30(src)
 	new /obj/item/gun/projectile/automatic/lr30(src)
 
+
+/obj/structure/closet/secure_closet/guncabinet/riot_shotgun
+	name = "security riot shotgun cabinet"
+	desc = "Защищённый шкаф для хранения помповых дробовиков."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/riot_shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф помповых дробовиков",
+		GENITIVE = "шкафа помповых дробовиков",
+		DATIVE = "шкафу помповых дробовиков",
+		ACCUSATIVE = "шкаф помповых дробовиков",
+		INSTRUMENTAL = "шкафом помповых дробовиков",
+		PREPOSITIONAL = "шкафе помповых дробовиков",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/riot_shotgun/populate_contents()
+	new /obj/item/gun/projectile/shotgun/riot(src)
+	new /obj/item/gun/projectile/shotgun/riot(src)
+	new /obj/item/gun/projectile/shotgun/riot(src)
+
+/obj/structure/closet/secure_closet/guncabinet/winchester
+	name = "security lever action shotgun cabinet"
+	desc = "Защищённый шкаф для хранения рычажных дробовиков."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/winchester/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф рычажных дробовиков",
+		GENITIVE = "шкафа рычажных дробовиков",
+		DATIVE = "шкафу рычажных дробовиков",
+		ACCUSATIVE = "шкаф рычажных дробовиков",
+		INSTRUMENTAL = "шкафом рычажных дробовиков",
+		PREPOSITIONAL = "шкафе рычажных дробовиков",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/winchester/populate_contents()
+	new /obj/item/gun/projectile/shotgun/winchester(src)
+	new /obj/item/gun/projectile/shotgun/winchester(src)
+	new /obj/item/gun/projectile/shotgun/winchester(src)
+
+
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
 	req_access = list(ACCESS_BRIG)

@@ -16,6 +16,8 @@
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
+	/// Sound to play when the projectile misses a mob (passes through without hitting)
+	var/miss_sound = SFX_BULLET_MISS
 	/// Body part at which the projectile was aimed.
 	var/def_zone = ""
 	/// Mob who shot projectile.

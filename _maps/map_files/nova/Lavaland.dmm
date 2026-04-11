@@ -2268,6 +2268,10 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 27
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "nA" = (
@@ -7006,6 +7010,10 @@
 	pixel_y = 9
 	},
 /obj/machinery/vending/cola,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"

@@ -76,7 +76,7 @@
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
-/// Make some nuild actions quicker
+/// Make some build actions quicker
 #define TRAIT_QUICK_BUILD "quick-build"
 /// Prevents mob from riding mobs when buckled onto something
 #define TRAIT_CANT_RIDE "cant_ride"
@@ -233,8 +233,12 @@
 #define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
 /// Combat exoframe EMP nutrition shield flag
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
+/// Item still allows you to examine items while blind and actively held.
+#define TRAIT_BLIND_TOOL "blind_tool"
 
 #define TRAIT_SHRAPNEL "shrapnel"
+/// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item
+#define TRAIT_CAN_ATTACH_TO_TRIPWIRE "tripwire_attachable"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"
@@ -487,5 +491,11 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// Suppression implant trait
+#define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
+
 ///Trait applied to turf blocked by a containment field
 #define TRAIT_CONTAINMENT_FIELD "containment_field"
+
+/// Prevents the projectile itself from ricocheting.
+#define TRAIT_NO_RICOCHET "no_ricochet"

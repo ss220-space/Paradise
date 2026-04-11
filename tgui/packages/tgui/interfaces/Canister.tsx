@@ -98,9 +98,10 @@ export const Canister = (_props: unknown) => {
                   unit="kPa"
                   minValue={minReleasePressure}
                   maxValue={maxReleasePressure}
+                  tickWhileDragging
                   step={5}
                   stepPixelSize={1}
-                  onDrag={(e, value) =>
+                  onChange={(e, value) =>
                     act('pressure', {
                       pressure: value,
                     })

@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - bugfix: "Исправлены рантаймы импланта миникарты (PR #8808)"

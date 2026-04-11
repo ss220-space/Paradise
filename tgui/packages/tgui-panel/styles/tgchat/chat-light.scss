@@ -215,10 +215,24 @@ h2.alert {
   color: hsl(240, 100%, 30%);
 }
 
+.smallnotice {
+  color: hsl(240, 100%, 30%);
+  font-size: 90%;
+}
+
+.smallnoticeital {
+  color: hsl(240, 100%, 30%);
+  font-style: italic;
+  font-size: 90%;
+}
+
 .subtle {
   color: hsl(240, 100%, 30%);
   font-size: 85%;
   font-style: italic;
+}
+
+.infoplain {
 }
 
 // MARK: Announcements
@@ -290,6 +304,35 @@ h2.alert {
 
 .narsiesmall {
   color: hsl(0, 100%, 29%);
+}
+
+.hypnophrase {
+  color: hsl(0, 0%, 5.1%);
+  font-weight: bold;
+  animation: hypnocolor 1500ms infinite;
+  animation-direction: alternate;
+}
+
+@keyframes hypnocolor {
+  0% {
+    color: hsl(0, 0%, 5.1%);
+  }
+
+  25% {
+    color: hsl(266.1, 98.7%, 29.2%);
+  }
+
+  50% {
+    color: hsl(272.3, 80.8%, 46.9%);
+  }
+
+  75% {
+    color: hsl(266.1, 98.7%, 29.2%);
+  }
+
+  100% {
+    color: hsl(191.8, 63.3%, 52.9%);
+  }
 }
 
 // MARK: Other colors
@@ -387,4 +430,19 @@ span.body .coderesponses {
 .boxed_message.notice_border {
   background: hsl(217, 100%, 97%);
   border-color: hsla(225, 100%, 50%, 0.502);
+}
+
+// MARK:  HELPER CLASSES
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed;
+}
+
+.fieldset_legend {
+  background: hsl(0, 0%, 100%); // Chat background color
+
+  &:before {
+    background: hsl(0, 0%, 100%); // Chat background color
+  }
 }

@@ -73,12 +73,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/required_tech
 
 /datum/supply_packs/New()
+	..()
 	manifest += "<ul>"
 	for(var/path in contains)
-		if(!path)	continue
-		var/atom/movable/AM = new path(locate(1, 1, 1))
-		var/content_name = AM.declent_ru(NOMINATIVE)
-		qdel(AM)
+		if(!path)
+			continue
+		var/atom/movable/dummy = new path(locate(1, 1, 1))
+		var/content_name = dummy.declent_ru(NOMINATIVE)
+		qdel(dummy)
 		manifest += "<li>[content_name]</li>"
 		// Add the name to the UI manifest
 		ui_manifest += "[content_name]"
@@ -1007,7 +1009,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/gun/projectile/shotgun/riot,
 		/obj/item/gun/projectile/shotgun/riot,
-		/obj/item/gun/projectile/shotgun/riot,
+		/obj/item/gun/projectile/shotgun/winchester,
+		/obj/item/gun/projectile/shotgun/winchester,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
 		/obj/item/storage/belt/bandolier,
@@ -1376,6 +1379,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с имплантом \"Щит разума\"",
 	)
 	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 4)
+
+/datum/supply_packs/security/armory/suppression
+	name = "Имплант \"Подавления\""
+	contains = list(
+		/obj/item/storage/lockbox/suppression/cargo,
+	)
+	cost = 200
+	containername = "ящик с имплантом \"Подавления\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с имплантом \"Подавления\"",
+		GENITIVE = "ящика с имплантом \"Подавления\"",
+		DATIVE = "ящику с имплантом \"Подавления\"",
+		ACCUSATIVE = "ящик с имплантом \"Подавления\"",
+		INSTRUMENTAL = "ящиком с имплантом \"Подавления\"",
+		PREPOSITIONAL = "ящике с имплантом \"Подавления\"",
+	)
+	required_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_BIOTECH = 7)
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Имплант слежения"

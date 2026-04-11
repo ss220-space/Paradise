@@ -423,7 +423,7 @@
 				filling.icon_state = "[icon_state]75"
 			if(76 to INFINITY)
 				filling.icon_state = "[icon_state]80"
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())

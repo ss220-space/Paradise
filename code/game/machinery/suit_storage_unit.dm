@@ -140,22 +140,23 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/machinery/suit_storage_unit/cmo
-	suit_type    = /obj/item/mod/control/pre_equipped/medical
+	name = "CMO suit storage unit"
+	suit_type = /obj/item/mod/control/pre_equipped/rescue
 	storage_type = /obj/item/tank/internals/oxygen
-	mask_type    = /obj/item/clothing/mask/breath
+	mask_type = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/qm
 	name = "quartermaster suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/loader
+	suit_type = /obj/item/mod/control/pre_equipped/loader
 	mask_type    = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_QM)
 
-//version of the SSU for medbay secondary storage. Includes magboots.
-/obj/machinery/suit_storage_unit/cmo/sec_storage
+/obj/machinery/suit_storage_unit/medical
 	name = "medical suit storage unit"
-	storage_type = null
-	mask_type = /obj/item/clothing/mask/gas
+	suit_type = /obj/item/mod/control/pre_equipped/medical
+	mask_type = /obj/item/clothing/mask/breath
+	req_access = list(ACCESS_MEDICAL)
 
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"

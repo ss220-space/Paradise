@@ -941,10 +941,12 @@
 		msg = "[user] вставля[PLUR_ET_YUT(user)] кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы вставляете кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+		affected.owner.add_bleeding_bodypart(affected)
 	if(target_zone == BODY_ZONE_HEAD)
 		msg = "[user] вставля[PLUR_ET_YUT(user)] кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы вставляете кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
 		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+		affected.owner.add_bleeding_bodypart(affected)
 	else
 		msg = "[user] закрыва[PLUR_ET_YUT(user)] края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
 		self_msg = "Вы закрываете края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
