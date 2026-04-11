@@ -132,12 +132,12 @@
 
 /obj/item/clothing/neck/cloak/civil_cape/get_ru_names()
 	return list(
-		NOMINATIVE = "Стандартная накидка",
-		GENITIVE = "Стандартной накидки",
-		DATIVE = "Стандартной накидке",
-		ACCUSATIVE = "Стандартную накидку",
-		INSTRUMENTAL = "Стандартной накидкой",
-		PREPOSITIONAL = "Стандартной накидке",
+		NOMINATIVE = "стандартная накидка",
+		GENITIVE = "стандартной накидки",
+		DATIVE = "стандартной накидке",
+		ACCUSATIVE = "стандартную накидку",
+		INSTRUMENTAL = "стандартной накидкой",
+		PREPOSITIONAL = "стандартной накидке",
 	)
 
 /obj/item/clothing/neck/cloak/commander_cape
@@ -147,12 +147,12 @@
 
 /obj/item/clothing/neck/cloak/commander_cape/get_ru_names()
 	return list(
-		NOMINATIVE = "Командная накидка",
-		GENITIVE = "Командной накидки",
-		DATIVE = "Командной накидке",
-		ACCUSATIVE = "Командную накидку",
-		INSTRUMENTAL = "Командной накидкой",
-		PREPOSITIONAL = "Командной накидке"
+		NOMINATIVE = "командная накидка",
+		GENITIVE = "командной накидки",
+		DATIVE = "командной накидке",
+		ACCUSATIVE = "командную накидку",
+		INSTRUMENTAL = "командной накидкой",
+		PREPOSITIONAL = "командной накидке"
 	)
 
 /obj/item/clothing/neck/cloak/sec_cape
@@ -162,12 +162,12 @@
 
 /obj/item/clothing/neck/cloak/sec_cape/get_ru_names()
 	return list(
-		NOMINATIVE = "Офицерская накидка",
-		GENITIVE = "Офицерской накидки",
-		DATIVE = "Офицерской накидке",
-		ACCUSATIVE = "Офицерскую накидку",
-		INSTRUMENTAL = "Офицерской накидкой",
-		PREPOSITIONAL = "Офицерской накидке"
+		NOMINATIVE = "офицерская накидка",
+		GENITIVE = "офицерской накидки",
+		DATIVE = "офицерской накидке",
+		ACCUSATIVE = "офицерскую накидку",
+		INSTRUMENTAL = "офицерской накидкой",
+		PREPOSITIONAL = "офицерской накидке"
 	)
 
 /obj/item/clothing/neck/cloak/hos_cape
@@ -177,10 +177,10 @@
 
 /obj/item/clothing/neck/cloak/hos_cape/get_ru_names()
 	return list(
-		NOMINATIVE = "Накидка Морпехов",
-		GENITIVE = "Накидки Морпехов",
-		DATIVE = "Накидке Морпехов",
-		ACCUSATIVE = "Накидку Морпехов",
-		INSTRUMENTAL = "Накидкой Морпехов",
-		PREPOSITIONAL = "Накидке Морпехов"
+		NOMINATIVE = "накидка морпехов",
+		GENITIVE = "накидки морпехов",
+		DATIVE = "накидке морпехов",
+		ACCUSATIVE = "накидку морпехов",
+		INSTRUMENTAL = "накидкой морпехов",
+		PREPOSITIONAL = "накидке морпехов"
 	)
