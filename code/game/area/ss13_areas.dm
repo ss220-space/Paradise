@@ -775,6 +775,14 @@ This applies to all STANDARD station areas
 /area/atmos/break_room
 	name = "Atmospherics Foyer"
 
+/area/atmos/storage
+	name = "Atmospherics Storage"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+
+/area/atmos/locker_room
+	name = "Atmospherics Locker Room"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+
 // MAINTENANCE
 /area/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS

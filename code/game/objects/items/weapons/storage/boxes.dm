@@ -853,6 +853,18 @@
 	for(var/I in 1 to 7)
 		new /obj/item/light/bulb(src)
 
+/obj/item/storage/box/atmospherics/metalfoam_grenade
+	name = "Metalfoam grenade box"
+	desc = "Box of grenade for emergency sealing of air breaches."
+	icon_state = "box_metalfoam"
+	storage_slots = 6
+	can_hold = list(/obj/item/grenade)
+	max_combined_w_class = 6
+	use_to_pickup = 1
+
+/obj/item/storage/box/atmospherics/metalfoam_grenade/populate_contents()
+	new /obj/item/grenade/chem_grenade/metalfoam(src, rand(2,5))
+
 /obj/item/storage/box/barber
 	name = "Barber Starter Kit"
 	desc = "For all hairstyling needs."
