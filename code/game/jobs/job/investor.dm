@@ -26,24 +26,24 @@
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
 
-/datum/job/investor/check_custom_requirements(client/C)
+/datum/job/investor/check_custom_requirements(client/target)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if(!C)
+	if(!target)
 		return FALSE
 
-	if(!C.persistent_client)
+	if(!target.persistent_client)
 		return FALSE
 
-	if(!C.persistent_client.achievements)
+	if(!target.persistent_client.achievements)
 		return FALSE
 
-	var/datum/achievement_data/achievements = C.persistent_client.achievements
+	var/datum/achievement_data/achievements = target.persistent_client.achievements
 	var/achievement_status = achievements.get_achievement_status(/datum/award/achievement/donations/project_pillar)
 
 	if(!achievement_status)
 		return FALSE
 
-	return TRUE
+	return achievement_status
