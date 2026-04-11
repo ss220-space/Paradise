@@ -269,6 +269,8 @@
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/sving_medal)
+	/// Cooldown for displaying medal
+	COOLDOWN_DECLARE(sving_cooldown)
 
 /obj/item/clothing/accessory/medal/get_ru_names()
 	return list(
@@ -288,8 +290,11 @@
 		return TRUE
 
 /obj/item/clothing/accessory/medal/proc/sving_medal(mob/user)
+	if(!COOLDOWN_FINISHED(src, sving_cooldown))
+		return
 	user.custom_emote(EMOTE_VISIBLE, "щеголя[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)].")
 	playsound(src, 'sound/items/medal.ogg', 15, TRUE)
+	COOLDOWN_START(src, sving_cooldown, 5 SECONDS)
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
