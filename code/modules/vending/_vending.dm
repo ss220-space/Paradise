@@ -60,7 +60,6 @@
 	integrity_failure = 100
 	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 70)
 	abstract_type = /obj/machinery/vending
-	tts_seed = "Arthas"
 
 	// All the overlay controlling variables
 	/// Overlay of vendor maintenance panel.
