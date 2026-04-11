@@ -344,7 +344,7 @@
 	if(!istype(target))
 		return FALSE
 
-	if(!do_after(user, 3 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
+	if(!do_after(user, 1 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
 		return FALSE
 
 	target.visible_message(
