@@ -3747,7 +3747,7 @@
 	},
 /area/assembly/robotics)
 "aDU" = (
-/obj/structure/chair/sofa/bench/right,
+/obj/structure/chair/sofa/bench/right/command_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluealt"
@@ -43917,7 +43917,7 @@
 	},
 /area/crew_quarters/locker)
 "gDs" = (
-/obj/structure/chair/sofa/bench/left,
+/obj/structure/chair/sofa/bench/left/command_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluealt"
@@ -58315,8 +58315,6 @@
 /area/quartermaster/miningstorage)
 "iPj" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel,
 /area/hallway/spacebridge/comcar)
 "iPl" = (
@@ -100287,7 +100285,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/obj/structure/chair/sofa/bench,
+/obj/structure/chair/sofa/bench/command_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluealt"
@@ -112613,7 +112611,7 @@
 	c_tag = "Command Zone Main Hallway";
 	dir = 6
 	},
-/obj/structure/chair/sofa/bench/right,
+/obj/structure/chair/sofa/bench/right/command_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluealt"
@@ -155661,7 +155659,7 @@
 /area/medical/psych)
 "xpX" = (
 /obj/item/radio/intercom/directional/north,
-/obj/structure/chair/sofa/bench/left,
+/obj/structure/chair/sofa/bench/left/command_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluealt"
@@ -157111,7 +157109,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/chair/sofa/bench,
+/obj/structure/chair/sofa/bench/command_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluealt"
