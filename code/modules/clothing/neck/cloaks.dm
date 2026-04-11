@@ -108,7 +108,7 @@
 	name = "syndicate captain's cloak"
 	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate captains."
 	icon_state = "syndcapt"
-	item_state = "syndcapt"
+	icon_state = "syndcapt"
 
 /obj/item/clothing/neck/cloak/syndiecap/comms
 	name = "syndicate officer's cloak"
