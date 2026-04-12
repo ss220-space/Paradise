@@ -73738,10 +73738,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/test_chamber)
-"mvd" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/mining_dock,
-/turf/simulated/wall,
-/area/quartermaster/miningdock)
 "mvm" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/applicator/burn,
@@ -169998,7 +169994,7 @@ dXb
 jJV
 dXb
 cqB
-mvd
+cqB
 smQ
 oAD
 ivV
