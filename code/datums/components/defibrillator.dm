@@ -350,7 +350,30 @@
 	return FALSE
 
 /**
- * Inflict stamina loss and stun/knockdown on someone.
+ * Applies the non-lethal effects of an offensive defibrillator shock.
+ *
+ * Standard defibs apply stamina damage and either confusion or knockdown.
+ * Combat-capable defibs that ignore hardsuits always apply knockdown instead.
+ *
+ * Arguments:
+ * * target - person being shocked
+ */
+/datum/component/defib/proc/apply_disarm_fibrillate_effects(mob/living/carbon/human/target)
+	if(ignore_hardsuits)
+		target.apply_damage(DEFIB_COMBAT_DAMAGE, STAMINA)
+		target.Knockdown(4 SECONDS)
+		return
+
+	target.apply_damage(DEFIB_DAMAGE, STAMINA)
+
+	if(target.confused > 0)
+		target.Knockdown(5 SECONDS)
+		return
+
+	target.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 10 SECONDS)
+
+/**
+ * Inflict stamina loss and confusion/knockdown on someone.
  *
  * Arguments:
  * * user - wielder of the defib
@@ -359,19 +382,14 @@
  */
 /datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
 	if(try_block_attack(target))
-		return DEFIB_SHOCK_FAILED
+		return DEFIB_NO_SHOCK
 
 	target.visible_message(
 		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [parent.declent_ru(INSTRUMENTAL)]!"),
 		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [parent.declent_ru(INSTRUMENTAL)]!"),
 	)
 
-	if(ignore_hardsuits)
-		target.apply_damage(DEFIB_COMBAT_DAMAGE, STAMINA)
-		target.Weaken(4 SECONDS)
-	else
-		target.apply_damage(DEFIB_DAMAGE, STAMINA)
-		target.Knockdown(3 SECONDS)
+	apply_disarm_fibrillate_effects(target)
 
 	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
