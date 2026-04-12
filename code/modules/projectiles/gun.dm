@@ -677,7 +677,7 @@
 	if(user == target)
 		target.visible_message(
 			span_warning("[user] вставля[PLUR_ET_YUT(user)] ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
-			span_userdanger("Вы вставляеете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
+			span_userdanger("Вы вставляете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
 		)
 	else
 		target.visible_message(
@@ -713,7 +713,7 @@
 
 	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
-		chambered.BB.damage /= 5
+		chambered.BB.damage /= 15
 
 /////////////
 // ZOOMING //
