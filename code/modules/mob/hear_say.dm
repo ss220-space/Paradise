@@ -122,7 +122,7 @@
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
-	var/message_clean = say_emphasis(combine_message(message_pieces, speaker))
+	var/message_clean = apply_message_emphasis(combine_message(message_pieces, speaker))
 	message_clean = replace_characters(message_clean, list("+"))
 	if(message_clean == "")
 		return

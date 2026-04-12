@@ -522,18 +522,27 @@
 	// DEAD mobs are fine to skip if they are not dense or lying
 	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
+
+	var/allow = FALSE
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-		return !prob(def_zone_hit_chance)
+		allow = !prob(def_zone_hit_chance)
 	//if this is clicked target in lying down
-	if(projectile.original == src)
+	else if(projectile.original == src)
 		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-		return !prob(def_zone_hit_chance)
+		allow = !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
-	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
-	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
-	return !prob(total_hit_chance)
+	else
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+		allow = !prob(total_hit_chance)
+
+	if(allow && COOLDOWN_FINISHED(src, bullet_miss_cooldown))
+		COOLDOWN_START(src, bullet_miss_cooldown, 0.5 SECONDS)
+		playsound_local(src, projectile.miss_sound, 25, TRUE, falloff_distance = 0, distance_multiplier = 0, use_reverb = FALSE)
+
+	return allow
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
 	if(pulling && pulling.loc == loc && pulling.density && !pulling.CanPass(mover, border_dir))
@@ -1753,53 +1762,6 @@
 **/
 /mob/proc/has_nightvision()
 	return nightvision >= 4
-
-/mob/living/run_examinate(atom/target)
-	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
-
-	if(user_staring_effect || hindered_inspection(target))
-		return
-
-	if(isturf(target) && !(sight & SEE_TURFS) && !(target in view(client ? client.view : world.view, src)))
-		// shift-click catcher may issue examinate() calls for out-of-sight turfs
-		return
-
-	var/turf/examine_turf = get_turf(target)
-
-	if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
-		get_dist(src, examine_turf) > 1 && \
-		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
-		return
-
-	var/examine_time = target.get_examine_time()
-
-	var/obj/item/organ/internal/eyes/eyes = get_organ_slot(INTERNAL_ORGAN_EYES)
-	if(eyes)
-		examine_time *= eyes.examine_mod
-
-	if(examine_time && target != src)
-		var/visible_gender = target.get_visible_gender()
-		var/visible_species = UNKNOWN_STATUS_RUS
-
-		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
-		var/near_target = examine_distance_check(target)
-
-		if(isliving(target))
-			var/mob/living/target_living = target
-			visible_species = target_living.get_visible_species()
-
-			if(ishuman(target))	// Yep. Only humans affected by catched looks.
-				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
-				if(target_staring_effect)
-					target_staring_effect.catch_look(src)
-
-		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
-		if(do_after(src, examine_time, src, ALL))
-			if(hindered_inspection(target) || (near_target && !examine_distance_check(target)))
-				return
-			..()
-	else
-		..()
 
 /mob/living/proc/examine_distance_check(atom/target)
 	if(target in view(client.maxview(), client.eye))

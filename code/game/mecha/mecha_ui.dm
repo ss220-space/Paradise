@@ -194,10 +194,10 @@
 		if("dna_lock")
 			var/mob/living/carbon/user = usr
 			if(!istype(user) || !user.dna)
-				to_chat(user, "[icon2html(src, occupant)][span_notice("You can't create a DNA lock with no DNA!.")]")
+				to_chat(user, "[get_examine_icon(occupant)][span_notice("You can't create a DNA lock with no DNA!.")]")
 				return
 			dna_lock = user.dna.unique_enzymes
-			to_chat(user, "[icon2html(src, occupant)][span_notice("You feel a prick as the needle takes your DNA sample.")]")
+			to_chat(user, "[get_examine_icon(occupant)][span_notice("You feel a prick as the needle takes your DNA sample.")]")
 		if("reset_dna")
 			dna_lock = null
 		if("equip_act")
@@ -211,5 +211,5 @@
 /obj/mecha/proc/occupant_message(message as text)
 	if(message)
 		if(occupant?.client)
-			to_chat(occupant, "[icon2html(src, occupant)] [message]")
+			to_chat(occupant, "[get_examine_icon(occupant)] [message]")
 	return

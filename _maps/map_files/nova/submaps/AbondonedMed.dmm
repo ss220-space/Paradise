@@ -253,9 +253,7 @@
 	},
 /area/maintenance/medroom)
 "cP" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -780,7 +778,9 @@
 /area/maintenance/apmaint)
 "hk" = (
 /obj/effect/decal/cleanable/vomit/green,
-/obj/structure/chair/stool/holostool,
+/obj/structure/chair/stool/holostool{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -2206,7 +2206,6 @@
 /turf/template_noop,
 /area/template_noop)
 "vn" = (
-/obj/item/radio/intercom/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -3171,6 +3170,7 @@
 "Ei" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dust,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedhangar)
 "Ej" = (
@@ -3564,9 +3564,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "Io" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -3850,7 +3848,9 @@
 	},
 /area/maintenance/medroom)
 "Ki" = (
-/obj/structure/chair/stool/holostool,
+/obj/structure/chair/stool/holostool{
+	dir = 8
+	},
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
@@ -4992,9 +4992,7 @@
 	},
 /area/maintenance/kitchen)
 "WX" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"

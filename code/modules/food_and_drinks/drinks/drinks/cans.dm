@@ -578,7 +578,7 @@
 			if(50 to INFINITY)
 				filling.icon_state = "[icon_state]50"
 
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle

@@ -394,6 +394,9 @@
 /area/mimeoffice)
 "R" = (
 /obj/machinery/vending/autodrobe,
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "tranquillite"
@@ -423,6 +426,9 @@
 /area/template_noop)
 "X" = (
 /obj/machinery/vending/autodrobe,
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

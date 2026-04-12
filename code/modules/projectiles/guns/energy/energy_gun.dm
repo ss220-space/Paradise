@@ -9,8 +9,8 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -7),
 	)
 
 /obj/item/gun/energy/gun/sibyl/Initialize(mapload)
@@ -63,8 +63,8 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 10),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -10),
 	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
@@ -145,8 +145,8 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -8),
 	)
 
 /obj/item/gun/energy/gun/nuclear/sibyl/Initialize(mapload)
@@ -166,7 +166,6 @@
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
-	burst_size = 6
 	can_charge = FALSE
 	cell_type = /obj/item/stock_parts/cell/laser/gatling
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
@@ -174,11 +173,11 @@
 	charge_delay = 5
 	recharge_rate = 600
 	slowdown = 0.4
-	var/force_unwielded = 10
-	var/force_wielded = 20
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	var/force_unwielded = 10
+	var/force_wielded = 20
 
 /obj/item/gun/energy/gun/minigun/get_ru_names()
 	return list(
@@ -190,13 +189,22 @@
 		PREPOSITIONAL = "Гатлинг-лазере",
 	)
 
-/obj/item/gun/energy/gun/minigun/Initialize(mapload)
+/obj/item/gun/energy/gun/minigun/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_unwielded = src.force_unwielded, \
 		force_wielded = src.force_wielded, \
 		require_twohands = TRUE \
 	)
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		0.4 SECONDS, \
+		TRUE, \
+		0.05, \
+		0.25, \
+		1 SECONDS \
+	)
+
 
 /obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	..()

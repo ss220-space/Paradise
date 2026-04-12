@@ -19,7 +19,13 @@
 #define ACID "acid"
 #define MAGIC "magic"
 
-/// All armors
+/// Armor values that are used for damage
+#define ARMOR_LIST_DAMAGE list(BOMB, BULLET, ENERGY, LASER, MELEE)
+
+/// Armor values that are used for durability
+#define ARMOR_LIST_DURABILITY list(ACID, BIO, FIRE, MAGIC)
+
+/// All armors, preferable in the order as seen above
 #define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE)
 
 #define STUN "stun"

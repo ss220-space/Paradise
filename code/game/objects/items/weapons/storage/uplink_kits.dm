@@ -78,7 +78,6 @@
 /obj/item/storage/box/syndie_kit/chameleon_hardsuit
 	name = "oxygen deprivation first aid kit"
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
-	description_antag = "Высокотехнологичная коробка, содержащая набор хардсьюта-хамелеона, искусно скрытая под аптечку первой оксигенной помощи. Можно разобрать на картон, на самом деле это просто качественная краска."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
 	can_hold = list(
@@ -935,6 +934,27 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/rsh12_revolver
+	name = "RSh-12 revolver kit"
+	desc = "Коробка, содержащая револьвер \"РШ-12\", и три пачки патронов калибра 12.7х55."
+
+/obj/item/storage/box/syndie_kit/rsh12_revolver/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"РШ-12\"",
+		GENITIVE = "набора \"РШ-12\"",
+		DATIVE = "набору \"РШ-12\"",
+		ACCUSATIVE = "набор \"РШ-12\"",
+		INSTRUMENTAL = "набором \"РШ-12\"",
+		PREPOSITIONAL = "наборе \"РШ-12\"",
+	)
+
+/obj/item/storage/box/syndie_kit/rsh12_revolver/populate_contents()
+	new	/obj/item/gun/projectile/revolver/rsh_12(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/ammo_box/c12_dot_7X55(src)
+	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/syndie_kit/combat_exoframe
 	name = "combat exoframe kit"
