@@ -98,11 +98,6 @@
 		balloon_alert(user, "в процессе загрузки!")
 		return
 
-	if(occupant && occupant.mind && occupant.mind.has_antag_datum(/datum/antagonist/devil))
-		add_attack_logs(user, occupant, "attempted to gib a devil on gibber", ATKLOG_FEW)
-		visible_message(span_danger("Вы слышите как [declent_ru(NOMINATIVE)] издает странный скрежет схожий с адским криком, похоже она заглохла!"))
-		return
-
 	add_fingerprint(user)
 	startgibbing(user)
 
@@ -259,6 +254,11 @@
 
 	if(!occupant)
 		balloon_alert(user, "пусто!")
+		return
+
+	if(isdevilantag(occupant))
+		add_attack_logs(user, occupant, "attempted to gib a devil on gibber", ATKLOG_FEW)
+		visible_message(span_danger("Вы слышите как [declent_ru(NOMINATIVE)] издает странный скрежет схожий с адским криком, похоже она заглохла!"))
 		return
 
 	use_power(1000)
