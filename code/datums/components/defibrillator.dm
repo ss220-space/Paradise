@@ -321,6 +321,33 @@
 
 	return DEFIB_SHOCK_SUCCESS
 
+/**
+ * Attempts to block a attack (such as a defibrillator shock) using the target's held or worn items.
+ *
+ * Iterates through all items in the target's contents and calls their hit_reaction(),
+ * which handles block chance and shield components.
+ *
+ * Arguments:
+ * * target - person being attacked
+ * * attack_text - text used in block messages
+ * * attack_type - type of the incoming attack (used for block filtering)
+ *
+ * Returns:
+ * * TRUE - if the attack was successfully blocked
+ * * FALSE - if no blocking item reacted
+ */
+/datum/component/defib/proc/try_block_attack(mob/living/carbon/human/target, attack_text = "разряд", attack_type = ITEM_ATTACK)
+	if(!target)
+		return FALSE
+
+	for(var/obj/item/I in target.contents)
+		if(!I || I == parent)
+			continue
+
+		if(I.hit_reaction(target, parent, attack_text, I.block_chance, 0, attack_type))
+			return TRUE
+
+	return FALSE
 
 /**
  * Inflict stamina loss and stun/knockdown on someone.
@@ -331,6 +358,9 @@
  * * defib_ref - the defibrillator instance
  */
 /datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
+	if(try_block_attack(target))
+		return DEFIB_SHOCK_FAILED
+
 	target.visible_message(
 		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [parent.declent_ru(INSTRUMENTAL)]!"),
 		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [parent.declent_ru(INSTRUMENTAL)]!"),
@@ -351,7 +381,6 @@
 	set_cooldown(cooldown)
 
 	return DEFIB_SHOCK_SUCCESS
-
 
 /**
  * Inflict burn damage and potentially trigger a heart attack on someone.
