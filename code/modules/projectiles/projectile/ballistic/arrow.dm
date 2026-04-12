@@ -4,6 +4,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	range = 10
 	damage = 25
+	miss_sound = SFX_ARROW_MISS
 	var/faction_bonus_damage = 13
 	var/nemesis_factions = MINING_FACTIONS
 	var/nemesis_faction = FALSE

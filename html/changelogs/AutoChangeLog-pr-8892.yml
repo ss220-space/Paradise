@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - balance: "увеличены техи для апгрейда сидушки на борги. (PR #8892)"

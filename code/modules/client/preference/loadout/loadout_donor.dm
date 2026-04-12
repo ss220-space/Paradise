@@ -164,7 +164,7 @@
 
 /datum/gear/donor/strip/cap
 	index_name = "strip, Captain"
-	path = /obj/item/clothing/accessory/head_strip
+	path = /obj/item/clothing/accessory/head_strip/captain
 	allowed_roles = list(JOB_TITLE_CAPTAIN)
 
 /datum/gear/donor/strip/rd
@@ -468,6 +468,29 @@
 	donator_tier = 3
 	index_name = "Space cloak"
 	path = /obj/item/clothing/neck/cloak/spacecloak
+
+/datum/gear/donor/civil_cape
+	donator_tier = 3
+	index_name = "Civil cape"
+	path = /obj/item/clothing/neck/cloak/civil_cape
+
+/datum/gear/donor/commander_cape
+	donator_tier = 4
+	index_name = "Commander cape"
+	path = /obj/item/clothing/neck/cloak/commander_cape
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_MAGISTRATE)
+
+/datum/gear/donor/sec_cape
+	donator_tier = 3
+	index_name = "Security cape"
+	path = /obj/item/clothing/neck/cloak/sec_cape
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
+
+/datum/gear/donor/hos_cape
+	donator_tier = 4
+	index_name = "Marine cape"
+	path = /obj/item/clothing/neck/cloak/hos_cape
+	allowed_roles = list(JOB_TITLE_HOS)
 
 /datum/gear/donor/golden_wheelchair
 	donator_tier = 4

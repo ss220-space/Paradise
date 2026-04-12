@@ -146,7 +146,6 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockgun"
 	item_state = "clockgun"
-	burst_size = 1
 	selfcharge = FALSE
 	cell_type = /obj/item/stock_parts/cell/clock/minigun
 	isclockwork = TRUE

@@ -60,6 +60,9 @@
 /// Creates a notice-bordered box for mentor help messages (mhelp)
 #define chat_box_mhelp(str) ("<div class='boxed_message notice_border'>" + str + "</div>")
 
+/// Makes a fieldset with a neaty styled name. Can apply additional classes.
+#define fieldset_block(title, content, classes) ("<fieldset class='fieldset " + classes + "'><legend class='fieldset_legend'>" + title + "</legend>" + content + "</fieldset>")
+
 /// Replaces name of someone if we shouldn't know that
 #define UNKNOWN_NAME_RUS "Неизвестный"
 /// Replaces something (job, sec status, disease' name, etc) if we shouldn't know that

@@ -1,7 +1,7 @@
 // MARK: Slugs
 /obj/projectile/bullet/slug
-	armour_penetration = 40
-	damage = 33
+	armour_penetration = 10
+	damage = 40
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"

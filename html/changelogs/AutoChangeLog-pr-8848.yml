@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Радио снова работает. (PR #8848)"
+  - bugfix: "Дроп снова падает. (PR #8848)"

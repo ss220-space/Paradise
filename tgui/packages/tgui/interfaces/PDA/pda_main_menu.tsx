@@ -17,6 +17,11 @@ type App = {
   icon: string;
 };
 
+const APP_ICON_SIZE = '4.4rem';
+const APP_BUTTON_WIDTH = '7.2rem';
+const APP_TEXT_SIZE = '1rem';
+const APP_ICON_FONT_SIZE = '2rem';
+
 const AppIcon = ({ app, isNotifying, onClick }) => {
   const rawIconName = isNotifying ? app.notify_icon : app.icon;
   const iconName = rawIconName || 'cube';
@@ -25,47 +30,48 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
     <Button
       color="transparent"
       onClick={onClick}
+      width={APP_BUTTON_WIDTH}
+      p={0.35}
       style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '85px',
-        padding: '4px',
       }}
     >
       <Box
+        width={APP_ICON_SIZE}
+        height={APP_ICON_SIZE}
+        mb={0.4}
         style={{
-          width: '52px',
-          height: '52px',
-          borderRadius: '14px',
+          borderRadius: '0.9rem',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '6px',
           margin: '0 auto',
         }}
       >
         <i
           className={`fa fa-${iconName}`}
           style={{
-            fontSize: '20px',
+            fontSize: APP_ICON_FONT_SIZE,
             color: '#fff',
           }}
         />
       </Box>
 
       <Box
+        width="100%"
+        color="ddd"
+        textAlign="center"
+        lineHeight={1.2}
+        fontSize={APP_TEXT_SIZE}
+        overflow="hidden"
+        minHeight={2.4}
+        maxHeight={3.4}
         style={{
-          fontSize: '9px',
-          width: '80px',
-          color: '#ddd',
-          textAlign: 'center',
-          lineHeight: '1.1',
           whiteSpace: 'normal',
           wordBreak: 'break-word',
-          overflow: 'hidden',
-          minHeight: '22px',
-          maxHeight: '33px',
           margin: '0 auto',
         }}
       >
@@ -81,13 +87,17 @@ export const pda_main_menu = () => {
 
   const allApps: App[] = Object.values(apps || {}).flat();
 
+  const notifyList = Array.isArray(notifying)
+    ? notifying
+    : Object.keys(notifying || {});
+
   return (
-    <Box style={{ padding: '10px' }}>
+    <Box style={{ padding: '0.75rem' }}>
       <Box
+        mb="0.75rem"
+        p="0.75rem"
         style={{
-          marginBottom: '10px',
-          padding: '10px',
-          borderRadius: '10px',
+          borderRadius: '0.75rem',
         }}
       >
         <Button
@@ -98,19 +108,21 @@ export const pda_main_menu = () => {
           onClick={() => act('UpdateInfo')}
           tooltip={idInserted ? 'Обновить данные из ID' : 'Вставьте ID карту'}
           style={{
-            padding: '6px 10px',
-            fontSize: '11px',
+            padding: '0.5rem 0.75rem',
+            fontSize: '1rem',
+            borderRadius: '0.5rem',
+            overflow: 'hidden',
           }}
         >
-          Sync
+          Синхронизировать кпк с ID-картой
         </Button>
       </Box>
 
       <Box
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: '12px 8px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(6rem, 1fr))',
+          gap: '0.8rem 0.6rem',
           justifyItems: 'center',
         }}
       >
@@ -118,7 +130,7 @@ export const pda_main_menu = () => {
           <AppIcon
             key={app.uid}
             app={app}
-            isNotifying={notifying.includes(app.uid)}
+            isNotifying={notifyList.includes(app.uid)}
             onClick={() => act('StartProgram', { program: app.uid })}
           />
         ))}

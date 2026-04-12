@@ -79,7 +79,7 @@
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 4 MINUTES)
 
 /obj/item/organ/internal/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -182,7 +182,7 @@
 			return
 		user.balloon_alert(user, "ядро не восстановилось")
 		return
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/regenerative_core/cooldown/applyto(atom/target, mob/user)
 	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
@@ -190,7 +190,7 @@
 			return
 		user.balloon_alert(user, "ядро не восстановилось")
 		return
-	. = ..()
+	return ..()
 
 #undef INFINITY_CORE_COOLDOWN
 

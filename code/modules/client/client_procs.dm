@@ -574,6 +574,13 @@
 	if(is_guest_key(key))
 		return
 
+	#ifdef FAST_LOAD
+	if(TRUE)
+		donator_level = DONATOR_LEVEL_MAX
+		donor_loadout_points()
+		return
+	#endif
+
 	if(!SSdbcore.IsConnected())
 		return
 

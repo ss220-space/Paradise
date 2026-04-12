@@ -404,3 +404,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscorevortex(A) (istype(A, /obj/item/assembly/signaler/core/vortex))
 #define iscoreflux(A) (istype(A, /obj/item/assembly/signaler/core/energetic))
 #define iscore(A) (istype(A, /obj/item/assembly/signaler/core))
+
+#define isorgan(A) (istype(A, /obj/item/organ))
+
+#define isaccessory(A) (istype(A, /obj/item/clothing/accessory))
