@@ -31,7 +31,8 @@
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
-	var/semicd = 0						//cooldown handler
+	/// Firing cooldown, true if this gun shouldn't be allowed to manually fire
+	var/fire_cd = 0
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
 	var/ninja_weapon = FALSE			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
@@ -386,7 +387,7 @@
 	if(chambered)
 		chambered.leave_residue(user)
 
-	if(semicd)
+	if(fire_cd)
 		return
 
 	if(user.buckled)
@@ -454,9 +455,9 @@
 			return
 		process_chamber()
 		update_icon()
-		semicd = 1
+		fire_cd = TRUE
 		spawn(fire_delay)
-			semicd = 0
+			fire_cd = FALSE
 
 	if(user)
 		user.update_held_items()
@@ -670,35 +671,49 @@
 	if(!ishuman(user) || !ishuman(target))
 		return
 
-	if(semicd)
+	if(fire_cd)
 		return
 
 	if(user == target)
-		target.visible_message(span_warning("[user] вставляет ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
-							span_userdanger("Вы вставляеете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
+		target.visible_message(
+			span_warning("[user] вставля[PLUR_ET_YUT(user)] ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
+			span_userdanger("Вы вставляете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
+		)
 	else
-		target.visible_message(span_warning("[user] направляет [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
-							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить!"))
+		target.visible_message(
+			span_warning("[user] направля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."),
+			span_userdanger("[user] направля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить..."),
+		)
 
-	semicd = 1
+	fire_cd = TRUE
 
 	if(!do_after(user, 12 SECONDS, target, NONE) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		if(user)
 			if(user == target)
-				user.visible_message(span_notice("[user] решает, что жить всё-таки хочется."))
+				user.visible_message(
+					span_notice("[user] реша[PLUR_ET_YUT(user)], что жить всё-таки хочется."),
+				)
 			else if(target && target.Adjacent(user))
-				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить вас в живых!"))
-		semicd = 0
+				target.visible_message(
+					span_notice("[user] реша[PLUR_ET_YUT(user)] пощадить [target]."),
+					span_notice("[user] реша[PLUR_ET_YUT(user)] оставить вас в живых!"),
+				)
+		fire_cd = FALSE
 		return
 
-	semicd = 0
+	fire_cd = FALSE
 
-	target.visible_message(span_warning("[user] нажимает на спусковой крючок!"), span_userdanger("[user] нажимает на спусковой крючок!"))
+	target.visible_message(
+		span_warning("[user] нажима[PLUR_ET_YUT(user)] на спусковой крючок!"),
+		span_userdanger("[user] нажима[PLUR_ET_YUT(user)] на спусковой крючок!")
+	)
 
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	process_fire(target, user, 1, params)
+	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
+	if(!fired && chambered?.BB)
+		chambered.BB.damage /= 15
 
 /////////////
 // ZOOMING //
