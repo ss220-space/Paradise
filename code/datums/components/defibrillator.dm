@@ -342,7 +342,7 @@
 
 	var/obj/item/defib_item = parent
 	return target.check_shields(defib_item, 0, "[defib_item.declent_ru(ACCUSATIVE)] [user.declent_ru(GENITIVE)]", attack_type)
-	
+
 /**
  * Applies the non-lethal effects of an offensive defibrillator shock.
  *
@@ -355,12 +355,21 @@
 /datum/component/defib/proc/apply_disarm_fibrillate_effects(mob/living/carbon/human/target)
 	if(ignore_hardsuits)
 		target.apply_damage(DEFIB_COMBAT_DAMAGE, STAMINA)
-		target.Knockdown(4 SECONDS)
+		target.Knockdown(5 SECONDS)
 		return
 
 	target.apply_damage(DEFIB_DAMAGE, STAMINA)
+	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
 	target.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_disarm_knockdown_end), target), 3 SECONDS)
 
+/datum/component/defib/proc/apply_disarm_knockdown_end(mob/living/carbon/human/target)
+	if(QDELETED(target))
+		return
+	if(!target.IsKnockdown())
+		to_chat(target, span_warning("Ваши мышцы сводит судорогой, и вы падаете на землю!"))
+	target.Knockdown(3 SECONDS)
 /**
  * Inflict stamina loss and confusion/knockdown on someone.
  *
