@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Призыв магического слуги больше не вызывает бесконечной рекурсии. (PR #8857)"

@@ -16,9 +16,10 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = 4),
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	available_reload_animation = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, TRUE)
@@ -98,7 +99,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
 	var/f_name = "\a [src]."
-	. = list("[icon2html(src, user)] That's [f_name]")
+	. = list("[get_examine_icon(user)] That's [f_name]")
 	. += desc // Override since magical hand lasers don't have chambers or bolts
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)

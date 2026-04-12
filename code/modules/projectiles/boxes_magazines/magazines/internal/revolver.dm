@@ -19,6 +19,12 @@
 	caliber = CALIBER_DOT_45_COLT
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/cylinder/rsh_12
+	name = "rsh-12 revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/c12_dot_7X55
+	caliber = CALIBER_12_DOT_7X55MM
+	max_ammo = 5
+
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762

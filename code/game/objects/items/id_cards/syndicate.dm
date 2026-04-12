@@ -168,7 +168,7 @@
 			if(ishuman(registered_user))
 				var/mob/living/carbon/human/H = registered_user
 				default = H.age
-			var/new_age = tgui_input_number(registered_user, "Какой возраст вы бы хотели написать на этой карте?", "Возраст на карте", default, 300, 17)
+			var/new_age = tgui_input_number(registered_user, "Какой возраст вы бы хотели написать на этой карте?", "Возраст на карте", default, 300, 1)
 			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age

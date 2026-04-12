@@ -34,6 +34,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"aA" = (
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing,
@@ -462,6 +468,16 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bookcase/random/fiction,
 /turf/simulated/floor/wood/dark,
+/area/template_noop)
+"kf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/template_noop)
 "kl" = (
 /obj/structure/table/wood,
@@ -1007,6 +1023,10 @@
 	pixel_y = 9
 	},
 /obj/effect/spawner/random_spawners/blood_5,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/template_noop)
 "vU" = (
@@ -2324,7 +2344,7 @@ tB
 tB
 tB
 kt
-Qc
+aA
 MU
 pp
 OJ
@@ -3275,7 +3295,7 @@ iv
 cI
 iR
 ZT
-pg
+kf
 kt
 tB
 tB

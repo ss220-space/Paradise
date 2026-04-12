@@ -109,6 +109,13 @@
 	icon_state = "bullet-r"
 	ricochet_chance = 20
 
+//MARK: 12.7x55
+/obj/projectile/bullet/c12_dot_7X55
+	damage = 75
+	ricochet_chance = 33
+	speed = 1
+
+
 // MARK: .50AE
 /obj/projectile/bullet/desert_eagle
 	stamina = 33

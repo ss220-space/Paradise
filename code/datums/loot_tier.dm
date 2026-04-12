@@ -202,6 +202,7 @@
 		),
 		list(
 			/obj/item/gun/projectile/shotgun/riot,
+			/obj/item/gun/projectile/shotgun/winchester,
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/speedloader/shotgun,
@@ -409,6 +410,7 @@
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 		),
+		/obj/item/storage/box/syndie_kit/rsh12_revolver,
 		/obj/item/shield/energy,
 		/obj/item/twohanded/spear/grey_tide,
 		/obj/item/kitchen/knife/ghostface_knife/devil,

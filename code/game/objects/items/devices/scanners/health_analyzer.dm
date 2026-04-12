@@ -660,13 +660,13 @@
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
-		var/limb = bodypart.name
 		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
-				scan_data += span_warning("Обнаружен перелом в [limb].")
+				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]]")
 		if(bodypart.has_infected_wound())
-			scan_data += span_warning("Заражение в [limb].")
+			scan_data += span_warning("Заражение в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
+
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)
@@ -787,7 +787,8 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		balloon_alert(user, "модуль установлен")
-		playsound(loc, I.usesound, 50, TRUE)
+		if(I.usesound)
+			playsound(loc, I.usesound, 50, TRUE)
 		advanced = TRUE
 		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
@@ -807,7 +808,8 @@
 
 		connected_acc = id.associated_account_number
 		to_chat(user, span_notice("Аккаунт привязан."))
-		playsound(loc, I.usesound, 50, TRUE)
+		if(I.usesound)
+			playsound(loc, I.usesound, 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()

@@ -49,6 +49,7 @@
 
 	var/last_temperature = 0
 	var/last_fuel_burnt = 0
+	var/coldfire_possible = FALSE
 
 /obj/effect/hotspot/Initialize(mapload)
 	. = ..()
@@ -89,7 +90,7 @@
 	var/heat_a = 255
 	var/greyscale_fire = 1 //This determines how greyscaled the fire is.
 
-	if(cached_temperature < FREON_MAXIMUM_BURN_TEMPERATURE)
+	if(cached_temperature < FREON_MAXIMUM_BURN_TEMPERATURE && coldfire_possible)
 		heat_r = 0
 		heat_g = LERP(255, cached_temperature, 1.2)
 		heat_b = LERP(255, cached_temperature, 0.9)
@@ -171,7 +172,7 @@
 
 
 /obj/effect/hotspot/proc/perform_exposure()
-	if(temperature < FREON_MAXIMUM_BURN_TEMPERATURE)
+	if(temperature < FREON_MAXIMUM_BURN_TEMPERATURE && coldfire_possible)
 		return
 	for(var/atom/item in loc.contents)
 		if(!QDELETED(item) && item != src && !(item.resistance_flags & (INDESTRUCTIBLE|FIRE_PROOF))) // It's possible that the item is deleted in temperature_expose

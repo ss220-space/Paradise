@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - tweak: "Скины на предметы можно поставить только если предмет в руках. (PR #8868)"

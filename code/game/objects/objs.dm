@@ -369,3 +369,12 @@
 /// ImageButton element in TGUI, for example
 /obj/proc/get_short_name()
 	return declent_ru(NOMINATIVE)
+
+/**
+ * Returns a list of obj's that should be displayed in the uplink purchase log.
+ * Override for specific types.
+ */
+/obj/proc/get_uplink_log_items()
+	RETURN_TYPE(/list)
+	SHOULD_CALL_PARENT(FALSE)
+	return list(src)

@@ -20,7 +20,7 @@
 		. += "hangingbag"
 		if(bag.reagents.total_volume)
 			var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/iv.dmi', "hangingbag-fluid")
-			filling.color = mix_color_from_reagents(bag.reagents.reagent_list)
+			filling.color = get_color_matrix_from_reagents(bag.reagents.reagent_list)
 			. += filling
 
 /obj/machinery/iv_drip/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
