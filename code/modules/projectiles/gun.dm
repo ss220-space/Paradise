@@ -31,7 +31,8 @@
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
-	var/semicd = 0						//cooldown handler
+	/// Firing cooldown, true if this gun shouldn't be allowed to manually fire
+	var/fire_cd = 0
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
 	var/ninja_weapon = FALSE			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
@@ -67,10 +68,10 @@
 	var/list/image/attachment_overlays = list()
 	///List of offsets to make attachment overlays not look wonky.
 	var/list/attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0),
-		ATTACHMENT_SLOT_SIBYL = list("x" = 0, "y" = 0)
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0),
+		ATTACHMENT_SLOT_SIBYL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	)
 	///List of slots a gun can have.
 	var/list/obj/item/gun_module/attachments_by_slot = list(
@@ -115,6 +116,9 @@
 
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
+	/// Point blank shot cooldown
+	var/pb_cooldown_duration = 3 SECONDS
+	COOLDOWN_DECLARE(pb_cooldown)
 	/// Shots counter
 	var/shots_counter = 0
 
@@ -187,8 +191,8 @@
 
 /obj/item/gun/update_overlays()
 	. = ..()
-	for(var/slot in attachment_overlays)
-		var/image/overlay = attachment_overlays[slot]
+	for(var/slot, overlay_value in attachment_overlays)
+		var/image/overlay = overlay_value
 		if(!overlay)
 			continue
 		. += overlay
@@ -196,15 +200,26 @@
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
 	if(overlay && attachable_offset)
-		var/x_offset = attachable_offset[module.slot]["x"]
-		var/y_offset = attachable_offset[module.slot]["y"]
-		if(module.overlay_offset)
-			x_offset += module.overlay_offset["x"]
-			y_offset += module.overlay_offset["y"]
-		overlay.pixel_w = x_offset
-		overlay.pixel_z = y_offset
+		apply_attachment_offset(module.slot, overlay, module)
 	attachment_overlays[module.slot] = overlay
 	update_icon()
+
+/obj/item/gun/proc/update_attachment_overlays()
+	for(var/slot, overlay in attachment_overlays)
+		var/image/overlay_img = overlay
+		if(!overlay_img)
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		apply_attachment_offset(slot, overlay_img, module)
+
+/obj/item/gun/proc/apply_attachment_offset(slot, image/overlay_img, obj/item/gun_module/module)
+	var/x_offset = attachable_offset[slot][ATTACHMENT_OFFSET_X]
+	var/y_offset = attachable_offset[slot][ATTACHMENT_OFFSET_Y]
+	if(module.overlay_offset)
+		x_offset += module.overlay_offset[ATTACHMENT_OFFSET_X]
+		y_offset += module.overlay_offset[ATTACHMENT_OFFSET_Y]
+	overlay_img.pixel_w = x_offset
+	overlay_img.pixel_z = y_offset
 
 /obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
 	if(attachment_overlays[module.slot])
@@ -243,6 +258,9 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	if(pointblank && !COOLDOWN_FINISHED(src, pb_cooldown))
+		pointblank = FALSE
+
 	do_recoil(user, target)
 
 	if(!chambered)
@@ -261,12 +279,7 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
-				if(pb_knockback > 0 && isliving(target))
-					var/mob/living/living_target = target
-					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
-						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
-						living_target.throw_at(throw_target, pb_knockback, 2)
+				do_pointblank_shot(user, target)
 			else
 				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
@@ -277,6 +290,19 @@
 			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
+
+
+/obj/item/gun/proc/do_pointblank_shot(mob/living/user, atom/target)
+	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
+	if(pb_knockback > 0 && isliving(target))
+		do_pb_knockback(user, target)
+
+/obj/item/gun/proc/do_pb_knockback(mob/living/user, mob/living/target)
+	if(target.move_resist > MOVE_FORCE_NORMAL) // no knockbacking prince of terror or somethin
+		return
+	COOLDOWN_START(src, pb_cooldown, pb_cooldown_duration)
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, pb_knockback, 2)
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)
@@ -361,7 +387,7 @@
 	if(chambered)
 		chambered.leave_residue(user)
 
-	if(semicd)
+	if(fire_cd)
 		return
 
 	if(user.buckled)
@@ -429,9 +455,9 @@
 			return
 		process_chamber()
 		update_icon()
-		semicd = 1
+		fire_cd = TRUE
 		spawn(fire_delay)
-			semicd = 0
+			fire_cd = FALSE
 
 	if(user)
 		user.update_held_items()
@@ -645,35 +671,49 @@
 	if(!ishuman(user) || !ishuman(target))
 		return
 
-	if(semicd)
+	if(fire_cd)
 		return
 
 	if(user == target)
-		target.visible_message(span_warning("[user] вставляет ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
-							span_userdanger("Вы вставляеете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
+		target.visible_message(
+			span_warning("[user] вставля[PLUR_ET_YUT(user)] ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
+			span_userdanger("Вы вставляете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."),
+		)
 	else
-		target.visible_message(span_warning("[user] направляет [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
-							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить!"))
+		target.visible_message(
+			span_warning("[user] направля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."),
+			span_userdanger("[user] направля[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить..."),
+		)
 
-	semicd = 1
+	fire_cd = TRUE
 
 	if(!do_after(user, 12 SECONDS, target, NONE) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		if(user)
 			if(user == target)
-				user.visible_message(span_notice("[user] решает, что жить всё-таки хочется."))
+				user.visible_message(
+					span_notice("[user] реша[PLUR_ET_YUT(user)], что жить всё-таки хочется."),
+				)
 			else if(target && target.Adjacent(user))
-				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить вас в живых!"))
-		semicd = 0
+				target.visible_message(
+					span_notice("[user] реша[PLUR_ET_YUT(user)] пощадить [target]."),
+					span_notice("[user] реша[PLUR_ET_YUT(user)] оставить вас в живых!"),
+				)
+		fire_cd = FALSE
 		return
 
-	semicd = 0
+	fire_cd = FALSE
 
-	target.visible_message(span_warning("[user] нажимает на спусковой крючок!"), span_userdanger("[user] нажимает на спусковой крючок!"))
+	target.visible_message(
+		span_warning("[user] нажима[PLUR_ET_YUT(user)] на спусковой крючок!"),
+		span_userdanger("[user] нажима[PLUR_ET_YUT(user)] на спусковой крючок!")
+	)
 
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	process_fire(target, user, 1, params)
+	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
+	if(!fired && chambered?.BB)
+		chambered.BB.damage /= 15
 
 /////////////
 // ZOOMING //

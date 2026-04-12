@@ -14,7 +14,7 @@
 	icon_state = "box_civ"
 	var/breathmask = /obj/item/clothing/mask/breath
 	var/internals = /obj/item/tank/internals/emergency_oxygen
-	var/first_aid = /obj/item/storage/firstaid/crew
+	var/first_aid = /obj/item/storage/firstaid/crew/full
 	var/glowstick = /obj/item/flashlight/flare/glowstick/blue
 
 /obj/item/storage/box/survival/populate_contents()

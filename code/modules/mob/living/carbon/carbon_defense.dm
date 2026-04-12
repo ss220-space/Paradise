@@ -106,7 +106,7 @@
 	if(!proj.nodamage && !QDELETED(src))
 		apply_damage(proj.damage, proj.damage_type, def_zone, armor)
 		if(proj.damage_type == BRUTE && (!armor || prob(30) || proj.damage - armor >= 25))
-			spray_blood(get_dir(proj.starting, src), rand(1, max(1, floor((proj.damage - armor) / 10))))
+			spray_blood(get_dir(proj.starting, src), min(rand(1, max(1, floor((proj.damage - armor) / 10))), 5))
 		if(proj.dismemberment)
 			check_projectile_dismemberment(proj, def_zone)
 	return proj.on_hit(src, armor, def_zone)

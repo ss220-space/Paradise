@@ -261,6 +261,12 @@
 			if(!broken)
 				. += span_warning("Оно разваливается на части!")
 
+/obj/structure/examine_descriptor(mob/user)
+	return "структура"
+
+/obj/structure/examine_descriptor_gender()
+	return "female"
+
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
 

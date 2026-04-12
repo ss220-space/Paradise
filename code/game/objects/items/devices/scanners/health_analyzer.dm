@@ -787,7 +787,8 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		balloon_alert(user, "модуль установлен")
-		playsound(loc, I.usesound, 50, TRUE)
+		if(I.usesound)
+			playsound(loc, I.usesound, 50, TRUE)
 		advanced = TRUE
 		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
@@ -807,7 +808,8 @@
 
 		connected_acc = id.associated_account_number
 		to_chat(user, span_notice("Аккаунт привязан."))
-		playsound(loc, I.usesound, 50, TRUE)
+		if(I.usesound)
+			playsound(loc, I.usesound, 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()

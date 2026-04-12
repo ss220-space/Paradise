@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - tweak: "Вендоры и хирургические мониторы не имеют ТТСа (PR #8809)"

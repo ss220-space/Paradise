@@ -3420,11 +3420,6 @@
 /area/hallway/secondary/entry/additional)
 "aCE" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/blood/tracks{
-	basecolor = "#030303";
-	desc = "It's black and greasy. Looks like Beepsky made another mess.";
-	drydesc = "It's dry and crusty. Someone is not doing their job."
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -10574,7 +10569,6 @@
 /area/civilian/vacantoffice)
 "bxD" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -20093,22 +20087,10 @@
 /area/hydroponics)
 "cxk" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Riot shotguns"
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random_spawners/security_shotguns,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23006,15 +22988,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
-"cKH" = (
-/obj/structure/chair/comfy/teal{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "cKI" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -25347,13 +25320,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/lab)
-"cVy" = (
-/obj/structure/chair/comfy/teal,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "cVz" = (
 /obj/machinery/chem_heater,
 /obj/effect/decal/warning_stripes/southeast,
@@ -25719,10 +25685,11 @@
 	},
 /area/medical/reception)
 "cWR" = (
-/obj/structure/table,
-/obj/item/storage/box/cups,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/chair/comfy/teal{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27085,8 +27052,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/closet/secure_closet/paramedic,
-/obj/item/defibrillator/loaded,
-/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -30069,11 +30034,6 @@
 "dri" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/blood/tracks{
-	basecolor = "#030303";
-	desc = "It's black and greasy. Looks like Beepsky made another mess.";
-	drydesc = "It's dry and crusty. Someone is not doing their job."
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "drl" = (
@@ -40831,8 +40791,9 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "eLX" = (
-/obj/structure/chair/sofa/bench/corner{
-	dir = 1
+/obj/machinery/vending/cart{
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -40947,7 +40908,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "eMN" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -43261,14 +43222,6 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/alphadeck)
-"fok" = (
-/obj/machinery/computer/merch{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "fos" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -44371,9 +44324,6 @@
 /area/medical/research/nhallway)
 "fEm" = (
 /obj/effect/landmark/start/doctor,
-/obj/structure/chair/comfy/teal{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -47603,9 +47553,6 @@
 /area/toxins/xenobiology)
 "gsd" = (
 /obj/effect/landmark/start/intern,
-/obj/structure/chair/comfy/teal{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -48716,15 +48663,6 @@
 	icon_state = "darkred"
 	},
 /area/security/securearmory)
-"gET" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "gFa" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -53557,7 +53495,6 @@
 	},
 /area/crew_quarters/fitness)
 "hHK" = (
-/obj/structure/table,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -68869,10 +68806,10 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/machinery/iv_drip,
 /obj/structure/closet/crate/secure/blood/mixed,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "whitered"
@@ -69290,9 +69227,6 @@
 /area/maintenance/kitchen)
 "lqP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/comfy/teal{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -71023,15 +70957,6 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"lPl" = (
-/obj/effect/landmark/start/civilian,
-/obj/structure/chair/sofa/bench/left{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "lPv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -75072,9 +74997,6 @@
 /area/maintenance/library)
 "mJx" = (
 /obj/effect/landmark/start/doctor,
-/obj/structure/chair/comfy/teal{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -75936,9 +75858,6 @@
 /area/quartermaster/miningdock)
 "mRV" = (
 /obj/effect/landmark/start/intern,
-/obj/structure/chair/comfy/teal{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -76239,8 +76158,8 @@
 	},
 /area/maintenance/fpmaint)
 "mVw" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -82279,8 +82198,9 @@
 	},
 /area/bridge/vip)
 "oqi" = (
-/obj/structure/chair/comfy/teal,
 /obj/item/radio/intercom/directional/east,
+/obj/structure/table,
+/obj/item/storage/box/cups,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -95737,16 +95657,6 @@
 	icon_state = "redyellowfull"
 	},
 /area/engineering/break_room)
-"rmC" = (
-/obj/structure/chair/sofa/bench/right{
-	dir = 4
-	},
-/obj/effect/landmark/start/civilian,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "rmK" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/bluegrid,
@@ -103638,9 +103548,8 @@
 	},
 /area/security/detectives_office)
 "tcj" = (
-/obj/machinery/vending/cart{
-	pixel_x = -1;
-	pixel_y = 1
+/obj/machinery/computer/merch{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -105971,11 +105880,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Maintenance";
 	req_access = list(31)
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	basecolor = "#030303";
-	desc = "It's black and greasy. Looks like Beepsky made another mess.";
-	drydesc = "It's dry and crusty. Someone is not doing their job."
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_cargo";
@@ -126644,14 +126548,14 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "xYy" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/machinery/light,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
 /area/medical/cmostore)
 "xYM" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -165952,7 +165856,7 @@ hQG
 dPk
 dPk
 jEJ
-rmC
+dPk
 eLX
 fgk
 bnc
@@ -166210,7 +166114,7 @@ qaz
 dLX
 fVO
 qaz
-lPl
+dZg
 fgk
 bnc
 jya
@@ -167032,9 +166936,9 @@ liV
 xYU
 oqi
 cWR
-cKH
-gET
-cVy
+cRg
+cRg
+cRg
 hHK
 cRg
 iBT
@@ -167752,7 +167656,7 @@ qaz
 dLX
 kmb
 qaz
-lCN
+dZg
 fgk
 bnc
 jya
@@ -168009,7 +167913,7 @@ dLX
 dLX
 dUs
 dLX
-fok
+lCN
 fgk
 bnc
 jya

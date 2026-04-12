@@ -86,11 +86,15 @@
 	// These lines below were in original TG code but it caused issues
 	// with proximity sensors not updating turfs correctly
 	// when switching locs in the same turf so i commented it out
+	// - Ksaikok
 
-	//Only register/unregister turf signals if it's moved to a new turf.
-	//if(current_turf == get_turf(old_loc))
-	//	unregister_signals(old_loc, null)
-	//	return
+	// I didn't find any issues.
+	// - LittleBoobs
+
+	// Only register/unregister turf signals if it's moved to a new turf.
+	if(current_turf == get_turf(old_loc))
+		unregister_signals(old_loc, null)
+		return
 	var/list/old_turfs = turfs
 	turfs = RANGE_TURFS(range, current_turf)
 	unregister_signals(old_loc, old_turfs - turfs)
@@ -98,7 +102,7 @@
 		//Keep track of possible movement of all movables the target is in.
 		for(var/atom/movable/container as anything in get_nested_locs(target))
 			RegisterSignal(container, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
-	for(var/turf/target_turf as anything in turfs - old_turfs)
+	for(var/turf/target_turf as anything in (turfs - old_turfs))
 		for(var/signal in connections)
 			parent.RegisterSignal(target_turf, signal, connections[signal])
 

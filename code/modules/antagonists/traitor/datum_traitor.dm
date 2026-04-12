@@ -322,11 +322,11 @@
 
 	if(is_pda(uplink_holder))
 		var/obj/item/pda/pda_uplink = uplink_holder
-		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features.")
+		to_chat(owner.current, span_notice("The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features."))
 
 	else if(isradio(uplink_holder))
 		var/obj/item/radio/radio_uplink = uplink_holder
-		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply dial the frequency [format_frequency(radio_uplink.traitor_frequency)] to unlock its hidden features.")
+		to_chat(owner.current, span_notice("The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply dial the frequency [format_frequency(radio_uplink.traitor_frequency)] to unlock its hidden features."))
 
 	else
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))

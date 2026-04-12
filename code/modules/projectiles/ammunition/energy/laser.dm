@@ -38,12 +38,15 @@
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/projectile/beam/pulse/hitscan
+	projectile_type = /obj/projectile/beam/pulse
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	sibyl_tier = SIBYL_TIER_DESTRUCTIVE
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
+
+/obj/item/ammo_casing/energy/laser/pulse/hitscan
+	projectile_type = /obj/projectile/beam/pulse/hitscan
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
 	projectile_type = /obj/projectile/beam/pulse/hitscan

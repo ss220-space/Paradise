@@ -168,3 +168,14 @@
 	caliber = CALIBER_45NR
 	projectile_type = /obj/projectile/bullet/weakbullet4/c45nr
 	bullet_type = BULLET_TYPE_PLAIN
+
+// MARK: 12.7x55
+/obj/item/ammo_casing/c12_dot_7X55  //СЦ-130 ПТ
+	desc = "Патрон калибра 12.7x55 мм."
+	icon_state = "casing12.7"
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 100)
+	caliber = CALIBER_12_DOT_7X55MM
+	projectile_type = /obj/projectile/bullet/c12_dot_7X55
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	bullet_type = BULLET_TYPE_PLAIN
