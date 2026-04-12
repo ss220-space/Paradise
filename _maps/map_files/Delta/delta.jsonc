@@ -81,17 +81,6 @@
 
 	{
 		"type": "SubmapExtractInsert",
-		"submap_size_x" : 11,
-		"submap_size_y" : 9,
-		"submap_size_z" : 1,
-		"submaps_dmm": "_maps/map_files/Delta/submaps/mining_dock.dmm",
-		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/mining_dock",
-		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/mining_dock",
-		"submaps_can_repeat": true
-	},
-
-	{
-		"type": "SubmapExtractInsert",
 		"submap_size_x" : 10,
 		"submap_size_y" : 11,
 		"submap_size_z" : 1,

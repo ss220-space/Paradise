@@ -17,9 +17,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "i" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-55"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	icon_state = "bulb0"
 	},
@@ -28,9 +26,7 @@
 	},
 /area/teleporter/abandoned)
 "j" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-127"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/machinery/alarm{
 	dir = 1;
@@ -39,9 +35,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "k" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-55"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -1;
@@ -50,14 +44,10 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "l" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-157"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/old{
-	color = "#460000";
-	icon_state = "mfloor5";
-	name = "dried blood"
+	icon_state = "mfloor5"
 	},
 /obj/structure/window/reinforced{
 	color = "#58b5c3"
@@ -67,9 +57,7 @@
 	},
 /area/teleporter/abandoned)
 "n" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-141"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/spider/stickyweb{
 	dir = 4
@@ -78,9 +66,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "p" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-239"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced{
 	color = "#58b5c3";
 	dir = 4
@@ -93,9 +79,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "r" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-203"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -105,9 +89,7 @@
 /turf/simulated/wall/rust,
 /area/teleporter/abandoned)
 "u" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-239"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /obj/machinery/power/apc/worn_out{
 	pixel_y = -26
@@ -120,9 +102,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "w" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-1"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -138,9 +118,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "z" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-110"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/constructable_frame/machine_frame{
 	icon_state = "box_1"
 	},
@@ -153,9 +131,7 @@
 	},
 /area/teleporter/abandoned)
 "C" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-74"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/spider/stickyweb{
 	dir = 4
@@ -165,9 +141,7 @@
 	},
 /area/teleporter/abandoned)
 "D" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-110"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
@@ -176,9 +150,7 @@
 	},
 /area/teleporter/abandoned)
 "F" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-21"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-0"
@@ -205,9 +177,7 @@
 /turf/simulated/wall,
 /area/teleporter/abandoned)
 "H" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-223"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/spider/stickyweb{
 	dir = 4;
@@ -224,9 +194,7 @@
 /turf/simulated/wall/rust,
 /area/teleporter/abandoned)
 "J" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-255"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/machinery/light/small{
 	dir = 1;
@@ -237,13 +205,9 @@
 	},
 /area/teleporter/abandoned)
 "K" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-191"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old{
-	color = "#460000";
-	icon_state = "mfloor3";
-	name = "dried blood"
+	icon_state = "mfloor3"
 	},
 /obj/machinery/door/window/westleft{
 	color = "#58b5c3";
@@ -271,9 +235,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "N" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-255"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/constructable_frame/machine_frame{
 	icon_state = "box_1"
 	},
@@ -286,15 +248,11 @@
 	},
 /area/teleporter/abandoned)
 "O" = (
-/obj/structure/extinguisher_cabinet{
-	icon_state = "extinguisher_full_closed"
-	},
+/obj/structure/extinguisher_cabinet,
 /turf/simulated/wall/r_wall,
 /area/teleporter/abandoned)
 "P" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-203"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -313,9 +271,7 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "V" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-2"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -324,9 +280,7 @@
 /obj/structure/cable{
 	icon_state = "2-8-f"
 	},
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-75"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light{
 	dir = 4
 	},
@@ -335,9 +289,7 @@
 	},
 /area/teleporter/abandoned)
 "Y" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-46"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "0-4-f"
 	},

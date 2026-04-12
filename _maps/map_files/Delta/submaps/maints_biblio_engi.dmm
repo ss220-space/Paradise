@@ -1,8 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aV" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-137"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/bench/security_red{
 	dir = 4
 	},
@@ -10,9 +8,7 @@
 /area/maintenance/engineering)
 "bC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-4"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2-f"
@@ -48,9 +44,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "eX" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-137"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/rack,
 /turf/simulated/floor/mineral/plastitanium,
@@ -121,12 +115,6 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_biblio_engineering,
 /turf/template_noop,
 /area/template_noop)
-"me" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-1"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/maintenance/engineering)
 "ms" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2-f"
@@ -148,23 +136,17 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "pi" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-38"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/black{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "qp" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-8"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/old{
-	color = "#460000";
-	icon_state = "mfloor6";
-	name = "dried blood"
+	icon_state = "mfloor6"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
@@ -173,9 +155,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "ru" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-55"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/bench/left/security_red{
 	dir = 8
 	},
@@ -219,9 +199,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "uN" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-46"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -229,9 +207,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "vA" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-203"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "wc" = (
@@ -254,9 +230,7 @@
 "yW" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/old{
-	color = "#460000";
-	icon_state = "mfloor6";
-	name = "dried blood"
+	icon_state = "mfloor6"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
@@ -280,9 +254,7 @@
 /area/engineering/engine)
 "BY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-2"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2-f"
@@ -296,9 +268,7 @@
 "En" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/old{
-	color = "#460000";
-	icon_state = "mfloor3";
-	name = "dried blood"
+	icon_state = "mfloor3"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
@@ -312,25 +282,15 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_biblio_engineering,
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
-"Gz" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-38"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/engineering)
 "GM" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-78"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/bench/right/security_red{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "Iq" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-12"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
@@ -370,9 +330,7 @@
 /turf/simulated/wall,
 /area/maintenance/engineering)
 "Kz" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-55"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
@@ -393,9 +351,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "LD" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-1"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2-f"
 	},
@@ -418,9 +374,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "MW" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-110"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "NB" = (
@@ -431,24 +385,14 @@
 "NR" = (
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"Pe" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-74"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/maintenance/engineering)
 "PV" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-255"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "RR" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-3"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -467,9 +411,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "St" = (
-/obj/effect/decal/cleanable/dirt{
-	icon_state = "dirt-21"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/bench/security_red{
 	dir = 8
 	},
@@ -697,7 +639,7 @@ NR
 Iq
 nF
 nF
-Gz
+vA
 Kz
 zd
 yB
@@ -737,11 +679,11 @@ yB
 yB
 yB
 Jy
-me
+MW
 eE
 NB
 Uu
-Pe
+MW
 vA
 zd
 yB

@@ -51,12 +51,12 @@
 	},
 /area/medical/chemistry)
 "el" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/light{
 	dir = 1;
 	icon_state = "tube0"
 	},
 /obj/machinery/camera,
+/obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowsiding"
@@ -389,6 +389,9 @@
 	icon_state = "glass_table-4"
 	},
 /obj/item/reagent_scanner/adv,
+/obj/item/storage/firstaid/aquatic_kit/full{
+	pixel_x = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -665,7 +668,6 @@
 /obj/structure/cable{
 	icon_state = "1-2-f"
 	},
-/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -922,8 +924,8 @@ CU
 uv
 YM
 GT
-RY
 yi
+RY
 mV
 HG
 CU

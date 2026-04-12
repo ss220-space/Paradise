@@ -99,15 +99,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/chemistry/sofa
 	name = "более удобная химия с диваном"
 
-//mining dock submap
-
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/mining_dock
-
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/mining_dock
-
-/obj/effect/map_effect/marker_helper/submap_def/delta/mining_dock/no_locker
-	name = "шахтерский док с качалкой вместо шкафчиков"
-
 //RND counter submap
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter
