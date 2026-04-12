@@ -162,9 +162,9 @@
 	var/result = DEFIB_NO_SHOCK
 
 	if(should_cause_harm)
-		result = combat_fibrillate(user, target)
+		result = combat_fibrillate(user, target, defib_ref)
 	else if(should_cause_disarm)
-		result = disarm_fibrillate(user, target)
+		result = disarm_fibrillate(user, target, defib_ref)
 	else
 		result = medical_fibrillate(user, target, defib_ref)
 
@@ -177,6 +177,11 @@
 
 /**
  * Standard medical defibrillation flow.
+ *
+ * Arguments:
+ * * user - wielder of the defib
+ * * target - person getting shocked
+ * * defib_ref - the defibrillator instance
  */
 /datum/component/defib/proc/medical_fibrillate(mob/living/user, mob/living/carbon/human/target, atom/defib_ref)
 	user.visible_message(
@@ -323,21 +328,22 @@
  * Arguments:
  * * user - wielder of the defib
  * * target - person getting shocked
+ * * defib_ref - the defibrillator instance
  */
-/datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target)
+/datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
 	target.visible_message(
-		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
-		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [parent.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [parent.declent_ru(INSTRUMENTAL)]!"),
 	)
 
 	if(ignore_hardsuits)
-		target.apply_damage(70, STAMINA)
+		target.apply_damage(DEFIB_COMBAT_DAMAGE, STAMINA)
 		target.Weaken(4 SECONDS)
 	else
-		target.apply_damage(40, STAMINA)
+		target.apply_damage(DEFIB_DAMAGE, STAMINA)
 		target.Knockdown(3 SECONDS)
 
-	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
@@ -353,16 +359,17 @@
  * Arguments:
  * * user - wielder of the defib
  * * target - person getting shocked
+ * * defib_ref - the defibrillator instance
  */
-/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
+/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
 	if(!do_after(user, 1 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
 		return DEFIB_NO_SHOCK
 
 	target.visible_message(
-		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] электродами боевого дефибриллятора!"),
-		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас электродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [parent.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [parent.declent_ru(INSTRUMENTAL)]!"),
 	)
-	playsound(get_turf(parent), 'sound/machines/defib_charge.ogg', 50, FALSE)
+	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, FALSE)
 
 	if(!do_after(user, 2 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
 		return DEFIB_NO_SHOCK
@@ -381,7 +388,7 @@
 		add_attack_logs(user, target, "Gave a heart attack with [parent]")
 		target.set_heartattack(TRUE)
 
-	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("scream")
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Shocked with [parent]")
@@ -417,3 +424,9 @@
 			affecting.visible_message(span_danger("[affecting] сотряса[PLUR_ET_YUT(affecting)]ся от электрического тока, проходящего через [GEND_HIS_HER(affecting)] руку!"), \
 							span_userdanger("Вы чувствуете мощный удар током, проходящий через ваше сердце!"))
 			affecting.set_heartattack(TRUE)
+
+#undef DEFIB_NO_SHOCK
+#undef DEFIB_SHOCK_FAILED
+#undef DEFIB_SHOCK_SUCCESS
+#undef DEFIB_DAMAGE
+#undef DEFIB_COMBAT_DAMAGE
