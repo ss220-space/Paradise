@@ -30,7 +30,7 @@
 	icon_state = "red_furhat"
 	item_state = "red_furhat"
 	resistance_flags = INDESTRUCTIBLE
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -101,24 +101,6 @@
 /datum/milla_safe/magic_staff_freese/on_run(turf/turf)
 	var/datum/gas_mixture/environment = get_turf_air(turf)
 	environment.set_temperature(T0C)
-
-/obj/item/ammo_casing/magic/frost
-	projectile_type = /obj/projectile/magic/frost
-
-/obj/projectile/magic/frost
-	name = "bolt of frost"
-	icon_state = "ice_2"
-	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
-	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
-
-/obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
-	. = ..()
-	if(isliving(target))
-		var/mob/living/victim = target
-		freeze(victim)
-
-/obj/projectile/magic/frost/proc/freeze(mob/living/target)
-	target.apply_status_effect(/datum/status_effect/freon/frost)
 
 /datum/status_effect/freon/frost
 	ice_state = "ice_shell"

@@ -26,7 +26,7 @@
 		air.set_halon(halon)
 		air.set_helium(helium)
 		air.set_antinoblium(antinoblium)
-		air.set_hyper_noblium(hyper_noblium)
+		air.set_hypernoblium(hypernoblium)
 		air.set_temperature(temperature)
 		return air
 	air.set_oxygen(0)
@@ -49,7 +49,7 @@
 	air.set_halon(0)
 	air.set_helium(0)
 	air.set_antinoblium(0)
-	air.set_hyper_noblium(0)
+	air.set_hypernoblium(0)
 	air.set_temperature(0)
 	return air
 
@@ -208,7 +208,7 @@
 		halon,
 		helium,
 		antinoblium,
-		hyper_noblium,
+		hypernoblium,
 		temperature
 	)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]

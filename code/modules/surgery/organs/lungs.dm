@@ -113,6 +113,8 @@
 			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
+#define PLUOXIUM_O2_EFFICIENCY 8
+
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_GODMODE) || HAS_TRAIT(H, TRAIT_NO_BREATH))
 		return
@@ -139,18 +141,18 @@
 	var/gas_breathed = 0
 
 	//Partial pressures in our breath
-	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
+	var/pluoxium_pp = breath.get_breath_partial_pressure(breath.pluoxium())
+	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen()) + PLUOXIUM_O2_EFFICIENCY * pluoxium_pp
 	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
 	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins())
 	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide())
 	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent())
-	var/pluoxium_pp = breath.get_breath_partial_pressure(breath.pluoxium())
 	var/bz_pp = breath.get_breath_partial_pressure(breath.bz())
 	var/freon_pp = breath.get_breath_partial_pressure(breath.freon())
 	var/halon_pp = breath.get_breath_partial_pressure(breath.halon())
 	var/healium_pp = breath.get_breath_partial_pressure(breath.healium())
 	var/helium_pp = breath.get_breath_partial_pressure(breath.helium())
-	var/hypernob_pp = breath.get_breath_partial_pressure(breath.hyper_noblium())
+	var/hypernob_pp = breath.get_breath_partial_pressure(breath.hypernoblium())
 	var/miasma_pp = breath.get_breath_partial_pressure(breath.miasma())
 	var/nitrium_pp = breath.get_breath_partial_pressure(breath.nitrium())
 	var/trit_pp = breath.get_breath_partial_pressure(breath.tritium())
@@ -319,6 +321,8 @@
 
 	return TRUE
 
+#undef PLUOXIUM_O2_EFFICIENCY
+
 /// Behaves like Oxygen with 8X efficacy, but metabolizes into a reagent.
 /obj/item/organ/internal/lungs/proc/consume_pluoxium(mob/living/carbon/breather, datum/gas_mixture/breath, pluoxium_pp)
 	breath.set_pluoxium(0)
@@ -395,7 +399,7 @@
 
 /// Gain hypernob effects if we have enough of the stuff
 /obj/item/organ/internal/lungs/proc/consume_hypernoblium(mob/living/carbon/breather, datum/gas_mixture/breath, hypernob_pp)
-	breath.set_hyper_noblium(0)
+	breath.set_hypernoblium(0)
 	if(hypernob_pp > gas_stimulation_min)
 		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/hypernoblium)
 		breather.reagents.add_reagent(/datum/reagent/hypernoblium, max(0, 1 - existing))

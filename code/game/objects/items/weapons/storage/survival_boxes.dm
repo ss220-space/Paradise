@@ -14,7 +14,7 @@
 	icon_state = "box_civ"
 	var/breathmask = /obj/item/clothing/mask/breath
 	var/internals = /obj/item/tank/internals/emergency_oxygen
-	var/first_aid = /obj/item/storage/firstaid/crew
+	var/first_aid = /obj/item/storage/firstaid/crew/full
 	var/glowstick = /obj/item/flashlight/flare/glowstick/blue
 
 /obj/item/storage/box/survival/populate_contents()
@@ -346,7 +346,7 @@
 	new /obj/item/clothing/shoes/combat (src)
 	new /obj/item/clothing/gloves/combat (src)
 	new /obj/item/clothing/suit/space/hardsuit/ert/security (src)
-	new /obj/item/gun/projectile/automatic/lasercarbine (src)
+	new /obj/item/gun/projectile/automatic/ik60 (src)
 	new /obj/item/clothing/glasses/night (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/storage/backpack/ert/security/trialmoment/prespawn (src)
@@ -361,8 +361,8 @@
 	new /obj/item/storage/box/handcuffs (src)
 	new /obj/item/grenade/flashbang (src)
 	new /obj/item/grenade/flashbang (src)
-	new/obj/item/ammo_box/magazine/laser (src)
-	new/obj/item/ammo_box/magazine/laser (src)
+	new/obj/item/ammo_box/magazine/ik60mag (src)
+	new/obj/item/ammo_box/magazine/ik60mag (src)
 	new /obj/item/gun/energy/gun/pdw9/ert (src)
 	new /obj/item/implanter/mindshield/ert (src)
 	new /obj/item/implanter/death_alarm (src)

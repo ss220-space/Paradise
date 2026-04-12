@@ -288,7 +288,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Slider (onDrag)">
@@ -298,7 +299,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Knob (onDrag)">
@@ -310,7 +312,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(e, value) => setNumber(value)}
           />
           <Knob
             ml={1}
@@ -322,7 +325,8 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDrag={(e, value) => setNumber(value)}
+            tickWhileDragging
+            onChange={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Rotating Icon">
@@ -334,7 +338,8 @@ const KitchenSinkInput = (props: unknown) => {
               dragMatrix={[0, -1]}
               step={1}
               stepPixelSize={5}
-              onDrag={(e, value) => setNumber(value)}
+              tickWhileDragging
+              onChange={(e, value) => setNumber(value)}
             >
               {(control) => (
                 <Box onMouseDown={control.handleDragStart}>

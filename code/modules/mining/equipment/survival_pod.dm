@@ -209,9 +209,6 @@
 	floor_tile = /obj/item/stack/tile/pod/light
 
 /turf/simulated/floor/pod/light/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -221,9 +218,6 @@
 	floor_tile = /obj/item/stack/tile/pod/dark
 
 /turf/simulated/floor/pod/dark/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 

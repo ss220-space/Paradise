@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Пофикшен потенциальный дюп РШ-12. (PR #8867)"

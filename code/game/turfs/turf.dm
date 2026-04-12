@@ -30,7 +30,7 @@
 	var/agent_b = 0
 	var/hydrogen = 0
 	var/water_vapor = 0
-	var/hyper_noblium = 0
+	var/hypernoblium = 0
 	var/nitrium = 0
 	var/tritium = 0
 	var/bz = 0
@@ -971,6 +971,7 @@
 		else
 			current_hotspot.temperature = air.temperature()
 			current_hotspot.volume = CELL_VOLUME
+		current_hotspot.coldfire_possible = !!air.freon()
 	else
 		fuel_burnt = current_hotspot.fuel_burnt
 

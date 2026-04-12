@@ -393,6 +393,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_window(A) (istype(A, /obj/structure/window))
 
+#define ishandcuffs(A) (istype(A, /obj/item/restraints/handcuffs))
+
+#define isstraightjacket(A) (istype(A, /obj/item/clothing/suit/straight_jacket))
+
 #define isanomaly(A) (istype(A, /obj/effect/anomaly))
 #define iscoreatmos(A) (istype(A, /obj/item/assembly/signaler/core/atmospheric))
 #define iscorebluespace(A) (istype(A, /obj/item/assembly/signaler/core/bluespace))
@@ -400,3 +404,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscorevortex(A) (istype(A, /obj/item/assembly/signaler/core/vortex))
 #define iscoreflux(A) (istype(A, /obj/item/assembly/signaler/core/energetic))
 #define iscore(A) (istype(A, /obj/item/assembly/signaler/core))
+
+#define isorgan(A) (istype(A, /obj/item/organ))
+
+#define isaccessory(A) (istype(A, /obj/item/clothing/accessory))

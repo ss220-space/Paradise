@@ -129,8 +129,12 @@
 	var/matrix/m180 = matrix(target.transform)
 	m180.Turn(180)
 	animate(target, transform = m180, time = 0.3 SECONDS)
-	target.pixel_x = target.base_pixel_x
-	target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
+	if(ismonkey(target))
+		target.pixel_x = target.base_pixel_x
+		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING + 3
+	else
+		target.pixel_x = target.base_pixel_x
+		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/target)
 	target.adjustBruteLoss(30)
