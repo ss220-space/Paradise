@@ -29,7 +29,7 @@
 	var/safety = TRUE
 	/// If true, this can be used through hardsuits
 	var/ignore_hardsuits = FALSE
-	// If safety is false and harm is true, the chance that this will cause a heart attack.
+	/// Chance to cause cardiac arrest when used in Harm mode with safety protocols disabled.
 	var/heart_attack_probability = 30
 	/// If this is vulnerable to EMPs.
 	var/hardened = FALSE
@@ -412,7 +412,7 @@
 /obj/item/twohanded/shockpaddles/proc/add_defib_component(mainunit)
 	if(check_defib_exists(mainunit))
 		update_icon(UPDATE_ICON_STATE)
-		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, heart_attack_chance = defib.heart_attack_probability, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
+		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof, heart_attack_chance = defib.heart_attack_probability)
 	else
 		AddComponent(/datum/component/defib)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
