@@ -51,6 +51,8 @@
 	var/obj/item/item_path = /obj/item/latexballon
 	/// Sound effect played when this emote is completed.
 	var/sound_effect = 'sound/weapons/slap.ogg'
+	/// Sound effect played when critical success
+	var/epic_sound_effect = 'sound/weapons/critical_slap.ogg'
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
@@ -78,6 +80,7 @@
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, check, "caused a wizard [id] explosion")
+			playsound(user, epic_sound_effect, 100, ignore_walls = TRUE, pressure_affected = FALSE)
 			both_wiz = TRUE
 		user.do_attack_animation(check, no_effect = TRUE)
 		check.do_attack_animation(user, no_effect = TRUE)
