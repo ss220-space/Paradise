@@ -72,3 +72,6 @@
 
 /// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
+
+/// Handles text formatting for item use hints in examine text
+#define EXAMINE_HINT(text) ("<b>" + text + "</b>")
