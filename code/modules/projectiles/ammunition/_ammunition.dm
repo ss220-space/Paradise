@@ -46,6 +46,15 @@
 	/// Ammo type overlay for magazines (not add overlay if null)
 	var/bullet_type = null
 
+	/// Ammo marking for desc and names. Should be like `"9x19 мм БП."`
+	var/ammo_marking = null
+	/**
+	 * Extra description info for specific ammo types.
+	 *
+	 * Example: `"Воспламеяется при попадании."`
+	 */
+	var/extra_info = null
+
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()
 	if(projectile_type)
@@ -54,6 +63,7 @@
 	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
+	update_names()
 
 /obj/item/ammo_casing/Destroy()
 	QDEL_NULL(BB)
@@ -123,9 +133,33 @@
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
+/obj/item/ammo_casing/proc/update_names()
+	var/list/names = get_ru_names_cached()
+	ru_names = names ? names.Copy() : new /list(6)
+
+	if(BB)
+		name = "[ammo_marking] cartridge"
+		ru_names[NOMINATIVE] = "патрон [ammo_marking]"
+		ru_names[GENITIVE] = "патрона [ammo_marking]"
+		ru_names[DATIVE] = "патрону [ammo_marking]"
+		ru_names[ACCUSATIVE] = "патрон [ammo_marking]"
+		ru_names[INSTRUMENTAL] = "патроном [ammo_marking]"
+		ru_names[PREPOSITIONAL] = "патроне [ammo_marking]"
+	else
+		name = "[caliber] bullet casing"
+		ru_names[NOMINATIVE] = "гильза [caliber]"
+		ru_names[GENITIVE] = "гильзы [caliber]"
+		ru_names[DATIVE] = "гильзе [caliber]"
+		ru_names[ACCUSATIVE] = "гильзу [caliber]"
+		ru_names[INSTRUMENTAL] = "гильзой [caliber]"
+		ru_names[PREPOSITIONAL] = "гильзе [caliber]"
+
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)][BB ? "" : " Эта гильза уже отстреляна."]"
+	if(BB)
+		desc = "Патрон [ammo_marking]. [extra_info]"
+	else
+		desc = "Пустая гильза от пули калибра [caliber]." // no extra info because no bullet
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)

@@ -55,6 +55,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 //MARK: Calibers
 
 // Pistol cartridges
+/// Used in Soviet type pistols and SMG (TT, PPSh)
+#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
 /// Used in most standart SMG and pistols
 #define CALIBER_9MM "9x19 мм"
 /// Used in Stechkin pistol
@@ -69,21 +71,19 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_45NR ".45nr"
 /// Used in Desert Eagle pistol
 #define CALIBER_DOT_50AE ".50ae"
-/// Used in Soviet type pistols and SMG (TT, PPSh)
-#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
 
 // Revolver cartridges
 /// Used in heavy revolvers like Unica-6
-#define CALIBER_DOT_357 ".357"
-/// Used in Nagant revolver
-#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+#define CALIBER_DOT_357 ".357 Magnum"
 /// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
 /// Used in Gatfruit revolver
 #define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
-/// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
+/// Used in Nagant revolver
+#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+/// Used in RSh-12 revolver
 #define CALIBER_12_DOT_7X55MM "12.7x55 мм"
 
 // Intermediate cartridges
