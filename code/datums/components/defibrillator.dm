@@ -336,19 +336,13 @@
  * * TRUE - if the attack was successfully blocked
  * * FALSE - if no blocking item reacted
  */
-/datum/component/defib/proc/try_block_attack(mob/living/carbon/human/target, attack_text = "разряд", attack_type = ITEM_ATTACK)
-	if(!target)
+/datum/component/defib/proc/try_block_attack(mob/living/carbon/human/target, mob/living/user, attack_type = ITEM_ATTACK)
+	if(!target || !user || !isitem(parent))
 		return FALSE
 
-	for(var/obj/item/I in target.contents)
-		if(!I || I == parent)
-			continue
-
-		if(I.hit_reaction(target, parent, attack_text, I.block_chance, 0, attack_type))
-			return TRUE
-
-	return FALSE
-
+	var/obj/item/defib_item = parent
+	return target.check_shields(defib_item, 0, "[defib_item.declent_ru(ACCUSATIVE)] [user.declent_ru(GENITIVE)]", attack_type)
+	
 /**
  * Applies the non-lethal effects of an offensive defibrillator shock.
  *
@@ -365,11 +359,6 @@
 		return
 
 	target.apply_damage(DEFIB_DAMAGE, STAMINA)
-
-	if(target.confused > 0)
-		target.Knockdown(5 SECONDS)
-		return
-
 	target.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 10 SECONDS)
 
 /**
@@ -381,12 +370,14 @@
  * * defib_ref - the defibrillator instance
  */
 /datum/component/defib/proc/disarm_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
-	if(try_block_attack(target))
+	var/obj/item/defib_item = parent
+
+	if(try_block_attack(target, user))
 		return DEFIB_NO_SHOCK
 
 	target.visible_message(
-		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [parent.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [parent.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [defib_item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [defib_item.declent_ru(INSTRUMENTAL)]!"),
 	)
 
 	apply_disarm_fibrillate_effects(target)
@@ -409,12 +400,13 @@
  * * defib_ref - the defibrillator instance
  */
 /datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target, atom/defib_ref)
+	var/obj/item/defib_item = parent
 	if(!do_after(user, 1 SECONDS * speed_multiplier, target, category = DA_CAT_TOOL))
 		return DEFIB_NO_SHOCK
 
 	target.visible_message(
-		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [parent.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [parent.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] коснул[GEND_SYA_AS_OS_IS(user)] [target.name] [defib_item.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] коснул[GEND_SYA_AS_OS_IS(user)] вас [defib_item.declent_ru(INSTRUMENTAL)]!"),
 	)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, FALSE)
 
