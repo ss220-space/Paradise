@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
-	desc = "Послушай, ты не мог бы положить это яблоко себе на голову?"
+	desc = "Используется для стрельбы из лука. Самый примитивный вариант."
 	gender = FEMALE
 	icon_state = "arrow"
 	item_state = "arrow"
@@ -19,9 +19,16 @@
 		PREPOSITIONAL = "деревянной стреле",
 	)
 
+/obj/item/ammo_casing/caseless/arrow/update_names()
+	return
+
+/obj/item/ammo_casing/caseless/arrow/update_desc(updates = ALL)
+	. = ..()
+	desc = initial(desc)
+
 /obj/item/ammo_casing/caseless/arrow/bone_tipped
 	name = "bone-tipped arrow"
-	desc = "Стрела, сделанная из кости, дерева и сухожилий. Прочная и острая."
+	desc = "Используется для стрельбы из лука. Выполнена из кости, дерева и сухожилий. Прочная и острая."
 	icon_state = "bone_arrow"
 	item_state = "bone_arrow"
 	force = 12
@@ -39,7 +46,7 @@
 
 /obj/item/ammo_casing/caseless/arrow/jagged
 	name = "jagged-tipped arrow"
-	desc = "Стрела, сделанная из зубов хищной рыбы. Невероятно острая и крепкая."
+	desc = "Используется для стрельбы из лука. Выполнена из зубов хищной рыбы. Невероятно острая и крепкая."
 	icon_state = "jagged_arrow"
 	force = 16
 	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
