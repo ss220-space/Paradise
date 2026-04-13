@@ -62,15 +62,15 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in Stechkin pistol
 #define CALIBER_10MM "10 мм"
 /// Used in SP-8 pistol
-#define CALIBER_40NR ".40nr"
+#define CALIBER_40NR ".40 N&R"
 /// Used in M1911 pistol, C-20r SMG
 #define CALIBER_DOT_45 ".45"
 /// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
-#define CALIBER_DOT_45_COLT ".45colt"
+#define CALIBER_DOT_45_COLT ".45 Colt"
 /// Used in .45 N&R specialized weapons (maybe merge it with .45?)
-#define CALIBER_45NR ".45nr"
+#define CALIBER_45NR ".45 N&R"
 /// Used in Desert Eagle pistol
-#define CALIBER_DOT_50AE ".50ae"
+#define CALIBER_DOT_50AE ".50 AE"
 
 // Revolver cartridges
 /// Used in heavy revolvers like Unica-6
@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in Syndicate sniper rifle
 #define CALIBER_DOT_50 ".50"
 /// Used in Compact Syndicate sniper rifle
-#define CALIBER_DOT_50L ".50L"
+#define CALIBER_DOT_50L ".50 L"
 /// Used in AXMC sniper rifle
 #define CALIBER_DOT_338 ".338"
 

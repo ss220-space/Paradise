@@ -87,6 +87,7 @@
 		hold_casing.pixel_y = rand(-10, 10)
 		hold_casing.setDir(pick(GLOB.alldirs))
 		hold_casing.update_appearance()
+		hold_casing.update_names()
 		hold_casing.SpinAnimation(10, 1) //next gen special effects
 		playsound(hold_casing.loc, chambered.casing_drop_sound, 100, TRUE)
 	if(empty_chamber)

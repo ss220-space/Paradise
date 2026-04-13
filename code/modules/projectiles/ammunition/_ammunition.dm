@@ -1,6 +1,7 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "Иногда гильза от пули — это просто гильза, и ничего более."
+	gender = FEMALE
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	origin_tech = "materials=3;combat=3"
@@ -138,6 +139,7 @@
 	ru_names = names ? names.Copy() : new /list(6)
 
 	if(BB)
+		gender = MALE
 		name = "[ammo_marking] cartridge"
 		ru_names[NOMINATIVE] = "патрон [ammo_marking]"
 		ru_names[GENITIVE] = "патрона [ammo_marking]"
@@ -146,6 +148,7 @@
 		ru_names[INSTRUMENTAL] = "патроном [ammo_marking]"
 		ru_names[PREPOSITIONAL] = "патроне [ammo_marking]"
 	else
+		gender = FEMALE
 		name = "[caliber] bullet casing"
 		ru_names[NOMINATIVE] = "гильза [caliber]"
 		ru_names[GENITIVE] = "гильзы [caliber]"
@@ -157,7 +160,7 @@
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
 	if(BB)
-		desc = "Патрон [ammo_marking]. [extra_info]"
+		desc = "Заряженный и готовый к использованию патрон [ammo_marking]. [extra_info]"
 	else
 		desc = "Пустая гильза от пули калибра [caliber]." // no extra info because no bullet
 

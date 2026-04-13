@@ -15,7 +15,7 @@
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/c9mm/tox
-	ammo_marking = "9x19 мм Т"
+	ammo_marking = "9x19 мм \"Токсин\""
 	extra_info = "Токсинная пуля содержит ядовитое вещество, отравляющее цель при попадании."
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_URANIUM = 200)
 	projectile_type = /obj/projectile/bullet/toxinbullet
