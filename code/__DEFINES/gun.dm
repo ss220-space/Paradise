@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 // Energy weapons
 /// Used in laser weapons
-#define CALIBER_LASER "laser"
+#define CALIBER_LASER "лазер"
 
 // Foam force weapons
 /// Used in foam guns

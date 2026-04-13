@@ -1,7 +1,8 @@
 // MARK: Speargun
 /obj/item/ammo_casing/caseless/magspear
 	name = "magnetic spear"
-	desc = "A reusable spear that is typically loaded into kinetic spearguns."
+	desc = "Копьё, используемое в магнитных копьемётах."
+	ammo_marking = "Копьё"
 	projectile_type = /obj/projectile/bullet/reusable/magspear
 	caliber = CALIBER_SPEAR
 	icon_state = "magspear"
@@ -11,7 +12,8 @@
 
 // MARK: .75 - Gyro pistol
 /obj/item/ammo_casing/caseless/a75
-	desc = "A .75 bullet casing."
+	ammo_marking = ".75"
+	extra_info = "Экспериментальный взрывной боеприпас."
 	caliber = CALIBER_DOT_75
 	materials = list(MAT_METAL = 8000)
 	projectile_type = /obj/projectile/bullet/gyro
@@ -21,6 +23,7 @@
 // MARK: Laser
 /obj/item/ammo_casing/laser
 	desc = "An experimental laser casing."
+	ammo_marking = "Лазер"
 	icon_state = "lasercasing"
 	materials = list(MAT_METAL = 1000)
 	caliber = CALIBER_LASER
@@ -32,6 +35,5 @@
 
 // MARK: Glockroack
 /obj/item/ammo_casing/caseless/glockroach
-	name = "0.9mm bullet casing"
-	desc = "Это... 0.9mm гильза? Чего?"
+	ammo_marking = "0,9 мм"
 	projectile_type = /obj/projectile/glockroachbullet

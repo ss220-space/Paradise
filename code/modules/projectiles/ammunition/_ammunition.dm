@@ -119,17 +119,20 @@
 	var/list/readout = list()
 	readout += "<b><u>СТРЕЛЬБА</u></b>"
 	if((proj_damage_mult <= 0 && proj_stamine_mult <= 0) || (initial_damage <= 0 && initial_stamina <= 0))
-		return span_boldnotice("- Патроны калибра [span_warning(caliber)] не наносят значимого ущерба при попадании.")
+		return span_boldnotice("- Патроны [span_warning(get_ammo_marking())] не наносят значимого ущерба при попадании.")
 
 	// No dividing by 0
 	if(initial_damage)
 		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")
-		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику патронами калибра [span_warning(caliber)] потребуется примерно [lethal_hits_to_crit_str]."
+		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику патронами [span_warning(get_ammo_marking())] потребуется примерно [lethal_hits_to_crit_str]."
 	if(initial_stamina)
 		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")
-		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника патронами калибра [span_warning(caliber)] потребуется примерно [non_lethal_hits_to_crit_str]."
+		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника патронами [span_warning(get_ammo_marking())] потребуется примерно [non_lethal_hits_to_crit_str]."
 
 	return readout.Join("\n") // Sending over a single string, rather than the whole list
+
+/obj/item/ammo_casing/proc/get_ammo_marking()
+	return ammo_marking ? ammo_marking : caliber
 
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
