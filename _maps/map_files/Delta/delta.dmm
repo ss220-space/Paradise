@@ -17427,12 +17427,9 @@
 /area/hallway/secondary/entry)
 "coj" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
+	dir = 1;
 	name = "Труба смешивания"
 	},
 /turf/simulated/floor/plating,
@@ -23152,8 +23149,9 @@
 	},
 /area/toxins/lab)
 "cTD" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater/on{
-	dir = 4
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 4;
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40198,7 +40196,7 @@
 /obj/machinery/flasher{
 	id = "Cell 4";
 	name = "Cell 4 Flasher";
-	pixel_y = -28
+	pixel_y = -32
 	},
 /obj/item/radio/intercom/locked/prison/directional/south,
 /turf/simulated/floor/plasteel{
@@ -53751,7 +53749,8 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "iiZ" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	on = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -60388,6 +60387,10 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
+"jCW" = (
+/obj/effect/turf_decal/arrows,
+/turf/simulated/floor/plating,
+/area/atmos)
 "jCX" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -60473,7 +60476,7 @@
 /obj/machinery/flasher{
 	id = "Cell 2";
 	name = "Cell 2 Flasher";
-	pixel_y = -28
+	pixel_y = -32
 	},
 /obj/item/radio/intercom/locked/prison/directional/south,
 /turf/simulated/floor/plasteel{
@@ -80617,8 +80620,13 @@
 	},
 /area/chapel/office)
 "ogE" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
 /turf/space,
 /area/space)
 "ogG" = (
@@ -99217,25 +99225,25 @@
 /area/maintenance/asmaint)
 "shI" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/rods{
-	amount = 10
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/sheet/glass{
-	amount = 10
-	},
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
 /obj/item/stack/sheet/metal{
 	amount = 10
 	},
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
 /obj/item/stack/sheet/mineral/plasma{
-	amount = 5
+	amount = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/storage)
@@ -108813,6 +108821,16 @@
 /obj/effect/landmark/spawner/honk_squad,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
+"ugY" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/turf/space,
+/area/space)
 "uhe" = (
 /obj/machinery/light{
 	dir = 1
@@ -115524,9 +115542,6 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -146747,12 +146762,12 @@ qlG
 qlG
 bYF
 aaq
-coE
-jtz
-sBo
-jtz
-ogE
-sBo
+aaq
+aaq
+aaq
+aaq
+aaq
+aaq
 sKN
 wph
 sKN
@@ -147003,13 +147018,13 @@ qlG
 qlG
 qlG
 xsG
-aaq
+coE
+coE
 jtz
-dUE
-hvI
-hvI
-ogE
-rGQ
+sBo
+jtz
+sBo
+aaq
 sKN
 bjw
 sKN
@@ -147261,11 +147276,11 @@ qlG
 qlG
 bYF
 coE
-jcb
-jBj
-rsk
-rsk
-sBo
+tNl
+dUE
+hvI
+hvI
+rGQ
 sKN
 sKN
 mri
@@ -147517,12 +147532,12 @@ qlG
 qlG
 qlG
 xsG
-aaq
-jcb
-jtz
-hvI
-rGQ
-iUR
+tNl
+ogE
+ugY
+rsk
+rsk
+sBo
 sKN
 wph
 nhx
@@ -147774,11 +147789,11 @@ qlG
 qlG
 qlG
 bYF
-coE
-jcb
-iUR
-iUR
-tNl
+dAL
+ogE
+dUE
+hvI
+ogE
 xsG
 sKN
 orI
@@ -148031,8 +148046,8 @@ qlG
 qlG
 qlG
 xsG
-aaq
-jBj
+tNl
+ogE
 uAp
 xsG
 iUR
@@ -148288,8 +148303,8 @@ qlG
 qlG
 qlG
 bYF
-aaq
-coE
+dAL
+xsG
 jcb
 eGi
 qzW
@@ -152672,7 +152687,7 @@ fiy
 iNW
 ajf
 coj
-dVq
+jCW
 bKR
 dVq
 dVq
