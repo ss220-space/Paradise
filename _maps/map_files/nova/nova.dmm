@@ -98530,7 +98530,6 @@
 	name = "Atmos External Access";
 	req_access = list(10,13)
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/controlroom)
 "oUq" = (
@@ -101299,6 +101298,10 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/controlroom)
 "ppq" = (
@@ -160641,6 +160644,11 @@
 	id_tag = "atmos_tank_sensor";
 	pixel_x = 57;
 	pixel_y = 7
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1379;
+	id_tag = "atmos_tank_pump"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/controlroom)
