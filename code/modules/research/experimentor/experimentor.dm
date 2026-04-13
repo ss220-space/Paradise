@@ -325,16 +325,16 @@
 	return tech_log
 
 /obj/machinery/r_n_d/experimentor/proc/calculate_bonus(datum/tech/tech, value)
-    var/current_level = tech.level
-    var/max_level = tech.max_level
+	var/current_level = tech.level
+	var/max_level = tech.max_level
 
-    var/machine_bonus = 1 + min(malfunction_probability_coeff, 100) / 100
+	var/machine_bonus = 1 + min(malfunction_probability_coeff, 100) / 100
 
-    var/value_bonus = value / max_level
-    var/remaining = max_level - current_level
-    var/distance_penalty = (remaining + 1) / (max_level + 1)
+	var/value_bonus = value / max_level
+	var/remaining = max_level - current_level
+	var/distance_penalty = (remaining + 1) / (max_level + 1)
 
-    return BONUS_TECH_PROB * machine_bonus * value_bonus * distance_penalty
+	return BONUS_TECH_PROB * machine_bonus * value_bonus * distance_penalty
 
 /obj/machinery/r_n_d/experimentor/proc/handle_global_reactions()
 	if(!prob(EFFECT_PROBABILITY * (100 - malfunction_probability_coeff) * 0.01) || !loaded_item)
