@@ -191,10 +191,10 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
           <Table.Cell>Состояние</Table.Cell>
           <Table.Cell>Локация</Table.Cell>
         </Table.Row>
-          {crew.filter(searcher).map((cm, index) => {
-            const highlighted = data.highlightedNames.includes(cm.name);
-            return (
-              <Table.Row key={index} bold={!!cm.is_command}>
+        {crew.filter(searcher).map((cm, index) => {
+          const highlighted = data.highlightedNames.includes(cm.name);
+          return (
+            <Table.Row key={index} bold={!!cm.is_command}>
               <Table.Cell>
                 <Button.Checkbox
                   checked={highlighted}
