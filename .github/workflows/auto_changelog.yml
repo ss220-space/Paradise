@@ -28,7 +28,7 @@ jobs:
           APP_ID: ${{ secrets.CHANGELOGBOT_APPID }}
 
       - name: Run auto changelog
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const { processAutoChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/autoChangelog.js')
@@ -48,7 +48,7 @@ jobs:
         if: steps.check_changelog_discord_webhook.outputs.DISCORD_ENABLED == 'true'
         env:
           CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const { sendDiscordChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/discordChangelog.js')
