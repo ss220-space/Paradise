@@ -298,7 +298,7 @@
 // Gun procs.
 
 /obj/item/gun/proc/on_autofire_start(mob/living/shooter)
-	if(semicd || shooter.incapacitated() || !can_trigger_gun(shooter))
+	if(fire_cd || shooter.incapacitated() || !can_trigger_gun(shooter))
 		return FALSE
 
 	if(!can_shoot(shooter))
@@ -320,7 +320,7 @@
 /obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	SIGNAL_HANDLER
 
-	if(semicd || shooter.incapacitated())
+	if(fire_cd || shooter.incapacitated())
 		return NONE
 
 	if(!can_shoot(shooter))
