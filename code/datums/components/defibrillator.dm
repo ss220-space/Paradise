@@ -353,14 +353,15 @@
  * * target - person being shocked
  */
 /datum/component/defib/proc/apply_disarm_fibrillate_effects(mob/living/carbon/human/target)
+	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
+
 	if(ignore_hardsuits)
 		target.apply_damage(DEFIB_COMBAT_DAMAGE, STAMINA)
 		target.Knockdown(5 SECONDS)
 		return
 
 	target.apply_damage(DEFIB_DAMAGE, STAMINA)
-	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
-	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
 	target.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 10 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(apply_disarm_knockdown_end), target), 3 SECONDS)
 
