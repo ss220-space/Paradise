@@ -144,7 +144,7 @@
 	icon_state = "shotgunloader"
 	icon_prefix = "shotgunloader"
 	origin_tech = "combat=2"
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	ammo_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 

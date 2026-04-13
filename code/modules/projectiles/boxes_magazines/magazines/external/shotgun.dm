@@ -4,7 +4,7 @@
 	desc = "Барабанный магазин, предназначенный для картечных магнум патронов калибра 12х70."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	max_ammo = 12
 	multiple_sprites = 2
 
@@ -23,7 +23,7 @@
 	desc = "Барабанный магазин, предназначенный для картечных патронов калибра 12х70."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	max_ammo = 12
 	multiple_sprites = 2
 	color = COLOR_ASSEMBLY_BROWN
@@ -239,7 +239,7 @@
 	name = "C.A.T.S. magazine (12g)-U"
 	desc = "Барабанный магазин дробовика C.A.T.S., предназначенный для любых патронов калибра 12х70."
 	icon_state = "cats_mag"
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	ammo_type = null
 
 /obj/item/ammo_box/magazine/cats12g/universal/get_ru_names()
@@ -289,7 +289,7 @@
 	name = "C.A.T.S. magazine (12g)-UL"
 	desc = "Увеличенный барабанный магазин дробовика C.A.T.S., предназначенный для любых патронов калибра 12х70."
 	icon_state = "cats_mag_large"
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	ammo_type = null
 
 /obj/item/ammo_box/magazine/cats12g/large/universal/get_ru_names()

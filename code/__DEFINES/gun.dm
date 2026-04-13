@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 // Shotgun cartridges
 /// Used in all shotguns
-#define CALIBER_12X70 "12х70"
+#define CALIBER_12G "12g"
 
 // Grenade launcher cartridges
 /// Used in underbarrel grenade launchers and Bombarda

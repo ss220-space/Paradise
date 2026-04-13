@@ -21,7 +21,7 @@
 
 /obj/item/ammo_casing/c38/hp
 	ammo_marking = ".38 HP"
-	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб пробиваемости."
+	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб проникающей способности."
 	icon_state = "rhp-casing"
 	materials = list(MAT_METAL = 5000)
 	projectile_type = /obj/projectile/bullet/hp38

@@ -9,7 +9,7 @@
 
 /obj/item/ammo_casing/c9mm/ap
 	ammo_marking = "9x19 мм Б"
-	extra_info = "Бронебойная пуля обладает повышенной пробиваемостью в ущерб останавливающего действия."
+	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150)
 	projectile_type = /obj/projectile/bullet/armourpiercing
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
@@ -101,7 +101,7 @@
 
 /obj/item/ammo_casing/c10mm/ap
 	ammo_marking = "10 мм Б"
-	extra_info = "Бронебойная пуля обладает повышенной пробиваемостью в ущерб останавливающего действия."
+	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
 	projectile_type = /obj/projectile/bullet/midbullet3/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
@@ -116,7 +116,7 @@
 
 /obj/item/ammo_casing/c10mm/hp
 	ammo_marking = "10 мм Э"
-	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб пробиваемости."
+	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб проникающей способности."
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
 	projectile_type = /obj/projectile/bullet/midbullet3/hp
 	bullet_type = BULLET_TYPE_EXPANSIVE
@@ -165,14 +165,14 @@
 
 /obj/item/ammo_casing/c45colt/hp
 	ammo_marking = ".45 Colt HP"
-	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб пробиваемости."
+	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб проникающей способности."
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 100)
 	projectile_type = /obj/projectile/bullet/c45colt/hp
 	bullet_type = BULLET_TYPE_EXPANSIVE
 
 /obj/item/ammo_casing/c45colt/ap
 	ammo_marking = ".45 Colt AP"
-	extra_info = "Бронебойная пуля обладает повышенной пробиваемостью в ущерб останавливающего действия."
+	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	materials = list(MAT_METAL = 1150)
 	projectile_type = /obj/projectile/bullet/c45colt/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
