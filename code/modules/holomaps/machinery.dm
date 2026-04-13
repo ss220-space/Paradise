@@ -149,6 +149,9 @@
 	return TRUE
 
 /obj/machinery/station_map/proc/redraw_map(mob/user)
+	if(!user  || !user.client || !user.client.images)
+		close_map()
+		return
 	user.client.images -= holomap_datum.base_map
 	var/turf/current_turf = get_turf(src)
 	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())

@@ -44,7 +44,7 @@
 			ninja_action.action_ready = FALSE
 			ninja_action.toggle_button_on_off()
 		break
-	addtimer(CALLBACK(src, PROC_REF(ninjaboost_after)), 70)
+	addtimer(CALLBACK(src, PROC_REF(ninjaboost_after)), 7 SECONDS)
 
 /**
  * Proc called to inject the ninja with radium.
@@ -53,5 +53,5 @@
  */
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()
 	var/mob/living/carbon/human/ninja = affecting
-	ninja.reagents.add_reagent("radium", a_transfer * 0.5)
+	ninja.adjustToxLoss(a_transfer * 3)
 	to_chat(ninja, span_danger("Вы начинаете чувствовать побочные эффекты стимулянтов..."))
