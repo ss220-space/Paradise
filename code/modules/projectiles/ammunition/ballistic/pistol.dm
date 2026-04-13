@@ -83,7 +83,7 @@
 /obj/item/ammo_casing/a50
 	ammo_marking = ".50 AE"
 	materials = list(MAT_METAL = 4000)
-	caliber = CALIBER_DOT_50AE //change to diffrent caliber because players got deagle in uplink
+	caliber = CALIBER_DOT_50AE
 	projectile_type = /obj/projectile/bullet/desert_eagle
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
