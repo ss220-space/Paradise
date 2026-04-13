@@ -363,7 +363,7 @@
 
 	target.apply_damage(DEFIB_DAMAGE, STAMINA)
 	target.AdjustConfused(10 SECONDS, bound_lower = 0, bound_upper = 10 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(apply_disarm_knockdown_end), target), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_disarm_knockdown_end), target), 5 SECONDS)
 
 /datum/component/defib/proc/apply_disarm_knockdown_end(mob/living/carbon/human/target)
 	if(QDELETED(target))
