@@ -324,22 +324,27 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
-/obj/structure/closet/crate/engineering/atmosperics
+/obj/structure/closet/crate/engineering/atmospherics
 	name = "atmospherics crate"
 	desc = "An atmospherics crate."
 	icon_state = "atmoscrate"
 
-/obj/structure/closet/crate/secure/engineering/atmosperics
-	name = "secure atmospherics crate"
-	desc = "A crate with a lock on it, painted in the scheme of the station's atmospherics."
-	icon_state = "atmossecurecrate"
+/obj/structure/closet/crate/engineering/atmospherics/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик атмосферного отдела",
+		GENITIVE = "ящика атмосферного отдела",
+		DATIVE = "ящику атмосферного отдела",
+		ACCUSATIVE = "ящик атмосферного отдела",
+		INSTRUMENTAL = "ящиком атмосферного отдела",
+		PREPOSITIONAL = "ящике атмосферного отдела",
+	)
 
-/obj/structure/closet/crate/engineering/atmosperics/heater
+/obj/structure/closet/crate/engineering/atmospherics/heater
 	name = "atmospherics temperature control unit crate"
 	desc = "An atmospherics crate with parts for self-assembly of the temperature control unit."
 	icon_state = "atmoscrate"
 
-/obj/structure/closet/crate/engineering/atmosperics/heater/populate_contents()
+/obj/structure/closet/crate/engineering/atmospherics/heater/populate_contents()
 	new /obj/item/circuitboard/thermomachine(src)
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/stock_parts/matter_bin(src)
@@ -348,6 +353,16 @@
 	new /obj/item/stack/sheet/glass(src)
 	new /obj/item/stack/sheet/metal(src, 5)
 	new /obj/item/stack/cable_coil(src, 6)
+
+/obj/structure/closet/crate/engineering/atmospherics/heater/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с деталями термомашины",
+		GENITIVE = "ящика с деталями термомашины",
+		DATIVE = "ящику с деталями термомашины",
+		ACCUSATIVE = "ящик с деталями термомашины",
+		INSTRUMENTAL = "ящиком с деталями термомашины",
+		PREPOSITIONAL = "ящике с деталями термомашины",
+	)
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()

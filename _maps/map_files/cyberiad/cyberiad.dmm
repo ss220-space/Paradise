@@ -33691,9 +33691,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "czo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -41385,7 +41382,7 @@
 	},
 /area/hallway/primary/central/north)
 "dbS" = (
-/obj/structure/closet/crate/engineering/atmosperics/heater,
+/obj/structure/closet/crate/engineering/atmospherics/heater,
 /obj/effect/turf_decal/bot/right,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -61390,7 +61387,7 @@
 	},
 /area/medical/cmostore)
 "kkE" = (
-/obj/structure/closet/crate/engineering/atmosperics/heater,
+/obj/structure/closet/crate/engineering/atmospherics/heater,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -91952,7 +91949,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "xtP" = (
-/obj/structure/closet/crate/engineering/atmosperics,
+/obj/structure/closet/crate/engineering/atmospherics,
 /obj/item/holosign_creator/atmos,
 /obj/item/holosign_creator/atmos,
 /obj/item/holosign_creator/atmos,
@@ -92095,7 +92092,7 @@
 	},
 /area/medical/cloning)
 "xwy" = (
-/obj/structure/closet/crate/engineering/atmosperics/heater,
+/obj/structure/closet/crate/engineering/atmospherics/heater,
 /obj/effect/turf_decal/bot/right,
 /turf/simulated/floor/plasteel{
 	dir = 8;

@@ -855,16 +855,25 @@
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade
 	name = "Metalfoam grenade box"
-	desc = "Box of grenade for emergency sealing of air breaches."
+	desc = "Box of grenades for emergency sealing of air breaches."
 	icon_state = "box_metalfoam"
 	storage_slots = 6
 	can_hold = list(/obj/item/grenade)
-	max_combined_w_class = 6
 	use_to_pickup = 1
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade/populate_contents()
 	for(var/I in 1 to rand(2,5))
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
+
+/obj/item/storage/box/atmospherics/metalfoam_grenade/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка гранат с металлической пеной",
+		GENITIVE = "коробки гранат с металлической пеной",
+		DATIVE = "коробке гранат с металлической пеной",
+		ACCUSATIVE = "коробку гранат с металлической пеной",
+		INSTRUMENTAL = "коробкой гранат с металлической пеной",
+		PREPOSITIONAL = "коробке гранат с металлической пеной",
+	)
 
 /obj/item/storage/box/barber
 	name = "Barber Starter Kit"
