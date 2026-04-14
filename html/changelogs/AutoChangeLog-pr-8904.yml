@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "Таблетка-имплант снова работает (PR #8904)"

@@ -1327,7 +1327,7 @@
 	if(!message)
 		return
 
-	atom_say(message)
+	atom_say(message, use_tts = FALSE)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
