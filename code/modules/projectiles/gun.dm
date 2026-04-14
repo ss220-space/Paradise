@@ -465,21 +465,27 @@
 	shots_counter += burst_size
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
-/obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(azoom)
+		zoom(user)
+		return
+	. = ..()
+
+/obj/item/gun/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_BLOCKED
 	if(bayonet) //Flogging
-		bayonet.melee_attack_chain(user, target, params)
+		bayonet.melee_attack_chain(user, target, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/gun/attack_obj(obj/object, mob/user, params)
+/obj/item/gun/attack_obj(obj/object, mob/user, list/modifiers)
 	if(bayonet)
-		bayonet.melee_attack_chain(user, object, params)
+		bayonet.melee_attack_chain(user, object, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		if(!unique_rename)
 			add_fingerprint(user)

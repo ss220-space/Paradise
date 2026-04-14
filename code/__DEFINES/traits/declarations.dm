@@ -499,3 +499,5 @@
 
 /// Prevents the projectile itself from ricocheting.
 #define TRAIT_NO_RICOCHET "no_ricochet"
+
+#define TRAIT_FACING_TO_MOUSE "facing_to_mouse"
