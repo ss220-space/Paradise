@@ -59,9 +59,8 @@
 	name = "rolled-up poster"
 	ru_names = null
 	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
-	if(user)
-		playsound(src, 'sound/effects/pageturn3.ogg', 30, TRUE)
-		to_chat(user, span_notice("Вы аккуратно сворачиваете постер."))
+	playsound(src, 'sound/effects/pageturn3.ogg', 30, TRUE)
+	to_chat(user, span_notice("Вы аккуратно сворачиваете постер."))
 
 /obj/item/poster/attack_self(mob/living/user)
 	. = ..()
@@ -74,8 +73,8 @@
 
 	is_unfurled = TRUE
 	name = "\"[poster_structure.original_name]\""
-	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
 	ru_names = poster_structure.ru_names
+	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
 	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
 	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
 
@@ -149,7 +148,7 @@
 	if(!original_name)
 		return
 	var/list/base_names = get_ru_names()
-	if(!base_names || !base_names[NOMINATIVE])
+	if(!base_names)
 		return
 	return list(
 		NOMINATIVE = "[base_names[NOMINATIVE]] \"[original_name]\"",
@@ -230,7 +229,7 @@
 			balloon_alert(user, "нет места!")
 			return
 
-		balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
+	balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
 
 	var/obj/structure/sign/poster/D = P.poster_structure
 
