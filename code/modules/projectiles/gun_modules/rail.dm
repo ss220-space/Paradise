@@ -67,7 +67,7 @@
 	bonus_accuracy = 10
 	spread_decrease_mod = 0.30
 	movespeed_slowdown = 1.3
-	custom_price = PAYCHECK_LOWER
+	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/scope/collimator/get_ru_names()
 	return list(

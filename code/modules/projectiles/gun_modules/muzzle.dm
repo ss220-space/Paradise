@@ -50,7 +50,7 @@
 	icon_state = "suppshotgun"
 	overlay_state = "suppshotgun_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_MUZZLE
-	custom_price = 2 * PAYCHECK_LOWER
+	custom_price = 2.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
 	return list(
