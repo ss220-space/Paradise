@@ -519,6 +519,12 @@
 	if((user.research_scanner || user.check_smart_brain()) && component_parts)
 		. += display_parts(user)
 
+/obj/machinery/examine_descriptor(mob/user)
+	return "машинерия"
+
+/obj/machinery/examine_descriptor_gender()
+	return "female"
+
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
 
