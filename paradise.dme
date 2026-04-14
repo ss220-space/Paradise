@@ -935,6 +935,7 @@
 #include "code\datums\skins\security_baton_skins.dm"
 #include "code\datums\skins\sp8_skins.dm"
 #include "code\datums\skins\specter_skins.dm"
+#include "code\datums\skins\stechkin_skins.dm"
 #include "code\datums\skins\taurus_skins.dm"
 #include "code\datums\skins\telescopic_baton_skins.dm"
 #include "code\datums\spell_cooldown\spell_charges.dm"

@@ -19,8 +19,15 @@
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
+/obj/item/gun/projectile/automatic/pistol/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -72,12 +79,6 @@
 	. = ..()
 	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/automatic/pistol/enforcer)
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
@@ -102,12 +103,6 @@
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"
