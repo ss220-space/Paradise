@@ -93,6 +93,8 @@
 	)
 	autohiss_exempt = list("Сик'таир")
 
+	can_bite = TRUE
+
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

@@ -796,7 +796,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, ignore_pierceimmune = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, ignore_pierceimmune = FALSE, silent = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -809,16 +809,20 @@
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	if(!affecting)
 		. = FALSE
-		balloon_alert(user, "конечность отсутствует!")
+		if(!silent)
+			balloon_alert(user, "конечность отсутствует!")
+
 	else if(affecting.is_robotic())
 		. = FALSE
-		balloon_alert(user, "конечность неорганическая!")
-	// affecting.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
+		if(!silent)
+			balloon_alert(user, "конечность неорганическая!")
+
 	else if(!ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN && HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 	else if(covered_with_thick_material(target_zone) && !penetrate_thick)
 		. = FALSE
-	if(!. && error_msg && user)
+
+	if(!. && error_msg && user && !silent)
 		balloon_alert(user, "закрыто чем-то плотным!")
 
 /mob/living/carbon/human/check_obscured_slots(check_transparent)

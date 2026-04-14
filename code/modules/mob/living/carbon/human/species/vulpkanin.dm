@@ -86,6 +86,8 @@
 	)
 	autohiss_exempt = list("Канилунц")
 
+	can_bite = TRUE
+
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

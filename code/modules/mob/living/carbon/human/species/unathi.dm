@@ -114,6 +114,8 @@
 	)
 	autohiss_exempt = list("Синт'Унати")
 
+	can_bite = TRUE
+
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

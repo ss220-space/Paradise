@@ -59,6 +59,8 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
 	)
 
+	can_bite = TRUE
+
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
