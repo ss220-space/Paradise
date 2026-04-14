@@ -17,6 +17,7 @@
 
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_ORGAN_SUMMONED, PROC_REF(extract_from_summon))
 
 	if(iscarbon(loc))
 		insert(loc, ORGAN_MANIPULATION_INITIALIZE)
@@ -146,6 +147,15 @@
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return
+
+/obj/item/organ/internal/proc/extract_from_summon(mob/living/caster)
+	if(!owner)
+		return
+
+	var/turf/organ_turf = get_turf(owner)
+	if(organ_turf)
+		remove(owner)
+		forceMove(organ_turf)
 
 /obj/item/organ/internal/proc/on_life()
 	return

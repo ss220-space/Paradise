@@ -61,15 +61,6 @@
 	if(reason)
 		to_chat(target, span_notice(reason))
 
-/obj/effect/proc_holder/spell/summonitem/proc/extract_internal_organ(obj/item/organ/internal/internal_organ, mob/owner)
-	if(!ismob(owner))
-		return null
-	internal_organ.remove(owner)
-	var/turf/organ_turf = get_turf(owner)
-	if(organ_turf)
-		internal_organ.forceMove(organ_turf)
-	return organ_turf
-
 /obj/effect/proc_holder/spell/summonitem/proc/do_instant_summon(mob/living/target, mob/user)
 	var/obj/item_to_retrieve = marked_item
 
@@ -92,7 +83,7 @@
 		var/obj/item/organ/internal/internal_organ = item_to_retrieve
 		if(internal_organ.owner)
 			var/mob/living/owner_mob = internal_organ.owner
-			extract_internal_organ(internal_organ, owner_mob)
+			SEND_SIGNAL(internal_organ, COMSIG_ORGAN_SUMMONED, target)
 			teleport_item_to_target(internal_organ, target, owner_mob)
 			return
 
@@ -108,18 +99,10 @@
 			if(ismob(item_to_retrieve.loc))
 				var/mob/item_owner = item_to_retrieve.loc
 
-				if(is_internal_organ(item_to_retrieve))
-					var/obj/item/organ/internal/internal_organ = item_to_retrieve
-					if(ismob(item_owner))
-						organ_owner_for_teleport = item_owner
-						extract_internal_organ(internal_organ, item_owner)
-					break
-
 				if(isexternalorgan(item_to_retrieve))
 					var/obj/item/organ/external/external_organ = item_to_retrieve
 					if(ismob(item_owner))
-						SEND_SIGNAL(item_owner, COMSIG_CARBON_LOSE_ORGAN, external_organ)
-						SEND_SIGNAL(external_organ, COMSIG_ORGAN_REMOVED, item_owner)
+						item_owner.drop_item_ground(item_to_retrieve, force = TRUE)
 					break
 
 				if(ishuman(item_owner))
@@ -148,10 +131,6 @@
 
 		if(!QDELETED(item_to_retrieve))
 			teleport_item_to_target(item_to_retrieve, target, organ_owner_for_teleport)
-		return
-
-	if(item_to_retrieve.loc && item_to_retrieve.forceMove(get_turf(target)))
-		teleport_item_to_target(item_to_retrieve, target)
 		return
 
 	to_chat(target, span_warning("У вас не получается призвать привязанный предмет!"))

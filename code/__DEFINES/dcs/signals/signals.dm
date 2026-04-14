@@ -974,6 +974,8 @@
 #define COMSIG_ORGAN_IMPLANTED "organ_implanted"
 ///from [/obj/item/organ/internal/remove]:
 #define COMSIG_ORGAN_REMOVED "organ_removed"
+///from [/obj/effect/proc_holder/spell/summonitem] when an organ is summoned
+#define COMSIG_ORGAN_SUMMONED "organ_summoned"
 ///from [/obj/item/organ/internal/cyberimp/mouth/translator/check_lang]
 #define COMSIG_LANG_PRE_ACT "check_language"
 	#define COMSIG_LANG_SECURED (1<<0)
