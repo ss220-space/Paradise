@@ -179,4 +179,4 @@
 /obj/item/card/id/investor
 	icon_state = "exploration"
 	item_state = "exploration-id"
-	access = list(ACCESS_HEADS, ACCESS_ALL_PERSONAL_LOCKERS)
+	access = list(ACCESS_HEADS, ACCESS_INVESTOR, ACCESS_ALL_PERSONAL_LOCKERS)
