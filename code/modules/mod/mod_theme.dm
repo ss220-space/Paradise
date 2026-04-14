@@ -642,7 +642,7 @@
 		/obj/item/pen,
 		/obj/item/paper,
 		/obj/item/stamp,
-		/obj/item/gun/projectile/shotgun
+		/obj/item/gun/projectile/shotgun,
 	)
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
 	variants = list(
