@@ -19,32 +19,35 @@
 
 /mob/living/carbon/human/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/carbon/human/initiator = user
-	var/mob/living/carbon/human/target = initiator.partner
+	var/mob/living/carbon/human/human_user = user
+	var/mob/living/carbon/human/human_partner = human_user.partner
 
-	if(!target)
+	if(!human_partner)
 		return data
 
-	data["target_name"] = target.name
-	data["is_adjacent"] = initiator.Adjacent(target)
-	var/obj/item/organ/external/right_hand = initiator.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-	var/obj/item/organ/external/left_hand = initiator.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
+	data["target_name"] = human_partner.name
+	data["is_adjacent"] = human_user.Adjacent(human_partner)
+
+	var/obj/item/organ/external/right_hand = human_user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
+	var/obj/item/organ/external/left_hand = human_user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 	data["has_usable_hands"] = (right_hand?.is_usable() || left_hand?.is_usable())
 
-	var/obj/item/organ/external/target_right_hand = target.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-	var/obj/item/organ/external/target_left_hand = target.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
+	var/obj/item/organ/external/target_right_hand = human_partner.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
+	var/obj/item/organ/external/target_left_hand = human_partner.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 	data["target_has_usable_hands"] = (target_right_hand?.is_usable() || target_left_hand?.is_usable())
 
-	var/initiator_mouth_covered = (initiator.head?.flags_cover & HEADCOVERSMOUTH) || (initiator.wear_mask?.flags_cover & MASKCOVERSMOUTH)
-	data["can_use_mouth"] = !initiator_mouth_covered && (initiator.dna.species.name != SPECIES_DIONA)
+	var/user_mouth_covered = (human_user.head?.flags_cover & HEADCOVERSMOUTH) || (human_user.wear_mask?.flags_cover & MASKCOVERSMOUTH)
+	data["can_use_mouth"] = !user_mouth_covered && (human_user.dna?.species?.name != SPECIES_DIONA)
 
-	var/target_mouth_covered = (target.head?.flags_cover & HEADCOVERSMOUTH) || (target.wear_mask?.flags_cover & MASKCOVERSMOUTH)
+	var/target_mouth_covered = (human_partner.head?.flags_cover & HEADCOVERSMOUTH) || (human_partner.wear_mask?.flags_cover & MASKCOVERSMOUTH)
 	data["target_mouth_free"] = !target_mouth_covered
-	data["target_species"] = target.dna.species.name
-	data["can_pet_target"] = target.can_inject(initiator, silent = TRUE)
 
-	if(initiator.dna && initiator.dna.species)
-		data["can_bite"] = initiator.dna.species.can_bite
+	data["has_wings"] = !!human_partner.get_organ(BODY_ZONE_WING)
+	data["has_tail"] = !!human_partner.get_organ(BODY_ZONE_TAIL)
+	data["can_pet_target"] = human_partner.can_inject(human_user, target_zone = human_user.zone_selected, silent = TRUE)
+
+	if(human_user.dna?.species)
+		data["can_bite"] = human_user.dna.species.can_bite
 	else
 		data["can_bite"] = FALSE
 

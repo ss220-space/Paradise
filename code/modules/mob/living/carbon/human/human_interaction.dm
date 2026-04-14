@@ -247,7 +247,7 @@
 
 			var/armor_value = human_partner.getarmor(target_zone, MELEE)
 			if(armor_value > 20)
-				human_user.visible_message(span_danger("[human_user] пытается укусить [human_partner], но лишь больно бьется зубами о броню!"), \
+				human_user.visible_message(span_danger("[human_user] пыта[PLUR_ET_YUT(human_user)]ся укусить [human_partner], но лишь больно бьется зубами о броню!"), \
 					span_userdanger("Ваши зубы с лязгом бьются о броню [human_partner]! От резкой боли в челюсти у вас темнеет в глазах!"))
 
 				human_user.Confused(5 SECONDS)
@@ -259,7 +259,7 @@
 				animate(pixel_x = human_user.base_pixel_x + human_user.body_position_pixel_x_offset, time = 2)
 				return
 
-			human_user.visible_message(span_danger("[human_user] вонзает свои острые зубы в [human_partner]!"), \
+			human_user.visible_message(span_danger("[human_user] вонза[PLUR_ET_YUT(human_user)] свои острые зубы в [human_partner]!"), \
 				span_danger("Вы вонзаете зубы в [human_partner]!"), \
 				span_italics("Вы слышите звук укуса и глухой вскрик."))
 
@@ -283,5 +283,3 @@
 			human_partner.apply_damage(damage_amount, BRUTE, target_zone, sharp = TRUE)
 			human_user.do_item_attack_animation(human_partner, ATTACK_EFFECT_BITE)
 			playsound(human_user.loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
-
-			update_static_data()

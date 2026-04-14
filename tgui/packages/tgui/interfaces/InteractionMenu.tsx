@@ -9,12 +9,13 @@ interface InteractionData {
   target_has_usable_hands: boolean;
   can_use_mouth: boolean;
   target_mouth_free: boolean;
-  target_species: string;
   can_pet_target: boolean;
   can_bite: boolean;
+  has_wings: boolean;
+  has_tail: boolean;
 }
 
-export const InteractionMenu = (props) => {
+export const InteractionMenu = () => {
   const { data, act } = useBackend<InteractionData>();
   const {
     target_name,
@@ -23,9 +24,10 @@ export const InteractionMenu = (props) => {
     target_has_usable_hands,
     can_use_mouth,
     target_mouth_free,
-    target_species,
     can_pet_target,
     can_bite,
+    has_wings,
+    has_tail,
   } = data;
 
   return (
@@ -69,16 +71,18 @@ export const InteractionMenu = (props) => {
                       <Button fluid onClick={() => act('five')}>
                         Дать пять
                       </Button>
+
                       {!!target_has_usable_hands && (
                         <Button fluid onClick={() => act('give')}>
                           Передать предмет
                         </Button>
                       )}
+
                       <Button color="danger" fluid onClick={() => act('slap')}>
                         Дать пощечину!
                       </Button>
 
-                      {target_species === 'Moth' && (
+                      {!!has_wings && (
                         <Button
                           color="danger"
                           fluid
@@ -87,29 +91,28 @@ export const InteractionMenu = (props) => {
                           Дёрнуть за крылья!
                         </Button>
                       )}
-                      {['Tajaran', 'Vox', 'Vulpkanin', 'Unathi'].includes(
-                        target_species
-                      ) && (
+
+                      {!!has_tail && (
+                        <Button
+                          color="danger"
+                          fluid
+                          onClick={() => act('pull')}
+                        >
+                          Дёрнуть за хвост!
+                        </Button>
+                      )}
+
+                      {!!can_pet_target && (
                         <>
-                          <Button
-                            color="danger"
-                            fluid
-                            onClick={() => act('pull')}
-                          >
-                            Дёрнуть за хвост!
+                          <Button fluid onClick={() => act('pet')}>
+                            Погладить
                           </Button>
-                          {!!can_pet_target && (
-                            <>
-                              <Button fluid onClick={() => act('pet')}>
-                                Погладить
-                              </Button>
-                              <Button fluid onClick={() => act('scratch')}>
-                                Почесать
-                              </Button>
-                            </>
-                          )}
+                          <Button fluid onClick={() => act('scratch')}>
+                            Почесать
+                          </Button>
                         </>
                       )}
+
                       <Button color="danger" fluid onClick={() => act('knock')}>
                         Дать подзатыльник
                       </Button>
