@@ -212,6 +212,7 @@
 /obj/item/gun/projectile/shotgun/winchester/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/shotgun/winchester/do_pointblank_shot(mob/living/user, atom/target)
 	. = ..()
