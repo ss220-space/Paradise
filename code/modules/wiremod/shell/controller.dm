@@ -51,7 +51,7 @@
 
 /obj/item/circuit_component/controller/examine(mob/user)
 	. = ..()
-	. += "Используйте <b>ALT+ЛКМ</b> для подачи альтернативного сигнала, <b>CTRL+ЛКМ</b> для дополнительного."
+	. += "Используйте <b>ALT+ЛКМ</b> для подачи альтернативного сигнала, <b>ПКМ</b> для дополнительного."
 
 /obj/item/circuit_component/controller/populate_ports()
 	entity = add_output_port("Пользователь", PORT_TYPE_USER)
@@ -67,7 +67,7 @@
 /obj/item/circuit_component/controller/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
 		COMSIG_ITEM_ATTACK_SELF,
-		COMSIG_CLICK_CTRL,
+		COMSIG_ITEM_ATTACK_SELF_SECONDARY,
 		COMSIG_CLICK_ALT,
 	))
 
