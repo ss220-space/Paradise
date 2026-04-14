@@ -53,6 +53,7 @@
 
 // MARK: .257 Improvised
 /obj/item/ammo_casing/revolver/improvised
+	desc = "Полностью металлическая гильза, из которой течёт масло. Это явно ненадёжный патрон."
 	ammo_marking = ".257"
 	icon_state = "rev-improv-casing"
 	materials = list(MAT_METAL = 100)
@@ -64,12 +65,10 @@
 
 /obj/item/ammo_casing/revolver/improvised/update_desc(updates = ALL)
 	. = ..()
-	desc = "Полностью металлическая гильза, из которой течёт масло. Это явно ненадёжный патрон."
+	desc = initial(desc)
 
 /obj/item/ammo_casing/revolver/improvised/phosphorus
+	desc = "Полностью металлическая гильза, из которой течёт масло и фосфор. Это явно ненадёжный патрон."
+	ammo_marking = ".257 \"Фосфор\"
 	icon_state = "rev-phosphor-casing"
 	projectile_type = /obj/projectile/bullet/weakbullet3/c257/phosphorus
-
-/obj/item/ammo_casing/revolver/improvised/phosphorus/update_desc(updates = ALL)
-	. = ..()
-	desc = "Полностью металлическая гильза, из которой течёт масло и фосфор. Это явно ненадёжный патрон."

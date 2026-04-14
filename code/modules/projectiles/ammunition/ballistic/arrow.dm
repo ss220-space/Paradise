@@ -19,13 +19,6 @@
 		PREPOSITIONAL = "деревянной стреле",
 	)
 
-/obj/item/ammo_casing/caseless/arrow/update_names()
-	return
-
-/obj/item/ammo_casing/caseless/arrow/update_desc(updates = ALL)
-	. = ..()
-	desc = initial(desc)
-
 /obj/item/ammo_casing/caseless/arrow/add_notes_ammo()
 	// Try to get a projectile to derive stats from
 	var/obj/projectile/exam_proj = projectile_type
@@ -57,7 +50,7 @@
 	var/list/readout = list()
 	readout += "<b><u>СТРЕЛЬБА</u></b>"
 	if((proj_damage_mult <= 0 && proj_stamine_mult <= 0) || (initial_damage <= 0 && initial_stamina <= 0))
-		return span_boldnotice("- [DECLENT_RU_CAP(NOMINATIVE)] не наносит значимого ущерба при попадании.")
+		return span_boldnotice("- [DECLENT_RU_CAP(src, NOMINATIVE)] не наносит значимого ущерба при попадании.")
 
 	// No dividing by 0
 	if(initial_damage)

@@ -259,3 +259,10 @@
 
 /obj/item/ammo_casing/caseless/after_fire()
 	qdel(src)
+
+/obj/item/ammo_casing/caseless/update_names()
+	return
+
+/obj/item/ammo_casing/caseless/update_desc(updates = ALL)
+	. = ..()
+	desc = initial(desc)
