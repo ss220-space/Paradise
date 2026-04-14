@@ -593,6 +593,4 @@
 
 /obj/machinery/portable_atmospherics/canister/mech_melee_attack(obj/mecha/M)
 	. = ..()
-	if(isnull(M.occupant))
-		return
 	add_attack_logs(M.occupant, src, "Melee attacked while in [M]", ATKLOG_FEW)
