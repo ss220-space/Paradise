@@ -218,7 +218,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(pump), user), 1) //auto reload after point blank shot
 
-/// Unique gun for Quartermaster
+/// MARK: Cargo defender
 /obj/item/gun/projectile/shotgun/winchester/cargo
 	name = "cargo defender shotgun"
 	desc = "Раритетное ружье рычажного действия под калибр 12х70 мм. Имеет позолоченное покрытие и гравировку \"Защитник карго\"."
