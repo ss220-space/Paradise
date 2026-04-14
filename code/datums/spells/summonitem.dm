@@ -1,3 +1,5 @@
+#define MAX_CONTAINER_DEPTH = 10
+
 /obj/effect/proc_holder/spell/summonitem
 	name = "Мгновенный призыв"
 	desc = "Это заклинание позволяет вернуть ранее отмеченный предмет в вашу руку откуда угодно из Вселенной."
@@ -80,18 +82,17 @@
 		return
 
 	if(is_internal_organ(item_to_retrieve))
-		var/obj/item/organ/internal/internal_organ = item_to_retrieve
-		if(internal_organ.owner)
-			var/mob/living/owner_mob = internal_organ.owner
-			SEND_SIGNAL(internal_organ, COMSIG_ORGAN_SUMMONED, target)
-			teleport_item_to_target(internal_organ, target, owner_mob)
+		if(item_to_retrieve.owner)
+			var/mob/living/owner_mob = item_to_retrieve.owner
+			SEND_SIGNAL(item_to_retrieve, COMSIG_ORGAN_SUMMONED, target)
+			teleport_item_to_target(item_to_retrieve, target, owner_mob)
 			return
 
 	if(item_to_retrieve.loc)
 		var/infinite_recursion = 0
 		var/mob/living/organ_owner_for_teleport
 
-		while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10)
+		while(!isturf(item_to_retrieve.loc) && infinite_recursion < MAX_CONTAINER_DEPTH)
 			if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 				to_chat(target, span_warning("Неизвестная сила мешает призвать отмеченный предмет!"))
 				return
@@ -100,7 +101,6 @@
 				var/mob/item_owner = item_to_retrieve.loc
 
 				if(isexternalorgan(item_to_retrieve))
-					var/obj/item/organ/external/external_organ = item_to_retrieve
 					if(ismob(item_owner))
 						item_owner.drop_item_ground(item_to_retrieve, force = TRUE)
 					break
@@ -163,3 +163,5 @@
 
 	if(!is_hidden_organ)
 		target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется!"))
+
+#undef MAX_CONTAINER_DEPTH
