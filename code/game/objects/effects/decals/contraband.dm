@@ -74,7 +74,7 @@
 	is_unfurled = TRUE
 	name = "\"[poster_structure.original_name]\""
 	ru_names = poster_structure.ru_names
-	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME | UPDATE_DESC)
 	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
 	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
 
