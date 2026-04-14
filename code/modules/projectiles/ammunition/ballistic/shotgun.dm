@@ -82,7 +82,6 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/shotgun/beanbag/fake
-	description_antag = "Специальный патрон для усыпления жертв. Крайне эффективен против целей с алкоголем внутри. Любой стан по противнику после выстрела дополнительно приводит ко сну, не позволяя ему кричать о помощи."
 	projectile_type = /obj/projectile/bullet/weakbullet/booze
 
 // MARK: Taser slug

@@ -329,6 +329,10 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
+"adp" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/hallway/spacebridge/comcar)
 "adq" = (
 /obj/structure/chair{
 	dir = 4
@@ -3742,13 +3746,6 @@
 	icon_state = "purple"
 	},
 /area/assembly/robotics)
-"aDU" = (
-/obj/structure/chair/sofa/bench/right,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/central/second/north)
 "aDY" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -9344,6 +9341,13 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
+"btN" = (
+/obj/structure/chair/sofa/bench/left/command_blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "btO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -11760,10 +11764,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"bKn" = (
-/obj/machinery/power/supermatter_crystal/engine,
-/turf/simulated/floor/engine,
-/area/engineering/supermatter)
 "bKo" = (
 /obj/machinery/station_map/directional/south,
 /turf/simulated/floor/plasteel{
@@ -19758,6 +19758,16 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"cUE" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/cmostore)
 "cUF" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -20703,13 +20713,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/tcommsat/chamber)
-"dbW" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/cmostore)
 "dcf" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -24983,16 +24986,6 @@
 	icon_state = "yellow"
 	},
 /area/storage/primary)
-"dKP" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/cmostore)
 "dKS" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -30813,6 +30806,39 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"eDk" = (
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/door_control{
+	id = "SecMedPrivInside";
+	name = "Brig Medbay Privacy Shutters Control";
+	pixel_x = -8;
+	pixel_y = 28;
+	req_access = list(63)
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/closet/crate/secure/blood/mixed,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/security/medbay)
 "eDs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -32834,6 +32860,14 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/hos)
+"eTM" = (
+/obj/item/radio/intercom/directional/north,
+/obj/structure/chair/sofa/bench/left/command_blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "eTR" = (
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
@@ -39541,6 +39575,21 @@
 	icon_state = "darkbluealt"
 	},
 /area/hallway/primary/command)
+"fUb" = (
+/obj/structure/safe/floor,
+/obj/item/seeds/wheat/meat,
+/obj/item/gun/energy/floragun{
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
+	can_charge = 1;
+	cell_type = /obj/item/stock_parts/cell/degraded;
+	current_skin = "oldflora";
+	desc = "Старый ботанический инструмент, испускающий контролируемое излучение, вызывающее мутации в клетках растений, не имеет самозарядки. Чтобы перезарядить это оружие, используйте устройство для подзарядки оружия.";
+	emagged = 1;
+	name = "old floral somatoray";
+	selfcharge = 0
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "fUm" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -43941,13 +43990,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"gDs" = (
-/obj/structure/chair/sofa/bench/left,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/central/second/north)
 "gDv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -54189,6 +54231,10 @@
 	icon_state = "vault"
 	},
 /area/chapel/massdriver)
+"ihi" = (
+/obj/machinery/power/supermatter_crystal/engine,
+/turf/simulated/floor/engine,
+/area/engineering/supermatter)
 "ihk" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -58379,12 +58425,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningstorage)
-"iPj" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/turf/simulated/floor/plasteel,
-/area/hallway/spacebridge/comcar)
 "iPl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -66807,6 +66847,13 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/commercial)
+"kbN" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/suit_storage_unit/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/cmostore)
 "kbO" = (
 /obj/structure/noticeboard,
 /turf/simulated/wall,
@@ -69688,39 +69735,6 @@
 	color = "orange"
 	},
 /area/crew_quarters/captain)
-"kAc" = (
-/obj/machinery/light_switch/directional/north,
-/obj/machinery/door_control{
-	id = "SecMedPrivInside";
-	name = "Brig Medbay Privacy Shutters Control";
-	pixel_x = -8;
-	pixel_y = 28;
-	req_access = list(63)
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/closet/crate/secure/blood/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/security/medbay)
 "kAe" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -74378,13 +74392,6 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
-"lkS" = (
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/effect/spawner/random_spawners/security_shotguns,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "lkW" = (
 /obj/machinery/door/airlock/mining/glass{
 	id = "qm";
@@ -77643,6 +77650,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"lNq" = (
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/structure/chair/sofa/bench/command_blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "lNw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79376,6 +79393,16 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/port)
+"mbb" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plasteel/dark,
+/area/engineering/controlroom)
 "mbd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -87745,22 +87772,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/apmaint)
-"nms" = (
-/obj/structure/safe/floor,
-/obj/item/seeds/wheat/meat,
-/obj/item/gun/energy/floragun{
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
-	can_charge = 1;
-	cell_type = /obj/item/stock_parts/cell/degraded;
-	current_skin = "oldflora";
-	desc = "Старый ботанический инструмент, испускающий контролируемое излучение, вызывающее мутации в клетках растений, не имеет самозарядки. Чтобы перезарядить это оружие, используйте устройство для подзарядки оружия.";
-	description_info = "Это энергетическое оружие. Имеет 2 режима стрельбы: бета и гамма. Бета изменяет геном растений. Гамма ускоряет рост растений. Чтобы перезарядить это оружие, используйте устройство для подзарядки оружия.";
-	emagged = 1;
-	name = "old floral somatoray";
-	selfcharge = 0
-	},
-/turf/simulated/floor/grass,
-/area/maintenance/garden)
 "nmx" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -92555,16 +92566,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
-"nYG" = (
-/obj/structure/closet/secure_closet/paramedic,
-/obj/item/defibrillator/loaded,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/storage/belt/medical,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
-	},
-/area/medical/paramedic)
 "nYH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -93607,6 +93608,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"ogN" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light,
+/obj/machinery/suit_storage_unit/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/cmostore)
 "ogZ" = (
 /turf/simulated/wall,
 /area/atmos)
@@ -98395,6 +98404,16 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/aienter)
+"oTv" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "atmos_tank_outer";
+	locked = 1;
+	name = "Atmos External Access";
+	req_access = list(10,13)
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engineering/controlroom)
 "oTw" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -98556,17 +98575,6 @@
 	slowdown = -0.3
 	},
 /area/hallway/primary/central)
-"oUo" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1379;
-	id_tag = "atmos_tank_outer";
-	locked = 1;
-	name = "Atmos External Access";
-	req_access = list(10,13)
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel/dark,
-/area/engineering/controlroom)
 "oUq" = (
 /obj/structure/chair/comfy/red{
 	dir = 4
@@ -100327,16 +100335,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
-"phy" = (
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
-/obj/structure/chair/sofa/bench,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/central/second/north)
 "phD" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -101341,12 +101339,6 @@
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
-"ppp" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel/dark,
-/area/engineering/controlroom)
 "ppq" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/cable_coil/random,
@@ -112662,21 +112654,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/break_room)
-"qWT" = (
-/obj/machinery/firealarm{
-	name = "north fire alarm";
-	pixel_y = 24
-	},
-/obj/machinery/camera{
-	c_tag = "Command Zone Main Hallway";
-	dir = 6
-	},
-/obj/structure/chair/sofa/bench/right,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/central/second/north)
 "qWW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -112686,6 +112663,13 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"qXb" = (
+/obj/structure/closet/secure_closet/paramedic,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "qXe" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/wood,
@@ -123925,6 +123909,21 @@
 "sDV" = (
 /turf/simulated/openspace,
 /area/engineering/mechanic_workshop/hangar)
+"sEa" = (
+/obj/machinery/firealarm{
+	name = "north fire alarm";
+	pixel_y = 24
+	},
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway";
+	dir = 6
+	},
+/obj/structure/chair/sofa/bench/right/command_blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "sEb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -127560,6 +127559,13 @@
 	icon_state = "bluefull"
 	},
 /area/toxins/storage)
+"tes" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/spawner/random_spawners/security_shotguns,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "tew" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -136629,6 +136635,19 @@
 	},
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
+"uwj" = (
+/obj/machinery/firealarm{
+	pixel_y = 25
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/cmostore)
 "uwl" = (
 /obj/structure/rack,
 /obj/item/lock_buster,
@@ -137855,6 +137874,29 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"uFV" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	id_tag = "atmos_tank_airlock";
+	pixel_x = 57;
+	req_access = list(10,13);
+	tag_airpump = "atmos_tank_pump";
+	tag_chamber_sensor = "atmos_tank_sensor";
+	tag_exterior_door = "atmos_tank_outer";
+	tag_interior_door = "atmos_tank_inner"
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "atmos_tank_sensor";
+	pixel_x = 57;
+	pixel_y = 7
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1379;
+	id_tag = "atmos_tank_pump"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/engineering/controlroom)
 "uFY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -138381,16 +138423,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/maintenance/casino)
-"uJD" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/cmostore)
 "uJG" = (
 /obj/structure/lattice,
 /turf/space/openspace,
@@ -140379,14 +140411,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/toxins/mixing)
-"uZu" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/cmostore)
 "uZv" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -146119,6 +146143,22 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
+"vTU" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/chair/sofa/bench/command_blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "vTV" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
@@ -150323,6 +150363,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
+"wxA" = (
+/obj/structure/chair/sofa/bench/right/command_blue,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "wxG" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -150541,6 +150588,16 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/chief)
+"wzg" = (
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/suit_storage_unit/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/cmostore)
 "wzs" = (
 /obj/machinery/cryopod/robot,
 /obj/effect/decal/warning_stripes/south,
@@ -155274,19 +155331,6 @@
 	icon_state = "darkgreen"
 	},
 /area/crew_quarters/sleep/secondary)
-"xmb" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
-/obj/machinery/firealarm{
-	pixel_y = 25
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/cmostore)
 "xmd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -155690,14 +155734,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
-"xpX" = (
-/obj/item/radio/intercom/directional/north,
-/obj/structure/chair/sofa/bench/left,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/central/second/north)
 "xpY" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	locked = 1;
@@ -157125,22 +157161,6 @@
 	dir = 1
 	},
 /area/quartermaster/office)
-"xAs" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/chair/sofa/bench,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluealt"
-	},
-/area/hallway/primary/central/second/north)
 "xAy" = (
 /turf/simulated/wall/r_wall,
 /area/security/seceqstorage)
@@ -160639,24 +160659,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"yaC" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "atmos_tank_airlock";
-	pixel_x = 57;
-	req_access = list(10,13);
-	tag_airpump = "atmos_tank_pump";
-	tag_chamber_sensor = "atmos_tank_sensor";
-	tag_exterior_door = "atmos_tank_outer";
-	tag_interior_door = "atmos_tank_inner"
-	},
-/obj/machinery/airlock_sensor{
-	id_tag = "atmos_tank_sensor";
-	pixel_x = 57;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/engineering/controlroom)
 "yaD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -183438,7 +183440,7 @@ gxb
 vts
 pIs
 sGG
-nYG
+qXb
 bOb
 nlN
 vtS
@@ -190881,11 +190883,11 @@ wqt
 stU
 bMz
 wxW
-dbW
+kbN
 mnp
 bVK
 mtC
-dbW
+kbN
 oJp
 fcJ
 qgM
@@ -191138,11 +191140,11 @@ wqt
 stU
 eUH
 wxW
-dKP
+cUE
 ajX
 nWu
 jbf
-uZu
+ogN
 oJp
 heK
 hZN
@@ -191652,11 +191654,11 @@ mji
 hQi
 fOx
 wxW
-xmb
+uwj
 xiQ
 dFH
 tLu
-uZu
+ogN
 oJp
 oha
 rdT
@@ -191909,11 +191911,11 @@ pxZ
 cbN
 fOx
 wxW
-uJD
+wzg
 jiH
 xMd
 vJd
-dbW
+kbN
 oJp
 mrg
 ovQ
@@ -209706,7 +209708,7 @@ qjd
 ngx
 cdd
 ngx
-bKn
+ihi
 ngx
 xMA
 epr
@@ -241275,7 +241277,7 @@ xoL
 rqp
 oWw
 vVc
-lkS
+tes
 gxr
 gXd
 hho
@@ -249511,7 +249513,7 @@ dlD
 vvd
 vvd
 vvd
-kAc
+eDk
 tqp
 iRC
 vvd
@@ -257708,7 +257710,7 @@ mFi
 sEb
 bQc
 aKV
-gDs
+btN
 lZn
 iLA
 bdx
@@ -257965,7 +257967,7 @@ mPi
 dTp
 gyA
 aKV
-xAs
+vTU
 jWk
 hSz
 cOE
@@ -258222,7 +258224,7 @@ mPi
 jal
 aKV
 aKV
-qWT
+sEa
 hRf
 ubx
 cOE
@@ -259764,7 +259766,7 @@ jET
 vXT
 hAa
 hAa
-xpX
+eTM
 lZn
 gqo
 cOE
@@ -260021,7 +260023,7 @@ jET
 dDk
 dDk
 hAa
-phy
+lNq
 lZn
 hSz
 cOE
@@ -260278,7 +260280,7 @@ pZn
 fEC
 tTK
 hAa
-aDU
+wxA
 lZn
 fwq
 gRB
@@ -262351,7 +262353,7 @@ ugG
 fkl
 fkl
 sDp
-iPj
+adp
 dSK
 fkl
 fkl
@@ -264969,7 +264971,7 @@ cYx
 hmS
 wsH
 oPt
-nms
+fUb
 qWo
 oDB
 bGG
@@ -274991,7 +274993,7 @@ iZC
 ibU
 nbN
 eZG
-ppp
+mbb
 laS
 mNd
 kdb
@@ -275248,8 +275250,8 @@ iZC
 ibU
 qCA
 dos
-yaC
-oUo
+uFV
+oTv
 mNU
 kdb
 fvL

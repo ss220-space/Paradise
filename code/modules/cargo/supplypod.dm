@@ -368,7 +368,7 @@
 	if(decal)
 		. += decal
 
-/obj/structure/closet/supplypod/tool_act(mob/living/user, obj/item/I, tool_type)
+/obj/structure/closet/supplypod/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	if(bluespace) //We dont want to worry about interacting with bluespace pods, as they are due to delete themselves soon anyways.
 		return FALSE
 	else

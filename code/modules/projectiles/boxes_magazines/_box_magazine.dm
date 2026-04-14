@@ -16,6 +16,7 @@
 	throw_range = 10
 	pickup_sound = 'sound/items/handling/pickup/ammobox_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/ammobox_drop.ogg'
+	override_notes = TRUE
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/start_empty = FALSE
@@ -63,6 +64,22 @@
 	update_icon()
 	return bullet
 
+/obj/item/ammo_box/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_box))
+
+/obj/item/ammo_box/proc/add_notes_box()
+	var/list/readout = list()
+
+	if(caliber && max_ammo) // Text references a 'мазагин' as only magazines generally have the caliber variable initialized
+		readout += "<b><u>ВМЕСТИМОСТЬ</u></b>"
+		readout += "- Вмещает в себя вплоть до <b>[max_ammo]</b> патрон[declension_ru(max_ammo, "а", "ов", "ов")] калибра <b>[caliber]</b>."
+
+	var/obj/item/ammo_casing/mag_ammo = get_round(TRUE)
+
+	if(istype(mag_ammo))
+		readout += "[mag_ammo.add_notes_ammo()]"
+
+	return readout.Join("\n")
 
 /obj/item/ammo_box/update_overlays()
 	. = ..()
