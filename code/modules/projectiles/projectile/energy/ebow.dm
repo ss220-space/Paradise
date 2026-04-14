@@ -49,7 +49,6 @@
 	name = "bolttoy"
 	icon_state = "cbbolttoy"
 	hitsound = 'sound/weapons/pierce.ogg'
-	damage_type = STAMINA
 	nodamage = TRUE
 	shockbull = TRUE
 
@@ -62,3 +61,8 @@
 		INSTRUMENTAL = "игрушечным болтом",
 		PREPOSITIONAL = "игрушечном болте",
 	)
+
+/obj/projectile/energy/bolttoy/on_hit(atom/target, blocked, hit_zone)
+	if(..(target, blocked))
+		var/mob/living/mob = target
+		mob.Slowed(1 SECONDS, 2)
