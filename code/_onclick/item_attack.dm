@@ -121,7 +121,7 @@
 	SSdemo.mark_dirty(src)
 
 /// Called when the item is in the active hand, and right-clicked. Intended for alternate or opposite functions, such as lowering reagent transfer amount. At the moment, there is no verb or hotkey.
-/obj/item/proc/attack_self_secondary(mob/user, modifiers)
+/obj/item/proc/attack_self_secondary(mob/user, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF_SECONDARY, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
