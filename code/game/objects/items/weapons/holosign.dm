@@ -60,8 +60,8 @@
 			qdel(H)
 		balloon_alert(user, "голограммы удалены")
 
-/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	afterattack(target, user, proximity_flag, click_parameters)
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
+	afterattack(target, user, proximity_flag, modifiers)
 
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
