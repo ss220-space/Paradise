@@ -1,0 +1,5 @@
+author: "TheHermit1"
+delete-after: True
+changes:
+  - qol: "Логи (PR #8917)"
+  - admin: "Логи (PR #8917)"
