@@ -2,7 +2,6 @@
 /obj/structure/closet/gun_stand
 	name = "gun stand"
 	desc = "Стойка, предназначенная для хранения определенного оружия. Вы не должны видеть это описание."
-	icon_state = "fireaxe"
 	anchored = TRUE
 	density = FALSE
 	no_overlays = TRUE
