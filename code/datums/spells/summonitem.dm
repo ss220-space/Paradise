@@ -1,4 +1,4 @@
-#define MAX_CONTAINER_DEPTH = 10
+#define MAX_CONTAINER_DEPTH 10
 
 /obj/effect/proc_holder/spell/summonitem
 	name = "Мгновенный призыв"
