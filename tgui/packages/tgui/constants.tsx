@@ -473,6 +473,7 @@ export const JOBS_RU = {
   'Lawyer': 'Адвокат',
   'Chaplain': 'Священник',
   'Psychologist': 'Психолог',
+  'Investor': 'Инвестор',
 };
 
 export const DEPARTMENTS_RU = {

@@ -15,6 +15,7 @@
 	flag = JOB_FLAG_INVESTOR
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_CIVILIAN
+	department_head = list(JOB_TITLE_CAPTAIN)
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "Капитаном"

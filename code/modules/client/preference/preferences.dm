@@ -76,7 +76,15 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	if(!any_mutual_role_selected)
 		return FALSE
 
-	return !(job_title in list(JOB_TITLE_CIVILIAN, JOB_TITLE_PRISONER, JOB_TITLE_INVESTOR))
+	// If a special role is selected, disable everything except the selected one
+	if(job_support_low & JOB_FLAG_CIVILIAN)
+		return job_title != JOB_TITLE_CIVILIAN
+	if(job_support_low & JOB_FLAG_PRISONER)
+		return job_title != JOB_TITLE_PRISONER
+	if(job_support_low & JOB_FLAG_INVESTOR)
+		return job_title != JOB_TITLE_INVESTOR
+	return FALSE
+
 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members

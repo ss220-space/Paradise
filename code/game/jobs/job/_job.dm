@@ -371,7 +371,7 @@
 	return transfer_allowed
 
 /// Check custom job requirements (override in subtypes for custom checks like achievements)
-/datum/job/proc/check_custom_requirements(client/C)
+/datum/job/proc/check_custom_requirements(client/user_client)
 	return TRUE
 
 /datum/job/proc/can_novice_play(client/C)
