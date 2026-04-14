@@ -96,5 +96,5 @@
 
 /obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_restaurant
 
-/obj/effect/map_effect/marker_helper/submap_def/delta/old_restautant/old_park
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_restaurant/old_park
 	name = "старый ресторан был заменен на старый парк"
