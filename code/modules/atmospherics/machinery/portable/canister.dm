@@ -577,20 +577,20 @@
 
 /obj/machinery/portable_atmospherics/canister/bullet_act(obj/projectile/P)
 	. = ..()
-	add_attack_logs(P.firer, src, "Shot", ATKLOG_FEW)
+	add_attack_logs(P.firer, src, "Shot", ATKLOG_MOST)
 
 /obj/machinery/portable_atmospherics/canister/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
 	. = ..()
-	add_attack_logs(user, src, "Attacked", ATKLOG_FEW)
+	add_attack_logs(user, src, "Attacked", ATKLOG_MOST)
 
 /obj/machinery/portable_atmospherics/canister/blob_act(obj/structure/blob/B)
 	. = ..()
-	add_attack_logs(B.overmind, src, "Attacked", ATKLOG_FEW)
+	add_attack_logs(B.overmind, src, "Attacked", ATKLOG_MOST)
 
 /obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, params)
 	. = ..()
-	add_attack_logs(user, src, "Attacked with [item]", ATKLOG_FEW)
+	add_attack_logs(user, src, "Attacked with [item]", ATKLOG_MOST)
 
 /obj/machinery/portable_atmospherics/canister/mech_melee_attack(obj/mecha/M)
 	. = ..()
-	add_attack_logs(M.occupant, src, "Melee attacked while in [M]", ATKLOG_FEW)
+	add_attack_logs(M.occupant, src, "Melee attacked while in [M]", ATKLOG_MOST)
