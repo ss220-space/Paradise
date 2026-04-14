@@ -147,7 +147,7 @@
 
 	animate(src, 0.5 SECONDS, transform=turn(transform, rand(-179, 180)), easing=BOUNCE_EASING)
 
-	message_admins("[src] была повреждена в [ADMIN_COORDJMP(src.loc)]")
+	message_admins("[src] was damaged at [ADMIN_COORDJMP(src.loc)]")
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
@@ -593,4 +593,6 @@
 
 /obj/machinery/portable_atmospherics/canister/mech_melee_attack(obj/mecha/M)
 	. = ..()
+	if(isnull(M.occupant))
+		return
 	add_attack_logs(M.occupant, src, "Melee attacked while in [M]", ATKLOG_FEW)
