@@ -347,9 +347,10 @@
 		implement_speed_mod = allowed_tools[implement_type] / 100.0
 
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
-	var/mob_mod = 1.0
-	for(var/id in target.mob_surgery_speed_mods)
-		mob_mod *= target.mob_surgery_speed_mods[id]
+    var/mob_mod = 1.0
+    var/list/speed_mods = target.mob_surgery_speed_mods
+    for(var/id in speed_mods)
+        mob_mod *= speed_mods[id]
 
 	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
 	speed_mod *= mob_mod

@@ -9,10 +9,7 @@
 	item_flags = NOBLUDGEON
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
-	throw_range = 7
 	temperature_min = 270
 	temperature_max = 350
 	amount_per_transfer_from_this = 10
@@ -125,7 +122,6 @@
 	icon_state = "medigel_blue"
 	colorable = FALSE
 	list_reagents = list(/datum/reagent/medicine/sterilizine = 60)
-	custom_price = PAYCHECK_CREW * 2
 
 /obj/item/reagent_containers/medigel/sterilizine/get_ru_names()
 	return list(
