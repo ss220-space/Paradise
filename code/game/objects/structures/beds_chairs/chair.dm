@@ -220,31 +220,31 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
-	color = rgb(141,70,0)
+	color = COLOR_BROWNER_BROWN
 
 /obj/structure/chair/comfy/red
-	color = rgb(218,2,10)
+	color = COLOR_DARK_RED
 
 /obj/structure/chair/comfy/teal
-	color = rgb(0,234,250)
+	color = COLOR_DARK_CYAN
 
 /obj/structure/chair/comfy/black
-	color = rgb(60,60,60)
+	color = COLOR_DARK
 
 /obj/structure/chair/comfy/green
-	color = rgb(1,196,8)
+	color = COLOR_GREEN
 
 /obj/structure/chair/comfy/purp
-	color = rgb(112,2,176)
+	color = COLOR_DARK_PURPLE
 
 /obj/structure/chair/comfy/blue
-	color = rgb(2,9,210)
+	color = COLOR_COMMAND_BLUE
 
 /obj/structure/chair/comfy/beige
-	color = rgb(255,253,195)
+	color = COLOR_BEIGE
 
 /obj/structure/chair/comfy/lime
-	color = rgb(255,251,0)
+	color = COLOR_PALE_LIME
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
