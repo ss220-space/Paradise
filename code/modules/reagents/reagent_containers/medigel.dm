@@ -80,7 +80,7 @@
 		return NONE
 
 	if(!target.can_inject(user, FALSE))
-		user.balloon_alert(user, "закрыто одеждой!")
+		user.balloon_alert(user, "слишком плотный материал")
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
 	if(!reagents || !reagents.total_volume)
