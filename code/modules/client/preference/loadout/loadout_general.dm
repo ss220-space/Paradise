@@ -169,7 +169,7 @@
 
 /datum/gear/spraycan
 	index_name = "Nanotrasen-brand Rapid Paint Applicator"
-	display_name = "Балончик с краской"
+	display_name = "Баллончик с краской"
 	path = /obj/item/toy/crayon/spraycan
 
 //////////////////////

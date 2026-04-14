@@ -613,8 +613,10 @@
 	ASSERT(isnum(duration) || isnull(duration), "Surgery speed mod duration must be a number or null")
 
 	var/existing = LAZYACCESS(mob_surgery_speed_mods, id)
-	if(existing == amount)
-		return
+    if(existing == amount)
+        if(isnum(duration))
+            addtimer(CALLBACK(src, PROC_REF(remove_surgery_speed_mod), id), duration, TIMER_DELETE_ME|TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
+        return
 
 	if(isnum(existing))
 		if(amount > 1 && existing > 1)

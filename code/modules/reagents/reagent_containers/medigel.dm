@@ -78,7 +78,7 @@
 
 	return ..()
 
-/obj/item/reagent_containers/medigel/attack(mob/living/carbon/target, mob/living/user)
+/obj/item/reagent_containers/medigel/attack(mob/living/carbon/target, mob/living/user, def_zone)
 	if(!iscarbon(target) || !target.reagents)
 		return NONE
 
