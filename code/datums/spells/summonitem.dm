@@ -82,10 +82,11 @@
 		return
 
 	if(is_internal_organ(item_to_retrieve))
-		if(item_to_retrieve.owner)
-			var/mob/living/owner_mob = item_to_retrieve.owner
-			SEND_SIGNAL(item_to_retrieve, COMSIG_ORGAN_SUMMONED, target)
-			teleport_item_to_target(item_to_retrieve, target, owner_mob)
+		var/obj/item/organ/internal/internal_organ = item_to_retrieve
+		if(internal_organ.owner)
+			var/mob/living/owner_mob = internal_organ.owner
+			SEND_SIGNAL(internal_organ, COMSIG_ORGAN_SUMMONED, target)
+			teleport_item_to_target(internal_organ, target, owner_mob)
 			return
 
 	if(item_to_retrieve.loc)
@@ -106,10 +107,10 @@
 					break
 
 				if(ishuman(item_owner))
-					var/mob/living/carbon/human/H = item_owner
-					for(var/obj/item/organ/external/EP in H.bodyparts)
-						if(EP.hidden == item_to_retrieve)
-							EP.hidden = null
+					var/mob/living/carbon/human/human = item_owner
+					for(var/obj/item/organ/external/bodypart in human.bodyparts)
+						if(bodypart.hidden == item_to_retrieve)
+							bodypart.hidden = null
 							break
 
 				if(!item_owner.drop_item_ground(item_to_retrieve, force = TRUE))
@@ -122,9 +123,9 @@
 				if(container_obj.anchored)
 					break
 				if(istype(container_obj, /obj/machinery/portable_atmospherics/))
-					var/obj/machinery/portable_atmospherics/P = container_obj
-					P.disconnect()
-					P.update_icon()
+					var/obj/machinery/portable_atmospherics/portable_atmos = container_obj
+					portable_atmos.disconnect()
+					portable_atmos.update_icon()
 				item_to_retrieve = container_obj
 
 			infinite_recursion += 1
