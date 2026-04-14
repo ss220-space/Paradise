@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Список днк при очистке крови с моба теперь очищается корректно. (PR #8866)"

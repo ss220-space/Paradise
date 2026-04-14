@@ -42,8 +42,12 @@
 		return
 
 	var/list/skin_options = list()
+	var/user_ckey = user.client.ckey
+	var/user_donator_level = user.client.donator_level
 	for(var/datum/item_skin_data/skin as anything in item.skins)
-		if(skin.donation_tier > user.client.donator_level)
+		if(skin.allowed_ckeys && !(user_ckey in skin.allowed_ckeys))
+			continue
+		else if(skin.donation_tier > user_donator_level)
 			continue
 		skin_options[skin.name] = image(icon = (skin.icon ? skin.icon : item.icon), icon_state = (skin.menu_icon_state ? skin.menu_icon_state : skin.icon_state) )
 

@@ -150,7 +150,7 @@
 /turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/turf/simulated/floor/shuttle/tool_act()
+/turf/simulated/floor/shuttle/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	return FALSE
 
 /turf/simulated/floor/shuttle/ratvar_act()

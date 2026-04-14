@@ -127,8 +127,8 @@
 
 /obj/item/card/id/attack_self(mob/user as mob)
 	user.visible_message(
-		span_notice("[user.declent_ru(NOMINATIVE)] показыва[PLUR_ET_YUT(user)] [icon2html(src, viewers(user))] [declent_ru(ACCUSATIVE)]. Указанная должность: [assignment]."),
-		span_notice("Вы показываете [icon2html(src, viewers(user))] [declent_ru(ACCUSATIVE)]. Указанная должность: [assignment]."),
+		span_notice("[user.declent_ru(NOMINATIVE)] показыва[PLUR_ET_YUT(user)] [get_examine_icon(viewers(user))] [declent_ru(ACCUSATIVE)]. Указанная должность: [assignment]."),
+		span_notice("Вы показываете [get_examine_icon(viewers(user))] [declent_ru(ACCUSATIVE)]. Указанная должность: [assignment]."),
 	)
 	if(mining_points)
 		to_chat(user, "Шахтёрских очков на аккаунте: <b>[mining_points]</b>. Всего заработано за смену: <b>[total_mining_points]</b>смену.")
