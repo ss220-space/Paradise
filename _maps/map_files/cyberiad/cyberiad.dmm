@@ -76534,12 +76534,8 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "qZS" = (
-/obj/machinery/light_switch/directional/north,
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "qm";
-	pixel_x = 5;
-	pixel_y = 24
+/obj/structure/closet/gun_stand/cargo_defender{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -92460,10 +92456,14 @@
 	},
 /obj/item/clipboard,
 /obj/item/mining_voucher,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
 /obj/item/rcs,
+/obj/machinery/light_switch/directional/east,
+/obj/machinery/button/windowtint{
+	id = "qm";
+	pixel_x = 24;
+	pixel_y = 8;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"

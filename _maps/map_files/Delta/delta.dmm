@@ -27784,6 +27784,13 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Quartermaster's Office"
 	},
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "qm";
+	pixel_x = 8;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -112792,15 +112799,11 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "vbx" = (
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "qm";
-	pixel_x = 8;
-	pixel_y = 24
-	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/obj/machinery/light_switch/directional/north,
+/obj/structure/closet/gun_stand/cargo_defender{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
