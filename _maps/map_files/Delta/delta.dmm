@@ -63884,6 +63884,9 @@
 "kbG" = (
 /obj/structure/chair/sofa/corner,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -69679,6 +69682,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
+"lwd" = (
+/obj/effect/spawner/window/reinforced,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_restaurant,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea_virology)
 "lwk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -113173,6 +113181,14 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/qm)
+"vfu" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/space,
+/area/space)
 "vfC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -116027,6 +116043,10 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"vKI" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/maintenance/kitchen)
 "vLd" = (
 /obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/structure/cable/yellow{
@@ -180925,7 +180945,7 @@ oum
 yfp
 yfp
 yfp
-vzF
+vKI
 rsJ
 rsJ
 vzF
@@ -180944,7 +180964,7 @@ hwq
 vzF
 aAE
 kLL
-kLL
+lwd
 kLL
 kTT
 aqZ
@@ -184523,7 +184543,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+boX
 aaq
 aaq
 aaq
@@ -184543,7 +184563,7 @@ aaq
 coE
 coE
 coE
-dZq
+vfu
 dZq
 aaq
 aaq
@@ -184781,7 +184801,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+hsD
 aaq
 aaq
 dZq
@@ -184799,7 +184819,7 @@ coE
 coE
 dZq
 dZq
-aaq
+hsD
 aaq
 aaq
 aaq

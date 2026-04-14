@@ -1,0 +1,2684 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ag" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"ak" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"al" = (
+/obj/structure/flora/rock/jungle,
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"ao" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"bo" = (
+/turf/simulated/floor/grass,
+/area/template_noop)
+"cx" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"cy" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"cG" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"cI" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/chair/sofa/bench/left,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"cR" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/junction/reversed,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"cV" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"dr" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"dv" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"dF" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"ee" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"er" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"eu" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_restaurant,
+/turf/template_noop,
+/area/template_noop)
+"eN" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"eW" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"fe" = (
+/obj/effect/spawner/random_spawners/wall_rusted_30,
+/turf/simulated/wall,
+/area/template_noop)
+"fQ" = (
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"fW" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"gw" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"gM" = (
+/obj/structure/table/reinforced/brass/fake,
+/obj/structure/safe/floor,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/stack/sheet/brass_fake,
+/obj/item/clothing/gloves/clockwork_fake,
+/obj/item/clothing/suit/hooded/clockrobe_fake,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"hh" = (
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/obj/structure/flora/ausbushes/reedbush,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"hj" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"hs" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"ht" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"hE" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"iL" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -26
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"iY" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"je" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"jl" = (
+/turf/simulated/wall,
+/area/template_noop)
+"jo" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"kV" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"lV" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"lW" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"mw" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"nS" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"ob" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"oq" = (
+/obj/effect/spawner/random_spawners/wall_rusted_70,
+/turf/simulated/wall,
+/area/template_noop)
+"oF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"oG" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/chair/sofa/bench/right,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"oX" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"py" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"pC" = (
+/obj/structure/flora/ausbushes/leafybush,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"pR" = (
+/obj/structure/table_frame/brass/fake,
+/obj/item/crowbar/brass,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"qz" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"qK" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"rw" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"rJ" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"rX" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"se" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"sS" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"sW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"tw" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"tE" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ul" = (
+/obj/structure/flora/ausbushes/leafybush,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"uC" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/broken,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"uE" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"uX" = (
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"uY" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"vr" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"vI" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"vR" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"vV" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/junction,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"wa" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/space,
+/area/template_noop)
+"wj" = (
+/obj/structure/chair/sofa/bench/left,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"wq" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"wU" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"xR" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"yQ" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"yW" = (
+/obj/structure/chair/sofa/bench/right,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"zg" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"zj" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"zu" = (
+/obj/effect/decal/cleanable/blood/gibs/clock,
+/obj/item/clockwork/fallen_armor,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"zy" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"zS" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"AF" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"AH" = (
+/turf/template_noop,
+/area/template_noop)
+"AO" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Bd" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Ca" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Dd" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"DY" = (
+/obj/structure/flora/ausbushes/reedbush,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Fa" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Fi" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"FO" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"HG" = (
+/turf/simulated/floor/clockwork/fake,
+/area/template_noop)
+"HO" = (
+/obj/effect/spawner/window/reinforced,
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_restautant/old_park,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_restaurant,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Ic" = (
+/obj/structure/clockwork/wall_gear/fake,
+/turf/simulated/floor/clockwork/fake,
+/area/template_noop)
+"Ie" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Ig" = (
+/obj/structure/flora/junglebush,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Io" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"IL" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Jd" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"JN" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"KI" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"LH" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"LV" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"LZ" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"MB" = (
+/obj/structure/flora/junglebush,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"MJ" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"MT" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Nz" = (
+/obj/structure/chair/sofa/bench/solo,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"NI" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1;
+	name = "Restaurant"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"NT" = (
+/obj/structure/clockwork/altar,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Pa" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Pb" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Pe" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Pp" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/template_noop,
+/area/template_noop)
+"PA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"PN" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/broken,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"QK" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"QV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 4;
+	pixel_x = 26;
+	shock_proof = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Rk" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"RZ" = (
+/turf/space,
+/area/template_noop)
+"Sa" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Sq" = (
+/obj/structure/lattice,
+/turf/space,
+/area/template_noop)
+"Sz" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"SI" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Tb" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Tt" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Tu" = (
+/obj/machinery/light/floor{
+	status = 2
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"TW" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Ug" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"UG" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Vw" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"VO" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"VU" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"VW" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"VX" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Wr" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Wv" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Wz" = (
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Xu" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 1;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"XF" = (
+/obj/structure/flora/ausbushes/pointybush,
+/turf/simulated/floor/grass,
+/area/template_noop)
+"XQ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/clockwork/beacon,
+/turf/simulated/floor/clockwork/fake,
+/area/template_noop)
+"XR" = (
+/obj/effect/turf_decal/siding/green/corner{
+	color = "";
+	icon_state = "grass_edge_medium_corner"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"XW" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Za" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Zl" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/light/floor{
+	status = 2
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Zq" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+"Zr" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/template_noop)
+"Zx" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 4;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ZO" = (
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	dir = 8;
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/turf_decal/siding/green{
+	color = "";
+	icon_state = "grass_edge_medium"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(2,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(3,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(4,1,1) = {"
+AH
+AH
+AH
+eN
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(5,1,1) = {"
+AH
+AH
+Pp
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+eu
+AH
+AH
+AH
+"}
+(6,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(7,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(8,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(9,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(10,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(11,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(12,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(13,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(14,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(15,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(16,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(17,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(18,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(19,1,1) = {"
+AH
+AH
+Pp
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+rw
+AH
+AH
+"}
+(20,1,1) = {"
+AH
+AH
+AH
+FO
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+FO
+AH
+AH
+AH
+"}
+(21,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(22,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(23,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(24,1,1) = {"
+AH
+AH
+AH
+eN
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(25,1,1) = {"
+AH
+AH
+Pp
+jl
+lW
+jl
+sW
+NI
+jl
+jl
+jl
+jl
+jl
+jl
+jl
+jl
+lW
+lW
+lW
+jl
+lW
+HO
+AH
+AH
+AH
+"}
+(26,1,1) = {"
+AH
+AH
+AH
+jl
+hh
+iL
+Zq
+sS
+ul
+cV
+SI
+bo
+zg
+Ig
+bo
+Rk
+ht
+Fa
+bo
+bo
+bo
+jo
+AH
+AH
+AH
+"}
+(27,1,1) = {"
+AH
+AH
+AH
+fe
+ak
+kV
+Tt
+iY
+Zl
+AF
+bo
+ee
+zj
+rX
+bo
+SI
+bo
+bo
+bo
+cG
+tE
+ob
+AH
+AH
+AH
+"}
+(28,1,1) = {"
+AH
+AH
+AH
+jl
+al
+nS
+er
+MT
+vr
+mw
+uX
+QK
+LH
+Tu
+Za
+UG
+se
+bo
+bo
+kV
+bo
+oF
+AH
+AH
+AH
+"}
+(29,1,1) = {"
+AH
+AH
+AH
+jl
+cI
+bo
+Sa
+eW
+Pb
+Za
+lV
+se
+Wv
+Sz
+uE
+hE
+hE
+MJ
+uE
+uE
+uE
+PA
+AH
+AH
+AH
+"}
+(30,1,1) = {"
+AH
+AH
+AH
+jl
+oG
+Zx
+VX
+Pe
+zy
+vR
+py
+cx
+vV
+tw
+oX
+Jd
+je
+TW
+dF
+uC
+XR
+QV
+AH
+AH
+AH
+"}
+(31,1,1) = {"
+AH
+AH
+AH
+jl
+Ca
+VO
+Zr
+PN
+yQ
+wU
+cR
+JN
+qK
+fW
+Tu
+rJ
+ul
+Io
+VW
+Tu
+jo
+jl
+AH
+AH
+AH
+"}
+(32,1,1) = {"
+AH
+AH
+AH
+jl
+gw
+Fi
+Tu
+bo
+zS
+rX
+wj
+Xu
+vr
+bo
+pC
+rJ
+bo
+cG
+ee
+SI
+KI
+jl
+AH
+AH
+AH
+"}
+(33,1,1) = {"
+AH
+AH
+AH
+lW
+Nz
+ag
+ao
+cG
+xR
+bo
+yW
+Ie
+bo
+cG
+SI
+Tb
+bo
+SI
+bo
+hj
+LV
+jl
+AH
+AH
+AH
+"}
+(34,1,1) = {"
+AH
+AH
+AH
+lW
+lW
+MB
+Bd
+gw
+LZ
+wq
+fQ
+IL
+dr
+bo
+bo
+Pa
+AO
+oq
+oq
+Ug
+oq
+jl
+AH
+AH
+AH
+"}
+(35,1,1) = {"
+AH
+AH
+AH
+Sq
+lW
+lW
+XF
+Pb
+Rk
+VU
+Vw
+xR
+Tu
+SI
+DY
+qz
+oq
+gM
+HG
+HG
+jl
+Sq
+AH
+AH
+AH
+"}
+(36,1,1) = {"
+AH
+AH
+AH
+Sq
+Sq
+lW
+lW
+Tu
+SI
+hs
+uE
+cy
+uE
+uE
+AF
+dv
+oq
+pR
+zu
+Wz
+XW
+Sq
+AH
+AH
+AH
+"}
+(37,1,1) = {"
+AH
+AH
+AH
+wa
+Sq
+RZ
+lW
+lW
+bo
+ZO
+vI
+vI
+Wr
+ht
+fW
+Dd
+oq
+XQ
+NT
+Ic
+XW
+Sq
+AH
+AH
+AH
+"}
+(38,1,1) = {"
+AH
+AH
+AH
+RZ
+wa
+Sq
+Sq
+lW
+lW
+ul
+bo
+SI
+kV
+SI
+bo
+uY
+jl
+jl
+XW
+XW
+jl
+Sq
+AH
+AH
+AH
+"}
+(39,1,1) = {"
+AH
+AH
+Pp
+RZ
+RZ
+RZ
+Sq
+Sq
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+lW
+jl
+Sq
+Sq
+Sq
+Sq
+Sq
+rw
+AH
+AH
+"}
+(40,1,1) = {"
+AH
+AH
+AH
+FO
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+FO
+AH
+AH
+AH
+"}
+(41,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(42,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}
+(43,1,1) = {"
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+AH
+"}

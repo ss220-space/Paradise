@@ -89,3 +89,12 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/medical
 	name = "старая комната дормиторий заменена на дополнительное помещение заброшенного лазарета"
+
+/// old_restaurant submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_restaurant
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_restaurant
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_restautant/old_park
+	name = "старый ресторан был заменен на старый парк"
