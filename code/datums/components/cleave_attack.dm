@@ -45,10 +45,6 @@
 	src.swing_sound = swing_sound
 	set_cleave_effect(cleave_effect) // set it based on arc size if an effect wasn't specified
 
-	var/obj/item/parent_item = parent
-	toggle_action = new /datum/action/item_action/toggle_cleave_attack(parent_item)
-	parent_item.add_item_action(toggle_action)
-
 /datum/component/cleave_attack/InheritComponent(
 		datum/component/C,
 		i_am_original,
@@ -121,6 +117,9 @@
 
 	if(user.a_intent != INTENT_HARM)
 		return // don't sweep on precise hits or non-harmful intents
+
+	if(HAS_TRAIT(item, TRAIT_CLEAVE_BLOCKED))
+		return
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, span_warning("Вы не хотите никому вредить."))
@@ -201,6 +200,4 @@
 
 /datum/component/cleave_attack/Destroy(force)
 	cleave_end_callback = null
-	if(toggle_action)
-		QDEL_NULL(toggle_action)
 	return ..()

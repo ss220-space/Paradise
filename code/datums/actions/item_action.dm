@@ -367,36 +367,6 @@
 /datum/action/item_action/show_head_strip
 	name = "Показать нашивку"
 
-// MARK: Cleave attack
-/datum/action/item_action/toggle_cleave_attack
-	name = "Переключить режим атаки со взмахом"
-	check_flags = NONE
-
-
-/datum/action/item_action/toggle_cleave_attack/is_action_active(atom/movable/screen/movable/action_button/current_button)
-	. = ..()
-	return !HAS_TRAIT(target, TRAIT_CLEAVE_BLOCKED)
-
-
-/datum/action/item_action/toggle_cleave_attack/do_effect(trigger_flags)
-	if(!target)
-		return
-
-	if(HAS_TRAIT_NOT_FROM(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT))
-		to_chat(usr, span_warning("Включение атаки со взмахом заблокировано."))
-		return
-
-	var/has_trait = HAS_TRAIT_FROM(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT)
-
-	if(has_trait)
-		REMOVE_TRAIT(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT)
-	else
-		ADD_TRAIT(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT)
-
-	UpdateButtonIcon()
-	to_chat(usr, span_notice("Вы [!has_trait ? "включаете" : "отключаете"] атаку со взмахом."))
-
-
 // MARK: Jump boots
 /datum/action/item_action/bhop
 	name = "Активировать прыжковые ботинки"
