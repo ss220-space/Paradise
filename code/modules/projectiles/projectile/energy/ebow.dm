@@ -51,8 +51,6 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = STAMINA
 	nodamage = TRUE
-	weaken = 0.1 SECONDS
-	stutter = 2 SECONDS
 	shockbull = TRUE
 
 /obj/projectile/energy/bolttoy/get_ru_names()
