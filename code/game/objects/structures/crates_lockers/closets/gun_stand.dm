@@ -11,8 +11,8 @@
 	opened = TRUE
 
 /obj/structure/closet/gun_stand/Destroy()
-	if(!obj_integrity)
-		if(stored_item)
+	if(stored_item)
+		if(!obj_integrity)
 			stored_item.forceMove(loc)
 			stored_item = null
 		else
@@ -20,7 +20,8 @@
 	return ..()
 
 /obj/structure/closet/gun_stand/populate_contents()
-	stored_item = new stored_item_type(src)
+	if(stored_item_type)
+		stored_item = new stored_item_type(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/closet/gun_stand/attackby(obj/item/attack_item, mob/living/user, params)
@@ -67,6 +68,15 @@
 	icon_state = "fishingrod"
 	stored_item_type = /obj/item/twohanded/fishing_rod
 
+/obj/structure/closet/gun_stand/fishingrod/get_ru_names()
+	return list(
+		NOMINATIVE = "стойка для удочки",
+		GENITIVE = "стойки для удочки",
+		DATIVE = "стойке для удочки",
+		ACCUSATIVE = "стойку для удочки",
+		INSTRUMENTAL = "стойкой для удочки",
+		PREPOSITIONAL = "стойке для удочки",
+	)
 
 // MARK: Sec hammer stand
 /obj/structure/closet/gun_stand/sechammer
