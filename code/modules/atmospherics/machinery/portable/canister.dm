@@ -147,6 +147,7 @@
 
 	animate(src, 0.5 SECONDS, transform=turn(transform, rand(-179, 180)), easing=BOUNCE_EASING)
 
+	message_admins("[src] была повреждена в [ADMIN_COORDJMP(src.loc)]")
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
@@ -573,3 +574,23 @@
 
 /obj/machinery/portable_atmospherics/canister/halon/init_internal_atmos()
 	air_contents.set_halon((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+/obj/machinery/portable_atmospherics/canister/bullet_act(obj/projectile/P)
+	. = ..()
+	add_attack_logs(P.firer, src, "Shot", ATKLOG_FEW)
+
+/obj/machinery/portable_atmospherics/canister/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
+	. = ..()
+	add_attack_logs(user, src, "Attacked", ATKLOG_FEW)
+
+/obj/machinery/portable_atmospherics/canister/blob_act(obj/structure/blob/B)
+	. = ..()
+	add_attack_logs(B.overmind, src, "Attacked", ATKLOG_FEW)
+
+/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, params)
+	. = ..()
+	add_attack_logs(user, src, "Attacked with [item]", ATKLOG_FEW)
+
+/obj/machinery/portable_atmospherics/canister/mech_melee_attack(obj/mecha/M)
+	. = ..()
+	add_attack_logs(M.occupant, src, "Melee attacked while in [M]", ATKLOG_FEW)
