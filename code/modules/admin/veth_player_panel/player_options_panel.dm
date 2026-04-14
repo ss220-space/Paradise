@@ -342,13 +342,13 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 		if("thunderdomeobserve")
 			usr.client.holder.Topic(null, list("tdomeobserve" = selected_player.UID()))
 			return
-		if("contrastop")
+		if("contractor_stop")
 			usr.client.holder.Topic(null, list("contractor_stop" = selected_player.UID()))
 			return
-		if("contrastart")
+		if("contractor_start")
 			usr.client.holder.Topic(null, list("contractor_start" = selected_player.UID()))
 			return
-		if("contrarelease")
+		if("contractor_release")
 			usr.client.holder.Topic(null, list("contractor_release" = selected_player.UID()))
 			return
 		if("prison")

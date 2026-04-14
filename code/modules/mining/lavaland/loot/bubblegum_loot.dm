@@ -237,8 +237,6 @@
 	RegisterSignal(soul, COMSIG_MOB_ATTACK_RANGED, PROC_REF(on_attack))
 	RegisterSignal(soul, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(soul, COMSIG_MOB_ATTACK_RANGED_SECONDARY, PROC_REF(on_secondary_attack))
-	RegisterSignal(soul, COMSIG_MOB_LOGIN, PROC_REF(on_login))
-	RegisterSignal(soul, COMSIG_MOB_LOGOUT, PROC_REF(on_logout))
 	RegisterSignal(src, COMSIG_OBJ_INTEGRITY_CHANGED, PROC_REF(on_integrity_change))
 	RegisterSignal(soul, COMSIG_BLOOD_LEVEL_TICK, PROC_REF(on_blood_level_tick))
 	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
@@ -278,14 +276,6 @@
 	. = ..()
 	if(soul.ckey)
 		reset_spin() //resume spinnage
-
-/obj/item/soulscythe/proc/on_login(mob/source)
-	SIGNAL_HANDLER
-	source.client.show_popup_menus = FALSE
-
-/obj/item/soulscythe/proc/on_logout(mob/source)
-	SIGNAL_HANDLER
-	source?.canon_client?.show_popup_menus = TRUE
 
 /obj/item/soulscythe/attack_self(mob/user, modifiers)
 	if(using || soul.ckey || soul.stat)

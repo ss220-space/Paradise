@@ -74,7 +74,7 @@
 
 /obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
-	if(semicd)
+	if(fire_cd)
 		return
 
 	var/obj/item/I = to_launch
@@ -86,6 +86,6 @@
 	add_attack_logs(user, target, "fired [I] from a [src]")
 	process_chamber()
 
-	semicd = 1
+	fire_cd = TRUE
 	spawn(fire_delay)
-		semicd = 0
+		fire_cd = FALSE

@@ -39,7 +39,7 @@
 
 	return ..()
 
-/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, list/modifiers)
 	if(marked_atom || !user.Adjacent(target))
 		return ..()
 
