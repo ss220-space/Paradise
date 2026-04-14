@@ -1,7 +1,7 @@
 /datum/item_skin_data/gun/stechkin
 	item_path = /obj/item/gun/projectile/automatic/pistol
 
-/datum/item_skin_data/stechkin/default
+/datum/item_skin_data/gun/stechkin/default
 	name = "Обычный"
 	icon_state = "pistol"
 
@@ -15,7 +15,7 @@
 	)
 
 /datum/item_skin_data/gun/stechkin/vitala
-	name = "Vitala"
+	name = "Компакт"
 	icon_state = "vitala_ste"
 	donation_tier = 1
 	attachable_offset = list(

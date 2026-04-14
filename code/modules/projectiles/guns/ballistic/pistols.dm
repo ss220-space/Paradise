@@ -24,10 +24,8 @@
 	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	var/base_state = current_skin || initial(icon_state)
+	icon_state = "[base_state][chambered ? "" : "-e"]"
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
