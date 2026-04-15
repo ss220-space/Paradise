@@ -174,7 +174,7 @@
 
 /obj/item/storage/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(!(. & SECONDARY_ATTACK_CALL_NORMAL))
+	if(. && !(. & SECONDARY_ATTACK_CALL_NORMAL))
 		return
 	click_alt(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
