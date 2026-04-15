@@ -91,6 +91,11 @@
 
 	orient2hud()
 
+
+/obj/item/storage/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Открыть")
+
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)

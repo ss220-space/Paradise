@@ -1170,6 +1170,11 @@
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 
+
+/obj/item/clothing/under/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Настроить датчики")
+
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
 	return ..()
