@@ -3398,7 +3398,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -3525,7 +3525,7 @@
 "api" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Staff room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -4219,7 +4219,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4523,7 +4523,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9853,7 +9853,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
 	name = "Staff room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -9931,7 +9931,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -11896,7 +11896,7 @@
 "aTr" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/machinery/door/poddoor{
@@ -17338,7 +17338,7 @@
 "boQ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/machinery/door/poddoor{
@@ -48367,7 +48367,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/security{
 	name = "Restroom";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -88332,7 +88332,7 @@
 "wcS" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Shooting Range";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -91513,7 +91513,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{

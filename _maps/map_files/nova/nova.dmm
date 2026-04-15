@@ -5240,7 +5240,7 @@
 "aOJ" = (
 /obj/machinery/door/airlock/security{
 	name = "Restroom";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -6143,7 +6143,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -15453,7 +15453,7 @@
 "cmB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -30787,23 +30787,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
-"eDu" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Customs";
-	req_access = list(63);
-	security_level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/security/seceqstorage)
 "eDF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -76254,7 +76237,7 @@
 "lBW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -86378,7 +86361,7 @@
 "ncg" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -95113,7 +95096,7 @@
 "ouh" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Staff room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -104190,7 +104173,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -128318,7 +128301,7 @@
 "tke" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -135931,7 +135914,7 @@
 "uqN" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/machinery/door/firedoor,
@@ -145555,7 +145538,7 @@
 "vOx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/machinery/door/firedoor,
@@ -148711,7 +148694,7 @@
 "wmO" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Lockers";
-	req_access = list(63);
+	req_access = list(2);
 	security_level = 1
 	},
 /obj/structure/cable{
@@ -154016,17 +153999,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"xbz" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Customs";
-	req_access = list(63);
-	security_level = 1
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/security/seceqstorage)
 "xbE" = (
 /obj/structure/railing{
 	dir = 8;
@@ -161436,7 +161408,7 @@
 "yeZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -243607,7 +243579,7 @@ wKy
 jGc
 mSR
 qXo
-eDu
+vTV
 avr
 cTX
 cTX
@@ -243615,7 +243587,7 @@ egQ
 ldl
 gEV
 mct
-xbz
+klT
 cIK
 jHI
 jsA

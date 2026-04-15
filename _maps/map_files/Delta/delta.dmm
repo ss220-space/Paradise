@@ -11038,7 +11038,7 @@
 "bzC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -26736,7 +26736,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -28640,7 +28640,7 @@
 /area/crew_quarters/hor)
 "dkK" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -29004,7 +29004,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel,
 /area/security/reception)
@@ -33361,7 +33361,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Staff room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -39599,7 +39599,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -49861,7 +49861,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Shooting Range";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -50996,7 +50996,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69211,7 +69211,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -74075,7 +74075,7 @@
 "mzW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -77420,7 +77420,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -79057,7 +79057,7 @@
 "nDy" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Storage";
-	req_access = list(63)
+	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -83915,7 +83915,7 @@
 "oIN" = (
 /obj/machinery/door/airlock/security{
 	name = "Restroom";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -84663,7 +84663,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -88600,7 +88600,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permahallway)
@@ -90592,7 +90592,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -91310,7 +91310,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -108767,7 +108767,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -112153,7 +112153,7 @@
 	id = "visiting room";
 	id_tag = "visiting room";
 	name = "Visiting Room";
-	req_access = list(63)
+	req_access = list(2)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -113041,7 +113041,7 @@
 "vfb" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -123377,7 +123377,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,

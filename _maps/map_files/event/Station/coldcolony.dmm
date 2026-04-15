@@ -644,7 +644,7 @@
 "alQ" = (
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -18250,7 +18250,7 @@
 "gLC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -20735,7 +20735,7 @@
 "hHi" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -44704,7 +44704,7 @@
 "qCm" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Dormitory";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -53405,7 +53405,7 @@
 "tQE" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56433,7 +56433,7 @@
 "uYx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -56703,7 +56703,7 @@
 "veG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
