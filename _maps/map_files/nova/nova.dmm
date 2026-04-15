@@ -2262,12 +2262,9 @@
 /area/security/evidence)
 "asL" = (
 /obj/structure/cable,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -3887,13 +3884,10 @@
 /area/security/brig)
 "aFr" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters";
-	opacity = 0
+	name = "Detective Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -4355,12 +4349,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -8896,13 +8887,10 @@
 	name = "Bridge Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -11306,13 +11294,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "ceprivacy1";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -13873,13 +13858,10 @@
 	name = "Quarantine Lockdown"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "researchdesk2";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -15116,13 +15098,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "representative";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ntr"
@@ -16157,13 +16136,10 @@
 /area/hallway/primary/central/sw)
 "csh" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters";
-	opacity = 0
+	name = "Detective Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -18966,13 +18942,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "blueshield";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -19921,13 +19894,10 @@
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -21866,13 +21836,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -23852,13 +23819,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "blueshield";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -27711,12 +27675,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningstorage)
 "egA" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
-	opacity = 0
+	name = "Research Director Office Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -27868,13 +27829,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -32938,13 +32896,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -36428,13 +36383,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -37994,13 +37946,10 @@
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -38264,12 +38213,9 @@
 /area/quartermaster/miningstorage)
 "fLN" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hopqueueshutters";
-	name = "Queue Shutters";
-	opacity = 0
+	name = "Queue Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -45922,13 +45868,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -46829,12 +46772,9 @@
 /obj/effect/turf_decal/loading_area/red{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hopqueueshutters";
-	name = "Queue Shutters";
-	opacity = 0
+	name = "Queue Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -51629,13 +51569,10 @@
 "hQo" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -51973,13 +51910,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -52256,12 +52190,9 @@
 /turf/space/openspace,
 /area/space)
 "hUs" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "representative";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ntr"
@@ -53215,13 +53146,10 @@
 	name = "Bridge Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -55318,13 +55246,10 @@
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -56519,13 +56444,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "blueshield";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -58061,13 +57983,10 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -58795,13 +58714,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "qmshutters";
-	name = "QM Privacy Shutters";
-	opacity = 0
+	name = "QM Privacy Shutters"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -59143,12 +59059,9 @@
 	req_access = list(28)
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	opacity = 0
+	name = "Kitchen Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -60568,12 +60481,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -64814,12 +64724,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -67886,13 +67793,10 @@
 /area/engineering/break_room)
 "kmy" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "detprivacy";
-	name = "Detective Privacy Shutters";
-	opacity = 0
+	name = "Detective Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
@@ -68970,13 +68874,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "blueshield";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -71354,13 +71255,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -73219,13 +73117,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -75894,13 +75789,10 @@
 "lAs" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -76151,13 +76043,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
-	opacity = 0
+	name = "Research Director Office Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -76262,13 +76151,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -77372,13 +77258,10 @@
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -77856,12 +77739,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "representative";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ntr"
@@ -78180,13 +78060,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "representative";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ntr"
@@ -80046,13 +79923,10 @@
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -80063,12 +79937,9 @@
 "mga" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	opacity = 0
+	name = "Kitchen Shutters"
 	},
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
@@ -85657,13 +85528,10 @@
 /area/space)
 "mYL" = (
 /obj/structure/cable,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -86992,13 +86860,10 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -87678,12 +87543,9 @@
 	},
 /area/medical/virology/lab)
 "nnb" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
-	opacity = 0
+	name = "Research Director Office Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -89257,12 +89119,9 @@
 /obj/effect/turf_decal/loading_area/red{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hopqueueshutters";
-	name = "Queue Shutters";
-	opacity = 0
+	name = "Queue Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -94442,13 +94301,10 @@
 /area/maintenance/medroom)
 "oqM" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "detprivacy";
-	name = "Detective Privacy Shutters";
-	opacity = 0
+	name = "Detective Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
@@ -94698,13 +94554,10 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -95299,12 +95152,9 @@
 "owh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	opacity = 0
+	name = "Kitchen Shutters"
 	},
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
@@ -96008,13 +95858,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -96437,12 +96284,9 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/fsmaint2)
 "oGt" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
-	opacity = 0
+	name = "Research Director Office Shutters"
 	},
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -104561,13 +104405,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -105773,12 +105614,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet3)
 "pYg" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "representative";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ntr"
@@ -108509,13 +108347,10 @@
 /area/crew_quarters/captain)
 "qub" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters";
-	opacity = 0
+	name = "Detective Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -111644,13 +111479,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "qmshutters";
-	name = "QM Privacy Shutters";
-	opacity = 0
+	name = "QM Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -114479,13 +114311,10 @@
 /area/hallway/primary/command/west)
 "rnn" = (
 /obj/structure/cable,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -115822,12 +115651,9 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush/hell,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hopqueueshutters";
-	name = "Queue Shutters";
-	opacity = 0
+	name = "Queue Shutters"
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
@@ -117395,13 +117221,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "ceprivacy1";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -119832,13 +119655,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
-	opacity = 0
+	name = "Research Director Office Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -121274,12 +121094,9 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hopqueueshutters";
-	name = "Queue Shutters";
-	opacity = 0
+	name = "Queue Shutters"
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
@@ -121357,13 +121174,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "qmshutters";
-	name = "QM Privacy Shutters";
-	opacity = 0
+	name = "QM Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -122467,13 +122281,10 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "svl" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -123298,13 +123109,10 @@
 	name = "Quarantine Lockdown"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "researchdesk2";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/item/desk_bell{
 	anchored = 1;
@@ -123680,13 +123488,10 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -124677,13 +124482,10 @@
 /area/medical/virology/lab)
 "sMl" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -126139,13 +125941,10 @@
 	name = "Bridge Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	opacity = 0
+	name = "Bridge Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -129570,13 +129369,10 @@
 /area/quartermaster/storage)
 "twr" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -132956,13 +132752,10 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -133054,13 +132847,10 @@
 /area/maintenance/fsmaint3)
 "tWh" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -133434,13 +133224,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -137959,13 +137746,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -138848,13 +138632,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "blueshield";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -139458,13 +139239,10 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -140524,12 +140302,9 @@
 "vcB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	opacity = 0
+	name = "Kitchen Shutters"
 	},
 /obj/item/reagent_containers/food/snacks/soup/beetsoup{
 	desc = "With the taste of execution";
@@ -142311,13 +142086,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "blueshield";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -143085,13 +142857,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "vxs" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized{
@@ -144287,13 +144056,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -148166,13 +147932,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "lawyer";
-	name = "Lawyer Privacy Shutters";
-	opacity = 0
+	name = "Lawyer Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
@@ -148980,13 +148743,10 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -149917,13 +149677,10 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -154645,13 +154402,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	opacity = 0
+	name = "CE Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ceprivacytint"
@@ -157326,13 +157080,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "qmshutters";
-	name = "QM Privacy Shutters";
-	opacity = 0
+	name = "QM Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -157418,12 +157169,9 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/hell,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hopqueueshutters";
-	name = "Queue Shutters";
-	opacity = 0
+	name = "Queue Shutters"
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
@@ -157931,13 +157679,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+	name = "Magistrate Privacy Shutters"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "tintmagistrateoffice"
@@ -158612,13 +158357,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
-	opacity = 0
+	name = "Research Director Office Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,

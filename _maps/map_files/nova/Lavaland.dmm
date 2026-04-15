@@ -1088,13 +1088,10 @@
 /area/mine/lobby)
 "hw" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "Mining_bar";
-	name = "Mining Bar Privacy Shutters";
-	opacity = 0
+	name = "Mining Bar Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
@@ -3308,13 +3305,10 @@
 /area/mine/lobby)
 "uq" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	icon_state = "open";
 	id_tag = "Mining_bar";
-	name = "Mining Bar Privacy Shutters";
-	opacity = 0
+	name = "Mining Bar Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
