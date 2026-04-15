@@ -249,7 +249,7 @@
 		// We only need to loop over half the deltas to swap all the entries, any more and it'd be redundant
 		// We floor so as to avoid over flipping, and ending up flipping "back" a delta
 		// etc etc
-		var/target = FLOOR((upper_parent - lower_parent) / 2, 1)
+		var/target = floor((upper_parent - lower_parent) / 2)
 		for(var/delta_index in 1 to target)
 			var/old_lower = queue[lower_parent + delta_index]
 			queue[lower_parent + delta_index] = queue[upper_parent - delta_index]

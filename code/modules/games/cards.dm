@@ -637,7 +637,7 @@
 		. += image
 		return
 
-	var/offset = FLOOR(20/LAZYLEN(cards) + 1, 1)
+	var/offset = floor(20/LAZYLEN(cards) + 1)
 	// var/i = 0
 	for(var/i in 1 to LAZYLEN(cards))
 		var/datum/playingcard/card = cards[i]
