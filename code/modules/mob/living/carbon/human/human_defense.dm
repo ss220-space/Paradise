@@ -489,6 +489,10 @@ emp_act
 	if(check_martial_art_defense(src, user, item, span_warning("[src] блокиру[PLUR_ET_YUT(src)] [item.declent_ru(ACCUSATIVE)]!")))
 		return ATTACK_CHAIN_BLOCKED
 
+	// Blood splatter effect only appears if the attack wasn't blocked
+	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
+
 	if(istype(item, /obj/item/card/emag) && emag_act(user, affecting))
 		return ATTACK_CHAIN_BLOCKED_ALL
 

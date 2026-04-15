@@ -226,8 +226,6 @@
 		return .
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, modifiers, user.zone_selected)
 
@@ -280,9 +278,6 @@
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
 		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [force])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
-		if(COOLDOWN_FINISHED(src, sound_cooldown) && hitsound)   // Prevent stacking sounds when using cleave attacks
-			playsound(target.loc, hitsound, get_clamped_volume(), TRUE, -1)
-			COOLDOWN_START(src, sound_cooldown, 0.05 SECONDS) // Attack speed below 0.05 sec will not play sound on every hit
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
@@ -294,6 +289,11 @@
 
 	add_fingerprint(user)
 	. |= target.proceed_attack_results(src, user, modifiers, def_zone)
+
+	// Only play hit sound if the attack wasn't blocked
+	if(!( . & ATTACK_CHAIN_BLOCKED) && COOLDOWN_FINISHED(src, sound_cooldown) && hitsound)
+		playsound(target.loc, hitsound, get_clamped_volume(), TRUE, -1)
+		COOLDOWN_START(src, sound_cooldown, 0.05 SECONDS) // Attack speed below 0.05 sec will not play sound on every hit
 
 /// The equivalent of [/obj/item/proc/attack] but for alternate attacks, AKA right clicking
 /obj/item/proc/attack_secondary(mob/living/victim, mob/living/user, list/modifiers, list/attack_modifiers)
@@ -364,6 +364,10 @@
 	send_item_attack_message(item, user, def_zone)
 	if(!item.force)
 		return .
+
+	// Blood splatter effect for non-human mobs (humans handle it in their own proceed_attack_results)
+	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
 
 	var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, def_zone, sharp = item.sharp, used_weapon = item)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere

@@ -62,7 +62,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/bullet_blocksound = SFX_RICOCHET /// SFX_BULLET_BLOCK
 	/// Sound played when you block laser weapon
 	var/laser_blocksound = SFX_RICOCHET /// SFX_LASER_BLOCK
-
+	/// Visual effect spawned on a successful block.
 	var/block_effect = /obj/effect/temp_visual/block
 	/// Used for hit sound cooldown
 	COOLDOWN_DECLARE(sound_cooldown)
@@ -699,7 +699,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			else
 				block_sounds = SFX_BLUNT_SWING_LIGHT
 
-		playsound(owner.loc, block_sounds, 50, TRUE)
+		if(block_sounds)
+			playsound(owner.loc, block_sounds, 50, TRUE)
 
 		if(block_effect)
 			var/owner_turf = get_turf(owner)
