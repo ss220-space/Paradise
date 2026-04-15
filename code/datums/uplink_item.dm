@@ -22,7 +22,7 @@
 			uplink_item = new uplink_item.type //If item has limited stock or can be discounted and refundable at same time make a copy
 
 		if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION) && uplink_item.cybernetic_sensitive)
-			uplink_item.cost *= 3
+			uplink_item.cost = initial(uplink_item.cost) * 3
 
 		. += uplink_item
 
