@@ -23,6 +23,7 @@
 	block_chance = 50
 	armour_penetration = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE

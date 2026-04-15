@@ -129,6 +129,9 @@
 	embedded_impact_pain_multiplier = 10
 	armour_penetration = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
+	melee_blocksound = SFX_MELEE_BLOCK /// 'sound/weapons/effects/block/bladeblock.ogg'
+	bullet_blocksound = SFX_MELEE_BLOCK /// 'sound/weapons/effects/block/bladeblock.ogg'
+	laser_blocksound = SFX_MELEE_BLOCK /// 'sound/weapons/effects/block/bladeblock.ogg'
 	block_chance = 50
 	sharp = 1
 	var/hacked = FALSE

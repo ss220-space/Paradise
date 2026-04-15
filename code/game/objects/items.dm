@@ -56,6 +56,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/attack_verb
 	/// Sound played when you hit something with the item.
 	var/hitsound
+	/// Sound played when you block melee weapon
+	var/melee_blocksound
+	/// Sound played when you block ballistic weapon
+	var/bullet_blocksound = SFX_RICOCHET /// SFX_BULLET_BLOCK
+	/// Sound played when you block laser weapon
+	var/laser_blocksound = SFX_RICOCHET /// SFX_LASER_BLOCK
+
+	var/block_effect = /obj/effect/temp_visual/block
 	/// Used for hit sound cooldown
 	COOLDOWN_DECLARE(sound_cooldown)
 	/// Played when the item is used, for example tools.
@@ -676,6 +684,26 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		var/block_sounds
+		var/effect_color = COLOR_WHITE
+		switch(attack_type)
+			if(ITEM_ATTACK)
+				block_sounds = melee_blocksound
+			if(PROJECTILE_ATTACK)
+				if(istype(hitby, /obj/projectile/energy) || istype(hitby, /obj/projectile/beam))
+					block_sounds = laser_blocksound
+					effect_color = COLOR_SECURITY_RED
+				else if(istype(hitby, /obj/projectile/bullet))
+					block_sounds = bullet_blocksound
+					effect_color = COLOR_VIVID_YELLOW
+			else
+				block_sounds = SFX_BLUNT_SWING_LIGHT
+
+		playsound(owner.loc, block_sounds, 50, TRUE)
+
+		if(block_effect)
+			var/owner_turf = get_turf(owner)
+			new block_effect(owner_turf, effect_color)
 		return signal_result
 	return FALSE
 

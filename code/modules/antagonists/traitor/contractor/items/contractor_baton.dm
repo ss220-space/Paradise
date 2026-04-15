@@ -18,6 +18,7 @@
 	force_say_chance = 80 //very high force say chance because it's funny
 	on_stun_sound = 'sound/weapons/contractorbatonhit.ogg'
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
+	melee_blocksound = SFX_CBATON_BLOCK
 	extend_item_state = "contractor_baton_extended"
 	/// Currently applied upgrades.
 	var/list/upgrades

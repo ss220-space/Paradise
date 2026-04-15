@@ -153,6 +153,7 @@
 	block_chance = 50
 	block_type = MELEE_ATTACKS
 	hitsound = 'sound/weapons/armblade.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE

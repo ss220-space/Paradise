@@ -83,6 +83,7 @@
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK
 	force = 25
 	armour_penetration = 75
 	block_chance = 50

@@ -231,6 +231,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK
 	w_class = WEIGHT_CLASS_HUGE
 	block_chance = 20
 	needs_permit = TRUE
@@ -323,6 +324,7 @@
 	sharp = TRUE
 	block_chance = 25
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK
 
 /obj/item/clock_borg_spear/Initialize(mapload)
 	. = ..()
@@ -482,6 +484,7 @@
 	icon_state = "clock_sword"
 	item_state = "clock_sword"
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK
 	force = 25
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
@@ -601,6 +604,7 @@
 	throw_range = 3
 	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
+	melee_blocksound = SFX_MELEE_BLOCK /// 'sound/weapons/effects/block/clockshieldblock.ogg'
 	block_chance = 55
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
