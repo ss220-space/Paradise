@@ -435,7 +435,6 @@
 	default = 2 HOURS
 
 /datum/config_entry/number/antag_paradise_double_antag_chance
-	default = 0
 	max_val = 100
 	min_val = 0
 
