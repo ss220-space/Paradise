@@ -532,9 +532,6 @@
 	if(!.)
 		return
 
-	if(!IsAvailable(TRUE))
-		return FALSE
-
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()

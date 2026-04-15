@@ -130,9 +130,6 @@
 	if(!.)
 		return
 
-	if(!IsAvailable())
-		return
-
 	if(recharging_time > world.time)
 		to_chat(owner, span_warning("Встроенный двигатель ботинка ещё не перезарядился!"))
 		return

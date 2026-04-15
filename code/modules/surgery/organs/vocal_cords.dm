@@ -95,8 +95,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	)
 
 /datum/action/item_action/organ_action/use/adamantine_vocal_cords/do_effect(trigger_flags)
-	if(!IsAvailable())
-		return
 	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return

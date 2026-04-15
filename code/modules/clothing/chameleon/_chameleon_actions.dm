@@ -398,9 +398,6 @@
 	qdel(fake_item)
 
 /datum/action/item_action/chameleon/change/do_effect(trigger_flags)
-	if(!IsAvailable())
-		return FALSE
-
 	select_look(owner)
 	return TRUE
 
