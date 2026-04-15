@@ -103,17 +103,6 @@
 
 	{
 		"type": "SubmapExtractInsert",
-		"submap_size_x" : 10,
-		"submap_size_y" : 12,
-		"submap_size_z" : 1,
-		"submaps_dmm": "_maps/map_files/Delta/submaps/robotech.dmm",
-		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/robo",
-		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/robo",
-		"submaps_can_repeat": true
-	},
-
-	{
-		"type": "SubmapExtractInsert",
 		"submap_size_x" : 9,
 		"submap_size_y" : 6,
 		"submap_size_z" : 1,

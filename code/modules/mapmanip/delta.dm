@@ -116,15 +116,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/hallway/rd_robo
 	name = "коридор в РНД между робо и РД с стеклянным полом"
 
-//RND robotics lab
-
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/robo
-
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/robo
-
-/obj/effect/map_effect/marker_helper/submap_def/delta/rnd/robo/extra_safe
-	name = "робототехника с дополнительной перегородкой"
-
 //Old teleporter room
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/old_tele

@@ -90959,10 +90959,6 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/virology/lab)
-"qmP" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/robo,
-/turf/simulated/wall/r_wall,
-/area/assembly/robotics)
 "qmT" = (
 /obj/machinery/door/airlock{
 	id_tag = "cabin1";
@@ -162363,7 +162359,7 @@ qOh
 gVV
 tXf
 tXf
-qmP
+ykx
 wEh
 tLT
 ygS
