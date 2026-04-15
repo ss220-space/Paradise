@@ -94,7 +94,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		PREPOSITIONAL = "адамантиновых голосовых связках",
 	)
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/do_effect(trigger_flags)
 	if(!IsAvailable())
 		return
 	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")

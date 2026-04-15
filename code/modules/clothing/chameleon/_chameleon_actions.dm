@@ -397,7 +397,7 @@
 
 	qdel(fake_item)
 
-/datum/action/item_action/chameleon/change/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/chameleon/change/do_effect(trigger_flags)
 	if(!IsAvailable())
 		return FALSE
 

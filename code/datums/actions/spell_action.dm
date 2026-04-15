@@ -528,6 +528,10 @@
 	return ..()
 
 /datum/action/spell_action/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	if(!IsAvailable(TRUE))
 		return FALSE
 
