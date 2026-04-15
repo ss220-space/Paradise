@@ -253,7 +253,7 @@
 	 */
 	var/all_products_free
 	/**
-	 * If this is et to TRUE, free buy process not drop products, but can tilt.
+	 * If this is set to TRUE, the free item distribution process will not drop products, but the machine can still tilt.
 	 * Otherwise, free buy works normally.
 	 */
 	var/vandal_secure = FALSE
@@ -792,6 +792,7 @@
  */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
 	if(vandal_secure)
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, но ничего не выдаёт!"))
 		return
 
 	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
