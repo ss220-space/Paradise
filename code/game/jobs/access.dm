@@ -370,6 +370,8 @@
 			return "AI Satellite"
 		if(ACCESS_WEAPONS)
 			return "Weapon Permit"
+		if(ACCESS_INVESTOR)
+			return "Investor"
 
 /proc/get_centcom_access_desc(A)
 	switch(A)
