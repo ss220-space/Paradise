@@ -45548,7 +45548,6 @@
 /area/maintenance/fore2)
 "dEd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
