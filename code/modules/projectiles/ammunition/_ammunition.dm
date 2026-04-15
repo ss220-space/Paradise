@@ -79,6 +79,9 @@
 	gun.chambered = null
 	. = ..()
 
+/obj/item/ammo_casing/update_icon_state()
+	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
+
 /obj/item/ammo_casing/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ammo))
 
@@ -124,18 +127,15 @@
 	// No dividing by 0
 	if(initial_damage)
 		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")
-		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику патронами [span_warning(get_ammo_marking())] потребуется примерно [lethal_hits_to_crit_str]."
+		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [lethal_hits_to_crit_str]."
 	if(initial_stamina)
 		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")
-		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника патронами [span_warning(get_ammo_marking())] потребуется примерно [non_lethal_hits_to_crit_str]."
+		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [non_lethal_hits_to_crit_str]."
 
 	return readout.Join("\n") // Sending over a single string, rather than the whole list
 
 /obj/item/ammo_casing/proc/get_ammo_marking()
 	return ammo_marking ? ammo_marking : caliber
-
-/obj/item/ammo_casing/update_icon_state()
-	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
 /obj/item/ammo_casing/proc/update_names()
 	var/list/names = get_ru_names_cached()
@@ -163,7 +163,7 @@
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
 	if(BB)
-		desc = "Заряженный и готовый к использованию патрон [ammo_marking]. [extra_info]"
+		desc = "Заряженный и готовый к использованию патрон [get_ammo_marking()]. [extra_info]"
 	else
 		desc = "Пустая гильза от пули калибра [caliber]." // no extra info because no bullet
 

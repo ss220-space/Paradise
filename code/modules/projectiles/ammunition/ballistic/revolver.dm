@@ -69,6 +69,6 @@
 
 /obj/item/ammo_casing/revolver/improvised/phosphorus
 	desc = "Полностью металлическая гильза, из которой течёт масло и фосфор. Это явно ненадёжный патрон."
-	ammo_marking = ".257 \"Фосфор\"
+	ammo_marking = ".257 \"Фосфор\""
 	icon_state = "rev-phosphor-casing"
 	projectile_type = /obj/projectile/bullet/weakbullet3/c257/phosphorus

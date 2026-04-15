@@ -134,13 +134,13 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 // Foam force weapons
 /// Used in foam guns
-#define CALIBER_FOAM_FORCE "foam force"
+#define CALIBER_FOAM_FORCE "пенопластовый"
 /// Used in sniper foam gun
-#define CALIBER_FOAM_FORCE_SNIPER "foam force sniper"
+#define CALIBER_FOAM_FORCE_SNIPER "пенопластовый снайперский"
 
 // Blank cartridges
 /// Used in toy cap guns
-#define CALIBER_CAP "cap"
+#define CALIBER_CAP "холостой"
 
 // Heavy weapons
 /// Used in high-caliber rocket launchers
