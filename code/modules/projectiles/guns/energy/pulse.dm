@@ -56,7 +56,7 @@
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = FALSE
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 // MARK: M1911-P
@@ -65,7 +65,7 @@
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911"
 	cell_type = /obj/item/stock_parts/cell/infinite
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 // MARK: Destroyer
 /obj/item/gun/energy/pulse/destroyer
