@@ -644,7 +644,7 @@
 "alQ" = (
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -18240,7 +18240,7 @@
 "gLC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -20737,7 +20737,7 @@
 "hHi" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -40931,8 +40931,11 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "qm_snow";
-	pixel_x = 5;
-	pixel_y = 24
+	pixel_x = 24;
+	pixel_y = 5
+	},
+/obj/structure/closet/gun_stand/cargo_defender{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -44657,7 +44660,7 @@
 "qCm" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Dormitory";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -53335,7 +53338,7 @@
 "tQE" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56358,7 +56361,7 @@
 "uYx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -56628,7 +56631,7 @@
 "veG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{

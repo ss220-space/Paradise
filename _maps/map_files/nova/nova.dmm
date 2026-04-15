@@ -5177,7 +5177,7 @@
 "aOJ" = (
 /obj/machinery/door/airlock/security{
 	name = "Restroom";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -6069,7 +6069,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -15288,7 +15288,7 @@
 "cmB" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -30488,23 +30488,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
-"eDu" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Customs";
-	req_access = list(63);
-	security_level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/security/seceqstorage)
 "eDF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -57701,18 +57684,18 @@
 /turf/simulated/floor/engine,
 /area/engineering/aienter)
 "iON" = (
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "qm";
-	pixel_x = 5;
-	pixel_y = 24
-	},
 /obj/machinery/light_switch/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "qm";
+	pixel_x = 5;
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
@@ -75497,7 +75480,7 @@
 "lBW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -85502,7 +85485,7 @@
 "ncg" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -94141,7 +94124,7 @@
 "ouh" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Staff room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -103115,7 +103098,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -109986,6 +109969,9 @@
 /obj/structure/filingcabinet,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/computer/guestpass{
+	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
@@ -121702,7 +121688,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/structure/closet/sechammercabinet{
+/obj/structure/closet/gun_stand/sechammer{
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -126967,7 +126953,7 @@
 "tke" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -128364,11 +128350,11 @@
 	},
 /area/hallway/primary/command/east)
 "tvJ" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/closet/gun_stand/cargo_defender{
+	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
@@ -134507,7 +134493,7 @@
 "uqN" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/machinery/door/firedoor,
@@ -144037,7 +144023,7 @@
 "vOx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/machinery/door/firedoor,
@@ -147174,7 +147160,7 @@
 "wmO" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Lockers";
-	req_access = list(63);
+	req_access = list(2);
 	security_level = 1
 	},
 /obj/structure/cable{
@@ -152433,17 +152419,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"xbz" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Customs";
-	req_access = list(63);
-	security_level = 1
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/security/seceqstorage)
 "xbE" = (
 /obj/structure/railing{
 	dir = 8;
@@ -159765,7 +159740,7 @@
 "yeZ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -241931,7 +241906,7 @@ wKy
 jGc
 mSR
 qXo
-eDu
+vTV
 avr
 cTX
 cTX
@@ -241939,7 +241914,7 @@ egQ
 ldl
 gEV
 mct
-xbz
+klT
 cIK
 jHI
 jsA

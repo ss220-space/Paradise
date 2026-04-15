@@ -500,7 +500,7 @@
 /area/mine/living_quarters)
 "bI" = (
 /obj/machinery/bodyscanner,
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
