@@ -241,12 +241,12 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_SHRAPNEL" = TRAIT_SHRAPNEL,
 	),
 
-  // MARK: /obj/projectile
+	// MARK: /obj/projectile
 	/obj/projectile = list(
 		"TRAIT_NO_RICOCHET" = TRAIT_NO_RICOCHET,
 	),
-  
-  // MARK: /obj/item
+
+	// MARK: /obj/item
 	/obj/item = list(
 		"TRAIT_ADVANCED_SURGICAL" = TRAIT_ADVANCED_SURGICAL,
 		"TRAIT_BLIND_TOOL" = TRAIT_BLIND_TOOL,
