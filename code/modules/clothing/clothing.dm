@@ -1249,6 +1249,10 @@
 
 	return ..()
 
+/obj/item/clothing/under/attack_hand_secondary(mob/user, list/modifiers)
+	set_sensors(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
 	if(!can_attach_accessory(accessory, user))
 		if(user)
