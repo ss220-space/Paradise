@@ -35,6 +35,11 @@
 		PREPOSITIONAL = "фонарике"
 	)
 
+
+/obj/item/flashlight/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить фонарик")
+
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
 	light_system = MOVABLE_LIGHT
