@@ -252,6 +252,11 @@
 	 * Defaults to null, set it to TRUE or FALSE explicitly on a per-machine basis if you want to force it to be a certain value.
 	 */
 	var/all_products_free
+	/**
+	 * If this is et to TRUE, free buy process not drop products, but can tilt.
+	 * Otherwise, free buy works normally.
+	 */
+	var/free_buy_secure = FALSE
 
 /obj/machinery/vending/get_ru_names()
 	return list(
@@ -786,6 +791,9 @@
  * freebies - number of free items to vend
  */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
+	if(free_buy_secure)
+		return
+
 	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
 
 	for(var/i in 1 to num_freebies)
