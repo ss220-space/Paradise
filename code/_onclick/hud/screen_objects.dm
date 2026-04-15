@@ -99,15 +99,16 @@
 
 /atom/movable/screen/act_intent/Click(location, control, params)
 	if(ishuman(usr) || isdevil(usr))
-		var/_x = text2num(LAZYACCESS(params2list(params), ICON_X))
-		var/_y = text2num(LAZYACCESS(params2list(params), ICON_Y))
-		if(_x<=16 && _y<=16)
+		var/list/modifiers = params2list(params)
+		var/_x = text2num(LAZYACCESS(modifiers, ICON_X))
+		var/_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+		if(_x <= 16 && _y <= 16)
 			usr.a_intent_change(INTENT_HARM)
-		else if(_x<=16 && _y>=17)
+		else if(_x <= 16 && _y >= 17)
 			usr.a_intent_change(INTENT_HELP)
-		else if(_x>=17 && _y<=16)
+		else if(_x >= 17 && _y <= 16)
 			usr.a_intent_change(INTENT_GRAB)
-		else if(_x>=17 && _y>=17)
+		else if(_x >= 17 && _y >= 17)
 			usr.a_intent_change(INTENT_DISARM)
 	else
 		usr.a_intent_change("right")
@@ -192,7 +193,7 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			I.melee_attack_chain(usr, master, params)
+			I.melee_attack_chain(usr, master, params2list(params))
 	return TRUE
 
 /atom/movable/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
@@ -250,7 +251,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		I.melee_attack_chain(user, S, params)
+		I.melee_attack_chain(user, S, params2list(params))
 	return TRUE
 
 /atom/movable/screen/storage/space_box

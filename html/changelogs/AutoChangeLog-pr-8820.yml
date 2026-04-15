@@ -1,4 +1,0 @@
-author: "Buravka"
-delete-after: True
-changes:
-  - bugfix: "Модуль встроенного сидения для киборгов теперь работает как надо (PR #8820)"

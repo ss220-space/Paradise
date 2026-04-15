@@ -1170,6 +1170,11 @@
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 
+
+/obj/item/clothing/under/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Настроить датчики")
+
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
 	return ..()
@@ -1248,6 +1253,18 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/clothing/under/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. && !(. & SECONDARY_ATTACK_CALL_NORMAL))
+		return
+
+	set_sensors(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/clothing/under/attack_self_secondary(mob/user, list/modifiers)
+	set_sensors(user)
+	return TRUE
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
 	if(!can_attach_accessory(accessory, user))

@@ -121936,7 +121936,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "wCY" = (
-/obj/structure/closet/sechammercabinet{
+/obj/structure/closet/gun_stand/sechammer{
 	pixel_y = -30
 	},
 /obj/structure/closet/loot_crate/gamma,

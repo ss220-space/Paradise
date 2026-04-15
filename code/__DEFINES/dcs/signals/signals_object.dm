@@ -127,3 +127,13 @@
 
 /// Sent on camera switch in camera monitors (/obj/machinery/computer/security/ui_act(action, params))
 #define COMSIG_MONITOR_CAMERA_SWITCHED "monitor_camera_switched"
+
+/// From base of [/obj/item/proc/pre_attack_secondary()]: (atom/target, mob/user, list/modifiers, list/attack_modifiers)
+#define COMSIG_ITEM_PRE_ATTACK_SECONDARY "item_pre_attack_secondary"
+	#define COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN (1<<0)
+	#define COMPONENT_SECONDARY_CONTINUE_ATTACK_CHAIN (1<<1)
+	#define COMPONENT_SECONDARY_CALL_NORMAL_ATTACK_CHAIN (1<<2)
+///from base of obj/item/pre_attack_secondary(): (obj/item/weapon, atom/target, list/modifiers, list/attack_modifiers)
+#define COMSIG_USER_PRE_ITEM_ATTACK_SECONDARY "user_pre_item_attack_secondary"
+/// From base of [/obj/item/proc/attack_secondary()]: (atom/target, mob/user, list/modifiers, list/attack_modifiers)
+#define COMSIG_ITEM_ATTACK_SECONDARY "item_attack_secondary"
