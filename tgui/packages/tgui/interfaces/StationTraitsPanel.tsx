@@ -10,7 +10,7 @@ import { Window } from '../layouts';
 type CurrentStationTrait = {
   can_revert: BooleanLike;
   name: string;
-  ref: string;
+  uid: string;
 };
 
 type ValidStationTrait = {
@@ -169,7 +169,7 @@ const ViewStationTraitsPage = (props) => {
   return data.current_traits.length > 0 ? (
     <Stack vertical fill>
       {data.current_traits.map((stationTrait) => (
-        <Stack.Item key={stationTrait.ref}>
+        <Stack.Item key={stationTrait.uid}>
           <Stack fill>
             <Stack.Item grow>{stationTrait.name}</Stack.Item>
 
@@ -187,7 +187,7 @@ const ViewStationTraitsPage = (props) => {
                 icon="times"
                 onClick={() =>
                   act('revert', {
-                    ref: stationTrait.ref,
+                    uid: stationTrait.uid,
                   })
                 }
               />
