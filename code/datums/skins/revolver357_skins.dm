@@ -4,6 +4,7 @@
 /datum/item_skin_data/gun/capgun_revolver/default
 	name = "Обычный"
 	icon_state = "revolver"
+	donation_tier = 3
 
 /datum/item_skin_data/gun/capgun_revolver/pink
 	name = "Гламурный"
