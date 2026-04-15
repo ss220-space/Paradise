@@ -515,4 +515,3 @@
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_OUTDATED_HARDSUITS
 	weight = 2
-	force = 1
