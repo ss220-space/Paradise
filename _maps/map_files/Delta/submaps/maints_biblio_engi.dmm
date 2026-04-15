@@ -215,6 +215,10 @@
 	icon_state = "0-8-f"
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/machinery/power/apc{
+	pixel_y = 26;
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "xF" = (

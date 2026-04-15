@@ -272,7 +272,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
-	pixel_x = -26
+	pixel_x = -26;
+	dir = 8
 	},
 /turf/simulated/floor/glass,
 /area/medical/research/shallway)
