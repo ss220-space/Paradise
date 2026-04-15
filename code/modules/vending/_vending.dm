@@ -256,7 +256,7 @@
 	 * If this is et to TRUE, free buy process not drop products, but can tilt.
 	 * Otherwise, free buy works normally.
 	 */
-	var/free_buy_secure = FALSE
+	var/vandal_secure = FALSE
 
 /obj/machinery/vending/get_ru_names()
 	return list(
@@ -791,7 +791,7 @@
  * freebies - number of free items to vend
  */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
-	if(free_buy_secure)
+	if(vandal_secure)
 		return
 
 	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
@@ -1343,6 +1343,9 @@
 
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
+
+	if(vandal_secure)
+		return
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
