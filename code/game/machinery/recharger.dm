@@ -27,12 +27,13 @@
 	// Whether the recharger is actually transferring power or not, used for icon
 	var/using_power = FALSE
 	pixel_y = 3
+	var/default_capacitor = /obj/item/stock_parts/capacitor
 
 /obj/machinery/recharger/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recharger(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new default_capacitor(null)
 	RefreshParts()
 	update_icon()
 
@@ -239,12 +240,25 @@
 	name = "alien recharger"
 	icon_state = "abductor_charger0"
 	base_icon_state = "abductor_charger"
+	default_capacitor = /obj/item/stock_parts/capacitor/purple
 
-/obj/machinery/recharger/abductor/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/recharger/abductor/screwdriver_act(mob/user, obj/item/item)
+	balloon_alert(user, "тех. панель отсутствует!")
 	return
 
-/obj/machinery/recharger/abductor/wrench_act(mob/user, obj/item/I)
+/obj/machinery/recharger/abductor/wrench_act(mob/user, obj/item/item)
+	balloon_alert(user, "болты отсутствуют!")
 	return
+
+/obj/machinery/recharger/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный зарядник",
+		GENITIVE = "инопланетного зарядника",
+		DATIVE = "инопланетному заряднику",
+		ACCUSATIVE = "инопланетный зарядник",
+		INSTRUMENTAL = "инопланетным зарядником",
+		PREPOSITIONAL = "инопланетном заряднике",
+	)
 
 #undef RECHARGER_POWER_USAGE_GUN
 #undef RECHARGER_POWER_USAGE_MISC
