@@ -93,9 +93,6 @@
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
 
-	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
-	var/face_mouse = FALSE
-
 	/// The degree of thermal insulation that mobs in list/contents have from the external environment, between 0 and 1
 	var/contents_thermal_insulation = 0
 	/// The degree of pressure protection that mobs in list/contents have from the external environment, between 0 and 1
@@ -497,7 +494,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
+	if(set_dir_on_move && dir != direct && update_dir && !HAS_TRAIT(src, TRAIT_FACING_TO_MOUSE)) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -570,6 +567,8 @@
 		return FALSE
 
 	var/atom/oldloc = loc
+
+	var/face_mouse = HAS_TRAIT(src, TRAIT_FACING_TO_MOUSE)
 
 	//Early override for some cases like diagonal movement
 	if(glide_size_override && glide_size != glide_size_override)
@@ -1356,9 +1355,9 @@
 	. = ..()
 	verbs.Cut()
 
-/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, list/modifiers)
 	if(master)
-		I.melee_attack_chain(user, master, params)
+		I.melee_attack_chain(user, master, modifiers)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /atom/movable/overlay/attack_hand(mob/user)

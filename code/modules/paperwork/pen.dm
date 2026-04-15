@@ -138,8 +138,8 @@
 /obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
 
-/obj/item/pen/fancy/bomb/tool_act(mob/living/user, obj/item/I, tool_type)
-	return bomb.tool_act(user, I, tool_type) || ..()
+/obj/item/pen/fancy/bomb/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	return bomb.tool_act(user, tool, modifiers) || ..()
 
 /obj/item/pen/multi/gold
 	name = "Gilded Pen"

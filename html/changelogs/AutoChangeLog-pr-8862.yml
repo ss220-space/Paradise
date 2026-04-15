@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Банхаммер за тир 4 берет админов с сервера (PR #8862)"
