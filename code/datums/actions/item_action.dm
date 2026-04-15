@@ -38,7 +38,7 @@
 
 /datum/action/item_action/proc/call_effect_proc()
 	var/obj/item/item_target = target
-	item_target.ui_action_click(owner, src)
+	item_target.ui_action_click(owner, src, TRUE)
 
 
 /datum/action/item_action/AltTrigger(mob/clicker, trigger_flags)

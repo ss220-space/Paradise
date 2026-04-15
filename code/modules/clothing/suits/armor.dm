@@ -133,8 +133,11 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
+
+/obj/item/clothing/suit/armor/secjacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Открыть/Закрыть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -155,8 +158,11 @@
 	item_state = "hostrench_open"
 	flags_inv_transparent = HIDEJUMPSUIT
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/armor/hos/alt/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Открыть/Закрыть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/armor/hos/jensen
 	name = "armored trenchcoat"

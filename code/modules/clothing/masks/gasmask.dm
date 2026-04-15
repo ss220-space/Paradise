@@ -823,12 +823,10 @@
 		PREPOSITIONAL = "мегафоне службы безопасности",
 	)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick = TRUE)
 	if(istype(action, /datum/action/item_action/halt))
-		halt()
-	else if(istype(action, /datum/action/item_action/adjust) && leftclick)
 		if(leftclick)
-			adjustmask(user)
+			halt()
 		else
 			switch_halt_phrase(user)
 	else if(istype(action, /datum/action/item_action/selectphrase))
