@@ -5,4 +5,5 @@
 /obj/structure/sign/science{icon_state = "xeno2"} : /obj/structure/sign/xenobio/slime{@OLD;icon_state=@SKIP}
 /obj/structure/sign/securearea{name="RADIOACTIVE AREA"} : /obj/structure/sign/radiation{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
 /obj/structure/sign/securearea{name="EXTERNAL AIRLOCK"} : /obj/structure/sign/vacuum/external{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
-/obj/structure/sign/securearea{name="HIGH VOLTAGE"} : /obj/structure/sign/vacuum/electricshock{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
+/obj/structure/sign/securearea{name="HIGH VOLTAGE"} : /obj/structure/sign/electricshock{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
+/obj/structure/sign/redcross{icon_state = "lifestar"} : /obj/structure/sign/lifestar{@OLD;icon_state=@SKIP}
