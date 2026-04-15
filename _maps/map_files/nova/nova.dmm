@@ -52491,10 +52491,11 @@
 	},
 /area/quartermaster/office)
 "hVY" = (
-/obj/machinery/conveyor/inverted{
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/conveyor{
+	dir = 1;
 	id = "garbage"
 	},
-/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "hWa" = (
