@@ -10,10 +10,10 @@
 	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/gun/advtaser
-	name = "hybrid taser"
-	desc = "A dual-mode taser designed to fire both short-range high-power electrodes and long-range disabler beams."
+	name = "hybrid disabler"
+	desc = "A weapon designed to fire long-range disabler beams."
 	icon_state = "advtaser"
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_RIFLE_LASER
@@ -37,8 +37,8 @@
 	robocharge()
 
 /obj/item/gun/energy/gun/advtaser/mounted
-	name = "mounted taser"
-	desc = "An arm mounted dual-mode weapon that fires electrodes and disabler shots."
+	name = "mounted disabler"
+	desc = "An arm mounted dual-mode weapon that fires disabler shots."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "taser"
 	item_state = "armcannonstun4"
