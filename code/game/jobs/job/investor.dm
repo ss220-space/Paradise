@@ -32,13 +32,7 @@
 	if(!.)
 		return FALSE
 
-	if(!target)
-		return FALSE
-
-	if(!target.persistent_client)
-		return FALSE
-
-	if(!target.persistent_client.achievements)
+	if(!target?.persistent_client?.achievements)
 		return FALSE
 
 	var/datum/achievement_data/achievements = target.persistent_client.achievements
