@@ -16,8 +16,8 @@
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_CIVILIAN
 	department_head = list(JOB_TITLE_CAPTAIN)
-	total_positions = -1
-	spawn_positions = -1
+	total_positions = JOB_UNLIMITED_POSITION
+	spawn_positions = JOB_UNLIMITED_POSITION
 	supervisors = "Капитаном"
 	selection_color = "#e6e6e6"
 	transfer_allowed = FALSE
