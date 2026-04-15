@@ -1014,13 +1014,10 @@
 	name = "Ship External Access";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "smindicate_bottom";
 	layer = 5;
-	name = "Outer Airlock Bottom";
-	opacity = 0
+	name = "Outer Airlock Bottom"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
@@ -3152,12 +3149,9 @@
 	name = "Shuttle Airlock";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_sit_1";
 	name = "Side Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
@@ -10849,13 +10843,10 @@
 	name = "Ship External Access";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "smindicate_bottom";
 	layer = 5;
-	name = "Outer Airlock Bottom";
-	opacity = 0
+	name = "Outer Airlock Bottom"
 	},
 /obj/machinery/door_control{
 	id = "smindicate_bottom";
@@ -15841,12 +15832,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "soltradeship_north";
-	name = "Security Doors";
-	opacity = 0
+	name = "Security Doors"
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "soltradeship_north";
@@ -17618,12 +17606,9 @@
 	name = "Shuttle Airlock";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Side Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
@@ -26851,12 +26836,9 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "mGD" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "soltradeship_south";
-	name = "Security Doors";
-	opacity = 0
+	name = "Security Doors"
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -44769,12 +44751,9 @@
 	name = "Shuttle Airlock";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
@@ -49489,12 +49468,9 @@
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_sit_1";
 	name = "Front Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle/plating,

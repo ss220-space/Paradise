@@ -978,12 +978,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
@@ -1024,12 +1021,9 @@
 "aiz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -2506,12 +2500,9 @@
 	},
 /area/crew_quarters/bar)
 "auW" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "experimentor";
-	name = "Experimentor Blast Door";
-	opacity = 0
+	name = "Experimentor Blast Door"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2965,12 +2956,9 @@
 	req_access = list(2);
 	security_level = 1
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown";
-	opacity = 0
+	name = "Brig Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/security/securehallway)
@@ -3252,12 +3240,9 @@
 	id_tag = "roboticsshutters";
 	name = "Mech Bay Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/showroom)
@@ -5022,12 +5007,9 @@
 /area/hallway/secondary/exit)
 "aNs" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "ArmoryLock";
-	name = "Armory Lockdown";
-	opacity = 0
+	name = "Armory Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -6701,12 +6683,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -10117,12 +10096,9 @@
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -10963,12 +10939,9 @@
 "bEh" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
@@ -11249,12 +11222,9 @@
 	icon_state = "2-4"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown";
-	opacity = 0
+	name = "Brig Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
@@ -12636,12 +12606,9 @@
 	pixel_y = 24;
 	req_access = list(29)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/showroom)
@@ -13901,12 +13868,9 @@
 	},
 /area/hydroponics)
 "cag" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -19047,12 +19011,9 @@
 /area/medical/cmo)
 "cPz" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -21913,12 +21874,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -24210,12 +24168,9 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -28790,12 +28745,9 @@
 	},
 /area/security/seceqstorage)
 "ens" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "experimentor";
-	name = "Experimentor Blast Door";
-	opacity = 0
+	name = "Experimentor Blast Door"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -30034,12 +29986,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
@@ -30676,12 +30625,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -32594,12 +32540,9 @@
 	pixel_y = 24;
 	req_access = list(66)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/east,
@@ -32926,12 +32869,9 @@
 	name = "Test Chamber";
 	req_access = list(47)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "RnDChem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -33718,12 +33658,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -34719,12 +34656,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -37466,12 +37400,9 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -38610,12 +38541,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -41554,12 +41482,9 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -41846,12 +41771,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown";
-	opacity = 0
+	name = "Brig Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
@@ -42394,12 +42316,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -43471,12 +43390,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -45003,12 +44919,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -45264,12 +45177,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
@@ -48635,12 +48545,9 @@
 	},
 /area/security/hos)
 "hnM" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
+	name = "Singularity Blast Doors"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -48773,12 +48680,9 @@
 /area/crew_quarters/serviceyard)
 "hoS" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "ArmoryLock";
-	name = "Armory Lockdown";
-	opacity = 0
+	name = "Armory Lockdown"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -51733,12 +51637,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -55507,12 +55408,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
@@ -58171,12 +58069,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -58672,12 +58567,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
@@ -59354,12 +59246,9 @@
 /area/maintenance/medroom)
 "iXU" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -59570,12 +59459,9 @@
 /area/atmos)
 "iZC" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
@@ -64037,12 +63923,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
+	name = "Singularity Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -64710,12 +64593,9 @@
 /area/space)
 "jLc" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -68752,12 +68632,9 @@
 "ktD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/gateway)
@@ -70452,12 +70329,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
@@ -70861,12 +70735,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/gateway)
@@ -71138,12 +71009,9 @@
 /area/engineering/mechanic_workshop/hangar)
 "kNC" = (
 /obj/structure/cable,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
+	name = "Prison Lockdown Blast Doors"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -77720,12 +77588,9 @@
 	name = "Secure Armory";
 	req_access = list(3)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "ArmoryLock";
-	name = "Armory Lockdown";
-	opacity = 0
+	name = "Armory Lockdown"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
@@ -78034,12 +77899,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -78230,12 +78092,9 @@
 /area/maintenance/backstage)
 "lSm" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -81558,12 +81417,9 @@
 	},
 /area/crew_quarters/captain/bedroom)
 "mrg" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -82133,12 +81989,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -82237,12 +82090,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -82912,12 +82762,9 @@
 /area/hallway/secondary/entry/commercial)
 "mDt" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "RnDChem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -83932,12 +83779,9 @@
 /area/security/permabrig)
 "mLy" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -88048,12 +87892,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -88574,12 +88415,9 @@
 /area/engineering/controlroom)
 "ntX" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -89601,12 +89439,9 @@
 /area/maintenance/brig)
 "nBj" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
+	name = "Singularity Blast Doors"
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
@@ -90299,12 +90134,9 @@
 	id_tag = "Chemistry1";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -93468,12 +93300,9 @@
 	id_tag = "RoboDesk";
 	name = "Robotics Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -94583,12 +94412,9 @@
 	},
 /area/quartermaster/miningdock)
 "oqA" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -95416,12 +95242,9 @@
 	id_tag = "Chemistry2";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -95514,12 +95337,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "own" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/airlock/medical{
 	name = "Morgue";
@@ -97805,12 +97625,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -100413,12 +100230,9 @@
 /area/security/hos)
 "piC" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "RnDChem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -101152,12 +100966,9 @@
 	req_access = list(1);
 	use_power = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown";
-	opacity = 0
+	name = "Brig Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/security/securehallway)
@@ -107436,12 +107247,9 @@
 	name = "Supermatter Chamber";
 	req_access = list(10,24)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
@@ -108829,12 +108637,9 @@
 	name = "Medbay Entrance";
 	req_access = list(5)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
@@ -108974,12 +108779,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -109093,12 +108895,9 @@
 	},
 /area/security/brigstaff)
 "qwJ" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
+	name = "Singularity Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -109956,12 +109755,9 @@
 	id_tag = "Chemistry1";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -113162,12 +112958,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -113557,12 +113350,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -114697,12 +114487,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -116002,12 +115789,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
@@ -118093,12 +117877,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "rNc" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "ArmoryLock";
-	name = "Armory Lockdown";
-	opacity = 0
+	name = "Armory Lockdown"
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Armory";
@@ -119076,12 +118857,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Lockdown 2";
-	name = "Prison Cell 2 Lockdown Door";
-	opacity = 0
+	name = "Prison Cell 2 Lockdown Door"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -119235,12 +119013,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -119720,12 +119495,9 @@
 /area/maintenance/secpost)
 "rZe" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -121799,12 +121571,9 @@
 	},
 /area/aisat/maintenance)
 "sof" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
+	name = "Singularity Blast Doors"
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -122782,12 +122551,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
+	name = "Prison Lockdown Blast Doors"
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
@@ -123527,12 +123293,9 @@
 /turf/simulated/floor/redgrid,
 /area/engineering/engine)
 "sBe" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -123662,12 +123425,9 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Exp_lockdown";
-	name = "Expedition Lockdown";
-	opacity = 0
+	name = "Expedition Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
@@ -124333,12 +124093,9 @@
 	name = "Medbay Entrance";
 	req_access = list(5)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
@@ -127247,12 +127004,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "ArmoryLock";
-	name = "Armory Lockdown";
-	opacity = 0
+	name = "Armory Lockdown"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -127605,12 +127359,9 @@
 "tff" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
@@ -130899,12 +130650,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Cell 1 Lockdown";
-	name = "Prison Cell 1 Lockdown Door";
-	opacity = 0
+	name = "Prison Cell 1 Lockdown Door"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -132845,12 +132593,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -133105,12 +132850,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -133700,12 +133442,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -139727,12 +139466,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -140677,12 +140413,9 @@
 /area/maintenance/secpost)
 "vbX" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "RnDChem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -146475,12 +146208,9 @@
 /area/security/execution)
 "vWp" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "engsm";
-	name = "Supermatter Blast Doors";
-	opacity = 0
+	name = "Supermatter Blast Doors"
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -148199,12 +147929,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "experimentor";
-	name = "Experimentor Blast Door";
-	opacity = 0
+	name = "Experimentor Blast Door"
 	},
 /obj/machinery/door/airlock/research/glass{
 	name = "Experimentor";
@@ -148713,12 +148440,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
+	name = "Prison Lockdown Blast Doors"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -149264,12 +148988,9 @@
 	name = "Research Desk Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -149718,12 +149439,9 @@
 	pixel_x = -7;
 	pixel_y = 7
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -150337,12 +150055,9 @@
 	id_tag = "Virology1";
 	name = "Virology Shutters"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -150385,12 +150100,9 @@
 /area/maintenance/casino)
 "wyt" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/medical/reception)
@@ -152022,12 +151734,9 @@
 	id_tag = "Chemistry2";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -160567,12 +160276,9 @@
 "yal" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown";
-	opacity = 0
+	name = "Brig Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
@@ -160974,12 +160680,9 @@
 	},
 /area/engineering/mechanic_workshop/hangar)
 "ycP" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "experimentor";
-	name = "Experimentor Blast Door";
-	opacity = 0
+	name = "Experimentor Blast Door"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -161090,12 +160793,9 @@
 	id_tag = "Chemistry1";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
+	name = "Quarantine Lockdown"
 	},
 /obj/item/lighter/zippo{
 	name = "Ash Generator 3000"
