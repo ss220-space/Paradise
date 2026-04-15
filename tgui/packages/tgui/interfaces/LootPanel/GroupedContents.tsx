@@ -7,10 +7,12 @@ import { SearchGroup, SearchItem } from './types';
 type Props = {
   contents: Record<string, SearchItem[]>;
   searchText: string;
+  selectedUids: Set<string>;
+  onToggleSelection: (uid: string) => void;
 };
 
 export const GroupedContents = (props: Props) => {
-  const { contents, searchText } = props;
+  const { contents, searchText, selectedUids, onToggleSelection } = props;
 
   const filteredContents: SearchGroup[] = Object.entries(contents)
     .filter(createSearch(searchText, ([_, items]) => items[0].name))
@@ -19,7 +21,12 @@ export const GroupedContents = (props: Props) => {
   return (
     <Box m={-0.5}>
       {filteredContents.map((group) => (
-        <LootBox key={group.item.name} group={group} />
+        <LootBox
+          key={group.item.uid}
+          group={group}
+          selected={selectedUids.has(group.item.uid)}
+          onToggleSelection={onToggleSelection}
+        />
       ))}
     </Box>
   );

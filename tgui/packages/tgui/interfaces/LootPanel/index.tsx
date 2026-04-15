@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../../backend';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Box, Button, Input, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
@@ -40,6 +40,57 @@ export const LootPanel = (props: unknown) => {
 
   const [grouping, setGrouping] = useState(true);
   const [searchText, setSearchText] = useState('');
+
+  // Selection
+  const [selectedUids, setSelectedUids] = useState<Set<string>>(new Set());
+
+  const toggleSelection = useCallback((uid: string) => {
+    setSelectedUids((prev) => {
+      const next = new Set(prev);
+      if (next.has(uid)) {
+        next.delete(uid);
+      } else {
+        next.add(uid);
+      }
+      return next;
+    });
+  }, []);
+
+  const clearSelection = useCallback(() => {
+    setSelectedUids(new Set());
+  }, []);
+
+  const copySelected = useCallback(() => {
+    const selectedNames: string[] = [];
+    if (grouping) {
+      // For grouped mode, rebuild the groups to match by uid
+      const groupedMap: Record<string, { uid: string; name: string; amount: number }> = {};
+      for (const item of contents) {
+        const key = item.path ? item.path + item.name : item.uid;
+        if (!groupedMap[key]) {
+          groupedMap[key] = { uid: item.uid, name: item.name, amount: 1 };
+        } else {
+          groupedMap[key].amount++;
+        }
+      }
+      for (const group of Object.values(groupedMap)) {
+        if (selectedUids.has(group.uid)) {
+          selectedNames.push(group.amount > 1 ? `${group.name} x${group.amount}` : group.name);
+        }
+      }
+    } else {
+      for (const item of contents) {
+        if (selectedUids.has(item.uid)) {
+          selectedNames.push(item.name);
+        }
+      }
+    }
+    if (selectedNames.length > 0) {
+      const text = selectedNames.join(', ');
+      navigator.clipboard.writeText(text).catch(() => {});
+    }
+    clearSelection();
+  }, [selectedUids, contents, grouping, clearSelection]);
 
   const headerHeight = 38;
   const itemHeight = 38;
@@ -86,6 +137,12 @@ export const LootPanel = (props: unknown) => {
             onClick={() => act('refresh')}
             tooltip="Refresh"
           />
+          <Button
+            icon="copy"
+            disabled={selectedUids.size === 0}
+            onClick={copySelected}
+            tooltip="Copy selected items"
+          />
         </Box>
       }
     >
@@ -103,9 +160,16 @@ export const LootPanel = (props: unknown) => {
             <GroupedContents
               contents={contentsByPathName}
               searchText={searchText}
+              selectedUids={selectedUids}
+              onToggleSelection={toggleSelection}
             />
           ) : (
-            <RawContents contents={contents} searchText={searchText} />
+            <RawContents
+              contents={contents}
+              searchText={searchText}
+              selectedUids={selectedUids}
+              onToggleSelection={toggleSelection}
+            />
           )}
         </Section>
       </Window.Content>
