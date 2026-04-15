@@ -508,7 +508,6 @@
 
 				CHECK_TICK
 
-/* trait will be added, when modsuits will be merged
 /datum/station_trait/outdated_hardsuits
 	name = "Устаревшее снаряжение для ВКД"
 	report_message = "Из-за острой нехватки финансирования, на ваш объект не были закуплены модульные экзо-костюмы, так что вам придётся довольствоваться устаревшими хардсьютами."
@@ -516,4 +515,4 @@
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_OUTDATED_HARDSUITS
 	weight = 2
-*/
+	force = 1

@@ -1023,6 +1023,7 @@
 #include "code\datums\spells\lavaland_spells\healtouch.dm"
 #include "code\datums\spells\lavaland_spells\watchers_look.dm"
 #include "code\datums\station_traits\_station_trait.dm"
+#include "code\datums\station_traits\admin_panel.dm"
 #include "code\datums\station_traits\negative_traits.dm"
 #include "code\datums\station_traits\neutral_traits.dm"
 #include "code\datums\station_traits\positive_traits.dm"
