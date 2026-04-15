@@ -50089,6 +50089,11 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/bridge)
+"xhY" = (
+/obj/structure/table/abductor,
+/obj/machinery/recharger/abductor,
+/turf/simulated/floor/indestructible/abductor,
+/area/abductor_ship)
 "xig" = (
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/administration)
@@ -53810,7 +53815,7 @@ rRS
 mVX
 hQj
 ilI
-iTp
+xhY
 jxF
 iTp
 kvR
@@ -53835,7 +53840,7 @@ mVX
 mVX
 hQj
 ilI
-iTp
+xhY
 jxF
 iTp
 kvR
@@ -53860,7 +53865,7 @@ mVX
 mVX
 hQj
 ilI
-iTp
+xhY
 jxF
 iTp
 kvR
@@ -53885,7 +53890,7 @@ mVX
 mVX
 hQj
 ilI
-iTp
+xhY
 jxF
 iTp
 kvR

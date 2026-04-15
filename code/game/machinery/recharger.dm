@@ -235,5 +235,16 @@
 	icon_state = "wrecharger0"
 	base_icon_state = "wrecharger"
 
+/obj/machinery/recharger/abductor
+	name = "alien recharger"
+	icon_state = "abductor_charger0"
+	base_icon_state = "abductor_charger"
+
+/obj/machinery/recharger/abductor/screwdriver_act(mob/user, obj/item/I)
+	return
+
+/obj/machinery/recharger/abductor/wrench_act(mob/user, obj/item/I)
+	return
+
 #undef RECHARGER_POWER_USAGE_GUN
 #undef RECHARGER_POWER_USAGE_MISC
