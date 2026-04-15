@@ -832,11 +832,8 @@
 
 /obj/item/storage/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
-
 	open(user)
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))
