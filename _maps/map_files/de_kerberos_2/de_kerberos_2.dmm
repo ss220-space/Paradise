@@ -5921,9 +5921,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "aSH" = (
-/obj/machinery/atmospherics/air_sensor/all{
-	id_tag = "air_sensor"
-	},
+/obj/machinery/atmospherics/air_sensor/air,
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "aSO" = (
@@ -49780,9 +49778,7 @@
 	},
 /area/crew_quarters/kitchen)
 "gCu" = (
-/obj/machinery/atmospherics/air_sensor/all{
-	id_tag = "mix_sensor"
-	},
+/obj/machinery/atmospherics/air_sensor/mix,
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "gCx" = (
@@ -71526,10 +71522,7 @@
 	},
 /area/maintenance/asmaint4)
 "lHA" = (
-/obj/machinery/atmospherics/air_sensor/all{
-	frequency = 1222;
-	id_tag = "burn_sensor"
-	},
+/obj/machinery/atmospherics/air_sensor/burn_bomb_mix,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
