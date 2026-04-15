@@ -52,13 +52,22 @@
 		return
 	desc = poster_structure.poster_item_desc
 
+/obj/item/poster/update_name(updates = ALL)
+	. = ..()
+	if(!poster_structure)
+		return
+	if(is_unfurled)
+		name = "\"[poster_structure.original_name]\""
+		ru_names = poster_structure.ru_names
+	else
+		name = "rolled-up poster"
+		ru_names = null
+
 /obj/item/poster/proc/roll_up(mob/user)
 	if(!is_unfurled)
 		return
 	is_unfurled = FALSE
-	name = "rolled-up poster"
-	ru_names = null
-	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
+	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME | UPDATE_DESC)
 	playsound(src, 'sound/effects/pageturn3.ogg', 30, TRUE)
 	to_chat(user, span_notice("Вы аккуратно сворачиваете постер."))
 
@@ -72,8 +81,6 @@
 		return
 
 	is_unfurled = TRUE
-	name = "\"[poster_structure.original_name]\""
-	ru_names = poster_structure.ru_names
 	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME | UPDATE_DESC)
 	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
 	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
