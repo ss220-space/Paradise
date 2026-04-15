@@ -3117,21 +3117,17 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "anM" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 4;
-	name = "Труба турбины"
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	name = "Труба на фильтрацию"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 1;
-	name = "Труба фильтрации"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
-	dir = 5
+/obj/machinery/atmospherics/binary/valve/digital{
+	name = "Вентиль подачи топливной смеси турбины";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/atmos)
 "anO" = (
@@ -3276,8 +3272,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -5987,7 +5981,6 @@
 	pixel_y = 32
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -6929,8 +6922,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -10907,16 +10898,8 @@
 	},
 /area/hallway/primary/fore)
 "aOS" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	external_pressure_bound = 0;
-	frequency = 1441;
-	icon_state = "in";
-	id_tag = "tox_out";
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/tox{
+	dir = 8
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
@@ -15419,8 +15402,6 @@
 /area/security/prison/cell_block/A)
 "bhL" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -23590,7 +23571,6 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -33291,10 +33271,7 @@
 	},
 /area/hallway/primary/aft)
 "czz" = (
-/obj/machinery/computer/general_air_control{
-	name = "Tank Monitor";
-	sensors = list("air_sensor"="Air Mix", "n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
-	},
+/obj/machinery/computer/general_air_control/meter_monitor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -34394,13 +34371,9 @@
 /area/maintenance/fsmaint2)
 "cDT" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -34655,8 +34628,6 @@
 /area/maintenance/apmaint)
 "cEV" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille,
@@ -34675,13 +34646,9 @@
 /area/maintenance/fpmaint)
 "cEX" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -34695,16 +34662,8 @@
 	},
 /area/maintenance/apmaint)
 "cFj" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	external_pressure_bound = 0;
-	frequency = 1441;
-	icon_state = "in";
-	id_tag = "n2o_out";
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2o{
+	dir = 8
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -35070,13 +35029,9 @@
 "cHh" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -35224,8 +35179,6 @@
 /area/maintenance/fsmaint2)
 "cHR" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -35472,8 +35425,6 @@
 	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -35653,8 +35604,6 @@
 /area/engineering/engine)
 "cJC" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -36090,12 +36039,9 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -36246,13 +36192,9 @@
 /area/crew_quarters/toilet)
 "cMx" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -36648,7 +36590,6 @@
 /area/maintenance/engineering)
 "cOd" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal{
@@ -36663,7 +36604,7 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/chief)
 "cOk" = (
-/obj/machinery/atmospherics/air_sensor/pl{
+/obj/machinery/atmospherics/air_sensor/tox{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -36884,8 +36825,6 @@
 	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -36905,12 +36844,8 @@
 	},
 /area/chapel/office)
 "cPi" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 8;
-	icon_state = "on";
-	id = "tox_in";
-	on = 1;
-	pixel_y = 1
+/obj/machinery/atmospherics/unary/outlet_injector/on/tox{
+	dir = 8
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
@@ -37162,18 +37097,12 @@
 /area/hallway/primary/central/ne)
 "cQG" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -37214,17 +37143,12 @@
 	},
 /area/hallway/secondary/entry)
 "cQP" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "n2_in";
-	name = "Nitrogen Supply Control";
-	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/n2,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -37240,18 +37164,12 @@
 /area/medical/cmostore)
 "cQV" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/access_button{
@@ -37328,8 +37246,6 @@
 /area/hallway/primary/central/ne)
 "cRp" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/warning_stripes/southwest,
@@ -37337,8 +37253,6 @@
 /area/engineering/engine)
 "cRq" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -37353,8 +37267,6 @@
 	opacity = 0
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/sign/securearea{
@@ -37751,8 +37663,6 @@
 /area/chapel/main)
 "cSM" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille,
@@ -37766,8 +37676,6 @@
 /area/engineering/engine)
 "cSR" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -37834,13 +37742,9 @@
 /area/maintenance/asmaint)
 "cTx" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille,
@@ -37871,8 +37775,6 @@
 /area/space)
 "cTF" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/grille,
@@ -37970,8 +37872,6 @@
 /area/crew_quarters/dorms)
 "cUl" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/grille,
@@ -38133,8 +38033,6 @@
 "cUD" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/status_display{
@@ -38157,8 +38055,6 @@
 /area/maintenance/atmospherics)
 "cUF" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -38596,7 +38492,6 @@
 "cWI" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
@@ -38706,17 +38601,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "cXb" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "n2o_in";
-	name = "Nitrous Oxide Supply Control";
-	output_tag = "n2o_out";
-	sensors = list("n2o_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 1;
 	name = "Труба фильтрации"
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/n2o,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "escape"
@@ -38997,12 +38887,8 @@
 	},
 /area/atmos)
 "cYc" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 8;
-	icon_state = "on";
-	id = "n2o_in";
-	on = 1;
-	pixel_y = 1
+/obj/machinery/atmospherics/unary/outlet_injector/on/n2o{
+	dir = 8
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -39086,8 +38972,6 @@
 /area/engineering/engine)
 "cYs" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -39126,8 +39010,6 @@
 /area/chapel/main)
 "cYC" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/item/stack/cable_coil{
@@ -39138,13 +39020,9 @@
 /area/engineering/engine)
 "cYE" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
@@ -39156,8 +39034,6 @@
 /area/engineering/engine)
 "cYG" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -39234,8 +39110,6 @@
 	opacity = 0
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -39261,7 +39135,6 @@
 "cZl" = (
 /obj/machinery/power/smes/full,
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -39377,8 +39250,6 @@
 /area/security/lobby)
 "cZG" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/access_button{
@@ -39456,8 +39327,6 @@
 /area/crew_quarters/bar/atrium)
 "cZO" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -39743,8 +39612,6 @@
 /area/library)
 "dbs" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -39988,16 +39855,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ddx" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	external_pressure_bound = 0;
-	frequency = 1441;
-	icon_state = "in";
-	id_tag = "co2_out";
-	internal_pressure_bound = 4000;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/co2{
+	dir = 8
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
@@ -40057,8 +39916,6 @@
 	opacity = 0
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -40094,17 +39951,12 @@
 	},
 /area/bridge)
 "dec" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "co2_in";
-	name = "Carbon Dioxide Supply Control";
-	output_tag = "co2_out";
-	sensors = list("co2_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 1;
 	name = "Труба фильтрации"
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/co2,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -40350,12 +40202,8 @@
 /turf/space,
 /area/space)
 "deV" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 8;
-	icon_state = "on";
-	id = "co2_in";
-	on = 1;
-	pixel_y = 1
+/obj/machinery/atmospherics/unary/outlet_injector/on/co2{
+	dir = 8
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
@@ -40716,8 +40564,6 @@
 /area/crew_quarters/dorms)
 "dgJ" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/southeast,
@@ -40874,16 +40720,8 @@
 	},
 /area/bridge)
 "dhx" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "atmos";
-	name = "Atmos Blast Door";
-	opacity = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/atmos)
 "dhy" = (
 /obj/machinery/computer/security{
@@ -41429,11 +41267,8 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
 "djB" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 1;
-	icon_state = "on";
-	id = "o2_in";
-	on = 1
+/obj/machinery/atmospherics/unary/outlet_injector/on/o2{
+	dir = 1
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -41685,8 +41520,6 @@
 /area/quartermaster/miningdock)
 "dkB" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
@@ -43686,10 +43519,6 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "dss" = (
-/obj/machinery/atmospherics/air_sensor/pl{
-	frequency = 1222;
-	id_tag = "toxins_mixing_interior"
-	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "dsG" = (
@@ -43699,8 +43528,6 @@
 /area/storage/secure)
 "dsI" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
@@ -43732,8 +43559,6 @@
 /area/engineering/engine)
 "dsX" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -45109,19 +44934,12 @@
 /turf/space,
 /area/turret_protected/ai)
 "dYz" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1443;
-	input_tag = "air_in";
-	name = "Mixed Air Supply Control";
-	output_tag = "air_out";
-	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -46285,8 +46103,6 @@
 "eAc" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -47787,8 +47603,6 @@
 /area/engineering/engine)
 "ffQ" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering/glass{
@@ -47883,22 +47697,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "fiV" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "tox_in";
-	name = "Toxin Supply Control";
-	output_tag = "tox_out";
-	sensors = list("tox_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
+/obj/machinery/computer/general_air_control/large_tank_control/tox,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -47954,8 +47758,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -48769,13 +48571,9 @@
 /area/toxins/explab_chamber)
 "fDK" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
@@ -49104,8 +48902,6 @@
 /area/atmos/storage)
 "fKd" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -49188,8 +48984,6 @@
 /area/medical/medbay2)
 "fLH" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -50579,13 +50373,9 @@
 /area/hallway/primary/central/north)
 "got" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/grille,
@@ -50761,13 +50551,9 @@
 /area/security/permabrig)
 "gsY" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
@@ -51556,7 +51342,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "gMG" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -51564,14 +51349,12 @@
 	name = "Atmos Blast Door";
 	opacity = 0
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
 	dir = 4;
 	name = "Труба турбины"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "gMI" = (
@@ -52265,7 +52048,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "hca" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -52275,6 +52057,10 @@
 /obj/machinery/camera{
 	c_tag = "Atmospherics North East";
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	name = "Труба на фильтрацию"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -54367,8 +54153,6 @@
 /area/medical/reception)
 "hUX" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -54742,8 +54526,6 @@
 	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -55398,10 +55180,7 @@
 	name = "Atmospherics Requests Console";
 	pixel_y = 28
 	},
-/obj/machinery/computer/general_air_control{
-	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
-	},
+/obj/machinery/computer/general_air_control/atmos_tanks,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -55822,8 +55601,6 @@
 /area/hallway/primary/port)
 "iAX" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -56322,11 +56099,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/computer/general_air_control{
-	frequency = 1222;
-	name = "Mixing Chamber Monitor";
-	sensors = list("toxins_mixing_exterior"="Mixing Chamber - Exterior","toxins_mixing_interior"="Mixing Chamber - Interior")
-	},
+/obj/machinery/computer/general_air_control/BombMix,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -56357,11 +56130,8 @@
 	},
 /area/toxins/mixing)
 "iMq" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 1;
-	icon_state = "on";
-	id = "n2_in";
-	on = 1
+/obj/machinery/atmospherics/unary/outlet_injector/on/n2{
+	dir = 1
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -58008,7 +57778,6 @@
 	},
 /obj/item/radio/intercom/directional/east,
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -58019,7 +57788,6 @@
 "jxL" = (
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -58184,6 +57952,18 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/patients_rooms)
+"jAq" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
+	dir = 4;
+	name = "Труба турбины"
+	},
+/turf/space,
+/area/space)
 "jAZ" = (
 /obj/item/radio/intercom/directional/north,
 /obj/structure/transit_tube/cap{
@@ -58248,7 +58028,6 @@
 /area/maintenance/port)
 "jBS" = (
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/warning_stripes/northwestsouth,
@@ -58351,8 +58130,6 @@
 /area/maintenance/fsmaint2)
 "jEX" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -58450,11 +58227,11 @@
 /area/medical/virology/lab)
 "jGN" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	name = "Труба смешивания"
 	},
+/obj/machinery/atmospherics/meter/ditr_loop,
 /turf/simulated/floor/plating,
 /area/atmos)
 "jHb" = (
@@ -59134,8 +58911,6 @@
 /area/security/securearmory)
 "jYG" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -59205,13 +58980,9 @@
 /area/medical/patients_rooms)
 "kaz" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -59493,7 +59264,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "khx" = (
-/obj/machinery/atmospherics/air_sensor/all{
+/obj/machinery/atmospherics/air_sensor/air{
 	frequency = 1443;
 	id_tag = "air_sensor"
 	},
@@ -61728,6 +61499,15 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
+"lcS" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "lcY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -61756,6 +61536,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"lds" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "ldz" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -63717,7 +63506,6 @@
 	pixel_x = -28
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -65782,8 +65570,6 @@
 	},
 /obj/structure/grille,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -66604,17 +66390,6 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "nhx" = (
@@ -66689,8 +66464,6 @@
 /area/hallway/secondary/exit)
 "niv" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -67482,18 +67255,13 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "nxU" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 1;
-	name = "Труба фильтрации"
-	},
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
 	dir = 8;
-	name = "Space Loop Out"
+	name = "Труба на фильтрацию"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/atmos)
 "nyd" = (
@@ -67957,13 +67725,20 @@
 /area/maintenance/fpmaint)
 "nHe" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/binary/valve/digital,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 4;
 	name = "Труба смешивания"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "nHv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -69491,8 +69266,6 @@
 /area/hallway/secondary/entry/south)
 "oqp" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -70557,8 +70330,6 @@
 /area/maintenance/fpmaint)
 "oOF" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/grille,
@@ -71185,7 +70956,6 @@
 /area/security/prisonershuttle)
 "pbu" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/northeastsouth,
@@ -71510,12 +71280,9 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -72084,7 +71851,6 @@
 "pvG" = (
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -72496,8 +72262,6 @@
 /area/medical/genetics)
 "pFN" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -73228,8 +72992,6 @@
 /area/aisat)
 "pUG" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
@@ -73244,8 +73006,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/meter,
 /obj/item/radio/intercom/directional/east,
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 8;
+	name = "Space Loop Out"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -73805,7 +73570,6 @@
 	pixel_x = -26
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -74002,8 +73766,6 @@
 /area/storage/primary)
 "qiV" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/sign/poster/official/space_a{
@@ -74424,7 +74186,6 @@
 	pixel_x = -32
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -74432,12 +74193,9 @@
 "qrd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -74493,8 +74251,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -74531,17 +74287,12 @@
 "qrY" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -74799,8 +74550,6 @@
 "qyc" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -75175,8 +74924,6 @@
 /area/maintenance/asmaint)
 "qGI" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -76119,21 +75866,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "ram" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	desc = "Труба содержит дыхательную смесь для подачи на станцию";
-	dir = 1;
-	name = "Труба дыхательной смеси"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
+/turf/simulated/wall/r_wall,
 /area/atmos)
 "rax" = (
 /obj/structure/cable{
@@ -76445,13 +76181,9 @@
 /area/maintenance/trading)
 "rfW" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -76485,8 +76217,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -76578,13 +76308,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "riB" = (
-/obj/machinery/atmospherics/air_sensor/all{
-	frequency = 1222;
-	id_tag = "toxins_mixing_exterior"
-	},
 /obj/effect/decal/remains/mouse{
 	name = "Джерри"
 	},
+/obj/machinery/atmospherics/air_sensor/burn_bomb_mix,
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "riY" = (
@@ -77473,39 +77200,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"rCb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "rCw" = (
 /obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
@@ -77578,8 +77272,6 @@
 "rDq" = (
 /obj/structure/chair/stool,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -77588,9 +77280,8 @@
 	},
 /area/engineering/engine)
 "rDx" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	id = "air_in"
+/obj/machinery/atmospherics/unary/outlet_injector/on/air{
+	dir = 1
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -77845,8 +77536,6 @@
 	},
 /obj/structure/grille,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -78358,7 +78047,6 @@
 	},
 /area/atmos)
 "rUp" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -78366,9 +78054,10 @@
 	name = "Atmos Blast Door";
 	opacity = 0
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/atmos)
 "rUR" = (
@@ -78847,11 +78536,8 @@
 	},
 /area/maintenance/engineering)
 "sgv" = (
-/obj/machinery/computer/general_air_control{
-	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
-	},
 /obj/machinery/light/small,
+/obj/machinery/computer/general_air_control/atmos_tanks,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -79078,13 +78764,9 @@
 /area/security/checkpoint/south)
 "slE" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -80044,8 +79726,6 @@
 /area/maintenance/port)
 "sGs" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -80198,8 +79878,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -80425,13 +80103,9 @@
 /area/hallway/primary/central/west)
 "sNA" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -80708,8 +80382,6 @@
 /area/hallway/secondary/garden)
 "sRl" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/sign/poster/official/space_a{
@@ -82028,8 +81700,6 @@
 /area/engineering/hardsuitstorage)
 "tui" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/southwest,
@@ -82627,8 +82297,6 @@
 	pixel_y = 12
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -82697,11 +82365,8 @@
 /area/engineering/hardsuitstorage)
 "tIA" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter/air_in_tank,
 /obj/structure/grille,
-/obj/machinery/atmospherics/meter{
-	id = "mair_in_meter";
-	name = "Mixed Air Tank In"
-	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "tIE" = (
@@ -82784,8 +82449,6 @@
 "tKr" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -83356,8 +83019,6 @@
 	pixel_y = 12
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -83440,16 +83101,8 @@
 	},
 /area/turret_protected/aisat_interior)
 "tXu" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	external_pressure_bound = 0;
-	frequency = 1441;
-	icon_state = "in";
-	id_tag = "o2_out";
-	internal_pressure_bound = 400;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/o2{
+	dir = 1
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -83469,16 +83122,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "tXY" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	external_pressure_bound = 0;
-	frequency = 1443;
-	icon_state = "in";
-	id_tag = "air_out";
-	internal_pressure_bound = 606;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/air{
+	dir = 1
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -84112,6 +83757,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"umj" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
+	dir = 9
+	},
+/turf/space,
+/area/space)
 "ump" = (
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -84334,8 +83986,6 @@
 /area/maintenance/port)
 "uqj" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/grille,
@@ -84346,14 +83996,15 @@
 	desc = "Труба ведёт газ на фильтрацию";
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/atmospherics/meter,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east fire alarm";
 	pixel_x = 24
 	},
+/obj/machinery/atmospherics/meter/waste_loop,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/atmos)
 "urx" = (
@@ -84690,33 +84341,6 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/hallway/primary/port)
-"uBu" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	desc = "Труба содержит дыхательную смесь для подачи на станцию";
-	dir = 1;
-	name = "Труба дыхательной смеси"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/camera{
-	c_tag = "Atmospherics Central";
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 1;
-	name = "Труба фильтрации"
-	},
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
-/area/atmos)
 "uBA" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -84884,6 +84508,11 @@
 	name = "Труба смешивания"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
 /turf/simulated/floor/plating,
 /area/atmos)
 "uGn" = (
@@ -85347,17 +84976,12 @@
 	},
 /area/security/permabrig)
 "uQS" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "o2_in";
-	name = "Oxygen Supply Control";
-	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/o2,
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
@@ -85741,8 +85365,6 @@
 "uYK" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/status_display{
@@ -85966,8 +85588,6 @@
 /area/maintenance/apmaint)
 "vdb" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -86493,16 +86113,8 @@
 	},
 /area/atmos/control)
 "vnU" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	external_pressure_bound = 0;
-	frequency = 1441;
-	icon_state = "in";
-	id_tag = "n2_out";
-	internal_pressure_bound = 1600;
-	on = 1;
-	pressure_checks = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2{
+	dir = 1
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -86902,8 +86514,6 @@
 	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -87972,8 +87582,6 @@
 	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -88869,13 +88477,9 @@
 /area/maintenance/trading)
 "wjz" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -88984,8 +88588,6 @@
 	req_access = list(10,13)
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -89211,8 +88813,6 @@
 /area/security/permabrig)
 "wpA" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -90601,11 +90201,8 @@
 /area/crew_quarters/bar/atrium)
 "wSK" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter/air_out_tank,
 /obj/structure/grille,
-/obj/machinery/atmospherics/meter{
-	id = "mair_out_meter";
-	name = "Mixed Air Tank Out"
-	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "wSU" = (
@@ -91313,7 +90910,6 @@
 "xhj" = (
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -91446,8 +91042,6 @@
 /area/maintenance/port)
 "xkm" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -92223,8 +91817,6 @@
 /area/maintenance/cafeteria)
 "xzQ" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/grille,
@@ -92366,13 +91958,9 @@
 /area/maintenance/trading)
 "xCn" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -127987,15 +127575,15 @@ mYd
 fOP
 xgd
 hfJ
+xgd
+oXP
+xgd
+xgd
+xgd
+oXP
+xgd
+xgd
 bNS
-oXP
-xgd
-xgd
-xgd
-oXP
-xgd
-xgd
-xgd
 rzd
 wUI
 fRB
@@ -128244,7 +127832,7 @@ ohp
 kRe
 uxC
 lrv
-nHe
+pwq
 lrv
 uxC
 pwq
@@ -128501,15 +128089,15 @@ jQe
 srN
 kuN
 kDk
-ram
+fEN
 iuj
 fEN
 sjX
 fEN
 iuj
-uBu
-sjX
 fEN
+sjX
+nHe
 iuj
 kuN
 kJx
@@ -129023,7 +128611,7 @@ cRS
 dfI
 dhA
 cPP
-cRS
+ram
 dfI
 dhA
 cPP
@@ -129271,16 +128859,16 @@ xKS
 hjW
 hRG
 pmX
-jrM
-deU
-cZZ
-dfK
-qXg
-dfK
-cZZ
-dfK
-qXg
-dfK
+jAq
+umj
+lds
+doE
+lcS
+doE
+lds
+doE
+lcS
+cTP
 cZZ
 dfK
 qXg
@@ -131061,7 +130649,7 @@ cyJ
 cyJ
 csL
 csL
-rCb
+tdP
 csL
 pmX
 pmX

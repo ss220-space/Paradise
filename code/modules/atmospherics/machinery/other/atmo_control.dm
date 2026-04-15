@@ -98,22 +98,35 @@
 
 /obj/machinery/atmospherics/air_sensor/o2
 	output = parent_type::output|SENSOR_COMPOSITION_OXYGEN
+	id_tag = "o2_sensor"
 
 /obj/machinery/atmospherics/air_sensor/n2
 	output = parent_type::output|SENSOR_COMPOSITION_NITROGEN
+	id_tag = "n2_sensor"
 
-/obj/machinery/atmospherics/air_sensor/pl
+/obj/machinery/atmospherics/air_sensor/tox
 	output = parent_type::output|SENSOR_COMPOSITION_TOXINS
+	id_tag = "tox_sensor"
 
 /obj/machinery/atmospherics/air_sensor/n2o
 	output = parent_type::output|SENSOR_COMPOSITION_N2O
+	id_tag = "n2o_sensor"
 
 /obj/machinery/atmospherics/air_sensor/co2
 	output = parent_type::output|SENSOR_COMPOSITION_CO2
+	id_tag = "co2_sensor"
 
-/obj/machinery/atmospherics/air_sensor/all
+/obj/machinery/atmospherics/air_sensor/air
 	output = ALL
+	id_tag = "air_sensor"
 
+/obj/machinery/atmospherics/air_sensor/mix
+	output = ALL
+	id_tag = "mix_sensor"
+
+/obj/machinery/atmospherics/air_sensor/burn_bomb_mix
+	frequency = 1222;
+	id_tag = "burn_sensor"
 
 /obj/machinery/computer/general_air_control
 	name = "Computer"
@@ -204,6 +217,10 @@
 			result += command
 		machine.update_params(result)
 		return TRUE
+
+/obj/machinery/computer/general_air_control/atmos_tanks
+	name = "Tank Monitor"
+	sensors = list("air_sensor"="Air Mix","n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide")
 
 /*
 /obj/machinery/computer/general_air_control/multitool_act(mob/user, obj/item/I)
@@ -307,6 +324,49 @@
 	data["outlets"] = outlets
 	return data
 
+/obj/machinery/computer/general_air_control/large_tank_control/air
+	name = "Mixed Air Supply Control"
+	input_tag = "air_in"
+	output_tag = "air_out"
+	pressure_setting = 2000
+	sensors = list("air_sensor"="Tank")
+
+/obj/machinery/computer/general_air_control/large_tank_control/co2
+	name = "Carbon Dioxide Supply Control"
+	input_tag = "co2_in"
+	output_tag = "co2_out"
+	sensors = list("co2_sensor"="Tank")
+
+/obj/machinery/computer/general_air_control/large_tank_control/n2
+	name = "Nitrogen Supply Control"
+	input_tag = "n2_in"
+	output_tag = "n2_out"
+	sensors = list("n2_sensor"="Tank")
+
+/obj/machinery/computer/general_air_control/large_tank_control/n2o
+	name = "Nitrous Oxide Supply Control"
+	input_tag = "n2o_in"
+	output_tag = "n2o_out"
+	sensors = list("n2o_sensor"="Tank")
+
+/obj/machinery/computer/general_air_control/large_tank_control/o2
+	name = "Oxygen Supply Control"
+	input_tag = "o2_in"
+	output_tag = "o2_out"
+	sensors = list("o2_sensor"="Tank")
+
+/obj/machinery/computer/general_air_control/large_tank_control/tox
+	name = "Toxin Supply Control"
+	input_tag = "tox_in"
+	output_tag = "tox_out"
+	sensors = list("air_sensor"="Tank")
+
+/obj/machinery/computer/general_air_control/large_tank_control/mix
+	name = "Gas Mix Tank Control"
+	input_tag = "mix_in"
+	output_tag = "mix_out"
+	sensors = list("mix_sensor"="Tank")
+
 /obj/machinery/computer/general_air_control/fuel_injection
 	icon_screen = "atmos"
 	circuit = /obj/item/circuitboard/injector_control
@@ -327,3 +387,14 @@
 
 	data["inlets"] = inlets
 	return data
+
+/obj/machinery/computer/general_air_control/BombMix
+	frequency = 1222;
+	name = "Bomb Mix Monitor";
+	sensors = list("burn_sensor"="Burn Mix")
+
+/obj/machinery/computer/general_air_control/meter_monitor
+	frequency = 1443;
+	level = 3;
+	name = "Distribution and Waste Monitor";
+	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")

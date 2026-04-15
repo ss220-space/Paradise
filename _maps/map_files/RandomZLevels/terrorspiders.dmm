@@ -6599,7 +6599,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
 "pv" = (
-/obj/machinery/atmospherics/air_sensor/all{
+/obj/machinery/atmospherics/air_sensor/air{
 	frequency = 1443;
 	id_tag = "UO71_air_sensor"
 	},
@@ -8598,7 +8598,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO71/eng)
 "ty" = (
-/obj/machinery/atmospherics/air_sensor/all{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO71_waste_sensor"
 	},
 /turf/simulated/floor/engine/vacuum,

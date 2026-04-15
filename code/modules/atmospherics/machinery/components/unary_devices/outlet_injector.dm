@@ -10,9 +10,31 @@
 	var/injecting = 0
 	var/volume_rate = 50
 	var/id
+	var/id_tag
 
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = TRUE
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/o2
+	id_tag = "o2_sensor"
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/n2
+	id_tag = "n2_sensor"
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/tox
+	id_tag = "tox_sensor"
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/n2o
+	id_tag = "n2o_sensor"
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/co2
+	id_tag = "co2_sensor"
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/air
+	id_tag = "air_sensor"
+
+/obj/machinery/atmospherics/unary/outlet_injector/on/mix
+	id_tag = "mix_sensor"
 
 /obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
 	. = ..()

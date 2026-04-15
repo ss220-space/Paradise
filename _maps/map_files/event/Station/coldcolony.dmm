@@ -2206,12 +2206,10 @@
 /turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
 "aMv" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	id = "n2_in"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/outlet_injector/on/n2,
 /turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "aMD" = (
@@ -2970,7 +2968,7 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/meter/ditr_loop,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6468,11 +6466,8 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "cqd" = (
-/obj/machinery/computer/general_air_control{
-	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","air_sensor"="Air Mix","mix_sensor"="Gas Mix Tank")
-	},
 /obj/machinery/light_switch/directional/north,
+/obj/machinery/computer/general_air_control/atmos_tanks,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -9531,12 +9526,7 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "o2_in";
-	name = "Oxygen Supply Control";
-	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
-	},
+/obj/machinery/computer/general_air_control/large_tank_control/o2,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -20675,6 +20665,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
+"hFT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/meter/air_in_tank,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "hGa" = (
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/siding/thinplating{
@@ -24452,9 +24454,8 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "jdX" = (
-/obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/tape_roll,
+/obj/machinery/computer/general_air_control/meter_monitor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -27538,20 +27539,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "kiI" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	external_pressure_bound = 0;
-	external_pressure_bound_default = 0;
-	frequency = 1441;
-	id_tag = "o2_out";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	internal_pressure_bound_default = 4000;
-	name = "oxygen vent";
-	on = 1;
-	pressure_checks = 2;
-	pressure_checks_default = 2;
-	releasing = 0
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/o2,
 /turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "kja" = (
@@ -29320,13 +29308,11 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "kPE" = (
-/obj/machinery/atmospherics/air_sensor/n2{
-	id_tag = "n2_sensor"
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Nitrogen Tank";
 	network = list("SS13","Engineering")
 	},
+/obj/machinery/atmospherics/air_sensor/n2,
 /turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "kPI" = (
@@ -29477,13 +29463,11 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "kSU" = (
-/obj/machinery/atmospherics/air_sensor/all{
-	id_tag = "mix_sensor"
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
 	network = list("SS13","Engineering")
 	},
+/obj/machinery/atmospherics/air_sensor/mix,
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
 "kTw" = (
@@ -30404,21 +30388,8 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/abandoned_garage)
 "lmX" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	external_pressure_bound = 0;
-	external_pressure_bound_default = 0;
-	frequency = 1441;
-	id_tag = "mix_out";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	internal_pressure_bound_default = 4000;
-	layer = 2.4;
-	name = "mix vent";
-	on = 1;
-	pressure_checks = 2;
-	pressure_checks_default = 2;
-	releasing = 0
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/mix{
+	dir = 4
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
@@ -32306,9 +32277,8 @@
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/security/evidence)
 "lZR" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	id = "mix_in"
+/obj/machinery/atmospherics/unary/outlet_injector/on/mix{
+	dir = 4
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
@@ -38033,6 +38003,7 @@
 	},
 /obj/structure/cable,
 /obj/item/storage/toolbox/electrical,
+/obj/item/stack/tape_roll,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -40772,13 +40743,11 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
 "pga" = (
-/obj/machinery/atmospherics/air_sensor/o2{
-	id_tag = "o2_sensor"
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Oxygen Tank";
 	network = list("SS13","Engineering")
 	},
+/obj/machinery/atmospherics/air_sensor/o2,
 /turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "pgc" = (
@@ -41111,17 +41080,12 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/miningbar)
 "pmQ" = (
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "mix_in";
-	name = "Gas Mix Tank Control";
-	output_tag = "mix_out";
-	sensors = list("mix_sensor"="Tank")
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/mix,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -43875,18 +43839,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/library)
 "qpz" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	external_pressure_bound = 0;
-	external_pressure_bound_default = 0;
-	frequency = 1441;
-	id_tag = "air_out";
-	internal_pressure_bound = 2000;
-	internal_pressure_bound_default = 2000;
-	on = 1;
-	pressure_checks = 2;
-	pressure_checks_default = 2;
-	releasing = 0
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/air,
 /turf/simulated/floor/engine/air,
 /area/coldcolony/malta/engineering/atmos)
 "qpB" = (
@@ -46513,13 +46466,7 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "air_in";
-	name = "Mixed Air Supply Control";
-	output_tag = "air_out";
-	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
-	},
+/obj/machinery/computer/general_air_control/large_tank_control/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -46900,7 +46847,7 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/meter/waste_loop,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -49553,12 +49500,10 @@
 	},
 /area/coldcolony/malta/security/main)
 "srP" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	id = "air_in"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/outlet_injector/on/air,
 /turf/simulated/floor/engine/air,
 /area/coldcolony/malta/engineering/atmos)
 "srW" = (
@@ -52575,20 +52520,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
 "tyX" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	external_pressure_bound = 0;
-	external_pressure_bound_default = 0;
-	frequency = 1441;
-	id_tag = "n2_out";
-	initialize_directions = 1;
-	internal_pressure_bound = 4000;
-	internal_pressure_bound_default = 4000;
-	name = "n2 vent";
-	on = 1;
-	pressure_checks = 2;
-	pressure_checks_default = 2;
-	releasing = 0
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2,
 /turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "tzr" = (
@@ -53296,7 +53228,7 @@
 	dir = 1;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/meter/air_out_tank,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -53393,13 +53325,11 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "tQz" = (
-/obj/machinery/atmospherics/air_sensor/all{
-	id_tag = "air_sensor"
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Air Tank";
 	network = list("SS13","Engineering")
 	},
+/obj/machinery/atmospherics/air_sensor/air,
 /turf/simulated/floor/engine/air,
 /area/coldcolony/malta/engineering/atmos)
 "tQE" = (
@@ -54391,15 +54321,10 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/computer/general_air_control/large_tank_control{
-	input_tag = "n2_in";
-	name = "Nitrogen Supply Control";
-	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/computer/general_air_control/large_tank_control/n2,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -59364,12 +59289,10 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "vXE" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	id = "o2_in"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/outlet_injector/on/o2,
 /turf/simulated/floor/engine/o2,
 /area/coldcolony/malta/engineering/atmos)
 "vXF" = (
@@ -101487,7 +101410,7 @@ jXN
 jcH
 rLG
 cWP
-aju
+hFT
 ggK
 qjZ
 xvE

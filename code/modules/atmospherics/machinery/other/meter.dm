@@ -194,3 +194,19 @@
 	var/datum/gas_mixture/environment = connected_meter.target.return_obj_air()
 	pressure.set_output(environment.return_pressure())
 	temperature.set_output(environment.temperature())
+
+/obj/machinery/atmospherics/meter/air_in_tank
+	id = "mair_in_meter";
+	name = "Mixed Air Tank In"
+
+/obj/machinery/atmospherics/meter/air_out_tank
+	id = "mair_out_meter";
+	name = "Mixed Air Tank Out"
+
+/obj/machinery/atmospherics/meter/ditr_loop
+	id = "dloop_atm_meter";
+	name = "Distribution Loop"
+
+/obj/machinery/atmospherics/meter/waste_loop
+	id = "wloop_atm_meter";
+	name = "Waste Loop"

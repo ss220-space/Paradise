@@ -45,6 +45,45 @@
 	on = TRUE
 	icon_state = "map_vent_out"
 
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos
+	external_pressure_bound = 0
+	external_pressure_bound_default = 0
+	frequency = 1441
+	internal_pressure_bound = 4000
+	internal_pressure_bound_default = 4000
+	releasing = FALSE
+	icon_state = "in"
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/o2
+	id_tag = "o2_out"
+	name = "Oxygen vent"
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2
+	id_tag = "n2_out"
+	name = "Nitogen vent"
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2o
+	id_tag = "n2o_out"
+	name = "Nitrous Oxide vent"
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/co2
+	id_tag = "co2_out"
+	name = "Carbon Dioxide vent"
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/tox
+	id_tag = "tox_out"
+	name = "Toxin vent"
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/air
+	id_tag = "air_out"
+	name = "Mixed Air vent"
+	internal_pressure_bound = 2000
+	internal_pressure_bound_default = 2000
+
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/mix
+	id_tag = "mix_out"
+	name = "Gas Mix vent"
+
 /obj/machinery/atmospherics/unary/vent_pump/siphon
 	releasing = FALSE
 
