@@ -342,7 +342,6 @@
 /obj/structure/closet/crate/engineering/atmospherics/heater
 	name = "atmospherics temperature control unit crate"
 	desc = "An atmospherics crate with parts for self-assembly of the temperature control unit."
-	icon_state = "atmoscrate"
 
 /obj/structure/closet/crate/engineering/atmospherics/heater/populate_contents()
 	new /obj/item/circuitboard/thermomachine(src)
