@@ -46,7 +46,9 @@ export const LootBox = (props: Props) => {
       p={0}
       fluid
       color={selected ? 'good' : 'transparent'}
-      style={selected ? { backgroundColor: 'rgba(0, 255, 0, 0.15)' } : undefined}
+      style={
+        selected ? { backgroundColor: 'rgba(0, 255, 0, 0.15)' } : undefined
+      }
       onClick={(event) =>
         act('grab', {
           alt: event.altKey,
