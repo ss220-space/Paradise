@@ -38,7 +38,7 @@
 
 /obj/item/flashlight/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить фонарик")
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить свет")
 
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"

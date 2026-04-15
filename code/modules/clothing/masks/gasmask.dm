@@ -69,6 +69,10 @@
 		PREPOSITIONAL = "сварочном протовогазе",
 	)
 
+/obj/item/clothing/mask/gas/welding/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
@@ -79,7 +83,6 @@
 	name = "explorer gas mask"
 	desc = "Противогаз военного качества, который можно подключить к системе подачи воздуха."
 	icon_state = "gas_mining"
-	actions_types = list(/datum/action/item_action/adjust)
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
@@ -111,6 +114,10 @@
 		INSTRUMENTAL = "противогазом исследователя",
 		PREPOSITIONAL = "противогазе исследователя",
 	)
+
+/obj/item/clothing/mask/gas/explorer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
@@ -609,6 +616,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+/obj/item/clothing/mask/gas/owl_mask/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Ухнуть")
+
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
 
@@ -635,7 +646,7 @@
 	var/aggressiveness = 1
 	var/safety = 1
 	can_toggle = TRUE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 	custom_price = PAYCHECK_CREW
 	var/static/list/phrase_list = list(
 
@@ -673,6 +684,10 @@
 	. = ..()
 	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 
+/obj/item/clothing/mask/gas/sechailer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
 	. = ..()
 	if(.)
@@ -696,7 +711,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 	custom_price = PAYCHECK_COMMAND
 
 /obj/item/clothing/mask/gas/sechailer/tactical/get_ru_names()
@@ -717,7 +732,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/hos/get_ru_names()
 	return list(
@@ -737,7 +752,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/warden/get_ru_names()
 	return list(
@@ -757,7 +772,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/swat/get_ru_names()
 	return list(
@@ -778,7 +793,7 @@
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/blue/get_ru_names()
 	return list(
@@ -796,7 +811,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg/get_ru_names()
 	return list(
@@ -811,44 +826,51 @@
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/halt))
 		halt()
-	else if(istype(action, /datum/action/item_action/adjust))
-		adjustmask(user)
+	else if(istype(action, /datum/action/item_action/adjust) && leftclick)
+		if(leftclick)
+			adjustmask(user)
+		else
+			switch_halt_phrase(user)
 	else if(istype(action, /datum/action/item_action/selectphrase))
-		var/key = phrase_list[phrase]
-		var/message = phrase_list[key]
-
-		if(!safety)
-			to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
-			return
-
-		switch(aggressiveness)
-			if(1)
-				phrase = (phrase < 6) ? (phrase + 1) : 1
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			if(2)
-				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			if(3)
-				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			if(4)
-				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			else
-				to_chat(user, span_notice("It's broken."))
-
+		var/key = switch_halt_phrase(user)
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)
 			halt_action.name = "[uppertext(key)]!"
 			halt_action.UpdateButtonIcon()
+
+/obj/item/clothing/mask/gas/sechailer/proc/switch_halt_phrase(mob/user)
+	var/key = phrase_list[phrase]
+	var/message = phrase_list[key]
+
+	if(!safety)
+		to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
+		return
+
+	switch(aggressiveness)
+		if(1)
+			phrase = (phrase < 6) ? (phrase + 1) : 1
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		if(2)
+			phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		if(3)
+			phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		if(4)
+			phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		else
+			to_chat(user, span_notice("It's broken."))
+
+	return key
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
