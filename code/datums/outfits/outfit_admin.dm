@@ -949,9 +949,8 @@
 	name = "Sol Trader"
 
 	uniform = /obj/item/clothing/under/rank/cargotech
-	suit = /obj/item/clothing/suit/armor/vest/combat
 	back = /obj/item/storage/backpack/industrial
-	belt = /obj/item/storage/belt/military/assault/marines/cats/full
+	belt = /obj/item/melee/baton
 	head = /obj/item/clothing/head/soft
 	shoes = /obj/item/clothing/shoes/color/black
 	l_ear = /obj/item/radio/headset
@@ -962,9 +961,7 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
 		/obj/item/hand_labeler_refill = 1,
-		/obj/item/melee/baton = 1,
 	)
-	suit_store = /obj/item/gun/projectile/automatic/cats
 
 /datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
