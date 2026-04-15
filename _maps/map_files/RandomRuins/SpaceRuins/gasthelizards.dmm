@@ -466,7 +466,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "rk" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/mix{
 	id_tag = "mix_sensor_gtl"
 	},
 /turf/simulated/floor/engine,

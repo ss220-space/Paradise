@@ -339,6 +339,9 @@
 		PREPOSITIONAL = "ящике атмосферного отдела",
 	)
 
+#define HEATER_CRATE_METAL_SHEETS
+#define HEATER_CRATE_CABLE_COILS
+
 /obj/structure/closet/crate/engineering/atmospherics/heater
 	name = "atmospherics temperature control unit crate"
 	desc = "An atmospherics crate with parts for self-assembly of the temperature control unit."
@@ -350,8 +353,8 @@
 	new /obj/item/stock_parts/micro_laser(src)
 	new /obj/item/stock_parts/micro_laser(src)
 	new /obj/item/stack/sheet/glass(src)
-	new /obj/item/stack/sheet/metal(src, 5)
-	new /obj/item/stack/cable_coil(src, 6)
+	new /obj/item/stack/sheet/metal(src, HEATER_CRATE_METAL_SHEETS)
+	new /obj/item/stack/cable_coil(src, HEATER_CRATE_CABLE_COILS)
 
 /obj/structure/closet/crate/engineering/atmospherics/heater/get_ru_names()
 	return list(
@@ -379,3 +382,6 @@
 	desc = "Definitely a property of an evil corporation!"
 	icon_state = "syndiecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+
+#undef HEATER_CRATE_METAL_SHEETS
+#undef HEATER_CRATE_CABLE_COILS

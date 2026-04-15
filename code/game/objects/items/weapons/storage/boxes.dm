@@ -853,6 +853,9 @@
 	for(var/I in 1 to 7)
 		new /obj/item/light/bulb(src)
 
+#define MIN_FOAM_GRENADES_IN_BOX 2
+#define MAX_FOAM_GRENADES_IN_BOX 5
+
 /obj/item/storage/box/atmospherics/metalfoam_grenade
 	name = "Metalfoam grenade box"
 	desc = "Box of grenades for emergency sealing of air breaches."
@@ -862,7 +865,7 @@
 	use_to_pickup = 1
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade/populate_contents()
-	for(var/I in 1 to rand(2,5))
+	for(var/I in 1 to rand(MIN_FOAM_GRENADES_IN_BOX,MAX_FOAM_GRENADES_IN_BOX))
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade/get_ru_names()
@@ -1453,3 +1456,5 @@
 #undef SYNDI
 #undef HEART
 #undef SMILE
+#undef MIN_FOAM_GRENADES_IN_BOX
+#undef MAX_FOAM_GRENADES_IN_BOX

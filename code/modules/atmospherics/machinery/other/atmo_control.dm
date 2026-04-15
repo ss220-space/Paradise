@@ -359,7 +359,7 @@
 	name = "Toxin Supply Control"
 	input_tag = "tox_in"
 	output_tag = "tox_out"
-	sensors = list("air_sensor"="Tank")
+	sensors = list("tox_sensor"="Tank")
 
 /obj/machinery/computer/general_air_control/large_tank_control/mix
 	name = "Gas Mix Tank Control"

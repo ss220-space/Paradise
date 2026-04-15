@@ -8903,7 +8903,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO45/engineering)
 "tg" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/mix{
 	id_tag = "UO45_waste_sensor"
 	},
 /turf/simulated/floor/engine/vacuum,

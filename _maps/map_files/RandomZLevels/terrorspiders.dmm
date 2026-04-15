@@ -8598,7 +8598,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/UO71/eng)
 "ty" = (
-/obj/machinery/atmospherics/air_sensor{
+/obj/machinery/atmospherics/air_sensor/mix{
 	id_tag = "UO71_waste_sensor"
 	},
 /turf/simulated/floor/engine/vacuum,

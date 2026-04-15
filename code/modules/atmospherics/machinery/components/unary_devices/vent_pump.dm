@@ -60,7 +60,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2
 	id_tag = "n2_out"
-	name = "Nitogen vent"
+	name = "Nitrogen vent"
 
 /obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2o
 	id_tag = "n2o_out"

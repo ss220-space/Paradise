@@ -196,21 +196,21 @@
 	temperature.set_output(environment.temperature())
 
 /obj/machinery/atmospherics/meter/air_in_tank
-	id = "mair_in_meter";
+	id = "mair_in_meter"
 	name = "Mixed Air Tank In"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/meter/air_out_tank
-	id = "mair_out_meter";
+	id = "mair_out_meter"
 	name = "Mixed Air Tank Out"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/meter/ditr_loop
-	id = "dloop_atm_meter";
+	id = "dloop_atm_meter"
 	name = "Distribution Loop"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/meter/waste_loop
-	id = "wloop_atm_meter";
+	id = "wloop_atm_meter"
 	name = "Waste Loop"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
