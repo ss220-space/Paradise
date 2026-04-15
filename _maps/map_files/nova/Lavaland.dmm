@@ -4595,7 +4595,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "AO" = (
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -7220,7 +7220,7 @@
 /area/mine/living_quarters)
 "Pl" = (
 /obj/machinery/bodyscanner,
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{

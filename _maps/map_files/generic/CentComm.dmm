@@ -12494,7 +12494,7 @@
 	pixel_x = -1;
 	pixel_y = 1
 	},
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = 3;
 	pixel_y = 32
 	},

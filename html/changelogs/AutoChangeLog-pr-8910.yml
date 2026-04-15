@@ -1,0 +1,4 @@
+author: "oi98"
+delete-after: True
+changes:
+  - image: "возвращены респрайтнутые худ-иконки. (PR #8910)"
