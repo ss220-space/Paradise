@@ -379,8 +379,15 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/paper_bin,
 /obj/structure/table/reinforced,
+/obj/item/stack/sheet/glass{
+	amount = 20
+	},
+/obj/item/stack/sheet/metal{
+	amount = 20;
+	pixel_x = 2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/glass,
 /area/toxins/lab)
 "yX" = (
@@ -630,6 +637,12 @@
 	id = "Autolathe";
 	name = "Autolathe Access";
 	req_access = list(47)
+	},
+/obj/item/stack/sheet/metal{
+	amount = 10
+	},
+/obj/item/stack/sheet/glass{
+	amount = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
