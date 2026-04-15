@@ -309,6 +309,16 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
 	)
 
+/obj/item/gun/projectile/revolver/capgun/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/revolver/capgun)
+
+/obj/item/gun/projectile/revolver/capgun/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin]"
+	else
+		icon_state = "[initial(icon_state)]"
+
 // MARK: Improvised .257
 /obj/item/gun/projectile/revolver/improvised
 	name = "improvised revolver"
