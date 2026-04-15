@@ -2530,11 +2530,8 @@
 /area/ruin/space/ancientstation/beta_north)
 "iX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
 /obj/structure/cable/orange{
@@ -7560,10 +7557,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
 "AA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating/airless,

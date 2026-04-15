@@ -10536,10 +10536,6 @@
 /area/solar/auxport)
 "aNL" = (
 /obj/structure/table,
-/obj/structure/bedsheetbin{
-	pixel_x = -1;
-	pixel_y = 2
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10551,6 +10547,7 @@
 	pixel_x = 14;
 	pixel_y = 32
 	},
+/obj/structure/bedsheetbin,
 /turf/simulated/floor/wood/fancy/birch,
 /area/maintenance/livingcomplex)
 "aNO" = (
@@ -12347,9 +12344,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -12637,11 +12631,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aXD" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall,
 /area/solar/auxstarboard)
 "aXK" = (
@@ -16713,10 +16703,7 @@
 	},
 /area/hallway/primary/central/north)
 "bni" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -17002,11 +16989,8 @@
 	},
 /area/crew_quarters/bar/atrium)
 "boh" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -17531,11 +17515,7 @@
 	},
 /area/crew_quarters/toilet)
 "bqq" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarstarboard)
 "bqr" = (
@@ -17760,10 +17740,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bra" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -18444,10 +18421,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "bum" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -22508,7 +22482,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "bMy" = (
@@ -23537,10 +23511,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bQq" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = 32
 	},
 /obj/effect/spawner/window/reinforced,
@@ -25022,10 +24993,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/sw)
 "bUY" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /obj/structure/cable{
@@ -26890,6 +26858,9 @@
 	c_tag = "Cryodorms";
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreencorner"
@@ -28478,9 +28449,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cgs" = (
 /turf/simulated/wall/r_wall,
@@ -29369,7 +29338,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -32091,6 +32059,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "cvs" = (
@@ -34720,7 +34689,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "cEN" = (
@@ -35843,10 +35812,7 @@
 	dir = 10
 	},
 /obj/structure/table,
-/obj/structure/bedsheetbin{
-	pixel_x = -1;
-	pixel_y = 2
-	},
+/obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -37809,10 +37775,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -38941,9 +38904,7 @@
 	},
 /area/toxins/xenobiology)
 "cVg" = (
-/obj/structure/sign/science{
-	icon_state = "xenobio2"
-	},
+/obj/structure/sign/xenobio/slime,
 /turf/simulated/wall/r_wall,
 /area/toxins/xenobiology)
 "cVh" = (
@@ -39067,10 +39028,7 @@
 	},
 /area/chapel/main)
 "cVB" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -39281,10 +39239,7 @@
 /area/toxins/xenobiology)
 "cWx" = (
 /obj/machinery/light,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -39664,11 +39619,7 @@
 	},
 /area/crew_quarters/chief)
 "cXF" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/engine)
 "cXG" = (
@@ -42782,11 +42733,7 @@
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "djA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
 "djB" = (
@@ -42951,10 +42898,7 @@
 /obj/item/stack/rods{
 	amount = 2
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -45191,10 +45135,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /turf/simulated/wall/r_wall,
@@ -57109,7 +57050,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "iKU" = (
@@ -66800,11 +66741,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "naz" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/maintenance/server)
 "naL" = (
@@ -67064,15 +67001,12 @@
 /area/toxins/lab)
 "nhj" = (
 /obj/structure/table,
-/obj/structure/bedsheetbin{
-	pixel_x = -1;
-	pixel_y = 2
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west fire alarm";
 	pixel_x = -24
 	},
+/obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -73782,11 +73716,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "qfK" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/maintenance/atmospherics)
 "qfT" = (
@@ -74725,10 +74655,10 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
 "qzo" = (
-/obj/effect/landmark/spawner/revenant,
 /obj/structure/morgue{
 	dir = 8
 	},
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -78073,6 +78003,18 @@
 	icon_state = "caution"
 	},
 /area/maintenance/apmaint)
+"rYV" = (
+/obj/machinery/cryopod{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "rYX" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
@@ -80113,11 +80055,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "sVa" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarport)
 "sVs" = (
@@ -81679,7 +81617,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "tDi" = (
@@ -84219,9 +84157,7 @@
 	name = "Science Maintenance";
 	req_access = list(47)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "uMJ" = (
 /obj/item/trash/liquidfood,
@@ -85712,11 +85648,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fpmaint)
 "vqC" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/engineering/engine)
 "vqF" = (
@@ -85973,11 +85905,8 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "vvy" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/wall,
 /area/quartermaster/storage)
@@ -88247,11 +88176,7 @@
 	},
 /area/turret_protected/ai_upload)
 "wqK" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/storage/tech)
 "wrj" = (
@@ -88272,10 +88197,7 @@
 /obj/machinery/atm{
 	pixel_x = -32
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -92472,10 +92394,7 @@
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
 "yfF" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -121172,7 +121091,7 @@ awl
 awl
 awl
 awl
-aJA
+cVc
 cvr
 aDN
 aDN
@@ -123225,7 +123144,7 @@ aLP
 aPL
 aPL
 aPL
-aPL
+rYV
 aLP
 aLP
 cqO

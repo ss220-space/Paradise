@@ -307,6 +307,9 @@
 	desc = "Знак, обозначающий область, где исследуются ксенобиологические существа."
 	icon_state = "xenobio"
 
+/obj/structure/sign/xenobio/slime
+	icon_state = "xenobio2"
+
 /obj/structure/sign/evac
 	name = "ЭВАКУАЦИЯ"
 	desc = "Знак, обозначающий область, где проводятся процедуры эвакуации."
@@ -316,6 +319,11 @@
 	name = "ДЕСАНТНЫЕ КАПСУЛЫ"
 	desc = "Знак, обозначающий область, где проводятся процедуры загрузки десантных капсул."
 	icon_state = "drop"
+
+/obj/structure/sign/doors
+	name = "ШЛЮЗЫ"
+	desc ="Знак, обозначающий область, где возможно внезапное закрытие шлюзов."
+	icon_state = "doors"
 
 /obj/structure/sign/custodian
 	name = "УБОРЩИК"

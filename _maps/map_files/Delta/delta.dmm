@@ -4613,11 +4613,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aLe" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -7023,11 +7020,8 @@
 /area/janitor)
 "bbV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -15044,11 +15038,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "bUl" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall,
 /area/engineering/engine)
 "bUm" = (
@@ -38971,11 +38961,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "eqA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/quartermaster/storage)
@@ -46365,11 +46352,7 @@
 	},
 /area/storage/eva)
 "gcj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/engine)
 "gcp" = (
@@ -60239,11 +60222,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "jjY" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall/rust,
 /area/toxins/sm_test_chamber)
 "jkc" = (
@@ -61658,11 +61637,8 @@
 /area/toxins/xenobiology)
 "jzd" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_cargo";
@@ -67084,11 +67060,7 @@
 	},
 /area/crew_quarters/fitness)
 "kQw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall,
 /area/toxins/sm_test_chamber)
 "kQx" = (
@@ -69070,11 +69042,7 @@
 	},
 /area/atmos)
 "lpv" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/gravitygenerator)
 "lpx" = (
@@ -74091,9 +74059,7 @@
 	},
 /area/security/main)
 "mzZ" = (
-/obj/structure/sign/science{
-	icon_state = "doors"
-	},
+/obj/structure/sign/doors,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "mAa" = (
@@ -90893,9 +90859,7 @@
 	},
 /area/crew_quarters/sleep)
 "qlJ" = (
-/obj/structure/sign/science{
-	icon_state = "xenobio2"
-	},
+/obj/structure/sign/xenobio/slime,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "qlK" = (
@@ -102120,10 +102084,7 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "sIZ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = -32
 	},
 /obj/machinery/light{

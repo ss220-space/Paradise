@@ -2975,11 +2975,8 @@
 	name = "Bridge";
 	req_access = list(153)
 	},
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndFB_lockdown";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "syndFB_lockdown"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -14293,11 +14290,8 @@
 	},
 /area/syndicate_mothership)
 "gSC" = (
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndFB_lockdown";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "syndFB_lockdown"
 	},
 /turf/simulated/wall/indestructible/fakeglass{
 	base_icon_state = "fake_plastitanium_glass";

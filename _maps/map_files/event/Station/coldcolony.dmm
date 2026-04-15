@@ -15326,10 +15326,7 @@
 /area/coldcolony/malta/bridge/captain)
 "fGE" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -18939,11 +18936,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "gXo" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall,
 /area/coldcolony/malta/engineering/engine)
 "gXt" = (
@@ -24475,11 +24468,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
 "jep" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/engineering/engine)
 "jet" = (
