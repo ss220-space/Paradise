@@ -10,6 +10,7 @@
 	integrity_failure = 25
 	pull_push_slowdown = 1.5
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	interaction_flags_mouse_drop = ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up

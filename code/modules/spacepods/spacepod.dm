@@ -782,8 +782,8 @@
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		return 1
 
-/obj/spacepod/MouseDrop_T(mob/living/dropping, mob/living/user, params)
-	if(user == pilot || (user in passengers) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/spacepod/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
+	if(user == pilot || (user in passengers) || !isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	. = TRUE

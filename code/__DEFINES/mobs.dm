@@ -475,12 +475,15 @@ GLOBAL_LIST_INIT(ru_species, list(
 /// How far away you can be to make eye contact with someone while examining
 #define EYE_CONTACT_RANGE 5
 
-// Incapacitated ignore flags for [/proc/incapacitated()].
-// They also used at interaction_flags_c var.
-/// If the incapacitated will ignore a mob in restraints
-#define INC_IGNORE_RESTRAINED (1<<0)
-/// If the incapacitated will ignore a mob being agressively grabbed
-#define INC_IGNORE_GRABBED (1<<1)
+// Incapacitated status effect flags
+/// If the mob is normal incapacitated. Should never need this, just avoids issues if we ever overexpand this
+#define TRADITIONAL_INCAPACITATED (1<<0)
+/// If the incapacitated status effect is being caused by restraints (handcuffs)
+#define INCAPABLE_RESTRAINTS (1<<1)
+/// If the incapacitated status effect is being caused by stasis (stasis beds)
+#define INCAPABLE_STASIS (1<<2)
+/// If the incapacitated status effect is being caused by being agressively grabbed
+#define INCAPABLE_GRAB (1<<3)
 
 /// If reading is required to perform action (can't read a book if you are illiterate)
 #define NEED_LITERACY (1<<0)

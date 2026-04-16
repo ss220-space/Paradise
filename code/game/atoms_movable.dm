@@ -1,4 +1,5 @@
 /atom/movable
+	abstract_type = /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
@@ -1665,3 +1666,7 @@
 
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
+
+/// Called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
+	return

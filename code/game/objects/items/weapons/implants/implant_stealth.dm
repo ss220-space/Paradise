@@ -136,7 +136,7 @@
 	QDEL_NULL(box_img)
 	return ..()
 
-/obj/structure/closet/cardboard/agent/open()
+/obj/structure/closet/cardboard/agent/open(mob/living/user, force)
 	. = ..()
 	if(.)
 		qdel(src)

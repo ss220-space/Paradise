@@ -268,9 +268,6 @@
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src, S)
 
-/obj/proc/container_resist(mob/living)
-	return
-
 /obj/proc/on_mob_move(mob/user, dir)
 	return
 

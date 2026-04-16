@@ -785,7 +785,7 @@
 		return FALSE
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
 		return FALSE
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
+	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, user, usr)
 
 /**
  * Checks whether a mob can perform an action to interact with an object
