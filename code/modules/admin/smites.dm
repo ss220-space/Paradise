@@ -584,6 +584,7 @@
 	ADD_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
 	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
 
+// MARK: Self Control
 /datum/smite/self_control
 	name = SMITE_SELF_CONTROL
 	desc = "Покажите свои возможности к самоконтролю!"
