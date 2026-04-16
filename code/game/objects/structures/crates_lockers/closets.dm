@@ -394,7 +394,7 @@ GLOBAL_LIST_EMPTY(closets)
 			update_icon()
 
 /obj/structure/closet/mouse_drop_receive(atom/movable/target_movable, mob/living/user, params)
-	if(!istype(target_movable) || target_movable.anchored || istype(target_movable, /atom/movable/screen))
+	if(!istype(target_movable) || target_movable.anchored || is_screen_atom(target_movable))
 		return
 	if(user == target_movable) //try to climb onto it
 		return ..()
@@ -555,7 +555,7 @@ GLOBAL_LIST_EMPTY(closets)
 	addtimer(CALLBACK(src, PROC_REF(check_if_shake)), 1 SECONDS)
 
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || user.stat != CONSCIOUS || (loc_required && (user.loc != src)) || opened || (!locked && !welded) )
+		if(!user || user.stat != CONSCIOUS || (loc_required && (user.loc != src)) || opened || (!locked && !welded))
 			return
 		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
 		user.visible_message(

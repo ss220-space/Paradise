@@ -25,7 +25,6 @@ GLOBAL_LIST_EMPTY(safes)
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	// Settings
 	/// The maximum combined w_class of stuff in the safe.
 	var/maxspace = 24
