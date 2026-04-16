@@ -307,7 +307,7 @@ GLOBAL_LIST_EMPTY(closets)
 	if(allowed(user))
 		locked = !locked
 		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
-		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_UT(user)] замок", "замок [locked ? "за" : "от"]крыт")
+		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_YUT(user)] замок", "замок [locked ? "за" : "от"]крыт")
 		update_icon()
 	else
 		balloon_alert(user, "нет доступа!")
