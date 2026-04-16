@@ -30,6 +30,7 @@
 #define SMITE_JACKBOOTS "Фантомный топот"
 #define SMITE_MACHINERY "Разумная машинерия"
 #define SMITE_HEADHIT "Головой об шлюзы"
+#define SMITE_SELF_CONTROL "Самоконтроль"
 
 GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_LIGHTING = /datum/smite/lighting,
@@ -58,6 +59,7 @@ GLOBAL_LIST_INIT(smites_human, list(
 	SMITE_DEMOTE = /datum/smite/demote, // Nothing that need being human, but you can't demote corgi.
 	SMITE_VIRUS = /datum/smite/virus,
 	SMITE_BRAINROTBRAINDAMAGE = /datum/smite/brainrot_braingamage,
+	SMITE_SELF_CONTROL = /datum/smite/self_control,
 ))
 
 GLOBAL_LIST_INIT(default_brainrot, list(
