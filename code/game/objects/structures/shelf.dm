@@ -10,18 +10,29 @@
  */
 /obj/structure/cargo_shelf
 	name = "crate shelf"
-	desc = "It's a shelf! For storing crates!"
+	desc = "Это полка! Для хранения ящиков!"
 	icon = 'icons/obj/structures/shelf.dmi'
 	icon_state = "shelf_base"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 50 // Not hard to break
-	/// how many items the shelf can hold
+	gender = FEMALE
+	/// How many items the shelf can hold
 	VAR_FINAL/capacity = 3
-	/// the delay before the shelf is truly used
+	/// The delay before the shelf is truly used
 	var/use_delay = DEFAULT_SHELF_USE_DELAY
 	/// List of which crates are stored where, to keep track of occupied slots
 	var/list/crates_stored
+
+/obj/structure/cargo_shelf/get_ru_names()
+	return list(
+		NOMINATIVE = "полка для ящиков",
+		GENITIVE = "полки для ящиков",
+		DATIVE = "полке для ящиков",
+		ACCUSATIVE = "полку для ящиков",
+		INSTRUMENTAL = "полкой для ящиков",
+		PREPOSITIONAL = "полке для ящиков",
+	)
 
 /obj/structure/cargo_shelf/Initialize(mapload)
 	. = ..()
@@ -45,14 +56,14 @@
 
 /obj/structure/cargo_shelf/examine(mob/user)
 	. = ..()
-	. += span_notice("There are some <b>bolts</b> holding [src] together.")
+	. += span_notice("Конструкция [declent_ru(GENITIVE)] скреплена <b>болтами</b>.")
 	if(crate_count() < capacity) // If there's an empty space in the shelf, let the examiner know.
-		. += span_notice("You could <b>drag and drop</b> a crate into [src].")
+		. += span_notice("Можно <b>перетащить</b> ящик на [declent_ru(ACCUSATIVE)].")
 	if(crate_count()) // If there are any crates in the shelf, let the examiner know.
-		. += span_notice("You could <b>drag and drop</b> a crate out of [src].")
-		. += span_notice("[src] contains:")
+		. += span_notice("Можно <b>перетащить</b> ящик с [declent_ru(GENITIVE)].")
+		. += span_notice("На [declent_ru(PREPOSITIONAL)] находится:")
 		for(var/obj/structure/closet/crate/crate in contents)
-			. += span_notice("[icon2html(crate, user)] \A [crate]")
+			. += span_notice("[icon2html(crate, user)] [DECLENT_RU_CAP(crate, NOMINATIVE)]")
 
 /obj/structure/cargo_shelf/wrench_act_secondary(mob/living/user, obj/item/tool)
 	tool.play_tool_sound(src)
@@ -60,14 +71,14 @@
 	return TRUE
 
 /obj/structure/cargo_shelf/relay_container_resist_act(mob/living/user, obj/structure/closet/crate)
-	to_chat(user, span_notice("You begin attempting to knock [crate] out of [src]"))
+	to_chat(user, span_notice("Вы начинаете пытаться выбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 	if(do_after(user, 30 SECONDS, target = crate))
 		if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
 			return // If the user is in a strange condition, return early.
 		visible_message(
-			span_warning("[crate] falls off of [src]!"),
-			span_notice("You manage to knock [crate] free of [src]"),
-			span_notice("You hear a thud."),
+			span_warning("[DECLENT_RU_CAP(crate, NOMINATIVE)] падает с [declent_ru(GENITIVE)]!"),
+			span_notice("Вам удаётся сбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."),
+			span_hear("Слышен глухой стук."),
 		)
 		remove_crate(crate, drop_location())
 		random_step(crate, 2, 20) // Then try to push it somewhere.
@@ -83,7 +94,7 @@
 /// proc that will attempt to add something to the contents of the shelf
 /obj/structure/cargo_shelf/proc/load(obj/structure/closet/crate/crate, mob/user, y_offset, instant)
 	if(crate_count() >= capacity) // If we don't find an empty slot, return early.
-		balloon_alert(user, "shelf full!")
+		balloon_alert(user, "полка заполнена!")
 		return FALSE
 	if(!instant && !do_after(user, use_delay, target = crate))
 		return FALSE // If the do_after() is interrupted, return FALSE!
@@ -94,12 +105,12 @@
 /// proc that will attempt to remove something to the contents of the shelf
 /obj/structure/cargo_shelf/proc/unload(obj/structure/closet/crate/crate, mob/user, turf/unload_turf)
 	if(istype(unload_turf) && unload_turf.is_blocked_turf())
-		unload_turf.balloon_alert(user, "no room!")
+		unload_turf.balloon_alert(user, "нет места!")
 		return FALSE
 	if(!do_after(user, use_delay, target = crate))
 		return FALSE
 	if(istype(unload_turf) && unload_turf.is_blocked_turf()) // make sure we still are able to put it here
-		unload_turf.balloon_alert(user, "no room!")
+		unload_turf.balloon_alert(user, "нет места!")
 		return FALSE
 	if(!locate(crate) in src)
 		return FALSE // If something has happened to the crate while we were waiting, abort!
@@ -128,12 +139,12 @@
 				continue
 			if(2) // Open the crate!
 				if(crate.open()) // Break some open, cause a little chaos.
-					crate.visible_message(span_warning("[crate]'s lid falls open!"))
+					crate.visible_message(span_warning("Крышка [crate.declent_ru(GENITIVE)] открывается!"))
 				else // If we somehow fail to open the crate, just break it instead!
-					crate.visible_message(span_warning("[crate] falls apart!"))
+					crate.visible_message(span_warning("[DECLENT_RU_CAP(crate, NOMINATIVE)] разваливается на части!"))
 					crate.deconstruct(FALSE)
 			if(3) // Break that crate!
-				crate.visible_message(span_warning("[crate] falls apart!"))
+				crate.visible_message(span_warning("[DECLENT_RU_CAP(crate, NOMINATIVE)] разваливается на части!"))
 				crate.deconstruct(FALSE)
 
 /obj/structure/closet/crate/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
@@ -144,7 +155,7 @@
 	// 1) Unloading from shelf to turf
 	if(istype(over, /turf/open) && istype(loc, /obj/structure/cargo_shelf))
 		if(get_dist(user, over_location) > 1)
-			balloon_alert(user, "too far!")
+			balloon_alert(user, "слишком далеко!")
 			return
 		var/obj/structure/cargo_shelf/shelf = loc
 		shelf.unload(src, user, over)
@@ -212,23 +223,34 @@
 
 /obj/item/rack_parts/cargo_shelf
 	name = "crate shelf parts"
-	desc = "Parts of a crate shelf, for storing crates."
+	desc = "Детали полки, предназначенной для хранения ящиков."
+	gender = PLURAL
 	icon = 'icons/obj/structures/shelf.dmi'
 	icon_state = "rack_parts"
+
+/obj/item/rack_parts/cargo_shelf/get_ru_names()
+	return list(
+		NOMINATIVE = "детали полки для ящиков",
+		GENITIVE = "деталей полки для ящиков",
+		DATIVE = "деталям полки для ящиков",
+		ACCUSATIVE = "детали полки для ящиков",
+		INSTRUMENTAL = "деталями полки для ящиков",
+		PREPOSITIONAL = "деталях полки для ящиков",
+	)
 
 /obj/item/rack_parts/cargo_shelf/attack_self(mob/user)
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, span_notice("You start constructing [src]..."))
+	to_chat(user, span_notice("Вы начинаете собирать [declent_ru(ACCUSATIVE)]..."))
 	if(do_after(user, 5 SECONDS, target = user, progress = TRUE))
 		if(!user.temporarily_remove_item_from_inventory(src))
 			building = FALSE
 			return
 		var/obj/structure/cargo_shelf/rack = new /obj/structure/cargo_shelf(get_turf(src))
 		user.visible_message(
-			span_notice("[user] assembles \a [rack]."),
-			span_notice("You assemble \a [rack]."),
+			span_notice("[user] собира[PLUR_ET_YUT(user)] [rack.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы собираете [rack.declent_ru(ACCUSATIVE)]."),
 		)
 		rack.add_fingerprint(user)
 		qdel(src)
