@@ -137,7 +137,7 @@ jobs:
 
       - name: Run DMI Tests
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: python -m dmi.test
+        run: tools/bootstrap/python -m dmi.test
 
       - name: Check Changelogs
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
