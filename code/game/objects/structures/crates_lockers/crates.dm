@@ -4,7 +4,7 @@
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
-	climbable = TRUE
+	climbable = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
@@ -18,6 +18,8 @@
 	var/overlay_lightmask
 	/// Can our crate make emissive light?
 	var/can_be_emissive = FALSE
+	/// Wired up and ready to be fitted with an electropack trap.
+	var/wired_for_trap = FALSE
 
 /obj/structure/closet/crate/Destroy()
 	manifest = null
@@ -51,6 +53,49 @@
 	. = ..()
 	tear_manifest()
 
+/obj/structure/closet/crate/open(mob/living/user, force)
+	if(climbable)
+		structure_shaken()
+
+	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
+		return
+	if(!user.electrocute_act(17, src))
+		return
+	do_sparks(5, TRUE, src)
+	return ..()
+
+/obj/structure/closet/crate/attackby(obj/item/used_item, mob/user, params)
+	if(!opened && try_rig(used_item, user))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/structure/closet/crate/proc/try_rig(obj/item/used_item, mob/user)
+	if(iscoil(used_item))
+		var/obj/item/stack/cable_coil/coil = used_item
+
+		if(wired_for_trap)
+			to_chat(user, span_notice("[src] is already wired!"))
+			return TRUE
+
+		if(!coil.use(15))
+			to_chat(user, span_warning("You need atleast 15 wires to rig [src]!"))
+			return TRUE
+
+		to_chat(user, span_notice("You rig [src]."))
+		wired_for_trap = TRUE
+		return TRUE
+
+	if(istype(used_item, /obj/item/radio/electropack))
+		if(!wired_for_trap)
+			return TRUE
+
+		if(!user.drop_transfer_item_to_loc(used_item, src))
+			to_chat(user, span_warning("[used_item] seems to be stuck to your hand!"))
+			return TRUE
+
+		to_chat(user, span_notice("You attach [used_item] to [src]."))
+		return TRUE
+
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/item)
 	if(opened)
 		return
@@ -83,6 +128,21 @@
 	if(.)
 		return
 	tear_manifest(user)
+	handle_electropack_trap(user)
+
+/obj/structure/closet/crate/proc/handle_electropack_trap(mob/living/user)
+	var/obj/item/radio/electropack = locate() in src
+	if(!wired_for_trap || !electropack)
+		return FALSE
+
+	if(!isliving(user))
+		return FALSE
+
+	if(!user.electrocute_act(17, electropack))
+		return FALSE
+
+	do_sparks(5, TRUE, src)
+	return TRUE
 
 /// Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)

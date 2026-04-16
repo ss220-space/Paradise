@@ -66,7 +66,7 @@
 /obj/structure/has_prints()
 	return TRUE
 
-/obj/structure/attack_hand(mob/living/user)
+/obj/structure/attack_hand(mob/living/user, list/modifiers)
 	if(has_prints() && Adjacent(user))
 		add_fingerprint(user)
 	return ..()
