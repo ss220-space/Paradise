@@ -4613,11 +4613,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aLe" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -7023,11 +7020,8 @@
 /area/janitor)
 "bbV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -11038,7 +11032,7 @@
 "bzC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -15044,11 +15038,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "bUl" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall,
 /area/engineering/engine)
 "bUm" = (
@@ -26736,7 +26726,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -27784,6 +27774,13 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Quartermaster's Office"
 	},
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "qm";
+	pixel_x = 8;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -28640,7 +28637,7 @@
 /area/crew_quarters/hor)
 "dkK" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -29004,7 +29001,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel,
 /area/security/reception)
@@ -33361,7 +33358,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Staff room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -38964,11 +38961,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "eqA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/quartermaster/storage)
@@ -39599,7 +39593,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -46358,11 +46352,7 @@
 	},
 /area/storage/eva)
 "gcj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/engine)
 "gcp" = (
@@ -49861,7 +49851,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Shooting Range";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -50996,7 +50986,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -60232,11 +60222,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "jjY" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall/rust,
 /area/toxins/sm_test_chamber)
 "jkc" = (
@@ -61651,11 +61637,8 @@
 /area/toxins/xenobiology)
 "jzd" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_cargo";
@@ -67082,11 +67065,7 @@
 	},
 /area/crew_quarters/fitness)
 "kQw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall,
 /area/toxins/sm_test_chamber)
 "kQx" = (
@@ -69068,11 +69047,7 @@
 	},
 /area/atmos)
 "lpv" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/gravitygenerator)
 "lpx" = (
@@ -69216,7 +69191,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -73980,7 +73955,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "mya" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/reception)
 "myh" = (
@@ -74080,7 +74055,7 @@
 "mzW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -74089,9 +74064,7 @@
 	},
 /area/security/main)
 "mzZ" = (
-/obj/structure/sign/science{
-	icon_state = "doors"
-	},
+/obj/structure/sign/doors,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "mAa" = (
@@ -77425,7 +77398,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -79062,7 +79035,7 @@
 "nDy" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Storage";
-	req_access = list(63)
+	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -83920,7 +83893,7 @@
 "oIN" = (
 /obj/machinery/door/airlock/security{
 	name = "Restroom";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -84668,7 +84641,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -86240,7 +86213,7 @@
 	},
 /area/space)
 "pmd" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/medbay)
 "pmj" = (
@@ -88605,7 +88578,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permahallway)
@@ -90597,7 +90570,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "High Sec Zone";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -90891,9 +90864,7 @@
 	},
 /area/crew_quarters/sleep)
 "qlJ" = (
-/obj/structure/sign/science{
-	icon_state = "xenobio2"
-	},
+/obj/structure/sign/xenobio/slime,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "qlK" = (
@@ -91315,7 +91286,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -93991,7 +93962,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "qTv" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/r_wall,
 /area/medical/cmo)
 "qTI" = (
@@ -102118,10 +102089,7 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "sIZ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -105623,11 +105591,7 @@
 	},
 /area/hallway/secondary/exit)
 "tzJ" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "tzL" = (
@@ -108563,7 +108527,7 @@
 	},
 /area/library/game_zone)
 "uez" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/ward)
 "ueF" = (
@@ -108772,7 +108736,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -109861,7 +109825,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "utI" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/r_wall,
 /area/maintenance/electrical)
 "utT" = (
@@ -110345,11 +110309,7 @@
 	},
 /area/turret_protected/aisat)
 "uzj" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall,
 /area/medical/reception)
 "uzw" = (
@@ -111343,7 +111303,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
 "uKk" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -112158,7 +112118,7 @@
 	id = "visiting room";
 	id_tag = "visiting room";
 	name = "Visiting Room";
-	req_access = list(63)
+	req_access = list(2)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -112797,15 +112757,11 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "vbx" = (
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "qm";
-	pixel_x = 8;
-	pixel_y = 24
-	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/obj/machinery/light_switch/directional/north,
+/obj/machinery/computer/guestpass{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -113046,7 +113002,7 @@
 "vfb" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -119694,7 +119650,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "wCY" = (
-/obj/structure/closet/sechammercabinet{
+/obj/structure/closet/gun_stand/sechammer{
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -123382,7 +123338,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -124991,8 +124947,8 @@
 /area/maintenance/library)
 "xJY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/computer/guestpass{
-	pixel_y = 28
+/obj/structure/closet/gun_stand/cargo_defender{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

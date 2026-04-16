@@ -101,7 +101,7 @@
 	)
 
 /obj/item/ammo_box/magazine/ik60mag/update_icon_state()
-	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(FALSE)/20, 1)*20]"
+	icon_state = "[initial(icon_state)]-[ceil(ammo_count(FALSE)/20)*20]"
 
 // MARK: Laser - LR-30
 /obj/item/ammo_box/magazine/lr30mag

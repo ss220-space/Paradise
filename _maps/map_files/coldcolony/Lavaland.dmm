@@ -2715,7 +2715,7 @@
 /area/mine/living_quarters)
 "wc" = (
 /obj/machinery/suit_storage_unit/mining_medic,
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{

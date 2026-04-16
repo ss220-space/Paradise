@@ -22,14 +22,20 @@
 #define REALTIMEOFDAY (world.timeofday + (MIDNIGHT_ROLLOVER * MIDNIGHT_ROLLOVER_CHECK))
 #define MIDNIGHT_ROLLOVER_CHECK ( GLOB.rollovercheck_last_timeofday != world.timeofday ? update_midnight_rollover() : GLOB.midnight_rollovers )
 
-#define SIMPLE_SIGN(X)	((X) < 0 ? -1 : 1)
-
-/// Gets the sign of x, returns -1 if negative, 0 if 0, 1 if positive
-#define SIGN(x) (((x) > 0) - ((x) < 0))
+/// Returns the integer closest to 0 from a division
+#define SIGNED_FLOOR_DIVISION(x, y) (sign(x) * floor(abs(x) / y))
 
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
 
 #define ROUND_UP(x) ( -round(-(x)))
+
+/// Probabilistic rounding: Adds 1 to the integer part of x with a probability equal to the decimal part of x.
+/// ie. ROUND_PROB(40.25) returns 40 with 75% probability, and 41 with 25% probability.
+#define ROUND_PROB(x) ( floor(x) + (prob(fract(x) * 100)) )
+
+/// Returns the number of digits in a number. Only works on whole numbers.
+/// This is marginally faster than string interpolation -> length
+#define DIGITS(x) (ROUND_UP(log(10, x)))
 
 // round() acts like floor(x, 1) by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )
@@ -40,8 +46,11 @@
 /// Increments a value and wraps it if it exceeds some value. Can be used to circularly iterate through a list through `idx = WRAP_UP(idx, length_of_list)`.
 #define WRAP_UP(val, max) (((val) % (max)) + 1)
 
-// Real modulus that handles decimals
-#define MODULUS(x, y) ( (x) - FLOOR(x, y))
+/// Helper that increments and wraps the passed in number when it hits the integer limit
+#define WRAP_UID(val) WRAP_UP(val, SHORT_REAL_LIMIT - 1)
+
+// Real modulus that handles decimals, now just a wrapper for BYOND's %% operator
+#define MODULUS(x, y) ((x) %% (y))
 
 // Cotangent
 #define COT(x) (1 / tan(x))

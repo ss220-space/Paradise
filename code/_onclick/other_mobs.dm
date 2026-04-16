@@ -1,3 +1,14 @@
+/// Checks for RIGHT_CLICK in modifiers and runs resolve_right_click_attack if so. Returns TRUE if normal chain blocked.
+/mob/living/proc/right_click_attack_chain(atom/target, list/modifiers)
+	if(!LAZYACCESS(modifiers, RIGHT_CLICK))
+		return
+	var/secondary_result = resolve_right_click_attack(target, modifiers)
+
+	if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
+		return TRUE
+	else if(secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
+		CRASH("resolve_right_click_attack (probably attack_hand_secondary) did not return a SECONDARY_ATTACK_* define.")
+
 /*
 	Humans:
 	Adds an exception for pull/grab handling and gloves, to allow special glove types like the ninja ones.
@@ -19,7 +30,7 @@
 
 	return A.attack_hand(src)
 
-/mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
+/mob/living/carbon/human/beforeAdjacentClick(atom/A, list/modifiers)
 	if(prob(get_bones_symptom_prob() * 3))
 		var/obj/item/organ/external/active_hand = get_organ(hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(!active_hand.has_fracture())
@@ -32,10 +43,17 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
+/// When the user uses their hand on an item while holding right-click
+/// Returns a SECONDARY_ATTACK_* value.
+/atom/proc/attack_hand_secondary(mob/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND_SECONDARY, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return SECONDARY_ATTACK_CALL_NORMAL
+
 /mob/living/carbon/RestrainedClickOn(atom/A)
 	return 0
 
-/mob/living/carbon/human/RangedAttack(atom/A, params)
+/mob/living/carbon/human/RangedAttack(atom/A, list/modifiers)
 	. = ..()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
@@ -84,7 +102,7 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(atom/atom, proximity_flag)
+/mob/living/UnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	if(!can_unarmed_attack())
 		return
 
@@ -101,7 +119,28 @@
 
 		return
 
-	return OnUnarmedAttack(atom, proximity_flag)
+	if(!right_click_attack_chain(atom, modifiers))
+		return OnUnarmedAttack(atom, proximity_flag)
+
+/**
+ * Called when an unarmed attack performed with right click hasn't been stopped by the LIVING_UNARMED_ATTACK_BLOCKED macro.
+ * This will call a secondary attack proc that can vary from mob type to mob type on the target.
+ * Sometimes, a target is interacted differently when right_clicked, in that case the secondary attack proc should return
+ * a SECONDARY_ATTACK_* value that's not SECONDARY_ATTACK_CALL_NORMAL.
+ * Otherwise, it should just return SECONDARY_ATTACK_CALL_NORMAL. Failure to do so will result in an exception (runtime error).
+ */
+/mob/living/proc/resolve_right_click_attack(atom/target, list/modifiers)
+	return target.attack_animal_secondary(src, modifiers)
+
+/mob/living/carbon/human/resolve_right_click_attack(atom/target, list/modifiers)
+	return target.attack_hand_secondary(src, modifiers)
+
+/**
+ * Called when a simple animal or basic mob right clicks an atom.
+ * Returns a SECONDARY_ATTACK_* value.
+ */
+/atom/proc/attack_animal_secondary(mob/user, list/modifiers)
+	return SECONDARY_ATTACK_CALL_NORMAL
 
 /mob/living/proc/can_grab_attack(atom/atom, proximity_flag)
 	return FALSE
@@ -138,6 +177,16 @@
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
 
+/mob/living/carbon/alien/resolve_right_click_attack(atom/target, list/modifiers)
+	return target.attack_alien_secondary(src, modifiers)
+
+/**
+ * Called when an alien right clicks an atom.
+ * Returns a SECONDARY_ATTACK_* value.
+ */
+/atom/proc/attack_alien_secondary(mob/living/carbon/alien/user, list/modifiers)
+	return SECONDARY_ATTACK_CALL_NORMAL
+
 /*
 	True Devil
 */
@@ -154,6 +203,16 @@
 
 /atom/proc/attack_larva(mob/user)
 	return
+
+/mob/living/carbon/alien/larva/resolve_right_click_attack(atom/target, list/modifiers)
+	return target.attack_larva_secondary(src, modifiers)
+
+/**
+ * Called when an alien larva right clicks an atom.
+ * Returns a SECONDARY_ATTACK_* value.
+ */
+/atom/proc/attack_larva_secondary(mob/user, list/modifiers)
+	return SECONDARY_ATTACK_CALL_NORMAL
 
 /*
 	Slimes
@@ -178,4 +237,14 @@
 // pAIs are not intended to interact with anything in the world
 /mob/living/silicon/pai/UnarmedAttack(atom/A, proximity_flag)
 	return
+
+/mob/living/silicon/pai/resolve_right_click_attack(atom/target, list/modifiers)
+	return target.attack_pai_secondary(src, modifiers)
+
+/**
+ * Called when a pAI right clicks an atom.
+ * Returns a SECONDARY_ATTACK_* value.
+ */
+/atom/proc/attack_pai_secondary(mob/user, list/modifiers)
+	return SECONDARY_ATTACK_CALL_NORMAL
 
