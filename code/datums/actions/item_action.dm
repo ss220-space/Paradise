@@ -216,7 +216,7 @@
 
 /datum/action/item_action/halt
 	name = "СТОЯТЬ!"
-	desc = "Левая кнопка - активировать.\nПравая кнопка - сменить фразу."
+	desc = "Левая кнопка — активировать.\nПравая кнопка — сменить фразу."
 
 /datum/action/item_action/selectphrase
 	name = "Сменить фразу"
