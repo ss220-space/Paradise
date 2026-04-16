@@ -15,3 +15,8 @@
 	name = "Тактический"
 	icon_state = "taurus_black"
 	donation_tier = 2
+
+/datum/item_skin_data/taurus_revolver/pink
+	name = "Гламурный"
+	icon_state = "taurus_pink"
+	donation_tier = 4
