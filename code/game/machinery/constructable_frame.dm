@@ -1373,7 +1373,7 @@ to destroy them and players will be able to make replacements.
 	)
 
 /obj/item/circuitboard/photocopier
-	board_name = "Ксерокс ([build_type])"
+	board_name = "Ксерокс"
 	build_path = /obj/machinery/photocopier
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE

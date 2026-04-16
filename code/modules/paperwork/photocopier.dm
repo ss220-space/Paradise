@@ -57,6 +57,10 @@
 								'sound/machines/printer_dotmatrix4.ogg')
 	/// type of photocopier
 	var/faction = FACTION_DEFAULT
+	/// is lid open or closed, used for sprite purposes
+	var/lid_open = FALSE
+	/// The overlay for the lid, used to make it look like the lid is opening and closing when we copy
+	var/mutable_appearance/lid_overlay
 	var/info_box = null
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
@@ -117,6 +121,7 @@
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
+	update_appearance(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	forms = new
 
 /obj/machinery/photocopier/update_icon_state()
@@ -133,6 +138,10 @@
 		. += "photocopier_loaded"
 	if(copying)
 		underlays += emissive_appearance(icon, "photocopier_work_lightmask", src)
+
+	lid_overlay = mutable_appearance(icon, "[base_icon_state]_[lid_open ? "lid_open" : "lid_closed"]", ABOVE_ALL_MOB_LAYER)
+	lid_overlay.pixel_y = 13
+	. += lid_overlay
 	underlays += emissive_appearance(icon, "photocopier_lightmask", src)
 
 /obj/machinery/photocopier/attack_ai(mob/user)
@@ -752,7 +761,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user) || !lid_open)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return
@@ -777,6 +786,22 @@
 /obj/machinery/photocopier/Destroy()
 	QDEL_LIST(saved_documents)
 	return ..()
+
+/obj/machinery/photocopier/click_alt(mob/user)
+	. = ..()
+	toggle_lid()
+	return CLICK_ACTION_SUCCESS
+
+
+/obj/machinery/photocopier/proc/toggle_lid(mob/user)
+	if(copying)
+		balloon_alert(user, "сканер ещё работает!")
+		return
+
+	lid_open = !lid_open
+	balloon_alert(user, lid_open ? "закрыто" : "открыто")
+	playsound(src, 'sound/machines/lock_2.ogg', 25)
+	update_appearance(UPDATE_OVERLAYS)
 
 /**
  * Internal proc for checking the Mob on top of the copier
