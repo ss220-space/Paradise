@@ -829,6 +829,10 @@
 			halt()
 		else
 			switch_halt_phrase(user)
+			var/datum/action/item_action/halt/halt_action = locate() in actions
+			if(halt_action)
+				halt_action.name = "[uppertext(key)]!"
+				halt_action.UpdateButtonIcon()
 	else if(istype(action, /datum/action/item_action/selectphrase))
 		var/key = switch_halt_phrase(user)
 		var/datum/action/item_action/halt/halt_action = locate() in actions

@@ -203,7 +203,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-/obj/item/clothing/head/welding/ComponentInitialize()
+/obj/item/clothing/head/ushanka/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/right_click_mapper/attack_self, "Опустить/поднять уши")
 

@@ -30,7 +30,7 @@
 /datum/element/right_click_mapper/ui_action_click
 
 /datum/element/right_click_mapper/ui_action_click/call_mapped_proc(obj/item/target_item, mob/user)
-	target_item.ui_action_click(user, src, TRUE)
+	target_item.ui_action_click(user, null, TRUE)
 
 /// Map right click to attack_self(mob/user)
 /datum/element/right_click_mapper/attack_self
