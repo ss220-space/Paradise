@@ -12,7 +12,40 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/explorer
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
-	allowed = list(/obj/item/tank, /obj/item/flashlight, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/pickaxe, /obj/item/shovel, /obj/item/resonator, /obj/item/gun/energy/plasmacutter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = list(
+		/obj/item/tank,
+		/obj/item/flashlight,
+		/obj/item/extinguisher/mini,
+		/obj/item/gps,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/survivalcapsule,
+		/obj/item/wormhole_jaunter,
+		/obj/item/grenade/jaunter_grenade,
+		/obj/item/extraction_pack,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/gem,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/gun/energy/plasmacutter,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kitchen/knife,
+		/obj/item/twohanded/spear,
+		/obj/item/twohanded/fireaxe/boneaxe,
+		/obj/item/melee/energy/cleaving_saw,
+		/obj/item/organ/internal/regenerative_core/legion,
+		/obj/item/hierophant_club,
+		/obj/item/gun/magic/hook,
+		/obj/item/nullrod,
+		/obj/item/rune_scimmy,
+		/obj/item/wisp_lantern,
+		/obj/item/warp_cube,
+		/obj/item/immortality_talisman
+	)
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
@@ -90,7 +123,40 @@
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 	slowdown = 0
 	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = list(
+		/obj/item/tank,
+		/obj/item/flashlight,
+		/obj/item/extinguisher/mini,
+		/obj/item/gps,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/survivalcapsule,
+		/obj/item/wormhole_jaunter,
+		/obj/item/grenade/jaunter_grenade,
+		/obj/item/extraction_pack,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/gem,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/gun/energy/plasmacutter,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kitchen/knife,
+		/obj/item/twohanded/spear,
+		/obj/item/twohanded/fireaxe/boneaxe,
+		/obj/item/melee/energy/cleaving_saw,
+		/obj/item/organ/internal/regenerative_core/legion,
+		/obj/item/hierophant_club,
+		/obj/item/gun/magic/hook,
+		/obj/item/nullrod,
+		/obj/item/rune_scimmy,
+		/obj/item/wisp_lantern,
+		/obj/item/warp_cube,
+		/obj/item/immortality_talisman
+	)
 	jetpack = /obj/item/tank/jetpack/suit
 	jetpack_upgradable = TRUE
 
@@ -208,7 +274,40 @@
 	slowdown = 0.25 // you are wearing a POWERFUL energy suit, after all
 	clothing_flags = FIXED_SLOWDOWN // no heretic magic
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = list(
+		/obj/item/tank,
+		/obj/item/flashlight,
+		/obj/item/extinguisher/mini,
+		/obj/item/gps,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/survivalcapsule,
+		/obj/item/wormhole_jaunter,
+		/obj/item/grenade/jaunter_grenade,
+		/obj/item/extraction_pack,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/gem,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/gun/energy/plasmacutter,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kitchen/knife,
+		/obj/item/twohanded/spear,
+		/obj/item/twohanded/fireaxe/boneaxe,
+		/obj/item/melee/energy/cleaving_saw,
+		/obj/item/organ/internal/regenerative_core/legion,
+		/obj/item/hierophant_club,
+		/obj/item/gun/magic/hook,
+		/obj/item/nullrod,
+		/obj/item/rune_scimmy,
+		/obj/item/wisp_lantern,
+		/obj/item/warp_cube,
+		/obj/item/immortality_talisman
+	)
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -327,7 +426,40 @@
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
 	desc = "Тяжёлая мантия, сшитая из сухожилий и шкур, предназначенная для защиты носителя от опасной погоды."
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = list(
+		/obj/item/tank,
+		/obj/item/flashlight,
+		/obj/item/extinguisher/mini,
+		/obj/item/gps,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/survivalcapsule,
+		/obj/item/wormhole_jaunter,
+		/obj/item/grenade/jaunter_grenade,
+		/obj/item/extraction_pack,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/gem,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/gun/energy/plasmacutter,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kitchen/knife,
+		/obj/item/twohanded/spear,
+		/obj/item/twohanded/fireaxe/boneaxe,
+		/obj/item/melee/energy/cleaving_saw,
+		/obj/item/organ/internal/regenerative_core/legion,
+		/obj/item/hierophant_club,
+		/obj/item/gun/magic/hook,
+		/obj/item/nullrod,
+		/obj/item/rune_scimmy,
+		/obj/item/wisp_lantern,
+		/obj/item/warp_cube,
+		/obj/item/immortality_talisman
+	)
 	icon_state = "pathcloak"
 	item_state = "pathcloak"
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
