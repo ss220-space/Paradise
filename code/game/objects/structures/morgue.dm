@@ -205,7 +205,7 @@
 
 	QDEL_NULL(connected)
 
-/obj/structure/morgue/container_resist(mob/living/carbon/user)
+/obj/structure/morgue/container_resist_act(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -288,7 +288,7 @@
 	add_fingerprint(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
+/obj/structure/m_tray/mouse_drop_receive(atom/movable/dropping, mob/living/user, params)
 	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
 		return
 
@@ -505,7 +505,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	tray_toggle(user)
 
-/obj/machinery/crematorium/container_resist(mob/living/carbon/user)
+/obj/machinery/crematorium/container_resist_act(mob/living/carbon/user)
 	if(cremating || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	to_chat(user, span_alert("Вы пытаетесь вылезти из [declent_ru(GENITIVE)]..."))
@@ -708,7 +708,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	add_fingerprint(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
+/obj/structure/c_tray/mouse_drop_receive(atom/movable/dropping, mob/living/user, params)
 	if(!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping))
 		return
 

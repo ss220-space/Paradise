@@ -8,14 +8,34 @@
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
-	var/rigged = FALSE
-	var/obj/item/paper/manifest/manifest
+	x_shake_pixel_shift = 1
+	y_shake_pixel_shift = 2
+	/// The reference of the manifest paper attached to the cargo crate.
+	var/datum/weakref/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 	/// Overlay for lightmask of our crate
 	var/overlay_lightmask
 	/// Can our crate make emissive light?
 	var/can_be_emissive = FALSE
+	/// Wired up and ready to be fitted with an electropack trap.
+	var/wired_for_trap = FALSE
+
+/obj/structure/closet/crate/Destroy()
+	manifest = null
+	return ..()
+
+/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(iscloset(mover))
+		return
+	var/obj/structure/closet/crate/located_crate = locate(/obj/structure/closet/crate) in get_turf(mover)
+	if(!located_crate) // you can walk on it like tables, if you're not in an open crate trying to move to a closed crate
+		return
+	if(opened) // if we're open, allow entering regardless of located crate openness
+		return TRUE
+	if(!located_crate.opened) // otherwise, if the located crate is closed, allow entering
+		return TRUE
 
 /obj/structure/closet/crate/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
@@ -29,98 +49,59 @@
 	if(can_be_emissive)
 		underlays += emissive_appearance(icon, overlay_lightmask, src)
 
-/obj/structure/closet/crate/can_open()
-	return TRUE
+/obj/structure/closet/crate/after_open(mob/living/user, force)
+	. = ..()
+	tear_manifest()
 
-/obj/structure/closet/crate/can_close()
-	return TRUE
+/obj/structure/closet/crate/open(mob/living/user, force)
+	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
+		return
+	if(!user.electrocute_act(17, src))
+		return
+	do_sparks(5, TRUE, src)
+	return ..()
 
-/obj/structure/closet/crate/open(by_hand = FALSE)
-	if(opened || !can_open())
-		return FALSE
-
-	if(by_hand)
-		for(var/obj/O in src)
-			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
-				if(response != "Yes" || !Adjacent(usr))
-					return FALSE
-				break
-
-	if(rigged && locate(/obj/item/radio/electropack) in src)
-		if(isliving(usr))
-			var/mob/living/L = usr
-			if(L.electrocute_act(17, src))
-				do_sparks(5, TRUE, src)
-				return 2
-
-	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
-	for(var/obj/O in src) //Objects
-		O.forceMove(loc)
-	for(var/mob/M in src) //Mobs
-		M.forceMove(loc)
-
-	opened = TRUE
-	update_icon()
-
-	if(climbable)
-		structure_shaken()
-
-	return TRUE
-
-/obj/structure/closet/crate/close()
-	if(!opened || !can_close())
-		return FALSE
-
-	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
-	var/itemcount = 0
-	for(var/atom/movable/O in get_turf(src))
-		if(itemcount >= storage_capacity)
-			break
-		if(O.density || O.anchored || iscloset(O) || isobserver(O) || O.has_buckled_mobs())
-			continue
-		O.forceMove(src)
-		itemcount++
-
-	opened = FALSE
-	update_icon()
-	return TRUE
-
-/obj/structure/closet/crate/attackby(obj/item/I, mob/user, params)
-	if(!opened && try_rig(I, user))
+/obj/structure/closet/crate/attackby(obj/item/used_item, mob/user, params)
+	if(!opened && try_rig(used_item, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
-	if(iscoil(W))
-		var/obj/item/stack/cable_coil/C = W
-		if(rigged)
-			to_chat(user, span_notice("[src] is already rigged!"))
+/obj/structure/closet/crate/proc/try_rig(obj/item/used_item, mob/user)
+	if(iscoil(used_item))
+		var/obj/item/stack/cable_coil/coil = used_item
+
+		if(wired_for_trap)
+			to_chat(user, span_notice("[src] is already wired!"))
 			return TRUE
-		if(C.use(15))
-			to_chat(user, span_notice("You rig [src]."))
-			rigged = TRUE
-		else
+
+		if(!coil.use(15))
 			to_chat(user, span_warning("You need atleast 15 wires to rig [src]!"))
-		return TRUE
-	if(istype(W, /obj/item/radio/electropack))
-		if(rigged)
-			if(!user.drop_transfer_item_to_loc(W, src))
-				to_chat(user, span_warning("[W] seems to be stuck to your hand!"))
-				return TRUE
-			to_chat(user, span_notice("You attach [W] to [src]."))
+			return TRUE
+
+		to_chat(user, span_notice("You rig [src]."))
+		wired_for_trap = TRUE
 		return TRUE
 
-/obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
+	if(istype(used_item, /obj/item/radio/electropack))
+		if(!wired_for_trap)
+			return TRUE
+
+		if(!user.drop_transfer_item_to_loc(used_item, src))
+			to_chat(user, span_warning("[used_item] seems to be stuck to your hand!"))
+			return TRUE
+
+		to_chat(user, span_notice("You attach [used_item] to [src]."))
+		return TRUE
+
+/obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/item)
 	if(opened)
 		return
-	if(!rigged)
+	if(!wired_for_trap)
 		return
-
-	if(I.use_tool(src, user))
+	if(item.use_tool(src, user))
 		to_chat(user, span_notice("You cut away the wiring."))
-		playsound(loc, I.usesound, 100, TRUE)
-		rigged = FALSE
+		playsound(loc, item.usesound, 100, TRUE)
+		wired_for_trap = FALSE
 		return TRUE
 
 /obj/structure/closet/crate/welder_act()
@@ -128,39 +109,50 @@
 
 /// Removes the supply manifest from the closet
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
-	add_fingerprint(user)
-	to_chat(user, span_notice("You tear the manifest off of [src]."))
-	playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
-	manifest.forceMove_turf(drop_location(src))
+	var/obj/item/paper/manifest/our_manifest = manifest?.resolve()
+	if(QDELETED(our_manifest))
+		manifest = null
+		return
+	if(user)
+		to_chat(user, span_notice("You tear the manifest off of [src]."))
+	playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
+
+	our_manifest.forceMove(drop_location(src))
 	if(ishuman(user))
-		user.put_in_hands(manifest, ignore_anim = FALSE)
+		user.put_in_hands(our_manifest)
 	manifest = null
 	update_appearance()
 
-/obj/structure/closet/crate/attack_hand(mob/user)
-	if(manifest)
-		tear_manifest(user)
-	else
-		var/obj/item/radio/electropack = locate() in src
-		if(rigged && electropack)
-			if(isliving(user))
-				var/mob/living/L = user
-				if(L.electrocute_act(17, electropack))
-					do_sparks(5, TRUE, src)
-					return
-		add_fingerprint(user)
-		toggle(user, by_hand = TRUE)
+/obj/structure/closet/crate/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+	tear_manifest(user)
+	handle_electropack_trap(user)
 
-// Called when a crate is delivered by MULE at a location, for notifying purposes
+/obj/structure/closet/crate/proc/handle_electropack_trap(mob/living/user)
+	var/obj/item/radio/electropack = locate() in src
+	if(!wired_for_trap || !electropack)
+		return FALSE
+
+	if(!isliving(user))
+		return FALSE
+
+	if(!user.electrocute_act(17, electropack))
+		return FALSE
+
+	do_sparks(5, TRUE, src)
+	return TRUE
+
+/// Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
-	var/msg = "[capitalize(name)] has arrived at [destination]."
+	var/message = "[capitalize(name)] has arrived at [destination]."
 	if(destination in announce_beacons)
-		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
-			if(D.department in src.announce_beacons[destination])
-				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
+		for(var/obj/machinery/requests_console/console as anything in GLOB.allRequestConsoles)
+			if(console.department in announce_beacons[destination])
+				console.createMessage(name, "Your Crate has Arrived!", message, 1)
 
 // MARK: Specific crates
-
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
 	desc = "A rectangular plastic crate."

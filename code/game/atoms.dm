@@ -5,6 +5,7 @@
  * as much as possible to the components/elements system
  */
 /atom
+	abstract_type = /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
@@ -37,8 +38,12 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
-	/// Flags to check for in can_perform_action. Used in alt-click checks
-	var/interaction_flags_click = 0
+	/// Intearaction flags
+	var/interaction_flags_atom = NONE
+	/// Flags to check for in can_perform_action. Used in alt-click & ctrl-click checks
+	var/interaction_flags_click = NONE
+	/// Flags to check for in can_perform_action for mouse drag & drop checks. To bypass checks see interaction_flags_atom mouse drop flags
+	var/interaction_flags_mouse_drop = NONE
 
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
@@ -165,9 +170,6 @@
 	/// The alternate appearances we own
 	var/list/alternate_appearances
 
-	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
-	var/drag_start = 0
-
 	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the overlays list
 	var/list/realized_overlays
@@ -199,6 +201,9 @@
 
 	/// Text that appears preceding the name in [/atom/proc/examine_title]
 	var/examine_thats = "Это"
+
+	///Cooldown tick timer for buckle messages
+	COOLDOWN_DECLARE(buckle_message_cd)
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -352,10 +357,20 @@
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
-/atom/proc/setOpened()
+/**
+ * Used to set something as 'open' if it's being used as a supplypod
+ *
+ * Override this if you want an atom to be usable as a supplypod.
+ */
+/atom/proc/set_opened()
 	return
 
-/atom/proc/setClosed()
+/**
+ * Used to set something as 'closed' if it's being used as a supplypod
+ *
+ * Override this if you want an atom to be usable as a supplypod.
+ */
+/atom/proc/set_closed()
 	return
 
 /// Is this atom injectable into other atoms
@@ -611,7 +626,18 @@
 		if(existing.dupe_id == id)
 			qdel(existing)
 
-/atom/proc/relaymove()
+/**
+ * An atom we are buckled or is contained within us has tried to move
+ *
+ * Default behaviour is to send a warning that the user can't move while buckled as long
+ * as the [buckle_message_cooldown][/atom/var/buckle_message_cooldown] has expired (50 ticks)
+ */
+/atom/proc/relaymove(mob/living/user, direction)
+	//if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
+	//	return
+	if(COOLDOWN_FINISHED(src, buckle_message_cd))
+		COOLDOWN_START(src, buckle_message_cd, 2.5 SECONDS)
+		balloon_alert(user, "can't move while buckled!")
 	return
 
 /atom/proc/ex_act(severity, target)
@@ -851,11 +877,11 @@
 
 	// Transfer
 	if(fingerprints)
-		A.fingerprints |= fingerprints.Copy()            //detective
+		A.fingerprints |= fingerprints.Copy()			//detective
 	if(fingerprints_time)
 		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
-		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
+		A.fingerprintshidden |= fingerprintshidden.Copy()	//admin
 	A.fingerprintslast = fingerprintslast
 
 /**
@@ -1767,3 +1793,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		return COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 	return NONE
+
+/// Called when something resists while this atom is its loc
+/atom/proc/container_resist_act(mob/living/user)
+	return

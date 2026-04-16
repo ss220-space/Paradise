@@ -1315,7 +1315,7 @@
 /obj/mecha/proc/toggle_internal_tank()
 	internals_action.Trigger()
 
-/obj/mecha/MouseDrop_T(mob/M, mob/user, params)
+/obj/mecha/mouse_drop_receive(mob/M, mob/user, params)
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return TRUE

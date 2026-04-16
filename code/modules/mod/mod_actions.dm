@@ -32,12 +32,10 @@
 		return
 	return ..()
 
-/datum/action/item_action/mod/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
-		return FALSE
+/datum/action/item_action/mod/do_effect(trigger_flags)
 	var/obj/item/mod/control/mod = target
-	if(mod.malfunctioning && prob(75))
-		clicker.balloon_alert(clicker, "сбой активации!")
+	if(mod.malfunctioning && prob(MOD_MALFUNCTION_PROB))
+		mod.balloon_alert(usr, "сбой активации!")
 		return FALSE
 	return TRUE
 
@@ -46,19 +44,15 @@
 	desc = "ЛКМ — развернуть или свернуть все компоненты модульного костюма. Ктрл+ЛКМ — развернуть/свернуть определённый компонент."
 	button_icon_state = "deploy"
 
-/datum/action/item_action/mod/deploy/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/mod/deploy/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	mod.quick_deploy(usr)
-
-/datum/action/item_action/mod/deploy/AltTrigger(mob/clicker, trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/mod/control/mod = target
-	mod.choose_deploy(usr)
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
+		mod.quick_deploy(usr)
+	else
+		mod.choose_deploy(usr)
 
 /datum/action/item_action/mod/deploy/ai
 	ai_action = TRUE
@@ -70,11 +64,11 @@
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
 
-/datum/action/item_action/mod/activate/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/mod/activate/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
-	if(!ready && !(trigger_flags & TRIGGER_SECONDARY_ACTION))
+	if(!(trigger_flags & TRIGGER_SECONDARY_ACTION) && !ready)
 		ready = TRUE
 		button_icon_state = "activate-ready"
 		build_all_button_icons()
@@ -82,15 +76,7 @@
 		return
 	var/obj/item/mod/control/mod = target
 	reset_ready()
-	mod.toggle_activate(clicker)
-
-/datum/action/item_action/mod/activate/AltTrigger(mob/clicker, trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/mod/control/mod = target
-	reset_ready()
-	mod.toggle_activate(clicker)
+	mod.toggle_activate(usr)
 
 /// Resets the state requiring to be doubleclicked again.
 /datum/action/item_action/mod/activate/proc/reset_ready()
@@ -106,12 +92,12 @@
 	desc = "Активировать модуль МЭК."
 	button_icon_state = "module"
 
-/datum/action/item_action/mod/module/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/mod/module/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	mod.quick_module(clicker)
+	mod.quick_module(usr)
 
 /datum/action/item_action/mod/module/ai
 	ai_action = TRUE
@@ -121,12 +107,12 @@
 	desc = "Включить панель управления модульным костюмом."
 	button_icon_state = "panel"
 
-/datum/action/item_action/mod/panel/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/mod/panel/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	mod.ui_interact(clicker)
+	mod.ui_interact(usr)
 
 /datum/action/item_action/mod/panel/ai
 	ai_action = TRUE
@@ -194,11 +180,11 @@
 	pinner = null
 	return ..()
 
-/datum/action/item_action/mod/pinnable/module/Trigger(trigger_flags)
+/datum/action/item_action/mod/pinnable/module/do_effect(trigger_flags)
 	. = ..()
 	if(!.)
 		return
-	module.on_select()
+	module.on_select(owner)
 
 /datum/action/item_action/mod/pinnable/module/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
 	current_button.cut_overlays()
