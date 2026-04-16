@@ -14,7 +14,6 @@
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	secure = TRUE
 	locked = TRUE
 	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
@@ -49,11 +48,9 @@
 	qdel(src)
 
 /obj/structure/closet/crate/secure/click_alt(mob/living/user)
-	togglelock(user)
+	if(locked)
+		togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
-/obj/structure/closet/crate/secure/closed_item_click(mob/user)
-	togglelock(user)
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(!locked)
@@ -164,6 +161,7 @@
 	overlay_sparking = "heavycrate_sparks"
 	overlay_broken = "heavycrate_hacking"
 	overlay_lightmask = "heavysecurecrate_lightmask"
+	req_access = list(ACCESS_SECURITY)
 
 /obj/structure/closet/crate/secure/weapon/veihit
 	name = "highrisk crate"
@@ -193,6 +191,7 @@
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
 	name = "secure hydroponics crate"
 	icon_state = "hydrosecurecrate"
+	req_access = list(ACCESS_HYDROPONICS)
 
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
@@ -240,6 +239,7 @@
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	icon_state = "scisecurecrate"
+	req_access = list(ACCESS_RESEARCH)
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
@@ -250,6 +250,7 @@
 	name = "secure engineering crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	icon_state = "engisecurecrate"
+	req_access = list(ACCESS_ENGINE)
 
 /obj/structure/closet/crate/secure/biohazard
 	name = "secure biohazard crate"
@@ -262,6 +263,7 @@
 	icon_state = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
+	req_access = list(ACCESS_SYNDICATE)
 
 // MARK: Blood crates
 /obj/structure/closet/crate/secure/blood

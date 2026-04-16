@@ -349,6 +349,7 @@
 #include "code\_globalvars\bitfields\declarations.dm"
 #include "code\_globalvars\bitfields\food.dm"
 #include "code\_globalvars\bitfields\icon_smoothing.dm"
+#include "code\_globalvars\bitfields\interaction_flags.dm"
 #include "code\_globalvars\bitfields\jobs.dm"
 #include "code\_globalvars\bitfields\mecha.dm"
 #include "code\_globalvars\bitfields\mobs.dm"

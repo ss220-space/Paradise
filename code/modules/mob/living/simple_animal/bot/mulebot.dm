@@ -443,7 +443,7 @@
 		return
 
 	var/obj/structure/closet/crate/CRATE
-	if(istype(AM,/obj/structure/closet/crate))
+	if(is_crate(AM))
 		CRATE = AM
 	else
 		if(!wires.is_cut(WIRE_LOADCHECK) && !hijacked)
@@ -686,7 +686,7 @@
 		if(load)		// if loaded, unload at target
 			if(report_delivery)
 				speak("Пункт назначения <b>[destination]</b> достигнут. Выгружаю [load].", radio_channel)
-			if(istype(load, /obj/structure/closet/crate))
+			if(is_crate(load))
 				var/obj/structure/closet/crate/C = load
 				C.notifyRecipient(destination)
 			unload(loaddir)

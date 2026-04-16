@@ -62,7 +62,7 @@
 	if(!wrapped)
 		icon_state = initial(icon_state)
 		return
-	var/holding_crate = istype(wrapped, /obj/structure/closet/crate)
+	var/holding_crate = is_crate(wrapped)
 	if(giftwrapped)
 		icon_state = holding_crate ? "deliverycrate" : "deliverycloset"
 		return
@@ -330,7 +330,7 @@
 		package.add_fingerprint(user)
 		container.add_fingerprint(user)
 		package.update_icon(UPDATE_ICON_STATE)
-		if(!istype(container, /obj/structure/closet/crate))
+		if(!is_crate(container))
 			container.welded = TRUE
 
 	else
