@@ -72,7 +72,7 @@
 	deconstruct(TRUE)
 	return TRUE
 
-/obj/structure/cargo_shelf/relay_container_resist_act(mob/living/user, obj/structure/closet/crate)
+/obj/structure/cargo_shelf/container_resist(mob/living/user, obj/structure/closet/crate)
 	to_chat(user, span_notice("Вы начинаете пытаться выбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 	if(do_after(user, 30 SECONDS, target = crate))
 		if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
