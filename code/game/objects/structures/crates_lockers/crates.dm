@@ -4,7 +4,7 @@
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
-	climbable = FALSE
+	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
@@ -54,9 +54,6 @@
 	tear_manifest()
 
 /obj/structure/closet/crate/open(mob/living/user, force)
-	if(climbable)
-		structure_shaken()
-
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
 		return
 	if(!user.electrocute_act(17, src))
