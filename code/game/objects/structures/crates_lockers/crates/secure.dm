@@ -61,7 +61,7 @@
 		togglelock(user)
 		return
 	add_fingerprint(user)
-	toggle(user, by_hand = TRUE)
+	toggle(user)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)

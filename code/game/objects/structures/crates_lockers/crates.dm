@@ -35,30 +35,15 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open(by_hand = FALSE)
+/obj/structure/closet/crate/open()
 	if(opened || !can_open())
 		return FALSE
 
-	if(by_hand)
-		for(var/obj/O in src)
-			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
-				if(response != "Yes" || !Adjacent(usr))
-					return FALSE
-				break
-
-	if(rigged && locate(/obj/item/radio/electropack) in src)
-		if(isliving(usr))
-			var/mob/living/L = usr
-			if(L.electrocute_act(17, src))
-				do_sparks(5, TRUE, src)
-				return 2
-
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
-	for(var/obj/O in src) //Objects
-		O.forceMove(loc)
-	for(var/mob/M in src) //Mobs
-		M.forceMove(loc)
+
+	var/atom/current_location = drop_location()
+	for(var/atom/movable/movable in src)
+		movable.forceMove(current_location)
 
 	opened = TRUE
 	update_icon()
@@ -87,40 +72,17 @@
 	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/I, mob/user, params)
-	if(!opened && try_rig(I, user))
+	if(!opened)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
-	if(iscoil(W))
-		var/obj/item/stack/cable_coil/C = W
-		if(rigged)
-			to_chat(user, span_notice("[src] is already rigged!"))
-			return TRUE
-		if(C.use(15))
-			to_chat(user, span_notice("You rig [src]."))
-			rigged = TRUE
-		else
-			to_chat(user, span_warning("You need atleast 15 wires to rig [src]!"))
-		return TRUE
-	if(istype(W, /obj/item/radio/electropack))
-		if(rigged)
-			if(!user.drop_transfer_item_to_loc(W, src))
-				to_chat(user, span_warning("[W] seems to be stuck to your hand!"))
-				return TRUE
-			to_chat(user, span_notice("You attach [W] to [src]."))
-		return TRUE
-
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
 	if(opened)
-		return
-	if(!rigged)
 		return
 
 	if(I.use_tool(src, user))
 		to_chat(user, span_notice("You cut away the wiring."))
 		playsound(loc, I.usesound, 100, TRUE)
-		rigged = FALSE
 		return TRUE
 
 /obj/structure/closet/crate/welder_act()
@@ -141,15 +103,8 @@
 	if(manifest)
 		tear_manifest(user)
 	else
-		var/obj/item/radio/electropack = locate() in src
-		if(rigged && electropack)
-			if(isliving(user))
-				var/mob/living/L = user
-				if(L.electrocute_act(17, electropack))
-					do_sparks(5, TRUE, src)
-					return
 		add_fingerprint(user)
-		toggle(user, by_hand = TRUE)
+		toggle(user)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)

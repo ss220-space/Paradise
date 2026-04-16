@@ -228,8 +228,8 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/setClosed()
 	close()
 
-/obj/structure/closet/proc/toggle(mob/user, by_hand = FALSE)
-	if(!(opened ? close() : open(by_hand)))
+/obj/structure/closet/proc/toggle(mob/user)
+	if(!(opened ? close() : open()))
 		to_chat(user, span_notice("It won't budge!"))
 		return FALSE
 
