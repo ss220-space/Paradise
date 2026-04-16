@@ -99,7 +99,7 @@
 	if(!locked && !welded)
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
-	if(user.incapacitated(INCAPABLE_RESTRAINTS))
+	if(user.incapacitated(IGNORE_RESTRAINTS))
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
@@ -115,7 +115,7 @@
 		return
 
 	//closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
-	if(!src || !user || user.incapacitated(INCAPABLE_RESTRAINTS) || user.loc != src || opened)
+	if(!src || !user || user.incapacitated(IGNORE_RESTRAINTS) || user.loc != src || opened)
 		return
 
 	//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

@@ -42,7 +42,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
+	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return
 
 	if(next_move >= world.time)

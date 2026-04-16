@@ -121,7 +121,7 @@
 		return .
 
 	// If you are incapped, you probably can't brace yourself
-	var/can_help_themselves = !incapacitated(INCAPABLE_RESTRAINTS)
+	var/can_help_themselves = !incapacitated(IGNORE_RESTRAINTS)
 	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
@@ -440,9 +440,9 @@
 	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
 		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
-			ignore_flags |= INCAPABLE_RESTRAINTS
+			ignore_flags |= IGNORE_RESTRAINTS
 		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
-			ignore_flags |= INCAPABLE_GRAB
+			ignore_flags |= IGNORE_GRAB
 
 		if(incapacitated(ignore_flags))
 			to_chat(src, span_warning("Вы сейчас недееспособны!"))

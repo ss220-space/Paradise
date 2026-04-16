@@ -34,14 +34,14 @@
 
 /datum/component/leanable/proc/mousedrop_receive(atom/source, atom/movable/dropped, mob/user, params)
 	if(dropped != user) //Have we been dropped on a valid leanable object?
-		return 
+		return
 	var/mob/living/leaner = dropped
 	leaning_mob = leaner
 	if(!iscarbon(dropped) && !isrobot(dropped)) //Are we not a cyborg or carbon?
 		return
 	if(!(usr == leaner)) //Are we trying to lean someone else?
 		return
-	if(leaner.incapacitated(INCAPABLE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return
 	if(leaner.leaned_object) //Are we leaning already?
 		return

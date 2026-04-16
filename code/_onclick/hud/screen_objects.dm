@@ -186,7 +186,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
+	if(usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -219,7 +219,7 @@
 	return FALSE
 
 /atom/movable/screen/storage/mouse_drop_receive(obj/item/I, mob/user, params)
-	if(!user || !master || !istype(I) || user.incapacitated(INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+	if(!user || !master || !istype(I) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return FALSE
 
 	if(is_ventcrawling(user))
