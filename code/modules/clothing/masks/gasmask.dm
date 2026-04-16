@@ -824,16 +824,9 @@
 	)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick = TRUE)
-	if(istype(action, /datum/action/item_action/halt))
-		if(leftclick)
-			halt()
-		else
-			switch_halt_phrase(user)
-			var/datum/action/item_action/halt/halt_action = locate() in actions
-			if(halt_action)
-				halt_action.name = "[uppertext(key)]!"
-				halt_action.UpdateButtonIcon()
-	else if(istype(action, /datum/action/item_action/selectphrase))
+	if(istype(action, /datum/action/item_action/halt) && leftclick)
+		halt()
+	else if(istype(action, /datum/action/item_action/selectphrase) || (istype(action, /datum/action/item_action/halt) && !leftclick))
 		var/key = switch_halt_phrase(user)
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)
