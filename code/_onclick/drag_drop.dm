@@ -113,7 +113,7 @@
 	var/list/old_offsets = screen_loc_to_offset(LAZYACCESS(drag_details, SCREEN_LOC), view)
 	var/list/new_offsets = screen_loc_to_offset(LAZYACCESS(modifiers, SCREEN_LOC), view)
 
-	var/distance = sqrt(((old_offsets[1] - new_offsets[1]) ** 2) + ((old_offsets[2] - new_offsets[2]) ** 2))
+	var/distance = CHEAP_HYPOTENUSE(old_offsets[1], old_offsets[2], new_offsets[1], new_offsets[2])
 	if(distance > LENIENCY_DISTANCE)
 		return FALSE
 

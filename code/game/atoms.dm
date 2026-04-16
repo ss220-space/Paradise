@@ -203,7 +203,7 @@
 	var/examine_thats = "Это"
 
 	///Cooldown tick timer for buckle messages
-	var/buckle_message_cooldown = 0
+	COOLDOWN_DECLARE(buckle_message_cd)
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -635,8 +635,8 @@
 /atom/proc/relaymove(mob/living/user, direction)
 	//if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
 	//	return
-	if(buckle_message_cooldown <= world.time)
-		buckle_message_cooldown = world.time + 25
+	if(COOLDOWN_FINISHED(src, buckle_message_cd))
+		COOLDOWN_START(src, buckle_message_cd, 2.5 SECONDS)
 		balloon_alert(user, "can't move while buckled!")
 	return
 
@@ -877,11 +877,11 @@
 
 	// Transfer
 	if(fingerprints)
-		A.fingerprints |= fingerprints.Copy()            //detective
+		A.fingerprints |= fingerprints.Copy()			//detective
 	if(fingerprints_time)
 		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
-		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
+		A.fingerprintshidden |= fingerprintshidden.Copy()	//admin
 	A.fingerprintslast = fingerprintslast
 
 /**

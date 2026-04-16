@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/material_drop_amount = 2
 	var/ignore_shoves = FALSE
 	var/no_throw_opens = FALSE
-	var/message_cooldown
+	COOLDOWN_DECLARE(message_cd)
 	var/dense_when_open = FALSE //if it's dense when open or not
 
 	/// How many pixels the closet can shift on the x axis when shaking
@@ -444,8 +444,8 @@ GLOBAL_LIST_EMPTY(closets)
 	if(user.stat || !isturf(loc))
 		return
 	if(locked)
-		if(message_cooldown <= world.time)
-			message_cooldown = world.time + 50
+		if(COOLDOWN_FINISHED(src, message_cd))
+			COOLDOWN_START(src, message_cd, 5 SECONDS)
 			to_chat(user, span_warning("[src]'s door won't budge!"))
 		return
 	container_resist_act(user)

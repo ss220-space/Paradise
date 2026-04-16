@@ -25,13 +25,15 @@
 
 /obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(!iscloset(mover))
-		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
-		if(locatedcrate) // you can walk on it like tables, if you're not in an open crate trying to move to a closed crate
-			if(opened) // if we're open, allow entering regardless of located crate openness
-				return TRUE
-			if(!locatedcrate.opened) // otherwise, if the located crate is closed, allow entering
-				return TRUE
+	if(iscloset(mover))
+		return
+	var/obj/structure/closet/crate/located_crate = locate(/obj/structure/closet/crate) in get_turf(mover)
+	if(!located_crate) // you can walk on it like tables, if you're not in an open crate trying to move to a closed crate
+		return
+	if(opened) // if we're open, allow entering regardless of located crate openness
+		return TRUE
+	if(!located_crate.opened) // otherwise, if the located crate is closed, allow entering
+		return TRUE
 
 /obj/structure/closet/crate/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
