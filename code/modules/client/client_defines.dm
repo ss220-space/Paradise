@@ -271,4 +271,6 @@
 			return FALSE
 		if(NAMEOF(src, key))
 			return FALSE
+		if(NAMEOF(src, donator_level))
+			return FALSE
 	return ..()
