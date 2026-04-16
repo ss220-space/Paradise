@@ -223,6 +223,31 @@
 	crate.interaction_flags_click &= ~INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
 	vis_contents -= crate
 
+// MARK: full crate shelf
+/obj/structure/cargo_shelf/full
+
+/obj/structure/cargo_shelf/full/Initialize(mapload)
+	. = ..()
+	populate_with_random_crates()
+
+/// Fills a shelf with random crates to its maximum capacity.
+/obj/structure/cargo_shelf/proc/populate_with_random_crates()
+	var/list/crate_types = subtypesof(/obj/structure/closet/crate)
+	for(var/slot in 1 to capacity)
+		var/crate_type = pick(crate_types)
+		var/obj/structure/closet/crate/new_crate = new crate_type(src)
+		var/y_offset
+		switch(slot)
+			if(1)
+				y_offset = 0
+			if(2)
+				y_offset = 16
+			if(3)
+				y_offset = 26
+			else
+				y_offset = 10 * (slot - 1)
+		add_crate(new_crate, y_offset)
+
 // MARK: shelf rack parts
 /obj/item/rack_parts/cargo_shelf
 	name = "crate shelf parts"
