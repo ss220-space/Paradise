@@ -25,14 +25,6 @@ jobs:
           python-version: "3.x"
           cache: "pip"
 
-      - name: Restore Bootstrap cache
-        uses: actions/cache@v5
-        with:
-          path: tools/bootstrap/.cache
-          key: ${{ runner.os }}-bootstrap-${{ hashFiles('/tools/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-bootstrap-
-
       - uses: actions/setup-node@v6
         with:
           node-version: 22.11.0
@@ -47,7 +39,6 @@ jobs:
           pip install setuptools
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
-          tools/bootstrap/python -c ''
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
@@ -141,12 +132,12 @@ jobs:
       - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled() && steps.map-filter.outputs.run_maps == 'true'
         run: |
-          tools/bootstrap/python -m mapmerge2.dmm_test
-          tools/bootstrap/python -m tools.maplint.source
+          python -m mapmerge2.dmm_test
+          python -m tools.maplint.source
 
       - name: Run DMI Tests
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: tools/bootstrap/python -m dmi.test
+        run: python -m dmi.test
 
       - name: Check Changelogs
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
