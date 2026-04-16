@@ -50,7 +50,6 @@
 		var/mutable_appearance/shelf_overlay = mutable_appearance('icons/obj/structures/shelf.dmi', "shelf_stack", layer = stack_layer)
 		shelf_overlay.pixel_y = stack_offset
 		overlays += shelf_overlay
-	return
 
 /obj/structure/cargo_shelf/Destroy()
 	spill_contents()
@@ -67,10 +66,13 @@
 		for(var/obj/structure/closet/crate/crate in contents)
 			. += span_notice("[icon2html(crate, user)] [DECLENT_RU_CAP(crate, NOMINATIVE)]")
 
-/obj/structure/cargo_shelf/wrench_act_secondary(mob/living/user, obj/item/tool)
-	tool.play_tool_sound(src)
-	deconstruct(TRUE)
-	return TRUE
+/obj/structure/cargo_shelf/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(item.tool_behaviour == TOOL_WRENCH && !(flags & NODECONSTRUCT))
+		item.play_tool_sound(src)
+		if(do_after(user, 3 SECONDS, target = src))
+			deconstruct(TRUE)
+			return TRUE
+	return ..()
 
 /obj/structure/cargo_shelf/container_resist(mob/living/user, obj/structure/closet/crate)
 	to_chat(user, span_notice("Вы начинаете пытаться выбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
@@ -222,31 +224,6 @@
 			break
 	crate.interaction_flags_click &= ~INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
 	vis_contents -= crate
-
-// MARK: full crate shelf
-/obj/structure/cargo_shelf/full
-
-/obj/structure/cargo_shelf/full/Initialize(mapload)
-	. = ..()
-	populate_with_random_crates()
-
-/// Fills a shelf with random crates to its maximum capacity.
-/obj/structure/cargo_shelf/proc/populate_with_random_crates()
-	var/list/crate_types = subtypesof(/obj/structure/closet/crate)
-	for(var/slot in 1 to capacity)
-		var/crate_type = pick(crate_types)
-		var/obj/structure/closet/crate/new_crate = new crate_type(src)
-		var/y_offset
-		switch(slot)
-			if(1)
-				y_offset = 0
-			if(2)
-				y_offset = 16
-			if(3)
-				y_offset = 26
-			else
-				y_offset = 10 * (slot - 1)
-		add_crate(new_crate, y_offset)
 
 // MARK: shelf rack parts
 /obj/item/rack_parts/cargo_shelf

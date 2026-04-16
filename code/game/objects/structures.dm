@@ -69,7 +69,7 @@
 		add_fingerprint(user)
 	return ..()
 
-/obj/structure/attackby(obj/item/I, mob/user, params)
+/obj/structure/attackby(obj/item/I, mob/user, list/modifiers)
 	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 	return ..()
