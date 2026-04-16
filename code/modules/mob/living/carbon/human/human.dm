@@ -1001,7 +1001,7 @@
 		check_self_for_injuries()
 		return
 
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, usr, usr)
+	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, usr, usr)
 
 /**
  * Set up DNA and species.
@@ -1978,7 +1978,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return ishuman(target) && target.body_position == LYING_DOWN
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED))
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
 		target.balloon_alert(src, "цель не лежит!")
 		return
 	/// if you have latex you are faster at grabbing
@@ -2002,7 +2002,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED) || target.buckled)
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
 		visible_message(
 			span_warning("[declent_ru(DATIVE)] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват."),
 			ignored_mobs = src

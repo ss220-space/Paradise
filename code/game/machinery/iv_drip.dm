@@ -6,6 +6,8 @@
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	use_power = NO_POWER_USE
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
 /obj/machinery/iv_drip/process()

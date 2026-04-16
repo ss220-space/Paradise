@@ -528,7 +528,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	target.Weaken(knockdown_time)
 
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
-	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(target.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		target.visible_message(
 			span_danger("[user] induces sleep in [target] with [src]!"),
 			span_userdanger("You suddenly feel very drowsy!"),

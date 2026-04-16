@@ -191,7 +191,7 @@
 	else
 		icon_state = "fireaxe_[has_axe]_[hitstaken]hits"
 
-/obj/structure/closet/fireaxecabinet/open()
+/obj/structure/closet/fireaxecabinet/open(mob/living/user, force)
 	return
 
 /obj/structure/closet/fireaxecabinet/close()

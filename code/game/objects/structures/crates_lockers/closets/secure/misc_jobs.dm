@@ -4,11 +4,10 @@
 	icon_state = "clown"
 
 /obj/structure/closet/secure_closet/clown/populate_contents()
-	switch(rand(0, 1))
-		if(0)
-			new /obj/item/storage/backpack/clown(src)
-		if(1)
-			new /obj/item/storage/backpack/satchel_clown(src)
+	if(prob(50))
+		new /obj/item/storage/backpack/clown(src)
+	else
+		new /obj/item/storage/backpack/satchel_clown(src)
 	new /obj/item/clothing/under/rank/clown(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -28,11 +27,10 @@
 	icon_state = "mime"
 
 /obj/structure/closet/secure_closet/mime/populate_contents()
-	switch(rand(0, 1))
-		if(0)
-			new /obj/item/storage/backpack/mime(src)
-		if(1)
-			new /obj/item/storage/backpack/satchel_mime(src)
+	if(prob(50))
+		new /obj/item/storage/backpack/mime(src)
+	else
+		new /obj/item/storage/backpack/satchel_mime(src)
 	new /obj/item/clothing/head/beret(src)
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/clothing/mask/gas/mime/old(src)

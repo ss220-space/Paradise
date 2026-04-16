@@ -301,7 +301,7 @@
 	},
 /area/shuttle/escape)
 "bb" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "bc" = (

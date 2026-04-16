@@ -65,7 +65,7 @@
 
 // We used to use linear regression to approximate the answer, but Mloc realized this was actually faster.
 // And lo and behold, it is, and it's more accurate to boot.
-#define CHEAP_HYPOTENUSE(Ax, Ay, Bx, By) (sqrt((Ax - Bx) ** 2 + (Ay - By) ** 2)) //A squared + B squared = C squared
+#define CHEAP_HYPOTENUSE(Ax, Ay, Bx, By) (sqrt(POW2(Ax - Bx) + POW2(Ay - By))) //A squared + B squared = C squared
 
 // Greatest Common Divisor - Euclid's algorithm
 /proc/Gcd(a, b)

@@ -96,7 +96,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
@@ -222,7 +222,7 @@
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
 
-	while(checking.len && depth > 0)
+	while(length(checking) && depth > 0)
 		var/list/next = list()
 		--depth
 

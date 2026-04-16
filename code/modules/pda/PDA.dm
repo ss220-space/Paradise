@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
 
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
+
 	//Main variables
 	var/owner = null
 	var/default_cartridge = null // Access level defined by cartridge

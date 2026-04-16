@@ -22,7 +22,7 @@ def post_error(define_name, file, github_error_style):
         print(f"::error file={file},title=Define Sanity::{define_name} is defined locally in {file} but not undefined locally!")
     else:
         directory, filename = os.path.split(file)
-        print(f"- Failure: {red(define_name)} is defined locally in {directory}\{red(filename)} but not undefined locally!")
+        print(f"- Failure: {red(define_name)} is defined locally in {os.path.join(directory, red(filename))} but not undefined locally!")
 
 def main():
 
@@ -70,7 +70,7 @@ def main():
             for define in define_regex.finditer(file_contents):
                 number_of_defines += 1
                 define_name = define.group(2)
-                if not re.search("#undef\s" + define_name, file_contents):
+                if not re.search(r"#undef\s" + define_name, file_contents):
                     located_error_tuples.append((define_name, applicable_file))
 
     if number_of_defines == 0:

@@ -18,6 +18,7 @@
 	refill_canister = /obj/item/vending_refill/gun_mods
 	default_price = PAYCHECK_CREW
 	default_premium_price = PAYCHECK_MAX
+	vandal_secure = TRUE
 
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 8,

@@ -3229,11 +3229,7 @@
 	},
 /area/engineering/mechanic_workshop/hangar)
 "aBh" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "aBj" = (
@@ -4793,11 +4789,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aLe" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -7279,11 +7272,8 @@
 /area/janitor)
 "bbV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -10363,11 +10353,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "bum" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/controlroom)
 "buo" = (
@@ -15652,11 +15638,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "bUl" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall,
 /area/engineering/engine)
 "bUm" = (
@@ -33732,11 +33714,7 @@
 	},
 /area/security/interrogation)
 "dDH" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "dDI" = (
@@ -35036,11 +35014,8 @@
 /area/maintenance/starboard)
 "dJH" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
@@ -40399,11 +40374,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "eqA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/wall,
 /area/quartermaster/storage)
@@ -47849,11 +47821,7 @@
 	},
 /area/storage/eva)
 "gcj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/engine)
 "gcs" = (
@@ -61493,11 +61461,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "jjY" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall/rust,
 /area/toxins/sm_test_chamber)
 "jkc" = (
@@ -68215,11 +68179,7 @@
 	},
 /area/crew_quarters/theatre)
 "kQw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall,
 /area/toxins/sm_test_chamber)
 "kQx" = (
@@ -70220,11 +70180,7 @@
 	},
 /area/atmos)
 "lpv" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/engineering/gravitygenerator)
 "lpx" = (
@@ -75356,7 +75312,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "mya" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/reception)
 "myh" = (
@@ -75460,9 +75416,7 @@
 	},
 /area/security/main)
 "mzZ" = (
-/obj/structure/sign/science{
-	icon_state = "doors"
-	},
+/obj/structure/sign/doors,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "mAa" = (
@@ -88124,7 +88078,7 @@
 	},
 /area/space)
 "pmd" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/medbay)
 "pmj" = (
@@ -92871,9 +92825,7 @@
 	},
 /area/toxins/misc_lab)
 "qlJ" = (
-/obj/structure/sign/science{
-	icon_state = "xenobio2"
-	},
+/obj/structure/sign/xenobio/slime,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "qlK" = (
@@ -96094,7 +96046,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "qTv" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/r_wall,
 /area/medical/cmo)
 "qTI" = (
@@ -104218,10 +104170,7 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "sIZ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -107838,11 +107787,7 @@
 	},
 /area/hallway/secondary/exit)
 "tzJ" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "tzL" = (
@@ -110836,7 +110781,7 @@
 	},
 /area/library/game_zone)
 "uez" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/ward)
 "ueJ" = (
@@ -112133,7 +112078,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "utI" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/r_wall,
 /area/maintenance/electrical)
 "utN" = (
@@ -112586,11 +112531,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "uzj" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall,
 /area/medical/reception)
 "uzw" = (
@@ -113554,7 +113495,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
 "uKk" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{

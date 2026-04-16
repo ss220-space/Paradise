@@ -109,13 +109,19 @@
 
 	return ..()
 
+/**
+ * Called when this mob is receiving damage from falling
+ *
+ * * impacted_turf - the turf we are falling onto
+ * * levels - the number of levels we are falling
+ */
 /mob/living/proc/ZImpactDamage(turf/impacted_turf, levels)
 	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
 	if(. & ZIMPACT_CANCEL_DAMAGE)
 		return .
 
 	// If you are incapped, you probably can't brace yourself
-	var/can_help_themselves = !incapacitated(INC_IGNORE_RESTRAINED)
+	var/can_help_themselves = !incapacitated(IGNORE_RESTRAINTS)
 	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
@@ -133,7 +139,7 @@
 	if(ishuman(src))
 		for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 			var/obj/item/organ/external/leg = get_organ(zone)
-			if(leg.has_fracture())
+			if(leg && leg.has_fracture())
 				functional_legs = FALSE
 				break
 	// cat check, work only for 1 level fall
@@ -431,12 +437,12 @@
 		to_chat(src, span_warning("Вы ещё не совсем осознаёте происходящее!"))
 		return FALSE
 
-	if(!(action_bitflags & BYPASS_INCAPACITATED)) // should be interaction_flags_atom, but we haven't implemented yet and won't
+	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
-		if(action_bitflags & INC_IGNORE_RESTRAINED)
-			ignore_flags |= INC_IGNORE_RESTRAINED
-		if(!(action_bitflags & INC_IGNORE_GRABBED))
-			ignore_flags |= INC_IGNORE_GRABBED
+		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
+			ignore_flags |= IGNORE_RESTRAINTS
+		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+			ignore_flags |= IGNORE_GRAB
 
 		if(incapacitated(ignore_flags))
 			to_chat(src, span_warning("Вы сейчас недееспособны!"))
@@ -1017,7 +1023,7 @@
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(buckled || mob_negates_gravity())
 		return FALSE
-	. = ..()
+	return ..()
 
 /*//////////////////////
 	START RESIST PROCS
@@ -1034,18 +1040,18 @@
 	set name = "Сопротивляться"
 	set category = VERB_CATEGORY_IC
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_resist)))
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
-/mob/living/proc/run_resist()
+/mob/living/proc/execute_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
-
 	//resisting grabs (as if it helps anyone...)
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
+		add_attack_logs(src, pulledby, "resisted grab")
 		resist_grab()
 		return
 
@@ -1054,9 +1060,8 @@
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
-	else if(isobj(loc))
-		var/obj/C = loc
-		C.container_resist(src)
+	else if(loc != get_turf(src))
+		loc.container_resist_act(src)
 
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)

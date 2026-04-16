@@ -1014,13 +1014,10 @@
 	name = "Ship External Access";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "smindicate_bottom";
 	layer = 5;
-	name = "Outer Airlock Bottom";
-	opacity = 0
+	name = "Outer Airlock Bottom"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
@@ -2978,11 +2975,8 @@
 	name = "Bridge";
 	req_access = list(153)
 	},
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndFB_lockdown";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "syndFB_lockdown"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -3152,12 +3146,9 @@
 	name = "Shuttle Airlock";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_sit_1";
 	name = "Side Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
@@ -7568,7 +7559,7 @@
 	},
 /area/centcom/evac)
 "dCT" = (
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -10849,13 +10840,10 @@
 	name = "Ship External Access";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "smindicate_bottom";
 	layer = 5;
-	name = "Outer Airlock Bottom";
-	opacity = 0
+	name = "Outer Airlock Bottom"
 	},
 /obj/machinery/door_control{
 	id = "smindicate_bottom";
@@ -14302,11 +14290,8 @@
 	},
 /area/syndicate_mothership)
 "gSC" = (
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndFB_lockdown";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "syndFB_lockdown"
 	},
 /turf/simulated/wall/indestructible/fakeglass{
 	base_icon_state = "fake_plastitanium_glass";
@@ -15841,12 +15826,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "soltradeship_north";
-	name = "Security Doors";
-	opacity = 0
+	name = "Security Doors"
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "soltradeship_north";
@@ -17618,12 +17600,9 @@
 	name = "Shuttle Airlock";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Side Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
@@ -18165,7 +18144,7 @@
 	pixel_y = 24;
 	req_access = list(114)
 	},
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -21710,7 +21689,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "kqK" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone1)
 "kre" = (
@@ -26851,12 +26830,9 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "mGD" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "soltradeship_south";
-	name = "Security Doors";
-	opacity = 0
+	name = "Security Doors"
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -38332,7 +38308,7 @@
 	},
 /area/centcom/bridge)
 "rLo" = (
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -40572,7 +40548,7 @@
 	name = "Custom Emergency NanoMed";
 	pixel_x = 26
 	},
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -44769,12 +44745,9 @@
 	name = "Shuttle Airlock";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
@@ -49489,12 +49462,9 @@
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_sit_1";
 	name = "Front Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle/plating,

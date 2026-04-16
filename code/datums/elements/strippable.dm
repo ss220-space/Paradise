@@ -22,7 +22,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
+	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, PROC_REF(mouse_drop_onto))
 
 	src.items = items
 	src.should_strip_proc_path = should_strip_proc_path
@@ -30,7 +30,7 @@
 /datum/element/strippable/Detach(datum/source)
 	. = ..()
 
-	UnregisterSignal(source, COMSIG_DO_MOB_STRIP)
+	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
 
 	if(!isnull(strip_menus))
 		qdel(strip_menus[source])
@@ -45,6 +45,9 @@
 	if(over != user)
 		return
 
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+		return
+
 	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
@@ -55,6 +58,7 @@
 		LAZYSET(strip_menus, source, strip_menu)
 
 	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /// A representation of an item that can be stripped down
 /datum/strippable_item
