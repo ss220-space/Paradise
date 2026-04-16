@@ -213,6 +213,10 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"GK" = (
+/obj/item/rack_parts/cargo_shelf,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Hi" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -228,6 +232,10 @@
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"LZ" = (
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Nb" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -248,6 +256,7 @@
 /area/fastload/blue)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "RQ" = (
@@ -260,6 +269,7 @@
 /area/fastload)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Tl" = (
@@ -2375,8 +2385,8 @@ ay
 ay
 jk
 QS
-HE
-HE
+LZ
+LZ
 HE
 HE
 HE
@@ -2506,7 +2516,7 @@ ay
 ay
 ay
 jk
-HE
+GK
 HE
 HE
 HE
@@ -2704,9 +2714,9 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
+LZ
+LZ
+LZ
 HE
 HE
 HE
