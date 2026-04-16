@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(closets)
 			return FALSE
 	var/turf/current_turf = get_turf(src)
 	for(var/mob/living/user_living in current_turf)
-		if(user_living.anchored || IS_HORIZONTAL(user) && user_living.mob_size > MOB_SIZE_TINY && user_living.density)
+		if(user_living.anchored || IS_HORIZONTAL(user_living) && user_living.mob_size > MOB_SIZE_TINY && user_living.density)
 			if(user)
 				to_chat(user, span_danger("There's something large on top of [src], preventing it from opening."))
 			return FALSE
@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(closets)
 				balloon_alert(user, "[closet.name] is in the way!")
 			return FALSE
 	for(var/mob/living/user_living in current_turf)
-		if(user_living.anchored || IS_HORIZONTAL(user) && user_living.mob_size > MOB_SIZE_TINY && user_living.density)
+		if(user_living.anchored || IS_HORIZONTAL(user_living) && user_living.mob_size > MOB_SIZE_TINY && user_living.density)
 			if(user)
 				to_chat(user, span_danger("There's something too large in [src], preventing it from closing."))
 			return FALSE

@@ -49,11 +49,6 @@
 	. = ..()
 	tear_manifest()
 
-/obj/structure/closet/crate/attackby(obj/item/item, mob/user, params)
-	if(!opened)
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
-
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/item)
 	if(opened)
 		return
