@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - tweak: "Гатлинг лазер и гатлинг пульсер теперь фул авто. (PR #8872)"

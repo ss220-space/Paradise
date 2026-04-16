@@ -91,6 +91,11 @@
 
 	orient2hud()
 
+
+/obj/item/storage/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Открыть")
+
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -171,6 +176,18 @@
 		return CLICK_ACTION_SUCCESS
 	open(user)
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/storage/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. && !(. & SECONDARY_ATTACK_CALL_NORMAL))
+		return
+
+	click_alt(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/storage/attack_self_secondary(mob/user, list/modifiers)
+	open(user)
+	return TRUE
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -817,6 +834,11 @@
 
 	handle_item_insertion(I)
 	return .|ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/storage/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
+	. = ..()
+	open(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))

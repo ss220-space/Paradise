@@ -753,7 +753,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cn" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "co" = (

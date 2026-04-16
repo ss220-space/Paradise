@@ -629,7 +629,21 @@
 	siemens_coefficient = 0.25
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	slowdown_deployed = 0
-	allowed_suit_storage = list()
+	allowed_suit_storage = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/clothing/mask/cigarette,
+		/obj/item/lighter,
+		/obj/item/rcs,
+		/obj/item/stack/packageWrap,
+		/obj/item/stack/wrapping_paper,
+		/obj/item/destTagger,
+		/obj/item/pen,
+		/obj/item/paper,
+		/obj/item/stamp,
+		/obj/item/gun/projectile/shotgun,
+	)
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
 	variants = list(
 		MOD_VARIANT_LOADER = list(

@@ -271,7 +271,7 @@
 		return FALSE
 
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection
-	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
+	var/limb_loss_reduction = floor(armor / 25) //It's guaranteed that every 25th armor point will protect from one delimb
 	var/limbs_affected = 0
 
 	switch(severity)

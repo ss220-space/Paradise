@@ -1402,7 +1402,7 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = -32
 	},
 /obj/structure/closet/secure_closet/mining_medic,

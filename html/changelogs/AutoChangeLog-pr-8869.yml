@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь цвета реагентов в контейнерах не затемнены. (PR #8869)"

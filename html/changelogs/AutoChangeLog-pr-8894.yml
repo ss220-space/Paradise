@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - tweak: "Теперь все куски крови при выстрели летят максимум на 5 тайлов. (PR #8894)"

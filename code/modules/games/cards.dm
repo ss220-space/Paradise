@@ -455,9 +455,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/remove_card/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
-		return
+/datum/action/item_action/remove_card/do_effect(trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.Removecard()
@@ -468,14 +466,13 @@
 	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
 
-/datum/action/item_action/discard/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/discard/do_effect(trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.discard()
 	return ..()
 
 // No more datum action here
-
 /obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
@@ -637,7 +634,7 @@
 		. += image
 		return
 
-	var/offset = FLOOR(20/LAZYLEN(cards) + 1, 1)
+	var/offset = floor(20/LAZYLEN(cards) + 1)
 	// var/i = 0
 	for(var/i in 1 to LAZYLEN(cards))
 		var/datum/playingcard/card = cards[i]

@@ -72,7 +72,7 @@
 		if(defib.powered)
 			. += "[defib.safety ? "online" : "emagged"]"
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
-			ratio = CEILING(ratio * 4, 1) * 25
+			ratio = ceil(ratio * 4) * 25
 			. += "charge[ratio]"
 		if(clamps_locked)
 			. += "clamps"
