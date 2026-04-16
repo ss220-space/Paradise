@@ -12,7 +12,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/explorer
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = list(/obj/item/tank, /obj/item/flashlight, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/pickaxe, /obj/item/shovel, /obj/item/resonator, /obj/item/gun/energy/plasmacutter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
