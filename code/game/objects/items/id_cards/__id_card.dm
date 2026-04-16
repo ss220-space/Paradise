@@ -325,6 +325,6 @@
 	. = ..()
 	if(.)
 		switch(var_name)
-			if(NAMEOF(src, assignment), NAMEOF(src, registered_name), NAMEOF(src, registered_age))
+			if(NAMEOF(src, assignment), NAMEOF(src, registered_name), NAMEOF(src, age))
 				update_label()
 				update_appearance()
