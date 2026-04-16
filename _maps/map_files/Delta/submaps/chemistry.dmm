@@ -360,7 +360,7 @@
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "uv" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	icon_state = "lifestar";
 	name = "Medbay"
 	},
