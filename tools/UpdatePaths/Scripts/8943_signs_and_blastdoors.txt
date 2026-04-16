@@ -6,4 +6,7 @@
 /obj/structure/sign/securearea{name="RADIOACTIVE AREA"} : /obj/structure/sign/radiation{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
 /obj/structure/sign/securearea{name="EXTERNAL AIRLOCK"} : /obj/structure/sign/vacuum/external{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
 /obj/structure/sign/securearea{name="HIGH VOLTAGE"} : /obj/structure/sign/electricshock{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
-/obj/structure/sign/redcross{icon_state = "lifestar"} : /obj/structure/sign/lifestar{@OLD;icon_state=@SKIP}
+/obj/structure/sign/redcross : /obj/structure/sign/medbay/redcross{@OLD}
+/obj/structure/sign/greencross : /obj/structure/sign/medbay/greencross{@OLD}
+/obj/structure/sign/lifestar : /obj/structure/sign/medbay{@OLD}
+/obj/structure/sign/medbay{name="Medbay"} : /obj/structure/sign/medbay{@OLD;name=@SKIP;desc=@SKIP}

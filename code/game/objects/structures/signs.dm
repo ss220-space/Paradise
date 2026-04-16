@@ -198,20 +198,16 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/redcross
-	name = "медбэй"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
-	icon_state = "redcross"
-
-/obj/structure/sign/greencross
-	name = "медбэй"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
-	icon_state = "greencross"
-
-/obj/structure/sign/lifestar
-	name = "медбэй"
+/obj/structure/sign/medbay
+	name = "МЕДБЭЙ"
 	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
 	icon_state = "lifestar"
+
+/obj/structure/sign/medbay/redcross
+	icon_state = "redcross"
+
+/obj/structure/sign/medbay/greencross
+	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
 	name = "награда \"Самый робастный мужчина\""
@@ -322,7 +318,7 @@
 
 /obj/structure/sign/doors
 	name = "ШЛЮЗЫ"
-	desc ="Знак, обозначающий область, где возможно внезапное закрытие шлюзов."
+	desc = "Знак, обозначающий область, где возможно внезапное закрытие шлюзов."
 	icon_state = "doors"
 
 /obj/structure/sign/custodian

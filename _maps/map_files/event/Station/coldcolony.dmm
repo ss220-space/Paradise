@@ -26991,7 +26991,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "jZj" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/surgery/west)
 "jZt" = (
@@ -30721,7 +30721,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
 "lvz" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/medbay)
 "lvI" = (
@@ -34772,7 +34772,7 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/bridge/vip)
 "mVX" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/cmostore)
 "mWa" = (
@@ -43513,7 +43513,7 @@
 /obj/item/restraints/handcuffs{
 	pixel_y = -3
 	},
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /obj/structure/cable{
@@ -64997,7 +64997,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "ydR" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/sleeper)
 "ydV" = (

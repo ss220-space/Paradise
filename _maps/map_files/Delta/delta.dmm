@@ -73950,7 +73950,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "mya" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/reception)
 "myh" = (
@@ -86208,7 +86208,7 @@
 	},
 /area/space)
 "pmd" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/medbay)
 "pmj" = (
@@ -93957,7 +93957,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "qTv" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/r_wall,
 /area/medical/cmo)
 "qTI" = (
@@ -105586,11 +105586,7 @@
 	},
 /area/hallway/secondary/exit)
 "tzJ" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "tzL" = (
@@ -108526,7 +108522,7 @@
 	},
 /area/library/game_zone)
 "uez" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/medical/ward)
 "ueF" = (
@@ -109824,7 +109820,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "utI" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/r_wall,
 /area/maintenance/electrical)
 "utT" = (
@@ -110308,11 +110304,7 @@
 	},
 /area/turret_protected/aisat)
 "uzj" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall,
 /area/medical/reception)
 "uzw" = (
@@ -111306,7 +111298,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
 "uKk" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{

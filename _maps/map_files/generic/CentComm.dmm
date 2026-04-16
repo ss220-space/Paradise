@@ -7559,7 +7559,7 @@
 	},
 /area/centcom/evac)
 "dCT" = (
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -18144,7 +18144,7 @@
 	pixel_y = 24;
 	req_access = list(114)
 	},
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -21689,7 +21689,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "kqK" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone1)
 "kre" = (
@@ -38308,7 +38308,7 @@
 	},
 /area/centcom/bridge)
 "rLo" = (
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -40548,7 +40548,7 @@
 	name = "Custom Emergency NanoMed";
 	pixel_x = 26
 	},
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{

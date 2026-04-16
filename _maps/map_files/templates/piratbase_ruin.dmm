@@ -10369,7 +10369,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,

@@ -5988,9 +5988,8 @@
 	},
 /area/maintenance/cafeteria)
 "aTR" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay{
 	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
 	name = "psychiatrist's office";
 	pixel_x = -32
 	},
@@ -33385,7 +33384,7 @@
 	},
 /area/bridge/checkpoint/south)
 "eZt" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/medbay/redcross,
 /turf/simulated/wall/r_wall,
 /area/security/medbay)
 "eZu" = (
@@ -51114,7 +51113,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/securehallway)
 "hLR" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -86739,7 +86738,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "nhT" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/medbay/redcross,
 /turf/simulated/wall,
 /area/maintenance/medroom)
 "nhU" = (
@@ -102112,7 +102111,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{

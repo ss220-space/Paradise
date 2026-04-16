@@ -18632,7 +18632,7 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "buW" = (
-/obj/structure/sign/lifestar,
+/obj/structure/sign/medbay,
 /turf/simulated/wall,
 /area/medical/reception)
 "buY" = (
@@ -26811,7 +26811,7 @@
 	},
 /area/medical/medbay2)
 "caM" = (
-/obj/structure/sign/lifestar,
+/obj/structure/sign/medbay,
 /turf/simulated/wall,
 /area/medical/cryo)
 "caN" = (
@@ -30424,7 +30424,7 @@
 /turf/simulated/wall,
 /area/medical/medbreak)
 "cnQ" = (
-/obj/structure/sign/lifestar,
+/obj/structure/sign/medbay,
 /turf/simulated/wall,
 /area/maintenance/genetics)
 "cnR" = (
@@ -45548,7 +45548,6 @@
 /area/maintenance/fore2)
 "dEd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -86025,7 +86024,7 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/structure/sign/lifestar,
+/obj/structure/sign/medbay,
 /turf/simulated/floor/plating,
 /area/medical/medbay2)
 "vyb" = (

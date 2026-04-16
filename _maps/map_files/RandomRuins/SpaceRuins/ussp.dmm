@@ -4938,7 +4938,7 @@
 	},
 /area/derelict/med)
 "mI" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/shuttle,
 /area/derelict/med)
 "mJ" = (
@@ -6649,7 +6649,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "ro" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "rp" = (
