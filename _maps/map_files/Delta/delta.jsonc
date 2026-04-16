@@ -92,17 +92,6 @@
 
 	{
 		"type": "SubmapExtractInsert",
-		"submap_size_x" : 3,
-		"submap_size_y" : 18,
-		"submap_size_z" : 1,
-		"submaps_dmm": "_maps/map_files/Delta/submaps/rnd_robo_rd_hall.dmm",
-		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/hallway_rd_robo",
-		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/hallway_rd_robo",
-		"submaps_can_repeat": true
-	},
-
-	{
-		"type": "SubmapExtractInsert",
 		"submap_size_x" : 9,
 		"submap_size_y" : 6,
 		"submap_size_z" : 1,

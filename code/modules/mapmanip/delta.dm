@@ -108,14 +108,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/counter/double
 	name = "РНД с двумя стойками"
 
-//RND hallway RD-robo
-/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/hallway_rd_robo
-
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/rnd/hallway_rd_robo
-
-/obj/effect/map_effect/marker_helper/submap_def/delta/rnd/hallway/rd_robo
-	name = "коридор в РНД между робо и РД с стеклянным полом"
-
 //Old teleporter room
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/old_tele
