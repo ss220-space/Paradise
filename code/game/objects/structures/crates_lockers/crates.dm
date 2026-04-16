@@ -99,9 +99,12 @@
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/item)
 	if(opened)
 		return
+	if(!wired_for_trap)
+		return
 	if(item.use_tool(src, user))
 		to_chat(user, span_notice("You cut away the wiring."))
 		playsound(loc, item.usesound, 100, TRUE)
+		wired_for_trap = FALSE
 		return TRUE
 
 /obj/structure/closet/crate/welder_act()
