@@ -5,6 +5,7 @@
 /obj/item/gun/projectile/revolver
 	name = ".357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
+	icon = 'icons/obj/weapons/revolvers.dmi'
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
@@ -17,6 +18,8 @@
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
+	/// Cylinder opened state flag
+	var/cylinder_opened = FALSE
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
@@ -39,9 +42,29 @@
 	return ..()
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
+	if(!cylinder_opened && (isammocasing(item) || isspeedloader(item)))
+		user.balloon_alert(user, "надо открыть барабан!")
+		to_chat(user, span_notice("Надо открыть барабан чтобы зарядить револьвер."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
+
+/obj/item/gun/projectile/revolver/attack_self(mob/living/user)
+	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
+	if(cylinder_opened)
+		cylinder_opened = FALSE
+		user.balloon_alert(user, "закрыто!")
+	else
+		cylinder_opened = TRUE
+		user.balloon_alert(user, "открыто!")
+		unload_act(user)
+	update_icon()
+
+/obj/item/gun/projectile/revolver/update_icon_state()
+	var/current_icon = current_skin ? current_skin : initial(icon_state)
+	icon_state = "[current_icon][cylinder_opened ? "_open" : ""]"
 
 /obj/item/gun/projectile/revolver/unload_act(mob/user)
 	var/num_unloaded = 0
@@ -87,7 +110,15 @@
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
+	if(cylinder_opened)
+		return FALSE
 	return get_ammo(FALSE, FALSE)
+
+/obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user)
+	. = ..()
+	if(cylinder_opened)
+		user.balloon_alert(user, "надо закрыть барабан!")
+		to_chat(user, span_notice("Надо закрыть барабан чтобы стрелять."))
 
 /obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
 	. = ..()

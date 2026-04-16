@@ -445,6 +445,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "dshotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
@@ -464,6 +465,9 @@
 /obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
+
+/obj/item/gun/projectile/revolver/doublebarrel/update_icon_state()
+	icon_state = current_skin ? current_skin : initial(icon_state)
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))

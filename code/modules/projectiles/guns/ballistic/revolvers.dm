@@ -447,8 +447,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 11, "y" = -5),
 	)
-	/// Opened state flag
-	var/opened = FALSE
 
 /obj/item/gun/projectile/revolver/rsh_12/get_ru_names()
 	return list(
@@ -459,33 +457,6 @@
 		INSTRUMENTAL = "револьвером \"РШ-12\"",
 		PREPOSITIONAL = "револьвере \"РШ-12\"",
 	)
-
-/obj/item/gun/projectile/revolver/rsh_12/attack_self(mob/living/user)
-	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
-	if(opened)
-		opened = FALSE
-		user.balloon_alert(user, "закрыто!")
-	else
-		opened = TRUE
-		user.balloon_alert(user, "открыто!")
-		unload_act(user)
-	update_icon()
-
-/obj/item/gun/projectile/revolver/rsh_12/update_icon_state()
-	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
-
-/obj/item/gun/projectile/revolver/rsh_12/can_shoot(mob/user)
-	. = ..()
-	if(. && opened)
-		return FALSE
-
-/obj/item/gun/projectile/revolver/rsh_12/attackby(obj/item/item, mob/user, params)
-	if(!opened && isammocasing(item))
-		user.balloon_alert(user, "надо открыть барабан!")
-		to_chat(user, span_notice("Надо открыть барабан чтобы зарядить патрон."))
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
 
 /obj/item/gun/projectile/revolver/rsh_12/admin
 	pb_knockback = 3

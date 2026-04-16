@@ -4,6 +4,7 @@
 // MARK: Grenade launcher
 /obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 	desc = "A break-operated grenade launcher."
+	icon = 'icons/obj/weapons/projectile.dmi'
 	name = "grenade launcher"
 	icon_state = "dshotgun-sawn"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
@@ -11,6 +12,9 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_HIGH
+
+/obj/item/gun/projectile/revolver/grenadelauncher/update_icon_state()
+	icon_state = current_skin ? current_skin : initial(icon_state)
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."
@@ -34,6 +38,7 @@
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-9"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "rocketlauncher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
@@ -46,6 +51,9 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
+
+/obj/item/gun/projectile/revolver/rocketlauncher/update_icon_state()
+	icon_state = current_skin ? current_skin : initial(icon_state)
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(isammobox(I) || isammocasing(I))
