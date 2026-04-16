@@ -44,7 +44,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
@@ -155,7 +155,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	jetpack = /obj/item/tank/jetpack/suit
 	jetpack_upgradable = TRUE
@@ -306,7 +306,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
@@ -458,7 +458,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	icon_state = "pathcloak"
 	item_state = "pathcloak"

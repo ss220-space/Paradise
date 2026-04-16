@@ -727,7 +727,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)// necropolis loot for miners
 	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT

@@ -544,7 +544,40 @@
 	icon_state = "wintercoat_miner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = list(
+		/obj/item/tank,
+		/obj/item/flashlight,
+		/obj/item/extinguisher/mini,
+		/obj/item/gps,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/survivalcapsule,
+		/obj/item/wormhole_jaunter,
+		/obj/item/grenade/jaunter_grenade,
+		/obj/item/extraction_pack,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/gem,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/gun/energy/plasmacutter,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kitchen/knife,
+		/obj/item/twohanded/spear,
+		/obj/item/twohanded/fireaxe/boneaxe,
+		/obj/item/melee/energy/cleaving_saw,
+		/obj/item/organ/internal/regenerative_core/legion,
+		/obj/item/hierophant_club,
+		/obj/item/gun/magic/hook,
+		/obj/item/nullrod,
+		/obj/item/rune_scimmy,
+		/obj/item/wisp_lantern,
+		/obj/item/warp_cube,
+		/obj/item/immortality_talisman,
+	)
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner

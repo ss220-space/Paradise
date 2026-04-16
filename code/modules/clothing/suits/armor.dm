@@ -700,7 +700,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
@@ -786,7 +786,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
@@ -893,7 +893,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	sprite_sheets = list(
@@ -974,7 +974,7 @@
 		/obj/item/rune_scimmy,
 		/obj/item/wisp_lantern,
 		/obj/item/warp_cube,
-		/obj/item/immortality_talisman
+		/obj/item/immortality_talisman,
 	)
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, FIRE = 60, ACID = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
