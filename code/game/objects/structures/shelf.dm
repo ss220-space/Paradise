@@ -1,9 +1,11 @@
 /// Default interaction delay of the shelf
-#define DEFAULT_SHELF_USE_DELAY 1 SECONDS
+#define DEFAULT_SHELF_USE_DELAY (1 SECONDS)
 /// Vertical pixel offset of shelving-related things. Set to 10 by default due to this leaving more of the crate on-screen to be clicked.
 #define DEFAULT_SHELF_VERTICAL_OFFSET 10
 
 /**
+ * MARK: crate shelf
+ *
  * Original crate shelf port from Shiptest: https://github.com/shiptest-ss13/Shiptest/pull/2374
  * Our port from NovaSector: https://github.com/NovaSector/NovaSector/pull/6550
  * - LitleBoobs
@@ -221,12 +223,14 @@
 	crate.interaction_flags_click &= ~INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
 	vis_contents -= crate
 
+// MARK: shelf rack parts
 /obj/item/rack_parts/cargo_shelf
 	name = "crate shelf parts"
 	desc = "Детали полки, предназначенной для хранения ящиков."
 	gender = PLURAL
 	icon = 'icons/obj/structures/shelf.dmi'
 	icon_state = "rack_parts"
+	materials = list(MAT_METAL=2000)
 
 /obj/item/rack_parts/cargo_shelf/get_ru_names()
 	return list(
