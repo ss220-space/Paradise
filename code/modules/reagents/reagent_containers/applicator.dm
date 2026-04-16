@@ -18,9 +18,14 @@
 	temperature_max = 350
 	pass_open_check = TRUE
 	custom_premium_price = PAYCHECK_LOWER
+	/// for emag to ignore restrictions
 	var/ignore_flags = FALSE
-	var/applied_amount = 8 // How much it applies
-	var/applying = FALSE // So it can't be spammed.
+	/// How much it applies
+	var/applied_amount = 8
+	/// to stop spamming
+	var/applying = FALSE
+	/// applying sounds list
+	var/list/aplying_sfx = list('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg')
 
 /obj/item/reagent_containers/applicator/get_ru_names()
 	return list(
@@ -34,7 +39,6 @@
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
-		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		ignore_flags = TRUE
 		if(user)
@@ -56,7 +60,7 @@
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/applicator/update_icon_state()
 	icon_state = "mender[applying ? "-active" : ""]"
@@ -66,7 +70,7 @@
 	if(reagents.total_volume)
 		. += mutable_appearance(icon, "mender-fluid", color = get_color_matrix_from_reagents(reagents.reagent_list))
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
-	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
+	var/mutable_appearance/applicator_bar = mutable_appearance(icon, "app_e")
 	switch(reag_pct)
 		if(51 to 100)
 			applicator_bar.icon_state = "app_hf"
@@ -90,7 +94,7 @@
 		balloon_alert(user, "уже используется!")
 		return .
 
-	var/protection = 0
+	var/protection = 0 // Check for protection and clothing
 	if(!ignore_flags)
 		if(!target.can_inject(user, FALSE))
 			return .
@@ -120,7 +124,7 @@
 	. |= ATTACK_CHAIN_SUCCESS
 
 	applying = TRUE
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 	apply_to(target, user, APPLICATOR_PRE_LOOP_RATIO * reacting_to_applied_ratio, TRUE, def_zone) // We apply a very weak application up front, then loop.
 	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	var/cycle_count = 0
@@ -140,7 +144,7 @@
 
 	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	applying = FALSE
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
@@ -152,7 +156,7 @@
 		reagents.trans_to(M, total_applied_amount * 0.5)
 		reagents.remove_any(total_applied_amount * 0.5)
 
-		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, TRUE)
+		playsound(get_turf(src), pick(aplying_sfx), 50, TRUE)
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
