@@ -43411,9 +43411,6 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -56876,7 +56873,6 @@
 /obj/structure/sign/radiation{
 	pixel_x = 32
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/engineering/gravitygenerator)
 "jUI" = (
@@ -61265,7 +61261,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
