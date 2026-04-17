@@ -640,7 +640,6 @@
 
 /// Returns a time modifier based on the mob's status
 /datum/surgery/proc/get_mob_surgery_speed_mod(mob/living/patient, mob/living/surgeon, tool)
-	PROTECTED_PROC(TRUE)
 	var/basemod = 1.0
 	for(var/mod_id, mod_amt in patient.mob_surgery_speed_mods)
 		basemod *= mod_amt
