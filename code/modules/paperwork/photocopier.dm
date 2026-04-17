@@ -5,7 +5,13 @@
 /obj/machinery/photocopier
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
-	icon = 'icons/obj/library/machines.dmi'
+	icon = 'icons/map_icons/objects.dmi'
+	icon_state = "/obj/machinery/photocopier"
+	post_init_icon_state = ""
+	greyscale_config = /datum/greyscale_config/photocopier
+	var/greyscale_lid_config_open = /datum/greyscale_config/photocopier/lid_open
+	var/greyscale_lid_config_closed = /datum/greyscale_config/photocopier/lid_closed
+	greyscale_colors = COLOR_PALE_YELLOW
 	icon_state = "photocopier_default_closed"
 	base_icon_state = "photocopier_default"
 	anchored = TRUE
@@ -80,7 +86,11 @@
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
 	faction = FACTION_SYNDIE
 	icon_state = "photocopier_syndie_closed"
-	base_icon_state = "photocopier_syndie"
+	icon_state = "/obj/machinery/photocopier/syndie"
+	greyscale_config = /datum/greyscale_config/photocopier/overlay
+	greyscale_lid_config_open = /datum/greyscale_config/photocopier/lid_open/overlay
+	greyscale_lid_config_closed = /datum/greyscale_config/photocopier/lid_closed/overlay
+	greyscale_colors = "#fd6b54#5d5d71"
 	info_box = "При использовании любой из данных форм,\
 				обратите внимание на все пункты снизу. \
 				Синдикат напоминает, что в ваших же интересах \
@@ -101,8 +111,11 @@
 	name = "Nanotrasen photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Абсолютно оригинальная корпоративная разработка."
 	faction = FACTION_NT
-	icon_state = "photocopier_nanotrasen_closed"
-	base_icon_state = "photocopier_nanotrasen"
+	icon_state = "/obj/machinery/photocopier/nanotrasen"
+	greyscale_config = /datum/greyscale_config/photocopier/overlay
+	greyscale_lid_config_open = /datum/greyscale_config/photocopier/lid_open/overlay
+	greyscale_lid_config_closed = /datum/greyscale_config/photocopier/lid_closed/overlay
+	greyscale_colors = "#ffffff#729fff"
 	info_box = "Если у вас есть пожелания или\
 				идеи для улучшения стандартных\
 				форм, обратитесь в Отдел\
@@ -126,7 +139,8 @@
 
 /obj/machinery/photocopier/update_icon_state()
 	. = ..()
-	icon_state = "[base_icon_state]_[toner > 0 || max_copies_reached ? "closed" : "open"]"
+	// icon_state = "[base_icon_state]_[toner > 0 || max_copies_reached ? "closed" : "open"]"
+
 
 /obj/machinery/photocopier/update_overlays()
 	. = ..()
@@ -139,10 +153,11 @@
 	if(copying)
 		underlays += emissive_appearance(icon, "photocopier_work_lightmask", src)
 
-	lid_overlay = mutable_appearance(icon, "[base_icon_state]_[lid_open ? "lid_open" : "lid_closed"]", ABOVE_ALL_MOB_LAYER)
+	lid_overlay = mutable_appearance(SSgreyscale.get_colored_icon_by_type(lid_open ? greyscale_lid_config_open : greyscale_lid_config_closed, greyscale_colors), "[base_icon_state]_[lid_open ? "lid_open" : "lid_closed"]", ABOVE_ALL_MOB_LAYER)
 	lid_overlay.pixel_y = 13
 	. += lid_overlay
 	underlays += emissive_appearance(icon, "photocopier_lightmask", src)
+
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	src.add_hiddenprint(user)

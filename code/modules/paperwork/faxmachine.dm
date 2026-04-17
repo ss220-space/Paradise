@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
+	icon = 'icons/obj/library/machines.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE

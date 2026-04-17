@@ -102,3 +102,31 @@
 	name = "Hazard Striped Canister"
 	json_config = 'code/datums/greyscale/json_configs/canister_hazard.json'
 
+// 	PHOTOCOPIERS
+
+/datum/greyscale_config/photocopier
+	name = "Photocopier base"
+	icon_file = 'icons/obj/library/machines.dmi'
+	json_config = 'code/datums/greyscale/json_configs/photocopier.json'
+
+/datum/greyscale_config/photocopier/overlay
+	name = "Photocopier overlay"
+	icon_file = 'icons/obj/library/machines.dmi'
+	json_config = 'code/datums/greyscale/json_configs/photocopier_overlay.json'
+
+/datum/greyscale_config/photocopier/lid_open
+	name = "Photocopier Lid Open"
+	json_config = 'code/datums/greyscale/json_configs/photocopier_lid_open.json'
+
+/datum/greyscale_config/photocopier/lid_open/overlay
+	name = "Photocopier lid ppen overlay"
+	json_config = 'code/datums/greyscale/json_configs/photocopier_lid_open_overlay.json'
+
+/datum/greyscale_config/photocopier/lid_closed
+	name = "Photocopier lid closed"
+	json_config = 'code/datums/greyscale/json_configs/photocopier_lid_closed.json'
+
+/datum/greyscale_config/photocopier/lid_closed/overlay
+	name = "Photocopier lid closed overlay"
+	json_config = 'code/datums/greyscale/json_configs/photocopier_lid_closed_overlay.json'
+
