@@ -115,6 +115,12 @@
 
 #define isenergygun(A) (istype(A, /obj/item/gun/energy))
 
+#define isprojectilegun(A) (istype(A, /obj/item/gun/projectile))
+
+#define issyringegun(A) (istype(A, /obj/item/gun/syringe))
+
+#define ismagicgun(A) (istype(A, /obj/item/gun/magic))
+
 #define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
 
 #define isbaton(A) (istype(A, /obj/item/melee/baton))

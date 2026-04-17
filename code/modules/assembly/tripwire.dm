@@ -506,3 +506,14 @@
 
 	return
 
+/obj/item/tripwire/click_alt(mob/user)
+	if(!attached_item)
+		return CLICK_ACTION_BLOCKING
+
+	if(!isprojectilegun(attached_item))
+		return CLICK_ACTION_BLOCKING
+
+	var/obj/item/gun/projectile/gun = attached_item
+	gun.unload_act(user)
+	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+	return CLICK_ACTION_SUCCESS

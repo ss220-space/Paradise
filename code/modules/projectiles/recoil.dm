@@ -38,7 +38,7 @@ GLOBAL_DATUM_INIT(mob_hit_recoil, /datum/gun_recoil, GUN_RECOIL_LOW)
 
 /// animate recoil for gun
 /obj/item/gun/proc/do_recoil(mob/living/user, atom/target)
-	if(!recoil || !recoil.strength)
+	if(!user || !recoil || !recoil.strength)
 		return
 	if(zoomed)
 		return // sights and recoil create visual bugs, disable recoil if we in sight mode.

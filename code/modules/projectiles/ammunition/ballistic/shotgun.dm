@@ -249,41 +249,14 @@
 #define TRIPWIRE_SHELL_DAMAGE_MULTIPLIER 0.5
 
 /obj/item/ammo_casing/shotgun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
-	INVOKE_ASYNC(src, PROC_REF(tripwire_fire), base, victim)
+	var/fired = fire(victim, null, null, 0, FALSE, "", 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
 
-/obj/item/ammo_casing/shotgun/proc/tripwire_fire(obj/item/tripwire/base, mob/living/victim)
-	if(!BB)
-		return
-
-	var/turf/trigger_turf = get_turf(base)
-	playsound(trigger_turf, 'sound/weapons/gunshots/1shotgun.ogg', 70, TRUE)
-
-	if(muzzle_flash_effect)
-		var/obj/effect/temp_visual/target_angled/muzzle_flash/flash = new muzzle_flash_effect(trigger_turf, victim, 0.2 SECONDS)
-		flash.color = muzzle_flash_color
-		flash.set_light_range_power_color(muzzle_flash_range, muzzle_flash_strength, muzzle_flash_color)
-
-	var/list/projectiles_to_fire = list()
-	projectiles_to_fire += BB
-	BB = null
-
-	if(pellets > 1)
-		for(var/i in 2 to pellets)
-			projectiles_to_fire += new projectile_type(src)
-
-	var/turf/spawn_location = get_step(trigger_turf, base.dir) || trigger_turf
-	var/base_angle = get_angle(spawn_location, victim)
-
-	for(var/obj/projectile/current_projectile in projectiles_to_fire)
-		current_projectile.loc = spawn_location
-		current_projectile.damage *= TRIPWIRE_SHELL_DAMAGE_MULTIPLIER
-		current_projectile.firer = null
-		var/firing_spread = (pellets > 1) ? rand(-15, 15) : rand(-5, 5)
-		current_projectile.fire(base_angle + firing_spread)
-
-	forceMove(trigger_turf)
-	update_appearance(UPDATE_ICON_STATE)
-	base.attached_item = null
-	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+	if(fired)
+		playsound(base, 'sound/weapons/gunshots/1shotgun.ogg', 70, TRUE)
+		base.attached_item = null
+		base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+		base.update_appearance()
+		forceMove(get_turf(base))
+		update_appearance(UPDATE_ICON_STATE)
 
 #undef TRIPWIRE_SHELL_DAMAGE_MULTIPLIER

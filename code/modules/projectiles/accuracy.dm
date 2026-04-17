@@ -204,7 +204,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 		last_shot_time = world.time
 	// randomize spread
 	var/rnd_angle = round((rand() - 0.5) * (current_spread + bonus_spread))
-	if(HAS_TRAIT(user, TRAIT_BADASS))
+	if(user && HAS_TRAIT(user, TRAIT_BADASS))
 		return 0.5 * rnd_angle
 	return rnd_angle
 

@@ -12,11 +12,12 @@
 			return FALSE
 		if(i > 1)
 			newshot()
-	if(click_cooldown_override)
-		user.changeNext_move(click_cooldown_override)
-	else
-		user.changeNext_move(CLICK_CD_RANGE)
-	user.newtonian_move(get_dir(target, user))
+	if(user)
+		if(click_cooldown_override)
+			user.changeNext_move(click_cooldown_override)
+		else
+			user.changeNext_move(CLICK_CD_RANGE)
+			user.newtonian_move(get_dir(target, user))
 	update_icon()
 	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, params, distro)
 	return TRUE
@@ -29,14 +30,15 @@
 	BB.firer_source_atom = firer_source_atom
 	BB.damage *= damage_mod
 	BB.stamina *= stamina_mod
+	BB.suppressed = quiet
 	if(zone_override)
 		BB.def_zone = zone_override
-	else
+	else if(user)
 		BB.def_zone = user.zone_selected
-	BB.suppressed = quiet
-
-	if(reagents && BB.reagents)
-		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets
+	else
+		BB.def_zone = BODY_ZONE_CHEST
+	if(reagents && BB.reagents) //For chemical darts/bullets
+		reagents.trans_to(BB, reagents.total_volume)
 		qdel(reagents)
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
@@ -44,8 +46,10 @@
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 	BB.ammo_casing = src
-
-	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
+	if(BB.loc != curloc)
+		BB.forceMove(curloc)
+	var/atom/origin = user ? user : firer_source_atom
+	if(target && get_dist(origin, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
@@ -53,20 +57,19 @@
 		return TRUE
 
 	if(targloc == curloc)
-		if(target) //if the target is right on our location we go straight to bullet_act()
+		if(target)
 			BB.prehit(target)
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return TRUE
 
 	var/modifiers = params2list(params)
-	BB.preparePixelProjectile(target, user, modifiers, spread)
+	BB.preparePixelProjectile(target, user || firer_source_atom, modifiers, spread)
 
 	if(BB)
 		BB.fire()
 	materials = list(MAT_METAL = 0)
 	BB = null
-
 	return TRUE
 
 /obj/item/ammo_casing/proc/spread(turf/target, turf/current, distro)
