@@ -58,6 +58,9 @@
 	if(!.)
 		return FALSE
 
+	if(climbable)
+		structure_shaken()
+
 	return do_trap_effect(user)
 
 /obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
