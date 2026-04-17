@@ -3207,9 +3207,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "tM" = (
 /obj/machinery/mineral/equipment_vendor,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -3528,9 +3526,7 @@
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},

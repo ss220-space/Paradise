@@ -333,9 +333,7 @@
 /area/ruin/unpowered)
 "aev" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -4486,9 +4484,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/barber)
 "bFq" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -8467,9 +8463,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "dbn" = (
@@ -10366,9 +10360,7 @@
 	name = "spider bed"
 	},
 /mob/living/simple_animal/hostile/retaliate/araneus,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11630,9 +11622,7 @@
 	},
 /area/coldcolony/malta/resid_serv/library)
 "elr" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -15417,9 +15407,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "neutral"
@@ -15878,9 +15866,7 @@
 /obj/structure/table/wood,
 /obj/item/dice/d10,
 /obj/item/dice/d20,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -16220,9 +16206,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
@@ -17921,9 +17905,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/vip)
 "gFy" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -21103,9 +21085,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -21945,9 +21925,7 @@
 "ihk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/space_heater,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -22484,9 +22462,7 @@
 	layer = 2.9
 	},
 /obj/item/storage/firstaid/o2,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "itv" = (
@@ -23204,9 +23180,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -25528,9 +25502,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_maintenance)
@@ -26051,9 +26023,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "jHe" = (
@@ -33731,9 +33701,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/library)
 "mFm" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -34949,9 +34917,7 @@
 /area/coldcolony/malta/security/detectives_office)
 "naA" = (
 /obj/machinery/computer/security,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -35305,9 +35271,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
 "nhJ" = (
@@ -37056,9 +37020,7 @@
 "nSq" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -39567,9 +39529,7 @@
 /area/coldcolony/malta/bridge/vip)
 "oLi" = (
 /obj/machinery/photocopier,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -42834,9 +42794,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/east)
 "pXB" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -51682,9 +51640,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "tma" = (
 /obj/machinery/photocopier,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -58454,9 +58410,7 @@
 "vIW" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -59546,9 +59500,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
 "wgy" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -62398,9 +62350,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "xiV" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -64882,9 +64832,7 @@
 /obj/structure/chair/comfy/teal{
 	dir = 4
 	},
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"

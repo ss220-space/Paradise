@@ -5210,9 +5210,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Ak" = (
-/obj/machinery/alarm/directional/west{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 9;
