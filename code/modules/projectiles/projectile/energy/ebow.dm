@@ -63,6 +63,8 @@
 	)
 
 /obj/projectile/energy/bolttoy/on_hit(atom/target, blocked, hit_zone)
-	if(..(target, blocked))
+	. = ..()
+	if(!.)
+		return
 		var/mob/living/mob = target
 		mob.Slowed(1 SECONDS, 2)
