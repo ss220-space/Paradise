@@ -52,6 +52,9 @@
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
 	tear_manifest()
+
+/obj/structure/closet/crate/before_open(mob/living/user, force)
+	. = ..()
 	do_trap_effect(user)
 
 /obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
