@@ -443,7 +443,7 @@
 
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/bci_implanter/MouseDrop_T(mob/living/target, mob/living/user, params)
+/obj/machinery/bci_implanter/mouse_drop_receive(mob/living/target, mob/user, params)
 	if(!ishuman(target))
 		return
 

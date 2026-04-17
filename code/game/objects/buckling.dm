@@ -1,6 +1,7 @@
 /atom/movable/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
-
+	if(.)
+		return
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/mob/living/unbuckled = tgui_input_list(user, "Кого вы хотите отстегнуть?", "Отстегивание", sort_names(buckled_mobs))
@@ -12,14 +13,14 @@
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
 
-/atom/movable/MouseDrop_T(mob/living/dropping, mob/living/user, params)
-	. = ..()
+/atom/movable/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
 	return mouse_buckle_handling(dropping, user)
 
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
-
-	if(can_buckle && has_buckled_mobs() && Adjacent(user))
+	if(.)
+		return
+	if(Adjacent(user) && can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/mob/living/unbuckled = tgui_input_list(user, "Кого вы хотите отстегнуть?", "Отстегивание", sort_names(buckled_mobs))
 			if(isnull(unbuckled))

@@ -1,6 +1,9 @@
 /mob/living
+	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	pressure_resistance = 10
+	interaction_flags_click = ALLOW_RESTING
+	interaction_flags_mouse_drop = ALLOW_RESTING
 
 	// Will be determined based on mob size if left null. Done in living/proc/determine_move_and_pull_forces()
 	move_resist = null

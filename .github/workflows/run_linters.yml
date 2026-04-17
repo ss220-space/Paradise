@@ -31,11 +31,12 @@ jobs:
           cache: "yarn"
           cache-dependency-path: ./tgui/yarn.lock
 
-      - name: Install python packages
+      - name: Install Python packages
         run: pip install -r tools/requirements.txt
 
       - name: Install Tools
         run: |
+          pip install setuptools
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
@@ -119,11 +120,20 @@ jobs:
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: ./DMCompiler_linux-x64/DMCompiler paradise.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
 
+      - name: Check for Map & Maplint File Edits
+        id: map-filter
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            run_maps:
+              - '**.dmm'
+              - 'tools/maplint/**'
+              - 'tools/mapmerge2/**'
       - name: Run Map Checks
-        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        if: steps.linter-setup.conclusion == 'success' && !cancelled() && steps.map-filter.outputs.run_maps == 'true'
         run: |
-          tools/bootstrap/python -m mapmerge2.dmm_test
-          python -m tools.maplint.source --github
+          python -m mapmerge2.dmm_test
+          python -m tools.maplint.source
 
       - name: Run DMI Tests
         if: steps.linter-setup.conclusion == 'success' && !cancelled()

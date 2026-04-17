@@ -330,8 +330,8 @@
 #define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"
 ///from base of atom/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"
-	#define COMPONENT_NO_MOUSEDROP (1<<0)
-///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
+	#define COMPONENT_CANCEL_MOUSEDROP_ONTO (1<<0)
+///from base of atom/handle_mouse_drop_receive: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
 	#define COMPONENT_CANCEL_MOUSEDROPPED_ONTO (1<<0)
 
@@ -1464,9 +1464,6 @@
 ///from [/datum/move_loop/has_target/jps/on_finish_pathing]
 #define COMSIG_MOVELOOP_JPS_FINISHED_PATHING "moveloop_jps_finished_pathing"
 
-///from of mob/MouseDrop(): (/atom/over, /mob/user)
-#define COMSIG_DO_MOB_STRIP "do_mob_strip"
-
 // /datum/component/transforming signals
 /// From /datum/component/transforming/proc/on_attack_self(obj/item/source, mob/user): (obj/item/source, mob/user, active)
 #define COMSIG_TRANSFORMING_PRE_TRANSFORM "transforming_pre_transform"
@@ -1609,7 +1606,7 @@
 #define COMSIG_SUPPLYPOD_ENTERED "supply_pod_entered"
 /// From /obj/structure/closet/supplypod/proc/on_exit()
 #define COMSIG_SUPPLYPOD_EXITED "supply_pod_exited"
-/// From /obj/structure/closet/supplypod/extractionpod/MouseDrop_T()
+/// From /obj/structure/closet/supplypod/extractionpod/mouse_drop_receive()
 #define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
 	#define COMPONENT_CLIMB (1<<0)
 

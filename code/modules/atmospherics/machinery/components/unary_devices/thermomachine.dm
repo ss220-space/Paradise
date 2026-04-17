@@ -11,6 +11,7 @@
 	greyscale_config = /datum/greyscale_config/thermomachine
 	flags = NO_NEW_GAGS_PREVIEW
 	greyscale_colors = COLOR_VIBRANT_LIME
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	/// actual temperature will be defined by RefreshParts() and by the cooling var
 	var/min_temperature = T20C
 	/// actual temperature will be defined by RefreshParts() and by the cooling var

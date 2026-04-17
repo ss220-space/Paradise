@@ -806,7 +806,7 @@
 
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/cage/container_resist()
+/obj/item/mecha_parts/mecha_equipment/cage/container_resist_act()
 	if(prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
 		var/obj/item/clothing/suit/straight_jacket/H = prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		prisoner.cuff_resist(H, FALSE)

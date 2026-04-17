@@ -495,7 +495,7 @@
 		return
 	if(opened) //This is to ensure we don't open something that has already been opened
 		return
-	holder.setOpened()
+	holder.set_opened()
 	var/turf/turf_underneath = get_turf(holder) //Get the turf of whoever's contents we're talking about
 	if(ismob(holder)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
 		var/mob/holder_as_mob = holder
@@ -536,7 +536,7 @@
 		return
 	take_contents(holder)
 	playsound(holder, close_sound, soundVolume * 0.75, TRUE, -3)
-	holder.setClosed()
+	holder.set_closed()
 	addtimer(CALLBACK(src, PROC_REF(preReturn), holder), delays[POD_LEAVING] * 0.2) //Start to leave a bit after closing for cinematic effect
 
 /obj/structure/closet/supplypod/take_contents(atom/movable/holder)
@@ -605,7 +605,7 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
-/obj/structure/closet/supplypod/MouseDrop_T(atom/movable/O, mob/living/user, params)
+/obj/structure/closet/supplypod/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
 		return ..()
 
@@ -623,22 +623,22 @@
 
 	O.forceMove(get_turf(src))
 
-/obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
+/obj/structure/closet/supplypod/set_opened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
 	set_density(FALSE)
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/extractionpod/setOpened()
+/obj/structure/closet/supplypod/extractionpod/set_opened()
 	opened = TRUE
 	set_density(TRUE)
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/open()
+/obj/structure/closet/supplypod/open(mob/living/user, force)
 	return
 
-/obj/structure/closet/supplypod/setClosed() //Ditto
+/obj/structure/closet/supplypod/set_closed() //Ditto
 	opened = FALSE
 	set_density(TRUE)
 	update_appearance()
