@@ -126,6 +126,7 @@
 #include "code\__DEFINES\localization.dm"
 #include "code\__DEFINES\logs.dm"
 #include "code\__DEFINES\machines.dm"
+#include "code\__DEFINES\mappers.dm"
 #include "code\__DEFINES\mapping.dm"
 #include "code\__DEFINES\maps.dm"
 #include "code\__DEFINES\martial_arts.dm"
