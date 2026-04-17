@@ -9,6 +9,7 @@
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
+	secure = TRUE
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -89,7 +90,7 @@
 	else
 		desc = initial(desc)
 
-/obj/structure/closet/secure_closet/container_resist(mob/living/user)
+/obj/structure/closet/secure_closet/relay_container_resist_act(mob/living/user)
 	if(opened)
 		if(user.loc == src)
 			user.forceMove(get_turf(src)) // Let's just be safe here
@@ -98,7 +99,7 @@
 	if(!locked && !welded)
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
-	if(user.incapacitated(INC_IGNORE_RESTRAINED))
+	if(user.incapacitated(IGNORE_RESTRAINTS))
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
@@ -114,7 +115,7 @@
 		return
 
 	//closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
-	if(!src || !user || user.incapacitated(INC_IGNORE_RESTRAINED) || user.loc != src || opened)
+	if(!src || !user || user.incapacitated(IGNORE_RESTRAINTS) || user.loc != src || opened)
 		return
 
 	//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
@@ -139,7 +140,7 @@
 
 	if(isobj(loc))
 		var/obj/loc_as_obj = loc
-		loc_as_obj.container_resist(user)
+		loc_as_obj.container_resist_act(user)
 
 	open()
 

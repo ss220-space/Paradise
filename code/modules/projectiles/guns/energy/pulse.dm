@@ -8,7 +8,7 @@
 	can_holster = FALSE
 	force = 10
 	slot_flags = ITEM_SLOT_BACK
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/laser)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse/hitscan, /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
@@ -72,7 +72,7 @@
 	name = "pulse destroyer"
 	desc = "A heavy-duty, pulse-based energy weapon."
 	cell_type = /obj/item/stock_parts/cell/infinite
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse/hitscan)
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
@@ -91,7 +91,7 @@
 	item_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse/hitscan)
 	weapon_weight = WEAPON_MEDIUM
 	trigger_guard = TRIGGER_GUARD_NONE
 	accuracy = GUN_ACCURACY_SNIPER

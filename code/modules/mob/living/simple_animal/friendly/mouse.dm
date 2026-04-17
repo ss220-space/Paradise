@@ -270,7 +270,7 @@
 
 /mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] Squeek!"))
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -598,7 +598,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 
 /mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
 		death()
 		splat(user = arrived)
 

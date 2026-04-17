@@ -72,6 +72,11 @@
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 4
+	var/examine_more_info = ""
+
+/obj/item/storage/funeral_urn/examine_more(mob/user)
+	. = ..()
+	. += span_notice(examine_more_info)
 
 /obj/item/storage/funeral_urn/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -123,7 +128,7 @@
 	var/died = max(cur_year - rand(0,70),born)
 
 	name = "Funeral urn of [nam]"
-	description_info = "Here lies [nam], [born] - [died]."
+	examine_more_info = "Here lies [nam], [born] - [died]."
 
 	new /obj/item/ash_holder(src)
 	if(prob(15))
@@ -235,10 +240,10 @@
 /obj/structure/closet/coffin/graveyard_loot
 	var/spawn_mob = null
 
-/obj/structure/closet/coffin/graveyard_loot/open()
+/obj/structure/closet/coffin/graveyard_loot/open(mob/living/user, force)
 	..()
 	if(spawn_mob)
-		new spawn_mob(src.loc)
+		new spawn_mob(loc)
 		spawn_mob = null
 		new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 

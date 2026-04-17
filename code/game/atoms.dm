@@ -5,6 +5,7 @@
  * as much as possible to the components/elements system
  */
 /atom
+	abstract_type = /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
@@ -37,8 +38,12 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
-	/// Flags to check for in can_perform_action. Used in alt-click checks
-	var/interaction_flags_click = 0
+	/// Intearaction flags
+	var/interaction_flags_atom = NONE
+	/// Flags to check for in can_perform_action. Used in alt-click & ctrl-click checks
+	var/interaction_flags_click = NONE
+	/// Flags to check for in can_perform_action for mouse drag & drop checks. To bypass checks see interaction_flags_atom mouse drop flags
+	var/interaction_flags_mouse_drop = NONE
 
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
@@ -165,9 +170,6 @@
 	/// The alternate appearances we own
 	var/list/alternate_appearances
 
-	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
-	var/drag_start = 0
-
 	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the overlays list
 	var/list/realized_overlays
@@ -196,6 +198,12 @@
 	var/rad_insulation = RAD_NO_INSULATION
 
 	var/looting_icon_mode
+
+	/// Text that appears preceding the name in [/atom/proc/examine_title]
+	var/examine_thats = "Это"
+
+	///Cooldown tick timer for buckle messages
+	COOLDOWN_DECLARE(buckle_message_cd)
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -349,10 +357,20 @@
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
-/atom/proc/setOpened()
+/**
+ * Used to set something as 'open' if it's being used as a supplypod
+ *
+ * Override this if you want an atom to be usable as a supplypod.
+ */
+/atom/proc/set_opened()
 	return
 
-/atom/proc/setClosed()
+/**
+ * Used to set something as 'closed' if it's being used as a supplypod
+ *
+ * Override this if you want an atom to be usable as a supplypod.
+ */
+/atom/proc/set_closed()
 	return
 
 /// Is this atom injectable into other atoms
@@ -419,53 +437,6 @@
 		if(length(A.contents))
 			found += A.search_contents_for(path, filter_path)
 	return found
-
-//All atoms
-/atom/proc/examine(mob/user, infix = "", suffix = "")
-	var/f_name = "."
-	if(src.blood_DNA && !istype(src, /obj/effect/decal))
-		f_name = ", "
-		if(blood_color != "#030303")
-			f_name += span_danger("в кровавых следах.")
-		else
-			f_name += "в масляных следах."
-	. = list("[icon2html(src, user)] Это <b>[declent_ru(NOMINATIVE)]</b>[f_name] [suffix]")
-	if(desc)
-		. += desc
-
-	if(reagents)
-		if(container_type & TRANSPARENT)
-			. += span_notice("Содержимое:")
-			if(length(reagents.reagent_list))
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/I in reagents.reagent_list)
-						var/datum/reagent/R = I
-						. += span_notice("<b>[R.name]</b> - <b>[R.volume]</b> единиц[declension_ru(R.volume, "а", "ы", "")].")
-				else //Otherwise, just show the total volume
-					if(reagents && length(reagents.reagent_list))
-						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
-			else
-				. += span_notice("Ничего.")
-		else if(container_type & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
-			else
-				. += span_danger("Внутри ничего нет.")
-
-	//Detailed description
-	var/descriptions
-	if(get_description_info())
-		descriptions += "<a href='byond://?src=[UID()];description_info=`'>\[Справка\]</a> "
-	if(get_description_antag())
-		if(isAntag(user) || isobserver(user))
-			descriptions += "<a href='byond://?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
-	if(get_description_fluff())
-		descriptions += "<a href='byond://?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
-
-	if(descriptions)
-		. += descriptions
-
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
  * Updates the appearence of the icon
@@ -655,21 +626,18 @@
 		if(existing.dupe_id == id)
 			qdel(existing)
 
-/atom/Topic(href, href_list)
-	. = ..()
-	if(.)
-		return TRUE
-	if(href_list["description_info"])
-		to_chat(usr, span_notice("<div class='examine'>[get_description_info()]</div>"))
-		return TRUE
-	if(href_list["description_antag"])
-		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
-		return TRUE
-	if(href_list["description_fluff"])
-		to_chat(usr,  span_notice("<div class='examine'>[get_description_fluff()]</div>"))
-		return TRUE
-
-/atom/proc/relaymove()
+/**
+ * An atom we are buckled or is contained within us has tried to move
+ *
+ * Default behaviour is to send a warning that the user can't move while buckled as long
+ * as the [buckle_message_cooldown][/atom/var/buckle_message_cooldown] has expired (50 ticks)
+ */
+/atom/proc/relaymove(mob/living/user, direction)
+	//if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
+	//	return
+	if(COOLDOWN_FINISHED(src, buckle_message_cd))
+		COOLDOWN_START(src, buckle_message_cd, 2.5 SECONDS)
+		balloon_alert(user, "can't move while buckled!")
 	return
 
 /atom/proc/ex_act(severity, target)
@@ -693,55 +661,6 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
-
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
-	if(signal_result)
-		return TRUE
-
-	switch(tool_type)
-		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
-
-		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
-
-		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
-
-		if(TOOL_WRENCH)
-			return wrench_act(user, I)
-
-		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
-
-		if(TOOL_WELDER)
-			return welder_act(user, I)
-
-// Tool-specific behavior procs. To be overridden in subtypes.
-/atom/proc/crowbar_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/multitool_act(mob/living/user, obj/item/I)
-	return
-
-//Check if the multitool has an item in its data buffer
-/atom/proc/multitool_check_buffer(user, silent = FALSE)
-	if(!silent)
-		balloon_alert(user, "буфер данных отсутствует!")
-	return FALSE
-
-/atom/proc/screwdriver_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/wrench_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/wirecutter_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/welder_act(mob/living/user, obj/item/I)
-	return
 
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
@@ -958,11 +877,11 @@
 
 	// Transfer
 	if(fingerprints)
-		A.fingerprints |= fingerprints.Copy()            //detective
+		A.fingerprints |= fingerprints.Copy()			//detective
 	if(fingerprints_time)
 		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
-		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
+		A.fingerprintshidden |= fingerprintshidden.Copy()	//admin
 	A.fingerprintslast = fingerprintslast
 
 /**
@@ -1332,6 +1251,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	runechat_emote(src, emote)
 
+/**
+ * Call back when a var is edited on this atom
+ *
+ * Can be used to implement special handling of vars
+ *
+ * At the atom level, if you edit a var named "color" it will add the atom colour with
+ * admin level priority to the atom colours list
+ *
+ * Also, if GLOB.debugging_enabled is FALSE, it sets the [ADMIN_SPAWNED] flag on [flags][/atom/var/flags], which signifies
+ * the object has been admin edited
+ */
 /atom/vv_edit_var(var_name, var_value)
 	var/old_light_flags = light_flags
 	switch(var_name)
@@ -1735,9 +1665,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	pixel_y = pixel_y + base_pixel_y - .
 
-/atom/proc/get_visible_name(add_id_name = TRUE)
-	return name
-
 /atom/proc/GetVoice()
 	return name
 
@@ -1877,3 +1804,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		return COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 	return NONE
+
+/// Called when something resists while this atom is its loc
+/atom/proc/container_resist_act(mob/living/user)
+	return

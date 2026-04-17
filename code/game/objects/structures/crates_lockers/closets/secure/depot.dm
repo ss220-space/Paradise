@@ -13,14 +13,14 @@
 	. = ..()
 	loot_pickup()
 
-/obj/structure/closet/secure_closet/syndicate/depot/open()
+/obj/structure/closet/secure_closet/syndicate/depot/open(mob/living/user, force)
 	. = ..()
 	if(opened)
 		loot_pickup()
 
 /obj/structure/closet/secure_closet/syndicate/depot/dump_contents()
 	loot_pickup()
-	. = ..()
+	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/proc/loot_pickup()
 	if(!ignore_use)

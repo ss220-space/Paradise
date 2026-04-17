@@ -17,6 +17,7 @@
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
+	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
 
 	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
@@ -50,6 +51,11 @@
 	QDEL_NULL(keyslot)
 	QDEL_NULL(keyslot2)
 	return ..()
+
+/obj/item/radio/headset/examine_tags(mob/user)
+	. = ..()
+	if((item_flags & BANGPROTECT_MINOR) || (item_flags & BANGPROTECT_TOTAL))
+		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
 
 /obj/item/radio/headset/get_internal_channels()
 	return list()

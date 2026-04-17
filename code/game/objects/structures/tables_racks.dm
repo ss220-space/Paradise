@@ -210,7 +210,7 @@
 		to_chat(user, span_notice("Вы не можете забраться на перевернутый стол."))
 		return FALSE
 
-/obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)
+/obj/structure/table/mouse_drop_receive(obj/dropping, mob/user, params)
 	if(..())
 		return TRUE
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
@@ -836,7 +836,7 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/rack/MouseDrop_T(obj/item/dropping, mob/user, params)
+/obj/structure/rack/mouse_drop_receive(obj/item/dropping, mob/user, params)
 	. = FALSE
 	if((!isitem(dropping)) || user.get_active_hand() != dropping)
 		return .
@@ -930,7 +930,7 @@
 		our_gun.pixel_y = 0
 		return TRUE
 
-/obj/structure/rack/gunrack/MouseDrop_T(obj/item/gun/our_gun, mob/user, params)
+/obj/structure/rack/gunrack/mouse_drop_receive(obj/item/gun/our_gun, mob/user, params)
 	return place_gun(our_gun, user, params)
 
 /obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, params)

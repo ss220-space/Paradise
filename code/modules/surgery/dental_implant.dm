@@ -56,11 +56,18 @@
 /datum/action/item_action/hands_free/activate_pill/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return
-	to_chat(owner, span_warning("Вы сжимаете зубы и раскусываете [target]!"))
+
+	var/obj/item/reagent_containers/food/pill/pill = target
+	if(!istype(pill))
+		return
+
+	to_chat(owner, span_warning("Вы сжимаете зубы и раскусываете [pill]!"))
 	add_attack_logs(owner, owner, "Swallowed implanted [owner]")
-	if(owner.reagents.total_volume)
+
+	if(pill.reagents && pill.reagents.total_volume)
+		pill.reagents.trans_to(owner, pill.reagents.total_volume)
 		owner.reagents.reaction(owner, REAGENT_INGEST)
-		owner.reagents.trans_to(owner, owner.reagents.total_volume)
+
 	Remove(owner)
-	qdel(target)
+	qdel(pill)
 	return 1

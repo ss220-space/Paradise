@@ -6,6 +6,8 @@
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	use_power = NO_POWER_USE
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
 /obj/machinery/iv_drip/process()
@@ -43,7 +45,7 @@
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
+/obj/machinery/iv_drip/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -62,7 +64,7 @@
 
 	if(bag && istype(I, /obj/item/reagent_containers))
 		add_fingerprint(user)
-		I.melee_attack_chain(user, bag, params)
+		I.melee_attack_chain(user, bag, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

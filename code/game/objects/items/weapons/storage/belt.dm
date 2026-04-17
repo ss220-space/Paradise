@@ -808,11 +808,6 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 	update_icon()
 
-/obj/item/storage/belt/bandolier/booze
-	description_antag = "Этот патронташ содержит 16 опьяняющих патронов, способных превратить противника или жертву в беззащитное существо. \
-						Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения. \
-						На трезвых они действуют не так сильно!"
-
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
 		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)

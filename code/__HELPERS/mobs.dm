@@ -421,6 +421,13 @@
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
+/// Returns the total amount of do_afters this mob is taking part in
+/mob/proc/do_after_count()
+	var/count = 0
+	for(var/key, value in do_afters)
+		count += value
+	return count
+
 /proc/is_species(A, species_datum)
 	. = FALSE
 
@@ -916,6 +923,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		mob_map[base_name] = mob_instance
 
 	return mob_map
+
+/// Gets the client of the mob, allowing for mocking of the client.
+/// You only need to use this if you know you're going to be mocking clients somewhere else.
+#define GET_CLIENT(mob) (##mob.client/* || ##mob.mock_client*/)
 
 /// Orders mobs by type then by name
 /proc/sort_mobs()

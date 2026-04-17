@@ -1164,7 +1164,7 @@
 		var/can_control_mech = FALSE
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
 			can_control_mech = TRUE
-			to_chat(user, "[span_notice("[icon2html(src, user)] Status of [name]:")]\n\
+			to_chat(user, "[span_notice("[get_examine_icon(user)] Status of [name]:")]\n\
 				[A.get_mecha_info_text()]")
 			break
 		if(!can_control_mech)
@@ -1315,7 +1315,7 @@
 /obj/mecha/proc/toggle_internal_tank()
 	internals_action.Trigger()
 
-/obj/mecha/MouseDrop_T(mob/M, mob/user, params)
+/obj/mecha/mouse_drop_receive(mob/M, mob/user, params)
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return TRUE

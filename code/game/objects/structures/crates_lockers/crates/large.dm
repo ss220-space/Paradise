@@ -11,9 +11,9 @@
 	var/animal_type
 
 /obj/structure/closet/crate/large/Destroy()
-	var/turf/crate_location = get_turf(src)
-	for(var/obj/contained_object in contents)
-		contained_object.forceMove(crate_location)
+	var/turf/current_turf = get_turf(src)
+	for(var/atom/movable/thing as anything in contents)
+		thing.forceMove(current_turf)
 	return ..()
 
 /obj/structure/closet/crate/large/add_debris_element()
@@ -25,6 +25,7 @@
 		. += "manifest"
 
 /obj/structure/closet/crate/large/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(manifest)
 		tear_manifest(user)
 	else
@@ -36,22 +37,28 @@
 		return
 
 	if(manifest)
-		manifest.forceMove(loc)
-		manifest = null
-		update_icon(UPDATE_OVERLAYS)
+		tear_manifest(user)
 
-	if(animal_type)
-		new animal_type(loc)
-
-	new /obj/item/stack/sheet/wood(loc)
-	for(var/atom/movable/thing as anything in contents)
-		thing.forceMove(loc)
+	if(!open(user))
+		return FALSE
 
 	user.visible_message(
 		span_notice("[user] pries [src] open."),
 		span_notice("You pry open [src]."),
 		span_hear("You hear splitting wood."),
 	)
+	playsound(loc, 'sound/weapons/slashmiss.ogg', 75, TRUE)
+
+	var/turf/current_turf = get_turf(src)
+	for(var/i in 1 to material_drop_amount)
+		new material_drop(src)
+
+	for(var/atom/movable/thing as anything in contents)
+		thing.forceMove(current_turf)
+
+	if(animal_type)
+		new animal_type(current_turf)
+
 	qdel(src)
 
 /obj/structure/closet/crate/large/attackby(obj/item/item, mob/user, params)
@@ -86,8 +93,8 @@
 	icon_state = "lisacrate"
 
 /obj/structure/closet/crate/large/chick/crowbar_act(mob/living/user, obj/item/item)
-	var/atom/cached_loc = loc
+	var/atom/current_turf = get_turf(src)
 	. = ..()
 	for(var/i in 1 to rand(4, 6))
-		new /mob/living/simple_animal/chick(cached_loc)
+		new /mob/living/simple_animal/chick(current_turf)
 

@@ -12,7 +12,9 @@
 	/// Icon for radial menu (if null - use icon_state)
 	var/menu_icon_state = null
 	/// Minimal donater tier (0 for allow all players)
-	var/donation_tier = 0
+	var/donation_tier = NO_DONATOR_TIER
+	/// Allowed ckeys list (allow all if list are null)
+	var/list/allowed_ckeys = null
 
 /datum/item_skin_data/proc/on_apply(obj/item/target)
 	if(item_state)
