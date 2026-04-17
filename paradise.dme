@@ -1251,7 +1251,6 @@
 #include "code\game\machinery\adv_med.dm"
 #include "code\game\machinery\ai_slipper.dm"
 #include "code\game\machinery\alarm.dm"
-#include "code\game\machinery\autodoc.dm"
 #include "code\game\machinery\autolathe.dm"
 #include "code\game\machinery\Beacon.dm"
 #include "code\game\machinery\buttons.dm"

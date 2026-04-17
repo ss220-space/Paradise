@@ -247,15 +247,14 @@
 	return item_bag
 
 /obj/item/bodybag/bluespace/container_resist_act(mob/living/user)
-	var/breakout_time = 10 SECONDS
 	if(user.incapacitated())
 		balloon_alert(user, "вы связаны!")
 		return
-	user.changeNext_move(breakout_time)
-	user.last_special = world.time + (breakout_time)
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
 	balloon_alert(user, "вы сопротивляетесь...")
 	visible_message(span_warning("Кто-то пытается выбраться из [declent_ru(GENITIVE)]!"))
-	if(!do_after(user, 12 SECONDS, src))
+	if(!do_after(user, 12 SECONDS, target = src))
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
@@ -536,7 +535,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/closet/body_bag/environmental/prisoner/container_resist_act(mob/living/user)
+/obj/structure/closet/body_bag/environmental/prisoner/container_resist_act(mob/living/user, loc_required = TRUE)
 	// copy-pasted with changes because flavor text as well as some other misc stuff
 	if(opened || ismovable(loc) || !sinched)
 		return ..()
@@ -548,7 +547,9 @@
 		span_hear("Вы слышите странное шуршание.")
 	)
 
-	if(!do_after(user,(breakout_time), target = src))
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	if(!do_after(user, (breakout_time), target = src))
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, span_warning("Вам не удалось выбраться из [declent_ru(GENITIVE)]!"))
 		return
