@@ -166,7 +166,7 @@
 	var/cached_force = force
 	var/cached_armour_penetration = armour_penetration
 	var/cached_sound = hitsound
-	if(user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(INC_IGNORE_RESTRAINED))
+	if(user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(IGNORE_RESTRAINTS))
 		force = backstab_damage
 		armour_penetration = backstab_armour_penetration
 		hitsound = null

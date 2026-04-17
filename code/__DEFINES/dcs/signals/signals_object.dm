@@ -137,3 +137,5 @@
 #define COMSIG_USER_PRE_ITEM_ATTACK_SECONDARY "user_pre_item_attack_secondary"
 /// From base of [/obj/item/proc/attack_secondary()]: (atom/target, mob/user, list/modifiers, list/attack_modifiers)
 #define COMSIG_ITEM_ATTACK_SECONDARY "item_attack_secondary"
+
+#define COMSIG_CRUSHER_FIRED_BLAST "crusher_fired_blast"

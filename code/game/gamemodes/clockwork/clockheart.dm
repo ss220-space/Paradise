@@ -173,7 +173,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	spawned_parts = null
 	GLOB.total_curses = 3
 	. = ..()
-/obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
+/obj/structure/clockwork/functional/heart/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return
 	if(!istype(dropping, /obj/structure/part_dial))
@@ -319,8 +319,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/heart_filler/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
-/obj/structure/heart_filler/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	parent.MouseDrop_T(dropping, user, params)
+/obj/structure/heart_filler/mouse_drop_receive(atom/movable/dropping, mob/user, params)
+	parent.mouse_drop_receive(dropping, user, params)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)

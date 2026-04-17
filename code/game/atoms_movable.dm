@@ -1,4 +1,5 @@
 /atom/movable
+	abstract_type = /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
@@ -233,21 +234,21 @@
 
 	switch(var_name)
 		if(NAMEOF(src, x))
-			var/turf/T = locate(var_value, y, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(var_value, y, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, y))
-			var/turf/T = locate(x, var_value, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(x, var_value, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, z))
-			var/turf/T = locate(x, y, var_value)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(x, y, var_value)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, loc))
@@ -257,6 +258,9 @@
 			return FALSE
 		if(NAMEOF(src, anchored))
 			set_anchored(var_value)
+			. = TRUE
+		if(NAMEOF(src, pulledby))
+			set_pulledby(var_value)
 			. = TRUE
 		if(NAMEOF(src, glide_size))
 			set_glide_size(var_value)
@@ -1665,3 +1669,7 @@
 
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
+
+/// Called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
+	return

@@ -209,7 +209,7 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
-/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot(user))
 		process_chamber()
 	return ..()
@@ -341,12 +341,13 @@
 		return OXYLOSS
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
-	. = ..()
-	if(var_name == NAMEOF(src, selfcharge))
-		if(var_value)
-			START_PROCESSING(SSobj, src)
-		else
-			STOP_PROCESSING(SSobj, src)
+	switch(var_name)
+		if(NAMEOF(src, selfcharge))
+			if(var_value)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)

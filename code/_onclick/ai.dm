@@ -77,7 +77,7 @@
 			return
 		MiddleClickOn(A)
 		if(controlled_mech)
-			controlled_mech.click_action(A, src, params)
+			controlled_mech.click_action(A, src, modifiers)
 		return
 
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
@@ -97,6 +97,13 @@
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
+
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		var/secondary_result = A.attack_ai_secondary(src, modifiers)
+		if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
+			return
+		else if(secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
+			CRASH("attack_ai_secondary did not return a SECONDARY_ATTACK_* define.")
 
 	if(world.time <= next_move)
 		return
@@ -120,7 +127,7 @@
 	The below is only really for safety, or you can alter the way
 	it functions and re-insert it above.
 */
-/mob/living/silicon/ai/UnarmedAttack(atom/A)
+/mob/living/silicon/ai/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	A.attack_ai(src)
 
 /mob/living/silicon/ai/RangedAttack(atom/A, list/modifiers)
@@ -128,6 +135,16 @@
 
 /atom/proc/attack_ai(mob/user)
 	return
+
+/**
+ * What happens when the AI holds right-click on an item. Returns a SECONDARY_ATTACK_* value.
+ *
+ * Arguments:
+ * * user The mob holding the right click
+ * * modifiers The list of the custom click modifiers
+ */
+/atom/proc/attack_ai_secondary(mob/user, list/modifiers)
+	return SECONDARY_ATTACK_CALL_NORMAL
 
 /*
 	Since the AI handles shift, ctrl, and alt-click differently
@@ -216,6 +233,11 @@
 		return
 	for(var/obj/machinery/door/airlock/A in area.machinery_cache)
 		A.AICtrlClick(user)
+
+/obj/machinery/power/apc/attack_ai_secondary(mob/living/silicon/user, list/modifiers)
+	if(can_use(user))
+		togglelock(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 // TURRETCONTROL
 

@@ -15,7 +15,7 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/OnUnarmedAttack(atom/A, proximity_flag)
+/mob/living/carbon/human/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
 	// normal attack_hand() here.
@@ -120,7 +120,7 @@
 		return
 
 	if(!right_click_attack_chain(atom, modifiers))
-		return OnUnarmedAttack(atom, proximity_flag)
+		return OnUnarmedAttack(atom, proximity_flag, modifiers)
 
 /**
  * Called when an unarmed attack performed with right click hasn't been stopped by the LIVING_UNARMED_ATTACK_BLOCKED macro.
@@ -148,10 +148,10 @@
 /mob/living/carbon/can_grab_attack(atom/atom, proximity_flag)
 	return pulling && proximity_flag && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)
 
-/mob/living/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/living/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return atom.attack_animal(src)
 
-/mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	GiveTarget(atom)
 
 	if(target)
@@ -171,7 +171,7 @@
 	Aliens
 	Defaults to same as monkey in most places
 */
-/mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return atom.attack_alien(src)
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
@@ -191,14 +191,14 @@
 	True Devil
 */
 
-/mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	A.attack_hand(src)
 
 /mob/living/carbon/alien/RestrainedClickOn(atom/A)
 	return
 
 // Babby aliens
-/mob/living/carbon/alien/larva/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/living/carbon/alien/larva/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return atom.attack_larva(src)
 
 /atom/proc/attack_larva(mob/user)
@@ -218,7 +218,7 @@
 	Slimes
 	Nothing happening here
 */
-/mob/living/simple_animal/slime/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/living/simple_animal/slime/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return atom.attack_slime(src)
 
 /atom/proc/attack_slime(mob/user)
@@ -235,7 +235,7 @@
 	return
 
 // pAIs are not intended to interact with anything in the world
-/mob/living/silicon/pai/UnarmedAttack(atom/A, proximity_flag)
+/mob/living/silicon/pai/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	return
 
 /mob/living/silicon/pai/resolve_right_click_attack(atom/target, list/modifiers)

@@ -277,7 +277,7 @@
 		if("ejectpai")
 			ejectpai()
 
-/mob/living/simple_animal/bot/cleanbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else
