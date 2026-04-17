@@ -80,7 +80,7 @@
 		if(!istype(F))
 			return
 		var/obj/structure/cable/C = locate() in F
-		if(!(C && HAS_TRAIT(C, TRAIT_UNDERFLOOR) && prob(15)))
+		if(!(C && !HAS_TRAIT(C, TRAIT_UNDERFLOOR) && prob(15)))
 			return
 		if(C.avail())
 			visible_message(span_warning("[src] chews through [C]. It's toast!"))
