@@ -74,9 +74,9 @@
 		visible_message(span_notice("[user] detaches [src] from the cable!"))
 		return
 
-	var/turf/T = loc
-	if(isturf(T) && T.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)
-		attached = locate() in T
+	var/turf/our_turf = loc
+	if(isturf(our_turf) && our_turf.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)
+		attached = locate() in our_turf
 		if(!attached)
 			to_chat(user, "No exposed cable here to attach to.")
 			return
