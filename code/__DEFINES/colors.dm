@@ -163,7 +163,7 @@
 #define COLOR_PRISONER_ORANGE "#a54900"
 #define COLOR_DARK_MODERATE_ORANGE "#8b633b"
 #define COLOR_RUSTED_GLASS "#917c65"
-#define COLOR_DARK_DELAM"#ddd6cf"
+#define COLOR_DARK_DELAM "#ddd6cf"
 
 // Brown
 #define COLOR_BROWN "#ba9f6d"

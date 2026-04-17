@@ -478,7 +478,7 @@
 	if(istype(target, /obj/item/nuke_core_container/supermatter))
 		var/obj/item/nuke_core_container/supermatter/container = target
 		container.load(src, user)
-	if(proximity && ismovable(target) && target != sliver)
+	if(proximity_flag && ismovable(target) && target != sliver)
 		Consume(target, user)
 
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
