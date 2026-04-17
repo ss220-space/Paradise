@@ -30,7 +30,7 @@
 
 	return ..()
 
-/obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user, flag, params)
+/obj/item/gun/grenadelauncher/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target == user)
 		return
 

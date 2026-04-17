@@ -9,7 +9,7 @@
 	icon_state = null
 	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
-	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	visible_transfer_rate = TRUE
 	resistance_flags = NONE
 	antable = FALSE
@@ -108,8 +108,8 @@
 				break
 		chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/food/drinks/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	if(chugging)

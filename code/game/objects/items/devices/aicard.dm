@@ -9,10 +9,11 @@
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity, params)
-	..()
-	if(!proximity || !target)
+/obj/item/aicard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(!proximity_flag || !target)
 		return
+
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI) //AI is on the card, implies user wants to upload it.
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)

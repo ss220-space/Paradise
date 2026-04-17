@@ -116,7 +116,7 @@
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
-		return M.click_action(A, src, params)
+		return M.click_action(A, src, modifiers)
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
@@ -303,9 +303,9 @@
 	if(ismob(atom))
 		changeNext_move(CLICK_CD_MELEE)
 
-	return OnUnarmedAttack(atom, proximity_flag)
+	return OnUnarmedAttack(atom, proximity_flag, modifiers)
 
-/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return
 
 /*

@@ -30,6 +30,12 @@
 /obj/item/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
 	return
 
+/obj/item/gun/throw/update_icon_state()
+	return
+
+/obj/item/gun/throw/update_overlays()
+	return list()
+
 /obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
 	var/count = loaded_projectiles.len
 	if(include_loaded && to_launch)
@@ -72,7 +78,7 @@
 /obj/item/gun/throw/can_shoot(mob/user)
 	return to_launch
 
-/obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
 	if(fire_cd)
 		return

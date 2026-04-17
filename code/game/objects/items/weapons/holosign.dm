@@ -19,8 +19,8 @@
 	. = ..()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag, params)
-	if(flag)
+/obj/item/holosign_creator/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(!check_allowed_items(target, 1))
 			return
 		var/turf/T = get_turf(target)
@@ -91,7 +91,7 @@
 	. = ..()
 	. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы [wet_enabled ? "деактивировать" : "активировать"] таймер влажного испарения.")
 
-/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag, params)
+/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/obj/structure/holosign/wetsign/WS = ..()
 	if(WS && wet_enabled)
 		WS.wet_timer_start(src)

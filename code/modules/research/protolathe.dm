@@ -117,11 +117,11 @@ Note: Must be placed west/left of and R&D console to function.
 
 	return ..()
 
-/obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/protolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
 	if(. && linked_console)
 		linked_console.linked_lathe = null
 		linked_console = null

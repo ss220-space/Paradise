@@ -269,8 +269,8 @@
 		/obj/item/mecha_parts/chassis
 	))
 
-/obj/item/stack/packageWrap/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/stack/packageWrap/afterattack(obj/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(!istype(target))	//this really shouldn't be necessary (but it is).	-Pete
 		return

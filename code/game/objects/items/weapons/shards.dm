@@ -48,13 +48,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity, params)
-	if(!proximity || !(src in user))
+/obj/item/shard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !(src in user))
 		return
-	if(isturf(AM))
+
+	if(isturf(target))
 		return
-	if(isstorage(AM))
+
+	if(isstorage(target))
 		return
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))

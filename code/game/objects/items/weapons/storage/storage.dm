@@ -179,7 +179,7 @@
 
 /obj/item/storage/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(. && !(. & SECONDARY_ATTACK_CALL_NORMAL))
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
 
 	click_alt(user)
@@ -827,13 +827,19 @@
 	if(isrobot(user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL //Robots can't interact with storage items.
 
-	if(!can_be_inserted(I))
-		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
-			return .|ATTACK_CHAIN_BLOCKED_ALL
+	if(!attempt_insert(I))
 		return .
 
-	handle_item_insertion(I)
 	return .|ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/storage/proc/attempt_insert(obj/item/item)
+	if(!can_be_inserted(item))
+		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
+			return TRUE
+		return FALSE
+
+	handle_item_insertion(item)
+	return TRUE
 
 /obj/item/storage/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
 	. = ..()

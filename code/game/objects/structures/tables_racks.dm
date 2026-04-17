@@ -256,14 +256,13 @@
 	tablepush(grabbed_thing, grabber)
 	add_fingerprint(grabber)
 
-/obj/structure/table/attackby(obj/item/I, mob/user, params)
+/obj/structure/table/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
 	if(!user.transfer_item_to_loc(I, loc))
 		return ..()
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return .
@@ -846,7 +845,7 @@
 		add_fingerprint(user)
 		return TRUE
 
-/obj/structure/rack/attackby(obj/item/I, mob/user, params)
+/obj/structure/rack/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
 	if(!user.transfer_item_to_loc(I, loc))
@@ -904,7 +903,7 @@
 	desc = "A gun rack for storing guns."
 	icon_state = "gunrack"
 
-/obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, params)
+/obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, list/modifiers)
 	. = FALSE
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
@@ -921,7 +920,6 @@
 		our_gun.place_on_rack()
 		our_gun.do_drop_animation(src)
 		our_gun.Move(loc)
-		var/list/modifiers = params2list(params)
 		//Center the icon where the user clicked.
 		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 			return TRUE
@@ -931,13 +929,13 @@
 		return TRUE
 
 /obj/structure/rack/gunrack/mouse_drop_receive(obj/item/gun/our_gun, mob/user, params)
-	return place_gun(our_gun, user, params)
+	return place_gun(our_gun, user, params2list(params))
 
-/obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, params)
+/obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	add_fingerprint(user)
-	place_gun(I, user, params)
+	place_gun(I, user, modifiers)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)

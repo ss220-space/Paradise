@@ -48,9 +48,6 @@
 	explosion(get_turf(src), heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
-/obj/structure/closet/crate/secure/click_alt(mob/living/user)
-	togglelock(user)
-	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(!locked)
