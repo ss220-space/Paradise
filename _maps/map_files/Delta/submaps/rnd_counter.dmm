@@ -6,25 +6,28 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 9;
 	icon_state = "pipe-sf"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/toxins/lab)
 "bz" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "cg" = (
 /obj/structure/cable{
-	icon_state = "2-8-f"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -39,37 +42,24 @@
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "dI" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-9"
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
-"eq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/glass,
-/area/toxins/lab)
 "ey" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-29"
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
 "eI" = (
-/obj/structure/cable{
-	icon_state = "1-4-f"
-	},
 /obj/machinery/computer/rdconsole/core,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -95,19 +85,15 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/lab)
 "il" = (
-/obj/structure/cable{
-	icon_state = "0-4-f"
-	},
-/obj/machinery/power/terminal{
-	dir = 8;
-	icon_state = "term-f"
-	},
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -26
 	},
 /obj/machinery/r_n_d/destructive_analyzer{
 	pixel_y = 2
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -134,14 +120,15 @@
 /turf/simulated/wall/r_wall,
 /area/medical/research/nhallway)
 "kw" = (
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
+	id_tag = "researchdesk1";
 	name = "Research Desk Shutters"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "kJ" = (
@@ -152,10 +139,11 @@
 "la" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Mech Bay"
+	name = "Mech Bay";
+	req_access = list(29)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -167,27 +155,16 @@
 	},
 /area/medical/research)
 "nj" = (
-/obj/structure/cable{
-	icon_state = "0-2-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-8-f"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	name = "Research Desk Shutters"
 	},
-/obj/machinery/door/window/southleft{
-	color = "#58b5c3"
-	},
-/obj/machinery/door/window/northleft{
-	color = "#58b5c3";
-	dir = 2
-	},
 /obj/structure/table/reinforced,
+/obj/machinery/door/window/southleft{
+	name = "Research Lab Desk";
+	req_access = list(47)
+	},
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "nZ" = (
@@ -208,20 +185,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-8-f"
-	},
 /obj/machinery/r_n_d/circuit_imprinter,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/lab)
 "oH" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -231,15 +211,30 @@
 "pa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
+"pD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/toxins/lab)
 "qt" = (
 /obj/machinery/r_n_d/protolathe,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -248,19 +243,6 @@
 "qv" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter,
 /turf/simulated/wall,
-/area/toxins/lab)
-"rQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
-	},
 /area/toxins/lab)
 "sh" = (
 /obj/machinery/camera{
@@ -281,10 +263,10 @@
 /area/medical/research)
 "sT" = (
 /obj/structure/cable{
-	icon_state = "2-4-f"
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -323,9 +305,6 @@
 	},
 /area/toxins/lab)
 "wb" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -333,7 +312,12 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-8-f"
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -358,17 +342,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
-"yi" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Research Desk Shutters"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/toxins/lab)
 "ym" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -376,9 +349,6 @@
 /turf/simulated/floor/glass,
 /area/toxins/lab)
 "yE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass{
 	amount = 20
@@ -388,12 +358,27 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/glass,
 /area/toxins/lab)
 "yX" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter,
 /turf/template_noop,
 /area/template_noop)
+"zf" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "researchdesk1";
+	name = "Research Desk Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/toxins/lab)
 "zZ" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -406,11 +391,13 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
 "Au" = (
-/obj/machinery/cell_charger,
 /obj/machinery/vending/wallmed{
 	pixel_x = -26
 	},
 /obj/machinery/computer/rdconsole/core,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -424,7 +411,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "4-8-f"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -437,9 +424,6 @@
 	},
 /area/toxins/lab)
 "Dr" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -451,24 +435,12 @@
 	},
 /obj/machinery/disposal,
 /obj/machinery/alarm{
-	name = "Research and Development Air Alarm";
 	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
 	},
-/area/toxins/lab)
-"Eb" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Research Desk Shutters"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
 /area/toxins/lab)
 "Ee" = (
 /obj/item/disk/tech_disk{
@@ -502,12 +474,6 @@
 /obj/item/storage/belt/utility,
 /turf/simulated/floor/glass,
 /area/toxins/lab)
-"FW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/glass,
-/area/toxins/lab)
 "HB" = (
 /obj/item/multitool/circuit,
 /obj/item/multitool/circuit,
@@ -519,23 +485,12 @@
 	pixel_x = 30
 	},
 /obj/machinery/r_n_d/circuit_imprinter,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
-	},
-/area/toxins/lab)
-"IW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
 	},
 /area/toxins/lab)
 "JH" = (
@@ -550,21 +505,18 @@
 	},
 /area/medical/research)
 "Mb" = (
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "researchdesk1";
 	name = "Research Desk Shutters"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "Nm" = (
 /obj/machinery/light,
-/obj/structure/extinguisher_cabinet{
-	icon_state = "extinguisher_full_closed";
-	pixel_y = -28
-	},
 /obj/item/integrated_circuit/loaded/hello_world{
 	pixel_x = -2;
 	pixel_y = -5
@@ -581,13 +533,19 @@
 	pixel_y = 13
 	},
 /obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
 /turf/simulated/floor/glass,
 /area/toxins/lab)
 "ND" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/structure/chair/office/light,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -597,12 +555,16 @@
 /turf/template_noop,
 /area/template_noop)
 "Ow" = (
+/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/door_control{
+	id = "researchdesk1";
 	name = "Primary Research Shutters";
 	pixel_x = 28
 	},
 /obj/machinery/camera{
-	dir = 9
+	c_tag = "Research and Development";
+	dir = 9;
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -623,12 +585,6 @@
 /area/hallway/primary/aft)
 "PS" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-8-f"
-	},
 /obj/machinery/autolathe,
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Research Desk Shutters"
@@ -644,6 +600,14 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -655,16 +619,17 @@
 	},
 /area/hallway/primary/aft)
 "QJ" = (
-/obj/machinery/door/window/southleft{
-	color = "#58b5c3";
-	name = "Research Lab Desk"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	name = "Research Desk Shutters"
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/door/window/southleft{
+	name = "Research Lab Desk";
+	req_access = list(47)
+	},
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "Sr" = (
@@ -682,16 +647,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/machinery/door/airlock/research/glass{
-	name = "Research and Development"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-sf"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Research and Development";
+	req_access = list(47)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -704,13 +670,13 @@
 	},
 /area/toxins/lab)
 "To" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Research Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "TS" = (
@@ -727,13 +693,16 @@
 	},
 /area/medical/research)
 "UB" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "1-8-f"
-	},
 /obj/machinery/r_n_d/protolathe,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -765,7 +734,7 @@
 /area/toxins/lab)
 "Wq" = (
 /obj/structure/cable{
-	icon_state = "4-8-f"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -784,10 +753,10 @@
 /area/toxins/lab)
 "XI" = (
 /obj/structure/cable{
-	icon_state = "4-8-f"
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4-f"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -795,7 +764,7 @@
 /area/toxins/lab)
 "YL" = (
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -807,10 +776,10 @@
 	pixel_y = 3
 	},
 /obj/structure/cable{
-	icon_state = "2-4-f"
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "2-8-f"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -820,6 +789,9 @@
 "Za" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -960,7 +932,7 @@ XI
 TS
 TS
 TS
-IW
+Cd
 wq
 HB
 Xm
@@ -982,10 +954,10 @@ Oa
 Oa
 Oa
 lD
-Eb
+kw
 qt
 oy
-rQ
+pa
 pa
 pa
 wb
@@ -1013,7 +985,7 @@ xS
 gY
 vf
 Za
-FW
+wq
 Vn
 Cx
 oH
@@ -1038,10 +1010,10 @@ Oa
 Oa
 Oa
 iA
-yi
+kw
 eI
 bz
-FW
+wq
 wq
 uz
 cg
@@ -1068,8 +1040,8 @@ Oa
 Pa
 QJ
 YT
-YL
-eq
+pD
+wq
 EQ
 Ow
 Dr
@@ -1094,7 +1066,7 @@ Oa
 Oa
 Oa
 uQ
-yi
+kw
 UB
 Ie
 yE
@@ -1123,7 +1095,7 @@ Oa
 Oa
 ju
 gY
-Mb
+zf
 gY
 Mb
 gY
