@@ -326,7 +326,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
 
-/obj/item/clothing/under/color/psyche/get_ru_names()
+/obj/item/clothing/under/psyche/get_ru_names()
 	return list(
 		NOMINATIVE = "психоделический комбинезон",
 		GENITIVE = "психоделического комбинезона",
