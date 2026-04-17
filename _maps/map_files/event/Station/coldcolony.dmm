@@ -1626,9 +1626,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/light,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -1774,9 +1772,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "aEg" = (
@@ -6325,9 +6321,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "cot" = (
 /obj/machinery/computer/atmoscontrol,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7104,9 +7098,7 @@
 /area/coldcolony/malta/quartermaster/ore_production)
 "cDb" = (
 /obj/structure/table/reinforced,
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -8812,9 +8804,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -8943,9 +8933,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -10988,9 +10976,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/civilian/trading)
 "ecA" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/structure/table,
 /obj/item/hand_labeler,
 /obj/item/storage/firstaid/regular,
@@ -13975,9 +13961,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -15257,9 +15241,7 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "fIJ" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "fIQ" = (
@@ -16066,9 +16048,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17777,9 +17757,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/research/explab)
 "gFn" = (
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/library)
 "gFp" = (
@@ -18109,9 +18087,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "gMu" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbrown"
@@ -19206,9 +19182,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "hgQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -20274,9 +20248,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22218,9 +22190,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -23057,9 +23027,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "iIh" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -23465,9 +23433,7 @@
 /area/coldcolony/malta/security/detectives_office)
 "iRC" = (
 /obj/structure/closet/paramedic,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/clothing/suit/hooded/wintercoat/medical,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
@@ -24394,9 +24360,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -24896,9 +24860,7 @@
 "joZ" = (
 /obj/structure/table_frame,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -26236,9 +26198,7 @@
 /area/coldcolony/malta/quartermaster/ore_production)
 "jPj" = (
 /obj/machinery/autolathe,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -26881,9 +26841,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "kbw" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -27284,9 +27242,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "kjg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -28612,9 +28568,7 @@
 "kHA" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "kHB" = (
@@ -28938,9 +28892,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/fancy/candle_box/full,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -33367,9 +33319,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/vip)
 "mCq" = (
@@ -33966,18 +33916,14 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
 	},
 /area/coldcolony/malta/bridge/vip)
 "mPP" = (
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -34359,9 +34305,7 @@
 "mUy" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -34721,9 +34665,7 @@
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
 "naS" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_x = 28
-	},
+/obj/machinery/newscaster/security_unit/directional/east,
 /obj/machinery/light/small,
 /obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
@@ -41927,9 +41869,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/hallway)
 "pKE" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -44166,9 +44106,7 @@
 	pixel_y = -8
 	},
 /obj/machinery/light_switch/directional/north,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -44983,9 +44921,7 @@
 "qQg" = (
 /obj/structure/table,
 /obj/item/lighter/zippo/ce,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
@@ -45579,9 +45515,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -48672,9 +48606,7 @@
 "slM" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/paper/crumpled,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "slU" = (
@@ -49310,9 +49242,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "sxW" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/computer/merch{
 	dir = 1
 	},
@@ -52494,9 +52424,7 @@
 /area/coldcolony/malta/outer/roadblock)
 "tHl" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
@@ -53665,9 +53593,7 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/quartermaster/storage)
 "ueu" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/security_unit/directional/south,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/security/hos)
 "uez" = (
@@ -53717,9 +53643,7 @@
 /obj/machinery/computer/prisoner{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -55242,9 +55166,7 @@
 	c_tag = "Canteen";
 	dir = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -57334,9 +57256,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "vyr" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/machinery/computer/monitor{
 	name = "Engineering Power Monitoring Computer"
 	},
@@ -63178,9 +63098,7 @@
 /area/coldcolony/malta/outer/roadblock)
 "xGa" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -63461,9 +63379,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "xMt" = (
 /obj/structure/table/glass,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -64214,9 +64130,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
 "ybQ" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},

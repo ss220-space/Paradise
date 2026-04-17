@@ -9,9 +9,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "bs" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "bO" = (

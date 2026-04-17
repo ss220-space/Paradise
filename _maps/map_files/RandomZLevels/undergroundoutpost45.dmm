@@ -824,9 +824,7 @@
 	initialize_directions = 7
 	},
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cz" = (
@@ -847,9 +845,7 @@
 "cB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cC" = (
@@ -1761,9 +1757,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/security_unit/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2249,9 +2243,7 @@
 /area/awaymission/UO45/central_hall)
 "fS" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "fT" = (
@@ -4607,9 +4599,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5161,9 +5151,7 @@
 "mg" = (
 /obj/structure/table,
 /obj/item/newspaper,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
@@ -5272,9 +5260,7 @@
 /area/awaymission/UO45/crew_quarters)
 "ms" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mt" = (
@@ -5291,9 +5277,7 @@
 /area/awaymission/UO45/crew_quarters)
 "mv" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mw" = (
@@ -5493,9 +5477,7 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -7584,9 +7566,7 @@
 /area/awaymission/UO45/crew_quarters)
 "qZ" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -7707,9 +7687,7 @@
 /obj/item/clothing/mask/breath{
 	pixel_x = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10534,9 +10512,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},

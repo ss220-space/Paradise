@@ -180,9 +180,7 @@
 "aE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/item/gun/energy/laser/retro,
 /obj/item/paper/terrorspiders8,
 /obj/machinery/light/small{
@@ -387,9 +385,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/item/gun/energy/laser/awaymission_aeg,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -704,9 +700,7 @@
 /area/awaymission/UO71/plaza)
 "ch" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "ci" = (
@@ -718,9 +712,7 @@
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "cl" = (
@@ -1468,9 +1460,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/security_unit/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1925,9 +1915,7 @@
 /area/awaymission/UO71/plaza)
 "fm" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "fn" = (
@@ -4289,9 +4277,7 @@
 "lk" = (
 /obj/structure/table,
 /obj/item/newspaper,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -4347,9 +4333,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4951,9 +4935,7 @@
 /area/awaymission/UO71/centralhall)
 "mE" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/paper/terrorspiders4,
 /obj/item/reagent_containers/food/pill/charcoal{
 	pixel_x = 3
@@ -5198,9 +5180,7 @@
 /area/awaymission/UO71/science)
 "ne" = (
 /obj/structure/table,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/book/manual/security_space_law,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
@@ -7317,9 +7297,7 @@
 /area/awaymission/UO71/bridge)
 "rt" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -7331,9 +7309,7 @@
 /area/awaymission/UO71/centralhall)
 "rv" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "rw" = (
@@ -7461,9 +7437,7 @@
 /obj/item/clothing/mask/breath{
 	pixel_x = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10421,9 +10395,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -10925,9 +10897,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zu" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zv" = (

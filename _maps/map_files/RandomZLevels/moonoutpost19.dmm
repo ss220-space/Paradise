@@ -3246,9 +3246,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/security_unit/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -4115,9 +4113,7 @@
 /obj/structure/table,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -4372,9 +4368,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iJ" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -5661,9 +5655,7 @@
 "lN" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "lO" = (
@@ -5765,9 +5757,7 @@
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
 "me" = (
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5945,9 +5935,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "mB" = (
@@ -6184,9 +6172,7 @@
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
 "ni" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/light/small,
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
@@ -6477,9 +6463,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "nV" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet{
 	germ_level = 20
 	},

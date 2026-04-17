@@ -334,9 +334,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "kv" = (
@@ -743,9 +741,7 @@
 /area/maintenance/tourist)
 "tF" = (
 /obj/structure/table,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/item/analyzer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,

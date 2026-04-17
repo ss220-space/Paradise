@@ -381,9 +381,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "nL" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/carpet/blue,
@@ -593,9 +591,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Hm" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},

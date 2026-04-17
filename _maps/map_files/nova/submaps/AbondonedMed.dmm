@@ -1842,9 +1842,7 @@
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/newscaster{
-	pixel_x = 31
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -2270,10 +2268,7 @@
 /area/maintenance/medroom)
 "vU" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	name = "south newscaster";
-	pixel_y = -31
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/effect/turf_decal/siding/yellow,
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -3;
@@ -3833,9 +3828,7 @@
 /obj/structure/chair/stool/holostool{
 	dir = 8
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/plasteel{

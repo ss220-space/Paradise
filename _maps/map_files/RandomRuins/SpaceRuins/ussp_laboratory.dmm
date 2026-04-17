@@ -159,9 +159,7 @@
 	pixel_y = 17
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -237,9 +235,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ussp_xeno/out)
 "en" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2284,9 +2280,7 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "GU" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plasteel{
@@ -3171,9 +3165,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Tc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
