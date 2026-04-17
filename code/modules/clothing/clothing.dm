@@ -1256,7 +1256,7 @@
 
 /obj/item/clothing/under/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(. && !(. & SECONDARY_ATTACK_CALL_NORMAL))
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
 
 	set_sensors(user)

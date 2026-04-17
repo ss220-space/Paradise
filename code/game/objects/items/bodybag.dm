@@ -103,7 +103,7 @@
 	ru_names = get_ru_names()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/closet/body_bag/open(mob/living/user, force)
+/obj/structure/closet/body_bag/open(mob/living/user, force = FALSE)
 	. = ..()
 	if(.)
 		pull_push_slowdown = 0

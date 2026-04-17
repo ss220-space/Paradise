@@ -52,14 +52,20 @@
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
 	tear_manifest()
+	if(climbable)
+		structure_shaken()
 
-/obj/structure/closet/crate/open(mob/living/user, force)
+/obj/structure/closet/crate/before_open(mob/living/user, force)
+	. = ..()
+	do_trap_effect(user)
+
+/obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
-		return
+		return TRUE
 	if(!user.electrocute_act(17, src))
-		return
+		return TRUE
 	do_sparks(5, TRUE, src)
-	return ..()
+	return FALSE
 
 /obj/structure/closet/crate/attackby(obj/item/used_item, mob/user, params)
 	if(!opened && try_rig(used_item, user))
@@ -125,10 +131,10 @@
 
 /obj/structure/closet/crate/attack_hand(mob/user, list/modifiers)
 	. = ..()
+	handle_electropack_trap(user)
 	if(.)
 		return
 	tear_manifest(user)
-	handle_electropack_trap(user)
 
 /obj/structure/closet/crate/proc/handle_electropack_trap(mob/living/user)
 	var/obj/item/radio/electropack = locate() in src

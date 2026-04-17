@@ -1486,7 +1486,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
 
-/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
+/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
 	if(!istype(target) || !target.wetlevel)

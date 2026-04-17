@@ -1536,7 +1536,7 @@
 			else
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
 					if(prob(50)) // Each tick has a 50% chance of repearing a bone.
-						if(bodypart.has_fracture()) //I can't just check for !E.status
+						if(bodypart.has_fracture() && bodypart.fracture != FRACTURE_TYPE_OPEN) //I can't just check for !E.status
 							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [GEND_HE_SHE(bodypart)] применяют правильную форму!"))
 							bodypart.mend_fracture()
 						if(bodypart.has_internal_bleeding())

@@ -18,10 +18,6 @@
 	pixel_y = rand(8,-8)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/honeycomb/set_APTFT()
-	set hidden = TRUE
-	return
-
 /obj/item/reagent_containers/honeycomb/empty()
 	set hidden = TRUE
 	return

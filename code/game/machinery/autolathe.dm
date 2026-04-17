@@ -294,24 +294,24 @@
 
 	return ..()
 
-/obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
+/obj/machinery/autolathe/crowbar_act_secondary(mob/living/user, obj/item/tool)
+	if(!tool.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
 	if(busy)
 		balloon_alert(user, "в процессе печати!")
 		return
 	if(panel_open)
-		default_deconstruction_crowbar(user, I)
+		default_deconstruction_crowbar(user, tool)
 
-/obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
+/obj/machinery/autolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+	if(!tool.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
 	if(busy)
 		balloon_alert(user, "в процессе печати!")
 		return
-	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", I)
+	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", tool)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)

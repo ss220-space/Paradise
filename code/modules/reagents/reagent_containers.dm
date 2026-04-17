@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_per_transfer_from_this = 5
 	var/visible_transfer_rate = TRUE
-	var/possible_transfer_amounts = list(5,10,15,25,30)
+	var/possible_transfer_amounts = list(5, 10, 15, 25, 30)
 	var/volume = 30
 	var/list/list_reagents = null
 	var/spawned_disease = null
@@ -31,37 +31,74 @@
 	var/datum/reagent/reagent = reagents.reagent_list[1]
 	return reagent.name
 
-/// Set amount_per_transfer_from_this
-/obj/item/reagent_containers/verb/set_APTFT()
-	set name = "Установить объём перемещения"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+/obj/item/reagent_containers/New()
+	create_reagents(volume, temperature_min, temperature_max)
+	..()
 
-	if(!ishuman(usr) && !isrobot(usr))
+/obj/item/reagent_containers/Initialize(mapload)
+	. = ..()
+	if(spawned_disease)
+		var/datum/disease/F = new spawned_disease
+		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
+		reagents.add_reagent("blood", disease_amount, data)
+	if(list_reagents)
+		list_reagents = string_assoc_list(list_reagents)
+	add_initial_reagents()
+	update_icon()
+	register_context()
+
+/obj/item/reagent_containers/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(possible_transfer_amounts)
+		context[SCREENTIP_CONTEXT_RMB] = "Set transfer amount"
+	return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/reagent_containers/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	select_transfer_amount(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/reagent_containers/attack_self_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(.)
 		return
+	select_transfer_amount(user)
+
+/obj/item/reagent_containers/attack_robot_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	select_transfer_amount(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/reagent_containers/proc/select_transfer_amount(mob/user)
+	if(!possible_transfer_amounts)
+		return
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
-	var/N = tgui_input_list(usr, "Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", possible_transfer_amounts, default)
+	var/amount = tgui_input_list(user, "Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", possible_transfer_amounts, default)
 
-	if(!N)
+	if(!amount)
 		return
+
 	if(!Adjacent(usr))
 		balloon_alert(usr, "слишком далеко!")
 		return
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		balloon_alert(usr, "руки заблокированы!")
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		balloon_alert(user, "руки заблокированы!")
 		return
 
-	amount_per_transfer_from_this = N
-	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[N]</b> единиц[DECL_SEC_MIN(N)] вещества за раз."))
-
-/obj/item/reagent_containers/click_alt(mob/user)
-	set_APTFT()
-	return CLICK_ACTION_SUCCESS
+	amount_per_transfer_from_this = amount
+	to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[amount]</b> единиц[DECL_SEC_MIN(amount)] вещества за раз."))
 
 /obj/item/reagent_containers/verb/empty()
 
@@ -84,23 +121,6 @@
 			make_splashes(usr.loc)
 		else
 			balloon_alert(usr, "пусто, нечего выливать!")
-
-/obj/item/reagent_containers/New()
-	create_reagents(volume, temperature_min, temperature_max)
-	..()
-	if(!possible_transfer_amounts)
-		verbs -= /obj/item/reagent_containers/verb/set_APTFT
-
-/obj/item/reagent_containers/Initialize(mapload)
-	. = ..()
-	if(spawned_disease)
-		var/datum/disease/F = new spawned_disease
-		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
-		reagents.add_reagent("blood", disease_amount, data)
-	if(list_reagents)
-		list_reagents = string_assoc_list(list_reagents)
-	add_initial_reagents()
-	update_icon()
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
