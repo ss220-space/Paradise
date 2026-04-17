@@ -1,8 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aK" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/structure/disposalpipe/junction{
 	icon_state = "pipe-j1f"
 	},
@@ -19,32 +16,31 @@
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Chemistry Privacy Shutter"
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "Chemistry";
+	name = "Chemistry Privacy Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "dF" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/structure/chair/stool{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "ef" = (
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowsiding"
@@ -55,8 +51,12 @@
 	dir = 1;
 	icon_state = "tube0"
 	},
-/obj/machinery/camera,
 /obj/structure/reagent_dispensers/oil,
+/obj/machinery/camera{
+	c_tag = "Medbey Chemistry";
+	dir = 6;
+	network = list("Medical","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowsiding"
@@ -76,9 +76,6 @@
 	},
 /area/medical/chemistry)
 "eN" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/structure/window/reinforced{
 	color = "#58b5c3";
 	dir = 4
@@ -86,21 +83,26 @@
 /obj/structure/closet/wardrobe/chemistry_white{
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "eT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -108,48 +110,45 @@
 	},
 /area/medical/chemistry)
 "fZ" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/chem_dispenser,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "hb" = (
-/obj/structure/cable{
-	icon_state = "2-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 10;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "hx" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -171,22 +170,15 @@
 	},
 /area/medical/chemistry)
 "hW" = (
-/obj/item/twohanded/required/kirbyplants{
-	dir = 8;
-	icon_state = "plant-30"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "iI" = (
-/obj/structure/coatrack{
-	dir = 4;
-	icon_state = "coatrack1"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -196,6 +188,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
+/obj/structure/coatrack,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellowsiding"
@@ -204,84 +197,80 @@
 "iX" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	icon_state = "4-8-f"
+	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "kf" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
 /obj/machinery/chem_dispenser,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "kI" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab"
-	},
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access = list(33)
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/medical/chemistry)
 "kS" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "ml" = (
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
-	},
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = 32
 	},
+/obj/machinery/chem_master,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /obj/machinery/door_control{
+	id = "Chemistry1";
 	name = "Chem Hallway Desk Shutters";
 	pixel_x = 25;
 	pixel_y = 23
 	},
-/obj/structure/cable{
-	icon_state = "1-8-f"
-	},
-/obj/machinery/chem_master,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "mP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5;
-	icon_state = "pipe-sf"
-	},
 /obj/effect/map_effect/marker_helper/submap_def/delta/chemistry/sofa,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -292,14 +281,15 @@
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	name = "Chemistry Privacy Shutter"
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Chemistry2";
+	name = "Chemistry Privacy Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "oR" = (
@@ -317,9 +307,9 @@
 /area/hallway/primary/central/se)
 "sI" = (
 /obj/machinery/door/window/eastright{
-	color = "#58b5c3";
 	dir = 2;
-	name = "Chemistry Delivery"
+	name = "Chemistry Delivery";
+	req_access = list(33)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -327,14 +317,12 @@
 	},
 /area/medical/chemistry)
 "sP" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -350,13 +338,14 @@
 	},
 /area/hallway/primary/central/se)
 "tU" = (
+/obj/machinery/chem_master,
+/obj/item/radio/intercom/directional/north,
 /obj/machinery/door_control{
+	id = "Chemistry";
 	name = "Chem Privacy Shutters Control";
 	pixel_x = -23;
 	pixel_y = -9
 	},
-/obj/machinery/chem_master,
-/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "uv" = (
@@ -368,7 +357,10 @@
 /area/medical/chemistry)
 "uR" = (
 /obj/structure/cable{
-	icon_state = "2-4-f"
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -376,15 +368,6 @@
 	},
 /area/medical/chemistry)
 "vR" = (
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "1-4-f"
-	},
 /obj/structure/table/glass{
 	icon_state = "glass_table-4"
 	},
@@ -392,30 +375,28 @@
 /obj/item/storage/firstaid/aquatic_kit/full{
 	pixel_x = 10
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "we" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "wh" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/obj/structure/cable{
-	icon_state = "1-4-f"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5;
-	icon_state = "pipe-sf"
-	},
 /obj/structure/table/glass{
 	icon_state = "glass_table-8"
 	},
@@ -427,6 +408,9 @@
 	name = "Ash Generator 3000";
 	pixel_x = -11
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
 	},
@@ -435,50 +419,46 @@
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Chemistry Privacy Shutter"
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
-	},
-/obj/machinery/door/window{
-	color = "#58b5c3";
-	dir = 1
 	},
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-0"
 	},
 /obj/item/storage/box/beakers,
+/obj/machinery/door/window/eastright{
+	dir = 1;
+	name = "Chemistry Desk";
+	req_access = list(33)
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "Chemistry";
+	name = "Chemistry Privacy Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "yi" = (
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
+	id_tag = "Chemistry2";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "yr" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
-	},
-/obj/structure/cable{
-	icon_state = "1-4-f"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
@@ -502,9 +482,6 @@
 	},
 /area/medical/chemistry)
 "zB" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/chem_heater,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
@@ -524,14 +501,19 @@
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "Bc" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -544,7 +526,10 @@
 /area/template_noop)
 "CY" = (
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -552,10 +537,6 @@
 	},
 /area/medical/chemistry)
 "DF" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Chemistry Privacy Shutter"
-	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
@@ -564,6 +545,12 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "Chemistry1";
+	name = "Chemistry Privacy Shutter"
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "GT" = (
@@ -575,16 +562,12 @@
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "HN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/structure/cable{
-	icon_state = "4-8-f"
+	icon_state = "4-8"
 	},
-/obj/item/twohanded/required/kirbyplants{
-	dir = 4;
-	icon_state = "plant-27"
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -592,18 +575,36 @@
 	},
 /area/medical/chemistry)
 "Iz" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
+"JH" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Quarantine Lockdown"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "Chemistry1";
+	name = "Chemistry Privacy Shutter"
+	},
+/turf/simulated/floor/plating,
+/area/medical/chemistry)
 "JT" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcornersiding"
@@ -611,18 +612,14 @@
 /area/medical/chemistry)
 "Lm" = (
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "Ls" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/reagentgrinder{
 	pixel_x = -1;
 	pixel_y = 9
@@ -630,7 +627,12 @@
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-4"
 	},
-/obj/item/stack/sheet/mineral/plasma,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -645,19 +647,19 @@
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "LO" = (
+/obj/structure/closet/secure_closet/reagents{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /obj/machinery/door_control{
+	id = "Chemistry2";
 	name = "Chem Medbay Desk Shutters";
 	pixel_x = -18;
 	pixel_y = -24
-	},
-/obj/structure/cable{
-	icon_state = "1-8-f"
-	},
-/obj/structure/reagent_dispensers/fueltank/chem{
-	pixel_y = -32
-	},
-/obj/structure/closet/secure_closet/reagents{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -666,20 +668,21 @@
 /area/medical/chemistry)
 "MI" = (
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Nh" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
@@ -694,22 +697,26 @@
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Chemistry Privacy Shutter"
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "Chemistry";
+	name = "Chemistry Privacy Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "NM" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/structure/closet/secure_closet/reagents,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -719,9 +726,10 @@
 /turf/template_noop,
 /area/template_noop)
 "OK" = (
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "OZ" = (
@@ -739,6 +747,9 @@
 /obj/item/reagent_containers/applicator,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper/precision,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -747,23 +758,22 @@
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-0"
 	},
-/obj/machinery/door/window/eastright{
-	color = "#58b5c3";
-	dir = 1;
-	name = "Chemistry Desk"
-	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
+/obj/machinery/door/firedoor,
+/obj/item/storage/box/beakers,
+/obj/machinery/door/window/eastright{
+	dir = 1;
+	name = "Chemistry Desk";
+	req_access = list(33)
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
+	id_tag = "Chemistry1";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	icon_state = "pipe-sf"
-	},
-/obj/item/storage/box/beakers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -772,33 +782,30 @@
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	name = "Chemistry Privacy Shutter"
-	},
 /obj/machinery/fishtank/wall{
 	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Chemistry2";
+	name = "Chemistry Privacy Shutter"
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "Sr" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/structure/chair/sofa/left{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Ub" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -806,45 +813,41 @@
 /area/medical/chemistry)
 "Wi" = (
 /obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "2-4-f"
+	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/medical/chemistry)
 "Xj" = (
-/obj/structure/cable{
-	icon_state = "0-1-f"
-	},
-/obj/machinery/power/terminal{
-	icon_state = "term-f"
-	},
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Xp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -863,12 +866,8 @@
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "Zq" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
@@ -1066,7 +1065,7 @@ CU
 CU
 CU
 CU
-bz
+JH
 kf
 zB
 Iz
