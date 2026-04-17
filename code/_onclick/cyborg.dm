@@ -75,7 +75,7 @@
 			var/secondary_result = A.attack_robot_secondary(src, modifiers)
 			if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
 				return
-			if (secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
+			if(secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
 				CRASH("attack_robot_secondary did not return a SECONDARY_ATTACK_* define.")
 		A.add_hiddenprint(src)
 		A.attack_robot(src, modifiers)

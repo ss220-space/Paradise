@@ -84,11 +84,11 @@ GLOBAL_LIST_EMPTY(closets)
 			context[SCREENTIP_CONTEXT_LMB] = opened ? "Close" : "Open"
 			context[SCREENTIP_CONTEXT_RMB] = opened ? "Close" : "Open"
 		if(secure && !broken)
-			if (opened)
+			if(opened)
 				context[SCREENTIP_CONTEXT_RMB] = "Close"
 			else
 				context[SCREENTIP_CONTEXT_RMB] = !locked ? "Lock" : "Unlock"
-				if (locked)
+				if(locked)
 					context[SCREENTIP_CONTEXT_LMB] = "Unlock"
 		screentip_change = TRUE
 	if(secure && !opened && is_id_card(held_item))

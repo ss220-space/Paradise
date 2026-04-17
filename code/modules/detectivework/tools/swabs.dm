@@ -82,7 +82,7 @@
 	if(!proximity_flag || istype(proximity_flag, /obj/machinery/dnaforensics))
 		return
 
-	if(isliving(proximity_flag))
+	if(isliving(target))
 		return
 
 	if(is_used())

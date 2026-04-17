@@ -827,12 +827,12 @@
 	if(isrobot(user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL //Robots can't interact with storage items.
 
-	if(!atempt_insert(I))
+	if(!attempt_insert(I))
 		return .
 
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/storage/proc/atempt_insert(obj/item/item)
+/obj/item/storage/proc/attempt_insert(obj/item/item)
 	if(!can_be_inserted(item))
 		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
 			return TRUE

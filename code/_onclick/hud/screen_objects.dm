@@ -198,7 +198,7 @@
 	if(isstorage(master))
 		var/obj/item/storage/storage_master = master
 		var/obj/item/item = usr.get_active_hand()
-		storage_master.atempt_insert(item)
+		storage_master.attempt_insert(item)
 	return TRUE
 
 /atom/movable/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
@@ -256,7 +256,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		S.atempt_insert(I)
+		S.attempt_insert(I)
 	return TRUE
 
 /atom/movable/screen/storage/space_box
