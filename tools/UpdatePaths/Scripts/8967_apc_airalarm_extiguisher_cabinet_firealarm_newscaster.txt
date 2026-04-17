@@ -366,10 +366,10 @@
 /obj/machinery/power/apc/directional/north {cell_type=25000} :  /obj/machinery/power/apc/generator/directional/north{@OLD;cell_type=@SKIP;name=@SKIP;shock_proof=@SKIP}
 /obj/machinery/power/apc/directional/south {cell_type=25000} :  /obj/machinery/power/apc/generator/directional/south{@OLD;cell_type=@SKIP;name=@SKIP;shock_proof=@SKIP}
 
-/obj/machinery/power/apc/directional/east {cell_type=5000} :  /obj/machinery/power/apc/worn_out/directional/east{@OLD;cell_type=@SKIP;name=@SKIP}
-/obj/machinery/power/apc/directional/west {cell_type=5000} :  /obj/machinery/power/apc/worn_out/directional/west{@OLD;cell_type=@SKIP;name=@SKIP}
-/obj/machinery/power/apc/directional/north {cell_type=5000} :  /obj/machinery/power/apc/worn_out/directional/north{@OLD;cell_type=@SKIP;name=@SKIP}
-/obj/machinery/power/apc/directional/south {cell_type=5000} :  /obj/machinery/power/apc/worn_out/directional/south{@OLD;cell_type=@SKIP;name=@SKIP}
+/obj/machinery/power/apc/directional/east {cell_type=5000} :  /obj/machinery/power/apc/important/directional/east{@OLD;cell_type=@SKIP;name=@SKIP}
+/obj/machinery/power/apc/directional/west {cell_type=5000} :  /obj/machinery/power/apc/important/directional/west{@OLD;cell_type=@SKIP;name=@SKIP}
+/obj/machinery/power/apc/directional/north {cell_type=5000} :  /obj/machinery/power/apc/important/directional/north{@OLD;cell_type=@SKIP;name=@SKIP}
+/obj/machinery/power/apc/directional/south {cell_type=5000} :  /obj/machinery/power/apc/important/directional/south{@OLD;cell_type=@SKIP;name=@SKIP}
 
 /obj/machinery/power/apc/directional/east {cell_type=0} :  /obj/machinery/power/apc/worn_out/directional/east
 /obj/machinery/power/apc/directional/west {cell_type=0} :  /obj/machinery/power/apc/worn_out/directional/west

@@ -870,7 +870,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cc" = (
-/obj/machinery/alarm/monito/all_accessr/directional/north{
+/obj/machinery/alarm/monitor/all_access/directional/north{
 	req_access = list(150)
 	},
 /obj/structure/alien/weeds{

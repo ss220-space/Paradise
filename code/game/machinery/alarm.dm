@@ -870,9 +870,9 @@ GLOBAL_LIST_INIT(human_tlv, list(
 				add_fingerprint(user)
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, span_notice("недостаточно проводов!"))
+					to_chat(user, span_notice("Недостаточно проводов!"))
 					return ATTACK_CHAIN_PROCEED
-				to_chat(user, "проводка установлена")
+				to_chat(user, "Проводка установлена")
 				playsound(get_turf(src), coil.usesound, 50, TRUE)
 				buildstage = AIR_ALARM_WIRED
 				wiresexposed = TRUE
@@ -885,7 +885,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 				add_fingerprint(user)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
-				to_chat(user, span_notice("плата установлена"))
+				to_chat(user, span_notice("Плата установлена"))
 				playsound(get_turf(src), I.usesound, 50, TRUE)
 				qdel(I)
 				buildstage = AIR_ALARM_BUILD_CIRCUIT

@@ -20,7 +20,7 @@
 	. = ..()
 	if(direction)
 		setDir(direction)
-		set_pixel_offsets_from_dir(26, -26, 29, -29)
+		set_pixel_offsets_from_dir(29, -29, 26, -26)
 	switch(extinguishertype)
 		if(NO_EXTINGUISHER)
 			return

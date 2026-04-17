@@ -212,7 +212,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
-/obj/machinery/power/apc/importatnt_area
+/obj/machinery/power/apc/important_area
 	cell_type = CELL_IMPORTANT
 
 /obj/machinery/power/apc/generator
@@ -1866,7 +1866,7 @@
 // MARK: Mapping Dir Helpers
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/generator, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/importatnt_area, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important_area, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/noalarm, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 26, 26)
