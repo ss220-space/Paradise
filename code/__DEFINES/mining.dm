@@ -1,4 +1,4 @@
-#define ALLOWED_MINING_SUIT_ITEMS list(
+#define ALLOWED_MINING_SUIT_ITEMS list( \
 	/obj/item/tank, \
 	/obj/item/flashlight, \
 	/obj/item/extinguisher/mini, \
