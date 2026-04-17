@@ -280,38 +280,3 @@
 		INSTRUMENTAL = "деревянной табуреткой",
 		PREPOSITIONAL = "деревянной табуретке",
 	)
-
-/obj/structure/rack/wooden
-	name = "wooden rack"
-	desc = "Небольшой стеллаж, сделанный из дерева. Вы можете хранить на нём вещи!"
-	icon_state = "wooden_rack"
-	wooden_version = TRUE
-	obj_flags = NODECONSTRUCT
-
-/obj/structure/rack/wooden/get_ru_names()
-	return list(
-		NOMINATIVE = "деревянный стеллаж",
-		GENITIVE = "деревянного стеллажа",
-		DATIVE = "деревянному стеллажу",
-		ACCUSATIVE = "деревянный стеллаж",
-		INSTRUMENTAL = "деревянным стеллажом",
-		PREPOSITIONAL = "деревянном стеллаже",
-	)
-
-/obj/structure/rack/wooden/Initialize(mapload)
-	. = ..()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/structure/rack/wooden/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
-
-/obj/structure/rack/wooden/wrench_act(mob/user, obj/item/I)
-	return
-
-/obj/structure/rack/wooden/mouse_drop_receive(obj/item/dropping, mob/user, params)
-	. = ..()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/structure/rack/wooden/update_overlays()
-	overlays.Cut()
-	overlays += image('icons/obj/objects.dmi', src, "wooden_rack_overlay", ABOVE_OBJ_LAYER)
