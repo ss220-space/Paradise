@@ -130,7 +130,7 @@
 		to_chat(user, span_warning("You should open the maintenance panel first."))
 		return FALSE
 	var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
-	if(!terminal_turf.can_have_cabling() || terminal_turf.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)	//is the floor plating removed or is it a spaceturf ?
+	if(!terminal_turf.can_have_cabling() || terminal_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)	//is the floor plating removed or is it a spaceturf ?
 		to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
 		return FALSE
 	if(user.loc == loc)	// somehow???
@@ -144,7 +144,7 @@
 		span_notice("You start to construct the cable terminal for the SMES..."),
 	)
 	coil.play_tool_sound(src)
-	if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || (panel_check && !panel_open) || !terminal_turf.can_have_cabling() || terminal_turf.underfloor_accessibility == UNDERFLOOR_INTERACTABLE || QDELETED(coil))
+	if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || (panel_check && !panel_open) || !terminal_turf.can_have_cabling() || terminal_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || QDELETED(coil))
 		return FALSE
 	var/obj/structure/cable/node = terminal_turf.get_cable_node()
 	if(check_electrocute(user, node, node))

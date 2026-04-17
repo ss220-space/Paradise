@@ -99,7 +99,7 @@
 
 	if(isfloorturf(expel_to))
 		floorturf = expel_to
-		if(floorturf.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)	// pop the tile if present
+		if(floorturf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)	// pop the tile if present
 			floorturf.remove_tile(null, TRUE, TRUE)
 
 	if(direction) // direction is specified
