@@ -10,10 +10,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "cX" = (
@@ -28,12 +28,12 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
-/obj/machinery/camera{
-	dir = 1
-	},
 /obj/machinery/computer/monitor,
-/obj/structure/cable/yellow{
-	icon_state = "0-1-f"
+/obj/structure/cable/yellow,
+/obj/machinery/camera{
+	c_tag = "Engine SMES";
+	dir = 1;
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70,12 +70,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "fP" = (
-/obj/structure/cable{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable{
-	icon_state = "0-8-f"
-	},
 /obj/machinery/power/smes,
 /turf/simulated/floor/greengrid,
 /area/engineering/engine)
@@ -98,10 +92,10 @@
 "iR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "iS" = (
@@ -116,9 +110,6 @@
 /turf/template_noop,
 /area/template_noop)
 "ms" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2-f"
-	},
 /obj/machinery/power/terminal{
 	dir = 1;
 	icon_state = "term-f"
@@ -129,6 +120,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "nF" = (
@@ -137,9 +132,7 @@
 /area/maintenance/engineering)
 "pi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/curtain/black{
-	dir = 8
-	},
+/obj/structure/curtain/black,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "qp" = (
@@ -171,10 +164,14 @@
 /area/engineering/engine)
 "rX" = (
 /obj/structure/cable/yellow{
-	icon_state = "4-8-f"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8-f"
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
@@ -183,9 +180,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "sj" = (
-/obj/structure/cable{
-	icon_state = "0-8-f"
-	},
 /obj/machinery/power/smes,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -211,13 +205,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "wc" = (
-/obj/structure/cable{
-	icon_state = "0-8-f"
-	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc{
 	pixel_y = 26;
 	dir = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
@@ -242,17 +237,23 @@
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
 "Av" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8-f"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8-f"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8-f"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
@@ -261,7 +262,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	icon_state = "1-2-f"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
@@ -314,9 +315,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "IT" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2-f"
-	},
 /obj/machinery/power/terminal{
 	dir = 1;
 	icon_state = "term-f"
@@ -324,24 +322,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
-"Jy" = (
-/obj/structure/sign/poster/official/keepcalm{
-	dir = 8;
-	name = "Постер — Сохраняйте спокойствие"
-	},
-/turf/simulated/wall,
-/area/maintenance/engineering)
 "Kz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "Ls" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2-f"
-	},
 /obj/machinery/power/terminal{
 	dir = 1;
 	icon_state = "term-f"
@@ -352,20 +344,31 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "LD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-sf"
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/mineral/plastitanium,
+/area/maintenance/engineering)
+"LE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/keepcalm{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/maintenance/engineering)
 "LL" = (
 /turf/simulated/wall/r_wall/rust,
@@ -431,14 +434,16 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/maintenance/engineering)
 "Vv" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8-f"
-	},
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
@@ -682,8 +687,8 @@ yB
 yB
 yB
 yB
-Jy
-MW
+Uh
+LE
 eE
 NB
 Uu
