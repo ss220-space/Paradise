@@ -418,6 +418,3 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
-
-/// Not closed turf, but it means the same thing (almost).
-#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))
