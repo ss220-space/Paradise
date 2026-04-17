@@ -1732,7 +1732,7 @@
 
 	switch(var_name)
 		if(NAMEOF(src, maxHealth))
-			updatehealth("var edit")
+			updatehealth(reason = "var edit")
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 

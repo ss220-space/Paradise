@@ -1404,7 +1404,7 @@
 		if(victim.stat)
 			continue
 
-		victim.Weaken(4 SECONDS)
+		victim.Knockdown(4 SECONDS)
 		to_chat(victim, span_userdanger("Громкий визг ослабляет вас и заставляет упасть на землю!"))
 
 /obj/structure/closet/coffin/vampire/process()
