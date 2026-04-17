@@ -2160,7 +2160,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/worn_out/directional/east,
+/obj/machinery/power/apc/important_area/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "BH" = (

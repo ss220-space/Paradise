@@ -474,10 +474,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "by" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "bz" = (
@@ -1128,9 +1125,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "do" = (
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "dp" = (
@@ -1333,9 +1328,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -2262,10 +2255,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "fW" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Central Hallway";
 	dir = 1;
@@ -2658,9 +2648,7 @@
 	},
 /area/awaymission/UO45/research)
 "gZ" = (
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2723,10 +2711,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "hi" = (
@@ -3231,10 +3216,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "iq" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3759,10 +3741,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "jw" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4204,10 +4183,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4577,10 +4553,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "lg" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "lh" = (
@@ -4801,10 +4774,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4920,10 +4890,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -4972,10 +4939,7 @@
 	},
 /area/awaymission/UO45/research)
 "lN" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Research Division East";
 	dir = 1;
@@ -5305,10 +5269,7 @@
 /area/awaymission/UO45/crew_quarters)
 "mz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm/no_alarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
@@ -5347,10 +5308,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/gateaway)
 "mE" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -6466,10 +6424,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -6736,10 +6691,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -6764,10 +6716,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -7403,9 +7352,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /obj/item/multitool,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
@@ -7641,9 +7588,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "rj" = (
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /obj/structure/dispenser{
 	pixel_x = -1
 	},
@@ -8441,10 +8386,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -9915,10 +9857,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/structure/closet/secure_closet/miner{
 	req_access = list(201)
 	},
@@ -10625,10 +10564,7 @@
 /area/awaymission/UO45/mining)
 "xp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6

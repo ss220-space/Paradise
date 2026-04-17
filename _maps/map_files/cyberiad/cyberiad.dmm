@@ -1,15 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aaA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/firealarm/directional/north,
-/obj/structure/cargo_shelf,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "aaG" = (
 /obj/structure/closet/secure_closet/RD,
 /obj/machinery/firealarm/directional/south,
@@ -57660,6 +57649,17 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"kxP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/north,
+/obj/structure/cargo_shelf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "kxS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -112824,7 +112824,7 @@ nXh
 lxn
 maU
 wfX
-aaA
+kxP
 nfX
 naL
 bzy

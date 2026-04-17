@@ -64,7 +64,7 @@
 #define APC_ELECTRONICS_INSTALLED 1
 #define APC_ELECTRONICS_SECURED 2
 
-// Батарейки в апц
+// cell's charge for apc types
 #define CELL_IMPORTANT 5000
 #define CELL_GENERATOR 25000
 

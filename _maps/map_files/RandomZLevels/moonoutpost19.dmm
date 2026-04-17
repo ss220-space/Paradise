@@ -870,7 +870,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cc" = (
-/obj/machinery/alarm/monitor/all_access/directional/north{
+/obj/machinery/alarmall_access/monitor/directional/north{
 	req_access = list(150)
 	},
 /obj/structure/alien/weeds{
@@ -2423,9 +2423,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
 "fj" = (
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /obj/structure/table,
 /obj/item/storage/box/beakers{
 	pixel_x = 2;
@@ -3568,10 +3566,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -3693,9 +3688,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -3801,10 +3794,7 @@
 "hB" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/fire,
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitehall"
@@ -4617,10 +4607,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "jp" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5239,10 +5226,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "kK" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5523,10 +5507,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "lt" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Bar";
@@ -5891,10 +5872,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mw" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	germ_level = 20;
@@ -6065,10 +6043,7 @@
 /turf/simulated/floor/plating/airless,
 /area/moonoutpost19/mo19arrivals)
 "mS" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)

@@ -5288,7 +5288,7 @@
 /area/coldcolony/malta/security/reception)
 "bTX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/south,
+/obj/machinery/power/apc/important_area/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -9148,7 +9148,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/power/apc/worn_out/directional/south,
+/obj/machinery/power/apc/important_area/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
@@ -28011,7 +28011,7 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "kzA" = (
-/obj/machinery/power/apc/worn_out/directional/south,
+/obj/machinery/power/apc/important_area/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/sorting)
@@ -31462,7 +31462,7 @@
 "lRC" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/apc/worn_out/directional/south,
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
