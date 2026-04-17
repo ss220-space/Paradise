@@ -412,9 +412,7 @@
 /area/shuttle/escape)
 "bx" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -689,9 +687,7 @@
 	},
 /area/shuttle/escape)
 "cf" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -782,9 +778,7 @@
 	},
 /area/shuttle/escape)
 "ct" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8

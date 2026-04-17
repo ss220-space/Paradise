@@ -349,9 +349,7 @@
 "bc" = (
 /obj/structure/table,
 /obj/item/folder/blue,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "bd" = (
@@ -731,9 +729,7 @@
 	},
 /area/shuttle/escape)
 "ca" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/space_heater,
 /turf/simulated/floor/shuttle/plating{
 	icon_state = "bot"

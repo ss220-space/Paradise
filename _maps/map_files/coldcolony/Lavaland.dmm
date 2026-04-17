@@ -2554,9 +2554,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "uB" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "uH" = (

@@ -241,9 +241,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -1166,10 +1164,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -6;
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light{
 	on = 1
 	},
@@ -1622,10 +1617,7 @@
 	pixel_x = -5
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25;
-	pixel_y = 3
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1793,10 +1785,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -6;
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -1884,9 +1873,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Br" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2395,9 +2382,7 @@
 	},
 /area/ruin/ussp_xeno/out)
 "HW" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3530,9 +3515,7 @@
 "XV" = (
 /obj/effect/decal/remains/xeno,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -3547,9 +3530,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"

@@ -484,9 +484,7 @@
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
 "yO" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
 "zp" = (

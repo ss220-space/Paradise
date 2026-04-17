@@ -350,9 +350,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "hU" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stamp/granted{
 	pixel_x = 3;
@@ -1277,9 +1275,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "EO" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "EU" = (

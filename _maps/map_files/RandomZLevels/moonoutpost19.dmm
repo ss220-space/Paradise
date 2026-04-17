@@ -2579,9 +2579,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
 "fw" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -3083,9 +3081,7 @@
 /area/moonoutpost19/mo19research)
 "gp" = (
 /obj/machinery/door/firedoor,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -29
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4883,17 +4879,13 @@
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "jU" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "jV" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5435,9 +5427,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "lc" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/camera{
 	c_tag = "Kitchen";
 	dir = 8;

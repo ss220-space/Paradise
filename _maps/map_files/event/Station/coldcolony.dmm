@@ -5932,9 +5932,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6806,9 +6804,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "cxs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
 "cxu" = (
@@ -7808,9 +7804,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "cQf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -7980,9 +7974,7 @@
 "cTC" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -8110,9 +8102,7 @@
 /obj/structure/chair/comfy/teal{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -11574,9 +11564,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "ekk" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/camera{
 	c_tag = "Prisoner Processing";
 	dir = 1;
@@ -14337,9 +14325,7 @@
 "fpi" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/item/stock_parts/cell/high/plus{
 	pixel_x = 5;
 	pixel_y = 6
@@ -15200,9 +15186,7 @@
 /area/coldcolony/malta/turret_protected/aisat)
 "fEV" = (
 /obj/machinery/recharge_station,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15885,10 +15869,7 @@
 	c_tag = "Engineering Lobby";
 	network = list("Engineering","SS13")
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -4;
-	pixel_y = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /turf/simulated/floor/plasteel{
@@ -15997,9 +15978,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17762,9 +17741,7 @@
 /area/coldcolony/malta/bridge/captain)
 "gDm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -19161,9 +19138,7 @@
 /area/coldcolony/malta/maintenance/incinerator)
 "hef" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -20275,9 +20250,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
 "hzM" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/dresser,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -20793,9 +20766,7 @@
 "hKs" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -21498,9 +21469,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
 "iam" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -23311,9 +23280,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "iJD" = (
@@ -26641,9 +26608,7 @@
 "jUM" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/camera{
 	c_tag = "Command Departure Checkpoint";
 	dir = 8
@@ -35257,9 +35222,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "nhr" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
@@ -35961,9 +35924,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "nzh" = (
 /obj/structure/table,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/item/stack/packageWrap,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -37491,9 +37452,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "oaw" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -40253,9 +40212,7 @@
 /obj/item/reagent_containers/iv_bag/blood/unathi,
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -47940,9 +47897,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "rNf" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/camera{
 	c_tag = "Research Lobby";
 	dir = 1;
@@ -49038,9 +48993,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
 "sms" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -53417,9 +53370,7 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "tTO" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "tTQ" = (
@@ -54566,9 +54517,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "uom" = (
 /obj/machinery/cooker/deepfryer,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -57828,9 +57777,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "vzz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
@@ -59377,9 +59324,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -60135,9 +60080,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/xenobiology)
 "wpE" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62122,9 +62065,7 @@
 "xeA" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/portable_atmospherics/scrubber/huge,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -62532,9 +62473,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "xlC" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -62573,9 +62512,7 @@
 "xmm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/space_heater,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -63183,9 +63120,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "xyT" = (
 /obj/structure/closet/secure_closet/reagents,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -63657,9 +63592,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/camera{
 	c_tag = "Arrivals End";
 	dir = 10
@@ -64425,9 +64358,7 @@
 	},
 /area/coldcolony/malta/security/hos)
 "xXR" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /obj/item/reagent_containers/food/pill/patch/silver_sulf{
 	pixel_x = -8;

@@ -928,10 +928,7 @@
 	},
 /area/mine/eva)
 "cr" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/shower{
 	dir = 8
 	},
@@ -1211,10 +1208,7 @@
 	},
 /area/mine/living_quarters)
 "dd" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -1637,10 +1631,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "eh" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ei" = (
@@ -2166,10 +2157,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purplecorner"
