@@ -771,7 +771,7 @@
 		do_attack_animation(L)
 		try_shock_mob(L)
 
-/mob/living/simple_animal/demon/pulse_demon/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/demon/pulse_demon/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isliving(A))
 		try_attack_mob(A)
 	else if(isitem(A) && !is_under_tile())

@@ -208,6 +208,30 @@
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
+
+/// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with an item
+/// Sent from the very beginning of the click chain, intended for generic atom-item interactions
+/// Args: (mob/living/user, obj/item/tool, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_ITEM_INTERACTION "atom_item_interaction"
+/// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with an item
+/// Sent from the very beginning of the click chain, intended for generic atom-item interactions
+/// Args: (mob/living/user, obj/item/tool, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_ITEM_INTERACTION_SECONDARY "atom_item_interaction_secondary"
+/// Sent from [atom/proc/item_interaction], to a mob clicking on an atom with an item
+#define COMSIG_USER_ITEM_INTERACTION "user_item_interaction"
+/// Sent from [atom/proc/item_interaction], to an item clicking on an atom
+/// Args: (mob/living/user, atom/interacting_with, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ITEM_INTERACTING_WITH_ATOM "item_interacting_with_atom"
+/// Sent from [atom/proc/item_interaction], to an item right-clicking on an atom
+/// Args: (mob/living/user, atom/interacting_with, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ITEM_INTERACTING_WITH_ATOM_SECONDARY "item_interacting_with_atom_secondary"
+/// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with a tool
+#define COMSIG_USER_ITEM_INTERACTION_SECONDARY "user_item_interaction_secondary"
+
 ///from base of atom/proc/tool_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
 /// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with a tool of a specific tool type
@@ -510,6 +534,11 @@
 ///from base of /obj/item/attack(): (mob/M, mob/user)
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
+
+/// from base of atom/attack_robot(): (mob/user, list/modifiers)
+#define COMSIG_ATOM_ATTACK_ROBOT "atom_attack_robot"
+/// from base of atom/attack_robot_secondary(): (mob/user)
+#define COMSIG_ATOM_ATTACK_ROBOT_SECONDARY "atom_attack_robot_secondary"
 
 #define COMSIG_GLOVES_DOUBLE_HANDS_TOUCH "gloves_double_hands_touch"
 

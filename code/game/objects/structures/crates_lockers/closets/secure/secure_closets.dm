@@ -9,6 +9,7 @@
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
+	secure = TRUE
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -53,17 +54,6 @@
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
-
-/obj/structure/closet/secure_closet/click_alt(mob/user)
-	togglelock(user)
-	return CLICK_ACTION_SUCCESS
-
-/obj/structure/closet/secure_closet/attack_hand(mob/user)
-	if(locked)
-		togglelock(user)
-	else
-		add_fingerprint(user)
-		toggle(user)
 
 /obj/structure/closet/secure_closet/update_overlays()
 	. = ..()

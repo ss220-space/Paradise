@@ -95,7 +95,7 @@
 	bitecount++
 	On_Consume(target, user)
 
-/obj/item/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity, params)
+/obj/item/reagent_containers/food/snacks/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	return
 
 /obj/item/reagent_containers/food/snacks/examine(mob/user)

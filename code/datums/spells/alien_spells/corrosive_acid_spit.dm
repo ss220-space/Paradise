@@ -36,11 +36,13 @@
 	plasma_cost = 50
 	acid_power = 1000
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target == user)
 		return ..()
 
-	if(!proximity || isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
+	var/mob/living/carbon/alien/alien_target = target
+
+	if(!proximity_flag || istype(alien_target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
 
 	if(!plasma_check(plasma_cost, user))
@@ -51,7 +53,7 @@
 		playsound(target, 'sound/items/welder.ogg', 150, TRUE)
 		visible_message(span_alertalien("[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"))
 		add_attack_logs(user, target, "Applied corrosive acid") // Want this logged
-		user.adjust_alien_plasma(-plasma_cost)
+		alien_target.adjust_alien_plasma(-plasma_cost)
 	else
 		to_chat(user, span_noticealien("You cannot dissolve this object."))
 	..()

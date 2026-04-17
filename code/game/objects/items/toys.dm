@@ -58,19 +58,20 @@
 /obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/toy/balloon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(istype(A, /obj/structure/reagent_dispensers))
-		var/obj/structure/reagent_dispensers/RD = A
+
+	if(istype(target, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/RD = target
 		if(RD.reagents.total_volume <= 0)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(RD, NOMINATIVE)] пустой."))
 		else if(reagents.total_volume >= 10)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
-			A.reagents.trans_to(src, 10)
-			to_chat(user, span_notice("Вы наполняете шарик из [A.declent_ru(GENITIVE)]."))
+			target.reagents.trans_to(src, 10)
+			to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon(UPDATE_ICON_STATE)
 
@@ -835,10 +836,10 @@
 
 	interaction(user)
 
-/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	interaction(user)
@@ -890,10 +891,10 @@
 
 	interaction(user)
 
-/obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+/obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	interaction(user)
@@ -1940,8 +1941,8 @@
 /obj/item/toy/russian_revolver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, flag, params)
-	if(flag)
+/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(target in user.contents)
 			return
 		if(!ismob(target))

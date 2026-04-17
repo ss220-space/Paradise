@@ -195,8 +195,8 @@
 		PREPOSITIONAL = "создателе гуманоидов",
 	)
 
-/obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
-	..()
+/obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
 	if(isturf(target))
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
 		if(selected_species)

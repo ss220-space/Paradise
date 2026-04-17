@@ -190,10 +190,10 @@
 	if(is_ventcrawling(usr)) // stops inventory actions in vents
 		return TRUE
 
-	if(master)
-		var/obj/item/I = usr.get_active_hand()
-		if(I)
-			I.melee_attack_chain(usr, master, params2list(params))
+	if(isstorage(master))
+		var/obj/item/storage/storage_master = master
+		var/obj/item/item = usr.get_active_hand()
+		storage_master.atempt_insert(item)
 	return TRUE
 
 /atom/movable/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
@@ -251,7 +251,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		I.melee_attack_chain(user, S, params2list(params))
+		S.atempt_insert(I)
 	return TRUE
 
 /atom/movable/screen/storage/space_box

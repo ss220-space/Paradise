@@ -84,10 +84,10 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/storage/funeral_urn/afterattack(atom/A, mob/user, proximity, params)
-	if(istype(A,/obj/effect/decal/cleanable/ash))
+/obj/item/storage/funeral_urn/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(istype(target,/obj/effect/decal/cleanable/ash))
 		if(length(src.contents) < storage_slots)
-			var/obj/effect/decal/cleanable/ash/ash = A
+			var/obj/effect/decal/cleanable/ash/ash = target
 			new /obj/item/ash_holder(src, ash)
 			qdel(ash)
 		else

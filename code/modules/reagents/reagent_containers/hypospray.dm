@@ -9,7 +9,7 @@
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
@@ -143,7 +143,7 @@
 	item_state = "upg_hypo"
 	icon_state = "upg_hypo"
 	volume = 60
-	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	possible_transfer_amounts = list(1, 2, 5, 10, 15, 20, 25, 30, 40, 60)
 	color_overlay = "colour_upgradedhypo"
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/get_ru_names()
@@ -178,7 +178,7 @@
 
 /obj/item/reagent_containers/hypospray/CMO
 	volume = 250
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,35,40,45,50)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50)
 	list_reagents = list("omnizine" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -223,7 +223,7 @@
 	volume = 90
 	ignore_flags = 1
 	icon_state = "combat_hypo"
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 
 /obj/item/reagent_containers/hypospray/ertm/hydrocodone
 	amount_per_transfer_from_this = 10

@@ -35,11 +35,11 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open(by_hand = FALSE)
+/obj/structure/closet/crate/open()
 	if(opened || !can_open())
 		return FALSE
 
-	if(by_hand)
+	if(usr?.client)
 		for(var/obj/O in src)
 			if(O.density)
 				var/response = tgui_alert(usr, "This crate has been packed extremely tightly, an item inside won't fit back inside. Are you sure you want to open it?", "Compressed Materials Warning", list("Yes", "No"))
@@ -140,16 +140,15 @@
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
 		tear_manifest(user)
-	else
-		var/obj/item/radio/electropack = locate() in src
-		if(rigged && electropack)
-			if(isliving(user))
-				var/mob/living/L = user
-				if(L.electrocute_act(17, electropack))
-					do_sparks(5, TRUE, src)
-					return
-		add_fingerprint(user)
-		toggle(user, by_hand = TRUE)
+		return
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
+		if(isliving(user))
+			var/mob/living/L = user
+			if(L.electrocute_act(17, electropack))
+				do_sparks(5, TRUE, src)
+				return
+	return ..()
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)

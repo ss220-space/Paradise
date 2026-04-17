@@ -198,8 +198,8 @@
 		if(GIZMO_MARK)
 			mark(target, user)
 
-/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
-	if(flag)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		return
 	if(!ScientistCheck(user))
 		return
@@ -258,8 +258,8 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	radio_off(target, user)
 
-/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
-	if(flag)
+/obj/item/abductor/silencer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		return
 	if(!isgrey(user) && !AbductorCheck(user))
 		return
@@ -310,7 +310,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
 
-/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!ScientistCheck(user))
 		return
 

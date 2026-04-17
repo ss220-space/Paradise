@@ -922,7 +922,7 @@
 	if(load)
 		unload()
 
-/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

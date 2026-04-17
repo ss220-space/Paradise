@@ -271,41 +271,72 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, span_notice("You set [src]'s mode."))
 
-/obj/item/rpd/afterattack(atom/target, mob/user, proximity, params)
-	..()
+/obj/item/rpd/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!check_ranged(interacting_with, user))
+		return ITEM_INTERACT_BLOCKING
+
+	rpd_interaction(interacting_with, user, mode, is_ranged = TRUE)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!check_ranged(interacting_with, user))
+		return ITEM_INTERACT_BLOCKING
+
+	rpd_interaction(interacting_with, user, mode = RPD_DELETE_MODE, is_ranged = TRUE)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/proc/check_ranged(atom/interacting_with, mob/living/user)
+	if(!ranged)
+		return FALSE
+
+	if(!(interacting_with in view(user)))
+		return FALSE
+	return TRUE
+
+/obj/item/rpd/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	rpd_interaction(interacting_with, user, mode)
+
+/obj/item/rpd/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	rpd_interaction(interacting_with, user, mode = RPD_DELETE_MODE)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/rpd/proc/rpd_interaction(atom/target, mob/user, mode, is_ranged = FALSE)
 	if(loc != user)
-		return
-	if(!proximity && !ranged)
 		return
 	if(world.time < lastused + spawndelay)
 		return
-	if(ranged && !(target in view(user)))
-		return
 
-	var/turf/T = get_turf(target)
-	if(target != T)
+	var/turf/location = get_turf(target)
+	if(target != location)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
-		if(target.rpd_act(user, src) == TRUE)
+		if(target.rpd_act(user, src))
 			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
 			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
-			if(ranged)
-				user.Beam(T, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+			if(is_ranged)
+				draw_beam(target, user)
 			return
 
 	// If we get this far, we have to check every object in the tile, to make sure that none of them block RPD usage on this tile.
 	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
 
-	for(var/obj/O in T)
-		if(O.rpd_blocksusage() == TRUE)
-			to_chat(user, span_warning("[O] blocks the [src]!"))
+	for(var/obj/object in location)
+		if(object.rpd_blocksusage())
+			to_chat(user, span_warning("[object] blocks the [src]!"))
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
-	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) <= (user.client.maxview() + 2))\
-			user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-	T.rpd_act(user, src)
+	if(is_ranged) //woosh beam if bluespaced at a distance
+		if(get_dist(src, location) <= (user.client.maxview() + 2))\
+			draw_beam(target, user)
+
+	location.rpd_act(user, src, mode)
+
+/obj/item/rpd/proc/draw_beam(atom/target, mob/user)
+	user.Beam(target, icon = 'icons/effects/effects.dmi', icon_state = "rped_upgrade", time = 0.5 SECONDS)
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME

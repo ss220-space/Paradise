@@ -28,9 +28,9 @@
 	QDEL_NULL(underbarrel)
 	return ..()
 
-/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(select == 0)
-		underbarrel.afterattack(target, user, flag, params)
+		underbarrel.afterattack(target, user, proximity_flag, modifiers, status)
 	else
 		..()
 

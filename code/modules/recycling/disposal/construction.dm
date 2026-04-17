@@ -216,16 +216,17 @@
 	transfer_fingerprints_to(disposals)
 	qdel(src)
 
-/obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
+/obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	. = TRUE
-	if(our_rpd.mode == RPD_ROTATE_MODE)
-		rotate()
-	else if(our_rpd.mode == RPD_FLIP_MODE)
-		flip()
-	else if(our_rpd.mode == RPD_DELETE_MODE)
-		our_rpd.delete_single_pipe(user, src)
-	else
-		return ..()
+	switch(mode)
+		if(RPD_ROTATE_MODE)
+			rotate()
+		if(RPD_FLIP_MODE)
+			flip()
+		if(RPD_DELETE_MODE)
+			our_rpd.delete_single_pipe(user, src)
+		else
+			return ..()
 
 /obj/structure/disposalconstruct/set_anchored(anchorvalue)
 	. = ..()

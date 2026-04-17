@@ -31,6 +31,9 @@ GLOBAL_LIST_EMPTY(closets)
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	var/anchorable = TRUE
+	/// secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
+	var/secure = FALSE
 	//Time to breakout
 	var/breakout_time = 2 MINUTES
 	var/large = TRUE
@@ -63,6 +66,57 @@ GLOBAL_LIST_EMPTY(closets)
 		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
 	update_icon() // Set it to the right icon if needed
 	populate_contents()
+	register_context()
+
+/obj/structure/closet/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	var/screentip_change = FALSE
+
+	if(isnull(held_item))
+		if(!welded)
+			context[SCREENTIP_CONTEXT_LMB] = opened ? "Close" : "Open"
+			context[SCREENTIP_CONTEXT_RMB] = opened ? "Close" : "Open"
+		if(secure && !broken)
+			if (opened)
+				context[SCREENTIP_CONTEXT_RMB] = "Close"
+			else
+				context[SCREENTIP_CONTEXT_RMB] = !locked ? "Lock" : "Unlock"
+				if (locked)
+					context[SCREENTIP_CONTEXT_LMB] = "Unlock"
+		screentip_change = TRUE
+	if(secure && !opened && is_id_card(held_item))
+		context[SCREENTIP_CONTEXT_LMB] = !locked ? "Lock" : "Unlock"
+		context[SCREENTIP_CONTEXT_RMB] = !locked ? "Lock" : "Unlock"
+		screentip_change = TRUE
+
+	if(iswelder(held_item))
+		if(opened)
+			context[SCREENTIP_CONTEXT_LMB] = "Deconstruct"
+			screentip_change = TRUE
+		else
+			if(!welded && can_weld_shut)
+				context[SCREENTIP_CONTEXT_LMB] = "Weld"
+				screentip_change = TRUE
+			else if(welded)
+				context[SCREENTIP_CONTEXT_LMB] = "Unweld"
+				screentip_change = TRUE
+
+	if(istype(held_item) && held_item.tool_behaviour == TOOL_WRENCH && anchorable)
+		context[SCREENTIP_CONTEXT_RMB] = anchored ? "Unanchor" : "Anchor"
+		screentip_change = TRUE
+
+	return screentip_change ? CONTEXTUAL_SCREENTIP_SET : NONE
+
+/obj/structure/closet/examine(mob/user)
+	. = ..()
+	if(can_weld_shut && !welded)
+		. += span_notice("It can be [EXAMINE_HINT("welded")] shut.")
+	if(welded)
+		. += span_notice("It's [EXAMINE_HINT("welded")] shut.")
+	if(anchorable && !anchored)
+		. += span_notice("It can be [EXAMINE_HINT("bolted")] to the ground.")
+	if(anchored)
+		. += span_notice("It's [anchorable ? EXAMINE_HINT("bolted") : "attached firmly"] to the ground.")
 
 // Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
@@ -228,12 +282,14 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/setClosed()
 	close()
 
-/obj/structure/closet/proc/toggle(mob/user, by_hand = FALSE)
-	if(!(opened ? close() : open(by_hand)))
-		to_chat(user, span_notice("It won't budge!"))
-		return FALSE
-
-	return TRUE
+/**
+ * Toggles a closet open or closed, to the opposite state. Does not respect locked or welded states, however.
+ */
+/obj/structure/closet/proc/toggle(mob/living/user)
+	if(opened)
+		return close(user)
+	else
+		return open(user)
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
@@ -379,6 +435,18 @@ GLOBAL_LIST_EMPTY(closets)
 	add_fingerprint(user)
 	return TRUE
 
+/obj/structure/closet/wrench_act_secondary(mob/living/user, obj/item/tool)
+	if(!anchorable)
+		balloon_alert(user, "no anchor bolts!")
+		return TRUE
+	if(isinspace() && !anchored) // We want to prevent anchoring a locker in space, but we should still be able to unanchor it there
+		balloon_alert(user, "nothing to anchor to!")
+		return TRUE
+	default_unfasten_wrench(user, tool, 5 SECONDS)
+	tool.play_tool_sound(src, 75)
+	user.balloon_alert_to_viewers("[anchored ? "anchored" : "unanchored"]")
+	return TRUE
+
 /obj/structure/closet/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
 		attack_hand(user)
@@ -396,13 +464,45 @@ GLOBAL_LIST_EMPTY(closets)
 			spawn(30)
 				lastbang = 0
 
-/obj/structure/closet/attack_hand(mob/user)
+/obj/structure/closet/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
 	add_fingerprint(user)
-	toggle(user)
+
+	if(user.body_position == LYING_DOWN && get_dist(src, user) > 0)
+		return
+
+	if(toggle(user))
+		return TRUE
+
+	if(!opened)
+		return togglelock(user)
+
+/obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+
+	if(!user.can_perform_action(src) || !isturf(loc))
+		return
+
+	if(!opened && secure)
+		togglelock(user)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/closet/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)
+
+/obj/structure/closet/attack_robot(mob/user)
+	if(user.Adjacent(src))
+		return attack_hand(user)
+
+/obj/structure/closet/attack_robot_secondary(mob/user, list/modifiers)
+	if(!user.Adjacent(src))
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	togglelock(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)

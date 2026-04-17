@@ -35,7 +35,7 @@
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gun/magic/wand/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -201,7 +201,7 @@
 	charges--
 	..()
 
-/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!charges && !charging)
 		to_chat(usr, span_notice("[src] has started to regain its charge."))

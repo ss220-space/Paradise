@@ -21,6 +21,7 @@
 	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
 	can_be_emissive = TRUE
+	secure = TRUE
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -49,19 +50,6 @@
 
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
-
-/obj/structure/closet/crate/secure/click_alt(mob/living/user)
-	togglelock(user)
-	return CLICK_ACTION_SUCCESS
-
-/obj/structure/closet/crate/secure/attack_hand(mob/user)
-	if(manifest)
-		tear_manifest(user)
-	if(locked)
-		togglelock(user)
-		return
-	add_fingerprint(user)
-	toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)

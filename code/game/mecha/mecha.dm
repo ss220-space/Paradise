@@ -76,7 +76,8 @@
 	var/wreckage
 
 	var/list/equipment = new
-	var/obj/item/mecha_parts/mecha_equipment/selected
+	var/list/list/equipment_in_hands
+	var/list/obj/item/mecha_parts/mecha_equipment/selected_equipment_in_hands = list()
 	var/max_equip = 3
 	var/turf/crashing = null
 	var/occupant_sight_flags = 0
@@ -232,6 +233,9 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
+	selected_equipment_in_hands.Cut()
+	for(var/list/equipment in equipment_in_hands)
+		equipment.Cut()
 	QDEL_NULL(ui_view)
 	QDEL_NULL(radio)
 	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
@@ -294,7 +298,7 @@
 	if(M == occupant && radio.get_broadcasting())
 		radio.talk_into(M, message_pieces)
 
-/obj/mecha/proc/click_action(atom/target, mob/user, params)
+/obj/mecha/proc/click_action(atom/target, mob/user, list/modifiers)
 	if(!occupant || occupant != user)
 		return
 	if(completely_disabled)
@@ -311,7 +315,11 @@
 		return
 	if(src == target)
 		return
-
+	var/obj/item/mecha_parts/mecha_equipment/selected
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		selected = selected_equipment_in_hands[MECH_HAND_RIGHT]
+	else
+		selected = selected_equipment_in_hands[MECH_HAND_LEFT]
 	if(GLOB.pacifism_after_gt)
 		var/mob/living/L = user
 		if(!Adjacent(target))
@@ -319,7 +327,7 @@
 				if(selected.harmful)
 					to_chat(L, span_warning("Вы не хотите навредить другим живым существам!"))
 					return
-				selected.action(target, params)
+				selected.action(target, modifiers)
 		else if(selected && selected.is_melee())
 			if(ishuman(target) && selected.harmful)
 				to_chat(user, span_warning("Вы не хотите навредить другим живым существам!"))
@@ -342,24 +350,24 @@
 			to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
 			return
 		if(!Adjacent(target))
-			selected.action(target, params)
+			selected.action(target, modifiers)
 			return
 		else
 			if(L.a_intent == INTENT_HELP) // point blank shooting
-				selected.action(target, params)
+				selected.action(target, modifiers)
 				return
 	else if(selected && selected.is_melee())
 		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 			to_chat(L, span_warning("Вы не хотите навредить другим живым существам!!"))
 			return
-		selected.action(target, params)
+		selected.action(target, modifiers)
 		return
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		target = safepick(oview(1, src))
 	if(!melee_can_hit || !isatom(target) || !Adjacent(target))
 		return
-	target.mech_melee_attack(src)
+	target.mech_melee_attack(src, selected)
 	melee_can_hit = FALSE
 	addtimer(CALLBACK(src, PROC_REF(melee_hit_ready)), melee_cooldown)
 
@@ -897,9 +905,14 @@
 		if(!equipment.can_attach(src))
 			to_chat(user, span_warning("You were unable to attach [I] to [src]!"))
 			return ATTACK_CHAIN_PROCEED
+		var/hand_slot = null
+		if(equipment.selectable == MODULE_SELECTABLE_FULL)
+			hand_slot = tgui_alert(user, "Выберите руку, в которую установить модуль.", "Выбор руки", list(MECH_HAND_LEFT, MECH_HAND_RIGHT))
+			if(!hand_slot)
+				return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		equipment.attach(src)
+		equipment.attach(src, hand_slot)
 		user.visible_message(
 			span_notice("[user] attaches [I] to [src]."),
 			span_notice("You attach [I] to [src]."),
@@ -1128,12 +1141,12 @@
 			to_chat(user, span_notice("[src] is at full integrity!"))
 	repairing = FALSE
 
-/obj/mecha/mech_melee_attack(obj/mecha/M)
+/obj/mecha/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	if(!has_charge(melee_energy_drain))
 		return FALSE
 	use_power(melee_energy_drain)
-	if(M.damtype == BRUTE || M.damtype == BURN)
-		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
+	if(mech.damtype == BRUTE || mech.damtype == BURN)
+		add_attack_logs(mech.occupant, src, "Mecha-attacked with [mech] ([uppertext(mech.occupant.a_intent)]) ([uppertext(mech.damtype)])")
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
@@ -1251,10 +1264,6 @@
 		GrantActions(AI, FALSE)
 	else
 		GrantActions(AI, !AI.can_dominate_mechs)
-	if(selected)
-		var/atom/movable/screen/alert/empty_alert/default_alert = AI.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
-		default_alert.name = selected.name
-		default_alert.desc = "Выбран модуль [selected.name]"
 
 /////////////////////////////////////
 ////////  Atmospheric stuff  ////////
@@ -1382,10 +1391,6 @@
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 		if(maintenance_progress)
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
-		if(selected)
-			var/atom/movable/screen/alert/empty_alert/default_alert = H.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
-			default_alert.name = selected.name
-			default_alert.desc = "Выбран модуль [selected.name]"
 		return TRUE
 	else
 		return FALSE
@@ -1475,9 +1480,6 @@
 
 	var/atom/movable/mob_container
 
-	if(selected)
-		occupant.clear_alert(selected.alert_category)
-	occupant.clear_alert("charge")
 	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
@@ -1779,9 +1781,7 @@
 
 /obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect)
-		if(selected)
-			used_item = selected
-		else if(!visual_effect_icon)
+		if(!visual_effect_icon)
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 			if(damtype == BURN)
 				visual_effect_icon = ATTACK_EFFECT_MECHFIRE
@@ -1823,7 +1823,7 @@
 	var/list/choices_to_refs = list()
 
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
-		if(!MT.selectable || selected == MT)
+		if(!MT.selectable || (MT.stored_in && (selected_equipment_in_hands[MT.stored_in] == MT)))
 			continue
 		var/mutable_appearance/clean/MA = new(MT)
 		choices[MT.name] = MA
