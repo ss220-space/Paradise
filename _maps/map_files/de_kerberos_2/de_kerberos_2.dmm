@@ -56074,9 +56074,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/closet/loot_crate/blue,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
@@ -61464,9 +61462,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/wood/fancy/birch{
 	icon_state = "fancy-wood-birch-broken6"
 	},
@@ -67561,9 +67557,7 @@
 "ljz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -77430,9 +77424,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "nsh" = (
@@ -80637,9 +80629,7 @@
 	},
 /area/crew_quarters/kitchen)
 "ocV" = (
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -96156,9 +96146,7 @@
 "rwS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/item/hand_labeler,
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -98568,9 +98556,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "rYw" = (
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -101149,9 +101135,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -109419,9 +109403,7 @@
 /area/security/warden)
 "uoe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},

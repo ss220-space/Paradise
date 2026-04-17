@@ -6,9 +6,9 @@ help: "Use the specific directional subtypes for this newscaster."
     - dir
     - name
 
-/obj/machinery/newscaster:
+=/obj/machinery/newscaster:
   banned: TRUE
-/obj/machinery/newscaster/security_unit::
+=/obj/machinery/newscaster/security_unit::
   banned: TRUE
 
 # directional

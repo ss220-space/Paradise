@@ -8,7 +8,7 @@ help: "Use the specific directional subtypes for this extinguisher cabinet."
 
 /obj/structure/extinguisher_cabinet/empty:
   banned_variables:
-    -extinguishertype
+    - extinguishertype
 
 =/obj/structure/extinguisher_cabinet:
   banned: TRUE

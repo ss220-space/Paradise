@@ -61526,9 +61526,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/item/trash/spentcasing{
 	dir = 5;
 	icon_state = "r-casing"

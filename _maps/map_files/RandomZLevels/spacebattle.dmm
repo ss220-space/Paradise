@@ -13491,9 +13491,7 @@
 /area/awaymission/spacebattle/hallway9)
 "MY" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "MZ" = (
@@ -17072,9 +17070,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret10)
 "WU" = (

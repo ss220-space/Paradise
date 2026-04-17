@@ -620,9 +620,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -2246,9 +2244,7 @@
 	},
 /area/maintenance/starboard)
 "zO" = (
-/obj/machinery/power/apc/worn_out/directional/east{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/east,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"

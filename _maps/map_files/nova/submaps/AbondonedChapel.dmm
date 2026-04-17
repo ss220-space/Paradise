@@ -1224,9 +1224,7 @@
 	pixel_x = 12;
 	pixel_y = -9
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1415,9 +1413,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"

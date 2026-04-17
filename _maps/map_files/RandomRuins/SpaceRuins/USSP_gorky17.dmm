@@ -1809,7 +1809,6 @@
 /obj/machinery/disposal,
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -1891,7 +1890,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/vault,
@@ -2401,7 +2399,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/wood,
@@ -2438,7 +2435,6 @@
 /obj/machinery/light/small,
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plating,
@@ -2868,7 +2864,6 @@
 "la" = (
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -4880,7 +4875,6 @@
 "sd" = (
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -4965,7 +4959,6 @@
 	},
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -4985,7 +4978,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -6378,7 +6370,6 @@
 	},
 /obj/machinery/alarm/directional/east{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -7828,7 +7819,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -8306,7 +8296,6 @@
 	},
 /obj/machinery/alarm/directional/west{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plating,
@@ -8441,7 +8430,6 @@
 /obj/machinery/kitchen_machine/grill,
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -8742,7 +8730,6 @@
 	},
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /obj/item/flag/ussp,
@@ -10326,7 +10313,6 @@
 "LW" = (
 /obj/machinery/alarm/directional/west{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -13723,7 +13709,6 @@
 /obj/machinery/light_switch/directional/east,
 /obj/machinery/alarm/directional/east{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -13738,7 +13723,6 @@
 	},
 /obj/machinery/alarm/directional/west{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -13795,7 +13779,6 @@
 "YQ" = (
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1520;
-	name = "Gorky17 alarm";
 	req_access = list(122)
 	},
 /turf/simulated/floor/wood,

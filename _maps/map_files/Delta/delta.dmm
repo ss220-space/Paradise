@@ -424,9 +424,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -916,9 +914,7 @@
 /area/bridge/vip)
 "aiV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -23162,9 +23158,7 @@
 	},
 /area/crew_quarters/serviceyard)
 "cTn" = (
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -49406,9 +49400,7 @@
 "hod" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50069,9 +50061,7 @@
 "huW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/item/hand_labeler,
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -50798,9 +50788,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "hEK" = (
@@ -54597,9 +54585,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/wood/fancy/birch{
 	icon_state = "fancy-wood-birch-broken6"
 	},
@@ -65029,9 +65015,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "kYj" = (
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -97023,9 +97007,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "shu" = (

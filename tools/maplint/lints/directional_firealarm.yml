@@ -8,12 +8,12 @@ help: "Use the specific directional subtypes for this firealarm."
 
 /obj/machinery/firealarm/no_alarm:
   banned_variables:
-    -report_fire_alarms
+    - report_fire_alarms
 
 /obj/machinery/firealarm/triggered_nosignals:
   banned_variables:
-    -report_fire_alarms = FALSE
-    -show_alert_level = FALSE
+    - report_fire_alarms = FALSE
+    - show_alert_level = FALSE
 
 =/obj/machinery/firealarm:
   banned: TRUE

@@ -11,6 +11,10 @@ help: "Use the specific directional subtypes for this air alarm."
   banned_variables:
     - req_access
 
+/obj/machinery/alarm/syndicate/pirat:
+  banned_variables:
+    - req_access
+
 /obj/machinery/alarm/monitor/server:
   banned_variables:
     - preset
@@ -45,6 +49,8 @@ help: "Use the specific directional subtypes for this air alarm."
   banned: TRUE
 =/obj/machinery/alarm/syndicate:
   banned: TRUE
+=/obj/machinery/alarm/syndicate/pirat:
+  banned: TRUE
 =/obj/machinery/alarm/vox:
   banned: TRUE
 
@@ -66,6 +72,8 @@ help: "Use the specific directional subtypes for this air alarm."
 =/obj/machinery/alarm/server/directional:
   banned: TRUE
 =/obj/machinery/alarm/syndicate/directional:
+  banned: TRUE
+=/obj/machinery/alarm/syndicate/pirat:
   banned: TRUE
 =/obj/machinery/alarm/vox/directional:
   banned: TRUE

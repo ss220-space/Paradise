@@ -745,9 +745,7 @@
 /area/template_noop)
 "pu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2";
@@ -845,9 +843,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -1293,9 +1289,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -115,6 +115,9 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
 
+/obj/machinery/alarm/syndicate/pirat // alarm for shitspawn map
+	req_access = list(160)
+
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
 
@@ -1071,4 +1074,5 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor/server, 23, 23)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/old, 23, 23)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 23, 23)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate/pirat, 23, 23)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/vox, 23, 23)

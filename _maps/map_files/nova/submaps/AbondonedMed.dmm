@@ -968,9 +968,7 @@
 	},
 /obj/item/stack/packageWrap,
 /obj/item/flashlight,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedhangar)
 "iH" = (
@@ -2733,9 +2731,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -5157,9 +5153,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "YM" = (

@@ -1707,9 +1707,7 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "Xl" = (
@@ -1797,9 +1795,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"

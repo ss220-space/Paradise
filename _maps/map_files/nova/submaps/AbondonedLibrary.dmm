@@ -797,9 +797,7 @@
 	},
 /area/maintenance/electrical_shop)
 "MC" = (
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},

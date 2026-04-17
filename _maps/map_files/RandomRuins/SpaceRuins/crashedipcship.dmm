@@ -548,12 +548,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
-"ku" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/wall/r_wall/coated,
-/area/ruin/space/crashedipcship/engine)
 "kL" = (
 /obj/machinery/power/smes,
 /obj/structure/cable,
@@ -765,14 +759,6 @@
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout,
 /turf/simulated/floor/beach/water,
 /area/ruin/space/crashedipcship/asteroid)
-"mZ" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/wall/shuttle{
-	color = "#A9E0FF"
-	},
-/area/ruin/space/crashedipcship/middle)
 "nb" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -2754,9 +2740,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/alarm/all_access{
-	pixel_x = 32
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/shard)
 "UX" = (
@@ -5384,7 +5368,7 @@ fo
 Yl
 Yl
 Yl
-mZ
+Yl
 Yl
 hZ
 Yl
@@ -5435,7 +5419,7 @@ qa
 eY
 Yl
 vL
-ku
+vL
 vL
 vL
 ij

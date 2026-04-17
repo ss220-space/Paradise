@@ -10759,9 +10759,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -12907,9 +12905,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -16316,9 +16312,7 @@
 	},
 /area/maintenance/fsmaint)
 "cvw" = (
-/obj/machinery/power/apc/worn_out/directional/east{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
@@ -29613,9 +29607,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/space_heater,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -29623,6 +29614,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "ewG" = (
@@ -33493,9 +33485,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "fcl" = (
@@ -33828,9 +33818,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "feO" = (
@@ -38010,9 +37998,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "fNc" = (
@@ -41965,9 +41951,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/worn_out/directional/east{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/east,
 /turf/simulated/floor/plating,
 /area/maintenance/secpost)
 "gqM" = (
@@ -70807,9 +70791,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/carpet,
 /area/maintenance/library)
 "kRZ" = (
@@ -76299,9 +76281,7 @@
 "lMe" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/south{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "lMx" = (
@@ -93449,9 +93429,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plating,
 /area/maintenance/chapel)
 "ovq" = (
@@ -99010,9 +98988,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "pmc" = (
@@ -112044,9 +112020,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/power/apc/worn_out/directional/west{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
 	},
@@ -117308,12 +117282,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/weldingtool,
 /obj/item/clothing/gloves/color/fyellow,
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -136665,9 +136637,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out/directional/north{
-	cell_type = 0
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "uSd" = (

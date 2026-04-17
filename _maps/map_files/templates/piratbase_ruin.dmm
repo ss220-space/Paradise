@@ -449,9 +449,7 @@
 "br" = (
 /obj/structure/table,
 /obj/item/stack/medical/ointment/advanced,
-/obj/machinery/alarm/syndicate/directional/south{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "bs" = (
@@ -605,9 +603,7 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/machinery/alarm/syndicate/directional/south{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -1639,9 +1635,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ex" = (
-/obj/machinery/alarm/syndicate/directional/north{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2618,9 +2612,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/machinery/alarm/syndicate/directional/north{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "hA" = (
@@ -3399,9 +3391,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "jW" = (
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -3996,9 +3986,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "lV" = (
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "lW" = (
@@ -4946,9 +4934,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "ou" = (
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "ov" = (
@@ -8438,9 +8424,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "yA" = (
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
 	dir = 8
 	},
@@ -8712,9 +8696,7 @@
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_y = 8
 	},
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -11909,9 +11891,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "Jf" = (
-/obj/machinery/alarm/syndicate/directional/north{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -13082,9 +13062,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/alarm/syndicate/directional/south{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/south,
 /mob/living/simple_animal/hostile/pirate{
 	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
@@ -13553,9 +13531,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "NF" = (
-/obj/machinery/alarm/syndicate/directional/north{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13775,9 +13751,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 5
 	},
-/obj/machinery/alarm/syndicate/directional/north{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/north,
 /mob/living/simple_animal/hostile/pirate/ranged{
 	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
@@ -14529,9 +14503,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "QI" = (
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -15885,9 +15857,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/machinery/alarm/syndicate/directional/north{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/north,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
 	health = 200;
@@ -15897,9 +15867,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "UH" = (
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -16311,9 +16279,7 @@
 /area/ruin/space/pirate_base/security_medical)
 "VS" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/alarm/syndicate/directional/east{
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/direction/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
