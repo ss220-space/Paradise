@@ -500,10 +500,6 @@ GLOBAL_LIST_EMPTY(closets)
 	user.balloon_alert_to_viewers("[anchored ? "anchored" : "unanchored"]")
 	return TRUE
 
-/obj/structure/closet/attack_ai(mob/user)
-	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
-		attack_hand(user)
-
 /obj/structure/closet/relaymove(mob/living/user, direction)
 	if(user.stat || !isturf(loc))
 		return
@@ -535,6 +531,10 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/attack_robot(mob/user)
 	if(user.Adjacent(src))
 		return attack_hand(user)
+
+/obj/structure/closet/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
 
 /obj/structure/closet/attack_robot_secondary(mob/user, list/modifiers)
 	if(!user.Adjacent(src))
