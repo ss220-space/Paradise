@@ -11,16 +11,13 @@
 /area/teleporter/abandoned)
 "h" = (
 /obj/machinery/light/small{
-	dir = 8;
-	icon_state = "bulb0"
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	icon_state = "bulb0"
-	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -46,9 +43,7 @@
 "l" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "mfloor5"
-	},
+/obj/effect/decal/cleanable/blood/old,
 /obj/structure/window/reinforced{
 	color = "#58b5c3"
 	},
@@ -59,9 +54,7 @@
 "n" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/spider/stickyweb{
-	dir = 4
-	},
+/obj/structure/spider/stickyweb,
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/old_tele/different,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
@@ -90,11 +83,11 @@
 /area/teleporter/abandoned)
 "u" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
 /obj/machinery/power/apc/worn_out{
 	pixel_y = -26
 	},
 /obj/structure/barricade/wooden,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "v" = (
@@ -104,6 +97,9 @@
 "w" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -119,22 +115,12 @@
 /area/teleporter/abandoned)
 "z" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame{
-	icon_state = "box_1"
-	},
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "A" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/teleporter/abandoned)
-"C" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/obj/structure/spider/stickyweb{
-	dir = 4
+/obj/machinery/door/airlock/maintenance{
+	req_access = list(47)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -155,20 +141,16 @@
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-0"
 	},
-/obj/item/stack/ore/bluespace_crystal{
-	pixel_y = 5
-	},
 /obj/item/slime_extract/bluespace,
-/obj/machinery/light/small{
-	dir = 1;
-	icon_state = "bulb0"
-	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/molten_object,
 /obj/item/circuitboard/bci_implanter,
 /obj/item/grown/bananapeel/bluespace,
 /obj/item/stack/sheet/mineral/uranium{
 	amount = 5
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
@@ -179,26 +161,19 @@
 "H" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/spider/stickyweb{
-	dir = 4;
-	icon_state = "stickyweb2"
-	},
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/teleporter/abandoned)
-"I" = (
-/obj/structure/sign/poster/contraband/hacking_guide{
-	name = "Постер — Руководство по взлому"
-	},
-/turf/simulated/wall/rust,
 /area/teleporter/abandoned)
 "J" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/molten_object/large,
 /obj/machinery/light/small{
-	dir = 1;
-	icon_state = "bulb0"
+	dir = 1
+	},
+/obj/structure/sign/poster/random{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -206,9 +181,7 @@
 /area/teleporter/abandoned)
 "K" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "mfloor3"
-	},
+/obj/effect/decal/cleanable/blood/old,
 /obj/machinery/door/window/westleft{
 	color = "#58b5c3";
 	dir = 2
@@ -225,31 +198,20 @@
 /turf/simulated/wall,
 /area/teleporter/abandoned)
 "M" = (
-/obj/machinery/constructable_frame/machine_frame{
-	icon_state = "box_1"
-	},
-/obj/structure/spider/stickyweb{
-	dir = 4;
-	icon_state = "stickyweb2"
+/obj/structure/spider/stickyweb,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "N" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/constructable_frame/machine_frame{
-	icon_state = "box_1"
-	},
-/obj/structure/spider/stickyweb{
-	dir = 4;
-	icon_state = "stickyweb2"
-	},
+/obj/structure/spider/stickyweb,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/teleporter/abandoned)
-"O" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/r_wall,
 /area/teleporter/abandoned)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
@@ -257,17 +219,11 @@
 	icon_state = "whitepurple"
 	},
 /area/teleporter/abandoned)
-"R" = (
-/obj/structure/sign/poster/official/cleanliness{
-	name = "Постер — Чистота"
-	},
-/turf/simulated/wall/r_wall,
-/area/teleporter/abandoned)
 "T" = (
+/obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance{
 	name = "Telescience"
 	},
-/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "V" = (
@@ -277,12 +233,12 @@
 	},
 /area/teleporter/abandoned)
 "X" = (
-/obj/structure/cable{
-	icon_state = "2-8-f"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -290,10 +246,10 @@
 /area/teleporter/abandoned)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-4-f"
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -367,7 +323,7 @@ d
 d
 d
 d
-R
+a
 J
 K
 k
@@ -405,7 +361,7 @@ d
 d
 a
 y
-C
+H
 n
 v
 T
@@ -421,7 +377,7 @@ d
 d
 d
 d
-O
+a
 w
 q
 Y
@@ -478,7 +434,7 @@ d
 a
 s
 L
-I
+s
 L
 L
 d
