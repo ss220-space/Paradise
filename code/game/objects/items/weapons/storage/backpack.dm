@@ -544,17 +544,9 @@
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
 
 /obj/item/storage/backpack/satchel_flat/Initialize(mapload)
+	. = ..()
 	AddElement(/datum/element/undertile, use_anchor = TRUE)
-/*
-	if(intact)
-		invisibility = INVISIBILITY_MAXIMUM
-		set_anchored(TRUE) //otherwise you can start pulling, cover it, and drag around an invisible backpack.
-		icon_state = "[initial(icon_state)]2"
-	else
-		invisibility = initial(invisibility)
-		set_anchored(FALSE)
-		icon_state = initial(icon_state)
-*/
+
 /obj/item/storage/backpack/satchel_flat/populate_contents()
 	new /obj/item/stack/tile/plasteel(src)
 	new /obj/item/crowbar(src)

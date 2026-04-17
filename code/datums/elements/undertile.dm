@@ -2,7 +2,6 @@
 #define ALPHA_UNDERTILE 128
 
 
-//TODO: dissect /turf/'s transparent_floor and intact, look if it's undertile in disguise
 /**
  * An element that hides objects under tile
  */
@@ -48,10 +47,15 @@
 	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		// We only want to change the layer/plane for things that aren't already on the floor plane,
 		// as overriding the settings for those would cause layering issues
-		if(PLANE_TO_TRUE(source.plane) != FLOOR_PLANE)
+		if(T.intact)
 			// We do this so that turfs that allow you to see what's underneath them don't have to be on the game plane (which causes ambient occlusion weirdness)
-			SET_PLANE_IMPLICIT(source, FLOOR_PLANE)
-			source.layer = ABOVE_OPEN_TURF_LAYER
+			if(PLANE_TO_TRUE(source.plane) != FLOOR_PLANE)
+				SET_PLANE_IMPLICIT(source, FLOOR_PLANE)
+				source.layer = ABOVE_OPEN_TURF_LAYER
+		else
+			if(PLANE_TO_TRUE(source.plane) != RENDER_PLANE_TRANSPARENT)
+				SET_PLANE_IMPLICIT(source, RENDER_PLANE_TRANSPARENT)
+				source.layer = TRANSPARENT_PLATING_LAYER
 
 		ADD_TRAIT(source, TRAIT_UNDERFLOOR, ELEMENT_TRAIT(src))
 

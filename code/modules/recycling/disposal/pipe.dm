@@ -42,7 +42,6 @@
 		if(initialize_dirs & DISP_DIR_FLIP)
 			dpdir |= REVERSE_DIR(dir)
 
-	update()
 	AddElement(/datum/element/undertile)
 
 /obj/structure/disposalpipe/Destroy()
@@ -125,16 +124,6 @@
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
-// update the icon_state to reflect hidden status
-/obj/structure/disposalpipe/proc/update()
-	var/turf/our_turf = get_turf(src)
-	if(!our_turf)
-		return
-	if(our_turf.transparent_floor)
-		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
-	else
-		SET_PLANE_IMPLICIT(src, GAME_PLANE)
 
 // pipe affected by explosion
 /obj/structure/disposalpipe/ex_act(severity, target)

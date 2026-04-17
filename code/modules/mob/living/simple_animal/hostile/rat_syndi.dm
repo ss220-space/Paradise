@@ -64,21 +64,7 @@
 	)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_action()
-	if(prob(chew_probability) && isturf(loc))
-		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && F.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
-			return
-
-		var/obj/structure/cable/C = locate() in F
-		if(C && prob(15))
-			if(C.avail())
-				visible_message(span_warning("[src] chews through [C]. It's toast!"))
-				playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-				toast() // mmmm toasty.
-			else
-				visible_message(span_warning("[src] chews through [C]."))
-			investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
-			C.deconstruct()
+	return /mob/living/simple_animal/mouse::handle_automated_action() // this is bad. But you know what worse? Why do we have second mouse.
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)

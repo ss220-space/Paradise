@@ -89,11 +89,6 @@
 
 /obj/structure/cable/update_icon_state()
 	icon_state = "[d1]-[d2]"
-	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
-	else
-		SET_PLANE_IMPLICIT(src, GAME_PLANE)
 
 ////////////////////////////////////////////
 // Power related

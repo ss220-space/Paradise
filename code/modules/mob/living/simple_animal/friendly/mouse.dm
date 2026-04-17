@@ -80,15 +80,16 @@
 		if(!istype(F))
 			return
 		var/obj/structure/cable/C = locate() in F
-		if(C && HAS_TRAIT(C, TRAIT_UNDERFLOOR) && prob(15))
-			if(C.avail())
-				visible_message(span_warning("[src] chews through [C]. It's toast!"))
-				playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-				toast() // mmmm toasty.
-			else
-				visible_message(span_warning("[src] chews through [C]."))
-			investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
-			C.deconstruct()
+		if(!(C && HAS_TRAIT(C, TRAIT_UNDERFLOOR) && prob(15)))
+			return
+		if(C.avail())
+			visible_message(span_warning("[src] chews through [C]. It's toast!"))
+			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+			toast() // mmmm toasty.
+		else
+			visible_message(span_warning("[src] chews through [C]."))
+		investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
+		C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()

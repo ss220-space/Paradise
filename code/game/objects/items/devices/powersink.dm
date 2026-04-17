@@ -80,12 +80,12 @@
 		if(!attached)
 			to_chat(user, "No exposed cable here to attach to.")
 			return
-		else
-			set_mode(CLAMPED_OFF)
-			visible_message(span_notice("[user] attaches [src] to the cable!"))
-			message_admins("Power sink attached by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
-			add_game_logs("attached power sink at [COORD(src)]", user)
-			investigate_log("attached by [key_name_log(user)]", INVESTIGATE_ENGINE)
+
+		set_mode(CLAMPED_OFF)
+		visible_message(span_notice("[user] attaches [src] to the cable!"))
+		message_admins("Power sink attached by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
+		add_game_logs("attached power sink at [COORD(src)]", user)
+		investigate_log("attached by [key_name_log(user)]", INVESTIGATE_ENGINE)
 	else
 		to_chat(user, "Device must be placed over an exposed cable to attach to it.")
 

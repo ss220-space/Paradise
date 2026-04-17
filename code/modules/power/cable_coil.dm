@@ -333,7 +333,7 @@
 
 	var/turf/T = get_turf(C)
 
-	if(!isturf(T) || HAS_TRAIT(src, TRAIT_UNDERFLOOR))		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(T) || HAS_TRAIT(C, TRAIT_UNDERFLOOR))		// sanity checks, also stop use interacting with T-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough

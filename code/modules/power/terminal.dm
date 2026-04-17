@@ -13,10 +13,6 @@
 
 /obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
-	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		layer = ABOVE_TRANSPARENT_TURF_LAYER
-		return
 
 	AddElement(/datum/element/undertile)
 
@@ -27,8 +23,7 @@
 	return ..()
 
 /obj/machinery/power/terminal/update_icon_state()
-	var/turf/T = get_turf(src)
-	layer = T.transparent_floor ? ABOVE_TRANSPARENT_TURF_LAYER : WIRE_TERMINAL_LAYER
+	return
 
 /obj/machinery/power/proc/can_terminal_dismantle(mob/living/user)
 	return FALSE
