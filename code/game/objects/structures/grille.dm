@@ -310,7 +310,7 @@
 			var/obj/obj = atom_movable
 			if(obj.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
 				var/turf/turf = get_turf(src)
-				if(turf.intact)
+				if(turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 					return FALSE
 				var/obj/structure/cable/cable = turf.get_cable_node()
 				if(cable)

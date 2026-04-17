@@ -27,8 +27,7 @@
 		to_chat(user, span_notice("This pipe is aready painted [mode]!"))
 		return
 
-	var/turf/T = P.loc
-	if(P.level < 2 && T.level==1 && isturf(T) && T.intact)
+	if(HAS_TRAIT(P, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You must remove the plating first."))
 		return
 

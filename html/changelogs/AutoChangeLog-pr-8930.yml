@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - del: "Удалены все лазерные патроны для Блюстителя. (PR #8930)"
