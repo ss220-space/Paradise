@@ -76,15 +76,16 @@
 
 /obj/structure/cargo_shelf/relay_container_resist_act(mob/living/user, obj/structure/closet/crate)
 	to_chat(user, span_notice("Вы начинаете пытаться выбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
-	if(do_after(user, 30 SECONDS, target = crate))
-		if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
-			return // If the user is in a strange condition, return early.
-		visible_message(
-			span_warning("[DECLENT_RU_CAP(crate, NOMINATIVE)] падает с [declent_ru(GENITIVE)]!"),
-			span_notice("Вам удаётся сбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."),
-			span_hear("Слышен глухой стук."),
-		)
-		crate.forceMove(get_spill_location()) // Try to push it somewhere
+	if(!do_after(user, 30 SECONDS, target = crate))
+		return
+	if(!user || user.stat != CONSCIOUS || user.loc != crate || crate.loc != src)
+		return
+	visible_message(
+		span_warning("[DECLENT_RU_CAP(crate, NOMINATIVE)] падает с [declent_ru(GENITIVE)]!"),
+		span_notice("Вам удаётся сбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."),
+		span_hear("Слышен глухой стук."),
+	)
+	crate.forceMove(get_spill_location())
 
 /// Spits out how many crates are currently stored, counting the non nulls
 /obj/structure/cargo_shelf/proc/crate_count()
@@ -158,11 +159,10 @@
 		crate.SpinAnimation(rand(4, 7), 1) // Spin the crates around a little as they fall. Randomness is applied so it doesn't look weird.
 		if(prob(75))
 			continue
-		else
-			if(crate.welded || crate.locked)
-				continue
-			crate.open(force = TRUE) // Break some open, cause a little chaos.
-			crate.visible_message(span_warning("Крышка [crate.declent_ru(GENITIVE)] открывается!"))
+		if(crate.welded || crate.locked)
+			continue
+		crate.open(force = TRUE) // Break some open, cause a little chaos.
+		crate.visible_message(span_warning("Крышка [crate.declent_ru(GENITIVE)] открывается!"))
 
 // Returns a valid open turf to scatter crates
 /obj/structure/cargo_shelf/proc/get_spill_location(radius = 2)
@@ -179,7 +179,7 @@
 		LAZYADD(buckets[distance], turf_in_view)
 
 	// now return the first non-empty ring
-	for(var/i = 1 to radius)
+	for(var/i in 1 to radius)
 		if(LAZYLEN(buckets[i]))
 			if(length(buckets[i]) == 1) // if it's just the same turf as the shelf try other options first
 				continue
@@ -251,14 +251,15 @@
 /// Removes a crate from the shelf
 /obj/structure/cargo_shelf/proc/remove_crate(obj/structure/closet/crate/crate)
 	PROTECTED_PROC(TRUE)
-	for(var/slot in 1 to length(crates_stored)) // don't remove from the list, instead set the appropriate slot to null
-		if(crates_stored[slot] == crate.UID())
-			crates_stored[slot] = null
-			crate.layer = initial(crate.layer) // Reset the crate back to having the default layer, otherwise we might get strange interactions.
-			crate.pixel_y = initial(crate.pixel_y) // Reset the crate back to having no offset, otherwise it will be floating.
-			crate.interaction_flags_atom &= ~INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
-			vis_contents -= crate
-			return TRUE
+	for(var/slot in 1 to length(crates_stored))
+		if(crates_stored[slot] != crate.UID())
+			continue
+		crates_stored[slot] = null
+		crate.layer = initial(crate.layer)
+		crate.pixel_y = initial(crate.pixel_y)
+		crate.interaction_flags_atom &= ~INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
+		vis_contents -= crate
+		return TRUE
 	return FALSE
 
 /obj/structure/cargo_shelf/Exited(atom/movable/gone, direction)
