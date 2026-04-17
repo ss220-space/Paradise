@@ -203,3 +203,12 @@
 /obj/machinery/alarm/vox {pixel_y=-25} :  /obj/machinery/alarm/vox/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}
 /obj/machinery/alarm/vox {pixel_y=-26} :  /obj/machinery/alarm/vox/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}
 
+/obj/machinery/alarm/monitor/all_access/directional/east{req_access=null} : /obj/machinery/alarm/all_access/directional/east{@OLD;req_access=@SKIP}
+/obj/machinery/alarm/monitor/all_access/directional/west{req_access=null} : /obj/machinery/alarm/all_access/directional/west{@OLD;req_access=@SKIP}
+/obj/machinery/alarm/monito/all_accessr/directional/north{req_access=null} : /obj/machinery/alarm/all_access/directional/north{@OLD;req_access=@SKIP}
+/obj/machinery/alarm/monitor/all_access/directional/south{req_access=null} : /obj/machinery/alarm/all_access/directional/south{@OLD;req_access=@SKIP}
+
+/obj/machinery/alarm/all_access/directional/east{req_access=null} : /obj/machinery/alarm/all_access/directional/east{@OLD;req_access=@SKIP}
+/obj/machinery/alarm/all_access/directional/west{req_access=null} : /obj/machinery/alarm/all_access/directional/west{@OLD;req_access=@SKIP}
+/obj/machinery/alarm/all_access/directional/north{req_access=null} : /obj/machinery/alarm/all_access/directional/north{@OLD;req_access=@SKIP}
+/obj/machinery/alarm/all_access/directional/south{req_access=null}  : /obj/machinery/alarm/all_access/directional/south{@OLD;req_access=@SKIP}
