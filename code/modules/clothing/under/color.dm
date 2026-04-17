@@ -1,5 +1,5 @@
 /obj/item/clothing/under/color
-	desc = "Стандартный цветной комбинезон. Вариативность - изюминка жизни!"
+	desc = "Стандартный цветной комбинезон. Вариативность — изюминка жизни!"
 	dying_key = DYE_REGISTRY_UNDER
 	icon = 'icons/map_icons/clothing/under/color.dmi'
 	icon_state = "/obj/item/clothing/under/color"
@@ -375,7 +375,7 @@
 		GENITIVE = "светло-фиолетового комбинезона",
 		DATIVE = "светло-фиолетовому комбинезону",
 		ACCUSATIVE = "светло-фиолетовый комбинезон",
-		INSTRUMENTAL = "светло-фиолетовый комбинезоном",
+		INSTRUMENTAL = "светло-фиолетовым комбинезоном",
 		PREPOSITIONAL = "светло-фиолетовом комбинезоне",
 	)
 
@@ -441,7 +441,7 @@
 	return list(
 		NOMINATIVE = "тёмно-синяя юбка",
 		GENITIVE = "тёмно-синей юбки",
-		DATIVE = "тёмной-синей юбке",
+		DATIVE = "тёмно-синей юбке",
 		ACCUSATIVE = "тёмно-синюю юбку",
 		INSTRUMENTAL = "тёмно-синей юбкой",
 		PREPOSITIONAL = "тёмно-синей юбке",
@@ -465,12 +465,12 @@
 	greyscale_colors = "#8b0000"
 /obj/item/clothing/under/color/darkred/get_ru_names()
 	return list(
-		NOMINATIVE = "бардовый комбинезон",
-		GENITIVE = "бардового комбинезона",
-		DATIVE = "бардовому комбинезону",
-		ACCUSATIVE = "бардовый комбинезон",
-		INSTRUMENTAL = "бардовым комбинезоном",
-		PREPOSITIONAL = "бардовом комбинезоне",
+		NOMINATIVE = "бордовый комбинезон",
+		GENITIVE = "бордового комбинезона",
+		DATIVE = "бордовому комбинезону",
+		ACCUSATIVE = "бордовый комбинезон",
+		INSTRUMENTAL = "бордовым комбинезоном",
+		PREPOSITIONAL = "бордовом комбинезоне",
 	)
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
