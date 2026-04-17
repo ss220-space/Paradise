@@ -154,7 +154,7 @@
 		playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 	else
 		visible_message(span_warning("[src] chews through [thing_to_eat]."))
-		investigate_log("was chewed through by a clock mouse in [COORD(our_floor] - [ADMIN_JMP(our_floor)])", INVESTIGATE_WIRES)
+		investigate_log("was chewed through by a clock mouse in [COORD(our_floor)] - [ADMIN_JMP(our_floor)])", INVESTIGATE_WIRES)
 		thing_to_eat.deconstruct()
 
 /mob/living/simple_animal/mouse/clockwork/splat(obj/item/item = null, mob/living/user = null)
