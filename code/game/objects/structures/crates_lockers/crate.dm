@@ -58,11 +58,7 @@
 	if(!.)
 		return FALSE
 
-	if(wired_for_trap)
-		do_trap_effect(user)
-		return FALSE
-
-	return TRUE
+	return do_trap_effect(user)
 
 /obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
@@ -85,8 +81,9 @@
 			to_chat(user, span_notice("[src] is already wired!"))
 			return TRUE
 
-		if(!coil.use(15))
-			to_chat(user, span_warning("You need atleast 15 wires to rig [src]!"))
+		var/wires_amount = 15
+		if(!coil.use(wires_amount))
+			to_chat(user, span_warning("You need atleast [wires_amount] wires to rig [src]!"))
 			return TRUE
 
 		to_chat(user, span_notice("You rig [src]."))
@@ -156,12 +153,15 @@
 	return TRUE
 
 /// Called when a crate is delivered by MULE at a location, for notifying purposes
-/obj/structure/closet/crate/proc/notifyRecipient(destination)
+/obj/structure/closet/crate/proc/notify_recipient(destination)
 	var/message = "[capitalize(name)] has arrived at [destination]."
-	if(destination in announce_beacons)
-		for(var/obj/machinery/requests_console/console as anything in GLOB.allRequestConsoles)
-			if(console.department in announce_beacons[destination])
-				console.createMessage(name, "Your Crate has Arrived!", message, 1)
+	if(!(destination in announce_beacons))
+		return
+
+	for(var/obj/machinery/requests_console/console as anything in GLOB.allRequestConsoles)
+		if(!(console.department in announce_beacons[destination]))
+			continue
+		console.createMessage(name, "Your Crate has Arrived!", message, 1)
 
 /obj/structure/closet/crate/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()

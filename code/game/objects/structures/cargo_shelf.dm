@@ -51,6 +51,18 @@
 		shelf_overlay.pixel_y = stack_offset
 		overlays += shelf_overlay
 
+	register_context()
+
+/obj/structure/cargo_shelf/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	if(isnull(held_item))
+		return NONE
+
+	if(held_item.tool_behaviour == TOOL_WRENCH)
+		context[SCREENTIP_CONTEXT_RMB] = "Разобрать"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return NONE
+
 /obj/structure/cargo_shelf/Destroy()
 	spill_contents()
 	return ..()
