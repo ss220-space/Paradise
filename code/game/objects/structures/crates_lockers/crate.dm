@@ -10,6 +10,7 @@
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
 	x_shake_pixel_shift = 1
 	y_shake_pixel_shift = 2
+	dense_when_open = TRUE
 	/// The reference of the manifest paper attached to the cargo crate.
 	var/datum/weakref/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
