@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_GLASS, -40, 5)
 
-/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/structure/window/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
 
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
@@ -482,7 +482,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 
 	var/ratio = obj_integrity / max_integrity
-	ratio = CEILING(ratio * 4, 1) * 25
+	ratio = ceil(ratio * 4) * 25
 	if(smooth)
 		QUEUE_SMOOTH(src)
 	if(ratio > 75)

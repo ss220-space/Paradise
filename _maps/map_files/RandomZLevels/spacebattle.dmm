@@ -5140,7 +5140,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -13231,12 +13231,9 @@
 /area/space)
 "LW" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
-	opacity = 0;
 	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle/plating,

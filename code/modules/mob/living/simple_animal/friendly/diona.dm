@@ -108,7 +108,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/diona/run_resist()
+/mob/living/simple_animal/diona/execute_resist()
 	..()
 	split()
 
@@ -121,6 +121,7 @@
 			get_scooped(M)
 	else
 		..()
+
 /mob/living/simple_animal/diona/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
 		gestalt_heal(user)

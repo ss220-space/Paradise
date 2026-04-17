@@ -5,12 +5,13 @@
 
 /obj/item/poster
 	name = "rolled-up poster"
-	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах \"Нанотрейзен\"."
+	desc = "Свёрнутый в трубочку лист плотной бумаги. Оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность."
 	icon = 'icons/obj/contraband.dmi'
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_SMALL
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
+	var/is_unfurled = FALSE
 
 /obj/item/poster/get_ru_names()
 	return list(
@@ -28,17 +29,69 @@
 	if(!new_poster_structure && poster_type)
 		poster_structure = new poster_type(src)
 
-	// posters store what name and description they would like their rolled up form to take.
-	if(poster_structure)
-		name = poster_structure.poster_item_name
-		desc = poster_structure.poster_item_desc
-		icon_state = poster_structure.poster_item_icon_state
-
-		name = "[name] - [poster_structure.original_name]"
+	update_appearance(UPDATE_ICON_STATE | UPDATE_DESC)
 
 /obj/item/poster/Destroy()
 	poster_structure = null
 	. = ..()
+
+/obj/item/poster/update_icon_state()
+	if(!poster_structure)
+		return
+	if(is_unfurled)
+		icon_state = poster_structure.icon_state
+		return
+	icon_state = poster_structure.poster_item_icon_state
+
+/obj/item/poster/update_desc()
+	. = ..()
+	if(!poster_structure)
+		return
+	if(is_unfurled)
+		desc = poster_structure.desc
+		return
+	desc = poster_structure.poster_item_desc
+
+/obj/item/poster/update_name(updates = ALL)
+	. = ..()
+	if(!poster_structure)
+		return
+	if(is_unfurled)
+		name = "\"[poster_structure.original_name]\""
+		ru_names = poster_structure.ru_names
+	else
+		name = "rolled-up poster"
+		ru_names = null
+
+/obj/item/poster/proc/roll_up(mob/user)
+	if(!is_unfurled)
+		return
+	is_unfurled = FALSE
+	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME | UPDATE_DESC)
+	playsound(src, 'sound/effects/pageturn3.ogg', 30, TRUE)
+	to_chat(user, span_notice("Вы аккуратно сворачиваете постер."))
+
+/obj/item/poster/attack_self(mob/living/user)
+	. = ..()
+	if(!poster_structure)
+		return
+
+	if(is_unfurled)
+		roll_up(user)
+		return
+
+	is_unfurled = TRUE
+	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME | UPDATE_DESC)
+	playsound(src, 'sound/effects/pageturn1.ogg', 30, TRUE)
+	to_chat(user, span_notice("Вы разворачиваете постер: [poster_structure.original_name]"))
+
+/obj/item/poster/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	roll_up(user)
+
+/obj/item/poster/on_enter_storage(obj/item/storage/S)
+	. = ..()
+	roll_up()
 
 // These icon_states may be overriden, but are for mapper's convinence
 /obj/item/poster/random_contraband
@@ -94,16 +147,24 @@
 		randomise(random_basetype)
 	if(!ruined)
 		original_name = name
-		name = "Постер — [name]"
-		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
-		ru_names = list(
-			NOMINATIVE = "постер \"[name]\"",
-			GENITIVE = "постера \"[name]\"",
-			DATIVE = "постеру \"[name]\"",
-			ACCUSATIVE = "постер \"[name]\"",
-			INSTRUMENTAL = "постером \"[name]\"",
-			PREPOSITIONAL = "постере \"[name]\"",
-		)
+		name = "poster — [original_name]"
+		desc = "Большой лист устойчивой к космическим условиям печатной бумаги.\n[desc]"
+		ru_names = build_poster_ru_names()
+
+/obj/structure/sign/poster/proc/build_poster_ru_names()
+	if(!original_name)
+		return
+	var/list/base_names = get_ru_names()
+	if(!base_names)
+		return
+	return list(
+		NOMINATIVE = "[base_names[NOMINATIVE]] \"[original_name]\"",
+		GENITIVE = "[base_names[GENITIVE]] \"[original_name]\"",
+		DATIVE = "[base_names[DATIVE]] \"[original_name]\"",
+		ACCUSATIVE = "[base_names[ACCUSATIVE]] \"[original_name]\"",
+		INSTRUMENTAL = "[base_names[INSTRUMENTAL]] \"[original_name]\"",
+		PREPOSITIONAL = "[base_names[PREPOSITIONAL]] \"[original_name]\"",
+	)
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
@@ -175,7 +236,7 @@
 			balloon_alert(user, "нет места!")
 			return
 
-		balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
+	balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
 
 	var/obj/structure/sign/poster/D = P.poster_structure
 
@@ -560,6 +621,11 @@
 	desc = "Этот постер висит здесь явно не предвещая о добрых вестях. Возможно, среди нас есть предатель?"
 	icon_state = "im_poster"
 
+/obj/structure/sign/poster/contraband/bread
+	name = "Кара небесная"
+	desc = "Хлебом единым жив человек."
+	icon_state = "bread"
+
 //MARK: Official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
@@ -644,7 +710,7 @@
 
 /obj/structure/sign/poster/official/space_cops
 	name = "Космические копы."
-	desc = "Постер, рекламирующий телешоу «Космические копы»."
+	desc = "Постер, рекламирующий телешоу \"Космические копы\"."
 	icon_state = "poster13_legit"
 
 /obj/structure/sign/poster/official/ue_no
@@ -876,6 +942,66 @@
 	name = "НЕСИ"
 	desc = "Изображение драгоценного самоцвета с маленькой подписью, намекающей на то, что его нужно принести в Отдел Снабжения."
 	icon_state = "poster_minegem"
+
+/obj/structure/sign/poster/official/kurit
+	name = "Курение скуривает"
+	desc = "ЗАДУМАЙСЯ."
+	icon_state = "kurit"
+
+/obj/structure/sign/poster/official/breakfast
+	name = "Завтрак"
+	desc = "ММ ЕДА..."
+	icon_state = "breakfast"
+
+/obj/structure/sign/poster/official/krill
+	name = "Криль"
+	desc = "\"Во всём этом мире я один такой. Один на криллион.\""
+	icon_state = "krill"
+
+/obj/structure/sign/poster/official/selected_ambient_works
+	name = "Selected Ambient Works 85–92"
+	desc = "Плакат странно выглядящего водопроводного крана. Или это лошадь?.."
+	icon_state = "selected_ambient_works"
+
+/obj/structure/sign/poster/official/tell_all_the_people
+	name = "Tell All The People"
+	desc = "\"Скажи чтоб не шли за мной.\""
+	icon_state = "tell_all_the_people"
+
+/obj/structure/sign/poster/official/sweet_ginger_green
+	name = "Sweet Ginger Green"
+	desc = "Когда не знаешь что послушать за работой — врубай Зелёненьких!"
+	icon_state = "sweet_ginger_green"
+
+/obj/structure/sign/poster/official/vine_lady
+	name = "Vine Lady"
+	desc = "На плакате изображена деликатная дама с бокалом вина."
+	icon_state = "vine_lady"
+
+/obj/structure/sign/poster/official/a_broken_frame
+	name = "A Broken Frame"
+	desc = "\"Ищем постеры в журналах моды.\""
+	icon_state = "a_broken_frame"
+
+/obj/structure/sign/poster/official/fight_songs
+	name = "Fight Songs"
+	desc = "Критический удар по барабанным перепонкам."
+	icon_state = "fight_songs"
+
+/obj/structure/sign/poster/official/rolling_stones
+	name = "The Rolling Stones"
+	desc = "Куда они катятся?"
+	icon_state = "rolling_stones"
+
+/obj/structure/sign/poster/official/richard_d_james
+	name = "Ричард Д. Джеймс"
+	desc = "Какой красивый молодой мужчина. Интересно, какую музыку он слушает?"
+	icon_state = "richard_d_james"
+
+/obj/structure/sign/poster/official/alberto_balsalm
+	name = "Alberto Balsalm"
+	desc = "Лучший бальзам для волос во всей галактике!"
+	icon_state = "alberto_balsalm"
 
 // MARK: Secret posters
 

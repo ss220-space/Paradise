@@ -318,7 +318,8 @@
 	. += span_notice("<b>Ctrl+Shift+ЛКМ</b> to delete picture.")
 
 /obj/item/camera/digital/afterattack(atom/target, mob/user)
-	if(!on || !pictures_left || ismob(target.loc)) return
+	if(!on || !pictures_left || ismob(target.loc))
+		return
 	captureimage(target, user)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)

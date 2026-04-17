@@ -2119,11 +2119,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19research)
 "eA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/moonoutpost19/mo19research)
 "eB" = (

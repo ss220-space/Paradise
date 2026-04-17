@@ -3695,10 +3695,7 @@
 	},
 /area/derelict/arrival)
 "jw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -3731,10 +3728,7 @@
 /area/derelict/annex)
 "jC" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -4318,10 +4312,7 @@
 /area/derelict/rnd)
 "kZ" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4354,10 +4345,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "le" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_x = -32
 	},
 /obj/structure/rack,
@@ -4950,7 +4938,7 @@
 	},
 /area/derelict/med)
 "mI" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/shuttle,
 /area/derelict/med)
 "mJ" = (
@@ -6661,7 +6649,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "ro" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "rp" = (

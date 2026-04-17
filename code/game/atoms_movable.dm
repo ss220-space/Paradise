@@ -1,4 +1,5 @@
 /atom/movable
+	abstract_type = /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
@@ -92,9 +93,6 @@
 
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
-
-	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
-	var/face_mouse = FALSE
 
 	/// The degree of thermal insulation that mobs in list/contents have from the external environment, between 0 and 1
 	var/contents_thermal_insulation = 0
@@ -497,7 +495,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
+	if(set_dir_on_move && dir != direct && update_dir && !HAS_TRAIT(src, TRAIT_FACING_TO_MOUSE)) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -519,7 +517,7 @@
 		var/dz = newloc.z
 		new_locs = block(
 			dx, dy, dz,
-			dx + (CEILING(bound_width / ICON_SIZE_X, 1) - 1), dy + (CEILING(bound_height / ICON_SIZE_X, 1) - 1), dz
+			dx + (ceil(bound_width / ICON_SIZE_X) - 1), dy + (ceil(bound_height / ICON_SIZE_X) - 1), dz
 		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
@@ -570,6 +568,8 @@
 		return FALSE
 
 	var/atom/oldloc = loc
+
+	var/face_mouse = HAS_TRAIT(src, TRAIT_FACING_TO_MOUSE)
 
 	//Early override for some cases like diagonal movement
 	if(glide_size_override && glide_size != glide_size_override)
@@ -871,7 +871,7 @@
 				var/dz = destination.z
 				var/list/new_locs = block(
 					dx, dy, dz,
-					dx + (CEILING(bound_width / ICON_SIZE_X, 1) - 1), dy + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1), dz
+					dx + (ceil(bound_width / ICON_SIZE_X) - 1), dy + (ceil(bound_height / ICON_SIZE_Y) - 1), dz
 				)
 
 				if(old_area && old_area != destarea)
@@ -1356,9 +1356,9 @@
 	. = ..()
 	verbs.Cut()
 
-/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, list/modifiers)
 	if(master)
-		I.melee_attack_chain(user, master, params)
+		I.melee_attack_chain(user, master, modifiers)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /atom/movable/overlay/attack_hand(mob/user)
@@ -1666,3 +1666,7 @@
 
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
+
+/// Called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
+	return

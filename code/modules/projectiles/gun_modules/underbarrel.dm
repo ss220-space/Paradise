@@ -64,6 +64,7 @@
 	overlay_state = "light_o"
 	class = GUN_MODULE_CLASS_PISTOL_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/pistol/get_ru_names()
 	return list(
@@ -83,6 +84,7 @@
 	overlay_state = "light_s_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
+	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/rifle/get_ru_names()
 	return list(
@@ -126,6 +128,7 @@
 	overlay_offset = list("x" = 1, "y" = 0)
 	bonus_accuracy = 10
 	spread_reduction = 0.20
+	custom_price = 2 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/hand/simple/get_ru_names()
 	return list(
@@ -146,6 +149,7 @@
 	overlay_state = "hand_a_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
+	custom_price = 3 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/hand/angle/get_ru_names()
 	return list(
@@ -174,6 +178,7 @@
 	var/bonus_accuracy = 10
 	var/spread_decrease = 0
 	var/datum/component/laser_sight/component_type
+	custom_price = 2 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/laser/Destroy()
 	. = ..()

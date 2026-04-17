@@ -95,7 +95,7 @@
 			user.changeNext_move(CLICK_CD_MELEE)
 		return
 
-/obj/item/gripper/medical/melee_attack_chain(mob/living/user, atom/target, params)
+/obj/item/gripper/medical/melee_attack_chain(mob/living/user, atom/target, list/modifiers)
 	try_shake_up(user, target)
 	. = ..()
 
@@ -123,7 +123,7 @@
 		PREPOSITIONAL = "карточном захвате",
 	)
 
-/obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
+/obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, list/modifiers)
 	try_shake_up(user, target)
 	. = ..()
 
@@ -246,29 +246,29 @@
 	else
 		balloon_alert(user, "клешня пуста!")
 
-/obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
+/obj/item/gripper/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	if(!gripped_item)
 		return FALSE
-	. = gripped_item.tool_act(user, tool, tool_type)
+	. = gripped_item.tool_act(user, tool, modifiers)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
-/obj/item/gripper/Click(location,control,params)
+/obj/item/gripper/Click(location,control, params)
 	if(!usr.get_active_hand())
 		usr.ClickOn(src, params)
 		return
 	gripped_item ? usr.ClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
-/obj/item/gripper/DblClick(location,control,params)
+/obj/item/gripper/DblClick(location,control, params)
 	if(!usr.get_active_hand())
 		usr.DblClickOn(src, params)
 		return
 	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
-/obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
+/obj/item/gripper/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if(!gripped_item)
 		return ATTACK_CHAIN_PROCEED
-	. = gripped_item.attackby(weapon, user, params)
+	. = gripped_item.attackby(weapon, user, modifiers)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
@@ -280,7 +280,7 @@
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
-/obj/item/gripper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/gripper/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
@@ -290,16 +290,16 @@
 /obj/item/gripper/proc/isEmpty()
 	return isnull(gripped_item)
 
-/obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)	// this shit requires massive refactoring
+/obj/item/gripper/melee_attack_chain(mob/user, atom/target, list/modifiers)	// this shit requires massive refactoring
 	. = ATTACK_CHAIN_PROCEED
 
 	if(gripped_item) //Already have an item.
 		//Pass the attack on to the target. This might delete/relocate gripped_item.
-		. |= target.attackby(gripped_item, user, params)
+		. |= target.attackby(gripped_item, user, modifiers)
 		if((. & ATTACK_CHAIN_NO_AFTERATTACK) || QDELETED(src) || QDELETED(gripped_item) || QDELETED(target) || QDELETED(user))
 			// If the attackby didn't resolve or delete the target or gripped_item, afterattack
 			// (Certain things, such as mountable frames, rely on afterattack)
-			gripped_item.afterattack(target, user, TRUE, params)
+			gripped_item.afterattack(target, user, TRUE, modifiers)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
 		if(!gripped_item && length(contents))
@@ -371,11 +371,12 @@
 		PREPOSITIONAL = "декомпиляторе материи",
 	)
 
-/obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!proximity) return //Not adjacent.
+/obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, list/modifiers)
+	if(!proximity)
+		return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
 	var/turf/T = get_turf(target)

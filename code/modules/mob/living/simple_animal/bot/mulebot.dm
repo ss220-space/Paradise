@@ -422,7 +422,7 @@
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
-/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/mouse_drop_receive(atom/movable/AM, mob/user, params)
 
 	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return FALSE
@@ -917,7 +917,7 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()
 
-/mob/living/simple_animal/bot/mulebot/run_resist()
+/mob/living/simple_animal/bot/mulebot/execute_resist()
 	. = ..()
 	if(load)
 		unload()

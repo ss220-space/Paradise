@@ -284,7 +284,7 @@
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)
-	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	ratio = ceil((cell.charge / cell.maxcharge) * charge_sections)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	new_icon_state = "[icon_state]_charge"
 	var/new_item_state = null

@@ -17,6 +17,7 @@
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
+	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
 
 	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
