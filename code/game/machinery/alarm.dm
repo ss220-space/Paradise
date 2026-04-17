@@ -1062,13 +1062,13 @@ Just an object used in constructing air alarms
 #undef AIR_ALARM_WIRED
 
 // MARK: Mapping Dir Helpers
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access/monitor, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/kitchen_cold_room, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor/server, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/old, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 23)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/vox, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access/monitor, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/kitchen_cold_room, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor/server, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/old, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/vox, 23, 23)

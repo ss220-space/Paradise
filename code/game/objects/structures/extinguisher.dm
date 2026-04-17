@@ -166,5 +166,5 @@
 #undef MINI_EXTINGUISHER
 
 // MARK: Mapping Dir Helpers
-MAPPING_DIRECTIONAL_HELPERS_NODIR(/obj/structure/extinguisher_cabinet, 29, 26)
-MAPPING_DIRECTIONAL_HELPERS_NODIR(/obj/structure/extinguisher_cabinet/empty, 29, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet/empty, 29, 26)

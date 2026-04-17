@@ -1864,9 +1864,9 @@
 #undef CELL_GENERATOR
 
 // MARK: Mapping Dir Helpers
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/generator, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/importatnt_area, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/noalarm, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/syndicate, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/worn_out, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/generator, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/importatnt_area, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/noalarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/syndicate, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/worn_out, 26, 26)
