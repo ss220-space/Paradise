@@ -121,7 +121,7 @@
 
 	setDir(turn(dir, -90))
 
-/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user, params)
+/obj/machinery/bodyscanner/mouse_drop_receive(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
 		return FALSE //not human
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

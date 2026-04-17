@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "Починка бага crew monitor (PR #8907)"

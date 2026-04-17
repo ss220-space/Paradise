@@ -10,6 +10,10 @@
 	var/turf_flags = NONE
 
 	var/intact = TRUE
+
+	/// Can you interact or see underfloor things. Can be HIDDEN, VISIBLE and INTERACTABLE
+	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
+
 	var/turf/baseturf = /turf/baseturf_bottom
 	/// negative for faster, positive for slower
 	var/slowdown = 0
@@ -119,6 +123,21 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 	var/list/milla_data = list()
 
+/turf/vv_edit_var(var_name, new_value)
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, x), NAMEOF_STATIC(src, y), NAMEOF_STATIC(src, z))
+	if(var_name in banned_edits)
+		return FALSE
+	return ..()
+
+/**
+ * Turf Initialize
+ *
+ * Doesn't call parent, see [/atom/proc/Initialize]
+ * Please note, space tiles do not run this code.
+ * This is done because it's called so often that any extra code just slows things down too much
+ * If you add something relevant here add it there too
+ * [/turf/space/Initialize]
+ */
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(flags & INITIALIZED)
@@ -223,21 +242,28 @@
 /turf/proc/blob_consume()
 	return
 
-/turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
-	if(our_rpd.mode == RPD_ATMOS_MODE)
-		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
-		for(var/obj/machinery/door/airlock/A in src)
-			if(A.density)
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)//This is the default turf behaviour for the RPD; override it as required
+	switch(mode)
+		if(RPD_ATMOS_MODE)
+			our_rpd.create_atmos_pipe(user, src)
+
+		if(RPD_DISPOSALS_MODE)
+			for(var/obj/machinery/door/airlock/A in src)
+				if(!A.density)
+					continue
+
 				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
 				return
-		our_rpd.create_disposals_pipe(user, src)
-	else if(our_rpd.mode == RPD_ROTATE_MODE)
-		our_rpd.rotate_all_pipes(user, src)
-	else if(our_rpd.mode == RPD_FLIP_MODE)
-		our_rpd.flip_all_pipes(user, src)
-	else if(our_rpd.mode == RPD_DELETE_MODE)
-		our_rpd.delete_all_pipes(user, src)
+			our_rpd.create_disposals_pipe(user, src)
+
+		if(RPD_ROTATE_MODE)
+			our_rpd.rotate_all_pipes(user, src)
+
+		if(RPD_FLIP_MODE)
+			our_rpd.flip_all_pipes(user, src)
+
+		if(RPD_DELETE_MODE)
+			our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/bullet/gyro))
@@ -318,13 +344,7 @@
 /turf/proc/levelupdate()
 	for(var/obj/object in src)
 		if(object.level == 1 && (object.flags & INITIALIZED)) // Only do this if the object has initialized
-			object.hide(intact)
-
-// override for space turfs, since they should never hide anything
-/turf/space/levelupdate()
-	for(var/obj/object in src)
-		if(object.level == 1 && (object.flags & INITIALIZED))
-			object.hide(FALSE)
+			SEND_SIGNAL(object, COMSIG_OBJ_HIDE, underfloor_accessibility)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
@@ -632,7 +652,7 @@
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() && !intact && transparent_floor != TURF_TRANSPARENT
+	return can_have_cabling() && underfloor_accessibility == UNDERFLOOR_INTERACTABLE
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

@@ -54,13 +54,14 @@
 		PREPOSITIONAL = "полицейской дубинке"
 	)
 
-/obj/item/melee/baton/New()
+/obj/item/melee/baton/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND, PROC_REF(try_take_baton))
+	add_deep_lore()
 
 /obj/item/melee/baton/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND)
-	. = ..()
+	return ..()
 
 /obj/item/melee/baton/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_baton_notes))

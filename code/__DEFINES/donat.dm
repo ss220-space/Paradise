@@ -1,4 +1,5 @@
 // Donation tier levels
+#define NO_DONATOR_TIER 0
 #define DONATOR_TIER_I 1
 #define DONATOR_TIER_II 2
 #define DONATOR_TIER_III 3

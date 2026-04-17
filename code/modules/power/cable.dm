@@ -63,10 +63,8 @@
 	d1 = text2num(copytext( icon_state, 1, dash ))
 	d2 = text2num(copytext( icon_state, dash+1 ))
 
-	var/turf/T = get_turf(src)			// hide if turf is not intact
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
-	if(level == 1)
-		hide(T.intact)
+	AddElement(/datum/element/undertile)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
@@ -89,22 +87,8 @@
 // General procedures
 ///////////////////////////////////
 
-//If underfloor, hide the cable
-/obj/structure/cable/hide(i)
-	if(level == 1 && isturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon(UPDATE_ICON_STATE)
-
 /obj/structure/cable/update_icon_state()
-	if(invisibility)
-		icon_state = "[d1]-[d2]-f"
-	else
-		icon_state = "[d1]-[d2]"
-	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
-	else
-		SET_PLANE_IMPLICIT(src, GAME_PLANE)
+	icon_state = "[d1]-[d2]"
 
 ////////////////////////////////////////////
 // Power related
@@ -159,7 +143,7 @@
 	if(!our_turf)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if((our_turf.transparent_floor == TURF_TRANSPARENT) || our_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -196,8 +180,7 @@
 
 /obj/structure/cable/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -218,7 +201,7 @@
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))

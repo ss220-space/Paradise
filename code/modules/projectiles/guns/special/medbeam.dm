@@ -34,7 +34,7 @@
 	LoseTarget()
 	return ..()
 
-/obj/item/gun/medbeam/handle_suicide()
+/obj/item/gun/medbeam/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, list/modifiers)
 	return
 
 /obj/item/gun/medbeam/dropped(mob/user, slot, silent = FALSE)
@@ -71,7 +71,7 @@
 	active = FALSE // skip qdelling the beam again if we're doing this proc
 	LoseTarget()
 
-/obj/item/gun/medbeam/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/medbeam/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(isliving(user))
 		add_fingerprint(user)
 

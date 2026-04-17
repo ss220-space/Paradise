@@ -10,7 +10,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	icon_state = "ivbag"
 	volume = 200
-	possible_transfer_amounts = list(1,5,10,15,20,25,30,50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
+	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	resistance_flags = ACID_PROOF
@@ -167,8 +167,8 @@
 	begin_processing(target, def_zone)
 	return .|ATTACK_CHAIN_SUCCESS
 
-/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)

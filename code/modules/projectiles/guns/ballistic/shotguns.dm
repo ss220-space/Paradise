@@ -19,6 +19,10 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
 	)
 
+/obj/item/gun/projectile/shotgun/riot/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/shotgun/riot)
+
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
@@ -208,11 +212,33 @@
 /obj/item/gun/projectile/shotgun/winchester/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/shotgun/winchester/do_pointblank_shot(mob/living/user, atom/target)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(pump), user), 1) //auto reload after point blank shot
 
+/// MARK: Cargo defender
+/obj/item/gun/projectile/shotgun/winchester/cargo
+	name = "cargo defender shotgun"
+	desc = "Раритетное ружье рычажного действия под калибр 12х70 мм. Имеет позолоченное покрытие и гравировку \"Защитник карго\"."
+	icon_state = "winchester_cargo"
+	item_state = "winchester_cargo"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester/cargo
+
+/obj/item/gun/projectile/shotgun/winchester/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "дробовик \"Защитник карго\"",
+		GENITIVE = "дробовика \"Защитник карго\"",
+		DATIVE = "дробовику \"Защитник карго\"",
+		ACCUSATIVE = "дробовик \"Защитник карго\"",
+		INSTRUMENTAL = "дробовиком \"Защитник карго\"",
+		PREPOSITIONAL = "дробовике \"Защитник карго\"",
+	)
+
+/obj/item/gun/projectile/shotgun/winchester/cargo/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 // MARK: Rusted shotgun
 /obj/item/gun/projectile/shotgun/lethal/rusted
