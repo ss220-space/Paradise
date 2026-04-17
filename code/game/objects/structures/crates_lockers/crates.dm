@@ -56,6 +56,10 @@
 		structure_shaken()
 
 /obj/structure/closet/crate/before_open(mob/living/user, force)
+	. = ..()
+	do_trap_effect(user)
+
+/obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
 		return TRUE
 	if(!user.electrocute_act(17, src))
@@ -127,10 +131,10 @@
 
 /obj/structure/closet/crate/attack_hand(mob/user, list/modifiers)
 	. = ..()
+	handle_electropack_trap(user)
 	if(.)
 		return
 	tear_manifest(user)
-	handle_electropack_trap(user)
 
 /obj/structure/closet/crate/proc/handle_electropack_trap(mob/living/user)
 	var/obj/item/radio/electropack = locate() in src

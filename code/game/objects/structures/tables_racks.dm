@@ -995,18 +995,9 @@
 		qdel(src)
 	building = FALSE
 
-/// Rack destruction
-/obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(obj_flags & NODECONSTRUCT))
-		set_density(FALSE)
-		var/obj/item/rack_parts/newparts = new(loc)
-		transfer_fingerprints_to(newparts)
-	qdel(src)
-
-/*
+/**
  * MARK: Rack Parts
  */
-
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
@@ -1027,11 +1018,36 @@
 		PREPOSITIONAL = "деталях стеллажа",
 	)
 
-/obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
+/obj/item/rack_parts/Initialize(mapload)
+	. = ..()
+	register_context()
+
+/obj/item/rack_parts/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	if(isnull(held_item))
+		return NONE
+
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "Собрать стеллаж"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(held_item.tool_behaviour == TOOL_WRENCH)
+		context[SCREENTIP_CONTEXT_LMB] = "Разобрать"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return NONE
+
+/obj/item/rack_parts/wrench_act(mob/user, obj/item/tool)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
-	new /obj/item/stack/sheet/metal(user.loc)
+	new /obj/item/stack/sheet/metal(drop_location())
+	qdel(src)
+
+/obj/structure/rack/deconstruct(disassembled = TRUE)
+	if(!(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
+		var/obj/item/rack_parts/new_parts = new(drop_location())
+		transfer_fingerprints_to(new_parts)
 	qdel(src)
 
 /obj/item/rack_parts/attack_self(mob/user)
@@ -1039,14 +1055,14 @@
 		return
 	building = TRUE
 	to_chat(user, span_notice("Вы начинаете собирать стойку..."))
-	if(do_after(user, 2 SECONDS, user))
+	if(do_after(user, 2 SECONDS, target = user))
 		if(!user.drop_from_active_hand())
 			return
-		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
+		var/obj/structure/rack/rack = new /obj/structure/rack(get_turf(src))
 		user.visible_message(
-			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] собирает [R.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы собираете [R.declent_ru(ACCUSATIVE)].")
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] собирает [rack.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы собираете [rack.declent_ru(ACCUSATIVE)].")
 		)
-		R.add_fingerprint(user)
+		rack.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

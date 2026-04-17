@@ -40,7 +40,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/critter/open(mob/living/user, force)
+/obj/structure/closet/crate/critter/open(mob/living/user, force = FALSE)
 	if(!can_open())
 		return FALSE
 

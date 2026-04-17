@@ -30,6 +30,7 @@
 
 	pipename = initial(pipe_type.name)
 	update_appearance(UPDATE_ICON_STATE)
+	AddElement(/datum/element/undertile)
 
 	if(!is_pipe())
 		set_density(TRUE)
@@ -88,12 +89,6 @@
 		if(initialize_dirs & DISP_DIR_FLIP)
 			dpdir |= REVERSE_DIR(dir)
 	return dpdir
-
-// hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(intact)
-	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
-	update_appearance(UPDATE_ICON_STATE)
 
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
@@ -156,7 +151,7 @@
 	var/turf/our_turf = loc
 	if(!isturf(our_turf))
 		return .
-	if(our_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -197,7 +192,7 @@
 	var/turf/our_turf = loc
 	if(!isturf(our_turf))
 		return .
-	if(our_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
 		return .
 	if(!anchored)

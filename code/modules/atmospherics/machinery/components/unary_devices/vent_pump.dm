@@ -135,10 +135,6 @@
 			else
 				add_underlay(T, direction = dir)
 
-/obj/machinery/atmospherics/unary/vent_pump/hide()
-	update_icon()
-	update_underlays()
-
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos(seconds)
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE

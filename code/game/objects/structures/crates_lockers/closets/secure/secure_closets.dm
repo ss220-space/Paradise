@@ -5,11 +5,11 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon_state = "secure"
 	locked = TRUE
+	secure = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
-	secure = TRUE
 
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
@@ -52,8 +52,9 @@
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
 
-/obj/structure/closet/secure_closet/closed_item_click(mob/user)
+/obj/structure/closet/secure_closet/click_alt(mob/user)
 	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/secure_closet/update_overlays()
 	. = ..()

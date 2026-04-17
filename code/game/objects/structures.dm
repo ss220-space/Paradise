@@ -1,12 +1,13 @@
 /// Inert structures, such as girders, machine frames, and crates/lockers.
 /obj/structure
-	icon = 'icons/obj/structures.dmi'
 	abstract_type = /obj/structure
+	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
 	pass_flags_self = PASSSTRUCTURE
 	pull_push_slowdown = 1.3
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	layer = BELOW_OBJ_LAYER
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
@@ -16,8 +17,15 @@
 	var/light_process = 0
 	var/extinguish_timer_id
 
-/obj/structure/New()
-	..()
+/obj/structure/Initialize(mapload)
+	if(!armor)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
+
+	. = ..()
+
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			QUEUE_SMOOTH(src)
@@ -27,13 +35,6 @@
 		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
-
-/obj/structure/Initialize(mapload)
-	if(!armor)
-		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
-	if(creates_cover && isturf(loc))
-		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	return ..()
 
 /obj/structure/Destroy(force)
 	if(SSticker)

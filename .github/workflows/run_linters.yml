@@ -20,6 +20,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spacemandmm-
 
+      - name: Restore Bootstrap cache
+        uses: actions/cache@v5
+        with:
+          path: tools/bootstrap/.cache
+          key: ${{ runner.os }}-bootstrap-${{ hashFiles('/tools/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-bootstrap-
+
       - uses: actions/setup-python@v6
         with:
           python-version: "3.x"
@@ -129,11 +137,12 @@ jobs:
               - '**.dmm'
               - 'tools/maplint/**'
               - 'tools/mapmerge2/**'
+
       - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled() && steps.map-filter.outputs.run_maps == 'true'
         run: |
-          python -m mapmerge2.dmm_test
-          python -m tools.maplint.source
+          tools/bootstrap/python -m mapmerge2.dmm_test
+          tools/bootstrap/python -m tools.maplint.source --github
 
       - name: Run DMI Tests
         if: steps.linter-setup.conclusion == 'success' && !cancelled()

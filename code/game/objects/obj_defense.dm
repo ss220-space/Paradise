@@ -106,17 +106,19 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger(pick(list("[DECLENT_RU_CAP(src, NOMINATIVE)] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!", "[DECLENT_RU_CAP(P, NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
+	visible_message(
+		span_danger(pick(list("[DECLENT_RU_CAP(src, NOMINATIVE)] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!",
+		"[DECLENT_RU_CAP(P, NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))),
+		projectile_message = TRUE,
+	)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
 /obj/blob_act(obj/structure/blob/B)
 	if(!..() || (obj_flags & IGNORE_BLOB_ACT))
 		return
-	if(isturf(loc))
-		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //the blob doesn't destroy thing below the floor
-			return
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR)) //the blob doesn't destroy thing below the floor
+		return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
 /obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
@@ -245,10 +247,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 // MARK: FIRE
 
 /obj/fire_act(exposed_temperature, exposed_volume)
-	if(isturf(loc))
-		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //fire can't damage things hidden below the floor.
-			return
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR)) //fire can't damage things hidden below the floor.
+		return
 	..()
 	if(QDELETED(src)) // no taking damage after deletion
 		return

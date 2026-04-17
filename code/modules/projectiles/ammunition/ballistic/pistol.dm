@@ -30,29 +30,6 @@
 	projectile_type = /obj/projectile/bullet/weakbullet4
 	bullet_type = BULLET_TYPE_RUBBER
 
-// MARK: 9mm - Enforcer special
-// DELETE THIS PLEASE
-/obj/item/ammo_casing/enforcer/laser
-	desc = "Лазерный патрон для пистолета \"Блюститель\"."
-	icon_state = "laser-casing"
-	caliber = CALIBER_9MM
-	materials = list(MAT_METAL = 1150)
-	projectile_type = /obj/projectile/beam/specter/laser
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = COLOR_SOFT_RED
-	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
-	bullet_type = BULLET_TYPE_LASER
-
-/obj/item/ammo_casing/enforcer/disable
-	desc = "Парализующий патрон для пистолета \"Блюститель\"."
-	icon_state = "stam-casing"
-	caliber = CALIBER_9MM
-	materials = list(MAT_METAL = 800)
-	projectile_type = /obj/projectile/beam/specter/disabler
-	muzzle_flash_color = LIGHT_COLOR_BLUE
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	bullet_type = BULLET_TYPE_DISABLER
-
 // MARK: .40 N&R
 /obj/item/ammo_casing/fortynr
 	desc = "A 40nr bullet casing."

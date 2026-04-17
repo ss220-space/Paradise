@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
 	slip.loc = crate
-	if(istype(crate, /obj/structure/closet/crate))
+	if(is_crate(crate))
 		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
 		CR.update_icon(UPDATE_OVERLAYS)
@@ -348,7 +348,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			data_storage.sold_atoms += "[MA.name]"
 
 			// Must be in a crate (or a critter crate)!
-			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/crate/critter))
+			if(is_crate(MA) || istype(MA,/obj/structure/closet/crate/critter))
 				data_storage.sold_atoms += ":"
 				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"

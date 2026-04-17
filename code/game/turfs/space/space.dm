@@ -15,6 +15,7 @@
 	light_power = 0.25
 	always_lit = TRUE
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 

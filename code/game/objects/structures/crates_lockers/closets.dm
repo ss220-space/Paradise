@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 	/// How many pixels the closet can shift on the x axis when shaking
 	var/x_shake_pixel_shift = 2
-	/// how many pixels the closet can shift on the y axes when shaking
+	/// How many pixels the closet can shift on the y axes when shaking
 	var/y_shake_pixel_shift = 1
 
 
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(closets)
 	if(anchored)
 		. += span_notice("It's [anchorable ? EXAMINE_HINT("bolted") : "attached firmly"] to the ground.")
 
-// Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
+/// Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
 	return
 
@@ -155,24 +155,24 @@ GLOBAL_LIST_EMPTY(closets)
 	dump_contents()
 	return ..()
 
-/obj/structure/closet/vv_edit_var(vname, vval)
-	if(vname == NAMEOF(src, opened))
-		if(vval == opened)
+/obj/structure/closet/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, opened))
+		if(var_value == opened)
 			return FALSE
-		if(vval && !opened && open())
+		if(var_value && !opened && open(force = TRUE))
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
-		else if(!vval && opened && close())
+		else if(!var_value && opened && close())
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		return FALSE
 	. = ..()
-	if(vname == NAMEOF(src, welded) && welded && !can_weld_shut)
+	if(var_name == NAMEOF(src, welded) && welded && !can_weld_shut)
 		can_weld_shut = TRUE
-	else if(vname == NAMEOF(src, can_weld_shut) && !can_weld_shut && welded)
+	else if(var_name == NAMEOF(src, can_weld_shut) && !can_weld_shut && welded)
 		welded = FALSE
 		update_appearance()
-	if(vname in list(NAMEOF(src, locked), NAMEOF(src, welded), NAMEOF(src, secure)))
+	if(var_name in list(NAMEOF(src, locked), NAMEOF(src, welded), NAMEOF(src, secure)))
 		update_appearance()
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
@@ -212,11 +212,9 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-
-	if(no_throw_opens)
+	if(no_throw_opens || welded || locked)
 		return
-
-	if(iswallturf(hit_atom) && prob(20))
+	if(iswallturf(hit_atom) && prob(10))
 		open()
 
 /obj/structure/closet/proc/dump_contents()
@@ -228,7 +226,7 @@ GLOBAL_LIST_EMPTY(closets)
 	if(throwing)
 		throwing.finalize()
 
-///Proc to write checks before opening a door
+/// Proc to write checks before opening a door
 /obj/structure/closet/proc/before_open(mob/living/user, force)
 	return TRUE
 
@@ -255,7 +253,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/set_opened()
 	open()
 
-///Proc to override for effects after opening a door
+/// Proc to override for effects after opening a door
 /obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
 	return
 
@@ -346,23 +344,23 @@ GLOBAL_LIST_EMPTY(closets)
 	mouse_drop_receive(grabbed_thing, grabber)	//act like they were dragged onto the closet
 	return TRUE
 
-/obj/structure/closet/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/attackby(obj/item/used, mob/user, params)
 	if(opened)
-		if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
+		if(user.a_intent == INTENT_HARM || (used.item_flags & ABSTRACT) || used.is_robot_module())
 			return ..()
-		if(!user.drop_transfer_item_to_loc(I, loc)) //couldn't drop the item
+		if(!user.drop_transfer_item_to_loc(used, drop_location())) //couldn't drop the item
 			return ..()
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/rcs))
-		var/obj/item/rcs/rcs = I
+	if(istype(used, /obj/item/rcs))
+		var/obj/item/rcs/rcs = used
 		add_fingerprint(user)
 		rcs.try_send_container(user, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	var/is_emag = istype(I, /obj/item/card/emag)
-	if(is_emag || istype(I, /obj/item/melee/energy/blade))
+	var/is_emag = istype(used, /obj/item/card/emag)
+	if(is_emag || istype(used, /obj/item/melee/energy/blade))
 		add_fingerprint(user)
 		if(!can_be_emaged || broken)
 			var/add_flags = NONE
@@ -372,35 +370,36 @@ GLOBAL_LIST_EMPTY(closets)
 		emag_act(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/packageWrap))
+	if(istype(used, /obj/item/stack/packageWrap))
 		return ATTACK_CHAIN_PROCEED	// afterattack handles it
 
-	if(user.a_intent != INTENT_HARM)
-		closed_item_click(user)
+	if(user.a_intent != INTENT_HARM || (used.item_flags & NOBLUDGEON))
+		if((!toggle(user)) && !opened && secure && locked)
+			togglelock(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
 /obj/structure/closet/proc/togglelock(mob/living/user)
 	if(!istype(user))
-		return
+		return FALSE
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		balloon_alert(user, "невозможно!")
-		return
+		return FALSE
 	if(opened)
 		balloon_alert(user, "нужно закрыть!")
-		return
+		return FALSE
 	if(broken)
 		balloon_alert(user, "сломано!")
-		return
+		return FALSE
 	if(user.loc == src)
 		balloon_alert(user, "невозможно изнутри!")
-		return
-	if(allowed(user))
+		return FALSE
+	if(allowed(user) && secure)
 		locked = !locked
 		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
 		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_YUT(user)] замок", "замок [locked ? "за" : "от"]крыт")
-		update_icon()
+		update_appearance()
 	else
 		balloon_alert(user, "нет доступа!")
 	if(iscarbon(user))
@@ -408,20 +407,16 @@ GLOBAL_LIST_EMPTY(closets)
 	update_appearance()
 	return TRUE
 
-// What happens when the closet is attacked by a random item not on harm mode
-/obj/structure/closet/proc/closed_item_click(mob/user)
-	attack_hand(user)
-
-/obj/structure/closet/welder_act(mob/user, obj/item/I)
+/obj/structure/closet/welder_act(mob/user, obj/item/used)
 	. = TRUE
 	if(!opened && user.loc == src)
 		to_chat(user, span_warning("You can't weld [src] from inside!"))
 		return
-	if(!I.tool_use_check(user, 0))
+	if(!used.tool_use_check(user, 0))
 		return
 	if(opened)
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(used.use_tool(src, user, 40, volume = used.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			deconstruct(TRUE)
 			return
@@ -434,7 +429,7 @@ GLOBAL_LIST_EMPTY(closets)
 			span_notice("You begin welding [src] [adjective]..."),
 			span_warning("You hear welding.")
 		)
-		if(I.use_tool(src, user, 15, volume = I.tool_volume))
+		if(used.use_tool(src, user, 15, volume = used.tool_volume))
 			if(opened)
 				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return
@@ -521,8 +516,16 @@ GLOBAL_LIST_EMPTY(closets)
 	if(toggle(user))
 		return TRUE
 
-	if(!opened)
+	if(!opened && secure && locked)
 		return togglelock(user)
+
+/obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+	if(!user.can_perform_action(src) || !isturf(loc))
+		return
+	if(!opened && secure)
+		togglelock(user)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/closet/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -545,16 +548,16 @@ GLOBAL_LIST_EMPTY(closets)
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
-	toggle()
+	toggle(user)
 
 /obj/structure/closet/verb/verb_toggleopen()
-	set src in oview(1)
 	set name = "Toggle Open"
+	set src in view(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!usr.can_perform_action(src) || !isturf(loc))
 		return
 
-	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
+	if(ishuman(usr) || isrobot(usr) || isdrone(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
 		add_fingerprint(usr)
 		toggle(usr)
 	else
@@ -668,16 +671,6 @@ GLOBAL_LIST_EMPTY(closets)
 	unlock() //applies to critter crates and secure lockers only
 	broken = TRUE //applies to secure lockers only
 	open(force = TRUE)
-
-/obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
-	. = ..()
-
-	if(!user.can_perform_action(src) || !isturf(loc))
-		return
-
-	if(!opened && secure)
-		togglelock(user)
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /// toggles the lock state of a closet
 /obj/structure/closet/proc/lock()
