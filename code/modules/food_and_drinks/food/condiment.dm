@@ -71,8 +71,8 @@
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	return .|ATTACK_CHAIN_SUCCESS
 
-/obj/item/reagent_containers/food/condiment/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/food/condiment/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
@@ -137,7 +137,7 @@
 	name = "salt shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
-	possible_transfer_amounts = list(1,5,20) //for clown turning the lid off
+	possible_transfer_amounts = list(1, 5, 20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
 	list_reagents = list("sodiumchloride" = 20)
@@ -156,7 +156,7 @@
 	name = "pepper mill"
 	desc = "Often used to flavor food or make people sneeze."
 	icon_state = "peppermillsmall"
-	possible_transfer_amounts = list(1,5,20) //for clown turning the lid off
+	possible_transfer_amounts = list(1, 5, 20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
 	list_reagents = list("blackpepper" = 20)
@@ -301,8 +301,8 @@
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
 
-/obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/food/condiment/pack/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.

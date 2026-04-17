@@ -108,7 +108,7 @@
 	if(.)
 		pull_push_slowdown = 0
 
-/obj/structure/closet/body_bag/close()
+/obj/structure/closet/body_bag/close(mob/living/user)
 	. = ..()
 	if(. && length(contents))
 		pull_push_slowdown = 1.3
@@ -246,7 +246,7 @@
 	move_to_null_space()
 	return item_bag
 
-/obj/item/bodybag/bluespace/container_resist(mob/living/user)
+/obj/item/bodybag/bluespace/container_resist_act(mob/living/user)
 	var/breakout_time = 10 SECONDS
 	if(user.incapacitated())
 		balloon_alert(user, "вы связаны!")
@@ -536,7 +536,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/closet/body_bag/environmental/prisoner/container_resist(mob/living/user)
+/obj/structure/closet/body_bag/environmental/prisoner/container_resist_act(mob/living/user)
 	// copy-pasted with changes because flavor text as well as some other misc stuff
 	if(opened || ismovable(loc) || !sinched)
 		return ..()

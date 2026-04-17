@@ -78,14 +78,14 @@
 
 	return TRUE
 
-/obj/item/storage/toolbox/afterattack(atom/object, mob/living/user, proximity, params)
+/obj/item/storage/toolbox/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(!check_for_radial_menu_availability(object, user, proximity))
+	if(!check_for_radial_menu_availability(target, user, proximity_flag))
 		return
 
-	handle_radial_menu_interaction(object, user)
+	handle_radial_menu_interaction(target, user)
 
 /obj/item/storage/toolbox/proc/handle_radial_menu_interaction(atom/object, mob/living/user)
 	if(current_interactions)

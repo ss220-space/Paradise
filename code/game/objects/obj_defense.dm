@@ -117,10 +117,8 @@
 /obj/blob_act(obj/structure/blob/B)
 	if(!..() || (obj_flags & IGNORE_BLOB_ACT))
 		return
-	if(isturf(loc))
-		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //the blob doesn't destroy thing below the floor
-			return
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR)) //the blob doesn't destroy thing below the floor
+		return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
 /obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
@@ -186,15 +184,15 @@
 		return
 	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, MELEE, 1)
 
-/obj/mech_melee_attack(obj/mecha/M)
-	M.do_attack_animation(src)
+/obj/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+	mech.do_attack_animation(src, used_item = selected_module)
 	var/play_soundeffect = 0
-	var/mech_damtype = M.damtype
-	if(M.selected)
-		mech_damtype = M.selected.damtype
+	var/mech_damtype = mech.damtype
+	if(selected_module)
+		mech_damtype = selected_module.damtype
 		play_soundeffect = 1
 	else
-		switch(M.damtype)
+		switch(mech.damtype)
 			if(BRUTE)
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if(BURN)
@@ -204,8 +202,8 @@
 				return 0
 			else
 				return 0
-	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
-	return take_damage(M.force*3, mech_damtype, MELEE, play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+	mech.visible_message(span_danger("[mech.name] hits [src]!"), span_danger("You hit [src]!"))
+	return take_damage(mech.force * 3, mech_damtype, MELEE, play_soundeffect, get_dir(src, mech)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
 	ex_act(EXPLODE_DEVASTATE)
@@ -249,10 +247,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 // MARK: FIRE
 
 /obj/fire_act(exposed_temperature, exposed_volume)
-	if(isturf(loc))
-		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //fire can't damage things hidden below the floor.
-			return
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR)) //fire can't damage things hidden below the floor.
+		return
 	..()
 	if(QDELETED(src)) // no taking damage after deletion
 		return

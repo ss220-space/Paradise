@@ -89,8 +89,8 @@
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_CRITICAL)
 			bestia.trophies[INTERNAL_ORGAN_HEART] = new_trophies
 
-			damage_modifiers[BRUTE] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_BRUTE / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
-			damage_modifiers[BURN] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_BURN / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
+			damage_modifiers[BRUTE] = (100 - ceil((new_trophies * (TROPHIES_CAP_PROT_BRUTE / MAX_TROPHIES_PER_TYPE_CRITICAL)))) / 100
+			damage_modifiers[BURN] = (100 - ceil((new_trophies * (TROPHIES_CAP_PROT_BURN / MAX_TROPHIES_PER_TYPE_CRITICAL)))) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_CRITICAL && new_amount > MAX_TROPHIES_PER_TYPE_CRITICAL))
 				update_spells = FALSE
@@ -101,8 +101,8 @@
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_CRITICAL)
 			bestia.trophies[INTERNAL_ORGAN_LUNGS] = new_trophies
 
-			damage_modifiers[OXY] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_OXY / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
-			damage_modifiers[STAMINA] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_STAMINA / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
+			damage_modifiers[OXY] = (100 - ceil((new_trophies * (TROPHIES_CAP_PROT_OXY / MAX_TROPHIES_PER_TYPE_CRITICAL)))) / 100
+			damage_modifiers[STAMINA] = (100 - ceil((new_trophies * (TROPHIES_CAP_PROT_STAMINA / MAX_TROPHIES_PER_TYPE_CRITICAL)))) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_CRITICAL && new_amount > MAX_TROPHIES_PER_TYPE_CRITICAL))
 				update_spells = FALSE
@@ -529,7 +529,7 @@
 	deduct_blood_on_cast = FALSE
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(INC_IGNORE_GRABBED))
+	if(user.incapacitated(IGNORE_GRAB))
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -620,7 +620,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || user.buckled || (iscarbon(user) && user.legcuffed))
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -838,7 +838,7 @@
 				balloon_alert(user, "метаморфоза уже используется!")
 			return FALSE
 
-	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -1404,7 +1404,7 @@
 		if(victim.stat)
 			continue
 
-		victim.Weaken(4 SECONDS)
+		victim.Knockdown(4 SECONDS)
 		to_chat(victim, span_userdanger("Громкий визг ослабляет вас и заставляет упасть на землю!"))
 
 /obj/structure/closet/coffin/vampire/process()

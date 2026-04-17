@@ -1,5 +1,5 @@
 /**
- * Items skins component.
+ * Items skins element.
  *
  * Add skins feature to /obj/item by alt_click.
  */

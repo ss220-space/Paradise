@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - add: "Выделение и копирование предметов в LootPanel (PR #8935)"

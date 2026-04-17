@@ -68,7 +68,7 @@
 		set_varspeed(-0.3)
 	return lum_count
 
-/mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target)
+/mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target, proximity_flag, list/modifiers)
 	// Pick a random attack sound for each attack
 	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(target))

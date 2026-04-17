@@ -1,0 +1,4 @@
+author: "Keslik"
+delete-after: True
+changes:
+  - balance: "Режим тазера наносит больше урона по выносливости (20 -> 25) (PR #8958)"

@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - balance: "торговцы теперь спавнятся с броней и пушкой (PR #8937)"

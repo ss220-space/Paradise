@@ -125,6 +125,7 @@
 	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 	allow_non_space_use = TRUE
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
 	var/list/showing = list()
 	var/client/viewing
 	/// Viewing the wire legend

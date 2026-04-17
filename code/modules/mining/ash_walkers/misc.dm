@@ -308,7 +308,7 @@
 /obj/structure/rack/wooden/wrench_act(mob/user, obj/item/I)
 	return
 
-/obj/structure/rack/wooden/MouseDrop_T(obj/item/dropping, mob/user, params)
+/obj/structure/rack/wooden/mouse_drop_receive(obj/item/dropping, mob/user, params)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 

@@ -471,15 +471,15 @@
 	item_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
 	update_equipped_item(update_speedmods = FALSE)
 
-/obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity, params)
+/obj/item/retractor/supermatter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!sliver)
 		return
-	if(istype(O, /obj/item/nuke_core_container/supermatter))
-		var/obj/item/nuke_core_container/supermatter/container = O
+	if(istype(target, /obj/item/nuke_core_container/supermatter))
+		var/obj/item/nuke_core_container/supermatter/container = target
 		container.load(src, user)
-	if(proximity && ismovable(O) && O != sliver)
-		Consume(O, user)
+	if(proximity && ismovable(target) && target != sliver)
+		Consume(target, user)
 
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)

@@ -20,7 +20,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/dump_contents()
 	loot_pickup()
-	. = ..()
+	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/proc/loot_pickup()
 	if(!ignore_use)

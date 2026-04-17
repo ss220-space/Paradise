@@ -51,7 +51,7 @@
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
-	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
+	icon_state = "c20r[magazine ? "-[ceil(get_ammo(FALSE)/4)*4]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm SMG"
@@ -117,7 +117,7 @@
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
+	icon_state = "wt550[magazine ? "-[ceil(get_ammo(FALSE)/6)*6]" : ""]"
 
 // MARK: SP-91-RC
 /obj/item/gun/projectile/automatic/sp91rc
@@ -141,7 +141,7 @@
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
-	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
+	icon_state = "SP-91-RC[magazine ? "-[ceil(get_ammo(FALSE)/5)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 // MARK: Sparkle-A12

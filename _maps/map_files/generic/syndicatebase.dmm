@@ -2279,7 +2279,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cao" = (
 /obj/effect/mapping_helpers/airlock/unres,
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2347,7 +2347,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "cdm" = (
 /obj/effect/mapping_helpers/airlock/unres,
-/obj/structure/sign/greencross{
+/obj/structure/sign/medbay/greencross{
 	pixel_x = 32
 	},
 /obj/machinery/door/firedoor,
@@ -8206,12 +8206,9 @@
 "hDs" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndieRnDchem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8360,12 +8357,9 @@
 /obj/machinery/door/airlock/hatch{
 	req_access = list(156)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndieRnDchem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -10688,12 +10682,9 @@
 "jQX" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "syndieRnDchem";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

@@ -208,7 +208,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	pixel_x = 4
 	},
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /obj/item/storage/firstaid/regular,

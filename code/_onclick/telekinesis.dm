@@ -101,7 +101,7 @@
 	afterattack(target, user)
 	return TRUE
 
-/obj/item/tk_grab/afterattack(atom/target, mob/living/user, proximity, list/modifiers)//TODO: go over this
+/obj/item/tk_grab/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)//TODO: go over this
 	if(!target || !user)
 		return
 	if(last_throw+3 > world.time)
