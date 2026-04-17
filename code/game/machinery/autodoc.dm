@@ -304,7 +304,7 @@
 		return
 	tray_toggle(user)
 
-/obj/machinery/autodoc/container_resist(mob/living/carbon/user)
+/obj/machinery/autodoc/container_resist_act(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated())
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))

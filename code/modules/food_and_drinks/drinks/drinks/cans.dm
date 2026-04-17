@@ -106,8 +106,8 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/food/drinks/cans/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
 		balloon_alert(user, "сначала откройте!")
@@ -116,7 +116,7 @@
 		balloon_alert(user, "сначала откройте!")
 		return
 	else
-		return ..(target, user, proximity)
+		return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	. = ..()

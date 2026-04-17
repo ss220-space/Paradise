@@ -312,8 +312,8 @@
 
 	var/static/list/hovering_mob_typechecks = list(
 		/mob/living/silicon = list(
-			SCREENTIP_CONTEXT_ALT_LMB = "Вкл/выкл блокировку",
 			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
+			SCREENTIP_CONTEXT_RMB = "Разблокировать/Заблокировать",
 		)
 	)
 

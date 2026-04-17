@@ -650,7 +650,7 @@
 "alQ" = (
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -15491,10 +15491,7 @@
 /area/coldcolony/malta/bridge/captain)
 "fGE" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -18472,7 +18469,7 @@
 "gLC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19184,11 +19181,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "gXo" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall,
 /area/coldcolony/malta/engineering/engine)
 "gXt" = (
@@ -20996,7 +20989,7 @@
 "hHi" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -24742,11 +24735,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
 "jep" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation,
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/engineering/engine)
 "jet" = (
@@ -27240,7 +27229,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "jZj" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/surgery/west)
 "jZt" = (
@@ -30987,7 +30976,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
 "lvz" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/medbay)
 "lvI" = (
@@ -35073,7 +35062,7 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/bridge/vip)
 "mVX" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/cmostore)
 "mWa" = (
@@ -41283,8 +41272,11 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "qm_snow";
-	pixel_x = 5;
-	pixel_y = 24
+	pixel_x = 24;
+	pixel_y = 5
+	},
+/obj/structure/closet/gun_stand/cargo_defender{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -43863,7 +43855,7 @@
 /obj/item/restraints/handcuffs{
 	pixel_y = -3
 	},
-/obj/structure/sign/redcross{
+/obj/structure/sign/medbay/redcross{
 	pixel_y = 32
 	},
 /obj/structure/cable{
@@ -45057,7 +45049,7 @@
 "qCm" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Dormitory";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -53852,7 +53844,7 @@
 "tQE" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56869,7 +56861,7 @@
 "uYx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Reception";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -57146,7 +57138,7 @@
 "veG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(1)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -65475,7 +65467,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "ydR" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/sleeper)
 "ydV" = (

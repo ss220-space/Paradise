@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
 
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
+
 	//Main variables
 	var/owner = null
 	var/default_cartridge = null // Access level defined by cartridge
@@ -527,9 +529,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		. |= ATTACK_CHAIN_SUCCESS
 		scanmode.scan_mob(target, user)
 
-/obj/item/pda/afterattack(atom/A, mob/user, proximity, params)
-	if(proximity && scanmode)
-		scanmode.scan_atom(A, user)
+/obj/item/pda/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag && scanmode)
+		scanmode.scan_atom(target, user)
 
 /obj/item/pda/proc/explode() //This needs tuning.
 	if(!detonate)

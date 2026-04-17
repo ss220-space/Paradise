@@ -714,7 +714,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "bY" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/medbay/redcross,
 /turf/simulated/wall/shuttle,
 /area/shuttle/escape)
 "bZ" = (

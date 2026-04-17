@@ -139,16 +139,17 @@
 
 //update the name and icon of the pipe item depending on the type
 
-/obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd)
+/obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	. = TRUE
-	if(our_rpd.mode == RPD_ROTATE_MODE)
-		rotate()
-	else if(our_rpd.mode == RPD_FLIP_MODE)
-		flip()
-	else if(our_rpd.mode == RPD_DELETE_MODE)
-		our_rpd.delete_single_pipe(user, src)
-	else
-		return ..()
+	switch(mode)
+		if(RPD_ROTATE_MODE)
+			rotate()
+		if(RPD_FLIP_MODE)
+			flip()
+		if(RPD_DELETE_MODE)
+			our_rpd.delete_single_pipe(user, src)
+		else
+			return ..()
 
 /obj/item/pipe/click_alt(mob/user)
 	rotate()
@@ -544,11 +545,11 @@
 	to_chat(user, span_notice("You have fastened the meter to the pipe."))
 	qdel(src)
 
-/obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd)
-	if(our_rpd.mode == RPD_DELETE_MODE)
+/obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
+	if(mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
-	else
-		..()
+		return
+	return ..()
 
 /obj/item/pipe_gsensor
 	name = "gas sensor"
@@ -567,10 +568,10 @@
 	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)
 
-/obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)
-	if(our_rpd.mode == RPD_DELETE_MODE)
+/obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
+	if(mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
-	else
-		..()
+		return
+	return ..()
 
 #undef CIRC_RIGHT

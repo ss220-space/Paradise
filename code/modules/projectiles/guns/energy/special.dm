@@ -354,7 +354,7 @@
 	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
 	holder = null
 
-/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(charging)
 		return
 	return ..()
@@ -433,7 +433,7 @@
 /obj/item/gun/energy/chrono_gun/update_overlays()
 	return list()
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(field)
 		field_disconnect(field)
 	..()
