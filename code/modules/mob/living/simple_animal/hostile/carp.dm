@@ -223,6 +223,7 @@
 	icon_state = "Mcarp"
 	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
+	random_color = FALSE
 
 	melee_damage_lower = 25
 	melee_damage_upper = 30
