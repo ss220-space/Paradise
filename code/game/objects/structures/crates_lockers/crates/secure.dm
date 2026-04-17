@@ -11,17 +11,19 @@
 	overlay_locked = "securecrater"
 	overlay_unlocked = "securecrateg"
 	overlay_sparking = "securecratesparks"
-	/// Overlay for crate with broken lock
-	var/overlay_broken = "securecrateemag"
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	var/tamperproof = FALSE
+	secure = TRUE
 	locked = TRUE
 	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
 	can_be_emissive = TRUE
 	secure = TRUE
+
+	var/tamperproof = 0
+	/// Overlay for crate with broken lock
+	var/overlay_broken = "securecrateemag"
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -32,7 +34,7 @@
 	else
 		. += overlay_unlocked
 
-/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
 		boom()
 	else
@@ -43,13 +45,10 @@
 		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
-	for(var/atom/movable/movable in src)
-		qdel(movable)
-	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
+	dump_contents()
+	explosion(get_turf(src), heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
-/obj/structure/closet/crate/secure/can_open()
-	return !locked
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)

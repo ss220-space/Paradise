@@ -284,7 +284,7 @@
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)
-	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	ratio = ceil((cell.charge / cell.maxcharge) * charge_sections)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	new_icon_state = "[icon_state]_charge"
 	var/new_item_state = null
@@ -341,12 +341,13 @@
 		return OXYLOSS
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
-	. = ..()
-	if(var_name == NAMEOF(src, selfcharge))
-		if(var_value)
-			START_PROCESSING(SSobj, src)
-		else
-			STOP_PROCESSING(SSobj, src)
+	switch(var_name)
+		if(NAMEOF(src, selfcharge))
+			if(var_value)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)

@@ -1,3 +1,4 @@
+/// Inert structures, such as girders, machine frames, and crates/lockers.
 /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	abstract_type = /obj/structure
@@ -5,6 +6,7 @@
 	max_integrity = 300
 	pass_flags_self = PASSSTRUCTURE
 	pull_push_slowdown = 1.3
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
@@ -64,7 +66,7 @@
 /obj/structure/has_prints()
 	return TRUE
 
-/obj/structure/attack_hand(mob/living/user)
+/obj/structure/attack_hand(mob/living/user, list/modifiers)
 	if(has_prints() && Adjacent(user))
 		add_fingerprint(user)
 	return ..()
@@ -82,7 +84,7 @@
 
 	do_climb(usr)
 
-/obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
+/obj/structure/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	. = ..()
 	if(!. && dropping == user)
 		do_climb(user)

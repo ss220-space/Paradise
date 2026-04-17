@@ -329,7 +329,7 @@
 		Crate:req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
+	var/obj/item/paper/manifest/slip = new()
 	slip.erroneous = errors
 	slip.points = object.cost
 	slip.ordernumber = ordernum

@@ -240,10 +240,10 @@
 /obj/structure/closet/coffin/graveyard_loot
 	var/spawn_mob = null
 
-/obj/structure/closet/coffin/graveyard_loot/open()
+/obj/structure/closet/coffin/graveyard_loot/open(mob/living/user, force)
 	..()
 	if(spawn_mob)
-		new spawn_mob(src.loc)
+		new spawn_mob(loc)
 		spawn_mob = null
 		new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 

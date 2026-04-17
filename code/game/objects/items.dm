@@ -7,6 +7,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	pass_flags_self = PASSITEM
 	pass_flags = PASSTABLE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 
 	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	move_resist = null
@@ -1170,7 +1171,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	closeToolTip(usr)
 	remove_outline()
 
-/obj/item/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/item/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
 		return FALSE
 

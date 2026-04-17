@@ -8,7 +8,7 @@
 	/// When set initially / in on_creation, this is how long the status effect lasts in deciseconds.
 	/// While processing, this becomes the world.time when the status effect will expire.
 	/// -1 = infinite duration.
-	var/duration = -1
+	var/duration = STATUS_EFFECT_PERMANENT
 	/// When set initially / in on_creation, this is how long between [proc/tick] calls in deciseconds.
 	/// Note that this cannot be faster than the processing subsystem you choose to fire the effect on. (See: [var/processing_speed])
 	/// While processing, this becomes the world.time when the next tick will occur.
@@ -149,7 +149,7 @@
 /// has its duration refreshed in apply_status_effect - is passed New() args
 /datum/status_effect/proc/refresh(effect, ...)
 	var/original_duration = initial(duration)
-	if(original_duration == -1)
+	if(original_duration == STATUS_EFFECT_PERMANENT)
 		return
 	duration = world.time + original_duration
 
@@ -163,7 +163,7 @@
 
 /// Remove [seconds] of duration from the status effect, qdeling / ending if we eclipse the current world time.
 /datum/status_effect/proc/remove_duration(seconds)
-	if(duration == -1) // Infinite duration
+	if(duration == STATUS_EFFECT_PERMANENT) // Infinite duration
 		return FALSE
 
 	duration -= seconds
@@ -172,6 +172,14 @@
 		return TRUE
 
 	return FALSE
+
+/datum/status_effect/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(!.)
+		return
+	if(var_name == NAMEOF(src, duration))
+		if(var_value == INFINITY)
+			duration = STATUS_EFFECT_PERMANENT
 
 ////////////////
 // ALERT HOOK //
@@ -204,9 +212,7 @@
 /mob/living/proc/apply_status_effect(datum/status_effect/new_effect, ...)
 	RETURN_TYPE(/datum/status_effect)
 
-	// The arguments we pass to the start effect. The 1st argument is this mob.
 	var/list/arguments = args.Copy()
-	arguments[1] = src
 
 	// If the status effect we're applying doesn't allow multiple effects, we need to handle it
 	if(initial(new_effect.status_type) != STATUS_EFFECT_MULTIPLE)
@@ -228,6 +234,9 @@
 				if(STATUS_EFFECT_REFRESH)
 					existing_effect.refresh(arglist(arguments))
 					return
+
+	// For the new effect the 1st argument is this mob
+	arguments[1] = src
 
 	// Create the status effect with our mob + our arguments
 	var/datum/status_effect/new_instance = new new_effect(arguments)
@@ -376,7 +385,7 @@
 	status_underlay = mutable_appearance(underlay_file, "[underlay_state][stacks]")
 	var/icon_height = owner.get_cached_height()
 	status_overlay.pixel_w = -owner.pixel_x
-	status_overlay.pixel_z = FLOOR(icon_height * 0.25, 1)
+	status_overlay.pixel_z = floor(icon_height * 0.25)
 	status_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the status's overlay size based on the target's icon size
 	status_underlay.pixel_w = -owner.pixel_x
 	status_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3

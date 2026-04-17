@@ -74,7 +74,7 @@
 		return
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
-/turf/simulated/wall/MouseDrop_T(atom/dropping, mob/user, params)
+/turf/simulated/wall/mouse_drop_receive(atom/dropping, mob/user, params)
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 

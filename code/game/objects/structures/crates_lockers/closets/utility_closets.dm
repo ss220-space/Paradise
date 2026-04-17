@@ -125,6 +125,7 @@
 	custom_door_overlay = "radsuit"
 
 /obj/structure/closet/radiation/populate_contents()
+	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 

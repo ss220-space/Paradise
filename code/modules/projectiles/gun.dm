@@ -732,6 +732,10 @@
 	var/obj/item/gun/gun = null
 
 /datum/action/toggle_scope_zoom/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)

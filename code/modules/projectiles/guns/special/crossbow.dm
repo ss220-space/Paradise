@@ -154,13 +154,13 @@
 
 	switch(choice)
 		if(XBOW_TENSION_20)
-			drawtension = CEILING(0.2 * maxtension, 1)
+			drawtension = ceil(0.2 * maxtension)
 		if(XBOW_TENSION_40)
-			drawtension = CEILING(0.4 * maxtension, 1)
+			drawtension = ceil(0.4 * maxtension)
 		if(XBOW_TENSION_60)
-			drawtension = CEILING(0.6 * maxtension, 1)
+			drawtension = ceil(0.6 * maxtension)
 		if(XBOW_TENSION_80)
-			drawtension = CEILING(0.8 * maxtension, 1)
+			drawtension = ceil(0.8 * maxtension)
 		if(XBOW_TENSION_FULL)
 			drawtension = maxtension
 

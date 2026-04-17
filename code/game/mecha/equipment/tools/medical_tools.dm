@@ -199,7 +199,7 @@
 		chosen_reagent.trans_to(patient, to_inject)
 		start_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist_act()
 	go_out(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
