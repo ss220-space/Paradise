@@ -2964,11 +2964,11 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/box,
-/obj/structure/closet/cardboard,
-/obj/item/storage/box/lights/mixed,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/storage/box/lights/mixed,
+/obj/structure/closet/cardboard,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -4614,7 +4614,6 @@
 /area/atmos)
 "aLe" = (
 /obj/structure/sign/vacuum/external{
-	layer = 4;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -7020,9 +7019,7 @@
 /area/janitor)
 "bbV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/vacuum/external{
-	layer = 4
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "bbY" = (
@@ -28879,7 +28876,6 @@
 	dir = 8;
 	frequency = 1443;
 	icon_state = "on";
-	id = null;
 	on = 1
 	},
 /obj/machinery/sparker{
@@ -38961,9 +38957,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "eqA" = (
-/obj/structure/sign/vacuum/external{
-	layer = 4
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/r_wall,
 /area/quartermaster/storage)
 "eqH" = (
@@ -61637,9 +61631,7 @@
 /area/toxins/xenobiology)
 "jzd" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/vacuum/external{
-	layer = 4
-	},
+/obj/structure/sign/vacuum/external,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
@@ -69545,6 +69537,12 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
+"lvM" = (
+/obj/structure/cargo_shelf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "lvO" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -75711,6 +75709,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
+"mQA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cargo_shelf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "mQI" = (
 /obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel{
@@ -86044,8 +86049,7 @@
 "pkt" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	id = null
+	dir = 4
 	},
 /turf/space,
 /area/atmos)
@@ -86604,6 +86608,7 @@
 "pqC" = (
 /obj/effect/turf_decal/box,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "pqM" = (
@@ -106817,7 +106822,6 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "tMj" = (
@@ -108154,12 +108158,12 @@
 /area/engineering/controlroom)
 "tZI" = (
 /obj/effect/turf_decal/box,
-/obj/structure/closet/crate,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
 	},
 /obj/structure/disposalpipe/junction/reversed,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -123417,7 +123421,6 @@
 	dir = 4;
 	frequency = 1443;
 	icon_state = "on";
-	id = null;
 	on = 1
 	},
 /turf/simulated/floor/engine,
@@ -169133,13 +169136,13 @@ rgm
 csH
 dqw
 bkS
-eZs
+lvM
 uHX
 wEM
-eZs
+lvM
 vKa
 eWN
-eZs
+lvM
 djV
 djV
 djV
@@ -169390,13 +169393,13 @@ ctS
 bYJ
 azC
 bkU
-djV
+mQA
 cOF
 bOI
-djV
+mQA
 rup
 gOW
-eZs
+lvM
 tFA
 djV
 jfY
@@ -171191,9 +171194,9 @@ cLF
 uAf
 nKJ
 oZo
-eZs
-djV
-djV
+lvM
+mQA
+mQA
 aJm
 eZs
 cGl
