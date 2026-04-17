@@ -418,6 +418,9 @@
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 
+/// Ignores darkness for hearing
+#define TRAIT_HIJACK "hijack"
+
 //important_recursive_contents traits
 /*
  * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
@@ -493,6 +496,8 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// If a human has a fracture in their legs or feet (for optimization)
+#define TRAIT_FRACTURE_FALL "fracture_fall"
 /// Suppression implant trait
 #define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
 

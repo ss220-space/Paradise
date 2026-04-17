@@ -2257,6 +2257,9 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
 
+/mob/living/proc/get_fracture_spread_bonus()
+	return 0
+
 /// Prints an ominous message if something bad is going to happen to you
 /mob/living/proc/ominous_nosebleed()
 	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))

@@ -227,13 +227,14 @@ GLOBAL_LIST_EMPTY(closets)
 	if(throwing)
 		throwing.finalize()
 
-///Proc to write checks before opening a door
+/// Proc to write checks before opening a door
 /obj/structure/closet/proc/before_open(mob/living/user, force)
 	return TRUE
 
 /obj/structure/closet/proc/open(mob/living/user, force = FALSE)
 	if(opened || !can_open(user, force))
 		return FALSE
+
 	if(!before_open(user, force))
 		return FALSE
 	welded = FALSE
@@ -253,7 +254,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/set_opened()
 	open()
 
-///Proc to override for effects after opening a door
+/// Proc to override for effects after opening a door
 /obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
 	return
 

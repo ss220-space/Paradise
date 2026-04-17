@@ -8,6 +8,9 @@
 	if(!forced && (!old_loc || old_loc.no_gravity()) && get_gravity())
 		thunk()
 
+	if(!forced && HAS_TRAIT(src, TRAIT_FRACTURE_FALL) && get_gravity())
+		fracture_fall_check()
+
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNORESLOWDOWN))
@@ -161,6 +164,7 @@
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
 	update_fractures_slowdown()
+	update_fractures_fall()
 
 /mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT, hand_index)
 	. = ..()
@@ -207,6 +211,7 @@
 			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 		update_fractures_slowdown()
+		update_fractures_fall()
 		update_nutrition_slowdown()
 		update_fat_slowdown()
 
@@ -227,6 +232,7 @@
 
 	update_limbless_slowdown()
 	update_fractures_slowdown()
+	update_fractures_fall()
 	update_hands_HUD()
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
@@ -242,6 +248,54 @@
 
 	to_chat(src, span_userdanger("Гравитация впечатывает вас в пол!"))
 	Knockdown(1 SECONDS)
+
+/mob/living/carbon/human/get_fracture_spread_bonus()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+	)
+
+	var/bonus_spread = 0
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		bonus_spread = max(bodypart.fracture.bonus_spread, bonus_spread)
+
+	return bonus_spread
+
+/mob/living/carbon/human/proc/fracture_fall_check()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+
+	if(body_position == LYING_DOWN)
+		return
+
+	var/fall_chance = 0
+	var/list/fractured_limbs = list()
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		fractured_limbs += bodypart
+		fall_chance = max(bodypart.fracture.fall_chance, fall_chance)
+
+	if(!fall_chance || !prob(fall_chance))
+		return
+
+	for(var/zone in fractured_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		bodypart.external_receive_damage(brute = bodypart.fracture)
+
+	Knockdown(3 SECONDS)
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))

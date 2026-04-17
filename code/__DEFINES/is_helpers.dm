@@ -235,6 +235,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define issingularity(atom) (istype(atom, /obj/singularity))
 
+/// Not really closed, but the meaning is the same.
+#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))
+
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
 #define istable(A) (istype(A, /obj/structure/table))
@@ -327,6 +330,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isminion(A) (istype(A, /mob/living/simple_animal/hostile/blob_minion))
 #define isblobbernaut(M) (istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut))
 
+#define isdead(A) (istype(A, /mob/dead))
+
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
 #define isnewplayer(A) (istype(A, /mob/new_player))
@@ -373,6 +378,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
+#define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
+
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
 
 #define iswirecutter(A) (istype(A, /obj/item/wirecutters))
@@ -411,6 +418,3 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
-
-/// Not closed turf, but it means the same thing (almost).
-#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))

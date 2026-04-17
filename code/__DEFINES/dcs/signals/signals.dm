@@ -876,7 +876,7 @@
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
-// called when carbon receiving a /obj/item/organ/external/proc/fracture
+// called when carbon receiving a /obj/item/organ/external/proc/fracture (/datum/fracture)
 #define COMSIG_CARBON_RECEIVE_FRACTURE "carbon_receive_fracture"
 ///called when something thrown hits a mob, from /mob/living/carbon/human/hitby(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_HITBY "carbon_hitby"
@@ -1515,6 +1515,12 @@
 #define COMSIG_VEHICLE_RIDDEN "vehicle-ridden"
 	/// Return this to signal that the mob should be removed from the vehicle
 	#define EJECT_FROM_VEHICLE (1<<0)
+
+
+/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
+/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"
 
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host

@@ -279,7 +279,8 @@
 		span_userdanger("Вас поражает [declent_ru(NOMINATIVE)], и всё вокруг замирает.\n[declent_ru(NOMINATIVE)] вспыхивает, и прежде чем вы осознаёте это, вы тоже горите."),
 		span_hear("Внезапно наступает тишина.")
 	)
-	victim.gib()
+	victim.ghostize(TRUE)
+	victim.dust()
 	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	qdel(src)
@@ -298,7 +299,8 @@
 	)
 	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-	user.gib()
+	user.ghostize(TRUE)
+	user.dust()
 	return FALSE
 
 /obj/item/nuke_core_container/supermatter
@@ -473,6 +475,9 @@
 	. = ..()
 	if(!sliver)
 		return
+	if(istype(target, /obj/item/nuke_core_container/supermatter))
+		var/obj/item/nuke_core_container/supermatter/container = target
+		container.load(src, user)
 	if(proximity_flag && ismovable(target) && target != sliver)
 		Consume(target, user)
 
@@ -491,14 +496,16 @@
 		var/mob/living/victim = AM
 		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
-		victim.gib()
+		victim.investigate_log("has been gibed by [src].", INVESTIGATE_DEATHS)
+		victim.ghostize(TRUE)
+		victim.dust()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
-		investigate_log("has irradiated [key_name(victim)].", INVESTIGATE_ENGINE)
+		investigate_log("has consumed [key_name(victim)].", INVESTIGATE_ENGINE)
 	else if(AM.flags & SUPERMATTER_IGNORES)
 		return
 	else if(istype(AM, /obj/item/nuke_core_container))
 		return
-	else if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
+	else if(istype(AM, /obj/machinery/power/supermatter_crystal))
 		return
 	else
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
@@ -510,7 +517,8 @@
 			span_userdanger("Вы касаетесь [AM.declent_ru(GENITIVE)] с помощью [declent_ru(GENITIVE)], и всё вокруг замирает.\n[DECLENT_RU_CAP(AM, NOMINATIVE)] и [sliver.declent_ru(NOMINATIVE)] вспыхивают, как и вы."),
 			span_hear("Внезапно наступает тишина.")
 		)
-		user.gib()
+		user.ghostize(TRUE)
+		user.dust()
 	radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, chance = 40)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)

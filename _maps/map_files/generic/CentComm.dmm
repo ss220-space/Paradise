@@ -16372,8 +16372,6 @@
 /area/centcom/specops)
 "hZa" = (
 /obj/structure/rack/holorack,
-/obj/item/organ/internal/cyberimp/brain/anti_drop,
-/obj/item/organ/internal/cyberimp/brain/anti_drop,
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -16395,6 +16393,8 @@
 /obj/item/organ/internal/cyberimp/arm/surgery,
 /obj/item/organ/internal/cyberimp/arm/toolset,
 /obj/item/organ/internal/cyberimp/arm/janitorial,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "hZr" = (

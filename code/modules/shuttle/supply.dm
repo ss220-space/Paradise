@@ -149,7 +149,7 @@
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
 			continue
-		if(istype(MA, /mob/dead))
+		if(isdead(MA))
 			continue
 		SSshuttle.sold_atoms += " [MA.declent_ru(NOMINATIVE)]"
 

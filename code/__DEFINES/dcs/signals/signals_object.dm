@@ -61,6 +61,8 @@
 #define COMSIG_GUN_CHAMBER_PROCESSED "gun_chamber_processed"
 
 
+#define COMSIG_CRYSTAL_MASS_CONSUME "crystal_mass_consume"
+
 // /obj access signals
 
 #define COMSIG_OBJ_ALLOWED "door_try_to_activate"
@@ -127,6 +129,13 @@
 
 /// Sent on camera switch in camera monitors (/obj/machinery/computer/security/ui_act(action, params))
 #define COMSIG_MONITOR_CAMERA_SWITCHED "monitor_camera_switched"
+
+// /obj/machinery/power/supermatter_crystal
+/// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
+#define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"
+/// from /datum/component/supermatter_crystal/proc/consume()
+/// called on the thing consumed, passes the thing which consumed it
+#define COMSIG_SUPERMATTER_CONSUMED "sm_consumed_this"
 
 /// From base of [/obj/item/proc/pre_attack_secondary()]: (atom/target, mob/user, list/modifiers, list/attack_modifiers)
 #define COMSIG_ITEM_PRE_ATTACK_SECONDARY "item_pre_attack_secondary"

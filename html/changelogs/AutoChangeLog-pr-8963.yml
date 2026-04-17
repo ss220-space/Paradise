@@ -1,0 +1,5 @@
+author: "svotnik"
+delete-after: True
+changes:
+  - add: "Мелкие изменения для ОБР и большие для Дедов. (PR #8963)"
+  - add: "рунеймсы (PR #8963)"
