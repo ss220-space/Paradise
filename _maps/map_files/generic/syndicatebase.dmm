@@ -19997,9 +19997,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/pill/methamphetamine{
 	pixel_x = -8;
@@ -27210,9 +27208,7 @@
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "wLZ" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/alarm/syndicate{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "wMx" = (

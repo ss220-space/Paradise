@@ -36,19 +36,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"aT" = (
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel,
-/area/construction)
 "aZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -230,6 +217,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
+"fK" = (
+/obj/structure/table,
+/obj/item/ammo_box/m10mm,
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "gj" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/item/mod/control/pre_equipped/responsory/security,
@@ -318,23 +311,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"hJ" = (
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/closet/firecloset/full,
-/turf/simulated/floor/plasteel{
-	dir = 9
-	},
-/area/hallway/secondary/entry)
 "if" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -346,6 +322,20 @@
 /obj/item/wirecutters,
 /turf/simulated/floor/glass/plasma,
 /area/construction/solars)
+"io" = (
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/storage/primary)
 "iq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -446,6 +436,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"kC" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/engineering/gravitygenerator)
 "kN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -594,11 +599,6 @@
 	dir = 6
 	},
 /area/construction/hallway)
-"nF" = (
-/obj/machinery/power/supermatter_crystal/engine,
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plating,
-/area/engineering/engine)
 "nN" = (
 /turf/simulated/floor/plasteel{
 	dir = 8
@@ -613,12 +613,6 @@
 	icon_state = "L3"
 	},
 /area/storage/primary)
-"nZ" = (
-/obj/structure/table,
-/obj/item/ammo_box/m10mm,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "os" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
@@ -675,23 +669,6 @@
 "qq" = (
 /turf/space,
 /area/space)
-"qs" = (
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/closet/secure_closet/captains,
-/turf/simulated/floor/plasteel{
-	dir = 8
-	},
-/area/bridge)
 "qy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
@@ -805,6 +782,11 @@
 /obj/item/storage/backpack/holding,
 /turf/simulated/floor/plasteel,
 /area/bridge)
+"sV" = (
+/obj/machinery/power/supermatter_crystal/engine,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plating,
+/area/engineering/engine)
 "tg" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -855,6 +837,18 @@
 /obj/item/mod/control/pre_equipped/loader,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"tW" = (
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel,
+/area/construction)
 "tZ" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -864,21 +858,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
-"ud" = (
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/structure/closet/secure_closet/engineering_electrical,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/engineering/engine)
 "uh" = (
 /turf/simulated/floor/plasteel{
 	dir = 4
@@ -988,6 +967,22 @@
 /obj/item/mod/control/pre_equipped/mining/asteroid,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"wD" = (
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/closet/firecloset/full,
+/turf/simulated/floor/plasteel{
+	dir = 9
+	},
+/area/hallway/secondary/entry)
 "wG" = (
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -1130,6 +1125,20 @@
 /obj/item/mod/control/pre_equipped/responsory/medic,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"zN" = (
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/engineering/engine)
 "zY" = (
 /obj/item/pizzabox,
 /turf/simulated/floor/plasteel{
@@ -1202,6 +1211,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/construction)
+"BC" = (
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/structure/closet/secure_closet/atmos_personal,
+/turf/simulated/floor/plating,
+/area/atmos)
 "BK" = (
 /obj/machinery/light{
 	dir = 8
@@ -1378,22 +1394,6 @@
 /obj/structure/closet/secure_closet/engineering_chief,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"FX" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
-	},
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
 "Gh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/autoname,
@@ -1482,6 +1482,22 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"Iv" = (
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/closet/secure_closet/captains,
+/turf/simulated/floor/plasteel{
+	dir = 8
+	},
+/area/bridge)
 "IF" = (
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /turf/simulated/floor/plasteel,
@@ -1638,21 +1654,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"Mj" = (
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/storage/primary)
 "Mn" = (
 /obj/structure/table,
 /obj/item/rcd_ammo/large,
@@ -1801,13 +1802,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"PR" = (
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24
-	},
-/turf/simulated/floor/plating,
-/area/engineering/engine)
 "PS" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plating,
@@ -1898,22 +1892,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"Sw" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
-	},
-/obj/structure/closet/jcloset,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
 "Sx" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -2013,14 +1991,21 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/glass/plasma,
 /area/construction/hallway)
-"Uw" = (
-/obj/machinery/alarm{
-	locked = 0;
-	pixel_y = 23
+"UB" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -24
 	},
-/obj/structure/closet/secure_closet/atmos_personal,
-/turf/simulated/floor/plating,
-/area/atmos)
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/alarm/directional/north{
+	locked = 0
+	},
+/obj/structure/closet/jcloset,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central)
 "UH" = (
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel,
@@ -2290,6 +2275,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
+"Zp" = (
+/obj/machinery/alarm/all_access/directional/west,
+/turf/simulated/floor/plating,
+/area/engineering/engine)
 "Zw" = (
 /obj/machinery/light{
 	dir = 4
@@ -18405,13 +18394,13 @@ mN
 Hk
 dg
 cT
-Uw
+BC
 Yi
 PY
 PY
 dd
 bb
-Sw
+UB
 uO
 Gy
 Gy
@@ -18419,7 +18408,7 @@ Gy
 Gy
 Gy
 Wd
-aT
+tW
 GG
 Rw
 Rw
@@ -19945,15 +19934,15 @@ qq
 Ko
 vC
 ss
-nF
+sV
 eR
 ch
 Sx
-PR
+Zp
 Lr
 YY
 Os
-qs
+Iv
 tG
 wd
 Dr
@@ -20210,7 +20199,7 @@ Lr
 Lr
 YY
 Gk
-nZ
+fK
 eb
 XO
 Gk
@@ -21760,7 +21749,7 @@ Wt
 Gy
 Gy
 NK
-Mj
+io
 sn
 nw
 hj
@@ -22003,7 +21992,7 @@ mN
 Hk
 dg
 Nu
-ud
+zN
 Kd
 MM
 SP
@@ -23031,7 +23020,7 @@ mN
 Hk
 dg
 GW
-FX
+kC
 Ys
 bd
 iP
@@ -24065,7 +24054,7 @@ nN
 uh
 XH
 np
-hJ
+wD
 UO
 Nk
 Nk

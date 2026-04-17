@@ -284,10 +284,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "aU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secintel)
 "aV" = (
@@ -1075,10 +1072,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "dF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1325,10 +1319,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "ey" = (
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "ez" = (
@@ -1756,10 +1747,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "gj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
@@ -1854,10 +1842,7 @@
 "gE" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex/nitrile,
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whiteblue";
 	dir = 8
@@ -2064,10 +2049,7 @@
 	dir = 1
 	},
 /obj/machinery/computer/operating/old_frame,
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3472,10 +3454,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "me" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4161,10 +4140,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch/directional/west,
 /obj/item/flag/nt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -4205,10 +4181,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "oR" = (
@@ -4552,10 +4525,7 @@
 /turf/template_noop,
 /area/ruin/space/ancientstation/beta_atmos)
 "pV" = (
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "pX" = (
@@ -5160,10 +5130,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "sj" = (
@@ -5405,10 +5372,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "tb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -5827,10 +5791,7 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "us" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "ut" = (
@@ -5996,10 +5957,7 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "uU" = (
@@ -6717,10 +6675,7 @@
 /area/template_noop)
 "xv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -7442,10 +7397,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "Ad" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_prison)
 "Ae" = (
@@ -7810,10 +7762,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -8118,10 +8067,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "Cp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_north)
 "Cq" = (
@@ -8941,10 +8887,7 @@
 "Fq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secrest)
 "Fr" = (
@@ -9045,10 +8988,7 @@
 /area/ruin/space/ancientstation/charlie_recycler)
 "FH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
 "FI" = (
@@ -9803,10 +9743,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_exit)
 "Ie" = (
@@ -9965,10 +9902,7 @@
 /area/ruin/space/ancientstation/beta_north)
 "IH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -10248,10 +10182,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex/nitrile,
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -10853,10 +10784,7 @@
 "LS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_rnd)
 "LU" = (
@@ -10901,10 +10829,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/photo_album,
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /obj/item/paper/human,
 /obj/item/paper/human,
 /turf/simulated/floor/plasteel{
@@ -11087,10 +11012,7 @@
 /area/ruin/space/ancientstation/charlie_recycler)
 "MX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "MZ" = (
@@ -11805,10 +11727,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "Pl" = (
@@ -12483,10 +12402,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
+/obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/beta_atmos)
 "RF" = (
@@ -12647,10 +12563,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "Si" = (
@@ -12946,10 +12859,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "TJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_prison)
 "TK" = (
@@ -13279,10 +13189,7 @@
 "Vc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "Vd" = (
@@ -13612,10 +13519,7 @@
 	pixel_x = -10;
 	pixel_y = -7
 	},
-/obj/machinery/alarm/old{
-	dir = 8;
-	pixel_x = 26
-	},
+/obj/machinery/alarm/old/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -14117,10 +14021,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/alarm/old{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/alarm/old/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "Yr" = (

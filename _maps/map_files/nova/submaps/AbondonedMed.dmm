@@ -1610,10 +1610,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plating,
 /area/maintenance/medroom)
 "pE" = (
@@ -3683,10 +3680,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "Jf" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,

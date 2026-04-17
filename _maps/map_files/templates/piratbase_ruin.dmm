@@ -449,9 +449,7 @@
 "br" = (
 /obj/structure/table,
 /obj/item/stack/medical/ointment/advanced,
-/obj/machinery/alarm/syndicate{
-	dir = 1;
-	pixel_y = -24;
+/obj/machinery/alarm/syndicate/directional/south{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,
@@ -607,9 +605,7 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/machinery/alarm/syndicate{
-	dir = 1;
-	pixel_y = -24;
+/obj/machinery/alarm/syndicate/directional/south{
 	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1643,8 +1639,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ex" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
+/obj/machinery/alarm/syndicate/directional/north{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -2625,8 +2620,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
+/obj/machinery/alarm/syndicate/directional/north{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,
@@ -3415,9 +3409,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "jW" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -4016,9 +4008,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "lV" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plating,
@@ -4970,9 +4960,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "ou" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,
@@ -8477,9 +8465,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "yA" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
@@ -8755,9 +8741,7 @@
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_y = 8
 	},
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -11964,8 +11948,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "Jf" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
+/obj/machinery/alarm/syndicate/directional/north{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -13140,9 +13123,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/alarm/syndicate{
-	dir = 1;
-	pixel_y = -24;
+/obj/machinery/alarm/syndicate/directional/south{
 	req_access = list(160)
 	},
 /mob/living/simple_animal/hostile/pirate{
@@ -13617,8 +13598,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "NF" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
+/obj/machinery/alarm/syndicate/directional/north{
 	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -13842,8 +13822,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 5
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
+/obj/machinery/alarm/syndicate/directional/north{
 	req_access = list(160)
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
@@ -14599,9 +14578,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "QI" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /obj/machinery/atmospherics/binary/volume_pump,
@@ -15960,8 +15937,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
+/obj/machinery/alarm/syndicate/directional/north{
 	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -15973,9 +15949,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "UH" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -16389,9 +16363,7 @@
 /area/ruin/space/pirate_base/security_medical)
 "VS" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/syndicate/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -16765,10 +16737,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "Xd" = (
-/obj/machinery/alarm{
-	dir = 1;
+/obj/machinery/alarm/directional/south{
 	name = "Pirate Corvette Air alarm";
-	pixel_y = -25;
 	req_access = list(160)
 	},
 /obj/machinery/light/small{

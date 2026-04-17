@@ -2287,9 +2287,7 @@
 /turf/simulated/wall,
 /area/mine/living_quarters)
 "nM" = (
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -2897,10 +2895,7 @@
 "rv" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/item/pickaxe/safety,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -3212,7 +3207,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "tM" = (
 /obj/machinery/mineral/equipment_vendor,
-/obj/machinery/alarm{
+/obj/machinery/alarm/directional/west{
 	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
@@ -3474,10 +3469,7 @@
 	dir = 1;
 	network = list("Labor    Camp")
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -3536,7 +3528,7 @@
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
+/obj/machinery/alarm/directional/west{
 	pixel_y = 22
 	},
 /obj/machinery/light/small{
@@ -3615,10 +3607,7 @@
 	dir = 5;
 	network = list("Mining Outpost")
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -4511,10 +4500,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Ay" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -5128,9 +5114,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/camera{
 	c_tag = "Mining Communications Relay";
 	network = list("Mining Outpost")
@@ -6120,10 +6104,7 @@
 	network = list("Labor    Camp")
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -8133,9 +8114,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)

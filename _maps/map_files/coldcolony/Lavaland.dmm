@@ -2999,10 +2999,7 @@
 /area/lavaland/surface/outdoors)
 "yO" = (
 /obj/structure/ore_box,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -3445,9 +3442,7 @@
 "DA" = (
 /obj/item/extinguisher,
 /obj/structure/closet/crate,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "DN" = (
@@ -4720,9 +4715,7 @@
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "Rj" = (
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -4951,10 +4944,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "TN" = (
 /obj/structure/table_frame,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 22
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "TQ" = (

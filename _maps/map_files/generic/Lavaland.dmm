@@ -159,10 +159,7 @@
 /area/mine/maintenance)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -217,10 +214,7 @@
 	network = list("Labor    Camp")
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -519,9 +513,7 @@
 	},
 /area/mine/eva)
 "bw" = (
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/computer/shuttle/mining{
 	req_access = null
 	},
@@ -589,10 +581,7 @@
 	dir = 4;
 	network = list("Mining Outpost")
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -23
-	},
+/obj/machinery/alarm/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -766,10 +755,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bZ" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -23
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/computer/prisoner{
 	dir = 1
@@ -1130,9 +1116,7 @@
 /area/mine/production)
 "cP" = (
 /obj/structure/closet/crate,
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -1251,9 +1235,7 @@
 	},
 /area/mine/living_quarters)
 "dg" = (
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "dh" = (
@@ -2065,19 +2047,14 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors/necropolis)
 "fb" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
 /area/mine/production)
 "fc" = (
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fd" = (
@@ -2091,9 +2068,7 @@
 "fe" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -2211,9 +2186,7 @@
 	},
 /area/mine/living_quarters)
 "fu" = (
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -2548,10 +2521,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "gl" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2845,10 +2815,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "hv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/alarm/directional/south,
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -4600,9 +4567,7 @@
 	},
 /area/lavaland/surface/outdoors/necropolis)
 "rL" = (
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/directional/north,
 /obj/machinery/computer/operating{
 	dir = 4
 	},
@@ -7203,10 +7168,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
