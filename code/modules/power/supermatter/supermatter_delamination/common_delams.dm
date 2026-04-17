@@ -97,7 +97,7 @@
 	sm.set_light(
 		l_range = 4 + darkness_aoe,
 		l_power = -1 - darkness_strength,
-		l_color = "#ddd6cf",
+		l_color = COLOR_DARK_DELAM,
 	)
 	var/x = sm.x
 	var/y = sm.y
@@ -113,7 +113,7 @@
 			object.set_light(
 				l_range = 0 + darkness_aoe,
 				l_power = -1 - darkness_strength / 1.25,
-				l_color = "#ddd6cf",
+				l_color = COLOR_DARK_DELAM,
 			)
 
 /// When we have too much power.
