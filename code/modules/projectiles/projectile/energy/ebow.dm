@@ -67,4 +67,4 @@
 	if(!.)
 		return
 	var/mob/living/mob = target
-		mob.Slowed(1 SECONDS, 2)
+	mob.Slowed(1 SECONDS, 2)
