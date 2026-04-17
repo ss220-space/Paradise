@@ -52,6 +52,7 @@
 	name = "black jumpsuit"
 	resistance_flags = NONE
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+
 /obj/item/clothing/under/color/black/get_ru_names()
 	return list(
 		NOMINATIVE = "чёрный комбинезон",
@@ -61,6 +62,7 @@
 		INSTRUMENTAL = "чёрным комбинезоном",
 		PREPOSITIONAL = "чёрном комбинезоне",
 	)
+
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
 	desc = "Это очень элегантно и в женском размере!"
@@ -85,6 +87,7 @@
 	name = "blue jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/blue"
 	greyscale_colors = "#52aecc"
+
 /obj/item/clothing/under/color/blue/get_ru_names()
 	return list(
 		NOMINATIVE = "синий комбинезон",
@@ -106,6 +109,7 @@
 	name = "green jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/green"
 	greyscale_colors = "#9ed63a"
+
 /obj/item/clothing/under/color/green/get_ru_names()
 	return list(
 		NOMINATIVE = "зелёный комбинезон",
@@ -121,6 +125,7 @@
 	icon_state = "/obj/item/clothing/under/color/grey"
 	desc = "Приятный серый комбинезон. Скрашивает серость бытия."
 	greyscale_colors = "#b3b3b3"
+
 /obj/item/clothing/under/color/grey/get_ru_names()
 	return list(
 		NOMINATIVE = "серый комбинезон",
@@ -141,6 +146,7 @@
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
 	desc = "Ужасно порваный и изношенный комбинезон. Выглядит так, будто не стирали десятилетиями."
+
 /obj/item/clothing/under/color/grey/glorf/get_ru_names()
 	return list(
 		NOMINATIVE = "древний комбинезон",
@@ -160,6 +166,7 @@
 	icon_state = "/obj/item/clothing/under/color/orange"
 	desc = "Не носите это рядом с офицерами-параноиками."
 	greyscale_colors = "#ff8c19"
+
 /obj/item/clothing/under/color/orange/get_ru_names()
 	return list(
 		NOMINATIVE = "оранжевый комбинезон",
@@ -232,6 +239,7 @@
 	desc = "Просто смотря на это, заставляет тебя прочувствовать <i>гламур</i>."
 	icon_state = "/obj/item/clothing/under/color/pink"
 	greyscale_colors = "#ffa69b"
+
 /obj/item/clothing/under/color/pink/get_ru_names()
 	return list(
 		NOMINATIVE = "розовый комбинезон",
@@ -246,6 +254,7 @@
 	desc = "А-а-а! Это что, кровь?! Аа... нет... показалось..."
 	icon_state = "/obj/item/clothing/under/color/red"
 	greyscale_colors = "#eb0c07"
+
 /obj/item/clothing/under/color/red/get_ru_names()
 	return list(
 		NOMINATIVE = "красный комбинезон",
@@ -267,6 +276,7 @@
 	name = "white jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/white"
 	greyscale_colors = "#ffffff"
+
 /obj/item/clothing/under/color/white/get_ru_names()
 	return list(
 		NOMINATIVE = "белый комбинезон",
@@ -280,6 +290,7 @@
 	name = "yellow jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/yellow"
 	greyscale_colors = "#ffe14d"
+
 /obj/item/clothing/under/color/yellow/get_ru_names()
 	return list(
 		NOMINATIVE = "жёлтый комбинезон",
@@ -291,7 +302,7 @@
 	)
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
-	desc = "Захватывает!"
+	desc = "Захватывающе!"
 	icon_state = "psyche"
 	item_color = "psyche"
 	greyscale_config = null
@@ -310,6 +321,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 	)
+
 /obj/item/clothing/under/color/psyche/get_ru_names()
 	return list(
 		NOMINATIVE = "психоделический комбинезон",
@@ -323,6 +335,7 @@
 	name = "light blue jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightblue"
 	greyscale_colors = "#6eb6ff"
+
 /obj/item/clothing/under/color/lightblue/get_ru_names()
 	return list(
 		NOMINATIVE = "голубой комбинезон",
@@ -336,6 +349,7 @@
 	name = "aqua jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/aqua"
 	greyscale_colors = "#00ffff"
+
 /obj/item/clothing/under/color/aqua/get_ru_names()
 	return list(
 		NOMINATIVE = "аквамариновый комбинезон",
@@ -350,6 +364,7 @@
 	name = "purple jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/purple"
 	greyscale_colors = "#800080"
+
 /obj/item/clothing/under/color/purple/get_ru_names()
 	return list(
 		NOMINATIVE = "фиолетовый комбинезон",
@@ -369,6 +384,7 @@
 	name = "light purple jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightpurple"
 	greyscale_colors = "#9f70cc"
+
 /obj/item/clothing/under/color/lightpurple/get_ru_names()
 	return list(
 		NOMINATIVE = "светло-фиолетовый комбинезон",
@@ -383,6 +399,7 @@
 	name = "light green jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightgreen"
 	greyscale_colors = "#90ee90"
+
 /obj/item/clothing/under/color/lightgreen/get_ru_names()
 	return list(
 		NOMINATIVE = "светло-зелёный комбинезон",
@@ -396,6 +413,7 @@
 	name = "light brown jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightbrown"
 	greyscale_colors = "#c59431"
+
 /obj/item/clothing/under/color/lightbrown/get_ru_names()
 	return list(
 		NOMINATIVE = "светло-коричневый комбинезон",
@@ -409,6 +427,7 @@
 	name = "brown jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/brown"
 	greyscale_colors = "#a17229"
+
 /obj/item/clothing/under/color/brown/get_ru_names()
 	return list(
 		NOMINATIVE = "коричневый комбинезон",
@@ -423,6 +442,7 @@
 	name = "yellow green jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/yellowgreen"
 	greyscale_colors = "#9acd32"
+
 /obj/item/clothing/under/color/yellowgreen/get_ru_names()
 	return list(
 		NOMINATIVE = "лаймовый комбинезон",
@@ -437,6 +457,7 @@
 	name = "dark blue jumpskirt"
 	icon_state = "/obj/item/clothing/under/color/darkblue"
 	greyscale_colors = "#3285ba"
+
 /obj/item/clothing/under/color/darkblue/get_ru_names()
 	return list(
 		NOMINATIVE = "тёмно-синяя юбка",
@@ -450,6 +471,7 @@
 	name = "light red jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightred"
 	greyscale_colors = "#ff6b6b"
+
 /obj/item/clothing/under/color/lightred/get_ru_names()
 	return list(
 		NOMINATIVE = "светло-красный комбинезон",
@@ -463,6 +485,7 @@
 	name = "dark red jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/darkred"
 	greyscale_colors = "#8b0000"
+
 /obj/item/clothing/under/color/darkred/get_ru_names()
 	return list(
 		NOMINATIVE = "бордовый комбинезон",
@@ -487,7 +510,6 @@
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
-	// это типо отсылка на тф2 потому что я хуй знает как каламбур переводить 😥
 	desc = "Джерси против команды RED!"
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "bluejersey"
