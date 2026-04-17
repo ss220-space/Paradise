@@ -3699,7 +3699,6 @@
 #include "code\modules\reagents\reagent_containers\glass_containers.dm"
 #include "code\modules\reagents\reagent_containers\hypospray.dm"
 #include "code\modules\reagents\reagent_containers\iv_bag.dm"
-#include "code\modules\reagents\reagent_containers\medigel.dm"
 #include "code\modules\reagents\reagent_containers\patch.dm"
 #include "code\modules\reagents\reagent_containers\pill.dm"
 #include "code\modules\reagents\reagent_containers\spray.dm"
