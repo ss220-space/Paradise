@@ -78,9 +78,7 @@
 	c_tag = "Labor Camp Monitoring";
 	network = list("Labor    Camp")
 	},
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /mob/living/simple_animal/bot/secbot/beepsky{
 	desc = "Powered by the tears and sweat of laborers.";
 	name = "Prison Ofitser"
@@ -631,10 +629,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "eI" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2254,10 +2249,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = 27
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "nA" = (
@@ -2617,10 +2609,7 @@
 /area/mine/lobby)
 "pH" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -25
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -6314,9 +6303,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "KJ" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -6436,10 +6423,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -25
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "Lp" = (
@@ -6953,10 +6937,7 @@
 	pixel_y = 9
 	},
 /obj/machinery/vending/cola,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -28
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -7000,10 +6981,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Oq" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -28
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -7166,15 +7144,6 @@
 	icon_state = "darkyellow"
 	},
 /area/mine/lobby)
-"Pm" = (
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/mine/living_quarters)
 "Pr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -8197,10 +8166,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = -28
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = 27
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -27301,7 +27267,7 @@ zt
 zt
 zt
 dg
-Pm
+KJ
 AQ
 iB
 AG

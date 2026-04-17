@@ -3592,10 +3592,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Fm" = (
 /obj/machinery/light_construct,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -25
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "Ft" = (
@@ -5090,10 +5087,7 @@
 /area/mine/production)
 "VI" = (
 /obj/machinery/light,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -25
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},

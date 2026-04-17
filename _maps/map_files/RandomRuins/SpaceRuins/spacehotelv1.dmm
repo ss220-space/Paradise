@@ -821,10 +821,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -1486,9 +1483,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "lH" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
@@ -2271,10 +2266,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "rN" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -4162,10 +4154,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "FT" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "FV" = (
@@ -4301,10 +4290,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "GW" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ha" = (
@@ -4463,10 +4449,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "IA" = (
@@ -4623,9 +4606,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
 "JL" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 12
@@ -4866,10 +4847,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Lr" = (
@@ -4938,10 +4916,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "LH" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "LI" = (
@@ -5577,10 +5552,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "PA" = (
 /obj/structure/table/wood,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -6524,10 +6496,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom6)
 "WB" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},

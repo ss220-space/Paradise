@@ -1413,10 +1413,7 @@
 	dir = 4
 	},
 /obj/machinery/light_construct,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet/royalblue,
 /area/maintenance/livingcomplex)
 "Mv" = (
@@ -1567,10 +1564,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "RY" = (

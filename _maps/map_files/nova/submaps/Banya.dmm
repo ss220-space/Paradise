@@ -216,11 +216,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west fire alarm";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "hV" = (

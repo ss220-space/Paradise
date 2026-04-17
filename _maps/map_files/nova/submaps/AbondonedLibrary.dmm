@@ -154,10 +154,7 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/maintenance/electrical_shop)

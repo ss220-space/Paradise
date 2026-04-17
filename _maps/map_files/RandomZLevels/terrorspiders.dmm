@@ -371,10 +371,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "bf" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -943,9 +940,7 @@
 	},
 /area/awaymission/UO71/science)
 "cW" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "cX" = (
@@ -1132,9 +1127,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1934,10 +1927,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "fp" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Central Hallway";
 	dir = 1;
@@ -2338,9 +2328,7 @@
 	},
 /area/awaymission/UO71/science)
 "gw" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
 /obj/item/robot_parts/l_leg,
@@ -2406,10 +2394,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
 	initialize_directions = 7
@@ -2842,10 +2827,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "hD" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2932,10 +2914,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "hP" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3486,10 +3465,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "jt" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3961,10 +3937,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4301,10 +4274,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "ln" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4508,10 +4478,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4629,10 +4596,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -4679,10 +4643,7 @@
 	},
 /area/awaymission/UO71/science)
 "lW" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Research Division East";
 	dir = 1;
@@ -4904,10 +4865,7 @@
 /area/awaymission/UO71/eng)
 "mA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -5042,10 +5000,7 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "mP" = (
@@ -6058,10 +6013,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -6335,10 +6287,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -6576,10 +6525,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -7175,9 +7121,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/item/multitool,
 /obj/machinery/light/small{
 	dir = 1
@@ -7394,9 +7338,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "rH" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/dispenser{
 	pixel_x = -1
 	},
@@ -7554,10 +7496,7 @@
 /area/awaymission/UO71/loot)
 "rX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -8102,10 +8041,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
 	on = 1
@@ -8186,10 +8122,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -9390,10 +9323,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/structure/closet/secure_closet/miner{
 	req_access = list(271)
 	},
@@ -9831,10 +9761,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -9890,10 +9817,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
 "wX" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "wY" = (
@@ -10228,10 +10152,7 @@
 /area/awaymission/UO71/mining)
 "xJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
 	},
@@ -11030,10 +10951,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ad" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ae" = (

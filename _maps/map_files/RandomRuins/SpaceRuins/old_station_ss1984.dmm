@@ -374,10 +374,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "bl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secintel)
 "bm" = (
@@ -500,10 +497,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1126,10 +1120,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "dP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1501,10 +1492,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "fo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
 "fq" = (
@@ -1926,10 +1914,7 @@
 	on = 1;
 	target_pressure = 101
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
@@ -2060,10 +2045,7 @@
 "hp" = (
 /obj/structure/table/glass,
 /obj/item/surgical_drapes,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -2215,10 +2197,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
@@ -2259,9 +2238,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Corridor"
 	},
@@ -3066,9 +3043,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "kU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/chair/stool,
 /mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plasteel,
@@ -4211,10 +4186,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/glass,
 /obj/item/surgical_drapes,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -4230,9 +4202,7 @@
 	dir = 4;
 	name = "Труба смешивания"
 	},
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
 "pf" = (
@@ -4424,10 +4394,7 @@
 /area/ruin/space/ancientstation/charlie_warden)
 "pF" = (
 /obj/effect/decal/straw/medium,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "pG" = (
@@ -4620,9 +4587,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "qv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -4964,10 +4929,7 @@
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "rE" = (
@@ -5133,9 +5095,7 @@
 /area/ruin/space/ancientstation/theta_experi)
 "sn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
@@ -5901,10 +5861,7 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "uR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/r_n_d/circuit_imprinter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -6190,10 +6147,7 @@
 /area/ruin/space/ancientstation/charlie_recycler)
 "vX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "vZ" = (
@@ -6289,9 +6243,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "wm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "wn" = (
@@ -6408,10 +6360,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "wF" = (
@@ -6793,10 +6742,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -8016,9 +7962,7 @@
 /area/ruin/space/ancientstation/theta_docks)
 "Co" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
 "Cp" = (
@@ -8349,10 +8293,7 @@
 "Dz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank/high,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
@@ -8363,10 +8304,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
@@ -8492,10 +8430,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "Eb" = (
@@ -8810,10 +8745,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
 "Fn" = (
@@ -8948,10 +8880,7 @@
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "FK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/structure/chair{
 	dir = 8
 	},
@@ -8994,10 +8923,7 @@
 "FT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "FV" = (
@@ -9339,10 +9265,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/light_switch/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -9710,10 +9633,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_solar)
@@ -9986,10 +9906,7 @@
 /obj/item/seeds/eggplant/eggy,
 /obj/item/seeds/eggplant/eggy,
 /obj/item/seeds/eggplant/eggy,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -10158,9 +10075,7 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "JL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -10281,9 +10196,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "Kk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
@@ -10549,9 +10462,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "Ln" = (
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -10657,9 +10568,7 @@
 	dir = 1
 	},
 /obj/item/caution,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -10945,10 +10854,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "MZ" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/beta_atmos)
 "Na" = (
@@ -12419,20 +12325,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "RU" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
 "RV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "RW" = (
@@ -12490,10 +12390,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "Si" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -12930,10 +12827,7 @@
 "Uo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -13202,10 +13096,7 @@
 /area/template_noop)
 "Vw" = (
 /obj/item/trash/candy,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "Vy" = (
@@ -13376,10 +13267,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "We" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "Wf" = (
@@ -13768,10 +13656,7 @@
 /area/template_noop)
 "XF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
@@ -13832,10 +13717,7 @@
 /area/ruin/space/ancientstation/theta_storage)
 "XS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"

@@ -393,11 +393,7 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "ls" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -838,11 +834,7 @@
 	},
 /area/maintenance/server)
 "Bz" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/chair/wood{
 	dir = 1
@@ -1052,11 +1044,7 @@
 "KA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rat,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
 /area/maintenance/club)
 "La" = (
@@ -1106,10 +1094,7 @@
 	},
 /area/maintenance/server)
 "LF" = (
-/obj/machinery/firealarm{
-	pixel_y = 26;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

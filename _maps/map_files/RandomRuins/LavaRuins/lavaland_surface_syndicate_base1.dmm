@@ -701,10 +701,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "bl" = (
@@ -1491,10 +1488,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dT" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -1793,10 +1787,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -1998,10 +1989,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "eM" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -2302,10 +2290,7 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm/syndicate{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/syndicate/directional/east,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 5
 	},
@@ -3369,10 +3354,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "hZ" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -3625,9 +3607,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/directional/north,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -3661,10 +3641,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "iG" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -4888,10 +4865,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -5350,10 +5324,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "mg" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
@@ -5452,10 +5423,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 8
@@ -6066,9 +6034,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/directional/north,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -6166,10 +6132,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "oh" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/syndicate/directional/west,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -6429,10 +6392,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "HY" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/syndicate/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette/syndicate,

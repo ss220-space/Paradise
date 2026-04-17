@@ -35,9 +35,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "aA" = (
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "aM" = (
@@ -469,10 +467,7 @@
 /area/template_noop)
 "kf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1015,10 +1010,7 @@
 	pixel_y = 9
 	},
 /obj/effect/spawner/random_spawners/blood_5,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "vU" = (

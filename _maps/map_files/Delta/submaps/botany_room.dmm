@@ -114,10 +114,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/garden)
 "eV" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -224,10 +221,7 @@
 /turf/simulated/wall/rust,
 /area/template_noop)
 "jh" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -399,10 +393,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "sQ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
@@ -543,10 +534,7 @@
 /obj/item/reagent_containers/food/snacks/grown/holymelon,
 /obj/item/reagent_containers/food/snacks/grown/cocoapod,
 /obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -746,10 +734,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/garden)
 "IY" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/door/window/eastright{
 	dir = 8
 	},

@@ -321,10 +321,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/punching_bag,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -751,10 +748,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1629,10 +1623,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3389,10 +3380,7 @@
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4589,10 +4577,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "evj" = (
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4680,10 +4665,7 @@
 /obj/item/bedsheet/black,
 /obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
 "eBJ" = (
@@ -4989,10 +4971,7 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/brown,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5260,10 +5239,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/glasses/science,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/north,
 /obj/item/storage/belt/chameleon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8627,10 +8603,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8671,10 +8644,7 @@
 /obj/machinery/alarm/syndicate{
 	pixel_y = -32
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -9098,10 +9068,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10373,10 +10340,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12213,10 +12177,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12271,10 +12232,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12454,10 +12412,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12554,10 +12509,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "lzd" = (
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -13895,10 +13847,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14630,10 +14579,7 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14859,10 +14805,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14873,10 +14816,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -15650,10 +15590,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15886,10 +15823,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -16147,10 +16081,7 @@
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /obj/machinery/computer/guestpass/syndicate{
 	pixel_y = 32;
 	req_access = list(154)
@@ -16545,10 +16476,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /obj/machinery/photocopier/syndie,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17579,10 +17507,7 @@
 	dir = 8
 	},
 /obj/item/flag/syndi,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "pBd" = (
@@ -17808,10 +17733,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -18464,10 +18386,7 @@
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "qjm" = (
 /obj/machinery/light,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "qjx" = (
@@ -18792,10 +18711,7 @@
 	},
 /obj/item/multitool/ai_detect,
 /obj/item/storage/toolbox/syndicate,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /obj/item/storage/belt/chameleon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21274,10 +21190,7 @@
 "sDJ" = (
 /obj/machinery/light,
 /obj/structure/weightmachine/weightlifter,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "sFi" = (
@@ -21651,10 +21564,7 @@
 /obj/machinery/light,
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /obj/item/toy/plushie/coffee_fox{
 	desc = "Extremely soft toy, sewn by a truly professional artist who loves his job. There is a tag with the inscription \"Fur...\" hanging on the paw."
 	},
@@ -21684,10 +21594,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/red/full,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tbM" = (
@@ -22552,10 +22459,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22679,10 +22583,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23817,10 +23718,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -24044,10 +23942,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "uGK" = (
@@ -24146,10 +24041,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -24915,10 +24807,7 @@
 "vla" = (
 /obj/structure/table/wood,
 /obj/structure/bedsheetbin,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -25132,10 +25021,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -25568,10 +25454,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26684,10 +26567,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27454,10 +27334,7 @@
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27669,10 +27546,7 @@
 /obj/machinery/alarm/syndicate{
 	pixel_x = 32
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/north,
 /obj/effect/turf_decal{
 	icon = 'icons/obj/lavaland/survival_pod.dmi';
 	icon_state = "fan_tiny";
@@ -28167,10 +28041,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28521,10 +28392,7 @@
 	dir = 4
 	},
 /obj/machinery/floodlight,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28667,10 +28535,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "xSC" = (
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28962,10 +28827,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28998,10 +28860,7 @@
 	dir = 1
 	},
 /obj/structure/closet/firecloset,
-/obj/machinery/firealarm/syndicate/taipan{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/syndicate/taipan/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
