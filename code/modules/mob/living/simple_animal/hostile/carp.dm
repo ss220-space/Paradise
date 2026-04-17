@@ -232,7 +232,7 @@
 /mob/living/simple_animal/hostile/carp/mcarp/get_ru_names()
 	return list(
 		NOMINATIVE = "мутировавший карп",
-		GENITIVE = "мутировавшего карпа ",
+		GENITIVE = "мутировавшего карпа",
 		DATIVE = "мутировавшему карпу",
 		ACCUSATIVE = "мутировавшего карпа",
 		INSTRUMENTAL = "мутировавшим карпом",
