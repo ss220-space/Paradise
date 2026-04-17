@@ -36,11 +36,13 @@
 	plasma_cost = 50
 	acid_power = 1000
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity_flag, list/modifiers, status)
 	if(target == user)
 		return ..()
 
-	if(!proximity || isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
+	var/mob/living/carbon/alien/alien_target = target
+
+	if(!proximity_flag || istype(alien_target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
 
 	if(!plasma_check(plasma_cost, user))

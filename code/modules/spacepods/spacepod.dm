@@ -815,7 +815,7 @@
 		if(istype(object, /obj/structure/ore_box))
 			valid_cargo = TRUE
 	else if(istype(cargo, /obj/item/spacepod_equipment/cargo/crate))
-		if(istype(object, /obj/structure/closet/crate))
+		if(is_crate(object))
 			valid_cargo = TRUE
 	if(!valid_cargo)
 		return

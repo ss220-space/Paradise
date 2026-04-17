@@ -68,7 +68,7 @@
 	update_appearance(UPDATE_ICON)
 	balloon_alert(user, "switch [scanning ? "on" : "off"]")
 
-/obj/item/geiger_counter/afterattack(atom/target, mob/living/user, params)
+/obj/item/geiger_counter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
 	. |= COMPONENT_AFTERATTACK_PROCESSED_ITEM

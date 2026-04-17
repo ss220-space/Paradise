@@ -18799,6 +18799,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -27229,6 +27230,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -32368,7 +32370,6 @@
 "eRB" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/structure/sign/vacuum/external{
-	layer = 4;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -38493,6 +38494,14 @@
 	},
 /turf/space,
 /area/space)
+"fNE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "fNK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -39846,6 +39855,15 @@
 /obj/structure/sign/directions/evac,
 /turf/simulated/wall,
 /area/hallway/primary/port/south)
+"fYg" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "fYh" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -50703,6 +50721,13 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/nhallway)
+"hIj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cargo_shelf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "hIk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -71623,9 +71648,7 @@
 /area/medical/virology)
 "kTd" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/vacuum/external{
-	layer = 4
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/additional)
 "kTg" = (
@@ -88345,6 +88368,12 @@
 	icon_state = "dark"
 	},
 /area/maintenance/trading)
+"nvn" = (
+/obj/structure/cargo_shelf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "nvo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -91918,6 +91947,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/civilian/pet_store)
+"nWm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "nWr" = (
 /obj/machinery/door/airlock/mining/glass{
 	id = "qm";
@@ -126458,7 +126495,6 @@
 "taN" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /obj/structure/sign/vacuum/external{
-	layer = 4;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -148083,6 +148119,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -156910,6 +156947,18 @@
 	icon_state = "red"
 	},
 /area/security/main)
+"xDS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cargo_shelf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "xDT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -202128,7 +202177,7 @@ toz
 fOn
 hnW
 hnW
-hnW
+nWm
 wmq
 pYX
 xcg
@@ -202636,14 +202685,14 @@ dCv
 cWK
 viI
 cNZ
-pqC
+xDS
 pqC
 pQh
 won
 kbO
 xcg
-uWR
-cps
+nvn
+nvn
 xcg
 hNB
 rFH
@@ -203149,15 +203198,15 @@ peX
 xzo
 pKi
 sqt
-pYX
-xcg
+nvn
+hIj
 xcg
 aNv
 bVN
 pAf
 xcg
-uWR
-tyF
+nvn
+nvn
 xcg
 rbe
 jVF
@@ -203414,7 +203463,7 @@ qPI
 xcg
 xcg
 tyF
-uWR
+fYg
 xcg
 pYX
 nWU
@@ -203670,7 +203719,7 @@ agl
 mdg
 dsM
 dsM
-dsM
+fNE
 edy
 xcg
 rmi

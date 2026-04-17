@@ -14,10 +14,6 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
-"bm" = (
-/obj/item/mod/control/pre_equipped/standard,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
@@ -31,16 +27,6 @@
 /area/fastload/blue)
 "eX" = (
 /obj/machinery/light/floor,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/fastload)
-"fP" = (
-/obj/item/clothing/mask/breath,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"gC" = (
-/obj/structure/rack,
-/obj/item/mounted/frame/alarm_frame,
-/obj/item/mounted/frame/intercom,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "gL" = (
@@ -83,10 +69,14 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"nx" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
+"nd" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/rglass/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/plasteel/fifty,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "oJ" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -99,10 +89,6 @@
 /obj/machinery/tcomms/core/station,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"qp" = (
-/obj/item/tank/jetpack/oxygen,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "qA" = (
 /obj/machinery/light{
 	dir = 4
@@ -147,19 +133,18 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"xQ" = (
+/obj/machinery/message_server,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "yS" = (
 /obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"ze" = (
-/obj/machinery/vending/nta/ertarmory/engineer,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/fastload)
 "zn" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/storage/belt/utility/full/multitool,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "zP" = (
@@ -175,10 +160,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"Bc" = (
-/obj/machinery/vending/engivend,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/fastload)
 "By" = (
 /obj/machinery/light{
 	dir = 8
@@ -192,14 +173,6 @@
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"Cd" = (
-/obj/item/clothing/suit/space/hardsuit,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"CV" = (
-/obj/item/tank/internals/oxygen,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "DZ" = (
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -213,6 +186,12 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Gf" = (
+/obj/structure/rack,
+/obj/item/mounted/frame/intercom,
+/obj/item/mounted/frame/alarm_frame,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Hi" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -250,14 +229,6 @@
 /obj/machinery/station_map/security/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"RQ" = (
-/obj/item/stack/sheet/plasteel/fifty,
-/obj/structure/rack,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/rglass/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/fastload)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -270,10 +241,6 @@
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"WA" = (
-/obj/item/tank/internals/emergency_oxygen/double/vox,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Xa" = (
@@ -2181,12 +2148,12 @@ HE
 HE
 HE
 hG
-bm
-Cd
-WA
-CV
-qp
-nx
+HE
+HE
+HE
+HE
+HE
+HE
 zn
 HE
 jk
@@ -2249,7 +2216,7 @@ HE
 HE
 HE
 HE
-fP
+HE
 HE
 HE
 HE
@@ -6413,7 +6380,7 @@ Xw
 YB
 YB
 YB
-JC
+YB
 BO
 jD
 jD
@@ -6479,7 +6446,7 @@ YB
 YB
 YB
 YB
-LF
+YB
 BO
 jD
 jD
@@ -6731,7 +6698,7 @@ jD
 jD
 jD
 BO
-YB
+xQ
 YB
 YB
 YB
@@ -7127,7 +7094,7 @@ jD
 jD
 jD
 BO
-YB
+LF
 YB
 YB
 YB
@@ -7193,7 +7160,7 @@ jD
 jD
 jD
 BO
-YB
+JC
 YB
 YB
 YB
@@ -10638,7 +10605,7 @@ By
 vR
 vR
 vR
-Bc
+vR
 uJ
 jD
 jD
@@ -10702,9 +10669,9 @@ vR
 vR
 vR
 vR
-bP
 vR
-ze
+vR
+vR
 uJ
 jD
 jD
@@ -10770,7 +10737,7 @@ vR
 vR
 vR
 vR
-RQ
+vR
 uJ
 jD
 jD
@@ -10836,7 +10803,7 @@ vR
 vR
 vR
 vR
-gC
+vR
 uJ
 jD
 jD
@@ -11288,7 +11255,7 @@ jD
 uJ
 vR
 vR
-vR
+bP
 vR
 vR
 vR
@@ -11352,7 +11319,7 @@ jD
 jD
 jD
 uJ
-vR
+nd
 vR
 vR
 vR
@@ -11418,7 +11385,7 @@ jD
 jD
 jD
 uJ
-vR
+Gf
 vR
 vR
 vR

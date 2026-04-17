@@ -14,11 +14,13 @@
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70
 
-/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/glass/paint/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(!is_open_container())
 		return
+
 	if(istype(target) && reagents.total_volume >= 5)
 		user.visible_message(span_warning("[target] has been splashed with something by [user]!"))
 		spawn(5)

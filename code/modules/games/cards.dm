@@ -56,7 +56,7 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/deck/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!istype(target, /obj/item/cardhand))
 		return
 	var/success

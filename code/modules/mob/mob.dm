@@ -584,7 +584,13 @@
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
 		if(src == mecha.occupant)
-			mecha.selected?.self_occupant_attack()
+			var/list/modules = list()
+			for(var/key, module in mecha.selected_equipment_in_hands)
+				modules += module
+			var/obj/item/mecha_parts/mecha_equipment/selected = tgui_input_list(usr, "Выберите модуль", "Выбор модуля", modules)
+			if(!selected)
+				return
+			selected.self_occupant_attack()
 		return
 
 	var/obj/item/I = get_active_hand()

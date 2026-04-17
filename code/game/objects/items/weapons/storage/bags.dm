@@ -350,8 +350,8 @@
 		return FALSE
 	return TRUE
 
-/obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
-	if(istype(AM, /obj/item/grenade/plastic))
+/obj/item/storage/bag/kaboom/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(istype(target, /obj/item/grenade/plastic))
 		if(!..())
 			return
 
@@ -362,22 +362,22 @@
 	if(isnull(nextbomb))
 		nextbomb = pick(contents)
 
-	if(!flag)
+	if(!proximity_flag)
 		return
 
-	if(iscarbon(AM))
+	if(iscarbon(target))
 		balloon_alert(user, "нельзя прикрепить!")
 		return
 
-	if(isobserver(AM))
-		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
+	if(isobserver(target))
+		to_chat(user, span_warning("Ваша рука проходит сквозь [target]!"))
 		return
 	balloon_alert(user, "устанавливаем...")
-	if(do_after(user, 5 SECONDS, AM))
+	if(do_after(user, 5 SECONDS, target))
 		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
-		nextbomb.attach(AM, user, TRUE)
+		nextbomb.attach(target, user, TRUE)
 		if(!LAZYLEN(contents))
 			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
 		else
@@ -726,8 +726,8 @@
 	new_radius = clamp(new_radius, 0, 16)
 	placement_radius = new_radius
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity, params)
-	if(!target || !proximity)
+/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!target || !proximity_flag)
 		return
 
 	var/obj/structure/table/table = locate() in get_turf(target)

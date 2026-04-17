@@ -238,21 +238,28 @@
 /turf/proc/blob_consume()
 	return
 
-/turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
-	if(our_rpd.mode == RPD_ATMOS_MODE)
-		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
-		for(var/obj/machinery/door/airlock/A in src)
-			if(A.density)
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)//This is the default turf behaviour for the RPD; override it as required
+	switch(mode)
+		if(RPD_ATMOS_MODE)
+			our_rpd.create_atmos_pipe(user, src)
+
+		if(RPD_DISPOSALS_MODE)
+			for(var/obj/machinery/door/airlock/A in src)
+				if(!A.density)
+					continue
+
 				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
 				return
-		our_rpd.create_disposals_pipe(user, src)
-	else if(our_rpd.mode == RPD_ROTATE_MODE)
-		our_rpd.rotate_all_pipes(user, src)
-	else if(our_rpd.mode == RPD_FLIP_MODE)
-		our_rpd.flip_all_pipes(user, src)
-	else if(our_rpd.mode == RPD_DELETE_MODE)
-		our_rpd.delete_all_pipes(user, src)
+			our_rpd.create_disposals_pipe(user, src)
+
+		if(RPD_ROTATE_MODE)
+			our_rpd.rotate_all_pipes(user, src)
+
+		if(RPD_FLIP_MODE)
+			our_rpd.flip_all_pipes(user, src)
+
+		if(RPD_DELETE_MODE)
+			our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/bullet/gyro))

@@ -14,6 +14,7 @@
 	density = FALSE
 	ignore_shoves = TRUE
 	no_throw_opens = TRUE
+	anchorable = FALSE
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
