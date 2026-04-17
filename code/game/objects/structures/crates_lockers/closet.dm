@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/welded = FALSE
 	var/locked = FALSE
 	var/anchorable = TRUE
-	/// secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
+	/// Secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
 	var/secure = FALSE
 	//Time to breakout
 	var/breakout_time = 2 MINUTES
@@ -640,6 +640,9 @@ GLOBAL_LIST_EMPTY(closets)
 			span_danger("[user] successfully broke out of [src]!"),
 			span_notice("You successfully break out of [src]!"),
 		)
+		if(secure)
+			playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		bust_open()
 	else
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
