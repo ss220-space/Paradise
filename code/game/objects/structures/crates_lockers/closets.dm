@@ -53,8 +53,11 @@ GLOBAL_LIST_EMPTY(closets)
 
 	/// How many pixels the closet can shift on the x axis when shaking
 	var/x_shake_pixel_shift = 2
-	/// how many pixels the closet can shift on the y axes when shaking
+	/// How many pixels the closet can shift on the y axes when shaking
 	var/y_shake_pixel_shift = 1
+
+	/// Secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
+	var/secure = FALSE
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -318,7 +321,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return ATTACK_CHAIN_PROCEED	// afterattack handles it
 
 	if(user.a_intent != INTENT_HARM || (used.item_flags & NOBLUDGEON))
-		if((!toggle(user)) && locked && !opened)
+		if((!toggle(user)) && !opened && secure && locked)
 			togglelock(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -339,7 +342,7 @@ GLOBAL_LIST_EMPTY(closets)
 	if(user.loc == src)
 		balloon_alert(user, "невозможно изнутри!")
 		return FALSE
-	if(allowed(user) && locked)
+	if(allowed(user) && secure)
 		locked = !locked
 		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
 		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_YUT(user)] замок", "замок [locked ? "за" : "от"]крыт")
@@ -452,14 +455,14 @@ GLOBAL_LIST_EMPTY(closets)
 	if(toggle(user))
 		return TRUE
 
-	if(locked && !opened)
+	if(!opened && secure && locked)
 		return togglelock(user)
 
 /obj/structure/closet/attack_hand_secondary(mob/user, modifiers)
 	. = ..()
 	if(!user.can_perform_action(src) || !isturf(loc))
 		return
-	if(locked && !opened)
+	if(!opened && secure)
 		togglelock(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 

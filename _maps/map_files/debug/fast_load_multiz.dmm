@@ -231,7 +231,6 @@
 /area/fastload/blue)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
-/obj/effect/landmark/start/ai,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Tl" = (

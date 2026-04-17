@@ -18,6 +18,7 @@
 	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
 	can_be_emissive = TRUE
+	secure = TRUE
 
 	var/tamperproof = 0
 	/// Overlay for crate with broken lock
@@ -48,8 +49,7 @@
 	qdel(src)
 
 /obj/structure/closet/crate/secure/click_alt(mob/living/user)
-	if(locked)
-		togglelock(user)
+	togglelock(user)
 	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)

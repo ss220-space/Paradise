@@ -125,7 +125,7 @@
 
 /// Proc that will attempt to remove something to the contents of the shelf
 /obj/structure/cargo_shelf/proc/unload(obj/structure/closet/crate/crate, mob/user, turf/unload_turf)
-	var/unloading_to_turf = istype(unload_turf)
+	var/unloading_to_turf = isturf(unload_turf)
 	if(unloading_to_turf && unload_turf.is_blocked_turf(exclude_mobs = TRUE)) // Shelf to shelf
 		unload_turf.balloon_alert(user, "нет места!")
 		return FALSE
@@ -272,7 +272,6 @@
 	desc = "Детали стеллажа, предназначенного для хранения ящиков."
 	gender = PLURAL
 	icon = 'icons/obj/structures/shelf.dmi'
-	icon_state = "rack_parts"
 	materials = list(MAT_METAL = 2000)
 
 /obj/item/rack_parts/cargo_shelf/get_ru_names()
