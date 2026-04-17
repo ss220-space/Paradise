@@ -238,11 +238,11 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		move_to_delay = 2 * G.w_class + 1
 		projectilesound = G.fire_sound
 		TrueGun = G
-		if(istype(G, /obj/item/gun/magic))
+		if(ismagicgun(G))
 			Zapstick = G
 			var/obj/item/ammo_casing/magic/M = Zapstick.ammo_type
 			projectiletype = initial(M.projectile_type)
-		if(istype(G, /obj/item/gun/projectile))
+		if(iprojectilegun(G))
 			Pewgun = G
 			var/obj/item/ammo_box/magazine/M = Pewgun.mag_type
 			casingtype = initial(M.ammo_type)
