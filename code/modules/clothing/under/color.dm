@@ -176,6 +176,7 @@
 		INSTRUMENTAL = "оранжевым комбинезоном",
 		PREPOSITIONAL = "оранжевом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
 	desc = "Старая одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
@@ -249,6 +250,7 @@
 		INSTRUMENTAL = "розовым комбинезоном",
 		PREPOSITIONAL = "розовом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
 	desc = "А-а-а! Это что, кровь?! Аа... нет... показалось..."
@@ -286,6 +288,7 @@
 		INSTRUMENTAL = "белым комбинезоном",
 		PREPOSITIONAL = "белом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/yellow"
@@ -300,6 +303,7 @@
 		INSTRUMENTAL = "жёлтым комбинезоном",
 		PREPOSITIONAL = "жёлтом комбинезоне",
 	)
+
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Захватывающе!"
@@ -331,6 +335,7 @@
 		INSTRUMENTAL = "психоделическим комбинезоном",
 		PREPOSITIONAL = "психоделическом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightblue"
@@ -345,6 +350,7 @@
 		INSTRUMENTAL = "голубым комбинезоном",
 		PREPOSITIONAL = "голубом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/aqua
 	name = "aqua jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/aqua"
@@ -409,6 +415,7 @@
 		INSTRUMENTAL = "светло-зелёным комбинезоном",
 		PREPOSITIONAL = "светло-зелёном комбинезоне",
 	)
+
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightbrown"
@@ -423,6 +430,7 @@
 		INSTRUMENTAL = "светло-коричневым комбинезоном",
 		PREPOSITIONAL = "светло-коричневом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/brown"
@@ -467,6 +475,7 @@
 		INSTRUMENTAL = "тёмно-синей юбкой",
 		PREPOSITIONAL = "тёмно-синей юбке",
 	)
+
 /obj/item/clothing/under/color/lightred
 	name = "light red jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/lightred"
@@ -481,6 +490,7 @@
 		INSTRUMENTAL = "светло-красным комбинезоном",
 		PREPOSITIONAL = "светло-красном комбинезоне",
 	)
+
 /obj/item/clothing/under/color/darkred
 	name = "dark red jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/darkred"
@@ -495,6 +505,7 @@
 		INSTRUMENTAL = "бордовым комбинезоном",
 		PREPOSITIONAL = "бордовом комбинезоне",
 	)
+
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
 	desc = "Джерси против команды BLU!"
