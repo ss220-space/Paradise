@@ -64,6 +64,16 @@
 	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
 
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened/get_ru_names()
+	return list(
+		NOMINATIVE = "укрепленный имплант анти-дроп",
+		GENITIVE = "укрепленного импланта анти-дропа",
+		DATIVE = "укрепленному импланту анти-дропа",
+		ACCUSATIVE = "укрепленный имплант анти-дропа",
+		INSTRUMENTAL = "укрепленным имплантом анти-дропа",
+		PREPOSITIONAL = "укрепленном импланте анти-дропа",
+	)
+
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
