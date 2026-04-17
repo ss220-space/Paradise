@@ -249,14 +249,19 @@
 #define TRIPWIRE_SHELL_DAMAGE_MULTIPLIER 0.5
 
 /obj/item/ammo_casing/shotgun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
-	var/fired = fire(victim, null, null, 0, FALSE, "", 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
+	INVOKE_ASYNC(src, PROC_REF(tripwire_fire_as_payload), base, victim)
 
-	if(fired)
-		playsound(base, 'sound/weapons/gunshots/1shotgun.ogg', 70, TRUE)
-		base.attached_item = null
-		base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
-		base.update_appearance()
-		forceMove(get_turf(base))
-		update_appearance(UPDATE_ICON_STATE)
+/obj/item/ammo_casing/shotgun/proc/tripwire_fire_as_payload(obj/item/tripwire/base, mob/living/victim)
+	var/fired = fire(victim, null, null, 0, FALSE, "", 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
+	if(!fired)
+		playsound(base, 'sound/weapons/empty.ogg', 50, TRUE)
+		return
+
+	playsound(base, 'sound/weapons/gunshots/1shotgun.ogg', 70, TRUE)
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+	base.update_appearance()
+	forceMove(get_turf(base))
+	update_appearance(UPDATE_ICON_STATE)
 
 #undef TRIPWIRE_SHELL_DAMAGE_MULTIPLIER
