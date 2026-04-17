@@ -50712,12 +50712,6 @@
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
-"fUx" = (
-/obj/structure/cargo_shelf,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "fUy" = (
 /obj/machinery/door/airlock/medical{
 	name = "Psych Office";
@@ -51048,6 +51042,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port)
+"gbY" = (
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "gbZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -52203,10 +52203,10 @@
 /area/crew_quarters/bar/atrium)
 "gCi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61476,7 +61476,7 @@
 /area/hallway/secondary/entry/south)
 "kIb" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/landmark/start/cargo_technician,
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -62459,7 +62459,6 @@
 	pixel_y = -25;
 	req_access = list(31)
 	},
-/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -62576,6 +62575,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "lhl" = (
+/obj/effect/landmark/start/cargo_technician,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -66997,6 +66997,13 @@
 	icon_state = "yellowfull"
 	},
 /area/engineering/engine)
+"ngI" = (
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "nhb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -77284,10 +77291,10 @@
 /area/atmos/distribution)
 "rHF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -90140,10 +90147,6 @@
 	},
 /area/turret_protected/aisat_interior)
 "xjs" = (
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #1";
-	suffix = "#1"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -90151,6 +90154,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #1";
+	suffix = "#1"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "xjx" = (
@@ -114702,7 +114709,7 @@ nLX
 bvu
 xfY
 bDI
-fUx
+cas
 hDs
 xlD
 fjx
@@ -115209,13 +115216,13 @@ aOA
 ptl
 dyj
 mvf
-cas
+gbY
 cJl
 rHF
 kIb
 gCi
 eIX
-bDI
+ngI
 cas
 bYM
 jLM
