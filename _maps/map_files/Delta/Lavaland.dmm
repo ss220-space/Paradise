@@ -467,12 +467,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bB" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Labor Camp APC";
-	pixel_x = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/machinery/computer/cryopod{
 	pixel_y = 38
 	},
@@ -552,12 +547,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "bP" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 25
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -5012,11 +5002,7 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
 	network = list("Labor    Camp")
@@ -5121,12 +5107,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "zA" = (
@@ -5977,10 +5958,7 @@
 "FD" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -7420,11 +7398,7 @@
 /area/mine/living_quarters)
 "OL" = (
 /obj/machinery/recharge_station,
-/obj/machinery/power/apc{
-	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/light,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{

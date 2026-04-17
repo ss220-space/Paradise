@@ -550,12 +550,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bB" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Labor Camp APC";
-	pixel_x = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -811,11 +806,7 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
 	network = list("Labor    Camp")
@@ -909,11 +900,7 @@
 	},
 /area/mine/production)
 "co" = (
-/obj/machinery/power/apc{
-	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = -23
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel{
@@ -1047,12 +1034,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "cH" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Mining Station Starboard Wing APC";
-	pixel_x = -27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1236,12 +1218,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 25
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
@@ -1619,12 +1596,7 @@
 	},
 /area/mine/production)
 "eg" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining Station Port Wing APC";
-	pixel_x = 1;
-	pixel_y = 25
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},

@@ -1715,10 +1715,8 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
+/obj/machinery/power/apc/worn_out/directional/north{
+	cell_type = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -1807,10 +1805,8 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/structure/cable{
 	d2 = 2;

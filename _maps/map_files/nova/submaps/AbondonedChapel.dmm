@@ -304,10 +304,7 @@
 	},
 /area/maintenance/server)
 "jw" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1242,10 +1239,8 @@
 	pixel_x = 12;
 	pixel_y = -9
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -1435,10 +1430,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

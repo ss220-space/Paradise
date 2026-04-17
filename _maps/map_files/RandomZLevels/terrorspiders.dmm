@@ -1635,11 +1635,9 @@
 	dir = 1;
 	network = list("UO71")
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "Hydroponics APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 5
 	},
@@ -3690,12 +3688,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	cell_type = 15000;
-	dir = 1;
 	locked = 0;
-	name = "UO71 Bar APC";
-	pixel_y = 25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -4627,11 +4622,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO71 Research Division APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -5075,11 +5068,9 @@
 /area/awaymission/UO71/gateway)
 "mP" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO71 Gateway APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -7484,11 +7475,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/west{
 	cell_type = 15000;
-	dir = 8;
-	name = "UO71 Engineering APC";
-	pixel_x = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -8092,11 +8080,8 @@
 	},
 /area/awaymission/UO71/medical)
 "sS" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/west{
 	cell_type = 15000;
-	dir = 8;
-	name = "UO71 Medical APC";
-	pixel_x = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -10342,11 +10327,9 @@
 /area/awaymission/UO71/mining)
 "xQ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO71 Mining APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 1
 	},

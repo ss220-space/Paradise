@@ -194,10 +194,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/table/wood,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)

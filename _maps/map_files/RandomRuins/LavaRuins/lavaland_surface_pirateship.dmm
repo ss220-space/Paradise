@@ -21,10 +21,8 @@
 /area/ruin/powered/pirateship)
 "br" = (
 /obj/machinery/power/terminal,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/effect/decal/cleanable/glass{
 	pixel_x = 16;
@@ -750,10 +748,8 @@
 /turf/simulated/floor/plasteel/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "pi" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/stairs/lavaland_air,
@@ -1857,10 +1853,8 @@
 "Oo" = (
 /obj/structure/rack,
 /obj/structure/railing,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable/blue{
@@ -1974,10 +1968,8 @@
 /obj/structure/cable/orange{
 	icon_state = "4-5"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/effect/decal/cleanable/glass{
 	pixel_x = 16;

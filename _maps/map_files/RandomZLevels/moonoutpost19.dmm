@@ -1206,10 +1206,8 @@
 /area/moonoutpost19/syndicateoutpost)
 "cJ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
-	name = "Worn-out APC";
-	pixel_y = -25;
 	req_access = list(150);
 	start_charge = 0
 	},
@@ -3398,12 +3396,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/east{
 	cell_type = 15000;
-	dir = 4;
 	locked = 0;
-	name = "Maintenance APC";
-	pixel_x = 25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -3672,12 +3667,9 @@
 /area/moonoutpost19/mo19research)
 "hq" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/east{
 	cell_type = 15000;
-	dir = 4;
 	locked = 0;
-	name = "Research APC";
-	pixel_x = 25;
 	req_access = list();
 	start_charge = 0
 	},
@@ -5186,12 +5178,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	cell_type = 15000;
-	dir = 1;
 	locked = 0;
-	name = "Habitat APC";
-	pixel_y = 25;
 	req_access = list();
 	start_charge = 100
 	},

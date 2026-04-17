@@ -968,10 +968,8 @@
 	},
 /obj/item/stack/packageWrap,
 /obj/item/flashlight,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
+/obj/machinery/power/apc/worn_out/directional/north{
+	cell_type = 0
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedhangar)
@@ -2740,10 +2738,8 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
+/obj/machinery/power/apc/worn_out/directional/north{
+	cell_type = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -5170,10 +5166,8 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
+/obj/machinery/power/apc/worn_out/directional/north{
+	cell_type = 0
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)

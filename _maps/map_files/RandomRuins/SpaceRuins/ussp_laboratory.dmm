@@ -61,9 +61,8 @@
 /area/ruin/ussp_xeno/medbay)
 "bT" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -936,10 +935,8 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "oA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -1861,10 +1858,8 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/ussp_xeno/storage)
 "Bn" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /obj/structure/alien/weeds,
@@ -2661,10 +2656,8 @@
 "Mk" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /obj/structure/alien/weeds,
@@ -2717,10 +2710,8 @@
 "MC" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -3337,9 +3328,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -3423,10 +3413,8 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 8;
-	equipment_channel = 0;
-	pixel_x = -27
+/obj/machinery/power/apc/directional/west{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -3605,9 +3593,8 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Zg" = (
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 2;

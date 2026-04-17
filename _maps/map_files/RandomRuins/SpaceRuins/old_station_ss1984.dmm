@@ -534,12 +534,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "miners' locker room power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
@@ -1700,11 +1697,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "storage power controller"
-	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_rnd)
 "fY" = (
@@ -2192,10 +2185,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "Smoking room power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -2431,12 +2421,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "surgical operating power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whiteblue";
@@ -2699,12 +2686,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "corridor power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2796,12 +2780,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "cryogenic power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_cryo)
@@ -3074,12 +3055,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "botany power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -3900,12 +3878,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "botany power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4361,9 +4336,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	name = "bridge power controller";
-	pixel_y = -25;
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -5388,10 +5361,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "technical room power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -5625,12 +5595,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "gas module power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
@@ -5909,10 +5876,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "botany room power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -6733,10 +6697,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "storage power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -6821,9 +6782,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "kitchen power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -7038,12 +6997,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "surgical operating power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whiteblue";
@@ -8327,9 +8283,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "solar panel branch power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -8413,10 +8367,7 @@
 	dir = 8;
 	pixel_x = -26
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "prototype storage power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -8493,9 +8444,7 @@
 "DO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "interrogation power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -8774,9 +8723,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "prison cell power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -9237,12 +9184,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "corridor power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9308,12 +9252,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "solitary confinement power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9566,12 +9507,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	pixel_y = 26;
-	name = "rest room power controller";
+/obj/machinery/power/apc/directional/north{
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9581,9 +9519,7 @@
 "HB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "canteen power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -9792,9 +9728,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "medical storage power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -10034,10 +9968,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "docking power controller";
+/obj/machinery/power/apc/directional/east{
 	start_charge = 0;
 	report_power_alarm = 0
 	},
@@ -10682,9 +10613,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "armory power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -11575,10 +11504,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "Electricity storage power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -12264,10 +12190,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26;
-	name = "recycling power controller";
+/obj/machinery/power/apc/directional/west{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -12353,8 +12276,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26;
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -12816,10 +12738,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
-	name = "Shuttle boarding power controller";
+/obj/machinery/power/apc/directional/east{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -13621,9 +13540,7 @@
 /obj/structure/closet/crate/can,
 /obj/item/storage/bag/trash,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	pixel_y = -26;
-	name = "Prison warden's room power controller";
+/obj/machinery/power/apc/directional/south{
 	report_power_alarm = 0;
 	start_charge = 0
 	},
@@ -13735,10 +13652,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26;
-	name = "dock power controller miner's POD";
+/obj/machinery/power/apc/directional/west{
 	report_power_alarm = 0;
 	start_charge = 0
 	},

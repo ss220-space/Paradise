@@ -1950,11 +1950,9 @@
 	dir = 1;
 	network = list("UO45")
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "Hydroponics APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -3987,12 +3985,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	cell_type = 15000;
-	dir = 1;
 	locked = 0;
-	name = "UO45 Bar APC";
-	pixel_y = 25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -4911,11 +4906,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO45 Research Division APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -5383,11 +5376,9 @@
 /area/awaymission/UO45/gateaway)
 "mF" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO45 Gateway APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -7756,11 +7747,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/west{
 	cell_type = 15000;
-	dir = 8;
-	name = "UO45 Engineering APC";
-	pixel_x = -25;
 	req_access = list(201);
 	start_charge = 100
 	},
@@ -10439,11 +10427,9 @@
 /area/awaymission/UO45/engineering)
 "wU" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO45 Mining APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},

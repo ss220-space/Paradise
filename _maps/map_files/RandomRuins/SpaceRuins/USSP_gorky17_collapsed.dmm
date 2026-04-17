@@ -424,9 +424,7 @@
 /area/template_noop)
 "bG" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	name = "Gorky17 area power controller";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -1122,10 +1120,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	name = "Gorky17 area power controller";
-	pixel_x = -28;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -2082,10 +2077,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	name = "Gorky17 area power controller";
-	pixel_y = 28;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -3144,10 +3136,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "jT" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	name = "Gorky17 area power controller";
-	pixel_x = 28;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -3487,9 +3476,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "kM" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	name = "Gorky17 area power controller";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -4116,10 +4103,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	name = "Gorky17 area power controller";
-	pixel_x = -28;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -4877,13 +4861,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
-	pixel_y = 24;
 	req_access = list();
 	start_charge = 0
 	},
@@ -6831,9 +6813,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	name = "Gorky17 area power controller";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -7491,10 +7471,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	name = "Gorky17 area power controller";
-	pixel_x = -28;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -7683,10 +7660,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	name = "Gorky17 area power controller";
-	pixel_y = 28;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(122,123,124,125,126);
 	start_charge = 100
 	},
@@ -9804,10 +9778,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	name = "Gorky17 area power controller";
-	pixel_x = 28;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -9952,9 +9923,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	name = "Gorky17 area power controller";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -10376,9 +10345,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	name = "Gorky17 area power controller";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -11873,13 +11840,10 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 2;
-	name = "Gorky17 area power controller";
-	pixel_y = 28;
 	req_access = list(122,123,124,125,126);
 	start_charge = 100
 	},
@@ -13784,10 +13748,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	name = "Gorky17 area power controller";
-	pixel_x = -28;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -14363,10 +14324,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	name = "Gorky17 area power controller";
-	pixel_x = -28;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -15200,9 +15158,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
-	name = "Gorky17 area power controller";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
@@ -15642,10 +15598,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	name = "Gorky17 area power controller";
-	pixel_y = 28;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},

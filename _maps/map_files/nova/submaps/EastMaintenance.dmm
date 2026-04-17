@@ -620,10 +620,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -909,10 +907,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "kh" = (
@@ -2258,10 +2253,8 @@
 	},
 /area/maintenance/starboard)
 "zO" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 4;
-	pixel_x = 26
+/obj/machinery/power/apc/worn_out/directional/east{
+	cell_type = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -3958,9 +3951,7 @@
 /area/maintenance/abandonedoffices)
 "RG" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

@@ -2748,9 +2748,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -3262,8 +3260,7 @@
 /area/ruin/space/pirate_base/kitchen)
 "jE" = (
 /obj/machinery/computer/operating,
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -24;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable,
@@ -4525,9 +4522,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/table,
@@ -5472,9 +5467,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -6801,9 +6794,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "uo" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -7410,9 +7401,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -7469,9 +7458,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -7597,9 +7584,7 @@
 /area/space)
 "wh" = (
 /obj/item/storage/toolbox/mechanical,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -8117,9 +8102,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -8164,9 +8147,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/pod/light,
@@ -8444,9 +8425,7 @@
 /area/ruin/space/pirate_base/prison_solar)
 "yR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -9213,9 +9192,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10597,9 +10574,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -11221,9 +11196,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -12016,9 +11989,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "JK" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -12470,9 +12441,7 @@
 /obj/structure/table/glass,
 /obj/item/stack/packageWrap,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -12706,9 +12675,7 @@
 "LF" = (
 /obj/item/bodybag/biohazard,
 /obj/structure/rack,
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -12982,9 +12949,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/xeno_lab)
 "ME" = (
-/obj/machinery/power/apc/noalarm{
-	name = "Pirate Corvette APC";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -13306,8 +13271,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "Nt" = (
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -26;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -14233,9 +14197,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/kitchen)
 "Qk" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -14552,9 +14514,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,
@@ -16948,9 +16908,7 @@
 /obj/structure/chair/sofa{
 	dir = 8
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -17331,9 +17289,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -17398,9 +17354,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "ZF" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
 /obj/structure/cable{

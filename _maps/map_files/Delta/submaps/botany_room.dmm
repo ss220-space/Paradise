@@ -128,9 +128,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
@@ -660,9 +658,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Ek" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/grass,
@@ -829,9 +825,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -846,9 +840,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
 /turf/simulated/floor/plasteel{
@@ -885,9 +877,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,

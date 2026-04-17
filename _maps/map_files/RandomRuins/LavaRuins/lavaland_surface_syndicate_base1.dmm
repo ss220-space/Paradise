@@ -612,11 +612,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Engineering APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -1121,11 +1117,7 @@
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	name = "Medbay APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel/white/side{
@@ -1324,11 +1316,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "dA" = (
 /obj/structure/closet/l3closet,
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	name = "Chemistry APC";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -1639,11 +1627,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Cargo Bay APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/brown{
@@ -2298,11 +2282,7 @@
 	pixel_y = 2
 	},
 /obj/item/storage/box/syringes,
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Virology APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -2331,10 +2311,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "fk" = (
-/obj/machinery/power/apc/syndicate{
-	name = "Experimentation Lab APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -3855,10 +3832,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	name = "Dormitories APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -4007,11 +3981,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	name = "Primary Hallway APC";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -5444,10 +5414,7 @@
 /obj/structure/table/wood,
 /obj/machinery/light/small,
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/syndicate{
-	name = "Bar APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mw" = (
@@ -5804,11 +5771,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Arrival Hallway APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -6240,10 +6203,7 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/syndicate{
-	name = "Telecommunications APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

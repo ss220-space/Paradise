@@ -182,10 +182,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/surgery/east)
 "adg" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -787,10 +784,7 @@
 /area/ruin/unpowered)
 "anY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -922,9 +916,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/worn_out/directional/south{
+	cell_type = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -1005,10 +998,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "arv" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -3839,10 +3829,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3963,10 +3950,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -4863,11 +4847,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	name = "Important area power controller";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -5060,10 +5040,7 @@
 	},
 /area/coldcolony/malta/security/permahallway)
 "bRA" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -5227,9 +5204,7 @@
 	},
 /area/coldcolony/malta/hallway/service/central)
 "bTc" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/directional/north{
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -5334,11 +5309,7 @@
 /area/coldcolony/malta/security/reception)
 "bTX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	name = "Important area power controller";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -6778,10 +6749,7 @@
 "cxn" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -6793,10 +6761,7 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -7447,10 +7412,7 @@
 	department = "Head of Security's Office";
 	pixel_y = 2
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -8060,9 +8022,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "cVf" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/directional/north{
 	start_charge = 1
 	},
 /obj/structure/cable{
@@ -8799,9 +8759,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "diw" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/table,
@@ -9236,11 +9194,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	name = "Important area power controller";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
@@ -10971,9 +10925,7 @@
 	name = "Труба дыхательной смеси"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/item/storage/belt/utility,
 /obj/item/crowbar/red,
@@ -10988,10 +10940,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ebl" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -11030,10 +10979,8 @@
 	},
 /area/coldcolony/malta/security/prison/cell_block/A)
 "ecu" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -11063,9 +11010,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "eds" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -11354,10 +11299,7 @@
 /obj/item/rcs,
 /obj/item/rcs,
 /obj/item/rcs,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -11575,10 +11517,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "ekH" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -12549,9 +12488,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
@@ -12732,10 +12669,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "eIn" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/table,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -13854,10 +13788,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -14375,10 +14306,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "fqO" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -14627,10 +14555,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "fvO" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -14680,10 +14605,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "fwa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/chair/office/light,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -14814,10 +14736,7 @@
 "fxX" = (
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -16615,9 +16534,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "gjn" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/directional/east{
 	start_charge = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16790,10 +16707,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -17062,10 +16976,7 @@
 	code = 6;
 	frequency = 1445
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -17389,10 +17300,7 @@
 /area/coldcolony/malta/security/main)
 "gvY" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -17811,10 +17719,7 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "gEx" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -18601,9 +18506,7 @@
 /obj/structure/table,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /turf/simulated/floor/plasteel{
@@ -19828,10 +19731,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "hpo" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 8
@@ -20933,10 +20833,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "hNY" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -21208,10 +21105,7 @@
 /area/coldcolony/malta/resid_serv/library)
 "hUo" = (
 /obj/structure/table/wood,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /obj/item/storage/box/matches,
 /obj/machinery/light/small{
@@ -21604,10 +21498,7 @@
 /obj/item/reagent_containers/food/snacks/cutlet,
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -21854,10 +21745,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -21875,9 +21763,7 @@
 	},
 /area/coldcolony/malta/quartermaster/qm)
 "igP" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -22070,10 +21956,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
 "ilQ" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -23696,10 +23579,7 @@
 "iSM" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -24187,10 +24067,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "jbI" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -24563,9 +24440,7 @@
 	},
 /area/coldcolony/malta/resid_serv/library)
 "jip" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/directional/east{
 	start_charge = 1
 	},
 /obj/structure/cable{
@@ -25554,10 +25429,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "jzD" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
 /obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plating,
@@ -25581,10 +25453,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/break_room)
 "jAy" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -26635,10 +26504,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "jVj" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -27632,10 +27498,7 @@
 	},
 /area/ruin/unpowered)
 "knb" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -27643,10 +27506,7 @@
 	},
 /area/coldcolony/malta/security/permahallway)
 "kno" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -27711,10 +27571,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "koh" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -28337,11 +28194,7 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "kzA" = (
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	name = "Important area power controller";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/sorting)
@@ -29748,10 +29601,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "lcx" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
@@ -29807,10 +29657,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -30177,9 +30024,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai_upload)
 "llL" = (
-/obj/machinery/power/apc/noalarm{
-	name = "Pirate Corvette APC";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -31078,8 +30923,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/test_chamber)
 "lFE" = (
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -26;
+/obj/machinery/power/apc/noalarm/directional/south{
 	start_charge = 30
 	},
 /obj/structure/cable,
@@ -31198,10 +31042,7 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "lIa" = (
 /obj/structure/closet/secure_closet/cabinet/detective,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -31736,10 +31577,7 @@
 "lQX" = (
 /obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -31827,11 +31665,7 @@
 "lRC" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	name = "Important area power controller";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -31993,9 +31827,7 @@
 "lWz" = (
 /obj/item/folder,
 /obj/item/pen,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -32260,10 +32092,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/explab)
 "mbt" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -32885,10 +32714,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "mpd" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -33087,9 +32913,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/syndie_outpost)
 "muF" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -33141,10 +32965,7 @@
 	},
 /area/coldcolony/malta/quartermaster/qm)
 "mwj" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
@@ -34627,10 +34448,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "mWo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
@@ -34861,9 +34679,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/clothing/glasses/welding,
 /obj/item/wrench,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -35378,10 +35194,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "nkH" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -35412,10 +35225,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "nlo" = (
 /obj/structure/table,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -36207,10 +36017,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/server)
@@ -36969,10 +36776,7 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -37020,9 +36824,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "nSK" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/directional/east{
 	start_charge = 1
 	},
 /obj/structure/cable{
@@ -37478,9 +37280,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "oaX" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/syndicate/directional/east{
 	start_charge = 30
 	},
 /obj/structure/cable{
@@ -37773,10 +37573,7 @@
 /area/coldcolony/malta/medical/virology)
 "ofI" = (
 /obj/machinery/photocopier,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -37833,9 +37630,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "ogo" = (
 /obj/structure/table/reinforced,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
@@ -38452,10 +38247,7 @@
 /turf/simulated/floor/engine,
 /area/coldcolony/ruin/sm_chamber)
 "ost" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -39584,10 +39376,8 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 4;
-	pixel_x = 26
+/obj/machinery/power/apc/worn_out/directional/east{
+	cell_type = 0
 	},
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -40372,10 +40162,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "pbR" = (
 /obj/item/flag/nt,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -40595,10 +40382,7 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "pgC" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -40781,10 +40565,7 @@
 	},
 /area/coldcolony/malta/quartermaster/office)
 "pkW" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -41047,10 +40828,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -41514,10 +41292,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -41917,10 +41692,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "pEu" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -42223,10 +41995,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "pLS" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -42310,9 +42079,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
 "pNq" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -42519,10 +42286,7 @@
 "pQk" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/med_data/laptop,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -42691,10 +42455,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -43326,10 +43087,7 @@
 "qjN" = (
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -43470,10 +43228,7 @@
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/maintenance/incinerator)
 "qmt" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -44044,10 +43799,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/storage)
 "quu" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -44206,10 +43958,7 @@
 	pixel_y = 5
 	},
 /obj/item/megaphone,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -44243,10 +43992,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
 "qyj" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -44547,10 +44293,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "qDT" = (
 /obj/machinery/blackbox_recorder,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -44757,10 +44500,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/medbay)
 "qHd" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/bed/amb_trolley,
 /obj/effect/decal/warning_stripes/eastnorthwest,
 /obj/structure/cable{
@@ -45659,10 +45399,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/security/lobby)
 "qZl" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -46328,9 +46065,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "rit" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	start_charge = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -46509,10 +46244,7 @@
 /area/coldcolony/malta/maintenance/cargo)
 "rlM" = (
 /obj/structure/closet/firecloset,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -46747,10 +46479,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "rpW" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -47049,10 +46778,7 @@
 "ruu" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -47664,9 +47390,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/kitchen)
 "rHJ" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	start_charge = 1
 	},
 /obj/structure/rack,
@@ -47832,8 +47556,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -26;
+/obj/machinery/power/apc/noalarm/directional/south{
 	start_charge = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -48057,9 +47780,7 @@
 /area/coldcolony/malta/security/detectives_office)
 "rRy" = (
 /obj/effect/decal/cleanable/generic,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/noalarm/directional/north{
 	start_charge = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -48734,10 +48455,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/ore_production)
 "seM" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -48790,10 +48508,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -48829,10 +48544,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -49909,10 +49621,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "sEw" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -50862,10 +50571,7 @@
 	},
 /area/coldcolony/malta/chapel/office)
 "sWD" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -51707,10 +51413,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "toS" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -52324,10 +52027,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "tzr" = (
 /obj/structure/table,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -53172,9 +52872,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "tRe" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -53222,10 +52920,7 @@
 /area/coldcolony/malta/medical/medbay)
 "tRA" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -53873,10 +53568,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "ubR" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -55033,9 +54725,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "uBb" = (
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -55259,10 +54949,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "uGa" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -55567,9 +55254,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /obj/structure/table,
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /turf/simulated/floor/plasteel{
@@ -55775,10 +55460,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/explab)
 "uRh" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -55819,10 +55501,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -56031,10 +55710,7 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -56463,10 +56139,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/sleeper)
 "vfG" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -56545,10 +56218,7 @@
 /area/coldcolony/malta/chapel/main)
 "vgP" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -57147,10 +56817,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "vqy" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -58120,10 +57787,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "vFf" = (
 /obj/structure/table/wood,
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -58537,9 +58201,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vNP" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/directional/east{
 	start_charge = 0
 	},
 /obj/structure/rack,
@@ -59188,9 +58850,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "wbe" = (
 /obj/structure/table/wood,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /obj/item/clothing/head/beanie/striped,
 /turf/simulated/floor/plasteel{
@@ -59359,10 +59019,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -59435,10 +59092,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/machinery/computer/operating{
 	dir = 8
 	},
@@ -61442,8 +61096,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "wSm" = (
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -26;
+/obj/machinery/power/apc/noalarm/directional/south{
 	start_charge = 1
 	},
 /obj/structure/cable,
@@ -61860,10 +61513,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "wZG" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -62390,10 +62040,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/cmostore)
 "xkO" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -62778,10 +62425,7 @@
 /area/coldcolony/malta/security/securearmory)
 "xrE" = (
 /obj/item/reagent_containers/food/snacks/doshik,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -63687,9 +63331,7 @@
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "xJj" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -64217,10 +63859,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "xUN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;

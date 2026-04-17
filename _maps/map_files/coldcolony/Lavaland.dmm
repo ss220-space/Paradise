@@ -809,10 +809,7 @@
 /area/lavaland/surface/outdoors)
 "hl" = (
 /obj/structure/closet/crate,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable,
 /obj/item/storage/box/donkpockets,
@@ -2609,12 +2606,7 @@
 	},
 /area/lavaland/surface/outdoors/necropolis)
 "vg" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 25
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/item/camera_assembly,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -2695,10 +2687,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "vV" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/meson,
 /obj/item/storage/bag/ore,
@@ -5155,10 +5144,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VV" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/table,
 /obj/item/gps/mining,
 /obj/item/gps/mining,

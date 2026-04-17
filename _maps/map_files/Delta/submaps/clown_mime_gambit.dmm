@@ -52,10 +52,7 @@
 	},
 /area/clownoffice)
 "i" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -66,10 +63,7 @@
 	},
 /area/mimeoffice)
 "j" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},

@@ -508,10 +508,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "nG" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/power/apc/worn_out/directional/west{
+	cell_type = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -929,9 +927,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},

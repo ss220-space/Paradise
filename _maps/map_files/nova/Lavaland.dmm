@@ -414,11 +414,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Labor Camp Security APC";
-	pixel_y = 28
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -3032,10 +3028,7 @@
 /turf/simulated/floor/plating,
 /area/mine/lobby)
 "sR" = (
-/obj/machinery/power/apc{
-	pixel_x = -28;
-	dir = 8
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -3107,11 +3100,7 @@
 "tf" = (
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	name = "Labor Camp APC";
-	pixel_x = -26;
-	dir = 8
-	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "tm" = (
@@ -5308,11 +5297,7 @@
 	dir = 8;
 	network = list("Mining Outpost")
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -5712,11 +5697,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "GQ" = (
-/obj/machinery/power/apc{
-	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -7053,12 +7034,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "OB" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 25
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -7698,10 +7674,7 @@
 /area/mine/laborcamp)
 "Sj" = (
 /obj/structure/table/wood,
-/obj/machinery/power/apc/syndicate{
-	name = "Bar APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/machinery/light,
 /obj/machinery/power/terminal,
 /obj/effect/turf_decal/siding/wood{

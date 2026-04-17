@@ -1049,10 +1049,7 @@
 /turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "aVJ" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1319,9 +1316,7 @@
 "bew" = (
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -1650,9 +1645,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -2068,10 +2061,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -2480,10 +2470,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3022,10 +3009,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -4694,9 +4678,7 @@
 "eBp" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
@@ -5715,10 +5697,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -8032,10 +8011,7 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "hwv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -8306,10 +8282,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8444,10 +8417,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/blue{
@@ -8668,9 +8638,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "ift" = (
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9307,9 +9275,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -9669,10 +9635,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -9988,10 +9951,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "jkZ" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -10172,10 +10132,7 @@
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "jvP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -10479,10 +10436,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jFr" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable/blue{
 	icon_state = "0-8"
 	},
@@ -10909,10 +10863,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "kfa" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -11569,10 +11520,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -12488,9 +12436,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -13110,9 +13056,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "man" = (
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -13292,10 +13236,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -13445,10 +13386,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13970,10 +13908,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -14072,10 +14007,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14799,9 +14731,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -15715,10 +15645,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oai" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -18516,9 +18443,7 @@
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "qhP" = (
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
@@ -18993,10 +18918,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -19234,9 +19156,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -19355,10 +19275,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -20373,10 +20290,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "rIF" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -20962,10 +20876,7 @@
 	},
 /obj/item/flag/syndi,
 /obj/structure/cable,
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sfF" = (
@@ -21055,9 +20966,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -21358,9 +21267,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "sDy" = (
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
@@ -21478,10 +21385,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -21797,9 +21701,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -23186,10 +23088,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -23379,10 +23278,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -23407,9 +23303,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -23611,10 +23505,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "urM" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
 /obj/structure/cable{
@@ -24128,9 +24019,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -24451,10 +24340,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -24979,10 +24865,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "viR" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -25080,10 +24963,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -25616,10 +25496,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -26918,10 +26795,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -27762,10 +27636,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/syndicate/directional/north,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"

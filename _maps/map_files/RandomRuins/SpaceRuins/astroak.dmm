@@ -250,10 +250,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	pixel_y = 26;
-	dir = 1
-	},
+/obj/machinery/power/apc/noalarm/directional/north,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "sT" = (
