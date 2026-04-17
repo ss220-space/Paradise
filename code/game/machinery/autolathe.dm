@@ -4,13 +4,16 @@
 			на основе шаблонов для печати. Использует металл и стекло в качестве сырья."
 	icon_state = "autolathe"
 	density = TRUE
+	idle_power_usage = 10
+	active_power_usage = 100
+	anchored = TRUE
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 
-	var/operating = 0.0
+	var/operating = 0
 	/// Every element is a list(datum/design, multiplier, cached_name, cached_desc)
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
-	anchored = TRUE
 	var/list/L = list()
 	var/list/LL = list()
 	var/hacked = 0
@@ -19,8 +22,6 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	idle_power_usage = 10
-	active_power_usage = 100
 	var/busy = FALSE
 	var/prod_coeff
 	var/datum/wires/autolathe/wires = null
@@ -293,24 +294,24 @@
 
 	return ..()
 
-/obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
+/obj/machinery/autolathe/crowbar_act_secondary(mob/living/user, obj/item/tool)
+	if(!tool.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
 	if(busy)
 		balloon_alert(user, "в процессе печати!")
 		return
 	if(panel_open)
-		default_deconstruction_crowbar(user, I)
+		default_deconstruction_crowbar(user, tool)
 
-/obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
+/obj/machinery/autolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
+	if(!tool.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
 	if(busy)
 		balloon_alert(user, "в процессе печати!")
 		return
-	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", I)
+	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", tool)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)

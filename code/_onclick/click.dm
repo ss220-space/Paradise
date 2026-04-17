@@ -96,7 +96,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
@@ -116,7 +116,7 @@
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
-		return M.click_action(A, src, params)
+		return M.click_action(A, src, modifiers)
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
@@ -222,7 +222,7 @@
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
 
-	while(checking.len && depth > 0)
+	while(length(checking) && depth > 0)
 		var/list/next = list()
 		--depth
 
@@ -303,9 +303,9 @@
 	if(ismob(atom))
 		changeNext_move(CLICK_CD_MELEE)
 
-	return OnUnarmedAttack(atom, proximity_flag)
+	return OnUnarmedAttack(atom, proximity_flag, modifiers)
 
-/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return
 
 /*

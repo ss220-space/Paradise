@@ -226,3 +226,68 @@
 
 		if(random_location.is_safe())
 			return random_location
+
+/**
+ * Checks to see if a given turf is a "safe" location. Being safe requires the following to be true:
+ * * Must be a [floor][/turf/simulated/floor]
+ * * Must have air, and that air must have [breathable bounds][/proc/check_gases] for humans
+ * * Must have goldilocks temperature
+ * * Must have safe pressure
+ *
+ * Optionally:
+ * * extended_safety_checks: Will make additional checks for turfs that technically pass all previous requirements but still may not be safe
+ * * dense_atoms: Must be unobstructed (no blocking objects such as machines, structures or mobs)
+ * * no_teleport: Must not have [NOTELEPORT][/area/var/area_flag]
+ *
+ * Returns TRUE if all conditions pass, FALSE otherwise.
+ */
+/proc/is_safe_turf(turf/random_location, extended_safety_checks = FALSE, dense_atoms = FALSE, no_teleport = FALSE)
+	//SHOULD_BE_PURE(TRUE)
+
+	. = FALSE
+	if(!isfloorturf(random_location))
+		return
+	var/turf/simulated/floor/floor_turf = random_location
+	//var/area/destination_area = floor_turf.loc
+
+	if(no_teleport /*&& (destination_area.area_flags & NOTELEPORT)*/)
+		return
+
+	var/datum/gas_mixture/floor_gas_mixture = floor_turf.return_analyzable_air()
+	if(!floor_gas_mixture)
+		return
+
+	var/static/list/gases_to_check = list(
+		TLV_O2 = list(/obj/item/organ/internal/lungs::safe_oxygen_min, 100),
+		TLV_N2,
+		TLV_CO2 = list(0, /obj/item/organ/internal/lungs::safe_co2_max)
+	)
+
+	if(!check_gases(floor_gas_mixture.get_interesting(), gases_to_check))
+		return FALSE
+
+	// Aim for goldilocks temperatures and pressure
+	if((floor_gas_mixture.temperature() <= BODYTEMP_COLD_DAMAGE_LIMIT) || (floor_gas_mixture.temperature() >= BODYTEMP_HEAT_DAMAGE_LIMIT))
+		return
+	var/pressure = floor_gas_mixture.return_pressure()
+	if((pressure <= HAZARD_LOW_PRESSURE) || (pressure >= HAZARD_HIGH_PRESSURE))
+		return
+
+	if(extended_safety_checks)
+		if(islava(floor_turf)) //chasms aren't /floor, and so are pre-filtered
+			var/turf/simulated/floor/lava/lava_turf = floor_turf // Cyberboss: okay, this makes no sense and I don't understand the above comment, but I'm too lazy to check history to see what it's supposed to do right now
+			if(!lava_turf.is_safe())
+				return
+
+	// Check that we're not warping onto a table or window
+	if(!dense_atoms)
+		var/density_found = FALSE
+		for(var/atom/movable/found_movable in floor_turf)
+			if(found_movable.density)
+				density_found = TRUE
+				break
+		if(density_found)
+			return
+
+	// DING! You have passed the gauntlet, and are "probably" safe.
+	return TRUE

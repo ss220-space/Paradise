@@ -84,8 +84,8 @@
 		parent_spell = null
 	return ..()
 
-/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)

@@ -17,6 +17,7 @@
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
+	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
 
 	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
@@ -1254,16 +1255,19 @@
 					continue
 				valid_headset_types[initial(temp.name)] = temp
 
-/obj/item/bowman_conversion_tool/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/bowman_conversion_tool/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!istype(target, /obj/item/radio/headset))
 		return
-	if(!proximity)
+
+	if(!proximity_flag)
 		return
+
 	var/headset_name = tgui_input_list(usr, "Выберите тип гарнитуры", "Тактическая гарнитура", valid_headset_types, null)
 	if(!headset_name)
 		user.balloon_alert(user, "модификация прервана!")
 		return
+
 	var/obj/item/radio/headset/headset = target
 	headset.item_flags |= BANGPROTECT_MINOR
 	var/headset_path = valid_headset_types[headset_name]

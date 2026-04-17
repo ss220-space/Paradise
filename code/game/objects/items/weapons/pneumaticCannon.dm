@@ -116,14 +116,17 @@
 	loadedWeightClass += I.w_class
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(flag && user.a_intent == INTENT_HARM) // Melee attack
-		return .
+	if(proximity_flag && user.a_intent == INTENT_HARM) // Melee attack
+		return
+
 	if(!istype(user))
-		return .
+		return
+
 	if(loc != user)
-		return .
+		return
+
 	Fire(user, target)
 
 /obj/item/pneumatic_cannon/proc/Fire(mob/living/carbon/human/user, atom/target)

@@ -288,11 +288,6 @@
 	var/state = (locked)? "locked" : ((opened)? "open" : "unlocked")
 	icon_state = "secure_[state]_mortar"
 
-/obj/structure/closet/crate/secure/mortar/togglelock(mob/living/user)
-	if(!locked)
-		return FALSE
-	return ..()
-
 /obj/structure/closet/crate/secure/mortar/mortar_kit
 	name = "mortar kit crate"
 

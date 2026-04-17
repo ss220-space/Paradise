@@ -2,7 +2,7 @@
 /datum/ai_behavior/resist/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
-	living_pawn.run_resist()
+	living_pawn.execute_resist()
 	if((living_pawn.mobility_flags & MOBILITY_REST) && !IS_DEAD_OR_INCAP(living_pawn))
 		living_pawn.set_resting(FALSE)
 	finish_action(controller, TRUE)

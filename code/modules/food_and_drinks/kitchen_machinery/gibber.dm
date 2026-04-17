@@ -126,7 +126,7 @@
 
 	return ..()
 
-/obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
+/obj/machinery/gibber/mouse_drop_receive(mob/target, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

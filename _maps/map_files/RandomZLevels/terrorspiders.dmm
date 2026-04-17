@@ -10737,11 +10737,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yh" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
 /obj/machinery/light/small{

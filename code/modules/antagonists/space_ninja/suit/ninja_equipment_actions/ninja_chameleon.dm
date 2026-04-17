@@ -58,7 +58,7 @@
 	if(!my_suit.s_busy)	//Боремся со спамом кнопок
 		ninja_chameleon(user, user)
 
-/obj/item/ninja_chameleon_scanner/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/ninja_chameleon_scanner/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)
 	if(!my_suit.s_busy)	//Боремся со спамом кнопок
 		ninja_chameleon(target_mob, user)

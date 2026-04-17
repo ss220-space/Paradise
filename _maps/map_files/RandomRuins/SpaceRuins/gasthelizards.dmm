@@ -219,12 +219,9 @@
 	},
 /area/ruin/space/gasthelizards/engineering)
 "hS" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters_inner";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -596,12 +593,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters_inner";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -718,12 +712,9 @@
 	},
 /area/ruin/space/gasthelizards/viewzone)
 "DL" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,

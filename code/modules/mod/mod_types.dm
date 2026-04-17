@@ -517,11 +517,13 @@
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/visor/thermal,
 	)
 	default_pins = list(
 		/obj/item/mod/module/power_kick,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/visor/thermal,
 	)
 
 /obj/item/mod/control/pre_equipped/apocryphal/officer
