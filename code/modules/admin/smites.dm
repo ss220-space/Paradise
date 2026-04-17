@@ -595,8 +595,7 @@
 	var/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_watermelon = new()
 	self_control_watermelon.name = "Самоконтроль"
 	self_control_watermelon.desc = "Показатель невероятного самоконтроля Божественной сущности."
-	target.drop_r_hand()
-	target.equip_to_slot_or_del(self_control_watermelon, ITEM_SLOT_HAND_RIGHT)
+	target.put_in_any_hand_if_possible(self_control_watermelon)
 	to_chat(target, span_userdanger("Вы чувствуете, что в вашей руке появилась долька арбуза. Но что она значит?"))
 
 // MARK: Admin smite proc
