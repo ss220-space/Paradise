@@ -84,7 +84,7 @@
 /obj/structure/closet/cardboard/proc/on_move(turf/old_loc, turf/new_loc, direction)
 	return
 
-/obj/structure/closet/cardboard/open()
+/obj/structure/closet/cardboard/open(mob/living/user, force)
 	if(opened || !can_open())
 		return FALSE
 

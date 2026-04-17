@@ -1702,10 +1702,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay";
+/obj/structure/sign/medbay{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -1757,21 +1754,13 @@
 	},
 /area/shuttle/abandoned)
 "LY" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall/shuttle{
 	dir = 4
 	},
 /area/shuttle/abandoned)
 "Mx" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/abandoned)
 "MB" = (
@@ -2098,11 +2087,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "TU" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/medbay,
 /turf/simulated/wall/shuttle,
 /area/shuttle/abandoned)
 "TW" = (

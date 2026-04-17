@@ -74,7 +74,7 @@
 
 	..()
 
-/obj/structure/closet/statue/open()
+/obj/structure/closet/statue/open(mob/living/user, force)
 	return
 
 /obj/structure/closet/statue/close()
@@ -94,7 +94,7 @@
 /obj/structure/closet/statue/welder_act()
 	return
 
-/obj/structure/closet/statue/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/structure/closet/statue/mouse_drop_receive(atom/dropping, mob/user, params)
 	return
 
 /obj/structure/closet/statue/relaymove()

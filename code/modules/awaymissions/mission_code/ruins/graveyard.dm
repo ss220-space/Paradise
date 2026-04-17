@@ -84,10 +84,10 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/storage/funeral_urn/afterattack(atom/A, mob/user, proximity, params)
-	if(istype(A,/obj/effect/decal/cleanable/ash))
+/obj/item/storage/funeral_urn/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(istype(target,/obj/effect/decal/cleanable/ash))
 		if(length(src.contents) < storage_slots)
-			var/obj/effect/decal/cleanable/ash/ash = A
+			var/obj/effect/decal/cleanable/ash/ash = target
 			new /obj/item/ash_holder(src, ash)
 			qdel(ash)
 		else
@@ -240,10 +240,10 @@
 /obj/structure/closet/coffin/graveyard_loot
 	var/spawn_mob = null
 
-/obj/structure/closet/coffin/graveyard_loot/open()
+/obj/structure/closet/coffin/graveyard_loot/open(mob/living/user, force)
 	..()
 	if(spawn_mob)
-		new spawn_mob(src.loc)
+		new spawn_mob(loc)
 		spawn_mob = null
 		new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 

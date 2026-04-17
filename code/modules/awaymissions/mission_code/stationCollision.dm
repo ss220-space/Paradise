@@ -181,21 +181,27 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 		return FALSE
 	if(is_type_in_list(A, uneatable))
 		return FALSE
+
 	if(isliving(A))
 		var/mob/living/L = A
 		L.gib()
+
 	else if(isobj(A))
 		var/obj/O = A
 		O.ex_act(EXPLODE_DEVASTATE)
-		if(O) qdel(O)
+		if(O)
+			qdel(O)
+
 	else if(isturf(A))
 		var/turf/T = A
-		if(T.intact)
+
+		if(T.underfloor_accessibility != UNDERFLOOR_INTERACTABLE) // this code only cares about pipes and stuff under floor
 			for(var/obj/O in T.contents)
 				if(O.level != 1)
 					continue
 				if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 					src.consume(O)
+
 		T.ChangeTurf(T.baseturf)
 	return
 

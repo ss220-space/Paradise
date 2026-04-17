@@ -246,6 +246,10 @@
 	var/datum/component/laser_sight/sight = null
 
 /datum/action/toggle_laser_sight/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	sight.toggle_enable(owner)
 	sight.process_aim(owner)
 

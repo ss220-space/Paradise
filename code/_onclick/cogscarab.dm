@@ -69,7 +69,7 @@
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
 	if(A == loc || (A in loc) || (A in contents))
-		W.melee_attack_chain(src, A, params)
+		W.melee_attack_chain(src, A, modifiers)
 		return
 
 	if(!isturf(loc))
@@ -78,13 +78,13 @@
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
 	if(isturf(A) || isturf(A.loc))
 		if(A.Adjacent(src)) // see adjacent.dm
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 			return
 		else
 			if(W)
-				W.afterattack(A, src, FALSE, params)
+				A.base_ranged_item_interaction(src, W, modifiers)
 			else
-				RangedAttack(A, params)
+				RangedAttack(A, modifiers)
 	return
 
 /mob/living/silicon/robot/cogscarab/ShiftClickOn(atom/A)
@@ -105,5 +105,5 @@
 /mob/living/silicon/robot/cogscarab/AltShiftClickOn(atom/A)
 	return
 
-/mob/living/silicon/robot/cogscarab/RangedAttack(atom/A, params)
+/mob/living/silicon/robot/cogscarab/RangedAttack(atom/A, modifiers)
 	return

@@ -94,7 +94,7 @@
 		. += "[icon_state]-emagged"
 	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[icon_state]-charge[ratio]"
 	if(!cell)
 		. += "[icon_state]-nocell"

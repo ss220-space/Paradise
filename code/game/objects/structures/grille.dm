@@ -7,7 +7,6 @@
 	anchored = TRUE
 	flags = CONDUCT
 	pressure_resistance = 5*ONE_ATMOSPHERE
-	layer = BELOW_OBJ_LAYER
 	level = 3
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
@@ -311,7 +310,7 @@
 			var/obj/obj = atom_movable
 			if(obj.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
 				var/turf/turf = get_turf(src)
-				if(turf.intact)
+				if(turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 					return FALSE
 				var/obj/structure/cable/cable = turf.get_cable_node()
 				if(cable)

@@ -51,7 +51,7 @@
 		swing_sound = SFX_BLADE_SCIFI_SWING \
 	)
 
-/obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(user && user.a_intent == INTENT_DISARM && !target.density)
 		if(isninja(user))

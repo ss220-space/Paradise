@@ -9,7 +9,7 @@
  * Checks if the user has specific admin permissions.
  */
 
-GLOBAL_LIST_EMPTY_TYPED(admin_states, /datum/ui_state/admin_state)
+GLOBAL_ALIST_EMPTY(admin_states)
 GLOBAL_PROTECT(admin_states)
 
 /datum/ui_state/admin_state

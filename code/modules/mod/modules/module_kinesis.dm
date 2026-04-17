@@ -114,7 +114,7 @@ tier 3 - range 7-8, can lift conscious
 	clear_grab(playsound = !deleting)
 
 /obj/item/mod/module/anomaly_locked/kinesis/process()
-	if(!mod.wearer.client || mod.wearer.incapacitated(INC_IGNORE_GRABBED))
+	if(!mod.wearer.client || mod.wearer.incapacitated(IGNORE_GRAB))
 		clear_grab()
 		return
 	if(!range_check(grabbed_atom))

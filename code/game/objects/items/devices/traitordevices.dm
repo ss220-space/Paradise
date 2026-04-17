@@ -427,7 +427,7 @@ effective or pretty fucking useless.
 	flawless = TRUE
 
 /obj/item/teleporter/admin/update_icon_state()
-	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
+	icon_state = "[base_icon_state]-[ceil(charges / 2)]"
 
 #define ION_CALLER_AI_TARGETING "AI targeting"
 #define ION_CALLER_COMMS_TARGETING "Telecomms targeting"

@@ -210,7 +210,7 @@
 		to_chat(user, span_notice("Вы не можете забраться на перевернутый стол."))
 		return FALSE
 
-/obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)
+/obj/structure/table/mouse_drop_receive(obj/dropping, mob/user, params)
 	if(..())
 		return TRUE
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
@@ -256,14 +256,13 @@
 	tablepush(grabbed_thing, grabber)
 	add_fingerprint(grabber)
 
-/obj/structure/table/attackby(obj/item/I, mob/user, params)
+/obj/structure/table/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
 	if(!user.transfer_item_to_loc(I, loc))
 		return ..()
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return .
@@ -836,7 +835,7 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/rack/MouseDrop_T(obj/item/dropping, mob/user, params)
+/obj/structure/rack/mouse_drop_receive(obj/item/dropping, mob/user, params)
 	. = FALSE
 	if((!isitem(dropping)) || user.get_active_hand() != dropping)
 		return .
@@ -846,7 +845,7 @@
 		add_fingerprint(user)
 		return TRUE
 
-/obj/structure/rack/attackby(obj/item/I, mob/user, params)
+/obj/structure/rack/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
 	if(!user.transfer_item_to_loc(I, loc))
@@ -904,7 +903,7 @@
 	desc = "A gun rack for storing guns."
 	icon_state = "gunrack"
 
-/obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, params)
+/obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, list/modifiers)
 	. = FALSE
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
@@ -921,7 +920,6 @@
 		our_gun.place_on_rack()
 		our_gun.do_drop_animation(src)
 		our_gun.Move(loc)
-		var/list/modifiers = params2list(params)
 		//Center the icon where the user clicked.
 		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 			return TRUE
@@ -930,14 +928,14 @@
 		our_gun.pixel_y = 0
 		return TRUE
 
-/obj/structure/rack/gunrack/MouseDrop_T(obj/item/gun/our_gun, mob/user, params)
-	return place_gun(our_gun, user, params)
+/obj/structure/rack/gunrack/mouse_drop_receive(obj/item/gun/our_gun, mob/user, params)
+	return place_gun(our_gun, user, params2list(params))
 
-/obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, params)
+/obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	add_fingerprint(user)
-	place_gun(I, user, params)
+	place_gun(I, user, modifiers)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)
@@ -997,18 +995,9 @@
 		qdel(src)
 	building = FALSE
 
-/// Rack destruction
-/obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(obj_flags & NODECONSTRUCT))
-		set_density(FALSE)
-		var/obj/item/rack_parts/newparts = new(loc)
-		transfer_fingerprints_to(newparts)
-	qdel(src)
-
-/*
+/**
  * MARK: Rack Parts
  */
-
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
@@ -1029,11 +1018,36 @@
 		PREPOSITIONAL = "деталях стеллажа",
 	)
 
-/obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
+/obj/item/rack_parts/Initialize(mapload)
+	. = ..()
+	register_context()
+
+/obj/item/rack_parts/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	if(isnull(held_item))
+		return NONE
+
+	if(held_item == src)
+		context[SCREENTIP_CONTEXT_LMB] = "Собрать стеллаж"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(held_item.tool_behaviour == TOOL_WRENCH)
+		context[SCREENTIP_CONTEXT_LMB] = "Разобрать"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return NONE
+
+/obj/item/rack_parts/wrench_act(mob/user, obj/item/tool)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
-	new /obj/item/stack/sheet/metal(user.loc)
+	new /obj/item/stack/sheet/metal(drop_location())
+	qdel(src)
+
+/obj/structure/rack/deconstruct(disassembled = TRUE)
+	if(!(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
+		var/obj/item/rack_parts/new_parts = new(drop_location())
+		transfer_fingerprints_to(new_parts)
 	qdel(src)
 
 /obj/item/rack_parts/attack_self(mob/user)
@@ -1041,14 +1055,14 @@
 		return
 	building = TRUE
 	to_chat(user, span_notice("Вы начинаете собирать стойку..."))
-	if(do_after(user, 2 SECONDS, user))
+	if(do_after(user, 2 SECONDS, target = user))
 		if(!user.drop_from_active_hand())
 			return
-		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
+		var/obj/structure/rack/rack = new /obj/structure/rack(get_turf(src))
 		user.visible_message(
-			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] собирает [R.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы собираете [R.declent_ru(ACCUSATIVE)].")
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] собирает [rack.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы собираете [rack.declent_ru(ACCUSATIVE)].")
 		)
-		R.add_fingerprint(user)
+		rack.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

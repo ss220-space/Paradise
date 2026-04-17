@@ -100,14 +100,14 @@
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += span_notice("Установлен [M.declent_ru(NOMINATIVE)], занимающий <b>[M.cost]%</b> ёмкости.")
 
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, span_notice("Вы приказываете [declent_ru(DATIVE)] выгрузить собранную руду."))
 		DropOre()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/borg/upgrade/modkit))
-		I.melee_attack_chain(user, stored_gun, params)
+		I.melee_attack_chain(user, stored_gun, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -308,10 +308,10 @@
 		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота",
 	)
 
-/obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity, params)
-	if(!istype(M) || !proximity)
+/obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!istype(target) || !proximity_flag)
 		return
-	upgrade_bot(M, user)
+	upgrade_bot(target, user)
 
 /obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.melee_damage_upper != initial(M.melee_damage_upper))

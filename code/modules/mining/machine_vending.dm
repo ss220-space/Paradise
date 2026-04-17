@@ -426,14 +426,14 @@
 		PREPOSITIONAL = "карте доступа шахтёра",
 	)
 
-/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity, params)
-	if(!is_id_card(AM))
+/obj/item/card/mining_access_card/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!is_id_card(target))
 		return
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
-	var/obj/item/card/id/I = AM
+	var/obj/item/card/id/I = target
 	I.access |= list(
 		ACCESS_MAILSORTING,
 		ACCESS_CARGO,

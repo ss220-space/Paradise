@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - image: "Фикс пикселя сб скина борга (PR #8927)"
