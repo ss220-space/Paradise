@@ -72,7 +72,10 @@
 	},
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "gm" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -266,7 +269,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -361,7 +364,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "yX" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/rnd/counter,
@@ -456,7 +462,10 @@
 	pixel_y = 1
 	},
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "EQ" = (
 /obj/structure/chair/office/light,
@@ -472,13 +481,17 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "HB" = (
 /obj/item/multitool/circuit,
 /obj/item/multitool/circuit,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "Ie" = (
 /obj/machinery/newscaster{
@@ -536,7 +549,10 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "ND" = (
 /obj/structure/chair/office/light,
@@ -730,7 +746,10 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/glass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitepurple"
+	},
 /area/toxins/lab)
 "Wq" = (
 /obj/structure/cable{
