@@ -60,6 +60,7 @@
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_ORGAN_SUMMONED, PROC_REF(extract_from_summon))
 
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
@@ -445,3 +446,20 @@
 		dna.deserialize(data["dna"])
 		..()
 
+/obj/item/organ/proc/extract_from_summon(mob/living/caster)
+	if(!owner)
+		return
+
+	if(isexternalorgan(src))
+		var/obj/item/organ/external/external_organ = src
+		var/mob/item_owner = external_organ.loc
+		var/atom/movable/thing = external_organ.droplimb(1, DROPLIMB_SHARP)
+		if(thing)
+			thing.forceMove(get_turf(item_owner))
+			return
+
+	if(is_internal_organ(src))
+		var/turf/organ_turf = get_turf(owner)
+		if(organ_turf)
+			remove(owner)
+			forceMove(organ_turf)

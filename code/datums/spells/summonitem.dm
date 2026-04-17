@@ -71,27 +71,11 @@
 		unlink_item_to_spell(target, user, null)
 		return
 
-	if(isexternalorgan(item_to_retrieve))
-		var/obj/item/organ/external/external_organ = item_to_retrieve
-		if(ismob(external_organ.loc))
-			var/mob/item_owner = external_organ.loc
-			var/atom/movable/thing = external_organ.droplimb(1, DROPLIMB_SHARP)
-			if(thing)
-				thing.forceMove(get_turf(item_owner))
-				teleport_item_to_target(thing, target)
-		return
-
-	if(is_internal_organ(item_to_retrieve))
-		var/obj/item/organ/internal/internal_organ = item_to_retrieve
-		if(internal_organ.owner)
-			var/mob/living/owner_mob = internal_organ.owner
-			SEND_SIGNAL(internal_organ, COMSIG_ORGAN_SUMMONED, target)
-			teleport_item_to_target(internal_organ, target, owner_mob)
-			return
+	if(isexternalorgan(item_to_retrieve) || is_internal_organ(item_to_retrieve))
+		SEND_SIGNAL(item_to_retrieve, COMSIG_ORGAN_SUMMONED, target)
 
 	if(item_to_retrieve.loc)
 		var/infinite_recursion = 0
-		var/mob/living/organ_owner_for_teleport
 
 		while(!isturf(item_to_retrieve.loc) && infinite_recursion < MAX_CONTAINER_DEPTH)
 			if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
@@ -131,12 +115,12 @@
 			infinite_recursion += 1
 
 		if(!QDELETED(item_to_retrieve))
-			teleport_item_to_target(item_to_retrieve, target, organ_owner_for_teleport)
+			teleport_item_to_target(item_to_retrieve, target)
 		return
 
 	to_chat(target, span_warning("У вас не получается призвать привязанный предмет!"))
 
-/obj/effect/proc_holder/spell/summonitem/proc/teleport_item_to_target(obj/item_to_retrieve, mob/living/target, mob/living/organ_owner = null)
+/obj/effect/proc_holder/spell/summonitem/proc/teleport_item_to_target(obj/item_to_retrieve, mob/living/target)
 	if(!item_to_retrieve)
 		return
 
@@ -146,23 +130,17 @@
 
 	var/atom/old_loc = item_to_retrieve.loc
 
-	if(is_internal_organ(item_to_retrieve) && organ_owner)
-		to_chat(organ_owner, span_danger("Вы чувствуете странную пустоту внутри..."))
-	else if(old_loc)
+	if(old_loc)
 		old_loc.visible_message(span_warning("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] неожиданно исчезает!"))
 
 	playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
 	item_to_retrieve.forceMove(target_turf)
 
-	var/is_hidden_organ = is_internal_organ(item_to_retrieve) && organ_owner
-
 	if(target.put_in_active_hand(item_to_retrieve) || target.put_in_inactive_hand(item_to_retrieve))
-		if(!is_hidden_organ)
-			target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется в руках [target.declent_ru(PREPOSITIONAL)]!"))
+		target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется в руках [target.declent_ru(PREPOSITIONAL)]!"))
 		return
 
-	if(!is_hidden_organ)
-		target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется!"))
+	target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется!"))
 
 #undef MAX_CONTAINER_DEPTH
