@@ -2205,12 +2205,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -32;
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list()
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Wj" = (

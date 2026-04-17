@@ -6,13 +6,13 @@ help: "Use the specific directional subtypes for this newscaster."
     - dir
     - name
 
-/obj/machinery/newscaster::
+/obj/machinery/newscaster:
   banned: TRUE
 /obj/machinery/newscaster/security_unit::
   banned: TRUE
 
 # directional
-/obj/machinery/newscaster/directional::
+=/obj/machinery/newscaster/directional::
   banned: TRUE
-/obj/machinery/newscaster/security_unit/directional::
+=/obj/machinery/newscaster/security_unit/directional::
   banned: TRUE

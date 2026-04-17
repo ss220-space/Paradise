@@ -19,29 +19,29 @@ help: "Use the specific directional subtypes for this apc."
   banned_variables:
     - cell_type
 
-/obj/machinery/power/apc:
+=/obj/machinery/power/apc:
   banned: TRUE
-/obj/machinery/power/apc/generator:
+=/obj/machinery/power/apc/generator:
   banned: TRUE
-/obj/machinery/power/apc/important_area:
+=/obj/machinery/power/apc/important_area:
   banned: TRUE
-/obj/machinery/power/apc/noalarm:
+=/obj/machinery/power/apc/noalarm:
   banned: TRUE
-/obj/machinery/power/apc/syndicate:
+=/obj/machinery/power/apc/syndicate:
   banned: TRUE
-/obj/machinery/power/apc/worn_out:
+=/obj/machinery/power/apc/worn_out:
   banned: TRUE
 
 # directional
-/obj/machinery/power/apc/directional:
+=/obj/machinery/power/apc/directional:
   banned: TRUE
-/obj/machinery/power/apc/generator/directional:
+=/obj/machinery/power/apc/generator/directional:
   banned: TRUE
-/obj/machinery/power/apc/important_area/directional:
+=/obj/machinery/power/apc/important_area/directional:
   banned: TRUE
-/obj/machinery/power/apc/noalarm/directional:
+=/obj/machinery/power/apc/noalarm/directional:
   banned: TRUE
-/obj/machinery/power/apc/syndicate/directional:
+=/obj/machinery/power/apc/syndicate/directional:
   banned: TRUE
-/obj/machinery/power/apc/worn_out/directional:
+=/obj/machinery/power/apc/worn_out/directional:
   banned: TRUE

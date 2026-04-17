@@ -27,45 +27,45 @@ help: "Use the specific directional subtypes for this air alarm."
   banned_variables:
     - preset
 
-/obj/machinery/alarm:
+=/obj/machinery/alarm:
   banned: TRUE
-/obj/machinery/alarm/all_access:
+=/obj/machinery/alarm/all_access:
   banned: TRUE
-/obj/machinery/alarm/all_access/monitor:
+=/obj/machinery/alarm/all_access/monitor:
   banned: TRUE
-/obj/machinery/alarm/kitchen_cold_room:
+=/obj/machinery/alarm/kitchen_cold_room:
   banned: TRUE
-/obj/machinery/alarm/monitor:
+=/obj/machinery/alarm/monitor:
   banned: TRUE
-/obj/machinery/alarm/monitor/server:
+=/obj/machinery/alarm/monitor/server:
   banned: TRUE
-/obj/machinery/alarm/old:
+=/obj/machinery/alarm/old:
   banned: TRUE
-/obj/machinery/alarm/server:
+=/obj/machinery/alarm/server:
   banned: TRUE
-/obj/machinery/alarm/syndicate:
+=/obj/machinery/alarm/syndicate:
   banned: TRUE
-/obj/machinery/alarm/vox:
+=/obj/machinery/alarm/vox:
   banned: TRUE
 
 # directional
-/obj/machinery/alarm/directional:
+=/obj/machinery/alarm/directional:
   banned: TRUE
-/obj/machinery/alarm/all_access/directional:
+=/obj/machinery/alarm/all_access/directional:
   banned: TRUE
-/obj/machinery/alarm/all_access/monitor/directional:
+=/obj/machinery/alarm/all_access/monitor/directional:
   banned: TRUE
-/obj/machinery/alarm/kitchen_cold_room/directional:
+=/obj/machinery/alarm/kitchen_cold_room/directional:
   banned: TRUE
-/obj/machinery/alarm/monitor/directional:
+=/obj/machinery/alarm/monitor/directional:
   banned: TRUE
-/obj/machinery/alarm/monitor/server/directional:
+=/obj/machinery/alarm/monitor/server/directional:
   banned: TRUE
-/obj/machinery/alarm/old/directional:
+=/obj/machinery/alarm/old/directional:
   banned: TRUE
-/obj/machinery/alarm/server/directional:
+=/obj/machinery/alarm/server/directional:
   banned: TRUE
-/obj/machinery/alarm/syndicate/directional:
+=/obj/machinery/alarm/syndicate/directional:
   banned: TRUE
-/obj/machinery/alarm/vox/directional:
+=/obj/machinery/alarm/vox/directional:
   banned: TRUE
