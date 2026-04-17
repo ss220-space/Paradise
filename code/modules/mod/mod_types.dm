@@ -518,7 +518,6 @@
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
 		/obj/item/mod/module/visor/thermal,
-		/obj/item/mod/module/energy_shield/gamma,
 	)
 	default_pins = list(
 		/obj/item/mod/module/power_kick,

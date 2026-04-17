@@ -395,7 +395,6 @@
 		/obj/item/storage/firstaid/tactical = 1,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
-		/obj/item/dna_upgrader = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
@@ -403,7 +402,6 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 	)
