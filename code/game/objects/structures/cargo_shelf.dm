@@ -4,7 +4,7 @@
 #define DEFAULT_SHELF_VERTICAL_OFFSET 10
 
 /**
- * MARK: crate shelf
+ * MARK: Crate Shelf
  *
  * Original crate shelf port from Shiptest: https://github.com/shiptest-ss13/Shiptest/pull/2374
  * Our port from NovaSector: https://github.com/NovaSector/NovaSector/pull/6550
@@ -13,7 +13,7 @@
 /obj/structure/cargo_shelf
 	name = "crate shelf"
 	desc = "Это стеллаж! Для хранения ящиков!"
-	icon = 'icons/obj/structures/shelf.dmi'
+	icon = 'icons/obj/structures/rack.dmi'
 	icon_state = "shelf_base"
 	density = TRUE
 	anchored = TRUE
@@ -47,9 +47,21 @@
 		else
 			stack_layer  = BELOW_OBJ_LAYER + (0.02 * i) - 0.01 // Make each shelf piece render above the last, but below the crate that should be on it.
 		stack_offset = DEFAULT_SHELF_VERTICAL_OFFSET * i // Make each shelf piece physically above the last.
-		var/mutable_appearance/shelf_overlay = mutable_appearance('icons/obj/structures/shelf.dmi', "shelf_stack", layer = stack_layer)
+		var/mutable_appearance/shelf_overlay = mutable_appearance('icons/obj/structures/rack.dmi', "shelf_stack", layer = stack_layer)
 		shelf_overlay.pixel_y = stack_offset
 		overlays += shelf_overlay
+
+	register_context()
+
+/obj/structure/cargo_shelf/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	if(isnull(held_item))
+		return NONE
+
+	if(held_item.tool_behaviour == TOOL_WRENCH)
+		context[SCREENTIP_CONTEXT_RMB] = "Разобрать"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return NONE
 
 /obj/structure/cargo_shelf/Destroy()
 	spill_contents()
@@ -66,13 +78,10 @@
 		for(var/obj/structure/closet/crate/crate in contents)
 			. += span_notice("[icon2html(crate, user)] [DECLENT_RU_CAP(crate, NOMINATIVE)]")
 
-/obj/structure/cargo_shelf/attackby(obj/item/item, mob/living/user, list/modifiers)
-	if(item.tool_behaviour == TOOL_WRENCH && !(flags & NODECONSTRUCT))
-		item.play_tool_sound(src)
-		if(do_after(user, 3 SECONDS, target = src))
-			deconstruct(TRUE)
-			return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
+/obj/structure/cargo_shelf/wrench_act_secondary(mob/living/user, obj/item/tool)
+	tool.play_tool_sound(src)
+	deconstruct(TRUE)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/cargo_shelf/relay_container_resist_act(mob/living/user, obj/structure/closet/crate)
 	to_chat(user, span_notice("Вы начинаете пытаться выбить [crate.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
@@ -148,8 +157,8 @@
 
 /obj/structure/cargo_shelf/deconstruct(disassembled = TRUE)
 	spill_contents()
-	var/obj/item/rack_parts/cargo_shelf/newparts = new(loc)
-	transfer_fingerprints_to(newparts)
+	var/obj/item/rack_parts/cargo_shelf/new_parts = new(loc)
+	transfer_fingerprints_to(new_parts)
 	return ..()
 
 /// Fling crates around and open/break some of them in the process
@@ -185,43 +194,6 @@
 				continue
 			return pick(buckets[i])
 	return get_turf(src) // fallback on source turf
-
-/obj/structure/closet/crate/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!isliving(user))
-		return
-
-	// 0) If the target is a crate on a shelf, we work with the shelf itself.
-	if(is_crate(over_object) && is_cargo_shelf(over_object.loc))
-		over_object = over_object.loc
-
-	// 1) Unloading from shelf to turf
-	if(!isopenspaceturf(over_object) && is_cargo_shelf(loc) && !is_cargo_shelf(over_object))
-		if(get_dist(user, over_location) > 1)
-			balloon_alert(user, "слишком далеко!")
-			return
-		var/obj/structure/cargo_shelf/shelf = loc
-		shelf.unload(src, user, over_object)
-		return
-
-	var/list/modifiers = params2list(params)
-	var/y_offset = text2num(modifiers[ICON_Y])
-
-	// 2) Shelf to Shelf (drag from one shelf to another)
-	if(is_cargo_shelf(over_object) && is_cargo_shelf(loc))
-		var/obj/structure/cargo_shelf/source_shelf = loc
-		var/obj/structure/cargo_shelf/destination_shelf = over_object
-
-		if(destination_shelf.can_load(src, user, y_offset) && source_shelf.unload(src, user, destination_shelf))
-			if(!destination_shelf.load(src, user, y_offset, instant = TRUE)) // Might have been filled up in that the time it took to load
-				forceMove(source_shelf.get_spill_location()) // So let's get rid of it in that case
-		return
-
-	// 3) turf to shelf (normal loading)
-	if(is_cargo_shelf(over_object) && isturf(loc))
-		var/obj/structure/cargo_shelf/shelf = over_object
-		shelf.load(src, user, y_offset)
-		return
 
 /// Adds a crate to the shelf
 /obj/structure/cargo_shelf/proc/add_crate(obj/structure/closet/crate/crate, mob/user, y_offset)
@@ -266,43 +238,6 @@
 	if(is_crate(gone))
 		remove_crate(gone)
 	return ..()
-
-// MARK: shelf rack parts
-/obj/item/rack_parts/cargo_shelf
-	name = "crate shelf parts"
-	desc = "Детали стеллажа, предназначенного для хранения ящиков."
-	gender = PLURAL
-	icon = 'icons/obj/structures/shelf.dmi'
-	materials = list(MAT_METAL = 2000)
-
-/obj/item/rack_parts/cargo_shelf/get_ru_names()
-	return list(
-		NOMINATIVE = "детали стеллажа для ящиков",
-		GENITIVE = "деталей стеллажа для ящиков",
-		DATIVE = "деталям стеллажа для ящиков",
-		ACCUSATIVE = "детали стеллажа для ящиков",
-		INSTRUMENTAL = "деталями стеллажа для ящиков",
-		PREPOSITIONAL = "деталях стеллажа для ящиков",
-	)
-
-/obj/item/rack_parts/cargo_shelf/attack_self(mob/user)
-	if(building)
-		return
-	building = TRUE
-	to_chat(user, span_notice("Вы начинаете собирать [declent_ru(ACCUSATIVE)]..."))
-	if(do_after(user, 5 SECONDS, target = user, progress = TRUE))
-		if(!user.temporarily_remove_item_from_inventory(src))
-			building = FALSE
-			return
-		var/obj/structure/cargo_shelf/rack = new /obj/structure/cargo_shelf(get_turf(src))
-		user.visible_message(
-			span_notice("[user] собира[PLUR_ET_YUT(user)] [rack.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы собираете [rack.declent_ru(ACCUSATIVE)]."),
-		)
-		rack.add_fingerprint(user)
-		qdel(src)
-		return
-	building = FALSE
 
 #undef DEFAULT_SHELF_USE_DELAY
 #undef DEFAULT_SHELF_VERTICAL_OFFSET

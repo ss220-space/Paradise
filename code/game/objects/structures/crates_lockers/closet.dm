@@ -1,5 +1,6 @@
 GLOBAL_LIST_EMPTY(closets)
 
+// MARK: Basic Closet
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
