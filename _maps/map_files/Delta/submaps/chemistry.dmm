@@ -1,9 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aK" = (
-/obj/structure/disposalpipe/junction{
-	icon_state = "pipe-j1f"
-	},
 /obj/machinery/chem_heater,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "aY" = (
