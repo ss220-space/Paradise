@@ -73,7 +73,7 @@
 	dumpee.forceMove(T)
 	dumpee.newtonian_move(dumpee.dir)
 
-/turf/space/transit/rpd_act()
+/turf/space/transit/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /turf/space/transit/rcd_act()

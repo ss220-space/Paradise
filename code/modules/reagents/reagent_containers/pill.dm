@@ -53,8 +53,8 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/food/pill/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	if(target.is_open_container() != 0 && target.reagents)

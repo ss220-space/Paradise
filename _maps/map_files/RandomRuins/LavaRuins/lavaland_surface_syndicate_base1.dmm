@@ -4939,7 +4939,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kT" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/medbay/redcross,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kV" = (

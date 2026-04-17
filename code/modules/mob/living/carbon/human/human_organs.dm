@@ -34,6 +34,10 @@
 			continue
 
 		if(bodypart.is_traumatized() || !bodypart.properly_attached)
+			var/drop_chance = bodypart.fracture.drop_chance
+			if(!drop_chance || !prob(drop_chance))
+				continue
+
 			if(bodypart.limb_zone == BODY_ZONE_L_ARM || bodypart.limb_zone == BODY_ZONE_PRECISE_L_HAND)
 				if(!l_hand)
 					continue

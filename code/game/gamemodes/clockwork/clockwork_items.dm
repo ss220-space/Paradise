@@ -109,7 +109,7 @@
 			deplete_spell()
 		user.color = null
 
-/obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/clockwork/clockslab/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!isclocker(user))
 		if(plushy)
@@ -124,7 +124,7 @@
 		return
 	switch(enchant_type)
 		if(STUN_SPELL)
-			if(!isliving(target) || isclocker(target) || !proximity)
+			if(!isliving(target) || isclocker(target) || !proximity_flag)
 				return
 			var/mob/living/living = target
 			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
@@ -156,7 +156,7 @@
 			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)
-			if(!proximity) //magical key only works if you're close enough
+			if(!proximity_flag) //magical key only works if you're close enough
 				return
 			if(istype(target, /obj/machinery/door))
 				var/obj/machinery/door/door = target
@@ -179,10 +179,10 @@
 			else
 				to_chat(user, span_warning("You can use only on doors and closets!"))
 		if(TELEPORT_SPELL)
-			if(target.density && !proximity)
+			if(target.density && !proximity_flag)
 				to_chat(user, span_warning(">The path is blocked!"))
 				return
-			if(proximity)
+			if(proximity_flag)
 				to_chat(user, span_warning("You too close to the path point!"))
 				return
 			if(!(target in view(user)))
@@ -197,7 +197,7 @@
 				deplete_spell()
 			user.color = null
 		if(HEAL_SPELL)
-			if(!isliving(target) || !isclocker(target) || !proximity)
+			if(!isliving(target) || !isclocker(target) || !proximity_flag)
 				return
 			var/mob/living/living = target
 			if(ishuman(living))
@@ -274,9 +274,9 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || !wielded || !isliving(target))
+	if(!proximity_flag || !wielded || !isliving(target))
 		return
 	if(isclocker(target))
 		return
@@ -333,9 +333,9 @@
 	if(enchant_type)
 		. += "ratvarian_spear0_overlay_[enchant_type]"
 
-/obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || !isliving(target))
+	if(!proximity_flag || !isliving(target))
 		return
 	if(isclocker(target))
 		return
@@ -431,9 +431,9 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/twohanded/clock_hammer/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/twohanded/clock_hammer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || !wielded || !isliving(target))
+	if(!proximity_flag || !wielded || !isliving(target))
 		return
 	if(isclocker(target))
 		return
@@ -559,7 +559,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!proximity_flag || !isliving(target))
 		return
@@ -630,9 +630,9 @@
 				add_attack_logs(user, M, "Flashed with [src]")
 		deplete_spell()
 
-/obj/item/shield/clock_buckler/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/shield/clock_buckler/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || !isliving(target))
+	if(!proximity_flag || !isliving(target))
 		return
 	if(isclocker(target))
 		return
@@ -1404,12 +1404,14 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!ishuman(target) || !isclocker(user))
 		return
-	if(!proximity)
+
+	if(!proximity_flag)
 		return
+
 	var/mob/living/carbon/human/human = target
 	if(human.stat == DEAD && isclocker(human)) // dead clocker
 		user.temporarily_remove_item_from_inventory(src)

@@ -1015,3 +1015,11 @@
 /datum/sprite_accessory/hair/braided_twintails
 	name = "Braided twintails"
 	icon_state = "braided_twintails"
+
+/datum/sprite_accessory/hair/whalekiller
+	name = "Whale killer"
+	icon_state = "whalekiller"
+
+/datum/sprite_accessory/hair/lord
+	name = "The Lord of Hongyuan"
+	icon_state = "lord_of_hongyuan"

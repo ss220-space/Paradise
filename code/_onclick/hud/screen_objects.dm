@@ -1,11 +1,11 @@
-/*
-	Screen objects
-	Todo: improve/re-implement
-
-	Screen objects are only used for the hud and should not appear anywhere "in-game".
-	They are used with the client/screen list and the screen_loc var.
-	For more information, see the byond documentation on the screen_loc and screen vars.
-*/
+/**
+ * Screen objects
+ * Todo: improve/re-implement
+ *
+ * Screen objects are only used for the hud and should not appear anywhere "in-game".
+ * They are used with the client/screen list and the screen_loc var.
+ * For more information, see the byond documentation on the screen_loc and screen vars.
+ */
 /atom/movable/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
@@ -13,11 +13,12 @@
 	// NOTE: screen objects do NOT change their plane to match the z layer of their owner
 	// You shouldn't need this, but if you ever do and it's widespread, reconsider what you're doing.
 	plane = HUD_PLANE
-	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
-	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
 	interaction_flags_click = BYPASS_ADJACENCY
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 	flags = NO_SCREENTIPS
+	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
+	VAR_PRIVATE/datum/hud/hud = null
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -44,6 +45,10 @@
 	master = null
 	hud = null
 	return ..()
+
+/// Screen elements are always on top of the players screen and don't move so yes they are adjacent
+/atom/movable/screen/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
+	return TRUE
 
 /atom/movable/screen/proc/component_click(atom/movable/screen/component_button/component, params)
 	return
@@ -181,7 +186,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -190,10 +195,10 @@
 	if(is_ventcrawling(usr)) // stops inventory actions in vents
 		return TRUE
 
-	if(master)
-		var/obj/item/I = usr.get_active_hand()
-		if(I)
-			I.melee_attack_chain(usr, master, params2list(params))
+	if(isstorage(master))
+		var/obj/item/storage/storage_master = master
+		var/obj/item/item = usr.get_active_hand()
+		storage_master.attempt_insert(item)
 	return TRUE
 
 /atom/movable/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
@@ -213,8 +218,8 @@
 			return TRUE
 	return FALSE
 
-/atom/movable/screen/storage/MouseDrop_T(obj/item/I, mob/user, params)
-	if(!user || !master || !istype(I) || user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+/atom/movable/screen/storage/mouse_drop_receive(obj/item/I, mob/user, params)
+	if(!user || !master || !istype(I) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return FALSE
 
 	if(is_ventcrawling(user))
@@ -251,7 +256,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		I.melee_attack_chain(user, S, params2list(params))
+		S.attempt_insert(I)
 	return TRUE
 
 /atom/movable/screen/storage/space_box
@@ -528,18 +533,7 @@
 
 	return TRUE
 
-
-/atom/movable/screen/inventory/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	cut_overlay(object_overlay)
-	QDEL_NULL(object_overlay)
-	if(could_be_click_lag())
-		Click(src_location, null, params)
-		drag_start = 0
-		return
-	return ..()
-
-/atom/movable/screen/inventory/MouseDrop_T(obj/item/I, mob/user, params)
-
+/atom/movable/screen/inventory/mouse_drop_receive(obj/item/I, mob/user, params)
 	if(!user || !istype(I) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
 		return FALSE
 
@@ -577,6 +571,7 @@
 	I.pickup(user)
 
 /atom/movable/screen/inventory/hand
+	interaction_flags_atom = NONE //so dragging objects into hands icon don't skip adjacency & other checks
 	/// Previous UI style, used by user. Requires to properly update user's active hand overlay.
 	var/prev_ui_style
 	/// Currently used overlay for active hand. It's icon switches with user's theme.

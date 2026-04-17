@@ -411,7 +411,7 @@
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
-	var/required_moves = hitscan ? MOVES_HITSCAN : FLOOR(elapsed_time_deciseconds / speed, 1)
+	var/required_moves = hitscan ? MOVES_HITSCAN : floor(elapsed_time_deciseconds / speed)
 	if(required_moves == MOVES_HITSCAN)
 		required_moves = SSprojectiles.global_max_tick_moves
 	if(required_moves > SSprojectiles.global_max_tick_moves)

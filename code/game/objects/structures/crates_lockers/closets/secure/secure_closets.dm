@@ -5,6 +5,7 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon_state = "secure"
 	locked = TRUE
+	secure = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
@@ -51,19 +52,9 @@
 		if(user)
 			to_chat(user, span_notice("You break the lock on [src]."))
 
-/obj/structure/closet/secure_closet/closed_item_click(mob/user)
-	togglelock(user)
-
 /obj/structure/closet/secure_closet/click_alt(mob/user)
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
-
-/obj/structure/closet/secure_closet/attack_hand(mob/user)
-	if(locked)
-		togglelock(user)
-	else
-		add_fingerprint(user)
-		toggle(user)
 
 /obj/structure/closet/secure_closet/update_overlays()
 	. = ..()
@@ -89,7 +80,7 @@
 	else
 		desc = initial(desc)
 
-/obj/structure/closet/secure_closet/container_resist(mob/living/user)
+/obj/structure/closet/secure_closet/relay_container_resist_act(mob/living/user)
 	if(opened)
 		if(user.loc == src)
 			user.forceMove(get_turf(src)) // Let's just be safe here
@@ -98,7 +89,7 @@
 	if(!locked && !welded)
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
-	if(user.incapacitated(INC_IGNORE_RESTRAINED))
+	if(user.incapacitated(IGNORE_RESTRAINTS))
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
@@ -114,7 +105,7 @@
 		return
 
 	//closet/user destroyed OR user dead/unconscious OR user no longer in closet OR closet opened
-	if(!src || !user || user.incapacitated(INC_IGNORE_RESTRAINED) || user.loc != src || opened)
+	if(!src || !user || user.incapacitated(IGNORE_RESTRAINTS) || user.loc != src || opened)
 		return
 
 	//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
@@ -139,7 +130,7 @@
 
 	if(isobj(loc))
 		var/obj/loc_as_obj = loc
-		loc_as_obj.container_resist(user)
+		loc_as_obj.container_resist_act(user)
 
 	open()
 

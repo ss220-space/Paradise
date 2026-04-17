@@ -34,6 +34,7 @@
 #define MEDAL_NO_HELL_TODAY "No Hell today"
 #define MEDAL_KERBEROS_MASTER "Kerberos master"
 #define MEDAL_DEEP_DRAW "Deep draw"
+#define MEDAL_THEORETICAL_LIMITS "All Within Theoretical Limits"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"
