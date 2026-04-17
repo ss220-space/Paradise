@@ -58,6 +58,12 @@
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened
+	name = "Hardened Anti-drop implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
+
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
