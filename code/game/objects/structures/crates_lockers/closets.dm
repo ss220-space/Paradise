@@ -155,24 +155,24 @@ GLOBAL_LIST_EMPTY(closets)
 	dump_contents()
 	return ..()
 
-/obj/structure/closet/vv_edit_var(vname, vval)
-	if(vname == NAMEOF(src, opened))
-		if(vval == opened)
+/obj/structure/closet/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, opened))
+		if(var_value == opened)
 			return FALSE
-		if(vval && !opened && open())
+		if(var_value && !opened && open(force = TRUE))
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
-		else if(!vval && opened && close())
+		else if(!var_value && opened && close())
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		return FALSE
 	. = ..()
-	if(vname == NAMEOF(src, welded) && welded && !can_weld_shut)
+	if(var_name == NAMEOF(src, welded) && welded && !can_weld_shut)
 		can_weld_shut = TRUE
-	else if(vname == NAMEOF(src, can_weld_shut) && !can_weld_shut && welded)
+	else if(var_name == NAMEOF(src, can_weld_shut) && !can_weld_shut && welded)
 		welded = FALSE
 		update_appearance()
-	if(vname in list(NAMEOF(src, locked), NAMEOF(src, welded)))
+	if(var_name in list(NAMEOF(src, locked), NAMEOF(src, welded), NAMEOF(src, secure)))
 		update_appearance()
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
