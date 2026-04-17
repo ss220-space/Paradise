@@ -221,7 +221,6 @@
 	name = "mutated Carp"
 	desc = "Космический карп со странной внешностью."
 	icon_state = "Mcarp"
-	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
 	random_color = FALSE
 
@@ -233,8 +232,8 @@
 /mob/living/simple_animal/hostile/carp/mcarp/get_ru_names()
 	return list(
 		NOMINATIVE = "мутировавший карп",
-		GENITIVE = "мутирововшего карпа",
-		DATIVE = "мутирововшему карпу",
+		GENITIVE = "мутировавшего карпа ",
+		DATIVE = "мутировавшему карпу",
 		ACCUSATIVE = "мутировавшего карпа",
 		INSTRUMENTAL = "мутировавшим карпом",
 		PREPOSITIONAL = "мутировавшем карпе",
