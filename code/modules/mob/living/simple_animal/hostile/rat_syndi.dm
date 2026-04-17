@@ -63,9 +63,6 @@
 		minbodytemp = 0, \
 	)
 
-/mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_action()
-	return /mob/living/simple_animal/mouse::handle_automated_action() // this is bad. But you know what worse? Why do we have second mouse.
-
 /mob/living/simple_animal/hostile/retaliate/syndirat/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 	desc = "It's toast."
