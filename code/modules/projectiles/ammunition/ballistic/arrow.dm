@@ -9,6 +9,8 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
 	caliber = CALIBER_ARROW
+	no_update_names = TRUE
+	no_update_desc = TRUE
 
 /obj/item/ammo_casing/caseless/arrow/get_ru_names()
 	return list(

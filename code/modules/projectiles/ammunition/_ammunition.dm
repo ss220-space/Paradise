@@ -55,6 +55,10 @@
 	 * Example: `"Воспламеяется при попадании."`
 	 */
 	var/extra_info = null
+	/// `name` and `ru_names` won't be dynamically updated if set to `TRUE`
+	var/no_update_names = FALSE
+	/// `desc` won't be dynamically updated if set to `TRUE`
+	var/no_update_desc = FALSE
 
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()
@@ -138,6 +142,9 @@
 	return ammo_marking ? ammo_marking : caliber
 
 /obj/item/ammo_casing/proc/update_names()
+	if(no_update_names)
+		return
+
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 
@@ -162,6 +169,9 @@
 
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
+	if(no_update_desc)
+		return
+
 	if(BB)
 		desc = "Заряженный и готовый к использованию патрон [get_ammo_marking()].[extra_info ? " " + extra_info : ""]"
 	else
@@ -260,10 +270,3 @@
 
 /obj/item/ammo_casing/caseless/after_fire()
 	qdel(src)
-
-/obj/item/ammo_casing/caseless/update_names()
-	return
-
-/obj/item/ammo_casing/caseless/update_desc(updates = ALL)
-	. = ..()
-	desc = initial(desc)

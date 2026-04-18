@@ -11,7 +11,7 @@
 
 // MARK: 5.45x39mm - AK-814
 /obj/item/ammo_box/magazine/ak814
-	gun_name = "автомата AK-814"
+	gun_name = "автомата АК-814"
 	icon_state = "ak814"
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545

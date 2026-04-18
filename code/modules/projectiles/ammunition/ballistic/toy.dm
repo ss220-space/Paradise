@@ -1,6 +1,6 @@
 // MARK: Foam dart
 /obj/item/ammo_casing/caseless/foam_dart
-	name = "foam dart"
+	ammo_marking = "\"пенопластовый\""
 	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foamdart"
 	materials = list(MAT_METAL = 10)
@@ -9,16 +9,6 @@
 	muzzle_flash_effect = null
 	var/modified = FALSE
 	harmful = FALSE
-
-/obj/item/ammo_casing/caseless/foam_dart/get_ru_names()
-	return list(
-		NOMINATIVE = "пенопластовый патрон",
-		GENITIVE = "пенопластового патрона",
-		DATIVE = "пенопластовому патрону",
-		ACCUSATIVE = "пенопластовый патрон",
-		INSTRUMENTAL = "пенопластовым патроном",
-		PREPOSITIONAL = "пенопластовом патроне",
-	)
 
 /obj/item/ammo_casing/caseless/foam_dart/update_desc(updates = ALL)
 	. = ..()
@@ -95,39 +85,19 @@
 		FD.pen = null
 
 /obj/item/ammo_casing/caseless/foam_dart/riot
-	name = "riot foam dart"
+	ammo_marking = "\"пенопластовый+\""
 	extra_info = "Усиленная версия, по силе удара сравнимая с полноценными резиновыми пулями."
 	icon_state = "foamdart_riot"
 	materials = list(MAT_METAL = 650)
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/riot
 
-/obj/item/ammo_casing/caseless/foam_dart/riot/get_ru_names()
-	return list(
-		NOMINATIVE = "пенопластовый патрон (усиленный)",
-		GENITIVE = "пенопластового патрона (усиленный)",
-		DATIVE = "пенопластовому патрону (усиленный)",
-		ACCUSATIVE = "пенопластовый патрон (усиленный)",
-		INSTRUMENTAL = "пенопластовым патроном (усиленный)",
-		PREPOSITIONAL = "пенопластовом патроне (усиленный)",
-	)
-
 /obj/item/ammo_casing/caseless/foam_dart/sniper
-	name = "foam sniper dart"
+	ammo_marking = "\"пенопластовый снайперский\""
 	extra_info = "Вариант большего размера для использования в игрушечных снайперских винтовках."
 	icon_state = "foamdartsniper"
 	materials = list(MAT_METAL = 20)
 	caliber = CALIBER_FOAM_FORCE_SNIPER
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper
-
-/obj/item/ammo_casing/caseless/foam_dart/sniper/get_ru_names()
-	return list(
-		NOMINATIVE = "пенопластовый патрон (снайперский)",
-		GENITIVE = "пенопластового патрона (снайперский)",
-		DATIVE = "пенопластовому патрону (снайперский)",
-		ACCUSATIVE = "пенопластовый патрон (снайперский)",
-		INSTRUMENTAL = "пенопластовым патроном (снайперский)",
-		PREPOSITIONAL = "пенопластовом патроне (снайперский)",
-	)
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon_state()
 	if(modified)
@@ -140,21 +110,11 @@
 			BB.icon_state = initial(BB.icon_state)
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-	name = "riot foam sniper dart"
+	ammo_marking = "\"пенопластовый снайперский+\""
 	extra_info = "Усиленная версия для игрушечных снайперских винтовок, по силе удара сравнимая с полноценными резиновыми пулями."
 	icon_state = "foamdartsniper_riot"
 	materials = list(MAT_METAL = 1800)
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper/riot
-
-/obj/item/ammo_casing/caseless/foam_dart/sniper/riot/get_ru_names()
-	return list(
-		NOMINATIVE = "пенопластовый патрон (снайперский усиленный)",
-		GENITIVE = "пенопластового патрона (снайперский усиленный)",
-		DATIVE = "пенопластовому патрону (снайперский усиленный)",
-		ACCUSATIVE = "пенопластовый патрон (снайперский усиленный)",
-		INSTRUMENTAL = "пенопластовым патроном (снайперский усиленный)",
-		PREPOSITIONAL = "пенопластовом патроне (снайперский усиленный)",
-	)
 
 // MARK: Cap
 /obj/item/ammo_casing/cap
