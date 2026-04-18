@@ -29,6 +29,10 @@
 	if(modified)
 		. += span_warning("Пуля была модифицирована.")
 
+/obj/item/ammo_casing/caseless/foam_dart/examine_more(mob/user)
+	. = ..()
+	. += span_notice("Патрон можно модифицировать, <b>раскрутив</b> его и вставив внутрь <b>ручку</b>.")
+
 /obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
 	if(modified)
 		icon_state = "foamdart_empty"
@@ -154,7 +158,6 @@
 
 // MARK: Cap
 /obj/item/ammo_casing/cap
-	ammo_marking = "холостой"
 	extra_info = "Холостой вариант для игрушечного оружия. Пуля отсутствует."
 	materials = list(MAT_METAL = 10)
 	caliber = CALIBER_CAP
