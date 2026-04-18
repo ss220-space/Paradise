@@ -124,7 +124,7 @@
 #define PASSSTRUCTURE (1<<7)
 /// Allows you to pass over plastic flaps, often found at cargo or MULE dropoffs.
 #define PASSFLAPS (1<<8)
-/// Allows you to pass over fence's.
+/// Allows you to pass over fences.
 #define PASSFENCE (1<<9)
 /// Allows you to pass over airlocks and mineral doors.
 #define PASSDOOR (1<<10)
