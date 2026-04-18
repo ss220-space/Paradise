@@ -63,22 +63,22 @@
 	reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/item/mop/afterattack(atom/atom, mob/user, proximity, params)
-	if(!proximity || iseffect(atom))
+/obj/item/mop/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || iseffect(target))
 		return
 
 	if(reagents.total_volume < 1)
 		to_chat(user, span_warning("Your mop is dry!"))
 		return
 
-	if(istype(atom, /obj/item/reagent_containers/glass/bucket) || istype(atom, /obj/structure/janitorialcart) || istype(atom, /obj/structure/mopbucket))
+	if(istype(target, /obj/item/reagent_containers/glass/bucket) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/structure/mopbucket))
 		return
 
 	if(world.time > mop_sound_cooldown)
 		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
 		mop_sound_cooldown = world.time + MOP_SOUND_CD
 
-	var/clicked_turf = get_turf(atom)
+	var/clicked_turf = get_turf(target)
 	var/list/turf/turfs = get_mopping_turfs(user, clicked_turf)
 	if(!length(turfs))
 		return

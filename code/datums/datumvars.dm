@@ -849,7 +849,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		var/obj/O = locateUID(href_list["delall"])
-		if(!isobj(O))
+		if(!istype(O))
 			to_chat(usr, "This can only be used on instances of type /obj", confidential = TRUE)
 			return
 

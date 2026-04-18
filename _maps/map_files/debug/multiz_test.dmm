@@ -230,12 +230,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
-"fK" = (
-/obj/structure/table,
-/obj/item/ammo_box/m10mm,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "gj" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/item/mod/control/pre_equipped/responsory/security,
@@ -600,6 +594,11 @@
 	dir = 6
 	},
 /area/construction/hallway)
+"nF" = (
+/obj/machinery/power/supermatter_crystal/engine,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plating,
+/area/engineering/engine)
 "nN" = (
 /turf/simulated/floor/plasteel{
 	dir = 8
@@ -614,6 +613,12 @@
 	icon_state = "L3"
 	},
 /area/storage/primary)
+"nZ" = (
+/obj/structure/table,
+/obj/item/ammo_box/m10mm,
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "os" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
@@ -1053,11 +1058,6 @@
 /obj/item/mod/control/pre_equipped/responsory/janitor,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"xP" = (
-/obj/machinery/atmospherics/supermatter_crystal/engine,
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plating,
-/area/engineering/engine)
 "xW" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/disposalpipe/segment{
@@ -19945,7 +19945,7 @@ qq
 Ko
 vC
 ss
-xP
+nF
 eR
 ch
 Sx
@@ -20210,7 +20210,7 @@ Lr
 Lr
 YY
 Gk
-fK
+nZ
 eb
 XO
 Gk

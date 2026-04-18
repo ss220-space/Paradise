@@ -143,6 +143,7 @@
 #define COLOR_MAGENTA "#ff00ff"
 #define COLOR_STRONG_MAGENTA "#b800b8"
 #define COLOR_PURPLE "#800080"
+#define COLOR_TONGUE_PINK "#ff6ea0"
 #define COLOR_VIOLET "#b900f7"
 #define COLOR_VOID_PURPLE "#53277e"
 #define COLOR_STRONG_VIOLET "#6927c5"
@@ -162,6 +163,7 @@
 #define COLOR_PRISONER_ORANGE "#a54900"
 #define COLOR_DARK_MODERATE_ORANGE "#8b633b"
 #define COLOR_RUSTED_GLASS "#917c65"
+#define COLOR_DARK_DELAM "#ddd6cf"
 
 // Brown
 #define COLOR_BROWN "#ba9f6d"

@@ -156,7 +156,7 @@
 #define GAS_PIPE_HIDDEN_LAYER 1.72
 #define WIRE_LAYER 1.73
 #define WIRE_TERMINAL_LAYER 1.75
-#define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
+#define ABOVE_PLATING_LAYER 1.76 // generic for /datum/element/undertile
 #define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
 #define TRANSPARENT_PLATING_LAYER 1.98
 #define TRANSPARENT_GIRDER_LAYER 1.99 // for turf_transparency

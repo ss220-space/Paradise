@@ -61,7 +61,7 @@
 /obj/item/ninja_net_emitter/attack_self(mob/user)
 	return
 
-/obj/item/ninja_net_emitter/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/ninja_net_emitter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)
 	ensnare(target_mob, user)
 

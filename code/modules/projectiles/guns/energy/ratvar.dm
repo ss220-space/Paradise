@@ -77,7 +77,7 @@
 /obj/item/gun/energy/clockwork/emp_act(severity)
 	return
 
-/obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
+/obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(!isclocker(user))
 		kill_shooter(user)
 		return
@@ -239,7 +239,7 @@
 		QDEL_NULL(chambered)
 	newshot()
 
-/obj/item/gun/energy/gun/minigun/clockwork/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+/obj/item/gun/energy/gun/minigun/clockwork/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(overheat)
 		if(COOLDOWN_FINISHED(src, balloon))
 			balloon_alert(user, "миниган перегрет!")

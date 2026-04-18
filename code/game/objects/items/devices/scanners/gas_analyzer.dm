@@ -202,7 +202,7 @@
 	ui_interact(user)
 	add_fingerprint(user)
 
-/obj/item/analyzer/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/analyzer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!user.can_see(target, scan_range))
 		return

@@ -512,8 +512,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		MO.desc = "Похоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
-/obj/item/proc/afterattack(atom/target, mob/user, proximity, list/modifiers, status)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, modifiers, status)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers, status)
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()

@@ -338,7 +338,8 @@
 
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
-		/obj/item/reagent_containers/applicator/dual = 2,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
+		/obj/item/reagent_containers/applicator/dual/syndi = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
 		/obj/item/storage/belt/medical/surgery/loaded = 2,
@@ -359,6 +360,8 @@
 		/obj/item/reagent_containers/applicator/burn = 4,
 		/obj/item/healthanalyzer/advanced = 4,
 		/obj/item/roller/holo = 2,
+		/obj/item/clothing/gloves/color/latex/modified = 2,
+		/obj/item/clothing/gloves/color/latex/inugami = 2,
 	)
 	contraband = list()
 

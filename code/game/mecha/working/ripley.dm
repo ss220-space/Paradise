@@ -117,7 +117,7 @@
 /obj/mecha/working/ripley/deathripley/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
@@ -132,25 +132,25 @@
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?
 			var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new
-			D.attach(src)
+			D.attach(src, MECH_HAND_LEFT)
 		else
 			var/obj/item/mecha_parts/mecha_equipment/drill/D = new
-			D.attach(src)
+			D.attach(src, MECH_HAND_LEFT)
 
 	else //Add plasma cutter if no drill
 		var/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/P = new
-		P.attach(src)
+		P.attach(src, MECH_HAND_LEFT)
 
 	//Add ore box to cargo
 	LAZYADD(cargo, new /obj/structure/ore_box(src))
 
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
-	HC.attach(src)
+	HC.attach(src, MECH_HAND_RIGHT)
 	QDEL_LIST(trackers) //Deletes the beacon so it can't be found easily
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
-	scanner.attach(src)
+	scanner.attach(src, MECH_HAND_RIGHT)
 
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
@@ -178,35 +178,35 @@
 /obj/mecha/working/ripley/full_load/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/drill
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/rcd
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/wormhole_generator
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 
 /obj/mecha/working/ripley/full_load/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src) // для тестов энергопотребления.

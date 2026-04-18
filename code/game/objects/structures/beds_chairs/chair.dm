@@ -3,7 +3,6 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = 0 // you sit in a chair, not lay
 	max_integrity = 250

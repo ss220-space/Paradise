@@ -39,7 +39,7 @@
 	var/combined_atom_flags = interaction_flags_atom | over.interaction_flags_atom
 	if(!(combined_atom_flags & INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS))
 		//Check for adjacency
-		if(!(combined_atom_flags & INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT) && (!CanReach(user) || !over.CanReach(user)))
+		if(!(combined_atom_flags & INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT) && (!Adjacent(user) || !over.Adjacent(user)))
 			return // should stop you from dragging through windows
 
 		if(!(combined_atom_flags & INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY))

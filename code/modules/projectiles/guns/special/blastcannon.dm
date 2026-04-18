@@ -83,7 +83,7 @@
 		return 0
 	return (pressure / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/afterattack(atom/target, mob/user, flag, params)
+/obj/item/gun/blastcannon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if((!bomb) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = calculate_bomb()
@@ -96,7 +96,7 @@
 	playsound(user, SFX_EXPLOSION, 100, TRUE)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
-	BW.preparePixelProjectile(target, get_turf(src), params2list(params), 0)
+	BW.preparePixelProjectile(target, get_turf(src), modifiers, 0)
 	BW.firer = user
 	BW.firer_source_atom = src
 	BW.fire()

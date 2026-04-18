@@ -591,6 +591,6 @@
 	. = ..()
 	add_attack_logs(user, src, "Attacked with [item]", ATKLOG_MOST)
 
-/obj/machinery/portable_atmospherics/canister/mech_melee_attack(obj/mecha/mecha)
+/obj/machinery/portable_atmospherics/canister/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	. = ..()
-	add_attack_logs(mecha.occupant, src, "Melee attacked while in [mecha]", ATKLOG_MOST)
+	add_attack_logs(mech.occupant, src, "Melee attacked while in [mech]", ATKLOG_MOST)

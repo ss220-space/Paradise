@@ -272,7 +272,7 @@
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
-/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
 	if(timer > world.time)
 		return
