@@ -31,9 +31,9 @@
 /datum/element/effect_aura/Destroy(force)
 	if(!force)
 		return QDEL_HINT_LETMELIVE
-	range_by_target = null
-	active_by_target = null
-	monitor_by_target = null
+	LAZYCLEARLIST(range_by_target)
+	LAZYCLEARLIST(active_by_target)
+	LAZYCLEARLIST(monitor_by_target)
 	return ..()
 
 /datum/element/effect_aura/proc/enable_aura(atom/target, enabled = TRUE)
@@ -110,7 +110,7 @@
 /datum/proximity_monitor/advanced/aura/proc/clear_inside()
 	if(!inside)
 		return
-	for(var/atom/movable/inside_movable in inside.Copy())
+	for(var/atom/movable/inside_movable in inside)
 		inside -= inside_movable
 		owner?.on_atom_exit(aura_owner, inside_movable)
 	inside = list()
