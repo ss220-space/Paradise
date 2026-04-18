@@ -150,7 +150,7 @@
 	picked_tool.tool_attack_chain(user, object)
 	current_interactions -= 1
 
-	if(QDELETED(picked_tool) || picked_tool.loc != user || !user.Adjacent(picked_tool))
+	if(QDELETED(picked_tool) || picked_tool.loc != user || !picked_tool.IsReachableBy(user))
 		current_interactions = 0
 		return
 

@@ -1429,6 +1429,7 @@
 #include "code\game\objects\effects\particle_holder.dm"
 #include "code\game\objects\effects\particle_holder_tgmc.dm"
 #include "code\game\objects\effects\portals.dm"
+#include "code\game\objects\effects\reach_checker.dm"
 #include "code\game\objects\effects\shared_particle_holder.dm"
 #include "code\game\objects\effects\shield.dm"
 #include "code\game\objects\effects\snowcloud.dm"
