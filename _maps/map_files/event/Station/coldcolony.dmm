@@ -4254,10 +4254,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/incinerator)
-"bCc" = (
-/obj/machinery/newscaster,
-/turf/simulated/wall,
-/area/coldcolony/malta/security/permabrig)
 "bCg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/medical/ointment/advanced{
@@ -21047,6 +21043,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/stack/rods,
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -107379,7 +107376,7 @@ wYq
 fEv
 rbF
 daH
-bCc
+nMW
 iRN
 xzK
 jHM

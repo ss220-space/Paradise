@@ -8,7 +8,7 @@ help: "Use the specific directional subtypes for this newscaster."
 
 =/obj/machinery/newscaster:
   banned: TRUE
-=/obj/machinery/newscaster/security_unit::
+=/obj/machinery/newscaster/security_unit:
   banned: TRUE
 
 # directional
