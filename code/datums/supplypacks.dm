@@ -3464,7 +3464,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 150
 	contains = list(
-		/obj/item/stack/fireproof_rods/twentyfive,
+		/obj/item/stack/rods/fireproof/twentyfive,
 	)
 	required_tech = list(RESEARCH_TREE_PLASMA = 4, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 6)
 

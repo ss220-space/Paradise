@@ -70,6 +70,7 @@
 #define MEDAL_DONATION_PERMANENT_SPONSOR "Donation permanent sponsor"
 #define MEDAL_DONATION_BRONZE_SPONSOR "Donation bronze sponsor"
 #define MEDAL_DONATION_PLATINUM_SPONSOR "Donation platinum sponsor"
+#define MEDAL_DONATION_PROJECT_PILLAR "Donation project pillar"
 
 // Medal hub IDs for boss-kill scores
 #define BOSS_SCORE "Bosses Killed"
