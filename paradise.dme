@@ -3513,7 +3513,7 @@
 #include "code\modules\projectiles\ammunition\energy\stun.dm"
 #include "code\modules\projectiles\boxes_magazines\_box_magazine.dm"
 #include "code\modules\projectiles\boxes_magazines\speedloaders.dm"
-#include "code\modules\projectiles\boxes_magazines\ammo_boxes\gredades_rockets.dm"
+#include "code\modules\projectiles\boxes_magazines\ammo_boxes\grenades_rockets.dm"
 #include "code\modules\projectiles\boxes_magazines\ammo_boxes\heavy_ammo.dm"
 #include "code\modules\projectiles\boxes_magazines\ammo_boxes\intermediate.dm"
 #include "code\modules\projectiles\boxes_magazines\ammo_boxes\pistol.dm"
