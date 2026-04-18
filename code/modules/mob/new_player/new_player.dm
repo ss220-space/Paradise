@@ -388,39 +388,39 @@
 		if(!rank)
 			var/msg = "Нет свободных ролей. Пожалуйста, попробуйте позже."
 			to_chat(src, msg)
-			alert(msg)
+			tgui_alert(usr, msg)
 			return FALSE
 
 	if(!IsJobAvailable(rank))
 		var/msg = "Должность [rank] недоступна. Пожалуйста, попробуйте другую."
 		to_chat(src, span_warning(msg))
-		alert(msg)
+		tgui_alert(usr, msg)
 		return FALSE
 
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
 		var/msg = "Должность [rank] недоступна в связи с инвалидностью персонажа. Пожалуйста, попробуйте другую."
 		to_chat(src, span_warning(msg))
-		alert(msg)
+		tgui_alert(usr, msg)
 		return FALSE
 
 	if(!thisjob.character_old_enough(client))
 		var/datum/species/species = GLOB.all_species[client?.prefs.species]
 		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст — [get_age_limits(species, thisjob.min_age_type)]"
 		to_chat(src, span_warning(msg))
-		alert(msg)
+		tgui_alert(usr, msg)
 		return FALSE
 
 	if(thisjob.species_in_blacklist(client))
 		var/msg = "Должность [rank] недоступна для данной расы. Пожалуйста, попробуйте другую."
 		to_chat(src, span_warning(msg))
-		alert(msg)
+		tgui_alert(usr, msg)
 		return FALSE
 
 	if(!thisjob.check_custom_requirements(client))
 		var/msg = "Должность [rank] доступна только после получения достижения \"Опора проекта\". Пожалуйста, попробуйте другую."
 		to_chat(src, span_warning(msg))
-		alert(msg)
+		tgui_alert(usr, msg)
 		return FALSE
 
 	SSjobs.AssignRole(src, rank, 1)
