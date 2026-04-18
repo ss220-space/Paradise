@@ -225,6 +225,7 @@
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods
 	sheet_amount = 5
+	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_IRON_WALLS
 	smoothing_groups = SMOOTH_GROUP_IRON_WALLS
 
