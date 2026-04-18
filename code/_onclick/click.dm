@@ -86,14 +86,17 @@
 		return
 
 	if(LAZYACCESS(modifiers, ALT_CLICK))
-		AltClickOn(A)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			AltClickSecondaryOn(A)
+		else
+			AltClickOn(A)
 		return
 
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		return
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
@@ -113,7 +116,7 @@
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
-		return M.click_action(A, src, params)
+		return M.click_action(A, src, modifiers)
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
@@ -132,21 +135,26 @@
 	var/obj/item/W = get_active_hand()
 
 	if(W == A)
-		W.attack_self(src)
-		update_held_items()
-		return
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			W.attack_self_secondary(src, modifiers)
+			update_held_items()
+			return
+		else
+			W.attack_self(src, modifiers)
+			update_held_items()
+			return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	var/sdepth = A.storage_depth(src)
 	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
 		// No adjacency needed
-		beforeAdjacentClick(A, params)
+		beforeAdjacentClick(A, modifiers)
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1)
+			UnarmedAttack(A, 1, modifiers)
 
 		return
 
@@ -157,31 +165,31 @@
 	sdepth = A.storage_depth_turf()
 	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
 		if(A.Adjacent(src)) // see adjacent.dm
-			beforeAdjacentClick(A, params)
+			beforeAdjacentClick(A, modifiers)
 			if(W)
-				W.melee_attack_chain(src, A, params)
+				W.melee_attack_chain(src, A, modifiers)
 			else
 				if(ismob(A))
 					changeNext_move(CLICK_CD_MELEE)
-				UnarmedAttack(A, 1)
+				UnarmedAttack(A, 1, modifiers)
 
 			return
 		else // non-adjacent click
-			beforeRangedClick(A, params)
+			beforeRangedClick(A, modifiers)
 			if(W)
-				W.afterattack(A, src, FALSE, params)
+				A.base_ranged_item_interaction(src, W, modifiers)
 			else
 				if(LAZYACCESS(modifiers, RIGHT_CLICK))
 					ranged_secondary_attack(A, modifiers)
 				else
-					RangedAttack(A, params)
+					RangedAttack(A, modifiers)
 
 	return
 
-/mob/proc/beforeAdjacentClick(atom/A, params)
+/mob/proc/beforeAdjacentClick(atom/A, list/modifiers)
 	return
 
-/mob/proc/beforeRangedClick(atom/A, params)
+/mob/proc/beforeRangedClick(atom/A, list/modifiers)
 	return
 
 //Is the atom obscured by a PREVENT_CLICK_UNDER object above it
@@ -214,7 +222,7 @@
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
 
-	while(checking.len && depth > 0)
+	while(length(checking) && depth > 0)
 		var/list/next = list()
 		--depth
 
@@ -291,13 +299,13 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(atom/atom, proximity_flag)
+/mob/proc/UnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	if(ismob(atom))
 		changeNext_move(CLICK_CD_MELEE)
 
-	return OnUnarmedAttack(atom, proximity_flag)
+	return OnUnarmedAttack(atom, proximity_flag, modifiers)
 
-/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	return
 
 /*
@@ -308,11 +316,11 @@
 	for things like ranged glove touches, spitting alien acid/neurotoxin,
 	animals lunging, etc.
 */
-/mob/proc/RangedAttack(atom/A, params)
-	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+/mob/proc/RangedAttack(atom/A, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
-	if(SEND_SIGNAL(A, COMSIG_MOB_ATTACKED_RANGED, src, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(SEND_SIGNAL(A, COMSIG_MOB_ATTACKED_RANGED, src, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
 /**

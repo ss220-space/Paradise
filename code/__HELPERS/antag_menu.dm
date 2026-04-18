@@ -32,7 +32,7 @@
 			temp_list["status"] += "(ПЕРМА)"
 		// temp_list["ckey"] = antag_mind.current.client?.ckey
 	temp_list["ckey"] = ckey(antag_mind.key)
-	temp_list["is_hijacker"] = istype((locate(/datum/objective/hijack) in antag_mind.get_all_objectives()), /datum/objective/hijack)
+	temp_list["is_hijacker"] = HAS_TRAIT(antag_mind, TRAIT_HIJACK)
 	cached_data["antagonists"][uid] = temp_list
 
 /**

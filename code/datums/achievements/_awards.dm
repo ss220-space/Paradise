@@ -127,7 +127,7 @@
 		return
 
 	var/percent = FLOOR(times_achieved / SSachievements.most_unlocked_achievement.times_achieved * 100, 0.01)
-	.["achieve_tooltip"] = "[(times_achieved && !percent) ? "Менее 0,01" : percent]% от показателя самого популярного достижения: \"[SSachievements.most_unlocked_achievement.name])\""
+	.["achieve_tooltip"] = "[(times_achieved && !percent) ? "Менее 0,01" : percent]% от показателя самого популярного достижения: \"[SSachievements.most_unlocked_achievement.name]\""
 
 /datum/award/achievement/parse_value(raw_value)
 	return raw_value > 0

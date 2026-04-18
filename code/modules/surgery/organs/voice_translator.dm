@@ -325,7 +325,7 @@
 	name = "Выбрать используемый язык"
 	button_icon_state = "select_language"
 
-/datum/action/item_action/organ_action/translator_select_language/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/organ_action/translator_select_language/do_effect(trigger_flags)
 	if(!owner)
 		return
 
@@ -349,7 +349,7 @@
 
 	return TRUE
 
-/datum/action/item_action/organ_action/wingdings_decoder/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/organ_action/wingdings_decoder/do_effect(trigger_flags)
 	if(!owner)
 		return FALSE
 

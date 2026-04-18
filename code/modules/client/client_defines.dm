@@ -199,11 +199,15 @@
 	var/list/atom/selected_target[2]
 	///Used in MouseDrag to preserve the original mouse click parameters
 	var/mouseParams = ""
-	///Used in MouseDrag to preserve the last mouse-entered location.
-	var/mouse_location_UID
-	///Used in MouseDrag to preserve the last mouse-entered object.
-	var/mouse_object_UID
-	///When we started the currently active drag
+	///Used in MouseDrag to preserve the last mouse-entered location. Weakref
+	var/datum/weakref/mouse_location_ref = null
+	///Used in MouseDrag to preserve the last mouse-entered object. Weakref
+	var/datum/weakref/mouse_object_ref
+	//Middle-mouse-button click dragtime control for aimbot exploit detection.
+	var/middragtime = 0
+	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
+	var/datum/weakref/middle_drag_atom_ref
+	//When we started the currently active drag
 	var/drag_start = 0
 	//The params we were passed at the start of the drag, in list form
 	var/list/drag_details
@@ -264,4 +268,13 @@
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
 		return FALSE
+	switch(var_name)
+		if(NAMEOF(src, holder))
+			return FALSE
+		if(NAMEOF(src, ckey))
+			return FALSE
+		if(NAMEOF(src, key))
+			return FALSE
+		if(NAMEOF(src, donator_level))
+			return FALSE
 	return ..()

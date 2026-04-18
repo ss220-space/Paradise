@@ -66,3 +66,11 @@
 // Species organs
 #define DRASK_LUNGS_COOLING_START_TEMP 280
 #define DRASK_LUNGS_COOLING_STOP_TEMP 400
+
+// Fracture types
+#define FRACTURE_TYPE_CRACK GLOB.fracture_type_crack
+#define FRACTURE_TYPE_CLOSED GLOB.fracture_type_closed
+#define FRACTURE_TYPE_OPEN GLOB.fracture_type_open
+
+#define FRACTURE_CLOSED_ITEM_DROP_CHANCE 5
+#define FRACTURE_OPEN_ITEM_DROP_CHANCE 30

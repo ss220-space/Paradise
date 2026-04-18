@@ -99,7 +99,7 @@
 /datum/uplink_item/proc/spawn_item(mob/buyer, obj/item/uplink/target_uplink)
 	. = null
 	//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
-	if(hijack_only && !(buyer.mind.special_role == SPECIAL_ROLE_NUKEOPS) && !(locate(/datum/objective/hijack) in buyer.mind.get_all_objectives()) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
+	if(hijack_only && !(buyer.mind.has_antag_datum(/datum/antagonist/nuclear_operative)) && !(HAS_MIND_TRAIT(buyer, TRAIT_HIJACK)) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 		to_chat(buyer, span_warning("Синдикат готов предоставить этот чрезвычайно опасный предмет только тем агентам, целью которых является угон эвакуационного шаттла."))
 		return .
 
@@ -545,6 +545,14 @@
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 33
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER)
+
+/datum/uplink_item/jobspecific/concussivedisk
+	name = "Hyperconcussive Diode Disk"
+	desc = "A diode configuration disk that allows an emitter to shoot potent explosive lasers. \
+	Please note that this will halve the fire-rate of the emitter."
+	item = /obj/item/emitter_disk/blast
+	cost = 10
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Набор экспериментальных инструментов"

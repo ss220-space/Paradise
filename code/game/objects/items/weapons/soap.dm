@@ -26,9 +26,10 @@
 /obj/item/soap/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
-/obj/item/soap/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/soap/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
@@ -229,8 +230,9 @@
 		PREPOSITIONAL = "мыле в изоленте",
 	)
 
-/obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity) return
+/obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return
 
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "снимите это с себя!")

@@ -37,7 +37,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
-	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -60,7 +59,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 10),
@@ -81,7 +79,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)

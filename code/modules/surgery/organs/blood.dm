@@ -30,6 +30,8 @@
 #define OPEN_BODYPART_BLEEDING 0.75
 /// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.5
+/// Open fracture bleeding amount (units per 2 sec)
+#define BODYPART_OPEN_FRACTURE_BLEEDING 0.5
 /// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.005
 /// Multiplyer for bleeding calculate from bodypart value
@@ -159,6 +161,9 @@
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 
+		if(bodypart.has_fracture() && bodypart.fracture == FRACTURE_TYPE_OPEN && !bodypart.is_splinted())
+			current_bleed += BODYPART_OPEN_FRACTURE_BLEEDING
+
 		if(bodypart.has_arterial_bleeding() && left_hand_bleed_suppress_lib != bodypart && right_hand_bleed_suppress_lib != bodypart)
 			has_arterial_bleed = TRUE
 
@@ -284,11 +289,6 @@
 		custom_emote(EMOTE_AUDIBLE, "кашля%(ет, ют)% кровью!")
 		add_splatter_floor(loc, small_drip = TRUE)
 		return .
-
-	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
-	// Must be bleeding internally in more than one place to have a chance at this.
-	if(amt >= 1 && prob(5 * amt))
-		vomit(mode = VOMIT_BLOOD)
 
 /mob/living/carbon/human/bleed_internal(amt)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
@@ -620,4 +620,5 @@
 #undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD
 #undef HEAVY_BLEEDING_RATE
 #undef BODYPART_INTERNAL_BLEEDING
+#undef BODYPART_OPEN_FRACTURE_BLEEDING
 #undef MAX_SUPPRESS_BLEEDING_BY_HAND

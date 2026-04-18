@@ -46,7 +46,7 @@
 /obj/item/weldingtool/sword/tool_use_check(mob/living/user, amount, silent)
 	return FALSE
 
-/obj/item/weldingtool/sword/afterattack(atom/target, mob/user, proximity, params, status)
+/obj/item/weldingtool/sword/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(status))
 		remove_fuel(1)

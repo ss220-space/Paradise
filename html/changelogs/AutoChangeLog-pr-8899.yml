@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "исправлен рантайм голомапы хоса. (PR #8899)"

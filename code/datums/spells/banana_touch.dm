@@ -18,8 +18,8 @@
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
 
-/obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
@@ -29,7 +29,7 @@
 	to_chat(user, "<font color='red' size='6'>HONK</font>")
 	var/mob/living/carbon/human/h_target = target
 	h_target.bananatouched()
-	..()
+	return ..()
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")
