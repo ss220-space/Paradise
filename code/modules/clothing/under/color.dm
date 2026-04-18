@@ -145,7 +145,7 @@
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
-	desc = "Ужасно порваный и изношенный комбинезон. Выглядит так, будто не стирали десятилетиями."
+	desc = "Ужасно порваный и изношенный комбинезон. Выглядит так, будто его не стирали десятилетиями."
 
 /obj/item/clothing/under/color/grey/glorf/get_ru_names()
 	return list(
@@ -237,7 +237,7 @@
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
-	desc = "Просто смотря на это, заставляет тебя прочувствовать <i>гламур</i>."
+	desc = "Просто глядя на это, чувствуешь себя <i>гламурно</i>."
 	icon_state = "/obj/item/clothing/under/color/pink"
 	greyscale_colors = "#ffa69b"
 
