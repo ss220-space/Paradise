@@ -76717,13 +76717,6 @@
 /area/aisat/aihallway)
 "mXC" = (
 /obj/structure/chair/comfy/brown,
-/obj/effect/landmark/start/hangover,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start/investor,
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
@@ -102090,6 +102083,13 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft)
+"sBc" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/bridge)
 "sBd" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 8
@@ -111455,6 +111455,15 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
+"uDN" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/bridge/meeting_room)
 "uDY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -121233,6 +121242,12 @@
 	icon_state = "grimy"
 	},
 /area/security/hos)
+"wLB" = (
+/obj/effect/landmark/start/hangover,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/bridge/meeting_room)
 "wLC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -164696,7 +164711,7 @@ aaq
 aaq
 aaq
 bHj
-tdn
+uDN
 ddy
 vmr
 tNB
@@ -164956,7 +164971,7 @@ bHj
 cHC
 nvt
 gQD
-kiG
+wLB
 dLm
 uyB
 hMR
@@ -167523,7 +167538,7 @@ bwf
 aaq
 aaq
 bHj
-kiG
+wLB
 vKk
 bST
 bST
@@ -168295,7 +168310,7 @@ irG
 gLq
 cKS
 dAU
-cKS
+sBc
 bST
 wMB
 owP
