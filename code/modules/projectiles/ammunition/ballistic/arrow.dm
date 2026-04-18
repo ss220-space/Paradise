@@ -1,7 +1,6 @@
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
 	desc = "Используется для стрельбы из лука. Самый примитивный вариант."
-	gender = FEMALE
 	ammo_marking = "\"деревянная стрела\""
 	icon_state = "arrow"
 	item_state = "arrow"

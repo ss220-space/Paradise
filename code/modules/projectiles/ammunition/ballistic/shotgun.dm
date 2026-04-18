@@ -72,8 +72,6 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/shotgun/beanbag/fake
-	ammo_marking = "12g \"Погремушка\""
-	extra_info = "Резиновая пуля. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
 	projectile_type = /obj/projectile/bullet/weakbullet/booze
 
 // MARK: Taser slug
@@ -231,6 +229,8 @@
 	icon_state = "techshell"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
 	projectile_type = null
+	no_update_names = TRUE
+	no_update_desc = TRUE
 
 /obj/item/ammo_casing/shotgun/techshell/get_ru_names()
 	return list(
@@ -241,10 +241,3 @@
 		INSTRUMENTAL = "пустой технологической гильзой [caliber]",
 		PREPOSITIONAL = "пустой технологической гильзе [caliber]"
 	)
-
-/obj/item/ammo_casing/shotgun/techshell/update_names()
-	return
-
-/obj/item/ammo_casing/shotgun/techshell/update_desc(updates = ALL)
-	. = ..()
-	desc = "Высокотехнологичная гильза калибра 12g. Совместима с широким спектром материалов для создания уникальных эффектов."

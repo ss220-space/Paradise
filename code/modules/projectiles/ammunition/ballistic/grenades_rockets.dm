@@ -2,7 +2,6 @@
 /obj/item/ammo_casing/rocket
 	name = "rocket shell"
 	desc = "Ракеты для стрельбы из ракетницы."
-	gender = FEMALE
 	icon_state = "rocketshell"
 	materials = list(MAT_METAL = 10000)
 	caliber = CALIBER_ROCKET
@@ -31,7 +30,6 @@
 /obj/item/ammo_casing/caseless/rocket
 	ammo_marking = "84 мм HE"
 	desc = "Осколочно-фугасная ракета. Предназначена для поражения пехоты."
-	gender = FEMALE
 	caliber = CALIBER_84MM
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
 	icon = 'icons/obj/weapons/guns/projectiles.dmi'
@@ -48,7 +46,6 @@
 // MARK: 40mm HE
 /obj/item/ammo_casing/a40mm
 	ammo_marking = "40 мм HE"
-	gender = FEMALE
 	icon_state = "40mmHE"
 	materials = list(MAT_METAL = 8000)
 	caliber = CALIBER_40MM
