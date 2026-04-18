@@ -213,14 +213,14 @@
 		return
 	var/new_damtype
 	switch(chassis.damtype)
-		if("tox")
-			new_damtype = "brute"
+		if(TOX)
+			new_damtype = BRUTE
 			chassis.occupant_message("Руки экзокостюма сжимаются в кулаки.")
-		if("brute")
-			new_damtype = "fire"
+		if(BRUTE)
+			new_damtype = FIRE
 			chassis.occupant_message("Из руки выдвигается раскалённый резак.")
-		if("fire")
-			new_damtype = "tox"
+		if(FIRE)
+			new_damtype = TOX
 			chassis.occupant_message("Из ладони выдвигается леденящая кровь пласталевая игла.")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
@@ -288,6 +288,9 @@
 	name = "Hey, you shouldn't see it"
 	var/obj/item/mecha_parts/mecha_equipment/equipment
 
+/datum/action/innate/mecha/select_module/is_action_active(atom/movable/screen/movable/action_button/current_button)
+	return equipment.active
+
 /datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
 	if(!_equipment)
 		return FALSE
@@ -295,14 +298,19 @@
 	name = "Переключить модуль на [equipment.declent_ru(ACCUSATIVE)]"
 	button_icon = equipment.icon
 	button_icon_state = equipment.icon_state
+	status_text = equipment.stored_in == MECH_HAND_LEFT ? "L" : "R"
 	. = ..()
 
 /datum/action/innate/mecha/select_module/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 	equipment.select_module()
+
 /datum/action/innate/mecha/toggle_module
 	var/obj/item/mecha_parts/mecha_equipment/equipment
+
+/datum/action/innate/mecha/toggle_module/is_action_active(atom/movable/screen/movable/action_button/current_button)
+	return equipment.active
 
 /datum/action/innate/mecha/toggle_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
 	if(!_equipment)

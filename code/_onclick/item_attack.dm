@@ -25,6 +25,7 @@
 	var/target_type = "[target.type]"
 
 	var/tool_chain_result = tool_attack_chain(user, target, modifiers)
+
 	var/is_right_clicking = LAZYACCESS(modifiers, RIGHT_CLICK)
 	if(!(tool_chain_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
 		CRASH("tool_attack_chain() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
@@ -106,9 +107,7 @@
  */
 /obj/item/proc/tool_attack_chain(mob/user, atom/target, list/modifiers)
 	. = ATTACK_CHAIN_PROCEED
-	if(!tool_behaviour)
-		return .
-	if(target.tool_act(user, src, modifiers))
+	if(target.base_item_interaction(user, src, modifiers))
 		return ATTACK_CHAIN_BLOCKED
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.

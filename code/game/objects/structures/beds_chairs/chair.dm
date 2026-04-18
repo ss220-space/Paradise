@@ -3,13 +3,13 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = 0 // you sit in a chair, not lay
 	max_integrity = 250
 	integrity_failure = 25
 	pull_push_slowdown = 1.5
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	interaction_flags_mouse_drop = ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up

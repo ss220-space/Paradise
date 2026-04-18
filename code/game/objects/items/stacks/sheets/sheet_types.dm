@@ -49,6 +49,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("torch holder", /obj/item/mounted/frame/torch_holder, 2, time = 3 SECONDS),
 	)),
 	new /datum/stack_recipe_list("construction", list(
+		new /datum/stack_recipe("crate shelf parts", /obj/item/rack_parts/cargo_shelf),
 		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20),
 		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, TRUE, 2, 50),
 		new /datum/stack_recipe("rack parts", /obj/item/rack_parts),

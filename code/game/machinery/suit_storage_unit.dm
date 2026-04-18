@@ -9,7 +9,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
-
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/obj/item/clothing/suit/space/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null
 	var/obj/item/clothing/mask/mask = null
@@ -396,7 +396,7 @@
 		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
 
-/obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user, params)
+/obj/machinery/suit_storage_unit/mouse_drop_receive(atom/A, mob/user, params)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	. = TRUE
@@ -509,7 +509,7 @@
 	open_machine()
 	dump_contents()
 
-/obj/machinery/suit_storage_unit/container_resist(mob/living/user)
+/obj/machinery/suit_storage_unit/container_resist_act(mob/living/user)
 	if(!locked)
 		open_machine()
 		dump_contents()

@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - balance: "При разрушении гроба Бестии не будет хардстана, будет кнокдаун как у батона на 4 секунды (PR #8960)"

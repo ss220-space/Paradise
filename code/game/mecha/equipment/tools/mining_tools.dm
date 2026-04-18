@@ -23,7 +23,7 @@
 
 	return chassis.Adjacent(target)
 
-/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(isspaceturf(target))
@@ -172,8 +172,8 @@
 		start_cooldown()
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target)
-	melee_attack_chain(chassis.occupant, target)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/action(atom/target, list/modifiers)
+	melee_attack_chain(chassis.occupant, target, modifiers)
 	return TRUE
 
 #undef DRILL_BASIC

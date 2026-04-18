@@ -878,15 +878,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
-"cS" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal,
-/turf/simulated/floor/engine,
-/area/awaymission/spacebattle/engine)
 "cT" = (
 /obj/structure/closet/toolcloset,
 /obj/item/clothing/glasses/material,
@@ -5134,20 +5125,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate7)
-"pd" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/sign/medbay/redcross{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/awaymission/spacebattle/prhallway4)
 "pe" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
@@ -7514,6 +7491,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
+"vW" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/power/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/engine,
+/area/awaymission/spacebattle/engine)
 "vX" = (
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
@@ -8034,6 +8020,20 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
+"xh" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/sign/medbay/redcross{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/prhallway4)
 "xi" = (
 /obj/structure/table/reinforced,
 /obj/item/weldingtool/mini,
@@ -8777,6 +8777,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
+"zj" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "syndicate_elite";
+	name = "Front Hull Door";
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/awaymission/spacebattle/turret1)
 "zk" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo16"
@@ -13229,15 +13238,6 @@
 	},
 /turf/space,
 /area/space)
-"LW" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "syndicate_elite";
-	name = "Front Hull Door";
-	req_access = list(150)
-	},
-/turf/simulated/floor/shuttle/plating,
-/area/awaymission/spacebattle/turret1)
 "LX" = (
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/shuttle{
@@ -38128,7 +38128,7 @@ aZ
 aZ
 aZ
 aZ
-LW
+zj
 RZ
 eH
 lP
@@ -38385,7 +38385,7 @@ aZ
 aZ
 aZ
 aZ
-LW
+zj
 lw
 eH
 EB
@@ -40197,7 +40197,7 @@ tp
 Yg
 Lc
 jI
-cS
+vW
 Aa
 dj
 va
@@ -45858,7 +45858,7 @@ AI
 Zy
 Zy
 Dn
-pd
+xh
 Zy
 wd
 Ok

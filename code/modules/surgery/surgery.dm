@@ -347,7 +347,10 @@
 		implement_speed_mod = allowed_tools[implement_type] / 100.0
 
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
+	var/mob_mod = surgery.get_mob_surgery_speed_mod(target, user, tool)
+
 	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
+	speed_mod *= mob_mod
 	var/step_time = time
 
 	SEND_SIGNAL(user, COMSIG_SURGERY_STEP_INIT, &step_time)
@@ -591,3 +594,53 @@
 		for(var/reagent in chems_needed)
 			if(target.reagents.has_reagent(reagent))
 				return TRUE
+
+
+/**
+ * Adds a speed modifier to this mob
+ *
+ * * id - id of the modifier, string
+ * * amount - the multiplier to apply to surgery speed.
+ * This is multiplicative with other modifiers.
+ * * duration - how long the modifier should last in deciseconds.
+ * If null, it will be permanent until removed.
+ */
+/mob/living/proc/add_surgery_speed_mod(id, amount, duration)
+	ASSERT(!isnull(id), "Surgery speed mod ID cannot be null")
+	ASSERT(isnum(amount), "Surgery speed mod amount must be a number")
+	ASSERT(isnum(duration) || isnull(duration), "Surgery speed mod duration must be a number or null")
+
+	var/existing = LAZYACCESS(mob_surgery_speed_mods, id)
+	if(existing == amount)
+		return
+
+	if(isnum(existing))
+		if(amount > 1 && existing > 1)
+			// both are speed decreases, take the better one
+			LAZYSET(mob_surgery_speed_mods, id, max(amount, existing))
+		else if(amount < 1 && existing < 1)
+			// both are speed increases, take the better one
+			LAZYSET(mob_surgery_speed_mods, id, min(amount, existing))
+		else
+			// one of each, just multiply them
+			LAZYSET(mob_surgery_speed_mods, id, amount * existing)
+	else
+		LAZYSET(mob_surgery_speed_mods, id, amount)
+
+	if(isnum(duration))
+		addtimer(CALLBACK(src, PROC_REF(remove_surgery_speed_mod), id), duration, TIMER_DELETE_ME|TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
+
+/**
+ * Removes a speed modifier from this mob
+ *
+ * * id - id of the modifier to remove, string
+ */
+/mob/living/proc/remove_surgery_speed_mod(id)
+	LAZYREMOVE(mob_surgery_speed_mods, id)
+
+/// Returns a time modifier based on the mob's status
+/datum/surgery/proc/get_mob_surgery_speed_mod(mob/living/patient, mob/living/surgeon, tool)
+	var/basemod = 1.0
+	for(var/mod_id, mod_amt in patient.mob_surgery_speed_mods)
+		basemod *= mod_amt
+	return basemod

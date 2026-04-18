@@ -330,7 +330,7 @@
 		if(!you_realy_want_do_this())
 			return
 
-		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
+		var/message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED) ? "de-lockdowned and de-strandise the Emergency Shuttle" : "de-lockdowned the Emergency Shuttle"
 		SSshuttle?.stop_lockdown()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
 		href_list["check_antagonist"] = TRUE

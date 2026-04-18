@@ -149,7 +149,7 @@
 /// has its duration refreshed in apply_status_effect - is passed New() args
 /datum/status_effect/proc/refresh(effect, ...)
 	var/original_duration = initial(duration)
-	if(original_duration == -1)
+	if(original_duration == STATUS_EFFECT_PERMANENT)
 		return
 	duration = world.time + original_duration
 
@@ -163,7 +163,7 @@
 
 /// Remove [seconds] of duration from the status effect, qdeling / ending if we eclipse the current world time.
 /datum/status_effect/proc/remove_duration(seconds)
-	if(duration == -1) // Infinite duration
+	if(duration == STATUS_EFFECT_PERMANENT) // Infinite duration
 		return FALSE
 
 	duration -= seconds
@@ -172,6 +172,14 @@
 		return TRUE
 
 	return FALSE
+
+/datum/status_effect/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(!.)
+		return
+	if(var_name == NAMEOF(src, duration))
+		if(var_value == INFINITY)
+			duration = STATUS_EFFECT_PERMANENT
 
 ////////////////
 // ALERT HOOK //
