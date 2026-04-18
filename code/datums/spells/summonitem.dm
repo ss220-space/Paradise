@@ -63,7 +63,7 @@
 	if(reason)
 		to_chat(target, span_notice(reason))
 
-/obj/effect/proc_holder/spell/summonitem/proc/do_instant_summon(mob/living/target, mob/user)
+/obj/effect/proc_holder/spell/summonitem/proc/do_instant_summon(mob/living/target, mob/living/user)
 	var/obj/item_to_retrieve = marked_item
 
 	if(!item_to_retrieve || QDELETED(item_to_retrieve))
@@ -84,35 +84,36 @@
 
 			if(ismob(item_to_retrieve.loc))
 				var/mob/item_owner = item_to_retrieve.loc
-
-				if(isexternalorgan(item_to_retrieve))
-					if(ismob(item_owner))
-						item_owner.drop_item_ground(item_to_retrieve, force = TRUE)
-					break
-
 				if(ishuman(item_owner))
 					var/mob/living/carbon/human/human = item_owner
-					for(var/obj/item/organ/external/bodypart in human.bodyparts)
+					var/list/bodyparts = human.bodyparts
+					for(var/obj/item/organ/external/bodypart in bodyparts)
 						if(bodypart.hidden == item_to_retrieve)
 							bodypart.hidden = null
 							break
 
-				if(!item_owner.drop_item_ground(item_to_retrieve, force = TRUE))
-					to_chat(target, span_warning("У вас не получается призвать привязанный предмет!"))
-					return
+					if(!item_owner.drop_item_ground(item_to_retrieve, force = TRUE))
+						to_chat(target, span_warning("У вас не получается призвать привязанный предмет!"))
+						break
 				break
 
 			if(isobj(item_to_retrieve.loc))
 				var/obj/container_obj = item_to_retrieve.loc
+				if(isexternalorgan(container_obj))
+					var/obj/item/organ/external/external_organ = container_obj
+					if(external_organ.remove_embedded_object(item_to_retrieve))
+						break
+
 				if(container_obj.anchored)
 					break
+
 				if(istype(container_obj, /obj/machinery/portable_atmospherics/))
 					var/obj/machinery/portable_atmospherics/portable_atmos = container_obj
 					portable_atmos.disconnect()
 					portable_atmos.update_icon()
-				item_to_retrieve = container_obj
 
-			infinite_recursion += 1
+				item_to_retrieve = container_obj
+				infinite_recursion += 1
 
 		if(!QDELETED(item_to_retrieve))
 			teleport_item_to_target(item_to_retrieve, target)
@@ -138,9 +139,9 @@
 	item_to_retrieve.forceMove(target_turf)
 
 	if(target.put_in_active_hand(item_to_retrieve) || target.put_in_inactive_hand(item_to_retrieve))
-		target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется в руках [target.declent_ru(PREPOSITIONAL)]!"))
+		target_turf.visible_message(span_warning("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется в руках [target.declent_ru(PREPOSITIONAL)]!"))
 		return
 
-	target_turf.visible_message(span_caution("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется!"))
+	target_turf.visible_message(span_warning("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется!"))
 
 #undef MAX_CONTAINER_DEPTH

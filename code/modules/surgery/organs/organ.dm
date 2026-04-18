@@ -449,14 +449,24 @@
 /obj/item/organ/proc/extract_from_summon(mob/living/caster)
 	if(!owner)
 		return
-
 	if(isexternalorgan(src))
 		var/obj/item/organ/external/external_organ = src
-		var/mob/item_owner = external_organ.loc
-		var/atom/movable/thing = external_organ.droplimb(1, DROPLIMB_SHARP)
-		if(thing)
-			thing.forceMove(get_turf(item_owner))
-			return
+		var/mob/living/carbon/human/item_owner = owner
+
+		if(!external_organ.properly_attached && ishuman(item_owner))
+			var/datum/surgery/surgery_to_remove
+
+			for(var/datum/surgery/operation in item_owner.surgeries)
+				if(istype(operation, /datum/surgery/reattach) || istype(operation, /datum/surgery/reattach_synth))
+					surgery_to_remove = operation
+					break
+
+			if(surgery_to_remove)
+				item_owner.surgeries -= surgery_to_remove
+				qdel(surgery_to_remove)
+
+		external_organ.droplimb()
+		return
 
 	if(is_internal_organ(src))
 		var/turf/organ_turf = get_turf(owner)
