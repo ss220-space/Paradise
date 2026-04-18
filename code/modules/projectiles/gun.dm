@@ -418,9 +418,9 @@
 		rotate_to_target(target)
 
 	if(burst_size > 1)
-		handle_burst(target, user, modifiers = modifiers, zone_override, bonus_spread, message)
+		handle_burst(target, user, modifiers, zone_override, bonus_spread, message)
 	else
-		handle_single_shot(target, user, modifiers = modifiers, zone_override, bonus_spread, message)
+		handle_single_shot(target, user, modifiers, zone_override, bonus_spread, message)
 
 	if(user)
 		user.update_held_items()
@@ -919,4 +919,4 @@
 		shoot_with_empty_chamber(null)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(process_fire), victim, null)
+	INVOKE_ASYNC(src, PROC_REF(process_fire), victim, null, TRUE, list())
