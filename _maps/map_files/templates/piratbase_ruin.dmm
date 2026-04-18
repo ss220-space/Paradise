@@ -16645,10 +16645,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "Xd" = (
-/obj/machinery/alarm/directional/south{
-	name = "Pirate Corvette Air alarm";
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},

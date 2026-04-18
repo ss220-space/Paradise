@@ -2600,9 +2600,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -4014,9 +4012,7 @@
 	dir = 10;
 	name = "Труба смешивания"
 	},
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
 "ox" = (
@@ -5692,9 +5688,7 @@
 /area/template_noop)
 "uq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
 "ur" = (
@@ -10217,9 +10211,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump,
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "Kz" = (
@@ -10483,9 +10475,7 @@
 "Lw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "Lz" = (
@@ -10544,9 +10534,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -11376,9 +11364,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -11802,9 +11788,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "PZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -12765,9 +12749,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/grass,
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "Ue" = (
@@ -14171,9 +14153,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/obj/machinery/alarm/old{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/old/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

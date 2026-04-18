@@ -83693,10 +83693,6 @@
 	icon_state = "white"
 	},
 /area/medical/research)
-"mUf" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/r_wall,
-/area/blueshield)
 "mUw" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -143042,6 +143038,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood/fancy/royalblue,
 /obj/item/lighter/zippo/blue,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/carpet/royalblue,
 /area/blueshield)
 "vSs" = (
@@ -262208,7 +262205,7 @@ lcY
 tRC
 oRV
 pOe
-mUf
+lcY
 cwa
 foa
 fCC

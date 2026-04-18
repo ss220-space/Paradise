@@ -382,9 +382,7 @@
 /turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
 "dh" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -1105,9 +1103,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "hF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2851,9 +2847,7 @@
 	},
 /area/mine/eva)
 "rm" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -7074,10 +7068,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
-"Pc" = (
-/obj/machinery/firealarm,
-/turf/simulated/wall/r_wall,
-/area/mine/cafeteria)
 "Pe" = (
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -7692,13 +7682,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
-"St" = (
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/mine/storage)
 "Sy" = (
 /obj/structure/window/reinforced/clockwork{
 	dir = 8;
@@ -7895,6 +7878,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "Tv" = (
@@ -21620,7 +21604,7 @@ Ne
 Ne
 uq
 uq
-Pc
+eT
 uq
 uq
 uq
@@ -25217,7 +25201,7 @@ VC
 Qr
 UV
 ET
-St
+ET
 rv
 Qr
 Ah

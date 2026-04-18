@@ -51723,10 +51723,8 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "yac" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/box,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium"

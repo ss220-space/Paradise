@@ -53673,11 +53673,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "umD" = (
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_y = 30
-	},
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet/empty/directional/north,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "umQ" = (

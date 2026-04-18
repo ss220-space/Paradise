@@ -1960,10 +1960,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_x = 26
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/structure/extinguisher_cabinet/empty/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -5092,9 +5090,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_x = -26
-	},
+/obj/structure/extinguisher_cabinet/empty/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"

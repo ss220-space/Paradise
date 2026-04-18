@@ -8548,10 +8548,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
 "zo" = (
-/obj/machinery/alarm/directional/south{
-	name = "Pirate Corvette Air alarm";
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirat/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},

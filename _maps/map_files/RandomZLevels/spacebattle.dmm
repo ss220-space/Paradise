@@ -13430,9 +13430,7 @@
 /area/awaymission/spacebattle/living)
 "MO" = (
 /obj/machinery/atmospherics/unary/thermomachine/heater/upgraded,
-/obj/machinery/alarm/syndicate{
-	pixel_y = 32
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
