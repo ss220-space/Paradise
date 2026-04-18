@@ -151,7 +151,7 @@
 				mob_detail += "Also [A.client ? "[A.client.ckey]/" : "nockey"]([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/afterattack(atom/target, mob/user)
+/obj/item/camera/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
 
@@ -317,7 +317,7 @@
 	. += span_notice("<b>Ctrl+ЛКМ</b> to print picture.")
 	. += span_notice("<b>Ctrl+Shift+ЛКМ</b> to delete picture.")
 
-/obj/item/camera/digital/afterattack(atom/target, mob/user)
+/obj/item/camera/digital/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
 	captureimage(target, user)

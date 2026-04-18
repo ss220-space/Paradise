@@ -32,15 +32,15 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/stack/telecrystal/afterattack(obj/item/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
-		I.hidden_uplink.uses += amount
+	if(istype(target) && target.hidden_uplink && target.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
+		target.hidden_uplink.uses += amount
 		use(amount)
 		balloon_alert(user, UNLINT("ТК активирован!"))
-	else if(istype(I, /obj/item/cartridge/frame))
-		var/obj/item/cartridge/frame/cart = I
+	else if(istype(target, /obj/item/cartridge/frame))
+		var/obj/item/cartridge/frame/cart = target
 		if(!cart.charges)
 			balloon_alert(user, "заряды кончился!")
 			return

@@ -144,7 +144,7 @@
 	if(loc != tank.loc)
 		forceMove(tank.loc)
 
-/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity, params)
+/obj/item/reagent_containers/spray/mister/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
@@ -276,7 +276,7 @@
 	tank.on = 0
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return

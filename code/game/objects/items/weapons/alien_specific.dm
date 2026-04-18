@@ -28,7 +28,7 @@
 	desc = "squirts smokey liquids."
 	icon_state = "borg-spray-smoke"
 
-/obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
 	smoke.set_up(amount = 5, location = user.loc)
 	smoke.start()
@@ -49,7 +49,7 @@
 	desc = "squirts viagra."
 	icon_state = "borg-spray-stun"
 
-/obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/reagent_containers/spray/alien/stun/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/datum/reagents/reagents_list = new (250)
 	reagents_list.add_reagent("blob_cryogenic_poison", 250) // new blow reagent because old was deleted
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new

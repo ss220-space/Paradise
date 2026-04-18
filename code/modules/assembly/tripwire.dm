@@ -136,8 +136,8 @@
 // MARK:	Tripwire setting up
 ////////////////////////////////////////
 
-/obj/item/tripwire/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || anchored_to_wall || is_active)
+/obj/item/tripwire/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || anchored_to_wall || is_active)
 		return
 
 	if(!isturf(target))

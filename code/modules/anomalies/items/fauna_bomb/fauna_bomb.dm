@@ -168,7 +168,7 @@
 	user.gib()
 	return OBLITERATION
 
-/obj/item/fauna_bomb/afterattack(atom/target, mob/user, proximity, params, status)
+/obj/item/fauna_bomb/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 
@@ -184,7 +184,7 @@
 	if(isancientrobot(target) || isancientrobotleg(target) || isairmob(target))
 		return ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return ..()
 
 	if(length(datas) >= MAX_REMEMBERED_MOBS)

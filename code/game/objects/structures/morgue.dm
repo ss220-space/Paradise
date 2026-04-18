@@ -251,7 +251,6 @@
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSTABLE|LETPASSTHROW
-	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/structure/morgue/morgue
 
@@ -664,7 +663,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSTABLE|LETPASSTHROW
-	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/machinery/crematorium/crematorium
 

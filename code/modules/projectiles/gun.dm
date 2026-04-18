@@ -324,11 +324,11 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(firing_burst)
 		return
-	if(flag) //It's adjacent, is the user, or is on the user's person
+	if(proximity_flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
@@ -339,19 +339,19 @@
 	if(!can_trigger_gun(user))
 		return
 
-	if(flag)
+	if(proximity_flag)
 		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
 				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
-				handle_suicide(user, target, params)
+				handle_suicide(user, target, modifiers)
 			return
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE )]!"))
 		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-		process_fire(user, user, 0, params, zone_override = shot_leg)
+		process_fire(user, user, 0, modifiers, zone_override = shot_leg)
 		user.drop_from_active_hand()
 		return
 
@@ -371,12 +371,12 @@
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
 					bonus_spread += accuracy.dual_wield_spread * G.weapon_weight
 				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, modifiers, null, bonus_spread), loop_counter)
 	//CLOWN CHECK
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		bonus_spread += 45
 
-	process_fire(target,user,1,params, null, bonus_spread)
+	process_fire(target, user, 1, modifiers, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(user)
@@ -394,13 +394,14 @@
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(fire_cd || firing_burst)
 		return
 
 	var/is_tk_grab = FALSE
 	if(user)
 		is_tk_grab = !isnull(user.tkgrabbed_objects?[src])
+		bonus_spread += user.get_fracture_spread_bonus()
 		if(is_tk_grab)
 			add_fingerprint(user)
 		if(user.buckled)
@@ -417,9 +418,9 @@
 		rotate_to_target(target)
 
 	if(burst_size > 1)
-		handle_burst(target, user, params, zone_override, bonus_spread, message)
+		handle_burst(target, user, modifiers = modifiers, zone_override, bonus_spread, message)
 	else
-		handle_single_shot(target, user, params, zone_override, bonus_spread, message)
+		handle_single_shot(target, user, modifiers = modifiers, zone_override, bonus_spread, message)
 
 	if(user)
 		user.update_held_items()
@@ -428,14 +429,14 @@
 	shots_counter += burst_size
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
-/obj/item/gun/proc/handle_single_shot(atom/target, mob/living/user, params, zone_override, bonus_spread, message)
+/obj/item/gun/proc/handle_single_shot(atom/target, mob/living/user, modifiers, zone_override, bonus_spread, message)
 	if(user && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		if(chambered.harmful)
 			to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 			return
 
 	var/sprd = accuracy.randomize_spread(user, bonus_spread)
-	var/fired = chambered.fire(target, user, params, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod)
+	var/fired = chambered.fire(target, user, modifiers, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod)
 	if(!fired)
 		shoot_with_empty_chamber(user)
 		return
@@ -450,7 +451,7 @@
 	fire_cd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_fire_cd)), fire_delay)
 
-/obj/item/gun/proc/handle_burst(atom/target, mob/living/user, params, zone_override, bonus_spread, message)
+/obj/item/gun/proc/handle_burst(atom/target, mob/living/user, list/modifiers, zone_override, bonus_spread, message)
 	firing_burst = TRUE
 	for(var/i in 1 to burst_size)
 		if(user)
@@ -470,7 +471,7 @@
 		else
 			sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
 
-		var/fired = chambered.fire(target, user, params, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod)
+		var/fired = chambered.fire(target, user, modifiers, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod)
 		if(!fired)
 			shoot_with_empty_chamber(user)
 			break
@@ -697,7 +698,8 @@
 		if(module.declent_ru(NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
 
-/obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
+
+/obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, list/modifiers)
 	if(!ishuman(user) || !ishuman(target))
 		return
 
@@ -741,7 +743,7 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
+	var/fired = process_fire(target, user, TRUE, modifiers, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
 		chambered.BB.damage /= 15
 

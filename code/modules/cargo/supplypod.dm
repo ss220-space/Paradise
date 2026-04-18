@@ -14,6 +14,7 @@
 	density = FALSE
 	ignore_shoves = TRUE
 	no_throw_opens = TRUE
+	anchorable = FALSE
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
@@ -635,7 +636,7 @@
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/open(mob/living/user, force)
+/obj/structure/closet/supplypod/open(mob/living/user, force = FALSE)
 	return
 
 /obj/structure/closet/supplypod/set_closed() //Ditto

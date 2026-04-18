@@ -709,7 +709,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return (T.transparent_floor == TURF_TRANSPARENT) || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	return T.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
@@ -771,7 +771,7 @@
 		do_attack_animation(L)
 		try_shock_mob(L)
 
-/mob/living/simple_animal/demon/pulse_demon/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/demon/pulse_demon/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isliving(A))
 		try_attack_mob(A)
 	else if(isitem(A) && !is_under_tile())

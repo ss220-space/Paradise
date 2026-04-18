@@ -102,7 +102,7 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/diona/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] слегка шевелится.")
 	else

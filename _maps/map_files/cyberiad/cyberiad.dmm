@@ -16990,7 +16990,6 @@
 /area/crew_quarters/bar/atrium)
 "boh" = (
 /obj/structure/sign/vacuum/external{
-	layer = 4;
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -51043,6 +51042,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port)
+"gbY" = (
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "gbZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -52198,10 +52203,10 @@
 /area/crew_quarters/bar/atrium)
 "gCi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61037,6 +61042,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -61470,7 +61476,7 @@
 /area/hallway/secondary/entry/south)
 "kIb" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/landmark/start/cargo_technician,
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -62569,6 +62575,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "lhl" = (
+/obj/effect/landmark/start/cargo_technician,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -66990,6 +66997,13 @@
 	icon_state = "yellowfull"
 	},
 /area/engineering/engine)
+"ngI" = (
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "nhb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -71590,14 +71604,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
-"pko" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "pkr" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -77285,10 +77291,10 @@
 /area/atmos/distribution)
 "rHF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -85904,9 +85910,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "vvy" = (
-/obj/structure/sign/vacuum/external{
-	layer = 4
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "vvF" = (
@@ -87189,6 +87193,7 @@
 	name = "north fire alarm";
 	pixel_y = 24
 	},
+/obj/structure/cargo_shelf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -90142,10 +90147,6 @@
 	},
 /area/turret_protected/aisat_interior)
 "xjs" = (
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #1";
-	suffix = "#1"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -90153,6 +90154,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #1";
+	suffix = "#1"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "xjx" = (
@@ -90195,6 +90200,8 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "xke" = (
@@ -114958,7 +114965,7 @@ bzy
 feD
 vAr
 xkd
-pko
+bDI
 leb
 hDs
 eYH
@@ -115209,13 +115216,13 @@ aOA
 ptl
 dyj
 mvf
-cas
+gbY
 cJl
 rHF
 kIb
 gCi
 eIX
-bDI
+ngI
 cas
 bYM
 jLM

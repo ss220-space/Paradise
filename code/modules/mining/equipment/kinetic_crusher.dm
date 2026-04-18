@@ -39,6 +39,20 @@
 			PREPOSITIONAL = "прото-кинетическом крушителе",
 	)
 
+/obj/item/kinetic_crusher/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(!held_item)
+		context[SCREENTIP_CONTEXT_RMB] = "Detach trophy"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item) && held_item.tool_behaviour == TOOL_CROWBAR)
+		context[SCREENTIP_CONTEXT_LMB] = "Detach all trophies"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/kinetic_crusher/Initialize(mapload)
+	. = ..()
+	register_context()
+
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
 	return ..()
@@ -104,7 +118,47 @@
 	if(!QDELETED(damage_track) && !QDELETED(target))
 		damage_track.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
 
-/obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
+// adapted from kinetic accelerator attack_hand_secodary
+/obj/item/twohanded/kinetic_crusher/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if(!LAZYLEN(trophies))
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+	var/list/display_names = list()
+	var/list/items = list()
+	for(var/trophies_length in 1 to length(trophies))
+		var/obj/item/crusher_trophy/trophy = trophies[trophies_length]
+		display_names[trophy.name] = trophy.UID()
+		var/image/item_image = image(icon = trophy.icon, icon_state = trophy.icon_state)
+		if(length(trophy.overlays))
+			item_image.copy_overlays(trophy)
+		items["[trophy.name]"] = item_image
+
+	var/pick = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
+	if(!pick)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	var/trophy_reference = display_names[pick]
+	var/obj/item/crusher_trophy/trophy_to_remove = locate(trophy_reference) in trophies
+	if(!istype(trophy_to_remove))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	trophy_to_remove.remove_from(src, user)
+	if(!user.put_in_hands(trophy_to_remove))
+		trophy_to_remove.forceMove(drop_location())
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/twohanded/kinetic_crusher/proc/check_menu(mob/living/carbon/human/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	return TRUE
+
+/obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return
@@ -115,25 +169,6 @@
 		else
 			to_chat(user, span_warning("Что-то не даёт вам совершить рывок!"))
 		user.remove_status_effect(STATUS_EFFECT_DASH)
-		return
-	if(!proximity_flag && charged)//Mark a target, or mine a tile.
-		var/turf/proj_turf = user.loc
-		if(!isturf(proj_turf))
-			return
-		var/obj/projectile/destabilizer/D = new destab(proj_turf)
-		for(var/t in trophies)
-			var/obj/item/crusher_trophy/T = t
-			T.on_projectile_fire(D, user)
-		var/modifiers = params2list(clickparams)
-		D.preparePixelProjectile(target, user, modifiers)
-		D.firer = user
-		D.firer_source_atom = src
-		D.hammer_synced = src
-		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, TRUE)
-		D.fire()
-		charged = FALSE
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
 		return
 	if(proximity_flag && isliving(target))
 		var/mob/living/L = target
@@ -163,11 +198,50 @@
 					C.total_damage += detonation_damage
 				L.apply_damage(detonation_damage, BRUTE, blocked = def_check)
 
-/obj/item/twohanded/kinetic_crusher/proc/Recharge()
-	if(!charged)
-		charged = TRUE
-		update_icon()
-		playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
+/obj/item/twohanded/kinetic_crusher/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		balloon_alert(user, "wield it first!")
+		return ITEM_INTERACT_BLOCKING
+	if(interacting_with == user)
+		balloon_alert(user, "can't aim at yourself!")
+		return ITEM_INTERACT_BLOCKING
+	fire_kinetic_blast(interacting_with, user, modifiers)
+	user.changeNext_move(CLICK_CD_MELEE)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/twohanded/kinetic_crusher/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	return interact_with_atom_secondary(interacting_with, user, modifiers)
+
+/obj/item/twohanded/kinetic_crusher/proc/fire_kinetic_blast(atom/target, mob/living/user, list/modifiers)
+	if(!charged)//Mark a target, or mine a tile.
+		return
+
+	var/turf/proj_turf = user.loc
+
+	if(!isturf(proj_turf))
+		return
+
+	var/obj/projectile/destabilizer/destabilizer = new destab(proj_turf)
+	SEND_SIGNAL(src, COMSIG_CRUSHER_FIRED_BLAST, target, user, destabilizer)
+	for(var/obj/item/crusher_trophy/attached_trophy as anything in trophies)
+		attached_trophy.on_projectile_fire(destabilizer, user)
+	destabilizer.preparePixelProjectile(target, user, modifiers)
+	destabilizer.firer = user
+	destabilizer.firer_source_atom = src
+	destabilizer.hammer_synced = src
+	playsound(user, 'sound/weapons/crusher_shot.ogg', 160, TRUE)
+	destabilizer.fire()
+	charged = FALSE
+	update_appearance()
+	addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
+
+/obj/item/twohanded/kinetic_crusher/proc/recharge()
+	if(charged)
+		return
+
+	charged = TRUE
+	update_appearance()
+	playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
 
 /obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, datum/action/action, leftclick)
 	set_light_on(!light_on)

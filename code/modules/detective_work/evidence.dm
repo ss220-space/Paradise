@@ -8,10 +8,10 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/evidencebag/afterattack(obj/item/I, mob/user, proximity, params)
-	if(!proximity || loc == I)
+/obj/item/evidencebag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || loc == target)
 		return
-	evidencebagEquip(I, user)
+	evidencebagEquip(target, user)
 
 /obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
 	if(evidencebagEquip(I, user))
