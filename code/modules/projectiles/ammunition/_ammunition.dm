@@ -122,7 +122,7 @@
 	var/list/readout = list()
 	readout += "<b><u>СТРЕЛЬБА — [get_ammo_marking()]</u></b>"
 	if((proj_damage_mult <= 0 && proj_stamine_mult <= 0) || (initial_damage <= 0 && initial_stamina <= 0))
-		return span_boldnotice("- Патроны [span_warning(get_ammo_marking())] не наносят значимого ущерба при попадании.")
+		return span_boldnotice("- Боеприпасы [span_warning(get_ammo_marking())] не наносят значимого ущерба при попадании.")
 
 	// No dividing by 0
 	if(initial_damage)
@@ -254,6 +254,7 @@
 	return
 
 // MARK: Caseless
+// TODO: port caseless element from TG — https://github.com/tgstation/tgstation/pull/76335
 /obj/item/ammo_casing/caseless
 	desc = "Безгильзовый патрон."
 
