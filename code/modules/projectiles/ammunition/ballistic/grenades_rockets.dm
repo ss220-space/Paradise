@@ -61,12 +61,12 @@
 	ru_names = names ? names.Copy() : new /list(6)
 
 	name = "[ammo_marking] grenade"
-	ru_names[NOMINATIVE] = "граната [ammo_marking]"
-	ru_names[GENITIVE] = "гранаты [ammo_marking]"
-	ru_names[DATIVE] = "гранате [ammo_marking]"
-	ru_names[ACCUSATIVE] = "гранату [ammo_marking]"
-	ru_names[INSTRUMENTAL] = "гранатой [ammo_marking]"
-	ru_names[PREPOSITIONAL] = "гранате [ammo_marking]"
+	ru_names[NOMINATIVE] = "выстрел [ammo_marking]"
+	ru_names[GENITIVE] = "выстрела [ammo_marking]"
+	ru_names[DATIVE] = "выстрелу [ammo_marking]"
+	ru_names[ACCUSATIVE] = "выстрел [ammo_marking]"
+	ru_names[INSTRUMENTAL] = "выстрелом [ammo_marking]"
+	ru_names[PREPOSITIONAL] = "выстреле [ammo_marking]"
 
 /obj/item/ammo_casing/a40mm/update_desc(updates = ALL)
 	. = ..()

@@ -128,7 +128,7 @@
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
 	ammo_marking = "12g \"Напалм\""
-	extra_info = "Зажигательные гранулы с напалмом."
+	extra_info = "Наполнен гранулами с напалмом, которые воспламеняются при выстреле."
 	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
 	pellets = 6
 	variance = 20

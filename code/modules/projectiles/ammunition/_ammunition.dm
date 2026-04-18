@@ -120,7 +120,7 @@
 		proj_stamine_mult = our_gun.stamina_mod
 
 	var/list/readout = list()
-	readout += "<b><u>СТРЕЛЬБА</u></b>"
+	readout += "<b><u>СТРЕЛЬБА — [get_ammo_marking()]</u></b>"
 	if((proj_damage_mult <= 0 && proj_stamine_mult <= 0) || (initial_damage <= 0 && initial_stamina <= 0))
 		return span_boldnotice("- Патроны [span_warning(get_ammo_marking())] не наносят значимого ущерба при попадании.")
 
@@ -143,13 +143,13 @@
 
 	if(BB)
 		gender = MALE
-		name = "[ammo_marking] cartridge"
-		ru_names[NOMINATIVE] = "патрон [ammo_marking]"
-		ru_names[GENITIVE] = "патрона [ammo_marking]"
-		ru_names[DATIVE] = "патрону [ammo_marking]"
-		ru_names[ACCUSATIVE] = "патрон [ammo_marking]"
-		ru_names[INSTRUMENTAL] = "патроном [ammo_marking]"
-		ru_names[PREPOSITIONAL] = "патроне [ammo_marking]"
+		name = "[get_ammo_marking()] cartridge"
+		ru_names[NOMINATIVE] = "патрон [get_ammo_marking()]"
+		ru_names[GENITIVE] = "патрона [get_ammo_marking()]"
+		ru_names[DATIVE] = "патрону [get_ammo_marking()]"
+		ru_names[ACCUSATIVE] = "патрон [get_ammo_marking()]"
+		ru_names[INSTRUMENTAL] = "патроном [get_ammo_marking()]"
+		ru_names[PREPOSITIONAL] = "патроне [get_ammo_marking()]"
 	else
 		gender = FEMALE
 		name = "[caliber] bullet casing"
@@ -163,7 +163,7 @@
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
 	if(BB)
-		desc = "Заряженный и готовый к использованию патрон [get_ammo_marking()]. [extra_info]"
+		desc = "Заряженный и готовый к использованию патрон [get_ammo_marking()].[extra_info ? " " + extra_info : ""]"
 	else
 		desc = "Пустая гильза от пули калибра [caliber]." // no extra info because no bullet
 
