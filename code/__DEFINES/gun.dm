@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in most standart SMG and pistols
 #define CALIBER_9MM "9x19 мм"
 /// Used in Stechkin pistol
-#define CALIBER_10MM "10 мм"
+#define CALIBER_10MM "10x25 мм"
 /// Used in SP-8 pistol
 #define CALIBER_40NR ".40 N&R"
 /// Used in M1911 pistol, C-20r SMG
@@ -130,17 +130,17 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 // Energy weapons
 /// Used in laser weapons
-#define CALIBER_LASER "лазер"
+#define CALIBER_LASER "\"лазер\""
 
 // Foam force weapons
 /// Used in foam guns
-#define CALIBER_FOAM_FORCE "пенопластовый"
+#define CALIBER_FOAM_FORCE "\"пенопластовый\""
 /// Used in sniper foam gun
-#define CALIBER_FOAM_FORCE_SNIPER "пенопластовый снайперский"
+#define CALIBER_FOAM_FORCE_SNIPER "\"пенопластовый снайперский\""
 
 // Blank cartridges
 /// Used in toy cap guns
-#define CALIBER_CAP "холостой"
+#define CALIBER_CAP "\"холостой\""
 
 // Heavy weapons
 /// Used in high-caliber rocket launchers
