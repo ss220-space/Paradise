@@ -65,7 +65,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS)
 
-/obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 

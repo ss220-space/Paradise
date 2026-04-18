@@ -13,6 +13,10 @@
 	button_icon_state = "neutralstance"
 
 /datum/action/neutral_stance/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	var/mob/living/carbon/human/H = owner
 	if(!H.mind.martial_art.in_stance)
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
@@ -27,6 +31,9 @@
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
@@ -46,6 +53,10 @@
 	button_icon_state = "legsweep"
 
 /datum/action/leg_sweep/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
@@ -65,6 +76,10 @@
 	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))

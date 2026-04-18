@@ -22,11 +22,11 @@
 		explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flame_range = 3)
 		qdel(src)
 		return
-	. = ..()
+	return ..()
 
 /obj/structure/closet/loot_crate/Destroy(force)
 	tier = null
-	. = ..()
+	return ..()
 
 /obj/structure/closet/loot_crate/update_overlays()
 	. = list()

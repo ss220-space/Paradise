@@ -1,4 +1,4 @@
-//returns 1 if this mob has sufficient access to use this object
+/// Returns TRUE if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/accessor)
 	var/result_bitflags = SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor)
 
@@ -12,13 +12,13 @@
 	if(check_access())
 		return TRUE
 
-	if(!accessor)
+	if(!accessor) // likely a TK user, and we checked for free access above.
 		return FALSE
 
-	var/acc = accessor.get_access() //see mob.dm
+	var/acc = accessor.get_access() // see mob.dm
 
 	if(acc == IGNORE_ACCESS || accessor.can_admin_interact())
-		return TRUE //Mob ignores access
+		return TRUE // mob ignores access
 
 	else
 		return check_access_list(acc)

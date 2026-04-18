@@ -23,6 +23,11 @@
 	. = ..()
 	update_icon()
 
+/obj/machinery/flasher/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(var_name == NAMEOF(src, flash_cooldown_duration) && (COOLDOWN_TIMELEFT(src, flash_cooldown) > flash_cooldown_duration))
+		COOLDOWN_START(src, flash_cooldown, flash_cooldown_duration)
+
 /obj/machinery/flasher/power_change(forced = FALSE)
 	. = ..()
 	if(.)
@@ -111,10 +116,17 @@
 	if(disable || !COOLDOWN_FINISHED(src, flash_cooldown))
 		return
 
-	if(iscarbon(proximity_check_mob))
-		var/mob/living/carbon/proximity_carbon = proximity_check_mob
-		if(proximity_carbon.m_intent != MOVE_INTENT_WALK && anchored)
-			flash()
+	if(!iscarbon(proximity_check_mob))
+		return
+
+	var/mob/living/carbon/proximity_carbon = proximity_check_mob
+	if(proximity_carbon.m_intent != MOVE_INTENT_WALK && anchored)
+		flash()
+
+/obj/machinery/flasher/portable/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(var_name == NAMEOF(src, range))
+		proximity_monitor?.set_range(range)
 
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/portable/wirecutter_act(mob/user, obj/item/I)

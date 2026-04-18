@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - tweak: "Добавлена защита от вандализма у торгового автомата с оружейными модулями. (PR #8925)"

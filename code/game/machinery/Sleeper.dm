@@ -13,6 +13,7 @@
 	density = TRUE
 	anchored = TRUE
 	dir = WEST
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
@@ -494,7 +495,7 @@
 		SStgui.update_uis(src)
 	add_fingerprint(usr)
 
-/obj/machinery/sleeper/MouseDrop_T(atom/movable/O, mob/user, params)
+/obj/machinery/sleeper/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other

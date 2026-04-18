@@ -1978,7 +1978,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/supermatter_crystal
 	name = "Осколок суперматерии"
 	contains = list(
-		/obj/machinery/atmospherics/supermatter_crystal/shard,
+		/obj/machinery/power/supermatter_crystal/shard,
 	)
 	cost = 150 //So cargo thinks twice before killing themselves with it
 	containername = "ящик с осколком суперматерии"

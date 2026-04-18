@@ -91,10 +91,10 @@
 
 #define S_TIMER_COOLDOWN_TIMELEFT(cd_source, cd_index) (timeleft(TIMER_COOLDOWN_RUNNING(cd_source, cd_index)))
 
-/*
+/**
  * Cooldown system based on storing world.time on a variable, plus the cooldown time.
  * Better performance over timer cooldowns, lower control. Same functionality.
-*/
+ */
 
 #define COOLDOWN_DECLARE(cd_index) var/##cd_index = 0
 

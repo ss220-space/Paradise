@@ -1,4 +1,0 @@
-author: "Etrnlmelancholy"
-delete-after: True
-changes:
-  - tweak: "Нейроматин теперь в категории \"Инъекторы\", не \"Контрабанда\" (PR #8879)"

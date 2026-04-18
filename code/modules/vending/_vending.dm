@@ -252,6 +252,11 @@
 	 * Defaults to null, set it to TRUE or FALSE explicitly on a per-machine basis if you want to force it to be a certain value.
 	 */
 	var/all_products_free
+	/**
+	 * If this is set to TRUE, the free item distribution process will not drop products, but the machine can still tilt.
+	 * Otherwise, free buy works normally.
+	 */
+	var/vandal_secure = FALSE
 
 /obj/machinery/vending/get_ru_names()
 	return list(
@@ -786,6 +791,10 @@
  * freebies - number of free items to vend
  */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
+	if(vandal_secure)
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, но ничего не выдаёт!"))
+		return
+
 	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
 
 	for(var/i in 1 to num_freebies)
@@ -1327,7 +1336,7 @@
 	if(!message)
 		return
 
-	atom_say(message)
+	atom_say(message, use_tts = FALSE)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
@@ -1335,6 +1344,9 @@
 
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
+
+	if(vandal_secure)
+		return
 
 	var/dump_amount = 0
 	var/found_anything = TRUE

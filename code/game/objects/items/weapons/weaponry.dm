@@ -512,8 +512,8 @@
 		PREPOSITIONAL = "колотушке",
 	)
 
-/obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
-	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!isliving(target) || !proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/mob/living/victim = target
