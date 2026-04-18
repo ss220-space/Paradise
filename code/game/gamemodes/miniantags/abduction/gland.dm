@@ -323,25 +323,23 @@
 	for(var/mob/living/carbon/human/H in oview(3, owner)) // Blood decals for simple animals would be neat. aka Carp with blood on it.
 		H.add_mob_blood(owner)
 
-/obj/item/organ/internal/heart/gland/plasma
+/obj/item/organ/internal/heart/gland/toxic_gas
 	cooldown_low = 1200
 	cooldown_high = 1800
 	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
 	uses = -1
 	mind_control_duration = 800
 
-/obj/item/organ/internal/heart/gland/plasma/activate()
-	spawn(0)
-		to_chat(owner, span_warning("Вы чувствуете тяжесть в животе."))
-		sleep(150)
-		if(!owner)
-			return
-		to_chat(owner, span_userdanger("Вас охватывает мучительная боль в желудке."))
-		sleep(50)
-		if(!owner)
-			return
-		owner.visible_message(span_danger("[capitalize(owner)] отрыгива[PLUR_ET_YUT(owner)] облако плазмы!"))
-		var/turf/simulated/T = get_turf(owner)
-		if(istype(T))
-			T.atmos_spawn_air(LINDA_SPAWN_TOXINS, 50, T20C)
-		owner.vomit()
+/obj/item/organ/internal/heart/gland/toxic_gas/activate()
+	to_chat(owner, span_warning("Вы чувствуете тяжесть в животе."))
+	addtimer(CALLBACK(src, PROC_REF(timered_gas_spawn)), 30 SECONDS)
+
+/obj/item/organ/internal/heart/gland/toxic_gas/proc/timered_gas_spawn()
+	if(!owner)
+		return
+	to_chat(owner, span_userdanger("Вас охватывает мучительная боль в желудке."))
+	owner.visible_message(span_danger("[capitalize(owner.name)] отрыгива[PLUR_ET_YUT(owner)] облако неизвестного газа!"))
+	var/turf/simulated/turf = get_turf(owner)
+	if(istype(turf))
+		turf.atmos_spawn_air(LINDA_SPAWN_BZ, 50, T20C)
+	owner.vomit()
