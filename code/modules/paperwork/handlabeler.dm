@@ -8,31 +8,35 @@
 	var/labels_left = 30
 	var/mode = FALSE
 
-/obj/item/hand_labeler/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/hand_labeler/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(!mode)	//if it's off, give up.
 		return
 
 	if(!labels_left)
 		to_chat(user, span_warning("No labels left!"))
 		return
+
 	if(!label || !length(label))
 		to_chat(user, span_warning("No text set!"))
 		return
-	if(length(A.name) + length(label) > 64)
+
+	if(length(target.name) + length(label) > 64)
 		to_chat(user, span_warning("Label too big!"))
 		return
-	if(ismob(A))
+
+	if(ismob(target))
 		to_chat(user, span_warning("You can't label creatures!")) // use a collar
 		return
 
 	user.visible_message(
-		span_notice("[user] labels [A] as [label]."), \
-		span_notice("You label [A] as [label].")
+		span_notice("[user] labels [target] as [label]."), \
+		span_notice("You label [target] as [label].")
 	)
-	A.AddComponent(/datum/component/label, label)
-	playsound(A, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
+	target.AddComponent(/datum/component/label, label)
+	playsound(target, 'sound/items/handling/pickup/component_pickup.ogg', 20, TRUE)
 	labels_left--
 
 /obj/item/hand_labeler/update_icon_state()

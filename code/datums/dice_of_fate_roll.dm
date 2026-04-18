@@ -1,4 +1,4 @@
-GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
+GLOBAL_ALIST_EMPTY(dice_rolls)
 
 /datum/dice_roll
 	var/number = 0

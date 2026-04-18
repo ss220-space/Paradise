@@ -31,7 +31,7 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? ceil(get_ammo(FALSE)/25)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 /obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)

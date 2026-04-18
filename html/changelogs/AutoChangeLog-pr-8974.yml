@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Левый спрайт костюма пингвина на воксе теперь имеется. (PR #8974)"

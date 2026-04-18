@@ -299,6 +299,19 @@
 
 	return turfs
 
+///Takes: list of area types
+///Returns: all mobs that are in an area type
+/proc/mobs_in_area_type(list/area/checked_areas)
+	var/list/mobs_in_area = list()
+	for(var/mob/living/mob as anything in GLOB.mob_living_list)
+		if(QDELETED(mob))
+			continue
+		for(var/area in checked_areas)
+			if(istype(get_area(mob), area))
+				mobs_in_area += mob
+				break
+	return mobs_in_area
+
 ///Takes: Area type as text string or as typepath OR an instance of the area.
 ///Returns: A list of all areas of that type in the world.
 /proc/get_areas(areatype, subtypes=TRUE)

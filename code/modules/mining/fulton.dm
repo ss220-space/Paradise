@@ -59,46 +59,46 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	afterattack(over_object, usr, TRUE, params)
 	return TRUE
 
-/obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)
+/obj/item/extraction_pack/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!beacon)
 		balloon_alert(user, "синхронизируйте с маяком!")
 		return
 	if(!can_use_indoors)
-		var/area/area = get_area(A)
+		var/area/area = get_area(target)
 		if(!area.outdoors)
 			balloon_alert(user, "используйте снаружи!")
 			return
-	if(!flag)
+	if(!proximity_flag)
 		return
-	if(!istype(A))
+	if(!istype(target))
 		return
 	else
-		if(!check_use_pack(A, user))
+		if(!check_use_pack(target, user))
 			return
 		balloon_alert(user, "подготовка эвакуации...")
-		if(do_after(user, 5 SECONDS, A))
-			if(!check_use_pack(A, user))
+		if(do_after(user, 5 SECONDS, target))
+			if(!check_use_pack(target, user))
 				return
 			balloon_alert(user, "эвакуация завершена")
 			user.equip_to_slot_if_possible(src, ITEM_SLOT_BACKPACK, FALSE, TRUE)
 			uses_left--
 			if(uses_left <= 0)
 				user.drop_from_active_hand(src)
-				forceMove(A)
+				forceMove(target)
 			var/mutable_appearance/balloon
 			var/mutable_appearance/balloon2
 			var/mutable_appearance/balloon3
-			if(isliving(A))
-				var/mob/living/M = A
+			if(isliving(target))
+				var/mob/living/M = target
 				M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
 				M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
 			else
-				A.set_anchored(TRUE)
-				ADD_TRAIT(A, TRAIT_UNDENSE, FULTON_TRAIT)
-			var/obj/effect/extraction_holder/holder_obj = new(A.loc)
-			holder_obj.appearance = A.appearance
-			A.forceMove(holder_obj)
+				target.set_anchored(TRUE)
+				ADD_TRAIT(target, TRAIT_UNDENSE, FULTON_TRAIT)
+			var/obj/effect/extraction_holder/holder_obj = new(target.loc)
+			holder_obj.appearance = target.appearance
+			target.forceMove(holder_obj)
 			balloon2 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_expand")
 			balloon2.pixel_z = 10
 			balloon2.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
@@ -122,8 +122,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			sleep(10)
 			playsound(holder_obj.loc, 'sound/items/fultext_launch.ogg', 50, TRUE, -3)
 			animate(holder_obj, pixel_z = 1000, time = 30)
-			if(ishuman(A))
-				var/mob/living/carbon/human/L = A
+			if(ishuman(target))
+				var/mob/living/carbon/human/L = target
 				L.SetParalysis(0)
 				L.SetDrowsy(0)
 				L.SetSleeping(0)
@@ -150,11 +150,11 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			holder_obj.add_overlay(balloon3)
 			sleep(4)
 			holder_obj.cut_overlay(balloon3)
-			A.set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
-			REMOVE_TRAIT(A, TRAIT_UNDENSE, FULTON_TRAIT)
+			target.set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
+			REMOVE_TRAIT(target, TRAIT_UNDENSE, FULTON_TRAIT)
 			animate(holder_obj, pixel_z = 0, time = 5)
 			sleep(5)
-			A.forceMove(holder_obj.loc)
+			target.forceMove(holder_obj.loc)
 			qdel(holder_obj)
 			if(uses_left <= 0)
 				qdel(src)

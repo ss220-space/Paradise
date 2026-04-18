@@ -14,6 +14,7 @@
 	heat_capacity = 10000
 	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE //this means wires go o- you can touch wires, yes
 
 /turf/simulated/openspace/airless
 	temperature = TCMB
