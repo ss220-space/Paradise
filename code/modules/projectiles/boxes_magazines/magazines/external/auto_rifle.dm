@@ -1,4 +1,4 @@
-// MARK: 5.56x56mm - AR-15
+// MARK: 5.56x45mm - AR-15
 /obj/item/ammo_box/magazine/m556
 	gun_name = "AR-15"
 	extra_info = "Используется для широкого спектра оружия системы AR-15."
