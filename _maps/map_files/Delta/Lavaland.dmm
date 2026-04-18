@@ -8207,9 +8207,7 @@
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Ut" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"

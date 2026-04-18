@@ -17841,9 +17841,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 20
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26736,9 +26734,7 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 26
-	},
+/obj/machinery/alarm/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

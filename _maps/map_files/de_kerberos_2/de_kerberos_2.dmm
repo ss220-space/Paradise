@@ -68026,9 +68026,7 @@
 "loV" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet/empty{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/empty/directional/north,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "loX" = (
