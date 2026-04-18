@@ -398,8 +398,9 @@
 	)
 
 	implants = list(
-	/obj/item/implant/mindshield/ert,
-	/obj/item/implant/explosive/macro,
+
+		/obj/item/implant/mindshield/ert,
+		/obj/item/implant/explosive/macro,
 	)
 
 	cybernetic_implants = list(
