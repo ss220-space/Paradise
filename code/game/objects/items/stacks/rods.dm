@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
 
-/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
+/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, list/modifiers)
 	target.attackby(src, user, list2params(modifiers))
 
 /obj/item/stack/rods/fireproof
@@ -88,15 +88,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	singular_name = "fireproof rod"
 	icon_state = "f_rods"
 	item_state = "f_rods"
-	flags = CONDUCT
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	force = 9
-	throwforce = 10
-	throw_speed = 3
-	attack_verb = list("ударил", "огрел")
 	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
-	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/rods/fireproof/twentyfive
 	amount = 25

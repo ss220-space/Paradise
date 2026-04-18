@@ -1291,9 +1291,8 @@
 		var/obj/item/vended_item = new product_record.product_path(drop_location())
 		if(greyscale_colors)
 			vended_item.set_greyscale_colors(greyscale_colors)
-		if(IsReachableBy(user) && user.put_in_hands(vended_item))
-			if(user.put_in_hands(vended_item, ignore_anim = FALSE))
-				put_on_turf = FALSE
+		if(IsReachableBy(user) && user.put_in_hands(vended_item, ignore_anim = FALSE))
+			put_on_turf = FALSE
 		if(put_on_turf)
 			var/turf/target_turf = get_turf(src)
 			vended_item.forceMove(target_turf)

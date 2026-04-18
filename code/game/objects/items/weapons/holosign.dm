@@ -61,7 +61,7 @@
 		balloon_alert(user, "голограммы удалены")
 
 /obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, list/modifiers)
-	afterattack(target, user, modifiers = modifiers)
+	afterattack(target, user, TRUE, modifiers)
 
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
