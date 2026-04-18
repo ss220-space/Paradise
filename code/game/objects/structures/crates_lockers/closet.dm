@@ -8,56 +8,87 @@ GLOBAL_LIST_EMPTY(closets)
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = TRUE
-	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
+	layer = LOW_ITEM_LAYER // Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 70, ACID = 60)
 	pass_flags_self = PASSSTRUCTURE | LETPASSCLICKS
 
-	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
+	/// If TRUE, uses only icon_closed/icon_opened states and skips all overlay logic.
 	var/no_overlays = FALSE
-	var/icon_closed = "closed" //stays here for compatibility issues
+	/// Base icon state when closed (kept for compatibility).
+	var/icon_closed = "closed"
+	/// Base icon state when opened.
 	var/icon_opened = "open"
 
-	//following overlays are used by default for states, override if necessary
+	// Overlay icons used by default; override in subtypes if needed.
+	/// Overlay shown when the closet is sparking (e.g., during emag or break attempt).
 	var/overlay_sparking = "sparking"
+	/// Overlay shown when a secure closet is unlocked.
 	var/overlay_unlocked = "unlocked"
+	/// Overlay shown when a secure closet is locked.
 	var/overlay_locked = "locked"
-	var/overlay_locker = null // TODO: 'locker'less closet sprites.
-	var/custom_door_overlay = null //handles overlay of door looking into screen
-	var/custom_open_overlay = null //handles overlay of opened door (its inner side)
+	/// TODO: overlay for lockers that lack the 'locker' sprite variant.
+	var/overlay_locker = null
+	/// Custom overlay for the door when facing the viewer (replaces the default door overlay).
+	var/custom_door_overlay = null
+	/// Custom overlay for the inside of the door when opened.
+	var/custom_open_overlay = null
 
+	/// If TRUE, the closet will not become dense even when closed.
 	var/ignore_density_closed = FALSE
+	/// Is the closet currently open?
 	var/opened = FALSE
+	/// Is the closet welded shut?
 	var/welded = FALSE
+	/// Is the closet locked? (Only meaningful if `secure` is TRUE.)
 	var/locked = FALSE
+	/// Can the closet be anchored/unanchored with a wrench?
 	var/anchorable = TRUE
-	/// Secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
+	/// Is this a secure locker? Also enables fancy indicator lights on the door overlay.
 	var/secure = FALSE
-	//Time to breakout
+	/// Time required to break out of the closet from the inside.
 	var/breakout_time = 2 MINUTES
+	/// Whether the closet is considered 'large' (affects passing through certain openings).
 	var/large = TRUE
+	/// Can this closet be emagged?
 	var/can_be_emaged = FALSE
+	/// Can this closet be welded shut?
 	var/can_weld_shut = TRUE
-	var/wall_mounted = FALSE //never solid (You can always pass over it)
+	/// If TRUE, this closet is wall-mounted and never blocks movement.
+	var/wall_mounted = FALSE
+	/// Timestamp of the last bang sound (used in subtypes).
 	var/lastbang
+	/// Sound played when the closet is opened.
 	var/open_sound = 'sound/machines/closet_open.ogg'
+	/// Sound played when the closet is closed.
 	var/close_sound = 'sound/machines/closet_close.ogg'
+	/// Volume of the open sound.
 	var/open_sound_volume = 35
+	/// Volume of the close sound.
 	var/close_sound_volume = 50
+	/// Duration of the sparking effect when the lock is broken.
 	var/sparking_duration = 1 SECONDS
-	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
-	var/mob_storage_capacity //if null, than not limited
+	/// Maximum number of items that can be scooped up when the closet is closed.
+	var/storage_capacity = 30
+	/// Maximum number of mobs that can be scooped up when the closet is closed. If `null`, there is no limit.
+	var/mob_storage_capacity
+	/// Material type dropped when the closet is deconstructed.
 	var/material_drop = /obj/item/stack/sheet/metal
+	/// Amount of material dropped upon deconstruction.
 	var/material_drop_amount = 2
+	/// If TRUE, the closet ignores shove impacts from players.
 	var/ignore_shoves = FALSE
+	/// If TRUE, the closet will not open when thrown against a wall.
 	var/no_throw_opens = FALSE
+	/// Cooldown for messages shown when attempting to open a locked closet from the inside.
 	COOLDOWN_DECLARE(message_cd)
-	var/dense_when_open = FALSE //if it's dense when open or not
+	/// If TRUE, the closet remains dense (blocks movement) even when open.
+	var/dense_when_open = FALSE
 
-	/// How many pixels the closet can shift on the x axis when shaking
+	/// Maximum pixel shift along the X axis during shaking animation.
 	var/x_shake_pixel_shift = 2
-	/// How many pixels the closet can shift on the y axes when shaking
+	/// Maximum pixel shift along the Y axis during shaking animation.
 	var/y_shake_pixel_shift = 1
 
 

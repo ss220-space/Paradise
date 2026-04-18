@@ -7,7 +7,7 @@
 	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
+	pass_flags_self = PASSSTRUCTURE | LETPASSTHROW
 	x_shake_pixel_shift = 1
 	y_shake_pixel_shift = 2
 	dense_when_open = TRUE
@@ -171,10 +171,6 @@
 	. = ..()
 	if(!isliving(user))
 		return
-
-	// 0) If the target is a crate on a shelf, we work with the shelf itself.
-	if(is_crate(over_object) && is_cargo_shelf(over_object.loc))
-		over_object = over_object.loc
 
 	// 1) Unloading from shelf to turf
 	if(!isopenspaceturf(over_object) && is_cargo_shelf(loc) && !is_cargo_shelf(over_object))
