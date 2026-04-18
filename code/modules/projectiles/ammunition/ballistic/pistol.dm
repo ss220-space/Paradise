@@ -91,7 +91,7 @@
 
 // MARK: 10mm
 /obj/item/ammo_casing/c10mm
-	ammo_marking = "10 мм"
+	ammo_marking = "10x25 мм"
 	materials = list(MAT_METAL = 1500)
 	caliber = CALIBER_10MM
 	projectile_type = /obj/projectile/bullet/midbullet3
@@ -100,14 +100,14 @@
 	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/c10mm/ap
-	ammo_marking = "10 мм Б"
+	ammo_marking = "10x25 мм Б"
 	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
 	projectile_type = /obj/projectile/bullet/midbullet3/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/c10mm/fire
-	ammo_marking = "10 мм З"
+	ammo_marking = "10x25 мм З"
 	extra_info = "Зажигательная пуля воспламеняется при попадании."
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 200, MAT_PLASMA = 300)
 	projectile_type = /obj/projectile/bullet/midbullet3/fire
@@ -115,7 +115,7 @@
 	bullet_type = BULLET_TYPE_FIRE
 
 /obj/item/ammo_casing/c10mm/hp
-	ammo_marking = "10 мм Э"
+	ammo_marking = "10x25 мм Э"
 	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб проникающей способности."
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
 	projectile_type = /obj/projectile/bullet/midbullet3/hp
