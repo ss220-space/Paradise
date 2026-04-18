@@ -41,8 +41,7 @@
 		PREPOSITIONAL = "противогазе",
 	)
 
-// **** Welding gas mask ****
-
+// MARK: Welding gas mask
 /obj/item/clothing/mask/gas/welding
 	name = "welding gas mask"
 	desc = "Противогаз, со встроенным лицевым щитком и сварочными очками. Был спроектирован ботанами, поэтому выглядит как череп."
@@ -79,6 +78,7 @@
 /obj/item/clothing/mask/gas/welding/adjustmask(mob/living/carbon/human/user)
 	return
 
+//marK: Explorer gas mask
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
 	desc = "Противогаз военного качества, который можно подключить к системе подачи воздуха."
@@ -158,6 +158,7 @@
 		PREPOSITIONAL = "маске Бейна",
 	)
 
+// MARK: Plague doctor
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
 	name = "plague doctor mask"
@@ -223,6 +224,7 @@
 		PREPOSITIONAL = "маске \"Синдиката\"",
 	)
 
+// MARK: Clown hat
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
 	desc = "Маскарадный набор настоящего проказника. Клоун никогда не будет полноценным без своего парика и маски. Вы можете изменить её внешний вид в руках."
@@ -353,6 +355,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+
+// MARK: Mime mask
 /obj/item/clothing/mask/gas/mime
 	name = "happy mime mask"
 	desc = "Классическая театральная маска, для мастеров пантомимы."
@@ -576,6 +580,7 @@
 		PREPOSITIONAL = "классической маске мима",
 	)
 
+// MARK: Cyborg gas mask
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Бип буп."
@@ -628,9 +633,13 @@
 		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, TRUE)
 		cooldown = world.time
 
-// ********************************************************************
 
-// **** Security gas mask ****
+// MARK: Security gas mask
+#define AGGRESSIVENESS_FIRST_POSITION 1
+#define AGGRESSIVENESS_SECOND_POSITION 2
+#define AGGRESSIVENESS_THIRD_POSITION 3
+#define AGGRESSIVENESS_FOURTH_POSITION 4
+#define AGGRESSIVENESS_BROKEN 5
 
 /obj/item/clothing/mask/gas/sechailer
 	name = "security gas mask"
@@ -643,7 +652,7 @@
 	adjusted_flags_inv = HIDENAME
 	clothing_traits = list(TRAIT_SECDEATH)
 	var/phrase = 1
-	var/aggressiveness = 1
+	var/aggressiveness = AGGRESSIVENESS_FIRST_POSITION
 	var/safety = 1
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt)
@@ -708,7 +717,7 @@
 	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией \"Стальная Гвардия\" специально для сотрудников станционной службы безопасности \"Нанотрейзен\". Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 10, ACID = 30)
-	aggressiveness = 3
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt)
@@ -729,7 +738,7 @@
 	desc = "Тактический противогаз чёрного цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "hosmask"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt)
@@ -749,7 +758,7 @@
 	desc = "Тактический противогаз синего цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "wardenmask"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt)
@@ -769,7 +778,7 @@
 	desc = "Тактический противогаз с более агрессивным Подчи-о-натором 3000."
 	icon_state = "officermask"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt)
@@ -790,7 +799,7 @@
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt)
@@ -842,22 +851,22 @@
 		return
 
 	switch(aggressiveness)
-		if(1)
+		if(AGGRESSIVENESS_FIRST_POSITION)
 			phrase = (phrase < 6) ? (phrase + 1) : 1
 			key = phrase_list[phrase]
 			message = phrase_list[key]
 			to_chat(user,span_notice("You set the restrictor to: [message]"))
-		if(2)
+		if(AGGRESSIVENESS_SECOND_POSITION)
 			phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
 			key = phrase_list[phrase]
 			message = phrase_list[key]
 			to_chat(user,span_notice("You set the restrictor to: [message]"))
-		if(3)
+		if(AGGRESSIVENESS_THIRD_POSITION)
 			phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
 			key = phrase_list[phrase]
 			message = phrase_list[key]
 			to_chat(user,span_notice("You set the restrictor to: [message]"))
-		if(4)
+		if(AGGRESSIVENESS_FOURTH_POSITION)
 			phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
 			key = phrase_list[phrase]
 			message = phrase_list[key]
@@ -872,36 +881,36 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	switch(aggressiveness)
-		if(1)
+		if(AGGRESSIVENESS_FIRST_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the second position."))
-			aggressiveness = 2
+			aggressiveness = AGGRESSIVENESS_SECOND_POSITION
 			phrase = 7
-		if(2)
+		if(AGGRESSIVENESS_SECOND_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the third position."))
-			aggressiveness = 3
+			aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 			phrase = 13
-		if(3)
+		if(AGGRESSIVENESS_THIRD_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the fourth position."))
-			aggressiveness = 4
+			aggressiveness = AGGRESSIVENESS_FOURTH_POSITION
 			phrase = 1
-		if(4)
+		if(AGGRESSIVENESS_FOURTH_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the first position."))
-			aggressiveness = 1
+			aggressiveness = AGGRESSIVENESS_FIRST_POSITION
 			phrase = 1
 		if(5)
 			to_chat(user, span_warning("You adjust the restrictor but nothing happens, probably because its broken."))
 
 /obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(aggressiveness == 5)
+	if(aggressiveness == AGGRESSIVENESS_BROKEN)
 		to_chat(user, span_warning("The [name] is already broken."))
 		return .
 	var/confirm = tgui_alert(user, "Do you want to cut off the voice modulator? Warning: It will destroy mask's functionality.", "Cut voice modulator?", list("Yes", "No"))
-	if(confirm != "Yes" || aggressiveness == 5 || !Adjacent(user) || user.incapacitated())
+	if(confirm != "Yes" || aggressiveness == AGGRESSIVENESS_BROKEN || !Adjacent(user) || user.incapacitated())
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	aggressiveness = 5
+	aggressiveness = AGGRESSIVENESS_BROKEN
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
 
 /obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
@@ -909,7 +918,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)
-		safety = 0
+		safety = FALSE
 		if(user)
 			to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 
@@ -929,8 +938,13 @@
 		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
-// ********************************************************************
+#undef AGGRESSIVENESS_FIRST_POSITION
+#undef AGGRESSIVENESS_SECOND_POSITION
+#undef AGGRESSIVENESS_THIRD_POSITION
+#undef AGGRESSIVENESS_FOURTH_POSITION
+#undef AGGRESSIVENESS_BROKEN
 
+// MARK: Ghostface mask
 /obj/item/clothing/mask/gas/ghostface
 	name = "Ghostface mask"
 	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос — ужаса, или ярости?"
