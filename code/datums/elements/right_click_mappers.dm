@@ -15,6 +15,7 @@
 
 /datum/element/right_click_mapper/Detach(datum/target)
 	UnregisterSignal(target, COMSIG_ATOM_ATTACK_HAND_SECONDARY)
+	target.RemoveElement(/datum/element/contextual_screentip_bare_hands)
 	. = ..()
 
 /datum/element/right_click_mapper/proc/on_attack_hand_secondary(var/obj/item/target_item, mob/user)
