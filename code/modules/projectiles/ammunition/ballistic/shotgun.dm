@@ -252,7 +252,7 @@
 	INVOKE_ASYNC(src, PROC_REF(tripwire_fire_as_payload), base, victim)
 
 /obj/item/ammo_casing/shotgun/proc/tripwire_fire_as_payload(obj/item/tripwire/base, mob/living/victim)
-	var/fired = fire(victim, null, null, 0, FALSE, "", 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
+	var/fired = fire(victim, null, null, 0, FALSE, null, 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
 	if(!fired)
 		playsound(base, 'sound/weapons/empty.ogg', 50, TRUE)
 		return

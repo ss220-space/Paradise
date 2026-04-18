@@ -81,9 +81,9 @@
 	if(QDELETED(src))
 		return
 	if(status)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, detonate)), 1 SECONDS)
+		addtimer(CALLBACK(bombtank, TYPE_PROC_REF(/obj/item/tank, detonate)), 1 SECONDS)
 		return
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/tank, release)), 1 SECONDS)
+	addtimer(CALLBACK(bombtank, TYPE_PROC_REF(/obj/item/tank, release)), 1 SECONDS)
 
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
 	if(!bombassembly)
