@@ -270,12 +270,12 @@
 
 	var/obj/effect/abstract/reach_checker/dummy = new(get_turf(here))
 	for(var/i in 1 to reach) //Limit it to that many tries
-		var/turf/T = get_step(dummy, get_dir(dummy, there))
+		var/turf/target_turf = get_step(dummy, get_dir(dummy, there))
 		if(there.IsReachableBy(dummy))
 			. = TRUE
 			break
 
-		if(!dummy.Move(T)) //we're blocked!
+		if(!dummy.Move(target_turf)) //we're blocked!
 			break
 
 	qdel(dummy)
