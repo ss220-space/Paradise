@@ -139,7 +139,7 @@
 	item_to_retrieve.forceMove(target_turf)
 
 	if(target.put_in_active_hand(item_to_retrieve) || target.put_in_inactive_hand(item_to_retrieve))
-		target_turf.visible_message(span_warning("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется в руках [target.declent_ru(PREPOSITIONAL)]!"))
+		target_turf.visible_message(span_warning("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется в руках [target.declent_ru(GENITIVE)]!"))
 		return
 
 	target_turf.visible_message(span_warning("[DECLENT_RU_CAP(item_to_retrieve, NOMINATIVE)] внезапно появляется!"))
