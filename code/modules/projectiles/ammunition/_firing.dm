@@ -63,7 +63,6 @@
 		QDEL_NULL(BB)
 		return TRUE
 
-	var/modifiers = params2list(params)
 	BB.preparePixelProjectile(target, user || firer_source_atom, modifiers, spread)
 	if(BB)
 		BB.fire()
