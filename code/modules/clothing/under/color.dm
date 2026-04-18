@@ -519,6 +519,16 @@
 	greyscale_config_worn = null
 	greyscale_config_worn_species = null
 
+/obj/item/clothing/under/color/red/jersey/get_ru_names()
+	return list(
+		NOMINATIVE = "джерси красной команды",
+		GENITIVE = "джерси красной команды",
+		DATIVE = "джерси красной команды",
+		ACCUSATIVE = "джерси красной команды",
+		INSTRUMENTAL = "джерси красной команды",
+		PREPOSITIONAL = "джерси красной команды",
+	)
+
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "Джерси против команды RED!"
@@ -531,3 +541,13 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	greyscale_config_worn_species = null
+
+/obj/item/clothing/under/color/blue/jersey/get_ru_names()
+	return list(
+		NOMINATIVE = "джерси синей команды",
+		GENITIVE = "джерси синей команды",
+		DATIVE = "джерси синей команды",
+		ACCUSATIVE = "джерси синей команды",
+		INSTRUMENTAL = "джерси синей команды",
+		PREPOSITIONAL = "джерси синей команды",
+	)
