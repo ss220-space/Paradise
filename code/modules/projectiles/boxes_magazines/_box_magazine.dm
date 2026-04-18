@@ -96,8 +96,10 @@
 		return caliber
 
 	var/obj/item/ammo_casing/sample_cartridge = new ammo_type()
+	var/ammo_marking = sample_cartridge.get_ammo_marking()
+	qdel(sample_cartridge)
 
-	return sample_cartridge.get_ammo_marking()
+	return ammo_marking
 
 /// Updated names according to the type of ammo inside
 /obj/item/ammo_box/proc/update_names()

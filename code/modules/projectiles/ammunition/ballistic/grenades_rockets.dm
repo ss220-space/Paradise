@@ -123,7 +123,7 @@
 
 // MARK: 40mm - Bombarda
 /obj/item/ammo_casing/a40mm/improvised
-	ammo_marking = "40 мм импровизировая"
+	ammo_marking = "40 мм импровизированная"
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "exp_shell"
 	item_state = "exp_shell"
@@ -132,22 +132,22 @@
 
 /obj/item/ammo_casing/a40mm/improvised/update_desc(updates = ALL)
 	. = ..()
-	desc = "Самодельная граната [ammo_marking] для стрельбы из гранатомёта. Крайте нестабильная. [extra_info]"
+	desc = "Самодельная граната [ammo_marking] для стрельбы из гранатомёта. Крайне нестабильная. [extra_info]"
 
 /obj/item/ammo_casing/a40mm/improvised/exp_shell
-	ammo_marking = "40 мм импровизировая \"Взрыв\""
+	ammo_marking = "40 мм импровизированная \"Взрыв\""
 	extra_info = "Взрывается при ударе."
 	projectile_type = /obj/projectile/grenade/improvised/exp_shot
 
 /obj/item/ammo_casing/a40mm/improvised/flame_shell
-	ammo_marking = "40 мм импровизировая \"Огонь\""
+	ammo_marking = "40 мм импровизированная \"Огонь\""
 	extra_info = "Воспламеняется при ударе."
 	projectile_type = /obj/projectile/grenade/improvised/flame_shot
 	icon_state = "flame_shell"
 	item_state = "flame_shell"
 
 /obj/item/ammo_casing/a40mm/improvised/smoke_shell
-	ammo_marking = "40 мм импровизировая \"Дым\""
+	ammo_marking = "40 мм импровизированная \"Дым\""
 	extra_info = "Создаёт облако дыма при ударе."
 	projectile_type = /obj/projectile/grenade/improvised/smoke_shot
 	icon_state = "smoke_shell"

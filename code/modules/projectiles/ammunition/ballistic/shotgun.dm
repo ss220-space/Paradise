@@ -195,7 +195,7 @@
 
 // MARK: Flechette
 /obj/item/ammo_casing/shotgun/flechette
-	ammo_marking = "12g \"Флешшета\""
+	ammo_marking = "12g \"Флешетта\""
 	extra_info = "Дробовик, заполненный крошечными стальными дротиками для пробития брони."
 	icon_state = "flechetteshell"
 	projectile_type = /obj/projectile/bullet/pellet/flechette
