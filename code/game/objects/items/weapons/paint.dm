@@ -95,12 +95,13 @@
 	icon_state = "giftcrate3"
 
 /obj/item/random_paint_box/attack_self(mob/user)
-	var/list/paints = subtypesof(/obj/item/reagent_containers/glass/paint)
-	var/chosen = pick(paints)
-	var/obj/thing = new chosen
-	if(thing)
-		user.put_in_hands(thing)
-		qdel(src)
+	var/static/list/paint_types
+	if(!paint_types)
+		paint_types = subtypesof(/obj/item/reagent_containers/glass/paint)
+	var/chosen = pick(paint_types)
+	var/obj/item/thing = new chosen(user.drop_location())
+	user.put_in_hands(thing)
+	qdel(src)
 
 /obj/item/random_paint_box/get_ru_names()
 	return list(
