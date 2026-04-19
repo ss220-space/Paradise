@@ -33,12 +33,12 @@
 
 /obj/item/reagent_containers/glass/paint/get_ru_names()
 	return list(
-		NOMINATIVE = "ведро \[paint_title_ru]\",
-		GENITIVE = "ведра \[paint_title_ru]\",
-		DATIVE = "ведру \[paint_title_ru]\",
-		ACCUSATIVE = "ведро \[paint_title_ru]\",
-		INSTRUMENTAL = "ведром \[paint_title_ru]\",
-		PREPOSITIONAL = "ведре \[paint_title_ru]\",
+		NOMINATIVE = "ведро [paint_title_ru]",
+		GENITIVE = "ведра [paint_title_ru]",
+		DATIVE = "ведру [paint_title_ru]",
+		ACCUSATIVE = "ведро [paint_title_ru]",
+		INSTRUMENTAL = "ведром [paint_title_ru]",
+		PREPOSITIONAL = "ведре [paint_title_ru]",
 	)
 
 /obj/item/reagent_containers/glass/paint/red
