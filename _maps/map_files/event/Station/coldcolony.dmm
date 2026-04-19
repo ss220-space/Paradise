@@ -6345,7 +6345,7 @@
 	},
 /area/coldcolony/malta/engineering/teg)
 "cnn" = (
-/obj/machinery/alarm/syndicate/pirat/directional/south,
+/obj/machinery/alarm/syndicate/pirate/directional/south,
 /obj/machinery/light/small{
 	active_power_usage = 0;
 	dir = 8;
