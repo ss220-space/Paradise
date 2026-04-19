@@ -13,6 +13,7 @@
 		TRAIT_HAS_REGENERATION,
 		TRAIT_NO_SPECIES_EXAMINE,
 		TRAIT_VENTCRAWLER_NUDE,
+		TRAIT_CAN_BITE,
 	)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
@@ -58,8 +59,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
 	)
-
-	can_bite = TRUE
 
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"

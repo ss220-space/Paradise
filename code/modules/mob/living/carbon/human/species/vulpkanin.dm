@@ -18,6 +18,7 @@
 	inherent_traits = list(
 		TRAIT_HAS_LIPS,
 		TRAIT_HAS_REGENERATION,
+		TRAIT_CAN_BITE,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
@@ -85,8 +86,6 @@
 		"р" = list("р", "рр", "ррр"),
 	)
 	autohiss_exempt = list("Канилунц")
-
-	can_bite = TRUE
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

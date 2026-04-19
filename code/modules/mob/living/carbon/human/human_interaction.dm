@@ -18,15 +18,16 @@
 	human_user.last_interract = world.time
 
 	switch(href_list["interaction"])
+// MARK: BOW
 		if("bow")
 			human_user.custom_emote(message = "кланя[PLUR_ET_YUT(human_user)]ся [human_partner].")
-
+// MARK: PET
 		if("pet")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
 
 			human_user.custom_emote(message = "[pick("глад[PLUR_IT_YAT(human_user)]", "поглажива[PLUR_ET_YUT(human_user)]")] [human_partner].")
-
+// MARK:SCRATCH
 		if("scratch")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
@@ -36,13 +37,13 @@
 
 			else
 				human_user.custom_emote(message = "[pick("чеш[PLUR_ET_UT(human_user)] за ухом", "чеш[PLUR_ET_UT(human_user)] голову")] [human_partner].")
-
+// MARK: GIVE
 		if("give")
 			if(!human_partner.Adjacent(human_user.loc))
 				return
 
 			human_user.give(human_partner)
-
+// MARK: KISS
 		if("kiss")
 			if(!get_location_accessible(human_user, BODY_ZONE_PRECISE_MOUTH))
 				return
@@ -52,7 +53,7 @@
 
 			else if(get_location_accessible(human_partner, BODY_ZONE_PRECISE_MOUTH))
 				human_user.custom_emote(message = "целу[PLUR_ET_YUT(human_user)] [human_partner].")
-
+// MARK: LICK
 		if("lick")
 			if(!human_partner.Adjacent(human_user.loc) || !get_location_accessible(human_user, BODY_ZONE_PRECISE_MOUTH) || !get_location_accessible(human_partner, BODY_ZONE_PRECISE_MOUTH))
 				return
@@ -62,42 +63,42 @@
 
 			else
 				human_user.custom_emote(message = "особо тщательно лизнул[GEND_A_O_I(human_user)] [human_partner].")
-
+// MARK: HUG
 		if("hug")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
 
 			human_user.custom_emote(message = "обнима[PLUR_ET_YUT(human_user)] [human_partner].")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
+// MARK: CHEER
 		if("cheer")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
 
 			human_user.custom_emote(message = "похлопыва[PLUR_ET_YUT(human_user)] [human_partner] по плечу.")
-
+// MARK: FIVE
 		if("five")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
 
 			human_user.custom_emote(message = "да[PLUR_YOT_YUT(human_user)] [human_partner] пять.")
 			playsound(loc, 'sound/effects/snap.ogg', 25, TRUE, -1)
-
+// MARK: HANDSHAKE
 		if("handshake")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(human_partner, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
 
 			human_user.custom_emote(message = "жм[PLUR_YOT_UT(human_user)] руку [human_partner].")
-
+// MARK: BOW AFFABLY
 		if("bow_affably")
 			human_user.custom_emote(message = "приветливо кивнул[GEND_A_O_I(human_user)] в сторону [human_partner].")
-
+// MARK: WAVE
 		if("wave")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED))
 				return
 
 			human_user.custom_emote(message = "приветливо маш[PLUR_ET_UT(human_user)] в сторону [human_partner].")
-
+// MARK: SLAP
 		if("slap")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
@@ -124,13 +125,13 @@
 
 			playsound(loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
 			human_user.do_attack_animation(human_partner)
-
+// MARK: MIDDLE FINGER
 		if("fuckyou")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED))
 				return
 
 			human_user.custom_emote(message = span_danger("показыва[PLUR_ET_YUT(human_user)] [human_partner] средний палец!"))
-
+// MARK: KNOCK
 		if("knock")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
@@ -145,7 +146,7 @@
 			human_user.custom_emote(message = span_danger("да[PLUR_ET_YUT(human_user)] [human_partner] подзатыльник!"))
 			playsound(loc, 'sound/weapons/throwtap.ogg', 50, TRUE, -1)
 			human_user.do_attack_animation(human_partner)
-
+// MARK: SPIT
 		if("spit")
 			if(!human_partner.Adjacent(human_user.loc) || !get_location_accessible(human_user, BODY_ZONE_PRECISE_MOUTH))
 				return
@@ -154,19 +155,19 @@
 
 			if(prob(20))
 				human_partner.AdjustEyeBlurry(3 SECONDS)
-
+// MARK: THREATER
 		if("threaten")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED))
 				return
 
 			human_user.custom_emote(message = span_danger("гроз[PLUR_IT_YAT(human_user)] [human_partner] кулаком!"))
-
+// MARK: STUCK THE TONGUE
 		if("tongue")
 			if(!get_location_accessible(human_user, BODY_ZONE_PRECISE_MOUTH))
 				return
 
 			human_user.custom_emote(message = span_danger("показыва[PLUR_ET_YUT(human_user)] [human_partner] язык!"))
-
+// MARK: PULL WING
 		if("pullwing")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
@@ -189,7 +190,7 @@
 				human_partner.apply_damage(1, def_zone = wing)
 
 			human_user.custom_emote(message = span_danger("дёрга[PLUR_ET_YUT(human_user)] [human_partner] за крылья!"))
-
+// MARK: PULL TAIL
 		if("pull")
 			if(HAS_TRAIT(human_user, TRAIT_HANDS_BLOCKED) || !human_partner.Adjacent(human_user.loc))
 				return
@@ -222,9 +223,9 @@
 				human_partner.apply_damage(1, def_zone = tail)
 
 			human_user.custom_emote(message = span_danger("дёрга[PLUR_ET_YUT(human_user)] [human_partner] за хвост!"))
-
+// MARK: BITE
 		if("bite")
-			if(!human_user.dna?.species?.can_bite)
+			if(!HAS_TRAIT(human_user, TRAIT_CAN_BITE))
 				to_chat(human_user, span_warning("Ваши зубы не предназначены для укусов!"))
 				return
 
@@ -235,21 +236,16 @@
 				return
 
 			if(!get_location_accessible(human_user, BODY_ZONE_PRECISE_MOUTH))
-				to_chat(human_user, span_warning("Что-то мешает вам открыть рот!"))
 				return
 
 			var/target_zone = human_user.zone_selected
 			if(target_zone == BODY_ZONE_PRECISE_GROIN)
-				to_chat(human_user, span_warning("Вы не можете укусить туда... это было бы очень странно."))
 				return
 
 			human_user.face_atom(human_partner)
-
 			var/armor_value = human_partner.getarmor(target_zone, MELEE)
 			if(armor_value > 20)
-				human_user.visible_message(span_danger("[human_user] пыта[PLUR_ET_YUT(human_user)]ся укусить [human_partner], но лишь больно бьется зубами о броню!"), \
-					span_userdanger("Ваши зубы с лязгом бьются о броню [human_partner]! От резкой боли в челюсти у вас темнеет в глазах!"))
-
+				human_user.custom_emote(message = span_danger("удар[PLUR_ET_YUT(human_user)]ся зубами об броню [human_partner]!"))
 				human_user.Confused(5 SECONDS)
 				human_user.Knockdown(1 SECONDS)
 				human_user.apply_damage(2, BRUTE, BODY_ZONE_HEAD)
@@ -259,14 +255,10 @@
 				animate(pixel_x = human_user.base_pixel_x + human_user.body_position_pixel_x_offset, time = 2)
 				return
 
-			human_user.visible_message(span_danger("[human_user] вонза[PLUR_ET_YUT(human_user)] свои острые зубы в [human_partner]!"), \
-				span_danger("Вы вонзаете зубы в [human_partner]!"), \
-				span_italics("Вы слышите звук укуса и глухой вскрик."))
-
+			human_user.custom_emote(message = span_danger("куса[PLUR_ET_YUT(human_user)] [human_partner]!"))
 			var/interaction_dir = get_dir(human_user, human_partner)
 			var/offset_x = 0
 			var/offset_y = 0
-
 			if(interaction_dir & NORTH)
 				offset_y = 12
 			else if(interaction_dir & SOUTH)

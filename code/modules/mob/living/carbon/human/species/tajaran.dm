@@ -27,6 +27,7 @@
 	inherent_traits = list(
 		TRAIT_HAS_LIPS,
 		TRAIT_HAS_REGENERATION,
+		TRAIT_CAN_BITE,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
@@ -92,8 +93,6 @@
 		"р" = list("рр", "ррр", "рррр"),
 	)
 	autohiss_exempt = list("Сик'таир")
-
-	can_bite = TRUE
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

@@ -346,6 +346,8 @@
 #define TRAIT_ACID_PROTECTED "acid_protected"
 /// Species with no vocal cords can't speak without translator
 #define TRAIT_NO_VOCAL_CORDS "no_vocal_cords"
+/// Can species bite via interaction menu
+#define TRAIT_CAN_BITE "can_bite"
 
 #define TRAIT_BLOB_ZOMBIFIED "blob_zombified"
 

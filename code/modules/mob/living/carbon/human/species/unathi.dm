@@ -24,6 +24,7 @@
 	inherent_traits = list(
 		TRAIT_HAS_LIPS,
 		TRAIT_PIERCEIMMUNE,
+		TRAIT_CAN_BITE,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING | TAIL_OVERLAPPED
@@ -113,8 +114,6 @@
 		"ч" = list("щ", "щщ", "щщщ"),
 	)
 	autohiss_exempt = list("Синт'Унати")
-
-	can_bite = TRUE
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

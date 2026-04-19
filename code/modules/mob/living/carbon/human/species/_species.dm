@@ -267,9 +267,6 @@
 
 	var/max_radiation = CARBON_MAX_RADIATION // Maximum radiation species can hold
 
-	/// Can species bite with interaction menu
-	var/can_bite = FALSE
-
 /datum/species/New()
 	unarmed = new unarmed_type()
 

@@ -47,7 +47,7 @@
 	data["can_pet_target"] = human_partner.can_inject(human_user, target_zone = human_user.zone_selected, silent = TRUE)
 
 	if(human_user.dna?.species)
-		data["can_bite"] = human_user.dna.species.can_bite
+		data["can_bite"] = HAS_TRAIT(human_user, TRAIT_CAN_BITE)
 	else
 		data["can_bite"] = FALSE
 
