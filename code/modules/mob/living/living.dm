@@ -468,7 +468,7 @@
 		to_chat(src, span_warning("Ваш голокорпус не позволяет это сделать!"))
 		return FALSE
 
-	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !Adjacent(target)))
+	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !recursive_loc_check(src, target)) && !target.IsReachableBy(src))
 		if(has_unlimited_silicon_privilege && !ispAI(src))
 			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
 				if(!(action_bitflags & SILENT_ADJACENCY))
@@ -1732,7 +1732,7 @@
 
 	switch(var_name)
 		if(NAMEOF(src, maxHealth))
-			updatehealth("var edit")
+			updatehealth(reason = "var edit")
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
@@ -2256,6 +2256,9 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/mob/living/proc/get_fracture_spread_bonus()
+	return 0
 
 /// Prints an ominous message if something bad is going to happen to you
 /mob/living/proc/ominous_nosebleed()

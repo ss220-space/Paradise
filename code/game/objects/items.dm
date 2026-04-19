@@ -294,6 +294,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// What to toggle when toggled with weldingvisortoggle()
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
+	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
+	var/reach = 1
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -512,8 +515,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		MO.desc = "Похоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
-/obj/item/proc/afterattack(atom/target, mob/user, proximity, list/modifiers, status)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, modifiers, status)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers, status)
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -1439,7 +1442,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return TRUE
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
-/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, list/modifiers)
 	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 /obj/item/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

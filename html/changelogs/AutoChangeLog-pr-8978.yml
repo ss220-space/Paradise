@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - spellcheck: "Подержать -> поддержать. (PR #8978)"

@@ -443,7 +443,7 @@
 		return
 
 	var/obj/structure/closet/crate/CRATE
-	if(istype(AM,/obj/structure/closet/crate))
+	if(is_crate(AM))
 		CRATE = AM
 	else
 		if(!wires.is_cut(WIRE_LOADCHECK) && !hijacked)
@@ -686,9 +686,9 @@
 		if(load)		// if loaded, unload at target
 			if(report_delivery)
 				speak("Пункт назначения <b>[destination]</b> достигнут. Выгружаю [load].", radio_channel)
-			if(istype(load, /obj/structure/closet/crate))
+			if(is_crate(load))
 				var/obj/structure/closet/crate/C = load
-				C.notifyRecipient(destination)
+				C.notify_recipient(destination)
 			unload(loaddir)
 		else
 			// not loaded
@@ -922,7 +922,7 @@
 	if(load)
 		unload()
 
-/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

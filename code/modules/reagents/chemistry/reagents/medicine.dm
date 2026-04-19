@@ -36,16 +36,9 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "антисептика"
 
-	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/exposed_mob, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
-		M.germ_level -= min(volume*20, M.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
-	O.germ_level -= min(volume*20, O.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
-	T.germ_level -= min(volume*20, T.germ_level)
+		exposed_mob.add_surgery_speed_mod(type, 0.8, min(volume * 1 MINUTES, 5 MINUTES))
 
 /datum/reagent/medicine/synaptizine
 	name = "Синаптизин"
@@ -1536,7 +1529,7 @@
 			else
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
 					if(prob(50)) // Each tick has a 50% chance of repearing a bone.
-						if(bodypart.has_fracture()) //I can't just check for !E.status
+						if(bodypart.has_fracture() && bodypart.fracture != FRACTURE_TYPE_OPEN) //I can't just check for !E.status
 							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [GEND_HE_SHE(bodypart)] применяют правильную форму!"))
 							bodypart.mend_fracture()
 						if(bodypart.has_internal_bleeding())

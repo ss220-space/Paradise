@@ -160,6 +160,6 @@
 	SEND_SIGNAL(H.wear_suit, COMSIG_EQUIP_HOOD)
 
 /datum/outfit/radial_outfit/death_book/plague_inc/can_choise(mob/user)
-	if(locate(/datum/objective/hijack) in user.mind.get_all_objectives())
+	if(HAS_MIND_TRAIT(user, TRAIT_HIJACK))
 		return TRUE
 	return FALSE

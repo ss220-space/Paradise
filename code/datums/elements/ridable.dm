@@ -165,8 +165,8 @@
 		return
 	return rider
 
-/obj/item/riding_offhand/afterattack(atom/movable/interacting_with, mob/living/user, proximity, list/modifiers, status)
-	if(!istype(interacting_with) || !interacting_with.can_buckle || !proximity)
+/obj/item/riding_offhand/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!istype(target) || !target.can_buckle || !proximity_flag)
 		return NONE
 	if(rider == user) // Piggyback user
 		return
@@ -174,5 +174,5 @@
 	// Handles de-fireman carrying a mob and buckling them onto something (tables, etc)
 	var/mob/living/former_rider = rider
 	user.unbuckle_mob(former_rider)
-	former_rider.forceMove(get_turf(interacting_with))
-	return interacting_with.mouse_buckle_handling(former_rider, user)
+	former_rider.forceMove(get_turf(target))
+	return target.mouse_buckle_handling(former_rider, user)

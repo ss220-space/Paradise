@@ -166,7 +166,7 @@
 
 	to_chat(usr, span_notice("You set the draw tension to <b>[choice]</b>."))
 
-/obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/throw/crossbow/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	..()
 	tension = 0
 	update_icon()

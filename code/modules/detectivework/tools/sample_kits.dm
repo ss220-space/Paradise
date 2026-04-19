@@ -142,15 +142,15 @@
 	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
 	to_chat(user, span_notice("You transfer [length(S.evidence)] [length(S.evidence) > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S]."))
 
-/obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/forensics/sample_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(can_take_sample(user, A))
-		take_sample(user,A)
-		. = 1
+	if(can_take_sample(user, target))
+		take_sample(user, target)
+		return TRUE
 	else
-		to_chat(user, span_warning("You are unable to locate any [evidence_type]s on \the [A]."))
-		. = ..()
+		to_chat(user, span_warning("You are unable to locate any [evidence_type]s on \the [target]."))
+		return ..()
 
 /obj/item/forensics/sample_kit/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()

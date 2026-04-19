@@ -113,7 +113,7 @@
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
+	if(get_dist(user, src) > 3 && !(isAI(user) || isdead(user)))
 		. += span_boldnotice("You are too far away to read it.")
 
 	else if(stat & (NOPOWER|BROKEN))

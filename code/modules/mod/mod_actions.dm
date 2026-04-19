@@ -41,7 +41,7 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Развернуть модульный костюм"
-	desc = "ЛКМ — развернуть или свернуть все компоненты модульного костюма. Ктрл+ЛКМ — развернуть/свернуть определённый компонент."
+	desc = "ЛКМ — развернуть/свернуть определённый компонент. ПКМ — развернуть или свернуть все компоненты модульного костюма."
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/do_effect(trigger_flags)
@@ -59,7 +59,7 @@
 
 /datum/action/item_action/mod/activate
 	name = "Активировать модульный костюм"
-	desc = "ЛКМ — активировать модульный костюм с необходимостью дополнительного подтверждения. Ктрл+ЛКМ — мгновенная активация."
+	desc = "ЛКМ — активировать модульный костюм с необходимостью дополнительного подтверждения. ПКМ — мгновенная активация."
 	button_icon_state = "activate"
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE

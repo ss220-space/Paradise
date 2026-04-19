@@ -110,7 +110,7 @@
 	displayed = null
 	qdel(src)
 
-/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag && iswallturf(target))
 		place(target, user)
 	else

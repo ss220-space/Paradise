@@ -205,9 +205,30 @@
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
 	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
-///from internal loop in atom/movable/proc/CanReach(): (list/next)
-#define COMSIG_ATOM_CANREACH "atom_can_reach"
-	#define COMPONENT_BLOCK_REACH (1<<0)
+
+/// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with an item
+/// Sent from the very beginning of the click chain, intended for generic atom-item interactions
+/// Args: (mob/living/user, obj/item/tool, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_ITEM_INTERACTION "atom_item_interaction"
+/// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with an item
+/// Sent from the very beginning of the click chain, intended for generic atom-item interactions
+/// Args: (mob/living/user, obj/item/tool, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ATOM_ITEM_INTERACTION_SECONDARY "atom_item_interaction_secondary"
+/// Sent from [atom/proc/item_interaction], to a mob clicking on an atom with an item
+#define COMSIG_USER_ITEM_INTERACTION "user_item_interaction"
+/// Sent from [atom/proc/item_interaction], to an item clicking on an atom
+/// Args: (mob/living/user, atom/interacting_with, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ITEM_INTERACTING_WITH_ATOM "item_interacting_with_atom"
+/// Sent from [atom/proc/item_interaction], to an item right-clicking on an atom
+/// Args: (mob/living/user, atom/interacting_with, list/modifiers)
+/// Return any ITEM_INTERACT_ flags as relevant (see tools.dm)
+#define COMSIG_ITEM_INTERACTING_WITH_ATOM_SECONDARY "item_interacting_with_atom_secondary"
+/// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with a tool
+#define COMSIG_USER_ITEM_INTERACTION_SECONDARY "user_item_interaction_secondary"
+
 ///from base of atom/proc/tool_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
 /// Sent from [atom/proc/item_interaction], when this atom is right-clicked on by a mob with a tool of a specific tool type
@@ -510,6 +531,11 @@
 ///from base of /obj/item/attack(): (mob/M, mob/user)
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
+
+/// from base of atom/attack_robot(): (mob/user, list/modifiers)
+#define COMSIG_ATOM_ATTACK_ROBOT "atom_attack_robot"
+/// from base of atom/attack_robot_secondary(): (mob/user)
+#define COMSIG_ATOM_ATTACK_ROBOT_SECONDARY "atom_attack_robot_secondary"
 
 #define COMSIG_GLOVES_DOUBLE_HANDS_TOUCH "gloves_double_hands_touch"
 
@@ -847,7 +873,7 @@
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
-// called when carbon receiving a /obj/item/organ/external/proc/fracture
+// called when carbon receiving a /obj/item/organ/external/proc/fracture (/datum/fracture)
 #define COMSIG_CARBON_RECEIVE_FRACTURE "carbon_receive_fracture"
 ///called when something thrown hits a mob, from /mob/living/carbon/human/hitby(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_HITBY "carbon_hitby"
@@ -1486,6 +1512,12 @@
 #define COMSIG_VEHICLE_RIDDEN "vehicle-ridden"
 	/// Return this to signal that the mob should be removed from the vehicle
 	#define EJECT_FROM_VEHICLE (1<<0)
+
+
+/// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
+/// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)
+#define COMSIG_ATOM_TIMESTOP_UNFREEZE "atom_timestop_unfreeze"
 
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host

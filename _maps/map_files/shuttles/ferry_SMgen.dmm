@@ -2,6 +2,48 @@
 "a" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/transport)
+"b" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5;
+	preferred_direction = 4
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(32,101,19)
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"c" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/trinary/filter/n2{
+	dir = 4;
+	name = "nitrogen filter";
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"d" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
 "e" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -11,14 +53,21 @@
 	},
 /turf/simulated/floor/engine,
 /area/shuttle/transport)
-"g" = (
+"f" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
 	},
-/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"h" = (
+/obj/machinery/power/supermatter_crystal,
+/turf/simulated/floor/engine,
 /area/shuttle/transport)
 "i" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -28,16 +77,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/shuttle/transport)
-"j" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/shuttle/transport)
 "k" = (
 /obj/structure/closet/radiation,
@@ -60,37 +99,12 @@
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
-"m" = (
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry";
-	name = "ferry shuttle";
-	roundstart_move = "ferry_away";
-	timid = 1;
-	width = 5;
-	preferred_direction = 4
-	},
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock";
-	req_access = list(32,101,19)
-	},
+"o" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/transport)
-"n" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/alarm{
-	pixel_y = 55
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/transport)
@@ -104,12 +118,31 @@
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
-"t" = (
+"r" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/rad_collector,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
+	},
+/area/shuttle/transport)
+"s" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/transport)
@@ -148,11 +181,48 @@
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
-"x" = (
-/obj/machinery/atmospherics/supermatter_crystal,
-/turf/simulated/floor/engine,
+"y" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/alarm{
+	pixel_y = 55
+	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/transport)
-"A" = (
+"B" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/simulated/floor/plasteel{
+	dir = 7;
+	icon_state = "yellow"
+	},
+/area/shuttle/transport)
+"C" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"D" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
+/area/shuttle/transport)
+"E" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
@@ -177,44 +247,18 @@
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
-"B" = (
+"F" = (
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
-	},
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/plasteel{
-	dir = 7;
-	icon_state = "yellow"
-	},
-/area/shuttle/transport)
-"D" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
-	},
-/area/shuttle/transport)
-"G" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/trinary/filter/n2{
-	dir = 4;
-	name = "nitrogen filter";
-	on = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/transport)
-"H" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
 /area/shuttle/transport)
 "I" = (
 /obj/machinery/power/energy_accumulator/rad_collector,
@@ -260,18 +304,6 @@
 	},
 /turf/simulated/wall/shuttle,
 /area/shuttle/transport)
-"O" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
-	},
-/area/shuttle/transport)
 "P" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -287,21 +319,29 @@
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"S" = (
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/rad_collector,
+"T" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+	dir = 6
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "yellow"
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"U" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/transport)
 "V" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -319,46 +359,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"X" = (
-/obj/machinery/power/energy_accumulator/rad_collector,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
-	},
-/area/shuttle/transport)
-"Y" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/transport)
-"Z" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/transport)
 
 (1,1,1) = {"
 W
@@ -370,77 +370,77 @@ W
 (2,1,1) = {"
 a
 e
-x
+h
 M
 N
 "}
 (3,1,1) = {"
 a
-S
-A
+r
+E
 v
 a
 "}
 (4,1,1) = {"
 a
-O
-Z
+f
+s
 L
 a
 "}
 (5,1,1) = {"
 a
-X
-Y
+F
+T
 I
 a
 "}
 (6,1,1) = {"
 a
 P
-n
+y
 l
 a
 "}
 (7,1,1) = {"
 a
 J
-g
+o
 l
 a
 "}
 (8,1,1) = {"
 a
 V
-H
+d
 l
 a
 "}
 (9,1,1) = {"
 a
 p
-G
+c
 B
 a
 "}
 (10,1,1) = {"
 a
 k
-j
+C
 w
 a
 "}
 (11,1,1) = {"
 a
 D
-t
+U
 u
 a
 "}
 (12,1,1) = {"
 a
 Q
-m
+b
 Q
 a
 "}

@@ -123,6 +123,7 @@
 			"energy_per_use" = module.energy_drain,
 			"snowflake" = module.get_snowflake_data(),
 			"ref" = module.UID(),
+			"slot" = module.stored_in,
 		))
 
 	return data

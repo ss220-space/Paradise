@@ -726,6 +726,20 @@
 	name = "cave"
 	},
 /area/awaymission)
+"cX" = (
+/obj/machinery/power/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
+"dc" = (
+/obj/machinery/door/airlock{
+	name = "Electrical Room";
+	req_access = list(150)
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "dd" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8;
@@ -2190,16 +2204,6 @@
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
-"il" = (
-/obj/machinery/door/airlock{
-	name = "Electrical Room";
-	req_access = list(150)
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
 "im" = (
 /obj/machinery/door/airlock{
 	name = "Employees Only";
@@ -2280,12 +2284,6 @@
 /area/awaymission/spacehotel)
 "iy" = (
 /obj/item/stack/cable_coil/random,
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iz" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iA" = (
@@ -2435,49 +2433,6 @@
 "iV" = (
 /obj/machinery/light/small{
 	dir = 8
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iW" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"ja" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
@@ -2742,27 +2697,6 @@
 	},
 /obj/effect/decal/cleanable/pie_smudge,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
-"jJ" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"jK" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"jL" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jM" = (
 /obj/effect/decal/remains/human,
@@ -3133,6 +3067,18 @@
 "ng" = (
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/amazing_place)
+"nA" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "oJ" = (
 /obj/machinery/light{
 	dir = 4
@@ -3163,6 +3109,15 @@
 	icon_state = "floor"
 	},
 /area/awaymission/spacehotel/amazing_place)
+"uQ" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "vO" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "metal7"
@@ -3173,6 +3128,15 @@
 /obj/item/bedsheet/purple,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/amazing_place)
+"xk" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "xl" = (
 /obj/machinery/door/airlock/sandstone,
 /turf/simulated/floor/indestructible{
@@ -3182,6 +3146,12 @@
 "yE" = (
 /turf/simulated/wall/indestructible/invisible/view_portal,
 /area/awaymission/spacehotel)
+"yL" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "zo" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -3190,10 +3160,6 @@
 	icon_state = "floor"
 	},
 /area/awaymission/spacehotel/amazing_place)
-"zw" = (
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
 "zC" = (
 /obj/item/chair,
 /turf/simulated/floor/indestructible/carpet,
@@ -3238,6 +3204,28 @@
 "EF" = (
 /turf/simulated/floor/indestructible/view_portal,
 /area/awaymission)
+"Fl" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
+"Fm" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
+"Hj" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "Jk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
@@ -3288,6 +3276,12 @@
 	icon_state = "floor"
 	},
 /area/awaymission/spacehotel)
+"UR" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "UW" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
@@ -3303,6 +3297,12 @@
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/awaymission/beach)
+"Xu" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 
 (1,1,1) = {"
 aa
@@ -9911,9 +9911,9 @@ ia
 cl
 ix
 iK
-iW
+xk
 iK
-jJ
+UR
 iK
 cl
 dO
@@ -10041,9 +10041,9 @@ ia
 cl
 iy
 iJ
-iX
+yL
 jn
-iX
+yL
 iJ
 cl
 dO
@@ -10170,11 +10170,11 @@ hE
 ia
 cl
 ix
-zw
-iX
-zw
-iX
-zw
+cX
+yL
+cX
+yL
+cX
 cl
 dO
 dO
@@ -10298,12 +10298,12 @@ cl
 hB
 hE
 ia
-il
-iz
-iz
-iY
-iz
-jK
+dc
+Hj
+Hj
+nA
+Hj
+Fl
 jW
 cl
 dO
@@ -10430,11 +10430,11 @@ hE
 ia
 cl
 ix
-zw
-iX
-zw
-iX
-zw
+cX
+yL
+cX
+yL
+cX
 cl
 dO
 dO
@@ -10561,9 +10561,9 @@ ia
 cl
 ix
 iJ
-iZ
+Fm
 iJ
-iX
+yL
 iJ
 cl
 dO
@@ -10691,9 +10691,9 @@ ia
 cl
 ix
 iK
-ja
+uQ
 iK
-jL
+Xu
 iK
 cl
 dO

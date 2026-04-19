@@ -1978,7 +1978,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/engineering/engine/supermatter_crystal
 	name = "Осколок суперматерии"
 	contains = list(
-		/obj/machinery/atmospherics/supermatter_crystal/shard,
+		/obj/machinery/power/supermatter_crystal/shard,
 	)
 	cost = 150 //So cargo thinks twice before killing themselves with it
 	containername = "ящик с осколком суперматерии"
@@ -3464,7 +3464,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 150
 	contains = list(
-		/obj/item/stack/fireproof_rods/twentyfive,
+		/obj/item/stack/rods/fireproof/twentyfive,
 	)
 	required_tech = list(RESEARCH_TREE_PLASMA = 4, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 6)
 

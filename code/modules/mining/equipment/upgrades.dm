@@ -65,7 +65,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS)
 
-/obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 
@@ -76,8 +76,6 @@
 	switch(target.type)
 		if(/obj/item/gun/energy/kinetic_accelerator/experimental)
 			var/obj/item/gun/energy/kinetic_accelerator/gun = target
-			if(gun.bayonet)
-				gun.set_bayonet(null)
 			if(gun.gun_light)
 				gun.set_gun_light(null)
 			gun.deattach_modkits()

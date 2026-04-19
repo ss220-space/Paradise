@@ -31,7 +31,7 @@
 	syringes.Remove(S)
 	qdel(S)
 
-/obj/item/gun/syringe/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/syringe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target == loc)
 		return
 	..()
@@ -110,7 +110,7 @@
 	item_state = "blowgun"
 	fire_sound = 'sound/items/blowgunproj.ogg'
 
-/obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	visible_message(span_danger("[user] starts aiming with a blowgun!"))
 	if(do_after(user, 1.5 SECONDS, src))
 		user.apply_damages(oxy = 20, stamina = 20)

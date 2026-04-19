@@ -2205,13 +2205,6 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/cold,
 /area/shuttle/pirate_corvette)
-"aMv" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/outlet_injector/on/n2,
-/turf/simulated/floor/engine/n2,
-/area/coldcolony/malta/engineering/atmos)
 "aMD" = (
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
@@ -2962,17 +2955,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
-"bbj" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 1;
-	name = "Труба смешивания"
-	},
-/obj/machinery/atmospherics/meter/ditr_loop,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "bbm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -6465,14 +6447,6 @@
 "cpS" = (
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
-"cqd" = (
-/obj/machinery/light_switch/directional/north,
-/obj/machinery/computer/general_air_control/atmos_tanks,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/coldcolony/malta/engineering/control)
 "cqq" = (
 /obj/machinery/portable_atmospherics/canister,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -9520,17 +9494,6 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/ruin/sm_division)
-"dwJ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 4;
-	name = "Труба фильтрации"
-	},
-/obj/machinery/computer/general_air_control/large_tank_control/o2,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "dwS" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
@@ -10482,6 +10445,10 @@
 	icon_state = "whitered"
 	},
 /area/coldcolony/malta/security/medbay)
+"dQW" = (
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/air,
+/turf/simulated/floor/engine/air,
+/area/coldcolony/malta/engineering/atmos)
 "dRf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -13602,6 +13569,13 @@
 	icon_state = "whiteblue"
 	},
 /area/coldcolony/malta/medical/medbay)
+"eWx" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/outlet_injector/on/o2,
+/turf/simulated/floor/engine/o2,
+/area/coldcolony/malta/engineering/atmos)
 "eWK" = (
 /obj/structure/cult/archives,
 /turf/simulated/floor/plating,
@@ -13991,6 +13965,10 @@
 /obj/structure/sign/cargo,
 /turf/simulated/wall,
 /area/coldcolony/malta/quartermaster/office)
+"fgf" = (
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2,
+/turf/simulated/floor/engine/n2,
+/area/coldcolony/malta/engineering/atmos)
 "fgj" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -14162,6 +14140,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_division)
+"fjW" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics Nitrogen Tank";
+	network = list("SS13","Engineering")
+	},
+/obj/machinery/atmospherics/air_sensor/n2,
+/turf/simulated/floor/engine/n2,
+/area/coldcolony/malta/engineering/atmos)
 "fjX" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -16855,6 +16841,17 @@
 	icon_state = "cafeteria"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
+"glt" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 1;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/meter/ditr_loop,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "glz" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -19551,6 +19548,18 @@
 	icon_state = "wood-broken7"
 	},
 /area/coldcolony/malta/research/test_chamber)
+"hkr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/meter/air_in_tank,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "hkt" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
@@ -20658,18 +20667,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
-"hFT" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	desc = "Труба содержит дыхательную смесь для подачи на станцию";
-	dir = 1;
-	name = "Труба дыхательной смеси"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/meter/air_in_tank,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "hGa" = (
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/siding/thinplating{
@@ -24446,14 +24443,6 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
-"jdX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/general_air_control/meter_monitor,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/coldcolony/malta/engineering/control)
 "jed" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -25238,6 +25227,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
+"jrq" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on/mix{
+	dir = 4
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/coldcolony/malta/engineering/atmos)
 "jrs" = (
 /obj/machinery/computer/shuttle{
 	possible_destinations = "pirateship_home;pirateship_custom;pirateship_planet";
@@ -27527,10 +27522,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/turret_protected/ai)
-"kiI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on/atmos/o2,
-/turf/simulated/floor/engine/o2,
-/area/coldcolony/malta/engineering/atmos)
 "kja" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
@@ -29296,14 +29287,6 @@
 	icon_state = "arrival"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
-"kPE" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Nitrogen Tank";
-	network = list("SS13","Engineering")
-	},
-/obj/machinery/atmospherics/air_sensor/n2,
-/turf/simulated/floor/engine/n2,
-/area/coldcolony/malta/engineering/atmos)
 "kPI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -29451,14 +29434,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
-"kSU" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Gas Mix Tank";
-	network = list("SS13","Engineering")
-	},
-/obj/machinery/atmospherics/air_sensor/mix,
-/turf/simulated/floor/engine/vacuum,
-/area/coldcolony/malta/engineering/atmos)
 "kTw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30376,12 +30351,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/abandoned_garage)
-"lmX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on/atmos/mix{
-	dir = 4
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/coldcolony/malta/engineering/atmos)
 "lnm" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/glass/bottle/charcoal,
@@ -32015,6 +31984,10 @@
 /obj/effect/turf_decal/siding/thinplating,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
+"lUp" = (
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/o2,
+/turf/simulated/floor/engine/o2,
+/area/coldcolony/malta/engineering/atmos)
 "lUI" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -32265,12 +32238,6 @@
 "lZO" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/security/evidence)
-"lZR" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on/mix{
-	dir = 4
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/coldcolony/malta/engineering/atmos)
 "lZX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -34432,6 +34399,17 @@
 	icon_state = "caution"
 	},
 /area/coldcolony/malta/engineering/control)
+"mRl" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/obj/machinery/atmospherics/meter/air_out_tank,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "mRo" = (
 /obj/machinery/door/airlock/medical{
 	name = "Operating Theatre";
@@ -35352,6 +35330,17 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/break_room)
+"nhf" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/machinery/computer/general_air_control/large_tank_control/o2,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "nhr" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/structure/extinguisher_cabinet{
@@ -37356,6 +37345,14 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/processing)
+"nVT" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics Air Tank";
+	network = list("SS13","Engineering")
+	},
+/obj/machinery/atmospherics/air_sensor/air,
+/turf/simulated/floor/engine/air,
+/area/coldcolony/malta/engineering/atmos)
 "nWe" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -37985,18 +37982,6 @@
 	icon_state = "cafeteria"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
-"ogo" = (
-/obj/structure/table/reinforced,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
-/obj/structure/cable,
-/obj/item/storage/toolbox/electrical,
-/obj/item/stack/tape_roll,
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
-/area/coldcolony/malta/engineering/control)
 "ogz" = (
 /obj/machinery/atm{
 	pixel_x = -32
@@ -40342,6 +40327,14 @@
 "oYc" = (
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/cargo_escape/exit)
+"oYh" = (
+/obj/machinery/light_switch/directional/north,
+/obj/machinery/computer/general_air_control/atmos_tanks,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/coldcolony/malta/engineering/control)
 "oYi" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -40731,14 +40724,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
-"pga" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Oxygen Tank";
-	network = list("SS13","Engineering")
-	},
-/obj/machinery/atmospherics/air_sensor/o2,
-/turf/simulated/floor/engine/o2,
-/area/coldcolony/malta/engineering/atmos)
 "pgc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -40858,6 +40843,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
+"piZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/machinery/computer/general_air_control/large_tank_control/air,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "pjd" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -41071,17 +41067,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/miningbar)
-"pmQ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 4;
-	name = "Труба фильтрации"
-	},
-/obj/machinery/computer/general_air_control/large_tank_control/mix,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "pmV" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/civilian,
@@ -42466,6 +42451,17 @@
 	icon_state = "wood-cherry-broken3"
 	},
 /area/coldcolony/ruin/abandoned_banya)
+"pMV" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/machinery/computer/general_air_control/large_tank_control/mix,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "pNm" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -43664,6 +43660,19 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/processing)
+"qmB" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/start/investor,
+/turf/simulated/floor/carpet/black,
+/area/coldcolony/malta/bridge/meeting_room)
 "qmI" = (
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/wood,
@@ -43830,10 +43839,6 @@
 "qpw" = (
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/library)
-"qpz" = (
-/obj/machinery/atmospherics/unary/vent_pump/on/atmos/air,
-/turf/simulated/floor/engine/air,
-/area/coldcolony/malta/engineering/atmos)
 "qpB" = (
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel/cold{
@@ -46452,17 +46457,6 @@
 /obj/effect/landmark/start/mechanic,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/break_room)
-"rhW" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 4;
-	name = "Труба фильтрации"
-	},
-/obj/machinery/computer/general_air_control/large_tank_control/air,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "rhX" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -46833,18 +46827,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
-"rod" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	dir = 4;
-	name = "Труба на фильтрацию"
-	},
-/obj/machinery/atmospherics/meter/waste_loop,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "roh" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
@@ -49491,13 +49473,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/main)
-"srP" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/outlet_injector/on/air,
-/turf/simulated/floor/engine/air,
-/area/coldcolony/malta/engineering/atmos)
 "srW" = (
 /obj/structure/closet/crate,
 /obj/item/vending_refill/cigarette,
@@ -50056,6 +50031,14 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
+"sDi" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics Gas Mix Tank";
+	network = list("SS13","Engineering")
+	},
+/obj/machinery/atmospherics/air_sensor/mix,
+/turf/simulated/floor/engine/vacuum,
+/area/coldcolony/malta/engineering/atmos)
 "sDl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -51778,6 +51761,20 @@
 	icon_state = "fancy-wood-cherry-broken4"
 	},
 /area/coldcolony/malta/resid_serv/library/game_zone)
+"tli" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 4;
+	name = "Труба на фильтрацию"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/general_air_control/large_tank_control/n2,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "tly" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/fancy/light{
@@ -52222,6 +52219,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
+"tuw" = (
+/obj/machinery/atmospherics/unary/vent_pump/on/atmos/mix{
+	dir = 4
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/coldcolony/malta/engineering/atmos)
 "tuz" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -52511,10 +52514,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
-"tyX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on/atmos/n2,
-/turf/simulated/floor/engine/n2,
-/area/coldcolony/malta/engineering/atmos)
 "tzr" = (
 /obj/structure/table,
 /obj/machinery/power/apc{
@@ -53214,17 +53213,6 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
-"tNa" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	desc = "Труба содержит дыхательную смесь для подачи на станцию";
-	dir = 1;
-	name = "Труба дыхательной смеси"
-	},
-/obj/machinery/atmospherics/meter/air_out_tank,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "tNq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -53315,14 +53303,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/coldcolony/malta/engineering/atmos)
-"tQz" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Air Tank";
-	network = list("SS13","Engineering")
-	},
-/obj/machinery/atmospherics/air_sensor/air,
-/turf/simulated/floor/engine/air,
 /area/coldcolony/malta/engineering/atmos)
 "tQE" = (
 /obj/machinery/door/airlock/security/glass{
@@ -54307,20 +54287,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/coldcolony/malta/civilian/vacantoffice)
-"uhx" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	dir = 4;
-	name = "Труба на фильтрацию"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/computer/general_air_control/large_tank_control/n2,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "uhC" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/space_heater,
@@ -55201,6 +55167,13 @@
 	icon_state = "rampbottom"
 	},
 /area/ruin/unpowered)
+"uyh" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/outlet_injector/on/air,
+/turf/simulated/floor/engine/air,
+/area/coldcolony/malta/engineering/atmos)
 "uyk" = (
 /obj/structure/sink{
 	dir = 4;
@@ -55402,6 +55375,14 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
+"uEk" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics Oxygen Tank";
+	network = list("SS13","Engineering")
+	},
+/obj/machinery/atmospherics/air_sensor/o2,
+/turf/simulated/floor/engine/o2,
+/area/coldcolony/malta/engineering/atmos)
 "uEu" = (
 /obj/machinery/door/airlock/glass{
 	id = "privateroom";
@@ -56364,18 +56345,6 @@
 	icon_state = "arrival"
 	},
 /area/shuttle/pirate_corvette)
-"uYI" = (
-/obj/structure/chair/comfy/beige{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet/black,
-/area/coldcolony/malta/bridge/meeting_room)
 "uYL" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/bridge/vip)
@@ -56536,6 +56505,18 @@
 	icon_state = "showroomfloor"
 	},
 /area/coldcolony/malta/maintenance/kitchen)
+"vdB" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 4;
+	name = "Труба на фильтрацию"
+	},
+/obj/machinery/atmospherics/meter/waste_loop,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "vdI" = (
 /obj/machinery/suit_storage_unit/pirate,
 /obj/effect/turf_decal/delivery,
@@ -59280,13 +59261,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
-"vXE" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/outlet_injector/on/o2,
-/turf/simulated/floor/engine/o2,
-/area/coldcolony/malta/engineering/atmos)
 "vXF" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Lounge";
@@ -59333,6 +59307,18 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/office)
+"vYv" = (
+/obj/structure/table/reinforced,
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/structure/cable,
+/obj/item/storage/toolbox/electrical,
+/obj/item/stack/tape_roll,
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/coldcolony/malta/engineering/control)
 "vYK" = (
 /obj/machinery/door/airlock/command{
 	name = "Command"
@@ -62737,6 +62723,13 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
+"xlx" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/outlet_injector/on/n2,
+/turf/simulated/floor/engine/n2,
+/area/coldcolony/malta/engineering/atmos)
 "xlC" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
@@ -63031,6 +63024,14 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
+"xrt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/general_air_control/meter_monitor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/coldcolony/malta/engineering/control)
 "xrx" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/bar)
@@ -99353,7 +99354,7 @@ xcr
 rSb
 rSb
 nvQ
-kSU
+sDi
 iXM
 nvQ
 rSb
@@ -99610,8 +99611,8 @@ nqm
 nqm
 nvQ
 nvQ
-lmX
-lZR
+tuw
+jrq
 nvQ
 rSb
 rSb
@@ -100125,7 +100126,7 @@ nyy
 osp
 wEC
 xjN
-pmQ
+pMV
 nvQ
 rSb
 xcr
@@ -100888,7 +100889,7 @@ nvQ
 ajX
 fUZ
 pYz
-bbj
+glt
 wUD
 kAm
 sIW
@@ -101139,13 +101140,13 @@ rSb
 rSb
 rSb
 nvQ
-tQz
-qpz
+nVT
+dQW
 wlM
 xxa
 rLG
 mIC
-tNa
+mRl
 aju
 aju
 uXY
@@ -101397,12 +101398,12 @@ rSb
 xcr
 nvQ
 fWX
-srP
+uyh
 jXN
 jcH
 rLG
 cWP
-hFT
+hkr
 ggK
 qjZ
 xvE
@@ -101656,7 +101657,7 @@ nvQ
 nvQ
 nvQ
 nvQ
-rhW
+piZ
 toa
 vMh
 xFN
@@ -101910,8 +101911,8 @@ rSb
 rSb
 rSb
 nvQ
-pga
-kiI
+uEk
+lUp
 bQG
 dXN
 fBN
@@ -102168,7 +102169,7 @@ rSb
 rSb
 nvQ
 blS
-vXE
+eWx
 aZN
 jJY
 fUZ
@@ -102427,7 +102428,7 @@ nvQ
 nvQ
 nvQ
 nvQ
-dwJ
+nhf
 iFi
 xFN
 xUh
@@ -102681,8 +102682,8 @@ rSb
 rSb
 rSb
 nvQ
-kPE
-tyX
+fjW
+fgf
 bQG
 kzp
 fBN
@@ -102939,7 +102940,7 @@ abG
 hBQ
 nvQ
 hzf
-aMv
+xlx
 aZN
 eVG
 teC
@@ -103198,7 +103199,7 @@ nvQ
 nvQ
 nvQ
 nvQ
-uhx
+tli
 ktN
 qjZ
 pdw
@@ -104227,7 +104228,7 @@ aMK
 rwh
 chR
 pni
-rod
+vdB
 kdK
 nXq
 gKz
@@ -105252,7 +105253,7 @@ jEu
 fZP
 rnY
 wlf
-ogo
+vYv
 jJU
 bmf
 xAE
@@ -105506,7 +105507,7 @@ eDF
 rSb
 xOz
 jEu
-jdX
+xrt
 afR
 maU
 qEF
@@ -105763,7 +105764,7 @@ gPO
 dkR
 rSb
 jJU
-cqd
+oYh
 tJF
 sGT
 wRR
@@ -119556,7 +119557,7 @@ wnE
 xQj
 qaO
 xHk
-uYI
+qmB
 diR
 anq
 jgP

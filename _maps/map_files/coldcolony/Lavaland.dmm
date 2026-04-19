@@ -62,16 +62,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
-"ap" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/item/stack/fireproof_rods{
-	amount = 10
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "at" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -165,17 +155,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
-"bW" = (
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/mine/production)
 "bX" = (
 /obj/structure/lattice/catwalk/mapping,
 /obj/structure/railing{
@@ -414,21 +393,6 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
-"ew" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/item/stack/fireproof_rods{
-	amount = 10
-	},
-/turf/simulated/floor/indestructible/boss/air,
-/area/ruin/unpowered)
 "ey" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -574,6 +538,16 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"gf" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/stack/rods/fireproof{
+	amount = 10
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "gh" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -1995,6 +1969,21 @@
 /obj/item/weldingtool/experimental/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"pt" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/stack/rods/fireproof{
+	amount = 10
+	},
+/turf/simulated/floor/indestructible/boss/air,
+/area/ruin/unpowered)
 "pz" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -4853,6 +4842,17 @@
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"SP" = (
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/production)
 "SR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -24773,7 +24773,7 @@ Zt
 Zt
 RH
 Ga
-bW
+SP
 rK
 Zn
 Xv
@@ -24791,7 +24791,7 @@ Ip
 RQ
 EC
 Ik
-ap
+gf
 Et
 Et
 Ak
@@ -26316,7 +26316,7 @@ dk
 dk
 dk
 QD
-ew
+pt
 sG
 WO
 dh

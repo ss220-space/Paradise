@@ -133,7 +133,3 @@
 		volume_rate = clamp(number, 0, air_contents.volume)
 
 	update_appearance(UPDATE_ICON)
-
-
-/obj/machinery/atmospherics/unary/outlet_injector/hide(i)
-	update_underlays()

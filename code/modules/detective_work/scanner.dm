@@ -102,8 +102,8 @@
 /obj/item/detective_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/detective_scanner/afterattack(atom/A, mob/user, proximity, params)
-	scan(A, user)
+/obj/item/detective_scanner/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	scan(target, user)
 
 /obj/item/detective_scanner/proc/scan(atom/scan_atom, mob/user)
 
