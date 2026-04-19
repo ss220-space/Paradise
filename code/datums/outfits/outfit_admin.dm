@@ -398,7 +398,6 @@
 	)
 
 	implants = list(
-
 		/obj/item/implant/mindshield/ert,
 		/obj/item/implant/explosive/macro,
 	)
