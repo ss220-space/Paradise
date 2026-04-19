@@ -263,7 +263,7 @@
 // MARK: Bayonet
 /obj/item/gun_module/under/bayonet
 	name = "bayonet"
-	desc = "Штык-нож. Крепится на ствол."
+	desc = "Универсальный короткий клинок, оснащенный специальным креплением для монтажа на ствол винтовки. Основное предназначение — нанесение колющего удара в ближнем бою. Компактный дизайн и надежность конструкции делают его эффективным вспомогательным оружием."
 	icon_state = "bayonet_short"
 	item_state = "supp"
 	overlay_state = "bayonet_short_o"
@@ -287,9 +287,12 @@
 	)
 
 /obj/item/gun_module/under/bayonet/long
+	name = "long bayonet"
+	desc = "Крупногабаритный клинок с удлиненным острием, предназначенный для крепления к оружию. Благодаря длине и прочности лезвия, обеспечивает дополнительную убойную силу при рукопашной атаке. Незаменим в ситуациях, когда стрельба невозможна или затруднительна."
 	icon_state = "bayonet_long"
 	overlay_state = "bayonet_long_o"
 	overlay_offset = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 4)
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	custom_price = 3 * PAYCHECK_CREW
 	bonus_force = 10
