@@ -450,3 +450,34 @@
 			continue
 		. += vent
 
+/**
+ * Recursively checks if an item is inside a given type/atom, even through layers of storage.
+ * Returns the atom if it finds it.
+ *
+ * Arguments
+ * * atom/movable/target - the atom whos loc we are checking for
+ * * type - the location(typepath or solid atom) the target maybe stored in
+ */
+/proc/recursive_loc_check(atom/movable/target, type)
+	var/atom/atom_to_find = null
+
+	if(ispath(type))
+		atom_to_find = target
+		if(istype(atom_to_find, type))
+			return atom_to_find
+
+		while(!istype(atom_to_find, type))
+			if(!atom_to_find.loc)
+				return
+			atom_to_find = atom_to_find.loc
+	else if(isatom(type))
+		atom_to_find = target
+		if(atom_to_find == type)
+			return atom_to_find
+
+		while(atom_to_find != type)
+			if(!atom_to_find.loc)
+				return
+			atom_to_find = atom_to_find.loc
+
+	return atom_to_find

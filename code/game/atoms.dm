@@ -5,6 +5,7 @@
  * as much as possible to the components/elements system
  */
 /atom
+	abstract_type = /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND|LONG_GLIDE
@@ -37,8 +38,12 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
-	/// Flags to check for in can_perform_action. Used in alt-click checks
-	var/interaction_flags_click = 0
+	/// Intearaction flags
+	var/interaction_flags_atom = NONE
+	/// Flags to check for in can_perform_action. Used in alt-click & ctrl-click checks
+	var/interaction_flags_click = NONE
+	/// Flags to check for in can_perform_action for mouse drag & drop checks. To bypass checks see interaction_flags_atom mouse drop flags
+	var/interaction_flags_mouse_drop = NONE
 
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
@@ -83,7 +88,7 @@
 	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
 	var/list/image/update_overlays_on_z
 
-	var/list/atom_colours	 //used to store the different colors on an atom
+	var/list/atom_colours  //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 	/// Currently used color filter - cached because its applied to all of our overlays because BYOND is horrific
 	var/list/cached_color_filter
@@ -165,9 +170,6 @@
 	/// The alternate appearances we own
 	var/list/alternate_appearances
 
-	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
-	var/drag_start = 0
-
 	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the overlays list
 	var/list/realized_overlays
@@ -199,6 +201,9 @@
 
 	/// Text that appears preceding the name in [/atom/proc/examine_title]
 	var/examine_thats = "Это"
+
+	///Cooldown tick timer for buckle messages
+	COOLDOWN_DECLARE(buckle_message_cd)
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -314,7 +319,7 @@
 			pixel_x = pixel_west
 
 ///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
+/atom/proc/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
 /atom/proc/CheckParts(list/parts_list)
@@ -352,10 +357,20 @@
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
-/atom/proc/setOpened()
+/**
+ * Used to set something as 'open' if it's being used as a supplypod
+ *
+ * Override this if you want an atom to be usable as a supplypod.
+ */
+/atom/proc/set_opened()
 	return
 
-/atom/proc/setClosed()
+/**
+ * Used to set something as 'closed' if it's being used as a supplypod
+ *
+ * Override this if you want an atom to be usable as a supplypod.
+ */
+/atom/proc/set_closed()
 	return
 
 /// Is this atom injectable into other atoms
@@ -399,11 +414,11 @@
 	return FALSE
 
 /*
- *	atom/proc/search_contents_for(path, list/filter_path = null)
+ * atom/proc/search_contents_for(path, list/filter_path = null)
  * Recursevly searches all atom contens (including contents contents and so on).
  *
  * ARGS: path - search atom contents for atoms of this type
- *	   list/filter_path - if set, contents of atoms not of types in this list are excluded from search.
+ *    list/filter_path - if set, contents of atoms not of types in this list are excluded from search.
  *
  * RETURNS: list of found atoms
  */
@@ -422,182 +437,6 @@
 		if(length(A.contents))
 			found += A.search_contents_for(path, filter_path)
 	return found
-
-/**
- * Called when a mob examines this atom: [/mob/verb/examinate]
- *
- * Default behaviour is to get the name and icon of the object and its reagents where
- * the [TRANSPARENT] flag is set on the reagents holder
- *
- * Produces a signal [COMSIG_ATOM_EXAMINE], for modifying the list returned from this proc
- */
-/atom/proc/examine(mob/user)
-	. = list()
-	. += get_name_chaser(user)
-
-	if(desc)
-		. += desc
-
-	var/list/tags_list = examine_tags(user)
-	var/list/post_descriptor = examine_post_descriptor(user)
-	var/post_desc_string = length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""
-	if(length(tags_list))
-		var/tag_string = list()
-		for(var/atom_tag in tags_list)
-			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
-		// some regex to ensure that we don't add another "and" if the final element's main text (not tooltip) has one
-		tag_string = russian_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], regex(@">.*?и .*?<"))) ? " " : " и ")
-		. += "Это [tag_string] [examine_descriptor(user)][post_desc_string]."
-	else if(post_desc_string)
-		. += "Это [examine_descriptor(user)][post_desc_string]."
-
-	if(reagents)
-		if(container_type & TRANSPARENT)
-			. += span_notice("Содержимое:")
-			if(length(reagents.reagent_list))
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/I in reagents.reagent_list)
-						var/datum/reagent/R = I
-						. += span_notice("<b>[R.name]</b> - <b>[R.volume]</b> единиц[declension_ru(R.volume, "а", "ы", "")].")
-				else //Otherwise, just show the total volume
-					if(reagents && length(reagents.reagent_list))
-						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
-			else
-				. += span_notice("Ничего.")
-		else if(container_type & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
-			else
-				. += span_danger("Внутри ничего нет.")
-
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
-
-/**
- * A list of "tags" displayed after atom's description in examine.
- * This should return an assoc list of tags -> tooltips for them. If item is null, then no tooltip is assigned.
- *
- * * TGUI tooltips (not the main text) in chat cannot use HTML stuff at all, so
- * trying something like `<b><big>ffff</big></b>` will not work for tooltips.
- *
- * For example:
- * ```byond
- * . = list()
- * .["small"] = "It is a small item."
- * .["fireproof"] = "It is made of fire-retardant materials."
- * .["and conductive"] = "It's made of conductive materials and whatnot. Blah blah blah." // having "and " in the end tag's main text/key works too!
- * ```
- * will result in
- *
- * It is a *small*, *fireproof* *and conductive* item.
- *
- * where "item" is pulled from [/atom/proc/examine_descriptor]
- */
-/atom/proc/examine_tags(mob/user)
-	. = list()
-	if(abstract_type == type)
-		.[span_hypnophrase("abstract")] = "Это абстрактный концепт, который вы не должны были увидеть! Сообщите об этом Высшим Силам!"
-
-	if(resistance_flags & INDESTRUCTIBLE)
-		.["неразрушим[genderize_examine_descriptor("ый", "ая")]"] = "Чрезвычайно прочн[genderize_examine_descriptor("ый", "ая")]! Уничтожить практически невозможно."
-	else
-		if(resistance_flags & LAVA_PROOF)
-			.["лавастойк[genderize_examine_descriptor("ий", "ая")]"] = "Чрезвычайно устойчив[genderize_examine_descriptor("ый", "ая")] к экстремальным температурам! Может выдержать даже воздействие лавы!"
-		if(resistance_flags & (ACID_PROOF | UNACIDABLE))
-			.["кислотостойк[genderize_examine_descriptor("ий", "ая")]"] = "Выглядит очень прочным. Ни одна кислота такое не разъест."
-		if(resistance_flags & FREEZE_PROOF)
-			.["морозостойк[genderize_examine_descriptor("ий", "ая")]"] = "Сделано из морозостойких материалов."
-		if(resistance_flags & FIRE_PROOF)
-			.["огнеупорн[genderize_examine_descriptor("ый", "ая")]"] = "Сделано из огнеупорных материалов."
-		if(resistance_flags & FLAMMABLE)
-			.["легковоспламеняющ[genderize_examine_descriptor("ий", "ая")]ся"] = "Может легко загореться."
-
-	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_TAGS, user, .)
-
-/// What this atom should be called in examine tags
-/atom/proc/examine_descriptor(mob/user)
-	return "объект"
-
-/// Gender of the examine descriptor word
-/// For example, "объект" is "male", while "машинерия" is "female"
-/atom/proc/examine_descriptor_gender()
-	return "male"
-
-/// Returns the correct form of the examine descriptor based on provided gender
-/atom/proc/genderize_examine_descriptor(male_word, female_word, gender)
-	if(!gender)
-		gender = examine_descriptor_gender()
-	return gender == "male" ? male_word : female_word
-
-/// Returns a list of strings to be displayed after the descriptor
-/// TODO: имплементировать тута custom_materials
-/atom/proc/examine_post_descriptor(mob/user)
-	return
-
-/**
- * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
- *
- * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
- * moments, while allowing people to manually double-examine to take a closer look
- *
- * Produces a signal [COMSIG_ATOM_EXAMINE_MORE]
- */
-/atom/proc/examine_more(mob/user)
-	SHOULD_CALL_PARENT(TRUE)
-	RETURN_TYPE(/list)
-
-	. = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_MORE, user, .)
-	SEND_SIGNAL(user, COMSIG_MOB_EXAMINING_MORE, src, .)
-
-/**
- * Get the name of this object for examine
- *
- * You can override what is returned from this proc by registering to listen for the
- * [COMSIG_ATOM_GET_EXAMINE_NAME] signal
- */
-/atom/proc/get_examine_name(mob/user)
-	var/list/override = list(null, "<em>[get_visible_name()]</em>")
-	SEND_SIGNAL(src, COMSIG_ATOM_GET_EXAMINE_NAME, user, override)
-
-	if(!isnull(override[EXAMINE_POSITION_BEFORE]))
-		override -= null // There is no article, don't try to join it
-		return "\a [jointext(override, " ")]"
-	return "[declent_ru(NOMINATIVE)]"
-
-/mob/living/get_examine_name(mob/user)
-	var/visible_name = get_visible_name()
-	var/list/name_override = list(visible_name)
-	if(SEND_SIGNAL(user, COMSIG_LIVING_PERCEIVE_EXAMINE_NAME, src, visible_name, name_override) & COMPONENT_EXAMINE_NAME_OVERRIDEN)
-		return name_override[1]
-	return visible_name
-
-/// Icon displayed in examine
-/atom/proc/get_examine_icon(mob/user)
-	return icon2html(src, user)
-
-/**
- * Formats the atom's name into a string for use in examine (as the "title" of the atom)
- *
- * * user - the mob examining the atom
- * * thats - whether to include "Это" or not
- */
-/atom/proc/examine_title(mob/user, thats = FALSE)
-	var/examine_icon = get_examine_icon(user)
-	return "[examine_icon ? "[examine_icon] " : ""][thats ? "[examine_thats] ":""]<em>[get_examine_name(user)]</em>"
-
-/// Used to insert text after the name but before the description in examine()
-/atom/proc/get_name_chaser(mob/user, list/name_chaser = list())
-	return name_chaser
-
-/**
- * Used by mobs to determine the name for someone wearing a mask, or with a disfigured or missing face.
- * By default just returns the atom's name.
- *
- * * add_id_name - If TRUE, ID information such as honorifics or name (if mismatched) are appended
- * * force_real_name - If TRUE, will always return real_name and add (as face_name/id_name) if it doesn't match their appearance
- */
-/atom/proc/get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
-	return name
 
 /**
  * Updates the appearence of the icon
@@ -638,7 +477,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	. = NONE
-	if(updates == NONE)	// NONE is being sent on purpose, and thus no signal should be sent.
+	if(updates == NONE) // NONE is being sent on purpose, and thus no signal should be sent.
 		return .
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
@@ -787,7 +626,18 @@
 		if(existing.dupe_id == id)
 			qdel(existing)
 
-/atom/proc/relaymove()
+/**
+ * An atom we are buckled or is contained within us has tried to move
+ *
+ * Default behaviour is to send a warning that the user can't move while buckled as long
+ * as the [buckle_message_cooldown][/atom/var/buckle_message_cooldown] has expired (50 ticks)
+ */
+/atom/proc/relaymove(mob/living/user, direction)
+	//if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
+	// return
+	if(COOLDOWN_FINISHED(src, buckle_message_cd))
+		COOLDOWN_START(src, buckle_message_cd, 2.5 SECONDS)
+		balloon_alert(user, "can't move while buckled!")
 	return
 
 /atom/proc/ex_act(severity, target)
@@ -812,55 +662,6 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
-	if(signal_result)
-		return TRUE
-
-	switch(tool_type)
-		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
-
-		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
-
-		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
-
-		if(TOOL_WRENCH)
-			return wrench_act(user, I)
-
-		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
-
-		if(TOOL_WELDER)
-			return welder_act(user, I)
-
-// Tool-specific behavior procs. To be overridden in subtypes.
-/atom/proc/crowbar_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/multitool_act(mob/living/user, obj/item/I)
-	return
-
-//Check if the multitool has an item in its data buffer
-/atom/proc/multitool_check_buffer(user, silent = FALSE)
-	if(!silent)
-		balloon_alert(user, "буфер данных отсутствует!")
-	return FALSE
-
-/atom/proc/screwdriver_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/wrench_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/wirecutter_act(mob/living/user, obj/item/I)
-	return
-
-/atom/proc/welder_act(mob/living/user, obj/item/I)
-	return
-
 /atom/proc/emag_act(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
 
@@ -880,7 +681,7 @@
 /atom/proc/fart_act(mob/living/user)
 	return FALSE
 
-/atom/proc/rpd_act()
+/atom/proc/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /atom/proc/rpd_blocksusage()
@@ -1004,7 +805,7 @@
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
-			return FALSE		//Now, lets get to the dirty work.
+			return FALSE //Now, lets get to the dirty work.
 		//First, make sure their DNA makes sense.
 		var/mob/living/carbon/human/H = M
 		if(!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
@@ -1076,11 +877,11 @@
 
 	// Transfer
 	if(fingerprints)
-		A.fingerprints |= fingerprints.Copy()            //detective
+		A.fingerprints |= fingerprints.Copy() //detective
 	if(fingerprints_time)
 		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
-		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
+		A.fingerprintshidden |= fingerprintshidden.Copy() //admin
 	A.fingerprintslast = fingerprintslast
 
 /**
@@ -1144,7 +945,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	LAZYINITLIST(blood_DNA)
 	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
-	return length(blood_DNA) > old_length	//some new blood DNA was added
+	return length(blood_DNA) > old_length //some new blood DNA was added
 
 //to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/M)
@@ -1220,7 +1021,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		transfer_blood_dna(blood_dna)
 		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
-	update_worn_gloves()	//handles bloody hands overlays and updating
+	update_worn_gloves() //handles bloody hands overlays and updating
 	return TRUE
 
 /obj/item/proc/add_blood_overlay()
@@ -1294,7 +1095,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(neck.clean_blood())
 			update_worn_neck()
 	..(clean_hands, clean_mask, clean_feet)
-	update_icons()	//apply the now updated overlays to the mob
+	update_icons() //apply the now updated overlays to the mob
 
 /atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
@@ -1323,7 +1124,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
 			break
-//	to_chat(world, "X = [cur_x]; Y = [cur_y]")
+// to_chat(world, "X = [cur_x]; Y = [cur_y]")
 	if(cur_x && cur_y)
 		return list("x" = cur_x, "y" = cur_y)
 	else
@@ -1450,6 +1251,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	runechat_emote(src, emote)
 
+/**
+ * Call back when a var is edited on this atom
+ *
+ * Can be used to implement special handling of vars
+ *
+ * At the atom level, if you edit a var named "color" it will add the atom colour with
+ * admin level priority to the atom colours list
+ *
+ * Also, if GLOB.debugging_enabled is FALSE, it sets the [ADMIN_SPAWNED] flag on [flags][/atom/var/flags], which signifies
+ * the object has been admin edited
+ */
 /atom/vv_edit_var(var_name, var_value)
 	var/old_light_flags = light_flags
 	switch(var_name)
@@ -1675,10 +1487,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	. = !density
 
-/atom/proc/get_examine_time()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+/atom/proc/get_examine_time() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return 0 SECONDS
 
-/atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+/atom/proc/get_visible_gender() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
 #define ANGLE_DIR_POS 1
@@ -1754,7 +1566,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * otherwise no gravity
  */
 /atom/proc/get_gravity(turf/gravity_turf)
-	if(!isnull(GLOB.gravity_is_on))	// global admin override
+	if(!isnull(GLOB.gravity_is_on)) // global admin override
 		return GLOB.gravity_is_on
 
 	if(!isturf(gravity_turf))
@@ -1992,3 +1804,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		return COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 	return NONE
+
+/// Called when something resists while this atom is its loc
+/atom/proc/container_resist_act(mob/living/user)
+	return

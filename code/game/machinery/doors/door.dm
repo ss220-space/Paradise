@@ -13,6 +13,7 @@
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	pass_flags_self = PASSDOOR
+	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	/// Is it currently in the process of opening, closing or being tampered

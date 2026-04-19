@@ -24,9 +24,9 @@
 /datum/action/innate/dash/IsAvailable(feedback = FALSE)
 	if(current_charges > 0)
 		return TRUE
-	else if((last_used + (charge_rate * max_charges)) <= world.time && current_charges != max_charges)	// Существует неприятный баг из-за которого заряды переставали регениться совсем.
-		current_charges = max_charges																	// Этот код позволит проверить прошло ли время требуемое для регена всех зарядов
-		return TRUE																						// и мгновенно зарядить предмет обратно! Воть
+	else if((last_used + (charge_rate * max_charges)) <= world.time && current_charges != max_charges) // Существует неприятный баг из-за которого заряды переставали регениться совсем.
+		current_charges = max_charges // Этот код позволит проверить прошло ли время требуемое для регена всех зарядов
+		return TRUE // и мгновенно зарядить предмет обратно! Воть
 	else
 		return FALSE
 
@@ -56,7 +56,7 @@
 		last_used = world.time
 		if(istype(pulled_mob))
 			pulled_mob.forceMove(target_turf)
-//			user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
+// user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
 
 	return FALSE

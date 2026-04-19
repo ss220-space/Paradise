@@ -47,6 +47,7 @@
 /obj/item/proc/tool_use_check(mob/living/user, amount, silent = FALSE)
 	return !amount
 
+/// Plays item's usesound, if any.
 /obj/item/proc/play_tool_sound(atom/target, volume = tool_volume)
 	if(target && usesound && volume)
 		var/played_sound = usesound

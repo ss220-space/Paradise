@@ -5,6 +5,7 @@
 	item_state = "pet_carrier"
 	max_integrity = 100
 	w_class = WEIGHT_CLASS_SMALL
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob_size = MOB_SIZE_TINY
 
 	var/list/possible_skins = list("black", "blue", "red", "yellow", "green", "purple")
@@ -146,7 +147,7 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/pet_carrier/container_resist(mob/living/L)
+/obj/item/pet_carrier/container_resist_act(mob/living/L)
 	var/breakout_time = 60 SECONDS
 	var/breakout_time_open = 5 SECONDS
 

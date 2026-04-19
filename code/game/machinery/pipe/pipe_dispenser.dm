@@ -1,8 +1,9 @@
 /obj/machinery/pipedispenser
-	name = "Pipe Dispenser"
+	name = "pipe dispenser"
 	icon_state = "pipe_d"
 	density = TRUE
 	anchored = TRUE
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/wait = 0
 
 /obj/machinery/pipedispenser/attack_hand(mob/user)
@@ -132,7 +133,7 @@
 	name = "Disposal Pipe Dispenser"
 
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/user, params)
+/obj/machinery/pipedispenser/disposal/mouse_drop_receive(obj/structure/disposalconstruct/pipe, mob/user, params)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

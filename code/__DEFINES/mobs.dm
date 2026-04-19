@@ -55,10 +55,10 @@
 #define REM REAGENTS_EFFECT_MULTIPLIER //! Shorthand for the above define for ease of use in equations and the like
 
 // Factor of how fast mob nutrition decreases
-#define	HUNGER_FACTOR 0.1
+#define HUNGER_FACTOR 0.1
 
 // Factor of how fast vampire nutrition decreases
-#define	HUNGER_FACTOR_VAMPIRE 0.1
+#define HUNGER_FACTOR_VAMPIRE 0.1
 
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
@@ -171,7 +171,7 @@
 #define ENVIRONMENT_SMASH_WALLS 2 //walls
 #define ENVIRONMENT_SMASH_RWALLS 4 //rwalls
 
-#define POCKET_STRIP_DELAY 4 SECONDS	//time taken to search somebody's pockets
+#define POCKET_STRIP_DELAY 4 SECONDS //time taken to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY 4 SECONDS  //time taken to strip somebody
 #define DEFAULT_ITEM_PUTON_DELAY 2 SECONDS  //time taken to reverse-strip somebody
@@ -186,9 +186,9 @@
 ///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
 #define MAX_GOLD_CORE_MOBS 45
 
-#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
-#define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
+#define TINT_IMPAIR 2 //Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3 //Threshold of tint level to obscure vision fully
+#define EYE_SHINE_THRESHOLD 6 //dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
 #define STATUS_UPDATE_HEALTH (1<<0)
 #define STATUS_UPDATE_STAT (1<<1)
@@ -475,12 +475,13 @@ GLOBAL_LIST_INIT(ru_species, list(
 /// How far away you can be to make eye contact with someone while examining
 #define EYE_CONTACT_RANGE 5
 
-// Incapacitated ignore flags for [/proc/incapacitated()].
-// They also used at interaction_flags_c var.
-/// If the incapacitated will ignore a mob in restraints
-#define INC_IGNORE_RESTRAINED (1<<0)
-/// If the incapacitated will ignore a mob being agressively grabbed
-#define INC_IGNORE_GRABBED (1<<1)
+// Incapacitated status effect flags
+/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
+#define IGNORE_RESTRAINTS (1<<0)
+/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
+#define IGNORE_STASIS (1<<1)
+/// If the incapacitated status effect will ignore a mob being agressively grabbed
+#define IGNORE_GRAB (1<<2)
 
 /// If reading is required to perform action (can't read a book if you are illiterate)
 #define NEED_LITERACY (1<<0)

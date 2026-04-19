@@ -330,7 +330,7 @@
 		if(!you_realy_want_do_this())
 			return
 
-		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
+		var/message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED) ? "de-lockdowned and de-strandise the Emergency Shuttle" : "de-lockdowned the Emergency Shuttle"
 		SSshuttle?.stop_lockdown()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
 		href_list["check_antagonist"] = TRUE
@@ -3624,8 +3624,8 @@
 					return
 				var/datum/job/J = SSjobs.GetJob(JOB_TITLE_OFFICER)
 				if(!J) return
-				J.total_positions = -1
-				J.spawn_positions = -1
+				J.total_positions = JOB_UNLIMITED_POSITION
+				J.spawn_positions = JOB_UNLIMITED_POSITION
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])

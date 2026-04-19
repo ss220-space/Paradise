@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "карп мутант вновь имеет спрайт (PR #8962)"

@@ -37,13 +37,13 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		TLV_O2 = new /datum/tlv/oxygen(),
 		TLV_N2 = new /datum/tlv/nitrogen(),
 		TLV_CO2 = new /datum/tlv/carbon_dioxide(),
-		TLV_PL = new /datum/tlv/plasma(),
-		TLV_N2O = new /datum/tlv/nitrous_oxide(),
-		TLV_H2 = new /datum/tlv/hydrogen(),
+		TLV_PL = new /datum/tlv/dangerous(),
+		TLV_N2O = new /datum/tlv/dangerous(),
+		TLV_H2 = new /datum/tlv/dangerous(),
 		TLV_H2O = new /datum/tlv/water_vapor(),
 		TLV_TRITIUM = new /datum/tlv/dangerous(),
 		TLV_BZ = new /datum/tlv/dangerous(),
-		TLV_PLUOXIUM = new /datum/tlv/dangerous(),
+		TLV_PLUOXIUM = new /datum/tlv/ignore(),
 		TLV_MIASMA = new /datum/tlv/dangerous(),
 		TLV_FREON = new /datum/tlv/dangerous(),
 		TLV_NITRIUM = new /datum/tlv/dangerous(),
@@ -140,18 +140,10 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		if(AALARM_PRESET_VOX)
 			tlv_config[TLV_O2] = new /datum/tlv/vox_oxygen()
 			tlv_config[TLV_N2] = new /datum/tlv/oxygen()
-			tlv_config[TLV_PRESSURE] = new /datum/tlv/pressure()
 			tlv_config[TLV_TEMPERATURE] = new /datum/tlv/vox_temperature()
 
 		if(AALARM_PRESET_COLDROOM)
-			tlv_config[TLV_O2] = new /datum/tlv/oxygen()
-			tlv_config[TLV_N2] = new /datum/tlv/nitrogen()
-			tlv_config[TLV_CO2] = new /datum/tlv/carbon_dioxide()
-			tlv_config[TLV_PL] = new /datum/tlv/dangerous()
-			tlv_config[TLV_N2O] = new /datum/tlv/dangerous()
 			tlv_config[TLV_H2] = new /datum/tlv/dangerous()
-			tlv_config[TLV_H2O] = new /datum/tlv/water_vapor()
-			tlv_config[TLV_OTHER] = new /datum/tlv/other_gas()
 			tlv_config[TLV_PRESSURE] = new /datum/tlv/cold_room_pressure()
 			tlv_config[TLV_TEMPERATURE] = new /datum/tlv/cold_room_temperature()
 
@@ -202,7 +194,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 
 /obj/machinery/alarm/proc/first_run()
 	alarm_area = get_area(src)
-	if(name == "alarm")
+	if(name == initial(name))
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)

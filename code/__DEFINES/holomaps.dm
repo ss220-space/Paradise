@@ -13,11 +13,11 @@
 #define HOLOMAP_EXTRA_STATIONMAPSMALL "stationmapsmall"
 
 // Holomap colors
-#define HOLOMAP_OBSTACLE "#FFFFFFDD"	// Color of walls and barriers
-#define HOLOMAP_SOFT_OBSTACLE "#ffffff54"	// Color of weak, climbable, or see-through barriers that aren't fulltile windows.
-#define HOLOMAP_PATH "#66666699"	// Color of floors
-#define HOLOMAP_ROCK "#66666644"	// Color of mineral walls
-#define HOLOMAP_HOLOFIER "#0096bb"	// Whole map is multiplied by this to give it a green holoish look
+#define HOLOMAP_OBSTACLE "#FFFFFFDD" // Color of walls and barriers
+#define HOLOMAP_SOFT_OBSTACLE "#ffffff54" // Color of weak, climbable, or see-through barriers that aren't fulltile windows.
+#define HOLOMAP_PATH "#66666699" // Color of floors
+#define HOLOMAP_ROCK "#66666644" // Color of mineral walls
+#define HOLOMAP_HOLOFIER "#0096bb" // Whole map is multiplied by this to give it a green holoish look
 
 #define HOLOMAP_AREACOLOR_SHIELD_1 rgb(0, 119, 255, 64)
 #define HOLOMAP_AREACOLOR_SHIELD_2 rgb(0, 255, 255, 64)

@@ -334,8 +334,8 @@
 
 #undef COOLDOWN_SUMMON
 
-/obj/item/eflowers/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/eflowers/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	var/mob/living/simple_animal/M = target
 	if(istype(M))

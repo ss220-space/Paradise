@@ -338,6 +338,11 @@
 		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+			continue
+		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>\n")
+
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
