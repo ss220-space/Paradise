@@ -1,0 +1,4 @@
+author: "trollbebra"
+delete-after: True
+changes:
+  - local: "Произошла локализация color.dm(цветные комбинезоны) на русский язык. (PR #8965)"

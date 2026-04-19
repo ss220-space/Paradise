@@ -64058,6 +64058,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
+"kdb" = (
+/obj/structure/chair/comfy/brown,
+/obj/effect/landmark/start/investor,
+/turf/simulated/floor/carpet,
+/area/bridge/meeting_room)
 "kdd" = (
 /obj/machinery/flasher{
 	desc = "A floor-mounted flashbulb device.";
@@ -165075,7 +165080,7 @@ bIn
 xLb
 gtD
 ikJ
-bKP
+kdb
 bPO
 cdD
 sdo

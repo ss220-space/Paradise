@@ -83,7 +83,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/obj/item/access_control/access_electronics
 	var/has_access_electronics = TRUE
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
-	var/obj/item/note //Any papers pinned to the airlock
+	/// Any papers pinned to the airlock
+	var/obj/item/note
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
@@ -1615,7 +1616,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	access_electronics.selected_accesses = length(req_access) ? req_access : list()
 	access_electronics.one_access = check_one_access
 
-/obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
+/// Returns a string representing the type of note pinned to this airlock
+/obj/machinery/door/airlock/proc/note_type()
 	if(!note)
 		return
 	if(istype(note, /obj/item/paper))
@@ -1627,7 +1629,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(istype(note, /obj/item/photo))
 		return "photo"
 
-//Removes the current note on the door if any. Returns if a note is removed
+/// Removes the current note on the door if any. Returns if a note is removed
 /obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used = TRUE)
 	if(!note)
 		return FALSE
@@ -1648,6 +1650,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	note = null
 	update_icon()
 	return TRUE
+
+/obj/machinery/door/airlock/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return ..() || (contained == note)
 
 /obj/machinery/door/airlock/narsie_act(weak = FALSE)
 	var/turf/T = get_turf(src)

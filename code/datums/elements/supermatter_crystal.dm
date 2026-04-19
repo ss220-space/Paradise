@@ -5,7 +5,7 @@
 	var/tool_act_proc
 	///Callback used by the SM to get the damage and matter power increase/decrease
 	var/consume_proc
-	// A whitelist of items that can interact with the SM without dusting the user
+	/// A whitelist of items that can interact with the SM without dusting the user
 	var/static/list/sm_item_whitelist = typecacheof(list(
 		/obj/item/toy/crayon/spraycan,
 	))
@@ -21,7 +21,7 @@
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(hand_hit))
 	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(attackby_hit))
 	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH), PROC_REF(tool_hit))
-	//RegisterSignal(parent, COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WRENCH), PROC_REF(tool_hit))
+	RegisterSignal(target, COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WRENCH), PROC_REF(tool_hit))
 	RegisterSignal(target, COMSIG_ATOM_BUMPED, PROC_REF(bumped_hit))
 	RegisterSignal(target, COMSIG_ATOM_INTERCEPT_Z_FALL, PROC_REF(intercept_z_fall))
 	RegisterSignal(target, COMSIG_ATOM_ON_Z_IMPACT, PROC_REF(on_z_impact))
@@ -40,7 +40,7 @@
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_PARENT_ATTACKBY,
 		COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH),
-		//COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WRENCH),
+		COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WRENCH),
 		COMSIG_ATOM_BUMPED,
 		COMSIG_ATOM_INTERCEPT_Z_FALL,
 		COMSIG_ATOM_ON_Z_IMPACT,
@@ -221,7 +221,7 @@
 	SIGNAL_HANDLER
 	if(tool_act_proc)
 		call(source, tool_act_proc)(user, tool)
-		return //ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	attackby_hit(source, tool, user)
 
 /datum/element/supermatter_crystal/proc/bumped_hit(datum/source, atom/movable/hit_object)

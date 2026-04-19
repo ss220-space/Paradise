@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "плазма вместо БЗ с меньшим кол-вом молей (PR #8990)"

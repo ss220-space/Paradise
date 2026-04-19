@@ -1,0 +1,4 @@
+author: "svotnik"
+delete-after: True
+changes:
+  - add: "Макро-бомба дедам + ДНК лок на МЭКи ОБР и дедов. (PR #8979)"

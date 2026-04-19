@@ -56449,6 +56449,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/investor,
 /turf/simulated/floor/carpet/black,
 /area/coldcolony/malta/bridge/meeting_room)
 "uYL" = (

@@ -19357,6 +19357,7 @@
 	dir = 4
 	},
 /obj/structure/chair/comfy/beige,
+/obj/effect/landmark/start/investor,
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "byH" = (

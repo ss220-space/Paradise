@@ -10,8 +10,8 @@
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
 	desc = "Left-Click: Select a job to update all of your chameleon items to.<br>\
-			Middle-Click: Save your current chameleon setup as a custom outfit.<br>\
-			Alt-Click: Delete custom outfit."
+			Right-Click: Save your current chameleon setup as a custom outfit.<br>\
+			Ctrl-Click: Delete custom outfit."
 	button_icon_state = "chameleon_outfit"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE|AB_CHECK_HANDS_BLOCKED
 	/// Determines when we're in use
