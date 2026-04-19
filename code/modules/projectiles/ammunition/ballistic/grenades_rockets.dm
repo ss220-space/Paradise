@@ -8,6 +8,8 @@
 	projectile_type = /obj/item/missile
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	no_update_desc = TRUE
+	no_update_names = TRUE
 
 /obj/item/ammo_casing/rocket/get_ru_names()
 	return list(
@@ -18,13 +20,6 @@
 		INSTRUMENTAL = "ракетой",
 		PREPOSITIONAL = "ракете",
 	)
-
-/obj/item/ammo_casing/rocket/update_names()
-	return
-
-/obj/item/ammo_casing/rocket/update_desc(updates = ALL)
-	. = ..()
-	desc = initial(desc)
 
 // MARK: 84mm HE
 /obj/item/ammo_casing/caseless/rocket

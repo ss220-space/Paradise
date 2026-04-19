@@ -5,7 +5,9 @@
 	can_fast_load = FALSE
 	var/gun_name = "револьверов"
 
-/obj/item/ammo_box/speedloader/update_names()
+/obj/item/ammo_box/speedloader/update_name(updates = ALL)
+	. = ..()
+
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 
@@ -179,7 +181,9 @@
 	multiple_sprites = 1
 	gun_name = "винтовок"
 
-/obj/item/ammo_box/speedloader/a762/update_names()
+/obj/item/ammo_box/speedloader/a762/update_name(updates = ALL)
+	. = ..()
+
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 

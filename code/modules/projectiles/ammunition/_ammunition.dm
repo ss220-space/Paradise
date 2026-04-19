@@ -67,8 +67,7 @@
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
-	update_appearance(UPDATE_ICON|UPDATE_DESC)
-	update_names()
+	update_appearance(updates = ALL)
 
 /obj/item/ammo_casing/Destroy()
 	QDEL_NULL(BB)
@@ -141,7 +140,8 @@
 /obj/item/ammo_casing/proc/get_ammo_marking()
 	return ammo_marking ? ammo_marking : caliber
 
-/obj/item/ammo_casing/proc/update_names()
+/obj/item/ammo_casing/update_name(updates = ALL)
+	. = ..()
 	if(no_update_names)
 		return
 

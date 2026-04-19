@@ -45,10 +45,9 @@
 	if(!start_empty && ammo_type)
 		for(var/i in 1 to max_ammo)
 			stored_ammo += new ammo_type(src)
-	update_appearance(UPDATE_ICON|UPDATE_DESC)
+	update_appearance(updates = ALL)
 	initial_mats = materials.Copy()
 	update_mat_value()
-	update_names()
 
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)
@@ -101,8 +100,8 @@
 
 	return ammo_marking
 
-/// Updated names according to the type of ammo inside
-/obj/item/ammo_box/proc/update_names()
+/obj/item/ammo_box/update_name(updates = ALL)
+	. = ..()
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 
@@ -312,7 +311,9 @@
 	/// Should be in genitive case like `"пистолета \"Стечкин\""` or `"пулемёта L6 SAW"`.
 	var/gun_name = ""
 
-/obj/item/ammo_box/magazine/update_names()
+/obj/item/ammo_box/magazine/update_name(updates = ALL)
+	. = ..()
+
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 
