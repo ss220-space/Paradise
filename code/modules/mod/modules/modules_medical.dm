@@ -205,7 +205,7 @@
 /obj/item/mod_defib
 	name = "defibrillator gauntlets"
 	desc = "Пара лопаток с проводящей металлической поверхностью для передачи мощных электрических разрядов."
-	icon = 'icons/obj/defib.dmi'
+	icon = 'icons/obj/medical/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
 	item_state = null
 	righthand_file = null //because modules are visual on modsuits

@@ -3,7 +3,7 @@
 	species_type = /datum/species/wryn
 	name = "antennae"
 	desc = "Орган, отвечающий за телепатическую связь врина с его сородичами."
-	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon = 'icons/obj/medical/species_organs/wryn.dmi'
 	icon_state = "antennae"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_HIVENODE
@@ -50,7 +50,7 @@
 	name = "wryn wax glands"
 	desc = "Парные железы, выделяющие воск, который может использоваться вринами как строительный материал."
 	gender = PLURAL
-	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon = 'icons/obj/medical/species_organs/wryn.dmi'
 	icon_state = "waxsac"
 	item_state = "waxsac"
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
@@ -122,9 +122,9 @@
 
 /obj/item/organ/internal/brain/wryn
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал врину."
-	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon = 'icons/obj/medical/species_organs/wryn.dmi'
 	item_state = "wryn_brain"
-	mmi_icon = 'icons/obj/species_organs/wryn.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/wryn.dmi'
 
 /obj/item/organ/internal/brain/wryn/get_ru_names()
 	return list(
@@ -140,7 +140,7 @@
 	species_type = /datum/species/wryn
 	name = "wryn heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало врину."
-	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon = 'icons/obj/medical/species_organs/wryn.dmi'
 	item_state = "wryn_heart-on"
 	item_base = "wryn_heart"
 
@@ -158,7 +158,7 @@
 	species_type = /datum/species/wryn
 	name = "wryn eyes"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали врину."
-	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon = 'icons/obj/medical/species_organs/wryn.dmi'
 	item_state = "wryn_eyes"
 	see_in_dark = 3
 

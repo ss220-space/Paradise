@@ -402,7 +402,7 @@ GLOBAL_LIST_EMPTY(parasites)
 /obj/item/guardiancreator/tech
 	name = "инъектор голопаразитов"
 	desc = "Содержит нанороботов неизвестного производства. Хотя он способен на почти колдовские подвиги с помощью голограмм жесткого света и наномашин, ему требуется органический носитель в качестве домашней базы и источника топлива."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	icon_state = "combat_hypo"
 	theme = "tech"
 	mob_name = "Голопаразит"

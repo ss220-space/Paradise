@@ -250,7 +250,7 @@
 	for(var/obj/item/reagent_containers/glass/beaker/vial/blood_vial in vials)
 		var/icon/vial_icon = getFlatIcon(blood_vial, no_anim = TRUE)
 		vial_icons += icon2base64(vial_icon)
-	var/icon/no_vial_icon = icon('icons/obj/chemical.dmi', "vial", SOUTH, frame = 1)
+	var/icon/no_vial_icon = icon('icons/obj/medical/chemical.dmi', "vial", SOUTH, frame = 1)
 	data["vialIcons"] = vial_icons
 	data["noVialIcon"] = icon2base64(no_vial_icon)
 	//Имена обладателей крови

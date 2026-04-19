@@ -1,7 +1,7 @@
 /obj/item/laser_eyes_injector
 	name = "laser eyes injector"
 	desc = "Инъектор, который даст вам способность стрелять лазерами из глаз."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	icon_state = "dnainjector"
 	var/used = FALSE
 

@@ -5,7 +5,7 @@
 	name = "handheld defibrillator"
 	desc = "Компактное устройство жёлтого цвета, используемое для экстренной кардиостимуляции."
 	gender = MALE
-	icon = 'icons/obj/handheld_defibrillator.dmi'
+	icon = 'icons/obj/medical/handheld_defibrillator.dmi'
 	icon_state = "defib_passive-on"
 	item_state = "defib_passive"
 	belt_icon = "handheld_defibrillator"

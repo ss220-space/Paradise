@@ -2,7 +2,7 @@
 	species_type = /datum/species/grey
 	name = "grey liver"
 	desc = "Маленькая печень серого цвета — орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма."
-	icon = 'icons/obj/species_organs/grey.dmi'
+	icon = 'icons/obj/medical/species_organs/grey.dmi'
 	item_state = "grey_liver"
 	alcohol_intensity = 1.4
 
@@ -19,9 +19,9 @@
 /obj/item/organ/internal/brain/grey
 	species_type = /datum/species/grey
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал серому."
-	icon = 'icons/obj/species_organs/grey.dmi'
+	icon = 'icons/obj/medical/species_organs/grey.dmi'
 	item_state = "grey_brain"
-	mmi_icon = 'icons/obj/species_organs/grey.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/grey.dmi'
 	smart_mind = TRUE // nerd brains show us sci-hud and research scanner
 
 /obj/item/organ/internal/brain/grey/get_ru_names()
@@ -46,7 +46,7 @@
 	species_type = /datum/species/grey
 	name = "grey eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Даже в таком виде они выглядят абсолютно пустыми и безэмоциональными."
-	icon = 'icons/obj/species_organs/grey.dmi'
+	icon = 'icons/obj/medical/species_organs/grey.dmi'
 	item_state = "grey_eyes"
 	see_in_dark = 3
 	examine_mod = EXAMINE_INSTANT // Insta carbon examine
@@ -80,7 +80,7 @@
 	species_type = /datum/species/grey
 	name = "grey heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало серому."
-	icon = 'icons/obj/species_organs/grey.dmi'
+	icon = 'icons/obj/medical/species_organs/grey.dmi'
 	item_state = "grey_heart-on"
 	item_base = "grey_heart"
 
@@ -98,7 +98,7 @@
 	species_type = /datum/species/grey
 	name = "grey lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали серому."
-	icon = 'icons/obj/species_organs/grey.dmi'
+	icon = 'icons/obj/medical/species_organs/grey.dmi'
 	item_state = "grey_lungs"
 
 /obj/item/organ/internal/lungs/grey/get_ru_names()
@@ -115,7 +115,7 @@
 	species_type = /datum/species/grey
 	name = "grey kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали серому."
-	icon = 'icons/obj/species_organs/grey.dmi'
+	icon = 'icons/obj/medical/species_organs/grey.dmi'
 	item_state = "grey_kidneys"
 
 /obj/item/organ/internal/kidneys/grey/get_ru_names()

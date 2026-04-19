@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /obj/item/dna_probe
 	name = "DNA Sampler"
 	desc = "Может использоваться для взятия химических и генетических образцов практически любого объекта."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
 	item_flags = NOBLUDGEON

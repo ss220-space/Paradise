@@ -2,7 +2,7 @@
 	species_type = /datum/species/skrell
 	name = "skrell liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала скреллу."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	item_state = "skrell_liver"
 	alcohol_intensity = 4
 
@@ -30,7 +30,7 @@
 	species_type = /datum/species/skrell
 	name = "headpocket"
 	desc = "Мышечное образование на голове скреллов, которое можно использовать как место хранения небольших предметов."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	icon_state = "skrell_headpocket"
 	item_state = "skrell_headpocket"
 	origin_tech = "biotech=2"
@@ -105,7 +105,7 @@
 	species_type = /datum/species/skrell
 	name = "skrell heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало скреллу."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	item_state = "skrell_heart-on"
 	item_base = "skrell_heart"
 
@@ -122,9 +122,9 @@
 /obj/item/organ/internal/brain/skrell
 	species_type = /datum/species/skrell
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал скреллу."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	item_state = "skrell_brain"
-	mmi_icon = 'icons/obj/species_organs/skrell.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/brain/skrell/get_ru_names()
 	return list(
@@ -140,7 +140,7 @@
 	species_type = /datum/species/skrell
 	name = "skrell lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали скреллу."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	item_state = "skrell_lungs"
 
 /obj/item/organ/internal/lungs/skrell/get_ru_names()
@@ -157,7 +157,7 @@
 	species_type = /datum/species/skrell
 	name = "skrell kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали скреллу."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	item_state = "skrell_kidneys"
 
 /obj/item/organ/internal/kidneys/skrell/get_ru_names()
@@ -174,7 +174,7 @@
 	species_type = /datum/species/skrell
 	name = "skrell eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали скреллу."
-	icon = 'icons/obj/species_organs/skrell.dmi'
+	icon = 'icons/obj/medical/species_organs/skrell.dmi'
 	item_state = "skrell_eyes"
 	see_in_dark = 5
 	can_see_food = TRUE

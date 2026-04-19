@@ -591,7 +591,7 @@
 	desc = "Герметичный стеклянный флакон, предназначенный для хранения таблеток."
 	gender = MALE
 	icon_state = "pill_canister"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	item_state = "pill_canister"
 	belt_icon = "pill_bottle"
 	w_class = WEIGHT_CLASS_SMALL

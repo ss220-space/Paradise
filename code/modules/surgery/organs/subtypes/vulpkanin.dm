@@ -27,7 +27,7 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала вульпканину."
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_liver"
 	alcohol_intensity = 1.4
 
@@ -45,7 +45,7 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпканину."
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_eyes"
 	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
@@ -97,7 +97,7 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало вульпканину."
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_heart-on"
 	item_base = "vulpkanin_heart"
 
@@ -114,9 +114,9 @@
 /obj/item/organ/internal/brain/vulpkanin
 	species_type = /datum/species/vulpkanin
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал вульпканину."
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_brain"
-	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 
 /obj/item/organ/internal/brain/vulpkanin/get_ru_names()
 	return list(
@@ -132,7 +132,7 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали вульпканину."
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_lungs"
 
 /obj/item/organ/internal/lungs/vulpkanin/get_ru_names()
@@ -149,7 +149,7 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали вульпканину."
-	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	icon = 'icons/obj/medical/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_kidneys"
 
 /obj/item/organ/internal/kidneys/vulpkanin/get_ru_names()

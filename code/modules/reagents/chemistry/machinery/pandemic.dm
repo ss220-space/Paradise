@@ -1,7 +1,7 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 220"
 	desc = "Высокотехнологичная машина, предназначенная для исследования и работы с вирусными культурами. Лучший друг вирусолога!"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "mixer0"
 	circuit = /obj/item/circuitboard/pandemic
 	idle_power_usage = 20

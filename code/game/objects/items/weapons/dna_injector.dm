@@ -1,7 +1,7 @@
 /obj/item/dnainjector
 	name = "DNA-Injector"
 	desc = "This injects the person with DNA."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	icon_state = "dnainjector"
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"

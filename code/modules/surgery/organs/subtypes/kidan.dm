@@ -2,7 +2,7 @@
 	species_type = /datum/species/kidan
 	name = "kidan liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала кидану."
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	item_state = "kidan_liver"
 	alcohol_intensity = 0.5
 
@@ -25,7 +25,7 @@
 	name = "Bioluminescent Lantern"
 	desc = "Специальная железа, состоящая из ткани, которая излучает свет за счёт химической реакции кислорода, белков и крови. Эта принадлежала кидану."
 	gender = FEMALE
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	icon_state = "kid_lantern"
 	item_state = "kidan_lantern"
 	origin_tech = "biotech=2"
@@ -143,7 +143,7 @@
 	species_type = /datum/species/kidan
 	name = "kidan eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали кидану."
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	item_state = "kidan_eyes"
 
 /obj/item/organ/internal/eyes/kidan/get_ru_names()
@@ -175,7 +175,7 @@
 	species_type = /datum/species/kidan
 	name = "kidan heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало кидану."
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	item_state = "kidan_heart-on"
 	item_base = "kidan_heart"
 
@@ -192,9 +192,9 @@
 /obj/item/organ/internal/brain/kidan
 	species_type = /datum/species/kidan
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал кидану."
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	item_state = "kidan_brain"
-	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/kidan/get_ru_names()
@@ -222,7 +222,7 @@
 	species_type = /datum/species/kidan
 	name = "kidan lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали кидану."
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	item_state = "kidan_lungs"
 
 /obj/item/organ/internal/lungs/kidan/get_ru_names()
@@ -239,7 +239,7 @@
 	species_type = /datum/species/kidan
 	name = "kidan kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали кидану."
-	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon = 'icons/obj/medical/species_organs/kidan.dmi'
 	item_state = "kidan_kidneys"
 
 /obj/item/organ/internal/kidneys/kidan/get_ru_names()

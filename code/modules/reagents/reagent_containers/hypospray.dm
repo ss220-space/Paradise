@@ -5,7 +5,7 @@
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
 	desc = "Гипоспрей — это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
@@ -105,7 +105,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	remove_filter("hypospray_handle")
 	if(paint_color)
-		var/icon/hypo_mask = icon('icons/obj/hypo.dmi', color_overlay)
+		var/icon/hypo_mask = icon('icons/obj/medical/hypo.dmi', color_overlay)
 		add_filter("hypospray_handle", 1, layering_filter(icon = hypo_mask, color = paint_color))
 
 /obj/item/reagent_containers/hypospray/safety/update_icon_state()
@@ -432,14 +432,14 @@
 			balloon_alert(user, "недостаточно краски!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		var/static/list/injector_icons = list(
-			"Completely Blue" = image('icons/obj/hypo.dmi', "ablueinjector"),
-			"Blue" = image('icons/obj/hypo.dmi', "blueinjector"),
-			"Completely Red" = image('icons/obj/hypo.dmi', "redinjector"),
-			"Red" = image('icons/obj/hypo.dmi', "lepopen"),
-			"Golden" = image('icons/obj/hypo.dmi', "goldinjector"),
-			"Completely Green" = image('icons/obj/hypo.dmi', "greeninjector"),
-			"Green" = image('icons/obj/hypo.dmi', "autoinjector"),
-			"Gray" = image('icons/obj/hypo.dmi', "stimpen")
+			"Completely Blue" = image('icons/obj/medical/hypo.dmi', "ablueinjector"),
+			"Blue" = image('icons/obj/medical/hypo.dmi', "blueinjector"),
+			"Completely Red" = image('icons/obj/medical/hypo.dmi', "redinjector"),
+			"Red" = image('icons/obj/medical/hypo.dmi', "lepopen"),
+			"Golden" = image('icons/obj/medical/hypo.dmi', "goldinjector"),
+			"Completely Green" = image('icons/obj/medical/hypo.dmi', "greeninjector"),
+			"Green" = image('icons/obj/medical/hypo.dmi', "autoinjector"),
+			"Gray" = image('icons/obj/medical/hypo.dmi', "stimpen")
 		)
 		var/choice = show_radial_menu(user, user, injector_icons, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
 		if(!choice || loc != user || can.loc != user || !can.uses || user.incapacitated())

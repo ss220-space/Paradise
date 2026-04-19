@@ -284,7 +284,7 @@
 /obj/effect/syringe_gun_dummy //moved this shitty thing here
 	name = ""
 	desc = ""
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = null
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)

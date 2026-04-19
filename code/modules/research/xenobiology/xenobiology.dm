@@ -142,7 +142,7 @@
 /obj/item/slimepotion/slime/docility
 	name = "docility potion"
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle19"
 	var/being_used = FALSE
 
@@ -182,7 +182,7 @@
 	name = "sentience potion"
 	id = "Sentience"
 	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle19"
 	origin_tech = "biotech=6"
 	var/list/not_interested = list()
@@ -370,7 +370,7 @@
 	name = "consciousness transference potion"
 	id = "Transference"
 	desc = "A strange slime-based chemical that, when used, allows the user to transfer their consciousness to a lesser being."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle19"
 	origin_tech = "biotech=6"
 	var/prompted = FALSE
@@ -420,7 +420,7 @@
 /obj/item/slimepotion/slime/steroid
 	name = "slime steroid"
 	desc = "A potent chemical mix that will cause a baby slime to generate more extract."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle16"
 
 /obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -448,14 +448,14 @@
 	name = "extract enhancer"
 	id = "Enhancer"
 	desc = "A potent chemical mix that will give a slime extract an additional use."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle17"
 
 /obj/item/slimepotion/slime/stabilizer
 	name = "slime stabilizer"
 	id = "Stabilizer"
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle15"
 
 /obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -480,7 +480,7 @@
 	name = "slime mutator"
 	id = "Mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle3"
 
 /obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -509,7 +509,7 @@
 	name = "slime speed potion"
 	id = "Speed"
 	desc = "A potent chemical mix that will remove the slowdown from any item."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
@@ -630,7 +630,7 @@
 	name = "slime chill potion"
 	id = "Fire Resistance"
 	desc = "A potent chemical mix that will fireproof any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle17"
 	origin_tech = "biotech=5"
 
@@ -659,7 +659,7 @@
 	id = "Acid Proof"
 	desc = "A potent chemical mix that will increase acid resistance of any article of clothing"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 25)
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle8"
 	origin_tech = "biotech=5"
 
@@ -684,7 +684,7 @@
 	id = "Laser Resistance"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 5,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle4"
 	origin_tech = "biotech=5"
 
@@ -701,7 +701,7 @@
 	id = "Bio Resistance"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 40, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle7"
 	origin_tech = "biotech=5"
 
@@ -718,7 +718,7 @@
 	id = "Explosion Resistance"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 15, BIO = 0, FIRE = 0, ACID = 0)
 	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle9"
 	origin_tech = "biotech=5"
 
@@ -734,7 +734,7 @@
 	name = "teleportation slime potion"
 	id = "Teleportation Resistance"
 	desc = "A potent chemical mix that provides a small chance to teleport when taking damage."
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle5"
 	origin_tech = "biotech=5"
 

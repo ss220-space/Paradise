@@ -5,10 +5,21 @@
 	name = "auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов."
 	gender = MALE
-	icon = 'icons/goonstation/objects/objects.dmi'
+/*
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "mender"
 	item_state = "mender"
 	belt_icon = "automender"
+*/
+	icon = 'icons/map_icons/items/_item.dmi'
+	var/overlay_icon = 'icons/obj/medical/chemical.dmi'
+	icon_state = "/obj/item/reagent_containers/applicator"
+	post_init_icon_state = ""
+	greyscale_config = /datum/greyscale_config/mender
+	greyscale_config_inhand_left = /datum/greyscale_config/mender_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/mender_inhand_right
+	greyscale_config_belt = /datum/greyscale_config/mender_belt
+	greyscale_colors = "#ffffff"
 	volume = 200
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
@@ -62,22 +73,22 @@
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 	update_appearance(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/applicator/update_icon_state()
-	icon_state = "mender[applying ? "-active" : ""]"
-
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
+	if(applying)
+		var/mutable_appearance/work_overlay = mutable_appearance(overlay_icon, "mender_work_overlay", color = greyscale_colors)
+		. += flick_overlay_view(work_overlay, 1,)
 	if(reagents.total_volume)
-		. += mutable_appearance(icon, "mender-fluid", color = get_color_matrix_from_reagents(reagents.reagent_list))
+		. += mutable_appearance(overlay_icon, "mender_liquid_overlay", color = get_color_matrix_from_reagents(reagents.reagent_list))
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
-	var/mutable_appearance/applicator_bar = mutable_appearance(icon, "app_e")
+	var/mutable_appearance/applicator_bar = mutable_appearance(overlay_icon, "mender_ind_empty")
 	switch(reag_pct)
 		if(51 to 100)
-			applicator_bar.icon_state = "app_hf"
+			applicator_bar.icon_state = "mender_ind_full"
 		if(1 to 50)
-			applicator_bar.icon_state = "app_he"
+			applicator_bar.icon_state = "mender_ind_low"
 		if(0)
-			applicator_bar.icon_state = "app_e"
+			applicator_bar.icon_state = "mender_ind_empty"
 	. += applicator_bar
 
 /obj/item/reagent_containers/applicator/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -124,7 +135,7 @@
 	. |= ATTACK_CHAIN_SUCCESS
 
 	applying = TRUE
-	update_appearance(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_OVERLAYS)
 	apply_to(target, user, APPLICATOR_PRE_LOOP_RATIO * reacting_to_applied_ratio, TRUE, def_zone) // We apply a very weak application up front, then loop.
 	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	var/cycle_count = 0
@@ -144,7 +155,7 @@
 
 	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	applying = FALSE
-	update_appearance(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
@@ -161,6 +172,7 @@
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений."
+	greyscale_colors = "#ef4d4d"
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
@@ -176,6 +188,7 @@
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений."
+	greyscale_colors = "#efb64d"
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
@@ -191,6 +204,7 @@
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления как механических, так и термических повреждений."
+	greyscale_colors = "#ffc8c8"
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()

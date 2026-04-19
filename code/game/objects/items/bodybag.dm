@@ -3,7 +3,7 @@
 /obj/item/bodybag
 	name = "body bag"
 	desc = "Сложенный мешок, предназначенный для хранения и транспортировки трупов."
-	icon = 'icons/obj/bodybag.dmi'
+	icon = 'icons/obj/medical/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	item_state = "bodybag"
 	w_class = WEIGHT_CLASS_SMALL
@@ -60,7 +60,7 @@
 /obj/structure/closet/body_bag
 	name = "body bag"
 	desc = "Пластиковый мешок, предназначенный для хранения и транспортировки трупов."
-	icon = 'icons/obj/bodybag.dmi'
+	icon = 'icons/obj/medical/bodybag.dmi'
 	icon_state = "bodybag_closed"
 	icon_closed = "bodybag_closed"
 	icon_opened = "bodybag_open"

@@ -826,7 +826,7 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/chemistry
 	name = "chemistry bag"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bag"
 	item_state = "chembag"
 	desc = "A bag for storing pills, patches, and bottles."
@@ -842,7 +842,7 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/bio
 	name = "bio bag"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "biobag"
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	storage_slots = 25

@@ -3,7 +3,7 @@
 /obj/item/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
 	desc = "Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
 	possible_transfer_amounts = null
@@ -17,7 +17,7 @@
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		"mannitol" = list('icons/obj/medical/species_organs/grey.dmi', "brain2"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
 		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
@@ -63,7 +63,7 @@
 	desc = "Улучшенная версия робо-гипоспрея. Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования."
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		"mannitol" = list('icons/obj/medical/species_organs/grey.dmi', "brain2"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
 		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
 		"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"), \

@@ -1,7 +1,7 @@
 /obj/structure/reagent_dispensers
 	name = "Dispenser"
 	desc = "..."
-	icon = 'icons/obj/medicine/chemical_tanks.dmi'
+	icon = 'icons/obj/medical/chemical_tanks.dmi'
 	icon_state = "water_tank"
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE

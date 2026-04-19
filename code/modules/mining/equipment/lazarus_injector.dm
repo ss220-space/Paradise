@@ -2,7 +2,7 @@
 /obj/item/lazarus_injector
 	name = "lazarus injector"
 	desc = "Шприц с коктейлем наномашин и химикатов, способный оживлять мёртвых животных, делая их дружелюбными к пользователю. К сожалению, процесс бесполезен для высших форм жизни и крайне дорог, поэтому устройства хранились на складе, пока какой-то руководитель не решил, что они станут отличной мотивацией для сотрудников."
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
 	origin_tech = "biotech=4;magnets=6"

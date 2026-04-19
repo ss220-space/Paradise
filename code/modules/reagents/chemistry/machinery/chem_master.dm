@@ -20,7 +20,7 @@
 	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутылки."
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "mixer0"
 	idle_power_usage = 20
 	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -2,7 +2,7 @@
 	species_type = /datum/species/slime
 	name = "slime heart"
 	desc = "Орган, регулирующий давление и потоки передвижения слизи по организму, по принципу работы схожий с сердцем. Это принадлежало слаймолюду."
-	icon = 'icons/obj/species_organs/slime.dmi'
+	icon = 'icons/obj/medical/species_organs/slime.dmi'
 	icon_state = "heart"
 	item_state = "slime_heart"
 	dead_icon = null
@@ -24,7 +24,7 @@
 	species_type = /datum/species/slime
 	name = "slime lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали слаймолюду."
-	icon = 'icons/obj/species_organs/slime.dmi'
+	icon = 'icons/obj/medical/species_organs/slime.dmi'
 	item_state = "slime_lungs"
 
 /obj/item/organ/internal/lungs/slime/get_ru_names()

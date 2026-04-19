@@ -1,7 +1,7 @@
 /obj/item/stack/medical
 	name = "medical pack"
 	singular_name = "medical pack"
-	icon = 'icons/obj/medicine/packs.dmi'
+	icon = 'icons/obj/medical/stack_medical.dmi'
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
@@ -951,7 +951,7 @@
 	desc = "Медицинский турникет для экстренной остановки артериального и венозного кровотечения на конечностях. \
 			Не предназначен для наложения на другие части тела. \
 			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
-	icon = 'icons/obj/medicine/packs.dmi'
+	icon = 'icons/obj/medical/stack_medical.dmi'
 	icon_state = "tourniquet"
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"

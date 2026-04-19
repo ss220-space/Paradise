@@ -359,7 +359,7 @@
 	mechsyringe.forceMove(get_turf(chassis))
 	reagents.trans_to(mechsyringe, min(mechsyringe.volume, reagents.total_volume))
 	syringes -= mechsyringe
-	mechsyringe.icon = 'icons/obj/chemical.dmi'
+	mechsyringe.icon = 'icons/obj/medical/chemical.dmi'
 	mechsyringe.icon_state = "syringeproj"
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, TRUE)
 	start_cooldown()

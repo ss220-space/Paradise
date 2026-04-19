@@ -2,7 +2,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала унатху."
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/medical/species_organs/unathi.dmi'
 	item_state = "unathi_liver"
 	alcohol_intensity = 0.8
 
@@ -20,7 +20,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали унатху."
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/medical/species_organs/unathi.dmi'
 	item_state = "unathi_eyes"
 	see_in_dark = 3
 
@@ -53,7 +53,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало унатху."
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/medical/species_organs/unathi.dmi'
 	item_state = "unathi_heart-on"
 	item_base = "unathi_heart"
 
@@ -70,9 +70,9 @@
 /obj/item/organ/internal/brain/unathi
 	species_type = /datum/species/unathi
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Выглядит относительно маленьким. Этот принадлежал унатху."
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/medical/species_organs/unathi.dmi'
 	item_state = "unathi_brain"
-	mmi_icon = 'icons/obj/species_organs/unathi.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/unathi.dmi'
 
 /obj/item/organ/internal/brain/unathi/get_ru_names()
 	return list(
@@ -88,7 +88,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали унатху."
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/medical/species_organs/unathi.dmi'
 	item_state = "unathi_lungs"
 
 /obj/item/organ/internal/lungs/unathi/get_ru_names()
@@ -105,7 +105,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали унатху."
-	icon = 'icons/obj/species_organs/unathi.dmi'
+	icon = 'icons/obj/medical/species_organs/unathi.dmi'
 	item_state = "unathi_kidneys"
 
 /obj/item/organ/internal/kidneys/unathi/get_ru_names()

@@ -3,7 +3,7 @@
 	name = "hivelord stabilizer"
 	desc = "Введите стабилизатор в ядро легиона, чтобы предотвратить его гниение, сохраняя исцеляющие свойства."
 	gender = MALE
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "bottle19"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"

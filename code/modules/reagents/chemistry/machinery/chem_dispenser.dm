@@ -6,7 +6,7 @@
 	desc = "Высокотехнологичная машина, способная синтезировать определённые вещества с помощью сложных физико-химических процессов. Даже не спрашивайте, как оно работает — вы всё равно не поймёте."
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "dispenser"
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -367,7 +367,7 @@
 	var/static/list/beaker_cache = list()
 	var/random_pixel = rand(-10, 5)	// randomize beaker overlay position
 	if(!beaker_cache["[random_pixel]"])
-		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/chemical.dmi', beaker_overlay_name)
+		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/medical/chemical.dmi', beaker_overlay_name)
 		beaker_olay.pixel_w = random_pixel
 		beaker_cache["[random_pixel]"] = beaker_olay
 	. += beaker_cache["[random_pixel]"]
@@ -522,7 +522,7 @@
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
 	desc = "Компактная версия химического раздатчика. Удобно!"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
 	item_flags = NOBLUDGEON
@@ -651,7 +651,7 @@
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
-		var/mutable_appearance/power_light = mutable_appearance('icons/obj/chemical.dmi', "light_low")
+		var/mutable_appearance/power_light = mutable_appearance('icons/obj/medical/chemical.dmi', "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
 		switch(percent)
 			if(0 to 33)
@@ -662,10 +662,10 @@
 				power_light.icon_state = "light_full"
 		. += power_light
 
-		var/mutable_appearance/mode_light = mutable_appearance('icons/obj/chemical.dmi', "light_[mode]")
+		var/mutable_appearance/mode_light = mutable_appearance('icons/obj/medical/chemical.dmi', "light_[mode]")
 		. += mode_light
 
-		var/mutable_appearance/chamber_contents = mutable_appearance('icons/obj/chemical.dmi', "reagent_filling")
+		var/mutable_appearance/chamber_contents = mutable_appearance('icons/obj/medical/chemical.dmi', "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
 		chamber_contents.color = R.color
 		. += chamber_contents

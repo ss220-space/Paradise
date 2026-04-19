@@ -91,3 +91,27 @@
 	name = "Syndie Encryptionkey"
 	icon_file = 'icons/obj/radio.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_syndie.json'
+
+/*
+	MENDER
+ */
+
+/datum/greyscale_config/mender
+	name = "Mender"
+	icon_file = 'icons/obj/medical/chemical.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
+
+/datum/greyscale_config/mender_inhand_left
+	name = "Held Mender, Left"
+	icon_file = 'icons/mob/inhands/items_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
+
+/datum/greyscale_config/mender_inhand_right
+	name = "Held Mender, Right"
+	icon_file = 'icons/mob/inhands/items_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
+
+/datum/greyscale_config/mender_belt
+	name = "Belt Worn Mender"
+	icon_file = 'icons/obj/clothing/belt_overlays.dmi'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'

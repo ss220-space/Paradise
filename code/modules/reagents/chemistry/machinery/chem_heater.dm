@@ -3,7 +3,7 @@
 	desc = "Простая машина, представляющая собой камеру для нагрева помещённых ёмкостей. Не смотря на своё название, также может охлаждать."
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "mixer0b"
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF|ACID_PROOF

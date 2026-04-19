@@ -2,7 +2,7 @@
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
 	gender = MALE
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	item_state = "syringe_0"
 	icon_state = "lepopen"
 	var/used = FALSE

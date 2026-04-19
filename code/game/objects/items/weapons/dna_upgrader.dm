@@ -9,7 +9,7 @@
 /obj/item/dna_upgrader
 	name = "dna upgrader"
 	desc = "Кто-то мог бы сказать, что для такой сильной модификации необходимо выполнить цель станции... Дураки!"
-	icon = 'icons/obj/hypo.dmi'
+	icon = 'icons/obj/medical/hypo.dmi'
 	icon_state = "dnaupgrader"
 	var/used = FALSE
 

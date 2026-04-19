@@ -3,7 +3,7 @@
 	species_type = /datum/species/drask
 	name = "drask organ"
 	desc = "Зеленоватый, слегка прозрачный орган. Он чрезвычайно холодный."
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/medical/species_organs/drask.dmi'
 	icon_state = "innards"
 	item_state = "drask_innards"
 
@@ -21,7 +21,7 @@
 	species_type = /datum/species/drask
 	name = "drask heart"
 	desc = "Орган, качающий криоксадон по организму драска."
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/medical/species_organs/drask.dmi'
 	item_state = "drask_heart-on"
 	item_base = "drask_heart"
 	parent_organ_zone = BODY_ZONE_HEAD
@@ -41,7 +41,7 @@
 	name = "metabolic strainer"
 	desc = "Орган выделительной системы организма драска. Выделяет особый фермент, очищающий кровоток от токсинов и стимулирующий процесс клеточного деления."
 	gender = MALE
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/medical/species_organs/drask.dmi'
 	icon_state = "kidneys"
 	item_state = "drask_liver"
 	alcohol_intensity = 0.8
@@ -59,9 +59,9 @@
 /obj/item/organ/internal/brain/drask
 	species_type = /datum/species/drask
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал драску."
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/medical/species_organs/drask.dmi'
 	item_state = "drask_brain"
-	mmi_icon = 'icons/obj/species_organs/drask.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/drask.dmi'
 
 /obj/item/organ/internal/brain/drask/get_ru_names()
 	return list(
@@ -77,7 +77,7 @@
 	species_type = /datum/species/drask
 	name = "drask eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали драску."
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/medical/species_organs/drask.dmi'
 	item_state = "drask_eyes"
 	see_in_dark = 5
 
@@ -109,7 +109,7 @@
 /obj/item/organ/internal/lungs/drask
 	name = "drask lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма драска."
-	icon = 'icons/obj/species_organs/drask.dmi'
+	icon = 'icons/obj/medical/species_organs/drask.dmi'
 	item_state = "drask_lungs"
 	cold_message = " освежающий холод"
 	cold_level_1_damage = -COLD_GAS_DAMAGE_LEVEL_1 //They heal when the air is cold

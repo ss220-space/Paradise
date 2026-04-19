@@ -2,7 +2,7 @@
 	species_type = /datum/species/vox
 	name = "vox liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала воксу."
-	icon = 'icons/obj/species_organs/vox.dmi'
+	icon = 'icons/obj/medical/species_organs/vox.dmi'
 	item_state = "vox_liver"
 	alcohol_intensity = 1.6
 	sterile = TRUE
@@ -21,7 +21,7 @@
 	species_type = /datum/species/vox
 	name = "vox eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали воксу."
-	icon = 'icons/obj/species_organs/vox.dmi'
+	icon = 'icons/obj/medical/species_organs/vox.dmi'
 	item_state = "vox_eyes"
 	sterile = TRUE
 
@@ -54,7 +54,7 @@
 	species_type = /datum/species/vox
 	name = "vox heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало воксу."
-	icon = 'icons/obj/species_organs/vox.dmi'
+	icon = 'icons/obj/medical/species_organs/vox.dmi'
 	item_state = "vox_heart-on"
 	item_base = "vox_heart"
 	sterile = TRUE
@@ -73,10 +73,10 @@
 	species_type = /datum/species/vox
 	name = "cortical stack"
 	desc = "Двойной мозг, мозжечок которого является органическим, а кора представлена сложным электронным устройством. Фактически, именно здесь и находится разум вокса."
-	icon = 'icons/obj/species_organs/vox.dmi'
+	icon = 'icons/obj/medical/species_organs/vox.dmi'
 	icon_state = "cortical-stack"
 	item_state = "vox_cortical-stack"
-	mmi_icon = 'icons/obj/species_organs/vox.dmi'
+	mmi_icon = 'icons/obj/medical/species_organs/vox.dmi'
 	sterile = TRUE
 
 /obj/item/organ/internal/brain/vox/get_ru_names()
@@ -93,7 +93,7 @@
 	species_type = /datum/species/vox
 	name = "vox kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали воксу."
-	icon = 'icons/obj/species_organs/vox.dmi'
+	icon = 'icons/obj/medical/species_organs/vox.dmi'
 	item_state = "vox_kidneys"
 	sterile = TRUE
 
@@ -110,7 +110,7 @@
 /obj/item/organ/internal/lungs/vox
 	name = "vox lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали воксу."
-	icon = 'icons/obj/species_organs/vox.dmi'
+	icon = 'icons/obj/medical/species_organs/vox.dmi'
 	item_state = "vox_lungs"
 
 	safe_oxygen_min = 0 //We don't breathe this

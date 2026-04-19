@@ -52,7 +52,7 @@
 // MARK: Syring dart
 /obj/projectile/bullet/dart/syringe
 	name = "syringe"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "syringeproj"
 	volume = 15
 
