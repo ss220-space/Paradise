@@ -83,7 +83,7 @@
 	item_state = "light_s"
 	overlay_state = "light_s_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
-	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_X = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/rifle/get_ru_names()
@@ -265,7 +265,9 @@
 	name = "bayonet"
 	desc = "Универсальный короткий клинок, оснащенный специальным креплением для монтажа на ствол винтовки. Основное предназначение — нанесение колющего удара в ближнем бою. Компактный дизайн и надежность конструкции делают его эффективным вспомогательным оружием."
 	icon_state = "bayonet_short"
-	item_state = "supp"
+	item_state = "knife"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	overlay_state = "bayonet_short_o"
 	overlay_offset = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 4)
 	class = GUN_MODULE_CLASS_RIFLE_UNDER
@@ -275,6 +277,7 @@
 	custom_price = 2 * PAYCHECK_CREW
 	var/bonus_force = 8
 	var/old_hitsound
+	var/old_sharp
 
 /obj/item/gun_module/under/bayonet/get_ru_names()
 	return list(
@@ -309,12 +312,13 @@
 
 /obj/item/gun_module/under/bayonet/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.force += bonus_force
+	old_sharp = target_gun.sharp
 	target_gun.sharp = TRUE
 	old_hitsound = target_gun.hitsound
 	target_gun.hitsound = hitsound
 
 /obj/item/gun_module/under/bayonet/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.force -= bonus_force
-	target_gun.sharp = FALSE
+	target_gun.sharp = old_sharp
 	target_gun.hitsound = old_hitsound
 	old_hitsound = null
