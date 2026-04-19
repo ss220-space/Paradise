@@ -92,7 +92,7 @@
 	name = "paint box"
 	desc = "Коробка, которая содержит случайную банку с краской."
 	icon = 'icons/obj/storage/boxes.dmi'
-	icon_state = "giftcreate3"
+	icon_state = "giftcrate3"
 
 /obj/item/random_paint_box/attack_self(mob/user)
 	var/list/paints = subtypesof(/obj/item/reagent_containers/glass/paint)
@@ -100,6 +100,7 @@
 	var/obj/thing = new chosen
 	if(thing)
 		user.put_in_hands(thing)
+		qdel(src)
 
 /obj/item/random_paint_box/get_ru_names()
 	return list(
