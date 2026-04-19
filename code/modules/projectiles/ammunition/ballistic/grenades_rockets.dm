@@ -48,7 +48,9 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/a40mm/update_names()
+/obj/item/ammo_casing/a40mm/update_name(updates = ALL)
+	. = ..()
+
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 
