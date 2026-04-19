@@ -28,6 +28,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	icon_state = "pod_idle"
 	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
 
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.

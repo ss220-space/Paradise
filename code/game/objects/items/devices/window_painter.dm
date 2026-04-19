@@ -32,10 +32,11 @@
 			colour = tgui_input_list(usr, "Which color do you want to use?", name, GLOB.pipe_colors, colour)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pipe_painter/window_painter/afterattack(atom/A, mob/user, proximity, params)
-	if(!is_type_in_list(A, paintable_windows) || !in_range(user, A))
+/obj/item/pipe_painter/window_painter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!is_type_in_list(target, paintable_windows) || !in_range(user, target))
 		return
-	var/obj/structure/window/W = A
+
+	var/obj/structure/window/W = target
 
 	if(mode == "paint")
 		W.color = colour

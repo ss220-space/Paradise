@@ -25,7 +25,7 @@
 	var/move_delay_add = 0 // movement delay to add
 	var/caste_movement_delay = 0
 
-	status_flags = CANPARALYSE|CANPUSH
+	status_flags = CANPARALYSE |CANPUSH| CANUNCONSCIOUS
 
 	var/attack_damage = 20
 	var/armour_penetration = 20

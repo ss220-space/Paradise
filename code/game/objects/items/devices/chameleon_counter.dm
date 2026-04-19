@@ -18,11 +18,13 @@
 	var/dummy_active = FALSE
 	var/dummy_timer
 
-/obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity, params)
-	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
+/obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
-	if(dummy_active || !isitem(target))
+
+	if(dummy_active || !istype(target))
 		return
+
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 	to_chat(user, span_notice("Scanned [target]."))
 	saved_name = target.name

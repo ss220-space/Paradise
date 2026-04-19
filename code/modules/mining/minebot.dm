@@ -308,10 +308,10 @@
 		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота",
 	)
 
-/obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity, params)
-	if(!istype(M) || !proximity)
+/obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!istype(target) || !proximity_flag)
 		return
-	upgrade_bot(M, user)
+	upgrade_bot(target, user)
 
 /obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.melee_damage_upper != initial(M.melee_damage_upper))

@@ -146,3 +146,35 @@
 		CRASH("Object of type [object.type] with id ([id_tag]) already exist in register list")
 	*/
 	register_in[id_tag] = ref
+
+/**
+ * A simple helper proc that checks if the contents of a list of gases are within acceptable terms.
+ *
+ * Arguments:
+ * * gases: The list of gases which contents are being checked
+ * * acceptable_gas_bounds: An associated list of gas types and acceptable boundaries in moles. e.g. /datum/gas/oxygen = list(16, 30)
+ * * * if the assoc list is null, then it'll be considered a safe gas and won't return FALSE.
+ * * extraneous_gas_limit: If a gas not in gases is found, this is the limit above which the proc will return FALSE.
+ *
+ * Returns TRUE if the list of gases is acceptable, FALSE otherwise.
+ */
+/proc/check_gases(list/gases, list/acceptable_gas_bounds, extraneous_gas_limit = 0.1)
+	SHOULD_BE_PURE(TRUE)
+
+	var/list/gases_to_check = acceptable_gas_bounds.Copy() // thank you spaceman
+	for(var/id in gases)
+		var/gas_moles = gases[id]
+		if(!(id in gases_to_check))
+			if(gas_moles > extraneous_gas_limit)
+				return FALSE
+			continue
+		var/list/boundaries = gases_to_check[id]
+		if(boundaries && !ISINRANGE(gas_moles, boundaries[1], boundaries[2]))
+			return FALSE
+		gases_to_check -= id
+	///Check that gases absent from the turf have a lower boundary of zero or none at all, otherwise return FALSE
+	for(var/id in gases_to_check)
+		var/list/boundaries = gases_to_check[id]
+		if(boundaries && boundaries[1] > 0)
+			return FALSE
+	return TRUE

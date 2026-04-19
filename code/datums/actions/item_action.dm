@@ -421,11 +421,8 @@
 	name = "Установить голос"
 
 /datum/action/item_action/voice_changer/voice/do_effect(trigger_flags)
-	if(!IsAvailable())
-		return FALSE
-
-	var/obj/item/voice_changer/V = target
-	V.set_voice(usr)
+	var/obj/item/voice_changer/voice_changer = target
+	voice_changer.set_voice(usr)
 
 /datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
 	var/obj/item/voice_changer/changer = target

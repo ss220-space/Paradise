@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_SINGLE_MODE 0
 /// Burst fire mode
 #define GUN_BURST_MODE 1
-/// Full auto friemode
+/// Full auto firemode
 #define GUN_AUTO_MODE 2
 
 #define GUN_MODE_SINGLE_ONLY 1

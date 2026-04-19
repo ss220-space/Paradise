@@ -274,6 +274,7 @@
 /datum/mind/proc/remove_objective(datum/objective/objective, qdel_on_remove = FALSE)
 	for(var/datum/antagonist/antag in antag_datums)
 		antag.objectives -= objective
+	objective.on_remove_objective(src)
 	objectives -= objective
 	if(qdel_on_remove)
 		qdel(objective)
@@ -1274,6 +1275,7 @@
 			else
 				objectives.Insert(objective_pos[1], new_objective)
 		else
+			new_objective.on_add_objective(new_objective)
 			objectives += new_objective
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")

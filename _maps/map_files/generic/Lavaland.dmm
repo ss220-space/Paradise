@@ -1402,7 +1402,7 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/structure/fishingrodcabinet{
+/obj/structure/closet/gun_stand/fishingrod{
 	pixel_x = -32
 	},
 /obj/structure/closet/secure_closet/mining_medic,
@@ -7159,7 +7159,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "PN" = (
-/obj/item/stack/fireproof_rods/twentyfive,
+/obj/item/stack/rods/fireproof/twentyfive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "PQ" = (

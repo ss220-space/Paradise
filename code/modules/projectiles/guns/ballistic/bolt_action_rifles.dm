@@ -9,9 +9,6 @@
 	slot_flags = NONE //no ITEM_SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
-	can_bayonet = TRUE
-	bayonet_x_offset = 27
-	bayonet_y_offset = 13
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_RAIL
@@ -57,7 +54,6 @@
 	desc = "Careful not to lose your head."
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
-	can_bayonet = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/Initialize(mapload)
 	. = ..()

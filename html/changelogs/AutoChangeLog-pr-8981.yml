@@ -1,0 +1,4 @@
+author: "trollbebra"
+delete-after: True
+changes:
+  - local: "Произошла локализация ДЖЕРСИ СИНЕЙ КОМАНДЫ И КРАСНОЙ КОМАНДЫ на русский язык. (PR #8981)"
