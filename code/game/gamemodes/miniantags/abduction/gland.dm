@@ -341,5 +341,5 @@
 	owner.visible_message(span_danger("[capitalize(owner.name)] отрыгива[PLUR_ET_YUT(owner)] облако неизвестного газа!"))
 	var/turf/simulated/turf = get_turf(owner)
 	if(istype(turf))
-		turf.atmos_spawn_air(LINDA_SPAWN_BZ, 50, T20C)
+		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS, 5, T20C)
 	owner.vomit()
