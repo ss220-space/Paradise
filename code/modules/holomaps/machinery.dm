@@ -408,6 +408,8 @@
 		if(!ismindshielded(check))
 			continue
 		var/turf/check_turf = get_turf(check)
+		if(check_turf.z != loc.z)
+			continue
 		var/image/check_icon = image('icons/misc/8x8.dmi', icon_state = "security")
 		check_icon.pixel_w = check_turf.x + HOLOMAP_CENTER_X - 1
 		check_icon.pixel_z = check_turf.y + HOLOMAP_CENTER_Y
