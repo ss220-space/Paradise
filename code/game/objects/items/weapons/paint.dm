@@ -14,7 +14,7 @@
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70
 	/// paint title in ru_names
-	var paint_title_ru = ""
+	var/paint_title_ru = ""
 
 /obj/item/reagent_containers/glass/paint/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
