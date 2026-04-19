@@ -325,3 +325,91 @@
 	target_gun.sharp = old_sharp
 	target_gun.hitsound = old_hitsound
 	old_hitsound = null
+
+
+// MARK: Underbarrel gun
+/obj/item/gun_module/under/gun
+	name = "underbarrel gun"
+	desc = "Модуль подствольного оружия. Вы не должны видеть это описание."
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+	class = GUN_MODULE_CLASS_RIFLE_UNDER
+	/// Attached internal gun instance
+	var/obj/item/gun/internal_gun = null
+	/// Attached internal gun type path
+	var/internal_gun_type = null
+
+/obj/item/gun_module/under/gun/Initialize(mapload)
+	. = ..()
+	internal_gun = new internal_gun_type(src)
+
+/obj/item/gun_module/under/gun/Destroy()
+	. = ..()
+	QDEL_NULL(internal_gun)
+
+/obj/item/gun_module/under/gun/on_attach(obj/item/gun/target_gun, mob/user)
+	RegisterSignal(gun, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, PROC_REF(on_fire_from_internal_gun))
+	RegisterSignal(gun, COMSIG_PARENT_ATTACKBY, PROC_REF(on_gun_pre_attack_by))
+
+
+/obj/item/gun_module/under/gun/on_detach(obj/item/gun/target_gun, mob/user)
+	UnregisterSignal(gun, list(COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, COMSIG_PARENT_ATTACKBY))
+
+/obj/item/gun_module/under/gun/proc/on_fire_from_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	SIGNAL_HANDLER
+
+	to_chat(user, "Выстрел с [name] по [target]")
+	//call async here
+	INVOKE_ASYNC(src, PROC_REF(fire_internal_gun), item, user, target, modifiers)
+	return TRUE
+
+/obj/item/gun_module/under/gun/proc/fire_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	internal_gun.afterattack(target, user, FALSE, modifiers)
+
+/obj/item/gun_module/under/gun/proc/on_gun_pre_attack_by(atom/source, obj/item/item, mob/living/attacker, params)
+	SIGNAL_HANDLER
+
+	if(isammobox(item) || isammocasing(item))
+		INVOKE_ASYNC(src, PROC_REF(try_reload_internal_gun), item, attacker, params)
+
+/obj/item/gun_module/under/gun/proc/try_reload_internal_gun(obj/item/item, mob/living/attacker, params)
+	internal_gun.attackby(item, attacker, params)
+
+
+// MARK: Grenade launcher
+/obj/item/gun_module/under/gun/grenade_launcher
+	name = "underbarrel grenade launcher"
+	desc = "Модуль подствольного гранатомета. TODO Сделать описание позже."
+	icon_state = "grenade"
+	overlay_state = "grenade_o"
+	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
+	internal_gun_type = /obj/item/gun/projectile/revolver/grenadelauncher
+
+/obj/item/gun_module/under/gun/grenade_launcher/try_reload_internal_gun(obj/item/item, mob/living/user, params)
+	var/obj/item/gun/projectile/revolver/grenadelauncher/launcher = internal_gun
+	if(launcher.get_ammo() > 0)
+		launcher.unload_act(user)
+	return ..()
+
+// MARK: Shotgun
+/obj/item/gun_module/under/gun/shotgun
+	name = "underbarrel shotgun"
+	desc = "Модуль подствольного однозарядного дробовика. TODO Сделать описание позже."
+	icon_state = "shotgun"
+	overlay_state = "shotgun_o"
+	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
+	internal_gun_type = /obj/item/gun/projectile/shotgun/riot/short
+
+/obj/item/gun_module/under/gun/shotgun/fire_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	. = ..()
+	var/obj/item/gun/projectile/shotgun/riot/short/shotgun = internal_gun
+	if(shotgun.get_ammo() > 0)
+		addtimer(CALLBACK(shotgun, TYPE_PROC_REF(/obj/item/gun/projectile/shotgun, pump), user), 1)
+
+// MARK: Shotgun
+/obj/item/gun_module/under/gun/taser
+	name = "underbarrel taser"
+	desc = "Модуль подствольного тазера. TODO Сделать описание позже."
+	icon_state = "shotgun"
+	overlay_state = "shotgun_o"
+	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
+	internal_gun_type = /obj/item/gun/energy/taser
