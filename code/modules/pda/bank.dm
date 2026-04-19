@@ -81,17 +81,19 @@
 	for(var/datum/subscription/registered_sub as anything in GLOB.all_subscriptions)
 		var/is_player_involved = (registered_sub.subscriber_account == user_account) || (registered_sub.recipient_account == user_account)
 
-		if(is_player_involved)
-			active_sub_names.Add(registered_sub.subscription_name)
+		if(!is_player_involved)
+			continue
 
-			var/counterpart_name = "Неизвестно"
-			if(registered_sub.subscriber_account == user_account)
-				counterpart_name = registered_sub.recipient_account.owner_name
-			else
-				counterpart_name = registered_sub.subscriber_account.owner_name
+		active_sub_names.Add(registered_sub.subscription_name)
+		var/counterpart_name = "Неизвестно"
 
-			subs_list.Add(list(registered_sub.get_base_subscription_ui_data(counterpart_name,
-				(registered_sub.subscriber_account == user_account) ? "outgoing" : "incoming")))
+		if(registered_sub.subscriber_account == user_account)
+			counterpart_name = registered_sub.recipient_account.owner_name
+		else
+			counterpart_name = registered_sub.subscriber_account.owner_name
+
+		subs_list.Add(list(registered_sub.get_base_subscription_ui_data(counterpart_name,
+			(registered_sub.subscriber_account == user_account) ? "outgoing" : "incoming")))
 
 	return list("names" = active_sub_names, "subscriptions" = subs_list)
 
@@ -166,12 +168,14 @@
 			var/available_subscrip_name = params["subscription_name"]
 			var/sub_uid = params["uid"]
 
-			if(available_subscrip_name && sub_uid)
-				var/datum/subscription/added_subscription = locateUID(sub_uid)
-				if(!added_subscription)
-					to_chat(usr, span_warning("Ошибка: подписка '[available_subscrip_name]' не найдена."))
-					return
-
-				added_subscription.resub()
+			if(!available_subscrip_name || !sub_uid)
 				return
+
+			var/datum/subscription/added_subscription = locateUID(sub_uid)
+			if(!added_subscription)
+				to_chat(usr, span_warning("Ошибка: подписка '[available_subscrip_name]' не найдена."))
+				return
+
+			added_subscription.resub()
+			return
 

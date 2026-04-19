@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Box, TextArea } from '../components';
-
+import { KEY } from '../../common/keys';
 export const SearchableDropdown = ({
   options,
   value,
@@ -42,15 +42,15 @@ export const SearchableDropdown = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!isOpen) return;
 
-    if (e.key === 'ArrowDown') {
+    if (e.key === KEY.Down) {
       setHighlightIndex((prev) => Math.min(prev + 1, filtered.length - 1));
     }
 
-    if (e.key === 'ArrowUp') {
+    if (e.key === KEY.Up) {
       setHighlightIndex((prev) => Math.max(prev - 1, 0));
     }
 
-    if (e.key === 'Enter') {
+    if (e.key === KEY.Enter) {
       const selected = filtered[highlightIndex];
       if (selected) {
         onChange(selected);
@@ -69,9 +69,9 @@ export const SearchableDropdown = ({
     return (
       <>
         {text.slice(0, index)}
-        <Box as="span" className="text-gold">
+        <span className="text-gold">
           {text.slice(index, index + query.length)}
-        </Box>
+        </span>
         {text.slice(index + query.length)}
       </>
     );

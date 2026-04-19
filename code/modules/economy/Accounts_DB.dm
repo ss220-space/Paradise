@@ -285,14 +285,15 @@ GLOBAL_VAR(current_date_string)
 				create_subscription(sub_acc, sub_type, extra_params)
 				return
 
-			if(salary_modifier == 0)
-				target.cancel()
-				target.modifier = 0
-				target.cost = 0
-				to_chat(usr, span_notice("Модификатор сброшен."))
-			else
+			if(salary_modifier != 0)
 				target.update_modifier(salary_modifier)
 				to_chat(usr, span_notice("Модификатор обновлён: [salary_modifier]%."))
+				return
+
+			target.cancel()
+			target.modifier = 0
+			target.cost = 0
+			to_chat(usr, span_notice("Модификатор сброшен."))
 
 #undef AUT_ACCLST
 #undef AUT_ACCINF

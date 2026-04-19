@@ -77,7 +77,7 @@
 		recipient_account.owner_name ,
 		"Поступление по подписке [subscription_name]",
 		subscriber_account.owner_name)
-		)
+	)
 		cancel()
 		return
 

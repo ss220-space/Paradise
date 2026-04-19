@@ -43,18 +43,21 @@
 /proc/find_existhing(datum/money_account/subscriber_account, subscription_type, datum/subscription/template)
 	var/datum/subscription/existing = find_subscription_with_type(subscriber_account.owner_name, subscription_type)
 
-	if(existing)
-		if(existing.active)
-			to_chat(usr, span_warning("У вас уже есть активная подписка '[template.subscription_name]'."))
-			return FALSE
-		else
-			existing.resub()
-			if(existing.active)
-				to_chat(usr, span_warning("Подписка '[template.subscription_name]' была ранее оформлена и восстановлена."))
-				return TRUE
-			else
-				to_chat(usr, span_warning("Не удалось восстановить подписку '[template.subscription_name]'."))
-				return FALSE
+	if(!existing)
+		return FALSE
+
+	if(existing.active)
+		to_chat(usr, span_warning("У вас уже есть активная подписка '[template.subscription_name]'."))
+		return FALSE
+
+	existing.resub()
+
+	if(existing.active)
+		to_chat(usr, span_warning("Подписка '[template.subscription_name]' была ранее оформлена и восстановлена."))
+		return TRUE
+
+	to_chat(usr, span_warning("Не удалось восстановить подписку '[template.subscription_name]'."))
+	return FALSE
 
 /proc/validate_subscription_inputs(datum/money_account/subscriber_account, subscription_type)
 	if(!is_money_account(subscriber_account))
