@@ -648,7 +648,7 @@
 		'sound/machines/sm/accent/normal/32.ogg',
 		'sound/machines/sm/accent/normal/33.ogg',
 	)
-	
+
 /datum/sound_effect/bullet_miss
 	key = SFX_BULLET_MISS
 	file_paths = list(
@@ -685,4 +685,20 @@
 	file_paths = list(
 		'sound/items/polaroid1.ogg',
 		'sound/items/polaroid2.ogg',
+	)
+
+/datum/sound_effect/tray_pickup
+	key = SFX_TRAY_PICKUP
+	file_paths = list(
+		'sound/items/tray/tray_pickup1.ogg',
+		'sound/items/tray/tray_pickup2.ogg',
+		'sound/items/tray/tray_pickup3.ogg',
+	)
+
+/datum/sound_effect/tray_drop
+	key = SFX_TRAY_DROP
+	file_paths = list(
+		'sound/items/tray/tray_drop1.ogg',
+		'sound/items/tray/tray_drop2.ogg',
+		'sound/items/tray/tray_drop3.ogg',
 	)

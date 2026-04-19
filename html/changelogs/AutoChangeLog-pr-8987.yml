@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - add: "Добавлены модули штык-ножа. (PR #8987)"

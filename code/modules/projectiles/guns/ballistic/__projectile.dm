@@ -68,11 +68,6 @@
 	else
 		icon_state = "[initial(icon_state)][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 
-/obj/item/gun/projectile/update_overlays()
-	. = ..()
-	if(bayonet && bayonet_overlay)
-		. += bayonet_overlay
-
 /obj/item/gun/proc/update_weight()
 	return
 
@@ -233,9 +228,6 @@
 	. = FALSE
 	if(sawn_state == SAWN_OFF)
 		balloon_alert(user, "уже укорочено!")
-		return .
-	if(bayonet)
-		balloon_alert(user, "мешает штык-нож!")
 		return .
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))

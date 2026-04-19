@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь алерт зарядки меха исчезает при выходе из него. (PR #8993)"

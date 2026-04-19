@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Исправлено сглаживание у железных стен. (PR #8984)"
