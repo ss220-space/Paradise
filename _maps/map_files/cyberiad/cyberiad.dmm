@@ -58273,18 +58273,6 @@
 	pixel_y = -32;
 	req_access = list(10)
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors"
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/door_control{
-	id = "Singularity";
-	name = "Singularity Blast Doors";
-	pixel_y = -32;
-	req_access = list(10)
-	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "jWV" = (
@@ -69884,9 +69872,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "oSn" = (
@@ -77398,17 +77383,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "west extinguisher cabinet";
-	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
