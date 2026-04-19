@@ -331,7 +331,7 @@
 /obj/item/gun_module/under/gun
 	name = "underbarrel gun"
 	desc = "Модуль подствольного оружия. Вы не должны видеть это описание."
-	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
 	class = GUN_MODULE_CLASS_RIFLE_UNDER
 	/// Attached internal gun instance
 	var/obj/item/gun/internal_gun = null
@@ -340,13 +340,17 @@
 
 /obj/item/gun_module/under/gun/Initialize(mapload)
 	. = ..()
-	internal_gun = new internal_gun_type(src)
+	if(internal_gun_type)
+		internal_gun = new internal_gun_type(src)
 
 /obj/item/gun_module/under/gun/Destroy()
 	. = ..()
 	QDEL_NULL(internal_gun)
 
 /obj/item/gun_module/under/gun/on_attach(obj/item/gun/target_gun, mob/user)
+	if(!internal_gun)
+		return
+
 	RegisterSignal(gun, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, PROC_REF(on_fire_from_internal_gun))
 	RegisterSignal(gun, COMSIG_PARENT_ATTACKBY, PROC_REF(on_gun_pre_attack_by))
 
@@ -356,60 +360,86 @@
 
 /obj/item/gun_module/under/gun/proc/on_fire_from_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
-
-	to_chat(user, "Выстрел с [name] по [target]")
-	//call async here
 	INVOKE_ASYNC(src, PROC_REF(fire_internal_gun), item, user, target, modifiers)
 	return TRUE
 
 /obj/item/gun_module/under/gun/proc/fire_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	if(!internal_gun)
+		return
 	internal_gun.afterattack(target, user, FALSE, modifiers)
 
 /obj/item/gun_module/under/gun/proc/on_gun_pre_attack_by(atom/source, obj/item/item, mob/living/attacker, params)
 	SIGNAL_HANDLER
-
-	if(isammobox(item) || isammocasing(item))
-		INVOKE_ASYNC(src, PROC_REF(try_reload_internal_gun), item, attacker, params)
+	INVOKE_ASYNC(src, PROC_REF(try_reload_internal_gun), item, attacker, params)
 
 /obj/item/gun_module/under/gun/proc/try_reload_internal_gun(obj/item/item, mob/living/attacker, params)
+	if(!internal_gun)
+		return
 	internal_gun.attackby(item, attacker, params)
 
 
 // MARK: Grenade launcher
 /obj/item/gun_module/under/gun/grenade_launcher
 	name = "underbarrel grenade launcher"
-	desc = "Модуль подствольного гранатомета. TODO Сделать описание позже."
+	desc = "Модуль подствольного 40 мм гранатомета."
 	icon_state = "grenade"
 	overlay_state = "grenade_o"
-	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
 	internal_gun_type = /obj/item/gun/projectile/revolver/grenadelauncher
+
+/obj/item/gun_module/under/gun/grenade_launcher/get_ru_names()
+	return list(
+		NOMINATIVE = "подствольный гранатомёт",
+		GENITIVE = "подствольного гранатомёта",
+		DATIVE = "подствольному гранатомёту",
+		ACCUSATIVE = "подствольный гранатомёт",
+		INSTRUMENTAL = "подствольным гранатомётом",
+		PREPOSITIONAL = "подствольном гранатомёте",
+	)
 
 /obj/item/gun_module/under/gun/grenade_launcher/try_reload_internal_gun(obj/item/item, mob/living/user, params)
 	var/obj/item/gun/projectile/revolver/grenadelauncher/launcher = internal_gun
-	if(launcher.get_ammo() > 0)
+	if(launcher && istype(launcher) && launcher.get_ammo() > 0)
 		launcher.unload_act(user)
 	return ..()
 
 // MARK: Shotgun
 /obj/item/gun_module/under/gun/shotgun
 	name = "underbarrel shotgun"
-	desc = "Модуль подствольного однозарядного дробовика. TODO Сделать описание позже."
+	desc = "Модуль подствольного дробовика 12 калибра на 3+1 патронов."
 	icon_state = "shotgun"
 	overlay_state = "shotgun_o"
-	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
 	internal_gun_type = /obj/item/gun/projectile/shotgun/riot/short
+
+/obj/item/gun_module/under/gun/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "подствольный дробовик",
+		GENITIVE = "подствольного дробовика",
+		DATIVE = "подствольному дробовику",
+		ACCUSATIVE = "подствольный дробовик",
+		INSTRUMENTAL = "подствольным дробовиком",
+		PREPOSITIONAL = "подствольном дробовике",
+	)
 
 /obj/item/gun_module/under/gun/shotgun/fire_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
 	. = ..()
 	var/obj/item/gun/projectile/shotgun/riot/short/shotgun = internal_gun
-	if(shotgun.get_ammo() > 0)
+	if(shotgun && istype(shotgun) && shotgun.get_ammo() > 0)
 		addtimer(CALLBACK(shotgun, TYPE_PROC_REF(/obj/item/gun/projectile/shotgun, pump), user), 1)
 
-// MARK: Shotgun
+// MARK: Taser
 /obj/item/gun_module/under/gun/taser
 	name = "underbarrel taser"
-	desc = "Модуль подствольного тазера. TODO Сделать описание позже."
+	desc = "Модуль подствольного тазера. Устройство позвоялет совершить 15 выстрелов, но к сожалению не имеет возможности зарядки."
 	icon_state = "shotgun"
 	overlay_state = "shotgun_o"
-	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
 	internal_gun_type = /obj/item/gun/energy/taser
+
+/obj/item/gun_module/under/gun/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "подствольный тазер",
+		GENITIVE = "подствольного тазера",
+		DATIVE = "подствольному тазеру",
+		ACCUSATIVE = "подствольный тазер",
+		INSTRUMENTAL = "подствольным тазером",
+		PREPOSITIONAL = "подствольном тазере",
+	)
