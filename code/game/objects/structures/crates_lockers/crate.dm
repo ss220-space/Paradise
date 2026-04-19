@@ -172,15 +172,19 @@
 	if(!isliving(user))
 		return
 
-	// 1) If the target is a crate on a shelf, we work with the shelf itself.
+	// 1) Prevent dragging from shelf onto non-turf objects
+	if(is_cargo_shelf(loc) && !isturf(over_object))
+		return
+
+	// 2) If the target is a crate on a shelf, we work with the shelf itself.
 	if(is_crate(over_object) && is_cargo_shelf(over_object.loc))
 		over_object = over_object.loc
 
-	// 2) If the crate is on a shelf, the user must be able to reach the shelf (or the crate itself)
+	// 3) If the crate is on a shelf, the user must be able to reach the shelf (or the crate itself)
 	if(is_cargo_shelf(loc) && !loc.IsReachableBy(user) && !IsReachableBy(user))
 		return
 
-	// 3) Unloading from shelf to turf
+	// 4) Unloading from shelf to turf
 	if(!isopenspaceturf(over_object) && is_cargo_shelf(loc) && !is_cargo_shelf(over_object))
 		if(!over_object.IsReachableBy(user))
 			return
@@ -191,7 +195,7 @@
 	var/list/modifiers = params2list(params)
 	var/y_offset = text2num(modifiers[ICON_Y])
 
-	// 4) Shelf to Shelf (drag from one shelf to another)
+	// 5) Shelf to Shelf (drag from one shelf to another)
 	if(is_cargo_shelf(over_object) && is_cargo_shelf(loc))
 		var/obj/structure/cargo_shelf/source_shelf = loc
 		var/obj/structure/cargo_shelf/destination_shelf = over_object
@@ -205,7 +209,7 @@
 				forceMove(source_shelf.get_spill_location()) // So let's get rid of it in that case
 		return
 
-	// 5) Turf to shelf (normal loading)
+	// 6) Turf to shelf (normal loading)
 	if(is_cargo_shelf(over_object) && isturf(loc))
 		var/obj/structure/cargo_shelf/shelf = over_object
 		if(!shelf.IsReachableBy(user) && !IsReachableBy(user))
