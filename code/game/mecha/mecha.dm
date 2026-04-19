@@ -1480,6 +1480,7 @@
 
 	var/atom/movable/mob_container
 
+	occupant.clear_alert("charge")
 	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
