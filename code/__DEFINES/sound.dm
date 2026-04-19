@@ -338,3 +338,5 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_FART "fart"
 #define SFX_CLOSET_TOGGLE_LOCK "closet_toggle_lock"
 #define SFX_BUTTON_DENIED "button_denied"
+#define SFX_TRAY_PICKUP "tray_pickup"
+#define SFX_TRAY_DROP "tray_drop"

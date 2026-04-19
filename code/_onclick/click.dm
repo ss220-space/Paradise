@@ -533,12 +533,12 @@
 	LE.xo = U.x - T.x
 	LE.fire()
 
-// Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(atom/A)
-	if(stat || buckled || !A || !x || !y || !A.x || !A.y)
+/// Simple helper to face what you clicked on, in case it should be needed in more than one place
+/mob/proc/face_atom(atom/atom_to_face)
+	if(stat || buckled || !atom_to_face || !x || !y || !atom_to_face.x || !atom_to_face.y)
 		return FALSE
-	var/dx = A.x - x
-	var/dy = A.y - y
+	var/dx = atom_to_face.x - x
+	var/dy = atom_to_face.y - y
 	if(!dx && !dy)
 		return FALSE
 

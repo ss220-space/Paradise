@@ -505,7 +505,7 @@ GLOBAL_LIST_EMPTY(closets)
 			)
 			var/mob/living/target_living = target_movable
 			if(!issilicon(target_living))
-				target_living.Paralyse(40)
+				target_living.Knockdown(4 SECONDS)
 			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
 				target_movable.forceMove(src)
 			else
