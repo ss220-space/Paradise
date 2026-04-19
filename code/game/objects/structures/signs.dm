@@ -178,6 +178,11 @@
 	icon_state = "nosmoking"
 	resistance_flags = FLAMMABLE
 
+/obj/structure/sign/nosmoking_1/yes
+	name = "МЕСТО ДЛЯ КУРЕНИЯ"
+	desc = "Предупреждающий знак с надписью \"МЕСТО ДЛЯ КУРЕНИЯ\""
+	icon_state = "yessmoking"
+
 /obj/structure/sign/nosmoking_2
 	name = "КУРЕНИЕ ЗАПРЕЩЕНО"
 	desc = "Предупреждающий знак с надписью \"КУРЕНИЕ ЗАПРЕЩЕНО\""
