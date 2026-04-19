@@ -91,7 +91,7 @@
 /obj/item/random_paint_box
 	name = "paint box"
 	desc = "Коробка, которая содержит случайную банку с краской."
-	icon = 'icons\obj\storage\boxes.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "giftcreate3"
 
 /obj/item/random_paint_box/attack_self(mob/user)
