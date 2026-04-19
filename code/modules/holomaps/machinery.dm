@@ -125,7 +125,7 @@
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
 	if(auto_update)
-		auto_update_timer_id = addtimer(CALLBACK(src, PROC_REF(redraw_map), user), auto_update_timeout, TIMER_LOOP)
+		auto_update_timer_id = addtimer(CALLBACK(src, PROC_REF(redraw_map), user), auto_update_timeout, TIMER_LOOP | TIMER_STOPPABLE)
 
 	playsound(src, 'sound/effects/holomap_open.ogg', 125)
 	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
