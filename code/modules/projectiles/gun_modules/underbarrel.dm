@@ -275,8 +275,11 @@
 	throwforce = 12
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	custom_price = 2 * PAYCHECK_CREW
+	/// Addition force for attached gun
 	var/bonus_force = 8
+	/// Variable for save gun old hitsound
 	var/old_hitsound
+	/// Variable for save gun old sharp var
 	var/old_sharp
 
 /obj/item/gun_module/under/bayonet/get_ru_names()
