@@ -9,7 +9,7 @@
 // On:
 #define SMITE_LIGHTING "Удар молнией"
 #define SMITE_GIB "Разорвать на органы"
-#define	SMITE_BRAINLOSS "Повредить мозг"
+#define SMITE_BRAINLOSS "Повредить мозг"
 #define SMITE_HONKTUMOR "Банановая опухоль"
 #define SMITE_CLUWNE "Клунефикация"
 #define SMITE_HUNGER "Голод"
@@ -23,7 +23,7 @@
 #define SMITE_SUMMON "Агрессивное животное"
 #define SMITE_DEMOTE "Увольнение"
 #define SMITE_VIRUS "Вирус"
-#define	SMITE_POD "Ракета"
+#define SMITE_POD "Ракета"
 #define SMITE_GLOBALHUNTING "Охота"
 #define SMITE_BRAINROTBRAINDAMAGE "Автобрейндамаг за брейнрот"
 #define SMITE_PIANO "Уронить пианино/автомат"

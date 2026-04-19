@@ -6,14 +6,14 @@
 #define CHANNEL_HEARTBEAT 1020 //sound channel for heartbeats
 #define CHANNEL_BUZZ 1019
 #define CHANNEL_AMBIENCE 1018
-#define CHANNEL_UNUSED 1017	// МОЛЮ, Если кто-то будет добавлять новый канал. ВОСПОЛЬЗУЙСЯ ЭТИМ! ОН ПУСТОЙ! -BeebBeebBoob
+#define CHANNEL_UNUSED 1017 // МОЛЮ, Если кто-то будет добавлять новый канал. ВОСПОЛЬЗУЙСЯ ЭТИМ! ОН ПУСТОЙ! -BeebBeebBoob
 #define CHANNEL_GENERAL 1016 //Sound channel for playsound(), most of the sounds
 #define CHANNEL_JUSTICAR_ARK 1015
 #define CHANNEL_TTS_LOCAL 1014
 #define CHANNEL_TTS_RADIO 1013
 #define CHANNEL_RADIO_NOISE 1012 // radio headset noise
 #define CHANNEL_BOSS_MUSIC 1011
-#define CHANNEL_INTERACTION_SOUNDS 1010	// item pickup/equip/drop sounds
+#define CHANNEL_INTERACTION_SOUNDS 1010 // item pickup/equip/drop sounds
 #define CHANNEL_ESCAPEMENU 1009
 // THIS SHOULD ALWAYS BE THE LOWEST ONE!
 // KEEP IT UPDATED
@@ -324,7 +324,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_CIG_PACK_PICKUP "cig_pack_pickup"
 #define SFX_CIG_PACK_RUSTLE "cig_pack_rustle"
 #define SFX_CIG_PACK_THROW_DROP "cig_pack_throw_drop"
-#define	SFX_RORO_WARBLE "roro_warble"
+#define SFX_RORO_WARBLE "roro_warble"
 #define SFX_BEAKERPOUR_0_10 "beakerpour_0_10"
 #define SFX_BEAKERPOUR_10_25 "beakerpour_10_25"
 #define SFX_BEAKERPOUR_25_50 "beakerpour_25_50"
