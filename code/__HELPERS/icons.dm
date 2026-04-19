@@ -343,7 +343,7 @@ world
 /proc/GrayScale(rgb)
 	var/list/RGB = rgb2num(rgb)
 	var/gray = RGB[1]*0.3 + RGB[2]*0.59 + RGB[3]*0.11
-	return (RGB.len > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
+	return (length(RGB) > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
 
 /// Change grayscale color to black->tone->white range
 /proc/ColorTone(rgb, tone)
