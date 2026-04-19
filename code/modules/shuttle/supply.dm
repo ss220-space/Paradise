@@ -402,10 +402,6 @@
 		CR.manifest = WEAKREF(slip)
 		CR.update_appearance()
 		CR.announce_beacons = object.announce_beacons.Copy()
-	if(istype(Crate, /obj/structure/closet/crate/large))
-		var/obj/structure/closet/crate/large/LC = Crate
-		LC.manifest = WEAKREF(slip)
-		LC.update_appearance()
 
 	return Crate
 

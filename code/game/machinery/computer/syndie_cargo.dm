@@ -109,10 +109,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = WEAKREF(slip)
 		CR.update_appearance()
-	if(istype(crate, /obj/structure/closet/crate/large))
-		var/obj/structure/closet/crate/large/LC = crate
-		LC.manifest = WEAKREF(slip)
-		LC.update_appearance()
 
 /***************************
 	Хранилище данных.
