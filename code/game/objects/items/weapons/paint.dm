@@ -38,7 +38,7 @@
 		DATIVE = "ведру \"[paint_title_ru]\"",
 		ACCUSATIVE = "ведро \"[paint_title_ru]\"",
 		INSTRUMENTAL = "ведром \"[paint_title_ru]\"",
-		PREPOSITIONAL = "ведру \"[paint_title_ru]\"",
+		PREPOSITIONAL = "ведре \"[paint_title_ru]\"",
 	)
 
 /obj/item/reagent_containers/glass/paint/red
@@ -90,7 +90,7 @@
 
 /obj/item/random_paint_box
 	name = "paint box"
-	desc = "Коробка, которая содержит случайную банку с краской."
+	desc = "Коробка, которая содержит случайное ведро с краской."
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "giftcrate3"
 
