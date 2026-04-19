@@ -499,3 +499,6 @@
 
 /// Prevents the projectile itself from ricocheting.
 #define TRAIT_NO_RICOCHET "no_ricochet"
+
+/// Trait for hud infection by borer
+#define TRAIT_PARASITISM "parasitism"

@@ -1008,11 +1008,13 @@
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/mend_host
 
-/datum/status_effect/mend_host/tick()
+/datum/status_effect/mend_host/tick(seconds_between_ticks)
 	if(!iscarbon(owner))
 		return
-	var/mob/living/carbon/C = owner
-	C.adjustBruteLoss(MEND_HOST_HEAL_AMOUNT)
-	C.adjustFireLoss(MEND_HOST_HEAL_AMOUNT)
-	C.adjustToxLoss(MEND_HOST_HEAL_AMOUNT / 2)
-	C.adjustOxyLoss(MEND_HOST_HEAL_AMOUNT * 2.5)
+	var/mob/living/carbon/host = owner
+	host.adjustBruteLoss(MEND_HOST_HEAL_AMOUNT, FALSE)
+	host.adjustFireLoss(MEND_HOST_HEAL_AMOUNT, FALSE)
+	host.adjustToxLoss(MEND_HOST_HEAL_AMOUNT, FALSE)
+	host.adjustOxyLoss(MEND_HOST_HEAL_AMOUNT * 3, FALSE)
+	host.update_health_hud()
+	host.med_hud_set_status()

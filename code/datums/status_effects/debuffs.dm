@@ -1582,10 +1582,11 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/host = owner
+		ADD_TRAIT(host, TRAIT_PARASITISM, id)
 		host.med_hud_set_status()
 	return TRUE
 
-/datum/status_effect/parasitism/tick()
+/datum/status_effect/parasitism/tick(seconds_between_ticks)
 	var/mob/living/carbon/host = owner
 	if(!iscarbon(owner))
 		qdel(src)
@@ -1609,15 +1610,13 @@
 		qdel(src)
 		return
 
-	borer.parasitism = TRUE
-
 	if(borer.antag_datum)
-		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, PARASITISM_EVOLUTION_GAIN)
+		SEND_SIGNAL(borer, COMSIG_BORER_EVOLUTION_TICK, PARASITISM_EVOLUTION_GAIN)
 
 	borer.chemicals = min(borer.chemicals + PARASITISM_CHEMICAL_GAIN, borer.max_chems)
 
-	host.adjustBruteLoss(PARASITISM_HOST_DAMAGE)
-	host.adjustToxLoss(PARASITISM_HOST_DAMAGE)
+	host.adjustBruteLoss(PARASITISM_HOST_DAMAGE, FALSE)
+	host.adjustToxLoss(PARASITISM_HOST_DAMAGE, FALSE)
 	host.adjust_nutrition(-5)
 
 	if(prob(30))
@@ -1626,8 +1625,12 @@
 		host.AdjustConfused(3 SECONDS)
 		host.AdjustJitter(10 SECONDS)
 
+	host.update_health_hud()
+	host.med_hud_set_status()
+
 /datum/status_effect/parasitism/on_remove()
 	if(iscarbon(owner))
 		var/mob/living/carbon/host = owner
+		REMOVE_TRAIT(host, TRAIT_PARASITISM, id)
 		host.med_hud_set_status()
 	return ..()

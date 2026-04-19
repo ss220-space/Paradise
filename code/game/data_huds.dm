@@ -139,7 +139,7 @@
 	return severity
 
 /mob/living/proc/has_parasitism()
-	return has_status_effect(/datum/status_effect/parasitism)
+	return HAS_TRAIT(src, TRAIT_PARASITISM)
 
 /// Helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)

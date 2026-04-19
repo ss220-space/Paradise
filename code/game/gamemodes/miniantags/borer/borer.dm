@@ -121,7 +121,6 @@
 	var/sneaking = FALSE
 	var/hiding = FALSE
 	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
-	var/parasitism = FALSE
 
 	var/datum/antagonist/borer/antag_datum = new
 
