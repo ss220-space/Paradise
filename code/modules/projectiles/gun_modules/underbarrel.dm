@@ -368,14 +368,14 @@
 		return
 	internal_gun.afterattack(target, user, FALSE, modifiers)
 
-/obj/item/gun_module/under/gun/proc/on_gun_pre_attack_by(atom/source, obj/item/item, mob/living/attacker, params)
+/obj/item/gun_module/under/gun/proc/on_gun_pre_attack_by(atom/source, obj/item/item, mob/living/attacker, list/modifiers)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(try_reload_internal_gun), item, attacker, params)
+	INVOKE_ASYNC(src, PROC_REF(try_reload_internal_gun), item, attacker, modifiers)
 
-/obj/item/gun_module/under/gun/proc/try_reload_internal_gun(obj/item/item, mob/living/attacker, params)
+/obj/item/gun_module/under/gun/proc/try_reload_internal_gun(obj/item/item, mob/living/attacker, list/modifiers)
 	if(!internal_gun)
 		return
-	internal_gun.attackby(item, attacker, params)
+	internal_gun.attackby(item, attacker, modifiers)
 
 
 // MARK: Grenade launcher
@@ -396,7 +396,7 @@
 		PREPOSITIONAL = "подствольном гранатомёте",
 	)
 
-/obj/item/gun_module/under/gun/grenade_launcher/try_reload_internal_gun(obj/item/item, mob/living/user, params)
+/obj/item/gun_module/under/gun/grenade_launcher/try_reload_internal_gun(obj/item/item, mob/living/user, list/modifiers)
 	var/obj/item/gun/projectile/revolver/grenadelauncher/launcher = internal_gun
 	if(launcher && istype(launcher) && launcher.get_ammo() > 0)
 		launcher.unload_act(user)
@@ -424,7 +424,7 @@
 	. = ..()
 	var/obj/item/gun/projectile/shotgun/riot/short/shotgun = internal_gun
 	if(shotgun && istype(shotgun) && shotgun.get_ammo() > 0)
-		addtimer(CALLBACK(shotgun, TYPE_PROC_REF(/obj/item/gun/projectile/shotgun, pump), user), 1)
+		addtimer(CALLBACK(shotgun, TYPE_PROC_REF(/obj/item/gun/projectile/shotgun, pump), user), 0.1 SECONDS)
 
 // MARK: Taser
 /obj/item/gun_module/under/gun/taser
