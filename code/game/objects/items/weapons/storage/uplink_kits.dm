@@ -931,6 +931,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol/populate_contents()
 	new	/obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
