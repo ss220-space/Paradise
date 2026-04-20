@@ -373,7 +373,7 @@
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе экспериментальной технологии, предназначенная для \
-			генерации аномалий. В данной модели были использованы секретные разработки \"НаноТрейзен\"."
+			генерации аномалий. В данной модели были использованы секретные разработки \"Нанотрейзен\"."
 
 /obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/item)
 	default_unfasten_wrench(user, item)
