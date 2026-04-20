@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - add: "Новые штык ножи в ваучер шахты и в вендор оборудования шахтеров. (PR #9005)"

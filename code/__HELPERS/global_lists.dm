@@ -352,6 +352,8 @@
 	)
 	prize_list["Kinetic Accelerator"] = list(
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 1000),
+		EQUIPMENT("Bayonet knife", /obj/item/gun_module/under/bayonet, 250),
+		EQUIPMENT("Long bayonet knife", /obj/item/gun_module/under/bayonet/long, 2000),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 200),
 		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2500),
 		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown/haste, 1500),
