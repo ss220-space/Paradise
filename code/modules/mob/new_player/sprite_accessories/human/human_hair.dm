@@ -808,6 +808,7 @@
 /datum/sprite_accessory/hair/long_two_braided
 	name = "Two long braids"
 	icon_state = "long_two_braids"
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/long_emo
 	name = "Long Emo alt"
