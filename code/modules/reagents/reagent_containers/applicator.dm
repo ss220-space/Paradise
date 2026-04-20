@@ -5,21 +5,16 @@
 	name = "auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов."
 	gender = MALE
-/*
-	icon = 'icons/obj/medical/chemical.dmi'
-	icon_state = "mender"
-	item_state = "mender"
-	belt_icon = "automender"
-*/
 	icon = 'icons/map_icons/items/_item.dmi'
 	var/overlay_icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "/obj/item/reagent_containers/applicator"
-	post_init_icon_state = ""
+	belt_icon = "cutters"
+	post_init_icon_state = "mender"
 	greyscale_config = /datum/greyscale_config/mender
 	greyscale_config_inhand_left = /datum/greyscale_config/mender_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/mender_inhand_right
 	greyscale_config_belt = /datum/greyscale_config/mender_belt
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 	volume = 200
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
@@ -37,6 +32,13 @@
 	var/applying = FALSE
 	/// applying sounds list
 	var/list/aplying_sfx = list('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg')
+	/// posible colors for greyscale
+	var/static/list/mender_colors = list(
+		COLOR_WHITE = "white",
+		COLOR_MENDER_BRUTE = "brute",
+		COLOR_MENDER_BURN = "burn",
+		COLOR_MENDER_DUAL = "dual"
+	)
 
 /obj/item/reagent_containers/applicator/get_ru_names()
 	return list(
@@ -72,6 +74,11 @@
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 	update_appearance(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/applicator/update_icon_state()
+	. = ..()
+	item_state = "mender_[mender_colors[greyscale_colors]]"
+	belt_icon = "mender_[mender_colors[greyscale_colors]]"
 
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
@@ -172,7 +179,7 @@
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений."
-	greyscale_colors = "#ef4d4d"
+	greyscale_colors = COLOR_MENDER_BRUTE
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
@@ -188,7 +195,7 @@
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений."
-	greyscale_colors = "#efb64d"
+	greyscale_colors = COLOR_MENDER_BURN
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
@@ -204,7 +211,7 @@
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления как механических, так и термических повреждений."
-	greyscale_colors = "#ffc8c8"
+	greyscale_colors = COLOR_MENDER_DUAL
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()
