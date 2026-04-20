@@ -722,3 +722,7 @@
 #undef WANTED_NOTICE_NAME_MAX_LENGTH
 #undef WANTED_NOTICE_DESC_MAX_LENGTH
 #undef STORIES_PER_LOAD
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster/security_unit, 30, 30)
