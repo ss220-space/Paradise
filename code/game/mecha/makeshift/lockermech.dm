@@ -66,9 +66,9 @@
 /obj/mecha/combat/lockersyndie/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill(src)
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
 

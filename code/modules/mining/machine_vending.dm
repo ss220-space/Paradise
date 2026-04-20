@@ -248,6 +248,7 @@
 			new /obj/item/borg/upgrade/modkit/range(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
 			new /obj/item/mining_satchel_upgrade(drop_location)
+			new /obj/item/gun_module/under/bayonet(drop_location)
 
 	qdel(voucher)
 
@@ -426,14 +427,14 @@
 		PREPOSITIONAL = "карте доступа шахтёра",
 	)
 
-/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity, params)
-	if(!is_id_card(AM))
+/obj/item/card/mining_access_card/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!is_id_card(target))
 		return
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
-	var/obj/item/card/id/I = AM
+	var/obj/item/card/id/I = target
 	I.access |= list(
 		ACCESS_MAILSORTING,
 		ACCESS_CARGO,

@@ -101,7 +101,7 @@
 				dat += "<span style='color: red;'<b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span>"
 			else
 				num_results = src.get_num_results()
-				num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
+				num_pages = ceil(num_results/LIBRARY_BOOKS_PER_PAGE)
 				dat += {"<ul>
 					<li><a href='byond://?src=[UID()];id=-1'>(Order book by SS<sup>13</sup>BN)</a></li>
 				</ul>"}
@@ -265,7 +265,7 @@
 
 	if(href_list["search"])
 		num_results = src.get_num_results()
-		num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
+		num_pages = ceil(num_results/LIBRARY_BOOKS_PER_PAGE)
 		page_num = 1
 
 		screenstate = 4

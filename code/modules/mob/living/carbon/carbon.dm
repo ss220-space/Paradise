@@ -374,6 +374,8 @@
 
 		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
 			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
+		if(bodypart.has_fracture() && bodypart.fracture == FRACTURE_TYPE_OPEN)
+			status_list += "\t <a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_YOURS(bodypart)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>"
 
 	if(LAZYLEN(missing))
 		for(var/limb_part in missing)

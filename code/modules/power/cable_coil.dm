@@ -151,7 +151,7 @@
 				user.put_in_any_hand_if_possible(tourniquet)
 
 		if(CABLE_CRAFT_MULTIZ_CABLE_HUB)
-			if(T.intact || (T.transparent_floor == TURF_TRANSPARENT))
+			if(T.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 				to_chat(user, span_warning("You need to remove floor plating."))
 				return
 
@@ -333,7 +333,7 @@
 
 	var/turf/T = get_turf(C)
 
-	if(!isturf(T) || T.intact || (T.transparent_floor == TURF_TRANSPARENT))		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(T) || HAS_TRAIT(C, TRAIT_UNDERFLOOR))		// sanity checks, also stop use interacting with T-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
@@ -349,7 +349,7 @@
 
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
-		if(U.intact || (U.transparent_floor == TURF_TRANSPARENT))						// can't place a cable if the floor is complete
+		if(U.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)						// can't place a cable if the floor is complete
 			to_chat(user, span_warning("You can't lay cable there unless the floor tiles are removed!"))
 			return
 		// cable is pointing at us, we're standing on an open tile

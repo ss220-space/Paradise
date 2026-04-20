@@ -266,7 +266,9 @@
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger(left_click = TRUE, trigger_flags)
+/datum/action/innate/bci_charge_action/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if(isnull(cell))
@@ -441,7 +443,7 @@
 
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/bci_implanter/MouseDrop_T(mob/living/target, mob/living/user, params)
+/obj/machinery/bci_implanter/mouse_drop_receive(mob/living/target, mob/user, params)
 	if(!ishuman(target))
 		return
 

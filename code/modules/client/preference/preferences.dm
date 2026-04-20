@@ -69,6 +69,23 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	else
 		return max(0, days - C.player_age)
 
+/// Checks whether a role should be disabled due to a mutually exclusive role selection
+/// Civilian/Prisoner/Investor — only one can be selected, the others are disabled
+/proc/is_job_title_muted(job_support_low, job_title)
+	var/any_mutual_role_selected = job_support_low & (JOB_FLAG_CIVILIAN | JOB_FLAG_PRISONER | JOB_FLAG_INVESTOR)
+	if(!any_mutual_role_selected)
+		return FALSE
+
+	// If a special role is selected, disable everything except the selected one
+	if(job_support_low & JOB_FLAG_CIVILIAN)
+		return job_title != JOB_TITLE_CIVILIAN
+	if(job_support_low & JOB_FLAG_PRISONER)
+		return job_title != JOB_TITLE_PRISONER
+	if(job_support_low & JOB_FLAG_INVESTOR)
+		return job_title != JOB_TITLE_INVESTOR
+	return FALSE
+
+
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
@@ -866,7 +883,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=[job.UID()]\">[get_job_title_ru(GetPlayerAltTitle(job))]</a>"
 			else
 				rank = get_job_title_ru(job.title)
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN) || (job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
+			if(is_job_title_muted(job_support_low, job.title))
 				rank = "<font class='text-muted'>[get_job_title_ru(GetPlayerAltTitle(job))]</font>"
 			lastJob = job
 			if(jobban_isbanned(user, job_title_ru_to_en(job.title)))
@@ -890,16 +907,13 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(job.species_in_blacklist(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НЕДОСТУПНО ДЛЯ ДАННОЙ РАСЫ]</b></span></td></tr>"
 				continue
+			if(!job.check_custom_requirements(user.client))
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НУЖНО ДОСТИЖЕНИЕ]</b></span></td></tr>"
+				continue
 			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
-			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != JOB_TITLE_CIVILIAN))
-				html += "</td><td></td></tr>"
-				continue
-			if((job_support_low & JOB_FLAG_PRISONER) && (job.title != JOB_TITLE_PRISONER))
-				html += "</td><td></td></tr>"
-				continue
 
 			html += "</td><td width='40%'>"
 
@@ -937,11 +951,16 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
 				html += "</td></tr>"
-				// index += 1
-				// html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 				continue
 			if(job.title == JOB_TITLE_PRISONER)//Prisoner is special
 				if(job_support_low & JOB_FLAG_PRISONER)
+					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
+				else
+					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
+				html += "</td></tr>"
+				continue
+			if(job.title == JOB_TITLE_INVESTOR)//Investor is special
+				if(job_support_low & JOB_FLAG_INVESTOR)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>ДА</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">НЕТ</span></a>"
@@ -1124,10 +1143,12 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		ShowChoices(user)
 		return
 
-	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER)
+	if(role == JOB_TITLE_CIVILIAN || role == JOB_TITLE_PRISONER || role == JOB_TITLE_INVESTOR)
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
+			job_support_low |= job.flag
+			job_support_low &= ~(JOB_FLAG_CIVILIAN | JOB_FLAG_PRISONER | JOB_FLAG_INVESTOR)
 			job_support_low |= job.flag
 		SetChoices(user)
 		return 1

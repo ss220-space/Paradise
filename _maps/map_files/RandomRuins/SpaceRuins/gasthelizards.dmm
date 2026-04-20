@@ -46,11 +46,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -219,12 +215,9 @@
 	},
 /area/ruin/space/gasthelizards/engineering)
 "hS" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters_inner";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -596,12 +589,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters_inner";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -658,11 +648,7 @@
 /obj/structure/rack,
 /obj/item/melee/baton/security/cattleprod,
 /obj/item/restraints/handcuffs,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -709,21 +695,16 @@
 "DE" = (
 /obj/structure/rack,
 /obj/item/camera,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
 	},
 /area/ruin/space/gasthelizards/viewzone)
 "DL" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters";
-	name = "Fire Breach Shutter";
-	opacity = 0
+	name = "Fire Breach Shutter"
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -913,9 +894,7 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/stack/sheet/animalhide/lizard,
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1001,10 +980,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
 "Mp" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

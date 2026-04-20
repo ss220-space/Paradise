@@ -99,7 +99,7 @@
 
 // Why the hell is this in the closets folder?
 /obj/item/storage/pill_bottle/psychiatrist/populate_contents()
-	for(var/I in 1 to 3)
+	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/pill/haloperidol(src)
 		new /obj/item/reagent_containers/food/pill/methamphetamine(src)
 		new /obj/item/reagent_containers/food/pill/patch/nicotine(src)

@@ -38,4 +38,6 @@ GLOBAL_VAR(station_level_z_scratch)
 
 #define is_taipan(z) check_level_trait(z, TAIPAN)
 
-#define is_multi_z_level(z) (SSmapping.level_trait(z, ZTRAIT_UP) || SSmapping.level_trait(z, ZTRAIT_DOWN))
+#define is_multi_z_level(z) (check_level_trait(z, ZTRAIT_UP) || check_level_trait(z, ZTRAIT_DOWN))
+
+#define is_there_multiz(...) length(SSmapping?.map_datum?.traits) > 1
