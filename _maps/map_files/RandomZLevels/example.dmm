@@ -19,9 +19,7 @@
 	charge = 5e+006
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -30,18 +28,14 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ag" = (
 /obj/machinery/power/apc/noalarm/directional/north,
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -95,9 +89,7 @@
 /area/awaymission/example)
 "ao" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
 /obj/machinery/gateway/centeraway,
 /turf/simulated/floor/plasteel,
@@ -143,7 +135,6 @@
 /area/awaymission/example)
 "av" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -153,8 +144,7 @@
 /area/awaymission/example)
 "ax" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/example)

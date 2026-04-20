@@ -6,7 +6,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ab" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -143,7 +142,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "az" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/light/small{
@@ -406,7 +404,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "bD" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -679,7 +676,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
@@ -1459,7 +1455,6 @@
 "eI" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -1574,7 +1569,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
@@ -1743,7 +1737,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/grille/broken,
@@ -1970,7 +1963,6 @@
 "gm" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2006,7 +1998,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -2074,7 +2065,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "gA" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -2111,7 +2101,6 @@
 "gH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -2420,7 +2409,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2623,7 +2611,6 @@
 "ic" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2669,7 +2656,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "ij" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/item/shard{
@@ -2895,7 +2881,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -3053,7 +3038,6 @@
 "jG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -3093,7 +3077,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "jM" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/grille/broken,
@@ -3122,7 +3105,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "jS" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar,
@@ -3137,7 +3119,6 @@
 	start_charge = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood/airless,
@@ -3162,7 +3143,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "jY" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -3252,7 +3232,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
@@ -3925,7 +3904,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "mo" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/grille,
@@ -4095,7 +4073,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "mO" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
@@ -4498,7 +4475,6 @@
 "od" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
@@ -4553,7 +4529,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -4638,7 +4613,6 @@
 "ot" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -4646,7 +4620,6 @@
 "ou" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -4853,7 +4826,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "pd" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -5284,7 +5256,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "qF" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -5426,7 +5397,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "qZ" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/item/solar_assembly,
@@ -5516,7 +5486,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "rm" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/grille,
@@ -6072,7 +6041,6 @@
 "sT" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -6140,7 +6108,6 @@
 "tc" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
@@ -6189,7 +6156,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "ti" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal{
@@ -6201,7 +6167,6 @@
 "tj" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
@@ -6610,7 +6575,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "ut" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -6658,7 +6622,6 @@
 "uC" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -6767,14 +6730,6 @@
 /obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
-"uR" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/USSP_gorky17/collapsed/check1)
 "uT" = (
 /obj/structure/table,
 /obj/item/deck/cards/black,
@@ -6799,7 +6754,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -6817,7 +6771,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "uV" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes/vintage{
@@ -7117,7 +7070,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "wa" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -7236,7 +7188,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "wr" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/grille,
@@ -7269,7 +7220,6 @@
 "wx" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -7406,7 +7356,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "wP" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/grille,
@@ -7634,7 +7583,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "xB" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/grille/broken,
@@ -7910,7 +7858,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -7960,7 +7907,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -8034,7 +7980,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "yN" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes/vintage{
@@ -8232,7 +8177,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "zn" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -8360,7 +8304,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "zL" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -8373,7 +8316,6 @@
 "zM" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -8399,7 +8341,6 @@
 "zP" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
@@ -8482,7 +8423,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "zX" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/northeast,
@@ -8492,7 +8432,6 @@
 "zY" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -8833,7 +8772,6 @@
 "AQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
@@ -8923,7 +8861,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "Be" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar,
@@ -8949,7 +8886,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor{
@@ -9257,7 +9193,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "Cp" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -9358,7 +9293,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "CJ" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/item/solar_assembly,
@@ -9380,7 +9314,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille,
@@ -9664,7 +9597,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "DC" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -9862,7 +9794,6 @@
 /area/template_noop)
 "DW" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -9910,7 +9841,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Ee" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/south{
@@ -10023,7 +9953,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "Er" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -10310,7 +10239,6 @@
 "Ff" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar_control/old_frame{
@@ -10330,7 +10258,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "Fi" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/south{
@@ -10456,7 +10383,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Fx" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -10482,7 +10408,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "FE" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille/broken,
@@ -10578,7 +10503,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "FV" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -10610,7 +10534,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "FY" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -11086,7 +11009,6 @@
 "HC" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -11372,7 +11294,6 @@
 "Iv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -11484,7 +11405,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "IJ" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/computer/monitor/secret/old_frame,
@@ -11657,7 +11577,6 @@
 "Jh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -11686,7 +11605,6 @@
 "Jl" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -11874,7 +11792,6 @@
 "JN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -11948,7 +11865,6 @@
 "JX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
@@ -11977,7 +11893,6 @@
 "Kc" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -12022,7 +11937,6 @@
 "Kg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -12186,7 +12100,6 @@
 "KK" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -12289,7 +12202,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "KX" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -12333,7 +12245,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "Li" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced,
@@ -12807,7 +12718,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "MJ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -12838,7 +12748,6 @@
 "MO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -13010,7 +12919,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/window/reinforced{
@@ -13255,7 +13163,6 @@
 "NU" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -13263,7 +13170,6 @@
 "NV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -13325,7 +13231,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -13384,7 +13289,6 @@
 "Oo" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -13427,7 +13331,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -13731,7 +13634,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "Pl" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
@@ -14014,7 +13916,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -14293,7 +14194,6 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/space,
@@ -14306,7 +14206,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
@@ -14452,7 +14351,6 @@
 "Ro" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -14465,7 +14363,6 @@
 "Rq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor{
@@ -14560,7 +14457,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "RC" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -14676,7 +14572,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Sk" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -14786,7 +14681,6 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/space,
@@ -14797,7 +14691,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -14959,7 +14852,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -15019,7 +14911,6 @@
 "Tr" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -15046,7 +14937,6 @@
 "Tw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -15148,7 +15038,6 @@
 	start_charge = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
@@ -15204,7 +15093,6 @@
 "TU" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -15214,7 +15102,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/reagent_dispensers/beerkeg,
@@ -15233,7 +15120,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "TX" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/item/solar_assembly,
@@ -15246,7 +15132,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -15347,7 +15232,6 @@
 "Uz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -15383,7 +15267,6 @@
 "UF" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -15531,7 +15414,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Vi" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -16085,7 +15967,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "WG" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille/broken,
@@ -16138,7 +16019,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "WQ" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/window/reinforced{
@@ -16158,7 +16038,6 @@
 "WU" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -16403,7 +16282,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "XH" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar,
@@ -16442,7 +16320,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -16532,7 +16409,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
@@ -16828,7 +16704,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Zt" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -16938,7 +16813,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -34712,7 +34586,7 @@ Ku
 sz
 Xx
 bA
-uR
+Nw
 sT
 yz
 UI
@@ -35925,7 +35799,7 @@ Ge
 Lt
 UI
 UI
-uR
+Nw
 SJ
 UI
 bA

@@ -392,7 +392,6 @@
 /area/template_noop)
 "XU" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,

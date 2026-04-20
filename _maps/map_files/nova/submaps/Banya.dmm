@@ -1222,7 +1222,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood/dark,
@@ -1764,7 +1763,6 @@
 "YI" = (
 /obj/structure/table,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/item/radio{

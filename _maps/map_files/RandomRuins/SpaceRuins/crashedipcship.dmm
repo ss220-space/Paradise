@@ -178,7 +178,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/emitter{
@@ -704,7 +703,6 @@
 /area/ruin/space/crashedipcship/engine)
 "mD" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -951,7 +949,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/energy_accumulator/rad_collector,
@@ -1224,7 +1221,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -1432,7 +1428,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/energy_accumulator/rad_collector,
@@ -1668,7 +1663,6 @@
 /area/ruin/space/crashedipcship/asteroid)
 "BI" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal{
@@ -1807,7 +1801,6 @@
 /area/ruin/space/crashedipcship/middle)
 "EA" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/item/stock_parts/cell/high/empty,
@@ -2492,7 +2485,6 @@
 /area/ruin/space/crashedipcship/aft)
 "Qt" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/light_construct/small{
@@ -2510,7 +2502,6 @@
 /area/ruin/space/crashedipcship/aft)
 "Qz" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/energy_accumulator/rad_collector,
@@ -2860,7 +2851,6 @@
 "XO" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{

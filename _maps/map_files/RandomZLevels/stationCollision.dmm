@@ -936,8 +936,7 @@
 	cell_type = 5000
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
@@ -2755,8 +2754,7 @@
 	cell_type = 7500
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
@@ -3492,9 +3490,7 @@
 /area/awaymission/gateroom)
 "ki" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
@@ -3954,7 +3950,6 @@
 /area/awaymission/gateroom)
 "lE" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes/magical{
@@ -4047,7 +4042,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -4104,7 +4098,6 @@
 "me" = (
 /obj/machinery/power/apc/noalarm/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel,

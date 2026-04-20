@@ -608,7 +608,6 @@
 	},
 /obj/structure/fusionreactor,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -764,7 +763,6 @@
 /area/syndicate_depot/core)
 "ci" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/upgraded{

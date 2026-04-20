@@ -1,0 +1,9 @@
+help: "Check cable prefabs on pixelshifting, d1/d2 vars edits"
+/obj/structure/cable:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - d1
+    - d2
+    - name
+
