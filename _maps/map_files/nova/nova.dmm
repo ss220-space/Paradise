@@ -7481,7 +7481,7 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)

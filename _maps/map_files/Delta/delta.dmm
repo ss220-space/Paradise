@@ -70980,22 +70980,12 @@
 /area/lawoffice)
 "mIK" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/portable_atmospherics/pump,
-/obj/machinery/camera{
-	c_tag = "Atmospherics Storage";
-	dir = 1
-	},
 /obj/machinery/newscaster/directional/south,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
@@ -92097,13 +92087,10 @@
 "rlq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	pixel_y = -26
-	},
 /obj/item/hand_labeler,
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
