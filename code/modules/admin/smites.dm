@@ -592,9 +592,7 @@
 	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/self_control/apply_effect(mob/living/target, reason)
-	var/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_watermelon = new()
-	self_control_watermelon.name = "Самоконтроль"
-	self_control_watermelon.desc = "Показатель невероятного самоконтроля Божественной сущности."
+	var/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_slice/self_control_watermelon = new()
 	target.put_in_any_hand_if_possible(self_control_watermelon)
 	to_chat(target, span_userdanger("Вы чувствуете, что в вашей руке появилась долька арбуза. Но что она значит?"))
 
