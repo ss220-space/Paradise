@@ -20,7 +20,7 @@
 	. = ..()
 	if(direction)
 		setDir(direction)
-		set_pixel_offsets_from_dir(28, -28, 30, -30)
+		set_pixel_offsets_from_dir(29, -29, 26, -26)
 	switch(extinguishertype)
 		if(NO_EXTINGUISHER)
 			return
@@ -164,3 +164,7 @@
 #undef NO_EXTINGUISHER
 #undef NORMAL_EXTINGUISHER
 #undef MINI_EXTINGUISHER
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, 29, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet/empty, 29, 26)

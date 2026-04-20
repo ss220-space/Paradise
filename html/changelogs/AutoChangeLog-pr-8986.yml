@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Починка радио у ИИ и гостов. Теперь ТТС снова работает! (PR #8986)"

@@ -40,25 +40,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
-"cn" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/gasthelizards/engineering)
 "ct" = (
 /obj/machinery/atmospherics/unary/tank/nitrous_oxide{
 	dir = 4
@@ -210,6 +191,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
+"hr" = (
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
 "hu" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -278,6 +266,21 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/gasthelizards/jail)
+"jZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
 "ky" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -353,6 +356,12 @@
 "nu" = (
 /turf/simulated/wall,
 /area/ruin/space/gasthelizards/jail)
+"nZ" = (
+/obj/machinery/atmospherics/air_sensor/mix{
+	id_tag = "mix_sensor_gtl"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
 "og" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -462,12 +471,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
-"rk" = (
-/obj/machinery/atmospherics/air_sensor/mix{
-	id_tag = "mix_sensor_gtl"
-	},
-/turf/simulated/floor/engine,
-/area/ruin/space/gasthelizards/viewzone)
 "ru" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -556,6 +559,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/gasthelizards/engineering)
+"vR" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/stack/sheet/animalhide/lizard,
+/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
 "vT" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -648,24 +660,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/gasthelizards/engineering)
-"BH" = (
-/obj/structure/rack,
-/obj/item/melee/baton/security/cattleprod,
-/obj/item/restraints/handcuffs,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/item/card/id/away/gtl,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/gasthelizards/viewzone)
 "BR" = (
 /obj/effect/decal/cleanable/blood{
 	pixel_y = 13
@@ -700,17 +694,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/gasthelizards/engineering)
-"DE" = (
-/obj/structure/rack,
-/obj/item/camera,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
-/area/ruin/space/gasthelizards/viewzone)
 "DL" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "gtl_shutters";
@@ -734,6 +717,20 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/gasthelizards/jail)
+"DQ" = (
+/obj/structure/rack,
+/obj/item/melee/baton/security/cattleprod,
+/obj/item/restraints/handcuffs,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/item/card/id/away/gtl,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
 "DV" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -900,17 +897,6 @@
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
-"Ko" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/stack/sheet/animalhide/lizard,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/gasthelizards/jail)
 "Kx" = (
 /obj/machinery/door/window/brigdoor/northleft{
 	dir = 4;
@@ -991,16 +977,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
-"Mp" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/gasthelizards/jail)
 "My" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
@@ -1281,6 +1257,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/gasthelizards/engineering)
+"UF" = (
+/obj/structure/rack,
+/obj/item/camera,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/gasthelizards/viewzone)
 "UG" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel,
@@ -1551,7 +1536,7 @@ ZI
 ct
 Tt
 kH
-BH
+DQ
 YO
 WC
 Sm
@@ -1666,7 +1651,7 @@ TQ
 zy
 hS
 TQ
-DE
+UF
 gq
 gq
 Ef
@@ -1686,13 +1671,13 @@ Ev
 jg
 Tt
 Tt
-cn
+jZ
 qB
 To
 fV
 Sw
 iy
-rk
+nZ
 DL
 Pi
 gq
@@ -1970,7 +1955,7 @@ CL
 EO
 CJ
 nu
-Ko
+vR
 og
 Bb
 BR
@@ -2028,7 +2013,7 @@ TK
 nu
 IJ
 TZ
-Mp
+hr
 rC
 oN
 qN

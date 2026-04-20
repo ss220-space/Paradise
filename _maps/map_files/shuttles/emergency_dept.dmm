@@ -565,6 +565,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
@@ -576,6 +577,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
@@ -625,6 +627,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
@@ -693,10 +696,6 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/escape)
-"cc" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/shuttle/escape)
 "cd" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Escape Shuttle Research";
@@ -714,6 +713,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -1012,7 +1012,7 @@ ba
 ca
 IB
 bY
-cc
+VF
 bR
 bX
 bY
@@ -1198,7 +1198,7 @@ ba
 ca
 IB
 bY
-cc
+VF
 bR
 bX
 bY

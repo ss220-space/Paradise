@@ -163,13 +163,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
-"gp" = (
-/obj/structure/cable{
-	icon_state = "1-4"
+"ga" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 5
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/alarm/directional/east,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
 "gq" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -209,18 +213,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/nova/Banya/entrance,
 /turf/simulated/wall,
 /area/maintenance/tourist)
-"hM" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west fire alarm";
-	pixel_x = -24
-	},
-/turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
 "hV" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -327,16 +319,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"km" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
 "kv" = (
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = -32
@@ -415,6 +397,14 @@
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
+"mb" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/obj/machinery/newscaster/directional/north,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
 "mc" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -431,6 +421,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
+"mp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
 "mF" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
@@ -739,15 +742,6 @@
 "tB" = (
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
-"tF" = (
-/obj/structure/table,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/item/analyzer,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
 "tN" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -1143,20 +1137,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
-"Fk" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
 "Gm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -1235,6 +1215,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
+"IT" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/power/apc/worn_out/directional/west,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
 "Jf" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 4
@@ -1282,6 +1274,14 @@
 "KB" = (
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
+"KZ" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/firealarm/directional/west,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
 "Le" = (
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /obj/effect/decal/cleanable/dirt,
@@ -1306,6 +1306,13 @@
 	icon_state = "Dark"
 	},
 /area/maintenance/abandonedclub)
+"Ma" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
 "Mx" = (
 /obj/effect/spawner/random_spawners/crate_spawner,
 /obj/effect/decal/warning_stripes/green,
@@ -1594,6 +1601,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
+"Tr" = (
+/obj/structure/table,
+/obj/machinery/newscaster/directional/north,
+/obj/item/analyzer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
 "Ua" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -1633,19 +1647,6 @@
 "UV" = (
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
-"Vl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "VV" = (
@@ -1699,28 +1700,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
-"Xc" = (
-/obj/structure/table,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/item/radio{
-	pixel_x = -1;
-	pixel_y = 6
-	},
-/obj/item/assembly/signaler{
-	pixel_x = 9;
-	pixel_y = 3
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
 "Xl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
@@ -1782,6 +1761,24 @@
 "YC" = (
 /turf/simulated/wall,
 /area/maintenance/consarea)
+"YI" = (
+/obj/structure/table,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/item/radio{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/assembly/signaler{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/worn_out/directional/north,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
 "Zd" = (
 /turf/simulated/wall/rust,
 /area/maintenance/abandonedclub)
@@ -1798,22 +1795,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
-"ZS" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
@@ -1981,7 +1962,7 @@ YC
 gq
 Gm
 YC
-km
+mb
 gJ
 jh
 EF
@@ -2213,10 +2194,10 @@ hq
 hq
 hq
 YC
-Xc
+YI
 Sl
 RJ
-gp
+Ma
 mY
 mi
 JH
@@ -2260,7 +2241,7 @@ hq
 hq
 hq
 YC
-tF
+Tr
 ut
 nY
 ui
@@ -2377,11 +2358,11 @@ CT
 hq
 CA
 vk
-ZS
+IT
 ZI
-Vl
+mp
 Rw
-hM
+KZ
 Gs
 Aw
 CA
@@ -2424,7 +2405,7 @@ CT
 hq
 CA
 Or
-Fk
+ga
 yW
 Dw
 MW

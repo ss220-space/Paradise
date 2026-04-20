@@ -1,8 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - del: "Удалён сломанный вёрб и афтерратак у подноса роботов. (PR #8994)"
-  - sound: "Добавлены SFX поднятия и выбрасывания подноса. (PR #8994)"
-  - bugfix: "Перенос содержимого подноса на стол больше не вываливает и сам поднос на него. (PR #8994)"
-  - refactor: "Код подноса. (PR #8994)"
-  - refactor: "Замена Adjacent на IsReachableBy в mouse_drop_dragged инвентаря. (PR #8994)"
