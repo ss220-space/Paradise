@@ -1620,15 +1620,16 @@
 	host.adjustBruteLoss(PARASITISM_HOST_DAMAGE, FALSE)
 	host.adjustToxLoss(PARASITISM_HOST_DAMAGE, FALSE)
 	host.adjust_nutrition(-5)
+	host.update_health_hud()
+	host.med_hud_set_status()
+
 
 	if(prob(30))
 		to_chat(host, span_danger("Паразит высасывает ваши жизненные силы"))
 		host.AdjustKnockdown(2 SECONDS)
 		host.AdjustConfused(3 SECONDS)
 		host.AdjustJitter(10 SECONDS)
-
-	host.update_health_hud()
-	host.med_hud_set_status()
+		return
 
 /datum/status_effect/parasitism/on_remove()
 	if(iscarbon(owner))
