@@ -94,9 +94,9 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/lesser/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
-	if(!proximity || !target)
+	if(!proximity_flag || !target)
 		return
 	//tray plants
 	if(istype(target,/obj/machinery/hydroponics))

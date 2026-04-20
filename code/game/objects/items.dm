@@ -7,6 +7,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	pass_flags_self = PASSITEM
 	pass_flags = PASSTABLE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 
 	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	move_resist = null
@@ -72,7 +73,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = 4
-	//	causeerrorheresoifixthis
+	/// This var exists as a weird proxy "owner" ref
+	/// It's used in a few places. Stop using it, and optimially replace all uses please
 	var/obj/item/master = null
 
 	/// Price of an item in a vending machine, overriding the base vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
@@ -293,6 +295,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// What to toggle when toggled with weldingvisortoggle()
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
+	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
+	var/reach = 1
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -511,8 +516,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		MO.desc = "Похоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
-/obj/item/proc/afterattack(atom/target, mob/user, proximity, list/modifiers, status)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, modifiers, status)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers, status)
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -1170,7 +1175,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	closeToolTip(usr)
 	remove_outline()
 
-/obj/item/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/item/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
 		return FALSE
 
@@ -1438,7 +1443,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return TRUE
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
-/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, list/modifiers)
 	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 /obj/item/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

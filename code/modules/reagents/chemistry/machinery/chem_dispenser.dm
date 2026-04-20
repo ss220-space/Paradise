@@ -562,8 +562,8 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
-	if(!proximity || !current_reagent || !amount)
+/obj/item/handheld_chem_dispenser/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !current_reagent || !amount)
 		return
 
 	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())

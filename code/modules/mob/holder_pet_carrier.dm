@@ -5,6 +5,7 @@
 	item_state = "pet_carrier"
 	max_integrity = 100
 	w_class = WEIGHT_CLASS_SMALL
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob_size = MOB_SIZE_TINY
 
 	var/list/possible_skins = list("black", "blue", "red", "yellow", "green", "purple")
@@ -146,7 +147,7 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/pet_carrier/container_resist(mob/living/L)
+/obj/item/pet_carrier/container_resist_act(mob/living/L)
 	var/breakout_time = 60 SECONDS
 	var/breakout_time_open = 5 SECONDS
 
@@ -219,7 +220,7 @@
 	if(ismecha(drag_user.loc) || is_ventcrawling(drag_user) || drag_user.incapacitated() || HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(over_object == drag_user && drag_user.Adjacent(src)) // this must come before the screen objects only block
+	if(over_object == drag_user && IsReachableBy(drag_user)) // this must come before the screen objects only block
 		try_free_content(user = drag_user)
 		return FALSE
 

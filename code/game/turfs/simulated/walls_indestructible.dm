@@ -45,10 +45,10 @@
 /turf/simulated/wall/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
+/turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
-/turf/simulated/wall/indestructible/rpd_act()
+/turf/simulated/wall/indestructible/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /turf/simulated/wall/indestructible/acid_act(acidpwr, acid_volume, acid_id)
@@ -204,6 +204,8 @@
 	icon_state = "iron"
 	base_icon_state = "iron_wall"
 	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_IRON_WALLS
+	smoothing_groups = SMOOTH_GROUP_IRON_WALLS
 
 /turf/simulated/wall/indestructible/bananium
 	name = "bananium wall"

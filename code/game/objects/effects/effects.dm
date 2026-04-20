@@ -28,8 +28,8 @@
 /obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
 	return FALSE
 
-/obj/effect/mech_melee_attack(obj/mecha/M)
-	return 0
+/obj/effect/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+	return FALSE
 
 /obj/effect/blob_act(obj/structure/blob/B)
 	return

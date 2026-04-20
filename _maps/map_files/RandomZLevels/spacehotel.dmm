@@ -3221,7 +3221,7 @@
 	},
 /area/awaymission/spacehotel/amazing_place)
 "zw" = (
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
+/obj/machinery/power/supermatter_crystal/shard/hugbox,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "zC" = (

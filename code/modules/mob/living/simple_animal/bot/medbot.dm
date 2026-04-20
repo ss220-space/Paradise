@@ -479,7 +479,7 @@
 	if(!isnull(select_medication(C, assess_beaker_injection(C))))
 		return TRUE //If a valid medicine option for the patient exists, they require treatment
 
-/mob/living/simple_animal/bot/medbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/medbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C

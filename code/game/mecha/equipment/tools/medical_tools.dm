@@ -64,7 +64,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, atom/newLoc)
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!istype(target))
@@ -199,7 +199,7 @@
 		chosen_reagent.trans_to(patient, to_inject)
 		start_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist_act()
 	go_out(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
@@ -330,7 +330,7 @@
 
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(issyringe(target) || isstorage(target))
@@ -504,7 +504,7 @@
 	energy_drain = 10
 	var/dam_force = 20
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(isobj(target))
@@ -583,7 +583,7 @@
 		occupant_message("[src] deactivated - no power.")
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target)
+/obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target, list/modifiers)
 	if(!mbeam.process_fire(target, loc))
 		STOP_PROCESSING(SSobj, src)
 		return

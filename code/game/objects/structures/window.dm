@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_GLASS, -40, 5)
 
-/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/structure/window/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
 
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
 	qdel(src)
 
-/obj/structure/window/rpd_act()
+/obj/structure/window/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /obj/structure/window/singularity_pull(S, current_size)
@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/proc/check_state_and_anchored(checked_state, checked_anchored)
 	return check_state(checked_state) && check_anchored(checked_anchored)
 
-/obj/structure/window/mech_melee_attack(obj/mecha/M)
+/obj/structure/window/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	if(!can_be_reached())
 		return
 	..()

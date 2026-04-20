@@ -65,7 +65,7 @@
 
 // We used to use linear regression to approximate the answer, but Mloc realized this was actually faster.
 // And lo and behold, it is, and it's more accurate to boot.
-#define CHEAP_HYPOTENUSE(Ax, Ay, Bx, By) (sqrt((Ax - Bx) ** 2 + (Ay - By) ** 2)) //A squared + B squared = C squared
+#define CHEAP_HYPOTENUSE(Ax, Ay, Bx, By) (sqrt(POW2(Ax - Bx) + POW2(Ay - By))) //A squared + B squared = C squared
 
 // Greatest Common Divisor - Euclid's algorithm
 /proc/Gcd(a, b)
@@ -99,6 +99,12 @@
 // Note that amount=0 returns a, amount=1 returns b, and
 // amount=0.5 returns the mean of a and b.
 #define LERP(a, b, amount) ( amount ? ((a) + ((b) - (a)) * (amount)) : a )
+
+/**
+ * Performs an inverse linear interpolation between a, b, and a provided value between a and b
+ * This returns the amount that you would need to feed into a lerp between A and B to return the third value
+ */
+#define INVERSE_LERP(a, b, value) ((value - a) / (b - a))
 
 // Returns the nth root of x.
 #define ROOT(n, x) ((x) ** (1 / (n)))

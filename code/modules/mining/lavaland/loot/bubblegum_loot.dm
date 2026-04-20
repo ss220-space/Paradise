@@ -441,7 +441,7 @@
 	projectile.preparePixelProjectile(attacked_atom, soul)
 	projectile.firer = soul
 	projectile.firer_source_atom = src
-	projectile.fire(null, attacked_atom)
+	projectile.fire()
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
