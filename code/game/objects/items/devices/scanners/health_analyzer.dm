@@ -489,7 +489,8 @@
 	/// Dead or missing liver
 	var/obj/item/organ/internal/liver/liver = H.get_int_organ(/obj/item/organ/internal/liver)
 	if(!liver)
-		data["liverCondition"] = ORGAN_STATUS_LESS
+		if(!(HAS_TRAIT(H, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(H, TRAIT_NO_DNA)))
+			data["liverCondition"] = ORGAN_STATUS_LESS
 	else if((liver.damage == liver.max_damage) || (liver.status & ORGAN_DEAD))
 		data["liverCondition"] = ORGAN_STATUS_NECROSIS
 
@@ -654,6 +655,14 @@
 			scan_data += span_alert("<b>Обнаружен некроз сердца.</b>")
 		else if(!heart)
 			scan_data += span_alert("<b>Сердце не обнаружено.</b>")
+
+	var/obj/item/organ/internal/liver/liver = H.get_int_organ(/obj/item/organ/internal/liver)
+
+	if(!liver)
+		if(!(HAS_TRAIT(H, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(H, TRAIT_NO_DNA)))
+			scan_data += span_alert("<b>Печень не обнаружена.</b>")
+	else if((liver.damage == liver.max_damage) || (liver.status & ORGAN_DEAD))
+		scan_data += span_alert("<b>Обнаружена острая печёночная недостаточность.</b>")
 
 	if(H.getStaminaLoss())
 		scan_data += span_notice("Обнаружено истощение.")
