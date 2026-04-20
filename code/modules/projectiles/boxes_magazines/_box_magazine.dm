@@ -39,13 +39,23 @@
 	/// Additional info to be added to examine text.
 	var/extra_info = ""
 
+/obj/item/ammo_box/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка [get_ammo_descriptor()] [get_cartridge_marking()]",
+		GENITIVE = "коробки [get_ammo_descriptor()] [get_cartridge_marking()]",
+		DATIVE = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]",
+		ACCUSATIVE = "коробку [get_ammo_descriptor()] [get_cartridge_marking()]",
+		INSTRUMENTAL = "коробкой [get_ammo_descriptor()] [get_cartridge_marking()]",
+		PREPOSITIONAL = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]",
+	)
+
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
 
 	if(!start_empty && ammo_type)
 		for(var/i in 1 to max_ammo)
 			stored_ammo += new ammo_type(src)
-	update_appearance(updates = ALL)
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
 	initial_mats = materials.Copy()
 	update_mat_value()
 
@@ -99,19 +109,6 @@
 	qdel(sample_cartridge)
 
 	return ammo_marking
-
-/obj/item/ammo_box/update_name(updates = ALL)
-	. = ..()
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
-	name = "[get_cartridge_marking()] ammo box"
-	ru_names[NOMINATIVE] = "коробка [get_ammo_descriptor()] [get_cartridge_marking()]"
-	ru_names[GENITIVE] = "коробки [get_ammo_descriptor()] [get_cartridge_marking()]"
-	ru_names[DATIVE] = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]"
-	ru_names[ACCUSATIVE] = "коробку [get_ammo_descriptor()] [get_cartridge_marking()]"
-	ru_names[INSTRUMENTAL] = "коробкой [get_ammo_descriptor()] [get_cartridge_marking()]"
-	ru_names[PREPOSITIONAL] = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]"
 
 /obj/item/ammo_box/update_desc(updates = ALL)
 	. = ..()
@@ -311,19 +308,15 @@
 	/// Should be in genitive case like `"пистолета \"Стечкин\""` or `"пулемёта L6 SAW"`.
 	var/gun_name = ""
 
-/obj/item/ammo_box/magazine/update_name(updates = ALL)
-	. = ..()
-
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
-	name = "[gun_name] magazine [get_cartridge_marking()]"
-	ru_names[NOMINATIVE] = "магазин [gun_name] [get_cartridge_marking()]"
-	ru_names[GENITIVE] = "магазина [gun_name] [get_cartridge_marking()]"
-	ru_names[DATIVE] = "магазину [gun_name] [get_cartridge_marking()]"
-	ru_names[ACCUSATIVE] = "магазин [gun_name] [get_cartridge_marking()]"
-	ru_names[INSTRUMENTAL] = "магазином [gun_name] [get_cartridge_marking()]"
-	ru_names[PREPOSITIONAL] = "магазине [gun_name] [get_cartridge_marking()]"
+/obj/item/ammo_box/magazine/get_ru_names()
+	return list(
+		NOMINATIVE = "магазин [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "магазина [gun_name] [get_cartridge_marking()]",
+		DATIVE = "магазину [gun_name] [get_cartridge_marking()]",
+		ACCUSATIVE = "магазин [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "магазином [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "магазине [gun_name] [get_cartridge_marking()]",
+	)
 
 /obj/item/ammo_box/magazine/update_desc(updates = ALL)
 	. = ..()

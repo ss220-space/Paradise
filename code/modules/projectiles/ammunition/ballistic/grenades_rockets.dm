@@ -48,19 +48,15 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/a40mm/update_name(updates = ALL)
-	. = ..()
-
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
-	name = "[ammo_marking] grenade"
-	ru_names[NOMINATIVE] = "выстрел [ammo_marking]"
-	ru_names[GENITIVE] = "выстрела [ammo_marking]"
-	ru_names[DATIVE] = "выстрелу [ammo_marking]"
-	ru_names[ACCUSATIVE] = "выстрел [ammo_marking]"
-	ru_names[INSTRUMENTAL] = "выстрелом [ammo_marking]"
-	ru_names[PREPOSITIONAL] = "выстреле [ammo_marking]"
+/obj/item/ammo_casing/a40mm/get_ru_names()
+	return list(
+		NOMINATIVE = "выстрел [ammo_marking]",
+		GENITIVE = "выстрела [ammo_marking]",
+		DATIVE = "выстрелу [ammo_marking]",
+		ACCUSATIVE = "выстрел [ammo_marking]",
+		INSTRUMENTAL = "выстрелом [ammo_marking]",
+		PREPOSITIONAL = "выстреле [ammo_marking]",
+	)
 
 /obj/item/ammo_casing/a40mm/update_desc(updates = ALL)
 	. = ..()

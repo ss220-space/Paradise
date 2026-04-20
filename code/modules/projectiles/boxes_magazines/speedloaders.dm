@@ -5,19 +5,15 @@
 	can_fast_load = FALSE
 	var/gun_name = "револьверов"
 
-/obj/item/ammo_box/speedloader/update_name(updates = ALL)
-	. = ..()
-
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
-	name = "[get_cartridge_marking()] speed loader"
-	ru_names[NOMINATIVE] = "ускоритель заряжания [get_cartridge_marking()]"
-	ru_names[GENITIVE] = "ускорителя заряжания [get_cartridge_marking()]"
-	ru_names[DATIVE] = "ускорителю заряжания [get_cartridge_marking()]"
-	ru_names[ACCUSATIVE] = "ускоритель заряжания [get_cartridge_marking()]"
-	ru_names[INSTRUMENTAL] = "ускорителем заряжания [get_cartridge_marking()]"
-	ru_names[PREPOSITIONAL] = "ускорителе заряжания [get_cartridge_marking()]"
+/obj/item/ammo_box/speedloader/get_ru_names()
+	return list(
+		NOMINATIVE = "ускоритель заряжания [get_cartridge_marking()]",
+		GENITIVE = "ускорителя заряжания [get_cartridge_marking()]",
+		DATIVE = "ускорителю заряжания [get_cartridge_marking()]",
+		ACCUSATIVE = "ускоритель заряжания [get_cartridge_marking()]",
+		INSTRUMENTAL = "ускорителем заряжания [get_cartridge_marking()]",
+		PREPOSITIONAL = "ускорителе заряжания [get_cartridge_marking()]",
+	)
 
 /obj/item/ammo_box/speedloader/update_desc(updates = ALL)
 	. = ..()
@@ -181,19 +177,15 @@
 	multiple_sprites = 1
 	gun_name = "винтовок"
 
-/obj/item/ammo_box/speedloader/a762/update_name(updates = ALL)
-	. = ..()
-
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
-	name = "[get_cartridge_marking()] stripper clip"
-	ru_names[NOMINATIVE] = "обойма [get_cartridge_marking()]"
-	ru_names[GENITIVE] = "обоймы [get_cartridge_marking()]"
-	ru_names[DATIVE] = "обойме [get_cartridge_marking()]"
-	ru_names[ACCUSATIVE] = "обойму [get_cartridge_marking()]"
-	ru_names[INSTRUMENTAL] = "обоймой [get_cartridge_marking()]"
-	ru_names[PREPOSITIONAL] = "обойме [get_cartridge_marking()]"
+/obj/item/ammo_box/speedloader/a762/get_ru_names()
+	return list(
+		NOMINATIVE = "обойма [get_cartridge_marking()]",
+		GENITIVE = "обоймы [get_cartridge_marking()]",
+		DATIVE = "обойме [get_cartridge_marking()]",
+		ACCUSATIVE = "обойму [get_cartridge_marking()]",
+		INSTRUMENTAL = "обоймой [get_cartridge_marking()]",
+		PREPOSITIONAL = "обойме [get_cartridge_marking()]",
+	)
 
 // MARK: Misc
 /obj/item/ammo_box/speedloader/caps
