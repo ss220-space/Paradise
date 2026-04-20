@@ -119,7 +119,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 /datum/syndie_data_storage
 
 /****************************
-Код со времён когда этот обьект был абстрактным эффектом вместо датума, оставлен на всякий случай.
+Код со времён, когда этот объект был абстрактным эффектом, вместо датума. Оставлен на всякий случай.
 
 	layer = TURF_LAYER
 	density = FALSE
@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /datum/syndie_data_storage/proc/sync()
 	linked_pads = list()	// Обнуление на случай повторной синхронизации.
-	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
+	receiving_pads = list() // Мы же не хотим два одинаковых объекта в одном списке?
 	pads_cooldown = 0
 	for(var/obj/machinery/syndiepad/P in GLOB.syndiepads)
 		if(get_area(P) != cargoarea)
