@@ -220,7 +220,7 @@
 	if(ismecha(drag_user.loc) || is_ventcrawling(drag_user) || drag_user.incapacitated() || HAS_TRAIT(drag_user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(over_object == drag_user && drag_user.Adjacent(src)) // this must come before the screen objects only block
+	if(over_object == drag_user && IsReachableBy(drag_user)) // this must come before the screen objects only block
 		try_free_content(user = drag_user)
 		return FALSE
 
