@@ -1010,17 +1010,17 @@
 
 /obj/structure/sign/poster/official/explosionsafe
 	name = "Взрывы? - чушь!"
-	desc = "Ассистентке нечего боятся лжи о подрывах станций! Так же как и вам!"
+	desc = "Ассистентке нечего бояться лжи о подрывах станций! Так же как и вам!"
 	icon_state = "explosionsafe"
 
 /obj/structure/sign/poster/official/clearstation
 	name = "Чистая станция"
-	desc = "Чистая станция — здоровый экипаж! Грязь и мусор долой — мытые руки и опрятный вид то что надо!"
+	desc = "Чистая станция — здоровый экипаж! Грязь и мусор — долой! Мытые руки и опрятный вид — то, что надо!"
 	icon_state = "clearstation"
 
 /obj/structure/sign/poster/official/safebody
 	name = "Средства защиты"
-	desc = "Ассистентка надела каску, а вы? Защитись от травмоопасной среды!"
+	desc = "Ассистентка надела каску, а вы? Защититесь от травмоопасной среды!"
 	icon_state = "safebody"
 
 /obj/structure/sign/poster/official/fitness
@@ -1030,7 +1030,7 @@
 
 /obj/structure/sign/poster/official/hardwork
 	name = "Тяжелый труд"
-	desc = "Без труда не выловишь карпа с космоса. Ассистентка готова к упорному труду для достижения цели!"
+	desc = "Без труда не выловишь карпа из космоса. Ассистентка готова к упорному труду для достижения цели!"
 	icon_state = "hardwork"
 
 // MARK: Secret posters
