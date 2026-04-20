@@ -961,3 +961,11 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
+/datum/design/pen
+	id = "pen"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50)
+	build_path = /obj/item/pen
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
