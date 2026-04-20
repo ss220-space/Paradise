@@ -109,9 +109,9 @@
 /datum/greyscale_config/mender_inhand_right
 	name = "Held Mender, Right"
 	icon_file = 'icons/mob/inhands/items_righthand.dmi'
-	json_config = 'code/datums/greyscale/json_configs/mender_worn.json'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'
 
 /datum/greyscale_config/mender_belt
 	name = "Belt Worn Mender"
 	icon_file = 'icons/obj/clothing/belt_overlays.dmi'
-	json_config = 'code/datums/greyscale/json_configs/mender_worn.json'
+	json_config = 'code/datums/greyscale/json_configs/mender.json'

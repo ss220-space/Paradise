@@ -8,8 +8,9 @@
 	icon = 'icons/map_icons/items/_item.dmi'
 	var/overlay_icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "/obj/item/reagent_containers/applicator"
-	belt_icon = "cutters"
-	post_init_icon_state = "mender"
+	item_state = "mender"
+	belt_icon = "mender"
+	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/mender
 	greyscale_config_inhand_left = /datum/greyscale_config/mender_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/mender_inhand_right
@@ -31,7 +32,7 @@
 	/// to stop spamming
 	var/applying = FALSE
 	/// applying sounds list
-	var/list/aplying_sfx = list('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg')
+	var/list/applying_sfx = list('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg')
 	/// posible colors for greyscale
 	var/static/list/mender_colors = list(
 		COLOR_WHITE = "white",
@@ -170,7 +171,7 @@
 		reagents.trans_to(M, total_applied_amount * 0.5)
 		reagents.remove_any(total_applied_amount * 0.5)
 
-		playsound(get_turf(src), pick(aplying_sfx), 50, TRUE)
+		playsound(get_turf(src), pick(applying_sfx), 50, TRUE)
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
