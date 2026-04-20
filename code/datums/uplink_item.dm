@@ -2012,7 +2012,7 @@
 	desc = "Портативное устройство, позволяющее активировать ионную пушку, которая перезаряжается каждые 15 минут. \
 			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности \"Нанотрейзен\", или же вызывать перебои в телекоммуникациях."
 	item = /obj/item/ion_caller
-	limited_stock = 1	// Might be too annoying if someone had multiple.
+	limited_stock = 1 // Might be too annoying if someone had multiple.
 	cost = 30
 	surplus = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

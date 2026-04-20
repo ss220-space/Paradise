@@ -19,15 +19,15 @@
 #define INVISIBILITY_HIDDEN_RUNES 30
 #define SEE_INVISIBLE_HIDDEN_RUNES 30
 
-#define SEE_INVISIBLE_LEVEL_ONE 35	//Used by some stuff in code. It's really poorly organized.
+#define SEE_INVISIBLE_LEVEL_ONE 35 //Used by some stuff in code. It's really poorly organized.
 
-#define SEE_INVISIBLE_LEVEL_TWO 45	//Used by some other stuff in code. It's really poorly organized.
-#define INVISIBILITY_LEVEL_TWO 45	//Used by some other stuff in code. It's really poorly organized.
+#define SEE_INVISIBLE_LEVEL_TWO 45 //Used by some other stuff in code. It's really poorly organized.
+#define INVISIBILITY_LEVEL_TWO 45 //Used by some other stuff in code. It's really poorly organized.
 
 #define INVISIBILITY_SPIRIT 50
 #define SEE_SPIRITS 50
 
-#define INVISIBILITY_ANOMALY 40	// Can be seen by observers or using a t-ray scanner
+#define INVISIBILITY_ANOMALY 40 // Can be seen by observers or using a t-ray scanner
 
 #define SEE_INVISIBLE_OBSERVER_NOOBSERVERS 59
 #define INVISIBILITY_OBSERVER 60

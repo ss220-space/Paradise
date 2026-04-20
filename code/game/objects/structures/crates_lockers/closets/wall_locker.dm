@@ -59,4 +59,4 @@
 #undef EMERGENCY_CONTENTS_TANK
 #undef EMERGENCY_CONTENTS_BOTH
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32, 32)

@@ -16,7 +16,7 @@
 #define MEDAL_HELBITALJANKEN "Hel-bent on Winning"
 #define MEDAL_MATERIALCRAFT "Getting an Upgrade"
 #define MEDAL_DISKPLEASE "Disk, Please!"
-#define MEDAL_GAMER	"I'm Not Important"
+#define MEDAL_GAMER "I'm Not Important"
 #define MEDAL_VENDORSQUISH "Teenage Anarchist"
 #define MEDAL_SWIRLIE "Bowl-d"
 #define MEDAL_SELFOUCH "Hands???"
