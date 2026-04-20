@@ -295,10 +295,6 @@
 "nD" = (
 /turf/simulated/mineral/random,
 /area/space)
-"nH" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/mineral/wood,
-/area/ruin/USSP_SpaceBanya)
 "op" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/wood{
@@ -1116,6 +1112,7 @@
 	name = "Bar Lanch Room"
 	},
 /obj/structure/barricade/wooden/crude,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "XY" = (
@@ -1138,10 +1135,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "YY" = (
-/obj/machinery/power/apc{
-	name = "north bump";
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -1825,7 +1819,7 @@ nD
 Dd
 Dd
 Xp
-nH
+Dd
 Dd
 eY
 ng
