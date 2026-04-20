@@ -369,7 +369,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Maroon"
 	antag_menu_name = "Не дать эвакуироваться живым/свободным"
 	martyr_compatible = TRUE
-	special_object_type = /obj/item/storage/box/syndie_kit/stechkin_pistol
 
 /datum/objective/maroon/find_target(list/target_blacklist)
 	..()
@@ -415,7 +414,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	antag_menu_name = "Украсть мозг"
-	special_object_type = /obj/item/storage/box/syndie_kit/stechkin_pistol
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -631,7 +629,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Угоните шаттл, эвакуировавшись без лояльного Nanotrasen экипажа на борту, будучи свободным. \
 	Агенты Синдикта, другие враги Nanotrasen, борги, питомцы, и заложники в наручниках/связывающих устройствах могут быть на шаттле живыми."
 	needs_target = FALSE
-	special_object_type = /obj/item/storage/box/syndie_kit/stechkin_pistol
 
 /datum/objective/hijack/on_add_objective(datum/mind)
 	ADD_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
@@ -870,6 +867,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(istype(turf, /turf/simulated/floor/shuttle/objective_check) || istype(turf, /turf/simulated/floor/mineral/plastitanium/red/brig))
 			return FALSE
 
+	return TRUE
+
+// MARK: Get equipment
+/datum/objective/get_equipment
+	name = "Get equipment"
+	antag_menu_name = "Получить снаряжение"
+	explanation_text = "Получить бесплатное снаряжение в определенном месте (необязательно)."
+	needs_target = FALSE
+	special_object_type = /obj/item/storage/box/syndie_kit/stechkin_pistol
+
+/datum/objective/get_equipment/check_completion()
 	return TRUE
 
 // MARK: Glorious death
