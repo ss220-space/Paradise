@@ -614,15 +614,15 @@
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/attackby(obj/item/I, mob/user, params)
+/turf/attackby(obj/item/used, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !can_lay_cable())
 		return .
 
-	if(iscoil(I))
+	if(iscoil(used))
 		add_fingerprint(user)
-		var/obj/item/stack/cable_coil/coil = I
+		var/obj/item/stack/cable_coil/coil = used
 		for(var/obj/structure/cable/local_cable in src)
 			if(local_cable.d1 == 0 || local_cable.d2 == 0)
 				local_cable.attackby(coil, user, params)
@@ -632,9 +632,9 @@
 		. |= (ATTACK_CHAIN_BLOCKED_ALL)
 		return .
 
-	if(istype(I, /obj/item/twohanded/rcl))
+	if(istype(used, /obj/item/twohanded/rcl))
 		add_fingerprint(user)
-		var/obj/item/twohanded/rcl/rcl = I
+		var/obj/item/twohanded/rcl/rcl = used
 		if(!rcl.loaded)
 			to_chat(user, span_warning("The [rcl.name] has no cable!"))
 			return .

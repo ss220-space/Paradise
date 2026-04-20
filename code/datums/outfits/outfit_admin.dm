@@ -397,7 +397,10 @@
 		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
 	)
 
-	implants = list(/obj/item/implant/mindshield/ert)
+	implants = list(
+		/obj/item/implant/mindshield/ert,
+		/obj/item/implant/explosive/macro,
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,

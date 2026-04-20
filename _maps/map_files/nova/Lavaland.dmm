@@ -6458,7 +6458,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Ld" = (
-/obj/item/stack/fireproof_rods/twentyfive,
+/obj/item/stack/rods/fireproof/twentyfive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Lg" = (

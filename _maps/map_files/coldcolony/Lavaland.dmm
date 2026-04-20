@@ -67,7 +67,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/obj/item/stack/fireproof_rods{
+/obj/item/stack/rods/fireproof{
 	amount = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -426,7 +426,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/stack/fireproof_rods{
+/obj/item/stack/rods/fireproof{
 	amount = 10
 	},
 /turf/simulated/floor/indestructible/boss/air,
