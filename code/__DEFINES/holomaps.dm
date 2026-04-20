@@ -53,3 +53,6 @@
 #define CROP_Y1 "y1"
 /// Key for crop top-right y coordinate
 #define CROP_Y2 "y2"
+
+/// Maximal overlays count for one holomap (for optimisation)
+#define HOLOMAP_MAX_OVERLAYS 80

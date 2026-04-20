@@ -1,5 +1,3 @@
-#define HOLOMAP_MAX_OVERLAYS 80
-
 // Simple datum to keep track of a running holomap. Each machine capable of displaying the holomap will have one.
 /datum/station_holomap
 	var/image/base_map
@@ -132,7 +130,7 @@
 			continue
 
 		for(var/image/map_layer in overlays_to_use[overlay]["markers"])
-			if(length(.) > HOLOMAP_MAX_OVERLAYS)
+			if(length(.) >= HOLOMAP_MAX_OVERLAYS)
 				return
 			. += map_layer
 
@@ -146,5 +144,3 @@
 	map_icon.Crop(crop_x, crop_y, crop_x + crop_w, crop_y + crop_h)
 	base_map = image(map_icon)
 	update_map()
-
-#undef HOLOMAP_MAX_OVERLAYS
