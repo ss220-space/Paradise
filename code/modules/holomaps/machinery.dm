@@ -125,7 +125,7 @@
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
 	if(auto_update)
-		auto_update_timer_id = addtimer(CALLBACK(src, PROC_REF(redraw_map), user), auto_update_timeout, TIMER_LOOP)
+		auto_update_timer_id = addtimer(CALLBACK(src, PROC_REF(redraw_map), user), auto_update_timeout, TIMER_LOOP | TIMER_STOPPABLE)
 
 	playsound(src, 'sound/effects/holomap_open.ogg', 125)
 	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
@@ -408,6 +408,8 @@
 		if(!ismindshielded(check))
 			continue
 		var/turf/check_turf = get_turf(check)
+		if(!isnull(check_turf) || check_turf.z != loc.z)
+			continue
 		var/image/check_icon = image('icons/misc/8x8.dmi', icon_state = "security")
 		check_icon.pixel_w = check_turf.x + HOLOMAP_CENTER_X - 1
 		check_icon.pixel_z = check_turf.y + HOLOMAP_CENTER_Y

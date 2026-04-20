@@ -27,25 +27,26 @@
 
 /obj/item/gift/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10,10)
-	pixel_y = rand(-10,10)
-	base_pixel_x = pixel_x
-	base_pixel_y = pixel_y
-	if(!greyscale_colors)
-		//Generate random valid colors for paper and ribbon
-		var/generated_base_color = "#" + random_color()
-		var/generated_ribbon_color = "#" + random_color()
-		var/temp_base_hsv = RGBtoHSV(generated_base_color)
-		var/temp_ribbon_hsv = RGBtoHSV(generated_ribbon_color)
+	pixel_x = base_pixel_x + rand(-10,10)
+	pixel_y = base_pixel_y + rand(-10,10)
 
-		//If colors are too dark, set to original colors
-		if(ReadHSV(temp_base_hsv)[3] < ReadHSV("7F7F7F")[3])
-			generated_base_color = "#00FF00"
-		if(ReadHSV(temp_ribbon_hsv)[3] < ReadHSV("7F7F7F")[3])
-			generated_ribbon_color = "#FF0000"
+	if(greyscale_colors)
+		return
 
-		//Set layers to these colors, base then ribbon
-		set_greyscale_colors(colors = list(generated_base_color, generated_ribbon_color))
+	//Generate random valid colors for paper and ribbon
+	var/generated_base_color = "#" + random_color()
+	var/generated_ribbon_color = "#" + random_color()
+	var/list/base_hsv = rgb2hsv(generated_base_color)
+	var/list/ribbon_hsv = rgb2hsv(generated_ribbon_color)
+
+	//If colors are too dark, set to original colors
+	if(base_hsv[3] < 50)
+		generated_base_color = COLOR_VIBRANT_LIME
+	if(ribbon_hsv[3] < 50)
+		generated_ribbon_color = COLOR_RED
+
+	//Set layers to these colors, base then ribbon
+	set_greyscale_colors(colors = list(generated_base_color, generated_ribbon_color))
 
 	set_greyscale_config(text2path("/datum/greyscale_config/giftdeliverypackage[rand(1, 5)]"))
 
@@ -235,65 +236,3 @@
 
 	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] что-то интересное!"))
 	user.investigate_log("has unwrapped a present containing [loot_tier.name].", INVESTIGATE_PRESENTS)
-
-
-/*
- * Wrapping Paper
- */
-/obj/item/stack/wrapping_paper
-	name = "wrapping paper"
-	desc = "Оберните подарки этой праздничной бумагой."
-	icon = 'icons/map_icons/items/_item.dmi'
-	icon_state = "/obj/item/stack/wrapping_paper/xmas"
-	post_init_icon_state = "wrap_paper"
-	greyscale_config = /datum/greyscale_config/wrap_paper
-	item_flags = NOBLUDGEON
-	amount = 25
-	max_amount = 25
-	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/wrapping_paper
-	singular_name = "wrapping paper"
-	w_class = WEIGHT_CLASS_TINY
-
-/obj/item/stack/wrapping_paper/Initialize(mapload)
-	. = ..()
-	if(!greyscale_colors)
-		//Generate random valid colors for paper and ribbon
-		var/generated_base_color = "#" + random_color()
-		var/generated_ribbon_color = "#" + random_color()
-		var/temp_base_hsv = RGBtoHSV(generated_base_color)
-		var/temp_ribbon_hsv = RGBtoHSV(generated_ribbon_color)
-
-		//If colors are too dark, set to original colors
-		if(ReadHSV(temp_base_hsv)[3] < ReadHSV("7F7F7F")[3])
-			generated_base_color = "#00FF00"
-		if(ReadHSV(temp_ribbon_hsv)[3] < ReadHSV("7F7F7F")[3])
-			generated_ribbon_color = "#FF0000"
-
-		//Set layers to these colors, base then ribbon
-		set_greyscale_colors(colors = list(generated_base_color, generated_ribbon_color))
-
-/obj/item/stack/wrapping_paper/click_alt(mob/user)
-	var/new_base = tgui_input_color(user, "", "Select a base color", color)
-	var/new_ribbon = tgui_input_color(user, "", "Select a ribbon color", color)
-	if(!new_base || !new_ribbon)
-		return
-	set_greyscale_colors(colors = list(new_base, new_ribbon))
-	return TRUE
-
-//preset wrapping paper meant to fill the original color configuration
-/obj/item/stack/wrapping_paper/xmas
-	greyscale_colors = "#00FF00#FF0000"
-
-/obj/item/stack/wrapping_paper/get_ru_names()
-	return list(
-		NOMINATIVE = "обёрточная бумага",
-		GENITIVE = "обёрточной бумаги",
-		DATIVE = "обёрточной бумаге",
-		ACCUSATIVE = "обёрточную бумагу",
-		INSTRUMENTAL = "обёрточной бумагой",
-		PREPOSITIONAL = "обёрточной бумаге"
-	)
-
-/obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, span_notice("Её нужно использовать на уже упакованной посылке!"))

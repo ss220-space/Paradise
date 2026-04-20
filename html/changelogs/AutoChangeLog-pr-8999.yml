@@ -1,6 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Рантайм атакчейна endoskeleton. (PR #8999)"
-  - bugfix: "Рантайм манифеста карго. (PR #8999)"
-  - bugfix: "Ящики больше не исчезают при перетаскивании со стеллажа на объект. (PR #8999)"

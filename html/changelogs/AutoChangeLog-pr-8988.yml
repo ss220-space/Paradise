@@ -1,4 +1,0 @@
-author: "NuSanya"
-delete-after: True
-changes:
-  - bugfix: "Мобам добавлен флаг CAN_UNCONSCIOUS (PR #8988)"
