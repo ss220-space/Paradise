@@ -584,6 +584,18 @@
 	ADD_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
 	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
 
+// MARK: Self Control
+/datum/smite/self_control
+	name = SMITE_SELF_CONTROL
+	desc = "Покажите свои возможности к самоконтролю!"
+	logmsg = "self control watermelon"
+	category = SMITE_CATEGORY_CONTROL
+
+/datum/smite/self_control/apply_effect(mob/living/target, reason)
+	var/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_slice/self_control_watermelon = new()
+	target.put_in_any_hand_if_possible(self_control_watermelon)
+	to_chat(target, span_userdanger("Вы чувствуете, что в вашей руке появилась долька арбуза. Но что она значит?"))
+
 // MARK: Admin smite proc
 ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", mob/living/target in GLOB.mob_list)
 	if(!istype(target))

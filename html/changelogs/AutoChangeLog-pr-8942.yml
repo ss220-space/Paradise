@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - qol: "quick deploy модсьюта на ПКМ. (PR #8942)"
-  - bugfix: "Триггеры теперь корректно обрабатывают проверки экшенов. (PR #8942)"

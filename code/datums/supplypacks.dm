@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/special_enabled = FALSE
 
 	// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
-	// var/order_limit = -1	// Unused for now (Crate limit #3056).
+	// var/order_limit = -1 // Unused for now (Crate limit #3056).
 
 	/// Number of times a crate has been ordered in a shift
 	var/times_ordered = 0
@@ -107,8 +107,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 // MARK: Emergency
 //////////////////////////////////////////////////////////////////////////////
 
-/datum/supply_packs/emergency	// Section header - use these to set default supply group and crate type for sections
-	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
+/datum/supply_packs/emergency // Section header - use these to set default supply group and crate type for sections
+	name = "HEADER" // Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
 	group = SUPPLY_EMERGENCY
 
@@ -953,7 +953,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/clothing/suit/armor/laserproof,
 		/obj/item/clothing/suit/armor/laserproof,
-	)		// Only two vests to keep costs down for balance
+	) // Only two vests to keep costs down for balance
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик противолазерной брони"
@@ -974,7 +974,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/gun_module/sibyl,
 		/obj/item/gun_module/sibyl,
 	)
-	cost = 25								//По 6 за один блокиратор
+	cost = 25 //По 6 за один блокиратор
 	containername = "ящик модулей \"Sibyl\""
 	container_ru_names = list(
 		NOMINATIVE = "ящик модулей \"Sibyl\"",
@@ -1108,7 +1108,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике энергетических карабинов",
 	)
 
-/datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+/datum/supply_packs/security/armory/epistol // costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 	name = "Энергетические пистолеты"
 	contains = list(
 		/obj/item/gun/energy/gun/mini,
@@ -1138,7 +1138,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/grenade/chem_grenade/incendiary,
 		/obj/item/grenade/chem_grenade/incendiary,
 	)
-	cost = 30	// its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
+	cost = 30 // its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик зажигательного вооружения"
 	container_ru_names = list(
@@ -4375,7 +4375,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/gator
 	name = "Аллигатор"
-	cost = 300	//most dangerous
+	cost = 300 //most dangerous
 	containertype = /obj/structure/closet/crate/critter/gator
 	containername = "ящик с аллигатором"
 	container_ru_names = list(
@@ -5608,7 +5608,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике официальной одежды",
 	)
 
-/datum/supply_packs/misc/teamcolors		//For team sports like space polo
+/datum/supply_packs/misc/teamcolors //For team sports like space polo
 	name = "Командные майки"
 	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
 	contains = list(
@@ -5633,7 +5633,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике командных маек",
 	)
 
-/datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
+/datum/supply_packs/misc/polo //For space polo! Or horsehead Quiditch
 	name = "Набор для поло"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
 	contains = list(
@@ -5662,7 +5662,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с набором для поло",
 	)
 
-/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
+/datum/supply_packs/misc/boxing //For non log spamming cargo brawls!
 	name = "Боксёрское снаряжение"
 	// 4 boxing gloves
 	contains = list(
@@ -6473,7 +6473,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	name = "Контрабанда"
 	cost = 30
-	containername = "ящик"	// let's keep it subtle, eh?
+	containername = "ящик" // let's keep it subtle, eh?
 	container_ru_names = list(
 		NOMINATIVE = "ящик",
 		GENITIVE = "ящика",

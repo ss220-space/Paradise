@@ -16,9 +16,9 @@
 #define MIN_TEMPERATURE 233.15 // -40C
 
 // Air alarm build stages
-#define AIR_ALARM_FRAME 0
-#define AIR_ALARM_BUILDING 1
-#define AIR_ALARM_READY 2
+#define AIR_ALARM_BUILD_NO_CIRCUIT 0
+#define AIR_ALARM_BUILD_CIRCUIT 1
+#define AIR_ALARM_WIRED 2
 
 GLOBAL_LIST_INIT(aalarm_modes, list(
 	"[AALARM_MODE_FILTERING]" = "Filtering",
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	var/danger_level = ATMOS_ALARM_NONE
 	var/alarmActivated = 0 // Manually activated (independent from danger level)
 
-	var/buildstage = AIR_ALARM_READY
+	var/buildstage = AIR_ALARM_WIRED
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
@@ -114,6 +114,9 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/alarm/syndicate/pirate // alarm for admin spawn map
+	req_access = list(160)
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -167,10 +170,9 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	if(building)
 		if(direction)
 			setDir(direction)
-
-		buildstage = AIR_ALARM_FRAME
+		buildstage = AIR_ALARM_BUILD_NO_CIRCUIT
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(-24, 24, -24, 24)
+		set_pixel_offsets_from_dir(23, -23, 23, -23)
 
 	first_run()
 	alarm_area.air_alarms += src
@@ -200,7 +202,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_READY || init_tick == SSair.milla_tick)
+	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_WIRED || init_tick == SSair.milla_tick)
 		return
 
 	var/turf/simulated/location = loc
@@ -300,11 +302,11 @@ GLOBAL_LIST_INIT(human_tlv, list(
 /obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
 		switch(buildstage)
-			if(AIR_ALARM_FRAME)
+			if(AIR_ALARM_BUILD_NO_CIRCUIT)
 				icon_state = "alarm_b1"
-			if(AIR_ALARM_BUILDING)
+			if(AIR_ALARM_BUILD_CIRCUIT)
 				icon_state = "alarm_b2"
-			if(AIR_ALARM_READY)
+			if(AIR_ALARM_WIRED)
 				icon_state = "alarmx"
 		return
 
@@ -327,7 +329,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
+	if(stat & NOPOWER || buildstage != AIR_ALARM_WIRED || wiresexposed || shorted)
 		return
 
 	underlays += emissive_appearance(icon, "alarm_lightmask", src)
@@ -524,7 +526,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 ///////////////
 
 /obj/machinery/alarm/attack_ai(mob/user)
-	if(buildstage != AIR_ALARM_READY)
+	if(buildstage != AIR_ALARM_WIRED)
 		return
 
 	add_hiddenprint(user)
@@ -540,7 +542,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	return interact(user)
 
 /obj/machinery/alarm/interact(mob/user)
-	if(buildstage != AIR_ALARM_READY)
+	if(buildstage != AIR_ALARM_WIRED)
 		return
 
 	if(wiresexposed)
@@ -714,7 +716,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		return !locked
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
-	if(buildstage != AIR_ALARM_READY)
+	if(buildstage != AIR_ALARM_WIRED)
 		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
@@ -861,42 +863,42 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		return ..()
 
 	switch(buildstage)
-		if(AIR_ALARM_READY)
+		if(AIR_ALARM_WIRED)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface
 				togglelock(user)
 				return ATTACK_CHAIN_PROCEED
 
-		if(AIR_ALARM_BUILDING)
+		if(AIR_ALARM_BUILD_CIRCUIT)
 			if(iscoil(I))
 				add_fingerprint(user)
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, span_notice("You need more cable for this!"))
+					to_chat(user, span_notice("Недостаточно проводов!"))
 					return ATTACK_CHAIN_PROCEED
-				to_chat(user, "You wire [src]!")
+				to_chat(user, "Проводка установлена")
 				playsound(get_turf(src), coil.usesound, 50, TRUE)
-				buildstage = AIR_ALARM_READY
+				buildstage = AIR_ALARM_WIRED
 				wiresexposed = TRUE
 				update_icon()
 				first_run()
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(AIR_ALARM_FRAME)
+		if(AIR_ALARM_BUILD_NO_CIRCUIT)
 			if(istype(I, /obj/item/airalarm_electronics))
 				add_fingerprint(user)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
-				to_chat(user, span_notice("You insert the circuit!"))
+				to_chat(user, span_notice("Плата установлена"))
 				playsound(get_turf(src), I.usesound, 50, TRUE)
 				qdel(I)
-				buildstage = AIR_ALARM_BUILDING
+				buildstage = AIR_ALARM_BUILD_CIRCUIT
 				update_icon(UPDATE_ICON_STATE)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
-	if(buildstage != AIR_ALARM_BUILDING)
+	if(buildstage != AIR_ALARM_BUILD_CIRCUIT)
 		return
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -904,15 +906,15 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
-	if(buildstage != AIR_ALARM_BUILDING)
+	if(buildstage != AIR_ALARM_BUILD_CIRCUIT)
 		return
 	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
 	new /obj/item/airalarm_electronics(user.drop_location())
-	buildstage = AIR_ALARM_FRAME
+	buildstage = AIR_ALARM_BUILD_NO_CIRCUIT
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
-	if(buildstage != AIR_ALARM_READY)
+	if(buildstage != AIR_ALARM_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -921,7 +923,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		attack_hand(user)
 
 /obj/machinery/alarm/screwdriver_act(mob/user, obj/item/I)
-	if(buildstage != AIR_ALARM_READY)
+	if(buildstage != AIR_ALARM_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -934,20 +936,20 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 
 /obj/machinery/alarm/wirecutter_act(mob/user, obj/item/I)
-	if(buildstage != AIR_ALARM_READY)
+	if(buildstage != AIR_ALARM_WIRED)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
 		new /obj/item/stack/cable_coil(user.drop_location(), 5)
-		buildstage = AIR_ALARM_BUILDING
+		buildstage = AIR_ALARM_BUILD_CIRCUIT
 		update_icon(UPDATE_ICON_STATE)
 	if(wiresexposed)
 		wires.Interact(user)
 
 /obj/machinery/alarm/wrench_act(mob/user, obj/item/item)
-	if(buildstage != AIR_ALARM_FRAME)
+	if(buildstage != AIR_ALARM_BUILD_NO_CIRCUIT)
 		return
 	. = TRUE
 	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
@@ -977,13 +979,13 @@ GLOBAL_LIST_INIT(human_tlv, list(
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	switch(buildstage)
-		if(AIR_ALARM_FRAME)
-			. += span_notice("Its <i>circuit</i> is missing and the <b>bolts<b> are exposed.")
-		if(AIR_ALARM_BUILDING)
-			. += span_notice("The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.")
-		if(AIR_ALARM_READY)
+		if(AIR_ALARM_BUILD_NO_CIRCUIT)
+			. += span_notice("Каркас <b>прикручен</b> к стене, но в нём отсутствует <i>электронная плата</i>.")
+		if(AIR_ALARM_BUILD_CIRCUIT)
+			. += span_notice("Систему контроля необходимо <i>подключить</i>, а плату можно <b>вытащить</b>.")
+		if(AIR_ALARM_WIRED)
 			if(wiresexposed)
-				. += span_notice("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
+				. += span_notice("Система контроля <b>подключёна</b>, а сервисная панель <i>открыта</i>.")
 
 /obj/machinery/alarm/proc/togglelock(mob/living/user)
 	add_fingerprint(user)
@@ -1021,6 +1023,9 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	locked = FALSE
 	req_access = null
 
+/obj/machinery/alarm/all_access/monitor
+	report_danger_level = FALSE
+
 /*
 AIR ALARM CIRCUIT
 Just an object used in constructing air alarms
@@ -1055,6 +1060,19 @@ Just an object used in constructing air alarms
 #undef MAX_ENERGY_CHANGE
 #undef MAX_TEMPERATURE
 #undef MIN_TEMPERATURE
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_BUILDING
-#undef AIR_ALARM_READY
+#undef AIR_ALARM_BUILD_NO_CIRCUIT
+#undef AIR_ALARM_BUILD_CIRCUIT
+#undef AIR_ALARM_WIRED
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access/monitor, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/kitchen_cold_room, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor/server, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/old, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate/pirate, 23, 23)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/vox, 23, 23)

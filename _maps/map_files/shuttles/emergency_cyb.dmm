@@ -412,9 +412,7 @@
 /area/shuttle/escape)
 "bx" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -660,10 +658,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"cc" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/shuttle/escape)
 "cd" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/recharge_station,
@@ -689,9 +683,7 @@
 	},
 /area/shuttle/escape)
 "cf" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -782,9 +774,7 @@
 	},
 /area/shuttle/escape)
 "ct" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -907,8 +897,28 @@
 "cH" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/escape)
+"kj" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
 "wB" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/escape)
+"Cj" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
 /area/shuttle/escape)
 "Ow" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
@@ -1024,11 +1034,11 @@ ba
 bQ
 bQ
 bQ
-bQ
+Cj
 bQ
 ba
 bQ
-bQ
+Cj
 bQ
 bQ
 bQ
@@ -1055,11 +1065,11 @@ ba
 bR
 bW
 bY
-cc
+wB
 bR
 ba
 bY
-cc
+wB
 bR
 bX
 bY
@@ -1086,11 +1096,11 @@ ba
 bP
 bP
 bP
-bP
+kj
 bP
 ba
 bP
-bP
+kj
 bP
 bP
 bP
@@ -1148,11 +1158,11 @@ ba
 bQ
 bQ
 bQ
-bQ
+Cj
 bQ
 ba
 bQ
-bQ
+Cj
 bQ
 bQ
 bQ
@@ -1179,11 +1189,11 @@ ba
 bR
 bX
 bY
-cc
+wB
 bR
 ba
 bY
-cc
+wB
 bR
 bW
 bY
@@ -1210,11 +1220,11 @@ ba
 bP
 bP
 bP
-bP
+kj
 bP
 ba
 bP
-bP
+kj
 bP
 bP
 bP

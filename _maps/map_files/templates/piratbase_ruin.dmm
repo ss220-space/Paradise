@@ -449,11 +449,7 @@
 "br" = (
 /obj/structure/table,
 /obj/item/stack/medical/ointment/advanced,
-/obj/machinery/alarm/syndicate{
-	dir = 1;
-	pixel_y = -24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "bs" = (
@@ -607,11 +603,7 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/machinery/alarm/syndicate{
-	dir = 1;
-	pixel_y = -24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -1643,10 +1635,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ex" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2097,9 +2086,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /turf/simulated/floor/pod/light,
@@ -2625,10 +2612,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "hA" = (
@@ -2846,9 +2830,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -2983,9 +2965,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -3028,9 +3008,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "iI" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -3169,9 +3147,7 @@
 "ji" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "jk" = (
@@ -3415,11 +3391,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "jW" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -3743,9 +3715,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
 "kW" = (
@@ -4016,11 +3986,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "lV" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "lW" = (
@@ -4675,9 +4641,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -4970,11 +4934,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "ou" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "ov" = (
@@ -5416,9 +5376,7 @@
 /obj/structure/table/glass,
 /obj/item/stack/packageWrap,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -5878,9 +5836,7 @@
 "rf" = (
 /obj/item/bodybag/biohazard,
 /obj/structure/rack,
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -6569,9 +6525,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "to" = (
@@ -6906,9 +6860,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
@@ -7580,9 +7532,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -7742,8 +7692,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "wp" = (
 /obj/machinery/computer/operating,
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -24;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable,
@@ -8112,9 +8061,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/table,
@@ -8477,11 +8424,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "yA" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
 	dir = 8
 	},
@@ -8578,9 +8521,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "yL" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -8755,11 +8696,7 @@
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_y = 8
 	},
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -9753,9 +9690,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "Cm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -9892,9 +9827,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -10821,9 +10754,7 @@
 /area/ruin/space/pirate_base/security_atrium)
 "FM" = (
 /obj/item/storage/toolbox/mechanical,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -11076,9 +11007,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/xeno_lab)
 "Gx" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11328,9 +11257,7 @@
 /obj/structure/chair/sofa{
 	dir = 8
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -11964,10 +11891,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "Jf" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -12958,9 +12882,7 @@
 /turf/space,
 /area/space)
 "LR" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -13140,11 +13062,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/alarm/syndicate{
-	dir = 1;
-	pixel_y = -24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/south,
 /mob/living/simple_animal/hostile/pirate{
 	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
@@ -13195,9 +13113,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/xeno_lab)
 "ME" = (
-/obj/machinery/power/apc/noalarm{
-	name = "Pirate Corvette APC";
-	pixel_y = -28;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -13463,9 +13379,7 @@
 	},
 /area/ruin/space/pirate_base/security_atrium)
 "Nn" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -13617,10 +13531,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "NF" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13778,9 +13689,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/kitchen)
 "Oc" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -13842,10 +13751,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 5
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/north,
 /mob/living/simple_animal/hostile/pirate/ranged{
 	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
@@ -14488,9 +14394,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 26;
+/obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -14599,11 +14503,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "QI" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -15034,9 +14934,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 26;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -15471,8 +15369,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "To" = (
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -26;
+/obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
 /obj/structure/cable{
@@ -15960,10 +15857,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
 	health = 200;
@@ -15973,11 +15867,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "UH" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -16389,11 +16279,7 @@
 /area/ruin/space/pirate_base/security_medical)
 "VS" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16640,9 +16526,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "WL" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /mob/living/simple_animal/hostile/pirate{
 	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
@@ -16651,9 +16535,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "WM" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -16737,9 +16619,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
 	},
@@ -16765,12 +16645,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "Xd" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "Pirate Corvette Air alarm";
-	pixel_y = -25;
-	req_access = list(160)
-	},
+/obj/machinery/alarm/syndicate/pirate/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -17745,9 +17620,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -26;
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,

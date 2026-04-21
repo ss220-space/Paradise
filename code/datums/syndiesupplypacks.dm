@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/New()
 	manifest += "<ul>"
 	for(var/path in contains)
-		if(!path)	continue
+		if(!path) continue
 		var/atom/movable/AM = path //Получение переменной возможно лишь благодаря initial()
 		manifest += "<li>[initial(AM.name)]</li>"
 		// Add the name to the UI manifest
@@ -68,8 +68,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Emergency ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-/datum/syndie_supply_packs/emergency	// Section header - use these to set default supply group and crate type for sections
-	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
+/datum/syndie_supply_packs/emergency // Section header - use these to set default supply group and crate type for sections
+	name = "HEADER" // Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
 	group = SYNDIE_SUPPLY_EMERGENCY
 
@@ -774,7 +774,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/grenade/chem_grenade/incendiary,
 		/obj/item/grenade/chem_grenade/incendiary,
 	)
-	cost = 150	// its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
+	cost = 150 // its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "incendiary weapons crate"
 
@@ -796,7 +796,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/large
 	containername = "fuel tank crate"
 
-/datum/syndie_supply_packs/engineering/tools		//the most robust crate
+/datum/syndie_supply_packs/engineering/tools //the most robust crate
 	name = "Syndicate Toolbox Crate"
 	contains = list(
 		/obj/item/storage/toolbox/syndicate,
@@ -852,7 +852,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/engineering/power
 	name = "Power Cell Crate"
 	contains = list(
-		/obj/item/stock_parts/cell/high,		//Changed to an extra high powercell because normal cells are useless
+		/obj/item/stock_parts/cell/high, //Changed to an extra high powercell because normal cells are useless
 		/obj/item/stock_parts/cell/high,
 		/obj/item/stock_parts/cell/high,
 	)
@@ -1821,7 +1821,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/organic/gator
 	name = "Gator Crate"
-	cost = 1500	//most dangerous
+	cost = 1500 //most dangerous
 	containertype = /obj/structure/closet/crate/critter/gator
 	containername = "gator crate"
 
@@ -2526,7 +2526,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	)
 	name = "Contraband Crate"
 	cost = 300
-	containername = "crate"	//let's keep it subtle, eh?
+	containername = "crate" //let's keep it subtle, eh?
 
 /datum/syndie_supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
@@ -2562,7 +2562,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 300 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
 
-/datum/syndie_supply_packs/misc/teamcolors		//For team sports like space polo
+/datum/syndie_supply_packs/misc/teamcolors //For team sports like space polo
 	name = "Team Jerseys Crate"
 	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
 	contains = list(
@@ -2579,7 +2579,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 150
 	containername = "team jerseys crate"
 
-/datum/syndie_supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
+/datum/syndie_supply_packs/misc/polo //For space polo! Or horsehead Quiditch
 	name = "Polo Supply Crate"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
 	contains = list(
@@ -2600,7 +2600,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 200
 	containername = "polo supply crate"
 
-/datum/syndie_supply_packs/misc/boxing			//For non log spamming cargo brawls!
+/datum/syndie_supply_packs/misc/boxing //For non log spamming cargo brawls!
 	name = "Boxing Supply Crate"
 	// 4 boxing gloves
 	contains = list(

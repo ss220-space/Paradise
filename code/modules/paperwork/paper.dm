@@ -63,18 +63,13 @@
 		PREPOSITIONAL = "бумаге",
 	)
 
-//lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
-
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
-	base_pixel_x = pixel_x
-	base_pixel_y = pixel_y
+	pixel_x = base_pixel_x + rand(-9, 9)
+	pixel_y = base_pixel_y + rand(-8, 8)
 
-	spawn(2)
-		update_icon()
-		updateinfolinks()
+	update_appearance()
+	updateinfolinks()
 
 /obj/item/paper/update_icon_state()
 	icon_state = "paper[info ? "_words" : ""]"

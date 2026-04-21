@@ -36,21 +36,25 @@
 		storage.remove_from_storage(item, drop_location())
 
 /obj/item/implant/storage/implant(mob/living/source, mob/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	var/obj/item/implant/storage/imp_e = locate(src.type) in source
-	if(imp_e)
-		imp_e.storage.storage_slots += storage.storage_slots
-		imp_e.storage.max_combined_w_class += storage.max_combined_w_class
-		imp_e.storage.contents += storage.contents
+	if(!imp_e)
+		return
 
-		for(var/mob/check in range(1))
-			if(check.s_active == storage)
-				storage.close(check)
-		storage.show_to(source)
+	imp_e.storage.storage_slots += storage.storage_slots
+	imp_e.storage.max_combined_w_class += storage.max_combined_w_class
+	imp_e.storage.contents += storage.contents
 
-		qdel(src)
-		return TRUE
+	for(var/mob/check in range(1))
+		if(check.s_active == storage)
+			storage.close(check)
+	storage.show_to(source)
 
-	return ..()
+	qdel(src)
+	return TRUE
 
 /obj/item/implant/storage/proc/get_contents() //Used for swiftly returning a list of the implant's contents i.e. for checking a theft objective's completion.
 	if(storage?.contents)
