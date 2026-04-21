@@ -783,9 +783,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
-				var/obj/item/created_object = D.build_path
 				if(!(D.build_type & compare))
 					continue
+				var/obj/item/created_object = D.build_path
 				if(findtext(D.build_object_name, query) || findtext(created_object.name, query))
 					matching_designs.Add(D)
 			submenu = SUBMENU_LATHE_CATEGORY
