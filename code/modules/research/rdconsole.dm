@@ -1169,6 +1169,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		PREPOSITIONAL = "консоли НИО отдела Снабжения"
 	)
 
+/obj/machinery/computer/rdconsole/cargo/update_icon_state()
+	icon_state = "cargocomp"
+
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
 #undef PROTOLATHE_CONSTRUCT_DELAY

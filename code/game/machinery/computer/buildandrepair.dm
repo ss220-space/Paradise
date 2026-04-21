@@ -871,6 +871,9 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "cargocomp_unscrewed"
 
+/obj/structure/computerframe/cargo/update_icon_state()
+	icon_state = "cargocomp_unscrewed"
+
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT
 #undef STATE_NOWIRES
