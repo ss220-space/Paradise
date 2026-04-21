@@ -116,7 +116,7 @@
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
 		P.wrench_act(user, integrated_wrench)
-	else if(iswrench(inactive_hand_item) && (user.CanReach(P, inactive_hand_item)))
+	else if(iswrench(inactive_hand_item) && (P.IsReachableBy(user, inactive_hand_item.reach)))
 		P.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 
@@ -129,7 +129,7 @@
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
 		construct.wrench_act(user, integrated_wrench)
-	else if(iswrench(inactive_hand_item) && (user.CanReach(construct, inactive_hand_item)))
+	else if(iswrench(inactive_hand_item) && (construct.IsReachableBy(user, inactive_hand_item.reach)))
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 

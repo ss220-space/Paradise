@@ -132,12 +132,12 @@
 		speaker_mask = speaker.name
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
-		if(istype(player,/mob/dead) && follow)
+		if(isdead(player) && follow)
 			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)]) [name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
+		else if(isdead(player) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
 
 			if(player.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)

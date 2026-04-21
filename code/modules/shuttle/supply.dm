@@ -78,7 +78,8 @@
 
 /obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/S1, force, transit)
 	. = ..()
-	if(.)	return .
+	if(.)
+		return .
 
 	buy(S1)
 	sell(S1)
@@ -149,7 +150,7 @@
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
 			continue
-		if(istype(MA, /mob/dead))
+		if(isdead(MA))
 			continue
 		SSshuttle.sold_atoms += " [MA.declent_ru(NOMINATIVE)]"
 
@@ -398,13 +399,9 @@
 	slip.loc = Crate
 	if(is_crate(Crate))
 		var/obj/structure/closet/crate/CR = Crate
-		CR.manifest = slip
-		CR.update_icon(UPDATE_OVERLAYS)
+		CR.manifest = WEAKREF(slip)
+		CR.update_appearance()
 		CR.announce_beacons = object.announce_beacons.Copy()
-	if(istype(Crate, /obj/structure/closet/crate/large))
-		var/obj/structure/closet/crate/large/LC = Crate
-		LC.manifest = slip
-		LC.update_icon(UPDATE_OVERLAYS)
 
 	return Crate
 

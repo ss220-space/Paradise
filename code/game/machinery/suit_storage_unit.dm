@@ -514,22 +514,28 @@
 		open_machine()
 		dump_contents()
 		return
-	user.visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
-		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
-		span_italics("You hear a thump from [src]."))
-	if(do_after(user,(breakout_time), src))
+	user.visible_message(
+		span_notice("You see [user] kicking against the doors of [src]!"),
+		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"),
+		span_hear("You hear a thump from [src]."),
+	)
+	if(do_after(user, (breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src)
 			return
-		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
-			span_notice("You successfully break out of [src]!"))
+		user.visible_message(
+			span_warning("[user] successfully broke out of [src]!"),
+			span_notice("You successfully break out of [src]!"),
+		)
 		open_machine()
 		dump_contents()
 
 	add_fingerprint(user)
 	if(locked)
-		visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
-			span_notice("You start kicking against the doors..."))
-		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 300)
+		visible_message(
+			span_notice("You see [user] kicking against the doors of [src]!"),
+			span_notice("You start kicking against the doors..."),
+		)
+		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 30 SECONDS)
 	else
 		open_machine()
 		dump_contents()

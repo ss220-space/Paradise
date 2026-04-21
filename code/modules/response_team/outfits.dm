@@ -72,7 +72,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	hours_dif = 250
@@ -89,7 +89,7 @@
 		/obj/item/storage/lockbox/mindshield/ert = 1,
 	)
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
 	implants = list(
@@ -103,7 +103,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	belt = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
@@ -123,7 +123,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/thermals/empproof,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
 	)
@@ -167,7 +167,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/security
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	hours_dif = 100
 	ranks = list(
@@ -184,9 +184,9 @@
 		/obj/item/gun/energy/gun/pdw9/ert = 1,
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
@@ -201,7 +201,7 @@
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	belt = /obj/item/storage/belt/military/assault/gammaert/full
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/restraints/legcuffs/bola/energy
 	r_pocket = /obj/item/extinguisher/mini
@@ -221,9 +221,9 @@
 		/obj/item/gun/energy/gun/nuclear/sibyl = 1,
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/eyes/thermals/empproof,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
@@ -278,7 +278,7 @@
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
-	glasses = /obj/item/clothing/glasses/meson/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/baton/telescopic
@@ -297,6 +297,7 @@
 		/obj/item/gun/energy/gun/sibyl = 1,
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
@@ -312,7 +313,7 @@
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
-	glasses = /obj/item/clothing/glasses/meson/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/baton/telescopic
@@ -331,7 +332,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/arm/toolset,
@@ -389,7 +390,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/medic
-	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/health/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/medical
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
@@ -409,11 +410,11 @@
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator/advanced = 1,
-		/obj/item/reagent_containers/applicator/burn = 1,
-		/obj/item/reagent_containers/applicator/brute = 1,
 		/obj/item/storage/pill_bottle/patch_pack/filled = 1,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/arm/surgery,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
@@ -429,7 +430,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/health/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
@@ -449,13 +450,14 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator/advanced = 1,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
 	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
 		/obj/item/organ/internal/cyberimp/arm/medibeam,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 	)
 	implants = list(
@@ -509,7 +511,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	back = /obj/item/mod/control/pre_equipped/responsory/chaplain
 	r_pocket = /obj/item/nullrod/ert
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	hours_dif = 200
 	ranks = list(
 		"Min" = "Дознаватель",
@@ -522,7 +524,7 @@
 		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
 	)
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
 	implants = list(
@@ -538,7 +540,7 @@
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	r_pocket = /obj/item/nullrod/ert
 	ranks = list(
 		"Min" = "Инквизитор",
@@ -552,7 +554,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 	)
 	implants = list(
@@ -606,7 +608,7 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	r_pocket = /obj/item/scythe/tele
 	mask = /obj/item/clothing/mask/gas/sechailer
 	backpack_contents = list(
@@ -614,6 +616,7 @@
 		/obj/item/ammo_box/magazine/sp8 = 2,
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
@@ -624,7 +627,7 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
@@ -637,6 +640,7 @@
 		/obj/item/reagent_containers/spray/cleaner = 1,
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/arm/advmop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,

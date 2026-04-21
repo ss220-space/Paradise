@@ -154,10 +154,7 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/maintenance/electrical_shop)
@@ -684,10 +681,7 @@
 /area/maintenance/trading)
 "Fv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	name = "east extinguisher cabinet";
-	pixel_x = 27
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -803,10 +797,7 @@
 	},
 /area/maintenance/electrical_shop)
 "MC" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -818,10 +809,7 @@
 /area/maintenance/trading)
 "Ny" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 22
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

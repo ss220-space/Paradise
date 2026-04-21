@@ -102,14 +102,12 @@
 		return
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
-	if(isturf(A) || isturf(A.loc))
-		if(A.Adjacent(src)) // see adjacent.dm
-			W.melee_attack_chain(src, A, modifiers)
-			return
-		else
-			A.base_ranged_item_interaction(src, W, modifiers)
-			return
-	return
+	if(A.IsReachableBy(src, W?.reach))
+		W.melee_attack_chain(src, A, modifiers)
+		return
+	else if(isturf(A) || isturf(A.loc))
+		A.base_ranged_item_interaction(src, W, modifiers)
+		return
 
 //Ctrl+Middle click cycles through modules
 /mob/living/silicon/robot/proc/CtrlMiddleClickOn(atom/A)

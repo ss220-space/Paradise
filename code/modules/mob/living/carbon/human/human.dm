@@ -526,6 +526,23 @@
 			bodypart.tourniquet.remove_from_bodypart(usr)
 			return
 
+		if(href_list["open_fracture_limb"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["open_fracture_limb"])
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+				return
+			if(!do_after(usr, 10 SECONDS, src, max_interact_count = 1))
+				return
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+				return
+			bodypart.owner.emote("scream")
+			if(prob(bodypart.fracture.reattach_chance)) //success
+				bodypart.fracture = FRACTURE_TYPE_CLOSED
+				return
+			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
+			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
+			bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
+			return
+
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())
@@ -1938,12 +1955,53 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
 		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
 			continue
-		modifier += 2
+		modifier += bodypart.fracture.slowdown_mod
 
 	if(modifier)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
+
+/mob/living/carbon/human/proc/update_fractures_workspeed()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+	)
+
+	var/modifier = 0
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		modifier += bodypart.fracture.workspeed_mod
+
+	if(modifier)
+		add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/fractures, multiplicative_slowdown = modifier)
+	else
+		remove_actionspeed_modifier(/datum/actionspeed_modifier/fractures)
+
+/mob/living/carbon/human/proc/update_fractures_fall()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+
+	var/exists_fracture  = FALSE
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		exists_fracture  = TRUE
+		break
+
+	if(exists_fracture)
+		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
 
 /mob/living/carbon/human/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)

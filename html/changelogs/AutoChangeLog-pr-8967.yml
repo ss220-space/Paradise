@@ -1,4 +1,0 @@
-author: "Dimempers"
-delete-after: True
-changes:
-  - bugfix: "Убрана лишняя скобка в достижениях (PR #8967)"
