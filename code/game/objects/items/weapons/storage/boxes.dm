@@ -1426,7 +1426,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/pen_case
-	name = "Набор ручек"
+	name = "Set of pens"
 	icon_state = "pen_case"
 	custom_price = PAYCHECK_MIN * 2
 	var/random_pen = list(
