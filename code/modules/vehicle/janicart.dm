@@ -15,6 +15,7 @@
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_appearance()
+	GLOB.janitorial_equipment += src
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
 /obj/vehicle/ridden/janicart/Destroy()
