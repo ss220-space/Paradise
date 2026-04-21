@@ -204,8 +204,19 @@
 
 /obj/item/gun/energy/kinetic_accelerator/update_overlays()
 	. = ..()
-	if(empty_state && !can_shoot())
-		. += empty_state
+	if(cell && cell.charge < 500)
+		if(empty_state)
+			. += empty_state
+
+/obj/item/gun/energy/kinetic_accelerator/can_shoot(mob/user)
+	if(overheat)
+		return FALSE
+	return ..()
+
+/obj/item/gun/energy/kinetic_accelerator/shoot_with_empty_chamber(mob/living/user)
+	if(overheat)
+		return FALSE
+	return ..()
 
 // MARK: KA Variations
 /obj/item/gun/energy/kinetic_accelerator/experimental
@@ -474,6 +485,16 @@
 		INSTRUMENTAL = "модификацией \"Репитер\"",
 		PREPOSITIONAL = "модификации \"Репитер\""
 	)
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	. = ..()
+	if(.)
+		KA.AddComponent(/datum/component/automatic_fire, 0.8 SECONDS)
+		KA.balloon_alert(user, "автоматический режим")
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
+	qdel(KA.GetComponent(/datum/component/automatic_fire))
+	..()
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/borg
 	compatibility = COMPATIBILITY_CYBORG
