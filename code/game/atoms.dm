@@ -319,7 +319,7 @@
 			pixel_x = pixel_west
 
 ///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
+/atom/proc/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
 /atom/proc/CheckParts(list/parts_list)
@@ -681,7 +681,7 @@
 /atom/proc/fart_act(mob/living/user)
 	return FALSE
 
-/atom/proc/rpd_act()
+/atom/proc/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /atom/proc/rpd_blocksusage()

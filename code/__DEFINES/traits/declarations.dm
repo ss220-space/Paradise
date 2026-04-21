@@ -6,6 +6,8 @@
 #define TRAIT_BLOCK_RADIATION "block_radiation"
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
 #define TRAIT_BEING_SHOCKED "being_shocked" // Used together with WAS_SHOCKED instead of flag SHOCKED_2 from the Official Paradise.
+/// Trait that determines, if object under floor.
+#define TRAIT_UNDERFLOOR "underfloor"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -416,6 +418,9 @@
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 
+/// Ignores darkness for hearing
+#define TRAIT_HIJACK "hijack"
+
 //important_recursive_contents traits
 /*
  * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
@@ -491,6 +496,8 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// If a human has a fracture in their legs or feet (for optimization)
+#define TRAIT_FRACTURE_FALL "fracture_fall"
 /// Suppression implant trait
 #define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
 

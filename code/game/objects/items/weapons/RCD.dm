@@ -364,17 +364,25 @@
 		else
 			return FALSE
 
-/obj/item/rcd/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
+/obj/item/rcd/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	rcd_interact(interacting_with, user, mode)
+
+/obj/item/rcd/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	rcd_interact(interacting_with, user, RCD_MODE_DECON)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/rcd/proc/rcd_interact(atom/target, mob/user, rcd_mode)
 	if(istype(target, /obj/item/rcd_ammo))
 		rcd_reload(target, user)
 		return
 	var/area/check_area = get_area(target)
 	if(check_area?.type in areas_blacklist)
 		to_chat(user, span_warning("Something prevents you from using [src] in here..."))
-		return
-	target.rcd_act(user, src, mode)
+		return FALSE
+	target.rcd_act(user, src, rcd_mode)
 	SStgui.update_uis(src)
 
 /**

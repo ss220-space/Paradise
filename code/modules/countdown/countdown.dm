@@ -143,11 +143,11 @@
 
 /obj/effect/countdown/supermatter/attach(atom/attached_atom)
 	. = ..()
-	if(istype(attached_atom, /obj/machinery/atmospherics/supermatter_crystal/shard))
+	if(istype(attached_atom, /obj/machinery/power/supermatter_crystal/shard))
 		pixel_y = -12
 
 /obj/effect/countdown/supermatter/get_value()
-	var/obj/machinery/atmospherics/supermatter_crystal/supermatter = attached_to
+	var/obj/machinery/power/supermatter_crystal/supermatter = attached_to
 	if(!istype(supermatter))
 		return
 	return "<div align='center' valign='bottom' style='position:relative; top:0px; left:0px'>[round(supermatter.get_integrity_percent())]%</div>"

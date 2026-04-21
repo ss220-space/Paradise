@@ -66,7 +66,7 @@
 	var/is_equipped = FALSE
 	/// Timestamp used for sound effects
 	COOLDOWN_DECLARE(last_sound_effect)
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -3, ATTACHMENT_OFFSET_Y = 7),
@@ -113,7 +113,7 @@
 	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
 	materials = list(MAT_METAL = 1000)
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 8),

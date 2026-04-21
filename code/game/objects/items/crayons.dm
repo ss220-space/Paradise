@@ -79,9 +79,13 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity) return
-	if(busy) return
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return
+
+	if(busy)
+		return
+
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
 		if(letters.Find(drawtype))
@@ -307,29 +311,30 @@
 			colour = new_color
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(capped)
 		return
-	else
-		if(iscarbon(target))
-			if(uses-10 > 0)
-				uses = uses - 10
-				var/mob/living/carbon/human/C = target
-				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
-				if(C.client)
-					C.EyeBlurry(6 SECONDS)
-					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
-						C.Confused(6 SECONDS)
-						C.Weaken(6 SECONDS)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
-		if(loc == user) //sound play only if it in user hands
-			playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		..()
+
+	if(iscarbon(target))
+		if(uses-10 > 0)
+			uses = uses - 10
+			var/mob/living/carbon/human/C = target
+			user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
+			if(C.client)
+				C.EyeBlurry(6 SECONDS)
+				C.EyeBlind(2 SECONDS)
+				if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
+					C.Confused(6 SECONDS)
+					C.Weaken(6 SECONDS)
+			C.lip_style = "spray_face"
+			C.lip_color = colour
+			C.update_body()
+	if(loc == user) //sound play only if it in user hands
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	return ..()
 
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()

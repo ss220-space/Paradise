@@ -90,7 +90,7 @@
 		return FALSE
 	. = ..()
 
-/obj/item/craft_blueprints/attackby(obj/item/item, mob/user, params)
+/obj/item/craft_blueprints/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!placed_on_table)
 		return ..()
 	if(user.a_intent == INTENT_HARM || (item.item_flags & ABSTRACT) || item.is_robot_module())
@@ -99,14 +99,12 @@
 		return ..()
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/list/click_params = params2list(params)
-	var/x_offset = text2num(LAZYACCESS(click_params, ICON_X))
-	var/y_offset = text2num(LAZYACCESS(click_params, ICON_Y))
+	var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 	if(!x_offset || !y_offset)
 		return .
 	item.pixel_x = clamp(x_offset - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
-
 
 /obj/item/craft_blueprints/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))

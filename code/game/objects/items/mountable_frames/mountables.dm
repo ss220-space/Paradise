@@ -6,7 +6,7 @@
 	/// Is it possible to build it on the floor?
 	var/allow_floor_mounting = FALSE
 
-/obj/item/mounted/afterattack(atom/target, mob/user)
+/obj/item/mounted/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(is_type_in_list(target, buildon_types))
 		if(try_build(target, user))
 			return do_build(target, user)
