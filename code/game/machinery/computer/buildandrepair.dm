@@ -872,7 +872,7 @@
 	icon_state = "cargocomp_unscrewed"
 
 /obj/structure/computerframe/cargo/update_icon_state()
-	icon_state = "cargocomp_unscrewed"
+	icon_state = initial(icon_state)
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT
