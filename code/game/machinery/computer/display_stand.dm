@@ -97,6 +97,7 @@
 		return ..()
 
 	if(!istype(object, /obj/item/stack/sheet/glass))
+		to_chat(user, span_warning("Для починки нужно стекло."))
 		return ..()
 
 	add_fingerprint(user)
