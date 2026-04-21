@@ -422,6 +422,8 @@
 /datum/data/pda/app/janitor/update_ui(mob/user as mob, list/data)
 	var/list/JaniData = list()
 	var/turf/cl = get_turf(pda)
+	var/janitorial_equipment_chached = GLOB.janitorial_equipment
+	var/bots_list_chached = GLOB.bots_list
 
 	if(cl)
 		JaniData["user_loc"] = list("x" = cl.x, "y" = cl.y)
@@ -429,7 +431,7 @@
 		JaniData["user_loc"] = list("x" = 0, "y" = 0)
 
 	var/list/MopData = list()
-	for(var/obj/item/mop/M in GLOB.janitorial_equipment)
+	for(var/obj/item/mop/M in janitorial_equipment_chached)
 		var/turf/ml = get_turf(M)
 		if(ml)
 			if(ml.z != cl.z)
@@ -438,7 +440,7 @@
 			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2rustext(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
 
 	var/list/BucketData = list()
-	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
+	for(var/obj/structure/mopbucket/B in janitorial_equipment_chached)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
@@ -447,7 +449,7 @@
 			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2rustext(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/CbotData = list()
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
+	for(var/mob/living/simple_animal/bot/cleanbot/B in bots_list_chached)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
@@ -456,7 +458,7 @@
 			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2rustext(direction)), "status" = B.on ? "Online" : "Offline")
 
 	var/list/CartData = list()
-	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
+	for(var/obj/structure/janitorialcart/B in janitorial_equipment_chached)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
@@ -465,7 +467,7 @@
 			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2rustext(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/CartKeyData = list()
-	for(var/obj/item/key/janitor/jan_key in GLOB.janitorial_equipment)
+	for(var/obj/item/key/janitor/jan_key in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(jan_key)
 		if(item_turf)
 			if(item_turf.z != cl.z)
@@ -474,7 +476,7 @@
 			CartKeyData[++CartKeyData.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)))
 
 	var/list/JanicartData = list()
-	for(var/obj/vehicle/ridden/janicart in GLOB.janitorial_equipment)
+	for(var/obj/vehicle/ridden/janicart/janicart in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(janicart)
 		if(item_turf)
 			if(item_turf.z != cl.z)

@@ -22,6 +22,10 @@
 	. = ..()
 	GLOB.janitorial_equipment += src
 
+/obj/item/key/janitor/Destroy()
+	. = ..()
+	GLOB.janitorial_equipment -= src
+
 /obj/item/key/security
 	desc = "A keyring with a small steel key, and a rubber stun baton accessory."
 	icon_state = "keysec"
