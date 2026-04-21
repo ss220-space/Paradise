@@ -489,12 +489,18 @@
 /obj/item/borg/upgrade/modkit/cooldown/repeater/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
 	if(.)
-		KA.AddComponent(/datum/component/automatic_fire, 0.8 SECONDS)
+		KA.AddComponent(/datum/component/automatic_fire, 0.4 SECONDS)
 		KA.balloon_alert(user, "автоматический режим")
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	qdel(KA.GetComponent(/datum/component/automatic_fire))
 	..()
+
+/obj/item/gun/energy/kinetic_accelerator/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
+	if(overheat)
+		return COMPONENT_AUTOFIRE_SHOT_SUCCESS
+
+	return ..()
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/borg
 	compatibility = COMPATIBILITY_CYBORG
