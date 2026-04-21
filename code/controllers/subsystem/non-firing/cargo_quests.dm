@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(cargo_quests)
 		if(!storage.active)
 			continue
 
-		if(!istype(delivery.wrapped, /obj/structure/closet/crate))
+		if(!is_crate(delivery.wrapped))
 			return FALSE
 
 		if(!length(delivery.wrapped.contents))

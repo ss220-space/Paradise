@@ -91,6 +91,11 @@
 
 	orient2hud()
 
+
+/obj/item/storage/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Открыть")
+
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -129,7 +134,7 @@
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
 		return FALSE
 
-	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
+	if(over_object == user && IsReachableBy(user)) // this must come before the screen objects only block
 		open(user)
 		return FALSE
 
@@ -137,15 +142,15 @@
 		var/obj/item/storage = over_object
 		if(!(storage.item_flags & IN_STORAGE))
 			dump_storage(user, over_object)
-			return
+			return TRUE
 
 	if((!istype(src, /obj/item/storage/lockbox) && (istable(over_object) || isfloorturf(over_object)) \
-		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
+		&& length(contents) && loc == user && !user.incapacitated() && over_object.IsReachableBy(user)))
 
 		if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
 			return FALSE
 
-		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
+		if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
 			return FALSE
 
 		if(user.s_active == src)
@@ -171,6 +176,18 @@
 		return CLICK_ACTION_SUCCESS
 	open(user)
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/storage/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	click_alt(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/storage/attack_self_secondary(mob/user, list/modifiers)
+	open(user)
+	return TRUE
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -810,13 +827,24 @@
 	if(isrobot(user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL //Robots can't interact with storage items.
 
-	if(!can_be_inserted(I))
-		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
-			return .|ATTACK_CHAIN_BLOCKED_ALL
+	if(!attempt_insert(I))
 		return .
 
-	handle_item_insertion(I)
 	return .|ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/storage/proc/attempt_insert(obj/item/item)
+	if(!can_be_inserted(item))
+		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
+			return TRUE
+		return FALSE
+
+	handle_item_insertion(item)
+	return TRUE
+
+/obj/item/storage/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
+	. = ..()
+	open(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))
@@ -870,10 +898,10 @@
 	drop_inventory(usr)
 
 /obj/item/storage/proc/drop_inventory(user)
-	var/turf/T = get_turf(src)
+	var/turf/current_turf = get_turf(src)
 	hide_from(user)
-	for(var/obj/item/I in contents)
-		remove_from_storage(I, T)
+	for(var/obj/item/item in contents)
+		remove_from_storage(item, current_turf)
 		CHECK_TICK
 
 /obj/item/storage/proc/force_drop_inventory()
@@ -932,42 +960,6 @@
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)
-
-//Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
-//Returns -1 if the atom was not found on container.
-/atom/proc/storage_depth(atom/container)
-	var/depth = 0
-	var/atom/cur_atom = src
-
-	while(cur_atom && !(cur_atom in container.contents))
-		if(isarea(cur_atom))
-			return -1
-		if(isstorage(cur_atom.loc))
-			depth++
-		cur_atom = cur_atom.loc
-
-	if(!cur_atom)
-		return -1	//inside something with a null loc.
-
-	return depth
-
-//Like storage depth, but returns the depth to the nearest turf
-//Returns -1 if no top level turf (a loc was null somewhere, or a non-turf atom's loc was an area somehow).
-/atom/proc/storage_depth_turf()
-	var/depth = 0
-	var/atom/cur_atom = src
-
-	while(cur_atom && !isturf(cur_atom))
-		if(isarea(cur_atom))
-			return -1
-		if(isstorage(cur_atom.loc))
-			depth++
-		cur_atom = cur_atom.loc
-
-	if(!cur_atom)
-		return -1	//inside something with a null loc.
-
-	return depth
 
 /obj/item/storage/serialize()
 	var/data = ..()

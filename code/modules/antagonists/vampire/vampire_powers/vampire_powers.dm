@@ -462,6 +462,7 @@
 			if(prob(25))
 				bodypart.mend_fracture()
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_bleeding()
 
 		return
 	if(H.stat != DEAD)

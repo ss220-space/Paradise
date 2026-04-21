@@ -134,13 +134,13 @@
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/fireaxe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
-		if(is_window(A) || istype(A, /obj/structure/grille))
-			var/obj/structure/W = A
+		if(is_window(target) || istype(target, /obj/structure/grille))
+			var/obj/structure/W = target
 			W.obj_destruction("fireaxe")
 
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
@@ -448,14 +448,14 @@
 	qdel(tip)
 	..()
 
-/obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
+/obj/item/twohanded/spear/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
-	if(isturf(AM)) //So you can actually melee with it
+	if(isturf(target)) //So you can actually melee with it
 		return
 	if(explosive && HAS_TRAIT(src, TRAIT_WIELDED))
-		explosive.forceMove(AM)
+		explosive.forceMove(target)
 		explosive.prime()
 		qdel(src)
 
@@ -554,20 +554,20 @@
 	force_unwielded = 15
 	force_wielded = 25
 
-/obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
-	..()
-	if(!proximity)
+/obj/item/twohanded/spear/grey_tide/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(!proximity_flag)
 		return
 	user.faction |= "greytide([user.UID()])"
-	if(isliving(AM))
-		var/mob/living/L = AM
+	if(isliving(target))
+		var/mob/living/L = target
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
 		if(!L.stat && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.attack_sound = hitsound
-			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+			M.Copy_Parent(user, 100, user.health / 2.5, 12, 30)
 			M.GiveTarget(L)
 
 /obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
@@ -841,21 +841,21 @@
 /obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/singularityhammer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
+	if(!proximity_flag || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	charged = 0
-	var/turf/target = get_turf(A)
-	playsound(target, 'sound/weapons/marauder.ogg', 50, TRUE)
+	var/turf/target_turf = get_turf(target)
+	playsound(target_turf, 'sound/weapons/marauder.ogg', 50, TRUE)
 
-	if(isliving(A))
-		var/mob/living/victim = A
+	if(isliving(target))
+		var/mob/living/victim = target
 		victim.take_organ_damage(20)
 
-	for(var/atom/pulled_thing as anything in (orange(5, target) - user))
-		pulled_thing.singularity_hammer_act(target)
+	for(var/atom/pulled_thing as anything in (orange(5, target_turf) - user))
+		pulled_thing.singularity_hammer_act(target_turf)
 
 /atom/proc/singularity_hammer_act(turf/pull)
 	return
@@ -977,14 +977,14 @@
 /obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/knighthammer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(charged == 5)
 		charged = 0
-		if(isliving(A))
-			var/mob/living/Z = A
+		if(isliving(target))
+			var/mob/living/Z = target
 			if(Z.health >= 1)
 				Z.visible_message(
 					span_danger("[DECLENT_RU_CAP(Z, NOMINATIVE)] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
@@ -1003,13 +1003,13 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			if(iswallturf(A))
-				var/turf/simulated/wall/Z = A
+			if(iswallturf(target))
+				var/turf/simulated/wall/Z = target
 				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
-			else if(isstructure(A) || ismecha(A))
-				var/obj/Z = A
+			else if(isstructure(target) || ismecha(target))
+				var/obj/Z = target
 				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
@@ -1066,8 +1066,8 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
-/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	if(is_airlock(target))
@@ -1076,7 +1076,7 @@
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		airlock.deconstruct()
 		return TRUE
-	..()
+	return ..()
 
 /obj/item/twohanded/pitchfork/update_icon_state()
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -1118,8 +1118,8 @@
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
-/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	if(iswallturf(target))
@@ -1221,21 +1221,21 @@
 		balloon_alert(user, "вы слишком устали!")
 		return .|ATTACK_CHAIN_BLOCKED
 
-/obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+/obj/item/twohanded/sechammer/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
-	if(iswallturf(A))
-		var/turf/simulated/wall/W = A
+	if(iswallturf(target))
+		var/turf/simulated/wall/W = target
 		user.changeNext_move(attack_speed)
 		user.do_attack_animation(src)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 		W.take_damage(wall_damage)
 	if(user.getStaminaLoss() < max_stamina_damage)
-		if(istype(A, /obj/structure/girder))
-			var/obj/structure/G = A
+		if(istype(target, /obj/structure/girder))
+			var/obj/structure/G = target
 			G.take_damage(extra_girder_damage)
-		else if(istype(A, /obj/machinery/door))
-			var/obj/machinery/D = A
+		else if(istype(target, /obj/machinery/door))
+			var/obj/machinery/D = target
 			D.take_damage(extra_door_damage)
 	user.adjustStaminaLoss(stamina_drain)

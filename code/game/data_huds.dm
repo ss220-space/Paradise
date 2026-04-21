@@ -583,7 +583,7 @@
 	set_hud_image_active(PLANT_HEALTH_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_toxin()
-	if(toxic < 10)	// You don't want to see these icons if the value is small
+	if(toxic < 10) // You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_TOXIN_HUD, "")
 		set_hud_image_inactive(PLANT_TOXIN_HUD)
 		return
@@ -591,7 +591,7 @@
 	set_hud_image_active(PLANT_TOXIN_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_pest()
-	if(pestlevel < 1)	// You don't want to see these icons if the value is small
+	if(pestlevel < 1) // You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_PEST_HUD, "")
 		set_hud_image_inactive(PLANT_PEST_HUD)
 		return
@@ -599,7 +599,7 @@
 	set_hud_image_active(PLANT_PEST_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_weed()
-	if(weedlevel < 1)	// You don't want to see these icons if the value is small
+	if(weedlevel < 1) // You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_WEED_HUD, "")
 		set_hud_image_inactive(PLANT_WEED_HUD)
 		return

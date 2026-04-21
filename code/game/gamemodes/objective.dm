@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)
 
+// MARK: Basic objective
 /datum/objective
 	/**
 	 * Proper name of the objective. Not player facing, only shown to admins when adding objectives.
@@ -33,6 +34,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/check_cryo = TRUE
 	/// This name displays in antag menu
 	var/antag_menu_name
+	var/special_object_type
+	var/area/special_object_spawn_area
+	var/object_sended
+	var/list/special_object_uplink_data
+	var/static/list/possible_spawn_areas
+	var/static/list/cached_names = list()
 
 /datum/objective/New(text, datum/team/team_to_join)
 	GLOB.all_objectives += src
@@ -40,6 +47,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(special_object_type)
+		select_area_for_spawn()
 
 /datum/objective/Destroy(force)
 	for(var/datum/mind/user in get_owners())
@@ -55,6 +64,83 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/proc/check_anatag_menu_ability()
 	return TRUE
+
+/datum/objective/proc/on_add_objective(datum/mind)
+	return
+
+/datum/objective/proc/on_remove_objective(datum/mind)
+	return
+
+/datum/objective/proc/can_send_object()
+	if(!special_object_type)
+		return FALSE
+
+	if(!special_object_spawn_area)
+		return FALSE
+
+	if(object_sended)
+		return FALSE
+
+	return TRUE
+
+/datum/objective/proc/get_uplink_data()
+	if(!can_send_object())
+		return
+
+	var/list/special_object_uplink_data = src.special_object_uplink_data
+
+	if(special_object_uplink_data)
+		return special_object_uplink_data
+
+	special_object_uplink_data = list()
+	special_object_uplink_data["objective_uid"] = UID()
+	special_object_uplink_data["objective_name"] = name
+	special_object_uplink_data["description"] = explanation_text
+	var/special_object_type_cached = special_object_type
+	var/item_name = cached_names[special_object_type_cached]
+	if(!item_name)
+		var/atom/spawn_item = new special_object_type_cached(null)
+		item_name = DECLENT_RU_CAP(spawn_item, NOMINATIVE)
+		cached_names[special_object_type_cached] = item_name
+		qdel(spawn_item)
+
+	special_object_uplink_data["item_name"] = item_name
+	special_object_uplink_data["area_name"] = special_object_spawn_area.name
+	return special_object_uplink_data
+
+/datum/objective/proc/spawn_objective_item(mob/user)
+	if(!can_send_object())
+		return
+
+	var/area/delivery_area = get_area(user)
+	if(delivery_area.type != special_object_spawn_area.type)
+		to_chat(user, span_warning("You must be in [special_object_spawn_area.name]."))
+		return
+
+	object_sended = TRUE
+	podspawn(list(
+		"target" = get_turf(user),
+		"style" = /datum/pod_style/syndicate,
+		"spawn" = special_object_type,
+	))
+
+/datum/objective/proc/select_area_for_spawn()
+	var/list/possible_spawn_areas = src.possible_spawn_areas
+
+	if(!possible_spawn_areas)
+		possible_spawn_areas = list()
+		for(var/area/maintenance/area in GLOB.areas)
+			possible_spawn_areas += area
+		src.possible_spawn_areas = possible_spawn_areas
+
+	var/area/spawn_area = pick(possible_spawn_areas)
+	special_object_spawn_area = spawn_area
+	replace_in_name("%AREA%", special_object_spawn_area.name)
+
+/// Replaces a word in the name of the proc. Also does it for the description
+/datum/objective/proc/replace_in_name(replace, word)
+	name = replacetext(name, replace, word)
+	explanation_text = replacetext(explanation_text, replace, word)
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
@@ -182,6 +268,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					continue
 				. |= general_objective.target
 
+// MARK: Assasinate
 /datum/objective/assassinate
 	name = "Assassinate"
 	antag_menu_name = "Убить"
@@ -213,6 +300,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Punish
 /datum/objective/punish
 	name = "Punish"
 	antag_menu_name = "Наказать"
@@ -244,6 +332,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Mutiny
 /datum/objective/mutiny
 	name = "Mutiny"
 	antag_menu_name = "Мятеж"
@@ -275,6 +364,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	// them win or lose based on cryo is silly so we remove the objective.
 	qdel(src)
 
+// MARK: Maroon
 /datum/objective/maroon
 	name = "Maroon"
 	antag_menu_name = "Не дать эвакуироваться живым/свободным"
@@ -320,6 +410,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Debrain
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	antag_menu_name = "Украсть мозг"
@@ -362,6 +453,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Pain hunter
 /datum/objective/pain_hunter
 	name = "pain hunter"
 	antag_menu_name = "Преподать урок"
@@ -486,6 +578,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	else
 		return completed
 
+// MARK: Protect
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"
 	antag_menu_name = "Защитить"
@@ -529,12 +622,19 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/protect/contractor //subtype for support units
 
+// MARK: Hijack
 /datum/objective/hijack
 	name = "Hijack"
 	antag_menu_name = "Угон шаттла"
 	explanation_text = "Угоните шаттл, эвакуировавшись без лояльного Nanotrasen экипажа на борту, будучи свободным. \
 	Агенты Синдикта, другие враги Nanotrasen, борги, питомцы, и заложники в наручниках/связывающих устройствах могут быть на шаттле живыми."
 	needs_target = FALSE
+
+/datum/objective/hijack/on_add_objective(datum/mind)
+	ADD_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/objective/hijack/on_remove_objective(datum/mind)
+	REMOVE_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/objective/hijack/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -546,6 +646,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return SSshuttle.emergency.is_hijacked()
 
+// MARK: Hijack with clones
 /datum/objective/hijackclone
 	name = "Hijack (with clones)"
 	antag_menu_name = "Угон шаттла (с клонами)"
@@ -582,6 +683,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Silicon supremacy
 /datum/objective/block
 	name = "Silicon Supremacy"
 	antag_menu_name = "Превосходство Синтетиков"
@@ -612,6 +714,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Escape
 /datum/objective/escape
 	name = "Escape"
 	antag_menu_name = "Эвакуироваться"
@@ -646,6 +749,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Escape with identity
 /datum/objective/escape/escape_with_identity
 	name = "Escape With Identity"
 	antag_menu_name = "Эвакуироваться под личностью"
@@ -728,6 +832,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Prison escape
 /datum/objective/prison_escape
 	name = "Prison Escape"
 	antag_menu_name = "Сбежать из тюрьмы"
@@ -764,6 +869,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Get equipment
+/datum/objective/get_equipment
+	name = "Get equipment"
+	antag_menu_name = "Получить снаряжение"
+	explanation_text = "Получить бесплатное снаряжение в определенном месте (необязательно)."
+	needs_target = FALSE
+	special_object_type = /obj/item/storage/box/syndie_kit/agent_base_kit
+	completed = TRUE
+
+// MARK: Glorious death
 /datum/objective/die
 	name = "Glorious Death"
 	antag_menu_name = "Умереть славной смертью"
@@ -782,6 +897,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Survive
 /datum/objective/survive
 	name = "Survive"
 	antag_menu_name = "Выжить"
@@ -796,6 +912,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return FALSE
 	return TRUE
 
+// MARK: Nuke
 /datum/objective/nuclear
 	name = "Nuke station"
 	antag_menu_name = "Взорвать станцию"
@@ -803,11 +920,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	martyr_compatible = TRUE
 	needs_target = FALSE
 
+// MARK: Steal
 /datum/objective/steal
 	name = "Steal Item"
 	antag_menu_name = "Украсть предмет"
 	var/datum/theft_objective/steal_target
 	var/type_theft_flag = THEFT_FLAG_HIGHRISK
+	var/allow_special_items = FALSE
 
 /datum/objective/steal/proc/get_theft_list_objectives(type_theft_flag)
 	switch(type_theft_flag)
@@ -835,6 +954,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/thefttype = pick_n_take(theft_types)
 		var/datum/theft_objective/new_theft_objective = new thefttype
 
+		if(!allow_special_items && new_theft_objective.special_equipment)
+			continue
+
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/player in get_owners())
 			if(player.assigned_role in new_theft_objective.protected_jobs)
@@ -854,7 +976,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		steal_target.generate_explanation_text(src)
 
 		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+			special_object_type = steal_target.special_equipment
+			select_area_for_spawn()
 
 		return TRUE
 
@@ -890,30 +1013,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		steal_target = new new_target
 		steal_target.generate_explanation_text(src)
 		if(steal_target.special_equipment)
-			give_kit(steal_target.special_equipment)
+			special_object_type = steal_target.special_equipment
+			select_area_for_spawn()
 	if(steal_target)
 		return TRUE
 	return FALSE
 
-/datum/objective/steal/proc/give_kit(obj/item/item_path)
-	var/item = new item_path
-	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_POCKET_LEFT,
-		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
-		"left hand" = ITEM_SLOT_HAND_LEFT,
-		"right hand" = ITEM_SLOT_HAND_RIGHT,
-	)
 
-	for(var/datum/mind/player in get_owners())
-		var/mob/living/carbon/human/human_owner = player.current
-		var/where = human_owner.equip_in_one_of_slots(item, slots)
-		if(where)
-			to_chat(human_owner, span_notice("<br><br>В вашем [where] находится коробка с [span_bold("предметами и инструкциями")], которые помогут вам в воровстве.<br>"))
-		else
-			to_chat(human_owner, span_userdanger("К сожалению, вам не удалось получить набор для кражи. Это очень плохо, и вам следует немедленно обратиться за помощью к администраторам (нажмите F1)."))
-			message_admins("[ADMIN_LOOKUPFLW(human_owner)] Failed to spawn with their [item_path] theft kit.")
-			qdel(item)
+/datum/objective/steal/with_special_items
+	allow_special_items = TRUE
 
 /datum/objective/steal/hard
 	type_theft_flag = THEFT_FLAG_HARD
@@ -959,6 +1067,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Не отдавайте и не теряйте [targetinfo.name]."
 	steal_target = targetinfo
 
+// MARK: Download
 /datum/objective/download
 	needs_target = FALSE
 	antag_menu_name = "Загрузите"
@@ -971,6 +1080,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/download/check_completion()
 	return FALSE
 
+// MARK: Capture
 /datum/objective/capture
 	needs_target = FALSE
 	antag_menu_name = "Накопить"
@@ -983,6 +1093,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
 	return FALSE
 
+// MARK: Absorb DNA
 /datum/objective/absorb
 	name = "Absorb DNA"
 	antag_menu_name = "Поглотить ДНК"
@@ -1020,6 +1131,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return TRUE
 	return FALSE
 
+// MARK: Destroy AI
 /datum/objective/destroy
 	name = "Destroy AI"
 	antag_menu_name = "Уничтожить ИИ"
@@ -1044,6 +1156,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 	return TRUE
 
+// MARK: Steal five items
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"
 	antag_menu_name = "Украсть минимум 5 предметов"
@@ -1111,6 +1224,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return stolen_count >= 5
 
+// MARK: Blood
 /datum/objective/blood
 	name = "Spread blood"
 	antag_menu_name = "Накопить кровь"
@@ -1134,6 +1248,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		return FALSE
 
+// MARK: Minimize casualties
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties
 	antag_menu_name = "Минимизация потерь"
@@ -1143,14 +1258,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/minimize_casualties/check_completion()
 	return TRUE
 
+// MARK: Heist
 //Vox heist objectives.
-
 /datum/objective/heist
 	needs_target = FALSE
 
 /datum/objective/heist/proc/choose_target()
 	return
 
+// MARK: Heist/Kidnap
 /datum/objective/heist/kidnap
 	antag_menu_name = "Похищение"
 
@@ -1195,6 +1311,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	else
 		return FALSE
 
+// MARK: Heist/Loot
 /datum/objective/heist/loot
 
 /datum/objective/heist/loot/choose_target()
@@ -1268,6 +1385,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Heist/Salvage
 /datum/objective/heist/salvage
 	antag_menu_name = "Добыть материалы"
 
@@ -1335,6 +1453,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(total_amount >= target_amount) return TRUE
 	return FALSE
 
+// MARK: Heist/Inviolate crew
 /datum/objective/heist/inviolate_crew
 	antag_menu_name = "Не бросать своих"
 	explanation_text = "Не бросайте ни одного вокса, живого или мёртвого.."
@@ -1352,7 +1471,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/heist/inviolate_death/check_completion()
 	return TRUE
 
-// Traders
+// MARK: Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 /datum/objective/trade
 	needs_target = FALSE
@@ -1373,16 +1492,14 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/trade/credits/choose_target()
 	explanation_text = "Заполучите не менее 10000 кредитов посредством торговли."
 
-//wizard
-
+// MARK: Wizard
 /datum/objective/wizchaos
 	antag_menu_name = "Магический хаос"
 	explanation_text = "Наведите на станции ​​столько хаоса, сколько сможете. Оставьте сообщение этим магловым подонкам из Nanotrasen!"
 	needs_target = FALSE
 	completed = TRUE
 
-//Space Ninja
-
+// MARK: Space Ninja
 /datum/objective/cyborg_hijack
 	name = "Cyborg Hijack"
 	antag_menu_name = "Взломать борга"
@@ -1699,6 +1816,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+// MARK: Blob
 /datum/objective/blob_critical_mass
 	needs_target = FALSE
 	antag_menu_name = "Достичь критической массы"
@@ -1732,11 +1850,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 	return resolved_overmind.stat != DEAD
 
+// MARK: Xeno
 /datum/objective/xeno_genocide
 	name = "Геноцид разумной жизни"
 	needs_target = FALSE
 	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
 
+// MARK: Bingle
 /datum/objective/bingle_lord
 	needs_target = FALSE
 	antag_menu_name = "Создать яму"
@@ -1754,6 +1874,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/datum/team/bingles/bingle_team = team
 	return bingle_team.goal_size_achieved
 
+// MARK: Serve
 /datum/objective/serve
 	name = "Служить"
 	antag_menu_name = "Служить"
@@ -1765,3 +1886,22 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return
 	serve_to = target_to_serve
 	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(serve_to)] приказы."
+
+// MARK: Supermatter cascade
+/datum/objective/supermatter_cascade
+	name = "Destroy the station by causing a crystallizing resonance cascade"
+	explanation_text = "Destroy the station by causing a supermatter cascade. Go to %AREA% to retrieve the destabilizing crystal \
+		and use it on the supermatter."
+	needs_target = FALSE
+	special_object_type = /obj/item/destabilizing_crystal
+
+/datum/objective/supermatter_cascade/check_completion()
+	. = ..()
+	if(!.)
+		return SSsupermatter_cascade.cascade_successful
+
+/datum/objective/supermatter_cascade/on_add_objective(datum/mind)
+	ADD_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/objective/supermatter_cascade/on_remove_objective(datum/mind)
+	REMOVE_TRAIT(mind, TRAIT_HIJACK, UNIQUE_TRAIT_SOURCE(src))

@@ -17,7 +17,7 @@
 	if(current_size != RESIZE_DEFAULT_SIZE)
 		var/standing_offset = get_pixel_y_offset_standing(current_size)
 		abs_pixel_y_offset = abs(standing_offset)
-		translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * SIGN(standing_offset)
+		translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * sign(standing_offset)
 	var/final_dir = dir
 	var/changed = FALSE
 
@@ -50,7 +50,7 @@
 			//Make sure the body position y offset is also updated
 			body_position_pixel_y_offset = get_pixel_y_offset_standing(current_size)
 			abs_pixel_y_offset = abs(body_position_pixel_y_offset)
-			var/new_translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * SIGN(body_position_pixel_y_offset)
+			var/new_translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * sign(body_position_pixel_y_offset)
 			if(new_translate)
 				ntransform.Translate(0, new_translate)
 			final_pixel_y = base_pixel_y + body_position_pixel_y_offset
@@ -249,7 +249,7 @@
 		// We only need to loop over half the deltas to swap all the entries, any more and it'd be redundant
 		// We floor so as to avoid over flipping, and ending up flipping "back" a delta
 		// etc etc
-		var/target = FLOOR((upper_parent - lower_parent) / 2, 1)
+		var/target = floor((upper_parent - lower_parent) / 2)
 		for(var/delta_index in 1 to target)
 			var/old_lower = queue[lower_parent + delta_index]
 			queue[lower_parent + delta_index] = queue[upper_parent - delta_index]

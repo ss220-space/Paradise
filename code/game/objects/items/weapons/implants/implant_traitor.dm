@@ -9,6 +9,10 @@
 	var/mindslave_UID
 
 /obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	// Check `implanted` here so you can't just keep taking it out and putting it back into other people.
 	if(implanted == BIOCHIP_USED || !ishuman(mindslave_target) || !ishuman(user)) // Both the target and the user need to be human.
 		return FALSE
