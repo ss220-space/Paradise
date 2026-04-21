@@ -198,12 +198,14 @@
 	speaker_name = colorize_name(speaker, speaker_name)
 	track = handle_track(message, genderize_decode(speaker, verb), speaker, speaker_name, follow_target, hard_to_hear)
 
-	if(!can_hear() && prob(20))
-		to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
-	else if(track)
-		to_chat(src, "[track] [part_a][speaker_name][part_b][message]</span></span>")
+	if(!can_hear())
+		if(prob(20))
+			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
-		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
+		if(track)
+			to_chat(src, "[track] [part_a][speaker_name][part_b][message]</span></span>")
+		else
+			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))

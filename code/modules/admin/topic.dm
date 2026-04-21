@@ -3624,8 +3624,8 @@
 					return
 				var/datum/job/J = SSjobs.GetJob(JOB_TITLE_OFFICER)
 				if(!J) return
-				J.total_positions = -1
-				J.spawn_positions = -1
+				J.total_positions = JOB_UNLIMITED_POSITION
+				J.spawn_positions = JOB_UNLIMITED_POSITION
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])

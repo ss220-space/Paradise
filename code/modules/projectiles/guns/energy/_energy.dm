@@ -318,8 +318,6 @@
 				. += image(icon = icon, icon_state = new_icon_state, pixel_w = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(bayonet && bayonet_overlay)
-		. += bayonet_overlay
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))

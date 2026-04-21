@@ -20,7 +20,7 @@
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
 				else if(isdatum(original.vars[V]))
-					continue	// this would reference the original's object, that will break when it is used or deleted.
+					continue // this would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
 	if(istype(O))
