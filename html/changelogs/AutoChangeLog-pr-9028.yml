@@ -1,0 +1,4 @@
+author: "ItsMeJaba"
+delete-after: True
+changes:
+  - bugfix: "Спрайты air alarm теперь не будут прыгать при включении тревоги (PR #9028)"

@@ -506,11 +506,8 @@ GLOBAL_LIST_EMPTY(closets)
 			var/mob/living/target_living = target_movable
 			if(!issilicon(target_living))
 				target_living.Knockdown(4 SECONDS)
-			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
-				target_movable.forceMove(src)
-			else
-				target_movable.forceMove(current_turf)
-				close()
+			target_movable.forceMove(current_turf)
+			close()
 			add_attack_logs(user, target_movable, "stuffed inside of [src]", ATKLOG_ALMOSTALL)
 	else
 		target_movable.forceMove(current_turf)
