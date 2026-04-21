@@ -1003,6 +1003,36 @@
 	desc = "Лучший бальзам для волос во всей галактике!"
 	icon_state = "alberto_balsalm"
 
+/obj/structure/sign/poster/official/corploveyou
+	name = "Корпорация любит тебя!"
+	desc = "Постер с очаровательной ассистенткой показывающая сердечко, напоминание о том, что Корпорация любит своих сотрудников!"
+	icon_state = "corploveyou"
+
+/obj/structure/sign/poster/official/explosionsafe
+	name = "Взрывы? - чушь!"
+	desc = "Ассистентке нечего бояться лжи о подрывах станций! Так же как и вам!"
+	icon_state = "explosionsafe"
+
+/obj/structure/sign/poster/official/clearstation
+	name = "Чистая станция"
+	desc = "Чистая станция — здоровый экипаж! Грязь и мусор — долой! Мытые руки и опрятный вид — то, что надо!"
+	icon_state = "clearstation"
+
+/obj/structure/sign/poster/official/safebody
+	name = "Средства защиты"
+	desc = "Ассистентка надела каску, а вы? Защититесь от травмоопасной среды!"
+	icon_state = "safebody"
+
+/obj/structure/sign/poster/official/fitness
+	name = "Оставайся в форме"
+	desc = "Ассистентка упражняется, что делает её работу эффективней!"
+	icon_state = "fitness"
+
+/obj/structure/sign/poster/official/hardwork
+	name = "Тяжелый труд"
+	desc = "Без труда не выловишь карпа из космоса. Ассистентка готова к упорному труду для достижения цели!"
+	icon_state = "hardwork"
+
 // MARK: Secret posters
 
 /obj/structure/sign/poster/secret

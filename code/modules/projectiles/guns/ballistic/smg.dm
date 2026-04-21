@@ -29,9 +29,6 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	burst_size = 2
-	can_bayonet = TRUE
-	bayonet_x_offset = 26
-	bayonet_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -102,9 +99,6 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_size = 2
-	can_bayonet = TRUE
-	bayonet_x_offset = 25
-	bayonet_y_offset = 12
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(

@@ -508,3 +508,6 @@
 #define TRAIT_NO_RICOCHET "no_ricochet"
 
 #define TRAIT_FACING_TO_MOUSE "facing_to_mouse"
+
+/// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
+#define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"

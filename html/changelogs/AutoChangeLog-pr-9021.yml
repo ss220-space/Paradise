@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - balance: "Бесплатный стечкин заменен на базовый набор агента. (PR #9021)"
+  - balance: "Из набора сс стечкином убран глушитель. (PR #9021)"
