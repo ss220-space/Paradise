@@ -664,3 +664,10 @@
 		step_count++
 
 	return TRUE
+
+/atom/proc/force_drop_all_contents(var/atom/target_to_drop)
+	if(!target_to_drop)
+		target_to_drop = get_turf(src)
+
+	for(var/atom/movable/atom_to_drop in contents)
+		atom_to_drop.forceMove(target_to_drop)

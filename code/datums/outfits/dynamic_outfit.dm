@@ -1,7 +1,5 @@
 //Temporary equipment storage
 /datum/dynamic_outfit
-	var/name = "Outfit name"
-
 	var/obj/item/uniform = null
 	var/obj/item/suit = null
 	var/obj/item/back = null
@@ -22,66 +20,102 @@
 	var/obj/item/r_hand = null
 	var/obj/item/pda = null
 
-	var/debug_switch = FALSE
+/datum/dynamic_outfit/Destroy(force)
+	remove_all_objects()
+	. = ..()
 
 /datum/dynamic_outfit/proc/unequip_item(mob/living/carbon/human/H, obj/item/I)
-	//For some unknown reason, players have access to a backpack located in null space.
 	if(isstorage(I))
-		var/obj/item/storage/prom = I
-		prom.close(H)
+		var/obj/item/storage/temp = I
+		temp.close(H)
+
 	H.temporarily_remove_item_from_inventory(I, TRUE, FALSE, TRUE)
 
-//all flags lmao xD
-/datum/dynamic_outfit/proc/equip(mob/living/carbon/human/H, selfdestroy = TRUE, selective_mode = INFINITY)
-	debug_switch = TRUE
+//Хы... хыхы
+/datum/dynamic_outfit/proc/remove_all_objects()
+	QDEL_NULL(uniform)
+	QDEL_NULL(suit)
+	QDEL_NULL(back)
+	QDEL_NULL(belt)
+	QDEL_NULL(gloves)
+	QDEL_NULL(shoes)
+	QDEL_NULL(head)
+	QDEL_NULL(mask)
+	QDEL_NULL(neck)
+	QDEL_NULL(l_ear)
+	QDEL_NULL(r_ear)
+	QDEL_NULL(glasses)
+	QDEL_NULL(id)
+	QDEL_NULL(l_pocket)
+	QDEL_NULL(r_pocket)
+	QDEL_NULL(suit_store)
+	QDEL_NULL(l_hand)
+	QDEL_NULL(r_hand)
+	QDEL_NULL(pda)
 
+/datum/dynamic_outfit/proc/equip(mob/living/carbon/human/H, selective_mode = INFINITY)
 	//Start with backpack,suit,uniform for additional slots
 	if(back && (ITEM_SLOT_BACK & selective_mode))
 		H.equip_or_collect(back, ITEM_SLOT_BACK)
+		back = null
 	if(uniform && (ITEM_SLOT_CLOTH_INNER & selective_mode))
 		H.equip_or_collect(uniform, ITEM_SLOT_CLOTH_INNER)
+		uniform = null
 	if(suit && (ITEM_SLOT_CLOTH_OUTER & selective_mode))
 		H.equip_or_collect(suit, ITEM_SLOT_CLOTH_OUTER)
+		suit = null
 	if(belt && (ITEM_SLOT_BELT & selective_mode))
 		H.equip_or_collect(belt, ITEM_SLOT_BELT)
+		belt = null
 	if(gloves && (ITEM_SLOT_GLOVES & selective_mode))
 		H.equip_or_collect(gloves, ITEM_SLOT_GLOVES)
+		gloves = null
 	if(shoes && (ITEM_SLOT_FEET & selective_mode))
 		H.equip_or_collect(shoes, ITEM_SLOT_FEET)
+		shoes = null
 	if(head && (ITEM_SLOT_HEAD & selective_mode))
 		H.equip_or_collect(head, ITEM_SLOT_HEAD)
+		head = null
 	if(mask && (ITEM_SLOT_MASK & selective_mode))
 		H.equip_or_collect(mask, ITEM_SLOT_MASK)
+		mask = null
 	if(neck && (ITEM_SLOT_NECK & selective_mode))
 		H.equip_or_collect(neck, ITEM_SLOT_NECK)
+		neck = null
 	if(l_ear && (ITEM_SLOT_EAR_LEFT & selective_mode))
 		H.equip_or_collect(l_ear, ITEM_SLOT_EAR_LEFT)
+		l_ear = null
 	if(r_ear && (ITEM_SLOT_EAR_RIGHT & selective_mode))
 		H.equip_or_collect(r_ear, ITEM_SLOT_EAR_RIGHT)
+		r_ear = null
 	if(glasses && (ITEM_SLOT_EYES & selective_mode))
 		H.equip_or_collect(glasses, ITEM_SLOT_EYES)
+		glasses = null
 	if(id && (ITEM_SLOT_ID & selective_mode))
 		H.equip_or_collect(id, ITEM_SLOT_ID)
+		id = null
 	if(suit_store && (ITEM_SLOT_SUITSTORE & selective_mode))
 		H.equip_or_collect(suit_store, ITEM_SLOT_SUITSTORE)
+		suit_store = null
 	if(l_hand && (ITEM_SLOT_HAND_LEFT & selective_mode))
 		H.equip_or_collect(l_hand, ITEM_SLOT_HAND_LEFT)
+		l_hand = null
 	if(r_hand && (ITEM_SLOT_HAND_RIGHT & selective_mode))
 		H.equip_or_collect(r_hand, ITEM_SLOT_HAND_RIGHT)
+		r_hand = null
 	if(pda && (ITEM_SLOT_PDA & selective_mode))
 		H.equip_or_collect(pda, ITEM_SLOT_PDA)
+		pda = null
 	if(l_pocket && (ITEM_SLOT_POCKET_LEFT & selective_mode))
 		H.equip_or_collect(l_pocket, ITEM_SLOT_POCKET_LEFT)
+		l_pocket = null
 	if(r_pocket && (ITEM_SLOT_POCKET_RIGHT & selective_mode))
 		H.equip_or_collect(r_pocket, ITEM_SLOT_POCKET_RIGHT)
+		r_pocket = null
 
 	H.regenerate_icons()
 
-	if(selfdestroy)
-		qdel(src)
-
 /datum/dynamic_outfit/proc/temp_unequip(mob/living/carbon/human/H, ignore_active_hand = FALSE, selective_mode = INFINITY)
-	debug_switch = FALSE
 	if(H.back && (ITEM_SLOT_BACK & selective_mode))
 		back = H.back
 		unequip_item(H, H.back)

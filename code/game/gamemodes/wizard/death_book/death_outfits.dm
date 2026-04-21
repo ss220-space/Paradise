@@ -1,3 +1,5 @@
+
+
 /datum/outfit/radial_outfit
 	var/icon/icon_outfit = null
 	var/icon_state = ""
@@ -6,17 +8,31 @@
 /datum/outfit/radial_outfit/proc/get_image()
 	return image(icon = icon_outfit, icon_state = icon_state)
 
-//castom check
 /datum/outfit/radial_outfit/proc/can_choise(mob/user)
 	return TRUE
+
+/datum/outfit/radial_outfit/death_book/var/list/atom/created_atoms = null
+
+/datum/outfit/radial_outfit/death_book/create_atom(path, loc)
+	. = ..()
+	LAZYADD(created_atoms, .)
+
+//Ну а хуле нам
+/datum/outfit/radial_outfit/death_book/equip(mob/living/carbon/human/H, visualsOnly, datum/component/prom_component, list/comp_args)
+	LAZYNULL(created_atoms)
+	. = ..()
+	return created_atoms
+
+#define DEFAULT_USES_TO_USE 2
 
 /datum/outfit/radial_outfit/death_book
 	icon_outfit = 'icons/obj/death_book.dmi'
 	calc_used_slots = TRUE
-	var/cooldown = 10 MINUTES
-	var/time_action = 3 MINUTES
+	var/cooldown = 1 MINUTES
+	var/time_action = 1	 MINUTES
 	var/message_to_chat = "Вы не должны этого видеть! Кодер ишшуй."
-	var/force_unequip_slots = 0
+	var/force_unequip_slots = NONE
+	var/need_uses_to_use = DEFAULT_USES_TO_USE
 
 /datum/outfit/radial_outfit/death_book/executioner
 	name = "Палач"
@@ -97,7 +113,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/security
 	gloves = /obj/item/clothing/gloves/combat
 	backpack_contents = list(
-		/obj/item/tank/internals/plasma = 5,
+		/obj/item/tank/internals/plasma/full = 5,
 		/obj/item/pickaxe/drill/jackhammer/phantom = 1,
 		/obj/item/grenade/clusterbuster/inferno = 1,
 		/obj/item/flamethrower/full/tank = 1,
@@ -140,6 +156,7 @@
 	message_to_chat = "Вы читаете историю о мерзавце, превратившем свой мир в гниющее логово чудовищ, наполненных гнилью и разложением — это задевает ваше самолюбие."
 	descr = "Заставьте экипаж испытать настоящий ужас, порождая ужасных тварей на их трупах. Для своей защиты используйте энергоарбалет и различные химические вещества."
 
+	need_uses_to_use = PLAGUE_INC_USES_TO_USE
 	force_unequip_slots = ITEM_SLOT_HEAD
 	uniform = /obj/item/clothing/under/syndicate/blackops
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
@@ -163,3 +180,6 @@
 	if(HAS_MIND_TRAIT(user, TRAIT_HIJACK))
 		return TRUE
 	return FALSE
+
+#undef PLAGUE_INC_USES_TO_USE
+#undef DEFAULT_USES_TO_USE

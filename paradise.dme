@@ -1230,7 +1230,6 @@
 #include "code\game\gamemodes\wizard\wizloadouts.dm"
 #include "code\game\gamemodes\wizard\death_book\death_book.dm"
 #include "code\game\gamemodes\wizard\death_book\death_outfits.dm"
-#include "code\game\gamemodes\wizard\death_book\components\phantom_component.dm"
 #include "code\game\jobs\access.dm"
 #include "code\game\jobs\job_exp.dm"
 #include "code\game\jobs\job_objective.dm"

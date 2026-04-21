@@ -1275,7 +1275,7 @@
 			else
 				objectives.Insert(objective_pos[1], new_objective)
 		else
-			new_objective.on_add_objective(new_objective)
+			new_objective.on_add_objective(src)
 			objectives += new_objective
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")

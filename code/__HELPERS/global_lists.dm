@@ -25,6 +25,9 @@
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)
+
+	init_subtypes(/datum/outfit/radial_outfit/death_book, GLOB.death_outfits)
+
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
@@ -227,8 +230,7 @@
  * * output_list - The list to add the created instances to. If not provided, a new list is created.
  */
 /proc/init_subtypes(prototype, list/output_list)
-	if(!istype(output_list))
-		output_list = list()
+	LAZYINITLIST(output_list)
 	for(var/subtype_path in subtypesof(prototype))
 		output_list += new subtype_path()
 	return output_list
@@ -244,8 +246,7 @@
  * * association_variable - The name of the variable to use as the key in the associative list
  */
 /proc/init_datum_subtypes(prototype, list/output_list, list/excluded_types, association_variable)
-	if(!istype(output_list))
-		output_list = list()
+	LAZYINITLIST(output_list)
 	for(var/subtype_path in subtypesof(prototype) - excluded_types)
 		var/datum/new_datum = new subtype_path()
 		if(istype(new_datum))
