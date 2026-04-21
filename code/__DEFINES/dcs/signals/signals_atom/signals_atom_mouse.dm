@@ -25,4 +25,5 @@
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
 	#define COMPONENT_CANCEL_MOUSEDROPPED_ONTO (1<<0)
 
-
+/// signal sent when a mouse is hovering over us, sent by atom/proc/on_mouse_entered
+#define COMSIG_ATOM_MOUSE_ENTERED "mouse_entered"

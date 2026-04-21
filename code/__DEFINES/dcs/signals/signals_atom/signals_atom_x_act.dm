@@ -91,7 +91,3 @@
 #define COMSIG_ATOM_ANALYSER_ACT "atom_analyser_act"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
-
-/// signal sent when a mouse is hovering over us, sent by atom/proc/on_mouse_entered
-#define COMSIG_ATOM_MOUSE_ENTERED "mouse_entered"
-
