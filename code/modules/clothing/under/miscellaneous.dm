@@ -862,12 +862,12 @@
 
 /obj/item/clothing/under/overalls/get_ru_names()
 	return list(
-		NOMINATIVE = "одежда каторжника",
-		GENITIVE = "одежды каторжника",
-		DATIVE = "одежде каторжника",
-		ACCUSATIVE = "одежду каторжника",
-		INSTRUMENTAL = "одеждой каторжника",
-		PREPOSITIONAL = "одежде каторжника",
+		NOMINATIVE = "рабочий комбинезон",
+		GENITIVE = "рабочего комбинезона",
+		DATIVE = "рабочему комбинезону",
+		ACCUSATIVE = "рабочий комбинезон",
+		INSTRUMENTAL = "рабочим комбинезоном",
+		PREPOSITIONAL = "рабочем комбинезоне",
 	)
 
 /obj/item/clothing/under/pirate
@@ -1721,7 +1721,7 @@
 
 /obj/item/clothing/under/rebeloutfit
 	name = "Rebel Outfit"
-	desc = "Сделано в Сеаттле, 2216."
+	desc = "Сделано в Сиэтле, 2216."
 	icon_state = "colin_earle"
 	item_state = "colin_earle"
 	item_color = "colin_earle"
