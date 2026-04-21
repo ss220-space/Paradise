@@ -1429,7 +1429,7 @@
 	name = "Set of pens"
 	icon_state = "pen_case"
 	custom_price = PAYCHECK_MIN * 2
-	var/random_pen = list(
+	var/static/list/random_pen = list(
 		/obj/item/pen = 50,
 		/obj/item/pen/blue = 10,
 		/obj/item/pen/red = 10,
