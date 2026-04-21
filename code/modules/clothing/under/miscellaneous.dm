@@ -59,7 +59,7 @@
 /obj/item/clothing/under/captain_fly/get_ru_names()
 	return list(
 		NOMINATIVE = "униформа капитана-изгоя",
-		GENITIVE = "униформу капитана-изгоя",
+		GENITIVE = "униформы капитана-изгоя",
 		DATIVE = "униформе капитана-изгоя",
 		ACCUSATIVE = "униформу капитана-изгоя",
 		INSTRUMENTAL = "униформой капитана-изгоя",
@@ -359,7 +359,7 @@
 	)
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Золотая отделка на чёрной, как космос, ткани. Эта юбка обозначает звание \"Капитан\" и несёт на левом плече нашивку АКН Трурль. Носится исключительно офицерами флота \"Нанотрейзен\". Оснащён экзотическими материалами для защиты."
+	desc = "Золотая отделка на чёрной, как космос, ткани. Эта униформа обозначает звание \"Капитан\" и несёт на левом плече нашивку АКН Трурль. Носится исключительно офицерами флота \"Нанотрейзен\". Оснащён экзотическими материалами для защиты."
 	name = "Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -757,14 +757,14 @@
 	item_state = "navy_suit"
 	item_color = "navy_suit"
 
-/obj/item/clothing/under/suit_jacket/red/get_ru_names()
+/obj/item/clothing/under/suit_jacket/navy/get_ru_names()
 	return list(
-		NOMINATIVE = "красная юбка",
-		GENITIVE = "красной юбки",
-		DATIVE = "красной юбке",
-		ACCUSATIVE = "красную юбку",
-		INSTRUMENTAL = "красной юбкой",
-		PREPOSITIONAL = "красной юбке",
+		NOMINATIVE = "тёмно-синий костюм",
+		GENITIVE = "тёмно-синего костюма",
+		DATIVE = "тёмно-синему костюму",
+		ACCUSATIVE = "тёмно-синий костюм",
+		INSTRUMENTAL = "тёмно-синим костюмом",
+		PREPOSITIONAL = "тёмно-синем костюме",
 	)
 
 /obj/item/clothing/under/suit_jacket/tan
@@ -967,7 +967,7 @@
 	return list(
 		NOMINATIVE = "красный мундир",
 		GENITIVE = "красного мундира",
-		DATIVE = "красному мундира",
+		DATIVE = "красному мундиру",
 		ACCUSATIVE = "красный мундир",
 		INSTRUMENTAL = "красным мундиром",
 		PREPOSITIONAL = "красном мундире",
@@ -1130,7 +1130,7 @@
 		NOMINATIVE = "зелёное платье",
 		GENITIVE = "зелёного платья",
 		DATIVE = "зелёному платью",
-		ACCUSATIVE = "зелёного платье",
+		ACCUSATIVE = "зелёное платье",
 		INSTRUMENTAL = "зелёным платьем",
 		PREPOSITIONAL = "зелёном платье",
 	)
@@ -1192,12 +1192,12 @@
 
 /obj/item/clothing/under/dress/dress_saloon/get_ru_names()
 	return list(
-		NOMINATIVE = "салун платье",
-		GENITIVE = "салун платья",
-		DATIVE = "салун платью",
-		ACCUSATIVE = "салун платье",
-		INSTRUMENTAL = "салун платьем",
-		PREPOSITIONAL = "салун платье",
+		NOMINATIVE = "платье девушки из салуна",
+		GENITIVE = "платья девушки из салуна",
+		DATIVE = "платью девушки из салуна",
+		ACCUSATIVE = "платье девушки из салуна",
+		INSTRUMENTAL = "платьем девушки из салуна",
+		PREPOSITIONAL = "платье девушки из салуна",
 	)
 
 /obj/item/clothing/under/dress/dress_rd
@@ -1240,12 +1240,12 @@
 
 /obj/item/clothing/under/dress/dress_parade/get_ru_names()
 	return list(
-		NOMINATIVE = "парадная платье-униформа капитана",
-		GENITIVE = "парадной платья-униформы капитана",
-		DATIVE = "парадной платью-униформе капитана",
-		ACCUSATIVE = "парадную платье-униформу капитана",
-		INSTRUMENTAL = "парадной платьем-униформой капитана",
-		PREPOSITIONAL = "парадной платье-униформе капитана",
+		NOMINATIVE = "парадное платье-униформа капитана",
+		GENITIVE = "парадного платья-униформы капитана",
+		DATIVE = "парадному платью-униформе капитана",
+		ACCUSATIVE = "парадное платье-униформу капитана",
+		INSTRUMENTAL = "парадным платьем-униформой капитана",
+		PREPOSITIONAL = "парадном платье-униформе капитана",
 	)
 
 /obj/item/clothing/under/dress/dress_hop
@@ -1592,11 +1592,11 @@
 
 /obj/item/clothing/under/flappers/get_ru_names()
 	return list(
-		NOMINATIVE = "флэпперс",
+		NOMINATIVE = "флэпперсы",
 		GENITIVE = "флэпперсов",
 		DATIVE = "флэпперсам",
 		ACCUSATIVE = "флэпперсы",
-		INSTRUMENTAL = "флэпперсов",
+		INSTRUMENTAL = "флэпперсами",
 		PREPOSITIONAL = "флэпперсах",
 	)
 
@@ -1721,7 +1721,7 @@
 
 /obj/item/clothing/under/rebeloutfit
 	name = "Rebel Outfit"
-	desc = "Сделанно в Сеаттле, 2216."
+	desc = "Сделано в Сеаттле, 2216."
 	icon_state = "colin_earle"
 	item_state = "colin_earle"
 	item_color = "colin_earle"
@@ -1738,7 +1738,7 @@
 
 /obj/item/clothing/under/officeruniform
 	name = "Clown Officer's Uniform"
-	desc = "Для клоунов офицеров, дизайн был создан великим дизайнером клоуном Хьюго Босс."
+	desc = "Для клоунов офицеров, дизайн был создан великим дизайнером клоуном Хьюго Боссом."
 	icon_state = "officeruniform"
 	item_color = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
