@@ -875,10 +875,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	antag_menu_name = "Получить снаряжение"
 	explanation_text = "Получить бесплатное снаряжение в определенном месте (необязательно)."
 	needs_target = FALSE
-	special_object_type = /obj/item/storage/box/syndie_kit/stechkin_pistol
-
-/datum/objective/get_equipment/check_completion()
-	return TRUE
+	special_object_type = /obj/item/storage/box/syndie_kit/agent_base_kit
+	completed = TRUE
 
 // MARK: Glorious death
 /datum/objective/die

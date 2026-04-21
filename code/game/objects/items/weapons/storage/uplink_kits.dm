@@ -931,10 +931,33 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol/populate_contents()
 	new	/obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/agent_base_kit
+	name = "agent base kit"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+
+/obj/item/storage/box/syndie_kit/agent_base_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "базовый набор агента",
+		GENITIVE = "базового набора агента",
+		DATIVE = "базовому набору агента",
+		ACCUSATIVE = "базовый набор агента",
+		INSTRUMENTAL = "базовым набором агента",
+		PREPOSITIONAL = "базовом наборе агента",
+	)
+
+/obj/item/storage/box/syndie_kit/agent_base_kit/populate_contents()
+	new /obj/item/storage/box/survival/survival_syndi(src)
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/flashlight(src)
+	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+	new	/obj/item/storage/box/syndie_kit/stechkin_pistol(src)
 	new /obj/item/gun_module/muzzle/suppressor(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
 
 /obj/item/storage/box/syndie_kit/rsh12_revolver
 	name = "RSh-12 revolver kit"
