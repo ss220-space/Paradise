@@ -39,6 +39,7 @@
 		/obj/item/pen = 5,
 		/obj/item/pen/blue = 5,
 		/obj/item/pen/red = 5,
+		/obj/item/storage/box/pen_case = 5,
 	)
 	contraband = list(
 		/obj/item/toy/crayon/mime = 1,

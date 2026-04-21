@@ -1425,6 +1425,28 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
 
+/obj/item/storage/box/pen_case
+	name = "Набор ручек"
+	icon_state = "pen_case"
+	var/random_pen = list(
+		/obj/item/pen = 50,
+		/obj/item/pen/blue = 10,
+		/obj/item/pen/red = 10,
+		/obj/item/pen/gray = 10,
+		/obj/item/pen/invisible = 5,
+		/obj/item/pen/fancy = 5,
+		/obj/item/pen/multi = 3,
+		/obj/item/pen/multi/fountain = 3,
+		/obj/item/pen/survival = 3,
+		/obj/item/pen/multi/gold = 1,
+	) // random_pen = 100
+
+/obj/item/storage/box/pen_case/populate_contents()
+    for(var/i in 1 to 7)
+        var/rand_pen = pickweight(random_pen)
+        new rand_pen(src)
+
+
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN
