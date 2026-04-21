@@ -1428,6 +1428,7 @@
 /obj/item/storage/box/pen_case
 	name = "Набор ручек"
 	icon_state = "pen_case"
+	custom_price = PAYCHECK_MIN * 2
 	var/random_pen = list(
 		/obj/item/pen = 50,
 		/obj/item/pen/blue = 10,
@@ -1441,10 +1442,20 @@
 		/obj/item/pen/multi/gold = 1,
 	) // random_pen = 100
 
+/obj/item/storage/box/pen_case/get_ru_names()
+	return list(
+		NOMINATIVE = "набор ручек",
+		GENITIVE = "набора ручек",
+		DATIVE = "набору ручек",
+		ACCUSATIVE = "набор ручек",
+		INSTRUMENTAL = "набором ручек",
+		PREPOSITIONAL = "наборе ручек",
+	)
+
 /obj/item/storage/box/pen_case/populate_contents()
-    for(var/i in 1 to 7)
-        var/rand_pen = pickweight(random_pen)
-        new rand_pen(src)
+	for(var/i in 1 to 7)
+		var/rand_pen = pickweight(random_pen)
+		new rand_pen(src)
 
 
 #undef BAG_PUTTING_DELAY
