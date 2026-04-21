@@ -32,13 +32,17 @@
 
 	product_categories = list(
 		list(
-			"name" = "Курительные приспособления",
+			"name" = "Никотиновая продукция",
 			"icon" = "smoking",
 			"products" = list(
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 8,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 8,
-				/obj/item/storage/fancy/cigarettes/cigpack_random = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 8,
+				/obj/item/storage/fancy/cigarettes/dromedaryco = 8,
+				/obj/item/storage/fancy/cigarettes/cigpack_richard = 8,
 				/obj/item/ecig = 4,
+				/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
 			),
 		),
 		list(
@@ -54,7 +58,6 @@
 			"name" = "Другое",
 			"icon" = "ellipsis",
 			"products" = list(
-				/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
 				/obj/item/storage/fancy/rollingpapers = 3,
 			),
 		),

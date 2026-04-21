@@ -73,7 +73,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = 4
-	//	causeerrorheresoifixthis
+	/// This var exists as a weird proxy "owner" ref
+	/// It's used in a few places. Stop using it, and optimially replace all uses please
 	var/obj/item/master = null
 
 	/// Price of an item in a vending machine, overriding the base vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.

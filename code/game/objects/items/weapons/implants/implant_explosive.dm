@@ -84,15 +84,20 @@
 	self_destruct()
 
 /obj/item/implant/explosive/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	var/obj/item/implant/explosive/same_imp = locate(type) in source
-	if(same_imp && same_imp != src)
-		same_imp.heavy += heavy
-		same_imp.medium += medium
-		same_imp.weak += weak
-		same_imp.delay += delay
-		qdel(src)
-		return TRUE
-	return ..()
+	if(!same_imp || same_imp == src)
+		return
+
+	same_imp.heavy += heavy
+	same_imp.medium += medium
+	same_imp.weak += weak
+	same_imp.delay += delay
+	qdel(src)
+	return TRUE
 
 /obj/item/implant/explosive/macro
 	name = "macrobomb bio-chip"
@@ -114,17 +119,22 @@
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	var/obj/item/implant/explosive/same_imp = locate(type) in source
 	if(same_imp && same_imp != src)
 		return FALSE
 	same_imp = locate(/obj/item/implant/explosive) in source
-	if(same_imp && same_imp != src)
-		heavy += same_imp.heavy
-		medium += same_imp.medium
-		weak += same_imp.weak
-		delay += same_imp.delay
-		qdel(same_imp)
-	return ..()
+	if(!same_imp || same_imp == src)
+		return
+
+	heavy += same_imp.heavy
+	medium += same_imp.medium
+	weak += same_imp.weak
+	delay += same_imp.delay
+	qdel(same_imp)
 
 /obj/item/implanter/explosive
 	name = "bio-chip implanter (micro-explosive)"
