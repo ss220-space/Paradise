@@ -1425,11 +1425,14 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
 
+/*
+ *  pen case box
+ */
 /obj/item/storage/box/pen_case
-	name = "box of pens"
+	name = "set of pens"
 	icon_state = "pen_case"
 	custom_price = PAYCHECK_MIN * 2
-	var/static/list/random_pen = list(
+	var/static/list/random_pen = list( // pens and their drop rate
 		/obj/item/pen = 50,
 		/obj/item/pen/blue = 10,
 		/obj/item/pen/red = 10,
