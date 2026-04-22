@@ -1015,9 +1015,8 @@
 	id = "ignore_fracture"
 	alert_type = null
 	duration = 10 SECONDS
-	var/obj/item/organ/external/target_bodypart
 
-/datum/status_effect/drask_coma/on_creation(
+/datum/status_effect/ignore_fracture/on_creation(
 	mob/living/new_owner,
 	duration = 10 SECONDS,
 	)
@@ -1025,12 +1024,16 @@
 	return ..()
 
 /datum/status_effect/ignore_fracture/on_apply()
-	var/mob/living/carbon/human/human_owner = owner
 	ADD_TRAIT(owner, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
 	human_owner.update_fractures_effects()
 	return TRUE
 
 /datum/status_effect/ignore_fracture/on_remove()
-	var/mob/living/carbon/human/human_owner = owner
 	REMOVE_TRAIT(owner, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
 	human_owner.update_fractures_effects()
