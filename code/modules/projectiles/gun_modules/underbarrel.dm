@@ -295,6 +295,8 @@
 
 /obj/item/gun_module/under/bayonet/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
+	if(!.)
+		return
 	bonus_force = clamp(bonus_force + whetstone.increment, 0, whetstone.max)
 
 /obj/item/gun_module/under/bayonet/long
