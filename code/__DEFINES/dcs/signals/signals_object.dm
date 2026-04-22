@@ -19,10 +19,12 @@
 // /obj/item signals
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user, params, def_zone)
 #define COMSIG_ITEM_ATTACK "item_attack"
-///from base of obj/item/attack_self(): (/mob)
-#define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
-//from base of obj/item/attack_self_secondary(): (/mob)
-#define COMSIG_ITEM_ATTACK_SELF_SECONDARY "item_attack_self_secondary"
+ ///from base of obj/item/attack_self(): (/mob)
+ #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
+///from /obj/item/melee/energy/sword/saber/attack_self(): (/mob)
+#define COMSIG_SABER_TOGGLED "saber_toggled"
+ //from base of obj/item/attack_self_secondary(): (/mob)
+ #define COMSIG_ITEM_ATTACK_SELF_SECONDARY "item_attack_self_secondary"
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)

@@ -220,8 +220,7 @@
 
 /obj/item/melee/energy/sword/saber/attack_self(mob/living/carbon/user)
 	. = ..()
-	var/datum/component/stances/saber/stances = GetComponent(/datum/component/stances/saber)
-	stances?.refresh()
+	SEND_SIGNAL(src, COMSIG_SABER_TOGGLED, user)
 
 /obj/item/melee/energy/sword/saber/IsReflect(def_zone)
 	var/mob/living/carbon/human/H = loc

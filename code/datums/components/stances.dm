@@ -107,13 +107,13 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
 	RegisterSignal(parent, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(on_post_unequip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_dropped))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
+	RegisterSignal(parent, COMSIG_SABER_TOGGLED, PROC_REF(on_saber_toggled))
 
 	refresh_nodrop()
 
 /datum/component/stances/saber/Destroy(force = FALSE)
 	set_holder(null)
-	UnregisterSignal(parent, list(COMSIG_ITEM_HIT_REACT, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_POST_UNEQUIP, COMSIG_ITEM_DROPPED, COMSIG_ITEM_ATTACK_SELF))
+	UnregisterSignal(parent, list(COMSIG_ITEM_HIT_REACT, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_POST_UNEQUIP, COMSIG_ITEM_DROPPED, COMSIG_SABER_TOGGLED))
 	return ..()
 
 /datum/component/stances/saber/proc/is_active_saber()
@@ -213,7 +213,7 @@
 	if(current_holder)
 		apply_stance_stats(current_holder)
 
-/datum/component/stances/saber/proc/on_attack_self(datum/source, mob/user)
+/datum/component/stances/saber/proc/on_saber_toggled(datum/source, mob/user)
 	SIGNAL_HANDLER
 	refresh()
 
