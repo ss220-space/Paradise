@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)
 
+// MARK: Basic objective
 /datum/objective
 	/**
 	 * Proper name of the objective. Not player facing, only shown to admins when adding objectives.
@@ -267,6 +268,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					continue
 				. |= general_objective.target
 
+// MARK: Assasinate
 /datum/objective/assassinate
 	name = "Assassinate"
 	antag_menu_name = "Убить"
@@ -298,6 +300,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Punish
 /datum/objective/punish
 	name = "Punish"
 	antag_menu_name = "Наказать"
@@ -329,6 +332,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Mutiny
 /datum/objective/mutiny
 	name = "Mutiny"
 	antag_menu_name = "Мятеж"
@@ -360,6 +364,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	// them win or lose based on cryo is silly so we remove the objective.
 	qdel(src)
 
+// MARK: Maroon
 /datum/objective/maroon
 	name = "Maroon"
 	antag_menu_name = "Не дать эвакуироваться живым/свободным"
@@ -405,6 +410,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Debrain
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	antag_menu_name = "Украсть мозг"
@@ -447,6 +453,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Pain hunter
 /datum/objective/pain_hunter
 	name = "pain hunter"
 	antag_menu_name = "Преподать урок"
@@ -571,6 +578,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	else
 		return completed
 
+// MARK: Protect
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"
 	antag_menu_name = "Защитить"
@@ -614,6 +622,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/protect/contractor //subtype for support units
 
+// MARK: Hijack
 /datum/objective/hijack
 	name = "Hijack"
 	antag_menu_name = "Угон шаттла"
@@ -637,6 +646,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return SSshuttle.emergency.is_hijacked()
 
+// MARK: Hijack with clones
 /datum/objective/hijackclone
 	name = "Hijack (with clones)"
 	antag_menu_name = "Угон шаттла (с клонами)"
@@ -673,6 +683,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Silicon supremacy
 /datum/objective/block
 	name = "Silicon Supremacy"
 	antag_menu_name = "Превосходство Синтетиков"
@@ -703,6 +714,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Escape
 /datum/objective/escape
 	name = "Escape"
 	antag_menu_name = "Эвакуироваться"
@@ -737,6 +749,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Escape with identity
 /datum/objective/escape/escape_with_identity
 	name = "Escape With Identity"
 	antag_menu_name = "Эвакуироваться под личностью"
@@ -819,6 +832,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Prison escape
 /datum/objective/prison_escape
 	name = "Prison Escape"
 	antag_menu_name = "Сбежать из тюрьмы"
@@ -855,6 +869,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+// MARK: Get equipment
+/datum/objective/get_equipment
+	name = "Get equipment"
+	antag_menu_name = "Получить снаряжение"
+	explanation_text = "Получить бесплатное снаряжение в определенном месте (необязательно)."
+	needs_target = FALSE
+	special_object_type = /obj/item/storage/box/syndie_kit/agent_base_kit
+	completed = TRUE
+
+// MARK: Glorious death
 /datum/objective/die
 	name = "Glorious Death"
 	antag_menu_name = "Умереть славной смертью"
@@ -873,6 +897,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Survive
 /datum/objective/survive
 	name = "Survive"
 	antag_menu_name = "Выжить"
@@ -887,6 +912,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return FALSE
 	return TRUE
 
+// MARK: Nuke
 /datum/objective/nuclear
 	name = "Nuke station"
 	antag_menu_name = "Взорвать станцию"
@@ -894,6 +920,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	martyr_compatible = TRUE
 	needs_target = FALSE
 
+// MARK: Steal
 /datum/objective/steal
 	name = "Steal Item"
 	antag_menu_name = "Украсть предмет"
@@ -1040,6 +1067,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Не отдавайте и не теряйте [targetinfo.name]."
 	steal_target = targetinfo
 
+// MARK: Download
 /datum/objective/download
 	needs_target = FALSE
 	antag_menu_name = "Загрузите"
@@ -1052,6 +1080,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/download/check_completion()
 	return FALSE
 
+// MARK: Capture
 /datum/objective/capture
 	needs_target = FALSE
 	antag_menu_name = "Накопить"
@@ -1064,6 +1093,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
 	return FALSE
 
+// MARK: Absorb DNA
 /datum/objective/absorb
 	name = "Absorb DNA"
 	antag_menu_name = "Поглотить ДНК"
@@ -1101,6 +1131,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return TRUE
 	return FALSE
 
+// MARK: Destroy AI
 /datum/objective/destroy
 	name = "Destroy AI"
 	antag_menu_name = "Уничтожить ИИ"
@@ -1125,6 +1156,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 	return TRUE
 
+// MARK: Steal five items
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"
 	antag_menu_name = "Украсть минимум 5 предметов"
@@ -1192,6 +1224,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return stolen_count >= 5
 
+// MARK: Blood
 /datum/objective/blood
 	name = "Spread blood"
 	antag_menu_name = "Накопить кровь"
@@ -1215,6 +1248,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		return FALSE
 
+// MARK: Minimize casualties
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties
 	antag_menu_name = "Минимизация потерь"
@@ -1224,14 +1258,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/minimize_casualties/check_completion()
 	return TRUE
 
+// MARK: Heist
 //Vox heist objectives.
-
 /datum/objective/heist
 	needs_target = FALSE
 
 /datum/objective/heist/proc/choose_target()
 	return
 
+// MARK: Heist/Kidnap
 /datum/objective/heist/kidnap
 	antag_menu_name = "Похищение"
 
@@ -1276,6 +1311,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	else
 		return FALSE
 
+// MARK: Heist/Loot
 /datum/objective/heist/loot
 
 /datum/objective/heist/loot/choose_target()
@@ -1349,6 +1385,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return FALSE
 
+// MARK: Heist/Salvage
 /datum/objective/heist/salvage
 	antag_menu_name = "Добыть материалы"
 
@@ -1416,6 +1453,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(total_amount >= target_amount) return TRUE
 	return FALSE
 
+// MARK: Heist/Inviolate crew
 /datum/objective/heist/inviolate_crew
 	antag_menu_name = "Не бросать своих"
 	explanation_text = "Не бросайте ни одного вокса, живого или мёртвого.."
@@ -1433,7 +1471,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/heist/inviolate_death/check_completion()
 	return TRUE
 
-// Traders
+// MARK: Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 /datum/objective/trade
 	needs_target = FALSE
@@ -1454,16 +1492,14 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/trade/credits/choose_target()
 	explanation_text = "Заполучите не менее 10000 кредитов посредством торговли."
 
-//wizard
-
+// MARK: Wizard
 /datum/objective/wizchaos
 	antag_menu_name = "Магический хаос"
 	explanation_text = "Наведите на станции ​​столько хаоса, сколько сможете. Оставьте сообщение этим магловым подонкам из Nanotrasen!"
 	needs_target = FALSE
 	completed = TRUE
 
-//Space Ninja
-
+// MARK: Space Ninja
 /datum/objective/cyborg_hijack
 	name = "Cyborg Hijack"
 	antag_menu_name = "Взломать борга"
@@ -1780,6 +1816,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+// MARK: Blob
 /datum/objective/blob_critical_mass
 	needs_target = FALSE
 	antag_menu_name = "Достичь критической массы"
@@ -1813,11 +1850,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 	return resolved_overmind.stat != DEAD
 
+// MARK: Xeno
 /datum/objective/xeno_genocide
 	name = "Геноцид разумной жизни"
 	needs_target = FALSE
 	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
 
+// MARK: Bingle
 /datum/objective/bingle_lord
 	needs_target = FALSE
 	antag_menu_name = "Создать яму"
@@ -1835,6 +1874,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/datum/team/bingles/bingle_team = team
 	return bingle_team.goal_size_achieved
 
+// MARK: Serve
 /datum/objective/serve
 	name = "Служить"
 	antag_menu_name = "Служить"
@@ -1847,6 +1887,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	serve_to = target_to_serve
 	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(serve_to)] приказы."
 
+// MARK: Supermatter cascade
 /datum/objective/supermatter_cascade
 	name = "Destroy the station by causing a crystallizing resonance cascade"
 	explanation_text = "Destroy the station by causing a supermatter cascade. Go to %AREA% to retrieve the destabilizing crystal \
