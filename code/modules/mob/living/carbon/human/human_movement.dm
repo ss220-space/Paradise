@@ -257,6 +257,9 @@
 		BODY_ZONE_PRECISE_R_HAND,
 	)
 
+	if(HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		return 0
+
 	var/bonus_spread = 0
 	for(var/zone in possible_limbs)
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
@@ -273,6 +276,9 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+
+	if(HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		return
 
 	if(body_position == LYING_DOWN)
 		return

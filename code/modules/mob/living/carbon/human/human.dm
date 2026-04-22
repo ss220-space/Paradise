@@ -1951,11 +1951,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/modifier = 0
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		modifier += bodypart.fracture.slowdown_mod
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			modifier += bodypart.fracture.slowdown_mod
 
 	if(modifier)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
@@ -1971,11 +1973,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/modifier = 0
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		modifier += bodypart.fracture.workspeed_mod
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			modifier += bodypart.fracture.workspeed_mod
 
 	if(modifier)
 		add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/fractures, multiplicative_slowdown = modifier)
@@ -1991,12 +1995,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/exists_fracture  = FALSE
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		exists_fracture  = TRUE
-		break
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			exists_fracture  = TRUE
+			break
 
 	if(exists_fracture)
 		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)

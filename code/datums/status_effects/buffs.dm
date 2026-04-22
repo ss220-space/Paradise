@@ -998,3 +998,25 @@
 
 /datum/status_effect/jump_jet/on_remove()
 	owner.RemoveElement(/datum/element/forced_gravity, 0)
+
+
+/// Gives a short period of time when the fracture occurs.
+/datum/status_effect/ignore_fracture
+	id = "ignore_fracture"
+	alert_type = null
+	duration = 10 SECONDS
+	var/obj/item/organ/external/target_bodypart
+
+/datum/status_effect/drask_coma/on_creation(
+	mob/living/new_owner,
+	duration = 10 SECONDS,
+	)
+	src.duration = duration
+	return ..()
+
+/datum/status_effect/ignore_fracture/on_apply()
+	ADD_TRAIT(owner, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
+
+/datum/status_effect/ignore_fracture/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))

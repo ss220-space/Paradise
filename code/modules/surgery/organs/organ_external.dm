@@ -1091,6 +1091,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status |= ORGAN_BROKEN
 	broken_description = fracture.description
 	perma_injury = brute_dam
+	owner.apply_status_effect(/datum/status_effect/ignore_fracture, 10 SECONDS)
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))

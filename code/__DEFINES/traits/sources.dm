@@ -103,6 +103,9 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 
+/// Sources for TRAIT_IGNORE_FRACTURE
+#define NEW_FRACTURE_TRAIT "new_fracture"
+
 /// Trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"
 
