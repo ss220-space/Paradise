@@ -190,11 +190,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 // MARK: Procs
 
-/datum/gun_accuracy/proc/randomize_spread(mob/living/user, bonus_spread)
-	// no spread guns
+/datum/gun_accuracy/proc/randomize_spread(atom/movable/user, bonus_spread)
 	if(!max_spread)
 		return round((rand() - 0.5) * bonus_spread)
-	// spread increase logic
+
 	if(spread_increase_step)
 		var/last_shot_elapsed = max(world.time - last_shot_time, 0)
 		if(last_shot_elapsed > spread_restore_duration)
@@ -202,11 +201,12 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 		else
 			current_spread = min(current_spread + spread_increase_step, max_spread)
 		last_shot_time = world.time
-	// randomize spread
-	var/rnd_angle = round((rand() - 0.5) * (current_spread + bonus_spread))
+
+	var/random_angle = round((rand() - 0.5) * (current_spread + bonus_spread))
 	if(user && HAS_TRAIT(user, TRAIT_BADASS))
-		return 0.5 * rnd_angle
-	return rnd_angle
+		return 0.5 * random_angle
+
+	return random_angle
 
 /obj/projectile/proc/calculate_hit_chance(obj/projectile/projectile, mob/living/target)
 	if(forced_accuracy)

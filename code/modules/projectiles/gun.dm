@@ -254,16 +254,18 @@
 /obj/item/gun/proc/can_shoot(mob/user)
 	return TRUE
 
-/obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
-	if(user)
+/obj/item/gun/proc/shoot_with_empty_chamber(atom/movable/user)
+	if(isliving(user))
 		to_chat(user, span_danger("*клик*"))
+
 	playsound(user || src, 'sound/weapons/empty.ogg', 100, TRUE)
 
-/obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+/obj/item/gun/proc/shoot_live_shot(atom/movable/user, atom/target, pointblank = FALSE, message = TRUE)
 	if(pointblank && !COOLDOWN_FINISHED(src, pb_cooldown))
 		pointblank = FALSE
 
-	do_recoil(user, target)
+	if(isliving(user))
+		do_recoil(user, target)
 
 	if(!chambered)
 		return
@@ -271,22 +273,35 @@
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
+
 	if(suppress_muzzle_flash)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 
 	var/atom/sound_origin = user ? user : src
-	var/fire_snd = suppressed ? suppressed_fire_sound : fire_sound
-	var/vol = suppressed ? 30 : 50
-	var/extra = suppressed ? SILENCED_SOUND_EXTRARANGE : 0
-	playsound(sound_origin, fire_snd, vol, TRUE, ignore_walls = FALSE, extrarange = extra, falloff_distance = 0)
 
-	if(message && user)
-		handle_fire_messages(user, target, pointblank)
+	if(suppressed)
+		playsound(sound_origin, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+	else
+		playsound(sound_origin, fire_sound, 50, TRUE)
+		if(message && user)
+			if(pointblank)
+				if(isliving(user))
+					do_pointblank_shot(user, target)
+			else
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]!"), \
+					span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), \
+					"Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 
 	if(chambered.muzzle_flash_effect)
-		create_muzzle_flash(target, muzzle_flash_time, muzzle_range, muzzle_strength)
+		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
+		effect.alpha = min(255, muzzle_strength * 255)
+		if(chambered.muzzle_flash_color)
+			effect.color = chambered.muzzle_flash_color
+			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+		else
+			effect.color = LIGHT_COLOR_TUNGSTEN
 
 /obj/item/gun/proc/handle_fire_messages(mob/living/user, atom/target, pointblank)
 	if(pointblank)
@@ -394,102 +409,104 @@
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	if(fire_cd || firing_burst)
-		return
-
+/obj/item/gun/proc/process_fire(atom/target, atom/movable/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+	var/mob/living/living_user = isliving(user) ? user : null
 	var/is_tk_grab = FALSE
-	if(user)
-		is_tk_grab = !isnull(user.tkgrabbed_objects?[src])
-		bonus_spread += user.get_fracture_spread_bonus()
+
+	if(living_user)
+		is_tk_grab = !isnull(living_user.tkgrabbed_objects?[src])
 		if(is_tk_grab)
-			add_fingerprint(user)
-		if(user.buckled)
+			add_fingerprint(living_user)
+
+		bonus_spread += living_user.get_fracture_spread_bonus()
+		if(living_user.buckled)
 			bonus_spread += 45
 
-	if(!chambered)
-		shoot_with_empty_chamber(user)
+	if(chambered)
+		chambered.leave_residue(user)
+
+	if(fire_cd)
 		return
 
-	chambered.leave_residue(user)
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
+	var/sprd = 0
 
 	if(is_tk_grab)
 		rotate_to_target(target)
 
 	if(burst_size > 1)
-		handle_burst(target, user, modifiers, zone_override, bonus_spread, message)
-	else
-		handle_single_shot(target, user, modifiers, zone_override, bonus_spread, message)
+		if(chambered?.harmful)
+			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+				if(living_user)
+					to_chat(living_user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
+				return
+		firing_burst = 1
+		for(var/i = 1 to burst_size)
+			if(!user)
+				break
+			if(living_user && !issilicon(living_user))
+				if(iscarbon(living_user))
+					if(i > 1 && !(src in get_both_hands(living_user)))
+						break
+				else if(i > 1)
+					break
+			if(chambered)
+				if(randomspread)
+					sprd = accuracy.randomize_spread(user, bonus_spread)
+				else
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
 
-	if(user)
-		user.update_held_items()
+				if(!chambered.fire(target, user, modifiers, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod))
+					shoot_with_empty_chamber(user)
+					break
+				else
+					var/is_pb = (get_dist(user, target) <= 1)
+					shoot_live_shot(user, target, is_pb, message)
+
+				if(chambered)
+					chambered.after_fire()
+
+			else
+				shoot_with_empty_chamber(user)
+				break
+
+			process_chamber()
+			update_icon()
+			sleep(fire_delay)
+		firing_burst = 0
+	else
+		if(chambered)
+			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+				if(chambered.harmful) // Is the bullet chambered harmful?
+					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
+					return
+			sprd = accuracy.randomize_spread(user, bonus_spread)
+			if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
+				shoot_with_empty_chamber(user)
+				return
+			else
+				if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
+					shoot_live_shot(user, target, TRUE, message)
+				else
+					shoot_live_shot(user, target, FALSE, message)
+			if(chambered)
+				chambered.after_fire()
+		else
+			shoot_with_empty_chamber(user)
+			return
+		process_chamber()
+		update_icon()
+		fire_cd = TRUE
+		spawn(fire_delay)
+			fire_cd = FALSE
+
+	if(living_user)
+		living_user.update_held_items()
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	shots_counter += burst_size
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
-/obj/item/gun/proc/handle_single_shot(atom/target, mob/living/user, modifiers, zone_override, bonus_spread, message)
-	if(user && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		if(chambered.harmful)
-			to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
-			return
-
-	var/sprd = accuracy.randomize_spread(user, bonus_spread)
-	var/fired = chambered.fire(target, user, modifiers, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod)
-	if(!fired)
-		shoot_with_empty_chamber(user)
-		return
-
-	var/is_pb = (user && get_dist(user, target) <= 1)
-	shoot_live_shot(user, target, is_pb, message)
-	if(chambered)
-		chambered.after_fire()
-
-	process_chamber()
-	update_icon()
-	fire_cd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reset_fire_cd)), fire_delay)
-
-/obj/item/gun/proc/handle_burst(atom/target, mob/living/user, list/modifiers, zone_override, bonus_spread, message)
-	firing_burst = TRUE
-	for(var/i in 1 to burst_size)
-		if(user)
-			if(!issilicon(user) && i > 1 && !(src in get_both_hands(user)))
-				break
-			if(chambered?.harmful && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
-				break
-
-		if(!chambered)
-			shoot_with_empty_chamber(user)
-			break
-
-		var/sprd = 0
-		if(randomspread)
-			sprd = accuracy.randomize_spread(user, bonus_spread)
-		else
-			sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
-
-		var/fired = chambered.fire(target, user, modifiers, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod)
-		if(!fired)
-			shoot_with_empty_chamber(user)
-			break
-
-		var/is_pb = (user && get_dist(user, target) <= 1)
-		shoot_live_shot(user, target, is_pb, message)
-		if(chambered)
-			chambered.after_fire()
-
-		process_chamber()
-		update_icon()
-		if(i < burst_size)
-			sleep(fire_delay)
-
-	firing_burst = FALSE
-
-/obj/item/gun/proc/reset_fire_cd()
-	fire_cd = FALSE
 
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(azoom)
@@ -915,8 +932,8 @@
 	return ..()
 
 /obj/item/gun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
-	if(!can_shoot(base))
-		shoot_with_empty_chamber(null)
-		return
+    if(!can_shoot(base))
+        shoot_with_empty_chamber(base)
+        return
 
-	INVOKE_ASYNC(src, PROC_REF(process_fire), victim, null, TRUE, list())
+    INVOKE_ASYNC(src, PROC_REF(process_fire), victim, base, TRUE, null)

@@ -296,12 +296,14 @@
 								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
-		if(immolate)
-			L.adjust_fire_stacks(immolate)
-			L.IgniteMob()
+	if(immolate)
+		L.adjust_fire_stacks(immolate)
+		L.IgniteMob()
 
-		if(L?.mind && firer?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())
+	if(isliving(firer))
+		var/mob/living/living_firer = firer
+		if(L.mind && living_firer.mind?.objectives)
+			for(var/datum/objective/pain_hunter/objective in living_firer.mind.get_all_objectives())
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 

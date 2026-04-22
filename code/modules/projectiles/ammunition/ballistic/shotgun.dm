@@ -13,6 +13,7 @@
 /obj/item/ammo_casing/shotgun/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FLIP_ON_TRIPWIRE, INNATE_TRAIT)
 
 // MARK: Buckshot
 /obj/item/ammo_casing/shotgun/buckshot
@@ -252,14 +253,14 @@
 	INVOKE_ASYNC(src, PROC_REF(tripwire_fire_as_payload), base, victim)
 
 /obj/item/ammo_casing/shotgun/proc/tripwire_fire_as_payload(obj/item/tripwire/base, mob/living/victim)
-	var/fired = fire(victim, null, null, 0, FALSE, null, 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
+	var/fired = fire(victim, base, null, 0, FALSE, null, 0, base, TRIPWIRE_SHELL_DAMAGE_MULTIPLIER)
 	if(!fired)
 		playsound(base, 'sound/weapons/empty.ogg', 50, TRUE)
 		return
 
 	playsound(base, 'sound/weapons/gunshots/1shotgun.ogg', 70, TRUE)
 	base.attached_item = null
-	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+	base.UnregisterSignal(base, list(COMSIG_TRIPWIRE_TRIGGERED))
 	base.update_appearance()
 	forceMove(get_turf(base))
 	update_appearance(UPDATE_ICON_STATE)

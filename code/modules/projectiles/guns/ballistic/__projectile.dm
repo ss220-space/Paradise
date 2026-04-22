@@ -265,3 +265,8 @@
 		if(AC.BB)
 			process_fire(user, user,0)
 			. = TRUE
+
+/obj/item/gun/projectile/on_tripwire_alt_click(obj/item/tripwire/base, mob/user)
+	unload_act(user)
+	base.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+	return TRUE

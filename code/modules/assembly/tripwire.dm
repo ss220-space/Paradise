@@ -351,6 +351,7 @@
 		payload_mind = WEAKREF(user.mind)
 
 	RegisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED, PROC_REF(on_payload_activate), override = TRUE)
+	RegisterSignal(src, COMSIG_TRIPWIRE_ALT_CLICK, PROC_REF(on_payload_alt_click), override = TRUE)
 	to_chat(user, span_notice("Вы закрепили [item.declent_ru(ACCUSATIVE)] на растяжке."))
 	update_appearance()
 
@@ -364,7 +365,7 @@
 
 	matrix.Scale(0.8, 0.8)
 	var/target_angle = dir2angle(dir) + 90
-	if(istype(attached_item, /obj/item/ammo_casing/shotgun))
+	if(HAS_TRAIT(attached_item, TRAIT_FLIP_ON_TRIPWIRE))
 		target_angle += 180
 
 	matrix.Turn(target_angle)
@@ -417,6 +418,7 @@
 	extracted_item.forceMove(drop_location())
 	attached_item = null
 	UnregisterSignal(src, COMSIG_TRIPWIRE_TRIGGERED)
+	UnregisterSignal(src, COMSIG_TRIPWIRE_ALT_CLICK)
 	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /obj/item/tripwire/crowbar_act(mob/living/user, obj/item/I)
@@ -510,10 +512,13 @@
 	if(!attached_item)
 		return CLICK_ACTION_BLOCKING
 
-	if(!isprojectilegun(attached_item))
-		return CLICK_ACTION_BLOCKING
+	if(SEND_SIGNAL(src, COMSIG_TRIPWIRE_ALT_CLICK, user))
+		return CLICK_ACTION_SUCCESS
 
-	var/obj/item/gun/projectile/gun = attached_item
-	gun.unload_act(user)
-	update_appearance(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-	return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
+
+/obj/item/tripwire/proc/on_payload_alt_click(datum/source, mob/user)
+	SIGNAL_HANDLER
+	if(!attached_item)
+		return FALSE
+	return attached_item.on_tripwire_alt_click(src, user)

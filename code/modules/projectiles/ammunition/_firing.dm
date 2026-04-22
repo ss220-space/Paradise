@@ -1,28 +1,36 @@
-/obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
+/obj/item/ammo_casing/proc/fire(atom/target, atom/movable/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	distro += variance
 	for(var/i = max(1, pellets), i > 0, i--)
 		var/targloc = get_turf(target)
+		if(!get_turf(user) && !get_turf(firer_source_atom) && !get_turf(src))
+			return FALSE
+
 		ready_proj(target, user, quiet, zone_override, firer_source_atom, damage_mod, stamina_mod)
-		if(distro) //We have to spread a pixel-precision bullet. throw_proj was called before so angles should exist by now...
+
+		if(distro)
 			if(randomspread)
 				spread = round((rand() - 0.5) * distro)
-			else //Smart spread
+			else // Smart spread
 				spread = round((i / pellets - 0.5) * distro)
+
 		if(isnull(throw_proj(target, targloc, user, modifiers, spread, firer_source_atom)))
 			return FALSE
 		if(i > 1)
 			newshot()
-	if(user)
+
+	if(isliving(user))
+		var/mob/living/living_user = user
 		if(click_cooldown_override)
-			user.changeNext_move(click_cooldown_override)
+			living_user.changeNext_move(click_cooldown_override)
 		else
-			user.changeNext_move(CLICK_CD_RANGE)
-			user.newtonian_move(get_dir(target, user))
+			living_user.changeNext_move(CLICK_CD_RANGE)
+		living_user.newtonian_move(get_dir(target, living_user))
+
 	update_icon()
 	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, modifiers, distro)
 	return TRUE
 
-/obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
+/obj/item/ammo_casing/proc/ready_proj(atom/target, atom/movable/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!BB)
 		return
 	BB.original = target
@@ -31,25 +39,31 @@
 	BB.damage *= damage_mod
 	BB.stamina *= stamina_mod
 	BB.suppressed = quiet
+
 	if(zone_override)
 		BB.def_zone = zone_override
-	else if(user)
-		BB.def_zone = user.zone_selected
 	else
-		BB.def_zone = BODY_ZONE_CHEST
-	if(reagents && BB.reagents) //For chemical darts/bullets
+		if(isliving(user))
+			var/mob/living/L = user
+			BB.def_zone = L.zone_selected
+		else
+			BB.def_zone = BODY_ZONE_CHEST
+
+	if(reagents && BB.reagents)
 		reagents.trans_to(BB, reagents.total_volume)
 		qdel(reagents)
 
-/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, list/modifiers, spread, atom/firer_source_atom)
-	var/turf/curloc = get_turf(firer_source_atom)
+/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, atom/movable/user, list/modifiers, spread, atom/firer_source_atom)
+	var/turf/curloc = get_turf(firer_source_atom) || get_turf(src)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
+
 	BB.ammo_casing = src
 	if(BB.loc != curloc)
 		BB.forceMove(curloc)
+
 	var/atom/origin = user ? user : firer_source_atom
-	if(target && get_dist(origin, target) <= 1)
+	if(target && (get_dist(origin, target) <= 1))
 		BB.starting = curloc
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
@@ -64,8 +78,10 @@
 		return TRUE
 
 	BB.preparePixelProjectile(target, user || firer_source_atom, modifiers, spread)
+
 	if(BB)
 		BB.fire()
+
 	materials = list(MAT_METAL = 0)
 	BB = null
 	return TRUE

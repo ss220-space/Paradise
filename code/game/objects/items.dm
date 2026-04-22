@@ -1527,3 +1527,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	SIGNAL_HANDLER
 	return
+
+/// What item does if tripwire alt clicked when item on it
+/obj/item/proc/on_tripwire_alt_click(obj/item/tripwire/base, mob/user)
+	SIGNAL_HANDLER
+	return

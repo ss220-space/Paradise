@@ -1685,6 +1685,8 @@
 #define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
 // Called on payload installing at tripwire
 #define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"
+/// Called on alt-click on tripwire
+#define COMSIG_TRIPWIRE_ALT_CLICK "tripwire_alt_click"
 
 /// signal sent when a mouse is hovering over us, sent by atom/proc/on_mouse_entered
 #define COMSIG_ATOM_MOUSE_ENTERED "mouse_entered"

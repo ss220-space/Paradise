@@ -241,10 +241,14 @@
 	return P
 
 /obj/item/camera/proc/printpicture(mob/user, datum/picture/P)
-	var/obj/item/photo/Photo = new/obj/item/photo()
-	Photo.loc = user.loc
-	if(istype(user) && !user.get_inactive_hand())
-		user.put_in_inactive_hand(Photo)
+	var/obj/item/photo/Photo = new /obj/item/photo()
+	var/atom/spawn_loc = user ? user.loc : drop_location()
+	Photo.forceMove(spawn_loc)
+
+	if(user && isliving(user))
+		var/mob/living/living_user = user
+		if(!living_user.get_inactive_hand())
+			living_user.put_in_inactive_hand(Photo)
 
 	Photo.construct(P)
 
@@ -357,28 +361,34 @@
 	saved_pictures += P
 
 /obj/item/camera/digital/CtrlClick(mob/user)
-	if(length(saved_pictures) == 0)
+	select_and_print_picture(user)
+
+/obj/item/camera/digital/proc/select_and_print_picture(mob/user)
+	if(!user)
+		return
+	if(!length(saved_pictures))
 		to_chat(user, span_warning("No images saved."))
 		return
-	if(pictures_left == 0)
+	if(!pictures_left)
 		to_chat(user, span_warning("There is no film left to print."))
 		return
-	var/datum/picture/P = tgui_input_list(user, "Select image to print", "Print image", saved_pictures)
-	if(pictures_left == 0)
-		to_chat(user, span_warning("There is no film left to print."))
-		return
-	if(P)
-		printpicture(user, P)
+
+	var/datum/picture/picture_datum = tgui_input_list(user, "Select image to print", "Print image", saved_pictures)
+	if(picture_datum && pictures_left > 0)
+		printpicture(user, picture_datum)
 		pictures_left--
 
 /obj/item/camera/digital/CtrlShiftClick(mob/user)
 	if(length(saved_pictures) == 0)
 		to_chat(user, span_warning("No images saved"))
 		return
-	var/datum/picture/P = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
-	if(P)
-		saved_pictures -= P
+	var/datum/picture/picture_datum = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
+	if(picture_datum)
+		saved_pictures -= picture_datum
 
+/obj/item/camera/digital/on_tripwire_alt_click(obj/item/tripwire/base, mob/user)
+	select_and_print_picture(user)
+	return TRUE
 
 #define MIN_PICTURE_SIZE 1
 #define MAX_PICTURE_SIZE 7

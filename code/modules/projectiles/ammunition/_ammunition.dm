@@ -201,14 +201,19 @@
 			PREPOSITIONAL = "пуле \"[label_text]\"",
 		)
 
-/obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
-	if(QDELETED(H))
+/obj/item/ammo_casing/proc/leave_residue(atom/movable/user)
+	if(!iscarbon(user))
 		return
-	if(istype(H) && H.gloves)
-		var/obj/item/clothing/G = H.gloves
-		G.gunshot_residue = caliber
+
+	var/mob/living/carbon/human/human_user = user
+	if(!istype(human_user))
+		return
+
+	if(human_user.gloves)
+		var/obj/item/clothing/gloves = human_user.gloves
+		gloves.gunshot_residue = caliber
 	else
-		H.gunshot_residue = caliber
+		human_user.gunshot_residue = caliber
 
 /obj/item/ammo_casing/proc/after_fire()
 	return
