@@ -88,17 +88,6 @@
 	/// Currently attached flashlight.
 	var/obj/item/flashlight/seclite/gun_light
 
-	/// Whether user can attach/detach bayonets to/from this gun.
-	var/can_bayonet = FALSE
-	/// Currently attached bayonet.
-	var/obj/item/kitchen/knife/bayonet
-	/// Currently used bayonet overlay.
-	var/mutable_appearance/bayonet_overlay
-	/// Offsets bayonet's overlay pixel_x by this value.
-	var/bayonet_x_offset = 0
-	/// Offsets bayonet's overlay pixel_y by this value.
-	var/bayonet_y_offset = 0
-
 	var/can_holster = TRUE
 
 	var/list/upgrades = list()
@@ -136,7 +125,6 @@
 
 /obj/item/gun/Destroy()
 	QDEL_NULL(gun_light)
-	QDEL_NULL(bayonet)
 	for(var/attachment in attachments_by_slot)
 		if(!attachments_by_slot[attachment])
 			continue
@@ -152,9 +140,7 @@
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/target)
-	if(target == bayonet)
-		set_bayonet(null)
-	else if(target == gun_light)
+	if(target == gun_light)
 		set_gun_light(null)
 	return ..()
 
@@ -183,10 +169,6 @@
 
 	if(unique_rename)
 		. += span_notice("Используйте ручку чтобы переименовать его.")
-	if(bayonet)
-		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
-		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
-			. += span_notice("[DECLENT_RU_CAP(bayonet, NOMINATIVE)] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/update_overlays()
@@ -308,11 +290,11 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(firing_burst)
 		return
-	if(flag) //It's adjacent, is the user, or is on the user's person
+	if(proximity_flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
@@ -323,19 +305,19 @@
 	if(!can_trigger_gun(user))
 		return
 
-	if(flag)
+	if(proximity_flag)
 		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
 				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
-				handle_suicide(user, target, params)
+				handle_suicide(user, target, modifiers)
 			return
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE )]!"))
 		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-		process_fire(user, user, 0, params, zone_override = shot_leg)
+		process_fire(user, user, 0, modifiers, zone_override = shot_leg)
 		user.drop_from_active_hand()
 		return
 
@@ -355,12 +337,12 @@
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
 					bonus_spread += accuracy.dual_wield_spread * G.weapon_weight
 				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, modifiers, null, bonus_spread), loop_counter)
 	//CLOWN CHECK
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		bonus_spread += 45
 
-	process_fire(target,user,1,params, null, bonus_spread)
+	process_fire(target, user, 1, modifiers, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
@@ -379,7 +361,7 @@
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
 	if(is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
 		add_fingerprint(user)
@@ -390,6 +372,7 @@
 	if(fire_cd)
 		return
 
+	bonus_spread += user.get_fracture_spread_bonus()
 	if(user.buckled)
 		bonus_spread += 45
 
@@ -416,7 +399,7 @@
 					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
 					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
-				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
+				if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -440,7 +423,7 @@
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
 			sprd = accuracy.randomize_spread(user, bonus_spread)
-			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
+			if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -474,15 +457,6 @@
 /obj/item/gun/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_BLOCKED
-	if(bayonet) //Flogging
-		bayonet.melee_attack_chain(user, target, modifiers)
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
-
-/obj/item/gun/attack_obj(obj/object, mob/user, list/modifiers)
-	if(bayonet)
-		bayonet.melee_attack_chain(user, object, modifiers)
-		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
@@ -496,22 +470,6 @@
 			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/kitchen/knife))
-		add_fingerprint(user)
-		var/obj/item/kitchen/knife/knife = I
-		//ensure the gun has an attachment point available and that the knife is compatible with it.
-		if(!can_bayonet || !knife.bayonet_suitable)
-			to_chat(user, span_warning("Вы не можете прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
-			return ATTACK_CHAIN_PROCEED
-		if(bayonet)
-			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [knife.declent_ru(NOMINATIVE)]!"))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(knife, src))
-			return ..()
-		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE)]."))
-		set_bayonet(knife)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	if(istype(I, /obj/item/gun_module))
 		add_fingerprint(user)
 		var/obj/item/gun_module/module = I
@@ -519,14 +477,6 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-/obj/item/gun/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
-		set_bayonet(null)
 
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
@@ -603,37 +553,6 @@
 		toggle_gunlight(silent = TRUE)
 		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
 
-/// Sets gun's bayonet and do all the necessary updates
-/obj/item/gun/proc/set_bayonet(obj/item/kitchen/knife/new_bayonet)
-	if(bayonet == new_bayonet)
-		return
-
-	if(new_bayonet && (!istype(new_bayonet) || !new_bayonet.bayonet_suitable))
-		CRASH("Wrong object passed as an argument ([isdatum(new_bayonet) ? "[new_bayonet.type]" : "[new_bayonet]"])")
-
-	. = bayonet
-	bayonet = new_bayonet
-
-	if(bayonet)
-		if(bayonet.loc != src)
-			bayonet.forceMove(src)
-
-		var/overlay_type = "bayonet"	//Generic state.
-		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
-			overlay_type = bayonet.icon_state
-		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
-		bayonet_overlay.pixel_w = bayonet_x_offset
-		bayonet_overlay.pixel_z = bayonet_y_offset
-	else
-		bayonet_overlay = null
-		if(.)
-			var/obj/item/kitchen/knife/old_bayonet = .
-			if(old_bayonet.loc == src)
-				old_bayonet.forceMove(get_turf(src))
-
-	update_icon(UPDATE_OVERLAYS)
-	update_equipped_item(update_speedmods = FALSE)
-
 /obj/item/gun/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	zoom(user, FALSE)
@@ -673,7 +592,7 @@
 			return module.detach_without_check(src, user)
 
 
-/obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
+/obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, list/modifiers)
 	if(!ishuman(user) || !ishuman(target))
 		return
 
@@ -717,7 +636,7 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	var/fired = process_fire(target, user, TRUE, params, BODY_ZONE_HEAD)
+	var/fired = process_fire(target, user, TRUE, modifiers, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
 		chambered.BB.damage /= 15
 
@@ -732,6 +651,10 @@
 	var/obj/item/gun/gun = null
 
 /datum/action/toggle_scope_zoom/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)

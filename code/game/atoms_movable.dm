@@ -1,4 +1,5 @@
 /atom/movable
+	abstract_type = /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
@@ -233,21 +234,21 @@
 
 	switch(var_name)
 		if(NAMEOF(src, x))
-			var/turf/T = locate(var_value, y, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(var_value, y, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, y))
-			var/turf/T = locate(x, var_value, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(x, var_value, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, z))
-			var/turf/T = locate(x, y, var_value)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(x, y, var_value)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, loc))
@@ -257,6 +258,9 @@
 			return FALSE
 		if(NAMEOF(src, anchored))
 			set_anchored(var_value)
+			. = TRUE
+		if(NAMEOF(src, pulledby))
+			set_pulledby(var_value)
 			. = TRUE
 		if(NAMEOF(src, glide_size))
 			set_glide_size(var_value)
@@ -430,7 +434,7 @@
 			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
 				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 		if(GRAB_KILL)
-			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
+			if(. <= GRAB_KILL) // Grab got ugraded from neck grab.
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
 /// Use this to override topmost bump thing in [/turf/proc/Enter()].
@@ -516,7 +520,7 @@
 		var/dz = newloc.z
 		new_locs = block(
 			dx, dy, dz,
-			dx + (CEILING(bound_width / ICON_SIZE_X, 1) - 1), dy + (CEILING(bound_height / ICON_SIZE_X, 1) - 1), dz
+			dx + (ceil(bound_width / ICON_SIZE_X) - 1), dy + (ceil(bound_height / ICON_SIZE_X) - 1), dz
 		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
@@ -870,7 +874,7 @@
 				var/dz = destination.z
 				var/list/new_locs = block(
 					dx, dy, dz,
-					dx + (CEILING(bound_width / ICON_SIZE_X, 1) - 1), dy + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1), dz
+					dx + (ceil(bound_width / ICON_SIZE_X) - 1), dy + (ceil(bound_height / ICON_SIZE_Y) - 1), dz
 				)
 
 				if(old_area && old_area != destarea)
@@ -1536,7 +1540,7 @@
 	if(!can_devour(gourmet))
 		return FALSE
 
-	var/mob/living/victim = src	// its just living mobs now, subject to change later
+	var/mob/living/victim = src // its just living mobs now, subject to change later
 
 	var/target = isturf(loc) ? src : gourmet
 
@@ -1665,3 +1669,7 @@
 
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
+
+/// Called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
+	return

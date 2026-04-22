@@ -63,6 +63,7 @@
 // Assistant
 #define JOB_TITLE_CIVILIAN "Civilian"
 #define JOB_TITLE_PRISONER "Prisoner"
+#define JOB_TITLE_INVESTOR "Investor"
 
 // Silicons
 #define JOB_TITLE_AI "AI"

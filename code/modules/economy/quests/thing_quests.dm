@@ -408,7 +408,7 @@
 /datum/cargo_quest/thing/minerals/length_quest()
 	var/stack_length
 	for(var/mineral in required_minerals)
-		stack_length += CEILING(required_minerals[mineral]/50, 1)
+		stack_length += ceil(required_minerals[mineral]/50)
 	return stack_length
 
 /datum/cargo_quest/thing/minerals/plasma

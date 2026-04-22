@@ -116,7 +116,7 @@
 	name = "Нейроматин"
 	id = "neuromatin"
 	result = "neuromatin"
-	required_reagents = list("sterilizine" = 3, "mannitol" = 5, "mitocholide" = 1, "atropine" = 1)
+	required_reagents = list("formaldehyde" = 1, "mannitol" = 5, "teporone" = 1, "atropine" = 3)
 	result_amount = 10
 	min_temp = 350 //K
 

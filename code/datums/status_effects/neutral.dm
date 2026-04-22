@@ -332,7 +332,7 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
 /datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)

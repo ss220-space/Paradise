@@ -64,6 +64,10 @@
 #define APC_ELECTRONICS_INSTALLED 1
 #define APC_ELECTRONICS_SECURED 2
 
+// cell's charge for apc types
+#define CELL_IMPORTANT 5000
+#define CELL_GENERATOR 25000
+
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
 
@@ -199,6 +203,7 @@
 	environment_channel = CHANNEL_SETTING_OFF
 	operating = FALSE
 	emergency_power = FALSE
+	cell_type = FALSE
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = FALSE
@@ -206,6 +211,13 @@
 /obj/machinery/power/apc/syndicate //general syndicate access
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
+
+/obj/machinery/power/apc/important_area
+	cell_type = CELL_IMPORTANT
+
+/obj/machinery/power/apc/generator
+	cell_type = CELL_GENERATOR
+	shock_proof = TRUE
 
 /obj/item/apc_electronics
 	name = "power control module"
@@ -312,8 +324,8 @@
 
 	var/static/list/hovering_mob_typechecks = list(
 		/mob/living/silicon = list(
-			SCREENTIP_CONTEXT_ALT_LMB = "Вкл/выкл блокировку",
 			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
+			SCREENTIP_CONTEXT_RMB = "Разблокировать/Заблокировать",
 		)
 	)
 
@@ -624,7 +636,7 @@
 		if(!host_turf)
 			. = ATTACK_CHAIN_PROCEED
 			CRASH("attackby on APC when it's not on a turf")
-		if(!host_turf.can_have_cabling() || host_turf.intact)
+		if(!host_turf.can_have_cabling() || host_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 			to_chat(user, span_warning("You should remove the floor plating in front of the APC first."))
 			return ATTACK_CHAIN_PROCEED
 		if(!has_electronics())
@@ -638,7 +650,7 @@
 			span_notice("You start to construct the cable terminal beneath the APC frame..."),
 		)
 		coil.play_tool_sound(src)
-		if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || opened == APC_CLOSED || terminal || !host_turf.can_have_cabling() || host_turf.intact || !has_electronics() || QDELETED(coil))
+		if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || opened == APC_CLOSED || terminal || !host_turf.can_have_cabling() || host_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || !has_electronics() || QDELETED(coil))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/structure/cable/node = host_turf.get_cable_node()
 		if(prob(50) && electrocute_mob(user, node, node, 1, TRUE))
@@ -1848,3 +1860,13 @@
 #undef APC_ELECTRONICS_INSTALLED
 #undef APC_ELECTRONICS_SECURED
 
+#undef CELL_IMPORTANT
+#undef CELL_GENERATOR
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/generator, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important_area, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/noalarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 26, 26)
