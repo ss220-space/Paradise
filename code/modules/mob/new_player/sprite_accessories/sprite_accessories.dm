@@ -46,6 +46,7 @@
 	var/icon_state			//the icon_state of the accessory
 	var/name				//the preview name of the accessory
 	var/unsuitable_gender	//Determines if the accessory will be skipped or included in random generations
+	var/wizard_only = FALSE //makes it available only to wizards
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON)
