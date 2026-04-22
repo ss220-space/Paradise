@@ -490,7 +490,7 @@
 	. = ..()
 	if(.)
 		KA.AddComponent(/datum/component/automatic_fire, 0.4 SECONDS)
-		KA.balloon_alert(user, "автоматический режим")
+		KA.balloon_alert(user, "установлено")
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	qdel(KA.GetComponent(/datum/component/automatic_fire))
