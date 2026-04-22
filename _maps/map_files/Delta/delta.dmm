@@ -1139,6 +1139,9 @@
 /area/engineering/controlroom)
 "alJ" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -2041,6 +2044,16 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -3695,6 +3708,8 @@
 	name = "Труба фильтрации"
 	},
 /obj/structure/railing,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4998,10 +5013,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aQV" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	desc = "Труба содержит дыхательную смесь для подачи на станцию";
-	name = "Труба дыхательной смеси"
-	},
+/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5948,11 +5960,10 @@
 "aYA" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/trinary/filter/flipped/co2{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 5;
+	name = "Труба на фильтрацию"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -7458,10 +7469,6 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
-"bjy" = (
-/obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plating,
-/area/atmos)
 "bjz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9162,6 +9169,7 @@
 	name = "Смеситель горючей смеси";
 	target_pressure = 4500
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -9473,8 +9481,14 @@
 	name = "Труба дыхательной смеси"
 	},
 /obj/item/radio/intercom/directional/west,
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/atmos)
 "byx" = (
@@ -10146,12 +10160,12 @@
 	},
 /area/storage/tech)
 "bBO" = (
-/obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 10;
 	name = "Труба смешивания"
 	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel/stairs/left,
 /area/atmos)
 "bBQ" = (
@@ -12305,18 +12319,14 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт кислород в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
-	dir = 8;
-	name = "Кислород (O2) в дыхательную смесь";
-	on = 1;
-	target_pressure = 101
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -14416,9 +14426,9 @@
 /area/maintenance/engineering)
 "cbo" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 6;
+	dir = 1;
 	name = "Труба смешивания"
 	},
 /turf/simulated/floor/plating,
@@ -15618,8 +15628,10 @@
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -15996,6 +16008,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
+/obj/structure/closet/firecloset,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -18474,6 +18488,7 @@
 	name = "Atmospherics Desk";
 	req_access = list(24)
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cCT" = (
@@ -20751,6 +20766,10 @@
 	name = "Труба на фильтрацию"
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cQH" = (
@@ -21341,6 +21360,20 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"cTu" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 1;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/turf/simulated/floor/plating,
+/area/atmos)
 "cTz" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -24155,6 +24188,26 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
+"dhE" = (
+/obj/effect/decal/warning_stripes/west{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "siding8"
+	},
+/obj/effect/decal/warning_stripes/west{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "siding4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/hydroponics)
 "dhF" = (
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
@@ -25314,7 +25367,6 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel/stairs/right,
 /area/atmos)
 "dog" = (
@@ -25733,13 +25785,13 @@
 	},
 /area/aisat/aihallway)
 "dpR" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/cultivator,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "dpS" = (
@@ -28187,11 +28239,7 @@
 /area/crew_quarters/courtroom)
 "dDO" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 1;
-	name = "Труба смешивания"
-	},
+/obj/machinery/atmospherics/trinary/tvalve/digital/flipped,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dDQ" = (
@@ -31291,6 +31339,7 @@
 	dir = 10;
 	name = "Труба дыхательной смеси"
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32629,7 +32678,9 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -34542,6 +34593,10 @@
 	name = "Труба на фильтрацию"
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ezi" = (
@@ -35600,6 +35655,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38174,12 +38231,6 @@
 	},
 /area/atmos)
 "fny" = (
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт углекислый для смешивания с другими газами";
-	dir = 4;
-	name = "Углекислый газ (CO2) в смеситель";
-	target_pressure = 101
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 1;
@@ -38190,6 +38241,12 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт углекислый для смешивания с другими газами";
+	dir = 4;
+	name = "Углекислый газ (CO2) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38328,7 +38385,6 @@
 "fpx" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "fpy" = (
@@ -42924,6 +42980,8 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -43752,7 +43810,6 @@
 /obj/machinery/light_switch/directional/west,
 /obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
@@ -43913,7 +43970,6 @@
 /obj/item/paper_bin,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "gDy" = (
@@ -44897,6 +44953,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -45521,12 +45580,11 @@
 /area/engineering/engine)
 "gTq" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Gas Pump"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/binary/volume_pump{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -46330,6 +46388,10 @@
 	icon_state = "redcorner"
 	},
 /area/security/customs)
+"hcr" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plating,
+/area/atmos)
 "hcW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -46594,6 +46656,8 @@
 	name = "Труба фильтрации"
 	},
 /obj/structure/railing/corner,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48074,12 +48138,6 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "hyj" = (
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт токсины для смешивания с другими газами";
-	dir = 4;
-	name = "Токсины (Плазма) в смеситель";
-	target_pressure = 101
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 1;
@@ -48090,6 +48148,12 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт токсины для смешивания с другими газами";
+	dir = 4;
+	name = "Токсины (Плазма) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -48653,7 +48717,6 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/trading)
 "hFZ" = (
-/obj/effect/decal/warning_stripes/north,
 /obj/structure/railing{
 	dir = 8
 	},
@@ -48761,6 +48824,8 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49368,7 +49433,7 @@
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
-	target_pressure = 4500
+	target_pressure = 101
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -50317,15 +50382,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
-"hZQ" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 1;
-	name = "Труба смешивания"
-	},
-/turf/simulated/floor/plating,
-/area/atmos)
 "hZV" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -51116,7 +51172,9 @@
 "ijV" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -51173,6 +51231,10 @@
 	name = "Труба фильтрации"
 	},
 /obj/machinery/atmospherics/meter,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -51246,16 +51308,16 @@
 /turf/space,
 /area/solar/starboard)
 "ilr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 1;
+	name = "Труба фильтрации"
+	},
 /obj/machinery/atmospherics/binary/pump{
 	desc = "Подаёт азот для смешивания с другими газами";
 	dir = 8;
 	name = "Азот (N2) в смеситель";
 	target_pressure = 101
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 1;
-	name = "Труба фильтрации"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -51272,6 +51334,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/meter,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -52508,6 +52574,10 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "izb" = (
@@ -52946,7 +53016,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/newscaster/directional/west,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -53703,18 +53773,14 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт азот в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
-	dir = 8;
-	name = "Азот (N2) в дыхательную смесь";
-	on = 1;
-	target_pressure = 101
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -54553,6 +54619,22 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
+"iXU" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 1;
+	name = "Труба фильтрации"
+	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/atmos)
 "iXV" = (
 /obj/machinery/light{
 	dir = 4
@@ -55081,10 +55163,8 @@
 /area/medical/reception)
 "jda" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
+/obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -55893,6 +55973,25 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"jlv" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/meter,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/atmos)
 "jlz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -56771,6 +56870,11 @@
 	icon_state = "neutralcorner"
 	},
 /area/bridge/vip)
+"jug" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/trinary/mixer,
+/turf/simulated/floor/plating,
+/area/atmos)
 "jul" = (
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
@@ -57478,9 +57582,7 @@
 "jBd" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/atmospherics/pipe/simple/visible/red{
-	dir = 10
-	},
+/obj/machinery/atmospherics/trinary/filter/co2,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58545,7 +58647,7 @@
 	desc = "Труба ведёт газ на фильтрацию";
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/newscaster/directional/south,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60316,12 +60418,6 @@
 	},
 /area/security/medbay)
 "klO" = (
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт оксид азота для смешивания с другими газами";
-	dir = 4;
-	name = "Оксид азота (NO2) в смеситель";
-	target_pressure = 101
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
 	dir = 1;
@@ -60332,6 +60428,12 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт оксид азота для смешивания с другими газами";
+	dir = 4;
+	name = "Оксид азота (NO2) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -60672,6 +60774,7 @@
 /area/maintenance/asmaint3)
 "kpE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -63038,6 +63141,10 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
+"kTx" = (
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/plating,
+/area/atmos)
 "kTC" = (
 /obj/machinery/computer/cloning,
 /turf/simulated/floor/plasteel{
@@ -64674,12 +64781,11 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/manifold/visible/purple{
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
-	dir = 8;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/alarm/directional/west,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -64845,17 +64951,12 @@
 	},
 /area/medical/virology/lab)
 "loF" = (
-/obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 6;
-	name = "Труба смешивания"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/stairs/right,
 /area/atmos)
 "loO" = (
@@ -66018,6 +66119,9 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
+"lFK" = (
+/turf/simulated/wall/r_wall/coated,
+/area/atmos)
 "lFO" = (
 /obj/machinery/light{
 	dir = 4
@@ -66500,11 +66604,6 @@
 	},
 /area/bridge/vip)
 "lLP" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 4;
-	name = "Труба турбины"
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -66512,6 +66611,10 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/directional/north,
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	dir = 4;
+	name = "Вентиль подачи топливной смеси турбины"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -66556,6 +66659,10 @@
 /area/crew_quarters/courtroom)
 "lMz" = (
 /obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lMA" = (
@@ -68634,6 +68741,8 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70041,9 +70150,9 @@
 /area/maintenance/asmaint4)
 "mzH" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/manifold4w/visible/yellow{
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
 	name = "Труба смешивания"
 	},
 /turf/simulated/floor/plating,
@@ -70336,6 +70445,14 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
+"mCb" = (
+/obj/machinery/atmospherics/binary/pump{
+	name = "Air Out"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "mCd" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -71188,6 +71305,10 @@
 	dir = 4;
 	name = "Труба на фильтрацию"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -71792,10 +71913,9 @@
 /area/medical/virology/lab)
 "mQx" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 1;
+	dir = 10;
 	name = "Труба смешивания"
 	},
 /turf/simulated/floor/plating,
@@ -71890,7 +72010,6 @@
 	},
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowfull"
@@ -71996,9 +72115,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -72371,12 +72487,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	name = "Труба на фильтрацию"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -73303,6 +73420,14 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating/airless,
 /area/medical/virology/lab)
+"ngC" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	name = "Труба смешивания"
+	},
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "ngE" = (
 /obj/machinery/alarm/directional/north,
 /obj/structure/cable{
@@ -73815,13 +73940,6 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research/shallway)
-"nmu" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/stairs/right,
-/area/atmos)
 "nmy" = (
 /obj/machinery/papershredder,
 /obj/machinery/light_switch/directional/east,
@@ -74122,6 +74240,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -75689,6 +75810,8 @@
 	name = "Труба турбины"
 	},
 /obj/structure/railing,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76767,6 +76890,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/meter,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -77056,6 +77180,10 @@
 	name = "Труба смешивания"
 	},
 /obj/effect/decal/warning_stripes/southwest,
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "nYi" = (
@@ -78249,10 +78377,6 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
-"olo" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating,
-/area/atmos)
 "olA" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -78339,6 +78463,16 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/west)
+"omP" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 1;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plating,
+/area/atmos)
 "omX" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -78686,7 +78820,6 @@
 	},
 /area/security/prisonershuttle)
 "oqH" = (
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel/stairs/medium,
 /area/atmos)
 "oqI" = (
@@ -80339,18 +80472,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
-"oKv" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	desc = "Труба содержит дыхательную смесь для подачи на станцию";
-	dir = 1;
-	name = "Труба дыхательной смеси"
-	},
-/obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/atmos)
 "oKx" = (
 /obj/machinery/door_control{
 	id = "xenokill";
@@ -81335,6 +81456,10 @@
 	name = "Труба на фильтрацию"
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "oXs" = (
@@ -81504,13 +81629,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"oZp" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/atmos)
 "oZz" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -81816,6 +81934,7 @@
 	name = "Подача дыхательной смеси на станцию"
 	},
 /obj/effect/decal/warning_stripes/blue/hollow,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -82574,16 +82693,14 @@
 	},
 /area/engineering/mechanic_workshop/hangar)
 "pjN" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
 	name = "Труба на фильтрацию"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -84249,11 +84366,6 @@
 /area/crew_quarters/hor)
 "pCD" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 9;
-	name = "Труба смешивания"
-	},
 /obj/effect/landmark/start/atmospheric,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -85507,6 +85619,16 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/aisat)
+"pOZ" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/turf/space,
+/area/space)
 "pPo" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -86993,10 +87115,6 @@
 	icon_state = "vault"
 	},
 /area/security/nuke_storage)
-"qgM" = (
-/obj/effect/turf_decal/arrows,
-/turf/simulated/floor/plating,
-/area/atmos)
 "qgT" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -87857,6 +87975,9 @@
 	dir = 1;
 	network = list("SS13","Engineering")
 	},
+/obj/item/extinguisher,
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plating,
 /area/atmos)
 "qqo" = (
@@ -88393,8 +88514,14 @@
 	dir = 6;
 	name = "Труба фильтрации"
 	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/atmos)
 "quO" = (
@@ -90400,14 +90527,13 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "qSn" = (
-/obj/machinery/atmospherics/binary/valve/digital/open{
-	dir = 4;
-	name = "Вентиль подачи топливной смеси турбины"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/alarm/directional/north,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -90875,6 +91001,7 @@
 	dir = 5;
 	name = "Труба смешивания"
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "qXQ" = (
@@ -93631,7 +93758,7 @@
 	dir = 4;
 	network = list("SS13","Engineering")
 	},
-/obj/machinery/firealarm/directional/west,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -99746,9 +99873,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "sSj" = (
@@ -100272,10 +100397,10 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	name = "Труба турбины";
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 10;
+	name = "Труба на фильтрацию"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -102131,6 +102256,17 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgery/south)
+"tuF" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "tuK" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -105234,6 +105370,10 @@
 	name = "Труба на фильтрацию"
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "tYU" = (
@@ -106219,9 +106359,14 @@
 /area/maintenance/bar)
 "uko" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/manifold4w/visible/yellow{
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 1;
 	name = "Труба смешивания"
 	},
 /turf/simulated/floor/plating,
@@ -106704,6 +106849,16 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
+"uoZ" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 4;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plating,
+/area/atmos)
 "uph" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -107873,6 +108028,16 @@
 "uAC" = (
 /turf/simulated/wall,
 /area/medical/cmo)
+"uAK" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 6;
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "uAL" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -110158,12 +110323,12 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/exit/maint)
 "vdf" = (
-/obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	name = "Труба смешивания"
 	},
 /obj/machinery/atmospherics/meter/ditr_loop,
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/atmos)
 "vdu" = (
@@ -113153,6 +113318,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -113334,6 +113500,9 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/virology/lab)
+"vJH" = (
+/turf/simulated/wall/r_wall/coated,
+/area/atmos/control)
 "vJJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -113978,7 +114147,6 @@
 /area/assembly/chargebay)
 "vRe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -114377,6 +114545,8 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -115239,6 +115409,10 @@
 	name = "Труба на фильтрацию"
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "wfI" = (
@@ -116504,11 +116678,12 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "wsR" = (
-/obj/machinery/atmospherics/binary/valve/digital{
-	name = "Вентиль охлаждающего контура турбины"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	name = "Труба на фильтрацию"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -120163,7 +120338,6 @@
 	network = list("SS13","Engineering")
 	},
 /obj/item/storage/box/lights/mixed,
-/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -120579,9 +120753,6 @@
 "xnJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
@@ -121560,9 +121731,9 @@
 "xxr" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
+	desc = "Подаёт азот из атмосферки в систему охлаждения реактора, таким образом запитывая её хладагентом";
 	dir = 1;
-	name = "Труба смешивания"
+	name = "Труба подачи азота в реактор"
 	},
 /turf/simulated/floor/plating,
 /area/atmos)
@@ -121922,10 +122093,7 @@
 	dir = 10;
 	name = "Труба на фильтрацию"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/item/radio/intercom/directional/east,
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -122181,13 +122349,9 @@
 /area/medical/research/shallway)
 "xDw" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	desc = "Труба ведёт газ на фильтрацию";
-	dir = 4;
-	name = "Труба на фильтрацию"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/binary/volume_pump{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -125348,10 +125512,10 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/meter,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor/border_only,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/atmos)
 "ygC" = (
@@ -142987,16 +143151,16 @@ aaq
 aaq
 dZq
 dZq
+dZq
+aaq
+aaq
+dZq
+dZq
+dZq
 aaq
 aaq
 aaq
-dZq
-dZq
-dZq
 aaq
-coE
-dZq
-dZq
 aaq
 aaq
 aaq
@@ -143248,13 +143412,13 @@ coE
 aaq
 coE
 coE
-aaq
-aaq
 coE
 coE
 aaq
 coE
 dZq
+dZq
+aaq
 aaq
 aaq
 aaq
@@ -143505,13 +143669,13 @@ coE
 dZq
 dZq
 dZq
+aaq
+aaq
 coE
-coE
-dZq
-dZq
-dZq
 coE
 aaq
+coE
+coE
 aaq
 aaq
 ajX
@@ -143763,12 +143927,12 @@ aaq
 coE
 coE
 coE
-aaq
+coE
+dZq
+dZq
+dZq
 coE
 aaq
-coE
-aaq
-coE
 dDe
 dIE
 dDe
@@ -144019,13 +144183,13 @@ cOU
 cOU
 cOU
 cet
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+coE
+qNE
+puU
+qNE
+puU
+qNE
+puU
 aWR
 pGv
 aWR
@@ -144276,13 +144440,13 @@ cOU
 cOU
 cOU
 cBY
-coE
-coE
 qNE
-puU
-qNE
-puU
-aaq
+aHI
+pOZ
+pOZ
+pOZ
+vhB
+cBY
 aWR
 lHQ
 aWR
@@ -144533,8 +144697,8 @@ cOU
 cOU
 cOU
 cet
-coE
-cjJ
+bdI
+pOZ
 vhB
 iAl
 iAl
@@ -146344,7 +146508,7 @@ kmq
 aOg
 aOg
 nqd
-aOg
+lFK
 dOJ
 gFR
 cfM
@@ -146352,13 +146516,13 @@ dwW
 dOJ
 gFR
 cfM
-dwW
+aOg
 dOJ
 gFR
 cfM
-aOg
+dwW
 cfM
-aOg
+lFK
 aOg
 voS
 aOg
@@ -146601,7 +146765,7 @@ oLB
 vPh
 bwx
 ven
-nUu
+jlv
 fnw
 cwe
 gvy
@@ -146616,8 +146780,8 @@ gvy
 hjU
 kab
 byw
+tuF
 cwe
-oKv
 pcH
 yij
 cEZ
@@ -146872,8 +147036,8 @@ hjK
 mcm
 rcv
 hDZ
+iXU
 rcv
-jrP
 gdN
 kWc
 ycG
@@ -147119,11 +147283,11 @@ ygA
 bBO
 dDO
 qXL
-gca
-jda
+uAK
+ngC
 gca
 jaS
-gca
+uAK
 jda
 gca
 gca
@@ -147372,15 +147536,15 @@ gZP
 aOg
 qDE
 dtc
-dHP
+ygA
 oqH
 cbo
-mzH
-eoq
-mzH
+cTu
+cTu
+jug
+omP
 tgd
-eoq
-tgd
+cTu
 mzH
 tgd
 eoq
@@ -147631,18 +147795,18 @@ wSr
 whT
 hfW
 dof
-shU
+uoZ
 cMg
-lUy
-cMg
-lUy
-lUy
-lUy
 cMg
 lUy
 lUy
 lUy
-oZp
+cMg
+lUy
+lUy
+lUy
+lUy
+itE
 tYT
 fNX
 fNX
@@ -147899,7 +148063,7 @@ lUy
 lUy
 lUy
 lUy
-olo
+lUy
 wfF
 nUV
 aOg
@@ -148156,7 +148320,7 @@ lUy
 lUy
 lUy
 lUy
-olo
+lUy
 iyW
 jZG
 iMF
@@ -148400,7 +148564,7 @@ nKu
 jVS
 fww
 jjl
-dHP
+ygA
 oqH
 dPQ
 lUy
@@ -148408,12 +148572,12 @@ lUy
 lUy
 lUy
 lUy
+weo
 lUy
 lUy
 lUy
 lUy
 lUy
-olo
 eyX
 cWq
 lkL
@@ -148657,20 +148821,20 @@ iJr
 sKq
 egM
 jjl
-dHP
+ygA
 oqH
 shU
 lUy
 lUy
 lUy
 lUy
+hcr
+kLP
+kTx
 lUy
-weo
 lUy
 lUy
 lUy
-lUy
-olo
 eyX
 bwY
 jzz
@@ -148914,7 +149078,7 @@ wal
 jVS
 fww
 jjl
-dHP
+ygA
 oqH
 dPQ
 lUy
@@ -148927,7 +149091,7 @@ tNc
 lUy
 lUy
 lUy
-olo
+lUy
 eyX
 bwY
 crv
@@ -149172,7 +149336,7 @@ nhh
 sHJ
 ppW
 vVb
-nmu
+dof
 dPQ
 lUy
 lUy
@@ -149184,7 +149348,7 @@ lUy
 lUy
 lUy
 lUy
-olo
+lUy
 eyX
 bwY
 cow
@@ -149441,7 +149605,7 @@ lUy
 lUy
 lUy
 lUy
-olo
+lUy
 oXq
 wVX
 oNN
@@ -149698,7 +149862,7 @@ lUy
 lUy
 lUy
 lUy
-olo
+lUy
 cQG
 gca
 gca
@@ -149944,18 +150108,18 @@ iYR
 gCN
 hGO
 hFZ
-hZQ
-qgM
-itE
-lUy
-lUy
+uoZ
 lUy
 itE
 lUy
 lUy
 lUy
+itE
 lUy
-olo
+lUy
+lUy
+lUy
+lUy
 mKs
 kWU
 hSp
@@ -150202,7 +150366,7 @@ onN
 grM
 oqH
 mQx
-kOh
+xxr
 xwR
 xxr
 kOh
@@ -150212,7 +150376,7 @@ oye
 oye
 oye
 oye
-bjy
+oye
 asc
 kgu
 mMH
@@ -150471,7 +150635,7 @@ rmc
 rmc
 rmc
 rhB
-frD
+vJH
 frD
 mMw
 oyr
@@ -150728,7 +150892,7 @@ krC
 jVH
 eCS
 jNc
-frD
+vJH
 plH
 eeK
 hoM
@@ -150972,7 +151136,7 @@ rtH
 dVw
 ilt
 aQV
-kWc
+mCb
 edE
 fUV
 ban
@@ -150985,7 +151149,7 @@ mDw
 vxz
 uoM
 clT
-frD
+vJH
 mNo
 icF
 dvw
@@ -151227,7 +151391,7 @@ nhh
 nhh
 azT
 aOg
-aOg
+lFK
 dti
 gFR
 dti
@@ -151235,14 +151399,14 @@ dwW
 dOJ
 gFR
 cfM
-dwW
+aOg
 dOJ
 gFR
 cfM
-aOg
+dwW
 joS
 gwZ
-frD
+vJH
 mNA
 cuB
 ozQ
@@ -155345,7 +155509,7 @@ egD
 bxc
 itk
 fOr
-fOr
+dhE
 aXx
 sRm
 mYR

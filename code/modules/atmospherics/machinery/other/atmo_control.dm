@@ -125,7 +125,7 @@
 	id_tag = "mix_sensor"
 
 /obj/machinery/atmospherics/air_sensor/burn_bomb_mix
-	frequency = 1222;
+	frequency = BOMB_MIX_FREQ;
 	id_tag = "burn_sensor"
 
 /obj/machinery/computer/general_air_control
@@ -389,8 +389,8 @@
 	return data
 
 /obj/machinery/computer/general_air_control/BombMix
-	frequency = 1222;
-	name = "Bomb Mix Monitor";
+	frequency = BOMB_MIX_FREQ
+	name = "Bomb Mix Monitor"
 	sensors = list("burn_sensor"="Burn Mix")
 
 /obj/machinery/computer/general_air_control/meter_monitor

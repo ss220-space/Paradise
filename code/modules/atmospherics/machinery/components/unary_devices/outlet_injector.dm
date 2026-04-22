@@ -16,25 +16,25 @@
 	on = TRUE
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/o2
-	id_tag = "o2_sensor"
+	id = "o2_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/n2
-	id_tag = "n2_sensor"
+	id = "n2_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/tox
-	id_tag = "tox_sensor"
+	id = "tox_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/n2o
-	id_tag = "n2o_sensor"
+	id = "n2o_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/co2
-	id_tag = "co2_sensor"
+	id = "co2_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/air
-	id_tag = "air_sensor"
+	id = "air_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/on/mix
-	id_tag = "mix_sensor"
+	id = "mix_in"
 
 /obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
 	. = ..()

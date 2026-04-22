@@ -865,7 +865,7 @@
 	use_to_pickup = 1
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade/populate_contents()
-	for(var/I in 1 to rand(MIN_FOAM_GRENADES_IN_BOX,MAX_FOAM_GRENADES_IN_BOX))
+	for(var/i in 1 to rand(MIN_FOAM_GRENADES_IN_BOX,MAX_FOAM_GRENADES_IN_BOX))
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
 /obj/item/storage/box/atmospherics/metalfoam_grenade/get_ru_names()

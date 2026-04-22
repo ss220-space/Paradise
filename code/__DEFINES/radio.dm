@@ -4,6 +4,7 @@
 #define ATMOS_VENTSCRUB 1439 //vents, scrubbers, atmos control
 #define ATMOS_DISTRO_FREQ 1443 //distro loop
 #define ATMOS_TANKS_FREQ 1441 //atmos supply tanks
+#define BOMB_MIX_FREQ 1444 //toxins burning chamber
 #define BOT_BEACON_FREQ 1445 //bot navigation beacons
 #define AIRLOCK_FREQ 1449 //airlock controls, electropack, magnets
 

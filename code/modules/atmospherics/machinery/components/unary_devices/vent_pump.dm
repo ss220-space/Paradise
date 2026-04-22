@@ -1,6 +1,10 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
 #define DEFAULT_PRESSURE_CHECKS ONLY_CHECK_EXT_PRESSURE
+#define	ATMOS_TANK_VENT_INTERNAL_PRESSURE 4000
+#define	ATMOS_TANK_VENT_INTERNAL_PRESSURE_DEFAULT 4000
+#define	ATMOS_TANK_VENT_EXTERNAL_PRESSURE 0
+#define	ATMOS_TANK_VENT_EXTERNAL_PRESSURE_DEFAULT 0
 
 /obj/machinery/atmospherics/unary/vent_pump
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
@@ -46,12 +50,13 @@
 	icon_state = "map_vent_out"
 
 /obj/machinery/atmospherics/unary/vent_pump/on/atmos
-	external_pressure_bound = 0
-	external_pressure_bound_default = 0
-	frequency = 1441
-	internal_pressure_bound = 4000
-	internal_pressure_bound_default = 4000
+	pressure_checks = ONLY_CHECK_INT_PRESSURE
+	external_pressure_bound = ATMOS_TANK_VENT_EXTERNAL_PRESSURE
+	external_pressure_bound_default = ATMOS_TANK_VENT_EXTERNAL_PRESSURE_DEFAULT
+	internal_pressure_bound = ATMOS_TANK_VENT_INTERNAL_PRESSURE
+	internal_pressure_bound_default = ATMOS_TANK_VENT_INTERNAL_PRESSURE_DEFAULT
 	releasing = FALSE
+	frequency = ATMOS_TANKS_FREQ
 	icon_state = "in"
 
 /obj/machinery/atmospherics/unary/vent_pump/on/atmos/o2
@@ -413,3 +418,7 @@
 #undef EXTERNAL_PRESSURE_BOUND
 #undef INTERNAL_PRESSURE_BOUND
 #undef DEFAULT_PRESSURE_CHECKS
+#undef	ATMOS_TANK_VENT_INTERNAL_PRESSURE
+#undef	ATMOS_TANK_VENT_INTERNAL_PRESSURE_DEFAULT
+#undef	ATMOS_TANK_VENT_EXTERNAL_PRESSURE
+#undef	ATMOS_TANK_VENT_EXTERNAL_PRESSURE_DEFAULT

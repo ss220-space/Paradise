@@ -177,8 +177,8 @@
 		PREPOSITIONAL = "ящике атмосферного отдела",
 	)
 
-#define HEATER_CRATE_METAL_SHEETS
-#define HEATER_CRATE_CABLE_COILS
+#define HEATER_CRATE_METAL_SHEETS 5
+#define HEATER_CRATE_CABLE_COILS 6
 
 /obj/structure/closet/crate/engineering/atmospherics/heater
 	name = "atmospherics temperature control unit crate"
