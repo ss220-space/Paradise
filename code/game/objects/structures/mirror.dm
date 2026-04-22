@@ -145,7 +145,7 @@
 				AC.name = "Magic Mirror"
 				AC.flags = APPEARANCE_ALL
 				AC.whitelist = race_list
-				AC.wizard_only = TRUE
+				AC.wizard_mirror = TRUE
 				ui_users[user] = AC
 			AC.ui_interact(user)
 
