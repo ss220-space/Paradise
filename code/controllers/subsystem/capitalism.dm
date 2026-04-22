@@ -1,3 +1,6 @@
+#define FREQUENCY_SALARY 5 MINUTES
+#define EXTRA_MONEY 10000
+
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
@@ -178,3 +181,6 @@ SUBSYSTEM_DEF(capitalism)
 		list_payment_accounts.len--
 		account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 	return TRUE
+
+#undef FREQUENCY_SALARY
+#undef EXTRA_MONEY

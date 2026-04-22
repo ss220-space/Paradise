@@ -12,6 +12,3 @@
 /datum/actionspeed_modifier/devil_etalent
 	category = DA_CAT_TOOL
 	multiplicative_slowdown = -0.5
-
-/datum/actionspeed_modifier/fractures
-	variable = TRUE

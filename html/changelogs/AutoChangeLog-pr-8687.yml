@@ -1,0 +1,5 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - refactor: "Сибилы теперь gun_module (PR #8687)"
+  - tweak: "10% шанс осечки, если модуль поврежден (PR #8687)"

@@ -54,7 +54,6 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
-	cannot_break = TRUE
 	amputation_point = "поясницу"
 	gendered_icon = TRUE
 
@@ -91,38 +90,6 @@
 		INSTRUMENTAL = "левой рукой",
 		PREPOSITIONAL = "левой руке",
 	)
-
-/obj/item/organ/external/arm/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-	. = ..()
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/arm/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	. = ..()
-	user.update_fractures_workspeed()
-
-/obj/item/organ/external/arm/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/arm/mend_fracture()
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/arm/apply_splint()
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/arm/remove_splint(splint_break = FALSE, silent = FALSE)
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
 
 /obj/item/organ/external/arm/emp_act(severity)
 	if(emp_shielded(severity))
@@ -183,40 +150,34 @@
 /obj/item/organ/external/leg/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.update_fractures_slowdown()
-	user.update_fractures_fall()
 
-/obj/item/organ/external/leg/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+/obj/item/organ/external/leg/fracture(silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/leg/emp_act(severity)
 	if(emp_shielded(severity))
@@ -290,7 +251,6 @@
 	if(is_usable())
 		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
@@ -298,37 +258,32 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1, special)
 	user.update_fractures_slowdown()
-	user.update_fractures_fall()
 	if(special == ORGAN_MANIPULATION_DEFAULT)
 		user.drop_item_ground(user.shoes, force = TRUE)
 
-/obj/item/organ/external/foot/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
+/obj/item/organ/external/foot/fracture(silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/mend_fracture()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/apply_splint()
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !owner)
 		return .
 	owner.update_fractures_slowdown()
-	owner.update_fractures_fall()
 
 /obj/item/organ/external/foot/necrotize(silent = FALSE)
 	. = ..()
@@ -428,37 +383,8 @@
 		PREPOSITIONAL = "левой кисти",
 	)
 
-/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	. = ..()
-	user.update_fractures_workspeed()
-
-/obj/item/organ/external/hand/fracture(silent = FALSE, fracture_type = FRACTURE_TYPE_CLOSED)
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/hand/mend_fracture()
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/hand/apply_splint()
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
-/obj/item/organ/external/hand/remove_splint(splint_break = FALSE, silent = FALSE)
-	. = ..()
-	if(!. || !owner)
-		return .
-	owner.update_fractures_workspeed()
-
 /obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	owner.update_fractures_workspeed()
 	owner.set_num_hands(owner.num_hands + 1)
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
@@ -792,7 +718,6 @@
 	max_damage = 30
 	min_broken_damage = 15
 	cannot_arterial_bleed = TRUE
-	cannot_break = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
 	amputation_point = "спину"

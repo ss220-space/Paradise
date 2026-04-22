@@ -174,9 +174,6 @@
 						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
 							continue
 
-						if(body_part.fracture_state == FRACTURE_TYPE_OPEN)
-							continue
-
 						if(prob(mend_fractures_chance))
 							external_organ_heal_done = TRUE
 							body_part.mend_fracture()
@@ -185,9 +182,6 @@
 				else
 					for(var/obj/item/organ/external/body_part as anything in human.bodyparts)
 						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
-							continue
-
-						if(body_part.fracture_state == FRACTURE_TYPE_OPEN)
 							continue
 
 						if(prob(mend_fractures_chance))

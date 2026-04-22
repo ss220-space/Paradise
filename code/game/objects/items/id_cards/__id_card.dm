@@ -96,7 +96,7 @@
 	if(!acc)
 		return
 
-	acc.set_suspended(TRUE)
+	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()

@@ -11,10 +11,6 @@ const THEME_MAP: Record<string, string> = {
 };
 
 const GetApp = (name) => {
-  if (name === 'index') {
-    return routingError('notFound', name);
-  }
-
   let appModule;
   try {
     appModule = RequirePDAInterface(`./${name}.tsx`);

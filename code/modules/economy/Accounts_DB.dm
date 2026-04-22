@@ -1,5 +1,3 @@
-// Accounts core class - needs to be converted into a subsystem
-
 GLOBAL_VAR(current_date_string)
 
 #define AUT_ACCLST 1
@@ -24,7 +22,6 @@ GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database/Initialize(mapload)
 	. = ..()
-	// hehe kostil s tg
 	// Why the fuck are these not in a subsystem? They are global variables for fucks sake
 	// If someone ever makes a map without one of these consoles, the entire eco AND date system breaks
 	// This upsets me a lot
@@ -95,17 +92,6 @@ GLOBAL_VAR(current_date_string)
 				data["money"] = detailed_account_view.money
 				data["suspended"] = detailed_account_view.suspended
 
-				var/salary_mod = 0
-				var/salary_mod_uid = ""
-				var/datum/subscription/salary_modifier/this_modifier = find_subscription_salary_modifier_spec(detailed_account_view.owner_name, /datum/subscription/salary_modifier)
-
-				if(this_modifier)
-					salary_mod = this_modifier.modifier;
-					salary_mod_uid = this_modifier.UID()
-
-				data["salary_modifier"] = salary_mod
-				data["salary_modifier_uid"] = salary_mod_uid
-
 				var/list/transactions = list()
 				for(var/datum/transaction/T in detailed_account_view.transaction_log)
 					transactions.Add(list(list(
@@ -144,12 +130,9 @@ GLOBAL_VAR(current_date_string)
 
 		if("toggle_suspension")
 			if(detailed_account_view)
-				detailed_account_view.set_suspended(!detailed_account_view.suspended)
+				detailed_account_view.suspended = !detailed_account_view.suspended
 
 		if("create_new_account")
-			if(GLOB.station_account.suspended)
-				to_chat(usr, span_warning("Ошибка: счет станции был заморожен."))
-				return
 			current_page = AUT_ACCNEW
 
 		if("finalise_create_account")
@@ -261,38 +244,6 @@ GLOBAL_VAR(current_date_string)
 			P.info = text
 			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
-
-		if("set_salary_modifier")
-			var/sub_type = /datum/subscription/salary_modifier
-			var/owner_name = params["owner_name"]
-			var/salary_modifier = text2num(params["modifier"])
-			var/sub_uid = params["salary_modifier_uid"]
-			var/datum/money_account/sub_acc = get_account_with_name(owner_name)
-			var/datum/subscription/salary_modifier/target
-
-			if(!sub_acc)
-				to_chat(usr, span_danger("Аккаунт не найден."))
-				return
-
-			if(sub_uid && sub_uid != "" && sub_uid != "null")
-				target = locateUID(sub_uid)
-
-			if(!target)
-				target = find_subscription_salary_modifier_spec(owner_name, sub_type)
-
-			if(!target)
-				var/list/extra_params = list("modifier" = salary_modifier)
-				create_subscription(sub_acc, sub_type, extra_params)
-				return
-
-			if(salary_modifier == 0)
-				target.cancel()
-				target.modifier = 0
-				target.cost = 0
-				to_chat(usr, span_notice("Модификатор сброшен."))
-			else
-				target.update_modifier(salary_modifier)
-				to_chat(usr, span_notice("Модификатор обновлён: [salary_modifier]%."))
 
 #undef AUT_ACCLST
 #undef AUT_ACCINF
