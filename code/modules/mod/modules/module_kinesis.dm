@@ -81,10 +81,6 @@ tier 3 - range 7-8, can lift conscious
 
 	var/calculated_range = round((core.get_strength() / 20))
 	grab_range = min(calculated_range, maximum_grab_range)
-	if(core.get_strength() > 100)
-		stat_required = CONSCIOUS
-	if(core.get_strength() > 200)
-		incapacitated_required = FALSE
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_select_use(atom/target)
 	. = ..()
