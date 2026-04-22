@@ -51,3 +51,6 @@
 	name = "winchester internal tube magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	max_ammo = 5
+
+/obj/item/ammo_box/magazine/internal/shot/winchester/cargo
+	max_ammo = 6

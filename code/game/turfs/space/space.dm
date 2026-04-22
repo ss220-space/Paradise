@@ -15,6 +15,7 @@
 	light_power = 0.25
 	always_lit = TRUE
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 
@@ -135,8 +136,8 @@
 		ChangeTurf(/turf/simulated/floor/plating)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .

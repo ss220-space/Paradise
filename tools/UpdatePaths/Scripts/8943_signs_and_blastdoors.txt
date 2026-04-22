@@ -1,0 +1,12 @@
+/obj/machinery/door/poddoor/impassable{density=0;icon_state ="open";opacity=0} : /obj/machinery/door/poddoor/impassable/preopen{@OLD;density=@SKIP;icon_state =@SKIP;opacity=@SKIP}
+/obj/machinery/door/poddoor{density=0;icon_state ="open";opacity=0} : /obj/machinery/door/poddoor/preopen{@OLD;density=@SKIP;icon_state =@SKIP;opacity=@SKIP}
+/obj/machinery/door/shutters{density=0;icon_state ="open";opacity=0} : /obj/machinery/door/shutters/preopen{@OLD;density=@SKIP;icon_state =@SKIP;opacity=@SKIP}
+/obj/structure/sign/science{icon_state = "doors"} : /obj/structure/sign/doors{@OLD;icon_state=@SKIP}
+/obj/structure/sign/science{icon_state = "xeno2"} : /obj/structure/sign/xenobio/slime{@OLD;icon_state=@SKIP}
+/obj/structure/sign/securearea{name="RADIOACTIVE AREA"} : /obj/structure/sign/radiation{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
+/obj/structure/sign/securearea{name="EXTERNAL AIRLOCK"} : /obj/structure/sign/vacuum/external{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
+/obj/structure/sign/securearea{name="HIGH VOLTAGE"} : /obj/structure/sign/electricshock{@OLD;name=@SKIP;icon_state=@SKIP;desc=@SKIP}
+/obj/structure/sign/redcross : /obj/structure/sign/medbay/redcross{@OLD}
+/obj/structure/sign/greencross : /obj/structure/sign/medbay/greencross{@OLD}
+/obj/structure/sign/lifestar : /obj/structure/sign/medbay{@OLD}
+/obj/structure/sign/medbay{name="Medbay"} : /obj/structure/sign/medbay{@OLD;name=@SKIP;desc=@SKIP}

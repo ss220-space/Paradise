@@ -1,17 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ao" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "bs" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
 "bO" = (
@@ -56,10 +51,7 @@
 	pixel_y = 24;
 	specialfunctions = 4
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /obj/structure/dresser,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)
@@ -197,10 +189,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/table/wood,
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood/fancy/birch,
 /area/crew_quarters/sleep)

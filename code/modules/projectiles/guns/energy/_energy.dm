@@ -209,7 +209,7 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
-/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot(user))
 		process_chamber()
 	return ..()
@@ -284,7 +284,7 @@
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)
-	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	ratio = ceil((cell.charge / cell.maxcharge) * charge_sections)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	new_icon_state = "[icon_state]_charge"
 	var/new_item_state = null
@@ -318,8 +318,6 @@
 				. += image(icon = icon, icon_state = new_icon_state, pixel_w = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(bayonet && bayonet_overlay)
-		. += bayonet_overlay
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))
@@ -341,12 +339,13 @@
 		return OXYLOSS
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
-	. = ..()
-	if(var_name == NAMEOF(src, selfcharge))
-		if(var_value)
-			START_PROCESSING(SSobj, src)
-		else
-			STOP_PROCESSING(SSobj, src)
+	switch(var_name)
+		if(NAMEOF(src, selfcharge))
+			if(var_value)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)

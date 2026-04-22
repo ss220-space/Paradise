@@ -311,8 +311,9 @@
 	var/list/grabbed_items = list()
 	var/grab_limit = 30 // limits of how much you can take
 
-/obj/item/clockwork/brassmaker/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!proximity) return //Not adjacent.
+/obj/item/clockwork/brassmaker/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
 	var/turf/T = get_turf(target)
@@ -358,7 +359,7 @@
 	if(isrobot(user))
 		var/mob/living/silicon/robot/robot = user
 		var/obj/item/stack/sheet/brass/cyborg/stack_brass = locate() in robot.module
-		var/brass_melted = FLOOR(metal_amount / metal_need_per_brass, 1)
+		var/brass_melted = floor(metal_amount / metal_need_per_brass)
 		metal_amount -= brass_melted * metal_need_per_brass
 		if(!stack_brass)
 			stack_brass = new /obj/item/stack/sheet/brass/cyborg(robot.module, null, FALSE)

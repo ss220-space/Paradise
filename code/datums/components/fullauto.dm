@@ -339,7 +339,7 @@
 			if(!badass)
 				bonus_spread = accuracy.dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params, null, bonus_spread), 1)
-	process_fire(target, shooter, TRUE, params, null, bonus_spread)
+	process_fire(target, shooter, TRUE, params2list(params), null, bonus_spread)
 
 #undef AUTOFIRE_MOUSEUP
 #undef AUTOFIRE_MOUSEDOWN

@@ -132,7 +132,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=4"
 
-/obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag, params)
+/obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(target))
@@ -189,31 +189,31 @@
 	var/being_used = FALSE
 	var/sentience_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag, params)
+/obj/item/slimepotion/sentience/afterattack(mob/living/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(being_used || !ismob(M))
+	if(being_used || !ismob(target))
 		return
 
-	if(!isanimal(M) && !is_monkeybasic(M))
-		to_chat(user, span_warning("[M] is not animal nor lesser life form!"))
+	if(!isanimal(target) && !is_monkeybasic(target))
+		to_chat(user, span_warning("[target] is not animal nor lesser life form!"))
 		return ..()
 
-	if(istype(M, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-		to_chat(user, span_warning("unknown power prevents you from using sentience potion on [M])"))
+	if(istype(target, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
+		to_chat(user, span_warning("unknown power prevents you from using sentience potion on [target])"))
 		return ..()
 
-	if(isairmob(M))
-		to_chat(user, span_warning("[M.declent_ru(NOMINATIVE)] не является формой жизни и не может обрести разум."))
+	if(isairmob(target))
+		to_chat(user, span_warning("[target.declent_ru(NOMINATIVE)] не является формой жизни и не может обрести разум."))
 		return ..()
 
-	if(M.stat)
-		to_chat(user, span_warning("[M] is dead!"))
+	if(target.stat)
+		to_chat(user, span_warning("[target] is dead!"))
 		return ..()
 
-	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
-		var/mob/living/simple_animal/SM = M
+	if(target.ckey && isanimal(target)) //giving sentience to simple mobs under player control
+		var/mob/living/simple_animal/SM = target
 		if(SM.sentience_type != sentience_type)
 			to_chat(user, span_warning("[src] won't work on [SM]."))
 			return ..()
@@ -242,7 +242,7 @@
 			to_chat(SM, span_userdanger("You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
 				to_chat(SM, span_userdanger("You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck."))
-			to_chat(user, span_notice("[M] accepts the potion and suddenly becomes attentive and aware. It worked!"))
+			to_chat(user, span_notice("[target] accepts the potion and suddenly becomes attentive and aware. It worked!"))
 			after_success(user, SM)
 			qdel(src)
 
@@ -260,8 +260,8 @@
 			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
 			return
 
-	if(isanimal(M))
-		var/mob/living/simple_animal/SM = M
+	if(isanimal(target))
+		var/mob/living/simple_animal/SM = target
 
 		if(SM.sentience_type != sentience_type)
 			to_chat(user, span_warning("[src] won't work on [SM]."))
@@ -275,7 +275,7 @@
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
-		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
+		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = target, reason = reason_text)
 
 		if(QDELETED(src) || QDELETED(SM))
 			return
@@ -293,7 +293,7 @@
 			to_chat(SM, span_userdanger("You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
 				to_chat(SM, span_userdanger("You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck."))
-			to_chat(user, span_notice("[M] accepts [src] and suddenly becomes attentive and aware. It worked!"))
+			to_chat(user, span_notice("[target] accepts [src] and suddenly becomes attentive and aware. It worked!"))
 			after_success(user, SM)
 			qdel(src)
 
@@ -310,14 +310,14 @@
 			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
-			to_chat(user, span_notice("[M] looks interested for a moment, but then looks back down. Maybe you should try again later."))
+			to_chat(user, span_notice("[target] looks interested for a moment, but then looks back down. Maybe you should try again later."))
 			being_used = FALSE
 			..()
 
 		return
 
-	if(is_monkeybasic(M) && !M.ckey)
-		var/mob/living/carbon/human/lesser/monkey/LF = M
+	if(is_monkeybasic(target) && !target.ckey)
+		var/mob/living/carbon/human/lesser/monkey/LF = target
 
 		if(LF.sentience_type != sentience_type)
 			to_chat(user, span_warning("[LF] совершенно безразлично смотрит на [src.name] в ваших руках."))
@@ -331,7 +331,7 @@
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
-		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
+		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = target, reason = reason_text)
 
 		if(QDELETED(src) || QDELETED(LF))
 			return
@@ -344,7 +344,7 @@
 			LF.mind.madeby_sentience_potion = TRUE
 			to_chat(LF, span_warning("Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни..."))
 			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [GEND_HIM_HER(user)] в выполнении [GEND_HIS_HER(user)] целей любой ценой!"))
-			to_chat(user, span_notice("[M] бер[PLUR_ET_UT(LF)] зелье и дела[PLUR_ET_YUT(LF)] глоток. Он[GEND_A_O_I(LF)] смотр[PLUR_IT_YAT(LF)] на вас грустными и понимающими глазами. Сработало!"))
+			to_chat(user, span_notice("[target] бер[PLUR_ET_UT(LF)] зелье и дела[PLUR_ET_YUT(LF)] глоток. Он[GEND_A_O_I(LF)] смотр[PLUR_IT_YAT(LF)] на вас грустными и понимающими глазами. Сработало!"))
 			qdel(src)
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
@@ -357,7 +357,7 @@
 			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
-			to_chat(user, span_notice("[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже."))
+			to_chat(user, span_notice("[target] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже."))
 			being_used = FALSE
 			. = ..()
 
@@ -376,18 +376,18 @@
 	var/prompted = FALSE
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag, params)
+/obj/item/slimepotion/transference/afterattack(mob/living/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(prompted || !ismob(M))
+	if(prompted || !ismob(target))
 		return
-	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
-		to_chat(user, span_warning("[M] already has a higher consciousness!"))
+	if(!isanimal(target) || target.ckey) //much like sentience, these will not work on something that is already player controlled
+		to_chat(user, span_warning("[target] already has a higher consciousness!"))
 		return ..()
-	if(M.stat)
-		to_chat(user, span_warning("[M] is dead!"))
+	if(target.stat)
+		to_chat(user, span_warning("[target] is dead!"))
 		return ..()
-	var/mob/living/simple_animal/SM = M
+	var/mob/living/simple_animal/SM = target
 	if(SM.sentience_type != animal_type)
 		to_chat(user, span_warning("You cannot transfer your consciousness to [SM].")) //no controlling machines
 		return ..()
@@ -513,27 +513,27 @@
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag, params, drop = FALSE)
+/obj/item/slimepotion/speed/afterattack(obj/target, mob/user, proximity_flag, list/modifiers, status, drop = FALSE)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	..()
-	if(!istype(O))
+	if(!istype(target))
 		to_chat(user, span_warning("The potion can only be used on items!"))
 		return
-	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+	if(SEND_SIGNAL(target, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
 		return
-	if(isitem(O))
-		var/obj/item/I = O
+	if(isitem(target))
+		var/obj/item/I = target
 		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
 			to_chat(user, span_warning("[I] can't be made any faster!"))
 			return ..()
-		if(isclothing(O))
-			var/obj/item/clothing/cloth = O
+		if(isclothing(target))
+			var/obj/item/clothing/cloth = target
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, span_warning("[I] can't be made any faster!</span>"))
 				return
-		if(ismodcontrol(O))
-			var/obj/item/mod/control/C = O
+		if(ismodcontrol(target))
+			var/obj/item/mod/control/C = target
 			if(C.active)
 				balloon_alert(user, "сначала выключите костюм!")
 				return
@@ -541,16 +541,16 @@
 		I.item_flags |= SPEEDPOTION_APPLIED
 		I.update_equipped_item()
 
-	if(isvehicle(O)) //simple solution
+	if(isvehicle(target)) //simple solution
 		return
 
-	else if(!drop && istype(O, /obj/machinery/smartfridge))
+	else if(!drop && istype(target, /obj/machinery/smartfridge))
 		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
 		return ..()
 
-	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	O.add_atom_colour(COLOR_RED, WASHABLE_COLOUR_PRIORITY)
-	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
+	target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	target.add_atom_colour(COLOR_RED, WASHABLE_COLOUR_PRIORITY)
+	to_chat(user, span_notice("You slather the red gunk over [target], making it faster.</span>"))
 	qdel(src)
 
 /obj/item/slimepotion/speed/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
@@ -564,7 +564,7 @@
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
-	afterattack(over_object, user, TRUE, params, drop = TRUE)
+	afterattack(over_object, user, TRUE, params2list(params), drop = TRUE)
 
 /obj/item/slimepotion/clothing
 	var/inapplicable_caption
@@ -588,30 +588,30 @@
 /obj/item/slimepotion/clothing/proc/cancel_effect(obj/item/clothing/C)
 	C.armor = C.armor.detachArmor(armor)
 
-/obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag, params)
+/obj/item/slimepotion/clothing/afterattack(obj/item/clothing/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!uses)
 		qdel(src)
 		return
-	if(!istype(C))
+	if(!istype(target))
 		to_chat(user, span_warning("The potion can only be used on clothing!"))
 		return
-	if(istype(C, /obj/item/clothing/neck) || isaccessory(C))
+	if(istype(target, /obj/item/clothing/neck) || isaccessory(target))
 		to_chat(user, span_warning("The potion can not be used on that!'"))
 		return
-	if(!can_apply(C))
-		to_chat(user, span_warning("[C] is already [inapplicable_caption]!"))
+	if(!can_apply(target))
+		to_chat(user, span_warning("[target] is already [inapplicable_caption]!"))
 		return
-	if(C.applied_slime_potion)
-		C.applied_slime_potion.cancel_effect(C)
-		to_chat(user, span_warning("[C] was already improved by some potion! You washed away previous potion"))
+	if(target.applied_slime_potion)
+		target.applied_slime_potion.cancel_effect(target)
+		to_chat(user, span_warning("[target] was already improved by some potion! You washed away previous potion"))
 
-	to_chat(user, span_notice("You slather the [color_name] gunk over [C], making it [more_caption][applied_caption]."))
-	C.applied_slime_potion = locate(src.type) in GLOB.slime_potions
-	C.name = "[applied_caption] [initial(C.name)]"
-	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
-	apply_effect(C)
+	to_chat(user, span_notice("You slather the [color_name] gunk over [target], making it [more_caption][applied_caption]."))
+	target.applied_slime_potion = locate(src.type) in GLOB.slime_potions
+	target.name = "[applied_caption] [initial(target.name)]"
+	target.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
+	apply_effect(target)
 	uses -= 1
 	if(!uses)
 		qdel(src)
@@ -624,7 +624,7 @@
 		return FALSE
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
-	afterattack(over_object, user, TRUE, params)
+	afterattack(over_object, user, TRUE, params2list(params))
 
 /obj/item/slimepotion/clothing/fireproof
 	name = "slime chill potion"

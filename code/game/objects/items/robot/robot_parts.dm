@@ -101,8 +101,8 @@
 	var/aisync = 1
 	var/panel_locked = 1
 
-/obj/item/robot_parts/robot_suit/New()
-	..()
+/obj/item/robot_parts/robot_suit/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
@@ -435,6 +435,8 @@
 		process_clocker_cyborg(new_borg)
 		check_locomotion(new_borg)
 		return .
+
+	return ..()
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"

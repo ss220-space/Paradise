@@ -107,7 +107,7 @@
 	if(!loc)
 		return .
 	var/turf/simulated/floor/floor = old_loc
-	if(isfloorturf(floor) && floor.intact)
+	if(isfloorturf(floor) && floor.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 		floor.remove_tile(null, TRUE, TRUE)
 		floor.visible_message(
 			span_warning("Плитка вырывается из пола!"),
@@ -263,7 +263,7 @@
 
 // mouse drop another mob or self
 //
-/obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user, params)
+/obj/machinery/disposal/mouse_drop_receive(mob/living/target, mob/living/user, params)
 	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(user.has_status_effect(STATUS_EFFECT_LEANING) || target.has_status_effect(STATUS_EFFECT_LEANING))

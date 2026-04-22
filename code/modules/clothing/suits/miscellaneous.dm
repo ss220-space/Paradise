@@ -544,7 +544,7 @@
 	icon_state = "wintercoat_miner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
@@ -568,6 +568,7 @@
 	name = "quartermaster winter coat"
 	icon_state = "wintercoat_qm"
 	item_state = "coatqm"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/gun/projectile/shotgun)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
 
 /obj/item/clothing/head/hooded/winterhood/qm
@@ -1485,7 +1486,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
 
-/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
+/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
 	if(!istype(target) || !target.wetlevel)
