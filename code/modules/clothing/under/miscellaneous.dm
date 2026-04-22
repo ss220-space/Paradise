@@ -2789,7 +2789,7 @@
 
 /obj/item/clothing/under/tchaikowsky/baseball
 	name = "baseball uniform (blue)"
-	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды \"\"Нанотрейзен\" Лейкерс\"."
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды \"Нанотрейзен Лейкерс\"."
 	icon_state = "baseball_uniform_blue"
 	item_state = "baseball_uniform_blue"
 
