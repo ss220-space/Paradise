@@ -5,7 +5,7 @@
 	var/tool_act_proc
 	///Callback used by the SM to get the damage and matter power increase/decrease
 	var/consume_proc
-	// A whitelist of items that can interact with the SM without dusting the user
+	/// A whitelist of items that can interact with the SM without dusting the user
 	var/static/list/sm_item_whitelist = typecacheof(list(
 		/obj/item/toy/crayon/spraycan,
 	))
@@ -221,7 +221,7 @@
 	SIGNAL_HANDLER
 	if(tool_act_proc)
 		call(source, tool_act_proc)(user, tool)
-		return //ITEM_INTERACT_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	attackby_hit(source, tool, user)
 
 /datum/element/supermatter_crystal/proc/bumped_hit(datum/source, atom/movable/hit_object)

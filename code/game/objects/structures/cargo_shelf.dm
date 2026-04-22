@@ -47,7 +47,8 @@
 		else
 			stack_layer  = BELOW_OBJ_LAYER + (0.02 * i) - 0.01 // Make each shelf piece render above the last, but below the crate that should be on it.
 		stack_offset = DEFAULT_SHELF_VERTICAL_OFFSET * i // Make each shelf piece physically above the last.
-		var/mutable_appearance/shelf_overlay = mutable_appearance('icons/obj/structures/rack.dmi', "shelf_stack", layer = stack_layer)
+		var/icon_state_to_use = (i == capacity - 1) ? "shelf_top" : "shelf_stack"
+		var/mutable_appearance/shelf_overlay = mutable_appearance('icons/obj/structures/rack.dmi', icon_state_to_use, layer = stack_layer)
 		shelf_overlay.pixel_y = stack_offset
 		overlays += shelf_overlay
 

@@ -248,6 +248,7 @@
 			new /obj/item/borg/upgrade/modkit/range(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
 			new /obj/item/mining_satchel_upgrade(drop_location)
+			new /obj/item/gun_module/under/bayonet(drop_location)
 
 	qdel(voucher)
 

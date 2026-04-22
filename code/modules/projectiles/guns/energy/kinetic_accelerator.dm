@@ -15,9 +15,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	can_bayonet = TRUE
-	bayonet_x_offset = 20
-	bayonet_y_offset = 12
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.

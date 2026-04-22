@@ -10,6 +10,9 @@
 	lefthand_file = 'icons/mob/inhands/folder_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/folder_righthand.dmi'
 
+/obj/item/folder/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return TRUE
+
 /obj/item/folder/emp_act(severity)
 	..()
 	for(var/i in contents)
@@ -116,8 +119,8 @@
 	name = "folder- 'TOP SECRET'"
 	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
 
-/obj/item/folder/documents/New()
-	..()
+/obj/item/folder/documents/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/nanotrasen(src)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -128,28 +131,28 @@
 /obj/item/folder/syndicate/red
 	icon_state = "folder_sred"
 
-/obj/item/folder/syndicate/red/New()
-	..()
+/obj/item/folder/syndicate/red/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/red(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
 
-/obj/item/folder/syndicate/blue/New()
-	..()
+/obj/item/folder/syndicate/blue/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/blue(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
 
-/obj/item/folder/syndicate/yellow/full/New()
-	..()
+/obj/item/folder/syndicate/yellow/full/Initialize(mapload)
+	. = ..()
 	new /obj/item/documents/syndicate/yellow(src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/folder/syndicate/mining/New()
+/obj/item/folder/syndicate/mining/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
 	update_icon(UPDATE_OVERLAYS)

@@ -18,10 +18,10 @@
  *
  * Note that this proc can be overridden, and is in the case of screen objects.
  */
-/atom/Click(location,control,params)
+/atom/Click(location, control, params)
 	usr.ClickOn(src, params, location)
 
-/atom/DblClick(location,control,params)
+/atom/DblClick(location, control, params)
 	usr.DblClickOn(src,params)
 
 /**
@@ -145,46 +145,37 @@
 			return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
-	var/sdepth = A.storage_depth(src)
-	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
-		// No adjacency needed
+	if(A in DirectAccess())
 		beforeAdjacentClick(A, modifiers)
 		if(W)
 			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1, modifiers)
-
+			UnarmedAttack(A, TRUE, modifiers)
 		return
 
 	if(!loc.allow_click()) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
-	sdepth = A.storage_depth_turf()
-	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
-		if(A.Adjacent(src)) // see adjacent.dm
-			beforeAdjacentClick(A, modifiers)
-			if(W)
-				W.melee_attack_chain(src, A, modifiers)
+	if(A.IsReachableBy(src, W?.reach))
+		beforeAdjacentClick(A, modifiers)
+		if(W)
+			W.melee_attack_chain(src, A, modifiers)
+		else
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A, TRUE, modifiers)
+	else // non-adjacent click
+		beforeRangedClick(A, modifiers)
+		if(W)
+			A.base_ranged_item_interaction(src, W, modifiers)
+		else
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				ranged_secondary_attack(A, modifiers)
 			else
-				if(ismob(A))
-					changeNext_move(CLICK_CD_MELEE)
-				UnarmedAttack(A, 1, modifiers)
-
-			return
-		else // non-adjacent click
-			beforeRangedClick(A, modifiers)
-			if(W)
-				A.base_ranged_item_interaction(src, W, modifiers)
-			else
-				if(LAZYACCESS(modifiers, RIGHT_CLICK))
-					ranged_secondary_attack(A, modifiers)
-				else
-					RangedAttack(A, modifiers)
-
-	return
+				RangedAttack(A, modifiers)
 
 /mob/proc/beforeAdjacentClick(atom/A, list/modifiers)
 	return
@@ -210,41 +201,80 @@
 			return TRUE
 	return FALSE
 
-
 /**
- * A backwards depth-limited breadth-first-search to see if the target is
- * logically "in" anything adjacent to us.
+ * Returns TRUE if a movable can "Reach" this atom. This is defined as adjacency
+ *
+ * Args:
+ * * user: The movable trying to reach us.
+ * * reacher_range: How far the reacher can reach.
+ * * depth: How deep nested inside of an atom contents stack an object can be.
+ * * direct_access: Do not override. Used for recursion.
  */
-/atom/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	var/list/direct_access = DirectAccess()
-	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
+/atom/proc/IsReachableBy(atom/movable/user, reacher_range = 1, depth = INFINITY, direct_access = user.DirectAccess())
+	SHOULD_NOT_OVERRIDE(TRUE)
 
-	var/list/closed = list()
-	var/list/checking = list(ultimate_target)
+	if(isnull(user))
+		return FALSE
 
-	while(length(checking) && depth > 0)
-		var/list/next = list()
-		--depth
-
-		for(var/atom/target in checking)  // will filter out nulls
-			if(closed[target] || isarea(target))  // avoid infinity situations
-				continue
-
-			if(isturf(target) || isturf(target.loc) || (target in direct_access) || (ismovable(target))) //Directly accessible atoms
-				if(Adjacent(target) || (tool && CheckToolReach(src, target, 1))) //Adjacent or reaching attacks
-					return TRUE
-
-			closed[target] = TRUE
-
-			if(!target.loc)
-				continue
-
-		checking = next
-
-	if(!(SEND_SIGNAL(src, COMSIG_ATOM_CANREACH, ultimate_target) & COMPONENT_BLOCK_REACH))
+	if(src in direct_access)
 		return TRUE
 
-	return FALSE
+	// This is a micro-opt, if any turf ever returns false from IsContainedAtomAccessible, change this.
+	if(isturf(loc) || isturf(src))
+		if(CheckReachableAdjacency(user, reacher_range))
+			return TRUE
+
+	depth--
+
+	if(depth <= 0)
+		return FALSE
+
+	if(isnull(loc) || isarea(loc))
+		return FALSE
+
+	if(!HAS_TRAIT(src, TRAIT_SKIP_BASIC_REACH_CHECK) && !loc.IsContainedAtomAccessible(src, user))
+		return FALSE
+
+	return loc.IsReachableBy(user, reacher_range, depth, direct_access)
+
+/atom/proc/CheckReachableAdjacency(atom/movable/reacher, reacher_range)
+	if(reacher.Adjacent(src))
+		return TRUE
+
+	if(isliving(reacher))
+		var/mob/living/living_reacher = reacher
+		if(living_reacher.reach_length > reacher_range)
+			reacher_range = living_reacher.reach_length
+
+	return (reacher_range > 1) && RangedReachCheck(reacher, src, reacher_range)
+
+/// Called by IsReachableBy() to check for ranged reaches.
+/proc/RangedReachCheck(atom/movable/here, atom/movable/there, reach)
+	if(!here || !there)
+		return FALSE
+
+	if(reach <= 1)
+		return FALSE
+
+	// Prevent infinite loop.
+	if(istype(here, /obj/effect/abstract/reach_checker))
+		return FALSE
+
+	var/obj/effect/abstract/reach_checker/dummy = new(get_turf(here))
+	for(var/i in 1 to reach) //Limit it to that many tries
+		var/turf/target_turf = get_step(dummy, get_dir(dummy, there))
+		if(there.IsReachableBy(dummy))
+			. = TRUE
+			break
+
+		if(!dummy.Move(target_turf)) //we're blocked!
+			break
+
+	qdel(dummy)
+
+/// Returns TRUE if an atom contained within our contents is reachable.
+/atom/proc/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return TRUE
 
 /atom/proc/DirectAccess()
 	return list(src, loc)
@@ -264,8 +294,8 @@
 /proc/CheckToolReach(atom/movable/here, atom/movable/there, reach)
 	if(!here || !there)
 		return
-	var/turf/turf = get_turf(here)
-	if(turf.z != there.z)
+	var/turf/current_turf = get_turf(here)
+	if(current_turf.z != there.z)
 		return FALSE
 	switch(reach)
 		if(0)
@@ -273,49 +303,56 @@
 		if(1)
 			return FALSE //here.Adjacent(there)
 		if(2 to INFINITY)
-			var/obj/dummy = new(turf)
+			var/obj/dummy = new(current_turf)
 			dummy.pass_flags |= PASSTABLE
+			dummy.invisibility = INVISIBILITY_ABSTRACT
 			for(var/i in 1 to reach) //Limit it to that many tries
-				var/turf/T = get_step(dummy, get_dir(dummy, there))
-				if(dummy.CanReach(there))
+				var/turf/target_turf = get_step(dummy, get_dir(dummy, there))
+				if(there.IsReachableBy(dummy))
 					qdel(dummy)
 					return TRUE
-				if(!dummy.Move(T)) //we're blocked!
+				if(!dummy.Move(target_turf)) //we're blocked!
 					qdel(dummy)
 					return
 			qdel(dummy)
 
-// Default behavior: ignore double clicks, consider them normal clicks instead
-/mob/proc/DblClickOn(atom/A, params)
+/// Default behavior: ignore double clicks (the second click that makes the doubleclick call already calls for a normal click)
+/mob/proc/DblClickOn(atom/target, params)
 	return
 
-/*
-	Translates into attack_hand, etc.
-
-	Note: proximity_flag here is used to distinguish between normal usage (flag=1),
-	and usage when clicking on things telekinetically (flag=0).  This proc will
-	not be called at ranged except with telekinesis.
-
-	proximity_flag is not currently passed to attack_hand, and is instead used
-	in human click code to allow glove touches only at melee range.
-*/
-/mob/proc/UnarmedAttack(atom/atom, proximity_flag, list/modifiers)
-	if(ismob(atom))
+/**
+ * UnarmedAttack: The higest level of mob click chain discounting click itself.
+ *
+ * This handles, just "clicking on something" without an item. It translates
+ * into [atom/proc/attack_hand], [atom/proc/attack_animal] etc.
+ *
+ * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
+ * and usage when clicking on things telekinetically (flag=0).  This proc will
+ * not be called at ranged except with telekinesis.
+ *
+ * proximity_flag is not currently passed to attack_hand, and is instead used
+ * in human click code to allow glove touches only at melee range.
+ *
+ * modifiers is a lazy list of click modifiers this attack had,
+ * used for figuring out different properties of the click, mostly right vs left and such.
+ */
+/mob/proc/UnarmedAttack(atom/target, proximity_flag, list/modifiers)
+	if(ismob(target))
 		changeNext_move(CLICK_CD_MELEE)
 
-	return OnUnarmedAttack(atom, proximity_flag, modifiers)
+	return OnUnarmedAttack(target, proximity_flag, modifiers)
 
-/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
+/mob/proc/OnUnarmedAttack(atom/target, proximity_flag, list/modifiers)
 	return
 
-/*
-	Ranged unarmed attack:
-
-	This currently is just a default for all mobs, involving
-	laser eyes and telekinesis.  You could easily add exceptions
-	for things like ranged glove touches, spitting alien acid/neurotoxin,
-	animals lunging, etc.
-*/
+/**
+ * Ranged unarmed attack:
+ *
+ * This currently is just a default for all mobs, involving
+ * laser eyes and telekinesis.  You could easily add exceptions
+ * for things like ranged glove touches, spitting alien acid/neurotoxin,
+ * animals lunging, etc.
+ */
 /mob/proc/RangedAttack(atom/A, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
@@ -393,14 +430,15 @@
 		return
 	set_forced_look(A, TRUE)
 
-/*
-	Shift click
-	For most mobs, examine.
-	This is overridden in ai.dm
-*/
-/mob/proc/ShiftClickOn(atom/A)
-	A.ShiftClick(src)
+/**
+ * Shift click
+ * For most mobs, examine.
+ * This is overridden in ai.dm
+ */
+/mob/proc/ShiftClickOn(atom/target)
+	target.ShiftClick(src)
 	return
+
 /atom/proc/ShiftClick(mob/user)
 	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
@@ -433,15 +471,13 @@
 
 	return ..()
 
-// Alt Click is in `click_alt.dm` now! I stole it
+/mob/proc/TurfAdjacent(turf/tile)
+	return tile.Adjacent(src)
 
-/mob/proc/TurfAdjacent(turf/T)
-	return T.Adjacent(src)
-
-/*
-	Control+Shift/Alt+Shift click
-	Unused except for AI
-*/
+/**
+ * Control+Shift click
+ * Unused except for AI
+ */
 /mob/proc/CtrlShiftClickOn(atom/A)
 	A.CtrlShiftClick(src)
 	return
@@ -489,12 +525,12 @@
 	LE.xo = U.x - T.x
 	LE.fire()
 
-// Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(atom/A)
-	if(stat || buckled || !A || !x || !y || !A.x || !A.y)
+/// Simple helper to face what you clicked on, in case it should be needed in more than one place
+/mob/proc/face_atom(atom/atom_to_face)
+	if(stat || buckled || !atom_to_face || !x || !y || !atom_to_face.x || !atom_to_face.y)
 		return FALSE
-	var/dx = A.x - x
-	var/dy = A.y - y
+	var/dx = atom_to_face.x - x
+	var/dy = atom_to_face.y - y
 	if(!dx && !dy)
 		return FALSE
 

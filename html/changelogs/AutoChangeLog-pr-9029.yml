@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - balance: "Нёрф чистой плазмы у плазмаменов (PR #9029)"

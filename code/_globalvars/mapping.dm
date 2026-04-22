@@ -48,8 +48,8 @@ GLOBAL_LIST_EMPTY(latejoin_prisoner)
 GLOBAL_LIST_EMPTY(latejoin_gateway)
 GLOBAL_LIST_EMPTY(latejoin_cryo)
 GLOBAL_LIST_EMPTY(latejoin_cyborg)
-GLOBAL_LIST_EMPTY(prisonwarp)	//prisoners go to these
-GLOBAL_LIST_EMPTY(syndieprisonwarp)	//contractor targets go to these
+GLOBAL_LIST_EMPTY(prisonwarp) //prisoners go to these
+GLOBAL_LIST_EMPTY(syndieprisonwarp) //contractor targets go to these
 GLOBAL_LIST_EMPTY(xeno_spawn)//Aliens spawn at these.
 GLOBAL_LIST_EMPTY(ertdirector)
 GLOBAL_LIST_EMPTY(emergencyresponseteamspawn)
@@ -60,8 +60,8 @@ GLOBAL_LIST_EMPTY(team_bravo)
 GLOBAL_LIST_EMPTY(tdomeobserve)
 GLOBAL_LIST_EMPTY(tdomeadmin)
 GLOBAL_LIST_EMPTY(aroomwarp)
-GLOBAL_LIST_EMPTY(prisonsecuritywarp)	//prison security goes to these
-GLOBAL_LIST_EMPTY(prisonwarped)	//list of players already warped
+GLOBAL_LIST_EMPTY(prisonsecuritywarp) //prison security goes to these
+GLOBAL_LIST_EMPTY(prisonwarped) //list of players already warped
 GLOBAL_LIST_EMPTY(blobstart)
 GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(ninja_teleport)
@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(battle_teams_spawns, list(
 ))
 
 //away missions
-GLOBAL_LIST_EMPTY(awaydestinations)	//a list of landmarks that the warpgate can take you to
+GLOBAL_LIST_EMPTY(awaydestinations) //a list of landmarks that the warpgate can take you to
 
 //List of preloaded templates
 GLOBAL_LIST_EMPTY(map_templates)
