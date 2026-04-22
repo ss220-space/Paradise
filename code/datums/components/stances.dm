@@ -325,6 +325,6 @@
 			if(item_parent?.hitsound)
 				playsound(attacker.loc, item_parent.hitsound, 50, TRUE, -1)
 			var/obj/item/organ/external/hand_organ = attacker.get_organ(attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			hand_organ?.droplimb(clean = TRUE, disintegrate = DROPLIMB_SHARP, nodamage = TRUE, silent = TRUE)
+			hand_organ?.droplimb(disintegrate = DROPLIMB_SHARP, nodamage = TRUE)
 
 	return COMPONENT_BLOCK_SUCCESSFUL
