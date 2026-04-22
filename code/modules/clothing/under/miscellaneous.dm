@@ -167,7 +167,7 @@
 
 /obj/item/clothing/under/solgov
 	name = "Sol Federation marine uniform"
-	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерации."
 	icon_state = "solgov"
 	item_state = "solgov"
 	item_color = "solgov"
@@ -175,13 +175,13 @@
 	displays_id = 0
 
 /obj/item/clothing/under/solgov/forest
-	desc = "Комфортный и удобный лесной камуфляж Транс-Солнечной Федерациии."
+	desc = "Комфортный и удобный лесной камуфляж Транс-Солнечной Федерации."
 	icon_state = "solgov_forest"
 	item_state = "solgov_forest"
 	item_color = "solgov_forest"
 
 /obj/item/clothing/under/solgov/urban
-	desc = "Комфортный и удобный городской камуфляж Транс-Солнечной Федерациии."
+	desc = "Комфортный и удобный городской камуфляж Транс-Солнечной Федерации."
 	icon_state = "solgov_urban"
 	item_state = "solgov_urban"
 	item_color = "solgov_urban"
@@ -210,7 +210,7 @@
 
 /obj/item/clothing/under/solgov/elite
 	name = "Trans-Solar Federation Specops marine uniform"
-	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии."
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерации."
 	icon_state = "solgovelite"
 	item_color = "solgovelite"
 
@@ -226,7 +226,7 @@
 
 /obj/item/clothing/under/solgov/command
 	name = "Sol Federation Lieutenant's uniform"
-	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерации. Имеет дополнительные погоны на плечах."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
@@ -243,7 +243,7 @@
 
 /obj/item/clothing/under/solgov/command/elite
 	name = "Trans-Solar Federation Specops Lieutenant's uniform"
-	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах и манжеты на рукавах."
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерации. Имеет дополнительные погоны на плечах и манжеты на рукавах."
 	icon_state = "solgovcelite"
 	item_color = "solgovcelite"
 
@@ -460,7 +460,7 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
 	. = ..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
+	desc = "GЗолотая отделка на чёрной, как космос, ткани. Эта униформа имеет нашивку \"Магистрат\" и имеет обозначение \"[station_name()]\" на левом плече."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "Очень цветасто и официально выглядящая униформа Дипломатической Корпорации \"Нанотрейзен\"."
@@ -957,7 +957,7 @@
 
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"
-	desc = "Выглядит старо."
+	desc = "Выглядит старомодно."
 	icon_state = "redcoat"
 	item_state = "redcoat"
 	item_color = "redcoat"
@@ -975,7 +975,7 @@
 
 /obj/item/clothing/under/kilt
 	name = "kilt"
-	desc = "Плед и обувь входят тоже."
+	desc = "Плед и обувь включены."
 	icon_state = "kilt"
 	item_state = "kilt"
 	item_color = "kilt"
@@ -1186,7 +1186,7 @@
 
 /obj/item/clothing/under/dress/dress_saloon
 	name = "saloon girl dress"
-	desc = "Платье вдохновлённое Олд-Вестерном, для девушки, что любит пить."
+	desc = "Платье, вдохновлённое Олд-Вестерном, для девушки, что любит пить."
 	icon_state = "dress_saloon"
 	item_color = "dress_saloon"
 
@@ -1400,7 +1400,7 @@
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
-	desc = "Белое свадебное платье, сделанное из лучшего шёлка."
+	desc = "Белое свадебное платье сделанное из лучшего шёлка."
 	icon_state = "bride_white"
 	item_color = "bride_white"
 	over_shoes = TRUE
@@ -1694,12 +1694,12 @@
 
 /obj/item/clothing/under/bane/get_ru_names()
 	return list(
-		NOMINATIVE = "упряжка Бэйна",
-		GENITIVE = "упряжки Бэйна",
-		DATIVE = "упряжке Бэйна",
-		ACCUSATIVE = "упряжку Бэйна",
-		INSTRUMENTAL = "упряжкой Бэйна",
-		PREPOSITIONAL = "упряжке Бэйна",
+		NOMINATIVE = "упряжь Бэйна",
+		GENITIVE = "упряжи Бэйна",
+		DATIVE = "упряже Бэйна",
+		ACCUSATIVE = "упряжу Бэйна",
+		INSTRUMENTAL = "упряжой Бэйна",
+		PREPOSITIONAL = "упряже Бэйна",
 	)
 
 /obj/item/clothing/under/psyjump
@@ -1738,7 +1738,7 @@
 
 /obj/item/clothing/under/officeruniform
 	name = "Clown Officer's Uniform"
-	desc = "Для клоунов офицеров, дизайн был создан великим дизайнером клоуном Хьюго Боссом."
+	desc = "Для клоунов-офицеров, дизайн был создан великим дизайнером клоуном Хьюго Боссом."
 	icon_state = "officeruniform"
 	item_color = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
@@ -1918,7 +1918,7 @@
 /obj/item/clothing/under/redeveninggown/get_ru_names()
 	return list(
 		NOMINATIVE = "красное вечернее платье",
-		GENITIVE = "красного вечерного платья",
+		GENITIVE = "красного вечернего платья",
 		DATIVE = "красному вечернему платью",
 		ACCUSATIVE = "красное вечерное платье",
 		INSTRUMENTAL = "красным вечерним платьем",
@@ -2220,7 +2220,7 @@
 		NOMINATIVE = "оранжевая гавайская рубашка",
 		GENITIVE = "оранжевой гавайской рубашки",
 		DATIVE = "оранжевой гавайской рубашке",
-		ACCUSATIVE = "оранжвую гавайскую рубашку",
+		ACCUSATIVE = "оранжевую гавайскую рубашку",
 		INSTRUMENTAL = "оранжевой гавайской рубашкой",
 		PREPOSITIONAL = "оранжевой гавайской рубашке",
 	)
