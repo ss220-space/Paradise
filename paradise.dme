@@ -722,6 +722,7 @@
 #include "code\datums\components\radiation_countdown.dm"
 #include "code\datums\components\radioactive_emitter.dm"
 #include "code\datums\components\ritual_object.dm"
+#include "code\datums\components\stances.dm"
 #include "code\datums\components\seethrough.dm"
 #include "code\datums\components\shell.dm"
 #include "code\datums\components\shielded.dm"

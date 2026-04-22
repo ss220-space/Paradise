@@ -184,6 +184,12 @@
 	return 0
 
 /obj/item/melee/energy/sword/saber
+	block_chance = 0
+
+/obj/item/melee/energy/sword/saber/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/stances/saber)
+	AddElement(/datum/element/lunge_attack, 1.3, 5, 4 SECONDS, FALSE)
 
 /obj/item/melee/energy/sword/saber/blue
 	item_color = "blue"
@@ -210,28 +216,19 @@
 	item_color = "yellow"
 
 /obj/item/melee/energy/sword/saber/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/melee/energy/sword/saber))
-		add_fingerprint(user)
-		if(I == src)
-			to_chat(user, span_warning("You try to attach the end of the plastic sword to... itself. You're not very smart, are you?"))
-			user.apply_damage(10, BRAIN)
-			return ATTACK_CHAIN_PROCEED
-		if(loc == user && !user.can_unEquip(src))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ATTACK_CHAIN_PROCEED
-		to_chat(user,  span_notice("You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool."))
-		var/obj/item/twohanded/dualsaber/dual_saber = new(drop_location())
-		if(hacked) // That's right, we'll only check the "original" esword.
-			dual_saber.hacked = TRUE
-			dual_saber.blade_color = "rainbow"
-		user.temporarily_remove_item_from_inventory(src)
-		user.put_in_hands(dual_saber, ignore_anim = FALSE)
-		qdel(I)
-		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
+
+/obj/item/melee/energy/sword/saber/attack_self(mob/living/carbon/user)
+	. = ..()
+	var/datum/component/stances/saber/stances = GetComponent(/datum/component/stances/saber)
+	stances?.refresh()
+
+/obj/item/melee/energy/sword/saber/IsReflect(def_zone)
+	var/mob/living/carbon/human/H = loc
+	if(!ishuman(H))
+		return FALSE
+	var/datum/component/stances/saber/stances = GetComponent(/datum/component/stances/saber)
+	return stances?.should_reflect_energy(H) || FALSE
 
 /obj/item/melee/energy/sword/saber/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -246,21 +243,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(!active)
-		return FALSE
-	. = ..()
-	if(!.) // they did not block the attack
-		return
-	if(isprojectile(hitby))
-		var/obj/projectile/P = hitby
-		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"), projectile_message = TRUE)
-			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-			return TRUE
-		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"), projectile_message = TRUE)
-		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
-		return -1
-	return TRUE
+	return ..()
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
@@ -408,4 +391,3 @@
 				melee_attack_chain(user, mob, params)
 	swiping = FALSE
 	return ATTACK_CHAIN_BLOCKED_ALL
-
