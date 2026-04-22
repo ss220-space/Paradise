@@ -352,6 +352,7 @@
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
+	origin_tech = "programming=9"
 
 /obj/item/circuitboard/rdconsole/cargo
 	name = "RD Console - Cargo"
