@@ -127,7 +127,10 @@
 			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			alert.desc = "Аура, исходящая от [parent], исцеляет вас."
 			current_alerts[candidate] = TRUE
-			ADD_TRAIT(candidate, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+			if(ishuman(candidate))
+				var/mob/living/carbon/human/human_candidate = candidate
+				ADD_TRAIT(human_candidate, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+				human_candidate.update_fractures_effects()
 
 		var/old_health = candidate.health
 
@@ -230,7 +233,10 @@
 	for(var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
 		remove_alert_from.clear_alert(alert_category)
 		current_alerts -= remove_alert_from
-		REMOVE_TRAIT(remove_alert_from, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+		if(ishuman(remove_alert_from))
+			var/mob/living/carbon/human/human_remove = remove_alert_from
+			REMOVE_TRAIT(human_remove, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
+			human_remove.update_fractures_effects()
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"

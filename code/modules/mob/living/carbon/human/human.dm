@@ -1942,6 +1942,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message(span_notice("[user] разделыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 		gib()
 
+/mob/living/carbon/human/proc/update_fractures_effects()
+	update_fractures_slowdown()
+	update_fractures_workspeed()
+	update_fractures_fall()
+
 /mob/living/carbon/human/proc/update_fractures_slowdown()
 	var/static/list/possible_limbs = list(
 		BODY_ZONE_L_LEG,
