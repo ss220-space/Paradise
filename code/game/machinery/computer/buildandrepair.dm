@@ -587,9 +587,6 @@
 			if("Mechanics")
 				board_name = "RD Console - Mechanics"
 				build_path = /obj/machinery/computer/rdconsole/mechanics
-			if("Public")
-				board_name = "RD Console - Public"
-				build_path = /obj/machinery/computer/rdconsole/public
 			if("Cargo")
 				board_name = "RD Console - Cargo"
 				build_path = /obj/machinery/computer/rdconsole/cargo
