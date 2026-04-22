@@ -1,0 +1,4 @@
+author: "KefirTT"
+delete-after: True
+changes:
+  - bugfix: "Хвостовое лезвие бьет с кд. (PR #9016)"
