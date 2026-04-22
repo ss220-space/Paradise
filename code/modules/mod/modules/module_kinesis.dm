@@ -67,9 +67,7 @@
 	return ..()
 
 /*
-tier 1 - range 2-3
-tier 2 - range 5-6, can lift conscious with handcuffs on them
-tier 3 - range 7-8, can lift conscious
+range 2-3
 */
 
 /obj/item/mod/module/anomaly_locked/kinesis/update_core_powers()
