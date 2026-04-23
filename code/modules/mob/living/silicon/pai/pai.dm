@@ -11,7 +11,7 @@
 	holder_type = /obj/item/holder/pai
 	can_buckle_to = FALSE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_PAI
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user

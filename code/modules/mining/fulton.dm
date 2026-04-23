@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	gender = MALE
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_pack"
-	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/obj/structure/extraction_point/beacon
 	var/list/beacon_networks = list("station")
 	var/uses_left = 3

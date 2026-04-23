@@ -5,7 +5,7 @@
 	item_state = "pet_carrier"
 	max_integrity = 100
 	w_class = WEIGHT_CLASS_SMALL
-	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/mob_size = MOB_SIZE_TINY
 
 	var/list/possible_skins = list("black", "blue", "red", "yellow", "green", "purple")

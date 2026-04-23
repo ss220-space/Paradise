@@ -14,7 +14,7 @@
 	resistance_flags = NONE
 	antable = FALSE
 	foodtype = ALCOHOL
-	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/chugging = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()

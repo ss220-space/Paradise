@@ -10,7 +10,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	resistance_flags = FLAMMABLE
 	custom_price = PAYCHECK_MIN * 0.1
-	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/light_intensity = 2
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
