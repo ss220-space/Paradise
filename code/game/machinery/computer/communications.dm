@@ -20,7 +20,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
-	desc = "Консоль, с помощью которой капитан может связаться с Центральным командованием или изменить уровень угрозы. Она так-же позволяет командному составу вызвать эвакуационный шаттл."
+	desc = "Консоль, с помощью которой капитан может связаться с Центральным Командованием или изменить уровень угрозы. Также она позволяет командному составу вызвать эвакуационный шаттл."
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
@@ -125,7 +125,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		if(ACCESS_CENT_COMMANDER in access)
 			if(!check_rights(R_ADMIN, FALSE, ui.user))
-				to_chat(ui.user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит, разрешение Центрального командования не действительно."))
+				to_chat(ui.user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит, разрешение Центрального Командования не действительно."))
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
 
@@ -153,7 +153,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				return
 			else if(ADMIN_CHECK(ui.user))
 				if(code > SEC_LEVEL_GAMMA && !FULL_ADMIN_CHECK(ui.user))
-					to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для повышения уровня угрозы выше чем Гамма."))
+					to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для повышения уровня угрозы выше, чем \"Гамма\"."))
 					return
 				change_security_level(text2num(params["level"]), force = TRUE)
 				return
@@ -165,7 +165,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			var/obj/item/card/id/I = H.get_id_card()
 			if(istype(I))
 				if((SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_RED) && !(ACCESS_CENT_GENERAL in I.access)) //if gamma, epsilon or delta and no centcom access. Decline it
-					to_chat(ui.user, span_warning("Протоколы безопасности Центрального командования не позволяют вам изменить уровень угрозы."))
+					to_chat(ui.user, span_warning("Протоколы безопасности Центрального Командования не позволяют вам изменить уровень угрозы."))
 					return
 				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(params["level"]))
@@ -305,7 +305,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Обработка массивов. Пожалуйста, подождите.")
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КООРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -413,14 +413,14 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		if(NUKE_CORE_MISSING)
 			P.info += "Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства."
 
-	P.info += span_fontsize1("<br><hr>Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.")
+	P.info += span_fontsize1("<br><hr>Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального Командования.")
 
 /proc/directive_7_12()
 	var/nukecode = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 	var/intercepttext
 	var/interceptname
 	interceptname = "Секретное постановление [command_name()]"
-	intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биологическая угроза.<hr>")
+	intercepttext += span_fontsize3("<b>Постановление \"Нанотрейзен\"</b>: Биологическая угроза.<hr>")
 	intercepttext += "Для [station_name()] была издана директива 7-12.<br>"
 	intercepttext += "Биологическая угроза вышла из-под контроля.<br>"
 	intercepttext += "Вам приказано следующее:<br>"
@@ -431,7 +431,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
 		if(aiPlayer.client)
-			var/law = "Станция находится на карантине. Не позволяйте никому покидать ее.\
+			var/law = "Станция находится на карантине. Не позволяйте никому покидать её.\
 				При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо побег со станции. \
 				Любой ценой необходимо активировать систему самоуничтожения, код [nukecode]."
 			aiPlayer.set_zeroth_law(law)
@@ -560,7 +560,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	data["admin_levels"] = list(
 		list("id" = SEC_LEVEL_RED, "name" = "Красный", "icon" = "exclamation"),
 		list("id" = SEC_LEVEL_GAMMA,  "name" = "Гамма", "icon" = "biohazard"),
-		list("id" = SEC_LEVEL_EPSILON, "name" = "Эпсилон", "icon" = "skull", "tooltip" = "Код Эпсилон активируется примерно через 15 секунд."),
+		list("id" = SEC_LEVEL_EPSILON, "name" = "Эпсилон", "icon" = "skull", "tooltip" = "Код \"Эпсилон\" активируется примерно через 15 секунд."),
 		list("id" = SEC_LEVEL_DELTA,  "name" = "Дельта", "icon" = "bomb"),
 	)
 
@@ -604,11 +604,11 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		return FALSE
 
 	if(SSshuttle.emergencyNoEscape)
-		to_chat(user, "Вызов шаттла заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.")
+		to_chat(user, "Вызов шаттла заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.")
 		return FALSE
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
+		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального Командования."))
 		return FALSE
 
 	if(world.time - SSticker.time_game_started < SSshuttle.emergency_refill_time) // 30 minute grace period to let the game get going
@@ -641,7 +641,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle .")
 	else
-		to_chat(user, span_warning("Центральное командование отклонило запрос об отзыве эвакуационного шаттла!"))
+		to_chat(user, span_warning("Центральное Командование отклонило запрос об отзыве эвакуационного шаттла!"))
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
 
@@ -677,7 +677,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		SSshuttle.autoEvac()
 	return ..()
 
-/proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, datum/station_goal/goal = null)
+/proc/print_command_report(text = "", title = "Уведомление Центрального Командования", add_to_records = TRUE, datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new (C.loc)
