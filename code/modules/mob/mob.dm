@@ -1257,6 +1257,9 @@
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
+
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon
 
