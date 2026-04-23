@@ -93,8 +93,8 @@
 /obj/item/rack_parts/cargo_shelf
 	name = "crate shelf parts"
 	desc = "Детали стеллажа, предназначенного для хранения ящиков."
-	icon_state = "shelf_rack_parts"
-	item_state = "shelf_rack_parts"
+	icon_state = "shelf_parts"
+	item_state = "shelf_parts"
 	materials = list(MAT_METAL = 2000)
 	rack_type = /obj/structure/cargo_shelf
 

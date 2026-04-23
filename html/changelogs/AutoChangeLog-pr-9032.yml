@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - qol: "Клятва посоха асклепия теперь на шепоте. (PR #9032)"

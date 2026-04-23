@@ -61,9 +61,8 @@
 /area/ruin/ussp_xeno/medbay)
 "bT" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -160,9 +159,7 @@
 	pixel_y = 17
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -238,12 +235,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ussp_xeno/out)
 "en" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/east,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -405,9 +398,7 @@
 /area/ruin/ussp_xeno/medbay)
 "gG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22;
+/obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
 /obj/structure/alien/weeds,
@@ -940,10 +931,8 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "oA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -1168,10 +1157,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -6;
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light{
 	on = 1
 	},
@@ -1624,10 +1610,7 @@
 	pixel_x = -5
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25;
-	pixel_y = 3
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1720,8 +1703,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
@@ -1796,10 +1778,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -6;
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -1875,10 +1854,8 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/ussp_xeno/storage)
 "Bn" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /obj/structure/alien/weeds,
@@ -1887,9 +1864,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Br" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1997,8 +1972,7 @@
 /obj/machinery/floodlight,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
@@ -2103,9 +2077,7 @@
 /area/ruin/ussp_xeno/out)
 "Eo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22;
+/obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
 /obj/structure/sink{
@@ -2308,9 +2280,7 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "GU" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plasteel{
@@ -2401,9 +2371,7 @@
 	},
 /area/ruin/ussp_xeno/out)
 "HW" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -2682,10 +2650,8 @@
 "Mk" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /obj/structure/alien/weeds,
@@ -2716,9 +2682,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/head/ushanka,
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22;
+/obj/machinery/alarm/directional/west{
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
@@ -2740,10 +2704,8 @@
 "MC" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -2864,10 +2826,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -3206,9 +3165,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Tc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -3363,9 +3320,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -3449,10 +3405,8 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 8;
-	equipment_channel = 0;
-	pixel_x = -27
+/obj/machinery/power/apc/directional/west{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -3492,8 +3446,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /obj/machinery/light{
@@ -3514,8 +3467,7 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "Xh" = (
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /obj/structure/chair/comfy/red{
@@ -3543,9 +3495,7 @@
 "XV" = (
 /obj/effect/decal/remains/xeno,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -3560,9 +3510,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -3637,9 +3585,8 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Zg" = (
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
 	d2 = 2;

@@ -20,7 +20,7 @@
 #define INTERACT_ATOM_ALLOW_USER_LOCATION (1<<9)
 /// ignores mobility check
 #define INTERACT_ATOM_IGNORE_MOBILITY (1<<10)
-// Bypass all adjacency checks for mouse drop
+/// Bypass all adjacency checks for mouse drop
 #define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<11)
 /// Bypass all can_perform_action checks for mouse drop
 #define INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY (1<<12)

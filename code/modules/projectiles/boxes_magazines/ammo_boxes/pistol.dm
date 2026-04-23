@@ -44,7 +44,7 @@
 
 // MARK: .45
 /obj/item/ammo_box/c45
-	icon_state = "45box"
+	icon_state = "45NRbox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20

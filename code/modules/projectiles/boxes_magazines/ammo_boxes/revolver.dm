@@ -4,9 +4,6 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 21
 
-/obj/item/ammo_box/a357/update_icon_state()
-	icon_state = "[initial(icon_state)]-[round(length(stored_ammo) / 3)]"
-
 // MARK: 7.62x38mm
 /obj/item/ammo_box/n762x38
 	icon_state = "ammobox_nagant"
