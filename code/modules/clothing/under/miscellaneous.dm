@@ -85,7 +85,7 @@
 
 /obj/item/clothing/under/sl_suit
 	name = "amish suit"
-	desc = "Этот костюм выглядит очень по-деревенски."
+	desc = "Этот костюм носили люди, принадлежащие к религиозным общинам консерваторов, пару сотен лет назад."
 	icon_state = "sl_suit"
 	item_color = "sl_suit"
 
@@ -460,7 +460,7 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
 	. = ..()
-	desc = "GЗолотая отделка на чёрной, как космос, ткани. Эта униформа имеет нашивку \"Магистрат\" и имеет обозначение \"[station_name()]\" на левом плече."
+	desc = "Золотая отделка на чёрной, как космос, ткани. Эта униформа имеет нашивку \"Магистрат\" и имеет обозначение \"[station_name()]\" на левом плече."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "Очень цветасто и официально выглядящая униформа Дипломатической Корпорации \"Нанотрейзен\"."
@@ -482,7 +482,7 @@
 
 /obj/item/clothing/under/rank/blueshield
 	name = "blueshield's uniform"
-	desc = "Коротко рукавная чёрная форма в сочетании с серыми штанами карго с цифровым камуфляжем, все из прочного материала. Стандартное снаряжение Синего Щита"
+	desc = "Короткорукавая чёрная форма в сочетании с серыми штанами карго с цифровым камуфляжем, все из прочного материала. Стандартное снаряжение офицера \"Синий Щит\"."
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
@@ -500,7 +500,7 @@
 
 /obj/item/clothing/under/rank/blueshield/skirt
 	name = "blueshield's skirt"
-	desc = "Короткая униформа с юбкой, чёрно-серая, с синими маркировками. Для женственного Синего Щита."
+	desc = "Короткая униформа с юбкой, чёрно-серая, с синими маркировками. Для женственного офицера \"Синий Щит\"."
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
@@ -517,7 +517,7 @@
 
 /obj/item/clothing/under/space
 	name = "NASA jumpsuit"
-	desc = "Имеет логотип NASA и создан из космостойких материалов."
+	desc = "Имеет логотип \"NASA\" и создан из космостойких материалов."
 	icon_state = "jumpsuit"
 	item_state = "bl_suit"
 	item_color = "black"
@@ -533,12 +533,12 @@
 
 /obj/item/clothing/under/space/get_ru_names()
 	return list(
-		NOMINATIVE = "комбинезон NASA",
-		GENITIVE = "комбинезона NASA",
-		DATIVE = "комбинезону NASA",
-		ACCUSATIVE = "комбинезон NASA",
-		INSTRUMENTAL = "комбинезоном NASA",
-		PREPOSITIONAL = "комбинезоне NASA",
+		NOMINATIVE = "комбинезон \"NASA\"",
+		GENITIVE = "комбинезона \"NASA\"",
+		DATIVE = "комбинезону \"NASA\"",
+		ACCUSATIVE = "комбинезон \"NASA\"",
+		INSTRUMENTAL = "комбинезоном \"NASA\"",
+		PREPOSITIONAL = "комбинезоне \"NASA\"",
 	)
 
 /obj/item/clothing/under/space/Initialize(mapload)
@@ -613,24 +613,24 @@
 
 /obj/item/clothing/under/psysuit
 	name = "dark undersuit"
-	desc = "Толстое, наслоенное серое нижнее белье, выложенное проводами. Немного похоже, что носишь электрический шторм."
+	desc = "Толстое, наслоенное серое нижнее бельё, выложенное проводами. Немного похоже, что носишь электрический шторм."
 	icon_state = "psysuit"
 	item_state = "psysuit"
 	item_color = "psysuit"
 
 /obj/item/clothing/under/psysuit/get_ru_names()
 	return list(
-		NOMINATIVE = "чёрное нижнее белье",
+		NOMINATIVE = "чёрное нижнее бельё",
 		GENITIVE = "чёрного нижнего белья",
 		DATIVE = "чёрному нижнему белью",
-		ACCUSATIVE = "чёрное нижнее белье",
-		INSTRUMENTAL = "чёрным нижним бельем",
+		ACCUSATIVE = "чёрное нижнее бельё",
+		INSTRUMENTAL = "чёрным нижним бельём",
 		PREPOSITIONAL = "чёрном нижнем белье",
 	)
 
 /obj/item/clothing/under/gimmick/rank/captain/suit
 	name = "captain's suit"
-	desc = "A green suit and yellow necktie. Exemplifies authority."
+	desc = "Зелёный костюм и жёлтый галстук. Олицетворяет авторитет."
 	icon_state = "green_suit"
 	item_state = "dg_suit"
 	item_color = "green_suit"
@@ -681,7 +681,7 @@
 
 /obj/item/clothing/under/suit_jacket/really_black
 	name = "executive suit"
-	desc = "Парадный чёрный костюм с красным галстуком, для лучшего персонала."
+	desc = "Парадный чёрный костюм с красным галстуком, для лучших членов экипажа."
 	icon_state = "really_black_suit"
 	item_color = "really_black_suit"
 
@@ -697,7 +697,7 @@
 
 /obj/item/clothing/under/suit_jacket/female
 	name = "women\'s executive suit"
-	desc = "Парадный брючный костюм, для лучшего персонала."
+	desc = "Парадный брючный костюм, для лучших членов экипажа."
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
@@ -752,7 +752,7 @@
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
-	desc = "Тёмно-синий костюм и красный галстук, для лучшего персонала."
+	desc = "Тёмно-синий костюм и красный галстук, для лучших членов экипажа."
 	icon_state = "navy_suit"
 	item_state = "navy_suit"
 	item_color = "navy_suit"
@@ -820,7 +820,7 @@
 
 /obj/item/clothing/under/blackskirt
 	name = "black skirt"
-	desc = "Чёрная юбка, шикарно!"
+	desc = "Чёрная юбка. Она шикарна!"
 	icon_state = "blackskirt"
 	item_color = "blackskirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -837,7 +837,7 @@
 
 /obj/item/clothing/under/schoolgirl
 	name = "schoolgirl uniform"
-	desc = "Это отсылка на аниме!"
+	desc = "Это же прям как в аниме!"
 	icon_state = "schoolgirl"
 	item_state = "schoolgirl"
 	item_color = "schoolgirl"
@@ -983,12 +983,12 @@
 
 /obj/item/clothing/under/kilt/get_ru_names()
 	return list(
-		NOMINATIVE = "кильт",
-		GENITIVE = "кильта",
-		DATIVE = "кильту",
-		ACCUSATIVE = "кильт",
-		INSTRUMENTAL = "кильтом",
-		PREPOSITIONAL = "кильте",
+		NOMINATIVE = "килт",
+		GENITIVE = "килта",
+		DATIVE = "килту",
+		ACCUSATIVE = "килт",
+		INSTRUMENTAL = "килтом",
+		PREPOSITIONAL = "килте",
 	)
 
 /obj/item/clothing/under/sexymime
@@ -1001,12 +1001,12 @@
 
 /obj/item/clothing/under/sexymime/get_ru_names()
 	return list(
-		NOMINATIVE = "одежда сексуального мима",
-		GENITIVE = "одежды сексуального мима",
-		DATIVE = "одежде сексуального мима",
-		ACCUSATIVE = "одежду сексуального мима",
-		INSTRUMENTAL = "одеждой сексуального мима",
-		PREPOSITIONAL = "одежде сексуального мима",
+		NOMINATIVE = "сексуальная одежда мима",
+		GENITIVE = "секусальной одежды мима",
+		DATIVE = "сексуальной одежде мима",
+		ACCUSATIVE = "сексуальную одежду мима",
+		INSTRUMENTAL = "сексуальной одеждой мима",
+		PREPOSITIONAL = "сексуальной одежде мима",
 	)
 
 /obj/item/clothing/under/mimeshorts
@@ -1037,12 +1037,12 @@
 
 /obj/item/clothing/under/mimeskirt/get_ru_names()
 	return list(
-		NOMINATIVE = "юбка сексуального мима",
-		GENITIVE = "юбки сексуального мима",
-		DATIVE = "юбке сексуального мима",
-		ACCUSATIVE = "юбку сексуального мима",
-		INSTRUMENTAL = "юбкой сексуального мима",
-		PREPOSITIONAL = "юбке сексуального мима",
+		NOMINATIVE = "сексуальная юбка мима",
+		GENITIVE = "сексуальной юбки мима",
+		DATIVE = "сексуальной юбке мима",
+		ACCUSATIVE = "сексуальную юбку мима",
+		INSTRUMENTAL = "сексуальной юбкой мима",
+		PREPOSITIONAL = "сексуальной юбке мима",
 	)
 
 /obj/item/clothing/under/gladiator
@@ -1111,12 +1111,12 @@
 
 /obj/item/clothing/under/dress/dress_fire/get_ru_names()
 	return list(
-		NOMINATIVE = "платье пламени",
-		GENITIVE = "платья пламени",
-		DATIVE = "платью пламени",
-		ACCUSATIVE = "платье пламени",
-		INSTRUMENTAL = "платьем пламени",
-		PREPOSITIONAL = "платье пламени",
+		NOMINATIVE = "пламенное платье",
+		GENITIVE = "пламенного платья",
+		DATIVE = "пламенному платью",
+		ACCUSATIVE = "пламенное платье",
+		INSTRUMENTAL = "пламенным платьем",
+		PREPOSITIONAL = "пламенном платье",
 	)
 
 /obj/item/clothing/under/dress/dress_green
@@ -1170,7 +1170,7 @@
 
 /obj/item/clothing/under/dress/dress_yellow
 	name = "yellow dress"
-	desc = "Кокетливое маленькое жёлтое платье.."
+	desc = "Кокетливое маленькое жёлтое платье."
 	icon_state = "dress_yellow"
 	item_color = "dress_yellow"
 
@@ -1202,7 +1202,7 @@
 
 /obj/item/clothing/under/dress/dress_rd
 	name = "research director dress uniform"
-	desc = "Женственная мода для стильного РД."
+	desc = "Женственная мода для стильного ДИ."
 	icon_state = "dress_rd"
 	item_color = "dress_rd"
 
@@ -1266,18 +1266,18 @@
 
 /obj/item/clothing/under/dress/dress_hr
 	name = "human resources director uniform"
-	desc = "Высший класс для любопытного директора H.R."
+	desc = "Высший класс для любопытного директора по персоналу."
 	icon_state = "huresource"
 	item_color = "huresource"
 
 /obj/item/clothing/under/dress/dress_hr/get_ru_names()
 	return list(
-		NOMINATIVE = "платье-униформа директора H.R.",
-		GENITIVE = "платья-униформы директора H.R.",
-		DATIVE = "платью-униформе директора H.R.",
-		ACCUSATIVE = "платье-униформу директора H.R.",
-		INSTRUMENTAL = "платьем-униформой директора H.R.",
-		PREPOSITIONAL = "платье-униформе директора H.R.",
+		NOMINATIVE = "платье-униформа директора персоналу",
+		GENITIVE = "платья-униформы директора персоналу.",
+		DATIVE = "платью-униформе директора персоналу.",
+		ACCUSATIVE = "платье-униформу директора персоналу.",
+		INSTRUMENTAL = "платьем-униформой директора персоналу",
+		PREPOSITIONAL = "платье-униформе директора персоналу.",
 	)
 
 /obj/item/clothing/under/dress/plaid_blue
@@ -1772,7 +1772,7 @@
 
 /obj/item/clothing/under/pennywise
 	name = "Pennywise Costume"
-	desc = "Это всё, что ты боишься."
+	desc = "В нём всё, чего ты когда-либо боялся."
 	icon_state = "pennywise"
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
@@ -2244,7 +2244,7 @@
 
 /obj/item/clothing/under/misc/durathread
 	name = "durathread jumpsuit"
-	desc = "Комбинезон из дюраткани, его усиленные волокна защищают от повреждений."
+	desc = "Комбинезон из дюраткани. Его усиленные волокна защищают от повреждений."
 	icon_state = "durathread"
 	item_state = "durathread"
 	item_color = "durathread"
