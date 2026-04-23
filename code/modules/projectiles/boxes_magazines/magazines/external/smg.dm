@@ -21,7 +21,7 @@
 	)
 
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
-	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "-e"]"
+	icon_state = "[initial(icon_state)]_[CEILING(ammo_count()/6, 1) * 6]"
 
 // MARK: 9mm - UZI SMG
 /obj/item/ammo_box/magazine/uzim9mm
