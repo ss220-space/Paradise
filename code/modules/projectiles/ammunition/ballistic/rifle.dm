@@ -33,19 +33,19 @@
 	projectile_type = /obj/projectile/bullet/saw/bleeding
 
 /obj/item/ammo_casing/a762x51/hollow
-	ammo_marking = "7,62x51 мм Э"
-	extra_info = "Пуля с экспансивной полостью обладает повышенным травмирующим действием в ущерб проникающей способности."
+	ammo_marking = "7,62x51 мм ПЭ"
+	extra_info = "Экспансивная пуля обладает повышенным травмирующим действием в ущерб проникающей способности."
 	projectile_type = /obj/projectile/bullet/saw/hollow
 	bullet_type = BULLET_TYPE_EXPANSIVE
 
 /obj/item/ammo_casing/a762x51/ap
-	ammo_marking = "7,62x51 мм Б"
+	ammo_marking = "7,62x51 мм ББ"
 	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	projectile_type = /obj/projectile/bullet/saw/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/a762x51/incen
-	ammo_marking = "7,62x51 мм З"
+	ammo_marking = "7,62x51 мм ПЗ"
 	extra_info = "Зажигательная пуля воспламеняется при попадании."
 	projectile_type = /obj/projectile/bullet/saw/incen
 	muzzle_flash_color = LIGHT_COLOR_FIRE

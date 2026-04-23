@@ -33,18 +33,21 @@
 	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/c46x30mm/ap
-	ammo_marking = "4,6x30 мм Б"
+	ammo_marking = "4,6x30 мм ББ"
+	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	materials = list(MAT_METAL = 700, MAT_SILVER = 50)
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/c46x30mm/tox
 	ammo_marking = "4,6x30 мм \"Токсин\""
+	extra_info = "Токсинная пуля содержит ядовитое вещество, отравляющее цель при попадании."
 	materials = list(MAT_METAL = 700, MAT_SILVER = 50, MAT_URANIUM = 75)
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix/tox
 
 /obj/item/ammo_casing/c46x30mm/inc
-	ammo_marking = "4,6x30 мм З"
+	ammo_marking = "4,6x30 мм ПЗ"
+	extra_info = "Зажигательная пуля воспламеняется при попадании."
 	materials = list(MAT_METAL = 700, MAT_SILVER = 50, MAT_PLASMA = 50)
 	projectile_type = /obj/projectile/bullet/incendiary/foursix
 	muzzle_flash_color = LIGHT_COLOR_FIRE
