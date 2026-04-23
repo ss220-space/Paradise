@@ -1401,19 +1401,14 @@
 			desc = "Watch out for angry voxes!"
 
 /obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(over_object != user || user.incapacitated() || !ishuman(user))
-		return FALSE
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(span_notice("[user] поднял [declent_ru(ACCUSATIVE)]."))
-		return TRUE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(span_notice("[user] поднял[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."))
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"
