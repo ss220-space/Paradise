@@ -742,8 +742,8 @@
 		var/mutable_appearance/item_copy = new(item)
 		item_copy.plane = FLOAT_PLANE
 		item_copy.layer = FLOAT_LAYER + 0.1
-		pixel_w = rand(-3, 3)
-		pixel_z = rand(-3, 3)
+		item_copy.pixel_w = rand(-3, 3)
+		item_copy.pixel_z = rand(-3, 3)
 		. += item_copy
 
 /obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -768,20 +768,16 @@
 ////////////////////////////////////////
 // MARK:	Antag tray
 ////////////////////////////////////////
-/obj/item/storage/bag/dangertray
+/obj/item/storage/bag/tray/danger
 	name = "tray"
 	desc = "Металлический поднос для еды с острыми как бритва краями."
-	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
-	force = 5
 	throwforce = 25
-	throw_speed = 3
 	armour_penetration = 15
 	sharp = TRUE
-	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
-/obj/item/storage/bag/dangertray/get_ru_names()
+/obj/item/storage/bag/tray/danger/get_ru_names()
 	return list(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
