@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		balloon_alert(user, "синхронизация завершена")
 
 /obj/item/extraction_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(loc != user || !ishuman(user))
+	if(!ishuman(user))
 		return
 
 	over_object.add_fingerprint(user)
