@@ -80,6 +80,7 @@
 		T.add_blueprints_preround(src)
 
 	add_debris_element()
+	add_deep_lore()
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -372,3 +373,10 @@
 	RETURN_TYPE(/list)
 	SHOULD_CALL_PARENT(FALSE)
 	return list(src)
+
+/**
+ * Use this proc to attach `/datum/element/examine_lore` to an object.
+ * Override if needed.
+ */
+/obj/proc/add_deep_lore()
+	return

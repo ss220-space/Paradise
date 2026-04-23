@@ -112,6 +112,9 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
+/obj/item/gun/projectile/automatic/l6_saw/toy/add_deep_lore()
+	return
+
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
 

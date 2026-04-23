@@ -57,7 +57,6 @@
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND, PROC_REF(try_take_baton))
-	add_deep_lore()
 
 /obj/item/melee/baton/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND)
@@ -81,9 +80,6 @@
 	if(active)
 		readout += "- Потребуется примерно [span_warning("[HITS_TO_CRIT(stamina_damage)] удар[DECL_CREDIT(HITS_TO_CRIT(stamina_damage))]")], чтобы <b>[span_blue("нелетально")]</b> обезвредить противника."
 	return readout.Join("\n")
-
-/obj/item/melee/baton/proc/add_deep_lore()
-	return
 
 /obj/item/melee/baton/proc/try_take_baton(baton, mob/living/carbon/user)
 	SIGNAL_HANDLER

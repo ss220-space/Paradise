@@ -36,8 +36,7 @@
 		PREPOSITIONAL = "ручном пулемёте L6 SAW 7,62x51 мм",
 	)
 
-/obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
-	. = ..()
+/obj/item/gun/projectile/automatic/l6_saw/add_deep_lore()
 	AddElement(/datum/element/examine_lore, \
 		lore = "Классический ручной пулемёт под винтовочный калибр 7,62x51 мм, разработанный для огневой поддержки подразделений на уровне отделения. \
 		Несмотря на то, что базовая конструкция относится к началу 2500-х, данная единица прошла глубокую модернизацию: \

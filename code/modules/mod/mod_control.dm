@@ -86,7 +86,6 @@
 	/// AI or pAI mob inhabiting the MOD.
 	var/mob/living/silicon/ai_assistant
 
-
 /obj/item/mod/control/get_ru_names()
 	return list(
 		NOMINATIVE = "блок управления МЭК",
@@ -114,7 +113,6 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
-	AddElement(/datum/element/examine_lore, lore = extended_desc)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mod/control/Destroy()
@@ -149,6 +147,9 @@
 			. += span_notice("Вы можете извлечь [core.declent_ru(ACCUSATIVE)], <b>ослабив болты</b>.")
 		else
 			. += span_notice("Слот для ядра пуст.")
+
+/obj/item/mod/control/add_deep_lore()
+	AddElement(/datum/element/examine_lore, lore = extended_desc)
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
