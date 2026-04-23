@@ -1,7 +1,9 @@
 // MARK: L6 SAW
 /obj/item/gun/projectile/automatic/l6_saw
 	name = "L6 SAW"
-	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
+	desc = "Тяжёлый ручной пулемёт калибра 7,62x51 мм, модифицированный для использования в ближнем бою. Обеспечивает высокую плотность огня ценой значительной отдачи. \
+			На ствольной коробке выгравирована надпись: \"Оружейная Ауссек - 2531\"."
+	gender = MALE
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
 	w_class = WEIGHT_CLASS_HUGE
@@ -23,6 +25,28 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -7),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+
+/obj/item/gun/projectile/automatic/l6_saw/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной пулемёт L6 SAW 7,62x51 мм",
+		GENITIVE = "ручного пулемёта L6 SAW 7,62x51 мм",
+		DATIVE = "ручному пулемёту L6 SAW 7,62x51 мм",
+		ACCUSATIVE = "ручной пулемёт L6 SAW 7,62x51 мм",
+		INSTRUMENTAL = "ручным пулемётом L6 SAW 7,62x51 мм",
+		PREPOSITIONAL = "ручном пулемёте L6 SAW 7,62x51 мм",
+	)
+
+/obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/examine_lore, \
+		lore = "Классический ручной пулемёт под винтовочный калибр 7,62x51 мм, разработанный для огневой поддержки подразделений на уровне отделения. \
+		Несмотря на то, что базовая конструкция относится к началу 2500-х, данная единица прошла глубокую модернизацию: \
+		усиленный ствольный узел и утяжелённый кожух ствола улучшили показатели при длительной стрельбе, \
+		а штатные рукоятка и приклад были заменены на облегчённые аналоги для лучшей эргономики.<br>\
+		<br>\
+		Хотя \"Оружейная Ауссек\" уже давно не производит данную модель, L6 и его модификации до сих пор пользуются \
+		популярностью, встречаясь как в арсеналах регулярных войск, так и в руках нерегулярных формирований разного рода."\
+	)
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
