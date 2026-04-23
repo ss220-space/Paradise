@@ -92,6 +92,8 @@
 			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[declension_ru(HITS_TO_CRIT(source.throwforce), "ок", "ка", "ков")]")
 
 			readout += "- Потребуется примерно [throws_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
+		else
+			readout += "- Не наносит значимого ущерба в ближнем бою."
 
 		if(source.armour_penetration > 0 || source.block_chance > 0)
 			readout += "- Имеет [span_warning("[weapon_tag_convert(source.armour_penetration)]")] способность к пробитию брони и [span_warning("[weapon_tag_convert(source.block_chance)]")] вероятность заблокировать атаку."

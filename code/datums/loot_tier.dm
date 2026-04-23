@@ -738,7 +738,7 @@
 			/obj/item/ammo_casing/caseless/rocket,
 			/obj/item/ammo_casing/caseless/rocket/hedp,
 		),
-		CALIBER_12X70 = list(
+		CALIBER_12G = list(
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/shotgun/buck/assassination,
