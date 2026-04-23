@@ -150,7 +150,7 @@
 
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
-	desc = "Это стандартная одежда красавчика-офицера, как видели на Голо-Видении."
+	desc = "Это стандартная одежда красавчика-офицера, которую можно было видеть на Голо-Видении."
 	icon_state = "vice"
 	item_state = "gy_suit"
 	item_color = "vice"
@@ -275,19 +275,19 @@
 
 /obj/item/clothing/under/rank/centcom_officer
 	name = "CentComm officer's jumpsuit"
-	desc = "It's a jumpsuit worn by CentComm Officers."
+	desc = "Комбинезон, который носят офицеры ЦентКома."
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 
 /obj/item/clothing/under/rank/centcom_officer/get_ru_names()
 	return list(
-		NOMINATIVE = "комбинезон офицера ЦентКомма",
-		GENITIVE = "комбинезона офицера ЦентКомма",
-		DATIVE = "комбинезону офицера ЦентКомма",
-		ACCUSATIVE = "комбинезон офицера ЦентКомма",
-		INSTRUMENTAL = "комбинезоном офицера ЦентКомма",
-		PREPOSITIONAL = "комбинезоне офицера ЦентКомма",
+		NOMINATIVE = "комбинезон офицера ЦентКома",
+		GENITIVE = "комбинезона офицера ЦентКома",
+		DATIVE = "комбинезону офицера ЦентКома",
+		ACCUSATIVE = "комбинезон офицера ЦентКома",
+		INSTRUMENTAL = "комбинезоном офицера ЦентКома",
+		PREPOSITIONAL = "комбинезоне офицера ЦентКома",
 	)
 
 /obj/item/clothing/under/rank/centcom_officer/sensor
@@ -303,12 +303,12 @@
 
 /obj/item/clothing/under/rank/centcom_commander/get_ru_names()
 	return list(
-		NOMINATIVE = "комбинезон офицера ЦентКомма",
-		GENITIVE = "комбинезона офицера ЦентКомма",
-		DATIVE = "комбинезону офицера ЦентКомма",
-		ACCUSATIVE = "комбинезон офицера ЦентКомма",
-		INSTRUMENTAL = "комбинезоном офицера ЦентКомма",
-		PREPOSITIONAL = "комбинезоне офицера ЦентКомма",
+		NOMINATIVE = "комбинезон офицера ЦентКома",
+		GENITIVE = "комбинезона офицера ЦентКома",
+		DATIVE = "комбинезону офицера ЦентКома",
+		ACCUSATIVE = "комбинезон офицера ЦентКома",
+		INSTRUMENTAL = "комбинезоном офицера ЦентКома",
+		PREPOSITIONAL = "комбинезоне офицера ЦентКома",
 	)
 
 /obj/item/clothing/under/rank/centcom/officer
@@ -402,12 +402,12 @@
 
 /obj/item/clothing/under/rank/centcom/blueshield/get_ru_names()
 	return list(
-		NOMINATIVE = "формальная униформа Синего Щита",
-		GENITIVE = "формальной униформы Синего Щита",
-		DATIVE = "формальной униформе Синего Щита",
-		ACCUSATIVE = "формальную униформу Синего Щита",
-		INSTRUMENTAL = "формальной униформой Синего Щита",
-		PREPOSITIONAL = "формальной униформе Синего Щита",
+		NOMINATIVE = "парадная униформа Синего Щита",
+		GENITIVE = "парадной униформы Синего Щита",
+		DATIVE = "парадной униформе Синего Щита",
+		ACCUSATIVE = "парадную униформу Синего Щита",
+		INSTRUMENTAL = "парадной униформой Синего Щита",
+		PREPOSITIONAL = "парадной униформе Синего Щита",
 	)
 
 /obj/item/clothing/under/rank/centcom/representative
@@ -420,12 +420,12 @@
 
 /obj/item/clothing/under/rank/centcom/representative/get_ru_names()
 	return list(
-		NOMINATIVE = "формальная униформа Представителя \"Нанотрейзен\"",
-		GENITIVE = "формальной униформы Представителя \"Нанотрейзен\"",
-		DATIVE = "формальной униформе Представителя \"Нанотрейзен\"",
-		ACCUSATIVE = "формальную униформу Представителя \"Нанотрейзен\"",
-		INSTRUMENTAL = "формальной униформой Представителя \"Нанотрейзен\"",
-		PREPOSITIONAL = "формальной униформе Представителя \"Нанотрейзен\"",
+		NOMINATIVE = "парадная униформа Представителя \"Нанотрейзен\"",
+		GENITIVE = "парадной униформы Представителя \"Нанотрейзен\"",
+		DATIVE = "парадной униформе Представителя \"Нанотрейзен\"",
+		ACCUSATIVE = "парадную униформу Представителя \"Нанотрейзен\"",
+		INSTRUMENTAL = "парадной униформой Представителя \"Нанотрейзен\"",
+		PREPOSITIONAL = "парадной униформе Представителя \"Нанотрейзен\"",
 	)
 
 /obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
@@ -446,12 +446,12 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate/get_ru_names()
 	return list(
-		NOMINATIVE = "формальная униформа Магистрата",
-		GENITIVE = "формальной униформы Магистрата",
-		DATIVE = "формальной униформе Магистрата",
-		ACCUSATIVE = "формальную униформу Магистрата",
-		INSTRUMENTAL = "формальной униформой Магистрата",
-		PREPOSITIONAL = "формальной униформе Магистрата",
+		NOMINATIVE = "парадная униформа Магистрата",
+		GENITIVE = "парадной униформы Магистрата",
+		DATIVE = "парадной униформе Магистрата",
+		ACCUSATIVE = "парадную униформу Магистрата",
+		INSTRUMENTAL = "парадной униформой Магистрата",
+		PREPOSITIONAL = "парадной униформе Магистрата",
 	)
 
 /obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
@@ -472,12 +472,12 @@
 
 /obj/item/clothing/under/rank/centcom/diplomatic/get_ru_names()
 	return list(
-		NOMINATIVE = "формальная униформа дипломата \"Нанотрейзен\"",
-		GENITIVE = "формальной униформы дипломата \"Нанотрейзен\"",
-		DATIVE = "формальной униформе дипломата \"Нанотрейзен\"",
-		ACCUSATIVE = "формальную униформу дипломата \"Нанотрейзен\"",
-		INSTRUMENTAL = "формальной униформой дипломата \"Нанотрейзен\"",
-		PREPOSITIONAL = "формальной униформе дипломата \"Нанотрейзен\"",
+		NOMINATIVE = "парадная униформа дипломата \"Нанотрейзен\"",
+		GENITIVE = "парадной униформы дипломата \"Нанотрейзен\"",
+		DATIVE = "парадной униформе дипломата \"Нанотрейзен\"",
+		ACCUSATIVE = "парадную униформу дипломата \"Нанотрейзен\"",
+		INSTRUMENTAL = "парадной униформой дипломата \"Нанотрейзен\"",
+		PREPOSITIONAL = "парадной униформе дипломата \"Нанотрейзен\"",
 	)
 
 /obj/item/clothing/under/rank/blueshield
@@ -681,7 +681,7 @@
 
 /obj/item/clothing/under/suit_jacket/really_black
 	name = "executive suit"
-	desc = "Формальный чёрный костюм с красным галстуком, для лучшего персонала."
+	desc = "Парадный чёрный костюм с красным галстуком, для лучшего персонала."
 	icon_state = "really_black_suit"
 	item_color = "really_black_suit"
 
@@ -697,7 +697,7 @@
 
 /obj/item/clothing/under/suit_jacket/female
 	name = "women\'s executive suit"
-	desc = "Формальный брючный костюм, для лучшего персонала."
+	desc = "Парадный брючный костюм, для лучшего персонала."
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
@@ -714,7 +714,7 @@
 
 /obj/item/clothing/under/suit_jacket/red
 	name = "red suit"
-	desc = "Красный костюм с синим галстуком. Немного формальный."
+	desc = "Красный костюм с синим галстуком. Немного парадный."
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
@@ -731,7 +731,7 @@
 
 /obj/item/clothing/under/suit_jacket/red/skirt
 	name = "red jumpskirt"
-	desc = "Красная юбка с синим галстуком. Немного формальная."
+	desc = "Красная юбка с синим галстуком. Немного парадная."
 	icon_state = "red_suitf"
 	item_color = "red_suitf"
 	sprite_sheets = list(
@@ -786,7 +786,7 @@
 
 /obj/item/clothing/under/suit_jacket/burgundy
 	name = "burgundy suit"
-	desc = "Малиновый костюм и чёрный галстук. Немного формально."
+	desc = "Малиновый костюм и чёрный галстук. Немного парадный."
 	icon_state = "burgundy_suit"
 	item_state = "burgundy_suit"
 	item_color = "burgundy_suit"
@@ -1840,19 +1840,19 @@
 
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
-	desc = "Формальная одежда ассистента. Зачем ассистенту нужен деловой вид, никто не знает."
+	desc = "парадная одежда ассистента. Зачем ассистенту нужен деловой вид, никто не знает."
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	item_color = "assistant_formal"
 
 /obj/item/clothing/under/assistantformal/get_ru_names()
 	return list(
-		NOMINATIVE = "формальная униформа ассистента",
-		GENITIVE = "формальной униформы ассистента",
-		DATIVE = "формальной униформе ассистента",
-		ACCUSATIVE = "формальную униформу ассистента",
-		INSTRUMENTAL = "формальной униформой ассистента",
-		PREPOSITIONAL = "формальной униформе ассистента",
+		NOMINATIVE = "парадная униформа ассистента",
+		GENITIVE = "парадной униформы ассистента",
+		DATIVE = "парадной униформе ассистента",
+		ACCUSATIVE = "парадную униформу ассистента",
+		INSTRUMENTAL = "парадной униформой ассистента",
+		PREPOSITIONAL = "парадной униформе ассистента",
 	)
 
 /obj/item/clothing/under/blacktango
