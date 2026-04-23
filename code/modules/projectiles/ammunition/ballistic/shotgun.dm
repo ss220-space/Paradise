@@ -1,33 +1,33 @@
 // MARK: Slug
 /obj/item/ammo_casing/shotgun
-	name = "shotgun slug"
-	desc = "A 12 gauge lead slug."
+	ammo_marking = "12g \"Пуля\""
+	extra_info = "Латунная пуля для гладкоствольного ружья."
 	icon_state = "slugshell"
 	materials = list(MAT_METAL = 4000)
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	projectile_type = /obj/projectile/bullet/slug
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 // MARK: Buckshot
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "buckshot shell"
-	desc = "A 12 gauge buckshot shell."
+	ammo_marking = "12g \"Картечь\""
+	extra_info = "При выстреле разлетается на множество поражающих элементов."
 	icon_state = "buckshotshell"
 	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
 	variance = 17
 
 /obj/item/ammo_casing/shotgun/buckshot/magnum
-	name = "magnum buckshot shell"
-	desc = "A 12 gauge magnum buckshot shell."
+	ammo_marking = "12g \"Магнум\""
+	extra_info = "Усиленная картечь с повышенной мощностью. При выстреле разлетается на множество поражающих элементов."
 	projectile_type = /obj/projectile/bullet/pellet/magnum
 
 // MARK: Assasination slug
 /obj/item/ammo_casing/shotgun/assassination
-	name = "assassination shell"
-	desc = "Специальная гильза для шрапнели, обработанная глушащим токсином."
+	ammo_marking = "12g \"Тишь\""
+	extra_info = "Специальная картечь, обработанная глушащим токсином."
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 	projectile_type = /obj/projectile/bullet/pellet/assassination
 	muzzle_flash_effect = null
@@ -35,20 +35,10 @@
 	pellets = 6
 	variance = 15
 
-/obj/item/ammo_casing/shotgun/assassination/get_ru_names()
-	return list(
-		NOMINATIVE = "патрон для убийства",
-		GENITIVE = "патрона для убийства",
-		DATIVE = "патрону для убийства",
-		ACCUSATIVE = "патрон для убийства",
-		INSTRUMENTAL = "патроном для убийства",
-		PREPOSITIONAL = "патроне для убийства",
-	)
-
 // MARK: Rubbershot
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubbershot shell"
-	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
+	ammo_marking = "12g \"Резиновая картечь\""
+	extra_info = "Резиновая картечь. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
 	icon_state = "rubbershotshell"
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/pellet/rubber
@@ -57,8 +47,8 @@
 
 // MARK: Chemical dart
 /obj/item/ammo_casing/shotgun/dart
-	name = "shotgun dart"
-	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
+	ammo_marking = "12g \"Дротик\""
+	extra_info = "Дротик для использования в гладкоствольных ружьях. Может содержать до 30 единиц вещества."
 	icon_state = "rubbershotshell"
 	container_type = OPENCONTAINER
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
@@ -73,8 +63,8 @@
 
 // MARK: Beanbag
 /obj/item/ammo_casing/shotgun/beanbag
-	name = "beanbag slug"
-	desc = "A weak beanbag slug for riot control."
+	ammo_marking = "12g \"Погремушка\""
+	extra_info = "Резиновая пуля. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
 	icon_state = "beanbagshell"
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/weakbullet
@@ -86,8 +76,8 @@
 
 // MARK: Taser slug
 /obj/item/ammo_casing/shotgun/stunslug
-	name = "taser slug"
-	desc = "A stunning taser slug."
+	ammo_marking = "12g \"Тазер\""
+	extra_info = "При попадании оглушает цель электрическим током."
 	icon_state = "stunslugshell"
 	materials = list(MAT_METAL = 250)
 	projectile_type = /obj/projectile/bullet/stunshot
@@ -97,61 +87,61 @@
 
 // MARK: Meteorshot
 /obj/item/ammo_casing/shotgun/meteorshot
-	name = "meteorshot shell"
-	desc = "A shotgun shell rigged with CMC technology, which launches a massive slug when fired."
+	ammo_marking = "12g \"Метеорит\""
+	extra_info = "При выстреле запускает метеорит благодаря использования блюспейс-технологий."
 	icon_state = "meteorshotshell"
 	projectile_type = /obj/projectile/bullet/meteorshot
 
 // MARK: Breaching
 /obj/item/ammo_casing/shotgun/breaching
-	name = "breaching shell"
-	desc = "An economic version of the meteorshot, utilizing similar technologies. Great for busting down doors."
+	ammo_marking = "12g \"Пробивной\""
+	extra_info = "При выстреле запускает метеорит благодаря использования блюспейс-технологий. \
+			Специализированная версия с уменьшенным импульсом."
 	icon_state = "meteorshotshell"
 	projectile_type = /obj/projectile/bullet/meteorshot/weak
 
 // MARK: Pulse slug
 /obj/item/ammo_casing/shotgun/pulseslug
-	name = "pulse slug"
-	desc = "A delicate device which can be loaded into a shotgun. The primer acts as a button which triggers the gain medium and fires a powerful \
-	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
-	would have difficulty with."
+	ammo_marking = "12g \"Импульсный\""
+	extra_info = "Специализированная пуля при выстреле запускает импульсный заряд."
 	icon_state = "pulseslugshell"
 	projectile_type = /obj/projectile/beam/pulse/shot
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 
 // MARK: Incendiary slug
 /obj/item/ammo_casing/shotgun/incendiary
-	name = "incendiary slug"
-	desc = "An incendiary-coated shotgun slug."
+	ammo_marking = "12g \"Зажигательный\""
+	extra_info = "Зажигательная пуля с покрытием."
 	icon_state = "incendiaryshell"
 	projectile_type = /obj/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
-	name = "dragonsbreath shell"
-	desc = "A shotgun shell which fires a spread of incendiary pellets."
+	ammo_marking = "12g \"Дыхание дракона\""
+	extra_info = "Наполнен гранулами с пиротехнической смесью, которые воспламеняются при выстреле."
 	icon_state = "dragonsbreathshell"
 	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	pellets = 4
 	variance = 25
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
+	ammo_marking = "12g \"Напалм\""
+	extra_info = "Наполнен гранулами с напалмом, которые воспламеняются при выстреле."
 	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
 	pellets = 6
 	variance = 20
 
 // MARK: Frag-12
 /obj/item/ammo_casing/shotgun/frag12
-	name = "FRAG-12 slug"
-	desc = "A high explosive breaching round for a 12 gauge shotgun."
+	ammo_marking = "12g \"FRAG-12\""
+	extra_info = "Специализированный боеприпас, начинённый взрывчаткой. При попадании взрывается."
 	icon_state = "frag12shell"
 	projectile_type = /obj/projectile/bullet/frag12
 
 // MARK: Ion
 /obj/item/ammo_casing/shotgun/ion
-	name = "ion shell"
-	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
-	The unique properties of the crystal splot the pulse into a spread of individually weaker bolts."
+	ammo_marking = "12g \"Ионный\""
+	extra_info = "Специализированный боеприпас, создающий ЭМИ при попадании."
 	icon_state = "ionshell"
 	projectile_type = /obj/projectile/ion/weak
 	pellets = 4
@@ -162,8 +152,8 @@
 
 // MARK: Laser slug
 /obj/item/ammo_casing/shotgun/laserslug
-	name = "laser slug"
-	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
+	ammo_marking = "12g \"Лазерный\""
+	extra_info = "Специализированный боеприпас с микролазером, имитирующий лазерное оружие."
 	icon_state = "laserslugshell"
 	projectile_type = /obj/projectile/beam/laser/slug
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -172,8 +162,8 @@
 
 // MARK: Laser buckshot
 /obj/item/ammo_casing/shotgun/lasershot
-	name = "laser shot"
-	desc = "An advanced shotgun shell that uses a micro lasers to replicate the effects of a buckshot in laser appearance."
+	ammo_marking = "12g \"Лазерная картечь\""
+	extra_info = "Специализированный боеприпас с системой микролазеров, имитирующий классическую картечь в лазерном исполнении."
 	icon_state = "lasershotshell"
 	projectile_type = /obj/projectile/beam/laser/shot
 	pellets = 6
@@ -184,8 +174,8 @@
 
 // MARK: Bioterror
 /obj/item/ammo_casing/shotgun/bioterror
-	name = "bioterror shell"
-	desc = "A shotgun shell filled with deadly toxins."
+	ammo_marking = "12g \"Биотеррор\""
+	extra_info = "Наполнен гранулами со смертельными токсинами, отравляющими цель при попадании."
 	icon_state = "bioterrorshell"
 	projectile_type = /obj/projectile/bullet/pellet/bioterror
 	pellets = 4
@@ -193,8 +183,8 @@
 
 // MARK: Tranquilizer
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer dart"
-	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
+	ammo_marking = "12g \"Транквилизатор\""
+	extra_info = "Специализированный боеприпас, представляющий собой дротик с седативным веществом."
 	icon_state = "tranquilizershell"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
 	projectile_type = /obj/projectile/bullet/dart/syringe/tranquilizer
@@ -203,8 +193,8 @@
 
 // MARK: Flechette
 /obj/item/ammo_casing/shotgun/flechette
-	name = "flechette"
-	desc = "A shotgun casing filled with tiny steel darts, used to penetrate armor. Beehive incoming!"
+	ammo_marking = "12g \"Флешетта\""
+	extra_info = "Дробовик, заполненный крошечными стальными дротиками для пробития брони."
 	icon_state = "flechetteshell"
 	projectile_type = /obj/projectile/bullet/pellet/flechette
 	pellets = 4
@@ -212,8 +202,8 @@
 
 // MARK: Improvised buckshot
 /obj/item/ammo_casing/shotgun/improvised
-	name = "improvised shell"
-	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
+	ammo_marking = "12g \"Самодельный\""
+	extra_info = "Самодельный боеприпас, начинённый множеством металлических гранул и малым количеством пороха."
 	icon_state = "improvisedshell"
 	materials = list(MAT_METAL = 250)
 	projectile_type = /obj/projectile/bullet/pellet/weak
@@ -223,9 +213,8 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/shotgun/improvised/overload
-	name = "overloaded improvised shell"
-	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
-	propellant. It's like playing russian roulette, with a shotgun."
+	ammo_marking = "12g \"Самодельный+\""
+	extra_info = "Самодельный боеприпас, начинённый крупными металлическими гранулами и избыточным количеством пороха. Чрезвычайно нестабильный."
 	projectile_type = /obj/projectile/bullet/pellet/overload
 	pellets = 4
 	variance = 40
@@ -234,7 +223,21 @@
 // MARK: Empty tech shell
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
-	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
+	desc = "Высокотехнологичная гильза калибра 12g. Совместима с широким спектром материалов для создания уникальных эффектов."
+	ammo_marking = null
+	extra_info = null
 	icon_state = "techshell"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
 	projectile_type = null
+	no_update_names = TRUE
+	no_update_desc = TRUE
+
+/obj/item/ammo_casing/shotgun/techshell/get_ru_names()
+	return list(
+		NOMINATIVE = "пустая технологическая гильза [caliber]",
+		GENITIVE = "пустой технологической гильзы [caliber]",
+		DATIVE = "пустой технологической гильзе [caliber]",
+		ACCUSATIVE = "пустую технологическую гильзу [caliber]",
+		INSTRUMENTAL = "пустой технологической гильзой [caliber]",
+		PREPOSITIONAL = "пустой технологической гильзе [caliber]"
+	)
