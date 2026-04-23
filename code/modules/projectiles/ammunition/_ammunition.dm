@@ -145,27 +145,28 @@
 	if(no_update_names)
 		return
 
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
 	if(BB)
 		gender = MALE
 		name = "[get_ammo_marking()] cartridge"
-		ru_names[NOMINATIVE] = "патрон [get_ammo_marking()]"
-		ru_names[GENITIVE] = "патрона [get_ammo_marking()]"
-		ru_names[DATIVE] = "патрону [get_ammo_marking()]"
-		ru_names[ACCUSATIVE] = "патрон [get_ammo_marking()]"
-		ru_names[INSTRUMENTAL] = "патроном [get_ammo_marking()]"
-		ru_names[PREPOSITIONAL] = "патроне [get_ammo_marking()]"
+		ru_names = string_list(list(
+			NOMINATIVE = "патрон [get_ammo_marking()]",
+			GENITIVE = "патрона [get_ammo_marking()]",
+			DATIVE = "патрону [get_ammo_marking()]",
+			ACCUSATIVE = "патрон [get_ammo_marking()]",
+			INSTRUMENTAL = "патроном [get_ammo_marking()]",
+			PREPOSITIONAL = "патроне [get_ammo_marking()]",
+		))
 	else
 		gender = FEMALE
 		name = "[caliber] bullet casing"
-		ru_names[NOMINATIVE] = "гильза [caliber]"
-		ru_names[GENITIVE] = "гильзы [caliber]"
-		ru_names[DATIVE] = "гильзе [caliber]"
-		ru_names[ACCUSATIVE] = "гильзу [caliber]"
-		ru_names[INSTRUMENTAL] = "гильзой [caliber]"
-		ru_names[PREPOSITIONAL] = "гильзе [caliber]"
+		ru_names = string_list(list(
+			NOMINATIVE = "гильза [caliber]",
+			GENITIVE = "гильзы [caliber]",
+			DATIVE = "гильзе [caliber]",
+			ACCUSATIVE = "гильзу [caliber]",
+			INSTRUMENTAL = "гильзой [caliber]",
+			PREPOSITIONAL = "гильзе [caliber]",
+		))
 
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
