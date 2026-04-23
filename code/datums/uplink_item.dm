@@ -1082,65 +1082,65 @@
 	cost = 2
 
 /datum/uplink_item/ammo/bullbuck
-	name = "Барабан 12x70 — \"Магнум Картечь\""
-	desc = "Барабан на 12 патронов магнум картечи калибра 12x70. Отлично подходит для ближней дистанции."
+	name = "Барабан 12g — \"Магнум Картечь\""
+	desc = "Барабан на 12 патронов магнум картечи калибра 12g. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
-	name = "Барабан 12x70 — \"напалмовое Дыхание дракона\""
-	desc = "Барабан на 12 патронов \"напалмовое Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
+	name = "Барабан 12g — \"напалмовое Дыхание дракона\""
+	desc = "Барабан на 12 патронов \"напалмовое Дыхание дракона\" калибра 12g. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullflechette
-	name = "Барабан 12x70 — \"Флешетта\""
-	desc = "Барабан на 12 патронов \"Флешетта\" калибра 12x70. В отличие от картечи, у этих дробинок более узкая траектория полёта. Они обладают бронебойным действием."
+	name = "Барабан 12g — \"Флешетта\""
+	desc = "Барабан на 12 патронов \"Флешетта\" калибра 12g. В отличие от картечи, у этих дробинок более узкая траектория полёта. Они обладают бронебойным действием."
 	item = /obj/item/ammo_box/magazine/m12g/flechette
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullterror
-	name = "Барабан 12x70 — \"Биотеррор\""
-	desc = "Барабан на 12 патронов \"Биотеррор\" калибра 12x70. Эти снаряды наносят повреждения за счёт токсинов и радиации."
+	name = "Барабан 12g — \"Биотеррор\""
+	desc = "Барабан на 12 патронов \"Биотеррор\" калибра 12g. Эти снаряды наносят повреждения за счёт токсинов и радиации."
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLbuck
-	name = "Расширенный барабан 12x70 — \"Магнум Картечь\""
-	desc = "Расширенный барабан на 24 патронов магнум картечи калибра 12x70. Отлично подходит для ближней дистанции."
+	name = "Расширенный барабан 12g — \"Магнум Картечь\""
+	desc = "Расширенный барабан на 24 патронов магнум картечи калибра 12g. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLflechette
-	name = "Расширенный барабан 12x70 — \"Флешетта\""
-	desc = "Расширенный барабан на 24 патронов \"Флешетта\" калибра 12x70. \
+	name = "Расширенный барабан 12g — \"Флешетта\""
+	desc = "Расширенный барабан на 24 патронов \"Флешетта\" калибра 12g. \
 			В отличие от картечи, у этих флашетт более узкая траектория полёта. Они обладают бронебойным действием."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLdragon
-	name = "Расширенный барабан 12x70 — \"напалмовое Дыхание дракона\""
-	desc = "Расширенный барабан на 24 патронов \"напалмовое Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
+	name = "Расширенный барабан 12g — \"напалмовое Дыхание дракона\""
+	desc = "Расширенный барабан на 24 патронов \"напалмовое Дыхание дракона\" калибра 12g. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_ammobag
-	name = "Барабан 12x70 — сумка"
-	desc = "Сумка, содержащая 8 барабанов на 12 патронов калибра 12x70 \"Картечь\" и 1 барабан \"Дыхание дракона\"."
+	name = "Барабан 12g — сумка"
+	desc = "Сумка, содержащая 8 барабанов на 12 патронов калибра 12g \"Картечь\" и 1 барабан \"Дыхание дракона\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
-	name = "Расширенный барабан 12x70 — сумка"
-	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12x70: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
+	name = "Расширенный барабан 12g — сумка"
+	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12g: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 45
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -2479,7 +2479,7 @@
 
 /datum/uplink_item/bundles_TC/bulldog
 	name = "Набор — Дробовик \"Бульдог\""
-	desc = "Сумка, в которой находятся: дробовик \"Бульдог\", 3 барабана по 12 патронов калибра 12x70 \"Картечь\" и тепловизионные очки."
+	desc = "Сумка, в которой находятся: дробовик \"Бульдог\", 3 барабана по 12 патронов калибра 12g \"Картечь\" и тепловизионные очки."
 	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	cost = 45 // normally 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
