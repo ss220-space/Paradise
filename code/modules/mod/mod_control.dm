@@ -114,6 +114,7 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
+	AddElement(/datum/element/examine_lore, lore = extended_desc)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mod/control/Destroy()
@@ -148,10 +149,6 @@
 			. += span_notice("Вы можете извлечь [core.declent_ru(ACCUSATIVE)], <b>ослабив болты</b>.")
 		else
 			. += span_notice("Слот для ядра пуст.")
-
-/obj/item/mod/control/examine_more(mob/user)
-	. = ..()
-	. += "<i>[extended_desc]</i>"
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
