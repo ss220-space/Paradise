@@ -71,6 +71,7 @@
 	density = FALSE
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
@@ -140,17 +141,18 @@
 
 
 /obj/structure/closet/body_bag/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
-		perform_fold(usr)
+	if(over_object != user || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!opened && !length(contents))
+		perform_fold(user)
 		qdel(src)
 		return FALSE
 
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
-		if(attempt_fold(usr))
-			perform_fold(usr)
-			qdel(src)
-			return FALSE
-	return ..()
+	if(attempt_fold(user))
+		perform_fold(user)
+		qdel(src)
+		return FALSE
 
 /obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
