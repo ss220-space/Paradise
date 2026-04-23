@@ -30,10 +30,8 @@
 	var/applied_amount = 8
 	// to prevent from spamming
 	var/applying = FALSE
-	// for overlays
-	var/overlay_icon = 'icons/obj/chemical.dmi'
 	// list of sound to play when applying reagents
-	var/apply_sounds = list('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg')
+	var/apply_sounds = SFX_MENDER
 
 /obj/item/reagent_containers/applicator/get_ru_names()
 	return list(
@@ -69,6 +67,7 @@
 
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
+	var/overlay_icon = 'icons/obj/chemical.dmi'
 	if(reagents.total_volume)
 		. += mutable_appearance(overlay_icon, "mender_liquid_overlay", color = get_color_matrix_from_reagents(reagents.reagent_list))
 

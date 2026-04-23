@@ -702,3 +702,10 @@
 		'sound/items/tray/tray_drop2.ogg',
 		'sound/items/tray/tray_drop3.ogg',
 	)
+
+/datum/sound_effect/mender
+	key = SFX_MENDER
+	file_paths = list(
+		'sound/goonstation/items/mender.ogg',
+		'sound/goonstation/items/mender2.ogg',
+	)
