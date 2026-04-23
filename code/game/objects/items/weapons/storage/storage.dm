@@ -174,7 +174,7 @@
 	for(var/obj/item/item in src)
 		remove_from_storage(item, object_turf)
 
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))
