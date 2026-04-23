@@ -781,17 +781,16 @@
 		popup.open(FALSE)
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
-	. = ..()
-	if(!. || usr != user || usr == src || over_object != usr || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return FALSE
+	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+		return 
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
-		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
-		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
-		return FALSE
+		to_chat(user, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
-		return FALSE
-	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, user, usr)
+		return
+	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, user, user)
 
 /**
  * Checks whether a mob can perform an action to interact with an object
