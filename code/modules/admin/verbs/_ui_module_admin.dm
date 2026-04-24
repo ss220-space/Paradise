@@ -4,8 +4,7 @@ GLOBAL_LIST_EMPTY(admin_ui_modules)
 	if(GLOB.admin_ui_modules[type])
 		return GLOB.admin_ui_modules[type]
 	if(!ispath(type, /datum/ui_module/admin))
-		stack_trace("Some motherfucker tried to create [type] with the admin ui module helper!")
-		return
+		CRASH("Some motherfucker tried to create [type] with the admin ui module helper!")
 	return new type()
 
 /// UI Admin Module is used by UIs who are shared between admins. For personal UI, don't use this.
