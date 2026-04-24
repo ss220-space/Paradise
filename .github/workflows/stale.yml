@@ -67,7 +67,7 @@ jobs:
           if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
           echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
       - name: Send Discord notification
-        uses: littleboobs/discord-notify@v1.0-ss1984
+        uses: littleboobs/discord-notify@main
         if: >
           steps.secrets_set.outputs.SECRETS_ENABLED
         with:

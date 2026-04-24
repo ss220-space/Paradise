@@ -172,7 +172,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
-	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
+	icon_state = "sparkle-a12[magazine ? "_[CEILING(get_ammo(FALSE) / 6, 1) * 6]" : "-e"]"
 
 // MARK: Type-U3 Uzi
 /obj/item/gun/projectile/automatic/mini_uzi
