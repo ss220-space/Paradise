@@ -16857,6 +16857,10 @@
 /obj/machinery/abductor/pad{
 	team = 1
 	},
+/obj/machinery/recharger/abductor{
+	pixel_y = 25;
+	pixel_x = 2
+	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "ilj" = (
@@ -16986,6 +16990,10 @@
 "ipu" = (
 /obj/machinery/abductor/pad{
 	team = 4
+	},
+/obj/machinery/recharger/abductor{
+	pixel_y = 25;
+	pixel_x = 2
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
@@ -23587,6 +23595,10 @@
 /obj/machinery/abductor/pad{
 	team = 2
 	},
+/obj/machinery/recharger/abductor{
+	pixel_y = 25;
+	pixel_x = 2
+	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lkL" = (
@@ -24259,6 +24271,10 @@
 "lAo" = (
 /obj/machinery/abductor/pad{
 	team = 3
+	},
+/obj/machinery/recharger/abductor{
+	pixel_y = 25;
+	pixel_x = 2
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
@@ -50089,11 +50105,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/bridge)
-"xhY" = (
-/obj/structure/table/abductor,
-/obj/machinery/recharger/abductor,
-/turf/simulated/floor/indestructible/abductor,
-/area/abductor_ship)
 "xig" = (
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/administration)
@@ -53815,7 +53826,7 @@ rRS
 mVX
 hQj
 ilI
-xhY
+iTp
 jxF
 iTp
 kvR
@@ -53840,7 +53851,7 @@ mVX
 mVX
 hQj
 ilI
-xhY
+iTp
 jxF
 iTp
 kvR
@@ -53865,7 +53876,7 @@ mVX
 mVX
 hQj
 ilI
-xhY
+iTp
 jxF
 iTp
 kvR
@@ -53890,7 +53901,7 @@ mVX
 mVX
 hQj
 ilI
-xhY
+iTp
 jxF
 iTp
 kvR
