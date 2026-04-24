@@ -215,6 +215,8 @@
 		return FALSE
 	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
+	if(istype(dropping, /obj/item/storage/bag/tray)) // we don't put the tray on the table
+		return FALSE
 	if(!user.drop_item_ground(dropping))
 		return FALSE
 	if(dropping.loc != loc)

@@ -193,6 +193,7 @@
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
+	interaction_flags_mouse_drop = NEED_DEXTERITY | NEED_HANDS
 	/// Whether it can be picked up by roller holder
 	var/collectable = TRUE
 	var/extended = /obj/structure/bed/roller
@@ -231,16 +232,16 @@
 	return ..()
 
 /obj/structure/bed/roller/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && usr.Adjacent(src))
-		usr.visible_message(
-			span_notice("[usr] collapses [src]."),
-			span_notice("You collapse [src]."),
-		)
-		var/obj/item/folded_item = new folded(drop_location())
-		folded_item.add_fingerprint(usr)
-		qdel(src)
-		return FALSE
-	return ..()
+	if(has_buckled_mobs() || over_object != user || !ishuman(user))
+		return
+
+	user.visible_message(
+		span_notice("[user] collapses [src]."),
+		span_notice("You collapse [src]."),
+	)
+	var/obj/item/folded_item = new folded(drop_location())
+	folded_item.add_fingerprint(user)
+	qdel(src)
 
 /obj/item/roller/holo
 	name = "holo stretcher"
