@@ -34,11 +34,11 @@
 #pragma UnsupportedAccess disabled
 // NOTE: The next few pragmas are for OpenDream's experimental type checker
 // BEGIN TYPEMAKER
-#pragma UnsupportedTypeCheck disabled
-#pragma InvalidReturnType disabled
-#pragma InvalidVarType disabled
-#pragma ImplicitNullType disabled
-#pragma LostTypeInfo disabled
+#pragma UnsupportedTypeCheck error
+#pragma InvalidReturnType error
+#pragma InvalidVarType error
+#pragma ImplicitNullType error
+#pragma LostTypeInfo error
 // END TYPEMAKER
 
 //3000-3999
