@@ -758,10 +758,6 @@
 	playsound(src, 'sound/weapons/chainsawrevs.ogg', 75, FALSE)
 	addtimer(VARSET_CALLBACK(src, revs_cooldown, FALSE), 10 SECONDS)
 
-/obj/item/twohanded/chainsaw/Destroy()
-	UnregisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED)
-	return ..()
-
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
 	AddComponent( \
@@ -775,6 +771,7 @@
 	)
 
 /obj/item/twohanded/chainsaw/Destroy(force)
+	UnregisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED)
 	QDEL_NULL(soundloop)
 	return ..()
 
