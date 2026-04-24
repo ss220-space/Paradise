@@ -731,6 +731,7 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/datum/looping_sound/chainsaw/soundloop
+	var/revs_cooldown = FALSE
 
 /obj/item/twohanded/chainsaw/get_ru_names()
 	return list(
@@ -745,6 +746,21 @@
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
 	soundloop = new(src)
+	RegisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED, PROC_REF(on_swap_blocked))
+
+/obj/item/twohanded/chainsaw/proc/on_swap_blocked()
+	SIGNAL_HANDLER
+
+	if(revs_cooldown)
+		return
+
+	revs_cooldown = TRUE
+	playsound(src, 'sound/weapons/chainsawrevs.ogg', 75, FALSE)
+	addtimer(VARSET_CALLBACK(src, revs_cooldown, FALSE), 10 SECONDS)
+
+/obj/item/twohanded/chainsaw/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED)
+	return ..()
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -771,7 +787,7 @@
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 /obj/item/twohanded/chainsaw/update_icon_state()
@@ -791,7 +807,7 @@
 	var/damage_cap = 60
 	if(target_limb == BODY_ZONE_HEAD)
 		damage_cap = 85
-	if(!(target_limb.brute_dam >= damage_cap))
+	if(!(target_limb?.brute_dam >= damage_cap))
 		return
 	target_limb.droplimb()
 
