@@ -714,7 +714,7 @@
 
 /obj/item/clothing/under/suit_jacket/red
 	name = "red suit"
-	desc = "Красный костюм с синим галстуком. Немного парадный."
+	desc = "Красный костюм с синим галстуком. Немного формальный."
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
@@ -731,7 +731,7 @@
 
 /obj/item/clothing/under/suit_jacket/red/skirt
 	name = "red jumpskirt"
-	desc = "Красная юбка с синим галстуком. Немного парадная."
+	desc = "Красная юбка с синим галстуком. Немного формальная."
 	icon_state = "red_suitf"
 	item_color = "red_suitf"
 	sprite_sheets = list(
@@ -786,7 +786,7 @@
 
 /obj/item/clothing/under/suit_jacket/burgundy
 	name = "burgundy suit"
-	desc = "Малиновый костюм и чёрный галстук. Немного парадный."
+	desc = "Малиновый костюм и чёрный галстук. Немного формальный."
 	icon_state = "burgundy_suit"
 	item_state = "burgundy_suit"
 	item_color = "burgundy_suit"
@@ -1840,7 +1840,7 @@
 
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
-	desc = "парадная одежда ассистента. Зачем ассистенту нужен деловой вид, никто не знает."
+	desc = "Парадная одежда ассистента. Зачем ассистенту нужен деловой вид, никто не знает."
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	item_color = "assistant_formal"
