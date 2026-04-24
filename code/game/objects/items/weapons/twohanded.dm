@@ -689,7 +689,7 @@
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(ACCUSATIVE)], и цепь останавливается.")
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -731,7 +731,7 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/datum/looping_sound/chainsaw/soundloop
-	var/revs_cooldown = FALSE
+	COOLDOWN_DECLARE(revs_cooldown)
 
 /obj/item/twohanded/chainsaw/get_ru_names()
 	return list(
@@ -751,12 +751,11 @@
 /obj/item/twohanded/chainsaw/proc/on_swap_blocked()
 	SIGNAL_HANDLER
 
-	if(revs_cooldown)
+	if(!COOLDOWN_FINISHED(src, revs_cooldown))
 		return
 
-	revs_cooldown = TRUE
+	COOLDOWN_START(src, revs_cooldown, 10 SECONDS)
 	playsound(src, 'sound/weapons/chainsawrevs.ogg', 75, FALSE)
-	addtimer(VARSET_CALLBACK(src, revs_cooldown, FALSE), 10 SECONDS)
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -784,7 +783,7 @@
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы заглушаете [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(ACCUSATIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 /obj/item/twohanded/chainsaw/update_icon_state()
