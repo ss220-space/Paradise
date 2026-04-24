@@ -275,19 +275,19 @@
 
 /obj/item/clothing/under/rank/centcom_officer
 	name = "CentComm officer's jumpsuit"
-	desc = "Комбинезон, который носят офицеры ЦентКома."
+	desc = "Комбинезон, который носят офицеры Центрального Командования."
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 
 /obj/item/clothing/under/rank/centcom_officer/get_ru_names()
 	return list(
-		NOMINATIVE = "комбинезон офицера ЦентКома",
-		GENITIVE = "комбинезона офицера ЦентКома",
-		DATIVE = "комбинезону офицера ЦентКома",
-		ACCUSATIVE = "комбинезон офицера ЦентКома",
-		INSTRUMENTAL = "комбинезоном офицера ЦентКома",
-		PREPOSITIONAL = "комбинезоне офицера ЦентКома",
+		NOMINATIVE = "комбинезон офицера Центрального Командования",
+		GENITIVE = "комбинезона офицера Центрального Командования",
+		DATIVE = "комбинезону офицера Центрального Командования",
+		ACCUSATIVE = "комбинезон офицера Центрального Командования",
+		INSTRUMENTAL = "комбинезоном офицера Центрального Командования",
+		PREPOSITIONAL = "комбинезоне офицера Центрального Командования",
 	)
 
 /obj/item/clothing/under/rank/centcom_officer/sensor
@@ -303,12 +303,12 @@
 
 /obj/item/clothing/under/rank/centcom_commander/get_ru_names()
 	return list(
-		NOMINATIVE = "комбинезон офицера ЦентКома",
-		GENITIVE = "комбинезона офицера ЦентКома",
-		DATIVE = "комбинезону офицера ЦентКома",
-		ACCUSATIVE = "комбинезон офицера ЦентКома",
-		INSTRUMENTAL = "комбинезоном офицера ЦентКома",
-		PREPOSITIONAL = "комбинезоне офицера ЦентКома",
+		NOMINATIVE = "комбинезон офицера Центрального Командования",
+		GENITIVE = "комбинезона офицера Центрального Командования",
+		DATIVE = "комбинезону офицера Центрального Командования",
+		ACCUSATIVE = "комбинезон офицера Центрального Командования",
+		INSTRUMENTAL = "комбинезоном офицера Центрального Командования",
+		PREPOSITIONAL = "комбинезоне офицера Центрального Командования",
 	)
 
 /obj/item/clothing/under/rank/centcom/officer
