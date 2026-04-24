@@ -46,7 +46,7 @@
 //Dash
 /obj/effect/proc_holder/spell/hulk_dash
 	name = "Dash"
-	desc = "Разбег. Чем он дольше, тем больнее будет, тем кто встанет у вас на пути."
+	desc = "Разбег. Чем он дольше, тем больнее будет тем, кто встанет у вас на пути."
 	action_icon_state = "charge_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 13 SECONDS
@@ -329,7 +329,7 @@
 //Hulk Honk
 /obj/effect/proc_holder/spell/hulk_honk
 	name = "HulkHONK"
-	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах работает как лечение."
+	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах действует как лечение."
 	action_icon_state = "honk_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 25 SECONDS
@@ -367,7 +367,7 @@
 //Hulk Joke
 /obj/effect/proc_holder/spell/hulk_joke
 	name = "Joke"
-	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
+	desc = "Пускает большое облако дыма, а также лечит вас. Хорошее решение, если вам нужно отступить."
 	action_icon_state = "joke_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 35 SECONDS
@@ -397,7 +397,7 @@
 //Hulk Mill
 /obj/effect/proc_holder/spell/hulk_mill
 	name = "Windmill"
-	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещаниях."
+	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещениях."
 	action_icon_state = "mill_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 20 SECONDS
@@ -437,7 +437,7 @@
 
 /obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"
-	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
+	desc = "Вы харкаете во врага зелёной соплей и поджигаете его."
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
@@ -459,7 +459,7 @@
 
 /obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor
 	name = "LazorZ"
-	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
+	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые офицеры СБ прячутся за стёклами."
 	action_icon_state = "lazer_hulk"
 	selection_activated_message	= span_notice_alt("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
 	selection_deactivated_message = span_notice_alt("You relax your eyes...for now.")
