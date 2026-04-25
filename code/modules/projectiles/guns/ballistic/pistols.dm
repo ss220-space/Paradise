@@ -3,7 +3,7 @@
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=1"
+	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
@@ -189,14 +189,17 @@
 	name = "Scarecrow"
 	desc = "Пугало"
 	icon_state = "scarecrow"
-	w_class = WEIGHT_CLASS_NORMAL
-	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	burst_size = 3
-	fire_delay = 0.3
-	accuracy = GUN_ACCURACY_PISTOL_UPLINK
-	recoil = GUN_RECOIL_MEDIUM
+	fire_sound = 'sound/weapons/gunshots/1scarecrow.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/scarecrowmagin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/scarecrowmagout.ogg'
+	origin_tech = "combat=3;materials=2;syndicate=1"
+	w_class = WEIGHT_CLASS_SMALL
+	damage_mod = 0.35
+	burst_size = 4
+	fire_delay = 0.15 SECONDS
+	autofire_delay = 0.15 SECONDS
+	fire_delay = 0.15 SECONDS
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 5),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 15, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
 	)
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
