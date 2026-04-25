@@ -907,6 +907,7 @@
 #include "code\datums\elements\ranged_attacks.dm"
 #include "code\datums\elements\reagent_attack.dm"
 #include "code\datums\elements\ridable.dm"
+#include "code\datums\elements\right_click_mappers.dm"
 #include "code\datums\elements\ritual_dye_removal.dm"
 #include "code\datums\elements\rusted_weapon.dm"
 #include "code\datums\elements\simple_flying.dm"

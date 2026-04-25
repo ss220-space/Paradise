@@ -320,6 +320,8 @@
 #define TRAIT_PIERCEIMMUNE "pierce_immunity"
 /// This human mob will not be affected by embedding of the thrown items
 #define TRAIT_EMBEDIMMUNE "embed_immunity"
+/// This human mob will not be affected by fracture effects
+#define TRAIT_IGNORE_FRACTURE "ignore_fracture"
 /// This human mob will never suffer from the malnutrition
 #define TRAIT_NO_HUNGER "no_hunger"
 /// This human mob will not obtain additional bonuses/penalties from nutrition level (look at /datum/element/nutrition_effects)
