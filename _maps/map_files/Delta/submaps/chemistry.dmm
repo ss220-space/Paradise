@@ -525,7 +525,6 @@
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
