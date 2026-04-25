@@ -1004,35 +1004,6 @@
 		CHECK_TICK
 	return ..()
 
-/obj/item/storage/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	if(!proximity || !isturf(target) || !pickup_all_on_tile)
-		return
-
-	var/turf/target_turf = target
-	var/success = FALSE
-	var/failure = FALSE
-	for(var/obj/item/item in target_turf)
-		if(item == src || item.anchored)
-			continue
-
-		if(!can_be_inserted(item, stop_messages = TRUE))
-			failure = TRUE
-			continue
-
-		success = TRUE
-		item.do_pickup_animation(user)
-		handle_item_insertion(item, prevent_warning = TRUE)
-
-	if(success)
-		playsound(src, 'sound/items/handling/pickup/generic_pickup3.ogg', 50, TRUE)
-		if(!failure)
-			to_chat(user, span_notice("Вы успешно собрали все в [declent_ru(ACCUSATIVE)]."))
-		else
-			to_chat(user, span_notice("Вы собрали что смогли в [declent_ru(ACCUSATIVE)]."))
-	else if(failure)
-		to_chat(user, span_warning("Ничего из этого не влезет в [declent_ru(ACCUSATIVE)]!"))
-
 /obj/item/storage/proc/can_items_stack(obj/item/item_1, obj/item/item_2)
 	if(!item_1 || !item_2)
 		return
