@@ -10643,7 +10643,7 @@
 /area/syndicate_mothership/outside)
 "fcs" = (
 /obj/structure/flora/ausbushes/stalkybush,
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	layer = 2.9
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -29010,7 +29010,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 9
 	},
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = -3;
 	pixel_y = 5
 	},

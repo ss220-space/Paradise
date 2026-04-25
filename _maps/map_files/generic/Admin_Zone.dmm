@@ -837,7 +837,7 @@
 /area/tdome/newtdome/CQC)
 "iz" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
 /turf/simulated/floor/wood,
 /area/admin)
 "iD" = (

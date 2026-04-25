@@ -27213,12 +27213,12 @@
 	dir = 1
 	},
 /obj/structure/closet/syndicate/personal,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
 /obj/item/restraints/handcuffs,
 /obj/item/restraints/handcuffs,
 /obj/item/restraints/handcuffs{

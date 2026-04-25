@@ -45986,7 +45986,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = -2;
 	pixel_y = 6
 	},

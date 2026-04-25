@@ -154,7 +154,7 @@
 			/obj/item/ammo_box/c45colt,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/pistol,
+			/obj/item/gun/projectile/automatic/pistol/stechkin,
 			/obj/item/ammo_box/magazine/m10mm,
 			/obj/item/ammo_box/magazine/m10mm,
 			/obj/item/ammo_box/magazine/m10mm,

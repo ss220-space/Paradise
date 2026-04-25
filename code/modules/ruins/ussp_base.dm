@@ -150,7 +150,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/alt/soviet // See del_types above
 	back = /obj/item/storage/backpack
-	r_pocket = /obj/item/gun/projectile/automatic/pistol
+	r_pocket = /obj/item/gun/projectile/automatic/pistol/APS
 	l_pocket = /obj/item/melee/baton/telescopic
 	id = /obj/item/card/id/ussp_security
 

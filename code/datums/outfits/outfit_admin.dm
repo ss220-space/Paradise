@@ -562,7 +562,7 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/stechkin = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/card/emag = 1,

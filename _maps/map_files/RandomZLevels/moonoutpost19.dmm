@@ -106,7 +106,7 @@
 	item_state = "facehugger_impregnated";
 	stat = 2
 	},
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
 	icon_state = "gib1_flesh"

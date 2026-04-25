@@ -86,8 +86,8 @@
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = 5
 	},
-/obj/item/gun/projectile/automatic/pistol,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
@@ -1085,7 +1085,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = 3
 	},
 /obj/item/clothing/accessory/holster,
@@ -1117,16 +1117,16 @@
 /area/space)
 "WN" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = 3
 	},
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = 3
 	},
 /obj/item/ammo_box/magazine/m10mm{

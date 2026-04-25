@@ -99,6 +99,7 @@
 	var/list/parts = list(mod)
 	mod.slot_flags = slot_flags
 	mod.extended_desc = extended_desc
+	mod.add_deep_lore()
 	mod.slowdown_deployed = slowdown_deployed
 	mod.activation_step_time = activation_step_time
 	mod.complexity_max = complexity_max

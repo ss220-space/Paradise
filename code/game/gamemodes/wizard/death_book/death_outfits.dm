@@ -71,7 +71,7 @@
 	accessories = list(/obj/item/clothing/accessory/holster)
 	backpack_contents = list(
 		/obj/item/stamp/chameleon = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/stechkin = 1,
 		/obj/item/ammo_box/magazine/m10mm = 3,
 		/obj/item/pen/fakesign = 1,
 		/obj/item/storage/box/syndie_kit/knives_kit = 1,

@@ -806,7 +806,7 @@
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/item/clothing/accessory/cowboyshirt/red,
-/obj/item/gun/projectile/automatic/pistol{
+/obj/item/gun/projectile/automatic/pistol/stechkin{
 	pixel_x = 15;
 	pixel_y = -12
 	},

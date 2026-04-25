@@ -233,7 +233,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 1,
 		/obj/item/ammo_box/magazine/enforcer = 1,
 		/obj/item/clothing/mask/balaclava = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/stechkin = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 	)
 

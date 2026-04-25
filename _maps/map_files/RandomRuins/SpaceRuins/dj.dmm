@@ -951,7 +951,7 @@
 /area/djstation)
 "XI" = (
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"

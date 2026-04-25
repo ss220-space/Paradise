@@ -149,6 +149,8 @@
 			. += span_notice("Слот для ядра пуст.")
 
 /obj/item/mod/control/add_deep_lore()
+	if(!extended_desc)
+		return
 	AddElement(/datum/element/examine_lore, lore = extended_desc)
 
 /obj/item/mod/control/process()

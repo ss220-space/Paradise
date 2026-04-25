@@ -320,7 +320,7 @@
 	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_ILLEGAL = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_TITANIUM = 5000)
-	build_path = /obj/item/gun/projectile/automatic/pistol
+	build_path = /obj/item/gun/projectile/automatic/pistol/stechkin
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
 

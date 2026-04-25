@@ -778,7 +778,7 @@
 /obj/item/storage/secure/briefcase/syndie,
 /obj/item/clothing/under/syndicate/tacticool,
 /obj/item/clothing/mask/balaclava,
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "cC" = (
