@@ -232,9 +232,10 @@
 	for(var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
 		remove_alert_from.clear_alert(alert_category)
 		current_alerts -= remove_alert_from
-		if(ishuman(remove_alert_from))
-			var/mob/living/carbon/human/human_remove = remove_alert_from
-			human_remove.remove_fracture_ignore_trait(src)
+		if(!ishuman(remove_alert_from))
+			continue
+		var/mob/living/carbon/human/human_remove = remove_alert_from
+		human_remove.remove_fracture_ignore_trait(src)
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"

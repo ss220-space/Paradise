@@ -1015,8 +1015,8 @@
 	duration = 10 SECONDS
 
 /datum/status_effect/ignore_fracture/on_creation(
-	mob/living/new_owner,
-	duration = 10 SECONDS,
+		mob/living/new_owner,
+		duration = 10 SECONDS,
 	)
 	src.duration = duration
 	return ..()
