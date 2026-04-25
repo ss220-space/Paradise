@@ -330,12 +330,6 @@
 			/obj/item/ammo_box/magazine/m12g,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/pistol/deagle/gold,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
-		),
-		list(
 			/obj/item/gun/projectile/bombarda,
 			/obj/item/ammo_casing/a40mm/improvised/exp_shell,
 			/obj/item/ammo_casing/a40mm/improvised/exp_shell,
@@ -397,12 +391,6 @@
 			/obj/item/ammo_casing/a40mm/secgl/solid,
 			/obj/item/ammo_casing/a40mm/secgl/flash,
 			/obj/item/ammo_casing/a40mm/secgl/gas,
-		),
-		list(
-			/obj/item/gun/projectile/automatic/pistol/deagle/camo,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/sp91rc,

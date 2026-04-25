@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/laser,
 	/obj/item/gun/projectile/revolver,
 	/obj/item/gun/projectile/revolver/detective,
-	/obj/item/gun/projectile/automatic/pistol/deagle/camo,
+	/obj/item/gun/projectile/automatic/pistol/deagle,
 	/obj/item/gun/projectile/revolver/rsh_12,
 	/obj/item/gun/projectile/automatic/gyropistol,
 	/obj/item/gun/energy/pulse,

@@ -981,6 +981,7 @@
 #include "code\datums\skins\_skin_data.dm"
 #include "code\datums\skins\boxes_skins.dm"
 #include "code\datums\skins\captain_laser_skins.dm"
+#include "code\datums\skins\deagle_skins.dm"
 #include "code\datums\skins\detective_revoler_skins.dm"
 #include "code\datums\skins\double_barrel_skins.dm"
 #include "code\datums\skins\enforcer_skins.dm"

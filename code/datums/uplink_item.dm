@@ -830,7 +830,6 @@
 	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
 	item = /obj/item/storage/box/syndie_kit/desert_eagle
 	cost = 50
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-пулемёт \"C-20rm\""
@@ -2408,13 +2407,6 @@
 /datum/uplink_item/badass
 	category = "Безделушки"
 	surplus = 0
-
-/datum/uplink_item/badass/desert_eagle
-	name = "Комплект с пистолетом Desert Eagle"
-	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Полностью покрыт ЗОЛОТОМ, убивайте стильно! \
-			Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
-	item = /obj/item/storage/box/syndie_kit/desert_eagle_gold
-	cost = 50
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Сигареты \"Синдиката\""
