@@ -1,7 +1,7 @@
 // MARK: Ammo box
 /obj/item/ammo_box
 	name = "ammo box (generic)"
-	desc = "Э-э... коробка с патронами?"
+	desc = "Коробка с боеприпасами."
 	gender = FEMALE
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
@@ -36,6 +36,18 @@
 	var/bullet_load_duration = 0.4 SECONDS
 	/// Use bullet type overlay
 	var/use_bullet_type_overlay = FALSE
+	/// Additional info to be added to examine text.
+	var/extra_info = ""
+
+/obj/item/ammo_box/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка [get_ammo_descriptor()] [get_cartridge_marking()]",
+		GENITIVE = "коробки [get_ammo_descriptor()] [get_cartridge_marking()]",
+		DATIVE = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]",
+		ACCUSATIVE = "коробку [get_ammo_descriptor()] [get_cartridge_marking()]",
+		INSTRUMENTAL = "коробкой [get_ammo_descriptor()] [get_cartridge_marking()]",
+		PREPOSITIONAL = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]",
+	)
 
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
@@ -69,17 +81,43 @@
 
 /obj/item/ammo_box/proc/add_notes_box()
 	var/list/readout = list()
-
-	if(caliber && max_ammo) // Text references a 'мазагин' as only magazines generally have the caliber variable initialized
-		readout += "<b><u>ВМЕСТИМОСТЬ</u></b>"
-		readout += "- Вмещает в себя вплоть до <b>[max_ammo]</b> патрон[declension_ru(max_ammo, "а", "ов", "ов")] калибра <b>[caliber]</b>."
-
 	var/obj/item/ammo_casing/mag_ammo = get_round(TRUE)
 
-	if(istype(mag_ammo))
-		readout += "[mag_ammo.add_notes_ammo()]"
+	if(!istype(mag_ammo))
+		return ""
+
+	if(caliber && max_ammo) // Text references a 'магазин' as only magazines generally have the caliber variable initialized
+		readout += "<b><u>ВМЕСТИМОСТЬ</u></b>"
+		readout += "- Вмещает в себя вплоть до <b>[max_ammo]</b> боеприпас[declension_ru(max_ammo, "а", "ов", "ов")] калибра <b>[caliber]</b>."
+
+	readout += "[mag_ammo.add_notes_ammo()]"
 
 	return readout.Join("\n")
+
+/// What corresponding ammo should be called in examine procs.
+/// Should be set in genitive case like `"патронов"` or `"выстрелов"`.
+/obj/item/ammo_box/proc/get_ammo_descriptor()
+	return "патронов"
+
+/// Getter for cartridge marking
+/obj/item/ammo_box/proc/get_cartridge_marking()
+	if(!ammo_type)
+		return caliber
+
+	var/obj/item/ammo_casing/sample_cartridge = new ammo_type()
+	var/ammo_marking = sample_cartridge.get_ammo_marking()
+	qdel(sample_cartridge)
+
+	return ammo_marking
+
+/obj/item/ammo_box/update_desc(updates = ALL)
+	. = ..()
+	desc = "Коробка для хранения боеприпасов. Предназначена для [get_ammo_descriptor()] [get_cartridge_marking()], \
+			вмещает вплоть до [max_ammo].[extra_info ? " " + extra_info : ""]"
+
+/obj/item/ammo_box/examine(mob/user)
+	. = ..()
+	. += span_notice("[capitalize(get_ammo_descriptor())] внутри: <b>[length(stored_ammo)]/[max_ammo]</b>.")
 
 /obj/item/ammo_box/update_overlays()
 	. = ..()
@@ -224,16 +262,12 @@
 		if(islist(remove_sound) && length(remove_sound))
 			chosen_sound = pick(remove_sound)
 		playsound(loc, chosen_sound, 50, TRUE)
-		to_chat(user, span_notice("Вы достали патрон из [declent_ru(GENITIVE)]!"))
-		update_appearance(UPDATE_ICON|UPDATE_DESC)
+		balloon_alert(user, "патрон извлечён")
+		update_appearance(UPDATE_ICON)
 		user.put_in_hands(casing)
 
 /obj/item/ammo_box/click_alt(mob/user)
 	attack_self(user)
-
-/obj/item/ammo_box/update_desc(updates = ALL)
-	. = ..()
-	desc = "[initial(desc)] В [GEND_EM_EI_EM_IH(src)] осталось [length(stored_ammo)] патрон[DECL_CREDIT(length(stored_ammo))] из [max_ammo] возможных!"
 
 /obj/item/ammo_box/update_icon_state()
 	var/icon_base = icon_prefix ? icon_prefix : initial(icon_state)
@@ -264,10 +298,30 @@
 
 // MARK: Мagazine
 /obj/item/ammo_box/magazine
+	name = "magazine (generic)"
+	desc = "Магазин для огнестрельного оружия."
 	gender = MALE
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
 	use_bullet_type_overlay = TRUE
+	/// Name of the gun this magazine is for.
+	/// Should be in genitive case like `"пистолета \"Стечкин\""` or `"пулемёта L6 SAW"`.
+	var/gun_name = ""
+
+/obj/item/ammo_box/magazine/get_ru_names()
+	return list(
+		NOMINATIVE = "магазин [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "магазина [gun_name] [get_cartridge_marking()]",
+		DATIVE = "магазину [gun_name] [get_cartridge_marking()]",
+		ACCUSATIVE = "магазин [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "магазином [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "магазине [gun_name] [get_cartridge_marking()]",
+	)
+
+/obj/item/ammo_box/magazine/update_desc(updates = ALL)
+	. = ..()
+	desc = "Съёмный магазин для [gun_name ? gun_name : "огнестрельного оружия"]. \
+			Предназначен для [get_ammo_descriptor()] [get_cartridge_marking()], вмещает вплоть до [max_ammo].[extra_info ? " " + extra_info : ""]"
 
 /obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)
 	return length(stored_ammo)

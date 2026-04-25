@@ -38,7 +38,7 @@
 
 	// canstun and canknockdown don't affect slimes because they ignore stun and knockdown variables
 	// for the sake of cleanliness, though, here they are.
-	status_flags = CANPARALYSE | CANPUSH
+	status_flags = CANPARALYSE | CANPUSH | CANUNCONSCIOUS
 
 	footstep_type = FOOTSTEP_MOB_SLIME
 
@@ -294,10 +294,12 @@
 	powerlevel = 0 // oh no, the power!
 
 /mob/living/simple_animal/slime/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(isliving(over_object) && over_object != src && usr == src && CanFeedon(over_object))
-		Feedon(over_object)
-		return FALSE
-	return ..()
+	if(!isliving(over_object) || over_object == src || user != src)
+		return
+	if(!CanFeedon(over_object))
+		return
+
+	Feedon(over_object)
 
 /mob/living/simple_animal/slime/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	return

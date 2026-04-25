@@ -1942,6 +1942,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message(span_notice("[user] разделыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 		gib()
 
+/mob/living/carbon/human/proc/add_fracture_ignore_trait(source)
+	ADD_TRAIT(src, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(source))
+	update_fractures_effects()
+
+/mob/living/carbon/human/proc/remove_fracture_ignore_trait(source)
+	REMOVE_TRAIT(src, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(source))
+	update_fractures_effects()
+
+/mob/living/carbon/human/proc/update_fractures_effects()
+	update_fractures_slowdown()
+	update_fractures_workspeed()
+	update_fractures_fall()
+
 /mob/living/carbon/human/proc/update_fractures_slowdown()
 	var/static/list/possible_limbs = list(
 		BODY_ZONE_L_LEG,
@@ -1951,11 +1964,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/modifier = 0
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		modifier += bodypart.fracture.slowdown_mod
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			modifier += bodypart.fracture.slowdown_mod
 
 	if(modifier)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
@@ -1971,11 +1986,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/modifier = 0
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		modifier += bodypart.fracture.workspeed_mod
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			modifier += bodypart.fracture.workspeed_mod
 
 	if(modifier)
 		add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/fractures, multiplicative_slowdown = modifier)
@@ -1991,12 +2008,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/exists_fracture  = FALSE
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		exists_fracture  = TRUE
-		break
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			exists_fracture  = TRUE
+			break
 
 	if(exists_fracture)
 		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)

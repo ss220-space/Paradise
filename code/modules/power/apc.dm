@@ -64,6 +64,10 @@
 #define APC_ELECTRONICS_INSTALLED 1
 #define APC_ELECTRONICS_SECURED 2
 
+// cell's charge for apc types
+#define CELL_IMPORTANT 5000
+#define CELL_GENERATOR 25000
+
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
 
@@ -199,6 +203,7 @@
 	environment_channel = CHANNEL_SETTING_OFF
 	operating = FALSE
 	emergency_power = FALSE
+	cell_type = FALSE
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = FALSE
@@ -206,6 +211,13 @@
 /obj/machinery/power/apc/syndicate //general syndicate access
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
+
+/obj/machinery/power/apc/important_area
+	cell_type = CELL_IMPORTANT
+
+/obj/machinery/power/apc/generator
+	cell_type = CELL_GENERATOR
+	shock_proof = TRUE
 
 /obj/item/apc_electronics
 	name = "power control module"
@@ -1848,3 +1860,13 @@
 #undef APC_ELECTRONICS_INSTALLED
 #undef APC_ELECTRONICS_SECURED
 
+#undef CELL_IMPORTANT
+#undef CELL_GENERATOR
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/generator, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/important_area, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/noalarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/worn_out, 26, 26)

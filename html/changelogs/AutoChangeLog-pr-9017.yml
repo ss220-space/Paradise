@@ -1,0 +1,4 @@
+author: "Rafnik02"
+delete-after: True
+changes:
+  - qol: "Распределение сигналов по отдельным файлам и папкам (PR #9017)"

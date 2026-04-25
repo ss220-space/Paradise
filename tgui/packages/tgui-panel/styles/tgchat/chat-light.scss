@@ -25,7 +25,7 @@ h2.alert {
 
 // MARK: MOTD
 .motd {
-  color: hsl(75, 100%, 26%);
+  color: hsl(215, 40%, 22%);
 }
 
 .motd h1,
@@ -34,14 +34,53 @@ h2.alert {
 .motd h4,
 .motd h5,
 .motd h6 {
-  color: hsl(75, 100%, 26%);
+  color: hsl(38, 75%, 35%);
+  border-bottom-color: hsla(38, 75%, 35%, 0.45);
 }
 
 .motd a,
 .motd a:link,
+.motd a:visited,
 .motd a:active,
 .motd a:hover {
-  color: hsl(75, 100%, 26%);
+  color: hsl(215, 80%, 40%);
+}
+
+.motd .accent {
+  color: hsl(34, 90%, 38%);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.motd .warning {
+  color: hsl(355, 55%, 40%);
+  font-style: normal;
+  background: hsla(355, 55%, 55%, 0.08);
+  border-color: hsla(355, 55%, 55%, 0.4);
+}
+
+.motd .warning > :first-child {
+  margin-top: 0;
+}
+
+.motd .warning > :last-child {
+  margin-bottom: 0;
+}
+
+.motd .warning h1,
+.motd .warning h2,
+.motd .warning h3,
+.motd .warning h4,
+.motd .warning h5,
+.motd .warning h6 {
+  color: hsl(355, 55%, 40%);
+  border-bottom-color: hsla(355, 55%, 55%, 0.5);
+}
+
+.motd-card {
+  background: hsla(38, 75%, 35%, 0.04);
+  border: 1px solid hsla(38, 75%, 35%, 0.3);
+  border-left: 3px solid hsla(38, 75%, 35%, 0.55);
 }
 
 // MARK: General colors

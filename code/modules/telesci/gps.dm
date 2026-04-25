@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
-	interaction_flags_mouse_drop = ALLOW_RESTING | ALLOW_PAI
+	interaction_flags_mouse_drop = ALLOW_RESTING | ALLOW_PAI | NEED_HANDS
 	/// Whether the GPS is on.
 	var/tracking = TRUE
 	/// The tag that is visible to other GPSes.
@@ -123,13 +123,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	ui_interact(user)
 
 /obj/item/gps/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	attack_self(user)
-	return TRUE
 
 /obj/item/gps/ui_host()
 	return parent ? parent : src

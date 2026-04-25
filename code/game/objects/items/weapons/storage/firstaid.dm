@@ -605,6 +605,7 @@
 	use_sound = SFX_PILLBOTTLE
 	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
@@ -670,22 +671,29 @@
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
-		if(!length(contents))
-			balloon_alert(user, "пусто!")
-			return FALSE
+/obj/item/storage/pill_bottle/proc/get_use_start_message(mob/user)
+	return user.visible_message(span_danger("[user] открыва[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] глотать содержимое!"))
 
-		user.visible_message(span_danger("[user] открыва[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] глотать содержимое!"))
-		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
-			return FALSE
+/obj/item/storage/pill_bottle/proc/get_use_end_message(mob/user)
+	return user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
 
-		for(var/obj/item/reagent_containers/food/pill/pill in src)
-			pill.attack(user, user)
-		user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
-		return FALSE
+/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(!iscarbon(user) || src != user.get_active_hand() || over_object != user)
+		return
 
-	return ..()
+	if(!length(contents))
+		balloon_alert(user, "пусто!")
+		return
+
+	get_use_start_message(user)
+
+	if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
+		return
+
+	for(var/obj/item/reagent_containers/food/pill/pill in src)
+		pill.attack(user, user)
+
+	get_use_end_message(user)
 
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
@@ -723,22 +731,11 @@
 	for(var/I in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
-/obj/item/storage/pill_bottle/patch_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
-		if(!length(contents))
-			balloon_alert(user, "пусто!")
-			return FALSE
+/obj/item/storage/pill_bottle/patch_pack/get_use_start_message(mob/user)
+	return user.visible_message(span_danger("[user] откиды[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] стремительно клеить пластыри оттуда на свою кожу!"))
 
-		user.visible_message(span_danger("[user] откиды[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] стремительно клеить пластыри оттуда на свою кожу!"))
-		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
-			return FALSE
-
-		for(var/obj/item/reagent_containers/food/pill/pill in src)
-			pill.attack(user, user)
-		user.visible_message(span_danger("[user] обклеива[PLUR_ET_YUT(user)] себя всеми пластырями, которые были в [declent_ru(PREPOSITIONAL)]!"))
-		return FALSE
-
-	return ..()
+/obj/item/storage/pill_bottle/patch_pack/get_use_end_message(mob/user)
+	return user.visible_message(span_danger("[user] обклеива[PLUR_ET_YUT(user)] себя всеми пластырями, которые были в [declent_ru(PREPOSITIONAL)]!"))
 
 /obj/item/storage/pill_bottle/bluespace
 	name = "advanced drug storage"

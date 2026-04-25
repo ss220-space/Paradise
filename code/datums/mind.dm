@@ -1,17 +1,17 @@
-/*	Note from Carnie:
+/* Note from Carnie:
 		The way datum/mind stuff works has been changed a lot.
 		Minds now represent IC characters rather than following a client around constantly.
 	Guidelines for using minds properly:
-	-	Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
+	- Never mind.transfer_to(ghost). The var/current and var/original of a mind must always be of type mob/living!
 		ghost.mind is however used as a reference to the ghost's corpse
-	-	When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
+	- When creating a new mob for an existing IC character (e.g. cloning a dead guy or borging a brain of a human)
 		the existing mind of the old mob should be transfered to the new mob like so:
 			mind.transfer_to(new_mob)
-	-	You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
+	- You must not assign key= or ckey= after transfer_to() since the transfer_to transfers the client for you.
 		By setting key or ckey explicitly after transfering the mind with transfer_to you will cause bugs like DCing
 		the player.
-	-	IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
-	-	When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
+	- IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
+	- When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
 		a ghost to become a xeno during an event). Simply assign the key or ckey like you've always done.
 			new_mob.key = key
 		The Login proc will handle making a new mob for that mobtype (including setting up stuff like mind.name). Simple!
@@ -156,19 +156,19 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud // we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 
-	if(current)					// remove ourself from our old body's mind variable
+	if(current) // remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() // leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		SStgui.on_transfer(current, new_character)
 
-	if(new_character.mind)		// remove any mind currently in our new body's mind variable
+	if(new_character.mind) // remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
 
-	current = new_character		// link ourself to our new body
-	new_character.mind = src	// and link our new body to ourself
+	current = new_character // link ourself to our new body
+	new_character.mind = src // and link our new body to ourself
 
-	transfer_antag_huds(hud_to_transfer)				// inherit the antag HUD
+	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
 
 	if(martial_art)
@@ -180,7 +180,7 @@
 			if(!MA.temporary)
 				MA.teach(current)
 
-	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
+	for(var/datum/antagonist/antag in antag_datums) // Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
 	if(iscarbon(new_character))
@@ -188,7 +188,7 @@
 		carbon.last_mind = src
 
 	if(active)
-		new_character.possess_by_player(key)		// now transfer the key to link the client to our new body
+		new_character.possess_by_player(key) // now transfer the key to link the client to our new body
 
 	// essential mob updates
 	new_character.update_blind_effects()
@@ -261,7 +261,7 @@
 	var/list/all_objectives = list()
 
 	for(var/datum/antagonist/antag in antag_datums)
-		all_objectives += antag.objectives	// Add all antag datum objectives.
+		all_objectives += antag.objectives // Add all antag datum objectives.
 
 	for(var/datum/objective/objective in objectives)
 		all_objectives += objective // Add all mind objectives.
@@ -689,12 +689,12 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling",	// "traitorchan", "thiefchan", "changelingthief",
-		"vampire",		// "traitorvamp", "thiefvamp", "vampirethief",
+		"changeling", // "traitorchan", "thiefchan", "changelingthief",
+		"vampire", // "traitorvamp", "thiefvamp", "vampirethief",
 		"nuclear",
 		"traitor",
 		"ninja",
-		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
+		"thief", // "traitorthief", "traitorthiefvamp", "traitorthiefchan",
 		"malf_ai",
 		"blob"
 	)
@@ -877,7 +877,7 @@
 
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
-			def_value = copytext(temp_obj_type, 18)	//Convert last part of path into an objective keyword.
+			def_value = copytext(temp_obj_type, 18) //Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
@@ -1275,7 +1275,7 @@
 			else
 				objectives.Insert(objective_pos[1], new_objective)
 		else
-			new_objective.on_add_objective(new_objective)
+			new_objective.on_add_objective(src)
 			objectives += new_objective
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")
@@ -2972,7 +2972,7 @@
 	add_antag_datum(new /datum/antagonist/mindslave(missionary.mind, greeting))
 
 	var/obj/item/clothing/under/jumpsuit = null
-	if(ishuman(current))		//only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
+	if(ishuman(current)) //only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
 		var/mob/living/carbon/human/H = current
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
@@ -2984,7 +2984,7 @@
 	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
-	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
+	if(!zealot_master) //if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
 
 	remove_antag_datum(/datum/antagonist/mindslave)
@@ -2993,8 +2993,8 @@
 	zealot_master = null
 
 	if(jumpsuit)
-		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
-		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
+		jumpsuit.color = initial(jumpsuit.color) //reset the jumpsuit no matter where our mind is
+		if(ishuman(current)) //but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
 			H.update_worn_undersuit()
 
@@ -3037,7 +3037,7 @@
 	..()
 	last_mind = mind
 	if(!mind.assigned_role)
-		mind.assigned_role = JOB_TITLE_CIVILIAN	//defualt
+		mind.assigned_role = JOB_TITLE_CIVILIAN //defualt
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

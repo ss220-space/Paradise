@@ -236,6 +236,8 @@
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
+	set_right_click_menu_mode(TRUE)
+
 	if(connection != "seeker") //Invalid connection type.
 		return null
 
@@ -452,10 +454,13 @@
 	if(amount >= BRONZE_LEVEL)
 		give_award(/datum/award/achievement/donations/bronze_sponsor, mob)
 
-	if(amount < PLATINUM_LEVEL)
+	if(amount >= PLATINUM_LEVEL)
+		give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
+
+	if(amount < PROJECT_PILLAR_LEVEL)
 		return
 
-	give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
+	give_award(/datum/award/achievement/donations/project_pillar, mob)
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
@@ -1698,6 +1703,16 @@
 ///Redirect proc that makes it easier to get the status of an achievement. Achievement type is the typepath to the award.
 /client/proc/get_award_status(achievement_type, mob/user, value = 1)
 	return persistent_client.achievements.get_achievement_status(achievement_type)
+
+/client/proc/set_right_click_menu_mode(shift_only)
+	if(shift_only)
+		winset(src, "mapwindow.map", "right-click=true")
+		winset(src, "ShiftUp", "is-disabled=false")
+		winset(src, "Shift", "is-disabled=false")
+	else
+		winset(src, "mapwindow.map", "right-click=false")
+		winset(src, "default.Shift", "is-disabled=true")
+		winset(src, "default.ShiftUp", "is-disabled=true")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -126,6 +126,20 @@
 	tastes = list("watermelon" = 1)
 	foodtype = FRUIT
 
+/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_slice
+	name = "self control"
+	desc = "Показатель невероятного самоконтроля Божественной сущности."
+
+/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_slice/get_ru_names()
+		return list(
+		NOMINATIVE = "Самоконтроль",
+		GENITIVE = "Самоконтроля",
+		DATIVE = "Самоконтролю",
+		ACCUSATIVE = "Самоконтроль",
+		INSTRUMENTAL = "Самоконтролем",
+		PREPOSITIONAL = "Самоконтроле",
+	)
+
 /obj/item/reagent_containers/food/snacks/pineappleslice
 	name = "pineapple slices"
 	desc = "Rings of pineapple."

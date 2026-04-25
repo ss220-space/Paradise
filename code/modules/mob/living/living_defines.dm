@@ -203,5 +203,8 @@
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
 
-	// Cooldown for projectile miss sound (5 deciseconds)
+	/// Cooldown for projectile miss sound (5 deciseconds)
 	COOLDOWN_DECLARE(bullet_miss_cooldown)
+
+	/// How many tiles can this mob reach with their hands? 1 tile is adjacent.
+	var/reach_length = 1

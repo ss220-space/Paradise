@@ -16,7 +16,7 @@
 #define MEDAL_HELBITALJANKEN "Hel-bent on Winning"
 #define MEDAL_MATERIALCRAFT "Getting an Upgrade"
 #define MEDAL_DISKPLEASE "Disk, Please!"
-#define MEDAL_GAMER	"I'm Not Important"
+#define MEDAL_GAMER "I'm Not Important"
 #define MEDAL_VENDORSQUISH "Teenage Anarchist"
 #define MEDAL_SWIRLIE "Bowl-d"
 #define MEDAL_SELFOUCH "Hands???"
@@ -70,6 +70,7 @@
 #define MEDAL_DONATION_PERMANENT_SPONSOR "Donation permanent sponsor"
 #define MEDAL_DONATION_BRONZE_SPONSOR "Donation bronze sponsor"
 #define MEDAL_DONATION_PLATINUM_SPONSOR "Donation platinum sponsor"
+#define MEDAL_DONATION_PROJECT_PILLAR "Donation project pillar"
 
 // Medal hub IDs for boss-kill scores
 #define BOSS_SCORE "Bosses Killed"

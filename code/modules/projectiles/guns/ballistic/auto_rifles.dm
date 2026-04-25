@@ -123,9 +123,6 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_bayonet = TRUE
-	bayonet_x_offset = 26
-	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
