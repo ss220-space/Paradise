@@ -204,12 +204,8 @@
 
 /obj/item/gun/energy/kinetic_accelerator/update_overlays()
 	. = ..()
-	if(cell && cell.charge < 500)
-		if(empty_state)
-			. += empty_state
-
-/obj/item/gun/energy/kinetic_accelerator/can_shoot(mob/user)
-	return overheat ? FALSE : ..()
+	if(empty_state && !can_shoot())
+		. += empty_state
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_with_empty_chamber(mob/living/user)
 	return overheat ? FALSE : ..()
