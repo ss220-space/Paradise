@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - balance: "кинезис теперь может носить только мертвых, админский может носить живых и без наручников (PR #9037)"

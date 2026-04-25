@@ -26,6 +26,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	pass_flags = PASSEVERYTHING
 	hud_type = /datum/hud/ghost
 	looting_icon_mode = LOOT_ICON_FLAT_ICON
+	shift_to_open_context_menu = FALSE
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.

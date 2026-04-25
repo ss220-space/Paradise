@@ -320,7 +320,7 @@
 	var/atom/Crate = new object.containertype(_loc)
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
 	Crate.ru_names = new /list(6)
-	for(var/i = 1; i <= 6; i++)
+	for(var/i in 1 to 6)
 		if(i < length(object.container_ru_names))
 			Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
 		else
@@ -396,6 +396,7 @@
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "ПРОВЕРЬТЕ СОДЕРЖИМОЕ И ПОСТАВЬТЕ ПЕЧАТЬ ПОД ЛИНИЕЙ, ЧТОБЫ ПОДТВЕРДИТЬ КОРРЕКТНОСТЬ МАНИФЕСТА<hr>" // And now this is actually meaningful.
+	slip.update_appearance()
 	slip.loc = Crate
 	if(is_crate(Crate))
 		var/obj/structure/closet/crate/CR = Crate
