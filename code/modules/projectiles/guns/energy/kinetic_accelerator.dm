@@ -493,10 +493,7 @@
 	return ..()
 
 /obj/item/gun/energy/kinetic_accelerator/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
-	if(overheat)
-		return COMPONENT_AUTOFIRE_SHOT_SUCCESS
-
-	return ..()
+	return overheat ? COMPONENT_AUTOFIRE_SHOT_SUCCESS : ..()
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/borg
 	compatibility = COMPATIBILITY_CYBORG
