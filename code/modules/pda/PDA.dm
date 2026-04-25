@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	light_range = 2
 
 	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
+	interaction_flags_mouse_drop = NEED_HANDS
 
 	//Main variables
 	var/owner = null
@@ -185,13 +186,10 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	return id ? id : ..()
 
 /obj/item/pda/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	attack_self(user)
-	return TRUE
 
 /obj/item/pda/attack_self(mob/user as mob)
 	user.set_machine(src)

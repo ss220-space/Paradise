@@ -609,3 +609,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 #define COLOR_NUCLEATION_LIGHT "#afaf21"
 #define NUCLEATION_LIGHT_RANGE 2
+
+#define COLOR_MENDER_DUAL "#ffb3b3"
+#define COLOR_MENDER_BRUTE "#ff0000"
+#define COLOR_MENDER_BURN "#ff8800"

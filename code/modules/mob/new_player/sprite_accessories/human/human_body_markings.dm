@@ -48,3 +48,9 @@
 	name = "Monobrows"
 	species_allowed = list(SPECIES_HUMAN)
 	icon_state = "mono_eyebrows"
+
+/datum/sprite_accessory/body_markings/thickeyebrow
+	name = "Thick Eyebrow"
+	icon_state = "thickeyebrow"
+	species_allowed = list(SPECIES_HUMAN)
+	wizard_only = TRUE

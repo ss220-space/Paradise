@@ -18,6 +18,7 @@
 	throw_speed = 3
 	throw_range = 10
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/list/cards = list()
 	/// Decks default to a single pack, setting it higher will multiply them by that number
 	var/deck_size = 1
@@ -277,22 +278,17 @@
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 /obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
+	if(over_object != user || !iscarbon(user))
+		return
 
-	if(over_object != user || user.incapacitated() || !iscarbon(user))
-		return FALSE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(
-			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
-		)
-		return TRUE
-
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(
+		span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
+	)
 
 /obj/item/pack
 	name = "card pack"
