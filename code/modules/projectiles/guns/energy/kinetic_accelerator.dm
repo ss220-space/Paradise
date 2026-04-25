@@ -209,14 +209,10 @@
 			. += empty_state
 
 /obj/item/gun/energy/kinetic_accelerator/can_shoot(mob/user)
-	if(overheat)
-		return FALSE
-	return ..()
+	return overheat ? FALSE : ..()
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_with_empty_chamber(mob/living/user)
-	if(overheat)
-		return FALSE
-	return ..()
+	return overheat ? FALSE : ..()
 
 // MARK: KA Variations
 /obj/item/gun/energy/kinetic_accelerator/experimental
