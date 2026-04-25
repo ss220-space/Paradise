@@ -4,7 +4,7 @@
 	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = CALIBER_10MM
-	max_ammo = 10
+	max_ammo = 15
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m10mm/fire
