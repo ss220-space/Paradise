@@ -134,12 +134,6 @@
 			/obj/item/ammo_box/magazine/ppsh,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/pistol/sp8/sp8t,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
-		),
-		list(
 			/obj/item/gun/projectile/shotgun/lethal,
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
@@ -169,12 +163,6 @@
 			/obj/item/gun/projectile/revolver/doublebarrel,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/speedloader/shotgun,
-		),
-		list(
-			/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/c20r/toy/riot,

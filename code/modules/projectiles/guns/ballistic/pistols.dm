@@ -100,32 +100,6 @@
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t
-	name = "SP-8-T"
-	icon_state = "sp8t_dust"
-	desc = "Новейшая разработка для сил защиты активов."
-	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
-	name = "SP-8-AR"
-	desc = "Пистолет сил защиты активов оснащённый ДТК."
-	icon_state = "sp8ar"
-	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
 // MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
