@@ -188,7 +188,7 @@
 /obj/item/gun/projectile/automatic/pistol/APS/scarecrow
 	name = "Scarecrow"
 	desc = "Крайне нелегальный автоматический пистолет. Прозван «Пугалом» за способность разгонять толпу громкой стрельбой и высокой скорострельностью. \
-	На деле — дешёвая поделка из бракованных компонентов: кучность падает с каждым выстрелом, а мощность оставляет желать лучшего. Хорош только против безоружных зевак. Против сотрудников СБ в броне, от него мало толку, но лучше чем ничего верно?"
+	На деле — дешёвая поделка из бракованных компонентов: кучность падает с каждым выстрелом, а мощность оставляет желать лучшего. Хорош только против безоружных зевак. Против сотрудников СБ в броне от него мало толку, но лучше, чем ничего, верно"
 	icon_state = "scarecrow"
 	fire_sound = 'sound/weapons/gunshots/1scarecrow.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/scarecrowmagin.ogg'
@@ -196,9 +196,9 @@
 	origin_tech = "combat=3;materials=2;syndicate=1"
 	w_class = WEIGHT_CLASS_SMALL
 	damage_mod = 0.4
+	mag_type = /obj/item/ammo_box/magazine/m10mm
 	accuracy = new /datum/gun_accuracy/pistol/uplink/automatic()
 	burst_size = 4
-	fire_delay = 0.15 SECONDS
 	autofire_delay = 0.15 SECONDS
 	fire_delay = 0.15 SECONDS
 	attachable_offset = list(
