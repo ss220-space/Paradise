@@ -184,3 +184,19 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+
+/obj/item/gun/projectile/automatic/pistol/APS/scarecrow
+	name = "Scarecrow"
+	desc = "Пугало"
+	icon_state = "scarecrow"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
+	burst_size = 3
+	fire_delay = 0.3
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
+	)
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
