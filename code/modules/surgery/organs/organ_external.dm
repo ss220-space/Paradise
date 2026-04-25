@@ -5,7 +5,7 @@
 /// Probability of taking internal damage from sufficient force, while otherwise healthy
 #define LIMB_DMG_PROB 5
 /// Threshold needed to have a chance of inflicting bone crack
-#define LIMB_BONE_CRACK_MIN_DMG 0
+#define LIMB_BONE_CRACK_MIN_DMG 10
 /// Threshold needed to have a chance of inflicting closed fracture
 #define LIMB_CLOSED_FRACTURE_MIN_DMG 20
 /// Threshold needed to have a chance of inflicting open fracture
@@ -1091,6 +1091,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status |= ORGAN_BROKEN
 	broken_description = fracture.description
 	perma_injury = brute_dam
+	owner.apply_status_effect(/datum/status_effect/ignore_fracture, 10 SECONDS)
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))

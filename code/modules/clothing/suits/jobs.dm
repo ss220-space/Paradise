@@ -94,8 +94,11 @@
 	)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, fire = 50, acid = 50)
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/storage/paramedic_jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 //Brig Physician
 /obj/item/clothing/suit/storage/brigdoc
@@ -201,8 +204,11 @@
 	item_state = "cap_jacket_black_open"
 	ignore_suitadjust = FALSE
 	flags_inv_transparent = HIDEJUMPSUIT
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/captunic/parade/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/captunic/parade/alt
 	icon_state = "dress_capjacket_black_open"
@@ -214,8 +220,11 @@
 	item_state = "cap_jacket_open"
 	ignore_suitadjust = FALSE
 	flags_inv_transparent = HIDEJUMPSUIT
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/captunic/jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/captunic/bomber
 	name = "captain's bomber jacket"
@@ -223,8 +232,11 @@
 	item_state = "bomber_captain_open"
 	ignore_suitadjust = FALSE
 	flags_inv_transparent = HIDEJUMPSUIT
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/captunic/bomber/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -486,8 +498,11 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/storage/lawyer/blackjacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/storage/lawyer/bluejacket
 	name = "blue suit jacket"
@@ -497,8 +512,11 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/storage/lawyer/bluejacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/storage/lawyer/purpjacket
 	name = "purple suit jacket"
@@ -518,7 +536,6 @@
 	flags_inv_transparent = HIDEJUMPSUIT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/qm_quest_tablet, /obj/item/gun/projectile/shotgun)
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
@@ -530,6 +547,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/storage/qm/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 //Lawyer ex Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
@@ -540,7 +561,6 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
@@ -552,6 +572,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/storage/internalaffairs/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/storage/ntrep
 	name = "Nanotrasen Representative jacket"
@@ -560,7 +584,6 @@
 	item_state = "ntrep"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
@@ -572,6 +595,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/storage/ntrep/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 //Medical
 /obj/item/clothing/suit/storage/fr_jacket
@@ -614,7 +641,6 @@
 		/obj/item/tourniquet,
 	)
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
@@ -626,6 +652,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/storage/fr_jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 //Suspenders
 /obj/item/clothing/suit/suspenders
@@ -712,8 +742,11 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = FALSE
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/hop_jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/hop_jacket/female
 	icon_state = "suitjacket_hop_fem_open"
