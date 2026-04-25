@@ -338,3 +338,9 @@
 
 	/// Mob bitflags
 	var/mob_flags = NONE
+
+	var/shift_to_open_context_menu = TRUE
+
+	///Cursor icon used when holding shift over things
+	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
+

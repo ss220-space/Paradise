@@ -554,15 +554,11 @@
 	qdel(src)
 
 /obj/item/slimepotion/speed/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(is_screen_atom(over_object))
-		return FALSE
+		return
 
 	if(over_object == user || loc != user || !ishuman(user))
-		return FALSE
+		return
 
 	afterattack(over_object, user, TRUE, params2list(params), drop = TRUE)
 
@@ -617,13 +613,10 @@
 		qdel(src)
 
 /obj/item/slimepotion/clothing/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
 	if(is_screen_atom(over_object))
-		return FALSE
+		return
 	if(over_object == user || loc != user || !ishuman(user))
-		return FALSE
+		return 
 	afterattack(over_object, user, TRUE, params2list(params))
 
 /obj/item/slimepotion/clothing/fireproof

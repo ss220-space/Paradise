@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	gender = MALE
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_pack"
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/obj/structure/extraction_point/beacon
 	var/list/beacon_networks = list("station")
 	var/uses_left = 3
@@ -49,15 +50,11 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		balloon_alert(user, "синхронизация завершена")
 
 /obj/item/extraction_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!..())
-		return FALSE
-	if(!(loc == usr && loc.Adjacent(over_object)))
-		return FALSE
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return FALSE
-	over_object.add_fingerprint(usr)
-	afterattack(over_object, usr, TRUE, params)
-	return TRUE
+	if(!ishuman(user))
+		return
+
+	over_object.add_fingerprint(user)
+	afterattack(over_object, user, TRUE, params)
 
 /obj/item/extraction_pack/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()

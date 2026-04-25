@@ -153,18 +153,10 @@
 		return ..()
 
 /obj/item/forensics/sample_kit/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(is_screen_atom(over_object))
-		return FALSE
-
-	if(loc != user || !ishuman(user))
-		return FALSE
+	if(is_screen_atom(over_object) || loc != user || !ishuman(user))
+		return
 
 	afterattack(over_object, user, TRUE, params)
-	return TRUE
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint powder"

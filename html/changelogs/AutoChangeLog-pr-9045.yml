@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Поднос больше ТОЧНО не кладется на стол после опустошения его содержимого на оный. (PR #9045)"
+  - refactor: "mouse_drop_dragged (PR #9045)"

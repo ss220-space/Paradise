@@ -10,7 +10,6 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, FIRE = 100, ACID = 50)
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
@@ -22,6 +21,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
+
+/obj/item/clothing/head/hardhat/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить фонарик")
 
 /obj/item/clothing/head/hardhat/attack_self()
 	toggle_helmet_light()

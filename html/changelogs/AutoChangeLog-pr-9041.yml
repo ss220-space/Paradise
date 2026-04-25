@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - tweak: "У гостов ПКМ меню теперь работает без шифта. (PR #9041)"
+  - tweak: "При осмотре курсор меняет свой внешний вид на лупу. (PR #9041)"

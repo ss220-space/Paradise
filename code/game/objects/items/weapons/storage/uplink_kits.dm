@@ -611,7 +611,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/dangertray
 	name = "danger tray pack"
 	desc = "Коробка, содержащая 3 острых металлических подноса."
-	can_hold = list(/obj/item/storage/bag/dangertray)
+	can_hold = list(/obj/item/storage/bag/tray/danger)
 	max_combined_w_class = 3
 	max_w_class = WEIGHT_CLASS_NORMAL
 
@@ -627,7 +627,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/dangertray/populate_contents()
 	for(var/I in 1 to 3)
-		new /obj/item/storage/bag/dangertray(src)
+		new /obj/item/storage/bag/tray/danger(src)
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
 	name = "Mr. Chang's aggressive marketing technique"

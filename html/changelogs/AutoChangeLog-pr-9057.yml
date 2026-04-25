@@ -1,0 +1,4 @@
+author: "svotnik"
+delete-after: True
+changes:
+  - add: "голофаны в доках шахтерского шаттла на дельта-лаве (PR #9057)"
