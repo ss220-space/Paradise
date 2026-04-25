@@ -490,7 +490,7 @@
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	qdel(KA.GetComponent(/datum/component/automatic_fire))
-	..()
+	return ..()
 
 /obj/item/gun/energy/kinetic_accelerator/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	if(overheat)
