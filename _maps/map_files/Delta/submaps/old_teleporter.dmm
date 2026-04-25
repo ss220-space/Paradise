@@ -25,10 +25,7 @@
 "j" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "k" = (
@@ -44,9 +41,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/window/reinforced{
-	color = "#58b5c3"
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -61,7 +56,6 @@
 "p" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced{
-	color = "#58b5c3";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -83,11 +77,9 @@
 /area/teleporter/abandoned)
 "u" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -26
-	},
 /obj/structure/barricade/wooden,
 /obj/structure/cable,
+/obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "v" = (
@@ -97,9 +89,7 @@
 "w" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -182,13 +172,12 @@
 "K" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/door/window/westleft{
-	color = "#58b5c3";
-	dir = 2
-	},
 /obj/item/shard{
 	pixel_x = -5;
 	pixel_y = -1
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

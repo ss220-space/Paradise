@@ -57,10 +57,7 @@
 	dir = 6;
 	network = list("Medical","SS13")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowsiding"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/medical/chemistry)
 "ew" = (
 /obj/structure/table/glass{
@@ -76,15 +73,14 @@
 	},
 /area/medical/chemistry)
 "eN" = (
-/obj/structure/window/reinforced{
-	color = "#58b5c3";
-	dir = 4
-	},
 /obj/structure/closet/wardrobe/chemistry_white{
 	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -157,23 +153,17 @@
 "hN" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/cleaner/chemical,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "Chemistry Air Alarm";
-	pixel_x = 22
-	},
 /obj/item/storage/box/gloves,
 /obj/item/storage/box/masks,
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "hW" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -185,10 +175,8 @@
 /obj/machinery/requests_console{
 	pixel_x = 28
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
 /obj/structure/coatrack,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellowsiding"
@@ -295,8 +283,7 @@
 "oR" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
-	dir = 1;
-	icon_state = "pipe-tf"
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
@@ -328,11 +315,10 @@
 	},
 /area/medical/chemistry)
 "tv" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1;
-	icon_state = "pipe-tf"
-	},
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -468,14 +454,12 @@
 /obj/structure/table/glass{
 	icon_state = "glass_table-8"
 	},
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
 /obj/item/storage/box/syringes,
 /obj/item/storage/box/pillbottles,
 /obj/item/storage/box/iv_bags,
 /obj/item/reagent_containers/applicator,
 /obj/item/reagent_containers/applicator,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowsiding"
@@ -491,6 +475,7 @@
 	codes_txt = "delivery";
 	location = "Chemistry"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -607,7 +592,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "yellowcornersiding"
+	icon_state = "yellowsiding"
 	},
 /area/medical/chemistry)
 "Lm" = (
@@ -640,9 +625,12 @@
 "LC" = (
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/eastright{
-	color = "#58b5c3";
+	base_state = "left";
+	desc = "You have the public fridge, pal, lube off.";
 	dir = 2;
-	name = "Anti-Theft Shield"
+	icon_state = "left";
+	name = "Anti-Theft Shield";
+	req_access = list(5)
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -826,13 +814,11 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
 /obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -855,11 +841,10 @@
 	},
 /area/medical/chemistry)
 "Yk" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4;
-	icon_state = "pipe-tf"
-	},
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "YM" = (
@@ -874,10 +859,7 @@
 	},
 /area/medical/chemistry)
 "ZS" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowsiding"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/medical/chemistry)
 
 (1,1,1) = {"

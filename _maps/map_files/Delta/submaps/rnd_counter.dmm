@@ -6,12 +6,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9;
-	icon_state = "pipe-sf"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -35,10 +34,11 @@
 /area/toxins/lab)
 "dC" = (
 /obj/structure/cable,
+/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "researchdesk1";
 	name = "Research Desk Shutters"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "dI" = (
@@ -88,16 +88,13 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/lab)
 "il" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
 /obj/machinery/r_n_d/destructive_analyzer{
 	pixel_y = 2
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -158,16 +155,17 @@
 	},
 /area/medical/research)
 "nj" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Research Desk Shutters"
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/southleft{
 	name = "Research Lab Desk";
 	req_access = list(47)
 	},
 /obj/machinery/door/window/northleft,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "researchdesk1";
+	name = "Research Desk Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "nZ" = (
@@ -294,6 +292,17 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
+"va" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/toxins/lab)
 "vf" = (
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -436,13 +445,9 @@
 	},
 /area/toxins/lab)
 "Dt" = (
-/obj/structure/disposalpipe/trunk{
-	icon_state = "pipe-tf"
-	},
 /obj/machinery/disposal,
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -494,13 +499,11 @@
 	},
 /area/toxins/lab)
 "Ie" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -546,9 +549,7 @@
 	pixel_y = 13
 	},
 /obj/structure/table/reinforced,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -572,15 +573,15 @@
 /area/template_noop)
 "Ow" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/door_control{
-	id = "researchdesk1";
-	name = "Primary Research Shutters";
-	pixel_x = 28
-	},
 /obj/machinery/camera{
 	c_tag = "Research and Development";
 	dir = 9;
 	network = list("Research","SS13")
+	},
+/obj/machinery/door_control{
+	id = "researchdesk1";
+	name = "Primary Research Shutters";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -602,9 +603,6 @@
 "PS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/autolathe,
-/obj/machinery/door/poddoor/shutters/preopen{
-	name = "Research Desk Shutters"
-	},
 /obj/machinery/door/window/brigdoor{
 	id = "Autolathe";
 	name = "Autolathe Access";
@@ -624,6 +622,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "researchdesk1";
+	name = "Research Desk Shutters"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -636,16 +638,17 @@
 /area/hallway/primary/aft)
 "QJ" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	name = "Research Desk Shutters"
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/southleft{
 	name = "Research Lab Desk";
 	req_access = list(47)
 	},
 /obj/machinery/door/window/northleft,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "researchdesk1";
+	name = "Research Desk Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "Sr" = (
@@ -664,16 +667,15 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-sf"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research/glass{
 	name = "Research and Development";
 	req_access = list(47)
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -686,12 +688,13 @@
 	},
 /area/toxins/lab)
 "To" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	name = "Research Desk Shutters"
-	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "researchdesk1";
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -725,15 +728,10 @@
 	},
 /area/toxins/lab)
 "Vn" = (
-/obj/machinery/hologram/holopad,
 /obj/effect/map_effect/marker_helper/submap_def/delta/rnd/counter/double,
 /turf/simulated/floor/glass,
 /area/toxins/lab)
 "Wh" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
 /obj/item/stock_parts/micro_laser{
 	pixel_y = 5
 	},
@@ -746,6 +744,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -977,7 +976,7 @@ kw
 qt
 oy
 pa
-pa
+va
 pa
 wb
 Ee

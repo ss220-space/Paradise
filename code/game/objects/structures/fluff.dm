@@ -78,6 +78,9 @@
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
 	icon_state = "drake_statue_falling"
 
+/obj/structure/fluff/drake_statue/falling/weaker
+	max_integrity = 100
+
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
