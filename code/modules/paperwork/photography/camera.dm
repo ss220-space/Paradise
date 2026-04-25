@@ -387,11 +387,12 @@
 		saved_pictures -= picture_datum
 
 /obj/item/camera/digital/on_tripwire_alt_click(obj/item/tripwire/base, mob/user)
-	select_and_print_picture(user)
+	INVOKE_ASYNC(src, PROC_REF(select_and_print_picture), user)
 	return TRUE
 
 #define MIN_PICTURE_SIZE 1
 #define MAX_PICTURE_SIZE 7
+
 /obj/item/circuit_component/camera
 	display_name = "Камера"
 	desc = "Камера Polaroid, делающая снимки при вызове. \

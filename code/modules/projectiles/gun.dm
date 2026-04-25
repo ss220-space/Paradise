@@ -850,8 +850,8 @@
 	return ..()
 
 /obj/item/gun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
-    if(!can_shoot(base))
-        shoot_with_empty_chamber(base)
-        return
+	if(!can_shoot(base))
+		shoot_with_empty_chamber(base)
+		return
 
-    INVOKE_ASYNC(src, PROC_REF(process_fire), victim, base, TRUE, null)
+	INVOKE_ASYNC(src, PROC_REF(process_fire), victim, base, TRUE, null)
