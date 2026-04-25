@@ -392,7 +392,7 @@
 	return
 
 /obj/item/gun/proc/process_fire(atom/target, atom/movable/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	var/mob/living/living_user = isliving(user) ? user : null
+	var/mob/living/living_user = astype(/mob/living, user)
 	var/is_tk_grab = FALSE
 
 	if(living_user)
@@ -400,7 +400,7 @@
 		if(is_tk_grab)
 			add_fingerprint(living_user)
 
-		var/is_left_hand = user.l_hand == src
+		var/is_left_hand = living_user.l_hand == src
 		bonus_spread += living_user.get_fracture_spread_bonus(is_left_hand)
 		if(living_user.buckled)
 			bonus_spread += 45
@@ -439,7 +439,7 @@
 				else
 					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
 
-				if(!chambered.fire(target, user, modifiers, null, suppressed, zone_override, sprd, src, damage_mod, stamina_mod))
+				if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -489,7 +489,6 @@
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	shots_counter += burst_size
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
-
 
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(azoom)

@@ -329,6 +329,8 @@
 #define COMSIG_TRIPWIRE_TRIGGERED "tripwire_triggered"
 // Called on payload installing at tripwire
 #define COMSIG_TRIPWIRE_BASE_ACTIVATE "tripwire_base_activate"
+/// Called on alt-click on tripwire
+#define COMSIG_TRIPWIRE_ALT_CLICK "tripwire_alt_click"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
 #define COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK "material_container_on_insert_stack"

@@ -241,16 +241,16 @@
 	return P
 
 /obj/item/camera/proc/printpicture(mob/user, datum/picture/P)
-	var/obj/item/photo/Photo = new /obj/item/photo()
+	var/obj/item/photo/photo = new /obj/item/photo()
 	var/atom/spawn_loc = user ? user.loc : drop_location()
-	Photo.forceMove(spawn_loc)
+	photo.forceMove(spawn_loc)
 
 	if(user && isliving(user))
 		var/mob/living/living_user = user
 		if(!living_user.get_inactive_hand())
-			living_user.put_in_inactive_hand(Photo)
+			living_user.put_in_inactive_hand(photo)
 
-	Photo.construct(P)
+	photo.construct(P)
 
 ///hauntings, like hallucinations but more spooky
 /obj/item/camera/proc/handle_haunt(mob/user)
