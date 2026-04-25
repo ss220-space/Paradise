@@ -1007,11 +1007,12 @@
 
 	// Generate a random valid lizard color for our plushie friend
 	var/generated_lizard_color = "#" + random_color()
-	var/temp_hsv = RGBtoHSV(generated_lizard_color)
+	var/list/lizard_hsv = rgb2hsv(generated_lizard_color)
 
 	// If our color is too dark, use the classic green lizard plush color
-	if(ReadHSV(temp_hsv)[3] < ReadHSV("#7f7f7f")[3])
+	if(lizard_hsv[3] < 50)
 		generated_lizard_color = "#66ff33"
+
 	// Set our greyscale colors to the lizard color we made + black eyes
 	set_greyscale_colors(colors = list(generated_lizard_color, COLOR_BLACK))
 
@@ -1400,19 +1401,14 @@
 			desc = "Watch out for angry voxes!"
 
 /obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(over_object != user || user.incapacitated() || !ishuman(user))
-		return FALSE
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(span_notice("[user] поднял [declent_ru(ACCUSATIVE)]."))
-		return TRUE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(span_notice("[user] поднял[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."))
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"

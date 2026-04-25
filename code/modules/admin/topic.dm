@@ -994,34 +994,10 @@
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, locateUID(href_list["open_logging_view"]), TRUE)
 
 	else if(href_list["geoip"])
-		if(!check_rights(R_ADMIN))
+		var/mob/target = locateUID(href_list["geoip"])
+		if(!ismob(target) || !target.client)
 			return
-
-		var/mob/M = locateUID(href_list["geoip"])
-		if(ismob(M))
-			if(!M.client)
-				return
-			var/dat = ""
-			var/client/C = M.client
-			if(C.geoip.status != "updated")
-				C.geoip.try_update_geoip(C, C.address)
-			dat += "<center><b>Ckey:</b> [M.ckey]</center>"
-			dat += "<b>Country:</b> [C.geoip.country]<br>"
-			dat += "<b>CountryCode:</b> [C.geoip.countryCode]<br>"
-			dat += "<b>Region:</b> [C.geoip.region]<br>"
-			dat += "<b>Region Name:</b> [C.geoip.regionName]<br>"
-			dat += "<b>City:</b> [C.geoip.city]<br>"
-			dat += "<b>Timezone:</b> [C.geoip.timezone]<br>"
-			dat += "<b>ISP:</b> [C.geoip.isp]<br>"
-			dat += "<b>Mobile:</b> [C.geoip.mobile]<br>"
-			dat += "<b>Proxy:</b> [C.geoip.proxy]<br>"
-			dat += "<b>IP:</b> [C.geoip.ip]<br>"
-			dat += "<hr><b>Status:</b> [C.geoip.status]"
-			var/datum/browser/popup = new(usr, "geoip", "<div align='center'>GeoIP info</div>", 400, 300)
-			popup.set_content(dat)
-			popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
-			popup.open()
-			onclose(usr, "geoip")
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/geoip, target.ckey)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -3624,8 +3600,8 @@
 					return
 				var/datum/job/J = SSjobs.GetJob(JOB_TITLE_OFFICER)
 				if(!J) return
-				J.total_positions = -1
-				J.spawn_positions = -1
+				J.total_positions = JOB_UNLIMITED_POSITION
+				J.spawn_positions = JOB_UNLIMITED_POSITION
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])

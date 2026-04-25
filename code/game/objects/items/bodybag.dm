@@ -71,6 +71,7 @@
 	density = FALSE
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
@@ -140,17 +141,18 @@
 
 
 /obj/structure/closet/body_bag/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
-		perform_fold(usr)
+	if(over_object != user || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!opened && !length(contents))
+		perform_fold(user)
 		qdel(src)
 		return FALSE
 
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
-		if(attempt_fold(usr))
-			perform_fold(usr)
-			qdel(src)
-			return FALSE
-	return ..()
+	if(attempt_fold(user))
+		perform_fold(user)
+		qdel(src)
+		return FALSE
 
 /obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
@@ -247,15 +249,14 @@
 	return item_bag
 
 /obj/item/bodybag/bluespace/container_resist_act(mob/living/user)
-	var/breakout_time = 10 SECONDS
 	if(user.incapacitated())
 		balloon_alert(user, "вы связаны!")
 		return
-	user.changeNext_move(breakout_time)
-	user.last_special = world.time + (breakout_time)
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
 	balloon_alert(user, "вы сопротивляетесь...")
 	visible_message(span_warning("Кто-то пытается выбраться из [declent_ru(GENITIVE)]!"))
-	if(!do_after(user, 12 SECONDS, src))
+	if(!do_after(user, 12 SECONDS, target = src))
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
@@ -536,7 +537,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/closet/body_bag/environmental/prisoner/container_resist_act(mob/living/user)
+/obj/structure/closet/body_bag/environmental/prisoner/container_resist_act(mob/living/user, loc_required = TRUE)
 	// copy-pasted with changes because flavor text as well as some other misc stuff
 	if(opened || ismovable(loc) || !sinched)
 		return ..()
@@ -548,7 +549,9 @@
 		span_hear("Вы слышите странное шуршание.")
 	)
 
-	if(!do_after(user,(breakout_time), target = src))
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	if(!do_after(user, (breakout_time), target = src))
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, span_warning("Вам не удалось выбраться из [declent_ru(GENITIVE)]!"))
 		return

@@ -73,6 +73,9 @@
 		if(!LAZYIN(style.species_allowed, species.name))
 			continue
 
+		if(style.wizard_only)
+			continue
+
 		if(gender == style.unsuitable_gender)
 			continue
 
@@ -96,6 +99,8 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
+			continue
+		if(S.wizard_only)
 			continue
 		if(gender == S.unsuitable_gender)
 			continue
@@ -140,11 +145,11 @@
 		if(S.name == "None")
 			valid_markings += marking
 			continue
-		if(S.marking_location != location)	// If the marking isn't for the location we desire, skip.
+		if(S.marking_location != location) // If the marking isn't for the location we desire, skip.
 			continue
-		if(gender == S.unsuitable_gender)	// If the marking isn't allowed for the user's gender, skip.
+		if(gender == S.unsuitable_gender) // If the marking isn't allowed for the user's gender, skip.
 			continue
-		if(!(species in S.species_allowed))	// If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(species in S.species_allowed)) // If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
 			continue
@@ -335,7 +340,7 @@
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_on_max && current_interaction_count == max_interact_count)	// we are adding extra one, to catch this on while loop
+			if(cancel_on_max && current_interaction_count == max_interact_count) // we are adding extra one, to catch this on while loop
 				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
@@ -443,7 +448,7 @@
 		. = TRUE
 
 /proc/is_monkeybasic(mob/living/carbon/human/target)
-	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
+	return ishuman(target) && target.dna.species.is_monkeybasic // we deserve a runtime if a human has no DNA
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
 	if(!ishuman(target) || !isslimeperson(target))
@@ -627,11 +632,11 @@
 	var/datum/mind/M = P.mind
 	if(!M)
 		return
-	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+	return M.playtime_role ? M.playtime_role : M.assigned_role //returns current role
 
-/**	checks the security force on station and returns a list of numbers, of the form:
- *	total, active, dead, antag
- *	where active is defined as conscious (STAT = 0) and not an antag
+/** checks the security force on station and returns a list of numbers, of the form:
+ * total, active, dead, antag
+ * where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
 	var/sec_positions = GLOB.security_positions - JOB_TITLE_MAGISTRATE - JOB_TITLE_BRIGDOC
@@ -639,8 +644,8 @@
 	var/active = 0
 	var/dead = 0
 	var/antag = 0
-	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
-		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+	for(var/p in GLOB.human_list) //contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p //need to tell it what type it is or we can't access stat without the dreaded :
 		if(determine_role(player) in sec_positions)
 			total++
 			if(player.stat == DEAD)

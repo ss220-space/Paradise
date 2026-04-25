@@ -675,117 +675,22 @@
 // MARK:	Tray
 ////////////////////////////////////////
 /obj/item/storage/bag/tray
-	name = "tray"
+	name = "serving tray"
+	desc = "Металлический поднос, на который можно выкладывать еду и напитки."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
-	desc = "A metal tray to lay food on."
 	force = 5
-	throwforce = 10.0
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
+	pickup_sound = SFX_TRAY_PICKUP
+	drop_sound = SFX_TRAY_DROP
 
-/obj/item/storage/bag/tray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
-		return .
-
-	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
-	if(ishuman(target) && prob(10))
-		target.Knockdown(4 SECONDS)
-
-	// Drop all the things. All of them.
-	var/list/obj/item/oldContents = contents.Copy()
-	drop_inventory(user)
-
-	// Make each item scatter a bit
-	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
-
-/obj/item/storage/bag/tray/update_overlays()
-	. = ..()
-	for(var/obj/item/item in contents)
-		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_w = rand(-4,4), pixel_z = rand(-4,4))
-
-/obj/item/storage/bag/tray/cyborg
-	var/placement_radius = 12
-
-/obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
-	set name = "Радиус размещения"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
-
-	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
-	new_radius = clamp(new_radius, 0, 16)
-	placement_radius = new_radius
-
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!target || !proximity_flag)
-		return
-
-	var/obj/structure/table/table = locate() in get_turf(target)
-
-	if(isturf(target) || table)
-		var/droppedSomething = FALSE
-		var/list/fancy_items
-		for(var/obj/item/I in contents)
-			remove_from_storage(I, get_turf(target))
-			LAZYADD(fancy_items, I)
-			droppedSomething = TRUE
-
-		if(fancy_items)
-			var/fancy_items_count = length(fancy_items)
-			var/iteration = 0
-			var/delta_phi = 2 * PI / fancy_items_count
-			for(var/obj/item/I as anything in fancy_items)
-				I.pixel_x = placement_radius * sin(180 * delta_phi * iteration / PI)
-				I.pixel_y = placement_radius * cos(180 * delta_phi * iteration / PI)
-				iteration += 1
-
-		if(droppedSomething)
-			if(table)
-				user.visible_message(span_notice("[user] unloads [user.p_their()] service tray."))
-			else
-				user.visible_message(span_notice("[user] drops all the items on [user.p_their()] tray."))
-		update_icon(UPDATE_OVERLAYS)
-
-	return ..()
-
-/obj/item/storage/bag/tray/cookies_tray
-	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
-
-/obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
-	for(var/i in 1 to 6)
-		var/obj/item/C = new cookie(src)
-		handle_item_insertion(C)	// Done this way so the tray actually has the cookies visible when spawned
-
-/obj/item/storage/bag/tray/cookies_tray/sugarcookie
-	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
-
-////////////////////////////////////////
-// MARK:	Antag tray
-////////////////////////////////////////
-/obj/item/storage/bag/dangertray
-	name = "tray"
-	desc = "Металлический поднос для еды с острыми как бритва краями."
-	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "dangertray"
-	force = 5
-	throwforce = 25
-	throw_speed = 3
-	armour_penetration = 15
-	sharp = TRUE
-	flags = CONDUCT
-	materials = list(MAT_METAL=3000)
-
-/obj/item/storage/bag/dangertray/get_ru_names()
+/obj/item/storage/bag/tray/get_ru_names()
 	return list(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
@@ -795,31 +700,92 @@
 		PREPOSITIONAL = "подносе",
 	)
 
-/obj/item/storage/bag/dangertray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/bag/tray/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	. = ..()
+
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
+	// Drop all the things. All of them.
+	var/list/obj/item/old_contents = contents.Copy()
+	drop_inventory(user)
+	// Make each item scatter a bit
+	for(var/obj/item/tray_item in old_contents)
+		do_scatter(tray_item)
+
+	if(prob(50))
+		playsound(target, 'sound/items/trayhit1.ogg', 50, TRUE)
+	else
+		playsound(target, 'sound/items/trayhit2.ogg', 50, TRUE)
+
 	if(ishuman(target) && prob(10))
 		target.Knockdown(4 SECONDS)
+	update_appearance()
+	. |= ATTACK_CHAIN_BLOCKED_ALL
 
-	// Drop all the things. All of them.
-	var/list/obj/item/oldContents = contents.Copy()
-	drop_inventory(user)
+/obj/item/storage/bag/tray/proc/do_scatter(obj/item/tray_item)
+	var/delay = rand(2, 4)
+	var/datum/move_loop/loop = GLOB.move_manager.move_rand(tray_item, list(NORTH, SOUTH, EAST, WEST), delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
+	//This does mean scattering is tied to the tray. Not sure how better to handle it
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(change_speed))
 
-	// Make each item scatter a bit
-	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
+/obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
+	SIGNAL_HANDLER
+	var/new_delay = rand(2, 4)
+	var/count = source.lifetime / source.delay
+	source.lifetime = count * new_delay
+	source.delay = new_delay
 
-/obj/item/storage/bag/dangertray/update_overlays()
+/obj/item/storage/bag/tray/update_overlays()
 	. = ..()
 	for(var/obj/item/item in contents)
-		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_w = rand(-4,4), pixel_z = rand(-4,4))
+		var/mutable_appearance/item_copy = new(item)
+		item_copy.plane = FLOAT_PLANE
+		item_copy.layer = FLOAT_LAYER + 0.1
+		item_copy.pixel_w = rand(-3, 3)
+		item_copy.pixel_z = rand(-3, 3)
+		. += item_copy
+
+/obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	update_appearance()
+
+/obj/item/storage/bag/tray/Exited(atom/movable/gone, direction)
+	. = ..()
+	update_appearance()
+
+/obj/item/storage/bag/tray/cookies_tray
+	var/cookie_type = /obj/item/reagent_containers/food/snacks/cookie
+
+/obj/item/storage/bag/tray/cookies_tray/populate_contents()
+	for(var/i in 1 to 6)
+		var/obj/item/cookie = new cookie_type(src)
+		handle_item_insertion(cookie) // Done this way so the tray actually has the cookies visible when spawned
+
+/obj/item/storage/bag/tray/cookies_tray/sugarcookie
+	cookie_type = /obj/item/reagent_containers/food/snacks/sugarcookie
+
+////////////////////////////////////////
+// MARK:	Antag tray
+////////////////////////////////////////
+/obj/item/storage/bag/tray/danger
+	name = "tray"
+	desc = "Металлический поднос для еды с острыми как бритва краями."
+	icon_state = "dangertray"
+	throwforce = 25
+	armour_penetration = 15
+	sharp = TRUE
+	materials = list(MAT_METAL=3000)
+
+/obj/item/storage/bag/tray/danger/get_ru_names()
+	return list(
+		NOMINATIVE = "поднос",
+		GENITIVE = "подноса",
+		DATIVE = "подносу",
+		ACCUSATIVE = "поднос",
+		INSTRUMENTAL = "подносом",
+		PREPOSITIONAL = "подносе",
+	)
 
 ////////////////////////////////////////
 // MARK:	Chemistry bag

@@ -3037,12 +3037,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -32;
-	req_access = list(130);
-	start_charge = 0
-	},
+/obj/machinery/power/apc/noalarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -3434,12 +3429,7 @@
 "iJ" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -32;
-	req_access = list(130);
-	start_charge = 0
-	},
+/obj/machinery/power/apc/noalarm/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -4624,12 +4614,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -32;
-	req_access = list(130);
-	start_charge = 0
-	},
+/obj/machinery/power/apc/noalarm/directional/west,
 /turf/simulated/floor/plasteel/airless{
 	dir = 9;
 	icon_state = "green"
@@ -7630,9 +7615,7 @@
 /obj/structure/piano{
 	dir = 4
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(130);
 	start_charge = 0
 	},
@@ -8040,9 +8023,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(130);
 	start_charge = 0
 	},
@@ -8197,9 +8178,7 @@
 "EM" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(130);
 	start_charge = 0
 	},
@@ -8303,9 +8282,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(130);
 	start_charge = 0
 	},
@@ -8625,12 +8602,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 32;
-	req_access = list(130);
-	start_charge = 0
-	},
+/obj/machinery/power/apc/noalarm/directional/east,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -8894,9 +8866,7 @@
 	icon_state = "0-8"
 	},
 /obj/item/flag/ussp,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(130);
 	start_charge = 0
 	},
@@ -9383,9 +9353,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "Sz" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(130);
 	start_charge = 0
 	},
@@ -9495,12 +9463,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	pixel_x = 32;
-	req_access = list(130);
-	start_charge = 0
-	},
+/obj/machinery/power/apc/noalarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -9511,11 +9474,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -32;
-	req_access = list(130);
-	start_charge = 0
+/obj/machinery/power/apc/noalarm/directional/west{
+	req_access = list()
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"

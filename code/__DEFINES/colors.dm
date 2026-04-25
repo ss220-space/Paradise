@@ -374,14 +374,14 @@
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
 // Wire colours.
-#define	WIRE_COLOR_BLUE "#2020dd"
-#define	WIRE_COLOR_CYAN "#20ddcc"
-#define	WIRE_COLOR_GREEN "#20dd20"
-#define	WIRE_COLOR_ORANGE "#dd7720"
-#define	WIRE_COLOR_PINK "#dd20cc"
-#define	WIRE_COLOR_RED "#dd1010"
-#define	WIRE_COLOR_WHITE "#dddddd"
-#define	WIRE_COLOR_YELLOW "#eebb20"
+#define WIRE_COLOR_BLUE "#2020dd"
+#define WIRE_COLOR_CYAN "#20ddcc"
+#define WIRE_COLOR_GREEN "#20dd20"
+#define WIRE_COLOR_ORANGE "#dd7720"
+#define WIRE_COLOR_PINK "#dd20cc"
+#define WIRE_COLOR_RED "#dd1010"
+#define WIRE_COLOR_WHITE "#dddddd"
+#define WIRE_COLOR_YELLOW "#eebb20"
 
 // Colors related to items used in construction
 #define CABLE_COLOR_BLUE "blue"
@@ -499,13 +499,13 @@
 #define COLOR_AMMO_HOLLOWPOINT "#ff9900"
 
 // Pipe colours.
-#define	PIPE_COLOR_GREY "#dddddd"
-#define	PIPE_COLOR_RED "#dd1010"
-#define	PIPE_COLOR_BLUE "#1010dd"
-#define	PIPE_COLOR_CYAN "#10ddcc"
-#define	PIPE_COLOR_GREEN "#10dd10"
-#define	PIPE_COLOR_YELLOW "#eebb10"
-#define	PIPE_COLOR_PURPLE "#5c1ec0"
+#define PIPE_COLOR_GREY "#dddddd"
+#define PIPE_COLOR_RED "#dd1010"
+#define PIPE_COLOR_BLUE "#1010dd"
+#define PIPE_COLOR_CYAN "#10ddcc"
+#define PIPE_COLOR_GREEN "#10dd10"
+#define PIPE_COLOR_YELLOW "#eebb10"
+#define PIPE_COLOR_PURPLE "#5c1ec0"
 
 GLOBAL_LIST_INIT(cable_colors, list(
 	CABLE_COLOR_BLUE = CABLE_HEX_COLOR_BLUE,
@@ -609,3 +609,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 #define COLOR_NUCLEATION_LIGHT "#afaf21"
 #define NUCLEATION_LIGHT_RANGE 2
+
+#define COLOR_MENDER_DUAL "#ffb3b3"
+#define COLOR_MENDER_BRUTE "#ff0000"
+#define COLOR_MENDER_BURN "#ff8800"

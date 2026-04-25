@@ -688,7 +688,7 @@
 				speak("Пункт назначения <b>[destination]</b> достигнут. Выгружаю [load].", radio_channel)
 			if(is_crate(load))
 				var/obj/structure/closet/crate/C = load
-				C.notifyRecipient(destination)
+				C.notify_recipient(destination)
 			unload(loaddir)
 		else
 			// not loaded

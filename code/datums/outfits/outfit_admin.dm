@@ -376,11 +376,11 @@
 	name = "NT Death Commando"
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	back = /obj/item/mod/control/pre_equipped/apocryphal
-	belt = /obj/item/gun/projectile/revolver/mateba
+	belt = /obj/item/storage/belt/military/assault/rsh_12/full
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	l_pocket = /obj/item/shield/energy
 	r_pocket = /obj/item/melee/energy/sword/saber
 	l_hand = /obj/item/gun/energy/pulse
@@ -391,18 +391,22 @@
 	box = /obj/item/storage/box/survival/responseteam
 
 	backpack_contents = list(
-		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/storage/box/flashbangs = 1,
-		/obj/item/flashlight/seclite = 1,
+
+		/obj/item/storage/firstaid/tactical = 1,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
-		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/ammo_box/speedloader/a357 = 1,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
 	)
 
-	implants = list(/obj/item/implant/mindshield/ert)
+	implants = list(
+		/obj/item/implant/mindshield/ert,
+		/obj/item/implant/explosive/macro,
+	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/map/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
+		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 	)
 
 /datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

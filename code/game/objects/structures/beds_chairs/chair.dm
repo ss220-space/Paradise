@@ -9,7 +9,7 @@
 	integrity_failure = 25
 	pull_push_slowdown = 1.5
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
-	interaction_flags_mouse_drop = ALLOW_RESTING
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -91,27 +91,23 @@
 	..()
 
 /obj/structure/chair/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
-		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-			to_chat(usr, span_warning("You can't do that right now!"))
-			return
-		if(!usr.has_right_hand() && !usr.has_left_hand())
-			to_chat(usr, span_warning("You try to grab the chair, but you are missing both of your hands!"))
-			return
-		if(usr.get_active_hand() && usr.get_inactive_hand())
-			to_chat(usr, span_warning("You try to grab the chair, but your hands are already full!"))
-			return
-		usr.visible_message(
-			span_notice("[usr] grabs [src]."),
-			span_notice("You grab [src]."),
-		)
-		var/new_chair = new item_chair(drop_location())
-		transfer_fingerprints_to(new_chair)
-		usr.put_in_hands(new_chair, ignore_anim = FALSE)
-		qdel(src)
-		return FALSE
+	if(over_object != user || !ishuman(user) || !item_chair || anchored || has_buckled_mobs())
+		return
 
-	return ..()
+	if(flags & HOLOGRAM)
+		to_chat(user, span_notice("You try to pick up \the [src], but it fades away!"))
+		qdel(src)
+		return
+
+	user.visible_message(
+		span_notice("[user] grabs [src]."),
+		span_notice("You grab [src]."),
+	)
+
+	var/new_chair = new item_chair(drop_location())
+	transfer_fingerprints_to(new_chair)
+	user.put_in_hands(new_chair, ignore_anim = FALSE)
+	qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))

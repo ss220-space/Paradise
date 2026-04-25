@@ -127,48 +127,54 @@
 		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!isliving(usr))
-		return FALSE
+	if(!isliving(user))
+		return
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
-		return FALSE
+		return
 
-	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
+	if(over_object == user && IsReachableBy(user))
 		open(user)
-		return FALSE
+		return
 
 	if(isstorage(over_object))
 		var/obj/item/storage = over_object
 		if(!(storage.item_flags & IN_STORAGE))
 			dump_storage(user, over_object)
-			return
+		return
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istable(over_object) || isfloorturf(over_object)) \
-		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
+	// Checking the possibility to dump the contents on the table /floor
+	if(istype(src, /obj/item/storage/lockbox))
+		return
 
-		if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
-			return FALSE
+	if(!istable(over_object) && !isfloorturf(over_object))
+		return
 
-		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
-			return FALSE
+	if(!length(contents) || loc != user || user.incapacitated() || !over_object.IsReachableBy(user))
+		return
 
-		if(user.s_active == src)
-			close(user)
+	if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
+		return
 
-		user.face_atom(over_object)
-		user.visible_message(
-			span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
-		)
-		var/turf/object_turf = get_turf(over_object)
-		for(var/obj/item/item in src)
-			remove_from_storage(item, object_turf)
+	// Re-checking after the alert
+	if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
+		return
 
-		update_icon() // For content-sensitive icons
-		return FALSE
+	if(user.s_active == src)
+		close(user)
 
-	return ..()
+	user.face_atom(over_object)
+	user.visible_message(
+		span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+	)
+
+	var/turf/object_turf = get_turf(over_object)
+	for(var/obj/item/item in src)
+		remove_from_storage(item, object_turf)
+
+	update_appearance()
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))
@@ -898,10 +904,10 @@
 	drop_inventory(usr)
 
 /obj/item/storage/proc/drop_inventory(user)
-	var/turf/T = get_turf(src)
+	var/turf/current_turf = get_turf(src)
 	hide_from(user)
-	for(var/obj/item/I in contents)
-		remove_from_storage(I, T)
+	for(var/obj/item/item in contents)
+		remove_from_storage(item, current_turf)
 		CHECK_TICK
 
 /obj/item/storage/proc/force_drop_inventory()
@@ -960,42 +966,6 @@
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)
-
-//Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
-//Returns -1 if the atom was not found on container.
-/atom/proc/storage_depth(atom/container)
-	var/depth = 0
-	var/atom/cur_atom = src
-
-	while(cur_atom && !(cur_atom in container.contents))
-		if(isarea(cur_atom))
-			return -1
-		if(isstorage(cur_atom.loc))
-			depth++
-		cur_atom = cur_atom.loc
-
-	if(!cur_atom)
-		return -1	//inside something with a null loc.
-
-	return depth
-
-//Like storage depth, but returns the depth to the nearest turf
-//Returns -1 if no top level turf (a loc was null somewhere, or a non-turf atom's loc was an area somehow).
-/atom/proc/storage_depth_turf()
-	var/depth = 0
-	var/atom/cur_atom = src
-
-	while(cur_atom && !isturf(cur_atom))
-		if(isarea(cur_atom))
-			return -1
-		if(isstorage(cur_atom.loc))
-			depth++
-		cur_atom = cur_atom.loc
-
-	if(!cur_atom)
-		return -1	//inside something with a null loc.
-
-	return depth
 
 /obj/item/storage/serialize()
 	var/data = ..()

@@ -26,6 +26,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	pass_flags = PASSEVERYTHING
 	hud_type = /datum/hud/ghost
 	looting_icon_mode = LOOT_ICON_FLAT_ICON
+	shift_to_open_context_menu = FALSE
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -618,13 +619,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!usr || !over_object)
-		return FALSE
-
-	if(isobserver(usr) && usr.client?.holder?.cmd_ghost_drag(src, over_object))
-		return FALSE
-
-	return ..()
+	if(isobserver(user) && user.client.holder && (isliving(over_object) || isAIEye(over_object)))
+		user.client.holder.cmd_ghost_drag(src, over_object)
 
 /**
  * Generates follow links for ghosts to track specific atoms, with special handling for AIs and observer mobs

@@ -483,31 +483,31 @@
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_NECK)
 		balloon_alert(user, "не добраться!")
 		return
-	if(has_sensor >= 2)
+	if(has_sensor >= SENSOR_VITALS)
 		balloon_alert(user, "датчики заблокированы!")
 		return
-	if(has_sensor <= 0)
+	if(has_sensor <= SENSOR_OFF)
 		balloon_alert(user, "датчики отсутствуют!")
 		return
 
+	if(!(user.mobility_flags & MOBILITY_USE) || !IsReachableBy(user))
+		return FALSE
+
 	var/list/modes = list("Выключены", "Бинарный режим", "Мониторинг жизненных показателей", "Полный мониторинг")
-	var/switchMode = tgui_input_list(user, "Выберите режим работы датчиков:", "Режим работы датчиков костюма", modes, modes[sensor_mode+1])
-	if(!switchMode)
+	var/new_mode = tgui_input_list(user, "Выберите режим работы датчиков:", "Режим работы датчиков костюма", modes, modes[sensor_mode+1])
+	if(isnull(new_mode) || !(user.mobility_flags & MOBILITY_USE) || !IsReachableBy(user))
 		return
-	if(get_dist(user, src) > 1)
-		balloon_alert(user, "слишком далеко!")
-		return
-	sensor_mode = modes.Find(switchMode) - 1
+	sensor_mode = modes.Find(new_mode) - 1
 
 	if(src.loc == user)
 		switch(sensor_mode)
-			if(0)
+			if(SENSOR_OFF)
 				to_chat(user, "Вы отключаете датчики вашего костюма.")
-			if(1)
+			if(SENSOR_LIVING)
 				to_chat(user, "Теперь датчики вашего костюма будут отслеживать, живы вы или мертвы.")
-			if(2)
+			if(SENSOR_VITALS)
 				to_chat(user, "Теперь датчики вашего костюма будут отслеживать ваши жизненные показатели.")
-			if(3)
+			if(SENSOR_COORDS)
 				to_chat(user, "Теперь датчики вашего костюма будут отслеживать ваши жизненные показатели и местоположение.")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user

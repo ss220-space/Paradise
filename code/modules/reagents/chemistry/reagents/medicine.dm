@@ -36,16 +36,9 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "антисептика"
 
-	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/exposed_mob, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
-		M.germ_level -= min(volume*20, M.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
-	O.germ_level -= min(volume*20, O.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
-	T.germ_level -= min(volume*20, T.germ_level)
+		exposed_mob.add_surgery_speed_mod(type, 0.8, min(volume * 1 MINUTES, 5 MINUTES))
 
 /datum/reagent/medicine/synaptizine
 	name = "Синаптизин"
@@ -1623,7 +1616,7 @@
 		update_flags |= M.adjustBruteLoss(-0.25, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-0.25, FALSE, affect_robotic = FALSE)
 	else
-		update_flags |= M.adjustToxLoss(4, FALSE)
+		update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/grubjuice

@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		OBJ.req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
+	var/obj/item/paper/manifest/slip = new()
 	slip.erroneous = errors
 	slip.points = object.cost
 	slip.ordernumber = ordernum
@@ -107,12 +107,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.loc = crate
 	if(is_crate(crate))
 		var/obj/structure/closet/crate/CR = crate
-		CR.manifest = slip
-		CR.update_icon(UPDATE_OVERLAYS)
-	if(istype(crate, /obj/structure/closet/crate/large))
-		var/obj/structure/closet/crate/large/LC = crate
-		LC.manifest = slip
-		LC.update_icon(UPDATE_OVERLAYS)
+		CR.manifest = WEAKREF(slip)
+		CR.update_appearance()
 
 /***************************
 	Хранилище данных.
