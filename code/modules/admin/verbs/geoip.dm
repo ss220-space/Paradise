@@ -24,8 +24,7 @@
 	else
 		LAZYREMOVE(target_filters, user.ckey)
 
-	// Window dimensions are baked at creation time, so rebuild the UI when the
-	// view mode flips between full list and single-client.
+	// Rebuild UI if view mode changed
 	if(old_target != target_ckey)
 		SStgui.close_user_uis(user, src)
 		ui = null

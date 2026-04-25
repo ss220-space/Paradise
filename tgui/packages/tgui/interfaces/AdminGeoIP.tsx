@@ -78,7 +78,7 @@ const MobileBadge = ({ value }: { value: string }) => {
   return <Box color="label">—</Box>;
 };
 
-const STATUS_COLORS: Record<string, string> = {
+const STATUS_COLOR: Record<string, string> = {
   updated: 'good',
   admin: 'blue',
   pending: 'average',
@@ -86,20 +86,12 @@ const STATUS_COLORS: Record<string, string> = {
   'no address': 'label',
 };
 
+const statusColor = (value: string) =>
+  STATUS_COLOR[value] ?? (value.startsWith('api fail') ? 'bad' : 'bad');
+
 const StatusBadge = ({ value }: { value: string | null }) => {
-  if (!value)
-    {return (
-      <Box inline color="label">
-        —
-      </Box>
-    );}
-  const color =
-    STATUS_COLORS[value] || (value.startsWith('api fail') ? 'bad' : 'bad');
-  return (
-    <Box inline color={color}>
-      {value}
-    </Box>
-  );
+  if (!value) return <Box color="label">—</Box>;
+  return <Box color={statusColor(value)}>{value}</Box>;
 };
 
 // MARK: focused view
@@ -114,7 +106,6 @@ const FocusedView = ({ row }: { row: GeoIPRow }) => (
         )}
       </Stack>
     }
-    buttons={<StatusBadge value={row.status} />}
   >
     <LabeledList>
       <LabeledList.Item label="IP">{row.ip || '—'}</LabeledList.Item>
@@ -145,6 +136,9 @@ const FocusedView = ({ row }: { row: GeoIPRow }) => (
         </Box>
         {row.ping} (avg {row.avg_ping})
       </LabeledList.Item>
+      <LabeledList.Item label="Status">
+        <StatusBadge value={row.status} />
+      </LabeledList.Item>
       {row.url && <LabeledList.Item label="URL">{row.url}</LabeledList.Item>}
     </LabeledList>
   </Section>
@@ -167,6 +161,11 @@ const searchHaystack = (row: GeoIPRow) =>
     .filter(Boolean)
     .join('|');
 
+const rowSeparatorStyle = (index: number) => ({
+  borderTop: index === 0 ? 'none' : '1px solid hsla(0, 0%, 100%, 0.10)',
+  backgroundColor: index % 2 ? 'hsla(0, 0%, 100%, 0.02)' : 'transparent',
+});
+
 const FullListView = ({ clients }: { clients: GeoIPRow[] }) => {
   const [searchText, setSearchText] = useState('');
   const visible = clients.filter(createSearch(searchText, searchHaystack));
@@ -177,7 +176,7 @@ const FullListView = ({ clients }: { clients: GeoIPRow[] }) => {
       buttons={
         <Input
           width="20em"
-          placeholder="Search ckey, IP, location, ISP…"
+          placeholder="Search ckey, IP, location, ISP..."
           value={searchText}
           onChange={setSearchText}
         />
@@ -195,8 +194,8 @@ const FullListView = ({ clients }: { clients: GeoIPRow[] }) => {
           <Table.Cell collapsing>Proxy</Table.Cell>
           <Table.Cell collapsing>Status</Table.Cell>
         </Table.Row>
-        {visible.map((row) => (
-          <Table.Row key={row.ckey}>
+        {visible.map((row, index) => (
+          <Table.Row key={row.ckey} style={rowSeparatorStyle(index)}>
             <Table.Cell>
               <Box dangerouslySetInnerHTML={{ __html: row.player_html }} />
             </Table.Cell>
@@ -264,8 +263,8 @@ export const AdminGeoIP = () => {
   return (
     <Window
       theme="admin"
-      width={focused ? 460 : 850}
-      height={focused ? 430 : 550}
+      width={focused ? 460 : 890}
+      height={focused ? 430 : 530}
       title={focused ? `GeoIP: ${data.target_ckey}` : 'GeoIP Report'}
     >
       <Window.Content scrollable>

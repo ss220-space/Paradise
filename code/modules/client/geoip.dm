@@ -1,5 +1,5 @@
 /// Max queries to ip-api.com per window, see [GLOB.geoip_next_counter_reset]. The free ip-api tier is 45 rpm.
-#define GEOIP_QUERY_LIMIT 130
+#define GEOIP_QUERY_LIMIT 60
 /// Length of the query counter window (90 seconds).
 #define GEOIP_QUERY_WINDOW (90 SECONDS)
 /// Set of fields requested from ip-api.com. Named fields are more robust than a bitmask.
@@ -48,8 +48,8 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 	/// Client IP as reported by ip-api (the `query` field of the response).
 	var/ip = null
 
-/datum/geoip_data/New(client/client, addr)
-	INVOKE_ASYNC(src, PROC_REF(get_geoip_data), client, addr)
+/datum/geoip_data/New(client/client, address)
+	INVOKE_ASYNC(src, PROC_REF(get_geoip_data), client, address)
 
 /**
  * Entry point for the asynchronous GeoIP lookup. Handles short branches (no address,
@@ -57,13 +57,13 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
  *
  * Arguments:
  * * client - the client we are collecting data for
- * * addr - the client's IP address (usually `client.address`)
+ * * address - the client's IP address (usually `client.address`)
  */
-/datum/geoip_data/proc/get_geoip_data(client/client, addr)
+/datum/geoip_data/proc/get_geoip_data(client/client, address)
 	if(!client)
 		return
 
-	if(!addr)
+	if(!address)
 		status = "no address"
 		return
 
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 		status = "admin"
 		return
 
-	try_update_geoip(client, addr)
+	try_update_geoip(client, address)
 
 /**
  * Kicks off (if not already started) an async request to ip-api and returns. The datum
@@ -82,21 +82,21 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
  *
  * Arguments:
  * * client - the client this record belongs to
- * * addr - the IP address to query. `127.0.0.1` is substituted with `world.internet_address`.
+ * * address - the IP address to query. `127.0.0.1` is substituted with `world.internet_address`.
  */
-/datum/geoip_data/proc/try_update_geoip(client/client, addr)
-	if(!client || !addr)
+/datum/geoip_data/proc/try_update_geoip(client/client, address)
+	if(!client || !address)
 		return FALSE
 
 	if(status == "updated" || status == "pending")
 		return TRUE
 
-	if(addr == "127.0.0.1")
+	if(address == "127.0.0.1")
 		if(!world.internet_address)
 			status = "local"
-			ip = addr
+			ip = address
 			return FALSE
-		addr = "[world.internet_address]"
+		address = "[world.internet_address]"
 
 	if(world.time > GLOB.geoip_next_counter_reset)
 		GLOB.geoip_next_counter_reset = world.time + GEOIP_QUERY_WINDOW
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 	status = "pending"
 
 	var/datum/callback/callback = CALLBACK(src, PROC_REF(on_geoip_response), client)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://ip-api.com/json/[addr]?fields=[GEOIP_API_FIELDS]", "", null, callback)
+	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://ip-api.com/json/[address]?fields=[GEOIP_API_FIELDS]", "", null, callback)
 	return TRUE
 
 /**
@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 		proxy = span_orange("whitelisted")
 		return
 
-	proxy = span_red("true>")
+	proxy = span_red("true")
 	if(!CONFIG_GET(flag/proxy_autoban))
 		return
 
@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 	log_admin("This is a permanent ban.")
 	message_admins("SyndiCat has banned [client.ckey].\nReason: [reason]\nThis is a permanent ban.")
 	DB_ban_record_SyndiCat(BANTYPE_PERMA, client.mob, -1, reason)
-	del(client)
+	qdel(client)
 
 #undef GEOIP_QUERY_LIMIT
 #undef GEOIP_QUERY_WINDOW
@@ -336,8 +336,8 @@ GLOBAL_LIST_INIT(syndicat_bantype_meta, list(
 	if(meta["announce"])
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** SyndiCat applied a [bantype_str] on [ckey]")
 
-	if(meta["kick"] && banned_mob?.client && banned_mob.client.ckey == banckey)
-		del(banned_mob.client)
+	if(meta["kick"] && banned_mob?.client && banned_mob.client.ckey == ckey)
+		qdel(banned_mob.client)
 
 	if(meta["jobban"])
 		jobban_client_fullban(ckey, job)
