@@ -320,6 +320,8 @@
 #define TRAIT_PIERCEIMMUNE "pierce_immunity"
 /// This human mob will not be affected by embedding of the thrown items
 #define TRAIT_EMBEDIMMUNE "embed_immunity"
+/// This human mob will not be affected by fracture effects
+#define TRAIT_IGNORE_FRACTURE "ignore_fracture"
 /// This human mob will never suffer from the malnutrition
 #define TRAIT_NO_HUNGER "no_hunger"
 /// This human mob will not obtain additional bonuses/penalties from nutrition level (look at /datum/element/nutrition_effects)
@@ -418,6 +420,9 @@
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 
+/// Ignores darkness for hearing
+#define TRAIT_HIJACK "hijack"
+
 //important_recursive_contents traits
 /*
  * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
@@ -493,6 +498,8 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// If a human has a fracture in their legs or feet (for optimization)
+#define TRAIT_FRACTURE_FALL "fracture_fall"
 /// Suppression implant trait
 #define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
 
@@ -503,3 +510,6 @@
 #define TRAIT_NO_RICOCHET "no_ricochet"
 
 #define TRAIT_FACING_TO_MOUSE "facing_to_mouse"
+
+/// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
+#define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"

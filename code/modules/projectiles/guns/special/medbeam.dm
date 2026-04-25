@@ -184,7 +184,7 @@
 
 	if(ishuman(target))
 		for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
-			if(bodypart.has_fracture() && prob(10))
+			if(bodypart.has_fracture() && bodypart.fracture.can_mend_by_aura_heal && prob(10))
 				bones_mended = TRUE
 				bodypart.mend_fracture()
 

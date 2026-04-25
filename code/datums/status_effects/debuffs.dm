@@ -535,6 +535,8 @@
 
 /datum/status_effect/transient/drowsiness/on_apply()
 	. = ..()
+	if(HAS_TRAIT(owner, TRAIT_SLEEPIMMUNE) || !(owner.status_flags & CANUNCONSCIOUS))
+		return FALSE
 	delay_diff = CONFIG_GET(number/movedelay/walk_delay) - CONFIG_GET(number/movedelay/run_delay)
 	RegisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED, PROC_REF(on_move_intent_toggle))
 	on_move_intent_toggle()

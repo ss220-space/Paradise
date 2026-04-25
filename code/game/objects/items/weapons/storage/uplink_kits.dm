@@ -611,7 +611,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/dangertray
 	name = "danger tray pack"
 	desc = "Коробка, содержащая 3 острых металлических подноса."
-	can_hold = list(/obj/item/storage/bag/dangertray)
+	can_hold = list(/obj/item/storage/bag/tray/danger)
 	max_combined_w_class = 3
 	max_w_class = WEIGHT_CLASS_NORMAL
 
@@ -627,7 +627,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/dangertray/populate_contents()
 	for(var/I in 1 to 3)
-		new /obj/item/storage/bag/dangertray(src)
+		new /obj/item/storage/bag/tray/danger(src)
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
 	name = "Mr. Chang's aggressive marketing technique"
@@ -934,6 +934,30 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/agent_base_kit
+	name = "agent base kit"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+
+/obj/item/storage/box/syndie_kit/agent_base_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "базовый набор агента",
+		GENITIVE = "базового набора агента",
+		DATIVE = "базовому набору агента",
+		ACCUSATIVE = "базовый набор агента",
+		INSTRUMENTAL = "базовым набором агента",
+		PREPOSITIONAL = "базовом наборе агента",
+	)
+
+/obj/item/storage/box/syndie_kit/agent_base_kit/populate_contents()
+	new /obj/item/storage/box/survival/survival_syndi(src)
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/flashlight(src)
+	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+	new	/obj/item/storage/box/syndie_kit/stechkin_pistol(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/box/syndie_kit/rsh12_revolver
 	name = "RSh-12 revolver kit"

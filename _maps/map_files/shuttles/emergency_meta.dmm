@@ -349,9 +349,7 @@
 "bc" = (
 /obj/structure/table,
 /obj/item/folder/blue,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "bd" = (
@@ -379,10 +377,6 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
-/area/shuttle/escape)
-"bg" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/shuttle,
 /area/shuttle/escape)
 "bh" = (
 /obj/machinery/door/airlock/command{
@@ -731,9 +725,7 @@
 	},
 /area/shuttle/escape)
 "ca" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/space_heater,
 /turf/simulated/floor/shuttle/plating{
 	icon_state = "bot"
@@ -822,6 +814,31 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
+"BV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"Me" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"Mk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle/plating{
+	icon_state = "floorgrime"
+	},
+/area/shuttle/escape)
 "SL" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -885,8 +902,8 @@ aP
 aU
 aY
 ba
-bg
-bo
+ch
+Mk
 bo
 bI
 bP
@@ -1041,8 +1058,8 @@ ai
 au
 au
 aL
-bg
-av
+ch
+Me
 au
 aL
 ch
@@ -1104,8 +1121,8 @@ ch
 SL
 av
 au
-aL
-bg
+BV
+ch
 av
 au
 aL
@@ -1156,8 +1173,8 @@ aL
 SL
 av
 au
-aL
-bg
+BV
+ch
 bz
 bp
 bp

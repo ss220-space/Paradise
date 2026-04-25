@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - image: "Добавлена забытая HUD иконка для инвестора (PR #9044)"

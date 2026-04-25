@@ -1,4 +1,0 @@
-author: "oi98"
-delete-after: True
-changes:
-  - bugfix: "скилл-худ механика отображается корректно. (PR #8934)"

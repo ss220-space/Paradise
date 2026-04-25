@@ -116,7 +116,7 @@
 	light_power = -4
 	light_range = 6
 	max_integrity = 100
-	light_color = "#ddd6cf"
+	light_color = COLOR_DARK_DELAM
 	anchored = TRUE
 	/// Amount of SSobj ticks (Roughly 2 seconds) since the last hallucination proc'd
 	var/time_since_last_hallucination = 0

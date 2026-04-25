@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - admin: "Новый смайт \"Самоконтроль\" (PR #8957)"

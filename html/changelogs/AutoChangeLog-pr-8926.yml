@@ -1,4 +1,0 @@
-author: "Etrnlmelancholy"
-delete-after: True
-changes:
-  - balance: "большая часть лазерного оружия теперь не имеет разброса (PR #8926)"

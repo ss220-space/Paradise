@@ -374,6 +374,9 @@
 	rcd_interact(interacting_with, user, RCD_MODE_DECON)
 	return ITEM_INTERACT_SUCCESS
 
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, list/modifiers)
+	interact_with_atom(target, user, modifiers)
+
 /obj/item/rcd/proc/rcd_interact(atom/target, mob/user, rcd_mode)
 	if(istype(target, /obj/item/rcd_ammo))
 		rcd_reload(target, user)
