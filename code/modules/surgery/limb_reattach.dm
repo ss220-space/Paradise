@@ -92,6 +92,58 @@
 		BODY_ZONE_WING,
 	)
 
+/datum/surgery/ipc_self_attach_limb
+	name = "Самоприсоединение конечности (КПБ)"
+	desc = "Позволяет КПБ установить на себя отсутствующую роботизированную конечность."
+	requires_bodypart = FALSE
+	requires_organic_bodypart = FALSE
+	steps = list(/datum/surgery_step/limb/attach/robo/ipc_self)
+	lying_required = FALSE
+	self_operable = TRUE
+	cancel_on_organ_change = FALSE
+	possible_locs = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+
+/datum/surgery/ipc_self_attach_limb/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(user != target)
+		return FALSE
+	if(!ishuman(target) || !ismachineperson(target))
+		return FALSE
+
+	var/obj/item/organ/external/bodypart = user.get_active_hand()
+	if(!istype(bodypart) || !bodypart.is_robotic())
+		return FALSE
+
+	var/target_zone = user.zone_selected
+	if(bodypart.limb_zone != target_zone)
+		return FALSE
+	if(target.get_organ(bodypart.limb_zone))
+		return FALSE
+	if(!target.get_organ(bodypart.parent_organ_zone))
+		return FALSE
+
+	if(!target.dna || !target.dna.species)
+		return FALSE
+
+	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
+	if(isnull(organ_data))
+		return FALSE
+
+	return TRUE
+
 /datum/surgery/robo_attach
 	name = "Установка робо-протеза"
 	requires_bodypart = FALSE
@@ -230,6 +282,10 @@
 // THIS IS DISTINCT FROM USING A CYBORG LIMB TO CREATE A NEW LIMB ORGAN
 /datum/surgery_step/limb/attach/robo
 	name = "присоединить робо-конечность"
+
+/datum/surgery_step/limb/attach/robo/ipc_self
+	name = "самоприсоединение робо-конечности"
+	time = 6.4 SECONDS
 
 /datum/surgery_step/limb/attach/robo/is_correct_limb(obj/item/organ/external/bodypart)
 	if(!bodypart.is_robotic())
