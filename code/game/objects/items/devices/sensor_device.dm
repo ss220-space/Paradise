@@ -8,6 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
 	custom_price = PAYCHECK_CREW
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/datum/ui_module/crew_monitor/crew_monitor
 
 /obj/item/sensor_device/get_ru_names()
@@ -32,18 +33,13 @@
 	ui_interact(user)
 
 /obj/item/sensor_device/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
+	if(user.incapacitated() || !ishuman(user))
+		return
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
-		return FALSE
+	if(over_object != user)
+		return
 
-	if(over_object == user)
-		attack_self(user)
-		return TRUE
-
-	return FALSE
+	attack_self(user)
 
 /obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null)
 	crew_monitor.ui_interact(user, ui)

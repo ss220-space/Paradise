@@ -10,6 +10,7 @@
 
 	hud_type = /datum/hud/simple_animal
 	abstract_type = /mob/living/simple_animal
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""

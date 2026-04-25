@@ -168,7 +168,6 @@
 		console.createMessage(name, "Your Crate has Arrived!", message, 1)
 
 /obj/structure/closet/crate/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
 	if(!isliving(user))
 		return
 

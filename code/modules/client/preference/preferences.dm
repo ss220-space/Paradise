@@ -1944,6 +1944,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 								continue
 							if(!M.pickable)
 								continue
+							if(M.wizard_only)
+								continue
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на теле", "Отметки на теле", valid_markings)
@@ -2025,6 +2027,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
+							continue
+						if(SA.wizard_only)
 							continue
 						if(gender == SA.unsuitable_gender)
 							continue

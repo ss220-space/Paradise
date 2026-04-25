@@ -1,0 +1,15 @@
+{
+	"mender": [
+		{
+			"type": "icon_state",
+			"icon_state": "mender",
+			"blend_mode": "overlay"
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "mender_overlay",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	]
+}

@@ -954,6 +954,9 @@
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] [src].")
 
+/obj/item/clothing/suit/attack_self(mob/user)
+	adjustsuit(user)
+
 /obj/item/clothing/suit/update_icon_state()
 	// Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
 	// end up with a suffix of _open_open if adjusted twice, since their initial state is _open

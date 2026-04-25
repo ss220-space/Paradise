@@ -17,9 +17,6 @@
 
 		if(body_position != LYING_DOWN && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
-				if(LAZYLEN(bodypart.internal_organs))
-					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
-					organ.internal_receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()

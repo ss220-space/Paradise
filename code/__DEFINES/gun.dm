@@ -55,35 +55,35 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 //MARK: Calibers
 
 // Pistol cartridges
+/// Used in Soviet type pistols and SMG (TT, PPSh)
+#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
 /// Used in most standart SMG and pistols
 #define CALIBER_9MM "9x19 мм"
 /// Used in Stechkin pistol
-#define CALIBER_10MM "10 мм"
+#define CALIBER_10MM "10x25 мм"
 /// Used in SP-8 pistol
-#define CALIBER_40NR ".40nr"
+#define CALIBER_40NR ".40 N&R"
 /// Used in M1911 pistol, C-20r SMG
 #define CALIBER_DOT_45 ".45"
 /// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
-#define CALIBER_DOT_45_COLT ".45colt"
+#define CALIBER_DOT_45_COLT ".45 Colt"
 /// Used in .45 N&R specialized weapons (maybe merge it with .45?)
-#define CALIBER_45NR ".45nr"
+#define CALIBER_45NR ".45 N&R"
 /// Used in Desert Eagle pistol
-#define CALIBER_DOT_50AE ".50ae"
-/// Used in Soviet type pistols and SMG (TT, PPSh)
-#define CALIBER_7_DOT_62X25MM "7,62x25 мм"
+#define CALIBER_DOT_50AE ".50 AE"
 
 // Revolver cartridges
 /// Used in heavy revolvers like Unica-6
-#define CALIBER_DOT_357 ".357"
-/// Used in Nagant revolver
-#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+#define CALIBER_DOT_357 ".357 Magnum"
 /// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
 /// Used in Gatfruit revolver
 #define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
-/// Used in Colt-type revolvers and pistols (maybe merge it with .45?)
+/// Used in Nagant revolver
+#define CALIBER_7_DOT_62X38MM "7,62x38 мм"
+/// Used in RSh-12 revolver
 #define CALIBER_12_DOT_7X55MM "12.7x55 мм"
 
 // Intermediate cartridges
@@ -102,13 +102,13 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in Syndicate sniper rifle
 #define CALIBER_DOT_50 ".50"
 /// Used in Compact Syndicate sniper rifle
-#define CALIBER_DOT_50L ".50L"
+#define CALIBER_DOT_50L ".50 L"
 /// Used in AXMC sniper rifle
 #define CALIBER_DOT_338 ".338"
 
 // Shotgun cartridges
 /// Used in all shotguns
-#define CALIBER_12X70 "12х70"
+#define CALIBER_12G "12g"
 
 // Grenade launcher cartridges
 /// Used in underbarrel grenade launchers and Bombarda
@@ -130,17 +130,17 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 // Energy weapons
 /// Used in laser weapons
-#define CALIBER_LASER "laser"
+#define CALIBER_LASER "\"лазер\""
 
 // Foam force weapons
 /// Used in foam guns
-#define CALIBER_FOAM_FORCE "foam force"
+#define CALIBER_FOAM_FORCE "\"пенопластовый\""
 /// Used in sniper foam gun
-#define CALIBER_FOAM_FORCE_SNIPER "foam force sniper"
+#define CALIBER_FOAM_FORCE_SNIPER "\"пенопластовый снайперский\""
 
 // Blank cartridges
 /// Used in toy cap guns
-#define CALIBER_CAP "cap"
+#define CALIBER_CAP "\"холостой\""
 
 // Heavy weapons
 /// Used in high-caliber rocket launchers

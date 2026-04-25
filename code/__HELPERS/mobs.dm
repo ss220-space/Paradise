@@ -73,6 +73,9 @@
 		if(!LAZYIN(style.species_allowed, species.name))
 			continue
 
+		if(style.wizard_only)
+			continue
+
 		if(gender == style.unsuitable_gender)
 			continue
 
@@ -96,6 +99,8 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
+			continue
+		if(S.wizard_only)
 			continue
 		if(gender == S.unsuitable_gender)
 			continue

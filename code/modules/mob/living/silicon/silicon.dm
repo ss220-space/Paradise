@@ -5,6 +5,7 @@
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	abstract_type = /mob/living/silicon
 	looting_icon_mode = LOOT_ICON_FLAT_ICON
+	examine_cursor_icon = null
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
