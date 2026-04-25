@@ -329,19 +329,34 @@
 	can_cancel = FALSE  // don't let a leg cancel a surgery
 
 /datum/component/surgery_initiator/limb/initiate_surgery_moment(datum/source, atom/target, mob/user)
-	SIGNAL_HANDLER
 	if(target == user && ishuman(user) && ismachineperson(user) && istype(parent, /obj/item/organ/external))
+		if(!isliving(user))
+			return
+		if(!user.Adjacent(target))
+			return
+		if(user.a_intent != INTENT_HELP)
+			return
+
 		var/obj/item/organ/external/bodypart = parent
-		if(bodypart.is_robotic())
-			var/old_forced_surgery = forced_surgery
-			var/old_can_start_anywhere = can_start_anywhere
-			forced_surgery = /datum/surgery/ipc_self_attach_limb
-			can_start_anywhere = TRUE
-			. = ..()
-			forced_surgery = old_forced_surgery
-			can_start_anywhere = old_can_start_anywhere
-			return .
+		if(!bodypart.is_robotic())
+			return ..()
+
+		INVOKE_ASYNC(src, PROC_REF(do_initiate_ipc_self_attach), target, user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
 	return ..()
+
+/datum/component/surgery_initiator/limb/proc/do_initiate_ipc_self_attach(mob/living/target, mob/user)
+	var/old_forced_surgery = forced_surgery
+	var/old_can_start_anywhere = can_start_anywhere
+
+	forced_surgery = /datum/surgery/ipc_self_attach_limb
+	can_start_anywhere = TRUE
+
+	do_initiate_surgery_moment(target, user)
+
+	forced_surgery = old_forced_surgery
+	can_start_anywhere = old_can_start_anywhere
 
 /datum/component/surgery_initiator/robo
 	valid_starting_types = SURGERY_INITIATOR_ROBOTIC

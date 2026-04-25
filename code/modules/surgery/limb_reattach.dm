@@ -138,7 +138,7 @@
 	if(!target.dna || !target.dna.species)
 		return FALSE
 
-	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
+	var/list/organ_data = target.dna.species.has_limbs[target_zone]
 	if(isnull(organ_data))
 		return FALSE
 
