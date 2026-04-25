@@ -795,6 +795,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
 	icon = 'icons/obj/abductor.dmi'
+	greyscale_config = null
+	greyscale_colors = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	emagged = TRUE
 	ignore_flags = TRUE
 	var/base_icon = "alien_mender_brute"

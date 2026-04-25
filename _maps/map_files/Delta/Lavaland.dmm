@@ -3759,6 +3759,8 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "rf" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
 	glass = 1;
 	id_tag = "mining_away";
@@ -3766,7 +3768,6 @@
 	opacity = 0;
 	req_access = list(48)
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "rg" = (
@@ -6005,6 +6006,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Gt" = (
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
 	glass = 1;
 	id_tag = "mining_away";

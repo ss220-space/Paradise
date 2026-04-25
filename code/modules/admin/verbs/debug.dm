@@ -786,60 +786,6 @@ ADMIN_VERB(toggle_medal_disable, R_DEBUG, "Toggle Medal Disable", "Toggles the s
 	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
 
-ADMIN_VERB_VISIBILITY(view_pingstat, ADMIN_VERB_VISIBLITY_FLAG_HOST)
-ADMIN_VERB(view_pingstat, R_HOST, "View Pingstat", "Open the Pingstat Report.", ADMIN_CATEGORY_DEBUG)
-	var/msg = ""
-	var/color
-	msg += "<table border='1'><tr>"
-	msg += "<th>Player</th>"
-	msg += "<th>Quality</th>"
-	msg += "<th>Ping</th>"
-	msg += "<th>AvgPing</th>"
-	msg += "<th>Url</th>"
-	msg += "<th>IP</th>"
-	msg += "<th>Country</th>"
-	msg += "<th>CountryCode</th>"
-	msg += "<th>Region</th>"
-	msg += "<th>Region Name</th>"
-	msg += "<th>City</th>"
-	msg += "<th>Timezone</th>"
-	msg += "<th>ISP</th>"
-	msg += "<th>Mobile</th>"
-	msg += "<th>Proxy</th>"
-	msg += "<th>Status</th>"
-
-	msg += "</tr>"
-	for(var/client/C in GLOB.clients)
-		msg += "<tr>"
-
-		msg += "<td>[key_name_admin(C.mob)]</td>"
-		color = "rgb([C.lastping], [255 - clamp(text2num(C.lastping), 0, 255)], 0)"
-		msg += "<td bgcolor='[color]' >&nbsp;</td>"
-		msg += "<td><b>[C.lastping]<b></td>"
-		msg += "<td><b>[round(C.avgping,1)]<b></td>"
-		msg += "<td>[C.url]</td>"
-
-		if(C.geoip.status != "updated")
-			C.geoip.try_update_geoip(C, C.address)
-		msg += "<td>[C.geoip.ip]</td>"
-		msg += "<td>[C.geoip.country]</td>"
-		msg += "<td>[C.geoip.countryCode]</td>"
-		msg += "<td>[C.geoip.region]</td>"
-		msg += "<td>[C.geoip.regionName]</td>"
-		msg += "<td>[C.geoip.city]</td>"
-		msg += "<td>[C.geoip.timezone]</td>"
-		msg += "<td>[C.geoip.isp]</td>"
-		msg += "<td>[C.geoip.mobile]</td>"
-		msg += "<td>[C.geoip.proxy]</td>"
-		msg += "<td>[C.geoip.status]</td>"
-
-		msg += "</tr>"
-
-	msg += "</table>"
-	var/datum/browser/popup = new(user, "pingstat_report", "Pingstat Report", 1500, 600)
-	popup.set_content(msg)
-	popup.open(FALSE)
-
 ADMIN_VERB(display_overlay_log, R_DEBUG, "Display Overlay Log", "Display SSoverlays log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
 	render_stats(SSoverlays.stats, user)
 

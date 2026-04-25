@@ -38,8 +38,25 @@
 
 /datum/action/item_action/proc/call_effect_proc()
 	var/obj/item/item_target = target
-	item_target.ui_action_click(owner, src)
+	item_target.ui_action_click(owner, src, TRUE)
 
+
+/datum/action/item_action/AltTrigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
+	return do_alt_effect(trigger_flags)
+
+/datum/action/item_action/proc/do_alt_effect(trigger_flags)
+	if(!target)
+		return FALSE
+	call_alt_effect_proc()
+	UpdateButtonIcon()
+	return TRUE
+
+/datum/action/item_action/proc/call_alt_effect_proc()
+	var/obj/item/item_target = target
+	item_target.ui_action_click(owner, src, FALSE)
 
 // MARK: Actions
 
@@ -199,6 +216,7 @@
 
 /datum/action/item_action/halt
 	name = "СТОЯТЬ!"
+	desc = "Левая кнопка — активировать.\nПравая кнопка — сменить фразу."
 
 /datum/action/item_action/selectphrase
 	name = "Сменить фразу"
