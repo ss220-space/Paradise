@@ -1942,6 +1942,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message(span_notice("[user] разделыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 		gib()
 
+/mob/living/carbon/human/proc/add_fracture_ignore_trait(source)
+	ADD_TRAIT(src, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(source))
+	update_fractures_effects()
+
+/mob/living/carbon/human/proc/remove_fracture_ignore_trait(source)
+	REMOVE_TRAIT(src, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(source))
+	update_fractures_effects()
+
 /mob/living/carbon/human/proc/update_fractures_effects()
 	update_fractures_slowdown()
 	update_fractures_workspeed()

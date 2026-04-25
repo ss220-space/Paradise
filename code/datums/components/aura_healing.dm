@@ -129,8 +129,7 @@
 			current_alerts[candidate] = TRUE
 			if(ishuman(candidate))
 				var/mob/living/carbon/human/human_candidate = candidate
-				ADD_TRAIT(human_candidate, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
-				human_candidate.update_fractures_effects()
+				human_candidate.add_fracture_ignore_trait(src)
 
 		var/old_health = candidate.health
 
@@ -235,8 +234,7 @@
 		current_alerts -= remove_alert_from
 		if(ishuman(remove_alert_from))
 			var/mob/living/carbon/human/human_remove = remove_alert_from
-			REMOVE_TRAIT(human_remove, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(src))
-			human_remove.update_fractures_effects()
+			human_remove.remove_fracture_ignore_trait(src)
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"
