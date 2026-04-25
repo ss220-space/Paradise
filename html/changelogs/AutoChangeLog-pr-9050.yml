@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - balance: "уменьшена сила замедления у 10мм экспансивных патронов. (PR #9050)"
