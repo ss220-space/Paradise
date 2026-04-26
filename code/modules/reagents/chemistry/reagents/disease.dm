@@ -1,5 +1,3 @@
-#define REAGENT_UNITS_1 1
-
 /datum/reagent/spider_eggs
 	name = "Паучьи яйца"
 	id = "spidereggs"
@@ -42,19 +40,6 @@
 		var/datum/disease/virus/transformation/xeno/D = new
 		D.Contract(M)
 	return ..()
-
-//I was told that someone will soon change the logic of their work, so I keep the old behavior.
-/datum/reagent/xenomicrobes/phantom
-	id = "xenomicrobes_phantom"
-	description = "Микробы с совершенно чужеродной клеточной структурой. Кажутся более активными чем обычно."
-	metabolization_rate = 1
-
-/datum/reagent/xenomicrobes/phantom/on_mob_life(mob/living/carbon/M)
-	. = ..()
-	if(volume < REAGENT_UNITS_1)
-		return
-	var/datum/disease/virus/transformation/xeno/phantom/D = new
-	D.Contract(M)
 
 /datum/reagent/fungalspores
 	name = "Микробы Космического Туберкулёза"
@@ -231,5 +216,3 @@
 	name = "Ослабленная вирусная плазма"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198
-
-#undef REAGENT_UNITS_1

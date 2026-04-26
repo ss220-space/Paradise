@@ -4409,7 +4409,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "eme" = (
-/obj/item/gun/projectile/automatic/pistol/deagle/gold,
+/obj/item/gun/projectile/automatic/pistol/deagle,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "enz" = (
