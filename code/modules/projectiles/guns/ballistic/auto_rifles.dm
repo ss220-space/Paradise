@@ -28,9 +28,9 @@
 	QDEL_NULL(underbarrel)
 	return ..()
 
-/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(select == 0)
-		underbarrel.afterattack(target, user, flag, params)
+		underbarrel.afterattack(target, user, proximity_flag, modifiers, status)
 	else
 		..()
 
@@ -48,14 +48,14 @@
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
-		item_state = "m90-[CEILING(get_ammo(FALSE)/7.5, 1)]"
+		item_state = "m90-[ceil(get_ammo(FALSE)/7.5)]"
 	else
 		item_state = "m90-0"
 
 /obj/item/gun/projectile/automatic/m90/update_overlays()
 	. = ..()
 	if(magazine)
-		. += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(FALSE)/6, 1)*6]")
+		. += image(icon = icon, icon_state = "m90-[ceil(get_ammo(FALSE)/6)*6]")
 	switch(select)
 		if(GUN_SINGLE_MODE)
 			. += "[initial(icon_state)]gren"
@@ -123,9 +123,6 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_bayonet = TRUE
-	bayonet_x_offset = 26
-	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
@@ -189,7 +186,7 @@
 	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/ik60/update_icon_state()
-	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
+	icon_state = "lasercarbine[magazine ? "-[ceil(get_ammo(FALSE)/5)*5]" : ""]"
 
 // MARK: LR-30
 /obj/item/gun/projectile/automatic/lr30
@@ -213,7 +210,7 @@
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
-	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/3, 1)*3]" : ""]"
+	icon_state = "lr30[magazine ? "-[ceil(get_ammo(FALSE)/3)*3]" : ""]"
 
 // MARK: M-52
 /obj/item/gun/projectile/automatic/m52

@@ -374,8 +374,8 @@
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, list/modifiers)
-	if(!proximity)
+/obj/item/matter_decompiler/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.

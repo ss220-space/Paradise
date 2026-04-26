@@ -1,286 +1,358 @@
+/// Max queries to ip-api.com per window, see [GLOB.geoip_next_counter_reset]. The free ip-api tier is 45 rpm.
+#define GEOIP_QUERY_LIMIT 60
+/// Length of the query counter window (90 seconds).
+#define GEOIP_QUERY_WINDOW (90 SECONDS)
+/// Set of fields requested from ip-api.com. Named fields are more robust than a bitmask.
+#define GEOIP_API_FIELDS "status,message,country,countryCode,region,regionName,city,timezone,isp,mobile,proxy,query"
+
 GLOBAL_LIST_INIT(isp_blacklist, world.file2list("config/isp/isp_blacklist.txt"))
 GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 
+/**
+ * # GeoIP data
+ *
+ * Cached GeoIP lookup result for a single [/client].
+ *
+ * Created on the client at login and populated asynchronously via [SShttp] and ip-api.com.
+ * While the request is in flight [status] is `"pending"`; on success it becomes `"updated"`,
+ * otherwise it holds a diagnostic value: `"admin"`, `"local"`, `"no address"`,
+ * `"limit reached"`, `"export fail"`, or `"api fail: <message>"`.
+ */
 /datum/geoip_data
+	/// Ckey of the client this lookup was performed for.
 	var/holder = null
+	/// Request status: `null` before start, `"pending"` in flight, `"updated"` on success, otherwise an error string.
 	var/status = null
+	/// Country name (e.g. `"Russia"`).
 	var/country = null
+	/// Two-letter ISO country code (e.g. `"RU"`).
 	var/countryCode = null
+	/// Region code.
 	var/region = null
+	/// Human-readable region name.
 	var/regionName = null
+	/// City.
 	var/city = null
+	/// Timezone in the form `"Europe/Moscow"`.
 	var/timezone = null
+	/// The client's ISP according to ip-api.
 	var/isp = null
+	/// `"true"`/`"false"` — whether ip-api considers the connection mobile.
 	var/mobile = null
+	/**
+	 * Final proxy/VPN flag. Initially `"true"`/`"false"` from ip-api, then corrected against
+	 * `isp_whitelist`/`isp_blacklist`, and finally for admin display it turns into an HTML
+	 * string (`"whitelisted"` in orange or `"true"` in red).
+	 */
 	var/proxy = null
+	/// Client IP as reported by ip-api (the `query` field of the response).
 	var/ip = null
 
-/datum/geoip_data/New(client/C, addr)
-	INVOKE_ASYNC(src, PROC_REF(get_geoip_data), C, addr)
+/datum/geoip_data/New(client/client, address)
+	INVOKE_ASYNC(src, PROC_REF(get_geoip_data), client, address)
 
-/datum/geoip_data/proc/get_geoip_data(client/C, addr)
-
-	if(!C || !addr)
+/**
+ * Entry point for the asynchronous GeoIP lookup. Handles short branches (no address,
+ * admin client) and delegates the network request to [try_update_geoip].
+ *
+ * Arguments:
+ * * client - the client we are collecting data for
+ * * address - the client's IP address (usually `client.address`)
+ */
+/datum/geoip_data/proc/get_geoip_data(client/client, address)
+	if(!client)
 		return
 
-	if(C.holder && (C.holder.rights & R_ADMIN))
+	if(!address)
+		status = "no address"
+		return
+
+	if(client.holder && (client.holder.rights & R_ADMIN))
 		status = "admin"
 		return
 
-	if(!try_update_geoip(C, addr))
-		return
+	try_update_geoip(client, address)
 
-	if(!C)
-		return
-
-	if(status == "updated")
-		var/msg = "[holder] connected from ([country], [regionName], [city]) using ISP: ([isp]) with IP: ([ip]) Proxy: ([proxy])"
-		log_admin(msg)
-		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in GLOB.geoip_ckey_updated))
-			GLOB.geoip_ckey_updated |= C.ckey
-			message_admins(msg)
-
-		if(proxy == "true")
-			if(proxy_whitelist_check(C.ckey))
-				proxy = "<span style='color: orange'>whitelisted</span>"
-			else
-				proxy = "<span style='color: red'>true</span>"
-
-				if(CONFIG_GET(flag/proxy_autoban))
-					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
-					// var/list/play_records = params2list(C.prefs.exp)
-					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
-					// if(livingtime > 600) // 10 hours * 60 min
-					//	to_chat(C, span_danger(span_bigbold("[reason]")))
-					//	del(C)
-					//	return
-					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
-					to_chat(C, span_danger(span_bigbold("You have been banned by SyndiCat.\nReason: [reason].")))
-					to_chat(C, span_red("This is a permanent ban."))
-					if(CONFIG_GET(string/banappeals))
-						to_chat(C, span_red("To try to resolve this matter head to [CONFIG_GET(string/banappeals)]"))
-					else
-						to_chat(C, span_red("No ban appeals URL has been set."))
-					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")
-					log_admin("SyndiCat has banned [C.ckey].")
-					log_admin("Reason: [reason]")
-					log_admin("This is a permanent ban.")
-					message_admins("SyndiCat has banned [C.ckey].\nReason: [reason]\nThis is a permanent ban.")
-					DB_ban_record_SyndiCat(BANTYPE_PERMA, C.mob, -1, reason)
-					del(C)
-					return
-
-/datum/geoip_data/proc/try_update_geoip(client/C, addr)
-	if(!C || !addr)
+/**
+ * Kicks off (if not already started) an async request to ip-api and returns. The datum
+ * fields are filled in by [on_geoip_response], invoked by [SShttp] once the request finishes.
+ *
+ * Safe to call repeatedly — while `status` is `"pending"` or `"updated"` it is a no-op.
+ * Returns FALSE when no request was dispatched (local address, limit exceeded, etc.).
+ *
+ * Arguments:
+ * * client - the client this record belongs to
+ * * address - the IP address to query. `127.0.0.1` is substituted with `world.internet_address`.
+ */
+/datum/geoip_data/proc/try_update_geoip(client/client, address)
+	if(!client || !address)
 		return FALSE
 
-	if(addr == "127.0.0.1")
-		addr = "[world.internet_address]"
+	if(status == "updated" || status == "pending")
+		return TRUE
 
-	if(status != "updated")
-		holder = C.ckey
-
-		var/msg = geoip_check(addr)
-		if(msg == "limit reached" || msg == "export fail")
-			status = msg
+	if(address == "127.0.0.1")
+		if(!world.internet_address)
+			status = "local"
+			ip = address
 			return FALSE
+		address = "[world.internet_address]"
 
-		for(var/data in msg)
-			switch(data)
-				if("country")
-					country = msg[data]
-				if("countryCode")
-					countryCode = msg[data]
-				if("region")
-					region = msg[data]
-				if("regionName")
-					regionName = msg[data]
-				if("city")
-					city = msg[data]
-				if("timezone")
-					timezone = msg[data]
-				if("isp")
-					isp = msg[data]
-				if("mobile")
-					mobile = msg[data] ? "true" : "false"
-				if("proxy")
-					proxy = msg[data] ? "true" : "false"
-				if("query")
-					ip = msg[data]
-		status = "updated"
-		if(proxy == "true")
-			proxy = (isp in GLOB.isp_whitelist) ? "false" : "true"
-		else
-			proxy = (isp in GLOB.isp_blacklist) ? "true" : "false"
-	return TRUE
-
-/proc/geoip_check(addr)
 	if(world.time > GLOB.geoip_next_counter_reset)
-		GLOB.geoip_next_counter_reset = world.time + 900
+		GLOB.geoip_next_counter_reset = world.time + GEOIP_QUERY_WINDOW
 		GLOB.geoip_query_counter = 0
 
 	GLOB.geoip_query_counter++
-	if(GLOB.geoip_query_counter > 130)
-		return "limit reached"
+	if(GLOB.geoip_query_counter > GEOIP_QUERY_LIMIT)
+		status = "limit reached"
+		return FALSE
 
-	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")
-	if(!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
-		return "export fail"
+	holder = client.ckey
+	status = "pending"
 
-	var/msg = file2text(vl["CONTENT"])
-	return json_decode(msg)
+	var/datum/callback/callback = CALLBACK(src, PROC_REF(on_geoip_response), client)
+	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://ip-api.com/json/[address]?fields=[GEOIP_API_FIELDS]", "", null, callback)
+	return TRUE
 
+/**
+ * [SShttp] callback for an ip-api response. Parses JSON, fills in the datum fields, applies
+ * the ISP whitelist/blacklist to [proxy] and, on a confirmed proxy, triggers the autoban
+ * path (if enabled in config).
+ *
+ * Arguments:
+ * * client - the client whose record we are updating. May be `null` if the client has already left.
+ * * response - the ip-api response, wrapped into a [/datum/http_response] by [SShttp].
+ */
+/datum/geoip_data/proc/on_geoip_response(client/client, datum/http_response/response)
+	if(!response || response.errored || response.status_code != 200 || !response.body)
+		status = "export fail"
+		return
+
+	var/list/data = safe_json_decode(response.body)
+
+	if(!islist(data))
+		status = "export fail"
+		return
+
+	if(data["status"] == "fail")
+		status = "api fail: [data["message"]]"
+		ip = data["query"]
+		return
+
+	country = data["country"]
+	countryCode = data["countryCode"]
+	region = data["region"]
+	regionName = data["regionName"]
+	city = data["city"]
+	timezone = data["timezone"]
+	isp = data["isp"]
+	mobile = data["mobile"] ? "true" : "false"
+	proxy = data["proxy"] ? "true" : "false"
+	ip = data["query"]
+
+	if(proxy == "true")
+		proxy = (isp in GLOB.isp_whitelist) ? "false" : "true"
+	else
+		proxy = (isp in GLOB.isp_blacklist) ? "true" : "false"
+
+	status = "updated"
+
+	if(!client)
+		return
+
+	var/msg = "[holder] connected from ([country], [regionName], [city]) using ISP: ([isp]) with IP: ([ip]) Proxy: ([proxy])"
+	log_admin(msg)
+	if(SSticker.current_state > GAME_STATE_STARTUP && !(client.ckey in GLOB.geoip_ckey_updated))
+		GLOB.geoip_ckey_updated |= client.ckey
+		message_admins(msg)
+
+	if(proxy != "true")
+		return
+
+	if(proxy_whitelist_check(client.ckey))
+		proxy = span_orange("whitelisted")
+		return
+
+	proxy = span_red("true")
+	if(!CONFIG_GET(flag/proxy_autoban))
+		return
+
+	var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
+	AddBan(client.ckey, client.computer_id, reason, "SyndiCat", 0, 0, client.mob.lastKnownIP)
+	to_chat(client, span_danger(span_bigbold("You have been banned by SyndiCat.\nReason: [reason].")))
+	to_chat(client, span_red("This is a permanent ban."))
+	if(CONFIG_GET(string/banappeals))
+		to_chat(client, span_red("To try to resolve this matter head to [CONFIG_GET(string/banappeals)]"))
+	else
+		to_chat(client, span_red("No ban appeals URL has been set."))
+	ban_unban_log_save("SyndiCat has permabanned [client.ckey]. - Reason: [reason] - This is a permanent ban.")
+	log_admin("SyndiCat has banned [client.ckey].")
+	log_admin("Reason: [reason]")
+	log_admin("This is a permanent ban.")
+	message_admins("SyndiCat has banned [client.ckey].\nReason: [reason]\nThis is a permanent ban.")
+	DB_ban_record_SyndiCat(BANTYPE_PERMA, client.mob, -1, reason)
+	qdel(client)
+
+#undef GEOIP_QUERY_LIMIT
+#undef GEOIP_QUERY_WINDOW
+#undef GEOIP_API_FIELDS
+
+/**
+ * Static per-bantype metadata used by [/proc/DB_ban_record_SyndiCat]:
+ * * `str` — display string used in the DB row and admin messages.
+ * * `perma` — TRUE if this type forces `duration = -1`.
+ * * `jobban` — TRUE for job bans (also triggers `jobban_client_fullban`).
+ * * `announce` — TRUE for admin bans (posts to the admin Discord webhook).
+ * * `kick` — TRUE for admin bans (kicks the banned client from the server after insert).
+ */
+GLOBAL_LIST_INIT(syndicat_bantype_meta, list(
+	"[BANTYPE_PERMA]" = list("str" = "PERMABAN", "perma" = TRUE, "jobban" = FALSE, "announce" = FALSE, "kick" = FALSE),
+	"[BANTYPE_TEMP]" = list("str" = "TEMPBAN", "perma" = FALSE, "jobban" = FALSE, "announce" = FALSE, "kick" = FALSE),
+	"[BANTYPE_JOB_PERMA]" = list("str" = "JOB_PERMABAN", "perma" = TRUE, "jobban" = TRUE, "announce" = FALSE, "kick" = FALSE),
+	"[BANTYPE_JOB_TEMP]" = list("str" = "JOB_TEMPBAN", "perma" = FALSE, "jobban" = TRUE, "announce" = FALSE, "kick" = FALSE),
+	"[BANTYPE_APPEARANCE]" = list("str" = "APPEARANCE_BAN", "perma" = TRUE, "jobban" = FALSE, "announce" = FALSE, "kick" = FALSE),
+	"[BANTYPE_ADMIN_PERMA]" = list("str" = "ADMIN_PERMABAN", "perma" = TRUE, "jobban" = FALSE, "announce" = TRUE, "kick" = TRUE),
+	"[BANTYPE_ADMIN_TEMP]" = list("str" = "ADMIN_TEMPBAN", "perma" = FALSE, "jobban" = FALSE, "announce" = TRUE, "kick" = TRUE),
+))
+
+/**
+ * Inserts a ban row into the SQL ban table on behalf of the synthetic admin `SyndiCat`.
+ *
+ * Used by the proxy autoban path driven by GeoIP (see [/datum/geoip_data/proc/on_geoip_response]).
+ * Supports every standard ban type (`BANTYPE_PERMA`, `BANTYPE_TEMP`, job and appearance bans,
+ * admin bans); kicks the target when required and mirrors admin bans to Discord.
+ *
+ * Arguments:
+ * * bantype - one of the `BANTYPE_*` defines from [code/__DEFINES/admin.dm]
+ * * banned_mob - the target's mob (or `null` when banning by ckey)
+ * * duration - duration in minutes, `-1` for permanent bans
+ * * reason - ban reason, must be text
+ * * job - for job bans: the job title
+ * * rounds - duration in rounds (job bans only)
+ * * banckey - target ckey when `banned_mob` is absent
+ * * banip - target IP when `banned_mob` is absent
+ * * bancid - target computer id when `banned_mob` is absent
+ */
 /proc/DB_ban_record_SyndiCat(bantype, mob/banned_mob, duration = -1, reason, job = "", rounds = 0, banckey = null, banip = null, bancid = null)
 	if(!SSdbcore.IsConnected())
 		return
 
-	var/serverip = "[world.internet_address]:[world.port]"
-	var/bantype_pass = 0
-	var/bantype_str
-	var/announce_in_discord = FALSE		//When set, it announces the ban in irc. Intended to be a way to raise an alarm, so to speak.
-	var/kickbannedckey		//Defines whether this proc should kick the banned person, if they are connected (if banned_mob is defined).
-							//some ban types kick players after this proc passes (tempban, permaban), but some are specific to db_ban, so
-							//they should kick within this proc.
-	var/isjobban // For job bans, which need to be inserted into the job ban lists
-	switch(bantype)
-		if(BANTYPE_PERMA)
-			bantype_str = "PERMABAN"
-			duration = -1
-			bantype_pass = 1
-		if(BANTYPE_TEMP)
-			bantype_str = "TEMPBAN"
-			bantype_pass = 1
-		if(BANTYPE_JOB_PERMA)
-			bantype_str = "JOB_PERMABAN"
-			duration = -1
-			bantype_pass = 1
-			isjobban = 1
-		if(BANTYPE_JOB_TEMP)
-			bantype_str = "JOB_TEMPBAN"
-			bantype_pass = 1
-			isjobban = 1
-		if(BANTYPE_APPEARANCE)
-			bantype_str = "APPEARANCE_BAN"
-			duration = -1
-			bantype_pass = 1
-		if(BANTYPE_ADMIN_PERMA)
-			bantype_str = "ADMIN_PERMABAN"
-			duration = -1
-			bantype_pass = 1
-			announce_in_discord = TRUE
-			kickbannedckey = 1
-		if(BANTYPE_ADMIN_TEMP)
-			bantype_str = "ADMIN_TEMPBAN"
-			bantype_pass = 1
-			announce_in_discord = TRUE
-			kickbannedckey = 1
-
-	if(!bantype_pass)
+	var/list/meta = GLOB.syndicat_bantype_meta["[bantype]"]
+	if(!meta)
 		return
 	if(!istext(reason))
 		return
 	if(!isnum(duration))
 		return
 
+	var/bantype_str = meta["str"]
+	if(meta["perma"])
+		duration = -1
+
+	// Resolve target ckey/computerid/ip from either the mob or the explicit ckey fallback.
 	var/ckey
 	var/computerid
 	var/ip
-
 	if(ismob(banned_mob) && banned_mob.ckey)
 		ckey = banned_mob.ckey
 		if(banned_mob.client)
 			computerid = banned_mob.client.computer_id
 			ip = banned_mob.client.address
 		else
-			if(banned_mob.lastKnownIP)
-				ip = banned_mob.lastKnownIP
-			if(banned_mob.computer_id)
-				computerid = banned_mob.computer_id
+			ip = banned_mob.lastKnownIP
+			computerid = banned_mob.computer_id
 	else if(banckey)
 		ckey = ckey(banckey)
 		computerid = bancid
 		ip = banip
-	else if(ismob(banned_mob))
-		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.")
-		return
 	else
-		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.")
+		var/detail = ismob(banned_mob) ? "ckey-less mob" : "non-existent mob"
+		message_admins(span_red("SyndiCat attempted to add a ban based on a [detail], with no ckey provided. Report this bug."))
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list(
-		"ckey" = ckey
-	))
+	// Make sure the ckey exists in the player DB. Guests are exempt — they aren't tracked there.
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list("ckey" = ckey))
 	if(!query.warn_execute())
 		qdel(query)
 		return
-	var/validckey = FALSE
-	if(query.NextRow())
-		validckey = TRUE
-	if(!validckey)
-		if(!banned_mob || (banned_mob && !is_guest_key(banned_mob.key)))
-			message_admins("<font color='red'>SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>")
-			qdel(query)
-			return
+	var/validckey = query.NextRow()
 	qdel(query)
+	if(!validckey && (!banned_mob || !is_guest_key(banned_mob.key)))
+		message_admins(span_red("SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players."))
+		return
 
-	var/a_ckey = "SyndiCat"
-	var/a_computerid = "4221007721"
-	var/a_ip = "127.0.0.1"
+	var/list/who_list = list()
+	for(var/client/connected in GLOB.clients)
+		who_list += "[connected]"
+	var/list/adminwho_list = list()
+	for(var/client/admin_client in GLOB.admins)
+		adminwho_list += "[admin_client]"
 
-	var/who
-	for(var/client/C in GLOB.clients)
-		if(!who)
-			who = "[C]"
-		else
-			who += ", [C]"
-
-	var/adminwho
-	for(var/client/C in GLOB.admins)
-		if(!adminwho)
-			adminwho = "[C]"
-		else
-			adminwho += ", [C]"
-
-	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `server_id`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :server_id)
-	"}, list(
-		// Get ready for parameters
-		"serverip" = serverip,
+	// SQL driver expects string-typed numbers, hence `"[... || 0]"` on duration/rounds.
+	var/list/ban_row = list(
+		"serverip" = "[world.internet_address]:[world.port]",
 		"bantype_str" = bantype_str,
 		"reason" = reason,
 		"job" = job,
-		"duration" = (duration ? "[duration]" : "0"), // Strings are important here
-		"rounds" = (rounds ? "[rounds]" : "0"), // And here
+		"duration" = "[duration || 0]",
+		"rounds" = "[rounds || 0]",
 		"ckey" = ckey,
 		"computerid" = computerid,
 		"ip" = ip,
-		"a_ckey" = a_ckey,
-		"a_computerid" = a_computerid,
-		"a_ip" = a_ip,
-		"who" = who,
-		"adminwho" = adminwho,
-		"server_id" = CONFIG_GET(string/instance_id)
-	))
+		"a_ckey" = "SyndiCat",
+		"a_computerid" = "4221007721",
+		"a_ip" = "127.0.0.1",
+		"who" = jointext(who_list, ", "),
+		"adminwho" = jointext(adminwho_list, ", "),
+		"server_id" = CONFIG_GET(string/instance_id),
+	)
+
+	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (
+			`id`, `bantime`, `serverip`, `bantype`, `reason`, `job`,
+			`duration`, `rounds`, `expiration_time`,
+			`ckey`, `computerid`, `ip`,
+			`a_ckey`, `a_computerid`, `a_ip`,
+			`who`, `adminwho`, `edits`,
+			`unbanned`, `unbanned_datetime`, `unbanned_ckey`, `unbanned_computerid`, `unbanned_ip`,
+			`server_id`
+		) VALUES (
+			null, Now(), :serverip, :bantype_str, :reason, :job,
+			:duration, :rounds, Now() + INTERVAL :duration MINUTE,
+			:ckey, :computerid, :ip,
+			:a_ckey, :a_computerid, :a_ip,
+			:who, :adminwho, '',
+			null, null, null, null, null,
+			:server_id
+		)
+	"}, ban_row)
 	if(!query_insert.warn_execute())
 		qdel(query_insert)
 		return
-
 	qdel(query_insert)
-	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
-	if(announce_in_discord)
-		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
+	message_admins("SyndiCat has added a [bantype_str] for [ckey] [job ? "([job])" : ""] [duration > 0 ? "([duration] minutes)" : ""] with the reason: \"[reason]\" to the ban database.")
 
-	if(kickbannedckey)
-		if(banned_mob?.client && banned_mob.client.ckey == banckey)
-			del(banned_mob.client)
+	if(meta["announce"])
+		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** SyndiCat applied a [bantype_str] on [ckey]")
 
-	if(isjobban)
+	if(meta["kick"] && banned_mob?.client && banned_mob.client.ckey == ckey)
+		qdel(banned_mob.client)
+
+	if(meta["jobban"])
 		jobban_client_fullban(ckey, job)
 	else
 		flag_account_for_forum_sync(ckey)
 
+/**
+ * Checks whether the given ckey is present in the `vpn_whitelist` table of the utility DB.
+ *
+ * Used by [/datum/geoip_data/proc/on_geoip_response] so that players with a whitelisted
+ * VPN/proxy are not autobanned. Returns FALSE if the DB is unavailable or no row matches.
+ *
+ * Arguments:
+ * * target_ckey - the player's ckey to check (normalised via `ckey()`).
+ */
 /proc/proxy_whitelist_check(target_ckey)
 	var/target_sql_ckey = ckey(target_ckey)
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT * FROM [CONFIG_GET(string/utility_database)].[format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list("ckey" = target_sql_ckey))

@@ -1,0 +1,7 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Некоторые FA снова показываются корректно. (PR #9051)"
+  - tweak: "motd красиво свёрстан. (PR #9051)"
+  - config: "motd добавлен в gitignore. (PR #9051)"
+  - server: "Информация в motd актуализирована. (PR #9051)"

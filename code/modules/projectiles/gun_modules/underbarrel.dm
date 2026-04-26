@@ -63,7 +63,7 @@
 	item_state = "light"
 	overlay_state = "light_o"
 	class = GUN_MODULE_CLASS_PISTOL_UNDER
-	overlay_offset = list("x" = 0, "y" = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/pistol/get_ru_names()
@@ -83,7 +83,7 @@
 	item_state = "light_s"
 	overlay_state = "light_s_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
-	overlay_offset = list("x" = 0, "y" = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/rifle/get_ru_names()
@@ -125,7 +125,7 @@
 	item_state = "hand"
 	overlay_state = "hand_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
-	overlay_offset = list("x" = 1, "y" = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 0)
 	bonus_accuracy = 10
 	spread_reduction = 0.20
 	custom_price = 2 * PAYCHECK_LOWER
@@ -148,7 +148,7 @@
 	item_state = "hand_a"
 	overlay_state = "hand_a_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
-	overlay_offset = list("x" = 0, "y" = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	custom_price = 3 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/hand/angle/get_ru_names()
@@ -172,7 +172,7 @@
 	item_state = "laser"
 	overlay_state = "laser_o"
 	class = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SNIPER_UNDER
-	overlay_offset = list("x" = -1, "y" = 1)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = -1, ATTACHMENT_OFFSET_Y = 1)
 	var/enable = FALSE
 	var/buffered_overlay_on
 	var/bonus_accuracy = 10
@@ -257,4 +257,196 @@
 		ACCUSATIVE = "лазерный целеуказатель (точка)",
 		INSTRUMENTAL = "лазерным целеуказателем (точка)",
 		PREPOSITIONAL = "лазерном целеуказателе (точка)",
+	)
+
+
+// MARK: Bayonet
+/obj/item/gun_module/under/bayonet
+	name = "bayonet"
+	desc = "Универсальный короткий клинок, оснащенный специальным креплением для монтажа на ствол винтовки. Основное предназначение — нанесение колющего удара в ближнем бою. Компактный дизайн и надежность конструкции делают его эффективным вспомогательным оружием."
+	icon_state = "bayonet_short"
+	item_state = "knife"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	overlay_state = "bayonet_short_o"
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 4)
+	class = GUN_MODULE_CLASS_RIFLE_UNDER
+	force = 12
+	throwforce = 12
+	sharp =  TRUE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	custom_price = 2 * PAYCHECK_CREW
+	/// Addition force for attached gun
+	var/bonus_force = 8
+	/// Variable for save gun old hitsound
+	var/old_hitsound
+	/// Variable for save gun old sharp var
+	var/old_sharp
+
+/obj/item/gun_module/under/bayonet/get_ru_names()
+	return list(
+		NOMINATIVE = "штык-нож",
+		GENITIVE = "штык-ножа",
+		DATIVE = "штык-ножу",
+		ACCUSATIVE = "штык-нож",
+		INSTRUMENTAL = "штык-ножом",
+		PREPOSITIONAL = "штык-ноже",
+	)
+
+/obj/item/gun_module/under/bayonet/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	. = ..()
+	if(!.)
+		return
+	bonus_force = clamp(bonus_force + whetstone.increment, 0, whetstone.max)
+
+/obj/item/gun_module/under/bayonet/long
+	name = "long bayonet"
+	desc = "Крупногабаритный клинок с удлиненным острием, предназначенный для крепления к оружию. Благодаря длине и прочности лезвия, обеспечивает дополнительную убойную силу при рукопашной атаке. Незаменим в ситуациях, когда стрельба невозможна или затруднительна."
+	icon_state = "bayonet_long"
+	overlay_state = "bayonet_long_o"
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 4)
+	w_class = WEIGHT_CLASS_NORMAL
+	force = 15
+	custom_price = 3 * PAYCHECK_CREW
+	bonus_force = 10
+
+/obj/item/gun_module/under/bayonet/long/get_ru_names()
+	return list(
+		NOMINATIVE = "длинный штык-нож",
+		GENITIVE = "длинного штык-ножа",
+		DATIVE = "длинному штык-ножу",
+		ACCUSATIVE = "длинный штык-нож",
+		INSTRUMENTAL = "длинным штык-ножом",
+		PREPOSITIONAL = "длинном штык-ноже",
+	)
+
+/obj/item/gun_module/under/bayonet/on_attach(obj/item/gun/target_gun, mob/user)
+	target_gun.force += bonus_force
+	old_sharp = target_gun.sharp
+	target_gun.sharp = TRUE
+	old_hitsound = target_gun.hitsound
+	target_gun.hitsound = hitsound
+
+/obj/item/gun_module/under/bayonet/on_detach(obj/item/gun/target_gun, mob/user)
+	target_gun.force -= bonus_force
+	target_gun.sharp = old_sharp
+	target_gun.hitsound = old_hitsound
+	old_hitsound = null
+
+
+// MARK: Underbarrel gun
+/obj/item/gun_module/under/gun
+	name = "underbarrel gun"
+	desc = "Модуль подствольного оружия. Вы не должны видеть это описание."
+	overlay_offset = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 2)
+	class = GUN_MODULE_CLASS_RIFLE_UNDER
+	/// Attached internal gun instance
+	var/obj/item/gun/internal_gun = null
+	/// Attached internal gun type path
+	var/internal_gun_type = null
+
+/obj/item/gun_module/under/gun/Initialize(mapload)
+	. = ..()
+	if(internal_gun_type)
+		internal_gun = new internal_gun_type(src)
+
+/obj/item/gun_module/under/gun/Destroy()
+	. = ..()
+	QDEL_NULL(internal_gun)
+
+/obj/item/gun_module/under/gun/on_attach(obj/item/gun/target_gun, mob/user)
+	if(!internal_gun)
+		return
+
+	RegisterSignal(gun, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, PROC_REF(on_fire_from_internal_gun))
+	RegisterSignal(gun, COMSIG_PARENT_ATTACKBY, PROC_REF(on_gun_pre_attack_by))
+
+
+/obj/item/gun_module/under/gun/on_detach(obj/item/gun/target_gun, mob/user)
+	UnregisterSignal(gun, list(COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, COMSIG_PARENT_ATTACKBY))
+
+/obj/item/gun_module/under/gun/proc/on_fire_from_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(fire_internal_gun), item, user, target, modifiers)
+	return TRUE
+
+/obj/item/gun_module/under/gun/proc/fire_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	if(!internal_gun)
+		return
+	internal_gun.afterattack(target, user, FALSE, modifiers)
+
+/obj/item/gun_module/under/gun/proc/on_gun_pre_attack_by(atom/source, obj/item/item, mob/living/attacker, list/modifiers)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(try_reload_internal_gun), item, attacker, modifiers)
+
+/obj/item/gun_module/under/gun/proc/try_reload_internal_gun(obj/item/item, mob/living/attacker, list/modifiers)
+	if(!internal_gun)
+		return
+	internal_gun.attackby(item, attacker, modifiers)
+
+
+// MARK: Grenade launcher
+/obj/item/gun_module/under/gun/grenade_launcher
+	name = "underbarrel grenade launcher"
+	desc = "Модуль подствольного 40 мм гранатомета."
+	icon_state = "grenade"
+	overlay_state = "grenade_o"
+	internal_gun_type = /obj/item/gun/projectile/revolver/grenadelauncher
+
+/obj/item/gun_module/under/gun/grenade_launcher/get_ru_names()
+	return list(
+		NOMINATIVE = "подствольный гранатомёт",
+		GENITIVE = "подствольного гранатомёта",
+		DATIVE = "подствольному гранатомёту",
+		ACCUSATIVE = "подствольный гранатомёт",
+		INSTRUMENTAL = "подствольным гранатомётом",
+		PREPOSITIONAL = "подствольном гранатомёте",
+	)
+
+/obj/item/gun_module/under/gun/grenade_launcher/try_reload_internal_gun(obj/item/item, mob/living/user, list/modifiers)
+	var/obj/item/gun/projectile/revolver/grenadelauncher/launcher = internal_gun
+	if(launcher && istype(launcher) && launcher.get_ammo() > 0)
+		launcher.unload_act(user)
+	return ..()
+
+// MARK: Shotgun
+/obj/item/gun_module/under/gun/shotgun
+	name = "underbarrel shotgun"
+	desc = "Модуль подствольного дробовика 12 калибра на 3+1 патронов."
+	icon_state = "shotgun"
+	overlay_state = "shotgun_o"
+	internal_gun_type = /obj/item/gun/projectile/shotgun/riot/short
+
+/obj/item/gun_module/under/gun/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "подствольный дробовик",
+		GENITIVE = "подствольного дробовика",
+		DATIVE = "подствольному дробовику",
+		ACCUSATIVE = "подствольный дробовик",
+		INSTRUMENTAL = "подствольным дробовиком",
+		PREPOSITIONAL = "подствольном дробовике",
+	)
+
+/obj/item/gun_module/under/gun/shotgun/fire_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
+	. = ..()
+	var/obj/item/gun/projectile/shotgun/riot/short/shotgun = internal_gun
+	if(shotgun && istype(shotgun) && shotgun.get_ammo() > 0)
+		addtimer(CALLBACK(shotgun, TYPE_PROC_REF(/obj/item/gun/projectile/shotgun, pump), user), 0.1 SECONDS)
+
+// MARK: Taser
+/obj/item/gun_module/under/gun/taser
+	name = "underbarrel taser"
+	desc = "Модуль подствольного тазера. Устройство позвоялет совершить 15 выстрелов, но к сожалению не имеет возможности зарядки."
+	icon_state = "shotgun"
+	overlay_state = "shotgun_o"
+	internal_gun_type = /obj/item/gun/energy/taser
+
+/obj/item/gun_module/under/gun/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "подствольный тазер",
+		GENITIVE = "подствольного тазера",
+		DATIVE = "подствольному тазеру",
+		ACCUSATIVE = "подствольный тазер",
+		INSTRUMENTAL = "подствольным тазером",
+		PREPOSITIONAL = "подствольном тазере",
 	)

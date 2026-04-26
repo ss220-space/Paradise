@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - tweak: "Поиск в R&D консоли по англ. названиям. (PR #9025)"

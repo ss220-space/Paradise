@@ -11,6 +11,9 @@
  */
 /proc/visible_hallucination_pulse(atom/center, radius = 7, hallucination_duration = 50 SECONDS, hallucination_max_duration, list/optional_messages)
 	for(var/mob/living/nearby_living in view(center, radius))
+		if(!HAS_TRAIT(nearby_living, TRAIT_MESON_VISION))
+			continue
+
 		if(nearby_living.is_blind())
 			continue
 

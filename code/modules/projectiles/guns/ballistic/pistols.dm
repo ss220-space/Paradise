@@ -3,7 +3,7 @@
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=3"
+	origin_tech = "combat=3;materials=2;syndicate=1"
 	can_holster = TRUE
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'

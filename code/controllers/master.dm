@@ -318,7 +318,7 @@ ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller 
 
 	if(istype(Master.subsystems))
 		if(FireHim)
-			Master.subsystems += new BadBoy.type	//NEW_SS_GLOBAL will remove the old one
+			Master.subsystems += new BadBoy.type //NEW_SS_GLOBAL will remove the old one
 		subsystems = Master.subsystems
 		current_runlevel = Master.current_runlevel
 		StartProcessing(10)
@@ -327,7 +327,7 @@ ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller 
 		Initialize(20, TRUE, FALSE)
 
 // Please don't stuff random bullshit here,
-//	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
+// Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
 /datum/controller/master/Initialize(delay, init_sss, tgs_prime)
 	set waitfor = 0
 
@@ -525,11 +525,11 @@ ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller 
 /datum/controller/master/proc/Loop(init_stage)
 	. = -1
 	//Prep the loop (most of this is because we want MC restarts to reset as much state as we can, and because
-	//	local vars rock
+	// local vars rock
 
 	//all this shit is here so that flag edits can be refreshed by restarting the MC. (and for speed)
 	var/list/tickersubsystems = list()
-	var/list/runlevel_sorted_subsystems = list(list())	//ensure we always have at least one runlevel
+	var/list/runlevel_sorted_subsystems = list(list()) //ensure we always have at least one runlevel
 	var/timer = world.time
 	for(var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing

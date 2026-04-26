@@ -101,7 +101,7 @@
 	afterattack(target, user)
 	return TRUE
 
-/obj/item/tk_grab/afterattack(atom/target, mob/living/user, proximity, list/modifiers)//TODO: go over this
+/obj/item/tk_grab/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)//TODO: go over this
 	if(!target || !user)
 		return
 	if(last_throw+3 > world.time)
@@ -150,7 +150,7 @@
 		return I == focus
 
 /obj/item/tk_grab/proc/focus_object(obj/target, mob/user)
-	if(!isobj(target))
+	if(!istype(target))
 		return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))
 		qdel(src)

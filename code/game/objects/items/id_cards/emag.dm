@@ -25,11 +25,10 @@
 /obj/item/card/emag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity, params)
-	var/atom/A = target
-	if(!proximity)
+/obj/item/card/emag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	A.emag_act(user)
+	target.emag_act(user)
 
 /obj/item/card/emag_broken
 	name = "broken cryptographic sequencer"
@@ -75,7 +74,7 @@
 /obj/item/card/cmag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)

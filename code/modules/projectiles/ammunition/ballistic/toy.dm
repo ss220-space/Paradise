@@ -1,7 +1,6 @@
 // MARK: Foam dart
 /obj/item/ammo_casing/caseless/foam_dart
-	name = "foam dart"
-	desc = "It's nerf or nothing! Ages 8 and up."
+	ammo_marking = "\"пенопластовый\""
 	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foamdart"
 	materials = list(MAT_METAL = 10)
@@ -10,6 +9,19 @@
 	muzzle_flash_effect = null
 	var/modified = FALSE
 	harmful = FALSE
+
+/obj/item/ammo_casing/caseless/foam_dart/update_desc(updates = ALL)
+	. = ..()
+	desc = "Имитация огнестрельного боеприпаса из пены и пластмассы для стрельбы из игрушечного оружия. [extra_info]"
+
+/obj/item/ammo_casing/caseless/foam_dart/examine(mob/user)
+	. = ..()
+	if(modified)
+		. += span_warning("Пуля была модифицирована.")
+
+/obj/item/ammo_casing/caseless/foam_dart/examine_more(mob/user)
+	. = ..()
+	. += span_notice("Патрон можно модифицировать, <b>раскрутив</b> его и вставив внутрь <b>ручку</b>.")
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
 	if(modified)
@@ -21,22 +33,18 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/update_desc(updates)
-	. = ..()
-	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
-
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		add_fingerprint(user)
 		var/obj/projectile/bullet/reusable/foam_dart/bullet = BB
 		if(!bullet)
-			to_chat(user, span_warning("The [name] has no bullet."))
+			balloon_alert(user, "пуля отсутствует!")
 			return ATTACK_CHAIN_PROCEED
 		if(!modified)
-			to_chat(user, span_warning("The [name] should be modified first."))
+			balloon_alert(user, "патрон не модифицирован!")
 			return ATTACK_CHAIN_PROCEED
 		if(bullet.pen)
-			to_chat(user, span_warning("The [name] already has a pen inserted."))
+			balloon_alert(user, "в пулю уже вставлена ручка!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -46,7 +54,7 @@
 		bullet.pen = I
 		bullet.damage = 5
 		bullet.nodamage = FALSE
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		balloon_alert(user, "ручка вставлена")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -55,11 +63,11 @@
 	. = TRUE
 	if(!BB)
 		add_fingerprint(user)
-		to_chat(user, span_warning("The [name] has no bullet."))
+		balloon_alert(user, "пуля отсутствует!")
 		return .
 	if(modified)
 		add_fingerprint(user)
-		to_chat(user, span_warning("The [name] is already modified."))
+		balloon_alert(user, "патрон уже модифицирован!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
@@ -73,19 +81,19 @@
 		FD.damage = initial(FD.damage)
 		FD.nodamage = initial(FD.nodamage)
 		user.put_in_hands(FD.pen)
-		to_chat(user, span_notice("You remove [FD.pen] from [src]."))
+		balloon_alert(user, "ручка извлечена")
 		FD.pen = null
 
 /obj/item/ammo_casing/caseless/foam_dart/riot
-	name = "riot foam dart"
-	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
+	ammo_marking = "\"пенопластовый+\""
+	extra_info = "Усиленная версия, по силе удара сравнимая с полноценными резиновыми пулями."
 	icon_state = "foamdart_riot"
 	materials = list(MAT_METAL = 650)
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/riot
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper
-	name = "foam sniper dart"
-	desc = "For the big nerf! Ages 8 and up."
+	ammo_marking = "\"пенопластовый снайперский\""
+	extra_info = "Вариант большего размера для использования в игрушечных снайперских винтовках."
 	icon_state = "foamdartsniper"
 	materials = list(MAT_METAL = 20)
 	caliber = CALIBER_FOAM_FORCE_SNIPER
@@ -101,20 +109,16 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/sniper/update_desc(updates)
-	. = ..()
-	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
-
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-	name = "riot foam sniper dart"
-	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
+	ammo_marking = "\"пенопластовый снайперский+\""
+	extra_info = "Усиленная версия для игрушечных снайперских винтовок, по силе удара сравнимая с полноценными резиновыми пулями."
 	icon_state = "foamdartsniper_riot"
 	materials = list(MAT_METAL = 1800)
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper/riot
 
 // MARK: Cap
 /obj/item/ammo_casing/cap
-	desc = "A cap for children toys."
+	extra_info = "Холостой вариант для игрушечного оружия. Пуля отсутствует."
 	materials = list(MAT_METAL = 10)
 	caliber = CALIBER_CAP
 	projectile_type = /obj/projectile/bullet/cap

@@ -193,7 +193,7 @@
 /obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
 	var/cached_sound = hitsound
-	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(INC_IGNORE_RESTRAINED))
+	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(IGNORE_RESTRAINTS))
 		hitsound = null
 		force += backstab_damage
 		extra_force_applied = TRUE

@@ -327,9 +327,6 @@
 	return TRUE
 //#undef SCRUB_GAS_SIMPLE
 
-/obj/machinery/atmospherics/unary/vent_scrubber/hide(i) //to make the little pipe section invisible, the icon changes.
-	update_icon()
-
 /obj/machinery/atmospherics/unary/vent_scrubber/power_change(forced = FALSE)
 	if(!..())
 		return
