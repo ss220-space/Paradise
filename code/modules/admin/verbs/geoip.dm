@@ -35,7 +35,7 @@
 /// Per-viewer ckey filter. Keyed by viewer ckey, value is the target ckey to display.
 /// One singleton instance is shared between admins; each admin's window reads its own slot.
 /datum/ui_module/admin/geoip/focused
-	name = "GeoIP Report"
+	name = "GeoIP Focused Report"
 	var/list/target_filters
 
 /datum/ui_module/admin/geoip/focused/ui_interact(mob/user, datum/tgui/ui, target_ckey)

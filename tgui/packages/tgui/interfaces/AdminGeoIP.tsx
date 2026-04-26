@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
 import { Box, Icon, Input, LabeledList, Section, Table } from '../components';
@@ -219,8 +219,14 @@ const rowStyle = (index: number) => ({
 
 const FullListView = ({ clients }: { clients: GeoIPRow[] }) => {
   const [search, setSearch] = useState('');
-  const sorted = [...clients].sort((a, b) => a.ckey.localeCompare(b.ckey));
-  const visible = sorted.filter(createSearch(search, searchHaystack));
+  const sorted = useMemo(
+    () => [...clients].sort((a, b) => a.ckey.localeCompare(b.ckey)),
+    [clients]
+  );
+  const visible = useMemo(
+    () => sorted.filter(createSearch(search, searchHaystack)),
+    [sorted, search]
+  );
 
   return (
     <Section
