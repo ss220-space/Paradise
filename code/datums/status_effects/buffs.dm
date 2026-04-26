@@ -650,6 +650,47 @@
 	. = ..()
 	vamp = null
 
+/datum/status_effect/bloodoversaturation
+	id = "bloodoversaturation"
+	duration = -1
+	tick_interval = 20
+	alert_type = /atom/movable/screen/alert/status_effect/bloodoversaturation
+	var/blood_cost_per_tick = 5
+	#define gargantua_enragedbody_size_multiplier 1.25
+
+/atom/movable/screen/alert/status_effect/bloodoversaturation
+	name = "Кровавое перенасыщение"
+	desc = "Ваше тело пересыщается кровью, вы отвергаете смерть!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "bloodoversat"
+
+/datum/status_effect/bloodoversaturation/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return FALSE
+
+	var/mob/living/carbon/human/human_owner = owner
+	ADD_TRAIT(human_owner, TRAIT_NO_DEATH, VAMPIRE_TRAIT)
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.update_body(TRUE)
+	owner.update_transform(gargantua_enragedbody_size_multiplier / RESIZE_DEFAULT_SIZE)
+
+/datum/status_effect/bloodoversaturation/tick(seconds_between_ticks)
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!V.bloodusable || owner.stat == DEAD)
+		owner.remove_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
+	V.bloodusable = max(V.bloodusable - blood_cost_per_tick, 0)
+
+/datum/status_effect/bloodoversaturation/on_remove()
+	if(!ishuman(owner))
+		return
+
+	var/mob/living/carbon/human/human_owner = owner
+	REMOVE_TRAIT(human_owner, TRAIT_NO_DEATH, VAMPIRE_TRAIT)
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.update_body(TRUE)
+	owner.update_transform(RESIZE_DEFAULT_SIZE / gargantua_enragedbody_size_multiplier)
+
 /datum/status_effect/bloodswell
 	id = "bloodswell"
 	duration = 30 SECONDS
@@ -684,6 +725,10 @@
 		human_owner.physiology.punch_damage_high += 14
 		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
 
+	if(V.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
+		ADD_TRAIT(human_owner, TRAIT_IGNOREDAMAGESLOWDOWN, VAMPIRE_TRAIT)
+		ADD_TRAIT(human_owner, TRAIT_IGNORE_FRACTURE, VAMPIRE_TRAIT)
+
 /datum/status_effect/bloodswell/on_remove()
 	if(!ishuman(owner))
 		return
@@ -691,6 +736,12 @@
 	var/mob/living/carbon/human/human_owner = owner
 
 	REMOVE_TRAIT(human_owner, TRAIT_NO_GUNS, VAMPIRE_TRAIT)
+
+	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
+
+		REMOVE_TRAIT(human_owner, TRAIT_IGNOREDAMAGESLOWDOWN, VAMPIRE_TRAIT)
+		REMOVE_TRAIT(human_owner, TRAIT_IGNORE_FRACTURE, VAMPIRE_TRAIT)
 
 	human_owner.physiology.brute_mod /= 0.3
 	human_owner.physiology.burn_mod /= 0.6

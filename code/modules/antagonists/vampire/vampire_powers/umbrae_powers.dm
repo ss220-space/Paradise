@@ -35,6 +35,35 @@
 	var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 	V.handle_vampire_cloak()
 
+/obj/effect/proc_holder/spell/fireball/umbrae_hand
+	name = "Теневой захват"
+	desc = "Выстрелите одной из рук теневой магии. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
+	gain_desc = "Вы получили способность выпускать теневое щупальце."
+	base_cooldown = 15 SECONDS
+	fireball_type = /obj/projectile/magic/shadow_hand
+
+	selection_activated_message = span_notice_alt("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
+	selection_deactivated_message = span_notice_alt("Вы поглощаете энергию обратно... пока что.")
+
+	action_icon_state = "umbrae_hand"
+
+	school = "vampire"
+	action_background_icon_state = "bg_vampire"
+	invocation_type = "none"
+	invocation = null
+	need_active_overlay = TRUE
+
+/obj/effect/proc_holder/spell/fireball/umbrae_hand/after_spell_init()
+	update_vampire_spell_name()
+
+/obj/effect/proc_holder/spell/fireball/umbrae_hand/update_icon_state()
+	return
+
+/obj/effect/proc_holder/spell/fireball/umbrae_hand/create_new_handler()
+	var/datum/spell_handler/vampire/V = new()
+	V.required_blood = 25
+	return V
+
 /obj/effect/proc_holder/spell/vampire/shadow_snare
 	name = "Теневая ловушка"
 	desc = "Вы вызываете ловушку на земле. Когда её пересекут, она ослепит цель, погасит все имеющиеся у неё источники света и захватит её в капкан."
@@ -56,10 +85,10 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare
 	name = "shadow snare"
 	desc = "Почти прозрачная ловушка, которая тает в тени."
-	alpha = 60
+	alpha = 40
 	armed = TRUE
 	anchored = TRUE
-	breakout_time = 5 SECONDS
+	breakout_time = 15 SECONDS
 	item_flags = DROPDEL
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/get_ru_names()
@@ -336,7 +365,7 @@
 
 	for(var/mob/living/L in view(6, owner))
 		if(L.affects_vampire(owner))
-			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
+			L.adjust_bodytemperature(-60 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
 		turf.extinguish_light()

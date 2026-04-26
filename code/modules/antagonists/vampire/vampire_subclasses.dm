@@ -51,10 +51,11 @@
 		/obj/effect/proc_holder/spell/vampire/self/cloak = 100,
 		/obj/effect/proc_holder/spell/vampire/shadow_snare = 200,
 		/obj/effect/proc_holder/spell/vampire/soul_anchor = 200,
+		/obj/effect/proc_holder/spell/vampire/shadow_boxing = 300,
 		/obj/effect/proc_holder/spell/vampire/dark_passage = 300,
 		/datum/vampire_passive/xray = 300,
 		/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 400,
-		/obj/effect/proc_holder/spell/vampire/shadow_boxing = 600,
+		/obj/effect/proc_holder/spell/fireball/umbrae_hand = 500,
 	)
 	fully_powered_abilities = list(
 		/datum/vampire_passive/full,
@@ -97,12 +98,14 @@
 		/obj/effect/proc_holder/spell/vampire/self/blood_rush = 200,
 		/obj/effect/proc_holder/spell/vampire/self/stomp = 200,
 		/datum/vampire_passive/blood_swell_upgrade = 300,
+		/obj/effect/proc_holder/spell/fireball/demonic_grasp = 300,
 		/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 400,
-		/obj/effect/proc_holder/spell/fireball/demonic_grasp = 600,
+		/obj/effect/proc_holder/spell/vampire/charge = 600,
+		/datum/vampire_passive/blood_swell_anotherupgrade = 600,
 	)
 	fully_powered_abilities = list(
 		/datum/vampire_passive/full,
-		/obj/effect/proc_holder/spell/vampire/charge,
+		/obj/effect/proc_holder/spell/vampire/self/bloodoversaturation,
 	)
 	improved_rejuv_healing = TRUE
 

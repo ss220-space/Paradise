@@ -15,6 +15,9 @@
 /datum/vampire_passive/blood_swell_upgrade
 	gain_desc = "Пока действует «Кровавый вал», все ваши атаки в ближнем бою наносят повышенный урон."
 
+/datum/vampire_passive/blood_swell_anotherupgrade
+	gain_desc = "Пока действует «Кровавый вал», вы перестали замедляться от повреждений и чувствовать переломы."
+
 /obj/effect/proc_holder/spell/vampire/self/stomp
 	name = "Ударная волна"
 	desc = "Вы бьёте ногой по земле, посылая мощную ударную волну, отчего окружающие разлетаются в разные стороны. Не может быть применено, если ваши ноги скованы или обездвижены."
@@ -98,6 +101,21 @@
 		REMOVE_TRAIT(user, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 		user.move_resist = MOVE_FORCE_DEFAULT
 		user.status_flags |= CANPUSH
+
+/obj/effect/proc_holder/spell/vampire/self/bloodoversaturation
+	name = "Кровавое перенасыщение"
+	desc = "Перенасытьте тело чистейшей магией крови, чтобы отвергать смерть или сон на минуту."
+	gain_desc = "Вы получили способность временно отвергать смерть."
+	base_cooldown = 3 SECONDS
+	required_blood = 10
+	action_icon_state = "bloodoversat"
+
+/obj/effect/proc_holder/spell/vampire/self/bloodoversaturation/cast(list/targets, mob/living/user)
+	var/datum/status_effect/bloodoversaturation/T = user.has_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
+	if(!T)
+		user.apply_status_effect(STATUS_EFFECT_BLOODOVERSATURATION, user.mind.has_antag_datum(/datum/antagonist/vampire))
+		return
+	qdel(T)
 
 /obj/effect/proc_holder/spell/vampire/self/blood_rush
 	name = "Кровавый драйв"
