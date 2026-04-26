@@ -165,7 +165,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/c20r/toy/riot,
+			/obj/item/gun/projectile/automatic/smg/c20r/toy/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
@@ -259,7 +259,7 @@
 		/obj/item/gun/energy/laser/captain,
 		/obj/item/gun/energy/sniperrifle/pod_pilot,
 		list(
-			/obj/item/gun/projectile/automatic/c20r,
+			/obj/item/gun/projectile/automatic/smg/c20r,
 			/obj/item/ammo_box/magazine/smgm45,
 			/obj/item/ammo_box/magazine/smgm45,
 			/obj/item/ammo_box/magazine/smgm45,

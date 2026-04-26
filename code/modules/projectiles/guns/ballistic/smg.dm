@@ -91,7 +91,7 @@
 	. = ..()
 
 // MARK: C-20r SMG
-/obj/item/gun/projectile/automatic/c20r
+/obj/item/gun/projectile/automatic/smg/c20r
 	name = "C-20r SMG"
 	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
@@ -109,19 +109,15 @@
 	recoil = GUN_RECOIL_MEDIUM
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.25 SECONDS
+	chambered_light_exists = TRUE
+	mag_ammo_counter_exists = TRUE
+	mag_ammo_counter_size = 4
 
-/obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
-	. = ..()
-	update_icon()
-
-/obj/item/gun/projectile/automatic/c20r/ComponentInitialize()
+/obj/item/gun/projectile/automatic/smg/c20r/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/c20r/update_icon_state()
-	icon_state = "c20r[magazine ? "-[ceil(get_ammo(FALSE)/4)*4]" : ""][chambered ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/c20r/auto
+/obj/item/gun/projectile/automatic/smg/c20r/auto
 	name = "C-20rm SMG"
 	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
@@ -129,7 +125,7 @@
 	autofire_delay = 0.15 SECONDS
 	fire_delay = 0.15 SECONDS
 
-/obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
+/obj/item/gun/projectile/automatic/smg/c20r/auto/get_ru_names()
 	return list(
 		NOMINATIVE = "пистолет-пулемёт C-20rm",
 		GENITIVE = "пистолет-пулемёта C-20rm",
@@ -139,12 +135,12 @@
 		PREPOSITIONAL = "пистолет-пулемёте C-20rm",
 	)
 
-/obj/item/gun/projectile/automatic/c20r/rusted
+/obj/item/gun/projectile/automatic/smg/c20r/rusted
 	name = "C-20r SMG (Rusted)"
 	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
 	damage_mod = 0.85
 
-/obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
+/obj/item/gun/projectile/automatic/smg/c20r/rusted/get_ru_names()
 	return list(
 		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
 		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
@@ -154,7 +150,7 @@
 		PREPOSITIONAL = "пистолет-пулемёте C-20r (ржавый)",
 	)
 
-/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+/obj/item/gun/projectile/automatic/smg/c20r/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)

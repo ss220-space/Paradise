@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/kinetic_accelerator/crossbow/large,
 	/obj/item/gun/energy/gun/nuclear,
 	/obj/item/gun/projectile/automatic/smg/saber,
-	/obj/item/gun/projectile/automatic/c20r,
+	/obj/item/gun/projectile/automatic/smg/c20r,
 	/obj/item/gun/projectile/automatic/l6_saw,
 	/obj/item/gun/projectile/automatic/m90,
 	/obj/item/gun/energy/alien,

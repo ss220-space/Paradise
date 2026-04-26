@@ -368,7 +368,7 @@
 		if(47 to 50) // 3%
 			SynRange = /obj/item/ammo_box/magazine/smgm45
 		if(50 to 51) // 1%
-			SynRange = /obj/item/gun/projectile/automatic/c20r
+			SynRange = /obj/item/gun/projectile/automatic/smg/c20r
 		else
 			SynRange = /obj/item/ammo_casing/c10mm
 	. = ..()
