@@ -14,7 +14,7 @@
 
 /obj/item/gun/energy/taser/underbarrel/attackby(obj/item/item, mob/user, params)
 	. = ATTACK_CHAIN_BLOCKED_ALL
-	var/obj/item/stock_parts/cell/our_cell = cell_type
+	var/obj/item/stock_parts/cell/our_cell = cell
 	if(!istype(item, /obj/item/taser_charge))
 		return ..()
 
