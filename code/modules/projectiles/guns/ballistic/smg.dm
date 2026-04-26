@@ -17,6 +17,8 @@
 	var/buttstock_max_spread_compensation = 15
 	/// How many recoil decrease with unfold buttstock
 	var/buttstock_recoil_compensation = 0.2
+	/// Exists ammo counter indicator in gun
+	var/mag_ammo_counter_exists = FALSE
 	/// Magazine ammo overlay count divider
 	var/mag_ammo_counter_size = 6
 
@@ -36,8 +38,11 @@
 		. += mutable_appearance(icon, "[base_icon_id]_light-[get_ammo() > 0 ? "f" : "e"]", layer = FLOAT_LAYER - 1)
 	if(!magazine)
 		return
-	var/ammo_count_indicator = ceil(get_ammo(FALSE) / mag_ammo_counter_size) * mag_ammo_counter_size
-	. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
+	if(mag_ammo_counter_exists)
+		var/ammo_count_indicator = ceil(get_ammo(FALSE) / mag_ammo_counter_size) * mag_ammo_counter_size
+		. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
+	else
+		. += mutable_appearance(icon, "[base_icon_id]_mag", layer = FLOAT_LAYER - 1)
 
 /obj/item/gun/projectile/automatic/smg/attack_self_secondary(mob/user, list/modifiers)
 	if(buttstock_exists)
@@ -170,6 +175,7 @@
 	)
 	chambered_light_exists = TRUE
 	buttstock_exists = TRUE
+	mag_ammo_counter_exists = TRUE
 
 
 // MARK: SP-91-RC
@@ -190,6 +196,7 @@
 	)
 	chambered_light_exists = TRUE
 	buttstock_exists = TRUE
+	mag_ammo_counter_exists = TRUE
 
 
 // MARK: Sparkle-A12
@@ -215,6 +222,7 @@
 	damage_mod = 0.7
 	chambered_light_exists = TRUE
 	buttstock_exists = TRUE
+	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
 	return list(
@@ -227,7 +235,7 @@
 	)
 
 // MARK: Type-U3 Uzi
-/obj/item/gun/projectile/automatic/mini_uzi
+/obj/item/gun/projectile/automatic/smg/mini_uzi
 	name = "Type U3 Uzi"
 	desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
@@ -237,12 +245,12 @@
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 14, ATTACHMENT_OFFSET_Y = 7),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -4, ATTACHMENT_OFFSET_Y = 12),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 12),
 	)
+	weapon_weight = WEAPON_LIGHT
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 // MARK: Tommy Gun
 /obj/item/gun/projectile/automatic/tommygun

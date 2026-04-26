@@ -72,7 +72,7 @@
 	item_pool = list(
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/minigun = 1,
-		/obj/item/gun/projectile/automatic/mini_uzi = 2,
+		/obj/item/gun/projectile/automatic/smg/mini_uzi = 2,
 		/obj/item/gun/projectile/automatic/pistol/deagle = 2,
 		/obj/item/storage/box/syndie_kit/rsh12_revolver = 1,
 		/obj/item/gun/projectile/automatic/smg/wt550 = 2,
@@ -139,7 +139,7 @@
 	item_pool = list(
 		/obj/item/gun/energy/immolator/multi = 1,
 		/obj/item/gun/energy/gun/minigun = 1,
-		/obj/item/gun/projectile/automatic/mini_uzi = 1,
+		/obj/item/gun/projectile/automatic/smg/mini_uzi = 1,
 		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
 		/obj/item/storage/box/syndie_kit/rsh12_revolver = 1,
 		/obj/item/gun/projectile/automatic/smg/wt550 = 1,

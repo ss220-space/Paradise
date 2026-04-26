@@ -279,7 +279,7 @@
 /area/admin)
 "cH" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/mini_uzi,
+/obj/item/gun/projectile/automatic/smg/mini_uzi,
 /turf/simulated/floor/wood,
 /area/admin)
 "cP" = (
