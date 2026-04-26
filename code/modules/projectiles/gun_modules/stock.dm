@@ -2,15 +2,13 @@
  * MARK: Stock
  */
 /obj/item/gun_module/stock
-	slot = ATTACHMENT_SLOT_STOCK
-
-/obj/item/gun_module/stock
 	name = "telescopic stock"
 	desc = "Телескопический приклад. Позволяет контроллировать оружие при стрельбе, повышая кучность и компенсацию отдачи."
 	icon_state = "stock"
 	item_state = "stock"
 	overlay_state = "stock_o"
 	overlay_offset = list("x" = 0, "y" = 0)
+	slot = ATTACHMENT_SLOT_STOCK
 	class = GUN_MODULE_CLASS_SMG_STOCK
 	custom_price = 2 * PAYCHECK_LOWER
 	/// State flag
