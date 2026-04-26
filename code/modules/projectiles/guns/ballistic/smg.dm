@@ -108,7 +108,6 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = 6),
 	)
 	recoil = GUN_RECOIL_MEDIUM
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.25 SECONDS
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
@@ -291,7 +290,6 @@
 	icon_state = "ppsh"
 	item_state = "ppsh"
 	mag_type = /obj/item/ammo_box/magazine/ppsh
-	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=4;materials=3"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
