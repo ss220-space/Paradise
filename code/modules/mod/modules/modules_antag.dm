@@ -567,8 +567,8 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 75
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/energetic)
-	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
-	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked, /obj/item/mod/module/emp_shield)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	///Copy paste of shielded code wheeeey
 	/// Max charges of the shield.
 	var/max_charges = 80 // Less charges because not gamma / this one is real shocking
