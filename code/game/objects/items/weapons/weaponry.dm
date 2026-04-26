@@ -18,7 +18,7 @@
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/banhammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	to_chat(target, span_danger("<b>Тебя [user] ЗАБАНИЛ БЕЗ ПРИЧИЙНЫ!</b>"))
+	to_chat(target, span_danger("<b>Тебя [user] ЗАБАНИЛ БЕЗ ПРИЧИНЫ!</b>"))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]!"))
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 	return ..()
@@ -408,14 +408,14 @@
 
 /obj/item/melee/baseball_bat/homerun/central_command/examine_more(mob/user)
 	. = ..()
-	. += span_notice("Выдвижная тактическая бита Центрального командования \"Нанотрейзен\". \
+	. += span_notice("Выдвижная тактическая бита Центрального Командования \"Нанотрейзен\". \
 	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
 	Выдаваясь только самым верным и эффективным офицерам \"Нанотрейзен\", это оружие является одновременно символом статуса \
 	и инструментом высшего правосудия.")
 
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
-	desc = "Выдвижная тактическая бита Центрального командования \"Нанотрейзен\". Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
+	desc = "Выдвижная тактическая бита Центрального Командования \"Нанотрейзен\". Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
 	item_state = "srt_bat_0"
 	item_state_on = "srt_bat_1"
 	icon_state = "srt_bat_0"
