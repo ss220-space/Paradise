@@ -7,6 +7,10 @@
 	delay = 2 SECONDS
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/electrode/underbarrel
+	projectile_type = /obj/projectile/energy/electrode/underbarrel
+	e_cost = 1500
+
 /obj/item/ammo_casing/energy/electrode/advanced //admin-bus only, k? dont give this thing to 100 year old Charlie crew or other ghost role
 	projectile_type = /obj/projectile/energy/electrode/advanced
 
@@ -20,7 +24,7 @@
 
 /obj/item/ammo_casing/energy/electrode/old
 	e_cost = 1000
-	
+
 // MARK: Disabler
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler

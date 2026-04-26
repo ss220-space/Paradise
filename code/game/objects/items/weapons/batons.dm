@@ -405,15 +405,13 @@
 	active = FALSE
 	allows_stun_in_harm = TRUE
 	force_say_chance = 50
-	stamina_damage = 45
-	knockdown_time = 5 SECONDS
+	stamina_damage = 20
+	knockdown_time = 2 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
-	cooldown = 2.5 SECONDS
+	cooldown = 1 SECONDS
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	activated_word = "включена"
-	/// Time passed between a hit and knockdown effect.
-	var/knockdown_delay_time = 4 SECONDS
 	/// Chance for the baton to stun when thrown at someone.
 	var/throw_stun_chance = 50
 	/// Cell to use, can be a path, to start loaded.
@@ -588,7 +586,7 @@
 	if(iscarbon(target))
 		target.shock_internal_organs(33)
 
-	addtimer(CALLBACK(src, PROC_REF(apply_stun_effect_end), target), knockdown_delay_time)
+	apply_stun_effect_end(target)
 
 /// After the initial stun period, we check to see if the target needs to have the stun applied.
 /obj/item/melee/baton/security/proc/apply_stun_effect_end(mob/living/target)

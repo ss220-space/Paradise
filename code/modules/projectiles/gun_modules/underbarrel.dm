@@ -384,7 +384,6 @@
 		return
 	internal_gun.attackby(item, attacker, modifiers)
 
-
 // MARK: Grenade launcher
 /obj/item/gun_module/under/gun/grenade_launcher
 	name = "underbarrel grenade launcher"
@@ -436,12 +435,12 @@
 // MARK: Taser
 /obj/item/gun_module/under/gun/taser
 	name = "underbarrel taser"
-	desc = "Модуль подствольного тазера. Устройство позвоялет совершить 15 выстрелов, но к сожалению не имеет возможности зарядки."
+	desc = "Модуль подствольного тазера. Устройство позволяет совершить один мощный выстрел, однако замена картриджа значительно затруднена."
 	icon_state = "shotgun"
 	overlay_state = "shotgun_o"
-	internal_gun_type = /obj/item/gun/energy/taser
+	internal_gun_type = /obj/item/gun/energy/taser/underbarrel
 
-/obj/item/gun_module/under/gun/shotgun/get_ru_names()
+/obj/item/gun_module/under/gun/taser/get_ru_names()
 	return list(
 		NOMINATIVE = "подствольный тазер",
 		GENITIVE = "подствольного тазера",
@@ -449,4 +448,21 @@
 		ACCUSATIVE = "подствольный тазер",
 		INSTRUMENTAL = "подствольным тазером",
 		PREPOSITIONAL = "подствольном тазере",
+	)
+
+/obj/item/taser_charge
+	name = "taser charge"
+	desc = "Небольшой картридж, в котором находится заряд для подствольного тазера. "
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "baguette" //временно до появления спрайта. Не забыть заменить и удалить комментарий
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/taser_charge/get_ru_names()
+	return list(
+		NOMINATIVE = "картридж для тазера",
+		GENITIVE = "картриджа для тазера",
+		DATIVE = "картриджу для тазера",
+		ACCUSATIVE = "картридж для тазера",
+		INSTRUMENTAL = "картридже для тазера",
+		PREPOSITIONAL = "картриджем для тазера",
 	)

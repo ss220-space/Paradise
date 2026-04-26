@@ -9,6 +9,26 @@
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_SNIPER
 
+/obj/item/gun/energy/taser/underbarrel
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/underbarrel)
+
+/obj/item/gun/energy/taser/underbarrel/attackby(obj/item/item, mob/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/stock_parts/cell/our_cell = cell_type
+	if(!istype(item, /obj/item/taser_charge))
+		return ..()
+
+	var/obj/item/taser_charge/charger = item
+
+	user.balloon_alert(user, "замена картриджа...")
+	if(!do_after(user, 4 SECONDS, user, DEFAULT_DOAFTER_IGNORE))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	user.balloon_alert(user, "картридж заменён!")
+
+	qdel(charger)
+	our_cell.give(our_cell.maxcharge)
+	on_recharge()
+
 /obj/item/gun/energy/gun/advtaser
 	name = "hybrid disabler"
 	desc = "A weapon designed to fire long-range disabler beams."

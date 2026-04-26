@@ -89,7 +89,7 @@
 
 // MARK: PDW-9
 /obj/item/gun/energy/gun/pdw9
-	name = "PDW-9 taser pistol"
+	name = "PDW-9 pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
 	item_state = "gun"

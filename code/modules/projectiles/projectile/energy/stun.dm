@@ -27,6 +27,10 @@
 		PREPOSITIONAL = "электроде",
 	)
 
+/obj/projectile/energy/electrode/underbarrel
+	knockdown = 4 SECONDS
+	stamina = 30
+
 /obj/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
