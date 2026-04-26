@@ -67,7 +67,7 @@
 
 
 // MARK: Saber SMG
-/obj/item/gun/projectile/automatic/proto
+/obj/item/gun/projectile/automatic/smg/saber
 	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
@@ -76,14 +76,17 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
 	)
+	starting_attachment_types = list(/obj/item/gun_module/rail/scope/collimator)
+	chambered_light_exists = TRUE
 
-/obj/item/gun/projectile/automatic/proto/rubber
+/obj/item/gun/projectile/automatic/smg/saber/rubber
 
-/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+/obj/item/gun/projectile/automatic/smg/saber/rubber/Initialize(mapload)
 	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
 	. = ..()
 

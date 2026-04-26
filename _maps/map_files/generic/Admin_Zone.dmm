@@ -1254,7 +1254,7 @@
 /area/admin)
 "mX" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /turf/simulated/floor/wood,
 /area/admin)
 "nc" = (
