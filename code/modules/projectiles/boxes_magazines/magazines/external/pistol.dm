@@ -1,6 +1,6 @@
 // MARK: 10mm - Stechkin
 /obj/item/ammo_box/magazine/m10mm
-	gun_name = "пистолета FK-69 \"Стечкин\""
+	gun_name = "пистолета \"Стечкин\""
 	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = CALIBER_10MM
@@ -33,7 +33,7 @@
 
 // MARK: .40 S&W - SP-8
 /obj/item/ammo_box/magazine/sp8
-	gun_name = "пистолета SP-8"
+	gun_name = "пистолета MS-P40-E"
 	icon_state = "sp8mag"
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
@@ -48,7 +48,7 @@
 
 // MARK: .50 AE - Desert Eagle
 /obj/item/ammo_box/magazine/m50
-	gun_name = "пистолета \"Desert Eagle\""
+	gun_name = "пистолета SGM-P \"Колосс\""
 	icon_state = "50ae"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = CALIBER_DOT_50AE
@@ -56,7 +56,7 @@
 
 // MARK: 9mm - Enforcer
 /obj/item/ammo_box/magazine/enforcer
-	gun_name = "пистолета \"Блюститель\""
+	gun_name = "пистолета П-9 \"Блюститель\""
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8

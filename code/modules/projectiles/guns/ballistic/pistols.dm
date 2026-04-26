@@ -12,6 +12,9 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
+/obj/item/gun/projectile/automatic/pistol/update_icon_state()
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+
 // MARK: Stechkin
 /obj/item/gun/projectile/automatic/pistol/stechkin
 	name = "Stechkin pistol"
@@ -52,9 +55,6 @@
 		Именно поэтому \"Стечкин\" пользуется высоким спросом как у гражданских лиц, которым нужно дешёвое оружие для самозащиты, \
 		так и у корпоративных наёмников, ценящих модульное и легко маскируемое оружие."\
 	)
-
-/obj/item/gun/projectile/automatic/pistol/stechkin/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
