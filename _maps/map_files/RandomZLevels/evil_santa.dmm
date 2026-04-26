@@ -1774,7 +1774,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "om" = (
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	name = "Engraved SFG-5"
 	},
 /obj/item/ammo_box/magazine/sfg9mm,

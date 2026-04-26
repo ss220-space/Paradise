@@ -76,6 +76,7 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	fire_modes = GUN_MODE_SINGLE_BURST
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
@@ -268,7 +269,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 // MARK: SFG-5
-/obj/item/gun/projectile/automatic/sfg
+/obj/item/gun/projectile/automatic/smg/sfg
 	name = "SFG-5"
 	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
 	icon_state = "sfg-5"
@@ -282,9 +283,6 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
-
-/obj/item/gun/projectile/automatic/sfg/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 
 // MARK: PPSh
 /obj/item/gun/projectile/automatic/ppsh

@@ -25583,34 +25583,34 @@
 "mhA" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{

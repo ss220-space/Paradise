@@ -271,7 +271,7 @@
 			/obj/item/ammo_box/magazine/wt550m9,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sfg,
+			/obj/item/gun/projectile/automatic/smg/sfg,
 			/obj/item/ammo_box/magazine/sfg9mm,
 			/obj/item/ammo_box/magazine/sfg9mm,
 			/obj/item/ammo_box/magazine/sfg9mm,

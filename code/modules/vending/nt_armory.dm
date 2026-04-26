@@ -128,7 +128,7 @@
 		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
-		/obj/item/gun/projectile/automatic/sfg = 3,
+		/obj/item/gun/projectile/automatic/smg/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
 		/obj/item/ammo_box/shotgun = 4,

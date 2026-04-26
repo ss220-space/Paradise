@@ -43,7 +43,7 @@
 /obj/item/ammo_box/magazine/sfg9mm{
 	pixel_x = 7
 	},
-/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/smg/sfg,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
