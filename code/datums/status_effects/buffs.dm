@@ -653,7 +653,7 @@
 /datum/status_effect/bloodoversaturation
 	id = "bloodoversaturation"
 	duration = -1
-	tick_interval = 1 SECOND
+	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/bloodoversaturation
 	var/blood_cost_per_tick = 5
 
