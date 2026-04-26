@@ -40,7 +40,7 @@
 	desc = "Выстрелите одной из рук теневой магии. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
 	gain_desc = "Вы получили способность выпускать теневое щупальце."
 	base_cooldown = 15 SECONDS
-	fireball_type = /obj/projectile/magic/shadow_hand
+	fireball_type = /obj/projectile/magic/umbrae_hand
 
 	selection_activated_message = span_notice_alt("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
 	selection_deactivated_message = span_notice_alt("Вы поглощаете энергию обратно... пока что.")

@@ -113,9 +113,9 @@
 /obj/effect/proc_holder/spell/vampire/self/bloodoversaturation/cast(list/targets, mob/living/user)
 	var/datum/status_effect/bloodoversaturation/T = user.has_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
 	if(!T)
-		user.apply_status_effect(STATUS_EFFECT_BLOODOVERSATURATION, user.mind.has_antag_datum(/datum/antagonist/vampire))
+		user.apply_status_effect(STATUS_EFFECT_BLOODOVERSATURATION, user.mind?.has_antag_datum(/datum/antagonist/vampire))
 		return
-	qdel(T)
+	user.remove_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
 
 /obj/effect/proc_holder/spell/vampire/self/blood_rush
 	name = "Кровавый драйв"

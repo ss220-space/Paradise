@@ -641,8 +641,9 @@
 		var/mob/living/l_target = target
 		l_target.Immobilize(2 SECONDS)
 		l_target.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
-		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
-	else
+		if(firer)
+			l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+	else if(firer)
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
 
 // MARK: Demonic Grasp

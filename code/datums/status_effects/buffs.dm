@@ -653,10 +653,9 @@
 /datum/status_effect/bloodoversaturation
 	id = "bloodoversaturation"
 	duration = -1
-	tick_interval = 20
+	tick_interval = 1 SECOND
 	alert_type = /atom/movable/screen/alert/status_effect/bloodoversaturation
 	var/blood_cost_per_tick = 5
-	#define gargantua_enragedbody_size_multiplier 1.25
 
 /atom/movable/screen/alert/status_effect/bloodoversaturation
 	name = "Кровавое перенасыщение"
@@ -673,12 +672,12 @@
 	ADD_TRAIT(human_owner, TRAIT_NO_DEATH, VAMPIRE_TRAIT)
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	owner.update_body(TRUE)
-	owner.update_transform(gargantua_enragedbody_size_multiplier / RESIZE_DEFAULT_SIZE)
+	owner.update_transform(1.25 / RESIZE_DEFAULT_SIZE)
 
-/datum/status_effect/bloodoversaturation/tick(seconds_between_ticks)
-	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(!V.bloodusable || owner.stat == DEAD)
+	var/datum/antagonist/vampire/V = owner.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(!V || !V.bloodusable || owner.stat == DEAD)
 		owner.remove_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
+		return
 	V.bloodusable = max(V.bloodusable - blood_cost_per_tick, 0)
 
 /datum/status_effect/bloodoversaturation/on_remove()
@@ -689,7 +688,7 @@
 	REMOVE_TRAIT(human_owner, TRAIT_NO_DEATH, VAMPIRE_TRAIT)
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	owner.update_body(TRUE)
-	owner.update_transform(RESIZE_DEFAULT_SIZE / gargantua_enragedbody_size_multiplier)
+	owner.update_transform(RESIZE_DEFAULT_SIZE / 1.25)
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -737,8 +736,8 @@
 
 	REMOVE_TRAIT(human_owner, TRAIT_NO_GUNS, VAMPIRE_TRAIT)
 
-	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
+	var/datum/antagonist/vampire/V = human_owner.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V?.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
 
 		REMOVE_TRAIT(human_owner, TRAIT_IGNOREDAMAGESLOWDOWN, VAMPIRE_TRAIT)
 		REMOVE_TRAIT(human_owner, TRAIT_IGNORE_FRACTURE, VAMPIRE_TRAIT)
