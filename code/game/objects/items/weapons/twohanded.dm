@@ -201,13 +201,6 @@
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped
-	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ. Выглядит острее обычного"
-
-/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped/Initialize(mapload)
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
-
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
 	force_wielded = 30
@@ -689,7 +682,7 @@
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(ACCUSATIVE)], и цепь останавливается.")
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -731,6 +724,7 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/datum/looping_sound/chainsaw/soundloop
+	COOLDOWN_DECLARE(revs_cooldown)
 
 /obj/item/twohanded/chainsaw/get_ru_names()
 	return list(
@@ -745,6 +739,16 @@
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
 	soundloop = new(src)
+	RegisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED, PROC_REF(on_swap_blocked))
+
+/obj/item/twohanded/chainsaw/proc/on_swap_blocked()
+	SIGNAL_HANDLER
+
+	if(!COOLDOWN_FINISHED(src, revs_cooldown))
+		return
+
+	COOLDOWN_START(src, revs_cooldown, 10 SECONDS)
+	playsound(src, 'sound/weapons/chainsawrevs.ogg', 75, FALSE)
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -759,6 +763,7 @@
 	)
 
 /obj/item/twohanded/chainsaw/Destroy(force)
+	UnregisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED)
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -771,7 +776,7 @@
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(ACCUSATIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 /obj/item/twohanded/chainsaw/update_icon_state()
@@ -791,7 +796,7 @@
 	var/damage_cap = 60
 	if(target_limb == BODY_ZONE_HEAD)
 		damage_cap = 85
-	if(!(target_limb.brute_dam >= damage_cap))
+	if(!(target_limb?.brute_dam >= damage_cap))
 		return
 	target_limb.droplimb()
 

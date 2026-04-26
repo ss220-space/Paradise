@@ -758,3 +758,10 @@
 /proc/siunit(value, unit, maxdecimals = 1)
 	var/si_isolated = siunit_isolated(value, unit, maxdecimals)
 	return "[si_isolated[SI_COEFFICIENT]][si_isolated[SI_UNIT]]"
+
+/// JSON decode that will return null on parse error instead of runtiming.
+/proc/safe_json_decode(data)
+	try
+		return json_decode(data)
+	catch
+		return null
