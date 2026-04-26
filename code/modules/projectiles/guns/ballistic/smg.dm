@@ -56,13 +56,14 @@
 		accuracy.max_spread -= buttstock_max_spread_compensation
 		recoil.strength -= buttstock_recoil_compensation
 		w_class = WEIGHT_CLASS_BULKY
+		playsound(loc, 'sound/weapons/gun_interactions/stock_unfold.ogg', 100, TRUE)
 	else
 		accuracy.min_spread += buttstock_min_spread_compensation
 		accuracy.max_spread += buttstock_max_spread_compensation
 		recoil.strength += buttstock_recoil_compensation
 		w_class = WEIGHT_CLASS_NORMAL
+		playsound(loc, 'sound/weapons/gun_interactions/stock_fold.ogg', 100, TRUE)
 
-	playsound(loc, 'sound/weapons/gun_interactions/sawopen.ogg', 100, TRUE)
 	update_icon()
 
 
