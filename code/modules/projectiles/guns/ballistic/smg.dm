@@ -1,5 +1,6 @@
 /obj/item/gun/projectile/automatic/smg
 	icon = 'icons/obj/weapons/smg.dmi'
+	base_pixel_x = -8
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
@@ -7,16 +8,6 @@
 
 	/// Exists chambered light indicator in gun
 	var/chambered_light_exists = FALSE
-	/// Exists buttstock in gun (use for enable buttstock feature)
-	var/buttstock_exists = FALSE
-	/// Buttstock state flag
-	var/buttstock_unfolded = FALSE
-	/// How many min spread decrease with unfold buttstock
-	var/buttstock_min_spread_compensation = 5
-	/// How many max spread decrease with unfold buttstock
-	var/buttstock_max_spread_compensation = 15
-	/// How many recoil decrease with unfold buttstock
-	var/buttstock_recoil_compensation = 0.2
 	/// Exists ammo counter indicator in gun
 	var/mag_ammo_counter_exists = FALSE
 	/// Magazine ammo overlay count divider
@@ -32,8 +23,6 @@
 /obj/item/gun/projectile/automatic/smg/update_overlays()
 	. = ..()
 	var/base_icon_id = initial(icon_state)
-	if(buttstock_exists)
-		. += mutable_appearance(icon, "[base_icon_id]_buttstock_[buttstock_unfolded ? "on" : "off"]", layer = FLOAT_LAYER - 1)
 	if(chambered_light_exists)
 		. += mutable_appearance(icon, "[base_icon_id]_light-[get_ammo() > 0 ? "f" : "e"]", layer = FLOAT_LAYER - 1)
 	if(!magazine)
@@ -43,28 +32,6 @@
 		. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
 	else
 		. += mutable_appearance(icon, "[base_icon_id]_mag", layer = FLOAT_LAYER - 1)
-
-/obj/item/gun/projectile/automatic/smg/attack_self_secondary(mob/user, list/modifiers)
-	if(buttstock_exists)
-		toggle_buttstock()
-	return ..()
-
-/obj/item/gun/projectile/automatic/smg/proc/toggle_buttstock()
-	buttstock_unfolded = !buttstock_unfolded
-	if(buttstock_unfolded)
-		accuracy.min_spread -= buttstock_min_spread_compensation
-		accuracy.max_spread -= buttstock_max_spread_compensation
-		recoil.strength -= buttstock_recoil_compensation
-		w_class = WEIGHT_CLASS_BULKY
-		playsound(loc, 'sound/weapons/gun_interactions/stock_unfold.ogg', 100, TRUE)
-	else
-		accuracy.min_spread += buttstock_min_spread_compensation
-		accuracy.max_spread += buttstock_max_spread_compensation
-		recoil.strength += buttstock_recoil_compensation
-		w_class = WEIGHT_CLASS_NORMAL
-		playsound(loc, 'sound/weapons/gun_interactions/stock_fold.ogg', 100, TRUE)
-
-	update_icon()
 
 
 // MARK: Saber SMG
@@ -167,14 +134,15 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_size = 2
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SMG_STOCK
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 28, ATTACHMENT_OFFSET_Y = 1),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = 7),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = -5),
+		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -5, ATTACHMENT_OFFSET_Y = -1),
 	)
+	starting_attachment_types = list(/obj/item/gun_module/stock)
 	chambered_light_exists = TRUE
-	buttstock_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 
 
@@ -188,14 +156,15 @@
 	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SMG_STOCK
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 27, ATTACHMENT_OFFSET_Y = 3),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 7),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = -5),
+		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -6, ATTACHMENT_OFFSET_Y = 0),
 	)
+	starting_attachment_types = list(/obj/item/gun_module/stock)
 	chambered_light_exists = TRUE
-	buttstock_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 
 
@@ -210,18 +179,18 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SMG_STOCK
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 25, ATTACHMENT_OFFSET_Y = 3), //x+4
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = 8),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 14, ATTACHMENT_OFFSET_Y = -5),
+		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -4, ATTACHMENT_OFFSET_Y = 1),
 	)
-	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
+	starting_attachment_types = list(/obj/item/gun_module/stock, /obj/item/gun_module/muzzle/suppressor/integrated)
 	fire_modes = GUN_MODE_SINGLE_BURST
 	fire_delay = 1
 	damage_mod = 0.7
 	chambered_light_exists = TRUE
-	buttstock_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
