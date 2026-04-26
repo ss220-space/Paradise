@@ -1,5 +1,6 @@
 /obj/item/gun/projectile/automatic/smg
 	icon = 'icons/obj/weapons/smg.dmi'
+	icon_state = "saber"
 	base_pixel_x = -8
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	recoil = GUN_RECOIL_MEDIUM
@@ -38,7 +39,6 @@
 /obj/item/gun/projectile/automatic/smg/saber
 	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
-	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
