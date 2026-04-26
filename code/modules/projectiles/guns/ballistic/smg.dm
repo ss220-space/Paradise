@@ -95,7 +95,6 @@
 	icon = 'icons/obj/weapons/smg.dmi'
 	icon_state = "wt550"
 	item_state = "arg"
-	actions_types = list(/datum/action/item_action/toggle_firemode, /datum/action/item_action/toggle_buttstock)
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -104,15 +103,16 @@
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 1),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 7),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 28, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	var/buttstock_unfolded = FALSE
-	var/buttstock_spread_compensation = 12
+	var/buttstock_min_spread_compensation = 5
+	var/buttstock_max_spread_compensation = 15
 	var/buttstock_recoil_compensation = 0.2
 
 /obj/item/gun/projectile/automatic/wt550/Initialize(mapload)
@@ -136,20 +136,22 @@
 	var/ammo_count_indicator = ceil(get_ammo(FALSE) / 6) * 6
 	. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
 
-/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/toggle_buttstock))
-		toggle_buttstock()
-		return TRUE
-	. = ..()
+/obj/item/gun/projectile/automatic/wt550/attack_self_secondary(mob/user, list/modifiers)
+	toggle_buttstock()
 
 /obj/item/gun/projectile/automatic/wt550/proc/toggle_buttstock()
 	buttstock_unfolded = !buttstock_unfolded
 	if(buttstock_unfolded)
-		accuracy.max_spread -= buttstock_spread_compensation
+		accuracy.min_spread -= buttstock_min_spread_compensation
+		accuracy.max_spread -= buttstock_max_spread_compensation
 		recoil.strength -= buttstock_recoil_compensation
+		weapon_weight = WEAPON_HEAVY
 	else
-		accuracy.max_spread += buttstock_spread_compensation
+		accuracy.min_spread += buttstock_min_spread_compensation
+		accuracy.max_spread += buttstock_max_spread_compensation
 		recoil.strength += buttstock_recoil_compensation
+		w_class = WEIGHT_CLASS_NORMAL
+
 	playsound(loc, 'sound/weapons/gun_interactions/sawopen.ogg', 100, TRUE)
 	update_icon()
 
@@ -192,7 +194,7 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3), //x+4
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 8),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
