@@ -27,25 +27,6 @@
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
 
-// /datum/action signals
-///from base of datum/action/proc/Trigger(): (datum/action)
-#define COMSIG_ACTION_TRIGGER "action_trigger"
-	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
-/// From /datum/action/Grant(): (mob/grant_to)
-#define COMSIG_ACTION_GRANTED "action_grant"
-/// From /datum/action/Grant(): (datum/action)
-#define COMSIG_MOB_GRANTED_ACTION "mob_action_grant"
-/// From /datum/action/Remove(): (mob/removed_from)
-#define COMSIG_ACTION_REMOVED "action_removed"
-/// From /datum/action/Remove(): (datum/action)
-#define COMSIG_MOB_REMOVED_ACTION "mob_action_removed"
-/// From /datum/action/apply_button_overlay()
-#define COMSIG_ACTION_OVERLAY_APPLY "action_overlay_applied"
-// TODO: spaghetti write comment here
-#define COMSIG_ACTION_BUTTON_UPDATE "action_button_update"
-	#define COMSIG_ACTION_UPDATE_INTERRUPT (1<<0)
-/// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
-#define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
 /// From /datum/action/innate/borer/make_larvae/Activate (turf/turf)
 #define COMSIG_BORER_REPRODUCE "borer_reproduced"
 ///from /datum/action/armguard_hidden_blade/Trigger(): ()

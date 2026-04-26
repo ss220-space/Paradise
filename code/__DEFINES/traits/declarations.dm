@@ -511,3 +511,16 @@
 
 /// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
 #define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"
+
+/// The mob has an active mime vow of silence, and thus is unable to speak and has other mime things going on
+#define TRAIT_MIMING "miming"
+
+/// This atom can have spells cast from it if a mob is within it
+/// This means the "caster" of the spell is changed to the mob's loc
+/// Note this doesn't mean all spells are guaranteed to work or the mob is guaranteed to cast
+#define TRAIT_CASTABLE_LOC "castable_loc"
+
+/// Needs above trait to work.
+/// This trait makes it so that any cast spells will attempt to transfer to the location's location.
+/// For example, a heretic inside the haunted blade's spells would emanate from the mob wielding the sword.
+#define TRAIT_SPELLS_TRANSFER_TO_LOC "spells_transfer_to_loc"

@@ -16,11 +16,11 @@
 /datum/emote/living/carbon/human/select_message_type(mob/living/carbon/human/user, msg, intentional)
 	. = ..()
 
-	if(!species_custom_messages || (user.mind?.miming && !species_custom_mime_messages))
+	if(!species_custom_messages || ((user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING)) && !species_custom_mime_messages))
 		return .
 
 	var/custom_message
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		custom_message = species_custom_mime_messages[user.dna.species?.name]
 	else
 		custom_message = species_custom_messages[user.dna.species?.name]
@@ -29,7 +29,7 @@
 		return custom_message
 
 /datum/emote/living/carbon/human/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
-	if((emote_type & EMOTE_MOUTH) && !user.mind?.miming)
+	if((emote_type & EMOTE_MOUTH) && (user.mind && !HAS_TRAIT(user.mind, TRAIT_MIMING)))
 		if(user.getOxyLoss() > 35 || user.AmountLoseBreath() >= 8 SECONDS)	// no screaming if you don't have enough breath to scream
 			user.emote("gasp")
 			return TRUE
@@ -246,7 +246,7 @@
 /datum/emote/living/carbon/human/scream/select_message_type(mob/living/carbon/human/user, msg, intentional)
 	var/scream_verb = user.dna?.species?.scream_verb
 	if(scream_verb)
-		if(user.mind?.miming)
+		if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 			. = "делает вид, что [scream_verb]!"
 		else
 			. = "[scream_verb]!"
@@ -369,7 +369,7 @@
 	if(!target)
 		return message
 	var/msg = message
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		msg = "затягива%(ет,ют)%ся сигаретой и выдыха%(ет,ют)% дым в форме имени \"[target.name]\"."
 	else
 		msg = "говор%(ит,ят)%, \"[target.name], пожалуйста. У них была семья.\" <b>[user.name]</b> затягивается сигаретой и выдыха%(ет,ют)% дым в форме %(своего,их)% имени."

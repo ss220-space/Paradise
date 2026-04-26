@@ -87,6 +87,8 @@
 #define FINGERS_COVERED (1<<6)
 /// prevents from placing on plasmaman helmet or modsuit hat holder
 #define STACKABLE_HELMET_EXEMPT (1<<7)
+/// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
+#define CASTING_CLOTHES (1<<8)
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 #define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode

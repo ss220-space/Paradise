@@ -1246,7 +1246,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		H.mind.miming = TRUE
+		ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
 
 /datum/species/golem/tranquillite/get_heal_material_types()
 	return list(

@@ -196,7 +196,7 @@
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.mind && M.mind.miming)
+	if(ishuman(M) && M.mind && HAS_TRAIT(M.mind, TRAIT_MIMING))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags

@@ -810,6 +810,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	user.update_equipment_speed_mods()
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	return TRUE
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot

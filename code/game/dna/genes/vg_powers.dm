@@ -217,7 +217,7 @@
 /obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!ishuman(user))
 		return
-	if(user.mind?.miming) // Dont let mimes telepathically talk
+	if(user.mind &&HAS_MIND_TRAIT(user, TRAIT_MIMING)) // Dont let mimes telepathically talk
 		to_chat(user, span_warning("Вы не можете общаться, не нарушив свой обет молчания."))
 		return
 	for(var/mob/living/target in targets)

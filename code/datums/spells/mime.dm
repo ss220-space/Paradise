@@ -15,7 +15,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
 	if(usr?.mind)
-		if(!usr.mind.miming)
+		if(!HAS_TRAIT(usr.mind, TRAIT_MIMING))
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
 		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
@@ -42,7 +42,7 @@
 	if(!ishuman(usr))
 		return
 	var/mob/living/carbon/human/user = usr
-	if(user.mind.miming)
+	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
 		still_recharging_msg = span_warning("Вы не можете так быстро нарушить свой обет молчания!")
 	else
 		still_recharging_msg = span_warning("Вам придётся подождать, прежде чем вы сможете снова дать обет молчания!")
@@ -54,18 +54,18 @@
 	if(!target.mind)
 		return
 
-	target.mind.miming = !target.mind.miming
-
-	if(target.mind.miming)
-		to_chat(target, span_notice("Вы даёте обет молчания."))
-	else
+	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
+		ADD_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
 		to_chat(target, span_notice("Вы нарушаете свой обет молчания."))
+	else
+		REMOVE_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
+		to_chat(target, span_notice("Вы даёте обет молчания."))
 
 /obj/effect/proc_holder/spell/mime/speak/mask
 /obj/effect/proc_holder/spell/mime/speak/mask/on_cooldown_tick()
 	var/mob/living/carbon/human/user = action.owner
 	if(user && cooldown_handler.should_end_cooldown() && !istype(user.wear_mask, /obj/item/clothing/mask/gas/mime))
-		if(user.mind?.miming)
+		if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 			cast(list(user))
 		user.mind?.RemoveSpell(src)
 
@@ -87,7 +87,7 @@
 
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
 	if(usr?.mind)
-		if(!usr.mind.miming)
+		if(!HAS_TRAIT(usr.mind, TRAIT_MIMING))
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
 		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."

@@ -43,11 +43,6 @@
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
-#define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
-#define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
-	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)

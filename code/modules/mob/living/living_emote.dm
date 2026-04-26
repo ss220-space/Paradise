@@ -10,7 +10,7 @@
 	message_postfix = " на %t."
 
 /datum/emote/living/should_play_sound(mob/user, intentional)
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		return FALSE  // shh
 	return ..()
 

@@ -60,6 +60,8 @@
 
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"
+///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
+#define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
 ///from base of mob/anti_magic_check(): (mob/user, magic, holy, tinfoil, chargecost, self, protection_sources)
 #define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
 	#define COMPONENT_BLOCK_MAGIC (1<<0)
@@ -207,7 +209,8 @@
 
 /// From /obj/item/melee/baton/baton_effect(): (datum/source, mob/living/user, /obj/item/melee/baton)
 #define COMSIG_MOB_BATONED "mob_batoned"
-
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 /// A mob has just unequipped an item.
 #define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
 /// From base of /mob/proc/update_held_items

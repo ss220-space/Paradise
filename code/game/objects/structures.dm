@@ -141,7 +141,7 @@
 
 	if(LAZYIN(user.active_genes, /datum/dna/gene/disability/clumsy))
 		slopchance += 20
-	if(user.mind?.miming)
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		slopchance -= 30
 
 	slopchance = clamp(slopchance, 1, 100)

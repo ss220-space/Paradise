@@ -56,7 +56,6 @@
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
-	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
 	/// this mind's ANTAG_HUD should have this icon_state

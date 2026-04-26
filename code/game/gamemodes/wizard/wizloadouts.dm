@@ -75,7 +75,7 @@
 /datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.mind)
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		user.mind.miming = TRUE
+		ADD_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
 	..()
 
 /datum/spellbook_entry/loadout/gunreaper

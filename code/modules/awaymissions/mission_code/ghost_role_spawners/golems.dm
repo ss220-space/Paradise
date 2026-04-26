@@ -148,7 +148,7 @@
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-			H.mind.miming = TRUE
+			ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
 
 	if(has_owner)
 		new_spawn.mind.assigned_role = "Servant Golem"

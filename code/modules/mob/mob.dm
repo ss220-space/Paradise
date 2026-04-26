@@ -782,7 +782,7 @@
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
 	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return 
+		return
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
@@ -1513,3 +1513,16 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/compressor_grind()
 	gib()
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
