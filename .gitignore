@@ -108,3 +108,6 @@ paradise.json
 # dmdoc and output
 dmdoc.exe
 dmdoc/
+
+# AI assistants
+.claude/

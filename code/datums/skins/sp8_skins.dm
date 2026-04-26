@@ -24,16 +24,3 @@
 /datum/item_skin_data/sp8/white
 	name = "Белый"
 	icon_state = "sp8_white"
-
-
-//MARK: SP-8T
-/datum/item_skin_data/sp8t
-	item_path = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
-
-/datum/item_skin_data/sp8t/dust
-	name = "Песочный"
-	icon_state = "sp8t_dust"
-
-/datum/item_skin_data/sp8t/sea
-	name = "Морской"
-	icon_state = "sp8t_sea"
