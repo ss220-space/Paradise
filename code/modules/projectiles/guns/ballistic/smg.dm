@@ -285,7 +285,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 // MARK: PPSh
-/obj/item/gun/projectile/automatic/ppsh
+/obj/item/gun/projectile/automatic/smg/ppsh
 	name = "PPSh submachine gun"
 	desc = "A submachine gun favored by Soviet soldiers."
 	icon_state = "ppsh"
@@ -297,7 +297,8 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_size = 5
-	fire_delay = 1.5
+	autofire_delay = 0.15 SECONDS
+	fire_delay = 0.15 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -307,12 +308,12 @@
 	recoil = GUN_RECOIL_HIGH
 
 
-/obj/item/gun/projectile/automatic/ppsh/rusted
+/obj/item/gun/projectile/automatic/smg/ppsh/rusted
 	name = "Rusted PPSh submachine gun"
 	desc = "An old submachine gun favored by Soviet soldiers."
 	damage_mod = 0.75
 
-/obj/item/gun/projectile/automatic/ppsh/rusted/ComponentInitialize()
+/obj/item/gun/projectile/automatic/smg/ppsh/rusted/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 4, malf_low_bound = 15, malf_high_bound = 71)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 30, misfire_high_bound = 71)
