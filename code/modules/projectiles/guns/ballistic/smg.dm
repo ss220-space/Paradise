@@ -1,5 +1,12 @@
 /obj/item/gun/projectile/automatic/smg
 	icon = 'icons/obj/weapons/smg.dmi'
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+
+	/// Exists chambered light indicator in gun
+	var/chambered_light_exists = FALSE
 	/// Exists buttstock in gun (use for enable buttstock feature)
 	var/buttstock_exists = FALSE
 	/// Buttstock state flag
@@ -10,6 +17,8 @@
 	var/buttstock_max_spread_compensation = 15
 	/// How many recoil decrease with unfold buttstock
 	var/buttstock_recoil_compensation = 0.2
+	/// Magazine ammo overlay count divider
+	var/mag_ammo_counter_size = 6
 
 /obj/item/gun/projectile/automatic/smg/Initialize(mapload)
 	. = ..()
@@ -23,13 +32,11 @@
 	var/base_icon_id = initial(icon_state)
 	if(buttstock_exists)
 		. += mutable_appearance(icon, "[base_icon_id]_buttstock_[buttstock_unfolded ? "on" : "off"]", layer = FLOAT_LAYER - 1)
-	if(get_ammo() > 0)
-		. += mutable_appearance(icon, "[base_icon_id]_full_light", layer = FLOAT_LAYER - 1)
-	else
-		. += mutable_appearance(icon, "[base_icon_id]_empty_light", layer = FLOAT_LAYER - 1)
+	if(chambered_light_exists)
+		. += mutable_appearance(icon, "[base_icon_id]_light-[get_ammo() > 0 ? "f" : "e"]", layer = FLOAT_LAYER - 1)
 	if(!magazine)
 		return
-	var/ammo_count_indicator = ceil(get_ammo(FALSE) / 6) * 6
+	var/ammo_count_indicator = ceil(get_ammo(FALSE) / mag_ammo_counter_size) * mag_ammo_counter_size
 	. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
 
 /obj/item/gun/projectile/automatic/smg/attack_self_secondary(mob/user, list/modifiers)
@@ -155,46 +162,38 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_size = 2
-	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 28, ATTACHMENT_OFFSET_Y = 1),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = 7),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = -5),
 	)
-	recoil = GUN_RECOIL_MEDIUM
-	weapon_weight = WEAPON_HEAVY
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	chambered_light_exists = TRUE
 	buttstock_exists = TRUE
 
 
 // MARK: SP-91-RC
-/obj/item/gun/projectile/automatic/sp91rc
+/obj/item/gun/projectile/automatic/smg/sp91rc
 	name = "SP-91-RC"
 	desc = "Компактный пистолет-пулемёт, предназначенный для \"нелетального\" подавления беспорядков."
-	icon_state = "SP-91-RC"
+	icon_state = "sp91"
 	item_state = "SP-91-RC"
 	mag_type = /obj/item/ammo_box/magazine/sp91rc
 	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 7),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 27, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = -5),
 	)
-	recoil = GUN_RECOIL_MEDIUM
-	weapon_weight = WEAPON_HEAVY
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	chambered_light_exists = TRUE
+	buttstock_exists = TRUE
 
-/obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
-	icon_state = "SP-91-RC[magazine ? "-[ceil(get_ammo(FALSE)/5)*5]" : ""]"
-	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 // MARK: Sparkle-A12
-/obj/item/gun/projectile/automatic/sparkle_a12
+/obj/item/gun/projectile/automatic/smg/sparkle_a12
 	name = "A9 \"Sparkle\""
 	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый концерном \"Скарборо\". Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. Предназначен для ближнего боя в условиях ограниченного пространства."
 	icon_state = "sparkle-a12"
@@ -206,17 +205,18 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3), //x+4
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 25, ATTACHMENT_OFFSET_Y = 3), //x+4
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 14, ATTACHMENT_OFFSET_Y = -5),
 	)
 	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
-	recoil = GUN_RECOIL_MEDIUM
-	weapon_weight = WEAPON_HEAVY
+	fire_modes = GUN_MODE_SINGLE_BURST
 	fire_delay = 1
 	damage_mod = 0.7
+	chambered_light_exists = TRUE
+	buttstock_exists = TRUE
 
-/obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
+/obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
 	return list(
 		NOMINATIVE = "А9 \"Искра\"",
 		GENITIVE = "А9 \"Искра\"",
@@ -225,9 +225,6 @@
 		INSTRUMENTAL = "А9 \"Искра\"",
 		PREPOSITIONAL = "А9 \"Искра\""
 	)
-
-/obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
-	icon_state = "sparkle-a12[magazine ? "_[CEILING(get_ammo(FALSE) / 6, 1) * 6]" : "-e"]"
 
 // MARK: Type-U3 Uzi
 /obj/item/gun/projectile/automatic/mini_uzi

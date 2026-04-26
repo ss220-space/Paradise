@@ -202,7 +202,7 @@
 			/obj/item/ammo_box/magazine/smgm9mm,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sparkle_a12,
+			/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
@@ -380,7 +380,7 @@
 			/obj/item/ammo_casing/a40mm/secgl/gas,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sp91rc,
+			/obj/item/gun/projectile/automatic/smg/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,

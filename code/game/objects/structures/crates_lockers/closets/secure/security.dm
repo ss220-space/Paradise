@@ -200,11 +200,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
-	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12
 	name = "security Sparkle-A12 gun cabinet"
@@ -222,11 +222,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
-	new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
+	new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"

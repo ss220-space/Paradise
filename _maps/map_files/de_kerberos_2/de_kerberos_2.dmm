@@ -17201,16 +17201,16 @@
 "chB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = -7
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = -2
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = 2
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = 7
 	},
 /turf/simulated/floor/plasteel{
