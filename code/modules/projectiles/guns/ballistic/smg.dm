@@ -92,8 +92,10 @@
 /obj/item/gun/projectile/automatic/wt550
 	name = "WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
+	icon = 'icons/obj/weapons/smg.dmi'
 	icon_state = "wt550"
 	item_state = "arg"
+	actions_types = list(/datum/action/item_action/toggle_firemode, /datum/action/item_action/toggle_buttstock)
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -109,9 +111,48 @@
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	var/buttstock_unfolded = FALSE
+	var/buttstock_spread_compensation = 12
+	var/buttstock_recoil_compensation = 0.2
+
+/obj/item/gun/projectile/automatic/wt550/Initialize(mapload)
+	. = ..()
+	update_icon()
+
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[ceil(get_ammo(FALSE)/6)*6]" : ""]"
+	icon_state = "[initial(icon_state)]_base"
+
+/obj/item/gun/projectile/automatic/wt550/update_overlays()
+	. = ..()
+	var/base_icon_id = initial(icon_state)
+	. += mutable_appearance(icon, "[base_icon_id]_buttstock_[buttstock_unfolded ? "on" : "off"]", layer = FLOAT_LAYER - 1)
+	if(get_ammo() > 0)
+		. += mutable_appearance(icon, "[base_icon_id]_full_light", layer = FLOAT_LAYER - 1)
+	else
+		. += mutable_appearance(icon, "[base_icon_id]_empty_light", layer = FLOAT_LAYER - 1)
+	if(!magazine)
+		return
+	var/ammo_count_indicator = ceil(get_ammo(FALSE) / 6) * 6
+	. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
+
+/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_buttstock))
+		toggle_buttstock()
+		return TRUE
+	. = ..()
+
+/obj/item/gun/projectile/automatic/wt550/proc/toggle_buttstock()
+	buttstock_unfolded = !buttstock_unfolded
+	if(buttstock_unfolded)
+		accuracy.max_spread -= buttstock_spread_compensation
+		recoil.strength -= buttstock_recoil_compensation
+	else
+		accuracy.max_spread += buttstock_spread_compensation
+		recoil.strength += buttstock_recoil_compensation
+	playsound(loc, 'sound/weapons/gun_interactions/sawopen.ogg', 100, TRUE)
+	update_icon()
+
 
 // MARK: SP-91-RC
 /obj/item/gun/projectile/automatic/sp91rc
