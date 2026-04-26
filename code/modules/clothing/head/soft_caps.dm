@@ -6,7 +6,6 @@
 	item_color = "cargo"
 	dying_key = DYE_REGISTRY_SOFTCAP
 	var/flipped = FALSE
-	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
@@ -16,6 +15,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
+
+/obj/item/clothing/head/soft/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Развернуть кепку")
 
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = flipped ? "[item_color]soft_flipped" : "[item_color]soft"

@@ -10,7 +10,7 @@
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
 	)
 
 /obj/item/gun/projectile/automatic/proto/rubber
@@ -29,14 +29,11 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	burst_size = 2
-	can_bayonet = TRUE
-	bayonet_x_offset = 26
-	bayonet_y_offset = 12
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = 6),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
@@ -51,7 +48,7 @@
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
-	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
+	icon_state = "c20r[magazine ? "-[ceil(get_ammo(FALSE)/4)*4]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm SMG"
@@ -102,22 +99,19 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_size = 2
-	can_bayonet = TRUE
-	bayonet_x_offset = 25
-	bayonet_y_offset = 12
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
+	icon_state = "wt550[magazine ? "-[ceil(get_ammo(FALSE)/6)*6]" : ""]"
 
 // MARK: SP-91-RC
 /obj/item/gun/projectile/automatic/sp91rc
@@ -132,16 +126,16 @@
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
-	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
+	icon_state = "SP-91-RC[magazine ? "-[ceil(get_ammo(FALSE)/5)*5]" : ""]"
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 // MARK: Sparkle-A12
@@ -157,9 +151,9 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 4, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
 	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
 	recoil = GUN_RECOIL_MEDIUM
@@ -178,7 +172,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
-	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
+	icon_state = "sparkle-a12[magazine ? "_[CEILING(get_ammo(FALSE) / 6, 1) * 6]" : "-e"]"
 
 // MARK: Type-U3 Uzi
 /obj/item/gun/projectile/automatic/mini_uzi
@@ -191,8 +185,8 @@
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
-		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 14, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -4, ATTACHMENT_OFFSET_Y = 12),
 	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
@@ -224,9 +218,9 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 5),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
@@ -250,8 +244,8 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 5),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 5),
 	)
 	recoil = GUN_RECOIL_HIGH
 

@@ -1,0 +1,4 @@
+author: "trollbebra"
+delete-after: True
+changes:
+  - local: "Произошла локализация комбинезонов и бумажек целей на русский язык. (PR #9023)"

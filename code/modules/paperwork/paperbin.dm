@@ -29,19 +29,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/paper_bin/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
+	if(over_object != user || !ishuman(user))
+		return
 
-	if(over_object != user || user.incapacitated() || !ishuman(user))
-		return FALSE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(span_notice("[user] picks up [src]."))
-		return TRUE
-
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(span_notice("[user] picks up [src]."))
 
 /obj/item/paper_bin/attack_hand(mob/user)
 	if(ishuman(user))

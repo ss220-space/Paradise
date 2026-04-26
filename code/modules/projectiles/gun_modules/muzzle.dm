@@ -12,6 +12,7 @@
 	overlay_state = "supp_o"
 	overlay_offset = list("x" = -1, "y" = 0)
 	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
+	custom_price = 2 * PAYCHECK_LOWER
 	var/oldsound
 	var/initial_w_class
 
@@ -49,6 +50,7 @@
 	icon_state = "suppshotgun"
 	overlay_state = "suppshotgun_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_MUZZLE
+	custom_price = 2.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
 	return list(
@@ -66,6 +68,7 @@
 	icon_state = "suppheavy"
 	overlay_state = "suppheavy_o"
 	class = GUN_MODULE_CLASS_SNIPER_MUZZLE
+	custom_price = 3 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/heavy/get_ru_names()
 	return list(
@@ -143,6 +146,7 @@
 	var/initial_w_class
 	var/spread_decrease = 0
 	var/initial_recoil
+	custom_price = 2 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/compensator/get_ru_names()
 	return list(

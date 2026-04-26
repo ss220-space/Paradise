@@ -54,6 +54,9 @@
 		qdel(src, TRUE)
 		return
 
+	if(QDELETED(src) || QDELETED(parent))
+		CRASH("Component [type] was created with a deleted parent or was deleted itself before it could be added to a parent.")
+
 	_JoinParent(parent)
 
 /**

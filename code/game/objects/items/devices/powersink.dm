@@ -68,24 +68,26 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(mode == DISCONNECTED)
-		var/turf/T = loc
-		if(isturf(T) && !T.intact)
-			attached = locate() in T
-			if(!attached)
-				to_chat(user, "No exposed cable here to attach to.")
-				return
-			else
-				set_mode(CLAMPED_OFF)
-				visible_message(span_notice("[user] attaches [src] to the cable!"))
-				message_admins("Power sink attached by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
-				add_game_logs("attached power sink at [COORD(src)]", user)
-				investigate_log("attached by [key_name_log(user)]", INVESTIGATE_ENGINE)
-		else
-			to_chat(user, "Device must be placed over an exposed cable to attach to it.")
-	else
+
+	if(mode != DISCONNECTED)
 		set_mode(DISCONNECTED)
-		src.visible_message(span_notice("[user] detaches [src] from the cable!"))
+		visible_message(span_notice("[user] detaches [src] from the cable!"))
+		return
+
+	var/turf/our_turf = loc
+	if(isturf(our_turf) && our_turf.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)
+		attached = locate() in our_turf
+		if(!attached)
+			to_chat(user, "No exposed cable here to attach to.")
+			return
+
+		set_mode(CLAMPED_OFF)
+		visible_message(span_notice("[user] attaches [src] to the cable!"))
+		message_admins("Power sink attached by [key_name_admin(user)] at [ADMIN_COORDJMP(src)]")
+		add_game_logs("attached power sink at [COORD(src)]", user)
+		investigate_log("attached by [key_name_log(user)]", INVESTIGATE_ENGINE)
+	else
+		to_chat(user, "Device must be placed over an exposed cable to attach to it.")
 
 /obj/item/powersink/attack_ai()
 	return

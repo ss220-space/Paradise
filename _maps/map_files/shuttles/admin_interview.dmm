@@ -190,21 +190,15 @@
 "lX" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleprivateshutters";
-	name = "Private Shutters";
-	opacity = 0
+	name = "Private Shutters"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -403,12 +397,9 @@
 	name = "Ship External Access";
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -495,13 +486,10 @@
 "ye" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -601,13 +589,10 @@
 "Ca" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -746,12 +731,9 @@
 	pixel_y = -29;
 	req_access = list(0)
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -874,12 +856,9 @@
 "RR" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)

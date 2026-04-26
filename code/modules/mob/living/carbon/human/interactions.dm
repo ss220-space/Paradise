@@ -3,9 +3,9 @@
 ***********************************/
 
 /mob/living/carbon/human/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(src == usr)
-		interact(over_object)
+	if(src != user)
+		return
+	interact(over_object)
 
 /mob/proc/make_interaction()
 	return

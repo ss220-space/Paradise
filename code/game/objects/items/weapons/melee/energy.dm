@@ -386,7 +386,7 @@
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
 
-/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
 	if(!active || swiping || user_turf == target_turf)
@@ -405,7 +405,7 @@
 		var/turf/check_turf = get_step(user_turf, turn(dir_to_target, i))
 		for(var/mob/living/mob in check_turf)
 			if(user.Adjacent(mob) && mob.body_position == STANDING_UP)
-				melee_attack_chain(user, mob, params)
+				melee_attack_chain(user, mob, modifiers)
 	swiping = FALSE
 	return ATTACK_CHAIN_BLOCKED_ALL
 

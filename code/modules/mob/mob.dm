@@ -409,22 +409,173 @@
 	LAZYREMOVE(client.movingmob.client_mobs_in_contents, src)
 	client.movingmob = null
 
-//mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view())
+/mob/verb/examinate(atom/examinify as mob|obj|turf in view())
 	set name = "Осмотреть"
 	set category = VERB_CATEGORY_IC
 
 	if(!client)
 		return
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), examinify))
 
-/mob/proc/run_examinate(atom/target)
-	// TODO: TG Double Examine
-	var/list/result = target.examine(src)
-	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
+/mob/proc/run_examinate(atom/examinify, force_examinate_more = FALSE)
+	if(QDELETED(examinify)) // since this can run async we might have had the atom get qdeleted already
+		return
 
-	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	var/turf/examine_turf = get_turf(examinify)
+	if(is_blind()) //blind people see things differently (through touch)
+		if(!blind_examine_check(examinify))
+			return
+	else if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
+		return
+
+	face_atom(examinify)
+	var/result_combined
+	if(client)
+		LAZYINITLIST(client.recent_examines)
+		var/ref_to_atom = examinify.UID()
+		var/examine_time = client.recent_examines[ref_to_atom]
+		if(force_examinate_more || (examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW)))
+			var/list/result = examinify.examine_more(src)
+			if(!length(result))
+				result += span_notice("<i>Вы внимательно осматриваете [examinify.declent_ru(ACCUSATIVE)], но не замечаете новых деталей...</i>")
+			result_combined = chat_box_examine(jointext(result, "<br>"))
+		else
+			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
+			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
+			handle_eye_contact(examinify)
+
+	if(!result_combined)
+		var/list/result = examinify.examine(src)
+		var/atom_title = examinify.examine_title(src, thats = TRUE)
+		examining(examinify, result)
+		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+		result += span_notice("<i>Вы можете <a href='byond://?src=[UID()];run_examinate=[examinify.UID()]'>осмотреть</a> [examinify.declent_ru(ACCUSATIVE)] более тщательно...</i>")
+		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : chat_box_examine(jointext(result, "<br>")))
+
+	to_chat(src, span_infoplain(result_combined))
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
+
+/// Handles adding examine messages for the target that are specific to this mob, e.g. a blood worm examining how much blood a living target has.
+/mob/proc/examining(atom/target, list/result)
+	SHOULD_NOT_SLEEP(TRUE)
+	return
+
+/mob/Topic(href, list/href_list)
+	. = ..()
+	if(.)
+		return
+	if(href_list["run_examinate"])
+		var/atom/examined_atom = locateUID(href_list["run_examinate"])
+		//run_examinate only early returns this check for turfs for some reason.
+		if(examined_atom in view(client ? client.view : world.view, src))
+			run_examinate(examined_atom, force_examinate_more = TRUE)
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE //The non-living will always succeed at this check.
+
+/mob/living/blind_examine_check(atom/examined_thing)
+	//need to be next to something and awake
+	if(!Adjacent(examined_thing) || incapacitated())
+		to_chat(src, span_warning("Здесь что-то есть, но вы не можете это разглядеть!"))
+		return FALSE
+
+	//you can examine things you're holding directly, but you can't examine other things if your hands are full
+	/// the item in our active hand
+	var/obj/item/active_item = get_active_hand()
+	var/boosted = FALSE
+	if(active_item)
+		if(HAS_TRAIT(active_item, TRAIT_BLIND_TOOL)) //TODO: дать трейт трости, реворкнув её TG-лайк (сейчас трейт нигде не используется)
+			boosted = TRUE
+		else if(active_item != examined_thing)
+			examined_thing.balloon_alert(src, "освободите руки, чтобы осмотреть!")
+			return FALSE
+
+	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
+	/// our active hand, to check if it's disabled/detached
+	if(get_active_hand() || do_after_count() >= usable_hands)
+		examined_thing.balloon_alert(src, "нет свободных рук для осмотра!")
+		return FALSE
+
+	//you can only queue up one examine on something at a time
+	if(DOING_INTERACTION_WITH_TARGET(src, examined_thing))
+		return FALSE
+
+	examined_thing.balloon_alert(src, "попытка нащупать объект...")
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] шар[PLUR_IT_YAT(src)]ся вокруг руками в поисках [examined_thing.declent_ru(GENITIVE)]."))
+
+	/// how long it takes for the blind person to find the thing they're examining
+	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
+	if(boosted)
+		examine_delay_length = 0.5 SECONDS
+	if(client?.recent_examines && client?.recent_examines[examined_thing.UID()]) //easier to find things we just touched
+		examine_delay_length = 0.33 SECONDS
+	else if(isobj(examined_thing))
+		examine_delay_length *= 1.5
+	else if(ismob(examined_thing) && examined_thing != src)
+		examine_delay_length *= 2
+
+	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
+		balloon_alert(src, "не удалось осмотреть!")
+		return FALSE
+
+	return TRUE
+
+
+/mob/proc/clear_from_recent_examines(ref_to_clear)
+	SIGNAL_HANDLER
+	if(!client)
+		return
+	LAZYREMOVE(client.recent_examines, ref_to_clear)
+
+/**
+ * handle_eye_contact() is called when we examine() something. If we examine an alive mob with a mind who has examined us in the last 2 seconds within 5 tiles, we make eye contact!
+ *
+ * Note that if either party has their face obscured, the other won't get the notice about the eye contact
+ * Also note that examine_more() doesn't proc this or extend the timer, just because it's simpler this way and doesn't lose much.
+ * The nice part about relying on examining is that we don't bother checking visibility, because we already know they were both visible to each other within the last second, and the one who triggers it is currently seeing them
+ */
+/mob/proc/handle_eye_contact(mob/living/examined_mob)
+	return
+
+/mob/living/handle_eye_contact(mob/living/examined_mob)
+	if(!istype(examined_mob) || src == examined_mob || examined_mob.stat >= UNCONSCIOUS || !client || is_blind())
+		return
+
+	var/imagined_eye_contact = FALSE
+	if(!LAZYACCESS(examined_mob.client?.recent_examines, src.UID()))
+		return
+
+	if(get_dist(src, examined_mob) > EYE_CONTACT_RANGE)
+		return
+
+	// check to see if their face is blocked or, if not, a signal blocks it
+	if(examined_mob.can_eye_contact() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
+		var/obj/item/clothing/eye_cover = examined_mob.is_eyes_covered()
+		if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+			var/msg = span_smallnotice("Вы встречаетесь взглядом с [examined_mob.declent_ru(INSTRUMENTAL)].")
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
+
+	if(!(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT))
+		return
+
+	var/obj/item/clothing/eye_cover = is_eyes_covered()
+	if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+		var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
+
+/// Checks if we can make eye contact or someone can make eye contact with us
+/mob/living/proc/can_eye_contact()
+	return TRUE
+
+/mob/living/carbon/can_eye_contact()
+	return !(check_obscured_slots() & ITEM_SLOT_EYES)
 
 /mob/verb/mode()
 	set name = "Использовать объект"
@@ -433,7 +584,13 @@
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
 		if(src == mecha.occupant)
-			mecha.selected?.self_occupant_attack()
+			var/list/modules = list()
+			for(var/key, module in mecha.selected_equipment_in_hands)
+				modules += module
+			var/obj/item/mecha_parts/mecha_equipment/selected = tgui_input_list(usr, "Выберите модуль", "Выбор модуля", modules)
+			if(!selected)
+				return
+			selected.self_occupant_attack()
 		return
 
 	var/obj/item/I = get_active_hand()
@@ -624,17 +781,16 @@
 		popup.open(FALSE)
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
-	. = ..()
-	if(!. || usr != user || usr == src || over_object != usr || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return FALSE
+	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+		return 
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
-		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
-		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
-		return FALSE
+		to_chat(user, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
-		return FALSE
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
+		return
+	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, user, user)
 
 /**
  * Checks whether a mob can perform an action to interact with an object
@@ -1100,6 +1256,9 @@
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
+
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon
 
@@ -1156,7 +1315,7 @@
 		update_worn_mask()
 	if(clean_feet)
 		feet_blood_color = null
-		qdel(feet_blood_DNA)
+		feet_blood_DNA = null
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
 		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_worn_shoes()

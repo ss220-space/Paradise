@@ -532,8 +532,7 @@
 	add_fingerprint(grabber)
 	take_occupant(target, willing)
 
-/obj/machinery/cryopod/MouseDrop_T(atom/movable/O, mob/user, params)
-
+/obj/machinery/cryopod/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other

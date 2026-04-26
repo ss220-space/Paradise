@@ -14,6 +14,10 @@
 	hood = null
 	return ..()
 
+/obj/item/clothing/suit/armor/reactive/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/suit/hooded/proc/MakeHood()
 	item_color = initial(icon_state)
 	if(!hoodtype || hood)

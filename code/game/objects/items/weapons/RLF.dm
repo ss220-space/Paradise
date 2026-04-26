@@ -10,14 +10,14 @@ RLF
 	icon_state = "rlf"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
-/obj/item/rlf/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/rlf/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(!isrobot(user))
 		return
-	if(!iscarbon(A))
+	if(!iscarbon(target))
 		return
-	var/mob/living/carbon/receiver = A
+	var/mob/living/carbon/receiver = target
 	if(receiver.stat != CONSCIOUS)
 		to_chat(user, span_warning("[receiver] can't accept any items because they're not conscious!"))
 		return

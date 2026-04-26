@@ -109,13 +109,19 @@
 
 	return ..()
 
+/**
+ * Called when this mob is receiving damage from falling
+ *
+ * * impacted_turf - the turf we are falling onto
+ * * levels - the number of levels we are falling
+ */
 /mob/living/proc/ZImpactDamage(turf/impacted_turf, levels)
 	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
 	if(. & ZIMPACT_CANCEL_DAMAGE)
 		return .
 
 	// If you are incapped, you probably can't brace yourself
-	var/can_help_themselves = !incapacitated(INC_IGNORE_RESTRAINED)
+	var/can_help_themselves = !incapacitated(IGNORE_RESTRAINTS)
 	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
@@ -133,7 +139,7 @@
 	if(ishuman(src))
 		for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 			var/obj/item/organ/external/leg = get_organ(zone)
-			if(leg.has_fracture())
+			if(leg && leg.has_fracture())
 				functional_legs = FALSE
 				break
 	// cat check, work only for 1 level fall
@@ -431,12 +437,12 @@
 		to_chat(src, span_warning("Вы ещё не совсем осознаёте происходящее!"))
 		return FALSE
 
-	if(!(action_bitflags & BYPASS_INCAPACITATED)) // should be interaction_flags_atom, but we haven't implemented yet and won't
+	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
-		if(action_bitflags & INC_IGNORE_RESTRAINED)
-			ignore_flags |= INC_IGNORE_RESTRAINED
-		if(!(action_bitflags & INC_IGNORE_GRABBED))
-			ignore_flags |= INC_IGNORE_GRABBED
+		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
+			ignore_flags |= IGNORE_RESTRAINTS
+		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+			ignore_flags |= IGNORE_GRAB
 
 		if(incapacitated(ignore_flags))
 			to_chat(src, span_warning("Вы сейчас недееспособны!"))
@@ -462,7 +468,7 @@
 		to_chat(src, span_warning("Ваш голокорпус не позволяет это сделать!"))
 		return FALSE
 
-	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !Adjacent(target)))
+	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !recursive_loc_check(src, target)) && !target.IsReachableBy(src))
 		if(has_unlimited_silicon_privilege && !ispAI(src))
 			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
 				if(!(action_bitflags & SILENT_ADJACENCY))
@@ -932,7 +938,7 @@
 	if(isliving(pulling))
 		set_pull_offsets(pulling, grab_state)
 
-	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !(s_active in contents) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !(s_active.IsReachableBy(src)))	//check !(s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss() * 200 / maxHealth))
@@ -1017,7 +1023,7 @@
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(buckled || mob_negates_gravity())
 		return FALSE
-	. = ..()
+	return ..()
 
 /*//////////////////////
 	START RESIST PROCS
@@ -1034,18 +1040,18 @@
 	set name = "Сопротивляться"
 	set category = VERB_CATEGORY_IC
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_resist)))
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
-/mob/living/proc/run_resist()
+/mob/living/proc/execute_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
-
 	//resisting grabs (as if it helps anyone...)
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
+		add_attack_logs(src, pulledby, "resisted grab")
 		resist_grab()
 		return
 
@@ -1054,9 +1060,8 @@
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
-	else if(isobj(loc))
-		var/obj/C = loc
-		C.container_resist(src)
+	else if(loc != get_turf(src))
+		loc.container_resist_act(src)
 
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
@@ -1727,7 +1732,7 @@
 
 	switch(var_name)
 		if(NAMEOF(src, maxHealth))
-			updatehealth("var edit")
+			updatehealth(reason = "var edit")
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
@@ -1762,53 +1767,6 @@
 **/
 /mob/proc/has_nightvision()
 	return nightvision >= 4
-
-/mob/living/run_examinate(atom/target)
-	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
-
-	if(user_staring_effect || hindered_inspection(target))
-		return
-
-	if(isturf(target) && !(sight & SEE_TURFS) && !(target in view(client ? client.view : world.view, src)))
-		// shift-click catcher may issue examinate() calls for out-of-sight turfs
-		return
-
-	var/turf/examine_turf = get_turf(target)
-
-	if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
-		get_dist(src, examine_turf) > 1 && \
-		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
-		return
-
-	var/examine_time = target.get_examine_time()
-
-	var/obj/item/organ/internal/eyes/eyes = get_organ_slot(INTERNAL_ORGAN_EYES)
-	if(eyes)
-		examine_time *= eyes.examine_mod
-
-	if(examine_time && target != src)
-		var/visible_gender = target.get_visible_gender()
-		var/visible_species = UNKNOWN_STATUS_RUS
-
-		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
-		var/near_target = examine_distance_check(target)
-
-		if(isliving(target))
-			var/mob/living/target_living = target
-			visible_species = target_living.get_visible_species()
-
-			if(ishuman(target))	// Yep. Only humans affected by catched looks.
-				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
-				if(target_staring_effect)
-					target_staring_effect.catch_look(src)
-
-		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
-		if(do_after(src, examine_time, src, ALL))
-			if(hindered_inspection(target) || (near_target && !examine_distance_check(target)))
-				return
-			..()
-	else
-		..()
 
 /mob/living/proc/examine_distance_check(atom/target)
 	if(target in view(client.maxview(), client.eye))
@@ -2298,6 +2256,9 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
+
+/mob/living/proc/get_fracture_spread_bonus(is_left_hand = TRUE)
+	return 0
 
 /// Prints an ominous message if something bad is going to happen to you
 /mob/living/proc/ominous_nosebleed()

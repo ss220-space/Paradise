@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - add: "Магические бороды только для мага (PR #9039)"
