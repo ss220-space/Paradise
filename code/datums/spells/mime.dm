@@ -55,10 +55,10 @@
 		return
 
 	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
-		ADD_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
+		REMOVE_TRAIT(user.mind, TRAIT_MIMING, "mime_vow")
 		to_chat(target, span_notice("Вы нарушаете свой обет молчания."))
 	else
-		REMOVE_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
+		ADD_TRAIT(user.mind, TRAIT_MIMING, "mime_vow")
 		to_chat(target, span_notice("Вы даёте обет молчания."))
 
 /obj/effect/proc_holder/spell/mime/speak/mask

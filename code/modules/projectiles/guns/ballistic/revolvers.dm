@@ -88,7 +88,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_MIMING))
+	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		to_chat(user, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
 	return ..()

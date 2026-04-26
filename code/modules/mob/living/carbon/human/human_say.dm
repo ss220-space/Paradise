@@ -82,7 +82,7 @@
 
 /mob/living/carbon/human/IsVocal()
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
-	if(translator?.active && (mind && HAS_TRAIT(mind, TRAIT_MIMING)))
+		if(translator?.active && !(mind && HAS_TRAIT(mind, TRAIT_MIMING)))
 		return TRUE // Cyberimps don't care if you need to breathe at all, but make some respect to mimes
 
 	if(HAS_TRAIT(src, TRAIT_MUTE))

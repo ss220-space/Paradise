@@ -413,7 +413,7 @@
 //			)
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
-/datum/action/cooldown/spell/proc/try_invoke(mob/living/invoker, feedback)
+/datum/action/cooldown/spell/proc/try_invoke(mob/living/invoker, feedback = TRUE)
 	if(spell_requirements & SPELL_CASTABLE_WITHOUT_INVOCATION)
 		return TRUE
 
