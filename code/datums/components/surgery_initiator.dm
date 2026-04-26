@@ -329,7 +329,7 @@
 	can_cancel = FALSE  // don't let a leg cancel a surgery
 
 /datum/component/surgery_initiator/limb/initiate_surgery_moment(datum/source, atom/target, mob/user)
-	if(target == user && ishuman(user) && ismachineperson(user) && istype(parent, /obj/item/organ/external))
+	if(target == user && ishuman(user) && ismachineperson(user) && isexternalorgan(parent))
 		if(!isliving(user))
 			return
 		if(!user.Adjacent(target))
