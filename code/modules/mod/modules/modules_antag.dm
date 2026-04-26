@@ -614,16 +614,16 @@
 	charges = max_charges
 
 /*
-tier 1 - 15-20 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
-tier 2 - 30-40 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
-tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
+tier 1 - 7-10 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
+tier 2 - 15-20 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
+tier 3 - 30-35 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
 please, keep this up to date
 */
-#define PROTECTION_DIVIDING_MODIFICATOR 3
+#define PROTECTION_DIVIDING_MODIFICATOR 6
 #define CHARGE_DIVIDING_MODIFICATOR 9
 #define RANGE_DIVIDING_MODIFICATOR 20
 #define DAMAGE_DIVIDING_MODIFICATOR 7
-#define TESLA_ZAP_STRENGTH_REQ 200
+#define TESLA_ZAP_STRENGTH_REQ 250
 
 /obj/item/mod/module/anomaly_locked/teslawall/update_core_powers()
 	if(!core)
@@ -693,14 +693,12 @@ please, keep this up to date
 	if(isitem(hitby) && isliving(hitby.loc))
 		var/mob/living/living_target = hitby.loc
 		living_target.electrocute_act(shock_damage, owner)
-		living_target.Knockdown(3 SECONDS)
 		return
 	if(!isliving(hitby))
 		return
 
 	var/mob/living/living_target = hitby
 	living_target.electrocute_act(shock_damage, owner)
-	living_target.Knockdown(3 SECONDS)
 
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
