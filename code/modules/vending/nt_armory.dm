@@ -222,7 +222,7 @@
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
+		/obj/item/gun/projectile/automatic/smg/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
 		/obj/item/melee/baton/telescopic = 4,

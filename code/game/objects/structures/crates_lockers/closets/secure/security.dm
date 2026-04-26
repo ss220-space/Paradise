@@ -178,11 +178,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
-	new /obj/item/gun/projectile/automatic/wt550(src)
+	new /obj/item/gun/projectile/automatic/smg/wt550(src)
+	new /obj/item/gun/projectile/automatic/smg/wt550(src)
+	new /obj/item/gun/projectile/automatic/smg/wt550(src)
+	new /obj/item/gun/projectile/automatic/smg/wt550(src)
+	new /obj/item/gun/projectile/automatic/smg/wt550(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91
 	name = "security SP-91-RC gun cabinet"

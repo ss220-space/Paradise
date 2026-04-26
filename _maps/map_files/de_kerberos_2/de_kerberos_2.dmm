@@ -92238,15 +92238,15 @@
 	anchored = 1;
 	name = "Security SMG's"
 	},
-/obj/item/gun/projectile/automatic/wt550{
+/obj/item/gun/projectile/automatic/smg/wt550{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/projectile/automatic/wt550{
+/obj/item/gun/projectile/automatic/smg/wt550{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

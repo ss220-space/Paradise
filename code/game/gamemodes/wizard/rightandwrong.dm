@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/kinetic_accelerator,
 	/obj/item/gun/energy/plasmacutter/adv,
 	/obj/item/gun/energy/wormhole_projector,
-	/obj/item/gun/projectile/automatic/wt550,
+	/obj/item/gun/projectile/automatic/smg/wt550,
 	/obj/item/gun/projectile/automatic/shotgun/bulldog,
 	/obj/item/gun/projectile/revolver/grenadelauncher,
 	/obj/item/gun/projectile/revolver/golden,

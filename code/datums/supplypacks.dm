@@ -1154,8 +1154,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/wt550
 	name = "Пистолет-пулемёты WT-550"
 	contains = list(
-		/obj/item/gun/projectile/automatic/wt550,
-		/obj/item/gun/projectile/automatic/wt550,
+		/obj/item/gun/projectile/automatic/smg/wt550,
+		/obj/item/gun/projectile/automatic/smg/wt550,
 	)
 	cost = 35
 	containername = "ящик WT-550"

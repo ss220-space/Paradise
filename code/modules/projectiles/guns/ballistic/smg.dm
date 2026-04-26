@@ -1,3 +1,59 @@
+/obj/item/gun/projectile/automatic/smg
+	icon = 'icons/obj/weapons/smg.dmi'
+	/// Exists buttstock in gun (use for enable buttstock feature)
+	var/buttstock_exists = FALSE
+	/// Buttstock state flag
+	var/buttstock_unfolded = FALSE
+	/// How many min spread decrease with unfold buttstock
+	var/buttstock_min_spread_compensation = 5
+	/// How many max spread decrease with unfold buttstock
+	var/buttstock_max_spread_compensation = 15
+	/// How many recoil decrease with unfold buttstock
+	var/buttstock_recoil_compensation = 0.2
+
+/obj/item/gun/projectile/automatic/smg/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/gun/projectile/automatic/smg/update_icon_state()
+	icon_state = "[initial(icon_state)]_base"
+
+/obj/item/gun/projectile/automatic/smg/update_overlays()
+	. = ..()
+	var/base_icon_id = initial(icon_state)
+	if(buttstock_exists)
+		. += mutable_appearance(icon, "[base_icon_id]_buttstock_[buttstock_unfolded ? "on" : "off"]", layer = FLOAT_LAYER - 1)
+	if(get_ammo() > 0)
+		. += mutable_appearance(icon, "[base_icon_id]_full_light", layer = FLOAT_LAYER - 1)
+	else
+		. += mutable_appearance(icon, "[base_icon_id]_empty_light", layer = FLOAT_LAYER - 1)
+	if(!magazine)
+		return
+	var/ammo_count_indicator = ceil(get_ammo(FALSE) / 6) * 6
+	. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
+
+/obj/item/gun/projectile/automatic/smg/attack_self_secondary(mob/user, list/modifiers)
+	if(buttstock_exists)
+		toggle_buttstock()
+	return ..()
+
+/obj/item/gun/projectile/automatic/smg/proc/toggle_buttstock()
+	buttstock_unfolded = !buttstock_unfolded
+	if(buttstock_unfolded)
+		accuracy.min_spread -= buttstock_min_spread_compensation
+		accuracy.max_spread -= buttstock_max_spread_compensation
+		recoil.strength -= buttstock_recoil_compensation
+		w_class = WEIGHT_CLASS_BULKY
+	else
+		accuracy.min_spread += buttstock_min_spread_compensation
+		accuracy.max_spread += buttstock_max_spread_compensation
+		recoil.strength += buttstock_recoil_compensation
+		w_class = WEIGHT_CLASS_NORMAL
+
+	playsound(loc, 'sound/weapons/gun_interactions/sawopen.ogg', 100, TRUE)
+	update_icon()
+
+
 // MARK: Saber SMG
 /obj/item/gun/projectile/automatic/proto
 	name = "Nanotrasen Saber SMG"
@@ -89,10 +145,9 @@
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 // MARK: WT550
-/obj/item/gun/projectile/automatic/wt550
+/obj/item/gun/projectile/automatic/smg/wt550
 	name = "WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
-	icon = 'icons/obj/weapons/smg.dmi'
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
@@ -110,50 +165,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
-	var/buttstock_unfolded = FALSE
-	var/buttstock_min_spread_compensation = 5
-	var/buttstock_max_spread_compensation = 15
-	var/buttstock_recoil_compensation = 0.2
-
-/obj/item/gun/projectile/automatic/wt550/Initialize(mapload)
-	. = ..()
-	update_icon()
-
-
-/obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "[initial(icon_state)]_base"
-
-/obj/item/gun/projectile/automatic/wt550/update_overlays()
-	. = ..()
-	var/base_icon_id = initial(icon_state)
-	. += mutable_appearance(icon, "[base_icon_id]_buttstock_[buttstock_unfolded ? "on" : "off"]", layer = FLOAT_LAYER - 1)
-	if(get_ammo() > 0)
-		. += mutable_appearance(icon, "[base_icon_id]_full_light", layer = FLOAT_LAYER - 1)
-	else
-		. += mutable_appearance(icon, "[base_icon_id]_empty_light", layer = FLOAT_LAYER - 1)
-	if(!magazine)
-		return
-	var/ammo_count_indicator = ceil(get_ammo(FALSE) / 6) * 6
-	. += mutable_appearance(icon, "[base_icon_id]_mag-[ammo_count_indicator]", layer = FLOAT_LAYER - 1)
-
-/obj/item/gun/projectile/automatic/wt550/attack_self_secondary(mob/user, list/modifiers)
-	toggle_buttstock()
-
-/obj/item/gun/projectile/automatic/wt550/proc/toggle_buttstock()
-	buttstock_unfolded = !buttstock_unfolded
-	if(buttstock_unfolded)
-		accuracy.min_spread -= buttstock_min_spread_compensation
-		accuracy.max_spread -= buttstock_max_spread_compensation
-		recoil.strength -= buttstock_recoil_compensation
-		weapon_weight = WEAPON_HEAVY
-	else
-		accuracy.min_spread += buttstock_min_spread_compensation
-		accuracy.max_spread += buttstock_max_spread_compensation
-		recoil.strength += buttstock_recoil_compensation
-		w_class = WEIGHT_CLASS_NORMAL
-
-	playsound(loc, 'sound/weapons/gun_interactions/sawopen.ogg', 100, TRUE)
-	update_icon()
+	buttstock_exists = TRUE
 
 
 // MARK: SP-91-RC

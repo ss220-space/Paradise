@@ -813,7 +813,7 @@
 /area/admin)
 "io" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/wood,
 /area/admin)
 "iu" = (

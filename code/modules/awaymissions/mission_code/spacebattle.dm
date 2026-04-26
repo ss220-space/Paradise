@@ -567,7 +567,7 @@
 				/obj/item/ammo_box/magazine/enforcer/lethal = 1,
 			)
 		if(8 to 9) //20%
-			suit_store = /obj/item/gun/projectile/automatic/wt550
+			suit_store = /obj/item/gun/projectile/automatic/smg/wt550
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
 				/obj/item/ammo_box/magazine/wt550m9 = 1,
