@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Теперь можно открыть GeoIP на конкретного клиента и оно не закроется сразу же. (PR #9066)"
