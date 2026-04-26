@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "Разрешено вне станционным ролям голосовать за следующую карту. (PR #9059)"

@@ -50,6 +50,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
+/obj/item/clothing/head/welding/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"
 	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility."
@@ -187,7 +191,6 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/ushanka
-	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	can_toggle = TRUE
 	toggle_on_message = "You raise the ear flaps on"
 	toggle_off_message = "You lower the ear flaps on"
@@ -199,6 +202,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
+
+/obj/item/clothing/head/ushanka/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Опустить/поднять уши")
 
 /obj/item/clothing/head/sovietsidecap
 	name = "Soviet side cap"

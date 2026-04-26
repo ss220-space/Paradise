@@ -923,7 +923,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	// if an item is already on user you cannot reequip it anywhere if it has NODROP trait
 	if(loc == user && HAS_TRAIT(src, TRAIT_NODROP))
 		if(!silent)
-			//cringe momemt
 			to_chat(user, span_warning("Неведомая сила не позволяет Вам надеть [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 	return TRUE
@@ -959,7 +958,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * The default action is attack_self().
  * Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
  */
-/obj/item/proc/ui_action_click(mob/user, datum/action/action, leftclick)
+/obj/item/proc/ui_action_click(mob/user, datum/action/action, leftclick = TRUE)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_CLICK, user, action, leftclick) & COMPONENT_ACTION_HANDLED)
 		return
 	attack_self(user)

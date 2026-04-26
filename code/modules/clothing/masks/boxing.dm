@@ -4,7 +4,6 @@
 	icon_state = "balaclava"
 	item_state = "balaclava"
 	can_toggle = TRUE
-	actions_types = list(/datum/action/item_action/adjust)
 	flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR
@@ -26,6 +25,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
+
+/obj/item/clothing/mask/balaclava/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)

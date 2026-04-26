@@ -403,7 +403,7 @@
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
-	if(I.sharp)
+	if(!I.sharp)
 		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)

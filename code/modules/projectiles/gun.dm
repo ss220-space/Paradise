@@ -372,7 +372,8 @@
 	if(fire_cd)
 		return
 
-	bonus_spread += user.get_fracture_spread_bonus()
+	var/is_left_hand = user.l_hand == src
+	bonus_spread += user.get_fracture_spread_bonus(is_left_hand)
 	if(user.buckled)
 		bonus_spread += 45
 

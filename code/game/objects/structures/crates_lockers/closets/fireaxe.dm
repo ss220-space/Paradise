@@ -6,6 +6,7 @@
 	icon_closed = "fireaxe_full_0hits"
 	icon_opened = "fireaxe_full_open"
 	anchored = TRUE
+	anchorable = FALSE
 	density = FALSE
 	no_overlays = TRUE
 	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, FIRE = 90, ACID = 50)
