@@ -613,7 +613,7 @@
 /obj/projectile/magic/shadow_hand/umbrae_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
 		return
-	hit = TRUE // to prevent double hits from the pull
+	hit = TRUE
 	. = ..()
 	for(var/atom/extinguish_target in range(2, src))
 		extinguish_target.extinguish_light(TRUE)

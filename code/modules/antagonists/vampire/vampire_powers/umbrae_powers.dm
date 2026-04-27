@@ -59,6 +59,7 @@
 /obj/effect/proc_holder/spell/fireball/umbrae_hand/update_icon_state()
 	return
 
+/obj/effect/proc_holder/spell/fireball/umbrae_hand/create_new_handler()
 	var/datum/spell_handler/vampire/vampire_datum = new()
 	vampire_datum.required_blood = 25
 	return vampire_datum

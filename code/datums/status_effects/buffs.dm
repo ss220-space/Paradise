@@ -650,12 +650,13 @@
 	. = ..()
 	vamp = null
 
+#define BLOOD_SATURATION_EFFECT_BODY_SIZE = 1.25
+
 /datum/status_effect/bloodoversaturation
 	id = "bloodoversaturation"
 	tick_interval = 1.5 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/bloodoversaturation
 	var/blood_cost_per_tick = 10 /// how much vamp uses active blood per tick when the ability is active
-	#define BLOOD_SATURATION_EFFECT_BODY_SIZE 1.25
 
 /atom/movable/screen/alert/status_effect/bloodoversaturation
 	name = "Кровавое перенасыщение"
@@ -690,7 +691,8 @@
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	owner.update_body(TRUE)
 	owner.update_transform(RESIZE_DEFAULT_SIZE / BLOOD_SATURATION_EFFECT_BODY_SIZE)
-	#undef BLOOD_SATURATION_EFFECT_BODY_SIZE
+
+#undef BLOOD_SATURATION_EFFECT_BODY_SIZE
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -740,7 +742,6 @@
 
 	var/datum/antagonist/vampire/vampire_datum = human_owner.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire_datum?.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
-
 		REMOVE_TRAIT(human_owner, TRAIT_IGNOREDAMAGESLOWDOWN, VAMPIRE_TRAIT)
 		human_owner.remove_fracture_ignore_trait(src)
 
