@@ -48,6 +48,8 @@
 	gun.add_attachment_overlay(src)
 
 /obj/item/gun_module/stock/proc/unfold_stock(mob/user)
+	if(unfolded)
+		return
 	unfolded = TRUE
 	gun_w_class = gun.w_class
 	gun.w_class = WEIGHT_CLASS_BULKY
@@ -57,6 +59,8 @@
 	playsound(gun.loc, 'sound/weapons/gun_interactions/stock_unfold.ogg', 100, TRUE)
 
 /obj/item/gun_module/stock/proc/fold_stock(mob/user)
+	if(!unfolded)
+		return
 	unfolded = FALSE
 	gun.w_class = gun_w_class
 	gun.accuracy.min_spread += min_spread_compensation
