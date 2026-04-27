@@ -163,7 +163,7 @@
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/storage/firstaid/crew(src)
+	new /obj/item/storage/firstaid/crew/full(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
 
 // ERT set for trial admins
