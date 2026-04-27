@@ -383,7 +383,17 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
 	icon_state = "surgical_arm_implant"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
+	contents = newlist(
+		/obj/item/retractor/augment,
+		/obj/item/hemostat/augment,
+		/obj/item/cautery/augment,
+		/obj/item/bonesetter/augment,
+		/obj/item/scalpel/augment,
+		/obj/item/circular_saw/augment,
+		/obj/item/bonegel/augment,
+		/obj/item/FixOVein/augment,
+		/obj/item/surgicaldrill/augment,
+		)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
@@ -400,8 +410,17 @@
 	name = "laser surgical toolset implant"
 	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
 	icon_state = "laser_surgical_arm_implant"
-	contents = newlist(/obj/item/scalpel/laser/laser3, /obj/item/hemostat/laser, /obj/item/retractor/laser, /obj/item/surgicaldrill/laser, /obj/item/circular_saw/laser, /obj/item/bonesetter/laser, /obj/item/bonegel, /obj/item/FixOVein)
-	origin_tech = "materials=6;biotech=4;magnets=5"
+	contents = newlist(
+		/obj/item/scalpel/laser/laser3,
+		/obj/item/hemostat/laser,
+		/obj/item/retractor/laser,
+		/obj/item/surgicaldrill/laser,
+		/obj/item/circular_saw/laser,
+		/obj/item/bonesetter/laser,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		)
+	origin_tech = "materials=5;biotech=3;magnets=4"
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_advanced")
 	ru_names = list(
 		NOMINATIVE = "имплант лазерных хирургических инструментов",
@@ -416,7 +435,15 @@
 	name = "military surgical toolset implant"
 	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя"
 	icon_state = "laser_surgical_arm_implant"
-	contents = newlist(/obj/item/bodyanalyzer/advanced, /obj/item/scalpel/laser/manager, /obj/item/surgicaldrill/laser, /obj/item/circular_saw/laser, /obj/item/bonesetter/laser, /obj/item/bonegel, /obj/item/FixOVein)
+	contents = newlist(
+		/obj/item/bodyanalyzer/advanced,
+		/obj/item/scalpel/laser/manager,
+		/obj/item/surgicaldrill/laser,
+		/obj/item/circular_saw/laser,
+		/obj/item/bonesetter/laser,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		)
 	origin_tech = "materials=8;biotech=4;magnets=5;programming=4"
 	emp_proof = 1
 	ru_names = list(
@@ -432,8 +459,18 @@
 	name = "alien surgical toolset implant"
 	desc = "Набор экспериментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
 	icon_state = "alien_surgical_arm_implant"
-	contents = newlist(/obj/item/scalpel/alien, /obj/item/hemostat/alien, /obj/item/retractor/alien, /obj/item/circular_saw/alien, /obj/item/surgicaldrill/alien, /obj/item/cautery/alien, /obj/item/bonegel/alien, /obj/item/bonesetter/alien, /obj/item/FixOVein/alien)
-	origin_tech = "materials=5;biotech=4;abductor=3"
+	contents = newlist(
+		/obj/item/scalpel/alien,
+		/obj/item/hemostat/alien,
+		/obj/item/retractor/alien,
+		/obj/item/circular_saw/alien,
+		/obj/item/surgicaldrill/alien,
+		/obj/item/cautery/alien,
+		/obj/item/bonegel/alien,
+		/obj/item/bonesetter/alien,
+		/obj/item/FixOVein/alien,
+		)
+	origin_tech = "materials=4;biotech=3;abductor=2"
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
 	ru_names = list(
 		NOMINATIVE = "имплант экспериментальных хирургических инструментов",
