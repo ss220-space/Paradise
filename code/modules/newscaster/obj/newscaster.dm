@@ -256,8 +256,7 @@
 							m["view_count"] = FM.view_count
 				// Update the last viewed times for the user
 				LAZYINITLIST(last_views[user_name])
-				for(var/c in GLOB.news_network.channels)
-					var/datum/feed_channel/C = c
+				for(var/datum/feed_channel/C as anything in GLOB.news_network.channels)
 					if(screen == NEWSCASTER_CHANNEL && C != viewing_channel)
 						continue
 					last_views[user_name][C.UID()] = now
@@ -495,11 +494,11 @@
 		if(UI_MODAL_ANSWER)
 			switch(id)
 				if("create_channel", "manage_channel")
-					var/author = trim(arguments["author"])
-					var/name = trim(arguments["name"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/name = strip_html_full(trim(arguments["name"]))
 					if(!length(author) || !length(name))
 						return
-					var/description = trim(arguments["description"])
+					var/description = strip_html_full(trim(arguments["description"]))
 					var/icon = arguments["icon"]
 					var/public = text2num(arguments["public"])
 					var/admin_locked = text2num(arguments["admin_locked"])
@@ -533,10 +532,10 @@
 					set_temp("Канал \"[FC.channel_name]\" создан.", "good")
 					usr.create_log(MISC_LOG, "Newscaster channel [name] created with desc [description].")
 				if("create_story")
-					var/author = trim(arguments["author"])
-					var/channel = trim(arguments["channel"])
-					var/title = trim(arguments["title"])
-					var/body = trim(arguments["body"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/channel = strip_html_full(trim(arguments["channel"]))
+					var/title = strip_html_full(trim(arguments["title"]))
+					var/body = strip_html_full(trim(arguments["body"]))
 					var/admin_locked = text2num(arguments["admin_locked"])
 					if(!length(author) || !length(title) || !length(body))
 						return
@@ -570,9 +569,9 @@
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
-					var/author = trim(arguments["author"])
-					var/name = trim(arguments["name"])
-					var/description = trim(arguments["description"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/name = strip_html_full(trim(arguments["name"]))
+					var/description = strip_html_full(trim(arguments["description"]))
 					var/admin_locked = text2num(arguments["admin_locked"])
 					if(!length(author) || !length(name) || !length(description))
 						return
