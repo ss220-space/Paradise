@@ -388,6 +388,53 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
+/obj/item/organ/internal/cyberimp/arm/surgery/adv
+	name = "laser surgical toolset implant"
+	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
+	icon_state = "laser_surgical_arm_implant"
+	contents = newlist(/obj/item/scalpel/laser/laser3, /obj/item/hemostat/laser, /obj/item/retractor/laser, /obj/item/surgicaldrill/laser, /obj/item/circular_saw/laser, /obj/item/bonesetter/laser, /obj/item/bonegel, /obj/item/FixOVein)
+	origin_tech = "materials=6;biotech=4;magnets=5"
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_advanced")
+	ru_names = list(
+		NOMINATIVE = "имплант лазерных хирургических инструментов",
+		GENITIVE = "импланта лазерных хирургических инструментов",
+		DATIVE = "импланту лазерных хирургических инструментов",
+		ACCUSATIVE = "имплант лазерных хирургических инструментов",
+		INSTRUMENTAL = "имплантом лазерных хирургических инструментов",
+		PREPOSITIONAL = "импланте лазерных хирургических инструментов",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
+	name = "military surgical toolset implant"
+	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя"
+	icon_state = "laser_surgical_arm_implant"
+	contents = newlist(/obj/item/bodyanalyzer/advanced, /obj/item/scalpel/laser/manager, /obj/item/surgicaldrill/laser, /obj/item/circular_saw/laser, /obj/item/bonesetter/laser, /obj/item/bonegel, /obj/item/FixOVein)
+	origin_tech = "materials=8, biotech=4, magnets=5, programming=4"
+	ru_names = list(
+		NOMINATIVE = "имплант экспериментальных хирургических инструментов",
+		GENITIVE = "импланта военных хирургических инструментов",
+		DATIVE = "импланту военных хирургических инструментов",
+		ACCUSATIVE = "имплант военных хирургических инструментов",
+		INSTRUMENTAL = "имплантом военных хирургических инструментов",
+		PREPOSITIONAL = "импланте военных хирургических инструментов",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/alien
+	name = "alien surgical toolset implant"
+	desc = "Набор экспириментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
+	icon_state = "alien_surgical_arm_implant"
+	contents = newlist(/obj/item/scalpel/alien, /obj/item/hemostat/alien, /obj/item/retractor/alien, /obj/item/circular_saw/alien, /obj/item/surgicaldrill/alien, /obj/item/cautery/alien, /obj/item/bonegel/alien, /obj/item/bonesetter/alien, /obj/item/FixOVein/alien)
+	origin_tech = "materials=5;biotech=4;abductor=3"
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
+	ru_names = list(
+		NOMINATIVE = "имплант экспериментальных хирургических инструментов",
+		GENITIVE = "импланта экспериментальных хирургических инструментов",
+		DATIVE = "импланту экспериментальных хирургических инструментов",
+		ACCUSATIVE = "имплант экспериментальных хирургических инструментов",
+		INSTRUMENTAL = "имплантом экспериментальных хирургических инструментов",
+		PREPOSITIONAL = "импланте экспериментальных хирургических инструментов",
+	)
+
 /obj/item/organ/internal/cyberimp/arm/surgery/l
 	parent_organ_zone = BODY_ZONE_L_ARM
 	slot = INTERNAL_ORGAN_L_ARM_DEVICE

@@ -407,7 +407,6 @@
 		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator/advanced = 1,
 		/obj/item/storage/pill_bottle/patch_pack/filled = 1,
@@ -415,7 +414,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
-		/obj/item/organ/internal/cyberimp/arm/surgery,
+		/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
 	implants = list(
@@ -445,7 +444,6 @@
 		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/firstaid/ertm = 1,
-		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
@@ -454,8 +452,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/surgery/l,
-		/obj/item/organ/internal/cyberimp/arm/medibeam,
+		/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
