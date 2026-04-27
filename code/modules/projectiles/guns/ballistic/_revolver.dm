@@ -5,6 +5,7 @@
 /obj/item/gun/projectile/revolver
 	name = ".357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
+	gender = MALE
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
@@ -71,7 +72,7 @@
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Вращать барабан"
 	set category = VERB_CATEGORY_OBJECT
-	set desc = "Click to spin your revolver's chamber."
+	set desc = "Провернуть барабан."
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -82,7 +83,10 @@
 		C.spin()
 		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
-		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
+		usr.visible_message(
+			span_notice("[usr] враща[PLUR_ET_YUT(usr)] барабан [declent_ru(GENITIVE)]."),
+			span_notice("Вы вращаете барабан [declent_ru(GENITIVE)].")
+		)
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
