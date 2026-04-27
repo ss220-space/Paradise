@@ -625,7 +625,6 @@
 		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
 	else
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
-		vampire_datum.bloodusable = max(vampire_datum.bloodusable + 10, 0) /// refund some vampire blood on whiffing
 
 /obj/projectile/magic/shadow_hand/umbrae_hand/fire(setAngle)
 	if(firer)
