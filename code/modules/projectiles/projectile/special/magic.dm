@@ -610,8 +610,6 @@
 	name = "umbrae hand"
 	icon_state = "umbrae_hand"
 
-	var/datum/antagonist/vampire/vampire_datum = firer.mind?.has_antag_datum(/datum/antagonist/vampire)
-
 /obj/projectile/magic/shadow_hand/umbrae_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
 		return
