@@ -605,11 +605,11 @@
 		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
 	else
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
-
 // MARK: Umbrae version of shadow hand
 /obj/projectile/magic/shadow_hand/umbrae_hand
 	name = "umbrae hand"
 	icon_state = "umbrae_hand"
+	var/datum/antagonist/vampire/vampire_datum = owner.mind?.has_antag_datum(/datum/antagonist/vampire)
 
 /obj/projectile/magic/shadow_hand/umbrae_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
@@ -623,9 +623,15 @@
 		l_target.Knockdown(2 SECONDS)
 		l_target.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
 		if(firer)
-			l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
-		else
-			return
+		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+	else
+		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+		vampire_datum.bloodusable = max(vampire_datum.bloodusable + 10, 0) /// refund some vampire blood on whiffing
+
+/obj/projectile/magic/shadow_hand/fire(setAngle)
+	if(firer)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = 10, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
+	return ..()
 
 // MARK: Demonic Grasp
 /obj/projectile/magic/demonic_grasp
