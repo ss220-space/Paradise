@@ -410,6 +410,7 @@
 	icon_state = "laser_surgical_arm_implant"
 	contents = newlist(/obj/item/bodyanalyzer/advanced, /obj/item/scalpel/laser/manager, /obj/item/surgicaldrill/laser, /obj/item/circular_saw/laser, /obj/item/bonesetter/laser, /obj/item/bonegel, /obj/item/FixOVein)
 	origin_tech = "materials=8, biotech=4, magnets=5, programming=4"
+	emp_proof = 1
 	ru_names = list(
 		NOMINATIVE = "имплант экспериментальных хирургических инструментов",
 		GENITIVE = "импланта военных хирургических инструментов",
