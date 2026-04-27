@@ -155,15 +155,15 @@
 	name = "boxed survival kit"
 	icon_state = "box_ert"
 	item_state = "ert"
+	breathmask = /obj/item/clothing/mask/gas/sechailer/folded
+	internals = /obj/item/tank/internals/emergency_oxygen/engi
+	glowstick = /obj/item/flashlight/flare
 
 /obj/item/storage/box/survival/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer/folded(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/flashlight/flare(src)
+	. = ..()
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
 
 // ERT set for trial admins

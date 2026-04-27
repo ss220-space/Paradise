@@ -57,8 +57,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Терм.)",
 	)
 
-/obj/item/storage/firstaid/fire/New()
-	..()
+/obj/item/storage/firstaid/fire/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("ointment", "firefirstaid")
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -198,8 +199,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Мех.)",
 	)
 
-/obj/item/storage/firstaid/brute/New()
-	..()
+/obj/item/storage/firstaid/brute/Initialize(mapload)
+	. = ..()
+	
 	icon_state = pick("brute", "brute2")
 
 /obj/item/storage/firstaid/brute/populate_contents()
