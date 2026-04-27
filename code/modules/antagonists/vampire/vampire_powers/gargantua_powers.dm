@@ -16,7 +16,7 @@
 	gain_desc = "Пока действует «Кровавый вал», все ваши атаки в ближнем бою наносят повышенный урон."
 
 /datum/vampire_passive/blood_swell_anotherupgrade
-	gain_desc = "Пока действует «Кровавый вал», вы перестали замедляться от повреждений и чувствовать переломы."
+	gain_desc = "Пока действует «Кровавый вал», вы перестаёте замедляться от повреждений и чувствовать переломы."
 
 /obj/effect/proc_holder/spell/vampire/self/stomp
 	name = "Ударная волна"
@@ -104,18 +104,18 @@
 
 /obj/effect/proc_holder/spell/vampire/self/bloodoversaturation
 	name = "Кровавое перенасыщение"
-	desc = "Перенасытьте тело чистейшей магией крови, чтобы отвергать смерть или сон на минуту."
+	desc = "Перенасытьте тело чистейшей магией крови, чтобы временно получить иммунитет к обездвиживающим эффектам и смерти."
 	gain_desc = "Вы получили способность временно отвергать смерть."
 	base_cooldown = 3 SECONDS
 	required_blood = 10
 	action_icon_state = "bloodoversat"
 
 /obj/effect/proc_holder/spell/vampire/self/bloodoversaturation/cast(list/targets, mob/living/user)
-	var/datum/status_effect/bloodoversaturation/T = user.has_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
-	if(!T)
+	var/datum/status_effect/bloodoversaturation/effect = user.has_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
+	if(!effect)
 		user.apply_status_effect(STATUS_EFFECT_BLOODOVERSATURATION, user.mind?.has_antag_datum(/datum/antagonist/vampire))
-		return
-	user.remove_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
+	else
+		user.remove_status_effect(STATUS_EFFECT_BLOODOVERSATURATION, user.mind?.has_antag_datum(/datum/antagonist/vampire))
 
 /obj/effect/proc_holder/spell/vampire/self/blood_rush
 	name = "Кровавый драйв"

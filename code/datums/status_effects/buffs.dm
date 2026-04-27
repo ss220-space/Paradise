@@ -652,10 +652,10 @@
 
 /datum/status_effect/bloodoversaturation
 	id = "bloodoversaturation"
-	duration = -1
-	tick_interval = 20
+	tick_interval = 1.5 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/bloodoversaturation
-	var/blood_cost_per_tick = 5
+	var/blood_cost_per_tick = 10 /// how much vamp uses active blood per tick when the ability is active
+	#define BLOOD_SATURATION_EFFECT_BODY_SIZE 1.25
 
 /atom/movable/screen/alert/status_effect/bloodoversaturation
 	name = "Кровавое перенасыщение"
@@ -672,13 +672,14 @@
 	ADD_TRAIT(human_owner, TRAIT_NO_DEATH, VAMPIRE_TRAIT)
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	owner.update_body(TRUE)
-	owner.update_transform(1.25 / RESIZE_DEFAULT_SIZE)
+	owner.update_transform(BLOOD_SATURATION_EFFECT_BODY_SIZE / RESIZE_DEFAULT_SIZE)
 
-	var/datum/antagonist/vampire/V = owner.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(!V || !V.bloodusable || owner.stat == DEAD)
+/datum/status_effect/bloodoversaturation/tick(seconds_between_ticks)
+	var/datum/antagonist/vampire/vampire_datum = owner.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(!vampire_datum || !vampire_datum.bloodusable || owner.stat == DEAD)
 		owner.remove_status_effect(STATUS_EFFECT_BLOODOVERSATURATION)
 		return
-	V.bloodusable = max(V.bloodusable - blood_cost_per_tick, 0)
+	vampire_datum.bloodusable = max(vampire_datum.bloodusable - blood_cost_per_tick, 0)
 
 /datum/status_effect/bloodoversaturation/on_remove()
 	if(!ishuman(owner))
@@ -688,7 +689,8 @@
 	REMOVE_TRAIT(human_owner, TRAIT_NO_DEATH, VAMPIRE_TRAIT)
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	owner.update_body(TRUE)
-	owner.update_transform(RESIZE_DEFAULT_SIZE / 1.25)
+	owner.update_transform(RESIZE_DEFAULT_SIZE / BLOOD_SATURATION_EFFECT_BODY_SIZE)
+	#undef BLOOD_SATURATION_EFFECT_BODY_SIZE
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"
@@ -717,16 +719,16 @@
 	human_owner.physiology.stamina_mod *= 0.3
 	human_owner.physiology.stun_mod *= 0.3
 
-	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+	var/datum/antagonist/vampire/vampire_datum = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire_datum.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
 		human_owner.physiology.punch_damage_low += 14
 		human_owner.physiology.punch_damage_high += 14
 		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
 
-	if(V.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
+	if(vampire_datum.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
 		ADD_TRAIT(human_owner, TRAIT_IGNOREDAMAGESLOWDOWN, VAMPIRE_TRAIT)
-		ADD_TRAIT(human_owner, TRAIT_IGNORE_FRACTURE, VAMPIRE_TRAIT)
+		human_owner.add_fracture_ignore_trait(src)
 
 /datum/status_effect/bloodswell/on_remove()
 	if(!ishuman(owner))
@@ -736,11 +738,11 @@
 
 	REMOVE_TRAIT(human_owner, TRAIT_NO_GUNS, VAMPIRE_TRAIT)
 
-	var/datum/antagonist/vampire/V = human_owner.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(V?.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
+	var/datum/antagonist/vampire/vampire_datum = human_owner.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire_datum?.get_ability(/datum/vampire_passive/blood_swell_anotherupgrade))
 
 		REMOVE_TRAIT(human_owner, TRAIT_IGNOREDAMAGESLOWDOWN, VAMPIRE_TRAIT)
-		REMOVE_TRAIT(human_owner, TRAIT_IGNORE_FRACTURE, VAMPIRE_TRAIT)
+		human_owner.remove_fracture_ignore_trait(src)
 
 	human_owner.physiology.brute_mod /= 0.3
 	human_owner.physiology.burn_mod /= 0.6

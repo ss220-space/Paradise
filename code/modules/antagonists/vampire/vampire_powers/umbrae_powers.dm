@@ -40,7 +40,7 @@
 	desc = "Выстрелите одной из рук теневой магии. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
 	gain_desc = "Вы получили способность выпускать теневое щупальце."
 	base_cooldown = 15 SECONDS
-	fireball_type = /obj/projectile/magic/umbrae_hand
+	fireball_type = /obj/projectile/magic/shadow_hand/umbrae_hand
 
 	selection_activated_message = span_notice_alt("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
 	selection_deactivated_message = span_notice_alt("Вы поглощаете энергию обратно... пока что.")
@@ -59,10 +59,9 @@
 /obj/effect/proc_holder/spell/fireball/umbrae_hand/update_icon_state()
 	return
 
-/obj/effect/proc_holder/spell/fireball/umbrae_hand/create_new_handler()
-	var/datum/spell_handler/vampire/V = new()
-	V.required_blood = 25
-	return V
+	var/datum/spell_handler/vampire/vampire_datum = new()
+	vampire_datum.required_blood = 25
+	return vampire_datum
 
 /obj/effect/proc_holder/spell/vampire/shadow_snare
 	name = "Теневая ловушка"
