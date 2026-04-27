@@ -397,7 +397,7 @@
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
-	ru_names = list(
+	get_ru_names = list(
 		NOMINATIVE = "имплант хирургических инструментов",
 		GENITIVE = "импланта хирургических инструментов",
 		DATIVE = "импланту хирургических инструментов",
@@ -422,7 +422,7 @@
 		)
 	origin_tech = "materials=5;biotech=3;magnets=4"
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_advanced")
-	ru_names = list(
+	get_ru_names = list(
 		NOMINATIVE = "имплант лазерных хирургических инструментов",
 		GENITIVE = "импланта лазерных хирургических инструментов",
 		DATIVE = "импланту лазерных хирургических инструментов",
@@ -446,7 +446,7 @@
 		)
 	origin_tech = "materials=8;biotech=4;magnets=5;programming=4"
 	emp_proof = 1
-	ru_names = list(
+	get_ru_names = list(
 		NOMINATIVE = "имплант военных хирургических инструментов",
 		GENITIVE = "импланта военных хирургических инструментов",
 		DATIVE = "импланту военных хирургических инструментов",
@@ -472,7 +472,7 @@
 		)
 	origin_tech = "materials=4;biotech=3;abductor=2"
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
-	ru_names = list(
+	get_ru_names = list(
 		NOMINATIVE = "имплант экспериментальных хирургических инструментов",
 		GENITIVE = "импланта экспериментальных хирургических инструментов",
 		DATIVE = "импланту экспериментальных хирургических инструментов",
