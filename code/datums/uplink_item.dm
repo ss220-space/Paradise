@@ -1744,9 +1744,9 @@
 
 /datum/uplink_item/device_tools/autoimplanter
 	name = "Syndicate Autoimplanter"
-	desc = "Cheaper version of nuclear operatives autoimplanter, this model allows you to install three cybernetic implants on the field."
+	desc = "Cheaper version of nuclear operatives autoimplanter, this model allows you to install a cybernetic implant on the field."
 	item = /obj/item/autoimplanter/traitor
-	cost = 28
+	cost = 9
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //Space Suits and Hardsuits
