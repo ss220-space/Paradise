@@ -628,7 +628,7 @@
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
 		vampire_datum.bloodusable = max(vampire_datum.bloodusable + 10, 0) /// refund some vampire blood on whiffing
 
-/obj/projectile/magic/shadow_hand/fire(setAngle)
+/obj/projectile/magic/shadow_hand/umbrae_hand/fire(setAngle)
 	if(firer)
 		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = 10, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
 	return ..()
