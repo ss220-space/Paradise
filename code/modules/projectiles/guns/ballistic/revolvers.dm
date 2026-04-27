@@ -1,6 +1,6 @@
-// MARK: .38 Mars Special
+// MARK: MS-R38 Simplex
 /obj/item/gun/projectile/revolver/detective
-	name = "MS-R38 revolver"
+	name = "MS-R38 \"Simplex\" revolver"
 	desc = "Бюджетный револьвер производства \"Mars Special\" калибра .38. Простая конструкция из композитных материалов, шестизарядный барабан, \
 			отсутствие направляющих для тактических модулей. Популярен на гражданском рынке за счёт своей доступности."
 	icon_state = "detective"
@@ -16,12 +16,12 @@
 
 /obj/item/gun/projectile/revolver/detective/get_ru_names()
 	return list(
-		NOMINATIVE = "револьвер MS-R38 .38",
-		GENITIVE = "револьвера MS-R38 .38",
-		DATIVE = "револьверу MS-R38 .38",
-		ACCUSATIVE = "револьвер MS-R38 .38",
-		INSTRUMENTAL = "револьвером MS-R38 .38",
-		PREPOSITIONAL = "револьвере MS-R38 .38",
+		NOMINATIVE = "револьвер MS-R38 \"Симплекс\" .38",
+		GENITIVE = "револьвера MS-R38 \"Симплекс\" .38",
+		DATIVE = "револьверу MS-R38 \"Симплекс\" .38",
+		ACCUSATIVE = "револьвер MS-R38 \"Симплекс\" .38",
+		INSTRUMENTAL = "револьвером MS-R38 \"Симплекс\" .38",
+		PREPOSITIONAL = "револьвере MS-R38 \"Симплекс\" .38",
 	)
 
 /obj/item/gun/projectile/revolver/detective/add_deep_lore()
@@ -30,13 +30,13 @@
 		<br>\
 		Фурнитура выполнена из лёгкого ударопрочного полимера, снижающего вес оружия и стоимость производства. \
 		Направляющие для крепления тактических модулей отсутствуют. Использование стандартного револьверного патрона .38, \
-		производящегося во множестве вариантов и модификаций, подчёркивает доступность и универсальность MS-R38.<br>\
+		производящегося во множестве вариантов и модификаций, подчёркивает доступность и универсальность \"Симплекса\".<br>\
 		<br>\
 		Данный револьвер можно нередко встретить в руках охранного персонала, частных детективов и гражданских лиц."\
 	)
 
-// MARK: Taurus
-/obj/item/gun/projectile/rйvolver/taurus
+// MARK: MS-R45 Taurus
+/obj/item/gun/projectile/revolver/taurus
 	name = "MS-R45 \"Taurus\" revolver"
 	desc = "Тяжёлый шестизарядный револьвер калибра .45 Colt производства \"Mars Special\". Отличается высокой убойной силой, \
 			модульностью и надёжностью. Закупается \"Нанотрейзен\" для снабжения сотрудников корпоративной службы безопасности."
@@ -59,12 +59,12 @@
 
 /obj/item/gun/projectile/revolver/taurus/get_ru_names()
 	return list(
-		NOMINATIVE = "револьвер MS-R45 \"Таурус\"",
-		GENITIVE = "револьвера MS-R45 \"Таурус\"",
-		DATIVE = "револьверу MS-R45 \"Таурус\"",
-		ACCUSATIVE = "револьверу MS-R45 \"Таурус\"",
-		INSTRUMENTAL = "револьвером MS-R45 \"Таурус\"",
-		PREPOSITIONAL = "револьвере MS-R45 \"Таурус\"",
+		NOMINATIVE = "револьвер MS-R45 \"Таурус\" .45 Colt",
+		GENITIVE = "револьвера MS-R45 \"Таурус\" .45 Colt",
+		DATIVE = "револьверу MS-R45 \"Таурус\" .45 Colt",
+		ACCUSATIVE = "револьверу MS-R45 \"Таурус\" .45 Colt",
+		INSTRUMENTAL = "револьвером MS-R45 \"Таурус\" .45 Colt",
+		PREPOSITIONAL = "револьвере MS-R45 \"Таурус\" .45 Colt",
 	)
 
 /obj/item/gun/projectile/revolver/taurus/add_deep_lore()
@@ -174,7 +174,7 @@
 		PREPOSITIONAL = "револьвере Уника-6 .357",
 	)
 
-// MARK: Tkach Ya-Sui
+// MARK: UC-12 Dragon
 /obj/item/gun/projectile/revolver/ga12
 	name = "UC-12 \"Dragon\" revolver"
 	desc = "Массивный реввольвер 12-го калибра производства \"Дядя Чанг\". Колоссальная огневая мощь компенсируется \
