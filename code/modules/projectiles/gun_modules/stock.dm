@@ -3,7 +3,7 @@
  */
 /obj/item/gun_module/stock
 	name = "telescopic stock"
-	desc = "Телескопический приклад. Позволяет контроллировать оружие при стрельбе, повышая кучность и компенсацию отдачи."
+	desc = "Телескопический приклад. Позволяет лучше контролировать отдачу, повышая кучность при стрельбе."
 	icon_state = "stock"
 	item_state = "stock"
 	overlay_state = "stock_o"
@@ -20,7 +20,7 @@
 	/// How many recoil decrease with unfold stock
 	var/recoil_compensation = 0.2
 	/// Buffer variable for unfolded stock overlay
-	var/buffered_overlay_unfold
+	var/mutable_appearance/buffered_overlay_unfold
 	/// Default gun weight class buffer variable
 	var/gun_w_class
 
@@ -34,7 +34,7 @@
 
 /obj/item/gun_module/stock/on_detach(obj/item/gun/target_gun, mob/user)
 	UnregisterSignal(target_gun, COMSIG_ITEM_ATTACK_SELF_SECONDARY)
-	unfolded = FALSE
+	fold_stock(user)
 
 /obj/item/gun_module/stock/proc/toggle_stock(datum/source, mob/user)
 	SIGNAL_HANDLER
