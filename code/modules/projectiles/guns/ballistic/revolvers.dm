@@ -36,7 +36,7 @@
 	)
 
 // MARK: Taurus
-/obj/item/gun/projectile/revolver/taurus
+/obj/item/gun/projectile/rйvolver/taurus
 	name = "MS-R45 \"Taurus\" revolver"
 	desc = "Тяжёлый шестизарядный револьвер калибра .45 Colt производства \"Mars Special\". Отличается высокой убойной силой, \
 			модульностью и надёжностью. Закупается \"Нанотрейзен\" для снабжения сотрудников корпоративной службы безопасности."
@@ -70,7 +70,7 @@
 /obj/item/gun/projectile/revolver/taurus/add_deep_lore()
 	AddElement(/datum/element/examine_lore, \
 		lore = "Мощный самозарядный револьвер, разработанный для гражданского и профессионального рынка. \
-		Конструкция рассчитана на использование мощных патронов .45 Colt, обладающих высокой убойной силой.<br>\
+		Конструкция рассчитана на использование патронов .45 Colt, обладающих высокой убойной силой.<br>\
 		<br>\
 		Корпус изготовлен из высокопрочного композита с использованием стали, что обеспечивает баланс между весом и прочностью \
 		при работе с мощным боеприпасом. Существенным отличием от многих аналогов в классе является наличие ряда направляющих для \
@@ -402,8 +402,8 @@
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message(
-		span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[zone][ACCUSATIVE]]!"),
-		span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[zone][ACCUSATIVE]]!"),
+		span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
+		span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
 		span_italics("Вы слышите выстрел!"),
 		projectile_message = TRUE
 	)

@@ -13,7 +13,6 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	var/atom/atom_target = target
 	src.lore_hint = lore_hint
 	src.lore = lore
 
@@ -38,4 +37,4 @@
 
 /datum/element/examine_lore/proc/on_examine_more(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += "<i>[lore]</i>"
+	examine_list += "<b>[span_blue("ЛОРНАЯ СПРАВКА")]</b><hr><i>[lore]</i>"
