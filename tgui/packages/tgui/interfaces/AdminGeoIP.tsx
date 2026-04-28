@@ -1,15 +1,7 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Stack,
-  Table,
-} from '../components';
+import { Box, Icon, Input, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 type GeoIPRow = {
@@ -37,45 +29,59 @@ type GeoIPData = {
   target_ckey: string | null;
 };
 
+const DASH = '—';
+
 // MARK: helpers
 
-const clampByte = (value: number) => Math.max(0, Math.min(255, value | 0));
+const clampByte = (n: number) => Math.max(0, Math.min(255, n | 0));
 
 const pingColor = (ping: number) => {
-  const red = clampByte(ping);
-  const green = 255 - red;
-  return `rgb(${red}, ${green}, 0)`;
+  const r = clampByte(ping);
+  return `rgb(${r}, ${255 - r}, 0)`;
 };
 
 const stripTags = (value: string) =>
   (value || '').replace(/<[^>]+>/g, '').trim();
 
-type ProxyKind = 'true' | 'false' | 'whitelisted' | 'unknown';
-
-const proxyKind = (raw: string): ProxyKind => {
-  const text = stripTags(raw).toLowerCase();
-  if (text === 'true') return 'true';
-  if (text === 'false') return 'false';
-  if (text === 'whitelisted') return 'whitelisted';
-  return 'unknown';
+const formatPair = (primary: string, secondary: string) => {
+  if (!primary) return '';
+  return secondary ? `${primary} (${secondary})` : primary;
 };
 
+// MARK: presentational primitives
+
+const Dash = () => (
+  <Box color="label" as="span">
+    {DASH}
+  </Box>
+);
+
+const TextOrDash = ({ value }: { value: string | null | undefined }) =>
+  value ? <Box as="span">{value}</Box> : <Dash />;
+
+const PingValue = ({ ping }: { ping: number }) => (
+  <>
+    <Box inline color={pingColor(ping)} mr={1}>
+      <Icon name="circle" />
+    </Box>
+    <Box inline bold>
+      {ping}
+    </Box>
+  </>
+);
+
 const ProxyBadge = ({ value }: { value: string }) => {
-  const kind = proxyKind(value);
-  if (kind === 'unknown') return <Box color="label">—</Box>;
-  const map = {
-    true: { color: 'bad', label: 'proxy' },
-    false: { color: 'good', label: 'clean' },
-    whitelisted: { color: 'orange', label: 'whitelisted' },
-  } as const;
-  const meta = map[kind];
-  return <Box color={meta.color}>{meta.label}</Box>;
+  const kind = stripTags(value).toLowerCase();
+  if (kind === 'true') return <Box color="bad">proxy</Box>;
+  if (kind === 'false') return <Box color="good">clean</Box>;
+  if (kind === 'whitelisted') return <Box color="orange">whitelisted</Box>;
+  return <Dash />;
 };
 
 const MobileBadge = ({ value }: { value: string }) => {
   if (value === 'true') return <Box color="average">mobile</Box>;
   if (value === 'false') return <Box color="label">no</Box>;
-  return <Box color="label">—</Box>;
+  return <Dash />;
 };
 
 const STATUS_COLOR: Record<string, string> = {
@@ -86,12 +92,9 @@ const STATUS_COLOR: Record<string, string> = {
   'no address': 'label',
 };
 
-const statusColor = (value: string) =>
-  STATUS_COLOR[value] ?? (value.startsWith('api fail') ? 'bad' : 'bad');
-
 const StatusBadge = ({ value }: { value: string | null }) => {
-  if (!value) return <Box color="label">—</Box>;
-  return <Box color={statusColor(value)}>{value}</Box>;
+  if (!value) return <Dash />;
+  return <Box color={STATUS_COLOR[value] ?? 'bad'}>{value}</Box>;
 };
 
 // MARK: focused view
@@ -99,31 +102,28 @@ const StatusBadge = ({ value }: { value: string | null }) => {
 const FocusedView = ({ row }: { row: GeoIPRow }) => (
   <Section
     title={
-      <Stack align="center">
-        <Stack.Item bold>{row.ckey}</Stack.Item>
-        {row.name && row.name !== row.ckey && (
-          <Stack.Item color="label">({row.name})</Stack.Item>
-        )}
-      </Stack>
+      row.name && row.name !== row.ckey ? `${row.ckey} (${row.name})` : row.ckey
     }
   >
     <LabeledList>
-      <LabeledList.Item label="IP">{row.ip || '—'}</LabeledList.Item>
+      <LabeledList.Item label="IP">
+        <TextOrDash value={row.ip} />
+      </LabeledList.Item>
       <LabeledList.Item label="Country">
-        {row.country
-          ? `${row.country}${row.countryCode ? ` (${row.countryCode})` : ''}`
-          : '—'}
+        <TextOrDash value={formatPair(row.country, row.countryCode)} />
       </LabeledList.Item>
       <LabeledList.Item label="Region">
-        {row.regionName
-          ? `${row.regionName}${row.region ? ` (${row.region})` : ''}`
-          : '—'}
+        <TextOrDash value={formatPair(row.regionName, row.region)} />
       </LabeledList.Item>
-      <LabeledList.Item label="City">{row.city || '—'}</LabeledList.Item>
+      <LabeledList.Item label="City">
+        <TextOrDash value={row.city} />
+      </LabeledList.Item>
       <LabeledList.Item label="Timezone">
-        {row.timezone || '—'}
+        <TextOrDash value={row.timezone} />
       </LabeledList.Item>
-      <LabeledList.Item label="ISP">{row.isp || '—'}</LabeledList.Item>
+      <LabeledList.Item label="ISP">
+        <TextOrDash value={row.isp} />
+      </LabeledList.Item>
       <LabeledList.Item label="Mobile">
         <MobileBadge value={row.mobile} />
       </LabeledList.Item>
@@ -131,109 +131,143 @@ const FocusedView = ({ row }: { row: GeoIPRow }) => (
         <ProxyBadge value={row.proxy} />
       </LabeledList.Item>
       <LabeledList.Item label="Ping">
-        <Box inline color={pingColor(row.ping)} bold mr={1}>
-          <Icon name="circle" />
-        </Box>
-        {row.ping} (avg {row.avg_ping})
+        <PingValue ping={row.ping} />
+      </LabeledList.Item>
+      <LabeledList.Item label="Avg ping">
+        <Box bold>{row.avg_ping}</Box>
       </LabeledList.Item>
       <LabeledList.Item label="Status">
         <StatusBadge value={row.status} />
       </LabeledList.Item>
-      {row.url && <LabeledList.Item label="URL">{row.url}</LabeledList.Item>}
+      <LabeledList.Item label="URL">
+        <TextOrDash value={row.url} />
+      </LabeledList.Item>
     </LabeledList>
   </Section>
 );
 
 // MARK: full list view
 
+const SEARCH_KEYS: (keyof GeoIPRow)[] = [
+  'ckey',
+  'name',
+  'ip',
+  'country',
+  'countryCode',
+  'region',
+  'regionName',
+  'city',
+  'isp',
+  'url',
+];
+
 const searchHaystack = (row: GeoIPRow) =>
-  [
-    row.ckey,
-    row.name,
-    row.ip,
-    row.country,
-    row.countryCode,
-    row.region,
-    row.regionName,
-    row.city,
-    row.isp,
-  ]
+  SEARCH_KEYS.map((key) => row[key])
     .filter(Boolean)
     .join('|');
 
-const rowSeparatorStyle = (index: number) => ({
-  borderTop: index === 0 ? 'none' : '1px solid hsla(0, 0%, 100%, 0.10)',
+const PlayerCell = ({ row }: { row: GeoIPRow }) => (
+  <>
+    <Box dangerouslySetInnerHTML={{ __html: row.player_html }} />
+    {!!row.url && (
+      <Box color="label" fontSize="0.85em" mt={0.25}>
+        {row.url}
+      </Box>
+    )}
+  </>
+);
+
+const LocationCell = ({ row }: { row: GeoIPRow }) => {
+  if (!row.country) return <Dash />;
+  const subline = [row.city, row.regionName].filter(Boolean).join(', ');
+  return (
+    <>
+      <Box>
+        {row.country}
+        {row.countryCode && (
+          <Box inline color="label">
+            {' '}
+            ({row.countryCode})
+          </Box>
+        )}
+      </Box>
+      {!!subline && (
+        <Box color="label" fontSize="0.85em">
+          {subline}
+        </Box>
+      )}
+    </>
+  );
+};
+
+const COLUMNS: { label: string; collapsing?: boolean }[] = [
+  { label: 'Player' },
+  { label: 'Ping', collapsing: true },
+  { label: 'Avg', collapsing: true },
+  { label: 'IP' },
+  { label: 'Location' },
+  { label: 'ISP' },
+  { label: 'Mobile', collapsing: true },
+  { label: 'Proxy', collapsing: true },
+  { label: 'Status', collapsing: true },
+];
+
+const rowStyle = (index: number) => ({
+  borderTop: index === 0 ? 'none' : '1px solid hsla(0, 0%, 100%, 0.08)',
   backgroundColor: index % 2 ? 'hsla(0, 0%, 100%, 0.02)' : 'transparent',
 });
 
 const FullListView = ({ clients }: { clients: GeoIPRow[] }) => {
-  const [searchText, setSearchText] = useState('');
-  const visible = clients.filter(createSearch(searchText, searchHaystack));
+  const [search, setSearch] = useState('');
+  const sorted = useMemo(
+    () => [...clients].sort((a, b) => a.ckey.localeCompare(b.ckey)),
+    [clients]
+  );
+  const visible = useMemo(
+    () => sorted.filter(createSearch(search, searchHaystack)),
+    [sorted, search]
+  );
 
   return (
     <Section
       title={`Clients: ${visible.length} / ${clients.length}`}
       buttons={
         <Input
-          width="20em"
-          placeholder="Search ckey, IP, location, ISP..."
-          value={searchText}
-          onChange={setSearchText}
+          width="22em"
+          placeholder="Search ckey, IP, location, ISP, URL..."
+          value={search}
+          onChange={setSearch}
         />
       }
     >
       <Table>
         <Table.Row header>
-          <Table.Cell>Player</Table.Cell>
-          <Table.Cell collapsing>Ping</Table.Cell>
-          <Table.Cell collapsing>Avg</Table.Cell>
-          <Table.Cell>IP</Table.Cell>
-          <Table.Cell>Location</Table.Cell>
-          <Table.Cell>ISP</Table.Cell>
-          <Table.Cell collapsing>Mobile</Table.Cell>
-          <Table.Cell collapsing>Proxy</Table.Cell>
-          <Table.Cell collapsing>Status</Table.Cell>
+          {COLUMNS.map((col) => (
+            <Table.Cell key={col.label} collapsing={col.collapsing}>
+              {col.label}
+            </Table.Cell>
+          ))}
         </Table.Row>
         {visible.map((row, index) => (
-          <Table.Row key={row.ckey} style={rowSeparatorStyle(index)}>
+          <Table.Row key={row.ckey} style={rowStyle(index)}>
             <Table.Cell>
-              <Box dangerouslySetInnerHTML={{ __html: row.player_html }} />
+              <PlayerCell row={row} />
             </Table.Cell>
             <Table.Cell collapsing>
-              <Box inline color={pingColor(row.ping)} mr={1}>
-                <Icon name="circle" />
-              </Box>
-              <Box inline bold>
-                {row.ping}
-              </Box>
+              <PingValue ping={row.ping} />
             </Table.Cell>
             <Table.Cell collapsing bold>
               {row.avg_ping}
             </Table.Cell>
-            <Table.Cell>{row.ip || '—'}</Table.Cell>
             <Table.Cell>
-              {row.country ? (
-                <Box>
-                  <Box>
-                    {row.country}
-                    {row.countryCode && (
-                      <Box inline color="label">
-                        {' '}
-                        ({row.countryCode})
-                      </Box>
-                    )}
-                  </Box>
-                  {(row.city || row.regionName) && (
-                    <Box color="label" fontSize="0.9em">
-                      {[row.city, row.regionName].filter(Boolean).join(', ')}
-                    </Box>
-                  )}
-                </Box>
-              ) : (
-                '—'
-              )}
+              <TextOrDash value={row.ip} />
             </Table.Cell>
-            <Table.Cell>{row.isp || '—'}</Table.Cell>
+            <Table.Cell>
+              <LocationCell row={row} />
+            </Table.Cell>
+            <Table.Cell>
+              <TextOrDash value={row.isp} />
+            </Table.Cell>
             <Table.Cell collapsing>
               <MobileBadge value={row.mobile} />
             </Table.Cell>
@@ -263,8 +297,8 @@ export const AdminGeoIP = () => {
   return (
     <Window
       theme="admin"
-      width={focused ? 460 : 890}
-      height={focused ? 430 : 530}
+      width={focused ? 460 : 920}
+      height={focused ? 460 : 540}
       title={focused ? `GeoIP: ${data.target_ckey}` : 'GeoIP Report'}
     >
       <Window.Content scrollable>

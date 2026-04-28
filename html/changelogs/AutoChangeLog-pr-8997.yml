@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - balance: "Ген повышения скорости и ген ускорения с днк-хранилища теперь не стакаются (PR #8997)"

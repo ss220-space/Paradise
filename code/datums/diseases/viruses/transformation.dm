@@ -190,25 +190,6 @@
 			if(prob(20))
 				affected_mob.say(pick("Ты выглядишь вкусно.", "Собираюсь... сожрать тебя...", "Хииисссс!"))
 
-/datum/disease/virus/transformation/xeno/phantom
-	name = "dangerous xenomorph transformation"
-	transform_message = list(span_danger_alt(span_fontsize5_alt("<b>Теперь вы ксеноморф.</b>") + "\n\
-	<b>Вы чувствуете боль от превращения! Вы утратили всю память и первобытная жажда убийства охватила вас!</b>"))
-
-/datum/disease/virus/transformation/xeno/phantom/New()
-	..()
-	new_form = pick(/mob/living/carbon/alien/humanoid/hunter, /mob/living/carbon/alien/humanoid/drone/no_queen, /mob/living/carbon/alien/humanoid/sentinel)
-
-/datum/disease/virus/transformation/xeno/phantom/do_disease_transformation()
-	. = ..()
-	var/mob/living/prom = .
-	if(!prom.mind)
-		return
-	prom.mind.wipe_memory()
-	prom.mind.objectives += new /datum/objective/xeno_genocide
-	var/list/messages = prom.mind.prepare_announce_objectives()
-	to_chat(prom, chat_box_red(messages.Join("<br>")))
-
 /datum/disease/virus/transformation/slime
 	name = "Продвинутая Мутационная Трансформация"
 	agent = "Токсин Продвинутой Мутации"

@@ -163,7 +163,7 @@
 			return ATTACK_CHAIN_PROCEED
 		scribble += list(list(
 			id = current_page,
-			text = new_scribble
+			text = strip_html_full(new_scribble)
 		))
 		user.visible_message(
 			span_notice("[user] дела[PLUR_ET_YUT(user)] пометку в газете."),
