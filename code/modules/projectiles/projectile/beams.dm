@@ -149,7 +149,6 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
@@ -173,7 +172,6 @@
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
-	damage = 25
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -658,7 +656,6 @@
 /obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
