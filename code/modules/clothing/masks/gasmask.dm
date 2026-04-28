@@ -178,9 +178,6 @@
 		PREPOSITIONAL = "маске чумного доктора",
 	)
 
-/obj/item/clothing/mask/gas/plaguedoctor/armoured
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, FIRE = 10, ACID = 10)
-
 /obj/item/clothing/mask/gas/swat
 	name = "SWAT mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."

@@ -17,11 +17,6 @@
 
 /// A wrapper for _AddComponent that allows us to pretend we're using normal named arguments
 #define AddComponent(arguments...) _AddComponent(list(##arguments))
-// Raw version
-#define RawAddComponent(arg_list) _AddComponent(##arg_list)
 
 /// A wrapper for _LoadComponent that allows us to pretend we're using normal named arguments
 #define LoadComponent(arguments...) _LoadComponent(list(##arguments))
-
-//Just a beautiful raw version without _
-
