@@ -666,7 +666,6 @@
 #include "code\datums\actions\generic_action.dm"
 #include "code\datums\actions\innate_action.dm"
 #include "code\datums\actions\item_action.dm"
-#include "code\datums\actions\spell_action.dm"
 #include "code\datums\ai\_ai_behavior.dm"
 #include "code\datums\ai\_ai_controller.dm"
 #include "code\datums\ai\_ai_planning_subtree.dm"
