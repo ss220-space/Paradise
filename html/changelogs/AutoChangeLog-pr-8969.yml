@@ -1,4 +1,0 @@
-author: "ItsMeJaba"
-delete-after: True
-changes:
-  - map: "Унифицировано расположение apc, air_alarm, firealarm, newscasters и extinguisher cabinet(шкафчик огнетушителя). Не исключена возможность их \"сползания\" со стен. (PR #8969)"
