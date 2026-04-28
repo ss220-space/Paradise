@@ -72,10 +72,12 @@
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-// /obj/item/clothing/suit/armor/vest/security/update_icon_state()
-	//TODO to overlay
-	// icon_state = "armor[attached_badge ? "sec" : ""]"
-	// update_equipped_item(update_speedmods = FALSE)
+/obj/item/clothing/suit/armor/vest/security/update_overlays()
+	. = ..()
+	if(!attached_badge)
+		return
+	. += mutable_appearance(icon, "badge")
+	update_equipped_item(update_speedmods = FALSE)
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
 	. = ..()
@@ -96,7 +98,7 @@
 		attached_badge = I
 		var/datum/action/item_action/remove_badge/holoaction = new(src)
 		holoaction.Grant(user)
-		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
