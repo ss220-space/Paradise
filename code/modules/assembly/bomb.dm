@@ -78,8 +78,6 @@
 /obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
 	audible_message("[get_examine_icon(hearers(loc))] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-	if(QDELETED(src))
-		return
 	if(status)
 		addtimer(CALLBACK(bombtank, TYPE_PROC_REF(/obj/item/tank, detonate)), 1 SECONDS)
 		return
