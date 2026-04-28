@@ -21,7 +21,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/automatic/smg/update_icon_state()
-	icon_state = "[base_icon_state]_base"
+	icon_state = "[base_icon_state]"
 
 /obj/item/gun/projectile/automatic/smg/update_overlays()
 	. = ..()
@@ -50,7 +50,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
 	)
 	starting_attachment_types = list(/obj/item/gun_module/rail/scope/collimator)
 	chambered_light_exists = TRUE
