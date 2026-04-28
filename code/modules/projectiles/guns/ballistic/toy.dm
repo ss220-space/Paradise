@@ -101,7 +101,7 @@
 
 /obj/item/gun/projectile/automatic/smg/c20r/toy/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, "[initial(icon_state)]_toy", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "[base_icon_state]_toy", layer = FLOAT_LAYER - 1)
 
 // MARK: L6 SAW
 /obj/item/gun/projectile/automatic/l6_saw/toy

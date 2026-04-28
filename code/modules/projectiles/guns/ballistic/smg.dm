@@ -2,7 +2,7 @@
 	icon = 'icons/obj/weapons/smg.dmi'
 	icon_state = "saber"
 	base_pixel_x = -8
-	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
@@ -16,14 +16,16 @@
 
 /obj/item/gun/projectile/automatic/smg/Initialize(mapload)
 	. = ..()
+	if(!base_icon_state)
+		base_icon_state = initial(icon_state)
 	update_icon()
 
 /obj/item/gun/projectile/automatic/smg/update_icon_state()
-	icon_state = "[initial(icon_state)]_base"
+	icon_state = "[base_icon_state]_base"
 
 /obj/item/gun/projectile/automatic/smg/update_overlays()
 	. = ..()
-	var/base_icon_id = initial(icon_state)
+	var/base_icon_id = base_icon_state
 	if(chambered_light_exists)
 		. += mutable_appearance(icon, "[base_icon_id]_light-[get_ammo() > 0 ? "f" : "e"]", layer = FLOAT_LAYER - 1)
 	if(!magazine)

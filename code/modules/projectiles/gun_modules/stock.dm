@@ -7,7 +7,7 @@
 	icon_state = "stock"
 	item_state = "stock"
 	overlay_state = "stock_o"
-	overlay_offset = list("x" = 0, "y" = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 	slot = ATTACHMENT_SLOT_STOCK
 	class = GUN_MODULE_CLASS_SMG_STOCK
 	custom_price = 2 * PAYCHECK_LOWER
@@ -25,9 +25,8 @@
 	var/gun_w_class
 
 /obj/item/gun_module/stock/Destroy()
-	. = ..()
-	if(buffered_overlay_unfold)
-		QDEL_NULL(buffered_overlay_unfold)
+	QDEL_NULL(buffered_overlay_unfold)
+	return ..()
 
 /obj/item/gun_module/stock/on_attach(obj/item/gun/target_gun, mob/user)
 	RegisterSignal(target_gun, COMSIG_ITEM_ATTACK_SELF_SECONDARY, PROC_REF(toggle_stock))

@@ -186,6 +186,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
 /// Uplink rifles accuracy (better than default rifles)
 #define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
+/// Extend spread rifle accuracy
+#define GUN_ACCURACY_RIFLE_EXTEND_SPREAD new /datum/gun_accuracy/rifle/extend_spread()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
