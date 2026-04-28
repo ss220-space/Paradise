@@ -600,7 +600,7 @@
 	our_splatter.blood_dna_info = get_blood_dna_list()
 	our_splatter.transfer_mob_blood_dna(src)
 	our_splatter.basecolor = get_blood_color()
-	our_splatter.update_icon()
+	our_splatter.update_appearance(UPDATE_ICON)
 	var/turf/target_turf = get_ranged_target_turf(src, splatter_direction, splatter_strength)
 	our_splatter.fly_towards(target_turf, splatter_strength)
 

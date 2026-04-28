@@ -980,7 +980,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
 	B.basecolor = color
-	B.update_icon()
+	B.update_appearance(UPDATE_ICON)
 	return TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)

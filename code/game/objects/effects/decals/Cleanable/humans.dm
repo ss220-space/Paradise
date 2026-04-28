@@ -477,7 +477,7 @@
 
 	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)
 	final_splatter.basecolor = basecolor
-	final_splatter.update_icon()
+	final_splatter.update_appearance(UPDATE_ICON)
 	final_splatter.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
 	final_splatter.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 
@@ -492,7 +492,7 @@
 
 	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)
 	final_splatter.basecolor = basecolor
-	final_splatter.update_icon()
+	final_splatter.update_appearance(UPDATE_ICON)
 	final_splatter.forceMove(the_window)
 	the_window.vis_contents += final_splatter
 	expire()
