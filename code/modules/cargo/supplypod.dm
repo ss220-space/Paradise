@@ -611,14 +611,15 @@
 		return ..()
 
 	to_chat(user, span_notice("Вы начинаетезаталкивать"))
-	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	user.visible_message(
+		span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+	)
 
 	if(!do_after(user, 5 SECONDS, src))
 		return
 
 	. = ..()
-
 	if(!.)
 		return
 

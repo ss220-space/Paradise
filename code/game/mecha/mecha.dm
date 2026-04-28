@@ -1327,15 +1327,14 @@
 /obj/mecha/mouse_drop_receive(mob/M, mob/user, params)
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
-		return TRUE
+		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
 	if(occupant)
 		to_chat(user, span_warning("The [src] is already occupied!"))
-
-		return TRUE
+		return
 	var/passed
 	if(dna_lock)
 		if(ishuman(user))
@@ -1345,19 +1344,18 @@
 		passed = TRUE
 	if(!passed)
 		to_chat(user, span_warning("Access denied."))
-		return TRUE
+		return
 	if(user.buckled)
 		to_chat(user, span_warning("You are currently buckled and cannot move."))
-		return TRUE
+		return
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
-		return TRUE
+		return
 	if(ratvarized && !isclocker(user))
 		balloon_alert(user, "запечатано!")
-		return TRUE
+		return
 	visible_message(span_notice("[user] starts to climb into [src]"))
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
-	return TRUE
 
 /obj/mecha/proc/put_in(mob/user)
 	if(do_after(user, mech_enter_time, src, category = DA_CAT_TOOL))
