@@ -558,7 +558,7 @@
 	// check to see if their face is blocked or, if not, a signal blocks it
 	if(examined_mob.can_eye_contact() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
 		var/obj/item/clothing/eye_cover = examined_mob.get_item_by_slot(ITEM_SLOT_EYES)
-		if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+		if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
 			var/msg = span_smallnotice("Вы встречаетесь взглядом с [examined_mob.declent_ru(INSTRUMENTAL)].")
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
 
@@ -566,7 +566,7 @@
 		return
 
 	var/obj/item/clothing/eye_cover = get_item_by_slot(ITEM_SLOT_EYES)
-	if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+	if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
 		var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
 
@@ -782,7 +782,7 @@
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
 	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return 
+		return
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
