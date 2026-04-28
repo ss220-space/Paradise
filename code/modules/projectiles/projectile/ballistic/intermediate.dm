@@ -17,6 +17,7 @@
 
 /obj/projectile/bullet/incendiary/foursix
 	damage = 15
+	damage_type = BURN
 	armour_penetration = 10
 
 // MARK: 5.45x39mm - Fusty
