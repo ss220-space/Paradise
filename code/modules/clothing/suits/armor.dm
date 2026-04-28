@@ -68,9 +68,14 @@
 	)
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/update_icon_state()
-	icon_state = "armor[attached_badge ? "sec" : ""]"
-	update_equipped_item(update_speedmods = FALSE)
+/obj/item/clothing/suit/armor/vest/security/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+// /obj/item/clothing/suit/armor/vest/security/update_icon_state()
+	//TODO to overlay
+	// icon_state = "armor[attached_badge ? "sec" : ""]"
+	// update_equipped_item(update_speedmods = FALSE)
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
 	. = ..()
