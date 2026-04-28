@@ -18,7 +18,7 @@
 	. = ..()
 	if(!base_icon_state)
 		base_icon_state = initial(icon_state)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/automatic/smg/update_icon_state()
 	icon_state = "[base_icon_state]_base"

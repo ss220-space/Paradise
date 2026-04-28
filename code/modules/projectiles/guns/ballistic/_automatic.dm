@@ -75,6 +75,6 @@
 		process_chamber(TRUE, TRUE)
 		balloon_alert(user, "патрон извлечён")
 		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
-		update_icon()
+		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 		return
 	. = ..()

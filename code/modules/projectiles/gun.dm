@@ -206,7 +206,7 @@
 /obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
 	if(attachment_overlays[module.slot])
 		attachment_overlays[module.slot] = null
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/gun/proc/create_start_gun_modules()
 	if(!starting_attachment_types)
