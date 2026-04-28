@@ -156,12 +156,15 @@
 	icon_state = "justice"
 	toggle_on_message = "You turn off the lights on"
 	toggle_off_message = "You turn on the lights on"
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
 	active_sound_volume = 50
 	dog_fashion = null
+
+/obj/item/clothing/head/helmet/justice/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить фонарь шлема")
 
 /obj/item/clothing/head/helmet/justice/escape
 	name = "alarm helmet"
@@ -243,11 +246,14 @@
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDEHAIR
 	toggle_on_message = "You attach the face shield to the"
 	toggle_off_message = "You remove the face shield from the"
-	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/zippoclose.ogg'
 	dog_fashion = null
+
+/obj/item/clothing/head/helmet/gladiator/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить режим костюма")
 
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"

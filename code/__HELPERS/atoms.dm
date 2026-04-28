@@ -127,7 +127,7 @@
 	return atoms
 
 /**
- *	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
+ * Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
  */
 /proc/is_location_within_transition_boundaries(atom/loc)
 	return (loc.x > TRANSITION_BORDER_WEST) \
@@ -567,7 +567,7 @@
 /atom/proc/can_see(atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)
-	if(!current_turf || !target_turf)	// nullspace
+	if(!current_turf || !target_turf) // nullspace
 		return FALSE
 	if(get_dist(current_turf, target_turf) > length)
 		return FALSE

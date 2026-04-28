@@ -85,6 +85,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 // Civilians
 #define JOB_TITLE_RU_CIVILIAN "Гражданский"
 #define JOB_TITLE_RU_PRISONER "Заключённый"
+#define JOB_TITLE_RU_INVESTOR "Инвестор"
 
 // Silicons
 #define JOB_TITLE_RU_AI "Станционный ИИ"
@@ -200,6 +201,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Civilians
 	JOB_TITLE_CIVILIAN = JOB_TITLE_RU_CIVILIAN,
 	JOB_TITLE_PRISONER = JOB_TITLE_RU_PRISONER,
+	JOB_TITLE_INVESTOR = JOB_TITLE_RU_INVESTOR,
 
 // Silicons
 	JOB_TITLE_AI = JOB_TITLE_RU_AI,

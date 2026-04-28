@@ -314,7 +314,6 @@
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	head = /obj/item/clothing/head/soft/paramedic
 	belt = /obj/item/storage/belt/medical/filled
-	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	l_hand = /obj/item/storage/firstaid/paramed

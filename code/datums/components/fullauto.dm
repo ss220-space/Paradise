@@ -274,8 +274,8 @@
 	shooter.face_atom(target)
 	var/next_delay = autofire_shot_delay
 	if(windup_autofire)
-		next_delay = clamp(next_delay - current_windup_reduction, round(autofire_shot_delay * windup_autofire_cap), autofire_shot_delay)
-		current_windup_reduction = (current_windup_reduction + round(autofire_shot_delay * windup_autofire_reduction_multiplier))
+		next_delay = clamp(next_delay - current_windup_reduction, autofire_shot_delay * windup_autofire_cap, autofire_shot_delay)
+		current_windup_reduction = current_windup_reduction + autofire_shot_delay * windup_autofire_reduction_multiplier
 		timerid = addtimer(CALLBACK(src, PROC_REF(windup_reset), FALSE), windup_spindown, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
 
 	//if(HAS_TRAIT(shooter, TRAIT_DOUBLE_TAP))
@@ -298,7 +298,7 @@
 // Gun procs.
 
 /obj/item/gun/proc/on_autofire_start(mob/living/shooter)
-	if(semicd || shooter.incapacitated() || !can_trigger_gun(shooter))
+	if(fire_cd || shooter.incapacitated() || !can_trigger_gun(shooter))
 		return FALSE
 
 	if(!can_shoot(shooter))
@@ -320,7 +320,7 @@
 /obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	SIGNAL_HANDLER
 
-	if(semicd || shooter.incapacitated())
+	if(fire_cd || shooter.incapacitated())
 		return NONE
 
 	if(!can_shoot(shooter))
@@ -339,7 +339,7 @@
 			if(!badass)
 				bonus_spread = accuracy.dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params, null, bonus_spread), 1)
-	process_fire(target, shooter, TRUE, params, null, bonus_spread)
+	process_fire(target, shooter, TRUE, params2list(params), null, bonus_spread)
 
 #undef AUTOFIRE_MOUSEUP
 #undef AUTOFIRE_MOUSEDOWN

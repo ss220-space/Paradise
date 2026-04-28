@@ -528,8 +528,9 @@
 	return ..()
 
 /datum/action/spell_action/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable(TRUE))
-		return FALSE
+	. = ..()
+	if(!.)
+		return
 
 	if(target)
 		var/obj/effect/proc_holder/spell = target

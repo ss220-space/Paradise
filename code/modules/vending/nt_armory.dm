@@ -217,6 +217,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/gun/projectile/shotgun/winchester = 3,
 		/obj/item/ammo_box/shotgun/rubbershot = 6,
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
@@ -254,6 +255,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/gun/projectile/shotgun/winchester = 2,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
 		/obj/item/ammo_box/shotgun = 2,
 		/obj/item/ammo_box/magazine/enforcer = 6,
@@ -336,7 +338,8 @@
 
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
-		/obj/item/reagent_containers/applicator/dual = 2,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
+		/obj/item/reagent_containers/applicator/dual/syndi = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
 		/obj/item/storage/belt/medical/surgery/loaded = 2,
@@ -357,6 +360,8 @@
 		/obj/item/reagent_containers/applicator/burn = 4,
 		/obj/item/healthanalyzer/advanced = 4,
 		/obj/item/roller/holo = 2,
+		/obj/item/clothing/gloves/color/latex/modified = 2,
+		/obj/item/clothing/gloves/color/latex/inugami = 2,
 	)
 	contraband = list()
 

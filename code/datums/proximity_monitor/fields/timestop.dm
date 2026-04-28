@@ -164,7 +164,7 @@
 	RegisterSignal(our_movable, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(unfreeze_atom))
 	RegisterSignal(our_movable, COMSIG_ITEM_PICKUP, PROC_REF(unfreeze_atom))
 
-	//SEND_SIGNAL(our_movable, COMSIG_ATOM_TIMESTOP_FREEZE, src)
+	SEND_SIGNAL(our_movable, COMSIG_ATOM_TIMESTOP_FREEZE, src)
 
 	return TRUE
 
@@ -188,7 +188,7 @@
 	UnregisterSignal(our_movable, COMSIG_MOVABLE_PRE_MOVE)
 	UnregisterSignal(our_movable, COMSIG_ITEM_PICKUP)
 
-	//SEND_SIGNAL(our_movable, COMSIG_ATOM_TIMESTOP_UNFREEZE, src) wait
+	SEND_SIGNAL(our_movable, COMSIG_ATOM_TIMESTOP_UNFREEZE, src)
 
 	escape_the_negative_zone(our_movable)
 	our_movable.move_resist = frozen_things[our_movable]

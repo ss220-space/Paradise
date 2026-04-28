@@ -250,7 +250,7 @@
 
 ///Checks if the user is incapacitated or on cooldown.
 /mob/living/proc/can_look_up()
-	return !(incapacitated(INC_IGNORE_RESTRAINED) || !isturf(loc))
+	return !(incapacitated(IGNORE_RESTRAINTS) || !isturf(loc))
 
 /**
  * look_up Changes the perspective of the mob to any openspace turf above the mob

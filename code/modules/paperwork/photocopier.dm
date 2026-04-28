@@ -14,6 +14,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "пищит"
+	interaction_flags_mouse_drop = NEED_DEXTERITY | ALLOW_RESTING
 
 	COOLDOWN_DECLARE(copying_cooldown)
 
@@ -693,7 +694,7 @@
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 
-/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
+/obj/machinery/photocopier/mouse_drop_receive(mob/target, mob/living/user, params)
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?

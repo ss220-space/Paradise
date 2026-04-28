@@ -87,6 +87,7 @@
 	/// Overlay for showing debug info
 	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
+	/// GeoIPdata about a current client
 	var/datum/geoip_data/geoip = null
 
 	//datum that controls the displaying and hiding of tooltips
@@ -94,6 +95,8 @@
 
 	// Donator stuff.
 	var/donator_level = 0
+	/// Hold flag about shown donate offer
+	var/donate_offer_text_shown = FALSE
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
@@ -115,8 +118,11 @@
 	/// our current tab
 	var/stat_tab
 
-	/// list of all tabs
+	/// List of all tabs
 	var/list/panel_tabs = list()
+
+	/// A lazy list of atoms we've examined in the last RECENT_EXAMINE_MAX_WINDOW (default 2) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
+	var/list/recent_examines
 
 	var/fullscreen = FALSE
 
@@ -194,11 +200,15 @@
 	var/list/atom/selected_target[2]
 	///Used in MouseDrag to preserve the original mouse click parameters
 	var/mouseParams = ""
-	///Used in MouseDrag to preserve the last mouse-entered location.
-	var/mouse_location_UID
-	///Used in MouseDrag to preserve the last mouse-entered object.
-	var/mouse_object_UID
-	///When we started the currently active drag
+	///Used in MouseDrag to preserve the last mouse-entered location. Weakref
+	var/datum/weakref/mouse_location_ref = null
+	///Used in MouseDrag to preserve the last mouse-entered object. Weakref
+	var/datum/weakref/mouse_object_ref
+	//Middle-mouse-button click dragtime control for aimbot exploit detection.
+	var/middragtime = 0
+	//Middle-mouse-button clicked object control for aimbot exploit detection. Weakref
+	var/datum/weakref/middle_drag_atom_ref
+	//When we started the currently active drag
 	var/drag_start = 0
 	//The params we were passed at the start of the drag, in list form
 	var/list/drag_details
@@ -259,4 +269,13 @@
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
 		return FALSE
+	switch(var_name)
+		if(NAMEOF(src, holder))
+			return FALSE
+		if(NAMEOF(src, ckey))
+			return FALSE
+		if(NAMEOF(src, key))
+			return FALSE
+		if(NAMEOF(src, donator_level))
+			return FALSE
 	return ..()

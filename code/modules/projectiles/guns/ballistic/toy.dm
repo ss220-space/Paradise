@@ -37,10 +37,6 @@
 	desc = "RIOT! Ages 8 and up."
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
 
-/obj/item/gun/projectile/automatic/toy/pistol/riot/Initialize(mapload)
-	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
-	. = ..()
-
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam force enforcer"
 	desc = "A foam shooting version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
@@ -68,6 +64,7 @@
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
+	available_reload_animation = FALSE
 
 /obj/item/gun/projectile/shotgun/toy/handle_chamber()
 	..()

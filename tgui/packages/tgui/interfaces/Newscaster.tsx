@@ -89,6 +89,7 @@ type Chanel = {
   admin: boolean;
   description: string;
   author: string;
+  author_ckey: string;
   public: boolean;
   censored: boolean;
   frozen: boolean;
@@ -416,6 +417,11 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
             <LabeledList.Item label="Владелец">
               {channel.author || 'Н/Д'}
             </LabeledList.Item>
+            {!!is_admin && (
+              <LabeledList.Item label="Ckey">
+                {channel.author_ckey}
+              </LabeledList.Item>
+            )}
             <LabeledList.Item label="Публичный">
               {channel.public ? 'Да' : 'Нет'}
             </LabeledList.Item>
@@ -530,6 +536,7 @@ export type StoryData = {
   body_short: string;
   admin_locked: boolean;
   photo?: boolean;
+  author_ckey: string;
 };
 
 type StoryProps = {
@@ -541,6 +548,7 @@ type StoryProps = {
 const Story = (properties: StoryProps) => {
   const { act, data } = useBackend<NewscasterData>();
   const { story, wanted = false } = properties;
+  const { is_admin } = data;
   const { censorMode, fullStories, setFullStories } = properties;
   return (
     <Section
@@ -576,6 +584,7 @@ const Story = (properties: StoryProps) => {
             )}
             <Box inline>
               <Icon name="user" /> {story.author} |&nbsp;
+              {!!is_admin && <>ckey: {story.author_ckey} |&nbsp;</>}
               {!wanted && (
                 <>
                   <Icon name="eye" /> {story.view_count.toLocaleString()}{' '}

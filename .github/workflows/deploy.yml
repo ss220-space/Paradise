@@ -255,7 +255,7 @@ jobs:
 
     steps:
       - name: Delete previous automatic deployments
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           GITHUB_SHA_HEAD: ${{ github.sha }}
         with:

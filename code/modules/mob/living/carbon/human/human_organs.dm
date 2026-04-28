@@ -17,9 +17,6 @@
 
 		if(body_position != LYING_DOWN && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
-				if(LAZYLEN(bodypart.internal_organs))
-					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
-					organ.internal_receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()
@@ -34,6 +31,10 @@
 			continue
 
 		if(bodypart.is_traumatized() || !bodypart.properly_attached)
+			var/drop_chance = bodypart.fracture.drop_chance
+			if(!drop_chance || !prob(drop_chance))
+				continue
+
 			if(bodypart.limb_zone == BODY_ZONE_L_ARM || bodypart.limb_zone == BODY_ZONE_PRECISE_L_HAND)
 				if(!l_hand)
 					continue

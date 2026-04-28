@@ -236,6 +236,8 @@
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
+	set_right_click_menu_mode(TRUE)
+
 	if(connection != "seeker") //Invalid connection type.
 		return null
 
@@ -452,10 +454,13 @@
 	if(amount >= BRONZE_LEVEL)
 		give_award(/datum/award/achievement/donations/bronze_sponsor, mob)
 
-	if(amount < PLATINUM_LEVEL)
+	if(amount >= PLATINUM_LEVEL)
+		give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
+
+	if(amount < PROJECT_PILLAR_LEVEL)
 		return
 
-	give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
+	give_award(/datum/award/achievement/donations/project_pillar, mob)
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
@@ -573,6 +578,12 @@
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
 	if(is_guest_key(key))
 		return
+
+	#ifdef FAST_LOAD
+	donator_level = DONATOR_LEVEL_MAX
+	donor_loadout_points()
+	return
+	#endif
 
 	if(!SSdbcore.IsConnected())
 		return
@@ -1092,6 +1103,7 @@
 			return
 		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
+	var/ab = FALSE
 	var/list/modifiers = params2list(params)
 
 	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
@@ -1099,6 +1111,9 @@
 	var/dragged = LAZYACCESS(modifiers, DRAG)
 	if(dragged && button_clicked != dragged)
 		return
+
+	if(object && IS_WEAKREF_OF(object, middle_drag_atom_ref) && button_clicked == LEFT_CLICK)
+		ab = max(0, 5 SECONDS - (world.time - middragtime) * 0.1)
 
 	var/mcl = CONFIG_GET(number/minute_click_limit)
 	if(!holder && mcl)
@@ -1111,15 +1126,18 @@
 			clicklimiter[CURRENT_MINUTE] = minute
 			clicklimiter[MINUTE_COUNT] = 0
 
-		clicklimiter[MINUTE_COUNT] += 1
+		clicklimiter[MINUTE_COUNT] += 1 + (ab)
 
 		if(clicklimiter[MINUTE_COUNT] > mcl)
 			var/msg = "Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за минуту."
 			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				clicklimiter[ADMINSWARNED_AT] = minute
 				msg += " Администраторы были уведомлены."
-				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
+				if(ab)
+					add_game_logs("is using the middle click aimbot exploit.", src)
+					message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(usr)] [ADMIN_KICK(usr)] is using the middle click aimbot exploit."))
+				add_game_logs("has hit the per-minute click limit of [mcl] clicks in a given game minute.", src)
+				message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(usr)] has hit the per-minute click limit of [mcl] clicks in a given game minute."))
 			to_chat(src, span_danger("[msg]"), confidential = TRUE)
 			return
 
@@ -1133,7 +1151,7 @@
 			clicklimiter[CURRENT_SECOND] = second
 			clicklimiter[SECOND_COUNT] = 0
 
-		clicklimiter[SECOND_COUNT] += 1
+		clicklimiter[SECOND_COUNT] += 1 + (!!ab)
 
 		if(clicklimiter[SECOND_COUNT] > scl)
 			to_chat(src, span_danger("Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за секунду."), confidential = TRUE)
@@ -1685,6 +1703,16 @@
 ///Redirect proc that makes it easier to get the status of an achievement. Achievement type is the typepath to the award.
 /client/proc/get_award_status(achievement_type, mob/user, value = 1)
 	return persistent_client.achievements.get_achievement_status(achievement_type)
+
+/client/proc/set_right_click_menu_mode(shift_only)
+	if(shift_only)
+		winset(src, "mapwindow.map", "right-click=true")
+		winset(src, "ShiftUp", "is-disabled=false")
+		winset(src, "Shift", "is-disabled=false")
+	else
+		winset(src, "mapwindow.map", "right-click=false")
+		winset(src, "default.Shift", "is-disabled=true")
+		winset(src, "default.ShiftUp", "is-disabled=true")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

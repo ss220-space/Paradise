@@ -9,7 +9,7 @@
 // On:
 #define SMITE_LIGHTING "Удар молнией"
 #define SMITE_GIB "Разорвать на органы"
-#define	SMITE_BRAINLOSS "Повредить мозг"
+#define SMITE_BRAINLOSS "Повредить мозг"
 #define SMITE_HONKTUMOR "Банановая опухоль"
 #define SMITE_CLUWNE "Клунефикация"
 #define SMITE_HUNGER "Голод"
@@ -23,13 +23,14 @@
 #define SMITE_SUMMON "Агрессивное животное"
 #define SMITE_DEMOTE "Увольнение"
 #define SMITE_VIRUS "Вирус"
-#define	SMITE_POD "Ракета"
+#define SMITE_POD "Ракета"
 #define SMITE_GLOBALHUNTING "Охота"
 #define SMITE_BRAINROTBRAINDAMAGE "Автобрейндамаг за брейнрот"
 #define SMITE_PIANO "Уронить пианино/автомат"
 #define SMITE_JACKBOOTS "Фантомный топот"
 #define SMITE_MACHINERY "Разумная машинерия"
 #define SMITE_HEADHIT "Головой об шлюзы"
+#define SMITE_SELF_CONTROL "Самоконтроль"
 
 GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_LIGHTING = /datum/smite/lighting,
@@ -58,6 +59,7 @@ GLOBAL_LIST_INIT(smites_human, list(
 	SMITE_DEMOTE = /datum/smite/demote, // Nothing that need being human, but you can't demote corgi.
 	SMITE_VIRUS = /datum/smite/virus,
 	SMITE_BRAINROTBRAINDAMAGE = /datum/smite/brainrot_braingamage,
+	SMITE_SELF_CONTROL = /datum/smite/self_control,
 ))
 
 GLOBAL_LIST_INIT(default_brainrot, list(

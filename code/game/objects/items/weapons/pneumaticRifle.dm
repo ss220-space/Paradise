@@ -98,7 +98,7 @@
 
 	return ..()
 
-/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(target == loc)
 		return
@@ -138,7 +138,7 @@
 	syringes.Remove(S)
 	qdel(S)
 
-/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!tank)
 		to_chat(user, span_warning("[src] can't fire without a source of gas."))
 		return

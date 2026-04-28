@@ -41,6 +41,7 @@
 #define span_wingdings(str) ("<span class='wingdings'>[str]</span>")
 #define span_wingdings_alt(str) ("<span class='wingdings'>" + str + "</span>")
 #define span_robot(str) ("<span class='robot'>[str]</span>")
+#define span_infoplain(str) ("<span class='infoplain'>" + str + "</span>")
 
 /**
  * MARK: MOTD & MEMO
@@ -134,6 +135,8 @@
 #define span_notice_alt(str) ("<span class='notice'>" + str + "</span>")
 #define span_boldnotice(str) ("<span class='boldnotice'>[str]</span>")
 #define span_boldnotice_alt(str) ("<span class='boldnotice'>" + str + "</span>")
+#define span_smallnotice(str) ("<span class='smallnotice'>" + str + "</span>")
+#define span_smallnoticeital(str) ("<span class='smallnoticeital'>" + str + "</span>")
 #define span_hear(str) ("<span class='hear'>[str]</span>")
 #define span_adminnotice(str) ("<span class='adminnotice'>[str]</span>")
 #define span_unconscious(str) ("<span class='unconscious'>[str]</span>")
@@ -170,6 +173,7 @@
 #define span_abductor(str) ("<span class='abductor'>[str]</span>")
 #define span_mind_control(str) ("<span class='mind_control'>[str]</span>")
 #define span_his_grace(str) ("<span class='his_grace'>[str]</span>")
+#define span_hypnophrase(str) ("<span class='hypnophrase'>" + str + "</span>")
 #define span_shadowling(str) ("<span class='shadowling'>[str]</span>")
 #define span_shadowling_alt(str) ("<span class='shadowling'>" + str + "</span>")
 #define span_holoparasite(str) ("<span class='holoparasite'>[str]</span>")
@@ -239,3 +243,6 @@
 #define span_fontsize6(str) ("<span style='font-size: 32px;'>[str]</span>")
 #define span_fontsize7(str) ("<span style='font-size: 48px;'>[str]</span>")
 
+// Spans that use embedded tgui components:
+// Sorted alphabetically
+#define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")

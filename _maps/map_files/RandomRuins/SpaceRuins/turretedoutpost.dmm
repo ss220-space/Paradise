@@ -104,10 +104,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
-/obj/machinery/power/apc/noalarm{
-	name = "Outpost APC";
-	keep_preset_name = 1;
-	pixel_y = -24
+/obj/machinery/power/apc/noalarm/directional/south{
+	keep_preset_name = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)

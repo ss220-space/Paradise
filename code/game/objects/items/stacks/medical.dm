@@ -178,6 +178,9 @@
 		return FALSE
 	. = ..()
 
+/obj/item/stack/medical/attack_self(mob/user)
+	attack(user, user, null, user.zone_selected)
+
 // MARK: Targeting filter
 
 /obj/item/stack/medical/proc/get_priority_targeting(mob/living/target, mob/living/user)

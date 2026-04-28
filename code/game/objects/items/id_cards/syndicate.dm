@@ -59,15 +59,18 @@
 	for(var/i = 1 to num_of_save_slots)
 		save_slots[i] = list()
 
-/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity, params)
-	if(!proximity || !istype(O))
+/obj/item/card/id/syndicate/afterattack(obj/item/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !istype(target))
 		return
-	if(O.GetID())
-		var/obj/item/card/id/I = O.GetID()
-		if(isliving(user) && user.mind)
-			if(user.mind.special_role || anyone)
-				balloon_alert(usr, "уровень доступа скопирован")
-				access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
+
+	if(!target.GetID())
+		return
+
+	var/obj/item/card/id/I = target.GetID()
+	if(isliving(user) && user.mind)
+		if(user.mind.special_role || anyone)
+			balloon_alert(usr, "уровень доступа скопирован")
+			access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -168,7 +171,7 @@
 			if(ishuman(registered_user))
 				var/mob/living/carbon/human/H = registered_user
 				default = H.age
-			var/new_age = tgui_input_number(registered_user, "Какой возраст вы бы хотели написать на этой карте?", "Возраст на карте", default, 300, 17)
+			var/new_age = tgui_input_number(registered_user, "Какой возраст вы бы хотели написать на этой карте?", "Возраст на карте", default, 300, 1)
 			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age

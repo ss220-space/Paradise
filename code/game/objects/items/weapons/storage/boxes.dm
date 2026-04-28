@@ -18,7 +18,9 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
+
 #define BAG_PUTTING_DELAY 6 SECONDS
+
 /obj/item/storage/box
 	name = "box"
 	icon = 'icons/obj/storage/boxes.dmi'
@@ -33,6 +35,11 @@
 	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
+
+/obj/item/storage/box/get_uplink_log_items()
+	. = list()
+	for(var/obj/item/contained_item in contents)
+		. += contained_item.get_uplink_log_items()
 
 /obj/item/storage/box/large
 	name = "large box"

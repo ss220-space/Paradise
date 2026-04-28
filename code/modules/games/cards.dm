@@ -18,6 +18,7 @@
 	throw_speed = 3
 	throw_range = 10
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/list/cards = list()
 	/// Decks default to a single pack, setting it higher will multiply them by that number
 	var/deck_size = 1
@@ -56,7 +57,7 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/deck/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!istype(target, /obj/item/cardhand))
 		return
 	var/success
@@ -277,22 +278,17 @@
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 /obj/item/deck/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
+	if(over_object != user || !iscarbon(user))
+		return
 
-	if(over_object != user || user.incapacitated() || !iscarbon(user))
-		return FALSE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(
-			span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
-		)
-		return TRUE
-
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(
+		span_notice("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
+	)
 
 /obj/item/pack
 	name = "card pack"
@@ -455,9 +451,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/remove_card/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
-		return
+/datum/action/item_action/remove_card/do_effect(trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.Removecard()
@@ -468,14 +462,13 @@
 	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
 
-/datum/action/item_action/discard/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/discard/do_effect(trigger_flags)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = target
 		return cardhand.discard()
 	return ..()
 
 // No more datum action here
-
 /obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
@@ -637,7 +630,7 @@
 		. += image
 		return
 
-	var/offset = FLOOR(20/LAZYLEN(cards) + 1, 1)
+	var/offset = floor(20/LAZYLEN(cards) + 1)
 	// var/i = 0
 	for(var/i in 1 to LAZYLEN(cards))
 		var/datum/playingcard/card = cards[i]

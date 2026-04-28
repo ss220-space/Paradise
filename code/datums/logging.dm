@@ -1,5 +1,5 @@
 /datum/logging
-	var/list/datum/log_record/logs = list()	// Assoc list of assoc lists (ckey, (log_type, list/logs))
+	var/list/datum/log_record/logs = list() // Assoc list of assoc lists (ckey, (log_type, list/logs))
 
 /datum/logging/proc/add_log(ckey, datum/log_record/log)
 	if(!ckey)

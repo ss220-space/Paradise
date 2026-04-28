@@ -11,6 +11,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = PLATING_LAYER
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	explosion_vertical_block = 0
 	footstep = null
 	barefootstep = null
@@ -69,8 +70,8 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .

@@ -167,28 +167,25 @@ export const SpawnSearch = () => {
   // User presses up or down on keyboard
   // Simulates clicking an item
   const onArrowKey = (key: number) => {
-    const len = Object.keys(filteredItems).length - 1;
+    if (!filteredItems.length) return;
+
+    const len = filteredItems.length - 1;
+
     if (key === KEY_DOWN) {
-      if (selected === null || selected === len) {
-        setSelected(0);
-        document!.getElementById('0')?.scrollIntoView();
-      } else {
-        setSelected(selected + 1);
-        document!.getElementById((selected + 1).toString())?.scrollIntoView();
-      }
+      const next = selected >= len ? 0 : selected + 1;
+      setSelected(next);
+      document?.getElementById(next.toString())?.scrollIntoView();
     } else if (key === KEY_UP) {
-      if (selected === null || selected === 0) {
-        setSelected(len);
-        document!.getElementById(len.toString())?.scrollIntoView();
-      } else {
-        setSelected(selected - 1);
-        document!.getElementById((selected - 1).toString())?.scrollIntoView();
-      }
+      const prev = selected <= 0 ? len : selected - 1;
+      setSelected(prev);
+      document?.getElementById(prev.toString())?.scrollIntoView();
     }
   };
 
-  const onSelected = (selection: AtomTypeData) =>
+  const onSelected = (selection: AtomTypeData) => {
+    if (!selection) return;
     act('spawn', { type: selection.typepath, amount: spawnAmount });
+  };
 
   const onSearch = (newQuery: string) => {
     if (newQuery === query) {
@@ -292,7 +289,7 @@ export const SpawnSearch = () => {
                       className="candystripe"
                       color="transparent"
                       fluid
-                      id={`${index}`}
+                      id={index.toString()}
                       key={index}
                       onClick={() => {
                         if (index !== selected) setSelected(index);

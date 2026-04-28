@@ -148,7 +148,8 @@ export const Reflector = (props) => {
                     maxValue={359}
                     step={1}
                     stepPixelSize={1}
-                    onDrag={(value) =>
+                    tickWhileDragging
+                    onChange={(value) =>
                       act('rotate', {
                         rotation_angle: value,
                       })
