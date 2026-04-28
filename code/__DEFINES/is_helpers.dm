@@ -13,6 +13,8 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
+#define isimage(thing) (istype(thing, /image))
+
 #define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
 
 // Mobs
@@ -132,7 +134,7 @@
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
 #define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
-#define	is_organ(A) (istype(A, /obj/item/organ))
+#define is_organ(A) (istype(A, /obj/item/organ))
 
 #define isbluespacecrystal(A) (istype(A, /obj/item/stack/ore/bluespace_crystal))
 
@@ -233,6 +235,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define issingularity(atom) (istype(atom, /obj/singularity))
 
+/// Not really closed, but the meaning is the same.
+#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))
+
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
 #define istable(A) (istype(A, /obj/structure/table))
@@ -325,6 +330,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isminion(A) (istype(A, /mob/living/simple_animal/hostile/blob_minion))
 #define isblobbernaut(M) (istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut))
 
+#define isdead(A) (istype(A, /mob/dead))
+
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
 #define isnewplayer(A) (istype(A, /mob/new_player))
@@ -371,6 +378,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
+#define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
+
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
 
 #define iswirecutter(A) (istype(A, /obj/item/wirecutters))
@@ -385,11 +394,15 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
 
-#define isspacearea(A)	(istype(A, /area/space))
+#define isspacearea(A) (istype(A, /area/space))
 
 #define isrelic(A) (istype(A, /obj/item/relic))
 
 #define is_window(A) (istype(A, /obj/structure/window))
+
+#define ishandcuffs(A) (istype(A, /obj/item/restraints/handcuffs))
+
+#define isstraightjacket(A) (istype(A, /obj/item/clothing/suit/straight_jacket))
 
 #define isanomaly(A) (istype(A, /obj/effect/anomaly))
 #define iscoreatmos(A) (istype(A, /obj/item/assembly/signaler/core/atmospheric))
@@ -398,3 +411,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscorevortex(A) (istype(A, /obj/item/assembly/signaler/core/vortex))
 #define iscoreflux(A) (istype(A, /obj/item/assembly/signaler/core/energetic))
 #define iscore(A) (istype(A, /obj/item/assembly/signaler/core))
+
+#define isorgan(A) (istype(A, /obj/item/organ))
+
+#define isaccessory(A) (istype(A, /obj/item/clothing/accessory))
+
+#define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
+#define is_crate(A) (istype(A, /obj/structure/closet/crate))

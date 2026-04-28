@@ -63,6 +63,7 @@
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -148,7 +149,7 @@
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
 
-/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
+/obj/machinery/dna_scannernew/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(!istype(O))
 		return
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -314,6 +315,9 @@
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/scan_consolenew
+	interaction_flags_click = ALLOW_SILICON_REACH
+	idle_power_usage = 10
+	active_power_usage = 400
 	var/selected_ui_block = 1
 	var/selected_ui_subblock = 1
 	var/selected_se_block = 1
@@ -328,8 +332,6 @@
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
-	idle_power_usage = 10
-	active_power_usage = 400
 
 /obj/machinery/computer/scan_consolenew/get_ru_names()
 	return list(

@@ -63,18 +63,16 @@
 		PREPOSITIONAL = "бумаге",
 	)
 
-//lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
-
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
-	base_pixel_x = pixel_x
-	base_pixel_y = pixel_y
+	pixel_x = base_pixel_x + rand(-9, 9)
+	pixel_y = base_pixel_y + rand(-8, 8)
 
-	spawn(2)
-		update_icon()
-		updateinfolinks()
+	addtimer(CALLBACK(src, PROC_REF(update_paper)), 1 DECISECONDS)
+
+/obj/item/paper/proc/update_paper()
+	update_appearance()
+	updateinfolinks()
 
 /obj/item/paper/update_icon_state()
 	icon_state = "paper[info ? "_words" : ""]"
@@ -447,7 +445,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return ATTACK_CHAIN_BLOCKED_ALL
 

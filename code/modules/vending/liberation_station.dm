@@ -24,14 +24,13 @@
 	all_products_free = TRUE
 
 	products = list(
-		/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
-		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
+		/obj/item/gun/projectile/automatic/pistol/deagle = 2,
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
 		/obj/item/gun/projectile/automatic/proto = 2,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
 		/obj/item/gun/projectile/automatic/gyropistol = 1,
 		/obj/item/gun/projectile/shotgun = 2,
-		/obj/item/gun/projectile/automatic/ar = 2,
+		/obj/item/gun/projectile/automatic/arg = 2,
 	)
 	premium = list(
 		/obj/item/ammo_box/magazine/smgm9mm = 2,

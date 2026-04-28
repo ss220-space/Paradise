@@ -387,7 +387,7 @@ SUBSYSTEM_DEF(air)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
-	var/list/supermatters = list()
+	//var/list/supermatters = list()
 
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
@@ -398,12 +398,13 @@ SUBSYSTEM_DEF(air)
 
 		if(MC_TICK_CHECK)
 			return
-
+	//TODO refactor with two lists
+	/*
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
 
-		if(istype(atmos_machine, /obj/machinery/atmospherics/supermatter_crystal))
+		if(istype(atmos_machine, /obj/machinery/power/supermatter_crystal))
 			supermatters += atmos_machine
 
 		else if(isnull(atmos_machine) || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
@@ -415,7 +416,7 @@ SUBSYSTEM_DEF(air)
 			return
 
 	while(length(supermatters))
-		var/obj/machinery/atmospherics/supermatter_crystal/supermatter = supermatters[length(supermatters)]
+		var/obj/machinery/power/supermatter_crystal/supermatter = supermatters[length(supermatters)]
 		supermatters.len--
 
 		if(isnull(supermatter) || (supermatter.process_atmos(seconds) == PROCESS_KILL))
@@ -424,7 +425,7 @@ SUBSYSTEM_DEF(air)
 		if(MC_TICK_CHECK)
 			for(var/other_sm in supermatters)
 				currentrun += other_sm
-			return
+			return*/
 
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
 	if(!resumed)
@@ -467,6 +468,27 @@ SUBSYSTEM_DEF(air)
 			if(temperature < T100C && istype(simulated_turf))
 				simulated_turf.MakeSlippery(temperature > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
+		if(reasons & MILLA_INTERESTING_REASON_CREATE_HOT_ICE)
+			new /obj/item/stack/sheet/hot_ice(turf)
+
+		if(reasons & MILLA_INTERESTING_REASON_CREATE_RESIN)
+			var/obj/effect/particle_effect/fluid/foam/foam = locate() in turf
+			var/obj/structure/foamedmetal/resin = locate() in turf
+			if(!foam && !resin)
+				do_foam(amount = HALON_COMBUSTION_RESIN_VOLUME, holder = turf, location = turf, foam_type = /datum/effect_system/fluid_spread/foam/metal/resin/halon)
+
+		if(reasons & MILLA_INTERESTING_REASON_RADIATION_PULSE)
+			var/pulse_range = min(currentrun[offset + MILLA_INDEX_RADIATION_ENERGY], GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE)
+			radiation_pulse(turf, max_range = pulse_range, threshold = ATMOS_RADIATION_THRESHOLD)
+
+		if(reasons & MILLA_INTERESTING_REASON_NUCLEAR_PARTICLES)
+			var/nuclear_particle_amount = currentrun[offset + MILLA_INDEX_NUCLEAR_PARTICLES]
+			for(var/i in 1 to nuclear_particle_amount)
+				INVOKE_ASYNC(turf, TYPE_PROC_REF(/atom, fire_nuclear_particle))
+
+		if(reasons & MILLA_INTERESTING_REASON_HALLUCINATION)
+			visible_hallucination_pulse(turf, 1, currentrun[offset + MILLA_INDEX_HALLUCINATION_STRENGTH])
+
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
 			var/fuel_burnt = currentrun[offset + MILLA_INDEX_FUEL_BURNT]
@@ -479,15 +501,17 @@ SUBSYSTEM_DEF(air)
 					// Wasn't an active hotspot before, add it.
 					hotspots += simulated_turf
 				else
-					simulated_turf.active_hotspot.temperature = temperature
-					simulated_turf.active_hotspot.fuel_burnt = fuel_burnt
-					simulated_turf.active_hotspot.data_tick = milla_tick
+					var/obj/effect/hotspot/active_hotspot = simulated_turf.active_hotspot
+					active_hotspot.temperature = temperature
+					active_hotspot.fuel_burnt = fuel_burnt
+					active_hotspot.data_tick = milla_tick
 					if(hotspot_volume > 0)
-						simulated_turf.active_hotspot.temperature = hotspot_temperature
-						simulated_turf.active_hotspot.volume = hotspot_volume * CELL_VOLUME
+						active_hotspot.temperature = hotspot_temperature
+						active_hotspot.volume = hotspot_volume * CELL_VOLUME
 					else
-						simulated_turf.active_hotspot.temperature = temperature
-						simulated_turf.active_hotspot.volume = CELL_VOLUME
+						active_hotspot.temperature = temperature
+						active_hotspot.volume = CELL_VOLUME
+					active_hotspot.coldfire_possible = !!currentrun[offset + MILLA_INDEX_FREON]
 
 				turf.temperature_expose(temperature)
 				var/radiated_temperature = temperature * FIRE_SPREAD_RADIOSITY_SCALE
@@ -758,17 +782,82 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf/water_vapor
 	icon_state = "water_vapor"
 
+/obj/effect/overlay/turf/freon
+	icon_state = "freon"
+
+/obj/effect/overlay/turf/nitrium
+	icon_state = "nitrium"
+
+/obj/effect/overlay/turf/tritium
+	icon_state = "tritium"
+
+/obj/effect/overlay/turf/miasma
+	icon_state = "miasma"
+
+/obj/effect/overlay/turf/healium
+	icon_state = "healium"
+
+/obj/effect/overlay/turf/proto_nitrate
+	icon_state = "proto_nitrate"
+
+/obj/effect/overlay/turf/zauker
+	icon_state = "zauker"
+
+/obj/effect/overlay/turf/halon
+	icon_state = "halon"
+
+/obj/effect/overlay/turf/antinoblium
+	icon_state = "antinoblium"
+
 /datum/controller/subsystem/air/proc/setup_overlays()
 	for(var/i in 0 to SSmapping.max_plane_offset)
 		var/obj/effect/overlay/turf/plasma/plasma = new
 		SET_PLANE_W_SCALAR(plasma, plasma.plane, i)
 		GLOB.plmaster["[i]"] += plasma
+
 		var/obj/effect/overlay/turf/sleeping_agent/sleeping_agent = new
 		SET_PLANE_W_SCALAR(sleeping_agent, sleeping_agent.plane, i)
 		GLOB.slmaster["[i]"] += sleeping_agent
+
 		var/obj/effect/overlay/turf/water_vapor/water_vapor = new
 		SET_PLANE_W_SCALAR(water_vapor, water_vapor.plane, i)
 		GLOB.wvmaster["[i]"] += water_vapor
+
+		var/obj/effect/overlay/turf/freon/freon = new
+		SET_PLANE_W_SCALAR(freon, freon.plane, i)
+		GLOB.frmaster["[i]"] += freon
+
+		var/obj/effect/overlay/turf/nitrium/nitrium = new
+		SET_PLANE_W_SCALAR(nitrium, nitrium.plane, i)
+		GLOB.nitmaster["[i]"] += nitrium
+
+		var/obj/effect/overlay/turf/tritium/tritium = new
+		SET_PLANE_W_SCALAR(tritium, tritium.plane, i)
+		GLOB.trmaster["[i]"] += tritium
+
+		var/obj/effect/overlay/turf/miasma/miasma = new
+		SET_PLANE_W_SCALAR(miasma, miasma.plane, i)
+		GLOB.mimaster["[i]"] += miasma
+
+		var/obj/effect/overlay/turf/healium/healium = new
+		SET_PLANE_W_SCALAR(healium, healium.plane, i)
+		GLOB.hemaster["[i]"] += healium
+
+		var/obj/effect/overlay/turf/proto_nitrate/proto_nitrate = new
+		SET_PLANE_W_SCALAR(proto_nitrate, proto_nitrate.plane, i)
+		GLOB.pnmaster["[i]"] += proto_nitrate
+
+		var/obj/effect/overlay/turf/zauker/zauker = new
+		SET_PLANE_W_SCALAR(zauker, zauker.plane, i)
+		GLOB.zamaster["[i]"] += zauker
+
+		var/obj/effect/overlay/turf/halon/halon = new
+		SET_PLANE_W_SCALAR(halon, halon.plane, i)
+		GLOB.hamaster["[i]"] += halon
+
+		var/obj/effect/overlay/turf/antinoblium/antinoblium = new
+		SET_PLANE_W_SCALAR(antinoblium, antinoblium.plane, i)
+		GLOB.antmaster["[i]"] += antinoblium
 
 /datum/controller/subsystem/air/proc/bind_turf(turf/tile, list/milla_tile = null)
 	var/datum/gas_mixture/bound_to_turf/turf_air = new()
@@ -814,6 +903,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/is_in_milla_safe_code()
 	return in_milla_safe_code || length(sleepers) > 0
+
 /datum/controller/subsystem/air/proc/on_milla_tick_finished()
 	milla_idle = TRUE
 	run_sleepless_callbacks()

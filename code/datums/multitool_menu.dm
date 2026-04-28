@@ -1,5 +1,5 @@
 ////////////////////////////////
-//	Multitool menu UI
+// Multitool menu UI
 ////////////////////////////////
 /datum/multitool_menu_host
 	/// The multitool
@@ -101,7 +101,7 @@
 	return multitool
 
 ////////////////////////////////
-//	Multitool menu
+// Multitool menu
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu
@@ -169,7 +169,7 @@
 	multitool?.visible_message("<span class=[class]>[multitool] beeps: [txt]</span>")
 
 ////////////////////////////////
-//	Multitool menu "tag_only"
+// Multitool menu "tag_only"
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu/idtag
@@ -207,7 +207,7 @@
 	return reject_bad_text(tgui_input_text(user, message, title, default))
 
 ////////////////////////////////
-//	Mass driver
+// Mass driver
 ////////////////////////////////
 /datum/multitool_menu/idtag/mass_driver
 	holder_type = /obj/machinery/mass_driver
@@ -223,7 +223,7 @@
 	my_holder.id_tag = new_tag
 
 ////////////////////////////////
-//	Mass driver button
+// Mass driver button
 ////////////////////////////////
 /datum/multitool_menu/idtag/driver_button
 	holder_type = /obj/machinery/driver_button
@@ -239,7 +239,7 @@
 	my_holder.id_tag = new_tag
 
 ////////////////////////////////
-//	Airlock electronics
+// Airlock electronics
 ////////////////////////////////
 /datum/multitool_menu/idtag/airlock_electronics
 	holder_type = /obj/item/airlock_electronics
@@ -255,7 +255,7 @@
 	my_holder.id = new_tag
 
 ////////////////////////////////
-//	Multitool menu "multiple_tags"
+// Multitool menu "multiple_tags"
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu/idtag/multiple_tags
@@ -294,7 +294,7 @@
 	return
 
 ////////////////////////////////
-//	Door control
+// Door control
 ////////////////////////////////
 /datum/multitool_menu/idtag/multiple_tags/door_control
 	holder_type = /obj/item/assembly/control
@@ -324,7 +324,7 @@
 	return FALSE
 
 ////////////////////////////////
-//	Multitool menu "frequency_and_tag"
+// Multitool menu "frequency_and_tag"
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq
@@ -374,133 +374,7 @@
 	return tags
 
 ////////////////////////////////
-//	vent_pump
-////////////////////////////////
-/datum/multitool_menu/idtag/freq/vent_pump
-	holder_type = /obj/machinery/atmospherics/unary/vent_pump
-
-/datum/multitool_menu/idtag/freq/vent_pump/get_tag()
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
-	return my_holder.id_tag
-
-/datum/multitool_menu/idtag/freq/vent_pump/set_tag(new_tag)
-	if(!new_tag)
-		service_message("The ID tag of [holder] cannot be null.")
-		return
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
-	if(my_holder.id_tag == new_tag)
-		return
-	my_holder.set_tag(new_tag)
-
-/datum/multitool_menu/idtag/freq/vent_pump/get_frequency()
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
-	return my_holder.frequency
-
-/datum/multitool_menu/idtag/freq/vent_pump/get_default_frequency()
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
-	return initial(my_holder.frequency)
-
-/datum/multitool_menu/idtag/freq/vent_pump/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
-	if(my_holder.frequency == new_frequency)
-		return
-	my_holder.set_frequency(new_frequency)
-
-////////////////////////////////
-//	vent_scrubber
-////////////////////////////////
-/datum/multitool_menu/idtag/freq/vent_scrubber
-	holder_type = /obj/machinery/atmospherics/unary/vent_scrubber
-
-/datum/multitool_menu/idtag/freq/vent_scrubber/get_tag()
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
-	return my_holder.id_tag
-
-/datum/multitool_menu/idtag/freq/vent_scrubber/set_tag(new_tag)
-	if(!new_tag)
-		service_message("The ID tag of [holder] cannot be null.")
-		return
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
-	if(my_holder.id_tag == new_tag)
-		return
-	my_holder.set_tag(new_tag)
-
-/datum/multitool_menu/idtag/freq/vent_scrubber/get_frequency()
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
-	return my_holder.frequency
-
-/datum/multitool_menu/idtag/freq/vent_scrubber/get_default_frequency()
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
-	return initial(my_holder.frequency)
-
-/datum/multitool_menu/idtag/freq/vent_scrubber/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
-	if(my_holder.frequency == new_frequency)
-		return
-	my_holder.set_frequency(new_frequency)
-
-////////////////////////////////
-//	outlet_injector
-////////////////////////////////
-/datum/multitool_menu/idtag/freq/outlet_injector
-	holder_type = /obj/machinery/atmospherics/unary/outlet_injector
-
-/datum/multitool_menu/idtag/freq/outlet_injector/get_tag()
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
-	return my_holder.id_tag
-
-/datum/multitool_menu/idtag/freq/outlet_injector/set_tag(new_tag)
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
-	if(my_holder.id_tag == new_tag)
-		return
-	my_holder.id_tag = new_tag
-
-/datum/multitool_menu/idtag/freq/outlet_injector/get_frequency()
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
-	return my_holder.frequency
-
-/datum/multitool_menu/idtag/freq/outlet_injector/get_default_frequency()
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
-	return initial(my_holder.frequency)
-
-/datum/multitool_menu/idtag/freq/outlet_injector/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
-	if(my_holder.frequency == new_frequency)
-		return
-	my_holder.set_frequency(new_frequency)
-
-////////////////////////////////
-//	dp_vent_pump
-////////////////////////////////
-/datum/multitool_menu/idtag/freq/dp_vent_pump
-	holder_type = /obj/machinery/atmospherics/binary/dp_vent_pump
-
-/datum/multitool_menu/idtag/freq/dp_vent_pump/get_tag()
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
-	return my_holder.id_tag
-
-/datum/multitool_menu/idtag/freq/dp_vent_pump/set_tag(new_tag)
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
-	if(my_holder.id_tag == new_tag)
-		return
-	my_holder.id_tag = new_tag
-
-/datum/multitool_menu/idtag/freq/dp_vent_pump/get_frequency()
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
-	return my_holder.frequency
-
-/datum/multitool_menu/idtag/freq/dp_vent_pump/get_default_frequency()
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
-	return initial(my_holder.frequency)
-
-/datum/multitool_menu/idtag/freq/dp_vent_pump/set_frequency(new_frequency)
-	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
-	if(my_holder.frequency == new_frequency)
-		return
-	my_holder.set_frequency(new_frequency)
-
-////////////////////////////////
-//	air_sensor
+// air_sensor
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/air_sensor
 	holder_type = /obj/machinery/atmospherics/air_sensor
@@ -586,7 +460,7 @@
 	return TRUE
 
 ////////////////////////////////
-//	general_air_control
+// general_air_control
 //  Does not use the id_tag stuff, only the frequency stuff.
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/general_air_control
@@ -605,7 +479,7 @@
 /datum/multitool_menu/idtag/freq/general_air_control/_ui_act(mob/user, action, list/params)
 	. = TRUE
 	switch(action)
-		if("add_sensor")
+		/*if("add_sensor")
 			var/obj/machinery/computer/general_air_control/my_holder = holder
 			var/frequency = get_frequency()
 			var/list/sensors = get_all_air_sensor_tags(frequency) - my_holder.sensors
@@ -618,7 +492,7 @@
 			add_sensor(sensor_tag)
 		if("del_sensor")
 			var/sensor_tag = params["sensor_tag"]
-			del_sensor(sensor_tag)
+			del_sensor(sensor_tag)*/
 		if("change_label")
 			var/sensor_tag = params["sensor_tag"]
 			var/new_label = enter_new_label(user, sensor_tag)
@@ -657,7 +531,7 @@
 	if(my_holder.frequency == new_frequency)
 		return
 	my_holder.set_frequency(new_frequency)
-
+/*
 /datum/multitool_menu/idtag/freq/general_air_control/proc/add_sensor(sensor_tag)
 	var/obj/machinery/computer/general_air_control/my_holder = holder
 	my_holder.sensors[sensor_tag] = ""
@@ -666,13 +540,13 @@
 	var/obj/machinery/computer/general_air_control/my_holder = holder
 	my_holder.sensors.Remove(sensor_tag)
 	my_holder.sensor_information.Remove(sensor_tag)
-
+*/
 /datum/multitool_menu/idtag/freq/general_air_control/proc/change_label(sensor_tag, new_label)
 	var/obj/machinery/computer/general_air_control/my_holder = holder
 	my_holder.sensors[sensor_tag] = new_label
 
 ////////////////////////////////
-//	large_tank_control
+// large_tank_control
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
 	holder_type = /obj/machinery/computer/general_air_control/large_tank_control

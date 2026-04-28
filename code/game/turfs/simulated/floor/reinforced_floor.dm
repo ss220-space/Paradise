@@ -9,7 +9,7 @@
 	footstep = FOOTSTEP_PLATING
 	var/insulated = FALSE
 
-/turf/open/floor/engine/examine(mob/user)
+/turf/simulated/floor/engine/examine(mob/user)
 	. += ..()
 	. += span_notice("The reinforcement rods are <b>wrenched</b> firmly in place.")
 
@@ -105,9 +105,6 @@
 	holy = TRUE
 
 /turf/simulated/floor/engine/cult/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
@@ -180,9 +177,6 @@
 	temperature = TCMB
 
 /turf/simulated/floor/engine/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 

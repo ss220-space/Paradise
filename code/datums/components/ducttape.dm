@@ -11,7 +11,7 @@
 		tape_overlay.pixel_w = x_offset - 2
 		tape_overlay.pixel_z = y_offset - 2
 		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(add_tape_text))
 	var/obj/item/parent_item = parent
 	parent_item.set_anchored(TRUE)
 	parent_item.update_icon() //Do this first so the action button properly shows the icon
@@ -41,7 +41,7 @@
 /datum/component/ducttape/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_AFTERATTACK, COMSIG_ITEM_PICKUP))
 	if(!hide_tape)
-		UnregisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_EXAMINE))
+		UnregisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_ATOM_EXAMINE))
 
 /datum/component/ducttape/proc/add_tape_text(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER

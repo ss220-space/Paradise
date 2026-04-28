@@ -6,7 +6,7 @@
 	gender = FEMALE
 	icon_state = "bottle"
 	item_state = "bottle"
-	possible_transfer_amounts = list(5,10,15,30)
+	possible_transfer_amounts = list(5, 10, 15, 30)
 	volume = 30
 	materials = list(MAT_GLASS = 1000)
 	custom_price = PAYCHECK_MIN * 0.6
@@ -28,7 +28,7 @@
 	. = ..()
 	underlays.Cut()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -47,7 +47,7 @@
 			if(91 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())
@@ -456,7 +456,7 @@
 	name = "Reagent Bottle"
 	icon_state = "reagent_bottle"
 	item_state = "reagent_bottle"
-	possible_transfer_amounts = list(5,10,15,25,50)
+	possible_transfer_amounts = list(5, 10, 15, 25, 50)
 	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/reagent/oil
@@ -685,7 +685,7 @@
 
 /obj/item/reagent_containers/glass/bottle/traitor
 	desc = "На ней изображён маленький череп и скрещённые кости. О-о-о!"
-	possible_transfer_amounts = list(5,10,15,25,30,40)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 40)
 	volume = 40
 
 /obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
@@ -1361,7 +1361,7 @@
 	if(!reagents.total_volume)
 		return
 
-	var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[base_icon_state]20")
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]20")
 	var/percent = round((reagents.total_volume / volume) * 100)
 	switch(percent)
 		if(0 to 20)
@@ -1375,7 +1375,7 @@
 		if(80 to INFINITY)
 			filling.icon_state = "[base_icon_state]100"
 
-	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
 
 

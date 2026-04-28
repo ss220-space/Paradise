@@ -63,7 +63,7 @@
 		return
 	if(!mod.wearer.Adjacent(target))
 		return
-	if(istype(target, /obj/structure/closet/crate) || istype(target, /obj/structure/closet/crate/critter/mecha))
+	if(is_crate(target) || istype(target, /obj/structure/closet/crate/critter/mecha))
 		var/obj/structure/closet/picked_crate = target
 		if(!check_crate_pickup(picked_crate))
 			return
@@ -598,29 +598,6 @@
 	if(!mod.wearer.stat)
 		return
 	on_deactivation()
-
-// MARK: Mining bomb
-/obj/projectile/bullet/reusable/mining_bomb
-	name = "mining bomb"
-	desc = "Это бомба. Может не стоит её так долго разглядывать?"
-	icon_state = "mine_bomb"
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	damage = 0
-	range = 6
-	flag = "bomb"
-	light_range = 1
-	light_color = LIGHT_COLOR_ORANGE
-	ammo_type = /obj/structure/mining_bomb
-
-/obj/projectile/bullet/reusable/mining_bomb/get_ru_names()
-	return list(
-		NOMINATIVE = "шахтёрская бомба",
-		GENITIVE = "шахтёрской бомбы",
-		DATIVE = "шахтёрскую бомбу",
-		ACCUSATIVE = "шахтёрскую бомбу",
-		INSTRUMENTAL = "шахтёрской бомбой",
-		PREPOSITIONAL = "шахтёрской бомбе",
-	)
 
 /obj/structure/mining_bomb
 	name = "mining bomb"

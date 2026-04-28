@@ -76,18 +76,20 @@
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
-		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact && !F.transparent_floor)
-			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
-				if(C.avail())
-					visible_message(span_warning("[src] chews through [C]. It's toast!"))
-					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-					toast() // mmmm toasty.
-				else
-					visible_message(span_warning("[src] chews through [C]."))
-				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
-				C.deconstruct()
+		var/turf/simulated/floor/our_floor = get_turf(src)
+		if(!istype(our_floor))
+			return
+		var/obj/structure/cable/thing_to_eat = locate() in our_floor
+		if(!(thing_to_eat && !HAS_TRAIT(thing_to_eat, TRAIT_UNDERFLOOR) && prob(15)))
+			return
+		if(thing_to_eat.avail())
+			visible_message(span_warning("[src] chews through [thing_to_eat]. It's toast!"))
+			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+			toast() // mmmm toasty.
+		else
+			visible_message(span_warning("[src] chews through [thing_to_eat]."))
+		investigate_log("was chewed through by a mouse at [COORD(our_floor)]", INVESTIGATE_WIRES)
+		thing_to_eat.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -270,7 +272,7 @@
 
 /mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] Squeek!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] Squeek!"))
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -598,7 +600,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 
 /mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
-		to_chat(arrived, span_notice("[icon2html(src, arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
+		to_chat(arrived, span_notice("[get_examine_icon(arrived)] раздавл[GEND_EN_NA_NO_NY(src)]!"))
 		death()
 		splat(user = arrived)
 

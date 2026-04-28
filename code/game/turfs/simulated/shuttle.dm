@@ -47,10 +47,10 @@
 /turf/simulated/wall/shuttle/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/wall/shuttle/mech_melee_attack(obj/mecha/M)
+/turf/simulated/wall/shuttle/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
-/turf/simulated/wall/shuttle/rpd_act()
+/turf/simulated/wall/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
 /turf/simulated/wall/shuttle/rcd_act()
@@ -102,8 +102,8 @@
 	. = ..()
 	T.transform = transform
 
-/turf/simulated/wall/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)
-	if(our_rpd.mode == RPD_DELETE_MODE)//No pipes on shuttles
+/turf/simulated/wall/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
+	if(mode == RPD_DELETE_MODE)//No pipes on shuttles
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/simulated/wall/shuttle/narsie_act()
@@ -150,7 +150,7 @@
 /turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/turf/simulated/floor/shuttle/tool_act()
+/turf/simulated/floor/shuttle/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	return FALSE
 
 /turf/simulated/floor/shuttle/ratvar_act()
@@ -199,3 +199,13 @@
 	name = "skipjack floor"
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/turf/simulated/floor/shuttle/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/shuttle/almost_airless
+	oxygen = 0.01
+	nitrogen = 0.01
+	temperature = TCMB

@@ -89,7 +89,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(used_item.get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	if(used_item.get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		start_burning()
 		add_fingerprint(user)
 		lighter = user.ckey
@@ -124,7 +124,7 @@
 /obj/structure/bonfire/proc/check_oxygen()
 	var/turf/turf = get_turf(src)
 	var/datum/gas_mixture/gas = turf.get_readonly_air()
-	if(gas.oxygen() > 13)
+	if(gas.oxygen() > 8)
 		return TRUE
 
 	return FALSE

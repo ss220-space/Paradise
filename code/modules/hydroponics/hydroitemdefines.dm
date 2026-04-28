@@ -260,7 +260,7 @@
 	desc = "Пластиковая канистра для различных жидкостей."
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
-	possible_transfer_amounts = list(1,2,5,10,20,40,80)
+	possible_transfer_amounts = list(1, 2, 5, 10, 20, 40, 80)
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
@@ -296,7 +296,7 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "plastic_jug10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -315,7 +315,7 @@
 			if(93 to INFINITY)
 				filling.icon_state = "plastic_jug100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())

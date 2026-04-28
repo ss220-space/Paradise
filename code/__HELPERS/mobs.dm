@@ -73,6 +73,9 @@
 		if(!LAZYIN(style.species_allowed, species.name))
 			continue
 
+		if(style.wizard_only)
+			continue
+
 		if(gender == style.unsuitable_gender)
 			continue
 
@@ -96,6 +99,8 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
+			continue
+		if(S.wizard_only)
 			continue
 		if(gender == S.unsuitable_gender)
 			continue
@@ -140,11 +145,11 @@
 		if(S.name == "None")
 			valid_markings += marking
 			continue
-		if(S.marking_location != location)	// If the marking isn't for the location we desire, skip.
+		if(S.marking_location != location) // If the marking isn't for the location we desire, skip.
 			continue
-		if(gender == S.unsuitable_gender)	// If the marking isn't allowed for the user's gender, skip.
+		if(gender == S.unsuitable_gender) // If the marking isn't allowed for the user's gender, skip.
 			continue
-		if(!(species in S.species_allowed))	// If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(species in S.species_allowed)) // If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
 			continue
@@ -302,7 +307,7 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_on_max - If `TRUE` this proc will fail after reaching max_interact_count.
+ * * cancel_on_max - If `TRUE`, when the interaction limit is reached, the currently running action(s) with the same interaction_key and max_interact_count will be cancelled and the proc will fail. Note: Requires either consistent max_interact_count per interaction_key, or unique interaction_key per distinct max_interact_count value.
  * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  * * category - Used to apply proper action speed modifier to passed delay.
  *
@@ -328,11 +333,14 @@
 		CRASH("do_after was passed a non-number delay: [delay || "null"].")
 
 	if(!interaction_key && target)
-		interaction_key = target //Use the direct ref to the target
+		if(cancel_on_max)
+			interaction_key = "[UID_of(target)]+[max_interact_count]"
+		else
+			interaction_key = target //Use the direct ref to the target
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_on_max)	// we are adding extra one, to catch this on while loop
+			if(cancel_on_max && current_interaction_count == max_interact_count) // we are adding extra one, to catch this on while loop
 				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
@@ -418,18 +426,32 @@
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
+/// Returns the total amount of do_afters this mob is taking part in
+/mob/proc/do_after_count()
+	var/count = 0
+	for(var/key, value in do_afters)
+		count += value
+	return count
+
 /proc/is_species(A, species_datum)
 	. = FALSE
+
+	var/datum/dna/donor
 	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		if(H.dna && istype(H.dna.species, species_datum))
-			. = TRUE
+		var/mob/living/carbon/human/human_donor = A
+		donor = human_donor.dna
+	if(is_organ(A))
+		var/obj/item/organ/organ_donor = A
+		donor = organ_donor.dna
+
+	if(donor && istype(donor.species, species_datum))
+		. = TRUE
 
 /proc/is_monkeybasic(mob/living/carbon/human/target)
-	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
+	return ishuman(target) && target.dna.species.is_monkeybasic // we deserve a runtime if a human has no DNA
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
-	if(!ishuman(target) || !isslimeperson(target.dna.species))
+	if(!ishuman(target) || !isslimeperson(target))
 		return FALSE
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
@@ -610,11 +632,11 @@
 	var/datum/mind/M = P.mind
 	if(!M)
 		return
-	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+	return M.playtime_role ? M.playtime_role : M.assigned_role //returns current role
 
-/**	checks the security force on station and returns a list of numbers, of the form:
- *	total, active, dead, antag
- *	where active is defined as conscious (STAT = 0) and not an antag
+/** checks the security force on station and returns a list of numbers, of the form:
+ * total, active, dead, antag
+ * where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
 	var/sec_positions = GLOB.security_positions - JOB_TITLE_MAGISTRATE - JOB_TITLE_BRIGDOC
@@ -622,8 +644,8 @@
 	var/active = 0
 	var/dead = 0
 	var/antag = 0
-	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
-		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+	for(var/p in GLOB.human_list) //contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p //need to tell it what type it is or we can't access stat without the dreaded :
 		if(determine_role(player) in sec_positions)
 			total++
 			if(player.stat == DEAD)
@@ -906,6 +928,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		mob_map[base_name] = mob_instance
 
 	return mob_map
+
+/// Gets the client of the mob, allowing for mocking of the client.
+/// You only need to use this if you know you're going to be mocking clients somewhere else.
+#define GET_CLIENT(mob) (##mob.client/* || ##mob.mock_client*/)
 
 /// Orders mobs by type then by name
 /proc/sort_mobs()

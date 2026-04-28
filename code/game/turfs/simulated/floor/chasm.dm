@@ -11,6 +11,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = PLATING_LAYER
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	explosion_vertical_block = 0
 	footstep = null
 	barefootstep = null
@@ -69,8 +70,8 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .
@@ -169,9 +170,6 @@
 	AddComponent(/datum/component/chasm, null, mapload)	//Don't pass anything for below_turf.
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
@@ -188,9 +186,6 @@
 	. = ..()
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 

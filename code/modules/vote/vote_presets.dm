@@ -32,6 +32,7 @@
 		CRASH("Map Vote triggered before the `map_datum` is defined!")
 	..()
 	no_dead_vote = FALSE
+	no_offstation_vote = FALSE
 
 /datum/vote/map/generate_choices()
 	var/list/map_pool = subtypesof(/datum/map)

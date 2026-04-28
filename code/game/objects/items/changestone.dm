@@ -10,9 +10,7 @@
 	morph_human(user, FALSE)
 
 /obj/item/changestone/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(Adjacent(usr))
-		return attack_hand(usr)
-	return ..()
+	return attack_hand(user)
 
 /obj/item/changestone/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 	. = ..()

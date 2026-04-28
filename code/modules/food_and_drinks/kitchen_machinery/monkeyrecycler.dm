@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	anchored = TRUE
 	idle_power_usage = 5
 	active_power_usage = 50
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/grinded = 0
 	var/required_grind = 5
 	var/cube_production = 1
@@ -44,8 +45,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
-	for(var/thing in connected)
-		var/obj/machinery/computer/camera_advanced/xenobio/console = thing
+	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
 		console.connected_recycler = null
 	connected.Cut()
 	return ..()

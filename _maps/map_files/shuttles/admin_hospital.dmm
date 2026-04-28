@@ -41,7 +41,7 @@
 	},
 /area/shuttle/administration)
 "av" = (
-/obj/machinery/suit_storage_unit/cmo/sec_storage,
+/obj/machinery/suit_storage_unit/medical,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -222,12 +222,9 @@
 	},
 /area/shuttle/administration)
 "bp" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "asclblast";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /obj/effect/spawner/window/shuttle,
 /obj/structure/fans/tiny/invisible,
@@ -293,12 +290,9 @@
 /area/shuttle/administration)
 "bC" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "asclblast";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
@@ -328,15 +322,6 @@
 /area/shuttle/administration)
 "bT" = (
 /turf/simulated/wall/shuttle/nodiagonal,
-/area/shuttle/administration)
-"bU" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
 /area/shuttle/administration)
 "bV" = (
 /turf/simulated/floor/shuttle{
@@ -694,11 +679,11 @@
 	height = 18;
 	id = "admin";
 	name = "NHV Asclepius";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -744,12 +729,6 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
-	},
-/area/shuttle/administration)
-"Aa" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
 "Ad" = (
@@ -833,13 +812,10 @@
 /area/shuttle/administration)
 "GS" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "asclblast";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
@@ -1329,8 +1305,8 @@ ct
 ct
 ct
 GD
-bU
-Aa
+bV
+bJ
 bV
 ct
 ct
@@ -1350,7 +1326,7 @@ cd
 ct
 Ze
 bV
-bJ
+bV
 ni
 ct
 cd

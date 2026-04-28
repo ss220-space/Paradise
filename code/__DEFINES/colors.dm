@@ -65,7 +65,7 @@
 #define COLOR_RED_LIGHT "#ff3333"
 #define COLOR_MAROON "#800000"
 #define COLOR_FIRE_LIGHT_RED "#b61c1c"
-#define COLOR_SECURITY_RED "#cb0000"
+#define COLOR_SECURITY_RED "#9e2828"
 #define COLOR_VIVID_RED "#ff3232"
 #define COLOR_LIGHT_GRAYISH_RED "#e4c7c5"
 #define COLOR_SOFT_RED "#fa8282"
@@ -143,6 +143,7 @@
 #define COLOR_MAGENTA "#ff00ff"
 #define COLOR_STRONG_MAGENTA "#b800b8"
 #define COLOR_PURPLE "#800080"
+#define COLOR_TONGUE_PINK "#ff6ea0"
 #define COLOR_VIOLET "#b900f7"
 #define COLOR_VOID_PURPLE "#53277e"
 #define COLOR_STRONG_VIOLET "#6927c5"
@@ -162,6 +163,7 @@
 #define COLOR_PRISONER_ORANGE "#a54900"
 #define COLOR_DARK_MODERATE_ORANGE "#8b633b"
 #define COLOR_RUSTED_GLASS "#917c65"
+#define COLOR_DARK_DELAM "#ddd6cf"
 
 // Brown
 #define COLOR_BROWN "#ba9f6d"
@@ -170,6 +172,7 @@
 #define COLOR_ORANGE_BROWN "#a9734f"
 #define COLOR_CARGO_BROWN "#b18644"
 #define COLOR_DRIED_TAN "#ad7257"
+#define COLOR_BENCH_BROWN "#af7d28"
 #define COLOR_LIGHT_BROWN "#996666"
 #define COLOR_BROWNER_BROWN "#663300"
 
@@ -371,14 +374,14 @@
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
 // Wire colours.
-#define	WIRE_COLOR_BLUE "#2020dd"
-#define	WIRE_COLOR_CYAN "#20ddcc"
-#define	WIRE_COLOR_GREEN "#20dd20"
-#define	WIRE_COLOR_ORANGE "#dd7720"
-#define	WIRE_COLOR_PINK "#dd20cc"
-#define	WIRE_COLOR_RED "#dd1010"
-#define	WIRE_COLOR_WHITE "#dddddd"
-#define	WIRE_COLOR_YELLOW "#eebb20"
+#define WIRE_COLOR_BLUE "#2020dd"
+#define WIRE_COLOR_CYAN "#20ddcc"
+#define WIRE_COLOR_GREEN "#20dd20"
+#define WIRE_COLOR_ORANGE "#dd7720"
+#define WIRE_COLOR_PINK "#dd20cc"
+#define WIRE_COLOR_RED "#dd1010"
+#define WIRE_COLOR_WHITE "#dddddd"
+#define WIRE_COLOR_YELLOW "#eebb20"
 
 // Colors related to items used in construction
 #define CABLE_COLOR_BLUE "blue"
@@ -496,13 +499,13 @@
 #define COLOR_AMMO_HOLLOWPOINT "#ff9900"
 
 // Pipe colours.
-#define	PIPE_COLOR_GREY "#dddddd"
-#define	PIPE_COLOR_RED "#dd1010"
-#define	PIPE_COLOR_BLUE "#1010dd"
-#define	PIPE_COLOR_CYAN "#10ddcc"
-#define	PIPE_COLOR_GREEN "#10dd10"
-#define	PIPE_COLOR_YELLOW "#eebb10"
-#define	PIPE_COLOR_PURPLE "#5c1ec0"
+#define PIPE_COLOR_GREY "#dddddd"
+#define PIPE_COLOR_RED "#dd1010"
+#define PIPE_COLOR_BLUE "#1010dd"
+#define PIPE_COLOR_CYAN "#10ddcc"
+#define PIPE_COLOR_GREEN "#10dd10"
+#define PIPE_COLOR_YELLOW "#eebb10"
+#define PIPE_COLOR_PURPLE "#5c1ec0"
 
 GLOBAL_LIST_INIT(cable_colors, list(
 	CABLE_COLOR_BLUE = CABLE_HEX_COLOR_BLUE,
@@ -589,6 +592,24 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_GAS_MINER_O2 "#007fff"
 #define COLOR_GAS_MINER_CO2 "#cdcdcd"
 #define COLOR_GAS_MINER_AGENT_B "#e81e24"
+#define COLOR_GAS_MINER_BZ "#fAff00"
+#define COLOR_GAS_MINER_FREON "#61edff"
+#define COLOR_GAS_MINER_HALON "#5f0085"
+#define COLOR_GAS_MINER_HEALIUM "#da4646"
+#define COLOR_GAS_MINER_HYPERNOBLIUM "#00f7ff"
+#define COLOR_GAS_MINER_MIASMA "#395806"
+#define COLOR_GAS_MINER_NITRIUM "#752b00"
+#define COLOR_GAS_MINER_PLUOXIUM "#4b54a3"
+#define COLOR_GAS_MINER_PROTO_NITRATE "#00571d"
+#define COLOR_GAS_MINER_TRITIUM "#15ff00"
+#define COLOR_GAS_MINER_ZAUKER "#022e00"
+#define COLOR_GAS_MINER_HELIUM "#022e00"
+#define COLOR_GAS_MINER_ANTINOBLIUM "#022e00"
+#define COLOR_GAS_MINER_WATER_VAPOR "#99928e"
 
 #define COLOR_NUCLEATION_LIGHT "#afaf21"
 #define NUCLEATION_LIGHT_RANGE 2
+
+#define COLOR_MENDER_DUAL "#ffb3b3"
+#define COLOR_MENDER_BRUTE "#ff0000"
+#define COLOR_MENDER_BURN "#ff8800"

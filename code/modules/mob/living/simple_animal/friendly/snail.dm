@@ -91,7 +91,7 @@
 	response_harm   = "топчет"
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE
-	status_flags = CANPARALYSE | CANPUSH
+	status_flags = CANPARALYSE | CANPUSH | CANUNCONSCIOUS
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat/turtlemeat = 10, /obj/item/stack/ore/tranquillite = 5)
 	footstep_type = FOOTSTEP_MOB_SLIME

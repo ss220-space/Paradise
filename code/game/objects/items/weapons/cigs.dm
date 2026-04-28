@@ -25,6 +25,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	attack_verb = null
 	container_type = INJECTABLE
 	undyeable = TRUE
+	heat = T1000K
 	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
@@ -83,7 +84,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(lighting_item))
 		return .
 
-	if(lighting_item.get_heat())
+	if(lighting_item.get_temperature())
 		light()
 		return .|ATTACK_CHAIN_BLOCKED
 
@@ -207,16 +208,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity, params)
-	..()
-	if(!proximity)
+/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(!proximity_flag)
 		return
-	if(istype(glass))	//you can dip cigarettes into beakers
-		var/transfered = glass.reagents.trans_to(src, chem_volume)
+	if(istype(target))	//you can dip cigarettes into beakers
+		var/transfered = target.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, span_notice("Вы окунаете [declent_ru(ACCUSATIVE)] в [glass.declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы окунаете [declent_ru(ACCUSATIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 		else			//if not, either the beaker was empty, or the cigarette was full
-			if(!glass.reagents.total_volume)
+			if(!target.reagents.total_volume)
 				user.balloon_alert(usr, "пусто!")
 			else
 				user.balloon_alert(usr, "уже заполнено!")
@@ -245,7 +246,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		PREPOSITIONAL = "[lit ? "прикуренной " : ""]" + ru_names[PREPOSITIONAL],
 	)
 
-/obj/item/clothing/mask/cigarette/get_heat()
+/obj/item/clothing/mask/cigarette/get_temperature()
 	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
@@ -351,7 +352,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			COOLDOWN_START(src, smoking_cooldown, 30)
 	.=..()
 
-/obj/item/clothing/mask/cigarette/get_heat()
+/obj/item/clothing/mask/cigarette/get_temperature()
 	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol
@@ -685,8 +686,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		PREPOSITIONAL = "папиросной бумаге",
 	)
 
-/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/O = target

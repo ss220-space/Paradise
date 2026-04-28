@@ -106,8 +106,8 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/food/drinks/cans/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
 		balloon_alert(user, "сначала откройте!")
@@ -116,7 +116,7 @@
 		balloon_alert(user, "сначала откройте!")
 		return
 	else
-		return ..(target, user, proximity)
+		return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	. = ..()
@@ -562,7 +562,7 @@
 /obj/item/reagent_containers/food/drinks/cans/bottler/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		switch(round(reagents.total_volume))
 			if(0 to 9)
@@ -578,7 +578,7 @@
 			if(50 to INFINITY)
 				filling.icon_state = "[icon_state]50"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle

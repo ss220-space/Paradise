@@ -12,6 +12,7 @@
 	base_icon_state = "dangercrate"
 	integrity_failure = 0 // Cannot be broken open physically
 	tamperproof = 90 // High chance of explosion when tampered with
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	/// Secret code required to unlock the crate
 	var/code = null
 	/// List of previous attempts in format: list("attempt" = "1234", "bulls" = 1, "cows" = 2)
@@ -39,8 +40,7 @@
 			/obj/effect/spawner/abandoned_crate/toy_balloon = 5,
 			/obj/effect/spawner/abandoned_crate/toy_weapons = 8,
 			/obj/effect/spawner/abandoned_crate/toy_pistols = 8,
-			/obj/effect/spawner/abandoned_crate/random_toy = 3,
-			) = 49,
+			) = 46,
 
 		// Tools and equipment
 		list(

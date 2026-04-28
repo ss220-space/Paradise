@@ -543,15 +543,9 @@
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
 
-/obj/item/storage/backpack/satchel_flat/hide(intact)
-	if(intact)
-		invisibility = INVISIBILITY_MAXIMUM
-		set_anchored(TRUE) //otherwise you can start pulling, cover it, and drag around an invisible backpack.
-		icon_state = "[initial(icon_state)]2"
-	else
-		invisibility = initial(invisibility)
-		set_anchored(FALSE)
-		icon_state = initial(icon_state)
+/obj/item/storage/backpack/satchel_flat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/undertile, use_anchor = TRUE)
 
 /obj/item/storage/backpack/satchel_flat/populate_contents()
 	new /obj/item/stack/tile/plasteel(src)
@@ -619,7 +613,7 @@
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/ammo_box/magazine/a762x51(src)
+		new /obj/item/ammo_box/magazine/l6saw(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine
 	desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
@@ -628,11 +622,6 @@
 	new /obj/item/ammo_box/a40mm(src)
 	for(var/i in 1 to 9)
 		new /obj/item/ammo_box/magazine/m556(src)
-
-/* UZI ammobag
-name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
-TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
@@ -872,7 +861,7 @@ TODO Use this name and desc for localisation*/
 	name = "Wartime Emergency Kit"
 
 /obj/item/storage/backpack/duffel/security/war/populate_contents()
-	new /obj/item/gun/projectile/automatic/ar (src)
+	new /obj/item/gun/projectile/automatic/arg (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)

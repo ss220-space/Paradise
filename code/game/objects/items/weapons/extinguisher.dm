@@ -115,7 +115,7 @@
 /obj/item/extinguisher/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(!I.get_heat())
+	if(!I.get_temperature())
 		return .
 
 	update_appearance(UPDATE_ICON_STATE)
@@ -255,7 +255,7 @@
 	safety = safety_save
 	return TRUE
 
-/obj/item/extinguisher/afterattack(atom/target, mob/user, flag, params)
+/obj/item/extinguisher/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away

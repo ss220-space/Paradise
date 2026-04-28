@@ -567,8 +567,8 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 75
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/energetic)
-	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
-	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked, /obj/item/mod/module/emp_shield)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	///Copy paste of shielded code wheeeey
 	/// Max charges of the shield.
 	var/max_charges = 80 // Less charges because not gamma / this one is real shocking
@@ -614,16 +614,16 @@
 	charges = max_charges
 
 /*
-tier 1 - 15-20 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
-tier 2 - 30-40 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
-tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
+tier 1 - 7-10 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
+tier 2 - 15-20 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
+tier 3 - 30-35 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
 please, keep this up to date
 */
-#define PROTECTION_DIVIDING_MODIFICATOR 3
+#define PROTECTION_DIVIDING_MODIFICATOR 6
 #define CHARGE_DIVIDING_MODIFICATOR 9
 #define RANGE_DIVIDING_MODIFICATOR 20
 #define DAMAGE_DIVIDING_MODIFICATOR 7
-#define TESLA_ZAP_STRENGTH_REQ 200
+#define TESLA_ZAP_STRENGTH_REQ 250
 
 /obj/item/mod/module/anomaly_locked/teslawall/update_core_powers()
 	if(!core)
@@ -693,14 +693,12 @@ please, keep this up to date
 	if(isitem(hitby) && isliving(hitby.loc))
 		var/mob/living/living_target = hitby.loc
 		living_target.electrocute_act(shock_damage, owner)
-		living_target.Knockdown(3 SECONDS)
 		return
 	if(!isliving(hitby))
 		return
 
 	var/mob/living/living_target = hitby
 	living_target.electrocute_act(shock_damage, owner)
-	living_target.Knockdown(3 SECONDS)
 
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
@@ -888,69 +886,6 @@ please, keep this up to date
 		INSTRUMENTAL = "крюк-кошкой \"Скорпион\"",
 		PREPOSITIONAL = "крюк-кошке \"Скорпион\"",
 	)
-
-/obj/item/ammo_casing/magic/contractor_hook
-	name = "Hardlight hook"
-	desc = "Крюк из твёрдого света. Хватит его разглядывать, уворачивайся!"
-	projectile_type = /obj/projectile/contractor_hook
-	caliber = "hardlight_hook"
-	icon_state = "hard_hook"
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
-	muzzle_flash_effect = null
-
-/obj/item/ammo_casing/magic/contractor_hook/get_ru_names()
-	return list(
-		NOMINATIVE = "крюк из твёрдого света",
-		GENITIVE = "крюка из твёрдого света",
-		DATIVE = "крюку из твёрдого света",
-		ACCUSATIVE = "крюк из твёрдого света",
-		INSTRUMENTAL = "крюком из твёрдого света",
-		PREPOSITIONAL = "крюке из твёрдого света",
-	)
-
-/obj/projectile/contractor_hook
-	name = "Hardlight hook"
-	icon_state = "hard_hook"
-	damage = 0
-	stamina = 25
-	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 2 SECONDS
-	ricochet_chance = 0
-	range = 7
-
-/obj/projectile/contractor_hook/get_ru_names()
-	return list(
-		NOMINATIVE = "крюк из твёрдого света",
-		GENITIVE = "крюка из твёрдого света",
-		DATIVE = "крюку из твёрдого света",
-		ACCUSATIVE = "крюк из твёрдого света",
-		INSTRUMENTAL = "крюком из твёрдого света",
-		PREPOSITIONAL = "крюке из твёрдого света",
-	)
-
-/obj/projectile/contractor_hook/fire(setAngle)
-	if(firer)
-		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY)
-	..()
-
-/obj/projectile/contractor_hook/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(blocked >= 100)
-		return 0
-	var/turf/firer_turf = get_turf(firer)
-	if(!isliving(target))
-		return
-	var/mob/living/living_target = target
-	if(living_target.anchored || !living_target.loc)
-		return
-	living_target.visible_message(span_danger("[living_target] был захвачен крюком [firer]!"))
-	ADD_TRAIT(living_target, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
-	living_target.forceMove(firer_turf)
-	REMOVE_TRAIT(living_target, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-
-/obj/projectile/contractor_hook/Destroy()
-	QDEL_NULL(chain)
-	return ..()
 
 // MARK: Active Chameleon
 // active chameleon module - change modsuit skin, while it's active

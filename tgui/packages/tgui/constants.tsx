@@ -6,6 +6,7 @@ export const UI_CLOSE = -1;
 
 type Gas = {
   id: string;
+  path: string;
   name: string;
   label: string;
   color: string;
@@ -37,24 +38,25 @@ export const COLORS = {
 
 // Colors defined in CSS
 export const CSS_COLORS = [
-  'black',
-  'white',
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
-  'teal',
-  'blue',
-  'violet',
-  'purple',
-  'pink',
-  'brown',
-  'grey',
-  'good',
   'average',
   'bad',
+  'black',
+  'blue',
+  'brown',
+  'good',
+  'green',
+  'grey',
   'label',
+  'olive',
+  'orange',
+  'pink',
+  'purple',
+  'red',
+  'teal',
+  'transparent',
+  'violet',
+  'white',
+  'yellow',
 ];
 
 export type Channel = {
@@ -196,96 +198,195 @@ export const RADIO_CHANNELS: Channel[] = [
   },
 ] as const;
 
-const GASES = [
+export const GASES = [
   {
     id: 'o2',
+    path: '/datum/gas/oxygen',
     name: 'Oxygen',
     label: 'O₂',
     color: 'blue',
+    tlv: 'oxygen',
+    scrubFlag: 1 << 0,
   },
   {
     id: 'n2',
+    path: '/datum/gas/nitrogen',
     name: 'Nitrogen',
     label: 'N₂',
-    color: 'red',
+    color: 'yellow',
+    tlv: 'nitrogen',
+    scrubFlag: 1 << 1,
   },
   {
     id: 'co2',
+    path: '/datum/gas/carbon_dioxide',
     name: 'Carbon Dioxide',
     label: 'CO₂',
     color: 'grey',
+    tlv: 'carbon_dioxide',
+    scrubFlag: 1 << 2,
   },
   {
     id: 'plasma',
+    path: '/datum/gas/plasma',
     name: 'Plasma',
     label: 'Plasma',
     color: 'pink',
+    tlv: 'plasma',
+    scrubFlag: 1 << 3,
   },
   {
     id: 'water_vapor',
+    path: '/datum/gas/water_vapor',
     name: 'Water Vapor',
     label: 'H₂O',
-    color: 'grey',
+    color: 'lightsteelblue',
+    tlv: 'water_vapor',
+    scrubFlag: 1 << 6,
   },
   {
-    id: 'nob',
+    id: 'hypernoblium',
+    path: '/datum/gas/hypernoblium',
     name: 'Hyper-noblium',
     label: 'Hyper-nob',
     color: 'teal',
+    tlv: 'hypernoblium',
+    scrubFlag: 1 << 19,
   },
   {
     id: 'n2o',
+    path: '/datum/gas/nitrous_oxide',
     name: 'Nitrous Oxide',
     label: 'N₂O',
-    color: 'red',
-  },
-  {
-    id: 'no2',
-    name: 'Nitryl',
-    label: 'NO₂',
-    color: 'brown',
+    color: 'bisque',
+    tlv: 'nitrous_oxide',
+    scrubFlag: 1 << 4,
   },
   {
     id: 'tritium',
+    path: '/datum/gas/tritium',
     name: 'Tritium',
     label: 'Tritium',
-    color: 'green',
+    color: 'limegreen',
+    tlv: 'tritium',
+    scrubFlag: 1 << 7,
   },
   {
     id: 'bz',
+    path: '/datum/gas/bz',
     name: 'BZ',
     label: 'BZ',
-    color: 'purple',
+    color: 'mediumpurple',
+    tlv: 'bz',
+    scrubFlag: 1 << 8,
   },
   {
-    id: 'stim',
-    name: 'Stimulum',
-    label: 'Stimulum',
-    color: 'purple',
-  },
-  {
-    id: 'pluox',
+    id: 'pluoxium',
+    path: '/datum/gas/pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
-    color: 'blue',
+    color: 'mediumslateblue',
+    tlv: 'pluoxium',
+    scrubFlag: 1 << 9,
   },
   {
     id: 'miasma',
+    path: '/datum/gas/miasma',
     name: 'Miasma',
     label: 'Miasma',
     color: 'olive',
+    tlv: 'miasma',
+    scrubFlag: 1 << 10,
+  },
+  {
+    id: 'freon',
+    path: '/datum/gas/freon',
+    name: 'Freon',
+    label: 'Freon',
+    color: 'paleturquoise',
+    tlv: 'freon',
+    scrubFlag: 1 << 11,
   },
   {
     id: 'hydrogen',
+    path: '/datum/gas/hydrogen',
     name: 'Hydrogen',
     label: 'H₂',
-    color: '#997379',
+    color: 'white',
+    tlv: 'hydrogen',
+    scrubFlag: 1 << 5,
+  },
+  {
+    id: 'healium',
+    path: '/datum/gas/healium',
+    name: 'Healium',
+    label: 'Healium',
+    color: 'salmon',
+    tlv: 'healium',
+    scrubFlag: 1 << 13,
+  },
+  {
+    id: 'proto_nitrate',
+    path: '/datum/gas/proto_nitrate',
+    name: 'Proto Nitrate',
+    label: 'Proto-Nitrate',
+    color: 'greenyellow',
+    tlv: 'proto_nitrate',
+    scrubFlag: 1 << 14,
+  },
+  {
+    id: 'zauker',
+    path: '/datum/gas/zauker',
+    name: 'Zauker',
+    label: 'Zauker',
+    color: 'darkgreen',
+    tlv: 'zauker',
+    scrubFlag: 1 << 15,
+  },
+  {
+    id: 'halon',
+    path: '/datum/gas/halon',
+    name: 'Halon',
+    label: 'Halon',
+    color: 'purple',
+    tlv: 'halon',
+    scrubFlag: 1 << 16,
+  },
+  {
+    id: 'helium',
+    path: '/datum/gas/helium',
+    name: 'Helium',
+    label: 'He',
+    color: 'aliceblue',
+    tlv: 'helium',
+    scrubFlag: 1 << 17,
+  },
+  {
+    id: 'antinoblium',
+    path: '/datum/gas/antinoblium',
+    name: 'Antinoblium',
+    label: 'Anti-Noblium',
+    color: 'maroon',
+    tlv: 'antinoblium',
+    scrubFlag: 1 << 18,
+  },
+  {
+    id: 'nitrium',
+    path: '/datum/gas/nitrium',
+    name: 'Nitrium',
+    label: 'Nitrium',
+    color: 'brown',
+    tlv: 'nitrium',
+    scrubFlag: 1 << 12,
   },
   {
     id: 'ab',
+    path: '',
     name: 'Agent B',
     label: 'Agent B',
     color: 'purple',
+    tlv: 'agent_b',
+    scrubFlag: 0,
   },
 ] as const;
 
@@ -294,7 +395,7 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
   return gas?.label || fallbackValue || gasId;
 };
@@ -304,19 +405,33 @@ export const getGasColor = (gasId: string) => {
   const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+      gas.tlv === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
   return gas?.color;
 };
 
 // Returns gas object based on gasId
 export const getGasFromId = (gasId: string): Gas | undefined => {
+  if (!gasId) return;
+
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find(
-    (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
-  );
-  return gas;
+
+  for (let idx = 0; idx < GASES.length; idx++) {
+    if (GASES[idx].id === gasSearchString) {
+      return GASES[idx];
+    }
+  }
+};
+
+// Returns gas object based on gasPath
+export const getGasFromPath = (gasPath: string): Gas | undefined => {
+  if (!gasPath) return;
+
+  for (let idx = 0; idx < GASES.length; idx++) {
+    if (GASES[idx].path === gasPath) {
+      return GASES[idx];
+    }
+  }
 };
 
 export const timeAgo = (ref_time: number, now_time: number) => {
@@ -395,6 +510,7 @@ export const JOBS_RU = {
   'Lawyer': 'Адвокат',
   'Chaplain': 'Священник',
   'Psychologist': 'Психолог',
+  'Investor': 'Инвестор',
 };
 
 export const DEPARTMENTS_RU = {

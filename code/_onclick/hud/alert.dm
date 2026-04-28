@@ -613,7 +613,7 @@
 			return PROCESS_KILL
 		cut_overlay(time_left_overlay)
 		time_left_overlay = new
-		time_left_overlay.maptext = MAPTEXT("<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>")
+		time_left_overlay.maptext = MAPTEXT("<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[ceil(timeleft / 10)]</span>")
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 16)
 		time_left_overlay.layer = FLOAT_LAYER_TIME
 		add_overlay(time_left_overlay)

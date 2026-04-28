@@ -5,6 +5,7 @@
 	icon_state = "experiment-open"
 	anchored = TRUE
 	density = TRUE
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/points = 0
 	var/credits = 0
 	var/list/history = list()
@@ -20,7 +21,7 @@
 /obj/machinery/abductor/experiment/update_icon_state()
 	icon_state = "experiment[occupant ? "" : "-open"]"
 
-/obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user, params)
+/obj/machinery/abductor/experiment/mouse_drop_receive(mob/living/carbon/human/target, mob/user, params)
 	if(stat)
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))

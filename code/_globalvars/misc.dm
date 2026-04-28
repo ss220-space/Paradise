@@ -1,6 +1,15 @@
 GLOBAL_LIST_EMPTY(plmaster)
 GLOBAL_LIST_EMPTY(slmaster)
 GLOBAL_LIST_EMPTY(wvmaster)
+GLOBAL_LIST_EMPTY(frmaster)
+GLOBAL_LIST_EMPTY(nitmaster)
+GLOBAL_LIST_EMPTY(trmaster)
+GLOBAL_LIST_EMPTY(mimaster)
+GLOBAL_LIST_EMPTY(hemaster)
+GLOBAL_LIST_EMPTY(pnmaster)
+GLOBAL_LIST_EMPTY(zamaster)
+GLOBAL_LIST_EMPTY(hamaster)
+GLOBAL_LIST_EMPTY(antmaster)
 
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
@@ -16,11 +25,11 @@ GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
 		GLOB.global_announcer = new(null)
 	return
 
-GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
-	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
+GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre", \
+	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col", \
 	"table","td","th","tr"))
-GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
-	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover",	\
+GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown", \
+	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover", \
 	"onmouseup","onreset","onselect","onsubmit","onunload"))
 
 //Reverse of dir

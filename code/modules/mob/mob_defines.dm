@@ -218,7 +218,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	/// Bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
-	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH
+	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH|CANUNCONSCIOUS
 
 	var/area/lastarea = null
 
@@ -338,3 +338,9 @@
 
 	/// Mob bitflags
 	var/mob_flags = NONE
+
+	var/shift_to_open_context_menu = TRUE
+
+	///Cursor icon used when holding shift over things
+	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
+

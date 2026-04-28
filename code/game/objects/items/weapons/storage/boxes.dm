@@ -18,7 +18,9 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
+
 #define BAG_PUTTING_DELAY 6 SECONDS
+
 /obj/item/storage/box
 	name = "box"
 	icon = 'icons/obj/storage/boxes.dmi'
@@ -33,6 +35,11 @@
 	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
+
+/obj/item/storage/box/get_uplink_log_items()
+	. = list()
+	for(var/obj/item/contained_item in contents)
+		. += contained_item.get_uplink_log_items()
 
 /obj/item/storage/box/large
 	name = "large box"
@@ -650,7 +657,7 @@
 	item_state = "ert"
 
 /obj/item/storage/box/enforcer/security/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
@@ -1250,7 +1257,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/enforcer_kit/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
+	new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)

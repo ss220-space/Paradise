@@ -8,7 +8,7 @@
 	icon_state = null
 	item_state = null
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,25,30,50)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50)
 	volume = 50
 	container_type = OPENCONTAINER
 	has_lid = TRUE
@@ -84,8 +84,8 @@
 	addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
-/obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity, params)
-	if((!proximity) ||  !check_allowed_items(target,target_self = TRUE))
+/obj/item/reagent_containers/glass/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if((!proximity_flag) ||  !check_allowed_items(target,target_self = TRUE))
 		return
 
 	if(!is_open_container())
@@ -171,7 +171,7 @@
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -190,7 +190,7 @@
 			if(91 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())
@@ -269,7 +269,7 @@
 	materials = list(MAT_GLASS=2500)
 	custom_price = PAYCHECK_MIN / 2
 	volume = 100
-	possible_transfer_amounts = list(5,10,15,25,30,50,100)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100)
 
 /obj/item/reagent_containers/glass/beaker/large/get_ru_names()
 	return list(
@@ -286,9 +286,9 @@
 	desc = "Небольшая стеклянная колбочка, часто используемая вирусологами в работе."
 	icon_state = "vial"
 	belt_icon = "vial"
-	materials = list(MAT_GLASS=250)
+	materials = list(MAT_GLASS = 250)
 	volume = 25
-	possible_transfer_amounts = list(5,10,15,25)
+	possible_transfer_amounts = list(5, 10, 15, 25)
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
@@ -368,7 +368,7 @@
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
-	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 300)
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
@@ -403,10 +403,10 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 200)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
-	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 80, 100, 120)
 	volume = 120
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
@@ -667,7 +667,7 @@
 	if(!reagents.total_volume)
 		return
 
-	var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]30")
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]30")
 	var/percent = round((reagents.total_volume / volume) * 100)
 	switch(percent)
 		if(0 to 30)
@@ -677,5 +677,5 @@
 		if(60 to INFINITY)
 			filling.icon_state = "[icon_state]100"
 
-	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling

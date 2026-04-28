@@ -1,8 +1,8 @@
 /datum/data/pda/app/messenger
-	name = "Messenger"
-	icon = "comments-o"
+	name = "Мессенджер"
+	icon = "comments"
 	notify_icon = "comments"
-	title = "SpaceMessenger V4.1.0"
+	title = "Космический мессенджер V4.1.0"
 	template = "pda_messenger"
 
 	var/toff = 0 //If 1, messenger disabled

@@ -36,35 +36,6 @@
 	get_kill()
 	. = ..()
 
-/datum/status_effect/staring
-	id = "staring"
-	alert_type = null
-	var/mob/living/target
-	var/target_gender
-	var/target_species
-
-/datum/status_effect/staring/on_creation(mob/living/new_owner, new_duration, new_target, new_target_gender, new_target_species)
-	if(!new_duration)
-		qdel(src)
-		return
-	duration = new_duration
-	. = ..()
-	target = new_target
-	target_gender = new_target_gender
-	target_species = new_target_species
-
-/datum/status_effect/staring/proc/catch_look(mob/living/opponent)
-	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		to_chat(opponent, span_notice("[owner.name] лов[PLUR_IT_YAT(owner)] ваш взгляд!"))
-		var/list/loved_ones = list(MALE, FEMALE)
-		if(!ishuman(owner) || !(target_gender in loved_ones) || !(owner.gender in loved_ones))
-			return
-		var/mob/living/carbon/human/human_owner = owner
-		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name && prob(5))
-			owner.emote("blush")
-			to_chat(owner, span_danger("Вы чувствуете что-то жгучее в груди..."))
-
 /datum/status_effect/high_five
 	id = "high_five"
 	duration = 10 SECONDS
@@ -80,6 +51,8 @@
 	var/obj/item/item_path = /obj/item/latexballon
 	/// Sound effect played when this emote is completed.
 	var/sound_effect = 'sound/weapons/slap.ogg'
+	/// Sound effect played when critical success
+	var/epic_sound_effect = 'sound/weapons/critical_slap.ogg'
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
@@ -103,10 +76,11 @@
 			user.visible_message(span_biggerdanger("<b>[user.name]</b> и <b>[check.name]</b> [critical_success]"))
 			ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			ADD_TRAIT(check, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
-			explosion(get_turf(user), devastation_range = 5, heavy_impact_range = 2, light_impact_range = 1, flash_range = 3, cause = id)
+			explosion(get_turf(user), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 2, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, check, "caused a wizard [id] explosion")
+			playsound(user, epic_sound_effect, 100, ignore_walls = TRUE, pressure_affected = FALSE)
 			both_wiz = TRUE
 		user.do_attack_animation(check, no_effect = TRUE)
 		check.do_attack_animation(user, no_effect = TRUE)
@@ -358,7 +332,7 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
 /datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)

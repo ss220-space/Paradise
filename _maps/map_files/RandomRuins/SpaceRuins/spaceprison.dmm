@@ -428,9 +428,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -525,9 +523,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "bB" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/light/small{
 	dir = 8
@@ -2756,7 +2752,7 @@
 	name = "Security Ballistic Weapons";
 	req_access = list(1)
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+/obj/item/gun/projectile/automatic/pistol/enforcer{
 	pixel_x = 3;
 	pixel_y = -3
 	},
