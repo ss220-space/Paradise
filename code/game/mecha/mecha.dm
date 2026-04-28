@@ -1492,6 +1492,7 @@
 			H.stop_supressing(H.holding)
 
 	if(occupant?.client)
+		occupant.client.mouse_override_icon = null
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 
 	if(ishuman(occupant))
