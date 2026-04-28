@@ -914,8 +914,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return list("UNKNOWN DNA" = "X*")
 
 //to add a mob's dna info into an object's blood_DNA list.
-/atom/proc/transfer_mob_blood_dna(mob/living/L)
-	var/new_blood_dna = L.get_blood_dna_list()
+/atom/proc/transfer_mob_blood_dna(mob/living/living_mob)
+	var/new_blood_dna = living_mob.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
 	return transfer_blood_dna(new_blood_dna)
@@ -980,6 +980,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
 	B.basecolor = color
+	B.update_icon()
 	return TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)
