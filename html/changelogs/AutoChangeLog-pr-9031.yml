@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Манифест кладется в руки. (PR #9031)"
-  - bugfix: "Бумажки снова работают. (PR #9031)"
