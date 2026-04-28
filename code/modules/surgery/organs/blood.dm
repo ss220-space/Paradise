@@ -229,10 +229,9 @@
 
 	// make bloodsplatter for arterial bleeding
 	if(has_arterial_bleed)
-		var/blood_color = dna.species.blood_color
-		var/splatter_dir = rand(0, 360)
+		var/splatter_angle = rand(0, 360)
 		var/target_loc = get_turf(src)
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_dir, blood_color)
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_angle, get_blood_color())
 
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_volume()
 	var/blood_volume_percent = clamp(blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
@@ -385,7 +384,7 @@
 	var/bloodcolor = BLOOD_COLOR_RED
 	var/list/b_data = get_blood_data(get_blood_id())
 	if(b_data)
-		bloodcolor = b_data["blood_color"] || BLOOD_COLOR_RED
+		bloodcolor = b_data["blood_color"]
 	return bloodcolor
 
 /mob/living/carbon/alien/get_blood_color()

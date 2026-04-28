@@ -5,6 +5,8 @@
 #define DEFAULT_RADIUS 3
 #define DEFAULT_DELAY 3
 #define SELECT_PLAYER_TEXT "NO_CKEY"
+/// Damage at or below this threshold makes the strike non-explosive (visual-only).
+#define EXPLOSIVE_DAMAGE_THRESHOLD 10
 
 ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать молнию различной силы под вами.", ADMIN_CATEGORY_FUN)
 	if(!SSticker?.mode)
@@ -419,8 +421,7 @@ ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать 
 	mob/living/specific_victim,
 	mob/admin_user
 )
-	// Visual effect
-	new /obj/effect/temp_visual/thunderbolt/fancy(target_turf, damage <= 10)
+	new /obj/effect/temp_visual/thunderbolt/fancy(target_turf, damage > EXPLOSIVE_DAMAGE_THRESHOLD)
 
 	// Apply damage
 	for(var/mob/living/living_mob in range(radius, target_turf))
@@ -446,3 +447,4 @@ ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать 
 #undef DEFAULT_RADIUS
 #undef DEFAULT_DELAY
 #undef SELECT_PLAYER_TEXT
+#undef EXPLOSIVE_DAMAGE_THRESHOLD
