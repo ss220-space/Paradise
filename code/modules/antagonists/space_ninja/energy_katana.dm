@@ -57,7 +57,7 @@
 		if(isninja(user))
 			jaunt.teleport(user, target)
 			if(user.client)
-				user.client.mouse_override_icon = file(jaunt.update_cursor())
+				user.client.mouse_override_icon = jaunt.update_cursor()
 				user.client.mouse_pointer_icon = user.client.mouse_override_icon
 				jaunt.update_action_style(color_style)
 		else
@@ -73,7 +73,7 @@
 	. = ..()
 	if(user?.client)
 		jaunt.Grant(user, src)
-		user.client.mouse_override_icon = file(jaunt.update_cursor())
+		user.client.mouse_override_icon = jaunt.update_cursor()
 		user.client.mouse_pointer_icon = user.client.mouse_override_icon
 		jaunt.update_action_style(color_style)
 		user.update_icons()
@@ -179,13 +179,13 @@
 /datum/action/innate/dash/ninja/proc/update_cursor()
 	switch(current_charges)
 		if(3)
-			return "icons/misc/mouse_pointers/ninja_cursor_three.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_three.dmi'
 		if(2)
-			return "icons/misc/mouse_pointers/ninja_cursor_two.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_two.dmi'
 		if(1)
-			return "icons/misc/mouse_pointers/ninja_cursor_one.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_one.dmi'
 		if(0)
-			return "icons/misc/mouse_pointers/ninja_cursor_off.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_off.dmi'
 
 /datum/action/innate/dash/ninja/proc/update_action_style(color_style)
 	button_icon_state = "arrows_[clamp(current_charges, 0, max_charges)]" //Защита от потери иконок при админ абузе
@@ -197,7 +197,7 @@
 /datum/action/innate/dash/ninja/charge()
 	. = ..()
 	if(owner?.client)
-		owner.client.mouse_override_icon = file(update_cursor())
+		owner.client.mouse_override_icon = update_cursor()
 		owner.client.mouse_pointer_icon = owner.client.mouse_override_icon
 		var/obj/item/melee/energy_katana/katana = dashing_item
 		update_action_style(katana.color_style)
