@@ -14854,7 +14854,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -18542,7 +18542,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -20374,7 +20374,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -21931,7 +21931,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -30822,7 +30822,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -39530,12 +39530,12 @@
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo{
+/obj/item/gun/projectile/automatic/pistol/deagle{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/pistol/deagle/camo,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo{
+/obj/item/gun/projectile/automatic/pistol/deagle,
+/obj/item/gun/projectile/automatic/pistol/deagle{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -43181,7 +43181,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
