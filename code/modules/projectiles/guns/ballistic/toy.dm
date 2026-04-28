@@ -132,7 +132,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"
 	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."
-	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
@@ -141,5 +140,6 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_SNIPER_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 
-/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""]"
+/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "[base_icon_state]_toy", layer = FLOAT_LAYER - 1)

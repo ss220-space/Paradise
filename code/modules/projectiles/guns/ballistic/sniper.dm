@@ -29,6 +29,22 @@
 	recoil = GUN_RECOIL_MEGA
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
+/obj/item/gun/projectile/automatic/sniper_rifle/Initialize(mapload)
+	. = ..()
+	if(!base_icon_state)
+		base_icon_state = initial(icon_state)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
+	icon_state = base_icon_state
+
+/obj/item/gun/projectile/automatic/sniper_rifle/update_overlays()
+	. = ..()
+	if(!magazine)
+		return
+	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 1)
+
+
 // MARK: Syndicate SR
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
