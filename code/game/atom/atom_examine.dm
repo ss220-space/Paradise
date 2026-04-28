@@ -45,7 +45,7 @@
 			else
 				. += span_danger("Внутри ничего нет.")
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**
  * A list of "tags" displayed after atom's description in examine.

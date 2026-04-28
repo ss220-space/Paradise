@@ -620,13 +620,6 @@
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
 
-/datum/uplink_item/jobspecific/death_book
-	name = "Летопись вашей погибели"
-	desc = "Магический артефакт, захваченный \"Синдикатом\" для своих агентов. Эта книга рассказывает о том, как погибали целые миры, и тот, кто её прочтёт, сможет на время ощутить себя одним из тех, кто несёт ответственность за эти события."
-	item = /obj/item/death_book
-	cost = 50
-	job = list(JOB_TITLE_LIBRARIAN)
-
 //Botanist
 
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -830,13 +823,12 @@
 	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
 	item = /obj/item/storage/box/syndie_kit/desert_eagle
 	cost = 50
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
 			Имеет только автоматический режим огня. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/c20r/auto
+	item = /obj/item/gun/projectile/automatic/smg/c20r/auto
 	cost = 70
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -948,7 +940,7 @@
 	desc = "Полностью заряженный игрушечный пистолет-пулемёт, оснащённый магазином на 20 усиленных пенных патронов. \
 			Предназначен для выведения из строя цели, не причиняя ей вреда. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона."
-	item = /obj/item/gun/projectile/automatic/c20r/toy
+	item = /obj/item/gun/projectile/automatic/smg/c20r/toy
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1192,7 +1184,7 @@
 
 /datum/uplink_item/ammo/LMG_ammobag
 	name = "Ручной пулемёт L6 SAW — сумка с магазинами 5.56x45 мм"
-	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова на общесолнечном."
+	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова по-неорусски!"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/lmg
 	cost = 200 // normally 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -2408,13 +2400,6 @@
 /datum/uplink_item/badass
 	category = "Безделушки"
 	surplus = 0
-
-/datum/uplink_item/badass/desert_eagle
-	name = "Комплект с пистолетом Desert Eagle"
-	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Полностью покрыт ЗОЛОТОМ, убивайте стильно! \
-			Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
-	item = /obj/item/storage/box/syndie_kit/desert_eagle_gold
-	cost = 50
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Сигареты \"Синдиката\""

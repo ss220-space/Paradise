@@ -28,7 +28,7 @@
 		),
 		PROC_REF(explode))
 
-	RegisterSignal(parent, list(COMSIG_PARENT_EXAMINE), PROC_REF(examine_mined))
+	RegisterSignal(parent, list(COMSIG_ATOM_EXAMINE), PROC_REF(examine_mined))
 
 /datum/component/guardian_mine/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -43,7 +43,7 @@
 		COMSIG_MOVABLE_IMPACT)
 		)
 
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE))
 
 /datum/component/guardian_mine/proc/defuse()
 	if(is_exploded)

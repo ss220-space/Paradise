@@ -1,4 +1,0 @@
-author: "Den109G"
-delete-after: True
-changes:
-  - bugfix: "Починен крафт Bioregenerative диска на эмиттер (PR #9006)"

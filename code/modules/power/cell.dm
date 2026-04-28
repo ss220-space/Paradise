@@ -128,7 +128,7 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 
-	. += span_notice("<b>Максимальная мощность:</b> [display_power(maxcharge)].")
+	. += span_notice("<b>Максимальная мощность:</b> [display_power(maxcharge, FALSE)].")
 
 	if(rigged)
 		. += span_notice("Судя по всему, химический элемент был модифицирован.")

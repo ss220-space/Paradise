@@ -18,10 +18,10 @@
 	text_override = _text_override
 
 /datum/component/examine_override/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(Examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(Examine))
 
 /datum/component/examine_override/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE))
 
 /**
 	This proc will trigger when someone examines the parent.
