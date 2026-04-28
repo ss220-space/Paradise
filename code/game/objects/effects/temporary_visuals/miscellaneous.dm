@@ -450,6 +450,7 @@
 /obj/effect/temp_visual/holo_scan
 	name = "holo scan waves"
 	icon = 'icons/effects/holoscan.dmi'
+	icon_state = "scan_alpha_red"
 	pixel_x = -16
 	pixel_y = -8
 	duration = 2 SECONDS
