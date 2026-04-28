@@ -86,8 +86,8 @@
 // MARK: .45 N&R
 /obj/projectile/bullet/weakbullet4/c45nr
 	name = "45 N&R"
-	damage = 12
-	stamina = 15
+	damage = 15
+	stamina = 10
 	ricochet_chance = 10
 
 // MARK: .45 Colt
