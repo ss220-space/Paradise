@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - tweak: "Автоогонь на КА с repeater modkit (PR #9020)"

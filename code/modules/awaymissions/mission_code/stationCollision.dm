@@ -66,9 +66,9 @@
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
-/obj/item/gun/projectile/automatic/c20r/sc_c20r
+/obj/item/gun/projectile/automatic/smg/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/Initialize(mapload)
+/obj/item/gun/projectile/automatic/smg/c20r/sc_c20r/Initialize(mapload)
 	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
