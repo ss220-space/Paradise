@@ -413,3 +413,7 @@
 /datum/gear/uniform/sandpants
 	index_name = "long sand pants"
 	path = /obj/item/clothing/under/pants/sandpants
+
+/datum/gear/uniform/combatpants
+	index_name = "combat pants"
+	path = /obj/item/clothing/under/pants/fluff/combat
