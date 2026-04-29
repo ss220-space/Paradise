@@ -373,8 +373,7 @@ GLOBAL_LIST_EMPTY(closets)
 		bust_open()
 
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
-	mouse_drop_receive(grabbed_thing, grabber)	//act like they were dragged onto the closet
-	return TRUE
+	return mouse_drop_receive(grabbed_thing, grabber) //act like they were dragged onto the closet
 
 /obj/structure/closet/attackby(obj/item/used, mob/user, params)
 	if(opened)

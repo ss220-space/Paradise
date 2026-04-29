@@ -715,7 +715,6 @@
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
-	return TRUE
 
 /obj/machinery/photocopier/Destroy()
 	QDEL_LIST(saved_documents)

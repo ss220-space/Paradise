@@ -828,7 +828,7 @@
 	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
 			Имеет только автоматический режим огня. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/c20r/auto
+	item = /obj/item/gun/projectile/automatic/smg/c20r/auto
 	cost = 70
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -940,7 +940,7 @@
 	desc = "Полностью заряженный игрушечный пистолет-пулемёт, оснащённый магазином на 20 усиленных пенных патронов. \
 			Предназначен для выведения из строя цели, не причиняя ей вреда. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона."
-	item = /obj/item/gun/projectile/automatic/c20r/toy
+	item = /obj/item/gun/projectile/automatic/smg/c20r/toy
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0

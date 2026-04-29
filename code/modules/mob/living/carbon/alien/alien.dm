@@ -20,6 +20,8 @@
 	verb_exclaim = "рычит"
 	verb_yell = "ревёт"
 
+	blood_color = BLOOD_COLOR_XENO
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add

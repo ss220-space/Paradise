@@ -21,7 +21,7 @@
 	reagent_tag = ORGANIC
 	tox_mod = 1.5
 	blood_species = "Nian"
-	blood_color = "#b9ae9c"
+	blood_color = BLOOD_COLOR_MOTH
 	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "жужж%(ит,ат)%"
 	female_giggle_sound = list('sound/voice/mothchitter.ogg')
