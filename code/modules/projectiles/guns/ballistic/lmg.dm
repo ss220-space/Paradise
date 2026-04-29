@@ -2,7 +2,8 @@
 /obj/item/gun/projectile/automatic/l6_saw
 	name = "L6 SAW"
 	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
-	icon_state = "l6closed100"
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "l6saw"
 	item_state = "l6closedmag"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
@@ -28,11 +29,19 @@
 	cover_open = !cover_open
 	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, TRUE)
-	update_icon()
+	update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? ceil(get_ammo(FALSE)/25)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
+
+
+/obj/item/gun/projectile/automatic/l6_saw/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "[base_icon_state]_cap_[cover_open ? "open" : "close"]", layer = FLOAT_LAYER - 1)
+	if(!magazine)
+		return
+	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "[base_icon_state]_ammo-[ceil(get_ammo(FALSE)/25)*25]", layer = FLOAT_LAYER - 1)
 
 /obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)
@@ -53,7 +62,7 @@
 		user.put_in_hands(magazine, silent = TRUE)
 		magazine = null
 		playsound(src, magout_sound, 50, TRUE)
-		update_icon()
+		update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
 		balloon_alert(user, "магазин вынут")
 
 /obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
