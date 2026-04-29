@@ -2,6 +2,7 @@
 /obj/item/gun/projectile/automatic/pistol
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
+	icon = 'icons/obj/weapons/pistols.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=1"
 	can_holster = TRUE
@@ -18,12 +19,20 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
+	var/magazine_icon = "pistol_mag"
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[base_icon_state][chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/pistol/update_overlays()
+	. = ..()
+	if(!magazine_icon || !magazine)
+		return
+	. += mutable_appearance(initial(icon), magazine_icon, layer = FLOAT_LAYER - 1)
+
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -40,6 +49,7 @@
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
+	magazine_icon = "m1911_mag"
 
 // MARK: Enforcer
 
@@ -60,6 +70,7 @@
 	)
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
+	magazine_icon = "enforcer_mag"
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
 	return list(
@@ -97,17 +108,12 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 8),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -4),
 	)
+	magazine_icon = "sp8_mag"
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_overlays()
-	. = ..()
-	if(!magazine)
-		return
-	var/current_icon = current_skin ? current_skin : base_icon_state
-	. += mutable_appearance(initial(icon), "[current_icon]_mag", layer = FLOAT_LAYER - 1)
 
 // MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle
@@ -128,6 +134,7 @@
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
+	magazine_icon = "deagle_mag"
 
 /obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
 	. = ..()
@@ -149,3 +156,4 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	magazine_icon = "aps_mag"
