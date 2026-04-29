@@ -914,28 +914,20 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return list("UNKNOWN DNA" = "X*")
 
 //to add a mob's dna info into an object's blood_DNA list.
-/atom/proc/transfer_mob_blood_dna(mob/living/L)
-	var/new_blood_dna = L.get_blood_dna_list()
+/atom/proc/transfer_mob_blood_dna(mob/living/living_mob)
+	var/new_blood_dna = living_mob.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
 	return transfer_blood_dna(new_blood_dna)
 
-/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = BLOOD_COLOR_RED
+/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/living_mob)
+	..(living_mob)
+	basecolor = living_mob.get_blood_color()
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = BLOOD_COLOR_RED
+/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/living_mob)
+	..(living_mob)
+	basecolor = living_mob.get_blood_color()
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -948,14 +940,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return length(blood_DNA) > old_length //some new blood DNA was added
 
 //to add blood from a mob onto something, and transfer their dna info
-/atom/proc/add_mob_blood(mob/living/M)
-	var/list/blood_dna = M.get_blood_dna_list()
+/atom/proc/add_mob_blood(mob/living/living_mob)
+	var/list/blood_dna = living_mob.get_blood_dna_list()
 	if(!blood_dna)
 		return FALSE
-	var/bloodcolor = BLOOD_COLOR_RED
-	var/list/b_data = M.get_blood_data(M.get_blood_id())
-	if(b_data)
-		bloodcolor = b_data["blood_color"]
+	var/bloodcolor = living_mob.get_blood_color()
 
 	return add_blood(blood_dna, bloodcolor)
 
@@ -991,6 +980,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
 	B.basecolor = color
+	B.update_appearance(UPDATE_ICON)
 	return TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)

@@ -606,23 +606,20 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
-/obj/structure/closet/supplypod/mouse_drop_receive(atom/movable/O, mob/living/user, params)
-	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
+/obj/structure/closet/supplypod/mouse_drop_receive(atom/movable/target_movable, mob/living/user, params)
+	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, target_movable, user) & COMPONENT_CLIMB))
 		return ..()
 
-	to_chat(user, span_notice("Вы начинаетезаталкивать"))
-	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(user, "заталкивание...")
+	user.visible_message(
+		span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [target_movable.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете запихивать [target_movable.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+	)
 
 	if(!do_after(user, 5 SECONDS, src))
 		return
 
-	. = ..()
-
-	if(!.)
-		return
-
-	O.forceMove(get_turf(src))
+	target_movable.forceMove(get_turf(src))
 
 /obj/structure/closet/supplypod/set_opened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE

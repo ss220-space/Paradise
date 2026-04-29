@@ -40,7 +40,7 @@
 	skinned_type = /obj/item/stack/sheet/wood
 
 	blood_species = "Diona"
-	blood_color = "#004400"
+	blood_color = BLOOD_COLOR_DIONA
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 

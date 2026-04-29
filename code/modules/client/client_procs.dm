@@ -610,11 +610,11 @@
 	if(query_donor_select.NextRow())
 		var/total = query_donor_select.item[1]
 		if(total >= 100)
-			donator_level = 1
+			donator_level = DONATOR_TIER_I
 		if(total >= 300)
-			donator_level = 2
+			donator_level = DONATOR_TIER_II
 		if(total >= 500)
-			donator_level = 3
+			donator_level = DONATOR_TIER_III
 		if(total >= 1000)
 			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()

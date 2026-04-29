@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	heat_level_2 = INFINITY
 	heat_level_3 = INFINITY
 
-	blood_color = "#515573"
+	blood_color = BLOOD_COLOR_GOLEM
 	flesh_color = "#137E8F"
 	skinned_type = /obj/item/stack/ore/iron
 
