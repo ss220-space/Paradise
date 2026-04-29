@@ -7,10 +7,10 @@
 	var/static/list/gun_overlays = list(
 		/obj/item/gun/energy/laser = "laser",
 		/obj/item/gun/projectile/shotgun = "shotgun",
-		/obj/item/gun/projectile/automatic/wt550 = "wt550",
+		/obj/item/gun/projectile/automatic/smg/wt550 = "wt550",
 		/obj/item/gun/projectile/automatic/lr30 = "lr30",
-		/obj/item/gun/projectile/automatic/sp91rc = "sp91",
-		/obj/item/gun/projectile/automatic/sparkle_a12 = "sp91",
+		/obj/item/gun/projectile/automatic/smg/sp91rc = "sp91",
+		/obj/item/gun/projectile/automatic/smg/sparkle_a12 = "sp91",
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/Initialize(mapload)

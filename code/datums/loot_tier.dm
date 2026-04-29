@@ -129,7 +129,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/ppsh,
+			/obj/item/gun/projectile/automatic/smg/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 		),
@@ -165,7 +165,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/c20r/toy/riot,
+			/obj/item/gun/projectile/automatic/smg/c20r/toy/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
@@ -196,13 +196,13 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/proto,
+			/obj/item/gun/projectile/automatic/smg/saber,
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sparkle_a12,
+			/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
@@ -259,19 +259,19 @@
 		/obj/item/gun/energy/laser/captain,
 		/obj/item/gun/energy/sniperrifle/pod_pilot,
 		list(
-			/obj/item/gun/projectile/automatic/c20r,
+			/obj/item/gun/projectile/automatic/smg/c20r,
 			/obj/item/ammo_box/magazine/smgm45,
 			/obj/item/ammo_box/magazine/smgm45,
 			/obj/item/ammo_box/magazine/smgm45,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/wt550,
+			/obj/item/gun/projectile/automatic/smg/wt550,
 			/obj/item/ammo_box/magazine/wt550m9,
 			/obj/item/ammo_box/magazine/wt550m9,
 			/obj/item/ammo_box/magazine/wt550m9,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sfg,
+			/obj/item/gun/projectile/automatic/smg/sfg,
 			/obj/item/ammo_box/magazine/sfg9mm,
 			/obj/item/ammo_box/magazine/sfg9mm,
 			/obj/item/ammo_box/magazine/sfg9mm,
@@ -380,7 +380,7 @@
 			/obj/item/ammo_casing/a40mm/secgl/gas,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sp91rc,
+			/obj/item/gun/projectile/automatic/smg/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,

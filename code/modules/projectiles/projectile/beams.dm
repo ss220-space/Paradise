@@ -130,6 +130,7 @@
 	tile_dropoff = 0.75
 	forcedodge = -1
 	range = 15
+	armour_penetration = 100
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 	tracer_type = /obj/effect/projectile/tracer/xray

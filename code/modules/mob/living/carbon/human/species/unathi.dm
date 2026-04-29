@@ -41,6 +41,7 @@
 	flesh_color = "#34AF10"
 	reagent_tag = ORGANIC
 	base_color = "#066000"
+	blood_color = BLOOD_COLOR_LIZARD
 
 	speciesbox = /obj/item/storage/box/survival/species/unathi
 

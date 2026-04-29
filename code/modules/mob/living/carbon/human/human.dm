@@ -1018,8 +1018,6 @@
 		check_self_for_injuries()
 		return
 
-	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, usr, usr)
-
 /**
  * Set up DNA and species.
  *

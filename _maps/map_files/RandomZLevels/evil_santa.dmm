@@ -1155,7 +1155,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "jo" = (
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "jq" = (
@@ -1257,7 +1257,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "jY" = (
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "jZ" = (
@@ -1774,7 +1774,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "om" = (
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	name = "Engraved SFG-5"
 	},
 /obj/item/ammo_box/magazine/sfg9mm,
