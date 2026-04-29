@@ -406,14 +406,15 @@
 	index_name = "old Soviet dress"
 	path = /obj/item/clothing/under/dress50s
 
-/datum/gear/uniform/galifepants
+/datum/gear/uniform/pants/galife
 	index_name = "check breeches"
 	path = /obj/item/clothing/under/pants/galifepants
 
-/datum/gear/uniform/sandpants
+/datum/gear/uniform/pants/sand
 	index_name = "long sand pants"
 	path = /obj/item/clothing/under/pants/sandpants
 
-/datum/gear/uniform/combatpants
+/datum/gear/uniform/pants/combat
 	index_name = "combat pants"
+	display_name = "Боевые штаны"
 	path = /obj/item/clothing/under/pants/fluff/combat
