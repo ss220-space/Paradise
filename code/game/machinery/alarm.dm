@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
-	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
+	apply_preset(TRUE) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/process()
