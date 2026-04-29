@@ -1,26 +1,31 @@
 /datum/item_skin_data/sp8
 	item_path = /obj/item/gun/projectile/automatic/pistol/sp8
+	icon_state = "sp8"
 
 /datum/item_skin_data/sp8/black
 	name = "Чёрный"
-	icon_state = "sp8_black"
+	greyscale_colors = list("#343434")
 
 /datum/item_skin_data/sp8/red
 	name = "Красный"
-	icon_state = "sp8_red"
+	greyscale_colors = list("#6a1000")
 
 /datum/item_skin_data/sp8/green
 	name = "Зелёный"
-	icon_state = "sp8_green"
+	greyscale_colors = list("#404b29")
 
 /datum/item_skin_data/sp8/olive
 	name = "Олива"
-	icon_state = "sp8_olive"
+	greyscale_colors = list("#544e0e")
 
 /datum/item_skin_data/sp8/yellow
 	name = "Жёлтый"
-	icon_state = "sp8_yellow"
+	greyscale_colors = list("#d4bd00")
 
 /datum/item_skin_data/sp8/white
 	name = "Белый"
-	icon_state = "sp8_white"
+	greyscale_colors = list("#e9e9e9")
+
+/datum/item_skin_data/sp8/orange
+	name = "Оранжевый"
+	greyscale_colors = list("#c77e02")

@@ -73,16 +73,20 @@
 			selected_skin = skin
 			break
 
-	var/image/skin_image = skin_options[choice]
-	item.current_skin = skin_image.icon_state
-	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин \"[choice]\".")
-	if(skin_image.icon != null)
-		item.icon = skin_image.icon
-	item.base_icon_state = skin_image.icon_state
-	item.icon_state = skin_image.icon_state
 	item.exists_skin_change = FALSE
 	item.skins = null
-	if(selected_skin)
-		selected_skin.on_apply(item)
-	item.update_icon()
+	if(!selected_skin)
+		return
+
+	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин \"[choice]\".")
+	if(selected_skin.icon != null)
+		item.icon = selected_skin.icon
+	item.current_skin = selected_skin.icon_state
+	item.base_icon_state = selected_skin.icon_state
+	item.icon_state = selected_skin.icon_state
+	if(selected_skin.greyscale_colors)
+		item.set_greyscale_colors(selected_skin.greyscale_colors)
+
+	selected_skin.on_apply(item)
+	item.update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
 	item.update_equipped_item()

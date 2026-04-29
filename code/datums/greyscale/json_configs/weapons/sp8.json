@@ -1,0 +1,32 @@
+{
+	"sp8": [
+		{
+			"type": "icon_state",
+			"icon_state": "sp8",
+			"blend_mode": "overlay"
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "sp8_upper",
+			"blend_mode": "overlay",
+			"color_ids": [
+				1
+			]
+		}
+	],
+	"sp8-e": [
+		{
+			"type": "icon_state",
+			"icon_state": "sp8-e",
+			"blend_mode": "overlay"
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "sp8_upper-e",
+			"blend_mode": "overlay",
+			"color_ids": [
+				1
+			]
+		}
+	]
+}

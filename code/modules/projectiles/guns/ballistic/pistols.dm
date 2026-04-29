@@ -23,7 +23,7 @@
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+		icon_state = "[base_icon_state][chambered ? "" : "-e"]"
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -82,7 +82,9 @@
 /obj/item/gun/projectile/automatic/pistol/sp8
 	name = "SP-8"
 	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон .40 S&W."
-	icon_state = "sp8_black"  // thanks split
+	greyscale_config = /datum/greyscale_config/sp8
+	greyscale_colors = "#343434"
+	icon_state = "sp8" // thanks split
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
@@ -91,14 +93,21 @@
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 5),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -4),
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
+
+/obj/item/gun/projectile/automatic/pistol/sp8/update_overlays()
+	. = ..()
+	if(!magazine)
+		return
+	var/current_icon = current_skin ? current_skin : base_icon_state
+	. += mutable_appearance(initial(icon), "[current_icon]_mag", layer = FLOAT_LAYER - 1)
 
 // MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle

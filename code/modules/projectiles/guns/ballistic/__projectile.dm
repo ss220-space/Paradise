@@ -19,7 +19,9 @@
 		magazine = new mag_type(src)
 	chamber_round()
 	update_weight()
-	update_icon()
+	if(!base_icon_state)
+		base_icon_state = initial(icon_state)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/examine_more(mob/user)
 	. = ..()
