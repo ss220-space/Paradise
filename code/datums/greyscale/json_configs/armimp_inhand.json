@@ -1,0 +1,23 @@
+{
+    "armimp": [
+        {
+            "type": "icon_state",
+            "icon_state": "armimp_carcass",
+            "blend_mode": "overlay",
+            "color_ids": [ 1 ]
+        },
+        {
+            "type": "icon_state",
+            "icon_state": "armimp_bone",
+            "blend_mode": "overlay",
+			"color_ids": [ 2 ]
+        },
+        {
+            "type": "icon_state",
+            "icon_state": "armimp_wire",
+            "blend_mode": "overlay",
+			"color_ids": [ 3 ]
+        }
+    ]
+}
+

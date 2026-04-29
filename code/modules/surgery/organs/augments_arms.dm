@@ -381,8 +381,15 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
-	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
-	icon_state = "surgical_arm_implant"
+	desc = "Набор хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
+	icon = 'icons/map_icons/items/_item.dmi'
+	post_init_icon_state = "armimp"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery"
+	item_state = "armimp"
+	greyscale_config = /datum/greyscale_config/armimp
+	greyscale_config_inhand_left = /datum/greyscale_config/armimp_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/armimp_inhand_right
+	greyscale_colors = "#ffffff#269a9d#269a9d#269a9d"
 	contents = newlist(
 		/obj/item/retractor/augment,
 		/obj/item/hemostat/augment,
@@ -411,7 +418,9 @@
 /obj/item/organ/internal/cyberimp/arm/surgery/adv
 	name = "laser surgical toolset implant"
 	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
-	icon_state = "laser_surgical_arm_implant"
+	post_init_icon_state = "armimp"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv"
+	greyscale_colors = "#ffffff#89d640#89d640#89d640"
 	contents = newlist(
 		/obj/item/scalpel/laser/laser3,
 		/obj/item/hemostat/laser,
@@ -438,7 +447,9 @@
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
 	name = "military surgical toolset implant"
 	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя"
-	icon_state = "laser_surgical_arm_implant"
+	post_init_icon_state = "armimp"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert"
+	greyscale_colors = "#8f8a8a#89d640#89d640#89d640"
 	contents = newlist(
 		/obj/item/bodyanalyzer/advanced,
 		/obj/item/scalpel/laser/manager,
@@ -464,7 +475,9 @@
 /obj/item/organ/internal/cyberimp/arm/surgery/alien
 	name = "alien surgical toolset implant"
 	desc = "Набор экспериментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
-	icon_state = "alien_surgical_arm_implant"
+	post_init_icon_state = "armimp"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/alien"
+	greyscale_colors = "#848fe6#8b045c#5005d4#7e79ad"
 	contents = newlist(
 		/obj/item/scalpel/alien,
 		/obj/item/hemostat/alien,
