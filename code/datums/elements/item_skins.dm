@@ -27,7 +27,6 @@
 	. = ..()
 	UnregisterSignal(target, COMSIG_CLICK_ALT)
 
-
 /datum/element/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
 	var/obj/item/item = source
 	if(!istype(item))
@@ -72,8 +71,6 @@
 		if(skin.greyscale_colors != null)
 			return TRUE
 	return FALSE
-
-
 
 /datum/element/item_skins/proc/show_select_skin_with_tgui_input_list(obj/item/item, mob/living/carbon/human/user, list/skins)
 	var/list/skin_options = list()
