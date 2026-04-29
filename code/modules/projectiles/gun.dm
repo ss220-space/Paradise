@@ -185,7 +185,7 @@
 	if(overlay && attachable_offset)
 		apply_attachment_offset(module.slot, overlay, module)
 	attachment_overlays[module.slot] = overlay
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/proc/update_attachment_overlays()
 	for(var/slot, overlay in attachment_overlays)
@@ -207,7 +207,7 @@
 /obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
 	if(attachment_overlays[module.slot])
 		attachment_overlays[module.slot] = null
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/gun/proc/create_start_gun_modules()
 	if(!starting_attachment_types)

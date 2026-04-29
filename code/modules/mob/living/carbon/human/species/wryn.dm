@@ -70,7 +70,7 @@
 	reagent_tag = ORGANIC
 	base_color = "#704300"
 	flesh_color = "#704300"
-	blood_color = "#FFFF99"
+	blood_color = BLOOD_COLOR_WRYN
 	blood_species = "Wryn"
 	//Default styles for created mobs.
 	default_hair = "Normal antennae"

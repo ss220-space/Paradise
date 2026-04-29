@@ -43,7 +43,7 @@
 /obj/item/ammo_box/magazine/sfg9mm{
 	pixel_x = 7
 	},
-/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/smg/sfg,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -132,7 +132,7 @@
 /obj/item/ammo_box/magazine/toy/smgm45/riot,
 /obj/item/ammo_box/magazine/toy/smgm45/riot,
 /obj/item/ammo_box/magazine/toy/smgm45/riot,
-/obj/item/gun/projectile/automatic/c20r/toy,
+/obj/item/gun/projectile/automatic/smg/c20r/toy,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
