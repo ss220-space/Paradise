@@ -35,10 +35,16 @@
 		return
 	if(!istype(user) && user.client) //only humans use skins
 		return
+	if(!item.skins || !length(item.skins))
+		return NONE
+	if(!istype(user) && user.client) //only humans use skins
+		return NONE
 	if(item.current_skin) //already exists skin, no reskin allowed
-		return
+		to_chat(user, span_warning("Предмет уже имеет скин, его больше нельзя изменить."))
+		return CLICK_ACTION_BLOCKING
 	if(!user.is_in_hands(item)) // can not apply skin if item not in hands
-		return
+		to_chat(user, span_warning("Чтобы изменить скин предмета, вы должны держать его в руках."))
+		return CLICK_ACTION_BLOCKING
 
 	var/list/skins = collect_available_skins(item, user)
 	if(!length(skins))
