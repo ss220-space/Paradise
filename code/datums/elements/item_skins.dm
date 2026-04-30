@@ -29,12 +29,6 @@
 
 /datum/element/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
 	var/obj/item/item = source
-	if(!istype(item))
-		return
-	if(!item.skins || !length(item.skins))
-		return
-	if(!istype(user) && user.client) //only humans use skins
-		return
 	if(!item.skins || !length(item.skins))
 		return NONE
 	if(!istype(user) && user.client) //only humans use skins
@@ -51,7 +45,7 @@
 		if(!user.client.donate_offer_text_shown)
 			to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
 			user.client.donate_offer_text_shown = TRUE
-		return CLICK_ACTION_BLOCKING
+		return NONE // no blocking click
 
 	if(is_need_use_tgui_input_list(skins))
 		INVOKE_ASYNC(src, PROC_REF(show_select_skin_with_tgui_input_list), item, user, skins)
