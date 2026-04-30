@@ -10,8 +10,7 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, angle, blood_color)
 	if(!blood_color)
-		return
-		//CRASH("Tried to create a blood splatter without a blood_color")
+		CRASH("Tried to create a blood splatter without a blood_color")
 
 	var/x_component = sin(angle) * -20
 	var/y_component = cos(angle) * -20
@@ -79,16 +78,12 @@
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
-	color = BLOOD_COLOR_XENO
 	splatter_type = "xsplatter"
-
-/obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter/Initialize(mapload, angle, blood_color = color)
-	. = ..()
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
 	icon_state = "ion_fade"
-	layer = MOB_LAYER - 0.2
+	layer = BELOW_MOB_LAYER
 
 /obj/effect/temp_visual/dir_setting/ninja
 	name = "ninja shadow"
@@ -176,8 +171,8 @@
 	desc = "It's a decoy!"
 	duration = 15
 
-/obj/effect/temp_visual/decoy/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	alpha = initial(alpha)
 	if(mimiced_atom)
 		name = mimiced_atom.name
@@ -185,8 +180,8 @@
 		setDir(mimiced_atom.dir)
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/fading/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/decoy/fading/threesecond
@@ -207,9 +202,9 @@
 	alpha = 250
 	blend_mode = BLEND_ADD
 
-/obj/effect/temp_visual/fire/New(loc)
+/obj/effect/temp_visual/fire/Initialize(mapload)
+	. = ..()
 	color = heat2color(FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-	..()
 
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
@@ -245,12 +240,12 @@
 	icon_state = "heal"
 	duration = 15
 
-/obj/effect/temp_visual/heal/New(loc, colour)
-	..()
-	pixel_x = rand(-12, 12)
-	pixel_y = rand(-9, 0)
+/obj/effect/temp_visual/heal/Initialize(mapload, colour)
 	if(colour)
-		color = colour
+		add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-12, 12)
+	pixel_y = base_pixel_y + rand(-9, 0)
 
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"
@@ -286,10 +281,10 @@
 	icon_state = "heart"
 	duration = 25
 
-/obj/effect/temp_visual/heart/New(loc)
-	..()
-	pixel_x = rand(-4,4)
-	pixel_y = rand(-4,4)
+/obj/effect/temp_visual/heart/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-4, 4)
+	pixel_y = base_pixel_y + rand(-4, 4)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = 25)
 
 /obj/effect/temp_visual/shockwave_old
@@ -303,12 +298,13 @@
 
 /**
  * Visual shockwave effect using a displacement filter applied to the game world plate
+ *
  * Args:
- * * radius: visual max radius of the effect
- * * speed_rate: propagation rate of the effect as a ratio (0.5 is twice as fast)
- * * easing_type: easing type to use in the anim
- * * y_offset: additional pixel_y offsets
- * * x_offset: additional pixel_x offsets
+ * * radius - visual max radius of the effect
+ * * speed_rate - propagation rate of the effect as a ratio (0.5 is twice as fast)
+ * * easing_type - easing type to use in the anim
+ * * y_offset - additional pixel_y offsets
+ * * x_offset - additional pixel_x offsets
  */
 /obj/effect/temp_visual/shockwave
 	icon = 'icons/effects/light_overlays/shockwave.dmi'
@@ -324,7 +320,7 @@
 	deltimer(timerid)
 	timerid = QDEL_IN_STOPPABLE(src, 0.5 * radius * speed_rate)
 	transform = matrix().Scale(32 / 1024, 32 / 1024)
-	animate(src, time = 1/2 * radius * speed_rate, transform=matrix().Scale((32 / 1024) * radius * 1.5, (32 / 1024) * radius * 1.5), easing = easing_type)
+	animate(src, time = 1/2 * radius * speed_rate, transform = matrix().Scale((32 / 1024) * radius * 1.5, (32 / 1024) * radius * 1.5), easing = easing_type)
 
 /obj/effect/temp_visual/implosion
 	name = "implosion"
@@ -346,14 +342,14 @@
 	var/size_matrix = matrix()
 	if(size_calc_target)
 		layer = size_calc_target.layer + 0.01
-		size_matrix = matrix() * (size_calc_target.get_cached_height()/ICON_SIZE_Y)
+		size_matrix = matrix() * (size_calc_target.get_cached_height() / ICON_SIZE_Y)
 		transform = size_matrix //scale the bleed overlay's size based on the target's icon size
-	var/matrix/M = transform
+	var/matrix/transform_matrix = transform
 	if(shrink)
-		M = size_matrix * 0.1
+		transform_matrix = size_matrix * 0.1
 	else
-		M = size_matrix * 2
-	animate(src, alpha = 20, transform = M, time = duration, flags = ANIMATION_PARALLEL)
+		transform_matrix = size_matrix * 2
+	animate(src, alpha = 20, transform = transform_matrix, time = duration, flags = ANIMATION_PARALLEL)
 
 /obj/effect/temp_visual/bleed/explode
 	icon_state = "bleed10"
@@ -458,23 +454,22 @@
 	pixel_x = -16
 	pixel_y = -8
 	duration = 2 SECONDS
-	var/scan_color = "red"
 	var/scan_type = "alpha"
-	var/obj/effect/temp_visual/holo_scan/beta = null
+	var/obj/effect/temp_visual/holo_scan/beta
 
-/obj/effect/temp_visual/holo_scan/Initialize(mapload, force_scan_color, force_scan_type, create_beta = TRUE)
-	scan_color = force_scan_color ? force_scan_color : initial(scan_color)
-	scan_type = force_scan_type ? force_scan_type : initial(scan_type)
-	if(scan_type == "beta")
-		layer = BELOW_MOB_LAYER
-	if(scan_type == "alpha" && create_beta)
-		beta = new(get_turf(src), scan_color, "beta", FALSE)
+/obj/effect/temp_visual/holo_scan/Initialize(mapload, scan_color = "red")
+	. = ..()
 	icon_state = "scan_[scan_type]_[scan_color]"
-	. = ..()
+	if(scan_type == "alpha")
+		beta = new(get_turf(src), scan_color)
+
 /obj/effect/temp_visual/holo_scan/Destroy()
-	if(beta)
-		qdel(beta)
-	. = ..()
+	QDEL_NULL(beta)
+	return ..()
+
+/obj/effect/temp_visual/holo_scan/beta
+	scan_type = "beta"
+	layer = BELOW_MOB_LAYER
 
 /obj/effect/temp_visual/bsg_kaboom
 	name = "bluespace explosion"
@@ -487,7 +482,7 @@
 
 /obj/effect/temp_visual/bsg_kaboom/Initialize(mapload)
 	. = ..()
-	new /obj/effect/warp_effect/bsg(loc)
+	new /obj/effect/warp_effect/bsg(get_turf(src))
 
 /obj/effect/temp_visual/love_heart
 	name = "love heart"
@@ -496,8 +491,8 @@
 
 /obj/effect/temp_visual/love_heart/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10,10)
-	pixel_y = rand(-10,10)
+	pixel_x = base_pixel_x + rand(-10, 10)
+	pixel_y = base_pixel_y + rand(-10, 10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/thunderbolt_targeting
@@ -528,15 +523,15 @@
 
 /obj/effect/temp_visual/thunderbolt/fancy
 
-/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, harmless = FALSE)
-	new /obj/effect/temp_visual/flash(src)
-	// BOOM
-	playsound(src, 'sound/effects/lightning_bolt.ogg', 100, TRUE, 15, 1.2)
-
-	for(var/mob/to_shake in range(5, src))
-		shake_camera(to_shake, 10, 1)
-
-	if(!harmless)
-		explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
+/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, explosive = TRUE)
 	. = ..()
+	new /obj/effect/temp_visual/flash(src)
+	playsound(src, 'sound/effects/lightning_bolt.ogg', 60, TRUE)
+
+	for(var/mob/nearby_mob in range(5, src))
+		shake_camera(nearby_mob, 10, 1)
+
+	if(explosive)
+		explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flame_range = 2, silent = TRUE)
+
 	do_sparks(15, TRUE, src)

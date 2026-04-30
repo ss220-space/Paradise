@@ -222,15 +222,15 @@
 		qdel(src)
 
 /datum/status_effect/saw_bleed/on_remove()
+	var/turf/current_turf = get_turf(owner)
 	if(needs_to_bleed)
-		var/turf/T = get_turf(owner)
-		new /obj/effect/temp_visual/bleed/explode(T)
-		for(var/d in GLOB.alldirs)
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, SFX_DESECRATION, 200, TRUE, -1)
+		new /obj/effect/temp_visual/bleed/explode(current_turf)
+		for(var/splatter_dir in GLOB.alldirs)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(current_turf, dir2angle(splatter_dir), owner.get_blood_color())
+		playsound(current_turf, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
-		new /obj/effect/temp_visual/bleed(get_turf(owner))
+		new /obj/effect/temp_visual/bleed(current_turf)
 
 /datum/status_effect/saw_bleed/bloodletting
 	id = "bloodletting"

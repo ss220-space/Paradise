@@ -49,7 +49,7 @@
 	reagent_tag = ORGANIC
 	flesh_color = "#a598ad"
 	blood_species = "Grey"
-	blood_color = "#A200FF"
+	blood_color = BLOOD_COLOR_GREY
 
 	disliked_food = SUGAR | FRIED
 	liked_food = VEGETABLES | GRAIN | MEAT

@@ -69,6 +69,9 @@
 /datum/action/item_action/toggle_firemode
 	name = "Сменить режим огня"
 
+/datum/action/item_action/toggle_buttstock
+	name = "Разложить/сложить приклад"
+
 /datum/action/item_action/toggle_defibrillator
 	name = "Включить/выключить встроенный дефибриллятор"
 

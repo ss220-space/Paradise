@@ -177,8 +177,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/deathimp = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/proto/rubber = 1,
-		/obj/item/ammo_box/magazine/smgm9mm = 2,
+		/obj/item/gun/projectile/automatic/smg/saber/rubber = 1,
+		/obj/item/ammo_box/magazine/smgm9mm/rubber = 2,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/blueshield

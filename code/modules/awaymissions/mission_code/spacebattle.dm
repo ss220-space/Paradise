@@ -368,7 +368,7 @@
 		if(47 to 50) // 3%
 			SynRange = /obj/item/ammo_box/magazine/smgm45
 		if(50 to 51) // 1%
-			SynRange = /obj/item/gun/projectile/automatic/c20r
+			SynRange = /obj/item/gun/projectile/automatic/smg/c20r
 		else
 			SynRange = /obj/item/ammo_casing/c10mm
 	. = ..()
@@ -567,7 +567,7 @@
 				/obj/item/ammo_box/magazine/enforcer/lethal = 1,
 			)
 		if(8 to 9) //20%
-			suit_store = /obj/item/gun/projectile/automatic/wt550
+			suit_store = /obj/item/gun/projectile/automatic/smg/wt550
 			backpack_contents = list(
 				/obj/item/storage/box/survival = 1,
 				/obj/item/ammo_box/magazine/wt550m9 = 1,

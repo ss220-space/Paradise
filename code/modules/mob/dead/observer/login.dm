@@ -9,3 +9,4 @@
 		can_reenter_corpse = 0
 		GLOB.respawnable_list -= src
 	update_admin_actions()
+	client?.set_right_click_menu_mode(FALSE)

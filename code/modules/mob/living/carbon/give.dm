@@ -127,15 +127,20 @@
 
 /datum/click_intercept/give/New(client/C)
 	..()
+	if(!holder.mouse_override_icon)
+		holder.mouse_override_icon = 'icons/misc/mouse_icons/give_item.dmi'
+		holder.mouse_pointer_icon = holder.mouse_override_icon
+
 	giver = holder.mob
 	giving_item = giver.get_active_hand()
-	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
 	to_chat(giver, span_notice("ЛКМ по игроку — предложить предмет в руке."))
 	RegisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
 /datum/click_intercept/give/Destroy(force = FALSE)
-	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+	if(holder.mouse_override_icon == 'icons/misc/mouse_icons/give_item.dmi')
+		holder.mouse_override_icon = null
+		holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
 		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
 	if(giving_item)

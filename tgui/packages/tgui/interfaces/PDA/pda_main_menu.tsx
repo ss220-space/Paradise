@@ -5,6 +5,7 @@ type MainMenuData = {
   owner: string;
   ownjob: string;
   idInserted: boolean;
+  pai?: boolean;
   categories: string[];
   notifying: string[];
   apps: Record<string, App[]>;
@@ -83,7 +84,7 @@ const AppIcon = ({ app, isNotifying, onClick }) => {
 
 export const pda_main_menu = () => {
   const { act, data } = useBackend<MainMenuData>();
-  const { idInserted, notifying, apps } = data;
+  const { idInserted, notifying, apps, pai } = data;
 
   const allApps: App[] = Object.values(apps || {}).flat();
 
@@ -117,6 +118,32 @@ export const pda_main_menu = () => {
           Синхронизировать кпк с ID-картой
         </Button>
       </Box>
+
+      {!!pai && (
+        <Box
+          mb="0.75rem"
+          p="0.75rem"
+          style={{
+            borderRadius: '0.75rem',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          }}
+        >
+          <Button
+            fluid
+            icon="eject"
+            color="average"
+            onClick={() => act('pai', { option: 2 })}
+            style={{
+              padding: '0.5rem 0.75rem',
+              fontSize: '1rem',
+              borderRadius: '0.5rem',
+              overflow: 'hidden',
+            }}
+          >
+            Извлечь плату pAI
+          </Button>
+        </Box>
+      )}
 
       <Box
         style={{
