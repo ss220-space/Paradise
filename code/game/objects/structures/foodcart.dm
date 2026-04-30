@@ -6,21 +6,9 @@
 	density = TRUE
 	pull_push_slowdown = 1
 	//Food slots
-	var/list/food_slots[6]
-	//var/obj/item/reagent_containers/food/snacks/food1 = null
-	//var/obj/item/reagent_containers/food/snacks/food2 = null
-	//var/obj/item/reagent_containers/food/snacks/food3 = null
-	//var/obj/item/reagent_containers/food/snacks/food4 = null
-	//var/obj/item/reagent_containers/food/snacks/food5 = null
-	//var/obj/item/reagent_containers/food/snacks/food6 = null
+	var/list/food_slots[12]
 	//Drink slots
 	var/list/drink_slots[6]
-	//var/obj/item/reagent_containers/food/drinks/drink1 = null
-	//var/obj/item/reagent_containers/food/drinks/drink2 = null
-	//var/obj/item/reagent_containers/food/drinks/drink3 = null
-	//var/obj/item/reagent_containers/food/drinks/drink4 = null
-	//var/obj/item/reagent_containers/food/drinks/drink5 = null
-	//var/obj/item/reagent_containers/food/drinks/drink6 = null
 
 /obj/structure/foodcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
@@ -108,6 +96,18 @@
 		dat += "<a href='byond://?src=[UID()];d5=1'>[drink_slots[5]]</a><br>"
 	if(drink_slots[6])
 		dat += "<a href='byond://?src=[UID()];d6=1'>[drink_slots[6]]</a><br>"
+	if(drink_slots[7])
+		dat += "<a href='byond://?src=[UID()];d7=1'>[drink_slots[6]]</a><br>"
+	if(drink_slots[8])
+		dat += "<a href='byond://?src=[UID()];d8=1'>[drink_slots[6]]</a><br>"
+	if(drink_slots[9])
+		dat += "<a href='byond://?src=[UID()];d9=1'>[drink_slots[6]]</a><br>"
+	if(drink_slots[10])
+		dat += "<a href='byond://?src=[UID()];d10=1'>[drink_slots[6]]</a><br>"
+	if(drink_slots[11]])
+		dat += "<a href='byond://?src=[UID()];d11=1'>[drink_slots[6]]</a><br>"
+	if(drink_slots[12])
+		dat += "<a href='byond://?src=[UID()];d12=1'>[drink_slots[6]]</a><br>"
 	var/datum/browser/popup = new(user, "foodcart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()
