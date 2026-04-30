@@ -32,7 +32,7 @@
 	. = ..()
 	if(!magazine_icon || !magazine)
 		return
-	. += mutable_appearance(initial(icon), magazine_icon, layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(initial(icon), magazine_icon, layer = FLOAT_LAYER - 0.01)
 
 
 // MARK: M1911
@@ -95,7 +95,7 @@
 	name = "SP-8"
 	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон .40 S&W."
 	greyscale_config = /datum/greyscale_config/sp8
-	greyscale_colors = "#343434"
+	greyscale_colors = COLOR_ALMOST_BLACK
 	icon_state = "/obj/item/gun/projectile/automatic/pistol/sp8"
 	base_icon_state = "sp8"
 	post_init_icon_state = "sp8" // thanks split

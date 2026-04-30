@@ -122,7 +122,7 @@
 	item.icon_state = selected_skin.icon_state
 	if(selected_skin.greyscale_colors)
 		var/list/colors = selected_skin.greyscale_colors
-		if(!istype(colors))
+		if(!islist(colors))
 			colors = list(selected_skin.greyscale_colors)
 		item.set_greyscale_colors(colors)
 

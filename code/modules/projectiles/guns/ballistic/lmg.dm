@@ -37,11 +37,11 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, "[base_icon_state]_cap_[cover_open ? "open" : "close"]", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "[base_icon_state]_cap_[cover_open ? "open" : "close"]", layer = FLOAT_LAYER - 0.01)
 	if(!magazine)
 		return
 	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 1)
-	. += mutable_appearance(icon, "[base_icon_state]_ammo-[ceil(get_ammo(FALSE)/25)*25]", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "[base_icon_state]_ammo-[ceil(get_ammo(FALSE)/25)*25]", layer = FLOAT_LAYER - 0.01)
 
 /obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)

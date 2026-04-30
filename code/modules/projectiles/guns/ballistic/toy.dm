@@ -117,7 +117,7 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, "l6saw_toy", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "l6saw_toy", layer = FLOAT_LAYER - 0.01)
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -145,4 +145,4 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, "[base_icon_state]_toy", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "[base_icon_state]_toy", layer = FLOAT_LAYER - 0.01)

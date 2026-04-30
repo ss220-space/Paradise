@@ -36,7 +36,7 @@
 	. = ..()
 	if(!magazine)
 		return
-	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 1)
+	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 0.01)
 
 
 // MARK: Syndicate SR
