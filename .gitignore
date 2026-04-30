@@ -43,6 +43,7 @@ fast_paradise.dme
 !config/logs.txt
 !config/maps.txt
 !config/motd.txt
+!config/twitch_censor.txt
 
 # ignore cfg, an internal BYOND folder
 /cfg/*
