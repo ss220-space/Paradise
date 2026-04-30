@@ -318,7 +318,7 @@
 			to_chat(H, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(placed_in)
 
-		qdel(gear_leftovers)
+		LAZYCLEARLIST(gear_leftovers)
 
 	if(ismodcontrol(H.back))
 		var/obj/item/mod/control/mod_control = H.back
@@ -369,6 +369,10 @@
 
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
 	return transfer_allowed
+
+/// Check custom job requirements (override in subtypes for custom checks like achievements)
+/datum/job/proc/check_custom_requirements(client/user_client)
+	return TRUE
 
 /datum/job/proc/can_novice_play(client/C)
 	if(!is_novice)

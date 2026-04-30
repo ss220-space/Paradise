@@ -4,11 +4,10 @@
 	icon_state = "hydro"
 
 /obj/structure/closet/secure_closet/hydroponics/populate_contents()
-	switch(rand(1,2))
-		if(1)
-			new /obj/item/clothing/suit/apron(src)
-		if(2)
-			new /obj/item/clothing/suit/apron/overalls(src)
+	if(prob(50))
+		new /obj/item/clothing/suit/apron(src)
+	else
+		new /obj/item/clothing/suit/apron/overalls(src)
 	new /obj/item/storage/bag/plants/portaseeder(src)
 	new /obj/item/clothing/under/rank/hydroponics(src)
 	new /obj/item/plant_analyzer(src)

@@ -58,7 +58,7 @@
 	if(!my_suit.s_busy)	//Боремся со спамом кнопок
 		ninja_chameleon(user, user)
 
-/obj/item/ninja_chameleon_scanner/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/ninja_chameleon_scanner/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)
 	if(!my_suit.s_busy)	//Боремся со спамом кнопок
 		ninja_chameleon(target_mob, user)
@@ -104,7 +104,7 @@
 
 	if(!disguise_active)
 		to_chat(ninja, span_notice("Вы начали маскироваться под [disguise.name]."))
-		var/obj/effect/temp_visual/holo_scan/my_scan_effect = new(get_turf(src), color_choice, "alpha", TRUE)
+		var/obj/effect/temp_visual/holo_scan/my_scan_effect = new(get_turf(src), color_choice)
 		if(!s_busy)
 			s_busy = TRUE
 			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))

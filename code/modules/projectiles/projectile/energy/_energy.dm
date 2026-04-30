@@ -6,3 +6,4 @@
 	damage_type = BURN
 	flag = ENERGY
 	reflectability = REFLECTABILITY_ENERGY
+	miss_sound = SFX_ENERGY_MISS

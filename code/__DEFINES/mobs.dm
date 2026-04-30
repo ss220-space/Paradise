@@ -55,10 +55,10 @@
 #define REM REAGENTS_EFFECT_MULTIPLIER //! Shorthand for the above define for ease of use in equations and the like
 
 // Factor of how fast mob nutrition decreases
-#define	HUNGER_FACTOR 0.1
+#define HUNGER_FACTOR 0.1
 
 // Factor of how fast vampire nutrition decreases
-#define	HUNGER_FACTOR_VAMPIRE 0.1
+#define HUNGER_FACTOR_VAMPIRE 0.1
 
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
@@ -171,7 +171,7 @@
 #define ENVIRONMENT_SMASH_WALLS 2 //walls
 #define ENVIRONMENT_SMASH_RWALLS 4 //rwalls
 
-#define POCKET_STRIP_DELAY 4 SECONDS	//time taken to search somebody's pockets
+#define POCKET_STRIP_DELAY 4 SECONDS //time taken to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY 4 SECONDS  //time taken to strip somebody
 #define DEFAULT_ITEM_PUTON_DELAY 2 SECONDS  //time taken to reverse-strip somebody
@@ -186,9 +186,9 @@
 ///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
 #define MAX_GOLD_CORE_MOBS 45
 
-#define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
-#define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
+#define TINT_IMPAIR 2 //Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3 //Threshold of tint level to obscure vision fully
+#define EYE_SHINE_THRESHOLD 6 //dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
 #define STATUS_UPDATE_HEALTH (1<<0)
 #define STATUS_UPDATE_STAT (1<<1)
@@ -266,6 +266,61 @@
 // not race
 #define SPECIES_OTHER "Other"
 
+GLOBAL_LIST_INIT(ru_species, list(
+	SPECIES_ABDUCTOR = "абдуктор",
+	SPECIES_DIONA = "диона",
+	SPECIES_DRASK = "драск",
+	SPECIES_GOLEM_BASIC = "голем",
+	SPECIES_GOLEM_RANDOM = "случайный голем",
+	SPECIES_GOLEM_ADAMANTINE = "адамантиновый голем",
+	SPECIES_GOLEM_PLASMA = "плазменный голем",
+	SPECIES_GOLEM_DIAMOND = "алмазный голем",
+	SPECIES_GOLEM_GOLD = "золотой голем",
+	SPECIES_GOLEM_SILVER = "серебряный голем",
+	SPECIES_GOLEM_PLASTEEL = "пласталевый голем",
+	SPECIES_GOLEM_TITANIUM = "титановый голем",
+	SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
+	SPECIES_GOLEM_ALLOY = "голем из инопланетных сплавов",
+	SPECIES_GOLEM_WOOD = "деревянный голем",
+	SPECIES_GOLEM_URANIUM = "урановый голем",
+	SPECIES_GOLEM_PLASTIC = "пластиковый голем",
+	SPECIES_GOLEM_SAND = "песчаный голем",
+	SPECIES_GOLEM_GLASS = "стеклянный голем",
+	SPECIES_GOLEM_BLUESPACE = "блюспейс-голем",
+	SPECIES_GOLEM_BANANIUM = "бананиевый голем",
+	SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
+	SPECIES_GOLEM_CLOCKWORK = "латунный голем",
+	SPECIES_GREY = "серый",
+	SPECIES_HUMAN = "человек",
+	SPECIES_KIDAN = "кидан",
+	SPECIES_MACNINEPERSON = "КПБ",
+	SPECIES_MONKEY = "шимпанзе",
+	SPECIES_FARWA = "фарва",
+	SPECIES_WOLPIN = "вульпин",
+	SPECIES_NEARA = "неара",
+	SPECIES_STOK = "сток",
+	SPECIES_MOTH = "ниан",
+	SPECIES_NUCLEATION = "нуклеация",
+	SPECIES_PLASMAMAN = "плазмолюд",
+	SPECIES_SHADOW_BASIC = "тень",
+	SPECIES_SHADOWLING = "тенеморф",
+	SPECIES_LESSER_SHADOWLING = "низший тенеморф",
+	SPECIES_SKELETON = "скелет",
+	SPECIES_SKRELL = "скрелл",
+	SPECIES_SLIMEPERSON = "слаймолюд",
+	SPECIES_TAJARAN = "таяран",
+	SPECIES_UNATHI = "унати",
+	SPECIES_ASHWALKER_BASIC = "пеплоходец",
+	SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
+	SPECIES_DRACONOID = "драконид",
+	SPECIES_VOX = "вокс",
+	SPECIES_VOX_ARMALIS = "вокс армалис",
+	SPECIES_VULPKANIN = "вульпканин",
+	SPECIES_WRYN = "врин"
+))
+
+#define GET_RU_SPECIES_NAME(species) (GLOB.ru_species[species] || (species))
+
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
 	if(QDELETED(A)) return; \
@@ -315,9 +370,9 @@
 #define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
 
 ///How much a mob's sprite should be moved when they're lying down
-#define PIXEL_Y_OFFSET_LYING -6
+#define PIXEL_Y_OFFSET_LYING -3
 ///How much a mob's sprite should be moved when they're lying up (on the ceiling)
-#define PIXEL_Y_OFFSET_LYING_REVERSED 6
+#define PIXEL_Y_OFFSET_LYING_REVERSED 3
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -409,12 +464,24 @@
 /// Eyes examine time mod
 #define EXAMINE_INSTANT 0 // 0 seconds
 
-// Incapacitated ignore flags for [/proc/incapacitated()].
-// They also used at interaction_flags_c var.
-/// If the incapacitated will ignore a mob in restraints
-#define INC_IGNORE_RESTRAINED (1<<0)
-/// If the incapacitated will ignore a mob being agressively grabbed
-#define INC_IGNORE_GRABBED (1<<1)
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
+/// If you yawn while someone nearby has examined you within this time frame, it will force them to yawn as well. Tradecraft!
+#define YAWN_PROPAGATION_EXAMINE_WINDOW (2 SECONDS)
+
+/// How far away you can be to make eye contact with someone while examining
+#define EYE_CONTACT_RANGE 5
+
+// Incapacitated status effect flags
+/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
+#define IGNORE_RESTRAINTS (1<<0)
+/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
+#define IGNORE_STASIS (1<<1)
+/// If the incapacitated status effect will ignore a mob being agressively grabbed
+#define IGNORE_GRAB (1<<2)
 
 /// If reading is required to perform action (can't read a book if you are illiterate)
 #define NEED_LITERACY (1<<0)

@@ -53,7 +53,7 @@
 /datum/antagonist/servant/proc/check_range()
 	SIGNAL_HANDLER
 
-	if(get_dist(serve_to, owner.current) <= MAX_DISTANCE)
+	if(get_dist(serve_to, owner.current) <= MAX_DISTANCE || (owner.current in serve_to))
 		return
 	owner.current.forceMove(serve_to)
 	to_chat(owner.current, span_warningbig("Вы ушли слишком далеко от вашего хозяина!"))

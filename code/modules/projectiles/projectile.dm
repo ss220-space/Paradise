@@ -16,6 +16,8 @@
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
+	/// Sound to play when the projectile misses a mob (passes through without hitting)
+	var/miss_sound = SFX_BULLET_MISS
 	/// Body part at which the projectile was aimed.
 	var/def_zone = ""
 	/// Mob who shot projectile.
@@ -249,13 +251,9 @@
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
 			if(isalien(L) || isfacehugger(L))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir, L.get_blood_color())
 			else
-				var/blood_color = BLOOD_COLOR_RED
-				if(ishuman(target))
-					H = target
-					blood_color = H.dna.species.blood_color
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, L.get_blood_color())
 
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
@@ -409,7 +407,7 @@
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
-	var/required_moves = hitscan ? MOVES_HITSCAN : FLOOR(elapsed_time_deciseconds / speed, 1)
+	var/required_moves = hitscan ? MOVES_HITSCAN : floor(elapsed_time_deciseconds / speed)
 	if(required_moves == MOVES_HITSCAN)
 		required_moves = SSprojectiles.global_max_tick_moves
 	if(required_moves > SSprojectiles.global_max_tick_moves)

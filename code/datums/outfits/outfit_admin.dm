@@ -219,11 +219,11 @@
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/gun/projectile/automatic/smg/saber = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
@@ -376,11 +376,11 @@
 	name = "NT Death Commando"
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	back = /obj/item/mod/control/pre_equipped/apocryphal
-	belt = /obj/item/gun/projectile/revolver/mateba
+	belt = /obj/item/storage/belt/military/assault/rsh_12/full
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	l_pocket = /obj/item/shield/energy
 	r_pocket = /obj/item/melee/energy/sword/saber
 	l_hand = /obj/item/gun/energy/pulse
@@ -391,18 +391,22 @@
 	box = /obj/item/storage/box/survival/responseteam
 
 	backpack_contents = list(
-		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/storage/box/flashbangs = 1,
-		/obj/item/flashlight/seclite = 1,
+
+		/obj/item/storage/firstaid/tactical = 1,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
-		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/ammo_box/speedloader/a357 = 1,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
 	)
 
-	implants = list(/obj/item/implant/mindshield/ert)
+	implants = list(
+		/obj/item/implant/mindshield/ert,
+		/obj/item/implant/explosive/macro,
+	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/map/security,
+		/obj/item/organ/internal/cyberimp/eyes/map/ert,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
+		/obj/item/organ/internal/cyberimp/chest/reviver/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 	)
 
 /datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -949,8 +953,9 @@
 	name = "Sol Trader"
 
 	uniform = /obj/item/clothing/under/rank/cargotech
+	suit = /obj/item/clothing/suit/armor/vest/combat
 	back = /obj/item/storage/backpack/industrial
-	belt = /obj/item/melee/baton
+	belt = /obj/item/storage/belt/military/assault/marines/cats/full
 	head = /obj/item/clothing/head/soft
 	shoes = /obj/item/clothing/shoes/color/black
 	l_ear = /obj/item/radio/headset
@@ -961,7 +966,9 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
 		/obj/item/hand_labeler_refill = 1,
+		/obj/item/melee/baton = 1,
 	)
+	suit_store = /obj/item/gun/projectile/automatic/cats
 
 /datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -1101,7 +1108,7 @@
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/speedloader/a357
-	r_hand = /obj/item/gun/projectile/automatic/proto
+	r_hand = /obj/item/gun/projectile/automatic/smg/saber
 
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"

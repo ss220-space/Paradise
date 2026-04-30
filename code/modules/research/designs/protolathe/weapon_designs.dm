@@ -147,14 +147,6 @@
 	build_path = /obj/item/ammo_box/expansive45colt
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
-/datum/design/enforcer/laser
-	id = "enforcer_laser"
-	req_tech = list(RESEARCH_TREE_COMBAT = 2, RESEARCH_TREE_POWERSTORAGE = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 35000)
-	build_path = /obj/item/ammo_box/enforcer/laser
-	category = list(PROTOLATHE_CATEGORY_WEAPON)
-
 /datum/design/lmag
 	id = "lmag"
 	build_type = PROTOLATHE | AUTOLATHE

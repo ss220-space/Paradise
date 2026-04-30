@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - bugfix: "Исправление моргания миникарт (попытка 2) (PR #8747)"

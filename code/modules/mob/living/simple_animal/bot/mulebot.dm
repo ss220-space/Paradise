@@ -422,13 +422,11 @@
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
-/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
-
+/mob/living/simple_animal/bot/mulebot/mouse_drop_receive(atom/movable/AM, mob/user, params)
 	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
-		return FALSE
+		return 
 
 	load(AM)
-	return TRUE
 
 // called to load a crate
 /mob/living/simple_animal/bot/mulebot/proc/load(atom/movable/AM)
@@ -443,7 +441,7 @@
 		return
 
 	var/obj/structure/closet/crate/CRATE
-	if(istype(AM,/obj/structure/closet/crate))
+	if(is_crate(AM))
 		CRATE = AM
 	else
 		if(!wires.is_cut(WIRE_LOADCHECK) && !hijacked)
@@ -678,7 +676,7 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [DECLENT_RU_CAP(src, NOMINATIVE)] удалённо проигрывает звук звонка!"))
+				to_chat(calling_ai, span_notice("[get_examine_icon(calling_ai)] [DECLENT_RU_CAP(src, NOMINATIVE)] удалённо проигрывает звук звонка!"))
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, FALSE)
 				calling_ai = null
 				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
@@ -686,9 +684,9 @@
 		if(load)		// if loaded, unload at target
 			if(report_delivery)
 				speak("Пункт назначения <b>[destination]</b> достигнут. Выгружаю [load].", radio_channel)
-			if(istype(load, /obj/structure/closet/crate))
+			if(is_crate(load))
 				var/obj/structure/closet/crate/C = load
-				C.notifyRecipient(destination)
+				C.notify_recipient(destination)
 			unload(loaddir)
 		else
 			// not loaded
@@ -917,12 +915,12 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()
 
-/mob/living/simple_animal/bot/mulebot/run_resist()
+/mob/living/simple_animal/bot/mulebot/execute_resist()
 	. = ..()
 	if(load)
 		unload()
 
-/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

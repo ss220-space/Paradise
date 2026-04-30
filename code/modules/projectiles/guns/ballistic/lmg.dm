@@ -18,9 +18,9 @@
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
-		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 1),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -7),
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
@@ -31,7 +31,7 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? ceil(get_ammo(FALSE)/25)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 /obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)

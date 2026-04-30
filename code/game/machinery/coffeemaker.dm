@@ -46,6 +46,7 @@
 	QDEL_NULL(coffeepot)
 	QDEL_NULL(cartridge)
 	QDEL_LIST_ASSOC_VAL(resources)
+	QDEL_LIST(coffee)
 	return ..()
 
 /obj/machinery/coffeemaker/Exited(atom/movable/departed, atom/newLoc)

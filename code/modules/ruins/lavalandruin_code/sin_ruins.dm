@@ -137,14 +137,14 @@
 	force = 18
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity, params)
+/obj/item/kitchen/knife/envy/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(!istype(user))
 		return
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)

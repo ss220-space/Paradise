@@ -261,19 +261,19 @@
 	return ..()
 
 //Drag pill bottle to fridge to empty it into the fridge
-/obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user, params)
+/obj/machinery/smartfridge/mouse_drop_receive(obj/over_object, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return TRUE
+		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
-		return TRUE
+		return
 	if(stat & (BROKEN|NOPOWER))
 		balloon_alert(user, "не работает!")
-		return TRUE
+		return
 
 	var/obj/item/storage/box/pillbottles/P = over_object
 	if(!length(P.contents))
 		balloon_alert(user, "нечего выгружать!")
-		return TRUE
+		return
 
 	add_fingerprint(user)
 	var/items_loaded = 0
@@ -290,7 +290,6 @@
 	var/failed = length(P.contents)
 	if(failed)
 		to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
-	return TRUE
 
 /obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)
@@ -624,24 +623,24 @@
 
 /obj/machinery/smartfridge/secure/medbay_blood/Initialize(mapload)
 	starting_items = list(
-		/obj/item/reagent_containers/iv_bag/blood/ABPlus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/ABMinus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/APlus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/AMinus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/BPlus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/BMinus = 4,
-		/obj/item/reagent_containers/iv_bag/blood/OPlus = 6,
-		/obj/item/reagent_containers/iv_bag/blood/OMinus = 8,
-		/obj/item/reagent_containers/iv_bag/blood/skrell = 8,
-		/obj/item/reagent_containers/iv_bag/blood/tajaran = 8,
-		/obj/item/reagent_containers/iv_bag/blood/vulpkanin = 8,
-		/obj/item/reagent_containers/iv_bag/blood/unathi = 8,
-		/obj/item/reagent_containers/iv_bag/blood/kidan = 8,
-		/obj/item/reagent_containers/iv_bag/blood/grey = 8,
-		/obj/item/reagent_containers/iv_bag/blood/diona = 8,
-		/obj/item/reagent_containers/iv_bag/blood/wryn = 8,
-		/obj/item/reagent_containers/iv_bag/blood/nian = 8,
-		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 8,
+		/obj/item/reagent_containers/iv_bag/blood/ABPlus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/ABMinus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/APlus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/AMinus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/BPlus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/BMinus = 2,
+		/obj/item/reagent_containers/iv_bag/blood/OPlus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/OMinus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/skrell = 4,
+		/obj/item/reagent_containers/iv_bag/blood/tajaran = 4,
+		/obj/item/reagent_containers/iv_bag/blood/vulpkanin = 4,
+		/obj/item/reagent_containers/iv_bag/blood/unathi = 4,
+		/obj/item/reagent_containers/iv_bag/blood/kidan = 4,
+		/obj/item/reagent_containers/iv_bag/blood/grey = 4,
+		/obj/item/reagent_containers/iv_bag/blood/diona = 4,
+		/obj/item/reagent_containers/iv_bag/blood/wryn = 4,
+		/obj/item/reagent_containers/iv_bag/blood/nian = 4,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 4,
 	)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(

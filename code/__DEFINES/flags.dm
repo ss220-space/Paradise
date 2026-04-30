@@ -35,14 +35,8 @@
 #define NO_SCREENTIPS (1<<11)
 /// This atom does not need to generate its own preview icon for GAGS
 #define NO_NEW_GAGS_PREVIEW (1<<12)
-// Bypass all adjacency checks for mouse drop
-#define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<13)
-/// Bypass all can_perform_action checks for mouse drop
-#define INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY (1<<14)
-/// Bypass all adjacency and other checks for mouse drop
-#define INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS (INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT | INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY)
 /// Whether or not this atom has contextual screentips when hovered OVER
-#define HAS_CONTEXTUAL_SCREENTIPS (1<<15)
+#define HAS_CONTEXTUAL_SCREENTIPS (1<<13)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -107,20 +101,36 @@
 #define SHOCK (1<<3)
 #define SAFE (1<<4)
 
-//flags for passing things
+/**
+ * These defines are used specifically with the atom/pass_flags bitmask
+ * the atom/checkpass() proc uses them (tables will call movable atom checkpass(PASSTABLE) for example)
+ */
+// flags for pass_flags
+/// Allows you to pass over tables.
 #define PASSTABLE (1<<0)
+/// Allows you to pass over glass(this generally includes anything see-through that's glass-adjacent, ie. windows, windoors, airlocks with glass, etc.)
 #define PASSGLASS (1<<1)
+/// Allows you to pass over grilles.
 #define PASSGRILLE (1<<2)
+/// Allows you to pass over blob tiles.
 #define PASSBLOB (1<<3)
+/// Allows you to pass over mobs.
 #define PASSMOB (1<<4)
 /// Let thrown things past us. **ONLY MEANINGFUL ON pass_flags_self!**
 #define LETPASSTHROW (1<<5)
+/// Allows you to pass over machinery, ie. vending machines, computers, protolathes, etc.
 #define PASSMACHINE (1<<6)
+/// Allows you to pass over structures, ie. racks, tables(if you don't already have PASSTABLE), etc.
 #define PASSSTRUCTURE (1<<7)
+/// Allows you to pass over plastic flaps, often found at cargo or MULE dropoffs.
 #define PASSFLAPS (1<<8)
+/// Allows you to pass over fences.
 #define PASSFENCE (1<<9)
+/// Allows you to pass over airlocks and mineral doors.
 #define PASSDOOR (1<<10)
+/// Allows you to pass over vehicles, ie. mecha, secways, the pimpin' ride, etc.
 #define PASSVEHICLE (1<<11)
+/// Allows you to pass over dense items.
 #define PASSITEM (1<<12)
 /// Do not intercept click attempts during Adjacent() checks. See [turf/proc/ClickCross]. **ONLY MEANINGFUL ON pass_flags_self!**
 #define LETPASSCLICKS (1<<13)
@@ -196,15 +206,24 @@
 
 //Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF (1<<0)
-#define FIRE_PROOF (1<<1) //100% immune to fire damage (but not necessarily to lava or heat)
+/// 100% immune to fire damage (but not necessarily to lava or heat)
+#define FIRE_PROOF (1<<1)
+/// atom is flammable and can have the burning component
 #define FLAMMABLE (1<<2)
+/// currently burning
 #define ON_FIRE (1<<3)
-#define UNACIDABLE (1<<4) //acid can't even appear on it, let alone melt it.
-#define ACID_PROOF (1<<5) //acid stuck on it doesn't melt it.
-#define INDESTRUCTIBLE (1<<6) //doesn't take damage
-#define FREEZE_PROOF (1<<7) //can't be frozen
-#define NO_MALF_EFFECT (1<<8) //So malf cannot blow certain things
-#define NO_MOUSTACHING (1<<9) //Saves from super hairgrowium shenanigans
+/// acid can't even appear on it, let alone melt it.
+#define UNACIDABLE (1<<4)
+/// acid stuck on it doesn't melt it.
+#define ACID_PROOF (1<<5)
+/// doesn't take damage
+#define INDESTRUCTIBLE (1<<6)
+/// can't be frozen
+#define FREEZE_PROOF (1<<7)
+/// malf cannot blow certain things
+#define NO_MALF_EFFECT (1<<8)
+/// saves from super hairgrowium shenanigans
+#define NO_MOUSTACHING (1<<9)
 
 #define MEAT (1<<0)
 #define VEGETABLES (1<<1)

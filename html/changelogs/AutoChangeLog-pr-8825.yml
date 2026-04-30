@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - balance: "Повышен безопасный порог CO2 легким эшей. (PR #8825)"

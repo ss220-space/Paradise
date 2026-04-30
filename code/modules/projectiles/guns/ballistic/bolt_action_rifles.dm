@@ -9,16 +9,14 @@
 	slot_flags = NONE //no ITEM_SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
-	can_bayonet = TRUE
-	bayonet_x_offset = 27
-	bayonet_y_offset = 13
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = 4),
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	available_reload_animation = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, TRUE)
@@ -56,7 +54,6 @@
 	desc = "Careful not to lose your head."
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
-	can_bayonet = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/Initialize(mapload)
 	. = ..()
@@ -98,7 +95,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
 	var/f_name = "\a [src]."
-	. = list("[icon2html(src, user)] That's [f_name]")
+	. = list("[get_examine_icon(user)] That's [f_name]")
 	. += desc // Override since magical hand lasers don't have chambers or bolts
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)

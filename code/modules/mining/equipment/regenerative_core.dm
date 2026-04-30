@@ -42,12 +42,12 @@
 		PREPOSITIONAL = "сплавленном сгустке",
 	)
 
-/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
+/obj/item/hivelordstabilizer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
-	var/obj/item/organ/internal/regenerative_core/C = M
-	if(!istype(C, /obj/item/organ/internal/regenerative_core))
+	var/obj/item/organ/internal/regenerative_core/C = target
+	if(!istype(C))
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
 		return ..()
 
@@ -79,7 +79,7 @@
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 4 MINUTES)
 
 /obj/item/organ/internal/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -145,7 +145,7 @@
 			user.temporarily_remove_item_from_inventory(src)
 			after_use()
 
-/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(proximity_flag)
 		applyto(target, user)
@@ -182,7 +182,7 @@
 			return
 		user.balloon_alert(user, "ядро не восстановилось")
 		return
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/regenerative_core/cooldown/applyto(atom/target, mob/user)
 	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
@@ -190,7 +190,7 @@
 			return
 		user.balloon_alert(user, "ядро не восстановилось")
 		return
-	. = ..()
+	return ..()
 
 #undef INFINITY_CORE_COOLDOWN
 

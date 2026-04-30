@@ -24,6 +24,10 @@
 	COOLDOWN_DECLARE(cooldown)
 	var/cooldown_time = 1 SECONDS
 
+/obj/item/assembly/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
+
 /obj/item/assembly/Destroy()
 	if(istype(loc, /obj/item/assembly_holder) || istype(holder))
 		var/obj/item/assembly_holder/A = loc
@@ -146,3 +150,5 @@
 	interact(user)
 	return TRUE
 
+/obj/item/assembly/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	activate()

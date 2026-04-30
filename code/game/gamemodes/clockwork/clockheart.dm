@@ -15,7 +15,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	var/cur_enchant = null
 	var/list/enchants
-	var/list/blessings = list(/obj/item/gun/energy/clockwork, /obj/item/gun/energy/clockwork/sniper)
 	var/list/enchanted_before = FALSE
 	var/curse_dial = TRUE
 	var/curse_upper = TRUE
@@ -174,7 +173,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	spawned_parts = null
 	GLOB.total_curses = 3
 	. = ..()
-/obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
+/obj/structure/clockwork/functional/heart/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return
 	if(!istype(dropping, /obj/structure/part_dial))
@@ -189,7 +188,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	SSticker.mode.check_clock_reveal()
 	qdel(dropping)
-	give_blessing(user)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
@@ -215,7 +213,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	GLOB.total_curses --
 	qdel(part)
 	update_icon(UPDATE_OVERLAYS)
-	give_blessing(user)
 	SSticker.mode.clocker_objs.update_seals()
 
 /obj/structure/clockwork/functional/heart/proc/summon(mob/user, obj/item/shard)
@@ -282,21 +279,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	to_chat(affected, span_userdanger("Неведомая сила отталкивает вас!"))
 	affected.Knockdown(6 SECONDS)
 
-/obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
-	var/bless_to_give
-	var/chosen_blessing
-	if(isnull(blessings))
-		bless_to_give = new /obj/item/gun/energy/gun/minigun/clockwork
-		user.put_in_hands(bless_to_give)
-		return
-	chosen_blessing = pick(blessings)
-	bless_to_give = new chosen_blessing(user.loc)
-	user.put_in_hands(bless_to_give)
-	LAZYREMOVE(blessings, chosen_blessing)
-	to_chat(user, span_clockitalic("Благодарю тебя, сын мой. Прими же этот дар!"))
-	chosen_blessing = null
-	bless_to_give = null
-
 /obj/structure/clockwork/functional/heart/proc/spawn_parts()
 	var/first_part_loc = get_safe_random_station_turf()
 	var/second_part_loc = get_safe_random_station_turf()
@@ -337,8 +319,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/heart_filler/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
-/obj/structure/heart_filler/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	parent.MouseDrop_T(dropping, user, params)
+/obj/structure/heart_filler/mouse_drop_receive(atom/movable/dropping, mob/user, params)
+	return parent.mouse_drop_receive(dropping, user, params)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)

@@ -601,7 +601,7 @@
 
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
-	modules += new /obj/item/storage/bag/tray/cyborg(src)
+	modules += new /obj/item/storage/bag/tray(src)
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/crowbar/cyborg(src)
@@ -636,7 +636,7 @@
 	R.add_language(LANGUAGE_MOTH, 1)
 
 /obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/storage/bag/tray/cyborg/T = locate() in modules
+	var/obj/item/storage/bag/tray/T = locate() in modules
 
 	if(istype(T))
 		T.drop_inventory(R)

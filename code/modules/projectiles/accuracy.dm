@@ -118,6 +118,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	spread_increase_step = 3
 	spread_restore_duration = 1 SECONDS
 
+/datum/gun_accuracy/pistol/enforcer
+	min_spread = 2
+	max_spread = 11
+
 /datum/gun_accuracy/pistol/uplink
 	head = 80
 	arms = 75
@@ -129,6 +133,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	max_spread = 10
 	spread_increase_step = 2
 
+/datum/gun_accuracy/pistol/stechkin
+	min_spread = 2
+	max_spread = 7
 /datum/gun_accuracy/rifle
 	head = 90
 	chest = 120
@@ -142,7 +149,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	spread_restore_duration = 1 SECONDS
 
 /datum/gun_accuracy/rifle/laser
-	max_spread = 6
+	max_spread = 0
 
 /datum/gun_accuracy/rifle/uplink
 	head = 95
@@ -170,8 +177,8 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 // MARK: Specific accuracy
 
 /datum/gun_accuracy/rifle/extend_spread
-	min_spread = 5
-	max_spread = 25
+	min_spread = 8
+	max_spread = 30
 
 /datum/gun_accuracy/minimal/gatling
 	min_spread = 10

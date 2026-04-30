@@ -9,12 +9,12 @@ if(!result || result.ckey != __ckey){\
 
 /datum/log_viewer
 	var/time_from = 0
-	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
-	var/list/selected_mobs = list()			// The mobs in question.
-	var/list/selected_ckeys = list()		// The ckeys selected to search for. Will show all mobs the ckey is attached to
+	var/time_to = 4 HOURS // 4 Hours should be enough. INFINITY would screw the UI up
+	var/list/selected_mobs = list() // The mobs in question.
+	var/list/selected_ckeys = list() // The ckeys selected to search for. Will show all mobs the ckey is attached to
 	var/list/mob/selected_ckeys_mobs = list()
-	var/list/selected_log_types = ALL_LOGS	// The log types being searched for
-	var/list/log_records = list()			// Found and sorted records
+	var/list/selected_log_types = ALL_LOGS // The log types being searched for
+	var/list/log_records = list() // Found and sorted records
 
 /datum/log_viewer/proc/clear_all()
 	selected_mobs.Cut()
@@ -127,9 +127,9 @@ if(!result || result.ckey != __ckey){\
 	show_ui(user)
 
 /datum/log_viewer/proc/show_ui(mob/user)
-	var/all_log_types	= ALL_LOGS
-	var/trStyleTop		= "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
-	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
+	var/all_log_types = ALL_LOGS
+	var/trStyleTop = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
+	var/trStyle = "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/list/dat = list()
 	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
 	dat += "<div style='min-height:100px'>"
@@ -174,10 +174,10 @@ if(!result || result.ckey != __ckey){\
 	dat += "</div>"
 
 	// Search results
-	var/tdStyleTime		= "width:80px; text-align:center;"
-	var/tdStyleType		= "width:80px; text-align:center;"
-	var/tdStyleWho		= "width:400px; text-align:center;"
-	var/tdStyleWhere	= "width:150px; text-align:center;"
+	var/tdStyleTime = "width:80px; text-align:center;"
+	var/tdStyleType = "width:80px; text-align:center;"
+	var/tdStyleWho = "width:400px; text-align:center;"
+	var/tdStyleWhere = "width:150px; text-align:center;"
 	dat += "<div style='overflow-y: auto; max-height:calc(100vh - 150px);'>"
 	dat += "<table style='width:100%; border: 1px solid;'>"
 	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"

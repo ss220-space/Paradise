@@ -168,7 +168,7 @@
 	user.gib()
 	return OBLITERATION
 
-/obj/item/fauna_bomb/afterattack(atom/target, mob/user, proximity, params, status)
+/obj/item/fauna_bomb/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 
@@ -184,7 +184,7 @@
 	if(isancientrobot(target) || isancientrobotleg(target) || isairmob(target))
 		return ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return ..()
 
 	if(length(datas) >= MAX_REMEMBERED_MOBS)
@@ -317,7 +317,8 @@
 	choose_target_timer = addtimer(CALLBACK(src, PROC_REF(choosing_target_off), cur_choosing), 3 SECONDS)
 	chooser = client
 	in_choose_mode = TRUE
-	if(chooser?.mouse_pointer_icon == initial(chooser.mouse_pointer_icon))
+	if(!chooser?.mouse_override_icon)
+		chooser.mouse_override_icon = CHOOSING_ICON
 		chooser.mouse_pointer_icon = CHOOSING_ICON
 
 /obj/item/fauna_bomb/proc/choosing_target_off(choosing_num)
@@ -326,7 +327,8 @@
 
 	choose_target_timer = null
 	in_choose_mode = FALSE
-	if(chooser?.mouse_pointer_icon == CHOOSING_ICON)
+	if(chooser?.mouse_override_icon == CHOOSING_ICON)
+		chooser.mouse_override_icon = null
 		chooser.mouse_pointer_icon = initial(chooser.mouse_pointer_icon)
 
 #undef CHOOSING_ICON

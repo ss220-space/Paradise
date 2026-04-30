@@ -33,8 +33,8 @@
 
 /obj/projectile/bullet/midbullet3/hp/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
-		var/mob/living/M = target
-		M.Slowed(2 SECONDS)
+		var/mob/living/target_mob = target
+		target_mob.Slowed(2 SECONDS, 2)
 
 /obj/projectile/bullet/midbullet3/ap
 	damage = 27
@@ -108,6 +108,13 @@
 	stamina = 33
 	icon_state = "bullet-r"
 	ricochet_chance = 20
+
+//MARK: 12.7x55
+/obj/projectile/bullet/c12_dot_7X55
+	damage = 75
+	ricochet_chance = 33
+	speed = 1
+
 
 // MARK: .50AE
 /obj/projectile/bullet/desert_eagle

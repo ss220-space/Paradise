@@ -335,7 +335,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 50, BIO = 100, FIRE = 50, ACID = 75)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
 
 //Syndicate hardsuit
@@ -351,7 +351,7 @@
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
-	visor_flags= STOPSPRESSUREDMAGE
+	visor_flags= STOPSPRESSUREDAMAGE
 	var/combat_slow = 0
 	var/eva_slow = 1
 
@@ -413,12 +413,12 @@
 
 	if(linkedsuit.on)
 		linkedsuit.slowdown = eva_slow
-		linkedsuit.clothing_flags |= STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags |= STOPSPRESSUREDAMAGE
 		linkedsuit.cold_protection |= (UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		ADD_TRAIT(src, TRAIT_RADIATION_PROTECTED_CLOTHING, UNIQUE_TRAIT_SOURCE(src))
 	else
 		linkedsuit.slowdown = combat_slow
-		linkedsuit.clothing_flags &= ~STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags &= ~STOPSPRESSUREDAMAGE
 		linkedsuit.cold_protection &= ~(UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		REMOVE_TRAIT(src, TRAIT_RADIATION_PROTECTED_CLOTHING, UNIQUE_TRAIT_SOURCE(src))
 
@@ -758,7 +758,7 @@
 	icon_state = "hardsuit-singuloth"
 	item_state = "singuloth_hardsuit"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, fire = 95, acid = 95)
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 

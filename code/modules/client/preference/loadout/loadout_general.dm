@@ -167,6 +167,11 @@
 	)
 	gear_tweaks += new /datum/gear_tweak/path(lips, src, TRUE)
 
+/datum/gear/spraycan
+	index_name = "Nanotrasen-brand Rapid Paint Applicator"
+	display_name = "Баллончик с краской"
+	path = /obj/item/toy/crayon/spraycan
+
 //////////////////////
 //		Mugs		//
 //////////////////////

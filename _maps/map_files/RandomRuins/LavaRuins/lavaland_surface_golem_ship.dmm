@@ -36,9 +36,7 @@
 /turf/simulated/floor/pod,
 /area/shuttle/freegolem)
 "bE" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},

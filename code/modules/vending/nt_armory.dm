@@ -128,7 +128,7 @@
 		/obj/item/gun_module/muzzle/suppressor = 4,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
-		/obj/item/gun/projectile/automatic/sfg = 3,
+		/obj/item/gun/projectile/automatic/smg/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
 		/obj/item/ammo_box/shotgun = 4,
@@ -217,11 +217,12 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/gun/projectile/shotgun/winchester = 3,
 		/obj/item/ammo_box/shotgun/rubbershot = 6,
 		/obj/item/ammo_box/shotgun/beanbag = 4,
 		/obj/item/ammo_box/shotgun/tranquilizer = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
+		/obj/item/gun/projectile/automatic/smg/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
 		/obj/item/melee/baton/telescopic = 4,
@@ -254,6 +255,7 @@
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/gun/projectile/shotgun/winchester = 2,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
 		/obj/item/ammo_box/shotgun = 2,
 		/obj/item/ammo_box/magazine/enforcer = 6,
@@ -336,7 +338,8 @@
 
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
-		/obj/item/reagent_containers/applicator/dual = 2,
+		/obj/item/reagent_containers/applicator/abductor/industrial = 1,
+		/obj/item/reagent_containers/applicator/dual/syndi = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis = 4,
 		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 2,
 		/obj/item/storage/belt/medical/surgery/loaded = 2,
@@ -357,6 +360,8 @@
 		/obj/item/reagent_containers/applicator/burn = 4,
 		/obj/item/healthanalyzer/advanced = 4,
 		/obj/item/roller/holo = 2,
+		/obj/item/clothing/gloves/color/latex/modified = 2,
+		/obj/item/clothing/gloves/color/latex/inugami = 2,
 	)
 	contraband = list()
 

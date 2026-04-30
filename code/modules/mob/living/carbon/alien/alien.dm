@@ -20,12 +20,14 @@
 	verb_exclaim = "рычит"
 	verb_yell = "ревёт"
 
+	blood_color = BLOOD_COLOR_XENO
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
 	var/caste_movement_delay = 0
 
-	status_flags = CANPARALYSE|CANPUSH
+	status_flags = CANPARALYSE |CANPUSH| CANUNCONSCIOUS
 
 	var/attack_damage = 20
 	var/armour_penetration = 20

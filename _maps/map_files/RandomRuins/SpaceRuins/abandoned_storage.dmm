@@ -1043,9 +1043,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 32;
+/obj/machinery/power/apc/directional/north{
 	req_access = list(128,121)
 	},
 /turf/simulated/floor/plating,
@@ -2343,8 +2341,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Na" = (
-/obj/machinery/alarm{
-	pixel_y = 28;
+/obj/machinery/alarm/all_access/directional/north{
 	req_access = list(128)
 	},
 /obj/structure/closet/crate,
