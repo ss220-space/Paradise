@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import { useBackend } from '../../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Icon,
-  Input,
-  Image,
-  LabeledList,
-  NumberInput,
-  Section,
-  Stack,
-  TextArea,
-} from '../../components';
+import { Box, Button, Icon, Image, Section, Stack } from '../../components';
 
 import { Window } from '../../layouts';
 import { SearchableDropdown } from '../../components/SearchableDropdown';

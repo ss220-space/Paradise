@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useBackend } from '../../backend';
-import { Box, Button, Section, Icon } from '../../components';
-import { Window } from '../../layouts';
-import { routingError } from '../../routes';
+import { useBackend } from '../backend';
+import { Box, Button, Section, Icon } from '../components';
+import { Window } from '../layouts';
+import { routingError } from '../routes';
 
 const PDA_UI = {
   window: {
