@@ -103,7 +103,7 @@
 		return //wrong hand
 	// We should not react to the item when it's not in our hand,
 	// it makes no sense and other items with something like TRAIT_NODROP might fuck us very badly
-	if(active_item != host.get_active_hand())
+	if(!active_item || active_item != host.get_active_hand())
 		return
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
