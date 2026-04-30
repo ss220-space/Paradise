@@ -1,4 +1,143 @@
-<svg width="420" height="200" viewBox="0 0 420 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M154.729 97.531V24.0139H137.559M154.729 97.531L137.559 114.9L154.729 130.25V177.915M154.729 97.531V177.915M154.729 177.915H137.559M137.559 177.915H127.619V130.25H95.9907V177.915H67.977L49 164.989L55.7775 158.526L67.977 164.989V31.2848H55.7775V24.0139H137.559M137.559 177.915V189.225H189.972V11.0878H137.559V24.0139M95.9907 41.3833H137.559V97.531H95.9907V41.3833Z" stroke="#4B4343" stroke-opacity="0.5" stroke-width="3"/>
-<path d="M255.734 24.0139V97.531V177.915M255.734 24.0139H273.562V11.0878H219.139V189.225H273.562V177.915H255.734M255.734 24.0139H328.924L350.11 40.2376V73.436L328.924 86.7963V97.531L350.11 107.849V161.29V166.735L367.63 162.788L371.778 169.387L350.11 177.915H255.734M255.734 130.25V177.915M285.118 40.2376V73.436H328.924V40.2376H307.021H285.118ZM328.924 107.849V161.29H285.118V107.849H328.924Z" stroke="#4B4343" stroke-opacity="0.5" stroke-width="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Faint Nebula Gradient (Background Only) -->
+    <radialGradient id="nebulaGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8B0000" stop-opacity="0.18"/>
+      <stop offset="45%" stop-color="#1A0505" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Metallic Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4D03F"/>
+      <stop offset="30%" stop-color="#D4AF37"/>
+      <stop offset="70%" stop-color="#AA7C11"/>
+      <stop offset="100%" stop-color="#8B6508"/>
+    </linearGradient>
+
+    <!-- Rich Crimson Gradient -->
+    <linearGradient id="crimsonGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5C0000"/>
+      <stop offset="50%" stop-color="#DC143C"/>
+      <stop offset="100%" stop-color="#8B0000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Transparent Background (Default) -->
+  
+  <!-- Faint Cosmic Nebula Base -->
+  <circle cx="400" cy="400" r="320" fill="url(#nebulaGrad)" />
+
+  <!-- Geometric Starlines -->
+  <g stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.6">
+    <line x1="400" y1="80" x2="400" y2="220" />
+    <line x1="400" y1="580" x2="400" y2="720" />
+    <line x1="80" y1="400" x2="220" y2="400" />
+    <line x1="580" y1="400" x2="720" y2="400" />
+    <line x1="170" y1="170" x2="260" y2="260" />
+    <line x1="540" y1="540" x2="630" y2="630" />
+    <line x1="630" y1="170" x2="540" y2="260" />
+    <line x1="260" y1="540" x2="170" y2="630" />
+  </g>
+
+  <!-- Starline Terminal Diamonds -->
+  <g fill="url(#crimsonGrad)" opacity="0.8">
+    <polygon points="400,75 406,85 400,95 394,85" />
+    <polygon points="400,705 406,715 400,725 394,715" />
+    <polygon points="75,400 85,406 95,400 85,394" />
+    <polygon points="705,400 715,406 725,400 715,394" />
+    <polygon points="165,165 173,170 165,175 157,170" />
+    <polygon points="635,635 643,640 635,645 627,640" />
+    <polygon points="635,165 643,170 635,175 627,170" />
+    <polygon points="165,635 173,640 165,645 157,640" />
+  </g>
+
+  <!-- Sleek Metallic Framing (Corporate Coat of Arms Style) -->
+  <g fill="none" stroke-linejoin="round">
+    <!-- Outer Ring -->
+    <circle cx="400" cy="400" r="350" stroke="url(#goldGrad)" stroke-width="4" />
+    <!-- Inner Ring -->
+    <circle cx="400" cy="400" r="330" stroke="#0A0A0A" stroke-width="6" />
+    <!-- Accent Ring -->
+    <circle cx="400" cy="400" r="318" stroke="url(#crimsonGrad)" stroke-width="2" opacity="0.9" />
+    
+    <!-- Geometric Notches (Sci-Fi/Bank Hybrid) -->
+    <path d="M 400 50 L 412 70 L 388 70 Z" fill="url(#goldGrad)" stroke="#0A0A0A" stroke-width="2" />
+    <path d="M 400 750 L 412 730 L 388 730 Z" fill="url(#goldGrad)" stroke="#0A0A0A" stroke-width="2" />
+    <path d="M 50 400 L 70 388 L 70 412 Z" fill="url(#goldGrad)" stroke="#0A0A0A" stroke-width="2" />
+    <path d="M 750 400 L 730 388 L 730 412 Z" fill="url(#goldGrad)" stroke="#0A0A0A" stroke-width="2" />
+  </g>
+
+  <!-- Typography: R I B (Hollow, Outline-Only, Stroke-Based) -->
+  <g fill="none" stroke="#0A0A0A" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+    
+    <!-- Letter R -->
+    <path d="
+      M 180 520 L 180 280 L 250 280 C 290 280, 300 310, 300 340 C 300 370, 290 400, 250 400 L 210 400
+      M 210 280 L 210 400
+      M 250 400 C 280 400, 295 385, 295 355 C 295 325, 280 310, 250 310
+      M 230 400 L 280 520
+      M 265 480 L 295 520
+      M 180 280 L 165 265 L 195 265
+      M 180 520 L 165 535 L 195 535
+      M 280 520 L 265 535 L 295 535
+    " />
+
+    <!-- Letter I Stylized as ][ -->
+    <path d="
+      M 350 280 L 370 280 L 370 300 L 360 300 L 360 500 L 370 500 L 370 520 L 350 520
+      M 450 280 L 430 280 L 430 300 L 440 300 L 440 500 L 430 500 L 430 520 L 450 520
+      M 350 280 L 335 265 L 365 265
+      M 350 520 L 335 535 L 365 535
+      M 450 280 L 435 265 L 465 265
+      M 450 520 L 435 535 L 465 535
+    " />
+
+    <!-- Letter B -->
+    <path d="
+      M 540 520 L 540 280 L 610 280 C 650 280, 660 310, 660 340 C 660 365, 645 385, 620 395 C 655 405, 670 430, 670 465 C 670 500, 655 520, 610 520 Z
+      M 570 280 L 570 395
+      M 570 395 L 570 520
+      M 610 280 C 635 280, 640 300, 640 330 C 640 360, 635 380, 610 380
+      M 610 395 C 640 395, 650 420, 650 455 C 650 490, 640 510, 610 510
+      M 540 280 L 525 265 L 555 265
+      M 540 520 L 525 535 L 555 535
+      M 610 520 L 595 535 L 625 535
+    " />
+  </g>
+
+  <!-- Metallic Gold Inner Accent Lines (Parallel to main strokes for premium feel) -->
+  <g fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.85">
+    <path d="M 188 512 L 188 288 L 248 288 C 282 288, 292 312, 292 340 C 292 368, 282 392, 248 392 L 218 392" />
+    <path d="M 238 392 C 262 392, 275 380, 275 355 C 275 330, 262 318, 238 318" />
+    <path d="M 238 392 L 278 498" />
+    
+    <path d="M 358 288 L 368 288 L 368 308 L 362 308 L 362 492 L 368 492 L 368 512 L 358 512" />
+    <path d="M 442 288 L 432 288 L 432 308 L 438 308 L 438 492 L 432 492 L 432 512 L 442 512" />
+    
+    <path d="M 548 512 L 548 288 L 608 288 C 638 288, 648 308, 648 338 C 648 362, 638 378, 618 388 C 648 398, 658 422, 658 462 C 658 498, 648 512, 608 512 Z" />
+    <path d="M 578 288 L 578 388 M 578 388 L 578 512" />
+    <path d="M 608 288 C 628 288, 632 302, 632 328 C 632 358, 628 372, 608 372" />
+    <path d="M 608 388 C 632 388, 642 412, 642 452 C 642 488, 632 502, 608 502" />
+  </g>
+
+  <!-- Crimson Geometric Accents (Bank/Sci-Fi Hybrid Details) -->
+  <g fill="none" stroke="url(#crimsonGrad)" stroke-width="3" stroke-linecap="round" opacity="0.9">
+    <line x1="295" y1="340" x2="335" y2="340" />
+    <line x1="465" y1="340" x2="505" y2="340" />
+    <line x1="295" y1="460" x2="335" y2="460" />
+    <line x1="465" y1="460" x2="505" y2="460" />
+    <circle cx="315" cy="340" r="3" fill="url(#crimsonGrad)" stroke="none" />
+    <circle cx="485" cy="340" r="3" fill="url(#crimsonGrad)" stroke="none" />
+    <circle cx="315" cy="460" r="3" fill="url(#crimsonGrad)" stroke="none" />
+    <circle cx="485" cy="460" r="3" fill="url(#crimsonGrad)" stroke="none" />
+  </g>
+
+  <!-- Subtle Outer Geometric Frame Corners -->
+  <g fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.7">
+    <path d="M 120 120 L 160 120 M 120 120 L 120 160" />
+    <path d="M 680 120 L 640 120 M 680 120 L 680 160" />
+    <path d="M 120 680 L 160 680 M 120 680 L 120 640" />
+    <path d="M 680 680 L 640 680 M 680 680 L 680 640" />
+  </g>
 </svg>

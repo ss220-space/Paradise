@@ -100,7 +100,7 @@ export const pda_bank = (props: unknown) => {
                   : 'Добро пожаловать'}
               </Box>
               <Stack fill vertical align="center" justify="center">
-                <Box textAlign="center" color="label" fontSize="18px" bold>
+                <Box textAlign="center" color="label" fontSize="25px" bold>
                   Для доступа к банковским операциям
                   <br />
                   вставьте ID-карту в слот КПК.
