@@ -145,7 +145,9 @@
 
 /datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
 	. = ..()
-	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACK)
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/syndicate_strike_team/full_gear
 	can_be_admin_equipped = TRUE
@@ -432,7 +434,9 @@
 
 /datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
 	. = ..()
-	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACK)
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
