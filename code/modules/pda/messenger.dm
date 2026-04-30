@@ -29,7 +29,7 @@
 
 	var/list/chats = list()
 	for(var/datum/messenger_chat/user_chat as anything in owner_messenger_account.active_chat)
-		chats += list(user_chat.get_ui_data())
+		chats += list(user_chat.get_ui_data(last_login_owner))
 
 	data["chats"] = chats
 

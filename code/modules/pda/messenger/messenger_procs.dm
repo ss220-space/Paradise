@@ -7,8 +7,8 @@
 		to_chat(usr, span_warning("Ваш аккаунт не найден или не существует."))
 		CRASH("the name of the first participant was not transmitted")
 
-	var/name_private_chat = "Личная переписка с " + target_name
-	var/description_private_chat = "Защищённый канал связи c " + target_name
+	var/name_private_chat = "Личная переписка с "
+	var/description_private_chat = "Приватный чат с пользователем"
 	var/datum/messenger_chat/created_new_private_chat = new /datum/messenger_chat(
 		name_private_chat,
 		description_private_chat,
@@ -25,14 +25,17 @@
 
 	return
 
+// Создание группового чата, гд
+/proc/create_group_chat(datum/messenger_account/chat_initiator, list/datum/messenger_account/chat_admins, list/datum/messenger_account/chat_members)
+
+
 /proc/send_message_to_chat(sended_message, chat_id, datum/messenger_account/last_login_owner)
 	var/datum/messenger_chat/chat = locateUID(chat_id)
 	last_login_owner.set_photo()
 	var/datum/messenger_message/new_message = new /datum/messenger_message(
 		sended_message,
-		FALSE,
 		last_login_owner.owner.owner_name,
-		last_login_owner.owner.UID(),
+		last_login_owner.UID(),
 		last_login_owner.photo
 	)
 

@@ -102,10 +102,10 @@
 
 // сделать прок с инкрементом непрочитанных сообщений
 
-/datum/messenger_chat/proc/get_ui_data(mob/user)
+/datum/messenger_chat/proc/get_ui_data(datum/messenger_account/last_login_owner)
 	var/list/data = list()
 	data["chat_id"] = chat_id
-	data["name_chat"] = name_chat
+	data["name_chat"] = get_display_name_for_private_chat(last_login_owner)
 	data["description_chat"] = description_chat
 	// booleans
 	data["can_reply"] = can_reply
@@ -118,7 +118,7 @@
 		data["chat_admins"] = get_admins()
 
 	data["chat_members"] = get_members()
-	data["messages"] = get_messages(user)
+	data["messages"] = get_messages(last_login_owner)
 	return data
 
 /datum/messenger_chat/proc/get_admins()
@@ -133,10 +133,10 @@
 		chat_members_list += list(checked_account.get_account_info())
 	return	chat_members_list
 
-/datum/messenger_chat/proc/get_messages(mob/user)
+/datum/messenger_chat/proc/get_messages(datum/messenger_account/last_login_owner)
 	var/list/messages_list = list()
 	for(var/datum/messenger_message/message as anything in messages)
-		messages_list += list(message.get_ui_data(user))
+		messages_list += list(message.get_ui_data(last_login_owner))
 	return messages_list
 
 // метод который позволяет узнать с каким аккаунтом уже есть приватный чат
@@ -147,3 +147,15 @@
 	for(var/datum/messenger_account/checked_acc as anything in chat_members)
 		if(checked_acc != exclude_account)
 			used_targets += checked_acc
+
+/datum/messenger_chat/proc/get_display_name_for_private_chat(datum/messenger_account/last_login_owner)
+	if(is_group)
+		return name_chat
+
+	// O(1) тк это приватный чат (2 чела максимум в листе)
+	for(var/datum/messenger_account/member as anything in chat_members)
+		if(member != last_login_owner)
+			return name_chat + member.owner.owner_name
+
+	// никогда такого не должно быть, но что бы не крашилось, передаем как черный ящик
+	return name_chat
