@@ -141,8 +141,8 @@
 /obj/item/gun/energy/printer
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
-	icon_state = "l6closed0"
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "l6saw_cyborg"
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE

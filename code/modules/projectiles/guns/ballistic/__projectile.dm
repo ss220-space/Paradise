@@ -1,7 +1,7 @@
 /obj/item/gun/projectile
 	name = "projectile gun"
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
-	icon_state = "pistol"
+	icon_state = "default"
 	origin_tech = "combat=2;materials=2"
 	materials = list(MAT_METAL=1000)
 	recoil = GUN_RECOIL_LOW
