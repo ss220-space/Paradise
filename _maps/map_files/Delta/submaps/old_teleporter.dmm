@@ -142,6 +142,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/safe/floor,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "G" = (
