@@ -38,7 +38,7 @@
 		if("create_private_chat")
 			var/target_name = params["target"]
 			create_private_chat(target_name, last_login_owner)
-		if("send_мessage")
+		if("send_message")
 			var/sended_message = params["sendedMessage"]
 			var/chat_id = params["chatId"]
 			send_message_to_chat(sended_message, chat_id, last_login_owner)

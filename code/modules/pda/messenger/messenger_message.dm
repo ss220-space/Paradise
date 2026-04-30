@@ -21,7 +21,7 @@
 	src.text_message = text
 	src.outgoing = outgoing
 	src.photo_name = photo_name
-	src.timestamp = world.time
+	src.timestamp = station_time_timestamp(world.time)
 	src.sender_name = sender_name
 	src.sender_ref = sender_ref
 
