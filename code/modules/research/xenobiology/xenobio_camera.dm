@@ -442,18 +442,25 @@
 
 	if(!isslime(target))
 		return
+
 	var/mob/living/simple_animal/slime/slime = target
-	if(!GLOB.cameranet.checkTurfVis(slime.loc))
+	var/turf/slime_turf = get_turf(slime)
+	if(!slime_turf || !GLOB.cameranet.checkTurfVis(slime_turf))
 		to_chat(user, span_warning("Цель не рядом с камерой. Действие невозможно."))
 		return COMSIG_MOB_CANCEL_CLICKON
+
 	var/mob/camera/aiEye/remote/xenobio/eye = user.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera = eye.origin
-	if(!xeno_camera.current_potion)
+	if(!istype(eye) || eye.origin != src)
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	if(!current_potion)
 		to_chat(user, span_warning("Зелье не загружено."))
 		return COMSIG_MOB_CANCEL_CLICKON
-	var/area/mob_area = get_area(slime.loc)
-	if(mob_area.name == eye.allowed_area || mob_area.xenobiology_compatible)
-		INVOKE_ASYNC(xeno_camera.current_potion, TYPE_PROC_REF(/obj/item, attack), slime, user)
+
+	var/area/mob_area = get_area(slime_turf)
+	if(mob_area && (mob_area.name == eye.allowed_area || mob_area.xenobiology_compatible))
+		INVOKE_ASYNC(current_potion, TYPE_PROC_REF(/obj/item, attack), slime, user)
+
 	return COMSIG_MOB_CANCEL_CLICKON
 
 //Picks up slime
