@@ -24,8 +24,8 @@
 
 
 /datum/element/item_skins/Detach(datum/target)
-	. = ..()
 	UnregisterSignal(target, COMSIG_CLICK_ALT)
+	return ..()
 
 /datum/element/item_skins/proc/check_altclicked(datum/source, mob/living/carbon/human/user)
 	var/obj/item/item = source
