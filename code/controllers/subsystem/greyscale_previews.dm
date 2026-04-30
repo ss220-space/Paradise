@@ -34,6 +34,7 @@ SUBSYSTEM_DEF(greyscale_previews)
 		"clothing/under/_under" = /obj/item/clothing/under,
 		"clothing/_clothing" = /obj/item/clothing,
 		"items/encryptionkey" = /obj/item/encryptionkey,
+		"items/guns" = /obj/item/gun,
 		"items/_item" = /obj/item,
 		"objects" = /obj,
 )
