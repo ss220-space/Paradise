@@ -459,7 +459,7 @@
 
 	var/area/mob_area = get_area(slime_turf)
 	if(mob_area && (mob_area.name == eye.allowed_area || mob_area.xenobiology_compatible))
-		INVOKE_ASYNC(current_potion, TYPE_PROC_REF(/obj/item, attack), slime, user)
+		current_potion.attack(slime, user)
 
 	return COMSIG_MOB_CANCEL_CLICKON
 
