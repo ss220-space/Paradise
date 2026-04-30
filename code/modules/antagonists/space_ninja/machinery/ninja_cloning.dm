@@ -99,7 +99,7 @@
 			continue
 		var/datum/action/ninja_action = new action_path(n_suit, n_suit.action_icon[action_path], n_suit.action_icon_state[action_path])
 		ninja_action.Grant(ninja)
-	//Обновление боевого исскуства
+	//Обновление боевого искусства
 	//Хоть БИ и в одном ряду с клонёркой.
 	//Но пусть всё равно клонёрка выдаёт БИ если оно было по любым причинам.
 	if(n_suit.ninja_martial)
