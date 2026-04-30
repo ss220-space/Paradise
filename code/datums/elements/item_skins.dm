@@ -121,7 +121,10 @@
 	item.base_icon_state = selected_skin.icon_state
 	item.icon_state = selected_skin.icon_state
 	if(selected_skin.greyscale_colors)
-		item.set_greyscale_colors(selected_skin.greyscale_colors)
+		var/list/colors = selected_skin.greyscale_colors
+		if(!istype(colors))
+			colors = list(selected_skin.greyscale_colors)
+		item.set_greyscale_colors(colors)
 
 	selected_skin.on_apply(item)
 	item.update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
