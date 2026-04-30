@@ -20,7 +20,10 @@
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -72,12 +75,6 @@
 	. = ..()
 	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/automatic/pistol/enforcer)
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
@@ -103,38 +100,6 @@
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t
-	name = "SP-8-T"
-	icon_state = "sp8t_dust"
-	desc = "Новейшая разработка для сил защиты активов."
-	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
-	name = "SP-8-AR"
-	desc = "Пистолет сил защиты активов оснащённый ДТК."
-	icon_state = "sp8ar"
-	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
 // MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
@@ -155,18 +120,9 @@
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/pistol/deagle/gold
-	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
-	icon_state = "deagleg"
-	item_state = "deagleg"
-
-/obj/item/gun/projectile/automatic/pistol/deagle/camo
-	desc = "A Deagle brand Deagle for operators operating operationally. Uses .50 AE ammo."
-	icon_state = "deaglecamo"
-	item_state = "deagleg"
+/obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 // MARK: APS Pistol
 /obj/item/gun/projectile/automatic/pistol/APS

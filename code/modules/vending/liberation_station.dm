@@ -24,10 +24,9 @@
 	all_products_free = TRUE
 
 	products = list(
-		/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
-		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
+		/obj/item/gun/projectile/automatic/pistol/deagle = 2,
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
-		/obj/item/gun/projectile/automatic/proto = 2,
+		/obj/item/gun/projectile/automatic/smg/saber = 2,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
 		/obj/item/gun/projectile/automatic/gyropistol = 1,
 		/obj/item/gun/projectile/shotgun = 2,
@@ -90,7 +89,7 @@
 	)
 	contraband = list(
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 10,
-		/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy/riot = 10,
 		/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 		/obj/item/ammo_box/foambox/riot = 20,

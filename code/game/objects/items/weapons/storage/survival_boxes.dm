@@ -172,15 +172,15 @@
 	name = "boxed survival kit"
 	icon_state = "box_ert"
 	item_state = "ert"
+	breathmask = /obj/item/clothing/mask/gas/sechailer/folded
+	internals = /obj/item/tank/internals/emergency_oxygen/engi
+	glowstick = /obj/item/flashlight/flare
 
 /obj/item/storage/box/survival/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer/folded(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/flashlight/flare(src)
+	. = ..()
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
 
 // ERT set for trial admins
@@ -337,7 +337,7 @@
 	new /obj/item/clothing/glasses/sunglasses (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/gun/energy/gun/pdw9/ert (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8 (src)
 	new /obj/item/storage/backpack/ert/commander/trialmoment/prespawn (src)
 
 /obj/item/storage/backpack/ert/commander/trialmoment/prespawn/populate_contents()
@@ -370,7 +370,7 @@
 
 /obj/item/storage/backpack/ert/security/trialmoment/prespawn/populate_contents()
 	new /obj/item/storage/box/survival/responseteam (src)
-	new	/obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new	/obj/item/gun/projectile/automatic/pistol/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
@@ -404,7 +404,7 @@
 
 /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn/populate_contents()
 	new /obj/item/storage/box/survival/responseteam (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/rcd/preloaded (src)
@@ -435,7 +435,7 @@
 
 /obj/item/storage/backpack/ert/medical/trialmoment/prespawn/populate_contents()
 	new /obj/item/storage/box/survival/responseteam (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/storage/firstaid/ertm (src)
@@ -480,7 +480,7 @@
 	new /obj/item/holosign_creator/janitor (src)
 	new /obj/item/flashlight (src)
 	new /obj/item/melee/flyswatter (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/implanter/mindshield/ert (src)

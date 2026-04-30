@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь админская выдача цели корректно вызывает on_add_objective(. (PR #9043)"

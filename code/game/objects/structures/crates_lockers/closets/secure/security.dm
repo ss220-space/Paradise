@@ -180,7 +180,7 @@
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/wt550(src)
+		new /obj/item/gun/projectile/automatic/smg/wt550(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91
 	name = "security SP-91-RC gun cabinet"
@@ -200,7 +200,7 @@
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/sp91rc(src)
+		new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12
 	name = "security Sparkle-A12 gun cabinet"
@@ -220,7 +220,7 @@
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/sparkle_a12(src)
+		new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
 
 /obj/structure/closet/secure_closet/guncabinet/sfg
 	name = "security SFG-5 SMG gun cabinet"
@@ -240,7 +240,7 @@
 /obj/structure/closet/secure_closet/guncabinet/sfg/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/sfg(src)
+		new /obj/item/gun/projectile/automatic/smg/sfg(src)
 	new /obj/item/disk/design_disk/security/sfg5_mag(src)
 
 /obj/structure/closet/secure_closet/guncabinet/saber
@@ -261,7 +261,7 @@
 /obj/structure/closet/secure_closet/guncabinet/saber/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/projectile/automatic/proto/rubber(src)
+		new /obj/item/gun/projectile/automatic/smg/saber/rubber(src)
 	new /obj/item/disk/design_disk/security/saber_mag(src)
 
 /obj/structure/closet/secure_closet/guncabinet/ak814

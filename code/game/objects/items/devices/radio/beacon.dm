@@ -149,7 +149,7 @@
 			"PayDay" = list("Name" = "'PayDay' bundle",	// 161.6-163.6 TK
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
-								/obj/item/gun/projectile/automatic/mini_uzi = 1,							// 60 TK
+								/obj/item/gun/projectile/automatic/smg/mini_uzi = 1,							// 60 TK
 								/obj/item/ammo_box/magazine/uzim9mm = 2,									// 20 TK
 								/obj/item/card/emag = 1,													// 50 TK
 								/obj/item/jammer = 1,														// 10 TK
@@ -190,7 +190,7 @@
 			"Darklord" = list("Name" = "'Darklord' bundle",	// 100-122 TK
 								"Desc" = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT.",
 /*								/obj/item/t_scanner = 1,
-								/obj/item/clothing/gloves/color/yellow/power = 1,*/		// Plan B fot 'coming soon' Martial Art. // I suppose its not coming 
+								/obj/item/clothing/gloves/color/yellow/power = 1,*/		// Plan B fot 'coming soon' Martial Art. // I suppose its not coming
 								/obj/item/melee/energy/sword/saber/red = 2,									// 80 TK
 								/obj/item/dnainjector/telemut/darkbundle = 1,								// 0 TK
 								/obj/item/clothing/suit/hooded/chaplain_hoodie = 1,							// 0 TK

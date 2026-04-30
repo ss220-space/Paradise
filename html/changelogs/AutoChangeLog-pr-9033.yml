@@ -1,5 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - balance: "Уменьшение магазина стечкина с 15 до 10 патронов. (PR #9033)"
-  - balance: "Стечкин дает при разборе 1 контру техов. (PR #9033)"
