@@ -131,7 +131,7 @@
 			R.custom_handler = new_handler
 
 		AddSpell(R)
-		R.update_apprearance(UPDATE_NAME)
+		R.update_appearance(UPDATE_NAME)
 	else
 		can_reproduce = FALSE
 		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
