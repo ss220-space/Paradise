@@ -1425,14 +1425,16 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
 
-/*
- *  pen case box
- */
 /obj/item/storage/box/pen_case
 	name = "set of pens"
 	icon_state = "pen_case"
 	custom_price = PAYCHECK_MIN * 2
-	var/static/list/random_pen = list( // pens and their drop rate
+
+	/**
+	 * Weighted list of possible loot items.
+	 * random_pen = ((probability in list * weight) / 100)
+	 */
+	var/static/list/random_pen = list(
 		/obj/item/pen = 50,
 		/obj/item/pen/blue = 10,
 		/obj/item/pen/red = 10,
@@ -1443,7 +1445,7 @@
 		/obj/item/pen/multi/fountain = 3,
 		/obj/item/pen/survival = 3,
 		/obj/item/pen/multi/gold = 1,
-	) // random_pen = 100
+	)
 
 /obj/item/storage/box/pen_case/get_ru_names()
 	return list(
