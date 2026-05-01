@@ -49,6 +49,7 @@
 	implants = list()
 
 /datum/job/service
+	abstract_type = /datum/job/service
 	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1

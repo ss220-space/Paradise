@@ -303,8 +303,8 @@
 		/datum/job/head_of_staff/nanotrasenrep = /obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,
 		/datum/job/head_of_staff/judge = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/lawyer =  /obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/datum/job/head_of_staff/qm =  /obj/item/organ/internal/liver/cybernetic,
+		/datum/job/lawyer = /obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/datum/job/head_of_staff/qm = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/supply/cargo_tech = /obj/item/organ/internal/heart/cybernetic,
 		/datum/job/supply/mining = /obj/item/organ/internal/cyberimp/eyes/meson,
 		/datum/job/supply/mining_medic = /obj/item/organ/internal/cyberimp/arm/surgery,
@@ -312,6 +312,7 @@
 		/datum/job/engineering/engineer/trainee = /obj/item/organ/internal/cyberimp/eyes/meson,
 		/datum/job/medical/doctor/intern = /obj/item/organ/internal/cyberimp/eyes/hud/medical,
 		/datum/job/science/scientist/student = /obj/item/organ/internal/cyberimp/eyes/hud/science,
+		/datum/job/civilian/prisoner = /obj/item/organ/internal/cyberimp/arm/janitorial,
 	)
 
 /datum/station_trait/cybernetic_revolution/New()
