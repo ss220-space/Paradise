@@ -461,7 +461,7 @@
 	. = ..()
 	icon_state = "scan_[scan_type]_[scan_color]"
 	if(scan_type == "alpha")
-		beta = new(get_turf(src), scan_color)
+		beta = new /obj/effect/temp_visual/holo_scan/beta(get_turf(src), scan_color)
 
 /obj/effect/temp_visual/holo_scan/Destroy()
 	QDEL_NULL(beta)
