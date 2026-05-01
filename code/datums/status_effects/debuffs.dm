@@ -225,8 +225,10 @@
 	var/turf/current_turf = get_turf(owner)
 	if(needs_to_bleed)
 		new /obj/effect/temp_visual/bleed/explode(current_turf)
-		for(var/splatter_dir in GLOB.alldirs)
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(current_turf, dir2angle(splatter_dir), owner.get_blood_color())
+		var/splatter_color = owner.get_blood_color()
+		if(splatter_color)
+			for(var/splatter_dir in GLOB.alldirs)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(current_turf, dir2angle(splatter_dir), splatter_color)
 		playsound(current_turf, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else

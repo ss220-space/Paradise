@@ -10,7 +10,8 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, angle, blood_color)
 	if(!blood_color)
-		CRASH("Tried to create a blood splatter without a blood_color")
+		stack_trace("Tried to create a blood splatter without a blood_color at [AREACOORD(src)].")
+		return INITIALIZE_HINT_QDEL
 
 	var/x_component = sin(angle) * -20
 	var/y_component = cos(angle) * -20
