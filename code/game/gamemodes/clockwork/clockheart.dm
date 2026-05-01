@@ -320,7 +320,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
 /obj/structure/heart_filler/mouse_drop_receive(atom/movable/dropping, mob/user, params)
-	parent.mouse_drop_receive(dropping, user, params)
+	return parent.mouse_drop_receive(dropping, user, params)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)

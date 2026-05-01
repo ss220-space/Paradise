@@ -246,6 +246,22 @@
 #define BLOOD_COLOR_MACHINE "#1f181f"
 #define BLOOD_COLOR_BLACK "#1f1a00"
 #define BLOOD_COLOR_DRIED "#370404" // Not to be used normally, only exists for mapper convinience.
+#define BLOOD_COLOR_ABDUCTOR "#ff5aff"
+#define BLOOD_COLOR_DIONA "#004400"
+#define BLOOD_COLOR_DRASK "#a3d4eb"
+#define BLOOD_COLOR_GOLEM "#515573"
+#define BLOOD_COLOR_GREY "#a200ff"
+#define BLOOD_COLOR_KIDAN "#fb9800"
+#define BLOOD_COLOR_SKRELL "#1d2cbf"
+#define BLOOD_COLOR_MOTH "#b9ae9c"
+#define BLOOD_COLOR_NUCLEATION "#ada776"
+#define BLOOD_COLOR_SHADOW "#cccccc"
+#define BLOOD_COLOR_SHADOWLING "#555555"
+#define BLOOD_COLOR_SKELETON "#ffffff"
+#define BLOOD_COLOR_SLIMEPERSON "#0064c8"
+#define BLOOD_COLOR_VOX "#2299fc"
+#define BLOOD_COLOR_WRYN "#ffff99"
+#define BLOOD_COLOR_PLASMAMAN "#8b3fba"
 
 // Main colors for UI themes.
 #define COLOR_THEME_MIDNIGHT "#6086a0"
