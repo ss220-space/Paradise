@@ -160,6 +160,9 @@
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
 	var/damage_deal = 5 * user.physiology.tail_strength_mod
 
+	if(user.next_click > world.time)
+		return
+
 	if(implant?.activated) // Prevents exception if you dont have the implant, but unathi
 		active_implant = TRUE
 
@@ -238,6 +241,11 @@
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled)
 		if(feedback)
 			to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
+		return FALSE
+
+	if(user.next_click > world.time)
+		if(feedback)
+			to_chat(user, span_warning("Вы ещё не восстановились для следующего взмаха!"))
 		return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)

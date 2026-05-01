@@ -14,8 +14,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 
-/obj/item/clipboard/New()
-	..()
+/obj/item/clipboard/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clipboard/click_alt(mob/user)
@@ -190,3 +190,6 @@
 
 #undef PAPERWORK
 #undef PHOTO
+
+/obj/item/clipboard/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return ..() || (contained == toppaper)

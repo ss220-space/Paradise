@@ -250,14 +250,12 @@
 			var/splatter_dir = Angle
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
-			if(isalien(L) || isfacehugger(L))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
-			else
-				var/blood_color = BLOOD_COLOR_RED
-				if(ishuman(target))
-					H = target
-					blood_color = H.dna.species.blood_color
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+			var/splatter_color = L.get_blood_color()
+			if(splatter_color)
+				if(isalien(L) || isfacehugger(L))
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir, splatter_color)
+				else
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
 
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
@@ -411,7 +409,7 @@
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
-	var/required_moves = hitscan ? MOVES_HITSCAN : FLOOR(elapsed_time_deciseconds / speed, 1)
+	var/required_moves = hitscan ? MOVES_HITSCAN : floor(elapsed_time_deciseconds / speed)
 	if(required_moves == MOVES_HITSCAN)
 		required_moves = SSprojectiles.global_max_tick_moves
 	if(required_moves > SSprojectiles.global_max_tick_moves)

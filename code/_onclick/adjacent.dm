@@ -39,9 +39,9 @@ Adjacency (to turf):
 		return T0.ClickCross(get_dir(T0, src), TRUE, target, mover) && ClickCross(get_dir(src, T0), TRUE, target, mover)
 
 	// Diagonal case
-	var/in_dir = get_dir(T0, src)	// eg. NORTHWEST	(1+8) = 9 (00001001)
-	var/d1 = in_dir & 3				// eg. NORTH		(1+8) & 3 (0000 0011) = 1 (0000 0001)
-	var/d2 = in_dir & 12			// eg. WEST			(1+8) & 12 (0000 1100) = 8 (0000 1000)
+	var/in_dir = get_dir(T0, src) // eg. NORTHWEST (1+8) = 9 (00001001)
+	var/d1 = in_dir & 3 // eg. NORTH (1+8) & 3 (0000 0011) = 1 (0000 0001)
+	var/d2 = in_dir & 12 // eg. WEST (1+8) & 12 (0000 1100) = 8 (0000 1000)
 
 	for(var/d in list(d1,d2))
 		if(!T0.ClickCross(d, TRUE, target, mover))

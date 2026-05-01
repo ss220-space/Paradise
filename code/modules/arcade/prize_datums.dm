@@ -143,6 +143,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/grenade/confetti
 	cost = 50
 
+/datum/prize_item/paint_box
+	name = "Paint box"
+	desc = "Коробка со случайной краской для покраски мостика в более веселый цвет."
+	typepath = /obj/item/random_paint_box
+	cost = 75
+
 /datum/prize_item/AI
 	name = "Toy AI Unit"
 	desc = "1. Доставьте максимум удовольствия экипажу."

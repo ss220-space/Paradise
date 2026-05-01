@@ -8,6 +8,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
+	ricochet_chance = 0
 	flag = "magic"
 
 /obj/projectile/magic/get_ru_names()

@@ -932,11 +932,8 @@
 	},
 /area/awaymission/research)
 "dh" = (
-/obj/machinery/power/apc/noalarm{
-	cell_type = 5000;
-	dir = 8;
-	name = "Mid Block APC";
-	pixel_x = -28
+/obj/machinery/power/apc/noalarm/directional/west{
+	cell_type = 5000
 	},
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -1103,11 +1100,8 @@
 "dD" = (
 /obj/structure/window/reinforced,
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	cell_type = 7500;
-	dir = 8;
-	name = "Research APC";
-	pixel_x = -28
+/obj/machinery/power/apc/noalarm/directional/west{
+	cell_type = 7500
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -1192,11 +1186,8 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dO" = (
-/obj/machinery/power/apc/noalarm{
-	cell_type = 5000;
-	dir = 4;
-	name = "North Block APC";
-	pixel_x = 28
+/obj/machinery/power/apc/noalarm/directional/east{
+	cell_type = 5000
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -2760,11 +2751,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "hX" = (
-/obj/machinery/power/apc/noalarm{
-	cell_type = 7500;
-	dir = 8;
-	name = "Arrivals Block APC";
-	pixel_x = -28
+/obj/machinery/power/apc/noalarm/directional/west{
+	cell_type = 7500
 	},
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -3454,10 +3442,8 @@
 /area/awaymission/southblock)
 "jZ" = (
 /obj/machinery/light/small,
-/obj/machinery/power/apc/noalarm{
-	cell_type = 5000;
-	name = "South Block APC";
-	pixel_y = -30
+/obj/machinery/power/apc/noalarm/directional/south{
+	cell_type = 5000
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
@@ -4116,11 +4102,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "me" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	name = "Gateroom APC";
-	pixel_x = 28
-	},
+/obj/machinery/power/apc/noalarm/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"

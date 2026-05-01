@@ -557,16 +557,16 @@
 
 	// check to see if their face is blocked or, if not, a signal blocks it
 	if(examined_mob.can_eye_contact() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
-		var/obj/item/clothing/eye_cover = examined_mob.is_eyes_covered()
-		if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+		var/obj/item/clothing/eye_cover = examined_mob.get_item_by_slot(ITEM_SLOT_EYES)
+		if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
 			var/msg = span_smallnotice("Вы встречаетесь взглядом с [examined_mob.declent_ru(INSTRUMENTAL)].")
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
 
 	if(!(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT))
 		return
 
-	var/obj/item/clothing/eye_cover = is_eyes_covered()
-	if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+	var/obj/item/clothing/eye_cover = get_item_by_slot(ITEM_SLOT_EYES)
+	if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
 		var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
 
@@ -584,7 +584,13 @@
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
 		if(src == mecha.occupant)
-			mecha.selected?.self_occupant_attack()
+			var/list/modules = list()
+			for(var/key, module in mecha.selected_equipment_in_hands)
+				modules += module
+			var/obj/item/mecha_parts/mecha_equipment/selected = tgui_input_list(usr, "Выберите модуль", "Выбор модуля", modules)
+			if(!selected)
+				return
+			selected.self_occupant_attack()
 		return
 
 	var/obj/item/I = get_active_hand()
@@ -775,17 +781,15 @@
 		popup.open(FALSE)
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
-	. = ..()
-	if(!. || usr != user || usr == src || over_object != usr || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return FALSE
+	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
+		return
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
-		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
-		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
-		return FALSE
+		to_chat(user, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
-		return FALSE
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
+		return
 
 /**
  * Checks whether a mob can perform an action to interact with an object
@@ -1250,6 +1254,9 @@
 
 	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+
+	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+		client.mouse_pointer_icon = examine_cursor_icon
 
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon

@@ -51,7 +51,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
-	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/labcoat/get_ru_names()
@@ -63,6 +62,10 @@
 		INSTRUMENTAL = "лабораторным халатом",
 		PREPOSITIONAL = "лабораторном халате",
 	)
+
+/obj/item/clothing/suit/storage/labcoat/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/storage/labcoat/cmo
 	name = "chief medical officer's labcoat"

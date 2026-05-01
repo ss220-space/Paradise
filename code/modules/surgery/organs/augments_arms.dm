@@ -101,6 +101,10 @@
 	var/obj/current_hand = host.hand ? host.get_organ(BODY_ZONE_L_ARM) : host.get_organ(BODY_ZONE_R_ARM)
 	if(hand != current_hand)
 		return //wrong hand
+	// We should not react to the item when it's not in our hand,
+	// it makes no sense and other items with something like TRAIT_NODROP might fuck us very badly
+	if(!active_item || active_item != host.get_active_hand())
+		return
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
 
@@ -449,7 +453,7 @@
 	item_flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!isapc(target) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)

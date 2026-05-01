@@ -193,6 +193,14 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		? STRIPPABLE_OBSCURING_NONE \
 		: STRIPPABLE_OBSCURING_HIDDEN
 
+/datum/strippable_item/mob_item_slot/pocket/get_alternate_actions(atom/source, mob/user)
+	return get_strippable_alternate_action_internals(get_item(source), source)
+
+/datum/strippable_item/mob_item_slot/pocket/alternate_action(atom/source, mob/user, action_key)
+	if(!..())
+		return
+	strippable_alternate_action_internals(get_item(source), source, user)
+
 /datum/strippable_item/mob_item_slot/pocket/get_equip_delay(obj/item/equipping)
 	return POCKET_EQUIP_DELAY // Equipping is 4 times as fast as stripping
 

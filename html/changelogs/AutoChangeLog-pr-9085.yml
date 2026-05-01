@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Иконки курсора мышки меняются снова. (PR #9085)"

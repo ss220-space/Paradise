@@ -36,9 +36,9 @@
 #define FILE_DRM (1<<4) // Some files want to not be copied/moved.  This is them complaining that you tried.
 #define NETWORK_FAILURE (1<<5)
 
-#define	IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
+#define IMPRINTER (1<<0) //For circuits. Uses glass/chemicals.
 #define PROTOLATHE (1<<1) //New stuff. Uses glass/metal/chemicals
-#define	AUTOLATHE (1<<2) //Uses glass/metal only.
+#define AUTOLATHE (1<<2) //Uses glass/metal only.
 #define CRAFTLATHE (1<<3) //Uses fuck if I know. For use eventually.
 #define MECHFAB (1<<4) //Remember, objects utilising this flag should have construction_time and construction_cost vars.
 #define PODFAB (1<<5) //Used by the spacepod part fabricator. Same idea as the mechfab
@@ -221,3 +221,8 @@
 /// Emagged mode; turns off scrubbers and pressure checks on vents
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
+
+// Air alarm build stages
+#define AIR_ALARM_BUILD_NO_CIRCUIT 0
+#define AIR_ALARM_BUILD_CIRCUIT 1
+#define AIR_ALARM_WIRED 2

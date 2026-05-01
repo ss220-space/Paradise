@@ -14,6 +14,7 @@
 	density = FALSE
 	ignore_shoves = TRUE
 	no_throw_opens = TRUE
+	anchorable = FALSE
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
@@ -368,7 +369,7 @@
 	if(decal)
 		. += decal
 
-/obj/structure/closet/supplypod/tool_act(mob/living/user, obj/item/I, tool_type)
+/obj/structure/closet/supplypod/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	if(bluespace) //We dont want to worry about interacting with bluespace pods, as they are due to delete themselves soon anyways.
 		return FALSE
 	else
@@ -495,7 +496,7 @@
 		return
 	if(opened) //This is to ensure we don't open something that has already been opened
 		return
-	holder.setOpened()
+	holder.set_opened()
 	var/turf/turf_underneath = get_turf(holder) //Get the turf of whoever's contents we're talking about
 	if(ismob(holder)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
 		var/mob/holder_as_mob = holder
@@ -536,7 +537,7 @@
 		return
 	take_contents(holder)
 	playsound(holder, close_sound, soundVolume * 0.75, TRUE, -3)
-	holder.setClosed()
+	holder.set_closed()
 	addtimer(CALLBACK(src, PROC_REF(preReturn), holder), delays[POD_LEAVING] * 0.2) //Start to leave a bit after closing for cinematic effect
 
 /obj/structure/closet/supplypod/take_contents(atom/movable/holder)
@@ -605,40 +606,37 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
-/obj/structure/closet/supplypod/MouseDrop_T(atom/movable/O, mob/living/user, params)
-	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
+/obj/structure/closet/supplypod/mouse_drop_receive(atom/movable/target_movable, mob/living/user, params)
+	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, target_movable, user) & COMPONENT_CLIMB))
 		return ..()
 
-	to_chat(user, span_notice("Вы начинаетезаталкивать"))
-	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(user, "заталкивание...")
+	user.visible_message(
+		span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [target_movable.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете запихивать [target_movable.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+	)
 
 	if(!do_after(user, 5 SECONDS, src))
 		return
 
-	. = ..()
+	target_movable.forceMove(get_turf(src))
 
-	if(!.)
-		return
-
-	O.forceMove(get_turf(src))
-
-/obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
+/obj/structure/closet/supplypod/set_opened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
 	set_density(FALSE)
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/extractionpod/setOpened()
+/obj/structure/closet/supplypod/extractionpod/set_opened()
 	opened = TRUE
 	set_density(TRUE)
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/open()
+/obj/structure/closet/supplypod/open(mob/living/user, force = FALSE)
 	return
 
-/obj/structure/closet/supplypod/setClosed() //Ditto
+/obj/structure/closet/supplypod/set_closed() //Ditto
 	opened = FALSE
 	set_density(TRUE)
 	update_appearance()

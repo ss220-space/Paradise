@@ -36,7 +36,7 @@
 	silent_steps = TRUE
 
 	blood_species = "Vox"
-	blood_color = "#2299FC"
+	blood_color = BLOOD_COLOR_VOX
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
 	default_hair = "Short Vox Quills"

@@ -153,17 +153,27 @@
 		plane = old_plane
 
 		// Give the victim 10 seconds to respond
-		sleep(10 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(finish_optional_capture), user, M), 10 SECONDS)
+		return .
 
-		if(!opt_in)
-			to_chat(user, span_warning("The soul resists your attempts at capturing it!"))
-			return .
+	do_capture(user, M)
 
-		opt_in = FALSE
+/obj/item/soulstone/proc/finish_optional_capture(mob/living/user, mob/living/carbon/human/M)
+	if(QDELETED(src) || QDELETED(user) || QDELETED(M))
+		return
 
-		if(spent)//checking one more time against shenanigans
-			return .
+	if(!opt_in)
+		to_chat(user, span_warning("The soul resists your attempts at capturing it!"))
+		return
 
+	opt_in = FALSE
+
+	if(spent)
+		return
+
+	do_capture(user, M)
+
+/obj/item/soulstone/proc/do_capture(mob/living/user, mob/living/carbon/human/M)
 	if(is_sacrifice_target(M.mind))
 		if(iscultist(user))
 			SSticker.mode.cult_objs.succesful_sacrifice()
@@ -431,7 +441,7 @@
 				else
 					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
 					picked_class = construct_types[construct_choice]
-				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && user.Adjacent(shell) && !user.incapacitated() && radial_check(user))
+				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && shell.IsReachableBy(user, reach) && !user.incapacitated() && radial_check(user))
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
@@ -555,10 +565,10 @@
 			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade)
 		if(length(consenting_candidates))
 			chosen_ghost = pick(consenting_candidates)
-			
+
 	if(QDELETED(M) || QDELETED(src))
 		return FALSE
-		
+
 	if(!chosen_ghost)
 		to_chat(user, span_danger("There were no spirits willing to become a shade."))
 		return FALSE

@@ -327,10 +327,14 @@
 /obj/machinery/r_n_d/experimentor/proc/calculate_bonus(datum/tech/tech, value)
 	var/current_level = tech.level
 	var/max_level = tech.max_level
-	var/tech_delta = max(current_level - value, 0) / max_level
+
 	var/machine_bonus = 1 + min(malfunction_probability_coeff, 100) / 100
-	var/max_level_delta = max(max_level - current_level, 0) / max_level
-	return BONUS_TECH_PROB * (1 - (tech_delta - max_level_delta)) * machine_bonus
+
+	var/value_bonus = value / max_level
+	var/remaining = max_level - current_level
+	var/distance_penalty = (remaining + 1) / (max_level + 1)
+
+	return BONUS_TECH_PROB * machine_bonus * value_bonus * distance_penalty
 
 /obj/machinery/r_n_d/experimentor/proc/handle_global_reactions()
 	if(!prob(EFFECT_PROBABILITY * (100 - malfunction_probability_coeff) * 0.01) || !loaded_item)
@@ -448,11 +452,11 @@
 	try_generate_reaction_for_item(loaded_item)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/r_n_d/experimentor/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/experimentor/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", I)
+	. = default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", tool)
 	if(. && linked_console)
 		linked_console.linked_destroy = null
 		linked_console = null

@@ -30,6 +30,8 @@
 #define OPEN_BODYPART_BLEEDING 0.75
 /// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.5
+/// Open fracture bleeding amount (units per 2 sec)
+#define BODYPART_OPEN_FRACTURE_BLEEDING 0.5
 /// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.005
 /// Multiplyer for bleeding calculate from bodypart value
@@ -159,6 +161,9 @@
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 
+		if(bodypart.has_fracture() && bodypart.fracture == FRACTURE_TYPE_OPEN && !bodypart.is_splinted())
+			current_bleed += BODYPART_OPEN_FRACTURE_BLEEDING
+
 		if(bodypart.has_arterial_bleeding() && left_hand_bleed_suppress_lib != bodypart && right_hand_bleed_suppress_lib != bodypart)
 			has_arterial_bleed = TRUE
 
@@ -224,10 +229,9 @@
 
 	// make bloodsplatter for arterial bleeding
 	if(has_arterial_bleed)
-		var/blood_color = dna.species.blood_color
-		var/splatter_dir = rand(0, 360)
-		var/target_loc = get_turf(src)
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_dir, blood_color)
+		var/splatter_color = get_blood_color()
+		if(splatter_color)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), rand(0, 360), splatter_color)
 
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_volume()
 	var/blood_volume_percent = clamp(blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
@@ -284,11 +288,6 @@
 		custom_emote(EMOTE_AUDIBLE, "кашля%(ет, ют)% кровью!")
 		add_splatter_floor(loc, small_drip = TRUE)
 		return .
-
-	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
-	// Must be bleeding internally in more than one place to have a chance at this.
-	if(amt >= 1 && prob(5 * amt))
-		vomit(mode = VOMIT_BLOOD)
 
 /mob/living/carbon/human/bleed_internal(amt)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
@@ -380,16 +379,17 @@
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
 	return 1
 
-/// Returns the color of the mob's blood.
+/// Returns the color of the mob's blood, or null if the mob has no blood.
 /mob/living/proc/get_blood_color()
-	var/bloodcolor = BLOOD_COLOR_RED
-	var/list/b_data = get_blood_data(get_blood_id())
-	if(b_data)
-		bloodcolor = b_data["blood_color"] || BLOOD_COLOR_RED
-	return bloodcolor
-
-/mob/living/carbon/alien/get_blood_color()
-	return BLOOD_COLOR_XENO
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return null
+	var/blood_id = get_blood_id()
+	var/list/blood_data = get_blood_data(blood_id)
+	var/blood_color = LAZYACCESS(blood_data, "blood_color")
+	if(blood_color)
+		return blood_color
+	var/datum/reagent/exotic = GLOB.chemical_reagents_list[blood_id]
+	return exotic?.color
 
 /mob/living/proc/get_blood_data(blood_id)
 	return
@@ -593,13 +593,18 @@
  * * splatter_direction: Which direction the blood is flying
  * * splatter_strength: How many tiles it can go, and how many items it can pass over and dirty
  */
-/mob/living/carbon/proc/spray_blood(splatter_direction, splatter_strength = 3)
+/mob/living/proc/spray_blood(splatter_direction, splatter_strength = 3)
 	if(!isturf(loc))
+		return
+	var/splatter_color = get_blood_color()
+	if(!splatter_color)
 		return
 	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, splatter_strength)
 
 	our_splatter.blood_dna_info = get_blood_dna_list()
 	our_splatter.transfer_mob_blood_dna(src)
+	our_splatter.basecolor = splatter_color
+	our_splatter.update_appearance(UPDATE_ICON)
 	var/turf/target_turf = get_ranged_target_turf(src, splatter_direction, splatter_strength)
 	our_splatter.fly_towards(target_turf, splatter_strength)
 
@@ -620,4 +625,5 @@
 #undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD
 #undef HEAVY_BLEEDING_RATE
 #undef BODYPART_INTERNAL_BLEEDING
+#undef BODYPART_OPEN_FRACTURE_BLEEDING
 #undef MAX_SUPPRESS_BLEEDING_BY_HAND

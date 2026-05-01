@@ -15,9 +15,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	can_bayonet = TRUE
-	bayonet_x_offset = 20
-	bayonet_y_offset = 12
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.
@@ -209,6 +206,9 @@
 	. = ..()
 	if(empty_state && !can_shoot())
 		. += empty_state
+
+/obj/item/gun/energy/kinetic_accelerator/shoot_with_empty_chamber(mob/living/user)
+	return overheat ? FALSE : ..()
 
 // MARK: KA Variations
 /obj/item/gun/energy/kinetic_accelerator/experimental
@@ -477,6 +477,19 @@
 		INSTRUMENTAL = "модификацией \"Репитер\"",
 		PREPOSITIONAL = "модификации \"Репитер\""
 	)
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	. = ..()
+	if(.)
+		KA.AddComponent(/datum/component/automatic_fire, 0.4 SECONDS)
+		KA.balloon_alert(user, "установлено")
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
+	qdel(KA.GetComponent(/datum/component/automatic_fire))
+	return ..()
+
+/obj/item/gun/energy/kinetic_accelerator/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
+	return overheat ? COMPONENT_AUTOFIRE_SHOT_SUCCESS : ..()
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/borg
 	compatibility = COMPATIBILITY_CYBORG

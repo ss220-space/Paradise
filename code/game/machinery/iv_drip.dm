@@ -6,6 +6,8 @@
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	use_power = NO_POWER_USE
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
 /obj/machinery/iv_drip/process()
@@ -24,14 +26,18 @@
 			. += filling
 
 /obj/machinery/iv_drip/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
-		return FALSE
+	if(user.incapacitated())
+		return
 
-	add_fingerprint(usr)
+	if(!ishuman(user) || !ishuman(over_object))
+		to_chat(user, span_warning("You can't do that!"))
+		return
+
+	add_fingerprint(user)
 	if(!bag)
-		to_chat(usr, span_warning("There's no IV bag connected to [src]!"))
-		return FALSE
-	bag.attack(over_object, usr)
+		to_chat(user, span_warning("There's no IV bag connected to [src]!"))
+		return
+	bag.attack(over_object, user)
 	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
@@ -43,7 +49,7 @@
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
+/obj/machinery/iv_drip/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -62,7 +68,7 @@
 
 	if(bag && istype(I, /obj/item/reagent_containers))
 		add_fingerprint(user)
-		I.melee_attack_chain(user, bag, params)
+		I.melee_attack_chain(user, bag, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

@@ -102,9 +102,14 @@ h2.alert {
 
 // MARK: MOTD
 .motd {
-  color: hsl(214, 38%, 74%);
+  color: hsl(215, 30%, 76%);
   font-family: Verdana, sans-serif;
   white-space: normal;
+  line-height: 1.35;
+}
+
+.motd p {
+  margin: 0.25em 0;
 }
 
 .motd h1,
@@ -113,15 +118,72 @@ h2.alert {
 .motd h4,
 .motd h5,
 .motd h6 {
-  color: hsl(214, 38%, 74%);
-  text-decoration: underline;
+  color: hsl(42, 45%, 72%);
+  text-decoration: none;
+  margin: 0.5em 0 0.3em;
+  padding-bottom: 0.15em;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid hsla(42, 45%, 65%, 0.45);
 }
 
 .motd a,
 .motd a:link,
+.motd a:visited,
 .motd a:active,
 .motd a:hover {
-  color: hsl(214, 38%, 74%);
+  color: hsl(215, 70%, 62%);
+}
+
+.motd .accent {
+  color: hsl(42, 70%, 75%);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.motd .warning {
+  color: hsl(355, 55%, 78%);
+  font-style: normal;
+  background: hsla(355, 55%, 70%, 0.07);
+  border: 1px solid hsla(355, 55%, 70%, 0.25);
+  border-radius: 0.3em;
+  margin: 0.5em 0;
+  padding: 0.25em 0.75em;
+}
+
+.motd .warning > :first-child {
+  margin-top: 0;
+}
+
+.motd .warning > :last-child {
+  margin-bottom: 0;
+}
+
+.motd .warning h1,
+.motd .warning h2,
+.motd .warning h3,
+.motd .warning h4,
+.motd .warning h5,
+.motd .warning h6 {
+  color: hsl(355, 55%, 80%);
+  border-bottom-color: hsla(355, 55%, 70%, 0.5);
+}
+
+.motd > .motd-card:first-child {
+  margin-top: 0;
+}
+
+.motd > .motd-card:last-child {
+  margin-bottom: 0;
+}
+
+.motd-card {
+  background: hsla(42, 45%, 65%, 0.04);
+  border: 1px solid hsla(42, 45%, 65%, 0.25);
+  border-left: 3px solid hsla(42, 45%, 65%, 0.5);
+  margin: 0.5em 0.25em;
+  padding: 0.6em 0.85em;
+  border-radius: 0.4em;
 }
 
 // MARK: MEMO

@@ -3,13 +3,13 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = 0 // you sit in a chair, not lay
 	max_integrity = 250
 	integrity_failure = 25
 	pull_push_slowdown = 1.5
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -91,27 +91,23 @@
 	..()
 
 /obj/structure/chair/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
-		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-			to_chat(usr, span_warning("You can't do that right now!"))
-			return
-		if(!usr.has_right_hand() && !usr.has_left_hand())
-			to_chat(usr, span_warning("You try to grab the chair, but you are missing both of your hands!"))
-			return
-		if(usr.get_active_hand() && usr.get_inactive_hand())
-			to_chat(usr, span_warning("You try to grab the chair, but your hands are already full!"))
-			return
-		usr.visible_message(
-			span_notice("[usr] grabs [src]."),
-			span_notice("You grab [src]."),
-		)
-		var/new_chair = new item_chair(drop_location())
-		transfer_fingerprints_to(new_chair)
-		usr.put_in_hands(new_chair, ignore_anim = FALSE)
-		qdel(src)
-		return FALSE
+	if(over_object != user || !ishuman(user) || !item_chair || anchored || has_buckled_mobs())
+		return
 
-	return ..()
+	if(flags & HOLOGRAM)
+		to_chat(user, span_notice("You try to pick up \the [src], but it fades away!"))
+		qdel(src)
+		return
+
+	user.visible_message(
+		span_notice("[user] grabs [src]."),
+		span_notice("You grab [src]."),
+	)
+
+	var/new_chair = new item_chair(drop_location())
+	transfer_fingerprints_to(new_chair)
+	user.put_in_hands(new_chair, ignore_anim = FALSE)
+	qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
@@ -220,31 +216,31 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
-	color = rgb(141,70,0)
+	color = COLOR_BROWNER_BROWN
 
 /obj/structure/chair/comfy/red
-	color = rgb(218,2,10)
+	color = COLOR_DARK_RED
 
 /obj/structure/chair/comfy/teal
-	color = rgb(0,234,250)
+	color = COLOR_DARK_CYAN
 
 /obj/structure/chair/comfy/black
-	color = rgb(60,60,60)
+	color = COLOR_DARK
 
 /obj/structure/chair/comfy/green
-	color = rgb(1,196,8)
+	color = COLOR_GREEN
 
 /obj/structure/chair/comfy/purp
-	color = rgb(112,2,176)
+	color = COLOR_DARK_PURPLE
 
 /obj/structure/chair/comfy/blue
-	color = rgb(2,9,210)
+	color = COLOR_COMMAND_BLUE
 
 /obj/structure/chair/comfy/beige
-	color = rgb(255,253,195)
+	color = COLOR_BEIGE
 
 /obj/structure/chair/comfy/lime
-	color = rgb(255,251,0)
+	color = COLOR_PALE_LIME
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"

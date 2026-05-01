@@ -5,6 +5,7 @@
 	icon_state = "experiment-open"
 	anchored = TRUE
 	density = TRUE
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/points = 0
 	var/credits = 0
 	var/list/history = list()
@@ -20,7 +21,7 @@
 /obj/machinery/abductor/experiment/update_icon_state()
 	icon_state = "experiment[occupant ? "" : "-open"]"
 
-/obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user, params)
+/obj/machinery/abductor/experiment/mouse_drop_receive(mob/living/carbon/human/target, mob/user, params)
 	if(stat)
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
@@ -29,19 +30,18 @@
 		return
 	if(occupant)
 		to_chat(user, span_notice("[src] is already occupied."))
-		return TRUE //occupied
+		return //occupied
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
-		return TRUE
+		return
 	visible_message("[user] puts [target] into the [src].")
 
 	target.forceMove(src)
 	occupant = target
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
-	return TRUE
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
 	if(..())
