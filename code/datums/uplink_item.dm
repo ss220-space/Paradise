@@ -1831,6 +1831,7 @@
 			бронежилет, штурмовой пояс, балаклава и очки ночного видения."
 	item = /obj/item/storage/box/syndie_kit/blackops_kit
 	cost = 8
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Сумка с хирургическими инструментами"
