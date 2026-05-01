@@ -308,6 +308,10 @@
 		/datum/job/supply/cargo_tech = /obj/item/organ/internal/heart/cybernetic,
 		/datum/job/supply/mining = /obj/item/organ/internal/cyberimp/eyes/meson,
 		/datum/job/supply/mining_medic = /obj/item/organ/internal/cyberimp/arm/surgery,
+		/datum/job/investor = /obj/item/organ/internal/cyberimp/eyes/xray, // why not
+		/datum/job/engineering/engineer/trainee = /obj/item/organ/internal/cyberimp/eyes/meson,
+		/datum/job/medical/doctor/intern = /obj/item/organ/internal/cyberimp/eyes/hud/medical,
+		/datum/job/science/scientist/student = /obj/item/organ/internal/cyberimp/eyes/hud/science,
 	)
 
 /datum/station_trait/cybernetic_revolution/New()
