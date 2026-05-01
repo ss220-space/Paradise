@@ -1,6 +1,6 @@
 /datum/action/changeling/anabolic_surge
 	name = "Анаболический всплеск"
-	desc = "Значительно увеличивает силу пользователя, за счёт уменьшения выроботки химикатов на 50%."
+	desc = "Значительно увеличивает силу пользователя, за счёт уменьшения выработки химикатов на 50%."
 	helptext = "Увеличивает силу до сверхчеловеческого уровня."
 	button_icon_state = "anabolic_surge"
 	power_type = CHANGELING_PURCHASABLE_POWER

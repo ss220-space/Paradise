@@ -10,7 +10,6 @@
 	/// Points of strength that this body already has. They are used to change the strength level.
 	var/strength_points = 0
 
-
 /datum/component/muscles/Initialize(max_species_strength = STRENGTH_LEVEL_MAXDEFAULT, default_strength = STRENGTH_LEVEL_DEFAULT, can_become_stronger = TRUE)
 	..()
 	if(!ishuman(parent))
@@ -291,7 +290,6 @@
 /datum/component/muscles/proc/on_get_weak_mob_modifiers(user, list/modifiers)
 	SIGNAL_HANDLER
 	modifiers.Add(usable_strength_level.weak_mob_modifier)
-
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
