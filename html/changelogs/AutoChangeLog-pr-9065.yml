@@ -1,4 +1,0 @@
-author: "DobryAxl"
-delete-after: True
-changes:
-  - bugfix: "Исправлено отображение заряда батареек при осмотре. (PR #9065)"

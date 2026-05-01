@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Цель контракта снова улетает в Бразилию. (PR #9012)"

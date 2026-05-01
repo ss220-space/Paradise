@@ -1,5 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - del: "Удаление SP-8T и SP-8AR (PR #9062)"
-  - tweak: "Золотой и камо дигл теперь в скинах. (PR #9062)"

@@ -74,9 +74,6 @@
 	///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 
-///from base of /mob/living/examine(): (mob/user, list/.)
-#define COMSIG_LIVING_EXAMINE "living_examine"
-
 /// Source: /mob/living/AdjustBlood(amount)
 #define COMSIG_LIVING_BLOOD_ADJUST "living_blood_adjust"
 	#define COMPONENT_PREVENT_BLOODLOSS (1<<0)
