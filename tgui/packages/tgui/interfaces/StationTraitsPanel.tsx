@@ -52,7 +52,7 @@ const FutureStationTraitsPage = (props) => {
           <Dropdown
             onSelected={setSelectedTrait}
             options={traitNames}
-            placeholder="Select trait to add..."
+            placeholder="Выберите новое событие..."
             selected={selectedTrait}
             width="100%"
           />
@@ -89,7 +89,7 @@ const FutureStationTraitsPage = (props) => {
               });
             }}
           >
-            Add
+            Добавить
           </Button>
         </Stack.Item>
       </Stack>
@@ -117,7 +117,7 @@ const FutureStationTraitsPage = (props) => {
                         });
                       }}
                     >
-                      Delete
+                      Удалить
                     </Button>
                   </Stack.Item>
                 </Stack>
@@ -126,23 +126,23 @@ const FutureStationTraitsPage = (props) => {
           </Stack>
         ) : (
           <>
-            <Box>No station traits will run next round.</Box>
+            <Box>В следующем раунде станционные события будут отключены.</Box>
 
             <Box>
               <Button
                 color="red"
                 icon="times"
-                tooltip="The next round will roll station traits randomly, just like normal"
+                tooltip="В следующем раунде события будут случайно выбраны стандартным образом"
                 onClick={() => act('clear_future_traits')}
               >
-                Run Station Traits Normally
+                Включить Случайные События В Следующем Раунде
               </Button>
             </Box>
           </>
         )
       ) : (
         <>
-          <Box>No future station traits are planned.</Box>
+          <Box>На следующий раунд станционных событий не запланировано.</Box>
 
           <Box>
             <Button
@@ -154,7 +154,7 @@ const FutureStationTraitsPage = (props) => {
                 })
               }
             >
-              Prevent station traits from running next round
+              Отключить Случайные События В Следующем Раунде
             </Button>
           </Box>
         </>
@@ -175,14 +175,14 @@ const ViewStationTraitsPage = (props) => {
 
             <Stack.Item>
               <Button.Confirm
-                content="Revert"
+                content="Отмена"
                 color="red"
                 disabled={data.too_late_to_revert || !stationTrait.can_revert}
                 tooltip={
                   (!stationTrait.can_revert &&
-                    'This trait is not revertable.') ||
+                    'Это событие необратимо и его нельзя отменить.') ||
                   (data.too_late_to_revert &&
-                    "It's too late to revert station traits, the round has already started.")
+                    "Раунд уже начался, события больше изменить нельзя.")
                 }
                 icon="times"
                 onClick={() =>
