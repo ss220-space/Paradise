@@ -493,8 +493,11 @@
 	original_angle = Angle
 	if(spread)
 		Angle += (rand() - 0.5) * spread
-	if(firer && ismob(firer) && firer.a_intent != INTENT_HELP)
-		hit_crawling_mobs_chance =  100
+	if(firer && ismob(firer))
+		if(firer.a_intent != INTENT_HELP || firer.IsLying())
+			hit_crawling_mobs_chance =  100
+		else
+			hit_crawling_mobs_chance = 0
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)
