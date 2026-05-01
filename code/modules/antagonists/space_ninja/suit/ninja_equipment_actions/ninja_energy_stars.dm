@@ -14,15 +14,15 @@
 	if(shuriken_emitter)
 		qdel(shuriken_emitter)
 		shuriken_emitter = null
-	else
-		shuriken_emitter = new
-		shuriken_emitter.my_suit = src
-		for(var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/ninja_action in actions)
-			shuriken_emitter.my_action = ninja_action
-			ninja_action.action_ready = TRUE
-			ninja_action.use_action()
-			break
-		ninja.put_in_hands(shuriken_emitter)
+		return
+
+	shuriken_emitter = new
+	shuriken_emitter.my_suit = src
+	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/toggle_shuriken_fire_mode = locate() in ninja.actions
+	shuriken_emitter.my_action = toggle_shuriken_fire_mode
+	toggle_shuriken_fire_mode.action_ready = TRUE
+	toggle_shuriken_fire_mode.use_action()
+	ninja.put_in_hands(shuriken_emitter)
 
 /obj/effect/temp_visual/impact_effect/green_particles
 	icon_state = "mech_toxin"

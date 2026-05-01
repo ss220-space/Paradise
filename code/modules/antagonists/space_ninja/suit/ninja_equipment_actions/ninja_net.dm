@@ -13,15 +13,15 @@
 	if(net_emitter)
 		qdel(net_emitter)
 		net_emitter = null
-	else
-		net_emitter = new
-		net_emitter.my_suit = src
-		for(var/datum/action/item_action/advanced/ninja/ninjanet/ninja_action in actions)
-			net_emitter.my_action = ninja_action
-			ninja_action.action_ready = TRUE
-			ninja_action.use_action()
-			break
-		ninja.put_in_hands(net_emitter)
+		return
+
+	net_emitter = new
+	net_emitter.my_suit = src
+	var/datum/action/item_action/advanced/ninja/ninjanet/ninjanet = locate() in ninja.actions
+	net_emitter.my_action = ninjanet
+	ninjanet.action_ready = TRUE
+	ninjanet.use_action()
+	ninja.put_in_hands(net_emitter)
 
 /obj/item/ninja_net_emitter
 	name = "Energy Net Emitter"
@@ -45,12 +45,12 @@
 	)
 
 /obj/item/ninja_net_emitter/Destroy()
-	. = ..()
 	my_suit.net_emitter = null
 	my_suit = null
 	my_action.action_ready = FALSE
 	my_action.use_action()
 	my_action = null
+	return ..()
 
 /obj/item/ninja_net_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
