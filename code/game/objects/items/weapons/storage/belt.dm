@@ -1198,7 +1198,8 @@
 	icon_state = "hunter_belt"
 	item_state = "ebelt"
 	use_item_overlays = TRUE
-	max_w_class = WEIGHT_CLASS_NORMAL
+	max_w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/hatchet,
 		/obj/item/flashlight/lantern,
@@ -1228,6 +1229,12 @@
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
 	)
+	cant_hold = list(
+		/obj/item/pickaxe/drill
+	)
+/obj/item/storage/belt/mining/primitive/Initialize(mapload)
+	. = ..()
+	cant_hold = typecacheof(cant_hold)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
 	return list(
