@@ -28,10 +28,10 @@
 
 /obj/item/organ/internal/liver/insert(mob/living/carbon/human/target)
 	. = ..()
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_owner_examine))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
 
 /obj/item/organ/internal/liver/remove(mob/living/user, special)
-	UnregisterSignal(owner, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(owner, COMSIG_ATOM_EXAMINE)
 	return ..()
 
 /obj/item/organ/internal/liver/on_life()
