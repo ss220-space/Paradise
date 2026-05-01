@@ -229,9 +229,9 @@
 
 	// make bloodsplatter for arterial bleeding
 	if(has_arterial_bleed)
-		var/splatter_angle = rand(0, 360)
-		var/target_loc = get_turf(src)
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_angle, get_blood_color())
+		var/splatter_color = get_blood_color()
+		if(splatter_color)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), rand(0, 360), splatter_color)
 
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_volume()
 	var/blood_volume_percent = clamp(blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
@@ -379,16 +379,17 @@
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
 	return 1
 
-/// Returns the color of the mob's blood.
+/// Returns the color of the mob's blood, or null if the mob has no blood.
 /mob/living/proc/get_blood_color()
-	var/bloodcolor = BLOOD_COLOR_RED
-	var/list/b_data = get_blood_data(get_blood_id())
-	if(b_data)
-		bloodcolor = b_data["blood_color"]
-	return bloodcolor
-
-/mob/living/carbon/alien/get_blood_color()
-	return BLOOD_COLOR_XENO
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return null
+	var/blood_id = get_blood_id()
+	var/list/blood_data = get_blood_data(blood_id)
+	var/blood_color = LAZYACCESS(blood_data, "blood_color")
+	if(blood_color)
+		return blood_color
+	var/datum/reagent/exotic = GLOB.chemical_reagents_list[blood_id]
+	return exotic?.color
 
 /mob/living/proc/get_blood_data(blood_id)
 	return
@@ -595,11 +596,14 @@
 /mob/living/proc/spray_blood(splatter_direction, splatter_strength = 3)
 	if(!isturf(loc))
 		return
+	var/splatter_color = get_blood_color()
+	if(!splatter_color)
+		return
 	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, splatter_strength)
 
 	our_splatter.blood_dna_info = get_blood_dna_list()
 	our_splatter.transfer_mob_blood_dna(src)
-	our_splatter.basecolor = get_blood_color()
+	our_splatter.basecolor = splatter_color
 	our_splatter.update_appearance(UPDATE_ICON)
 	var/turf/target_turf = get_ranged_target_turf(src, splatter_direction, splatter_strength)
 	our_splatter.fly_towards(target_turf, splatter_strength)
