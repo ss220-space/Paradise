@@ -289,6 +289,7 @@ GLOBAL_LIST_EMPTY(parasites)
 		INSTRUMENTAL = "колодой карт Таро",
 		PREPOSITIONAL = "колоде карт Таро",
 	)
+GLOBAL_LIST_EMPTY(active_guardian_creators)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
@@ -301,11 +302,19 @@ GLOBAL_LIST_EMPTY(parasites)
 	if(used == TRUE)
 		to_chat(user, "[used_message]")
 		return
-	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
+
+	if(user in GLOB.active_guardian_creators)
+		to_chat(user, span_warning("Вы уже активируете один [mob_name]!"))
+		return
+
+	GLOB.active_guardian_creators += user
+
+	used = TRUE
 	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
 	if(choice == "Нет")
 		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
+		GLOB.active_guardian_creators -= user
 		return
 	to_chat(user, "[use_message]")
 
@@ -319,11 +328,13 @@ GLOBAL_LIST_EMPTY(parasites)
 		if(!guardian_type)
 			to_chat(user, span_warning("Вы решили не использовать [name]."))
 			used = FALSE
+			GLOB.active_guardian_creators -= user
 			return
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за [mob_name] ([guardian_type]) у [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 
 	if(QDELETED(user))
+		GLOB.active_guardian_creators -= user
 		return
 
 	var/mob/dead/observer/theghost = null
@@ -336,6 +347,8 @@ GLOBAL_LIST_EMPTY(parasites)
 		to_chat(user, "[failure_message]")
 		log_game("[user](ckey: [user.key]) has failed to spawn Guardian.")
 		used = FALSE
+
+	GLOB.active_guardian_creators -= user
 
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
