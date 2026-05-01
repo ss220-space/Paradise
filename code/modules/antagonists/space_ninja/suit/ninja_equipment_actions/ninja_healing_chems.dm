@@ -37,8 +37,6 @@
 		ninjaheal.action_ready = FALSE
 		ninjaheal.toggle_button_on_off()
 
-
-
 // A reality rift designated to contain our ninja inside it.
 // Created via the "chiyurizine" reagent.
 /obj/effect/temp_visual/ninja_rend
