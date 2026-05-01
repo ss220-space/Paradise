@@ -118,6 +118,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/damage_overlay = mutable_appearance(dna.species.damage_overlays, "00", layer = -H_DAMAGE_LAYER)
 	overlays_standing[H_DAMAGE_LAYER] = damage_overlay
 
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD)) // no blood, no bleeding wounds to render
+		apply_overlay(H_DAMAGE_LAYER)
+		return
+
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.update_state()

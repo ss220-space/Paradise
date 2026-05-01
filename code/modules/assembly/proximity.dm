@@ -13,7 +13,7 @@
 
 /obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
-	proximity_monitor = new(src, _ignore_if_not_on_turf = FALSE)
+	proximity_monitor = new(src, works_when_not_on_turf = TRUE)
 
 /obj/item/assembly/prox_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)

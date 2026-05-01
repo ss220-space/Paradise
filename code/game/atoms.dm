@@ -922,12 +922,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/living_mob)
 	..(living_mob)
-	basecolor = living_mob.get_blood_color()
+	var/splatter_color = living_mob.get_blood_color()
+	if(splatter_color)
+		basecolor = splatter_color
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/living_mob)
 	..(living_mob)
-	basecolor = living_mob.get_blood_color()
+	var/footprints_color = living_mob.get_blood_color()
+	if(footprints_color)
+		basecolor = footprints_color
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -945,6 +949,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!blood_dna)
 		return FALSE
 	var/bloodcolor = living_mob.get_blood_color()
+	if(!bloodcolor)
+		return FALSE
 
 	return add_blood(blood_dna, bloodcolor)
 

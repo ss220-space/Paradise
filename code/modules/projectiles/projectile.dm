@@ -250,10 +250,12 @@
 			var/splatter_dir = Angle
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
-			if(isalien(L) || isfacehugger(L))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir, L.get_blood_color())
-			else
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, L.get_blood_color())
+			var/splatter_color = L.get_blood_color()
+			if(splatter_color)
+				if(isalien(L) || isfacehugger(L))
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir, splatter_color)
+				else
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
 
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
