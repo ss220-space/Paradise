@@ -33,6 +33,8 @@
 		/obj/structure/lattice,
 		/obj/structure/railing,
 		/obj/structure/stone_tile,
+		/obj/god/narsie,
+		/obj/god/ratvar,
 	))
 
 /datum/component/chasm/Initialize(turf/target_turf, mapload)

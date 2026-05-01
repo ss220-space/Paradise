@@ -113,9 +113,9 @@
 		span_italics("You hear the sound of scientific evil brewing!"),
 	)
 	qdel(I)
-	var/obj/singularity/singulo = new(get_turf(user))
-	singulo.energy = 300 //To give it a small boost
-	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
+	var/obj/reality_tear/tear = new(get_turf(user))
+	tear.start_disaster()
+	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(tear)]!")
 	add_game_logs("created singularity using two bag of holding!", user)
 	qdel(src)
 

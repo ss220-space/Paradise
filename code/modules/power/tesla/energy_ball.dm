@@ -1,5 +1,5 @@
-#define TESLA_DEFAULT_ENERGY (695.304 MEGA JOULES * 0.01)
-#define TESLA_MINI_ENERGY (347.652 MEGA JOULES * 0.01) // Has a weird scaling thing so this is a lie for now (doesn't generate power anyways).
+#define TESLA_DEFAULT_ENERGY (1.73826 MEGA JOULES)
+#define TESLA_MINI_ENERGY (869.13 KILO JOULES)
 
 // Zap constants, speeds up targeting
 #define COIL (ROD + 1)
@@ -96,8 +96,8 @@
 		var/list/shocking_info = list()
 		tesla_zap(source = src, zap_range = 3, power = TESLA_DEFAULT_ENERGY, shocked_targets = shocking_info, zap_flags = ZAP_TESLA_FLAGS)
 
-		pixel_x = -32
-		pixel_y = -32
+		pixel_x = -ICON_SIZE_X
+		pixel_y = -ICON_SIZE_Y
 		for(var/ball in orbiting_balls)
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			var/list/temp_shock = list()
@@ -158,7 +158,7 @@
 	if(!loc)
 		return
 
-	var/obj/energy_ball/miniball = new /obj/energy_ball(
+	var/obj/energy_ball/miniball = new(
 		loc,
 		/* starting_energy = */ 0,
 		/* is_miniball = */ TRUE
@@ -171,11 +171,11 @@
 	orbitsize -= (orbitsize / ICON_SIZE_ALL) * (ICON_SIZE_ALL * 0.25)
 	miniball.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 
-/obj/energy_ball/Bump(atom/bumped_atom, effect_applied = TRUE)
+/obj/energy_ball/Bump(atom/bumped_atom)
 	. = ..()
 	dust_mobs(bumped_atom)
 
-/obj/energy_ball/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
+/obj/energy_ball/Bumped(atom/movable/moving_atom)
 	. = ..()
 	dust_mobs(moving_atom)
 
@@ -219,6 +219,17 @@
 	var/mob/living/carbon/carbon = source
 	carbon.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	carbon.dust()
+
+/datum/milla_safe/tesla_electrolyze
+
+/datum/milla_safe/tesla_electrolyze/on_run(atom/target, power)
+	if(!target)
+		return
+	var/turf/current_turf = get_turf(target)
+	if(!current_turf)
+		return
+	var/datum/gas_mixture/env = get_turf_air(current_turf)
+	env.electrolyze(working_power = power / 200)
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 4e5, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
 	if(QDELETED(source))
@@ -370,6 +381,13 @@
 		power /= 1.5
 	else
 		power = closest_atom.zap_act(power, zap_flags)
+
+	// Electrolysis.
+	var/turf/target_turf = get_turf(closest_atom)
+	if(target_turf)
+		var/datum/milla_safe/tesla_electrolyze/milla = new()
+		milla.invoke_async(closest_atom, power)
+		target_turf.recalculate_atmos_connectivity()
 
 	if(prob(20))
 		var/list/shocked_copy = shocked_targets.Copy()

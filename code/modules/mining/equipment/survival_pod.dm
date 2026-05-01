@@ -479,7 +479,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
 	anchored = TRUE
-	layer = MOB_LAYER - 0.2
+	layer = BELOW_MOB_LAYER
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

@@ -732,10 +732,10 @@
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
-	
+
 	if(QDELETED(player))
 		return
-	
+
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -887,11 +887,11 @@
 	. += auto_declare_completion_sintouched()
 	list_clear_nulls(.)
 
-/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
-	if(istype(god, /obj/singularity/god/narsie))
+/datum/game_mode/proc/apocalypse_cinema(obj/god/god, inevitable = FALSE)
+	if(istype(god, /obj/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema
 
-	if(istype(god, /obj/singularity/god/ratvar))
+	if(istype(god, /obj/god/ratvar))
 		return /datum/cinematic/cult_arm_ratvar
 
 	return FALSE
@@ -911,7 +911,7 @@
 	)
 	sleep(30 SECONDS)
 
-	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
+	var/obj/god/god = locate(/obj/god) in GLOB.poi_list
 
 	if(!god)
 		GLOB.minor_announcement.announce(
