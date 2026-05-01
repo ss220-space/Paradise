@@ -69,7 +69,7 @@
 	imp_in.AdjustBlood(-67.2)
 	imp_in.adjust_nutrition(-50)
 
-	return TRUE
+	return ..()
 
 /obj/item/implanter/adrenalin
 	name = "bio-chip implanter (adrenalin)"
@@ -107,6 +107,8 @@
 	imp_in.reagents.add_reagent("adrenaline", 3)
 
 	imp_in.apply_status_effect(/datum/status_effect/adrenaline/prototype)
+
+	. = ..()
 
 	if(!uses)
 		qdel(src)

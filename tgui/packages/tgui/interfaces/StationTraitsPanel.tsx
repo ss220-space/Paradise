@@ -182,7 +182,7 @@ const ViewStationTraitsPage = (props) => {
                   (!stationTrait.can_revert &&
                     'Это событие необратимо и его нельзя отменить.') ||
                   (data.too_late_to_revert &&
-                    "Раунд уже начался, события больше изменить нельзя.")
+                    'Раунд уже начался, события больше изменить нельзя.')
                 }
                 icon="times"
                 onClick={() =>
@@ -197,7 +197,7 @@ const ViewStationTraitsPage = (props) => {
       ))}
     </Stack>
   ) : (
-    <Box>There are no active station traits.</Box>
+    <Box>Активных станционных событий нет.</Box>
   );
 };
 

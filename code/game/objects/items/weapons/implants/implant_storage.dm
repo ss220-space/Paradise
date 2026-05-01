@@ -22,6 +22,7 @@
 	else
 		for(var/mob/to_close in storage.mobs_viewing)
 			storage.close(to_close)
+	return ..()
 
 /obj/item/implant/storage/removed(mob/living/source)
 	. = ..()
