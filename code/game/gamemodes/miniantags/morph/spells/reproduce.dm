@@ -34,22 +34,32 @@
 
 /obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, span_sinister("Вы готовитесь разделиться на две части, что временно лишит вас возможности ползать по вентиляции!"))
-	REMOVE_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// Temporarily disable it
+
+	REMOVE_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Морфа?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
-	
+
 	if(QDELETED(user))
 		return
-	
+
+	if(user.stat == DEAD)
+		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+		return
+
 	if(!length(candidates))
 		to_chat(user, span_warning("Ваше тело отказывается разделяться сейчас. Попробуйте позже."))
 		revert_cast(user)
-		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// re enable the crawling
+		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 		return
+
 	var/mob/C = pick(candidates)
 	user.use_food(hunger_cost)
 	hunger_cost += 30
-	var/datum/spell_handler/morph/handler = custom_handler
-	handler.hunger_cost += 30
+
+	if(custom_handler)
+		var/datum/spell_handler/morph/handler = custom_handler
+		handler.hunger_cost += 30
+
 	update_appearance(UPDATE_NAME)
 
 	playsound(user, SFX_BONEBREAK, 75, TRUE)
@@ -58,6 +68,6 @@
 	player_mind.active = TRUE
 	player_mind.transfer_to(new_morph)
 	new_morph.make_morph_antag()
-	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT) // re enable the crawling
-	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
 
+	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
