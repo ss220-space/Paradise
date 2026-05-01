@@ -123,7 +123,15 @@
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
 	if(boolean)
 		can_reproduce = TRUE
-		AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
+		var/obj/effect/proc_holder/spell/morph_spell/reproduce/R = new /obj/effect/proc_holder/spell/morph_spell/reproduce()
+		R.hunger_cost = 150
+		if(R.custom_handler)
+			var/datum/spell_handler/morph/new_handler = new R.custom_handler.type()
+			new_handler.hunger_cost = 150
+			R.custom_handler = new_handler
+
+		AddSpell(R)
+		R.update_name()
 	else
 		can_reproduce = FALSE
 		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
