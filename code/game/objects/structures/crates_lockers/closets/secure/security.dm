@@ -224,17 +224,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/sfg
 	name = "security SFG-5 SMG gun cabinet"
-	desc = "Защищённый шкаф для хранения пистолетов пулемётов SFG-5. Внутри хранится дизайн диск для печати магазинов."
+	desc = "Защищённый шкаф для хранения пистолетов-пулемётов SFG-5. Внутри хранится дизайн диск для печати магазинов."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/sfg/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф пистолет пулемёта SFG-5",
-		GENITIVE = "шкафа пистолет пулемёта SFG-5",
-		DATIVE = "шкафу пистолет пулемёта SFG-5",
-		ACCUSATIVE = "шкаф пистолет пулемёта SFG-5",
-		INSTRUMENTAL = "шкафом пистолет пулемёта SFG-5",
-		PREPOSITIONAL = "шкафе пистолет пулемёта SFG-5"
+		NOMINATIVE = "шкаф пистолет-пулемёта SFG-5",
+		GENITIVE = "шкафа пистолет-пулемёта SFG-5",
+		DATIVE = "шкафу пистолет-пулемёта SFG-5",
+		ACCUSATIVE = "шкаф пистолет-пулемёта SFG-5",
+		INSTRUMENTAL = "шкафом пистолет-пулемёта SFG-5",
+		PREPOSITIONAL = "шкафе пистолет-пулемёта SFG-5"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sfg/populate_contents()
@@ -245,17 +245,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/saber
 	name = "Nanotrasen Saber SMG gun cabinet"
-	desc = "Защищённый шкаф для хранения пистолетов пулемётов Saber. Внутри хранится дизайн диск для печати магазинов."
+	desc = "Защищённый шкаф для хранения пистолетов-пулемётов Saber. Внутри хранится дизайн диск для печати магазинов."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/saber/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф пистолет пулемёта Saber",
-		GENITIVE = "шкафа пистолет пулемёта Saber",
-		DATIVE = "шкафу пистолет пулемёта Saber",
-		ACCUSATIVE = "шкаф пистолет пулемёта Saber",
-		INSTRUMENTAL = "шкафом пистолет пулемёта Saber",
-		PREPOSITIONAL = "шкафе пистолет пулемёта Saber"
+		NOMINATIVE = "шкаф пистолет-пулемёта Saber",
+		GENITIVE = "шкафа пистолет-пулемёта Saber",
+		DATIVE = "шкафу пистолет-пулемёта Saber",
+		ACCUSATIVE = "шкаф пистолет-пулемёта Saber",
+		INSTRUMENTAL = "шкафом пистолет-пулемёта Saber",
+		PREPOSITIONAL = "шкафе пистолет-пулемёта Saber"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/saber/populate_contents()
