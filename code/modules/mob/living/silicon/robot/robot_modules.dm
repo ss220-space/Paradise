@@ -1049,6 +1049,7 @@
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
 	modules += new /obj/item/soap(src)
+	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/rpd(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
