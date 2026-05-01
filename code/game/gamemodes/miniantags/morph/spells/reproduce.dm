@@ -1,3 +1,5 @@
+#define MORPH_REPRODUCE_COST_INCREASE 30
+
 /obj/effect/proc_holder/spell/morph_spell/reproduce
 	name = "Размножение"
 	desc = "Разделитесь на две части, создав нового морфа. Можно использовать только на полу. Временно лишает вас возможности ползать по вентиляции."
@@ -54,11 +56,11 @@
 		return
 
 	var/mob/C = pick(candidates)
-	hunger_cost += 30
+	hunger_cost += MORPH_REPRODUCE_COST_INCREASE
 
 	if(custom_handler)
 		var/datum/spell_handler/morph/handler = custom_handler
-		handler.hunger_cost += 30
+		handler.hunger_cost += MORPH_REPRODUCE_COST_INCREASE
 
 	update_appearance(UPDATE_NAME)
 
@@ -71,3 +73,5 @@
 
 	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
+
+#undef MORPH_REPRODUCE_COST_INCREASE
