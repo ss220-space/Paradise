@@ -1798,6 +1798,12 @@
 	item = /obj/item/clothing/accessory/holster
 	cost = 2
 
+/datum/uplink_item/device_tools/pouch_fast
+	name = "Подсумок"
+	desc = "Обеспечивает быструю смену магазинов вашего оружия."
+	item = /obj/item/storage/pouch/fast
+	cost = 3
+
 /datum/uplink_item/device_tools/holster/knives
 	name = "Кобура для ножей"
 	desc = "Надежно крепится к комбинезону, позволяя носить с собой до 7 ножей."
