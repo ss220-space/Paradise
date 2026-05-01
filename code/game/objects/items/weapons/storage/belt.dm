@@ -1228,7 +1228,7 @@
 		/obj/item/cultivator/wooden,
 	)
 	cant_hold = list(
-		/obj/item/pickaxe/drill
+		/obj/item/pickaxe/drill,
 	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
