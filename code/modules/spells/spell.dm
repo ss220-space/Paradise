@@ -85,6 +85,18 @@
 	var/smoke_type
 	/// The amount of smoke to create on cast. This is a range, so a value of 5 will create enough smoke to cover everything within 5 steps.
 	var/smoke_amt = 0
+	/// Which targeting system is used. Set this in create_new_targeting
+	var/datum/spell_targeting/targeting
+	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
+	var/static/list/targeting_datums = list()
+	/// Which spell_handler is used in addition to the normal spells behaviour, can be null. Set this in create_new_handler if needed
+	var/datum/spell_handler/custom_handler
+	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
+	var/static/list/spell_handlers = list()
+	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
+	var/datum/spell_cooldown/cooldown_handler
+	var/starts_charged = TRUE
+	var/still_recharging_msg = span_notice_alt("The spell is still recharging.")
 
 /datum/action/cooldown/spell/Grant(mob/grant_to)
 	// If our spell is mind-bound, we only wanna grant it to our mind
@@ -108,6 +120,16 @@
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_MUTE), SIGNAL_REMOVETRAIT(TRAIT_MUTE)), PROC_REF(update_status_on_signal))
 
 	RegisterSignal(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_status_on_signal))
+	if(!targeting_datums[type])
+		targeting_datums[type] = create_new_targeting()
+		if(!targeting_datums[type])
+			stack_trace("Spell of type [type] did not implement create_new_targeting")
+	if(isnull(spell_handlers[type]))
+		spell_handlers[type] = create_new_handler()
+	if(spell_handlers[type] != NONE)
+		custom_handler = spell_handlers[type]
+	cooldown_handler = create_new_cooldown()
+	cooldown_handler.cooldown_init(src)
 	owner.client?.stat_panel.send_message("check_spells")
 
 /datum/action/cooldown/spell/Remove(mob/living/remove_from)
@@ -124,6 +146,8 @@
 		SIGNAL_ADDTRAIT(TRAIT_MUTE),
 		SIGNAL_REMOVETRAIT(TRAIT_MUTE),
 	))
+	QDEL_NULL(cooldown_handler)
+	QDEL_NULL(custom_handler)
 
 	return ..()
 
@@ -149,7 +173,7 @@
 
 /// Checks if the owner of the spell can currently cast it.
 /// Does not check anything involving potential targets.
-/datum/action/cooldown/spell/proc/can_cast_spell(feedback = TRUE)
+/datum/action/cooldown/spell/proc/can_cast_spell(feedback = TRUE, charge_check = TRUE)
 	if(!owner)
 		CRASH("[type] - can_cast_spell called on a spell without an owner!")
 
@@ -180,6 +204,12 @@
 
 	if(!try_invoke(owner, feedback = feedback))
 		return FALSE
+
+	if(charge_check)
+		if(cooldown_handler.is_on_cooldown())
+			if(feedback)
+				to_chat(owner, still_recharging_msg)
+			return FALSE
 
 	if(ishuman(owner))
 		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
@@ -273,6 +303,8 @@
 
 	// Actually cast the spell. Main effects go here
 	cast(cast_on)
+	if(cooldown_time != 0)
+		cooldown_handler.start_recharge()
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its set duration
@@ -447,7 +479,8 @@
 /// and allowing it to be used immediately (+ updating button icon accordingly)
 /datum/action/cooldown/spell/proc/reset_spell_cooldown()
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
-	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
+	cooldown_handler.revert_cast()
+	custom_handler?.revert_cast(owner, src) // Basically, ensures that the ability can be used now
 	build_all_button_icons()
 
 /**
@@ -505,6 +538,34 @@
 			return "Ludicrous "
 
 	return ""
+
+/**
+ * Creates and returns the targeting datum for this spell type. Override this!
+ * Should return a value of type [/datum/spell_targeting]
+ */
+/datum/action/cooldown/spell/proc/create_new_targeting()
+	RETURN_TYPE(/datum/spell_targeting)
+	return
+
+/**
+ * Creates and returns the handler datum for this spell type.
+ * Override this if you want a custom spell handler.
+ * Should return a value of type [/datum/spell_handler] or NONE
+ */
+/datum/action/cooldown/spell/proc/create_new_handler()
+	RETURN_TYPE(/datum/spell_handler)
+	return NONE
+
+/**
+ * Creates and returns the spells cooldown handler, defaults to the standard recharge handler.
+ * Override this if you wish to use a different method of cooldown
+ */
+/datum/action/cooldown/spell/proc/create_new_cooldown()
+	RETURN_TYPE(/datum/spell_cooldown)
+	var/datum/spell_cooldown/s_cooldown = new
+	s_cooldown.recharge_duration = cooldown_time
+	s_cooldown.starts_off_cooldown = starts_charged
+	return s_cooldown
 
 
 // Legacy shit
