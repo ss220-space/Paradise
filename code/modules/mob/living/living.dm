@@ -1781,10 +1781,6 @@
 		return TRUE
 	return FALSE
 
-/mob/living/examine(mob/user, infix, suffix)
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_LIVING_EXAMINE, user, .)
-
 /**
  * Sets the mob's direction lock towards a given atom.
  *
@@ -2257,7 +2253,7 @@
 			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)
 
-/mob/living/proc/get_fracture_spread_bonus()
+/mob/living/proc/get_fracture_spread_bonus(is_left_hand = TRUE)
 	return 0
 
 /// Prints an ominous message if something bad is going to happen to you

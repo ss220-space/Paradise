@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - qol: "Показ количества патронов в А9 Искра и в его магазинах. (PR #8914)"

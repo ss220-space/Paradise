@@ -9,14 +9,16 @@
 /obj/mecha/combat/moved_inside(mob/living/carbon/human/H)
 	if(..())
 		if(H.client)
-			H.client.mouse_pointer_icon = file("icons/obj/mecha/mecha_mouse.dmi")
+			H.client.mouse_override_icon = 'icons/obj/mecha/mecha_mouse.dmi'
+			H.client.mouse_pointer_icon = H.client.mouse_override_icon
 		return TRUE
 	return FALSE
 
 /obj/mecha/combat/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	if(..())
 		if(occupant.client)
-			occupant.client.mouse_pointer_icon = file("icons/obj/mecha/mecha_mouse.dmi")
+			occupant.client.mouse_override_icon = 'icons/obj/mecha/mecha_mouse.dmi'
+			occupant.client.mouse_pointer_icon = occupant.client.mouse_override_icon
 		return TRUE
 	return FALSE
 

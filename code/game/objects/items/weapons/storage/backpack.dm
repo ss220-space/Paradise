@@ -623,11 +623,6 @@
 	for(var/i in 1 to 9)
 		new /obj/item/ammo_box/magazine/m556(src)
 
-/* UZI ammobag
-name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
-TODO Use this name and desc for localisation*/
-
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
 
@@ -711,7 +706,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
-	new /obj/item/gun/projectile/automatic/c20r(src)
+	new /obj/item/gun/projectile/automatic/smg/c20r(src)
 	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle

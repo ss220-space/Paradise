@@ -221,3 +221,8 @@
 /// Emagged mode; turns off scrubbers and pressure checks on vents
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
+
+// Air alarm build stages
+#define AIR_ALARM_BUILD_NO_CIRCUIT 0
+#define AIR_ALARM_BUILD_CIRCUIT 1
+#define AIR_ALARM_WIRED 2

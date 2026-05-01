@@ -566,16 +566,15 @@
 	if(isclocker(target))
 		return
 	if(ishuman(target) && enchant_type == BLOODSHED_SPELL)
-		var/mob/living/carbon/human/human = target
-		var/obj/item/organ/external/bodypart = pick(human.bodyparts)
+		var/mob/living/carbon/human/human_target = target
+		var/obj/item/organ/external/bodypart = pick(human_target.bodyparts)
 		if(bodypart.internal_bleeding())
-			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
-			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			human.setBlood(max(human.blood_volume - 100, 0))
-			var/splatter_dir = get_angle(user, human)
-			blood_color = human.dna.species.blood_color
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
-			human.emote("scream")
+			to_chat(user, span_warning("You tear through [human_target]'s skin releasing the blood from [human_target.p_their()] [bodypart.name]!"))
+			playsound(get_turf(human_target), 'sound/effects/pierce.ogg', 30, TRUE)
+			human_target.setBlood(max(human_target.blood_volume - 100, 0))
+			var/splatter_angle = get_angle(user, human_target)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human_target.drop_location(), splatter_angle, human_target.get_blood_color())
+			human_target.emote("scream")
 			deplete_spell()
 	if(swordsman)
 		user.changeNext_move(CLICK_CD_RAPID)

@@ -57,8 +57,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Терм.)",
 	)
 
-/obj/item/storage/firstaid/fire/New()
-	..()
+/obj/item/storage/firstaid/fire/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("ointment", "firefirstaid")
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -198,8 +199,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Мех.)",
 	)
 
-/obj/item/storage/firstaid/brute/New()
-	..()
+/obj/item/storage/firstaid/brute/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("brute", "brute2")
 
 /obj/item/storage/firstaid/brute/populate_contents()
@@ -679,7 +681,7 @@
 
 /obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!iscarbon(user) || src != user.get_active_hand() || over_object != user)
-		return
+		return ..()
 
 	if(!length(contents))
 		balloon_alert(user, "пусто!")
@@ -687,10 +689,9 @@
 
 	get_use_start_message(user)
 
-	if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
-		return
-
 	for(var/obj/item/reagent_containers/food/pill/pill in src)
+		if(!do_after(user, 2 SECONDS, user, NONE) || src != user.get_active_hand())
+			return
 		pill.attack(user, user)
 
 	get_use_end_message(user)
@@ -725,10 +726,10 @@
 	)
 
 /obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
-	for(var/I in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 
-	for(var/I in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
 /obj/item/storage/pill_bottle/patch_pack/get_use_start_message(mob/user)

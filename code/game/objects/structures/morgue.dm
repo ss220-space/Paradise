@@ -305,7 +305,6 @@
 
 	if(user != dropping)
 		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
-	return TRUE
 
 /obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -724,7 +723,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(user != dropping)
 		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
-	return TRUE
 
 /obj/structure/c_tray/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE

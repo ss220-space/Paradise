@@ -7,6 +7,8 @@
 #define ATTACHMENT_SLOT_UNDER "under"
 /// Sibyl slot identifier
 #define ATTACHMENT_SLOT_SIBYL "sibyl"
+/// Muzzle slot identifier
+#define ATTACHMENT_SLOT_STOCK "stock"
 
 // Keys for attachment X/Y offset values
 #define ATTACHMENT_OFFSET_X "x"
@@ -32,7 +34,11 @@
 #define GUN_MODULE_CLASS_SHOTGUN_UNDER (1<<9)
 #define GUN_MODULE_CLASS_RIFLE_UNDER (1<<10)
 #define GUN_MODULE_CLASS_SNIPER_UNDER (1<<11)
+
 #define GUN_MODULE_CLASS_ENERGY_WEAPON (1 << 12)
+
+// Stock slot types flags
+#define GUN_MODULE_CLASS_SMG_STOCK (1 << 13)
 
 GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
@@ -180,6 +186,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
 /// Uplink rifles accuracy (better than default rifles)
 #define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
+/// Extend spread rifle accuracy
+#define GUN_ACCURACY_RIFLE_EXTEND_SPREAD new /datum/gun_accuracy/rifle/extend_spread()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 

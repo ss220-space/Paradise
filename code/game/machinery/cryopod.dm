@@ -551,7 +551,7 @@
 		return
 	if(occupant)
 		to_chat(user, span_boldnotice("The cryo pod is already occupied!"))
-		return TRUE
+		return
 
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
@@ -559,18 +559,17 @@
 
 	if(L.stat == DEAD)
 		to_chat(user, span_notice("Dead people can not be put into cryo."))
-		return TRUE
+		return
 
 	if(!L.mind)
 		to_chat(user, span_notice("Catatonic people are not allowed into cryo."))
-		return TRUE
+		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
-		return TRUE
+		return
 
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/cryopod, put_in), user, L)
-	return TRUE
 
 /obj/machinery/cryopod/proc/put_in(mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/willing = null //We don't want to allow people to be forced into despawning.
