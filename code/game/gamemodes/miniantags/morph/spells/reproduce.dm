@@ -43,6 +43,7 @@
 		return
 
 	if(user.stat == DEAD)
+		revert_cast(user)
 		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 		return
 
@@ -53,7 +54,6 @@
 		return
 
 	var/mob/C = pick(candidates)
-	user.use_food(hunger_cost)
 	hunger_cost += 30
 
 	if(custom_handler)
