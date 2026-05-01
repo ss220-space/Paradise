@@ -190,6 +190,44 @@
 #define CALCULATE_SOUND_VOLUME(volume, distance, max_distance, falloff_distance, falloff_exponent)\
 	((max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * volume)
 
+///Announcer audio keys
+#define ANNOUNCER_AIMALF "announcer_aimalf"
+#define ANNOUNCER_ALIENS "announcer_aliens"
+#define ANNOUNCER_ANIMES "announcer_animes"
+#define ANNOUNCER_GRANOMALIES "announcer_granomalies"
+#define ANNOUNCER_INTERCEPT "announcer_intercept"
+#define ANNOUNCER_IONSTORM "announcer_ionstorm"
+#define ANNOUNCER_METEORS "announcer_meteors"
+#define ANNOUNCER_OUTBREAK5 "announcer_outbreak5"
+#define ANNOUNCER_OUTBREAK7 "announcer_outbreak7"
+#define ANNOUNCER_POWEROFF "announcer_poweroff"
+#define ANNOUNCER_POWERON "announcer_poweron"
+#define ANNOUNCER_RADIATION "announcer_radiation"
+#define ANNOUNCER_SHUTTLECALLED "announcer_shuttlecalled"
+#define ANNOUNCER_SHUTTLEDOCK "announcer_shuttledock"
+#define ANNOUNCER_SHUTTLERECALLED "announcer_shuttlerecalled"
+#define ANNOUNCER_SPANOMALIES "announcer_spanomalies"
+
+/// Global list of all of our announcer keys.
+GLOBAL_LIST_INIT(announcer_keys, list(
+	ANNOUNCER_AIMALF,
+	ANNOUNCER_ALIENS,
+	ANNOUNCER_ANIMES,
+	ANNOUNCER_GRANOMALIES,
+	ANNOUNCER_INTERCEPT,
+	ANNOUNCER_IONSTORM,
+	ANNOUNCER_METEORS,
+	ANNOUNCER_OUTBREAK5,
+	ANNOUNCER_OUTBREAK7,
+	ANNOUNCER_POWEROFF,
+	ANNOUNCER_POWERON,
+	ANNOUNCER_RADIATION,
+	ANNOUNCER_SHUTTLECALLED,
+	ANNOUNCER_SHUTTLEDOCK,
+	ANNOUNCER_SHUTTLERECALLED,
+	ANNOUNCER_SPANOMALIES,
+))
+
 /**
  * Assoc list of datum by key.
  * Initialized in SSsounds init.
@@ -342,43 +380,4 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_BUTTON_DENIED "button_denied"
 #define SFX_TRAY_PICKUP "tray_pickup"
 #define SFX_TRAY_DROP "tray_drop"
-
-///Announcer audio keys
-#define ANNOUNCER_AIMALF "announcer_aimalf"
-#define ANNOUNCER_ALIENS "announcer_aliens"
-#define ANNOUNCER_ANIMES "announcer_animes"
-#define ANNOUNCER_GRANOMALIES "announcer_granomalies"
-#define ANNOUNCER_INTERCEPT "announcer_intercept"
-#define ANNOUNCER_IONSTORM "announcer_ionstorm"
-#define ANNOUNCER_METEORS "announcer_meteors"
-#define ANNOUNCER_OUTBREAK5 "announcer_outbreak5"
-#define ANNOUNCER_OUTBREAK7 "announcer_outbreak7"
-#define ANNOUNCER_POWEROFF "announcer_poweroff"
-#define ANNOUNCER_POWERON "announcer_poweron"
-#define ANNOUNCER_RADIATION "announcer_radiation"
-#define ANNOUNCER_SHUTTLECALLED "announcer_shuttlecalled"
-#define ANNOUNCER_SHUTTLEDOCK "announcer_shuttledock"
-#define ANNOUNCER_SHUTTLERECALLED "announcer_shuttlerecalled"
-#define ANNOUNCER_SPANOMALIES "announcer_spanomalies"
-
-/// Global list of all of our announcer keys.
-GLOBAL_LIST_INIT(announcer_keys, list(
-	ANNOUNCER_AIMALF,
-	ANNOUNCER_ALIENS,
-	ANNOUNCER_ANIMES,
-	ANNOUNCER_GRANOMALIES,
-	ANNOUNCER_INTERCEPT,
-	ANNOUNCER_IONSTORM,
-	ANNOUNCER_METEORS,
-	ANNOUNCER_OUTBREAK5,
-	ANNOUNCER_OUTBREAK7,
-	ANNOUNCER_POWEROFF,
-	ANNOUNCER_POWERON,
-	ANNOUNCER_RADIATION,
-	ANNOUNCER_SHUTTLECALLED,
-	ANNOUNCER_SHUTTLEDOCK,
-	ANNOUNCER_SHUTTLERECALLED,
-	ANNOUNCER_SPANOMALIES,
-))
-
 #define SFX_MENDER "mender"

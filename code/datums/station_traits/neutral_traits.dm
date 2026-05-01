@@ -125,8 +125,8 @@
 		birthday_person = birthday_override_mob
 		birthday_person_name = birthday_person.real_name
 		return TRUE
-	else
-		return FALSE
+
+	return FALSE
 
 /datum/station_trait/birthday/proc/announce_birthday()
 	GLOB.minor_announcement.announce(

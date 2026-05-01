@@ -1,3 +1,16 @@
+// MARK: Supply Groups
+#define SUPPLY_EMERGENCY "emergency"
+#define SUPPLY_SECURITY "security"
+#define SUPPLY_ENGINEER "engineer"
+#define SUPPLY_MEDICAL "medical"
+#define SUPPLY_SCIENCE "science"
+#define SUPPLY_ORGANIC "organic"
+#define SUPPLY_MATERIALS "materials"
+#define SUPPLY_MISC "misc"
+#define SUPPLY_VEND "vend"
+// Shit from a moron, delete and redo the Cut()
+#define SUPPLY_CONTRABAND "contraband"
+
 #define STYLE_STANDARD 1
 #define STYLE_BLUESPACE 2
 #define STYLE_CENTCOM 3
@@ -35,9 +48,6 @@
 #define MECHA_OPTION "Mecha"
 
 #define SUPPLYPOD_X_OFFSET -16
-
-// Shit from a moron, delete and redo the Cut()
-#define SUPPLY_CONTRABAND 10
 
 #define MANIFEST_ERROR_NAME 1
 #define MANIFEST_ERROR_COUNT 2

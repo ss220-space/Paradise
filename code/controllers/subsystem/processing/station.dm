@@ -17,7 +17,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/list/antag_restricted_roles = list()
 
 /datum/controller/subsystem/processing/station/Initialize()
+	#ifndef GAME_TESTS
 	SetupTraits()
+	#endif
 	announcer = new announcer() //Initialize the station's announcer datum
 	SSparallax.post_station_setup() //Apply station effects that parallax might have
 	return SS_INIT_SUCCESS
@@ -32,6 +34,8 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 ///Rolls for the amount of traits and adds them to the traits list
 /datum/controller/subsystem/processing/station/proc/SetupTraits()
+	if(CONFIG_GET(flag/forbid_station_traits))
+		return
 
 	if(fexists(FUTURE_STATION_TRAITS_FILE))
 		var/forced_traits_contents = file2text(FUTURE_STATION_TRAITS_FILE)
@@ -74,7 +78,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/neutral_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/neutral_station_traits)))
 	var/negative_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/negative_station_traits)))
 
-#ifdef MAP_TEST
+#ifdef MAP_TESTS
 	positive_trait_budget = 0
 	neutral_trait_budget = 0
 	negative_trait_budget = 0
@@ -89,7 +93,6 @@ PROCESSING_SUBSYSTEM_DEF(station)
  * then removes them from possible traits as to not roll twice and subtracts their cost from the budget.
  * All until the whole budget is spent or no more traits can be picked with it.
  */
-
 /datum/controller/subsystem/processing/station/proc/pick_traits(trait_sign, budget)
 	if(!budget)
 		return

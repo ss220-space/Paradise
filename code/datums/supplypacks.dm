@@ -5,17 +5,6 @@
 //BIG NOTE: Don't add living things to crates, that's bad, it will break the shuttle.
 //NEW NOTE: Do NOT set the price of any crates below 7 points. Doing so allows infinite points.
 
-// MARK: Supply Groups
-#define SUPPLY_EMERGENCY 1
-#define SUPPLY_SECURITY 2
-#define SUPPLY_ENGINEER 3
-#define SUPPLY_MEDICAL 4
-#define SUPPLY_SCIENCE 5
-#define SUPPLY_ORGANIC 6
-#define SUPPLY_MATERIALS 7
-#define SUPPLY_MISC 8
-#define SUPPLY_VEND 9
-
 GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND, SUPPLY_CONTRABAND))
 
 /proc/get_supply_group_name(cat)
@@ -6734,13 +6723,3 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с пистолетом пулеметом \"Узи\"",
 		PREPOSITIONAL = "ящике с пистолетом пулеметом \"Узи\"",
 	)
-
-#undef SUPPLY_EMERGENCY
-#undef SUPPLY_SECURITY
-#undef SUPPLY_ENGINEER
-#undef SUPPLY_MEDICAL
-#undef SUPPLY_SCIENCE
-#undef SUPPLY_ORGANIC
-#undef SUPPLY_MATERIALS
-#undef SUPPLY_MISC
-#undef SUPPLY_VEND
