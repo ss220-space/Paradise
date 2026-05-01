@@ -303,18 +303,20 @@ GLOBAL_LIST_EMPTY(active_guardian_creators)
 		to_chat(user, "[used_message]")
 		return
 
-	if(user in GLOB.active_guardian_creators)
+	var/user_ckey = user.ckey
+	if(!user_ckey || (user_ckey in GLOB.active_guardian_creators))
 		to_chat(user, span_warning("Вы уже активируете один [mob_name]!"))
 		return
 
-	GLOB.active_guardian_creators += user
+	GLOB.active_guardian_creators += user_ckey
 
 	used = TRUE
 	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
-	if(choice == "Нет")
-		to_chat(user, span_warning("Вы решили не использовать [name]."))
+	if(choice != "Да" || QDELETED(user))
+		if(!QDELETED(user))
+			to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
-		GLOB.active_guardian_creators -= user
+		GLOB.active_guardian_creators -= user_ckey
 		return
 	to_chat(user, "[use_message]")
 
