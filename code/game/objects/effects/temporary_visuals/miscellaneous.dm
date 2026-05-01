@@ -455,7 +455,7 @@
 	pixel_y = -8
 	duration = 2 SECONDS
 	var/scan_type = "alpha"
-	var/obj/effect/temp_visual/holo_scan/beta
+	var/obj/effect/temp_visual/holo_scan/beta/beta
 
 /obj/effect/temp_visual/holo_scan/Initialize(mapload, scan_color = "red")
 	. = ..()
