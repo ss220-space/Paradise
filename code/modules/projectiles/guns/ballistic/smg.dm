@@ -1,4 +1,5 @@
 /obj/item/gun/projectile/automatic/smg
+	gender = MALE
 	icon = 'icons/obj/weapons/smg.dmi'
 	icon_state = "saber"
 	base_pixel_x = -8
@@ -36,11 +37,12 @@
 	else
 		. += mutable_appearance(icon, "[base_icon_id]_mag", layer = FLOAT_LAYER - 1)
 
-
 // MARK: Saber SMG
 /obj/item/gun/projectile/automatic/smg/saber
 	name = "Nanotrasen Saber SMG"
-	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
+	desc = "Компактный пистолет-пулемёт калибра 9x19 мм, выпускаемый по лицензии \"Aegis Ordinance\". \
+			Поддерживает одиночный режим огня и очередь. Встроенный коллиматорный прицел, низкая отдача, средняя точность. \
+			Закупается \"Нанотрейзен\" для снаряжения охранных структур корпорации."
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
@@ -54,6 +56,16 @@
 	)
 	starting_attachment_types = list(/obj/item/gun_module/rail/scope/collimator)
 	chambered_light_exists = TRUE
+
+/obj/item/gun/projectile/automatic/smg/saber/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемёт SABR-9 9x19 мм",
+		GENITIVE = "пистолета-пулемёта SABR-9 9x19 мм",
+		DATIVE = "пистолету-пулемёту SABR-9 9x19 мм",
+		ACCUSATIVE = "пистолет-пулемёт SABR-9 9x19 мм",
+		INSTRUMENTAL = "пистолетом-пулемётом SABR-9 9x19 мм",
+		PREPOSITIONAL = "пистолете-пулемёте SABR-9 9x19 мм",
+	)
 
 /obj/item/gun/projectile/automatic/smg/saber/rubber
 
@@ -168,12 +180,12 @@
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
-		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
-		DATIVE = "пистолет-пулемёту C-20r (ржавый)",
-		ACCUSATIVE = "пистолет-пулемёт C-20r (ржавый)",
-		INSTRUMENTAL = "пистолет-пулемётом C-20r (ржавый)",
-		PREPOSITIONAL = "пистолет-пулемёте C-20r (ржавый)",
+		NOMINATIVE = "пистолет-пулемёт DCA-SMG45 (ржавый)",
+		GENITIVE = "пистолет-пулемёта DCA-SMG45 (ржавый)",
+		DATIVE = "пистолет-пулемёту DCA-SMG45 (ржавый)",
+		ACCUSATIVE = "пистолет-пулемёт DCA-SMG45 (ржавый)",
+		INSTRUMENTAL = "пистолет-пулемётом DCA-SMG45 (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемёте DCA-SMG45 (ржавый)",
 	)
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted/ComponentInitialize()
