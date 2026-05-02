@@ -4,14 +4,17 @@
 /datum/item_skin_data/armor/black
 	name = "Черный"
 	icon_state = "armor"
+	item_state = "armor"
 	donation_tier = 3
 
 /datum/item_skin_data/armor/green
 	name = "Зелёный"
 	icon_state = "armor_green"
+	item_state = "armor_green"
 	donation_tier = 3
 
 /datum/item_skin_data/armor/sand
 	name = "Песочный"
 	icon_state = "armor_sand"
+	item_state = "armor_sand"
 	donation_tier = 4
