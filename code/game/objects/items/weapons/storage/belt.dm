@@ -496,6 +496,16 @@
 	/// Fast reload duration
 	var/fast_reload_delay = 1 SECONDS
 
+/obj/item/storage/belt/security/webbing/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузка СБ",
+		GENITIVE = "разгрузки СБ",
+		DATIVE = "разгрузке СБ",
+		ACCUSATIVE = "разгрузку СБ",
+		INSTRUMENTAL = "разгрузкой СБ",
+		PREPOSITIONAL = "разгрузке СБ",
+	)
+
 /obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, params)
 	if(istype(attack_item, /obj/item/gun/projectile/automatic))
 		add_fingerprint(user)
@@ -550,6 +560,16 @@
 		/obj/item/gun/projectile/automatic/pistol
 	)
 
+/obj/item/storage/belt/security/webbing/srt/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузка ОБР",
+		GENITIVE = "разгрузки ОБР",
+		DATIVE = "разгрузке ОБР",
+		ACCUSATIVE = "разгрузку ОБР",
+		INSTRUMENTAL = "разгрузкой ОБР",
+		PREPOSITIONAL = "разгрузке ОБР",
+	)
+
 /obj/item/storage/belt/security/webbing/srt/full/populate_contents()
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -558,7 +578,6 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
-
 
 /obj/item/storage/belt/security/webbing/pouch
 	name = "pouch"
@@ -572,6 +591,16 @@
 	can_hold = list(/obj/item/ammo_box/magazine)
 	custom_price = PAYCHECK_MAX
 
+/obj/item/storage/belt/security/webbing/pouch/get_ru_names()
+	return list(
+		NOMINATIVE = "подсумок",
+		GENITIVE = "подсумка",
+		DATIVE = "подсумку",
+		ACCUSATIVE = "подсумок",
+		INSTRUMENTAL = "подсумком",
+		PREPOSITIONAL = "подсумке",
+	)
+
 /obj/item/storage/belt/security/webbing/pouch/fast
 	name = "fast pouch"
 	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
@@ -579,6 +608,17 @@
 	item_state = "pouch_fast"
 	custom_price = 4 * PAYCHECK_MAX
 	fast_reload_delay = 0.2 SECONDS
+
+/obj/item/storage/belt/security/webbing/pouch/fast/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый подсумок",
+		GENITIVE = "продвинутого подсумка",
+		DATIVE = "продвинутому подсумку",
+		ACCUSATIVE = "продвинутый подсумок",
+		INSTRUMENTAL = "продвинутым подсумком",
+		PREPOSITIONAL = "продвинутом подсумке",
+	)
+
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
