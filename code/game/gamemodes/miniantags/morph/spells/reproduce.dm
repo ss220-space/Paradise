@@ -61,10 +61,6 @@
 	user.use_food(hunger_cost)
 	hunger_cost += MORPH_REPRODUCE_COST_INCREASE
 
-	if(custom_handler)
-		var/datum/spell_handler/morph/handler = custom_handler
-		handler.hunger_cost += MORPH_REPRODUCE_COST_INCREASE
-
 	update_appearance(UPDATE_NAME)
 
 	playsound(user, SFX_BONEBREAK, 75, TRUE)
