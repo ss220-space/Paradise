@@ -743,7 +743,7 @@
 		if(had_fracture && part.has_fracture())
 			if(part.mend_fracture())
 				healed_any = TRUE
-				playsound(get_turf(H), SFX_BONEBREAK, 50, TRUE)
+				playsound(get_turf(human_owner), SFX_BONEBREAK, 50, TRUE)
 
 		var/healed_bleed = FALSE
 		if(had_int_bleed && part.has_internal_bleeding())
@@ -754,9 +754,9 @@
 				healed_bleed = TRUE
 		if(healed_bleed)
 			healed_any = TRUE
-			playsound(get_turf(H), "sound/surgery/hemostat1.ogg", 50, TRUE)
+			playsound(get_turf(human_owner), "sound/surgery/hemostat1.ogg", 50, TRUE)
 		if(healed_any)
-			H.adjust_nutrition(-nutrient_cost)
+			human_owner.adjust_nutrition(-nutrient_cost)
 	processing = FALSE
 
 //BOX O' IMPLANTS
