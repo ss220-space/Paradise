@@ -121,15 +121,14 @@
  * * boolean - TRUE = enabled, FALSE = disabled
  */
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
-if(boolean)
-can_reproduce = TRUE
-var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell = new
-
-	AddSpell(reproduce_spell)
-	reproduce_spell.update_appearance(UPDATE_NAME)
-else
-	can_reproduce = FALSE
-	RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
+	if(boolean)
+		can_reproduce = TRUE
+		var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell = new
+		AddSpell(reproduce_spell)
+		reproduce_spell.update_appearance(UPDATE_NAME)
+	else
+		can_reproduce = FALSE
+		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/get_status_tab_items()
 	var/list/status_tab_data = ..()
