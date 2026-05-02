@@ -33,8 +33,8 @@
 	else if(auto_dust)
 		auto_dust = FALSE
 		user.show_message("Вы выключили программу [span_warning("\"Автосжигания\"")]")
-	for(var/datum/action/item_action/advanced/ninja/ninja_autodust/ninja_action in actions)
-		ninja_action.use_action()
+	var/datum/action/item_action/advanced/ninja/ninja_autodust/ninja_autodust = locate() in affecting.actions
+	ninja_autodust.use_action()
 	s_busy = FALSE
 /**
  * Proc called to dust the ninja!

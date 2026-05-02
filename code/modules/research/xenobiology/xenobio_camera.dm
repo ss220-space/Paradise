@@ -141,8 +141,7 @@
 		actions += hotkey_help
 
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, PROC_REF(XenoSlimeClickCtrl))
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, PROC_REF(XenoSlimeClickAlt))
-	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(XenoBypassAltClick))
+	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(XenoAltClickOn))
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, PROC_REF(XenoSlimeClickShift))
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, PROC_REF(XenoTurfClickShift))
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, PROC_REF(XenoTurfClickCtrl))
@@ -153,7 +152,6 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/remove_eye_control(mob/living/user)
 	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL)
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT)
 	UnregisterSignal(user, COMSIG_MOB_ALTCLICKON)
 	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT)
 	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT)
@@ -404,11 +402,6 @@
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_CTRL, src)
 	..()
 
-//Feeds a potion to slime
-/mob/living/simple_animal/slime/click_alt(mob/user)
-	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, src)
-	return CLICK_ACTION_SUCCESS
-
 //Picks up slime
 /mob/living/simple_animal/slime/ShiftClick(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_SHIFT, src)
@@ -443,30 +436,32 @@
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		slime_scan(S, C)
 
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoBypassAltClick(mob/living/user, atom/target)
+/// Feeds a potion to slime
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoAltClickOn(mob/living/user, atom/target)
 	SIGNAL_HANDLER
 
 	if(!isslime(target))
 		return
-	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, target)
-	return COMSIG_MOB_CANCEL_CLICKON
 
-//Feeds a potion to slime
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickAlt(mob/living/user, mob/living/simple_animal/slime/S)
-	SIGNAL_HANDLER
-
-	if(!GLOB.cameranet.checkTurfVis(S.loc))
+	var/mob/living/simple_animal/slime/slime = target
+	var/turf/slime_turf = get_turf(slime)
+	if(!slime_turf || !GLOB.cameranet.checkTurfVis(slime_turf))
 		to_chat(user, span_warning("Цель не рядом с камерой. Действие невозможно."))
-		return
-	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
-	var/area/mobarea = get_area(S.loc)
-	if(!X.current_potion)
-		to_chat(C, span_warning("Зелье не загружено."))
-		return
-	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		INVOKE_ASYNC(X.current_potion, TYPE_PROC_REF(/obj/item, attack), S, C)
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	var/mob/camera/aiEye/remote/xenobio/eye = user.remote_control
+	if(!istype(eye) || eye.origin != src)
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	if(!current_potion)
+		to_chat(user, span_warning("Зелье не загружено."))
+		return COMSIG_MOB_CANCEL_CLICKON
+
+	var/area/mob_area = get_area(slime_turf)
+	if(mob_area && (mob_area.name == eye.allowed_area || mob_area.xenobiology_compatible))
+		current_potion.attack(slime, user)
+
+	return COMSIG_MOB_CANCEL_CLICKON
 
 //Picks up slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/S)

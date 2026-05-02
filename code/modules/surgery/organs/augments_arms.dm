@@ -101,6 +101,10 @@
 	var/obj/current_hand = host.hand ? host.get_organ(BODY_ZONE_L_ARM) : host.get_organ(BODY_ZONE_R_ARM)
 	if(hand != current_hand)
 		return //wrong hand
+	// We should not react to the item when it's not in our hand,
+	// it makes no sense and other items with something like TRAIT_NODROP might fuck us very badly
+	if(!active_item || active_item != host.get_active_hand())
+		return
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
 

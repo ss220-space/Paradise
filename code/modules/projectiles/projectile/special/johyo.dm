@@ -4,6 +4,7 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	damage = 5
 	armour_penetration = 100
+	ricochet_chance = 0
 	hitsound = 'sound/weapons/whip.ogg'
 	knockdown = 2 SECONDS
 
