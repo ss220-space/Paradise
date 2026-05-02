@@ -77,12 +77,14 @@
 	storage_slots = 60
 	item_flags = NO_MAT_REDEMPTION
 
-/obj/item/storage/bag/trash/afterattack(atom/target, mob/user, proximity)
+/obj/item/storage/bag/trash/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	. = ..()
-	if(!proximity || !isturf(target) || !pickup_all_on_tile)
-		return
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	trashbag_interact(interacting_with, user)
 
-	var/turf/target_turf = target
+/obj/item/storage/bag/trash/proc/trashbag_interact(atom/target, mob/user)
+	var/turf/target_turf = get_turf(target)
 	var/success = FALSE
 	var/failure = FALSE
 	for(var/obj/item/item in target_turf)
