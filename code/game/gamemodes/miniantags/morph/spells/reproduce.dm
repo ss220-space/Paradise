@@ -24,7 +24,7 @@
 /obj/effect/proc_holder/spell/morph_spell/reproduce/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
 	if(!.)
-		return
+		return FALSE
 	if(!user.can_reproduce)
 		if(show_message)
 			user.balloon_alert(user, "невозможно размножаться")
@@ -33,6 +33,7 @@
 		if(show_message)
 			to_chat(user, span_warning("нужна поверхность!"))
 		return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, span_sinister("Вы готовитесь разделиться на две части, что временно лишит вас возможности ползать по вентиляции!"))
@@ -55,7 +56,9 @@
 		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 		return
 
-	var/mob/C = pick(candidates)
+	var/mob/picked_candidate = pick(candidates)
+
+	user.use_food(hunger_cost)
 	hunger_cost += MORPH_REPRODUCE_COST_INCREASE
 
 	if(custom_handler)
@@ -66,12 +69,10 @@
 
 	playsound(user, SFX_BONEBREAK, 75, TRUE)
 	var/mob/living/simple_animal/hostile/morph/new_morph = new /mob/living/simple_animal/hostile/morph(get_turf(user))
-	var/datum/mind/player_mind = new /datum/mind(C.key)
+	var/datum/mind/player_mind = new /datum/mind(picked_candidate.key)
 	player_mind.active = TRUE
 	player_mind.transfer_to(new_morph)
 	new_morph.make_morph_antag()
 
 	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
-
-#undef MORPH_REPRODUCE_COST_INCREASE
