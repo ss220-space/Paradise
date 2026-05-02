@@ -1187,42 +1187,6 @@
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
 
-/obj/item/storage/pouch
-	name = "pouch"
-	desc = "Подсумок на два магазина."
-	icon_state = "pouch"
-	item_state = "pouch"
-	storage_slots = 2
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_BELT
-	can_hold = list(/obj/item/ammo_box/magazine)
-
-/obj/item/storage/pouch/fast
-	name = "fast pouch"
-	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
-	icon_state = "pouch_fast"
-	item_state = "pouch_fast"
-
-/obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun/projectile/automatic))
-		add_fingerprint(user)
-		var/obj/item/gun/projectile/automatic/gun = I
-		for(var/obj/item/ammo_box/magazine/magazine in contents)
-			if(!istype(magazine, gun.mag_type))
-				continue
-			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
-			gun.attackby(magazine, user, params)
-			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
-			var/success = mag_changed || (!gun_magazine && gun.magazine)
-			if(mag_changed && can_be_inserted(gun_magazine))
-				handle_item_insertion(gun_magazine)
-				gun_magazine.update_appearance()
-			if(success)
-				break
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
 /obj/item/storage/box/sec
 	name = "officer starter kit"
 	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."

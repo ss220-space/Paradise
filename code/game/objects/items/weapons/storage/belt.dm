@@ -475,11 +475,80 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
-	custom_price = PAYCHECK_MAX // 1 extra slot, so lil bit more expensive
+	custom_price = 2 * PAYCHECK_MAX
+	can_hold = list( // can not hold batons, knifes and ammo_boxes
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_box/magazine,
+		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
+		/obj/item/melee/baton/telescopic,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/eftpos/sec,
+		/obj/item/weapon_cell,
+		/obj/item/radio,
+	)
+	/// Fast reload duration
+	var/fast_reload_delay = 1 SECONDS
+
+/obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, params)
+	if(istype(attack_item, /obj/item/gun/projectile/automatic))
+		add_fingerprint(user)
+		var/obj/item/gun/projectile/automatic/gun = attack_item
+		for(var/obj/item/ammo_box/magazine/magazine in contents)
+			if(!istype(magazine, gun.mag_type))
+				continue
+			INVOKE_ASYNC(src, PROC_REF(do_fast_reload), user, gun, magazine, params)
+			break
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/storage/belt/security/webbing/proc/do_fast_reload(mob/user, obj/item/gun/projectile/automatic/gun, obj/item/ammo_box/magazine/magazine, params)
+	if(!do_after(user, fast_reload_delay, src, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
+		return
+	var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
+	gun.attackby(magazine, user, params)
+	var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
+	if(!mag_changed || !can_be_inserted(gun_magazine))
+		return
+	handle_item_insertion(gun_magazine)
+	gun_magazine.update_appearance()
+
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
 	desc = "Unique and versatile chest rig, can hold SRT gear."
+	can_hold = list(
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_box,
+		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton/security,
+		/obj/item/melee/baton,
+		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
+		/obj/item/melee/baton/telescopic,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/forensics/sample_kit/powder,
+		/obj/item/forensics/sample_kit,
+		/obj/item/eftpos/sec,
+		/obj/item/weapon_cell,
+		/obj/item/radio,
+		/obj/item/gun/projectile/automatic/pistol
+	)
 
 /obj/item/storage/belt/security/webbing/srt/full/populate_contents()
 	new /obj/item/flashlight/seclite(src)
@@ -489,6 +558,27 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
+
+
+/obj/item/storage/belt/security/webbing/pouch
+	name = "pouch"
+	desc = "Подсумок на два магазина."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch"
+	item_state = "pouch"
+	storage_slots = 2
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
+	can_hold = list(/obj/item/ammo_box/magazine)
+	custom_price = PAYCHECK_MAX
+
+/obj/item/storage/belt/security/webbing/pouch/fast
+	name = "fast pouch"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	icon_state = "pouch_fast"
+	item_state = "pouch_fast"
+	custom_price = 4 * PAYCHECK_MAX
+	fast_reload_delay = 0.2 SECONDS
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -694,9 +784,9 @@
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
 /obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
-	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
 	new /obj/item/melee/baton/telescopic(src)
 
 /obj/item/storage/belt/military/assault/rsh_12/full/populate_contents()
