@@ -173,12 +173,20 @@ effective or pretty fucking useless.
 	attack_self(usr)
 	add_fingerprint(usr)
 
+/// Checks if a given atom is in range of a radio jammer, returns TRUE if it is.
+/proc/is_within_radio_jammer_range(atom/source)
+	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
+		if(IN_GIVEN_RANGE(source, jammer, jammer.range))
+			return TRUE
+	return FALSE
+
 /obj/item/jammer
 	name = "radio jammer"
 	desc = "Device used to disrupt nearby radio communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
+	/// The range of devices to disable while active
 	var/range = 12
 
 /obj/item/jammer/Destroy()
