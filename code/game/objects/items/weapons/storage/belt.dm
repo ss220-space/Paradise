@@ -506,6 +506,16 @@
 		PREPOSITIONAL = "разгрузке СБ",
 	)
 
+/obj/item/storage/belt/security/webbing/ComponentInitialize()
+	. = ..()
+	var/static/list/hovering_item_typechecks = list(
+		/obj/item/gun/projectile/automatic = list(
+			SCREENTIP_CONTEXT_LMB = "Быстрая перезарядка",
+		),
+	)
+	AddElement(/datum/element/contextual_screentip_item_typechecks, hovering_item_typechecks)
+	AddElement(/datum/element/contextual_screentip_bare_hands, ctrl_lmb_text = "Достать магазин")
+
 /obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, params)
 	if(istype(attack_item, /obj/item/gun/projectile/automatic))
 		add_fingerprint(user)
@@ -515,6 +525,13 @@
 				continue
 			INVOKE_ASYNC(src, PROC_REF(do_fast_reload), user, gun, magazine, params)
 			break
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
+	for(var/obj/item/ammo_box/magazine/magazine in contents)
+		user.put_in_active_hand(magazine)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -562,12 +579,12 @@
 
 /obj/item/storage/belt/security/webbing/srt/get_ru_names()
 	return list(
-		NOMINATIVE = "разгрузка ОБР",
-		GENITIVE = "разгрузки ОБР",
-		DATIVE = "разгрузке ОБР",
-		ACCUSATIVE = "разгрузку ОБР",
-		INSTRUMENTAL = "разгрузкой ОБР",
-		PREPOSITIONAL = "разгрузке ОБР",
+		NOMINATIVE = "разгрузка ГСН",
+		GENITIVE = "разгрузки ГСН",
+		DATIVE = "разгрузке ГСН",
+		ACCUSATIVE = "разгрузку ГСН",
+		INSTRUMENTAL = "разгрузкой ГСН",
+		PREPOSITIONAL = "разгрузке ГСН",
 	)
 
 /obj/item/storage/belt/security/webbing/srt/full/populate_contents()
