@@ -76,3 +76,5 @@
 
 	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
+
+#undef MORPH_REPRODUCE_COST_INCREASE
