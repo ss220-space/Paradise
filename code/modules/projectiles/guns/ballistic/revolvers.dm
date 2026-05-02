@@ -1,6 +1,6 @@
-// MARK: MS-R38 Simplex
+// MARK: R38 Simplex
 /obj/item/gun/projectile/revolver/detective
-	name = "MS-R38 \"Simplex\" revolver"
+	name = "R38 \"Simplex\" revolver"
 	desc = "Бюджетный револьвер производства \"Mars Special\" калибра .38. Простая конструкция из композитных материалов, шестизарядный барабан, \
 			отсутствие направляющих для тактических модулей. Популярен на гражданском рынке за счёт своей доступности."
 	icon_state = "detective"
@@ -16,12 +16,12 @@
 
 /obj/item/gun/projectile/revolver/detective/get_ru_names()
 	return list(
-		NOMINATIVE = "револьвер MS-R38 \"Симплекс\" .38",
-		GENITIVE = "револьвера MS-R38 \"Симплекс\" .38",
-		DATIVE = "револьверу MS-R38 \"Симплекс\" .38",
-		ACCUSATIVE = "револьвер MS-R38 \"Симплекс\" .38",
-		INSTRUMENTAL = "револьвером MS-R38 \"Симплекс\" .38",
-		PREPOSITIONAL = "револьвере MS-R38 \"Симплекс\" .38",
+		NOMINATIVE = "револьвер R38 \"Симплекс\" .38",
+		GENITIVE = "револьвера R38 \"Симплекс\" .38",
+		DATIVE = "револьверу R38 \"Симплекс\" .38",
+		ACCUSATIVE = "револьвер R38 \"Симплекс\" .38",
+		INSTRUMENTAL = "револьвером R38 \"Симплекс\" .38",
+		PREPOSITIONAL = "револьвере R38 \"Симплекс\" .38",
 	)
 
 /obj/item/gun/projectile/revolver/detective/add_deep_lore()
@@ -35,9 +35,9 @@
 		Данный револьвер можно нередко встретить в руках охранного персонала, частных детективов и гражданских лиц."\
 	)
 
-// MARK: MS-R45 Taurus
+// MARK: R45 Taurus
 /obj/item/gun/projectile/revolver/taurus
-	name = "MS-R45 \"Taurus\" revolver"
+	name = "R45 \"Taurus\" revolver"
 	desc = "Тяжёлый шестизарядный револьвер калибра .45 Colt производства \"Mars Special\". Отличается высокой убойной силой, \
 			модульностью и надёжностью. Закупается \"Нанотрейзен\" для снабжения сотрудников корпоративной службы безопасности."
 	icon_state = "taurus"
@@ -59,12 +59,12 @@
 
 /obj/item/gun/projectile/revolver/taurus/get_ru_names()
 	return list(
-		NOMINATIVE = "револьвер MS-R45 \"Таурус\" .45 Colt",
-		GENITIVE = "револьвера MS-R45 \"Таурус\" .45 Colt",
-		DATIVE = "револьверу MS-R45 \"Таурус\" .45 Colt",
-		ACCUSATIVE = "револьверу MS-R45 \"Таурус\" .45 Colt",
-		INSTRUMENTAL = "револьвером MS-R45 \"Таурус\" .45 Colt",
-		PREPOSITIONAL = "револьвере MS-R45 \"Таурус\" .45 Colt",
+		NOMINATIVE = "револьвер R45 \"Таурус\" .45 Colt",
+		GENITIVE = "револьвера R45 \"Таурус\" .45 Colt",
+		DATIVE = "револьверу R45 \"Таурус\" .45 Colt",
+		ACCUSATIVE = "револьверу R45 \"Таурус\" .45 Colt",
+		INSTRUMENTAL = "револьвером R45 \"Таурус\" .45 Colt",
+		PREPOSITIONAL = "револьвере R45 \"Таурус\" .45 Colt",
 	)
 
 /obj/item/gun/projectile/revolver/taurus/add_deep_lore()
@@ -78,7 +78,7 @@
 		<br>\
 		\"Таурус\" сыскал популярность, заняв свою нишу в сегменте тактических крупнокалиберных револьверов. \
 		Его нередко закупают как государственные силовые структуры, так и частные компании. В 2567 году \"Нанотрейзен\" \
-		приобрела крупную партию MS-R45 для обеспечения высокоэффективным личным оружием сотрудников службы безопасности в ряде секторов."\
+		приобрела крупную партию R45 для обеспечения высокоэффективным личным оружием сотрудников службы безопасности в ряде секторов."\
 	)
 
 // MARK: Finger gun (Mime)
@@ -183,7 +183,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
 	fire_delay = 5
-	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 	attachable_offset = list(

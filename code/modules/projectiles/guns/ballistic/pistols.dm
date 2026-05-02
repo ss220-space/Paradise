@@ -81,7 +81,7 @@
 		PREPOSITIONAL = "пистолете M1911 .45",
 	)
 
-// MARK: Enforcer
+// MARK: DCA-P9 Enforcer
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "DCA-P9 \"Enforcer\" pistol"
 	desc = "Сбалансированный пистолет калибра 9x19 мм. Хорошая эргономика, низкая отдача, высокая точность. \
@@ -136,9 +136,9 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
-// MARK: MS-P40-E
+// MARK: P40-E Acer
 /obj/item/gun/projectile/automatic/pistol/sp8
-	name = "MS-P40-E pistol"
+	name = "P40-E \"Acer\" pistol"
 	desc = "Штурмовой пистолет под патрон .40 N&R производства \"Mars Special\". Высокая точность, низкая отдача и усиленный ствол \
 			для стрельбы боеприпасами повышенной мощности. Используется элитными подразделениями сил защиты активов \"Нанотрейзен\"."
 	icon_state = "sp8_black"
@@ -155,12 +155,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет MS-P40 \"Эйсер\" .40 N&R",
-		GENITIVE = "пистолета MS-P40 \"Эйсер\" .40 N&R",
-		DATIVE = "пистолету MS-P40 \"Эйсер\" .40 N&R",
-		ACCUSATIVE = "пистолет MS-P40 \"Эйсер\" .40 N&R",
-		INSTRUMENTAL = "пистолетом MS-P40 \"Эйсер\" .40 N&R",
-		PREPOSITIONAL = "пистолете MS-P40 \"Эйсер\" .40 N&R",
+		NOMINATIVE = "пистолет P40 \"Эйсер\" .40 N&R",
+		GENITIVE = "пистолета P40 \"Эйсер\" .40 N&R",
+		DATIVE = "пистолету P40 \"Эйсер\" .40 N&R",
+		ACCUSATIVE = "пистолет P40 \"Эйсер\" .40 N&R",
+		INSTRUMENTAL = "пистолетом P40 \"Эйсер\" .40 N&R",
+		PREPOSITIONAL = "пистолете P40 \"Эйсер\" .40 N&R",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/add_deep_lore()
@@ -187,7 +187,7 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
-	name = "MS-P40-ET pistol"
+	name = "P40-ET pistol"
 	icon_state = "sp8t_dust"
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
@@ -201,7 +201,7 @@
 	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
-	name = "MS-P40-EAR pistol"
+	name = "P40-EAR pistol"
 	icon_state = "sp8ar"
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER

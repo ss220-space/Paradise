@@ -4,6 +4,7 @@
 /obj/item/gun/projectile/shotgun
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
+	sawn_desc = "Кустарно модифицированная версия с укороченным стволом."
 	icon_state = "shotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
