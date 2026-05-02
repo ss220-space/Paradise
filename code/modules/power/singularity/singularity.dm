@@ -114,8 +114,9 @@
 	if(jedi.stat == DEAD)
 		jedi.ghostize()
 		var/obj/item/organ/external/head/rip_u = jedi.get_bodypart(BODY_ZONE_HEAD)
-		rip_u.droplimb() //nice try jedi
-		qdel(rip_u)
+		if(rip_u)
+			rip_u.droplimb() //nice try jedi
+			qdel(rip_u)
 		return
 	addtimer(CALLBACK(src, PROC_REF(carbon_tk_part_two), jedi), 0.1 SECONDS)
 

@@ -4,7 +4,6 @@
 /obj/god
 	anchored = TRUE
 	appearance_flags = LONG_GLIDE
-	density = FALSE
 	move_resist = INFINITY
 	obj_flags = DANGEROUS_POSSESSION
 	plane = MASSIVE_OBJ_PLANE
