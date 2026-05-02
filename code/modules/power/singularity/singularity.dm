@@ -171,7 +171,7 @@
 		return
 	time_since_act = 0
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, max_range = 15, threshold = RAD_EXTREME_INSULATION, chance = 50)
+		radiation_pulse(src, max_range = 8, threshold = RAD_MEDIUM_INSULATION, chance = 50)
 		pulse()
 		if(prob(event_chance))
 			event()

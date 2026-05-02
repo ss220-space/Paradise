@@ -6,6 +6,8 @@
 #define CHANCE_TO_MOVE_TO_TARGET_BLOODTHIRSTY 80
 /// what's the /bloodthirsty subtype chance it'll change targets to a closer one?
 #define CHANCE_TO_CHANGE_TARGET_BLOODTHIRSTY 20
+/// Per-tick chance the singularity climbs one z-level if there's a hole above it.
+#define CHANCE_TO_CLIMB_Z 20
 
 /// Things that maybe move around and does stuff to things around them
 /// Used for the singularity (duh) and Nar'Sie
@@ -122,10 +124,59 @@
 		return
 	if(time_since_last_eat > 1) // Delta time is in seconds for "reasons"
 		time_since_last_eat = 0
-		if(roaming)
+		// Skip drifting on the tick we change z — the new floor gets to eat from scratch.
+		if(!try_change_z() && roaming)
 			move()
 		eat()
 		digest() // Try and process as much as you can with the time we have left
+
+/**
+ * Attempts to move the parent (singularity) between z-levels.
+ * Automatically falls down through open spaces, and occasionally climbs up,
+ * even through solid floors/ceilings, destroying them if possible.
+ *
+ * * Returns - TRUE if the parent changed z-level, FALSE otherwise.
+ */
+/datum/component/singularity/proc/try_change_z()
+	var/atom/movable/atom_parent = parent
+	var/turf/current_turf = get_turf(atom_parent)
+
+	// 1. Falling down: if we're standing on an openspace, chance to drop to the level below
+	if(isopenspaceturf(current_turf) && prob(CHANCE_TO_CLIMB_Z))
+		var/turf/below = GET_TURF_BELOW(current_turf)
+		if(below)
+			atom_parent.forceMove(below)
+			return TRUE
+
+	// 2. Climbing up: with a CHANCE_TO_CLIMB_Z probability, try to ascend, even if there is a solid floor above.
+	if(prob(CHANCE_TO_CLIMB_Z))
+		var/turf/above = GET_TURF_ABOVE(current_turf)
+		if(!above)
+			return FALSE
+
+		// If there's already an open space above, just jump there
+		if(isopenspaceturf(above))
+			atom_parent.forceMove(above)
+			return TRUE
+
+		// Otherwise, there is a solid floor or other structure above.
+		// Let the singularity "eat" this tile before moving.
+		above.singularity_act(singularity_size, parent)
+
+		/**
+		 * After the act, check:
+		 * - whether the tile was destroyed (deleted or turned into openspace)
+		 * - or it survived
+		 */
+		if(QDELETED(above) || isopenspaceturf(above))
+			// The floor was destroyed; we can ascend to the now-open tile
+			atom_parent.forceMove(above)
+			return TRUE
+
+		// The floor survived (e.g., reinforced walls or indestructible tiles); climbing is blocked.
+		return FALSE
+
+	return FALSE
 
 /datum/component/singularity/proc/block_blob()
 	SIGNAL_HANDLER
@@ -364,4 +415,5 @@
 #undef CHANCE_TO_MOVE_TO_TARGET
 #undef CHANCE_TO_MOVE_TO_TARGET_BLOODTHIRSTY
 #undef CHANCE_TO_CHANGE_TARGET_BLOODTHIRSTY
+#undef CHANCE_TO_CLIMB_Z
 #undef FIELD_CONTAINMENT_DISTANCE
