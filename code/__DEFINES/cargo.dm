@@ -1,15 +1,15 @@
 // MARK: Supply Groups
-#define SUPPLY_EMERGENCY "emergency"
-#define SUPPLY_SECURITY "security"
-#define SUPPLY_ENGINEER "engineer"
-#define SUPPLY_MEDICAL "medical"
-#define SUPPLY_SCIENCE "science"
-#define SUPPLY_ORGANIC "organic"
-#define SUPPLY_MATERIALS "materials"
-#define SUPPLY_MISC "misc"
-#define SUPPLY_VEND "vend"
+#define SUPPLY_EMERGENCY 1
+#define SUPPLY_SECURITY 2
+#define SUPPLY_ENGINEER 3
+#define SUPPLY_MEDICAL 4
+#define SUPPLY_SCIENCE 5
+#define SUPPLY_ORGANIC 6
+#define SUPPLY_MATERIALS 7
+#define SUPPLY_MISC 8
+#define SUPPLY_VEND 9
 // Shit from a moron, delete and redo the Cut()
-#define SUPPLY_CONTRABAND "contraband"
+#define SUPPLY_CONTRABAND 10
 
 #define STYLE_STANDARD 1
 #define STYLE_BLUESPACE 2
