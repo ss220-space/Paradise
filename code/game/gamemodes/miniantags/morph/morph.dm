@@ -121,19 +121,15 @@
  * * boolean - TRUE = enabled, FALSE = disabled
  */
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
-	if(boolean)
-		can_reproduce = TRUE
-		var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell = new
+if(boolean)
+can_reproduce = TRUE
+var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell = new
 
-		var/datum/spell_handler/morph/new_handler = new reproduce_spell.custom_handler.type()
-		new_handler.hunger_cost = reproduce_spell.hunger_cost
-		reproduce_spell.custom_handler = new_handler
-
-		AddSpell(reproduce_spell)
-		reproduce_spell.update_appearance(UPDATE_NAME)
-	else
-		can_reproduce = FALSE
-		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
+	AddSpell(reproduce_spell)
+	reproduce_spell.update_appearance(UPDATE_NAME)
+else
+	can_reproduce = FALSE
+	RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/get_status_tab_items()
 	var/list/status_tab_data = ..()
