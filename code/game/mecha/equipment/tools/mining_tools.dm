@@ -107,22 +107,26 @@
 		else
 			target.gib()
 	else
-		var/splatter_dir = get_angle(chassis, target)
+		var/splatter_angle = get_angle(chassis, target)
 		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			var/obj/item/organ/external/target_part = H.get_organ(ran_zone(BODY_ZONE_CHEST))
-			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, H.run_armor_check(target_part, MELEE))
+			var/mob/living/carbon/human/target_human = target
+			var/obj/item/organ/external/target_part = target_human.get_organ(ran_zone(BODY_ZONE_CHEST))
+			target_human.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target_human.run_armor_check(target_part, MELEE))
 
 			//blood splatters
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, H.dna.species.blood_color)
+			var/splatter_color = target_human.get_blood_color()
+			if(splatter_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_human.drop_location(), splatter_angle, splatter_color)
 
-					//organs go everywhere
+			//organs go everywhere
 			if(target_part && prob(10 * drill_level))
 				target_part.droplimb()
 		else
 			target.adjustBruteLoss(10)
 			if(isalien(target))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_dir)
+				var/splatter_color = target.get_blood_color()
+				if(splatter_color)
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_angle, splatter_color)
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"

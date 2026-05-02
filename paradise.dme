@@ -3609,6 +3609,7 @@
 #include "code\modules\projectiles\gun_modules\muzzle.dm"
 #include "code\modules\projectiles\gun_modules\rail.dm"
 #include "code\modules\projectiles\gun_modules\sibyl.dm"
+#include "code\modules\projectiles\gun_modules\stock.dm"
 #include "code\modules\projectiles\gun_modules\underbarrel.dm"
 #include "code\modules\projectiles\guns\ballistic\__projectile.dm"
 #include "code\modules\projectiles\guns\ballistic\_automatic.dm"

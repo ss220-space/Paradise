@@ -17201,16 +17201,16 @@
 "chB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = -7
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = -2
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = 2
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
+/obj/item/gun/projectile/automatic/smg/sp91rc{
 	pixel_x = 7
 	},
 /turf/simulated/floor/plasteel{
@@ -92238,15 +92238,15 @@
 	anchored = 1;
 	name = "Security SMG's"
 	},
-/obj/item/gun/projectile/automatic/wt550{
+/obj/item/gun/projectile/automatic/smg/wt550{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/projectile/automatic/wt550{
+/obj/item/gun/projectile/automatic/smg/wt550{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

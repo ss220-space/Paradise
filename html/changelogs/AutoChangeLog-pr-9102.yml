@@ -1,0 +1,4 @@
+author: "DraumLord"
+delete-after: True
+changes:
+  - add: "Добавлен мусорный мешок дронам обслуживания (PR #9102)"
