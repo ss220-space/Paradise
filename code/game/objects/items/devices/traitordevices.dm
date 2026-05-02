@@ -175,8 +175,14 @@ effective or pretty fucking useless.
 
 /// Checks if a given atom is in range of a radio jammer, returns TRUE if it is.
 /proc/is_within_radio_jammer_range(atom/source)
+	var/turf/source_turf = get_turf(source)
+	if(!source_turf)
+		return FALSE
 	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
-		if(IN_GIVEN_RANGE(source, jammer, jammer.range))
+		var/turf/jammer_turf = get_turf(jammer)
+		if(!jammer_turf)
+			continue
+		if(IN_GIVEN_RANGE(source_turf, jammer_turf, jammer.range))
 			return TRUE
 	return FALSE
 
