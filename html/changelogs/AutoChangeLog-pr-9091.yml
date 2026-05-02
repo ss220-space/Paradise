@@ -1,0 +1,4 @@
+author: "RaingGOR"
+delete-after: True
+changes:
+  - bugfix: "Возвращена возможность достать ПИИ из ПДА. (PR #9091)"

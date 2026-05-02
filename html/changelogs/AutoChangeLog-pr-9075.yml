@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - balance: "слаг наносит 36 урона вместо 40 (PR #9075)"

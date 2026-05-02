@@ -74,30 +74,26 @@
 /mob/living/simple_animal/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	var/mob/living/carbon/human_to_ask = over_object
 
-	if(!istype(human_to_ask))
-		return ..()
+	if(!istype(human_to_ask) || !holder_type)
+		return
 
-	if(holder_type)
-		var/obj/item/holder = holder_type
-		var/holder_flags = holder.holder_flags
-		if(!(holder_flags & ALIEN_HOLDER && isalien(human_to_ask)) && \
-		!(holder_flags & HUMAN_HOLDER && ishuman(human_to_ask)))
-			return ..()
+	var/obj/item/holder = holder_type
+	var/holder_flags = holder.holder_flags
 
-	if(human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
-		return ..()
+	if(!(holder_flags & ALIEN_HOLDER && isalien(human_to_ask)) && !(holder_flags & HUMAN_HOLDER && ishuman(human_to_ask)))
+		return
 
-	if(usr == src)
-		switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,list("Yes","No")))
-			if("Yes")
-				if(Adjacent(human_to_ask))
-					pick_up_mob(human_to_ask)
-				else
-					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
-			if("No")
-				to_chat(src, span_warning("[human_to_ask] decided not to pick you up."))
-	else
-		return ..()
+	if(user != src)
+		return
+
+	switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?", "Ask pick up.", list("Yes", "No")))
+		if("Yes")
+			if(!human_to_ask.IsReachableBy(src))
+				to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
+				return
+			pick_up_mob(human_to_ask)
+		if("No")
+			to_chat(src, span_warning("[human_to_ask] decided not to pick you up."))
 
 /mob/living/simple_animal/proc/pick_up_mob(mob/living/carbon/human_to_ask)
 	get_scooped(human_to_ask)

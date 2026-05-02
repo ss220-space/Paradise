@@ -149,7 +149,7 @@
 			"PayDay" = list("Name" = "'PayDay' bundle",	// 161.6-163.6 TK
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
-								/obj/item/gun/projectile/automatic/mini_uzi = 1,							// 60 TK
+								/obj/item/gun/projectile/automatic/smg/mini_uzi = 1,							// 60 TK
 								/obj/item/ammo_box/magazine/uzim9mm = 2,									// 20 TK
 								/obj/item/card/emag = 1,													// 50 TK
 								/obj/item/jammer = 1,														// 10 TK

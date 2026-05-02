@@ -10,7 +10,8 @@
 	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/sparkle_a12/update_icon_state()
-	icon_state = "[initial(icon_state)][ammo_count() > 0 ? "" : "-e"]"
+	icon_state = "[initial(icon_state)]_[CEILING(ammo_count() / 6, 1) * 6]"
+
 
 // MARK: 9mm - UZI
 /obj/item/ammo_box/magazine/uzim9mm
@@ -82,14 +83,14 @@
 	icon_state = "45NRmag"
 	ammo_type = /obj/item/ammo_casing/c45nr
 	caliber = CALIBER_45NR
-	max_ammo = 20
+	max_ammo = 30
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/sp91rc/empty
 	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 6)]"
 
 // MARK: 7.62x25mm - PPSh
 /obj/item/ammo_box/magazine/ppsh

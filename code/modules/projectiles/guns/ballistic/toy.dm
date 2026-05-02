@@ -84,10 +84,9 @@
 	accuracy = GUN_ACCURACY_RIFLE
 
 // MARK: C-20r
-/obj/item/gun/projectile/automatic/c20r/toy
+/obj/item/gun/projectile/automatic/smg/c20r/toy
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
-	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
@@ -96,8 +95,13 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
-/obj/item/gun/projectile/automatic/c20r/toy/riot
+/obj/item/gun/projectile/automatic/smg/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
+
+
+/obj/item/gun/projectile/automatic/smg/c20r/toy/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "[base_icon_state]_toy", layer = FLOAT_LAYER - 1)
 
 // MARK: L6 SAW
 /obj/item/gun/projectile/automatic/l6_saw/toy

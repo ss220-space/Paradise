@@ -377,7 +377,7 @@
 	icon_state = "armory"
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(
-		/obj/item/gun/projectile/automatic/c20r/rusted = 1,
+		/obj/item/gun/projectile/automatic/smg/c20r/rusted = 1,
 		/obj/item/gun/projectile/automatic/m90/rusted = 1,
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow/old = 1,

@@ -129,15 +129,9 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/ppsh,
+			/obj/item/gun/projectile/automatic/smg/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
-		),
-		list(
-			/obj/item/gun/projectile/automatic/pistol/sp8/sp8t,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
 		),
 		list(
 			/obj/item/gun/projectile/shotgun/lethal,
@@ -171,13 +165,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
-			/obj/item/ammo_box/magazine/sp8,
-		),
-		list(
-			/obj/item/gun/projectile/automatic/c20r/toy/riot,
+			/obj/item/gun/projectile/automatic/smg/c20r/toy/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
 			/obj/item/ammo_box/magazine/toy/smgm45/riot,
@@ -208,13 +196,13 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/proto,
+			/obj/item/gun/projectile/automatic/smg/saber,
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sparkle_a12,
+			/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
 			/obj/item/ammo_box/magazine/sparkle_a12,
@@ -224,7 +212,6 @@
 		/obj/item/twohanded/spear/bonespear/chitinspear,
 		/obj/item/twohanded/bamboospear,
 		/obj/item/fauna_bomb/preloaded/t3,
-		/obj/item/kitchen/knife/butcher/sharped,
 		/obj/item/melee/baton/security/loaded,
 		/obj/item/melee/energy/blade,
 		/obj/item/twohanded/sechammer,
@@ -272,19 +259,19 @@
 		/obj/item/gun/energy/laser/captain,
 		/obj/item/gun/energy/sniperrifle/pod_pilot,
 		list(
-			/obj/item/gun/projectile/automatic/c20r,
+			/obj/item/gun/projectile/automatic/smg/c20r,
 			/obj/item/ammo_box/magazine/smgm45,
 			/obj/item/ammo_box/magazine/smgm45,
 			/obj/item/ammo_box/magazine/smgm45,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/wt550,
+			/obj/item/gun/projectile/automatic/smg/wt550,
 			/obj/item/ammo_box/magazine/wt550m9,
 			/obj/item/ammo_box/magazine/wt550m9,
 			/obj/item/ammo_box/magazine/wt550m9,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/sfg,
+			/obj/item/gun/projectile/automatic/smg/sfg,
 			/obj/item/ammo_box/magazine/sfg9mm,
 			/obj/item/ammo_box/magazine/sfg9mm,
 			/obj/item/ammo_box/magazine/sfg9mm,
@@ -328,12 +315,6 @@
 			/obj/item/ammo_box/magazine/m12g/XtrLrg/slug,
 			/obj/item/ammo_box/magazine/m12g/XtrLrg/slug,
 			/obj/item/ammo_box/magazine/m12g,
-		),
-		list(
-			/obj/item/gun/projectile/automatic/pistol/deagle/gold,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
 		),
 		list(
 			/obj/item/gun/projectile/bombarda,
@@ -399,13 +380,7 @@
 			/obj/item/ammo_casing/a40mm/secgl/gas,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/pistol/deagle/camo,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
-			/obj/item/ammo_box/magazine/m50,
-		),
-		list(
-			/obj/item/gun/projectile/automatic/sp91rc,
+			/obj/item/gun/projectile/automatic/smg/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,
 			/obj/item/ammo_box/magazine/sp91rc,

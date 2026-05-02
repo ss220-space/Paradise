@@ -13,7 +13,10 @@
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 // MARK: Stechkin
 /obj/item/gun/projectile/automatic/pistol/stechkin
@@ -39,6 +42,21 @@
 		ACCUSATIVE = "пистолет \"Стечкин\" 10x25 мм",
 		INSTRUMENTAL = "пистолетом \"Стечкин\" 10x25 мм",
 		PREPOSITIONAL = "пистолете \"Стечкин\" 10x25 мм",
+	)
+
+/obj/item/gun/projectile/automatic/pistol/stechkin/add_deep_lore()
+	AddElement(/datum/element/examine_lore, \
+		lore = "Один из самых массовых пистолетов Галактики. По слухам, оригинальная конструкция была разработана в начале века, \
+		но после утечки чертежей в открытый доступ производство было запущено сотнями предприятий — от лицензированных заводов до \
+		подпольных мастерских.<br>\
+		<br>\
+		Массовость данного пистолета объясняется рядом причин:<br>\
+		1. Простота и надёжность конструкции.<br>\
+		2. Предельная дешевизна производства.<br>\
+		3. Высокая модульность и совместимость с широким спектром боеприпасов.<br>\
+		<br>\
+		Именно поэтому \"Стечкин\" пользуется высоким спросом как у гражданских лиц, которым нужно дешёвое оружие для самозащиты, \
+		так и у корпоративных наёмников, ценящих модульное и легко маскируемое оружие."\
 	)
 
 /obj/item/gun/projectile/automatic/pistol/stechkin/add_deep_lore()
@@ -127,12 +145,6 @@
 	. = ..()
 	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/automatic/pistol/enforcer)
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
@@ -180,37 +192,7 @@
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t
-	name = "P40-ET pistol"
-	icon_state = "sp8t_dust"
-	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
-	name = "P40-EAR pistol"
-	icon_state = "sp8ar"
-	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
-// MARK: SGM-P "Colossus"
+// MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "SGM-P \"Colossus\""
 	desc = "Тяжёлый пистолет калибра .50 AE производства \"Shellguard Munitions\". Патроны имеют огромную останавливающую силу, \
@@ -254,16 +236,9 @@
 		но стал популярным инструментом среди элитных наёмников."\
 	)
 
-/obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/pistol/deagle/gold
-	icon_state = "deagleg"
-	item_state = "deagleg"
-
-/obj/item/gun/projectile/automatic/pistol/deagle/camo
-	icon_state = "deaglecamo"
-	item_state = "deagleg"
+/obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 // MARK: APS Pistol
 /obj/item/gun/projectile/automatic/pistol/APS

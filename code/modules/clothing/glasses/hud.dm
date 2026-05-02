@@ -391,7 +391,6 @@ SECURITY
 	over_hat = TRUE
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
-	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_cover = GLASSESCOVERSEYES
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -403,6 +402,10 @@ SECURITY
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+
+/obj/item/clothing/glasses/hud/security/sunglasses/tacticool/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/glasses/hud/security/sunglasses/tacticool/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -671,6 +674,10 @@ SKILLS
 		INSTRUMENTAL = "много-режимными HUD-очками",
 		PREPOSITIONAL = "много-режимных HUD-очках",
 	)
+
+/obj/item/clothing/glasses/hud/blueshield/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/glasses/hud/blueshield/cap
 	name = "Gold multi-mod HUD glasses"

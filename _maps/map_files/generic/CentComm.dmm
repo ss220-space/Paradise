@@ -4682,6 +4682,65 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"ckX" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/smg/saber,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/survival/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/implanter/dust,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "ckZ" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -6931,6 +6990,21 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"dpM" = (
+/obj/structure/table/wood,
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 9
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/lighter/zippo/gonzofist,
+/turf/simulated/floor/carpet/black,
+/area/syndicate_mothership/jail)
 "dqf" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -9778,6 +9852,65 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"eFl" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/smg/saber,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/survival/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/implanter/dust,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "eFv" = (
 /obj/effect/turf_decal{
 	icon = 'icons/obj/ninjaobjects.dmi';
@@ -10641,19 +10774,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"fcs" = (
-/obj/structure/flora/ausbushes/stalkybush,
-/obj/item/gun/projectile/automatic/pistol/stechkin{
-	layer = 2.9
-	},
-/obj/effect/turf_decal/tile/neutral{
-	alpha = 85;
-	icon = 'icons/misc/beach.dmi';
-	icon_state = "seadeep";
-	layer = 9
-	},
-/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
-/area/centcom/specops)
 "fcv" = (
 /obj/structure/railing,
 /obj/structure/chair/comfy/beige{
@@ -14805,65 +14925,6 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
-"heY" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/gun_module/muzzle/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/survival/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "heZ" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo7"
@@ -15140,6 +15201,24 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"hnO" = (
+/obj/item/gun/projectile/automatic/smg/c20r{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/smg/c20r,
+/obj/item/gun/projectile/automatic/smg/c20r{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/light/small,
+/obj/item/storage/backpack/duffel/syndie/ammo/smg,
+/obj/item/storage/backpack/duffel/syndie/ammo/smg,
+/obj/item/storage/backpack/duffel/syndie/ammo/smg,
+/obj/effect/turf_decal/bot_white,
+/obj/structure/rack/gunrack,
+/turf/simulated/floor/mineral/plastitanium,
+/area/syndicate_mothership/elite_squad)
 "hnX" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -18493,65 +18572,6 @@
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/wizard_station)
-"jcq" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/gun_module/muzzle/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/survival/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "jcs" = (
 /obj/structure/closet{
 	custom_door_overlay = "red";
@@ -20325,65 +20345,6 @@
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
-"jMy" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/gun_module/muzzle/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/survival/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "jMD" = (
 /obj/structure/lattice,
 /turf/space,
@@ -21882,65 +21843,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
-"kxr" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/gun_module/muzzle/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/survival/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "kxL" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
@@ -23062,6 +22964,65 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
+"kYH" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/smg/saber,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/survival/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/implanter/dust,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "kZy" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/soda/upgraded,
@@ -24617,6 +24578,32 @@
 "lJU" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/gamma)
+"lKq" = (
+/obj/effect/turf_decal/box/white,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/ammo_box/magazine/m50,
+/obj/item/gun/projectile/automatic/pistol/deagle{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/pistol/deagle,
+/obj/item/gun/projectile/automatic/pistol/deagle{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/structure/sign/poster/contraband/syndicate_pistol{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/rack/gunrack,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/syndicate_mothership/control)
 "lKw" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium"
@@ -25134,6 +25121,19 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership)
+"lXE" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/obj/item/gun/projectile/automatic/pistol/stechkin{
+	layer = 2.9
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 85;
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "seadeep";
+	layer = 9
+	},
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
+/area/centcom/specops)
 "lXI" = (
 /obj/item/radio/intercom/directional/north,
 /obj/structure/chair/comfy/shuttle,
@@ -25580,43 +25580,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"mhA" = (
-/obj/structure/rack/gunrack,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = -6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/obj/item/gun/projectile/automatic/sfg{
-	pixel_x = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "mhN" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -27473,6 +27436,65 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"mXb" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/smg/saber,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/survival/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/implanter/dust,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "mXf" = (
 /obj/machinery/bsa/full/admin/east,
 /obj/effect/decal/warning_stripes/yellow,
@@ -29002,21 +29024,6 @@
 	icon_state = "floor12"
 	},
 /area/shuttle/syndicate)
-"nDx" = (
-/obj/structure/table/wood,
-/obj/structure/sign/nosmoking_2{
-	pixel_y = 32
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
-	pixel_x = 9
-	},
-/obj/item/gun/projectile/automatic/pistol/stechkin{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/lighter/zippo/gonzofist,
-/turf/simulated/floor/carpet/black,
-/area/syndicate_mothership/jail)
 "nDz" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
@@ -30773,65 +30780,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
-"osu" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/gun_module/muzzle/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/survival/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "osE" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
@@ -32279,19 +32227,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
-"pdl" = (
-/obj/machinery/vending/toyliberationstation{
-	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/elite_squad)
 "pdt" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -33512,6 +33447,65 @@
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"pIQ" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/smg/saber,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/survival/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/implanter/dust,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "pJe" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery{
@@ -36483,6 +36477,43 @@
 	icon_state = "darkbluecornersalt"
 	},
 /area/syndicate_mothership/elite_squad)
+"qZL" = (
+/obj/structure/rack/gunrack,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = -6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = 6
+	},
+/obj/item/gun/projectile/automatic/smg/sfg{
+	pixel_x = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "qZO" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/vox_station)
@@ -39524,32 +39555,6 @@
 	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
-"sqV" = (
-/obj/effect/turf_decal/box/white,
-/obj/item/ammo_box/magazine/m50,
-/obj/item/ammo_box/magazine/m50,
-/obj/item/ammo_box/magazine/m50,
-/obj/item/ammo_box/magazine/m50,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/deagle/camo,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/structure/sign/poster/contraband/syndicate_pistol{
-	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/rack/gunrack,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/control)
 "sqZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -39685,6 +39690,19 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
+/area/syndicate_mothership/elite_squad)
+"sur" = (
+/obj/machinery/vending/toyliberationstation{
+	contraband = null;
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/smg/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/syndicate_mothership/elite_squad)
 "suU" = (
 /obj/structure/chair/sofa/left,
@@ -43132,65 +43150,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
-"tTh" = (
-/obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
-	},
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/energy/gun/blueshield,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/reagent_containers/food/snacks/candy/mre,
-/obj/item/reagent_containers/hypospray/combat,
-/obj/item/radio/headset/ert/alt{
-	desc = null;
-	name = "SRT bowman headset"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	desc = null;
-	name = "SRT beret"
-	},
-/obj/item/clothing/shoes/combat/swat{
-	name = "SRT special shoes"
-	},
-/obj/item/clothing/gloves/combat{
-	name = "Combat gloves"
-	},
-/obj/item/storage/belt/security/webbing/srt/full,
-/obj/item/storage/backpack/satchel_blueshield/srt,
-/obj/item/clothing/suit/storage/blueshield/srt,
-/obj/item/clothing/suit/armor/bulletproof{
-	name = "SRT bulletproof vest"
-	},
-/obj/item/shield/riot/tele,
-/obj/item/gun_module/muzzle/suppressor,
-/obj/item/CQC_manual,
-/obj/item/implanter/mindshield/ert,
-/obj/item/card/id/centcom{
-	name = "Special Reaction Team Member card";
-	rank = "Special Reaction Team Member";
-	registered_name = "Special Reaction Team Member"
-	},
-/obj/item/storage/box/survival/responseteam,
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	desc = null;
-	name = "SRT uniform"
-	},
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/ammo_box/magazine/sp8,
-/obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "navyblue"
-	},
-/area/centcom/specops)
 "tTj" = (
 /obj/structure/curtain/black{
 	pixel_y = -32
@@ -43948,24 +43907,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"unV" = (
-/obj/item/gun/projectile/automatic/c20r{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/light/small,
-/obj/item/storage/backpack/duffel/syndie/ammo/smg,
-/obj/item/storage/backpack/duffel/syndie/ammo/smg,
-/obj/item/storage/backpack/duffel/syndie/ammo/smg,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/rack/gunrack,
-/turf/simulated/floor/mineral/plastitanium,
-/area/syndicate_mothership/elite_squad)
 "uor" = (
 /obj/machinery/syndiepad/admin/loadpad{
 	target_id = "syndie_cargo_port1"
@@ -45197,6 +45138,65 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
+"uOX" = (
+/obj/structure/closet{
+	icon_closed = "syndicate1";
+	icon_opened = "syndicate1open";
+	icon_state = "syndicate1"
+	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/smg/saber,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	desc = null;
+	name = "SRT bowman headset"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	desc = null;
+	name = "SRT beret"
+	},
+/obj/item/clothing/shoes/combat/swat{
+	name = "SRT special shoes"
+	},
+/obj/item/clothing/gloves/combat{
+	name = "Combat gloves"
+	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
+/obj/item/clothing/suit/armor/bulletproof{
+	name = "SRT bulletproof vest"
+	},
+/obj/item/shield/riot/tele,
+/obj/item/gun_module/muzzle/suppressor,
+/obj/item/CQC_manual,
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/survival/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	desc = null;
+	name = "SRT uniform"
+	},
+/obj/item/gun/projectile/automatic/pistol/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/ammo_box/magazine/sp8,
+/obj/item/implanter/dust,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "navyblue"
+	},
+/area/centcom/specops)
 "uPb" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -65231,7 +65231,7 @@ aNy
 vYT
 jyy
 dJo
-sqV
+lKq
 gOB
 fqN
 rcs
@@ -73946,7 +73946,7 @@ dfm
 dfm
 jtb
 xho
-nDx
+dpM
 nKg
 wsI
 azv
@@ -76756,7 +76756,7 @@ sIY
 tgO
 ryw
 tYq
-unV
+hnO
 mZB
 vPe
 akg
@@ -76997,7 +76997,7 @@ mZB
 mZB
 mZB
 mZB
-pdl
+sur
 pbN
 pUu
 pbN
@@ -99154,9 +99154,9 @@ qnP
 hjL
 tJJ
 nAN
-kxr
-jcq
-jMy
+uOX
+mXb
+pIQ
 nAN
 gqv
 gqv
@@ -99438,7 +99438,7 @@ jdg
 hxv
 fVl
 lcU
-mhA
+qZL
 nAN
 nAN
 nAN
@@ -99668,9 +99668,9 @@ qnP
 hjL
 tJJ
 nAN
-heY
-tTh
-osu
+ckX
+eFl
+kYH
 nAN
 qTB
 qTB
@@ -106861,7 +106861,7 @@ uzP
 uzP
 tmG
 pjV
-fcs
+lXE
 hAh
 fAg
 fAg

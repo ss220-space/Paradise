@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Аир алярмы строятся, как ожидается. (PR #9092)"

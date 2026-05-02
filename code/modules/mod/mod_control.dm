@@ -12,7 +12,8 @@
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	interaction_flags_mouse_drop = NEED_HANDS
+	interaction_flags_click = NEED_HANDS
+	interaction_flags_mouse_drop = NEED_DEXTERITY | NEED_HANDS | ALLOW_RESTING
 	strip_delay = 10 SECONDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
@@ -191,36 +192,27 @@
 		return
 	clean_up()
 
-/obj/item/mod/control/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/carbon_mob = usr
-	if(get_dist(usr, src) > 1) //1 as we want to access it if beside the user
+/obj/item/mod/control/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(!iscarbon(user) || !over_object || ismecha(user.loc))
 		return
 
-	if(!over)
-		return
-
-	if(ismecha(carbon_mob.loc))
-		return
-
-	if(HAS_TRAIT(carbon_mob, TRAIT_RESTRAINED) || carbon_mob.stat) //restrained or unconsious
-		return
-
+	var/mob/living/carbon/carbon_mob = user
 	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 
-	if(istype(over, /atom/movable/screen/inventory/hand))
+	if(istype(over_object, /atom/movable/screen/inventory/hand))
 		for(var/obj/item/part as anything in get_parts())
 			if(part.loc != src)
 				balloon_alert(wearer, "сверните костюм!")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 				return
-		if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
-			return
-		carbon_mob.put_in_any_hand_if_possible(src, TRUE)
-	else if(bag)
-		bag.forceMove(usr)
-		bag.show_to(usr)
+
+		if(carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
+			carbon_mob.put_in_any_hand_if_possible(src, TRUE)
+		return
+
+	if(bag)
+		bag.forceMove(user)
+		bag.show_to(user)
 
 	add_fingerprint(carbon_mob)
 

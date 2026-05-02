@@ -1,0 +1,4 @@
+author: "Infaselt"
+delete-after: True
+changes:
+  - bugfix: "Все виды кирок теперь можно ложить в охотничий пояс (PR #9103)"

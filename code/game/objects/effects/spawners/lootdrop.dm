@@ -254,7 +254,7 @@
 	name = "3. Donksoft gear"
 	lootcount = 8
 	loot = list(
-		/obj/item/gun/projectile/automatic/c20r/toy = 150,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy = 150,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 100,
 		/obj/item/gun/projectile/automatic/toy/pistol = 200,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 100,

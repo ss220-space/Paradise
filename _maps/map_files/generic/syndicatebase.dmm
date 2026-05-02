@@ -4299,6 +4299,40 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
+"ecB" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/closet/syndicate/personal,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs{
+	pixel_y = -3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = -3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "edm" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/plasteel{
@@ -4408,10 +4442,6 @@
 	icon_state = "darkpurple"
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
-"eme" = (
-/obj/item/gun/projectile/automatic/pistol/deagle/gold,
-/turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "enz" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
@@ -12542,6 +12572,10 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
+"lAq" = (
+/obj/item/gun/projectile/automatic/pistol/deagle,
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "lAB" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -27204,40 +27238,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
-"wWE" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/closet/syndicate/personal,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/item/gun/projectile/automatic/pistol/stechkin,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs{
-	pixel_y = -3
-	},
-/obj/item/restraints/handcuffs{
-	pixel_y = -3
-	},
-/obj/item/restraints/handcuffs{
-	pixel_y = 3
-	},
-/obj/item/restraints/handcuffs{
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "wXb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -55181,7 +55181,7 @@ alH
 dqv
 dqv
 dpC
-eme
+lAq
 aDa
 ghb
 hcJ
@@ -55209,7 +55209,7 @@ mXY
 mpH
 tnF
 wHc
-wWE
+ecB
 xtE
 uvK
 xrd

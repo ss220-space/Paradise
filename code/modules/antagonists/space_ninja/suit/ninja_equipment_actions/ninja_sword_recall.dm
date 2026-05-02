@@ -32,9 +32,8 @@
 		inview = FALSE
 
 	if(!ninjacost(200))	//Статичная цена в 200 энергии
-		for(var/datum/action/item_action/advanced/ninja/ninja_sword_recall/ninja_action in actions)
-			ninja_action.use_action()
-			break
+		var/datum/action/item_action/advanced/ninja/ninja_sword_recall/ninja_sword_recall = locate() in ninja.actions
+		ninja_sword_recall.use_action()
 		if(iscarbon(energyKatana.loc))
 			var/mob/living/carbon/sword_holder = energyKatana.loc
 			sword_holder.drop_item_ground(energyKatana, force = TRUE)
