@@ -312,12 +312,16 @@ GLOBAL_LIST_EMPTY(active_guardian_creators)
 
 	used = TRUE
 	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
-	if(choice != "Да" || QDELETED(user))
-		if(!QDELETED(user))
-			to_chat(user, span_warning("Вы решили не использовать [name]."))
+	if(QDELETED(user))
+		GLOB.active_guardian_creators -= user_ckey
+		return
+
+	if(choice != "Да")
+		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
 		GLOB.active_guardian_creators -= user_ckey
 		return
+
 	to_chat(user, "[use_message]")
 
 	var/guardian_type
