@@ -1335,12 +1335,14 @@
 	gib()
 	return 20
 
-/mob/living/singularity_pull(S, current_size)
+/mob/living/singularity_pull(singularity, current_size)
 	..()
+	if(move_resist == INFINITY)
+		return
 	if(current_size >= STAGE_SIX) //your puny magboots/wings/whatever will not save you against supermatter singularity
-		throw_at(S, 14, 3, src, TRUE)
+		throw_at(singularity, 14, 3, src, TRUE)
 	else if(!mob_negates_gravity())
-		step_towards(src,S)
+		step_towards(src, singularity)
 
 /mob/living/narsie_act()
 	if(client)
