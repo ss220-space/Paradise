@@ -978,6 +978,7 @@
 #include "code\datums\screentips\item_context.dm"
 #include "code\datums\screentips\screentips.dm"
 #include "code\datums\skins\_skin_data.dm"
+#include "code\datums\skins\armor_skins.dm"
 #include "code\datums\skins\boxes_skins.dm"
 #include "code\datums\skins\captain_laser_skins.dm"
 #include "code\datums\skins\deagle_skins.dm"
