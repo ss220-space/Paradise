@@ -209,20 +209,18 @@
 		return FALSE
 
 /obj/structure/table/mouse_drop_receive(obj/dropping, mob/user, params)
-	if(..())
-		return TRUE
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
-		return FALSE
+		return ..()
 	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+		return
 	if(istype(dropping, /obj/item/storage/bag/tray)) // we don't put the tray on the table
-		return FALSE
+		return
 	if(!user.drop_item_ground(dropping))
-		return FALSE
+		return
 	if(dropping.loc != loc)
 		add_fingerprint(user)
 		step(dropping, get_dir(dropping, src))
-		return TRUE
+		return
 
 /obj/structure/table/proc/tablepush(mob/living/victim, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)

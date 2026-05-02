@@ -52,7 +52,7 @@
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
-	tear_manifest()
+	tear_manifest(user)
 
 /obj/structure/closet/crate/before_open(mob/living/user, force)
 	. = ..()
@@ -131,7 +131,9 @@
 
 	if(!ishuman(user))
 		our_manifest.forceMove(drop_location(src))
-	user.put_in_hands(our_manifest)
+	else
+		user.put_in_hands(our_manifest)
+
 	manifest = null
 	update_appearance()
 

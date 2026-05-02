@@ -95,7 +95,7 @@
 		/obj/item/lighter/zippo/gonzofist = 5,
 		/obj/item/lighter/zippo/engraved = 5,
 		/obj/item/lighter/zippo/nt_rep = 5,
-		/obj/item/gun/projectile/automatic/c20r/toy = 1,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy = 1,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol = 2,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 1,

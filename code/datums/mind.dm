@@ -2295,6 +2295,7 @@
 				ninja_datum.give_equip = FALSE
 				ninja_datum.give_objectives = FALSE
 				ninja_datum.generate_antags = FALSE
+				ninja_datum.change_species(current)
 				add_antag_datum(ninja_datum)
 				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")

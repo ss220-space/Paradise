@@ -1154,8 +1154,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/wt550
 	name = "Пистолет-пулемёты WT-550"
 	contains = list(
-		/obj/item/gun/projectile/automatic/wt550,
-		/obj/item/gun/projectile/automatic/wt550,
+		/obj/item/gun/projectile/automatic/smg/wt550,
+		/obj/item/gun/projectile/automatic/smg/wt550,
 	)
 	cost = 35
 	containername = "ящик WT-550"
@@ -1328,9 +1328,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/SP_91_RC
 	name = "Пистолет-пулемёты SP-91-RC"
 	contains = list(
-		/obj/item/gun/projectile/automatic/sp91rc,
-		/obj/item/gun/projectile/automatic/sp91rc,
-		/obj/item/gun/projectile/automatic/sp91rc,
+		/obj/item/gun/projectile/automatic/smg/sp91rc,
+		/obj/item/gun/projectile/automatic/smg/sp91rc,
+		/obj/item/gun/projectile/automatic/smg/sp91rc,
 	)
 	cost = 50
 	containername = "ящик SP-91-RC"
@@ -1346,9 +1346,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/sparkle_a12
 	name = "Пистолет-пулемёты A9 \"Искра\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/sparkle_a12,
-		/obj/item/gun/projectile/automatic/sparkle_a12,
-		/obj/item/gun/projectile/automatic/sparkle_a12,
+		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
+		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
+		/obj/item/gun/projectile/automatic/smg/sparkle_a12,
 	)
 	cost = 50
 	containername = "ящик A9 \"Искра\""
@@ -6718,7 +6718,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/mini_uzi
 	name = "Пистолет пулемет \"Узи\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/gun/projectile/automatic/smg/mini_uzi,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/ammo_box/magazine/uzim9mm,
 	)

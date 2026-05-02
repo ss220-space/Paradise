@@ -229,7 +229,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/ppsh/rusted,
+/obj/item/gun/projectile/automatic/smg/ppsh/rusted,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "aY" = (
@@ -15829,7 +15829,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/ppsh/rusted,
+/obj/item/gun/projectile/automatic/smg/ppsh/rusted,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

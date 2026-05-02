@@ -399,7 +399,6 @@
 /obj/machinery/suit_storage_unit/mouse_drop_receive(atom/A, mob/user, params)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
-	. = TRUE
 	var/mob/living/target = A
 	if(!state_open)
 		to_chat(user, span_warning("The [src]'s doors are shut!"))

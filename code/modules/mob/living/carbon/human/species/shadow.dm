@@ -14,7 +14,7 @@
 
 	unarmed_type = /datum/unarmed_attack/claws
 
-	blood_color = "#CCCCCC"
+	blood_color = BLOOD_COLOR_SHADOW
 	flesh_color = "#AAAAAA"
 
 	has_organ = list(
