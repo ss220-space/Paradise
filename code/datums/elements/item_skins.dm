@@ -34,23 +34,24 @@
 	if(!istype(user) && user.client) //only humans use skins
 		return NONE
 	if(item.current_skin) //already exists skin, no reskin allowed
-		to_chat(user, span_warning("Предмет уже имеет скин, его больше нельзя изменить."))
+		to_chat(user, span_warning("Предмет уже имеет измененный внешний вид, его больше нельзя менять."))
 		return CLICK_ACTION_BLOCKING
 	if(!user.is_in_hands(item)) // can not apply skin if item not in hands
-		to_chat(user, span_warning("Чтобы изменить скин предмета, вы должны держать его в руках."))
+		to_chat(user, span_warning("Чтобы изменить внешний вид предмета, вы должны держать его в руках."))
 		return CLICK_ACTION_BLOCKING
 
 	var/list/skins = collect_available_skins(item, user)
 	if(!length(skins))
 		if(!user.client.donate_offer_text_shown)
-			to_chat(user, span_warning("Для получения скинов необходимо сделать пожертвование в Discord-сообществе проекта!"))
+			to_chat(user, span_warning("Для получения изменения внешнего вида необходимо сделать пожертвование в Discord-сообществе проекта!"))
 			user.client.donate_offer_text_shown = TRUE
 		return NONE // no blocking click
 
 	if(is_need_use_tgui_input_list(skins))
 		INVOKE_ASYNC(src, PROC_REF(show_select_skin_with_tgui_input_list), item, user, skins)
-	else
-		INVOKE_ASYNC(src, PROC_REF(show_select_skin_with_radial_menu), item, user, skins)
+		return CLICK_ACTION_SUCCESS
+
+	INVOKE_ASYNC(src, PROC_REF(show_select_skin_with_radial_menu), item, user, skins)
 	return CLICK_ACTION_SUCCESS
 
 /datum/element/item_skins/proc/collect_available_skins(obj/item/item, mob/living/carbon/human/user)
@@ -77,18 +78,8 @@
 	for(var/datum/item_skin_data/skin as anything in skins)
 		skin_options += skin.name
 
-	var/choice = tgui_input_list(user, "Доступные скины", "Выбрать скин", skin_options)
-
-	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)
-		return
-
-	var/datum/item_skin_data/selected_skin = null
-	for(var/datum/item_skin_data/skin as anything in skins)
-		if(skin.name == choice)
-			selected_skin = skin
-			break
-
-	on_select_skin(item, user, selected_skin)
+	var/choice = tgui_input_list(user, "Доступные внешние виды", "Выбрать внешний вид", skin_options)
+	on_select_skin(item, user, skins, choice)
 
 /datum/element/item_skins/proc/show_select_skin_with_radial_menu(obj/item/item, mob/living/carbon/human/user, list/skins)
 	var/list/skin_options = list()
@@ -96,7 +87,9 @@
 		skin_options[skin.name] = image(icon = (skin.icon ? skin.icon : item.icon), icon_state = (skin.menu_icon_state ? skin.menu_icon_state : skin.icon_state))
 
 	var/choice = show_radial_menu(user, item, skin_options, radius = 40, require_near = TRUE)
+	on_select_skin(item, user, skins, choice)
 
+/datum/element/item_skins/proc/on_select_skin(obj/item/item, mob/living/carbon/human/user, list/skins, choice)
 	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)
 		return
 
@@ -106,15 +99,12 @@
 			selected_skin = skin
 			break
 
-	on_select_skin(item, user, selected_skin)
-
-/datum/element/item_skins/proc/on_select_skin(obj/item/item, mob/living/carbon/human/user, datum/item_skin_data/selected_skin)
 	item.exists_skin_change = FALSE
 	item.skins = null
 	if(!selected_skin)
 		return
 
-	to_chat(user, "На [item.declent_ru(ACCUSATIVE)] установлен скин \"[selected_skin.name]\".")
+	to_chat(user, "Изменен внешний вид [item.declent_ru(GENITIVE)] на \"[selected_skin.name]\".")
 	if(selected_skin.icon != null)
 		item.icon = selected_skin.icon
 	item.current_skin = selected_skin.icon_state

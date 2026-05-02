@@ -20,6 +20,7 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
 	)
 	fire_modes = GUN_MODE_SINGLE_ONLY
+	/// Magazine icon (if exists on pistol, null for disable this feature)
 	var/magazine_icon = "pistol_mag"
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
