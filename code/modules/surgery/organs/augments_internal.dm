@@ -668,6 +668,102 @@
 	owner.dna.species.hunger_drain_mod *= 4
 	active = TRUE
 
+
+/obj/item/organ/internal/cyberimp/chest/osteo_reconstructor
+	name = "Osteo-reconstructor implant"
+	desc = "Грудной имплант, использующий питательные вещества организма для быстрого сращивания переломов и остановки сильных кровотечений в конечностях."
+	implant_color = "#ffffff"
+	slot = INTERNAL_ORGAN_CHEST_OSTEO_RECONSTRUCTOR
+	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	var/nutrient_cost = 25 // per treated limb
+	var/processing = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/osteo_reconstructor/get_ru_names()
+	return list(
+		NOMINATIVE = "имплант остео-реконструктора",
+		GENITIVE = "импланта остео-реконструктора",
+		DATIVE = "импланту остео-реконструктора",
+		ACCUSATIVE = "имплант остео-реконструктора",
+		INSTRUMENTAL = "имплантом остео-реконструктора",
+		PREPOSITIONAL = "импланте остео-реконструктора",
+	)
+
+/obj/item/organ/internal/cyberimp/chest/osteo_reconstructor/can_insert(mob/living/user, mob/living/carbon/target, fail_message)
+	if(ismachineperson(target))
+		return FALSE
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/osteo_reconstructor/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(processing)
+		if(owner)
+			owner.balloon_alert(owner, "уже работает!")
+		return
+
+	if(crit_fail || !ishuman(owner))
+		return
+
+	processing = TRUE
+	INVOKE_ASYNC(src, PROC_REF(run_reconstruction))
+
+/obj/item/organ/internal/cyberimp/chest/osteo_reconstructor/proc/run_reconstruction()
+	var/mob/living/carbon/human/human_owner = owner
+	if(!istype(human_owner))
+		processing = FALSE
+		return
+	playsound(get_turf(human_owner), "sound/items/change_drill.ogg", 50, TRUE)
+	if(!do_after(human_owner, 4 SECONDS, human_owner))
+		processing = FALSE
+		return
+	var/list/to_treat = list()
+	for(var/obj/item/organ/external/part as anything in human_owner.bodyparts)
+		if(!istype(part))
+			continue
+		if(part.has_fracture() || part.has_internal_bleeding() || part.has_arterial_bleeding())
+			to_treat += part
+	if(!length(to_treat))
+		to_chat(human_owner, span_notice("Остео-реконструктор не обнаружил переломов или внутренних кровотечений."))
+		processing = FALSE
+		return
+	for(var/obj/item/organ/external/part as anything in to_treat)
+		if(QDELETED(src) || QDELETED(human_owner) || owner != human_owner)
+			processing = FALSE
+			return
+		if(human_owner.nutrition < nutrient_cost)
+			to_chat(human_owner, span_warning("Вы недостаточно сыты для восстановления внутренних тканей."))
+			break
+
+		var/had_fracture = part.has_fracture()
+		var/had_int_bleed = part.has_internal_bleeding()
+		var/had_art_bleed = part.has_arterial_bleeding()
+
+		human_owner.Knockdown(7 SECONDS)
+		human_owner.Jitter(7 SECONDS)
+		playsound(get_turf(human_owner), "sound/surgery/surgicaldrill.ogg", 50, TRUE)
+
+		if(!do_after(human_owner, 7 SECONDS, human_owner, timed_action_flags = DEFAULT_DOAFTER_IGNORE | DA_IGNORE_USER_LOC_CHANGE))
+			processing = FALSE
+			return
+
+		var/healed_any = FALSE
+		if(had_fracture && part.has_fracture())
+			if(part.mend_fracture())
+				healed_any = TRUE
+				playsound(get_turf(H), SFX_BONEBREAK, 50, TRUE)
+
+		var/healed_bleed = FALSE
+		if(had_int_bleed && part.has_internal_bleeding())
+			if(part.stop_internal_bleeding())
+				healed_bleed = TRUE
+		if(had_art_bleed && part.has_arterial_bleeding())
+			if(part.stop_arterial_bleeding())
+				healed_bleed = TRUE
+		if(healed_bleed)
+			healed_any = TRUE
+			playsound(get_turf(H), "sound/surgery/hemostat1.ogg", 50, TRUE)
+		if(healed_any)
+			H.adjust_nutrition(-nutrient_cost)
+	processing = FALSE
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants

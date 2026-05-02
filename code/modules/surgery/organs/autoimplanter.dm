@@ -197,6 +197,22 @@
 		PREPOSITIONAL = "автоимплантере с мезонным ИЛС",
 	)
 
+/obj/item/autoimplanter/oneuse/osteo_reconstructor
+	name = "autoimplanter (osteo-reconstructor)"
+	desc = "Одноразовый автоимплантер, содержащий в себе остео-реконструктор. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/chest/osteo_reconstructor
+	icon_state = "autoimplanter"
+
+/obj/item/autoimplanter/oneuse/osteo_reconstructor/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер (остео-реконструктор)",
+		GENITIVE = "автоимплантера (остео-реконструктора)",
+		DATIVE = "автоимплантеру (остео-реконструктору)",
+		ACCUSATIVE = "автоимплантер (остео-реконструктор)",
+		INSTRUMENTAL = "автоимплантером (остео-реконструктором)",
+		PREPOSITIONAL = "автоимплантере (остео-реконструкторе)",
+	)
+
 /obj/item/autoimplanter/traitor
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."
 	var/uses = 3

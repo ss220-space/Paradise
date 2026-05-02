@@ -1846,7 +1846,7 @@
 			Препарат способствует заживлению любых внутренних повреждений, однако имеет побочные эффекты, такие как слабость, дезориентация и потеря сознания. \
 			Не рекомендуется применять вместе со стимуляторами и наркотиками."
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 6
+	cost = 4
 
 /datum/uplink_item/device_tools/sanguinius
 	name = "Инъектор с Сангвинием"
@@ -2393,6 +2393,13 @@
 	item = /obj/item/storage/box/cyber_implants/nuke_map
 	cost = 33
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/cyber_implants/osteo_reconstructor
+	name = "Имплант остео-реконструктора"
+	desc = "Экспериментальный имплант, напрямую манипулирующий структурой скелета и кровеносных сосудов носителя. Поставляется в комплекте с саморазрушающимся автоимплантером. \
+			После непродолжительной подготовки постепенно восстанавливает сломанные кости и останавливает внутренние кровотечения, используя внутренние ресурсы организма."
+	item = /obj/item/autoimplanter/oneuse/osteo_reconstructor
+	cost = 18
 
 
 /**
