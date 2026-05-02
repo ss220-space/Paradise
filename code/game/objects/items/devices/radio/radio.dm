@@ -472,10 +472,11 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
-	if(position && GLOB.active_jammers && length(GLOB.active_jammers))
-		for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
-			if(!jammer || QDELETED(jammer))
+	if(position && islist(GLOB.active_jammers) && length(GLOB.active_jammers))
+		for(var/datum/D in GLOB.active_jammers)
+			if(!D || QDELETED(D))
 				continue
+			var/obj/item/jammer/jammer = D
 			var/turf/jammer_turf = get_turf(jammer)
 			if(jammer_turf && position.z == jammer_turf.z && get_dist(position, jammer_turf) < jammer.range)
 				jammed = TRUE
