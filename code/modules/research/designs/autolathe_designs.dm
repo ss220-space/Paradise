@@ -965,6 +965,7 @@
 //MARK: unlockable ammo
 /datum/design/sfg9mm
 	id = "sfg_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/sfg9mm/empty
@@ -972,6 +973,7 @@
 
 /datum/design/smgm9mm
 	id = "saber_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/smgm9mm/empty
@@ -979,6 +981,7 @@
 
 /datum/design/ak814_mag
 	id = "ak814_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/ak814/fusty/empty
@@ -986,6 +989,7 @@
 
 /datum/design/aksu_ammo_box
 	id = "aksu_ammo_box"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
 	build_path = /obj/item/ammo_box/a545x39/fusty
