@@ -470,12 +470,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(muzzle.radio_mute)
 			return FALSE
 
-	var/jammed = FALSE
 	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
-		if(get_dist(position, get_turf(jammer)) < jammer.range)
-			jammed = TRUE
-			break
+	var/jammed = is_within_radio_jammer_range(src)
 
 	var/message_mode = handle_message_mode(M, message_pieces, channel)
 	switch(message_mode) //special cases
