@@ -705,7 +705,7 @@
 	if(!istype(human_owner))
 		processing = FALSE
 		return
-	playsound(get_turf(human_owner), "sound/items/change_drill.ogg", 50, TRUE)
+	playsound(get_turf(human_owner), 'sound/items/change_drill.ogg', 50, TRUE)
 	if(!do_after(human_owner, 4 SECONDS, human_owner))
 		processing = FALSE
 		return
@@ -733,7 +733,7 @@
 
 		human_owner.Knockdown(7 SECONDS)
 		human_owner.Jitter(7 SECONDS)
-		playsound(get_turf(human_owner), "sound/surgery/surgicaldrill.ogg", 50, TRUE)
+		playsound(get_turf(human_owner), 'sound/surgery/surgicaldrill.ogg', 50, TRUE)
 
 		if(!do_after(human_owner, 7 SECONDS, human_owner, timed_action_flags = DEFAULT_DOAFTER_IGNORE | DA_IGNORE_USER_LOC_CHANGE))
 			processing = FALSE
@@ -754,7 +754,7 @@
 				healed_bleed = TRUE
 		if(healed_bleed)
 			healed_any = TRUE
-			playsound(get_turf(human_owner), "sound/surgery/hemostat1.ogg", 50, TRUE)
+			playsound(get_turf(human_owner), 'sound/surgery/hemostat1.ogg', 50, TRUE)
 		if(healed_any)
 			human_owner.adjust_nutrition(-nutrient_cost)
 	processing = FALSE
