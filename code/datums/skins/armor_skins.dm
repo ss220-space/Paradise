@@ -15,8 +15,3 @@
 	name = "Песочный"
 	icon_state = "armor_sand"
 	donation_tier = 4
-
-/datum/item_skin_data/armor/pixel
-	name = "Пиксельный"
-	icon_state = "armor_pixel"
-	donation_tier = 5 // shitspawn only

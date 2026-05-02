@@ -110,10 +110,10 @@
 		for(var/datum/action/item_action/remove_badge/action in actions)
 			LAZYREMOVE(actions, action)
 			action.Remove(user)
+		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		attached_badge = null
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		update_equipped_item()
-		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
 
