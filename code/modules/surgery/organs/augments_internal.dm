@@ -688,11 +688,6 @@
 		PREPOSITIONAL = "импланте остео-реконструктора",
 	)
 
-/obj/item/organ/internal/cyberimp/chest/osteo_reconstructor/can_insert(mob/living/user, mob/living/carbon/target, fail_message)
-	if(ismachineperson(target))
-		return FALSE
-	return ..()
-
 /obj/item/organ/internal/cyberimp/chest/osteo_reconstructor/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(processing)
 		if(owner)
