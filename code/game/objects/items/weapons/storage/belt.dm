@@ -530,6 +530,8 @@
 	return ..()
 
 /obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
+	if(!user.Adjacent(src) || user.incapacitated())
+		return ..()
 	for(var/obj/item/ammo_box/magazine/magazine in contents)
 		user.put_in_active_hand(magazine)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -537,13 +539,17 @@
 	return ..()
 
 /obj/item/storage/belt/security/webbing/proc/do_fast_reload(mob/user, obj/item/gun/projectile/automatic/gun, obj/item/ammo_box/magazine/magazine, params)
-	if(!do_after(user, fast_reload_delay, src, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
+	if(!do_after(user, fast_reload_delay, src, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1))
 		return
+	if(QDELETED(src) || QDELETED(user) || QDELETED(gun) || QDELETED(magazine) || magazine.loc != src || !user.is_in_hands(gun) || !user.Adjacent(src))
+		return
+
 	var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
 	gun.attackby(magazine, user, params)
 	var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
 	if(!mag_changed || !can_be_inserted(gun_magazine))
 		return
+
 	handle_item_insertion(gun_magazine)
 	gun_magazine.update_appearance()
 
@@ -574,7 +580,7 @@
 		/obj/item/eftpos/sec,
 		/obj/item/weapon_cell,
 		/obj/item/radio,
-		/obj/item/gun/projectile/automatic/pistol
+		/obj/item/gun/projectile/automatic/pistol,
 	)
 
 /obj/item/storage/belt/security/webbing/srt/get_ru_names()
