@@ -133,14 +133,6 @@
 /obj/item/gun/projectile/automatic/smg/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[ceil(get_ammo(FALSE)/4)*4]" : ""][chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/smg/c20r/rusted
-	damage_mod = 0.85
-
-/obj/item/gun/projectile/automatic/smg/c20r/rusted/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
-	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
-
 // MARK: DCA-SMG45M Reaper
 /obj/item/gun/projectile/automatic/smg/c20r/auto
 	name = "DCA-SMG45M \"Reaper\" submachine gun"
