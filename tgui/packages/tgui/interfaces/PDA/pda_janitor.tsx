@@ -76,7 +76,7 @@ export const pda_janitor = (props: unknown) => {
         </LabeledList.Item>
       )}
       {keys && (
-        <LabeledList.Item label="Локации ключей картов">
+        <LabeledList.Item label="Локации ключей уборочных машин">
           {keys.map((c) => (
             <Box key={c}>
               {c.x},{c.y} ({c.dir})
@@ -85,7 +85,7 @@ export const pda_janitor = (props: unknown) => {
         </LabeledList.Item>
       )}
       {janicarts && (
-        <LabeledList.Item label="Локации картов уборщика">
+        <LabeledList.Item label="Локации уборочных машин">
           {janicarts.map((c) => (
             <Box key={c}>
               {c.x},{c.y} ({c.dir})
