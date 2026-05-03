@@ -1,4 +1,0 @@
-author: "anon1mka"
-delete-after: True
-changes:
-  - add: "Свист пуль при \"промахе\" (PR #8822)"

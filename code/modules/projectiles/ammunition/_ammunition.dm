@@ -1,6 +1,7 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "Иногда гильза от пули — это просто гильза, и ничего более."
+	gender = FEMALE
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	origin_tech = "materials=3;combat=3"
@@ -9,6 +10,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 1000)
+	override_notes = TRUE
 	/// What sound should play when this ammo is fired
 	var/fire_sound = null
 	/// What sound should play when this ammo hits the ground
@@ -45,6 +47,19 @@
 	/// Ammo type overlay for magazines (not add overlay if null)
 	var/bullet_type = null
 
+	/// Ammo marking for desc and names. Should be like `"9x19 мм БП."`
+	var/ammo_marking = null
+	/**
+	 * Extra description info for specific ammo types.
+	 *
+	 * Example: `"Воспламеяется при попадании."`
+	 */
+	var/extra_info = null
+	/// `name` and `ru_names` won't be dynamically updated if set to `TRUE`
+	var/no_update_names = FALSE
+	/// `desc` won't be dynamically updated if set to `TRUE`
+	var/no_update_desc = FALSE
+
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()
 	if(projectile_type)
@@ -52,7 +67,7 @@
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
-	update_appearance(UPDATE_ICON|UPDATE_DESC)
+	update_appearance(updates = ALL)
 
 /obj/item/ammo_casing/Destroy()
 	QDEL_NULL(BB)
@@ -70,9 +85,98 @@
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
+/obj/item/ammo_casing/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ammo))
+
+/**
+ *
+ * Outputs type-specific weapon stats for ammunition based on the projectile loaded inside the casing.
+ * Distinguishes between critting and stam-critting in separate lines
+ *
+ */
+/obj/item/ammo_casing/proc/add_notes_ammo()
+	// Try to get a projectile to derive stats from
+	var/obj/projectile/exam_proj = projectile_type
+	var/initial_damage = initial(exam_proj.damage)
+	var/initial_stamina = initial(exam_proj.stamina)
+	// projectile damage multiplier for guns with snowflaked damage multipliers
+	var/proj_damage_mult = 1
+	// projectile stamina damage multiplier
+	var/proj_stamine_mult = 1
+	if(!ispath(exam_proj) || pellets == 0)
+		return
+
+	// are we in an ammo box?
+	if(isammobox(loc))
+		var/obj/item/ammo_box/our_box = loc
+		// is our ammo box in a gun?
+		if(isgun(our_box.loc))
+			var/obj/item/gun/our_gun = our_box.loc
+			// grab the damage multiplier
+			proj_damage_mult = our_gun.damage_mod
+			proj_stamine_mult = our_gun.stamina_mod
+	// if not, are we just in a gun e.g. chambered
+	else if(isgun(loc))
+		var/obj/item/gun/our_gun = loc
+		// grab the damage multiplier.
+		proj_damage_mult = our_gun.damage_mod
+		proj_stamine_mult = our_gun.stamina_mod
+
+	var/list/readout = list()
+	readout += "<b><u>СТРЕЛЬБА — [get_ammo_marking()]</u></b>"
+	if((proj_damage_mult <= 0 && proj_stamine_mult <= 0) || (initial_damage <= 0 && initial_stamina <= 0))
+		return span_boldnotice("- Боеприпасы [span_warning(get_ammo_marking())] не наносят значимого ущерба при попадании.")
+
+	// No dividing by 0
+	if(initial_damage)
+		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")
+		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [lethal_hits_to_crit_str]."
+	if(initial_stamina)
+		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")
+		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [non_lethal_hits_to_crit_str]."
+
+	return readout.Join("\n") // Sending over a single string, rather than the whole list
+
+/obj/item/ammo_casing/proc/get_ammo_marking()
+	return ammo_marking ? ammo_marking : caliber
+
+/obj/item/ammo_casing/update_name(updates = ALL)
+	. = ..()
+	if(no_update_names)
+		return
+
+	if(BB)
+		gender = MALE
+		name = "[get_ammo_marking()] cartridge"
+		ru_names = string_list(list(
+			NOMINATIVE = "патрон [get_ammo_marking()]",
+			GENITIVE = "патрона [get_ammo_marking()]",
+			DATIVE = "патрону [get_ammo_marking()]",
+			ACCUSATIVE = "патрон [get_ammo_marking()]",
+			INSTRUMENTAL = "патроном [get_ammo_marking()]",
+			PREPOSITIONAL = "патроне [get_ammo_marking()]",
+		))
+	else
+		gender = FEMALE
+		name = "[caliber] bullet casing"
+		ru_names = string_list(list(
+			NOMINATIVE = "гильза [caliber]",
+			GENITIVE = "гильзы [caliber]",
+			DATIVE = "гильзе [caliber]",
+			ACCUSATIVE = "гильзу [caliber]",
+			INSTRUMENTAL = "гильзой [caliber]",
+			PREPOSITIONAL = "гильзе [caliber]",
+		))
+
 /obj/item/ammo_casing/update_desc(updates = ALL)
 	. = ..()
-	desc = "[initial(desc)][BB ? "" : " Эта гильза уже отстрелялась."]"
+	if(no_update_desc)
+		return
+
+	if(BB)
+		desc = "Заряженный и готовый к использованию патрон [get_ammo_marking()].[extra_info ? " " + extra_info : ""]"
+	else
+		desc = "Пустая гильза от пули калибра [caliber]." // no extra info because no bullet
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)
@@ -161,6 +265,7 @@
 	return
 
 // MARK: Caseless
+// TODO: port caseless element from TG — https://github.com/tgstation/tgstation/pull/76335
 /obj/item/ammo_casing/caseless
 	desc = "Безгильзовый патрон."
 

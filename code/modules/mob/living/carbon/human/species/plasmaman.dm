@@ -53,7 +53,8 @@
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
 	speciesbox = /obj/item/storage/box/survival/species/plasmaman
-	flesh_color = "#8b3fba"
+	flesh_color = BLOOD_COLOR_PLASMAMAN
+	//blood_color = BLOOD_COLOR_PLASMAMAN
 
 	toxic_food = NONE
 	disliked_food = NONE
@@ -227,7 +228,7 @@
 	if(isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/suit = H.wear_suit
 		var/obj/item/clothing/helmet = H.head
-		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
+		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDAMAGE)
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
 		var/datum/gas_mixture/environment = null
@@ -252,11 +253,11 @@
 	H.update_fire()
 	..()
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
-		H.reagents.add_reagent("pure_plasma", 5)
+		H.reagents.add_reagent("pure_plasma", 1)
 
-/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/H)
+/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/user, datum/fracture_type/fracture)
 	SIGNAL_HANDLER
-	H.reagents.add_reagent("plasma_dust", 15)
+	user.reagents.add_reagent(/datum/reagent/plasma_dust, fracture.plasma_dust)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)

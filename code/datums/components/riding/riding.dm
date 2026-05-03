@@ -67,7 +67,7 @@
 	RegisterSignal(parent, COMSIG_BUCKLED_CAN_Z_MOVE, PROC_REF(riding_can_z_move))
 	RegisterSignal(parent, GLOB.movement_type_addtrait_signals, PROC_REF(on_movement_type_trait_gain))
 	RegisterSignal(parent, GLOB.movement_type_removetrait_signals, PROC_REF(on_movement_type_trait_loss))
-	//RegisterSignal(parent, COMSIG_SUPERMATTER_CONSUMED, PROC_REF(on_entered_supermatter))
+	RegisterSignal(parent, COMSIG_SUPERMATTER_CONSUMED, PROC_REF(on_entered_supermatter))
 	if(!can_force_unbuckle)
 		RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(force_unbuckle))
 
@@ -327,9 +327,7 @@
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /// When we touch a crystal, kill everything inside us. Not implemented yet
-/*
 /datum/component/riding/proc/on_entered_supermatter(atom/movable/ridden, atom/movable/supermatter)
 	SIGNAL_HANDLER
 	for(var/mob/passenger as anything in ridden.buckled_mobs)
 		passenger.Bump(supermatter)
-*/

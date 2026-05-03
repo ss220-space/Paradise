@@ -1,0 +1,6 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - refactor: "Рефактор спрайтов снайперок и пистолетов. (PR #9089)"
+  - image: "Респрайт смг Saber. (PR #9089)"
+  - image: "Респрайт снайперки AXMC. (PR #9089)"

@@ -25,7 +25,7 @@ import { useBackend } from '../../backend';
 import type { MainData, MechModule } from './data';
 import { useHonk } from './honk';
 
-export const ModulesPane = (props) => {
+export const ModulesPane = (_props: unknown) => {
   const { act, data } = useBackend<MainData>();
   const {
     modules,
@@ -199,7 +199,8 @@ export const ModulesPane = (props) => {
                 maxValue={radio_data.maxFrequency / 10}
                 value={radio_data.frequency / 10}
                 format={(value) => toFixed(value, 1)}
-                onDrag={(value) =>
+                tickWhileDragging
+                onChange={(value) =>
                   act('set_frequency', {
                     new_frequency: value * 10,
                   })
@@ -298,11 +299,13 @@ const ModuleDetailsBasic = (props) => {
           {equip_cooldown}
         </LabeledList.Item>
       )}
+      {!!slot && (
+        <LabeledList.Item label="Установлен:">{slot}</LabeledList.Item>
+      )}
       {!!can_be_toggled && (
         <LabeledList.Item label={honk(active_label)}>
           <Button
             icon="power-off"
-            content={honk(active ? 'Включен' : ' Выключен')}
             onClick={() =>
               act('equip_act', {
                 ref: ref,
@@ -310,14 +313,15 @@ const ModuleDetailsBasic = (props) => {
               })
             }
             selected={active}
-          />
+          >
+            {honk(active ? 'Включен' : ' Выключен')}
+          </Button>
         </LabeledList.Item>
       )}
       {!!can_be_triggered && (
         <LabeledList.Item label={honk(active_label)}>
           <Button
             icon="check"
-            content={honk('Выбрать')}
             disabled={active}
             onClick={() =>
               act('equip_act', {
@@ -325,7 +329,9 @@ const ModuleDetailsBasic = (props) => {
                 gear_action: 'select',
               })
             }
-          />
+          >
+            {honk('Выбрать')}
+          </Button>
         </LabeledList.Item>
       )}
     </>

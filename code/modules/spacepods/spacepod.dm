@@ -782,23 +782,22 @@
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 		return 1
 
-/obj/spacepod/MouseDrop_T(mob/living/dropping, mob/living/user, params)
-	if(user == pilot || (user in passengers) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+/obj/spacepod/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
+	if(user == pilot || (user in passengers) || !isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 
-	. = TRUE
 	if(isliving(dropping))
 		occupant_sanity_check()
 
 		if(dropping != user && unlocked && (dropping.stat == DEAD || dropping.incapacitated()))
 			if(length(passengers) >= max_passengers && !pilot)
 				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
-				return .
+				return
 			if(length(passengers) < max_passengers)
 				visible_message(span_danger("[user.name] начина[PLUR_ET_YUT(user)] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
 				if(do_after(user, 5 SECONDS, dropping))
 					moved_other_inside(dropping)
-			return .
+			return
 
 		if(dropping == user)
 			enter_pod(user)
@@ -815,7 +814,7 @@
 		if(istype(object, /obj/structure/ore_box))
 			valid_cargo = TRUE
 	else if(istype(cargo, /obj/item/spacepod_equipment/cargo/crate))
-		if(istype(object, /obj/structure/closet/crate))
+		if(is_crate(object))
 			valid_cargo = TRUE
 	if(!valid_cargo)
 		return

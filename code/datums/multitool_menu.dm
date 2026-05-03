@@ -1,5 +1,5 @@
 ////////////////////////////////
-//	Multitool menu UI
+// Multitool menu UI
 ////////////////////////////////
 /datum/multitool_menu_host
 	/// The multitool
@@ -101,7 +101,7 @@
 	return multitool
 
 ////////////////////////////////
-//	Multitool menu
+// Multitool menu
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu
@@ -169,7 +169,7 @@
 	multitool?.visible_message("<span class=[class]>[multitool] beeps: [txt]</span>")
 
 ////////////////////////////////
-//	Multitool menu "tag_only"
+// Multitool menu "tag_only"
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu/idtag
@@ -207,7 +207,7 @@
 	return reject_bad_text(tgui_input_text(user, message, title, default))
 
 ////////////////////////////////
-//	Mass driver
+// Mass driver
 ////////////////////////////////
 /datum/multitool_menu/idtag/mass_driver
 	holder_type = /obj/machinery/mass_driver
@@ -223,7 +223,7 @@
 	my_holder.id_tag = new_tag
 
 ////////////////////////////////
-//	Mass driver button
+// Mass driver button
 ////////////////////////////////
 /datum/multitool_menu/idtag/driver_button
 	holder_type = /obj/machinery/driver_button
@@ -239,7 +239,7 @@
 	my_holder.id_tag = new_tag
 
 ////////////////////////////////
-//	Airlock electronics
+// Airlock electronics
 ////////////////////////////////
 /datum/multitool_menu/idtag/airlock_electronics
 	holder_type = /obj/item/airlock_electronics
@@ -255,7 +255,7 @@
 	my_holder.id = new_tag
 
 ////////////////////////////////
-//	Multitool menu "multiple_tags"
+// Multitool menu "multiple_tags"
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu/idtag/multiple_tags
@@ -294,7 +294,7 @@
 	return
 
 ////////////////////////////////
-//	Door control
+// Door control
 ////////////////////////////////
 /datum/multitool_menu/idtag/multiple_tags/door_control
 	holder_type = /obj/item/assembly/control
@@ -324,7 +324,7 @@
 	return FALSE
 
 ////////////////////////////////
-//	Multitool menu "frequency_and_tag"
+// Multitool menu "frequency_and_tag"
 //  ABSTRACT
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq
@@ -374,7 +374,7 @@
 	return tags
 
 ////////////////////////////////
-//	air_sensor
+// air_sensor
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/air_sensor
 	holder_type = /obj/machinery/atmospherics/air_sensor
@@ -460,7 +460,7 @@
 	return TRUE
 
 ////////////////////////////////
-//	general_air_control
+// general_air_control
 //  Does not use the id_tag stuff, only the frequency stuff.
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/general_air_control
@@ -546,7 +546,7 @@
 	my_holder.sensors[sensor_tag] = new_label
 
 ////////////////////////////////
-//	large_tank_control
+// large_tank_control
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
 	holder_type = /obj/machinery/computer/general_air_control/large_tank_control

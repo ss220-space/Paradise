@@ -26,14 +26,16 @@
 	if(volume >= 1)
 		Swell()
 
-/obj/item/toy/carpplushie/dehy_carp/afterattack(obj/O, mob/user, proximity, params)
-	if(!proximity) return
-	if(istype(O,/obj/structure/sink))
+/obj/item/toy/carpplushie/dehy_carp/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
+		return
+
+	if(istype(target, /obj/structure/sink))
 		to_chat(user, span_notice("You place [src] under a stream of water..."))
 		user.drop_from_active_hand()
-		loc = get_turf(O)
+		loc = get_turf(target)
 		return Swell()
-	..()
+	return ..()
 
 /obj/item/toy/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"

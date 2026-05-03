@@ -325,12 +325,9 @@
 "bv" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -406,13 +403,10 @@
 "ft" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -470,13 +464,10 @@
 "ks" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)

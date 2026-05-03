@@ -43,12 +43,11 @@
 		for(var/turf/spawn_turf in possible_turfs)
 			if(!iswallturf(spawn_turf) && !locate(/obj/structure/grille) in spawn_turf)
 				new /obj/structure/energy_caltrops(spawn_turf)
-		for(var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_action in actions)
-			ninja_action.use_action()
-			break
+		var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_caltrops = locate() in ninja.actions
+		ninja_caltrops.use_action()
 		playsound(ninja, 'sound/effects/glass_step_sm.ogg', 50, TRUE)
 		if(auto_smoke)
-			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in ninja.actions)
 				prime_smoke(lowcost = TRUE)
 
 ///The caltrops object

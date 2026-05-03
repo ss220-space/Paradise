@@ -561,7 +561,7 @@
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)

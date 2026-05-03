@@ -102,13 +102,13 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/diona/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] слегка шевелится.")
 	else
 		..()
 
-/mob/living/simple_animal/diona/run_resist()
+/mob/living/simple_animal/diona/execute_resist()
 	..()
 	split()
 
@@ -121,11 +121,11 @@
 			get_scooped(M)
 	else
 		..()
+
 /mob/living/simple_animal/diona/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
 		gestalt_heal(user)
-		return FALSE
-	return ..()
+		return
 
 /mob/living/simple_animal/diona/proc/gestalt_heal(mob/living/carbon/human/M)
 	if(!Adjacent(M))

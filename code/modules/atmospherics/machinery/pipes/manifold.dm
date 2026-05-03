@@ -53,14 +53,8 @@
 					connected_to = c
 					node3 = target
 				break
-	var/turf/T = src.loc			// hide if turf is not intact
-	if(!T.transparent_floor)
-		hide(T.intact)
-	update_icon()
 
-/obj/machinery/atmospherics/pipe/manifold/hide(i)
-	if(level == 1 && issimulatedturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
+	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)

@@ -81,12 +81,15 @@ RSF
 	. = ..()
 	. += span_notice("It currently holds <b>[matter]/30</b> fabrication-units.")
 
-/obj/item/rsf/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity) return
-	if(!(istable(A) || isfloorturf(A)))
+/obj/item/rsf/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
+	if(!(istable(target) || isfloorturf(target)))
+		return
+
 	var/spawn_location
-	var/turf/T = get_turf(A)
+	var/turf/T = get_turf(target)
 	if(istype(T) && !T.density)
 		spawn_location = T
 	else

@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Отображение имплантов вместо имплантеров у предателей после гринтекста (PR #8859)"

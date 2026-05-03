@@ -173,12 +173,26 @@ effective or pretty fucking useless.
 	attack_self(usr)
 	add_fingerprint(usr)
 
+/// Checks if a given atom is in range of a radio jammer, returns TRUE if it is.
+/proc/is_within_radio_jammer_range(atom/source)
+	var/turf/source_turf = get_turf(source)
+	if(!source_turf)
+		return FALSE
+	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer)
+		if(!jammer_turf)
+			continue
+		if(IN_GIVEN_RANGE(source_turf, jammer_turf, jammer.range))
+			return TRUE
+	return FALSE
+
 /obj/item/jammer
 	name = "radio jammer"
 	desc = "Device used to disrupt nearby radio communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
+	/// The range of devices to disable while active
 	var/range = 12
 
 /obj/item/jammer/Destroy()
@@ -427,7 +441,7 @@ effective or pretty fucking useless.
 	flawless = TRUE
 
 /obj/item/teleporter/admin/update_icon_state()
-	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
+	icon_state = "[base_icon_state]-[ceil(charges / 2)]"
 
 #define ION_CALLER_AI_TARGETING "AI targeting"
 #define ION_CALLER_COMMS_TARGETING "Telecomms targeting"

@@ -32,48 +32,63 @@ SUBSYSTEM_DEF(explosions)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/explosions/fire(resumed = 0)
+	var/priority_queue/explosion_queue = src.explosion_queue
 	while(!explosion_queue.is_empty())
 		var/datum/explosion_data/data = explosion_queue.peek()
-		while(!data.affected_turfs_queue.is_empty())
-			var/turf/explode = data.affected_turfs_queue.dequeue()
+		var/queue/affected_turfs_queue = data.affected_turfs_queue
+		var/cached_multiz_explosion = data.multiz_explosion
+		var/cached_eactionary_explosions = reactionary_explosions
+		var/list/cached_exp_block = data.cached_exp_block
+		var/list/cached_turf_exp_block = data.cached_turf_exp_block
+		var/list/cached_turf_vert_exp_block = data.cached_turf_vert_exp_block
+		var/turf/epicenter = data.epicenter
+		var/x0 = data.x0
+		var/y0 = data.y0
+		var/flame_range = data.flame_range
+		var/devastation_range = data.devastation_range
+		var/light_impact_range = data.light_impact_range
+		var/heavy_impact_range = data.heavy_impact_range
+		var/breach = data.breach
+		while(!affected_turfs_queue.is_empty())
+			var/turf/explode = affected_turfs_queue.dequeue()
 			if(QDELETED(explode))
 				continue
-			var/distance = CHEAP_HYPOTENUSE(explode.x, explode.y, data.x0, data.y0)
+			var/distance = CHEAP_HYPOTENUSE(explode.x, explode.y, x0, y0)
 
-			if(reactionary_explosions)
+			if(cached_eactionary_explosions)
 				var/turf_block
 				var/total_cords = "[explode.x],[explode.y],[explode.z]"
 				var/prev_block
-				if(data.multiz_explosion)
-					turf_block = data.cached_turf_vert_exp_block[explode] ? data.cached_turf_vert_exp_block[explode] : count_turf_vert_block(explode)
-					if(explode != data.epicenter)
-						var/turf/next_turf = get_step_towards_multiz(explode, data.epicenter)
+				if(cached_multiz_explosion)
+					turf_block = cached_turf_vert_exp_block[explode] ? cached_turf_vert_exp_block[explode] : count_turf_vert_block(explode)
+					if(explode != epicenter)
+						var/turf/next_turf = get_step_towards_multiz(explode, epicenter)
 						var/next_cords = "[next_turf.x],[next_turf.y],[next_turf.z]"
 						if(next_turf.z != explode.z)
-							prev_block = data.cached_exp_block[next_cords] ? data.cached_exp_block[next_cords] : count_turf_vert_block(next_turf)
+							prev_block = cached_exp_block[next_cords] ? cached_exp_block[next_cords] : count_turf_vert_block(next_turf)
 						else
-							prev_block = data.cached_exp_block[next_cords] ? data.cached_exp_block[next_cords] : count_turf_block(next_turf)
+							prev_block = cached_exp_block[next_cords] ? cached_exp_block[next_cords] : count_turf_block(next_turf)
 
 				else
-					turf_block = data.cached_turf_exp_block[explode] ? data.cached_turf_exp_block[explode] : count_turf_block(explode)
+					turf_block = cached_turf_exp_block[explode] ? cached_turf_exp_block[explode] : count_turf_block(explode)
 
-					if(explode != data.epicenter)
-						var/turf/next_turf = get_step_towards(explode, data.epicenter)
+					if(explode != epicenter)
+						var/turf/next_turf = get_step_towards(explode, epicenter)
 						var/next_cords = "[next_turf.x],[next_turf.y],[next_turf.z]"
-						prev_block = data.cached_exp_block[next_cords] ? data.cached_exp_block[next_cords] : count_turf_block(next_turf)
+						prev_block = cached_exp_block[next_cords] ? cached_exp_block[next_cords] : count_turf_block(next_turf)
 
-				if(explode == data.epicenter)
-					data.cached_exp_block[total_cords] = turf_block
+				if(explode == epicenter)
+					cached_exp_block[total_cords] = turf_block
 				distance += prev_block
-				data.cached_exp_block[total_cords] = prev_block + turf_block
+				cached_exp_block[total_cords] = prev_block + turf_block
 
-			var/flame_distance = distance < data.flame_range
+			var/flame_distance = distance < flame_range
 
-			if(distance < data.devastation_range)
+			if(distance < devastation_range)
 				distance = EXPLODE_DEVASTATE
-			else if(distance < data.heavy_impact_range)
+			else if(distance < heavy_impact_range)
 				distance = EXPLODE_HEAVY
-			else if(distance < data.light_impact_range)
+			else if(distance < light_impact_range)
 				distance = EXPLODE_LIGHT
 			else
 				distance = EXPLODE_NONE
@@ -95,21 +110,21 @@ SUBSYSTEM_DEF(explosions)
 					for(var/atom/AM as anything in S)	//bypass type checking since only atom can be contained by turfs anyway
 						if(!QDELETED(AM) && AM.simulated)
 							if(AM.level >= affecting_level)
-								AM.ex_act(distance, data.epicenter)
+								AM.ex_act(distance, epicenter)
 				else
 					for(var/atom/AM as anything in explode)	//see above
 						if(!QDELETED(AM) && AM.simulated)
-							AM.ex_act(distance, data.epicenter)
-				if(data.breach)
-					explode.ex_act(distance, data.epicenter)
+							AM.ex_act(distance, epicenter)
+				if(breach)
+					explode.ex_act(distance, epicenter)
 				else
-					explode.ex_act(EXPLODE_LIGHT, data.epicenter)
+					explode.ex_act(EXPLODE_LIGHT, epicenter)
 			if(MC_TICK_CHECK)
 				return
 
 		var/took = stop_watch(data.watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		debug_world("Explosion([data.x0],[data.y0],[data.z0])(d[data.devastation_range],h[data.heavy_impact_range],l[data.light_impact_range]): Took [took] seconds.")
+		debug_world("Explosion([x0],[y0],[data.z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 		data.log_explosions_machines(took)
 		qdel(explosion_queue.dequeue())
 		if(MC_TICK_CHECK)
@@ -137,7 +152,7 @@ SUBSYSTEM_DEF(explosions)
  * Makes a given turf explode.
  *
  * Arguments:
- * - [origin][/turf]: The turf that's exploding.
+ * - [epicenter][/turf]: The turf that's exploding.
  * - devastation_range: The range at which the effects of the explosion are at their strongest.
  * - heavy_impact_range: The range at which the effects of the explosion are relatively severe.
  * - light_impact_range: The range at which the effects of the explosion are relatively weak.

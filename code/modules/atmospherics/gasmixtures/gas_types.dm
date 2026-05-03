@@ -1,3 +1,4 @@
+GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 /proc/meta_gas_list()
 	. = list()
 	for(var/gas_path in subtypesof(/datum/gas))
@@ -11,6 +12,7 @@
 		gas_info[META_GAS_SCRUB_FLAG] = gas.scrub_flag
 		gas_info[META_GAS_SENSOR_FLAG] = gas.sensor_flag
 		.[gas.id] = gas_info
+
 
 /*||||||||||||||/----------\||||||||||||||*\
 ||||||||||||||||[GAS DATUMS]||||||||||||||||

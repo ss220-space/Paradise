@@ -310,7 +310,7 @@
 	[CLOCK_METAL_TO_BRASS] metal into a brass\n
 	Robots into cult"}
 
-/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 	if(channeling)

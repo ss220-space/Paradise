@@ -105,7 +105,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	item_flags = ABSTRACT|DROPDEL
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 

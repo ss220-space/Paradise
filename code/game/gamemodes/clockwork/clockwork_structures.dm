@@ -1,7 +1,6 @@
 /obj/structure/clockwork
 	density = TRUE
 	anchored = TRUE
-	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/clockwork.dmi'
 
 /obj/structure/clockwork/beacon

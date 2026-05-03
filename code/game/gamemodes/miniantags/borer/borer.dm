@@ -367,7 +367,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/borer/OnUnarmedAttack(mob/living/carbon/human/human)
+/mob/living/simple_animal/borer/OnUnarmedAttack(mob/living/carbon/human/human, proximity_flag, list/modifiers)
 	if(!istype(human))
 		return
 

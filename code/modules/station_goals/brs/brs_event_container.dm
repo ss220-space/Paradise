@@ -185,7 +185,7 @@
 /datum/event/bluespace_rift_event/teleport_living/shuffle/start()
 	if(num_objects_to_teleport < 2)
 		return
-	for(var/i in 1 to FLOOR(num_objects_to_teleport / 2, 1))
+	for(var/i in 1 to floor(num_objects_to_teleport / 2))
 		var/mob1 = pick_n_take(objects_in_range)
 		var/mob2 = pick_n_take(objects_in_range)
 		var/mob1_was_here = get_turf(mob1)

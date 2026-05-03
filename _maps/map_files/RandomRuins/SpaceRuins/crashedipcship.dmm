@@ -548,12 +548,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
-"ku" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/wall/r_wall/coated,
-/area/ruin/space/crashedipcship/engine)
 "kL" = (
 /obj/machinery/power/smes,
 /obj/structure/cable,
@@ -577,26 +571,6 @@
 "kT" = (
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
-"kW" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/light_construct/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
-	pixel_y = -28;
-	environment_channel = 0;
-	equipment_channel = 0;
-	lighting_channel = 0;
-	start_charge = 0;
-	req_access = list(111);
-	name = "IPC area power controller"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/crashedipcship/aft)
 "lc" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -728,6 +702,24 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
+"mD" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/obj/machinery/power/apc/noalarm/directional/west{
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
+	start_charge = 0;
+	req_access = list(111)
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/crashedipcship/engine)
 "mF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/engine,
@@ -767,14 +759,6 @@
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout,
 /turf/simulated/floor/beach/water,
 /area/ruin/space/crashedipcship/asteroid)
-"mZ" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/wall/shuttle{
-	color = "#A9E0FF"
-	},
-/area/ruin/space/crashedipcship/middle)
 "nb" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -960,27 +944,6 @@
 /area/ruin/space/crashedipcship/engine)
 "qE" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/crashedipcship/engine)
-"qF" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
-	},
-/obj/structure/spacevine,
-/obj/machinery/power/apc/noalarm{
-	environment_channel = 0;
-	equipment_channel = 0;
-	lighting_channel = 0;
-	start_charge = 0;
-	req_access = list(111);
-	name = "IPC area power controller";
-	pixel_x = -28;
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "qN" = (
@@ -1703,6 +1666,28 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
+"BI" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/spacevine,
+/obj/item/circuitboard/cyborgrecharger,
+/obj/item/stock_parts/manipulator,
+/obj/machinery/power/apc/noalarm/directional/north{
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
+	start_charge = 0;
+	req_access = list(111)
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/crashedipcship/middle)
 "BM" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/stripes/box,
@@ -2300,31 +2285,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
-"Mw" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/structure/spacevine,
-/obj/item/circuitboard/cyborgrecharger,
-/obj/item/stock_parts/manipulator,
-/obj/machinery/power/apc/noalarm{
-	environment_channel = 0;
-	equipment_channel = 0;
-	lighting_channel = 0;
-	start_charge = 0;
-	req_access = list(111);
-	name = "IPC area power controller";
-	pixel_y = 28;
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/crashedipcship/middle)
 "My" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
@@ -2452,10 +2412,6 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
-"Oe" = (
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
-/turf/simulated/floor/engine,
-/area/ruin/space/crashedipcship/shard)
 "On" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -2533,6 +2489,24 @@
 /obj/item/organ/external/hand/right/ipc,
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
 /turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/crashedipcship/aft)
+"Qt" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/noalarm/directional/south{
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
+	start_charge = 0;
+	req_access = list(111)
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
 "Qz" = (
 /obj/structure/cable{
@@ -2766,9 +2740,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/alarm/all_access{
-	pixel_x = 32
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/shard)
 "UX" = (
@@ -2782,6 +2754,10 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
+"Vj" = (
+/obj/machinery/power/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/engine,
+/area/ruin/space/crashedipcship/shard)
 "Vs" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4770,7 +4746,7 @@ zb
 vB
 Nl
 An
-kW
+Qt
 An
 cr
 vl
@@ -5286,7 +5262,7 @@ qa
 qa
 qa
 Yl
-Mw
+BI
 AC
 ve
 TQ
@@ -5392,7 +5368,7 @@ fo
 Yl
 Yl
 Yl
-mZ
+Yl
 Yl
 hZ
 Yl
@@ -5443,7 +5419,7 @@ qa
 eY
 Yl
 vL
-ku
+vL
 vL
 vL
 ij
@@ -5548,7 +5524,7 @@ uP
 Qd
 gF
 ny
-qF
+mD
 uy
 lZ
 EE
@@ -5914,7 +5890,7 @@ sH
 fz
 Ry
 MS
-Oe
+Vj
 mF
 Ry
 Qz

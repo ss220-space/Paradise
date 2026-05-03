@@ -42,6 +42,8 @@
 
 	client.images = list()				//remove the images such as AIs being unable to see runes
 	client.clear_screen()			//remove hud items just in case
+	client.set_right_click_menu_mode(shift_to_open_context_menu)
+
 
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect

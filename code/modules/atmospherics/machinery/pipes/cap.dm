@@ -14,10 +14,6 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/cap/hide(i)
-	if(level == 1 && issimulatedturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()
 	return list(node)
@@ -64,10 +60,6 @@
 				node = target
 				break
 
-	var/turf/T = get_turf(src)			// hide if turf is not intact
-	if(!istype(T) || (T.transparent_floor == TURF_TRANSPARENT))
-		return
-	hide(T.intact)
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/visible

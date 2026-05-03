@@ -190,10 +190,10 @@
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 	parent_action = null
 
-/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
 	if(is_airlock(target))
@@ -295,10 +295,10 @@
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 	parent_action = null
 
-/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
 	if(isstructure(target))
@@ -479,7 +479,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_inv = HIDETAIL
 	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
@@ -511,7 +511,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	item_flags = DROPDEL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 90, ACID = 90)

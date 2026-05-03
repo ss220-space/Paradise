@@ -1,6 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Спич баблы снова меняются от нашивок. (PR #8824)"
-  - refactor: "Код нашивок. (PR #8824)"
-  - add: "Компонент спич бабла. (PR #8824)"

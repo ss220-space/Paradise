@@ -28,9 +28,6 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/multiz/hide(i)
-	return
-
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
 	return list(node, above, below)
 

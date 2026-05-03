@@ -168,6 +168,12 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_effect_map
 
+/datum/controller/subsystem/tts/vv_edit_var(var_name, var_value)
+	// tts being enabled depends on whether it actually exists
+	if(NAMEOF(src, is_enabled) == var_name)
+		return FALSE
+	return ..()
+
 /datum/controller/subsystem/tts/get_stat_details()
 	var/list/msg = list()
 	msg += "tRPS:[tts_trps] "

@@ -41,7 +41,6 @@
 	desc = "A playing card. You can only see the back."
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE //has this been used before? If not, give no hints about it's nature
-	description_antag = "Hold this in your hand when you are getting shot at to steal your opponent's gun. You'll lose this, so be careful!"
 
 /obj/item/syndicate_reverse_card/update_icon_state()
 	. = ..()

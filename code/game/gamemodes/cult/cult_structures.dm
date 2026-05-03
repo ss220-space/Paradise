@@ -1,7 +1,6 @@
 /obj/structure/cult
 	density = TRUE
 	anchored = TRUE
-	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/cult.dmi'
 	light_power = 2
 

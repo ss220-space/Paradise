@@ -99,9 +99,10 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
+			var/pregame_timestart = CONFIG_GET(number/pregame_timestart)
+			round_start_time = world.time + (pregame_timestart SECONDS)
 			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
-			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [CONFIG_GET(number/pregame_timestart)] секунд[DECL_SEC_MIN(CONFIG_GET(number/pregame_timestart))].")
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_SEC_MIN(pregame_timestart)].")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)

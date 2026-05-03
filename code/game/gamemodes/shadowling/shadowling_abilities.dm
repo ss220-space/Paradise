@@ -365,15 +365,15 @@
 	if(QDELETED(user))
 		return
 
-	if(thralls >= CEILING(1 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
+	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
 
-	if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !screech_acquired)
+	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
 
-	if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !revive_thrall_acquired)
+	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall(null))
 
@@ -440,18 +440,18 @@
 	if(QDELETED(user))
 		return
 
-	if(thralls >= CEILING(1 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
+	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
 		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i>"))
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
 
-	if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !screech_acquired)
+	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
 		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging or sending power until repaired.</i>"))
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
 
-	if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !revive_thrall_acquired)
+	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
 		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i>"))

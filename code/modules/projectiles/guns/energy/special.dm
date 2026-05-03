@@ -141,8 +141,8 @@
 /obj/item/gun/energy/printer
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
-	icon_state = "l6closed0"
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "l6saw_cyborg"
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
@@ -354,7 +354,7 @@
 	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
 	holder = null
 
-/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(charging)
 		return
 	return ..()
@@ -433,7 +433,7 @@
 /obj/item/gun/energy/chrono_gun/update_overlays()
 	return list()
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(field)
 		field_disconnect(field)
 	..()

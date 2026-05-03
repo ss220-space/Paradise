@@ -143,7 +143,7 @@ GLOBAL_PROTECT(href_token)
 		observer.update_admin_actions()
 	return TRUE
 
-//This proc checks whether subject has at least ONE of the rights specified in rights_required.
+/// This proc checks whether subject has at least ONE of the rights specified in rights_required.
 /proc/check_rights_for(client/subject, rights_required)
 	if(subject?.holder)
 		if(rights_required && !(rights_required & subject.holder.rights))

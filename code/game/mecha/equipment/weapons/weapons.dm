@@ -30,7 +30,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/get_destroy_sound()
 	return chassis.weapdestrsound
 
-/obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))
@@ -43,7 +43,7 @@
 	if(targloc == curloc)
 		return FALSE
 
-	for(var/i=1 to get_shot_amount())
+	for(var/i in 1 to get_shot_amount())
 		spawn((i - 1) * projectile_delay)
 			var/obj/projectile/A = new projectile(curloc)
 			A.firer = chassis.occupant
@@ -57,7 +57,7 @@
 					spread = round((rand() - 0.5) * variance)
 				else
 					spread = round((i / projectiles_per_shot - 0.5) * variance)
-			A.preparePixelProjectile(target, chassis.occupant, params2list(params), spread)
+			A.preparePixelProjectile(target, chassis.occupant, modifiers, spread)
 
 			chassis.use_power(energy_drain)
 			projectiles--
@@ -201,7 +201,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/honker/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/honker/action(target, list/modifiers)
 	if(!chassis)
 		return FALSE
 	if(energy_drain && chassis.get_charge() < energy_drain)
@@ -393,7 +393,7 @@
 	var/missile_range = 30
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))
@@ -475,7 +475,7 @@
 	var/det_time = 20
 	size = 1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))
@@ -528,7 +528,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))
@@ -556,7 +556,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))
@@ -586,7 +586,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!is_faced_target(target))

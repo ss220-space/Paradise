@@ -260,7 +260,7 @@
 	desc = "Пластиковая канистра для различных жидкостей."
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
-	possible_transfer_amounts = list(1,2,5,10,20,40,80)
+	possible_transfer_amounts = list(1, 2, 5, 10, 20, 40, 80)
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
@@ -315,7 +315,7 @@
 			if(93 to INFINITY)
 				filling.icon_state = "plastic_jug100"
 
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())

@@ -6,6 +6,7 @@
 	desc = "Just a box..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
+	anchorable = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
@@ -84,7 +85,7 @@
 /obj/structure/closet/cardboard/proc/on_move(turf/old_loc, turf/new_loc, direction)
 	return
 
-/obj/structure/closet/cardboard/open()
+/obj/structure/closet/cardboard/open(mob/living/user, force = FALSE)
 	if(opened || !can_open())
 		return FALSE
 

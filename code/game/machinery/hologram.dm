@@ -47,6 +47,8 @@ GLOBAL_LIST_EMPTY(holopads)
 	light_on = FALSE
 	light_range = 2
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 50, acid = 0)
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/list/masters //List of living mobs that use the holopad
 	var/list/holorays //Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn

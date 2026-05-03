@@ -26,7 +26,7 @@
 /obj/item/lazarus_injector/update_icon_state()
 	icon_state = "lazarus_[loaded ? "hypo" : "empty"]"
 
-/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!loaded)
 		return
 	if(isliving(target) && proximity_flag)

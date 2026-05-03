@@ -362,7 +362,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "\"Dr. Denchigo\" Marijuana Packet"
+	name = "\"Dr. Vitalya\" Marijuana Packet"
 	desc = "Упаковка 20 медицинских сигарет, выпускаемых по рецепту. Содержат марихуану."
 	icon_state = "medpacket"
 	item_state = "medpacket"

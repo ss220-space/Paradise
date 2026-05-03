@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Плюоксиум теперь работает как кислород при дыхании. (PR #8856)"
-  - bugfix: "Антиноб теперь облучает. (PR #8856)"

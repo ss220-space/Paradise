@@ -67,6 +67,11 @@ GLOBAL_LIST_EMPTY(armor_cache)
 	GLOB.armor_by_type -= type
 	return ..()
 
+/// Gets the rating of armor for the specified rating
+/datum/armor/proc/getRating(rating)
+	if(!(rating in ARMOR_LIST_ALL()))
+		CRASH("Attempted to get a rating '[rating]' that doesnt exist")
+	return vars[rating]
 
 /datum/armor/proc/modifyRating(melee_value = 0, bullet_value = 0, laser_value = 0, energy_value = 0, bomb_value = 0, bio_value = 0, fire_value = 0, acid_value = 0, magic_value = 0)
 	return getArmor(melee + melee_value, bullet + bullet_value, laser + laser_value, energy + energy_value, bomb + bomb_value, bio + bio_value, fire + fire_value, acid + acid_value, magic + magic_value)
@@ -85,11 +90,6 @@ GLOBAL_LIST_EMPTY(armor_cache)
 					(isnull(acid_value) ? acid : acid_value),\
 					(isnull(magic_value) ? magic : magic_value))
 
-/datum/armor/proc/getRating(attack_flag)
-	if(!(attack_flag in ARMOR_LIST_ALL()))
-		CRASH("Attempted to get a rating '[attack_flag]' that doesnt exist")
-	return vars[attack_flag]
-
 /datum/armor/proc/getList()
 	return list(MELEE = melee, BULLET = bullet, LASER = laser, ENERGY = energy, BOMB = bomb, BIO = bio, FIRE = fire, ACID = acid, MAGIC = magic)
 
@@ -104,5 +104,54 @@ GLOBAL_LIST_EMPTY(armor_cache)
 		return FALSE
 	. = ..()
 	tag = ARMORID // update tag in case armor values were edited
+
+/// Checks if any of the armor values are non-zero, so this technically also counts negative armor!
+/datum/armor/proc/has_any_armor()
+	for(var/rating in ARMOR_LIST_ALL())
+		if(vars[rating])
+			return TRUE
+	return FALSE
+
+/**
+ * Rounds armor_value down to the nearest 10 and divides it by 10.
+ *
+ * Arguments:
+ * * armor_value - Number we're converting
+ */
+/proc/armor_to_protection_class(armor_value)
+	if(armor_value < 0)
+		. = "-"
+	. += "[round(abs(armor_value), 10) / 10]"
+	return .
+
+/**
+ * Returns the client readable name of an armor type
+ *
+ * Arguments:
+ * * armor_type - The type to convert
+ */
+/proc/armor_to_protection_name(armor_type)
+	switch(armor_type)
+		if(ACID)
+			return "КИСЛОТА"
+		if(BIO)
+			return "БИОУГРОЗА"
+		if(BOMB)
+			return "ВЗРЫВЫ"
+		if(BULLET)
+			return "БАЛЛИСТИКА"
+		if(ENERGY)
+			return "ЭНЕРГИЯ"
+		if(FIRE)
+			return "ОГОНЬ"
+		if(LASER)
+			return "ЛАЗЕРЫ"
+		if(MELEE)
+			return "УДАРЫ"
+		if(MAGIC)
+			return "МАГИЯ"
+
+	CRASH("Unknown armor type '[armor_type]'")
+
 
 #undef ARMORID

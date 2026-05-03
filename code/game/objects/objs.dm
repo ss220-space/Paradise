@@ -213,9 +213,6 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/proc/hide(h)
-	return
-
 /obj/proc/hear_talk(mob/speaker, list/message_pieces)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
@@ -267,9 +264,6 @@
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src, S)
-
-/obj/proc/container_resist(mob/living)
-	return
 
 /obj/proc/on_mob_move(mob/user, dir)
 	return

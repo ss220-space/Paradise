@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	return default_unfasten_wrench(user, I)
 
 /obj/machinery/libraryscanner/attack_hand(mob/user)
-	if(istype(user,/mob/dead))
+	if(isdead(user))
 		to_chat(user, span_danger("Фигу видишь?"))
 		return
 	add_fingerprint(user)

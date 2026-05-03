@@ -808,11 +808,6 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 	update_icon()
 
-/obj/item/storage/belt/bandolier/booze
-	description_antag = "Этот патронташ содержит 16 опьяняющих патронов, способных превратить противника или жертву в беззащитное существо. \
-						Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения. \
-						На трезвых они действуют не так сильно!"
-
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
 		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)
@@ -1203,7 +1198,6 @@
 	icon_state = "hunter_belt"
 	item_state = "ebelt"
 	use_item_overlays = TRUE
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/hatchet,
 		/obj/item/flashlight/lantern,
@@ -1232,6 +1226,9 @@
 		/obj/item/shovel/spade/wooden,
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
+	)
+	cant_hold = list(
+		/obj/item/pickaxe/drill,
 	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()

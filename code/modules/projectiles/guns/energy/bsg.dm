@@ -92,7 +92,7 @@
 	user.balloon_alert(user, "ядро извлечено")
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
 		balloon_alert(user, "нужен блюспейс кристалл")
 		return

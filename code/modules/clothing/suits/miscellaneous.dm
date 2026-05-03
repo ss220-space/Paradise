@@ -544,7 +544,7 @@
 	icon_state = "wintercoat_miner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
@@ -568,6 +568,7 @@
 	name = "quartermaster winter coat"
 	icon_state = "wintercoat_qm"
 	item_state = "coatqm"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/gun/projectile/shotgun)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
 
 /obj/item/clothing/head/hooded/winterhood/qm
@@ -780,6 +781,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
+/obj/item/clothing/suit/tracksuit/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Открыть/Закрыть [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/suit/tracksuit/green
 	name = "green tracksuit"
 	icon_state = "trackjacketgreen_open"
@@ -907,7 +912,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
@@ -919,6 +923,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/jacket/pilot
 	name = "security bomber jacket"
@@ -1064,7 +1072,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, fire = 100, acid = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
@@ -1112,10 +1120,13 @@
 
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
-	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 30, acid = 30)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/examine_more(mob/user)
+	. = ..()
+	. += span_warning("This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn.")
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
 	if(linked_staff)	//delink on destruction
@@ -1482,7 +1493,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
 
-/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
+/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
 	if(!istype(target) || !target.wetlevel)

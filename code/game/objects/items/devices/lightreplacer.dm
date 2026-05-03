@@ -241,28 +241,28 @@
 	else
 		return 0
 
-/obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity, params)
+/obj/item/lightreplacer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity && !bluespace_toggle)
+	if(!proximity_flag && !bluespace_toggle)
 		return
-	if(!isturf(T))
+	if(!isturf(target))
 		return
-	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
+	if(get_dist(src, target) >= (user.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE
-	for(var/atom/A in T)
-		if(!CanUse(U))
+	for(var/atom/A in target)
+		if(!CanUse(user))
 			break
 		used = TRUE
 		if(istype(A, /obj/machinery/light))
-			if(!proximity)  // only beams if at a distance
-				U.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+			if(!proximity_flag)  // only beams if at a distance
+				user.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 				playsound(src, 'sound/items/pshoom.ogg', 40, TRUE)
-			ReplaceLight(A, U)
+			ReplaceLight(A, user)
 
 	if(!used)
-		to_chat(U, "[src]'s refill light blinks red.")
+		to_chat(user, "[src]'s refill light blinks red.")
 
 /obj/item/lightreplacer/cyborg
 

@@ -497,7 +497,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
-			R.volume = FLOOR(R.volume, 1)
+			R.volume = floor(R.volume)
 			update_total()
 			return TRUE
 	return FALSE

@@ -136,24 +136,14 @@
 	icon_state = "paramed"
 
 /obj/structure/closet/paramedic/populate_contents()
-	new /obj/item/clothing/under/rank/medical/paramedic(src)
-	new /obj/item/clothing/under/rank/medical/paramedic(src)
-	new /obj/item/clothing/under/rank/medical/paramedic/skirt(src)
-	new /obj/item/clothing/under/rank/medical/paramedic/skirt(src)
+	new /obj/item/storage/garmentbag/paramedic(src)
+	new /obj/item/storage/garmentbag/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/radio/headset/headset_med(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/shoes/color/black(src)
-	new /obj/item/clothing/shoes/color/black(src)
-	new /obj/item/clothing/head/soft/paramedic(src)
-	new /obj/item/clothing/head/soft/paramedic(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
-	new	/obj/item/clothing/suit/storage/paramedic_jacket(src)
-	new	/obj/item/clothing/suit/storage/paramedic_jacket(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health(src)
 
 /obj/structure/closet/librarian
 	name = "librarian wardrobe"

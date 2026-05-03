@@ -214,15 +214,15 @@
 
 	if(active)
 		add_fingerprint(user)
-		user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] deactivated the shield generator."), \
-			span_notice("[icon2html(src, user)] You deactivate the shield generator."), \
+		user.visible_message(span_notice("[get_examine_icon(viewers(src))] [user] deactivated the shield generator."), \
+			span_notice("[get_examine_icon(user)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
 			add_fingerprint(user)
-			user.visible_message(span_notice("[icon2html(src, viewers(src))] [user] activated the shield generator."), \
-				span_notice("[icon2html(src, user)] You activate the shield generator."), \
+			user.visible_message(span_notice("[get_examine_icon(viewers(src))] [user] activated the shield generator."), \
+				span_notice("[get_examine_icon(user)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else

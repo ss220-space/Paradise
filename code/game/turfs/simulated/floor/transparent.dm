@@ -11,6 +11,7 @@
 	light_range = 2
 	keep_dir = FALSE
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_VISIBLE
 	explosion_vertical_block = 0 // it's not your regular plating floor...
 	transparent_floor = TURF_TRANSPARENT
 	heat_capacity = 800

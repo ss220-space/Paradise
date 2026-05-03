@@ -554,10 +554,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 #undef VV_HTML_ENCODE
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
-	if(!check_rights(R_ADMIN|R_MOD, FALSE) \
-		&& !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)) \
-		&& !((href_list["proc_call"]) && check_rights(R_PROCCALL, FALSE)))
-		to_chat(usr, span_warning("У вас недостаточно прав для доступа к VV."), confidential = TRUE)
+	if((usr.client != src) || !src.holder)
 		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
@@ -852,7 +849,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		var/obj/O = locateUID(href_list["delall"])
-		if(!isobj(O))
+		if(!istype(O))
 			to_chat(usr, "This can only be used on instances of type /obj", confidential = TRUE)
 			return
 
@@ -1105,8 +1102,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		switch(href_list["rotatedir"])
-			if("right")	A.dir = turn(A.dir, -45)
-			if("left")	A.dir = turn(A.dir, 45)
+			if("right") A.dir = turn(A.dir, -45)
+			if("left") A.dir = turn(A.dir, 45)
 
 		log_and_message_admins("has rotated \the [A]")
 		vv_update_display(A, "dir", dir2text(A.dir))
@@ -1318,7 +1315,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			to_chat(usr, "This can only be done to instances of type /mob/living", confidential = TRUE)
 			return
 		var/list/possibleverbs = list()
-		possibleverbs += "Cancel"								// One for the top...
+		possibleverbs += "Cancel" // One for the top...
 		possibleverbs += typesof(/mob/proc,/mob/verb,/mob/living/proc,/mob/living/verb)
 		switch(H.type)
 			if(/mob/living/carbon/human)
@@ -1328,7 +1325,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			if(/mob/living/silicon/ai)
 				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/ai/proc,/mob/living/silicon/ai/verb)
 		possibleverbs -= H.verbs
-		possibleverbs += "Cancel"								// ...And one for the bottom
+		possibleverbs += "Cancel" // ...And one for the bottom
 
 		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
 		if(!H)

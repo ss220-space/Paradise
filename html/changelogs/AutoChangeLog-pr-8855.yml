@@ -1,4 +1,0 @@
-author: "Arceniu"
-delete-after: True
-changes:
-  - spellcheck: "Убрана строчка \"несовместим с пистолетами\" у коллиматорных прицелов с ИЛС (PR #8855)"

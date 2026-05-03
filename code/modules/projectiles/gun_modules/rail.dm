@@ -67,6 +67,7 @@
 	bonus_accuracy = 10
 	spread_decrease_mod = 0.30
 	movespeed_slowdown = 1.3
+	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/scope/collimator/get_ru_names()
 	return list(
@@ -85,6 +86,7 @@
 	item_state = "coll_p"
 	overlay_state = "coll_p_o"
 	class = GUN_MODULE_CLASS_PISTOL_RAIL
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/scope/collimator/pistol/get_ru_names()
 	return list(
@@ -112,6 +114,7 @@
 	bonus_accuracy = 10
 	spread_decrease_mod = 0.40
 	movespeed_slowdown = 1.6
+	custom_price = 3 * PAYCHECK_MAX
 
 /obj/item/gun_module/rail/scope/x4/get_ru_names()
 	return list(
@@ -134,6 +137,7 @@
 	zoom_amount = 7
 	bonus_accuracy = 30
 	movespeed_slowdown = 2
+	custom_price = 5 * PAYCHECK_MAX
 
 /obj/item/gun_module/rail/scope/x8/get_ru_names()
 	return list(
@@ -157,6 +161,7 @@
 	bonus_accuracy = 50
 	spread_decrease_mod = 0.75
 	movespeed_slowdown = 2.5
+	custom_price = 10 * PAYCHECK_MAX
 
 /obj/item/gun_module/rail/scope/x16/get_ru_names()
 	return list(
@@ -230,6 +235,7 @@
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	origin_tech = "biotech=2;magnets=3;combat=1;programming=1"
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/hud/medical/get_ru_names()
 	return list(
@@ -251,6 +257,7 @@
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	class = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	origin_tech = "combat=2;magnets=3;programming=1;materials=1"
+	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/hud/security/get_ru_names()
 	return list(

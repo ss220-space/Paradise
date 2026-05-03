@@ -1,58 +1,70 @@
 /datum/species
-	var/name                     // Species name.
-	var/name_plural			 // Pluralized name (since "[name]s" is not always valid)
-	var/a = "a"					 // the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
+	/// Species name
+	var/name
+	/// Pluralized name (since "[name]s" is not always valid)
+	var/name_plural
+	/// the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
+	var/a = "a"
 
-	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
-	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
+	/// Normal icon set.
+	var/icobase = 'icons/mob/human_races/r_human.dmi'
+	/// Mutated icon set.
+	var/deform = 'icons/mob/human_races/r_def_human.dmi'
 
 	// Damage overlay and masks.
 	var/damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
 	var/damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
 	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
 
-	var/blood_species // Species blood's name
+	/// Species blood's name
+	var/blood_species
 	var/can_be_pale = FALSE
 
-	var/eyes = "eyes_s"                                  // Icon for eyes.
-	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
+	/// Icon for eyes.
+	var/eyes = "eyes_s"
+	/// A brief lore summary for use in the chargen screen.
+	var/blurb = "A completely nondescript species."
 	var/butt_sprite = "human"
 
-	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
-	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
+	/// Lesser form, if any (ie. monkey for humans)
+	var/datum/species/primitive_form = null
+	/// Greater form, if any, ie. human for monkeys.
+	var/datum/species/greater_form = null
 
 	var/roundstart = TRUE
 	var/id = null
 
 	/// Name of tail image in species effects icon file.
 	var/tail
-
 	/// like tail but wings
 	var/wing
-	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
+
+	/// For empty hand harm-intent attack
+	var/datum/unarmed_attack/unarmed
 	var/unarmed_type = /datum/unarmed_attack
-	var/silent_steps = 0          // Stops step noises
+	/// Stops step noises
+	var/silent_steps = 0
 
-	var/cold_level_1 = 260  // Cold damage level 1 below this point.
-	var/cold_level_2 = 200  // Cold damage level 2 below this point.
-	var/cold_level_3 = 120  // Cold damage level 3 below this point.
+	var/cold_level_1 = 260 //! Cold damage level 1 below this point.
+	var/cold_level_2 = 200 //! Cold damage level 2 below this point.
+	var/cold_level_3 = 120 //! Cold damage level 3 below this point.
 
-	var/heat_level_1 = 360  // Heat damage level 1 above this point.
-	var/heat_level_2 = 400  // Heat damage level 2 above this point.
-	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
+	var/heat_level_1 = 360 //! Heat damage level 1 above this point.
+	var/heat_level_2 = 400 //! Heat damage level 2 above this point.
+	var/heat_level_3 = 460 //! Heat damage level 3 above this point; used for body temperature
 
-	var/body_temperature = BODYTEMP_NORMAL	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
-	var/reagent_tag                 //Used for metabolizing reagents.
+	var/body_temperature = BODYTEMP_NORMAL //!non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
+	var/reagent_tag //Used for metabolizing reagents.
 
-	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
-	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/digestion_ratio = 1 //!How quickly the species digests/absorbs reagents.
+	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //!the most widely used factor; humans use a different one
 
-	var/hunger_type = "default" // Used to pick nutrition bar icon for HUD
+	var/hunger_type = "default" //! Used to pick nutrition bar icon for HUD
 
-	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
-	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
-	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
-	var/hazard_low_pressure = HAZARD_LOW_PRESSURE     // Dangerously low pressure.
+	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE //! Dangerously high pressure.
+	var/warning_high_pressure = WARNING_HIGH_PRESSURE //! High pressure warning.
+	var/warning_low_pressure = WARNING_LOW_PRESSURE //! Low pressure warning.
+	var/hazard_low_pressure = HAZARD_LOW_PRESSURE //! Dangerously low pressure.
 
 	// DO NOT CHANGE THESE VARS OUTSIDE OF OVERRIDING BY OTHER SPECIES, USE PHYSIOLOGY DATUM, OR I WILL FIND YOU .\_/.
 	// [/code/mob/living/carbon/human/physiology.dm]
@@ -123,16 +135,16 @@
 
 	var/breathid = "o2"
 
-	var/clothing_flags = 0 // Underwear and socks.
+	var/clothing_flags = 0 //! Underwear and socks.
 	var/exotic_blood
 	var/skinned_type
-	var/list/no_equip = list()	// slots the race can't equip stuff to
-	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
-	var/can_craft = TRUE // Can this mob using crafting or not?
+	var/list/no_equip = list()	//! slots the race can't equip stuff to
+	var/nojumpsuit = 0	//! this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
+	var/can_craft = TRUE //! Can this mob using crafting or not?
 
 	var/bodyflags = 0
 
-	var/blood_color = BLOOD_COLOR_RED //Red.
+	var/blood_color = BLOOD_COLOR_RED
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -163,12 +175,12 @@
 		"задерживает дыхание!")
 
 	// Language/culture vars.
-	var/default_language = LANGUAGE_GALACTIC_COMMON	// Default language is used when 'say' is used without modifiers.
-	var/language = LANGUAGE_GALACTIC_COMMON			// Default racial language, if any.
-	var/secondary_langs = list()					// The keys of secondary languages that are available to this species.
-	var/list/speech_sounds							// A list of sounds to potentially play when speaking.
-	var/list/speech_chance							// The likelihood of a speech sound playing.
-	var/scream_verb = "крич%(ит,ат)%"				// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
+	var/default_language = LANGUAGE_GALACTIC_COMMON //! Default language is used when 'say' is used without modifiers.
+	var/language = LANGUAGE_GALACTIC_COMMON //! Default racial language, if any.
+	var/secondary_langs = list() //! The keys of secondary languages that are available to this species.
+	var/list/speech_sounds //! A list of sounds to potentially play when speaking.
+	var/list/speech_chance //! The likelihood of a speech sound playing.
+	var/scream_verb = "крич%(ит,ат)%" //! Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
 	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
@@ -198,15 +210,15 @@
 	var/whistle_sound = list('sound/voice/whistle.ogg')
 
 	//Default hair/headacc style vars.
-	var/default_hair				//Default hair style for newly created humans unless otherwise set.
+	var/default_hair //!Default hair style for newly created humans unless otherwise set.
 	var/default_hair_colour
-	var/default_fhair				//Default facial hair style for newly created humans unless otherwise set.
+	var/default_fhair //!Default facial hair style for newly created humans unless otherwise set.
 	var/default_fhair_colour
-	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
+	var/default_headacc //!Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 	/// Name of default body accessory if any.
 	var/default_bodyacc
-	//Defining lists of icon skin tones for species that have them.
+	/// Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
 	/// Determines internal organs that the species spawns with and which required-organ checks are conducted.
@@ -265,7 +277,7 @@
 	/// List of all possible blood overlays for current race blood_mask. Init automaticly, don't force any value
 	var/static/list/blood_overlays
 
-	var/max_radiation = CARBON_MAX_RADIATION // Maximum radiation species can hold
+	var/max_radiation = CARBON_MAX_RADIATION //! Maximum radiation species can hold
 
 /datum/species/New()
 	unarmed = new unarmed_type()

@@ -127,21 +127,23 @@ SUBSYSTEM_DEF(jobs)
 	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
-			return 0
+			return FALSE
 		if(jobban_isbanned(player, rank))
-			return 0
+			return FALSE
 		if(!job.player_old_enough(player.client))
-			return 0
+			return FALSE
 		if(job.available_in_playtime(player.client))
-			return 0
+			return FALSE
 		if(!job.can_novice_play(player.client))
-			return 0
+			return FALSE
 		if(job.barred_by_disability(player.client))
-			return 0
+			return FALSE
 		if(!job.character_old_enough(player.client))
-			return 0
+			return FALSE
 		if(job.species_in_blacklist(player.client))
-			return 0
+			return FALSE
+		if(!job.check_custom_requirements(player.client))
+			return FALSE
 
 		var/position_limit = job.total_positions
 		if(!latejoin)

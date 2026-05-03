@@ -71,6 +71,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/item/stack/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, amount))
+		add(clamp(var_value, 1 - amount, max_amount - amount)) //there must always be one.
+		return TRUE
+	else if(var_name == NAMEOF(src, max_amount))
+		max_amount = max(var_value, 1)
+		add((max_amount < amount) ? (max_amount - amount) : 0) //update icon, weight, ect
+		return TRUE
+	return ..()
+
 /obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(hitting, inhand = TRUE))
 		merge(hitting)

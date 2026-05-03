@@ -3,6 +3,7 @@
 	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	floor_tile = null
 
 	var/unfastened = FALSE

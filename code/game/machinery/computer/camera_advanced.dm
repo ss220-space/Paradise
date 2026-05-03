@@ -40,8 +40,7 @@
 /obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
 	if(!user)
 		return
-	for(var/V in actions)
-		var/datum/action/A = V
+	for(var/datum/action/A as anything in actions)
 		A.Remove(user)
 	actions.Cut()
 	if(user.client)
@@ -86,7 +85,7 @@
 
 	if(!eyeobj.eye_initialized)
 		var/turf/camera_location
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+		for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
 			if(length(networks & C.network))

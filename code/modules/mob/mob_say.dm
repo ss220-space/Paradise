@@ -48,7 +48,7 @@
 		QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, TYPE_PROC_REF(/mob, emote), "me", 1, message, TRUE), SSspeech_controller)
 
 /mob/proc/say_dead(message)
-	message = handleDiscordEmojis(say_emphasis(message))
+	message = handleDiscordEmojis(apply_message_emphasis(message))
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, span_danger("Deadchat is globally muted."))
@@ -134,20 +134,6 @@
 	if(!istype(verbs))
 		return verbs
 	return pick(verbs)
-
-/// Transforms the speech emphasis mods from [/atom/movable/proc/say_emphasis] into the appropriate HTML tags
-#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
-	var/static/regex/##varname = regex("[char](.+?)[char]", "g");\
-	input = varname.Replace_char(input, "<[html]>$1</[html]>&#8203;") //zero-width space to force maptext to respect closing tags.
-
-/// Scans the input sentence for speech emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
-/mob/proc/say_emphasis(input)
-	ENCODE_HTML_EMPHASIS(input, "\\|", "i", italics)
-	ENCODE_HTML_EMPHASIS(input, "\\%", "b", bold)
-	ENCODE_HTML_EMPHASIS(input, "_", "u", underline)
-	return input
-
-#undef ENCODE_HTML_EMPHASIS
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this

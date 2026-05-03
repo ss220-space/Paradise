@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Коробки ОБР фикс №2 (PR #9078)"

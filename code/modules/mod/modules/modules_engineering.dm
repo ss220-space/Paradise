@@ -418,7 +418,7 @@
 		if(METAL_FOAM)
 			. += span_notice("Выбранный режим — <b>распылитель металлической пены</b>.")
 
-/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/is_adjacent = user.Adjacent(target)
 	if(is_adjacent && AttemptRefill(target, user))
 		return

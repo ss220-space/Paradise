@@ -18,8 +18,9 @@
 	QDEL_NULL(action)
 
 /obj/item/implant/adrenalin/implant(mob/living/carbon/human/source, mob/user, force)
-	add_item_action(action)
 	. = ..()
+	if(.)
+		add_item_action(action)
 
 /obj/item/implant/adrenalin/create_new_cooldown()
 	var/datum/implant_cooldown/charges/C = new
@@ -27,6 +28,11 @@
 	C.recharge_duration = base_cooldown
 	C.charge_duration = 1 SECONDS
 	return C
+
+/obj/item/implant/adrenalin/can_implant(mob/source, mob/user)
+	if(HAS_TRAIT(source, TRAIT_NO_HUNGER) || HAS_TRAIT(source, TRAIT_NO_BLOOD))
+		return FALSE
+	return ..()
 
 /obj/item/implant/adrenalin/activate()
 	var/datum/implant_cooldown/charges/charges_cooldown = cooldown_system

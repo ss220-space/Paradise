@@ -33,8 +33,8 @@
 
 /obj/projectile/bullet/midbullet3/hp/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
-		var/mob/living/M = target
-		M.Slowed(2 SECONDS)
+		var/mob/living/target_mob = target
+		target_mob.Slowed(2 SECONDS, 2)
 
 /obj/projectile/bullet/midbullet3/ap
 	damage = 27

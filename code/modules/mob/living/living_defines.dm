@@ -1,6 +1,9 @@
 /mob/living
+	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	pressure_resistance = 10
+	interaction_flags_click = ALLOW_RESTING
+	interaction_flags_mouse_drop = ALLOW_RESTING
 
 	// Will be determined based on mob size if left null. Done in living/proc/determine_move_and_pull_forces()
 	move_resist = null
@@ -73,6 +76,9 @@
 
 	/// A list of surgery datums. Generally empty, they're added when the player wants them.
 	var/list/surgeries = list()
+
+	/// Lazylist of surgery speed modifiers - id to number - 2 = 2x faster, 0.5x = 0.5x slower
+	var/list/mob_surgery_speed_mods
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
@@ -197,5 +203,8 @@
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
 
-	// Cooldown for projectile miss sound (5 deciseconds)
+	/// Cooldown for projectile miss sound (5 deciseconds)
 	COOLDOWN_DECLARE(bullet_miss_cooldown)
+
+	/// How many tiles can this mob reach with their hands? 1 tile is adjacent.
+	var/reach_length = 1

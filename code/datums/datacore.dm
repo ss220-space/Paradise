@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 		var/isactive = t.fields["p_stat"]
 		var/department = 0
-		var/depthead = 0			// Department Heads will be placed at the top of their lists.
+		var/depthead = 0 // Department Heads will be placed at the top of their lists.
 		if(real_rank in GLOB.command_positions)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
@@ -144,17 +144,17 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 		//General Record
 		var/datum/data/record/G = new()
-		G.fields["id"]			= id
-		G.fields["name"]		= H.real_name
-		G.fields["real_rank"]	= H.mind.assigned_role
-		G.fields["rank"]		= get_job_title_ru(assignment)
-		G.fields["age"]			= H.age
-		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
-		G.fields["p_stat"]		= "Активный"
-		G.fields["m_stat"]		= "Стабильное"
-		G.fields["sex"]			= capitalize(H.gender)
-		G.fields["species"]		= H.dna.species.name
-		G.fields["photo"]		= get_id_photo(H)
+		G.fields["id"] = id
+		G.fields["name"] = H.real_name
+		G.fields["real_rank"] = H.mind.assigned_role
+		G.fields["rank"] = get_job_title_ru(assignment)
+		G.fields["age"] = H.age
+		G.fields["fingerprint"] = md5(H.dna.uni_identity)
+		G.fields["p_stat"] = "Активный"
+		G.fields["m_stat"] = "Стабильное"
+		G.fields["sex"] = capitalize(H.gender)
+		G.fields["species"] = H.dna.species.name
+		G.fields["photo"] = get_id_photo(H)
 		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
 		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
@@ -169,18 +169,18 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 		//Medical Record
 		var/datum/data/record/M = new()
-		M.fields["id"]			= id
-		M.fields["name"]		= H.real_name
-		M.fields["blood_type"]	= H.dna.blood_type
-		M.fields["b_dna"]		= H.dna.unique_enzymes
-		M.fields["mi_dis"]		= "Отсутствуют"
-		M.fields["mi_dis_d"]	= "Незначительные отклонения не указаны."
-		M.fields["ma_dis"]		= "Отсутствуют"
-		M.fields["ma_dis_d"]	= "Инвалидности не указаны."
-		M.fields["alg"]			= "Отсутствуют"
-		M.fields["alg_d"]		= "Аллергии не указаны."
-		M.fields["cdi"]			= "Отсутствуют"
-		M.fields["cdi_d"]		= "Текущие заболевания не указаны."
+		M.fields["id"] = id
+		M.fields["name"] = H.real_name
+		M.fields["blood_type"] = H.dna.blood_type
+		M.fields["b_dna"] = H.dna.unique_enzymes
+		M.fields["mi_dis"] = "Отсутствуют"
+		M.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
+		M.fields["ma_dis"] = "Отсутствуют"
+		M.fields["ma_dis_d"] = "Инвалидности не указаны."
+		M.fields["alg"] = "Отсутствуют"
+		M.fields["alg_d"] = "Аллергии не указаны."
+		M.fields["cdi"] = "Отсутствуют"
+		M.fields["cdi_d"] = "Текущие заболевания не указаны."
 		if(H.med_record && !jobban_isbanned(H, "Records"))
 			M.fields["notes"] = H.med_record
 		else
@@ -201,17 +201,17 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 		//Locked Record
 		var/datum/data/record/L = new()
-		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")
-		L.fields["name"]		= H.real_name
-		L.fields["rank"]		= H.mind.assigned_role
-		L.fields["age"]			= H.age
-		L.fields["sex"]			= capitalize(H.gender)
-		L.fields["blood_type"]	= H.dna.blood_type
-		L.fields["b_dna"]		= H.dna.unique_enzymes
-		L.fields["enzymes"]		= H.dna.SE // Used in respawning
-		L.fields["identity"]	= H.dna.UI // "
-		L.fields["image"]		= getFlatIcon(H)	//This is god-awful
-		L.fields["reference"]	= H
+		L.fields["id"] = md5("[H.real_name][H.mind.assigned_role]")
+		L.fields["name"] = H.real_name
+		L.fields["rank"] = H.mind.assigned_role
+		L.fields["age"] = H.age
+		L.fields["sex"] = capitalize(H.gender)
+		L.fields["blood_type"] = H.dna.blood_type
+		L.fields["b_dna"] = H.dna.unique_enzymes
+		L.fields["enzymes"] = H.dna.SE // Used in respawning
+		L.fields["identity"] = H.dna.UI // "
+		L.fields["image"] = getFlatIcon(H) //This is god-awful
+		L.fields["reference"] = H
 		locked += L
 	return
 
@@ -519,6 +519,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(JOB_TITLE_PRISONER)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "orange_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
+		if(JOB_TITLE_INVESTOR)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "really_black_suit_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 		if(JOB_TITLE_TEAM1)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "green_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "green"), ICON_UNDERLAY)

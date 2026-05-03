@@ -78,7 +78,8 @@
 
 /obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/S1, force, transit)
 	. = ..()
-	if(.)	return .
+	if(.)
+		return .
 
 	buy(S1)
 	sell(S1)
@@ -149,7 +150,7 @@
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
 			continue
-		if(istype(MA, /mob/dead))
+		if(isdead(MA))
 			continue
 		SSshuttle.sold_atoms += " [MA.declent_ru(NOMINATIVE)]"
 
@@ -157,7 +158,7 @@
 			quest_reward += SScargo_quests.check_delivery(MA)
 
 		// Must be in a crate (or a critter crate)!
-		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/crate/critter))
+		if(is_crate(MA) || istype(MA,/obj/structure/closet/crate/critter))
 			SSshuttle.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSshuttle.sold_atoms += " (пусто)"
@@ -319,7 +320,7 @@
 	var/atom/Crate = new object.containertype(_loc)
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
 	Crate.ru_names = new /list(6)
-	for(var/i = 1; i <= 6; i++)
+	for(var/i in 1 to 6)
 		if(i < length(object.container_ru_names))
 			Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
 		else
@@ -329,7 +330,7 @@
 		Crate:req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
+	var/obj/item/paper/manifest/slip = new()
 	slip.erroneous = errors
 	slip.points = object.cost
 	slip.ordernumber = ordernum
@@ -395,16 +396,13 @@
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "ПРОВЕРЬТЕ СОДЕРЖИМОЕ И ПОСТАВЬТЕ ПЕЧАТЬ ПОД ЛИНИЕЙ, ЧТОБЫ ПОДТВЕРДИТЬ КОРРЕКТНОСТЬ МАНИФЕСТА<hr>" // And now this is actually meaningful.
+	slip.update_appearance()
 	slip.loc = Crate
-	if(istype(Crate, /obj/structure/closet/crate))
+	if(is_crate(Crate))
 		var/obj/structure/closet/crate/CR = Crate
-		CR.manifest = slip
-		CR.update_icon(UPDATE_OVERLAYS)
+		CR.manifest = WEAKREF(slip)
+		CR.update_appearance()
 		CR.announce_beacons = object.announce_beacons.Copy()
-	if(istype(Crate, /obj/structure/closet/crate/large))
-		var/obj/structure/closet/crate/large/LC = Crate
-		LC.manifest = slip
-		LC.update_icon(UPDATE_OVERLAYS)
 
 	return Crate
 

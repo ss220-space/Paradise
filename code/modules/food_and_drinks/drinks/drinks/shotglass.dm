@@ -7,10 +7,10 @@
 	amount_per_transfer_from_this = 15
 	volume = 15
 	materials = list(MAT_GLASS=100)
-	var/light_intensity = 2
 	light_color = LIGHT_COLOR_BLUE
 	resistance_flags = FLAMMABLE
 	custom_price = PAYCHECK_MIN * 0.1
+	var/light_intensity = 2
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
 	return list(
@@ -72,7 +72,7 @@
 				filling.icon_state = "[icon_state]5"
 			if(80 to INFINITY)
 				filling.icon_state = "[icon_state]12"
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
@@ -136,16 +136,16 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message(span_notice("[user] накрыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
-								span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"))
+		user.visible_message(
+			span_notice("[user] накрыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
+			span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
+		)
 		extinguish()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!ishuman(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return ..()
+	if(!ishuman(user))
+		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
 		return
-
-	return ..()

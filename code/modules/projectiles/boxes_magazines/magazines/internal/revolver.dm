@@ -66,7 +66,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	name = ".12 revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/shotgun
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	max_ammo = 3
 
 // MARK: Russian roulette .357

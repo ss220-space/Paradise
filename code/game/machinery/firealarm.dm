@@ -425,3 +425,9 @@ Just a object used in constructing fire alarms
 #undef FIRE_ALARM_UNWIRED
 #undef FIRE_ALARM_READY
 
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/no_alarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/triggered_nosignals, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate/taipan, 26, 26)

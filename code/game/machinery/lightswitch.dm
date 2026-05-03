@@ -20,7 +20,7 @@
 		PREPOSITIONAL = "выключателе света"
 	)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26, 26)
 
 /obj/machinery/light_switch/Initialize(mapload, direction)
 	. = ..()

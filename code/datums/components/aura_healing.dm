@@ -127,6 +127,9 @@
 			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			alert.desc = "Аура, исходящая от [parent], исцеляет вас."
 			current_alerts[candidate] = TRUE
+			if(ishuman(candidate))
+				var/mob/living/carbon/human/human_candidate = candidate
+				human_candidate.add_fracture_ignore_trait(src)
 
 		var/old_health = candidate.health
 
@@ -174,6 +177,9 @@
 						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
 							continue
 
+						if(!body_part.fracture.can_mend_by_aura_heal)
+							continue
+
 						if(prob(mend_fractures_chance))
 							external_organ_heal_done = TRUE
 							body_part.mend_fracture()
@@ -182,6 +188,9 @@
 				else
 					for(var/obj/item/organ/external/body_part as anything in human.bodyparts)
 						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
+							continue
+
+						if(!body_part.fracture.can_mend_by_aura_heal)
 							continue
 
 						if(prob(mend_fractures_chance))
@@ -223,6 +232,10 @@
 	for(var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
 		remove_alert_from.clear_alert(alert_category)
 		current_alerts -= remove_alert_from
+		if(!ishuman(remove_alert_from))
+			continue
+		var/mob/living/carbon/human/human_remove = remove_alert_from
+		human_remove.remove_fracture_ignore_trait(src)
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"

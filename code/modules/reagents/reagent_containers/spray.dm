@@ -27,16 +27,16 @@
 		PREPOSITIONAL = "распылителе",
 	)
 
-/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user, proximity, params)
-	if(isstorage(A) || istable(A) || istype(A, /obj/structure/rack) || iscloset(A) \
-	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
+/obj/item/reagent_containers/spray/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(isstorage(target) || istable(target) || istype(target, /obj/structure/rack) || iscloset(target) \
+	|| istype(target, /obj/item/reagent_containers) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
 		return
 
-	if(istype(A, /obj/effect/proc_holder/spell))
+	if(istype(target, /obj/effect/proc_holder/spell))
 		return
 
-	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
-		if(!A.reagents.total_volume && A.reagents)
+	if(istype(target, /obj/structure/reagent_dispensers) && get_dist(src, target) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
+		if(!target.reagents.total_volume && target.reagents)
 			balloon_alert(user, "пусто!")
 			return
 
@@ -44,8 +44,8 @@
 			balloon_alert(user, "нет места!")
 			return
 
-		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
-		to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] [trans] единиц[declension_ru(trans, "ей", "ами", "ами")] содержимого [A.declent_ru(GENITIVE)]."))
+		var/trans = target.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
+		to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] [trans] единиц[declension_ru(trans, "ей", "ами", "ами")] содержимого [target.declent_ru(GENITIVE)]."))
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
@@ -53,11 +53,11 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	INVOKE_ASYNC(src, PROC_REF(spray), A)
+	INVOKE_ASYNC(src, PROC_REF(spray), target)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 	user.changeNext_move(delay)
-	user.newtonian_move(get_dir(A, user))
+	user.newtonian_move(get_dir(target, user))
 
 	var/attack_log_type = ATKLOG_ALMOSTALL
 
@@ -72,7 +72,7 @@
 	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
 		attack_log_type = ATKLOG_FEW
 
-	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	add_attack_logs(user, target, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)

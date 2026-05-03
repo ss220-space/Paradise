@@ -57,7 +57,7 @@
 		if(mob_parent.stat == DEAD || mob_parent.incapacitated())
 			return FALSE
 	if(requires_cable)
-		if((our_turf.transparent_floor == TURF_TRANSPARENT) || our_turf.intact || HAS_TRAIT(our_turf, TRAIT_TURF_COVERED))
+		if(our_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || HAS_TRAIT(our_turf, TRAIT_TURF_COVERED))
 			return FALSE
 		var/obj/structure/cable/our_cable =	locate(/obj/structure/cable) in our_turf
 		if(!our_cable || !our_cable.powernet || !our_cable.powernet.avail)

@@ -49,7 +49,7 @@
 			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
 
 /datum/weather/ash_storm/proc/update_audio(next_stage)
-	switch(stage)
+	switch(next_stage)
 		if(STARTUP_STAGE)
 			GLOB.ash_storm_sounds += weak_sounds
 

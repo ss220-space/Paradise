@@ -362,7 +362,7 @@
 				update_nextfire(reset_time = TRUE)
 		if(NAMEOF(src, queued_priority)) //editing this breaks things.
 			return FALSE
-	. = ..()
+	return ..()
 
 /**
  * Returns the metrics for the subsystem.

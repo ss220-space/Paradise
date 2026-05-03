@@ -67,10 +67,11 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag, params)
+/obj/item/flamethrower/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(flag)
+	if(proximity_flag)
 		return // too close
+
 	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)

@@ -48,7 +48,7 @@
 		swirlie.adjustBruteLoss(5)
 		return
 
-	if(cistern && !open)
+	if(cistern && !open && IsReachableBy(user))
 		if(!length(contents))
 			to_chat(user, span_notice("В бачке ничего нет."))
 			return

@@ -24,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/staff_righthand.dmi'
 	accuracy = GUN_ACCURACY_SNIPER
 
-/obj/item/gun/magic/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/magic/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
@@ -42,7 +42,7 @@
 		chambered.newshot(params)
 	return
 
-/obj/item/gun/magic/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/magic/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
 	newshot()
 	return ..()
 

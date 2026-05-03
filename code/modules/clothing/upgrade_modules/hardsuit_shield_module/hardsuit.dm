@@ -27,19 +27,19 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 
-/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/wizard/W, mob/user, proximity, params)
+/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/wizard/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!istype(W))
+	if(!istype(target))
 		to_chat(user, span_warning("The rune can only be used on battlemage armour!"))
 		return
-	var/datum/component/shielded/shielded = W.GetComponent(/datum/component/shielded)
+	var/datum/component/shielded/shielded = target.GetComponent(/datum/component/shielded)
 	if(!istype(shielded))
 		to_chat(user, span_warning("No shield detected on this armour!"))
 		return
-	if(W == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
-		to_chat(user, span_warning("You cannot replenish charges to [W] while wearing it."))
+	if(target == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
+		to_chat(user, span_warning("You cannot replenish charges to [target] while wearing it."))
 		return
 	shielded.current_charges += 8
 	playsound(loc, 'sound/magic/charge.ogg', 50, TRUE)
-	to_chat(user, span_notice("You charge [W]. It can now absorb [shielded.current_charges] hits."))
+	to_chat(user, span_notice("You charge [target]. It can now absorb [shielded.current_charges] hits."))
 	qdel(src)

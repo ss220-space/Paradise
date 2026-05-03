@@ -1,4 +1,0 @@
-author: "anon1mka"
-delete-after: True
-changes:
-  - bugfix: "Исправлен какой-то баг с манифестом. (PR #8837)"

@@ -214,9 +214,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		animate(transform = matrix(), time = 0.1 SECONDS)
 
 /obj/machinery/washing_machine/relaymove(mob/living/user, direction)
-	container_resist(user)
+	container_resist_act(user)
 
-/obj/machinery/washing_machine/container_resist(mob/living/user)
+/obj/machinery/washing_machine/container_resist_act(mob/living/user)
 	if(!(state & STATE_WORKING))
 		add_fingerprint(user)
 		dump_contents()

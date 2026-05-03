@@ -736,13 +736,6 @@
 	build_path = /obj/item/ammo_box/dot45NR
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
-/datum/design/enforcer/disable
-	id = "enforcer_disable"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 25000)
-	build_path = /obj/item/ammo_box/enforcer/disabler
-	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
-
 /datum/design/spectermag_disabler
 	id = "spectermag"
 	build_type = AUTOLATHE

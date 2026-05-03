@@ -20,8 +20,8 @@
 		return ..()
 
 /obj/item/clothing/suit/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!pockets || !pockets.handle_mousedrop(usr, over_object))
-		return ..()
+	if(!pockets || !pockets.handle_mousedrop(user, over_object))
+		return
 
 /obj/item/clothing/suit/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()

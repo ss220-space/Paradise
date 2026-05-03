@@ -101,6 +101,10 @@
 	var/obj/current_hand = host.hand ? host.get_organ(BODY_ZONE_L_ARM) : host.get_organ(BODY_ZONE_R_ARM)
 	if(hand != current_hand)
 		return //wrong hand
+	// We should not react to the item when it's not in our hand,
+	// it makes no sense and other items with something like TRAIT_NODROP might fuck us very badly
+	if(!active_item || active_item != host.get_active_hand())
+		return
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
 
@@ -115,7 +119,7 @@
 	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
 	active_item.forceMove(src)
 	active_item = null
-	playsound(get_turf(owner), src.sound_off, 50, TRUE)
+	playsound(get_turf(owner), sound_off, 50, TRUE)
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/augment)
@@ -151,7 +155,7 @@
 	owner.visible_message(span_notice("[owner] extends [active_item] from [owner.p_their()] [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_notice("You extend [active_item] from your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_italics("You hear a short mechanical noise."))
-	playsound(get_turf(owner), src.sound_on, 50, TRUE)
+	playsound(get_turf(owner), sound_on, 50, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail || (!active_item && !length(contents)))
@@ -197,7 +201,7 @@
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
-		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!"))
+		owner.visible_message(span_danger("A loud bang comes from [owner]'s [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!"))
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, TRUE)
 		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!"))
 		owner.adjust_fire_stacks(20)
@@ -449,7 +453,7 @@
 	item_flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!isapc(target) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)

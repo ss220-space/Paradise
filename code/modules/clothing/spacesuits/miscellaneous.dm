@@ -186,7 +186,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
 	species_restricted = null
@@ -207,7 +207,7 @@
 	icon_state = "santa"
 	item_state = "santa"
 	slowdown = 0
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	allowed = list(/obj/item) //for stuffing extra special presents
 
 	sprite_sheets = list(
@@ -227,7 +227,7 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
-	clothing_flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20

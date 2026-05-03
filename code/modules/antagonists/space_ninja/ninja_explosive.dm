@@ -31,13 +31,13 @@
 	detonation_objective = null
 	return ..()
 
-/obj/item/grenade/plastic/c4/ninja/afterattack(atom/movable/AM, mob/ninja, flag, params)
-	if(!isninja(ninja))
-		to_chat(ninja, span_notice("While it appears normal, you can't seem to detonate the charge."))
+/obj/item/grenade/plastic/c4/ninja/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!isninja(user))
+		to_chat(user, span_notice("While it appears normal, you can't seem to detonate the charge."))
 		return
-	if(!check_loc(ninja, FALSE, AM))
+	if(!check_loc(user, FALSE, target))
 		return
-	detonator = ninja
+	detonator = user
 	return ..()
 
 /obj/item/grenade/plastic/c4/ninja/prime(mob/living/lanced_by)

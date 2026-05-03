@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - balance: "у модуля энергощита отобран кнокдаун при касании, а цифры защиты уменьшены. (PR #9068)"

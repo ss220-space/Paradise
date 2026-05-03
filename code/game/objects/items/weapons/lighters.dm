@@ -167,6 +167,10 @@
 		PREPOSITIONAL = "зажигалке Зиппо",
 	)
 
+/obj/item/lighter/zippo/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
+
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
 		user.balloon_alert(user, "потушите зажигалку!")

@@ -11,6 +11,7 @@
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
+	interaction_flags_mouse_drop = ALLOW_RESTING
 
 	var/obj/item/noz
 	var/on = 0
@@ -143,7 +144,7 @@
 	if(loc != tank.loc)
 		forceMove(tank.loc)
 
-/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity, params)
+/obj/item/reagent_containers/spray/mister/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
@@ -275,7 +276,7 @@
 	tank.on = 0
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return

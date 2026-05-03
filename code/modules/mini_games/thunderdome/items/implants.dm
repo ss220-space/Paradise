@@ -15,6 +15,9 @@
 
 /obj/item/implant/postponed_death/implant(mob/source, mob/user)
 	. = ..()
+	if(!.)
+		return
+
 	addtimer(CALLBACK(src, PROC_REF(activate)), time_to_live)
 
 /obj/item/implant/postponed_death/activate()

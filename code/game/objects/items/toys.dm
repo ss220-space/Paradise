@@ -58,19 +58,20 @@
 /obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/toy/balloon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(istype(A, /obj/structure/reagent_dispensers))
-		var/obj/structure/reagent_dispensers/RD = A
+
+	if(istype(target, /obj/structure/reagent_dispensers))
+		var/obj/structure/reagent_dispensers/RD = target
 		if(RD.reagents.total_volume <= 0)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(RD, NOMINATIVE)] пустой."))
 		else if(reagents.total_volume >= 10)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
-			A.reagents.trans_to(src, 10)
-			to_chat(user, span_notice("Вы наполняете шарик из [A.declent_ru(GENITIVE)]."))
+			target.reagents.trans_to(src, 10)
+			to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon(UPDATE_ICON_STATE)
 
@@ -775,7 +776,7 @@
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
 	var/razumisttext = pick("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
-	user.visible_message("[icon2html(src, viewers(user))] [span_notice(razumisttext)]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(razumisttext)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/kotwithfunnyhat
@@ -789,7 +790,7 @@
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
 	var/ricetext = pick("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
-	user.visible_message("[icon2html(src, viewers(user))] [span_notice(ricetext)]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(ricetext)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/voxplushie
@@ -827,7 +828,7 @@
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
-	user.visible_message("[icon2html(src, viewers(user))] [span_notice(message)]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/rdplushie/attack_self(mob/user)
@@ -835,10 +836,10 @@
 
 	interaction(user)
 
-/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	interaction(user)
@@ -882,7 +883,7 @@
 	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
 
 	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_notice(message)]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
@@ -890,10 +891,10 @@
 
 	interaction(user)
 
-/obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+/obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	interaction(user)
@@ -914,7 +915,7 @@
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
 	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
-	visible_message("[icon2html(src, viewers(loc))] [span_danger("AAAAAAХ!")]")
+	visible_message("[get_examine_icon(viewers(loc))] [span_danger("AAAAAAХ!")]")
 	if(singed)
 		return
 	singed = TRUE
@@ -935,14 +936,14 @@
 	hug_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
 	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
-		user.visible_message("[icon2html(src, viewers(user))] [span_danger("Ow...")]")
+		user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Ow...")]")
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
-		user.visible_message("[icon2html(src, viewers(user))] [span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎")]")
+		user.visible_message("[get_examine_icon(viewers(user))] [span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎")]")
 
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
 		playsound(user, 'sound/voice/shriek1.ogg', 10, FALSE)
-		user.visible_message("[icon2html(src, viewers(user))] [span_danger("Skreee!")]")
+		user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Skreee!")]")
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -979,7 +980,7 @@
 		return ..()
 
 	playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg'), 10, 1)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("ДЕСТАБИЛИЗАЦИЯ!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("ДЕСТАБИЛИЗАЦИЯ!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1006,11 +1007,12 @@
 
 	// Generate a random valid lizard color for our plushie friend
 	var/generated_lizard_color = "#" + random_color()
-	var/temp_hsv = RGBtoHSV(generated_lizard_color)
+	var/list/lizard_hsv = rgb2hsv(generated_lizard_color)
 
 	// If our color is too dark, use the classic green lizard plush color
-	if(ReadHSV(temp_hsv)[3] < ReadHSV("#7f7f7f")[3])
+	if(lizard_hsv[3] < 50)
 		generated_lizard_color = "#66ff33"
+
 	// Set our greyscale colors to the lizard color we made + black eyes
 	set_greyscale_colors(colors = list(generated_lizard_color, COLOR_BLACK))
 
@@ -1051,14 +1053,14 @@
 	switch(rand(1, 20))
 		if(1 to 12)
 			playsound(src, ashwalkerbite, 40, TRUE)
-			user.visible_message("[icon2html(src, viewers(user))] [span_danger("Hsss!")]")
+			user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Hsss!")]")
 		if(13 to 19)
 			playsound(src, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
 								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip.ogg'), 40, 1)
-			user.visible_message("[icon2html(src, viewers(user))] [span_danger("RAAAAAWR!")]")
+			user.visible_message("[get_examine_icon(viewers(user))] [span_danger("RAAAAAWR!")]")
 		if(20)
 			playsound(src, pick('sound/voice/unathi/rumble.ogg', 'sound/voice/unathi/rumble2.ogg'), 40, 1)
-			user.visible_message("[icon2html(src, viewers(user))] [span_notice("Пеплоходец выглядит расслабленным.")]")
+			user.visible_message("[get_examine_icon(viewers(user))] [span_notice("Пеплоходец выглядит расслабленным.")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1092,7 +1094,7 @@
 		return ..()
 
 	playsound(src, 'sound/voice/scream_moth.ogg', 10, FALSE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Buzzzz!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Buzzzz!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1135,11 +1137,11 @@
 		update_icon(UPDATE_ICON_STATE)
 		switch(plushie_color)
 			if("green")
-				user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Я не боюсь тьмы! Я сама тьма!\""))
+				user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Я не боюсь тьмы! Я сама тьма!\""))
 			if("blue")
-				user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Твой жалкий свет меня не остановит!\""))
+				user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Твой жалкий свет меня не остановит!\""))
 			if("red")
-				user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
+				user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
 		plushie_color = null
 
 //New toys from another builds
@@ -1169,7 +1171,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/goatsound.ogg', 10, FALSE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Baaaaah!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Baaaaah!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1220,7 +1222,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/rawr.ogg', 25, FALSE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_boldnotice("Rawr!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_boldnotice("Rawr!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1243,7 +1245,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/axolotl.ogg', 20, FALSE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Squeeek!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Squeeek!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1314,7 +1316,7 @@
 		return ..()
 
 	playsound(src, 'sound/effects/extinguish.ogg', 20, FALSE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Плазззма Вечна!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Плазззма Вечна!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1336,7 +1338,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/Help.ogg', 10, FALSE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Бежиииииим!")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Бежиииииим!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1399,19 +1401,14 @@
 			desc = "Watch out for angry voxes!"
 
 /obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(over_object != user || user.incapacitated() || !ishuman(user))
-		return FALSE
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(span_notice("[user] поднял [declent_ru(ACCUSATIVE)]."))
-		return TRUE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(span_notice("[user] поднял[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."))
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"
@@ -1433,7 +1430,7 @@
 		return ..()
 
 	playsound(src, bubblestep, 40, TRUE)
-	user.visible_message("[icon2html(src, viewers(user))] [span_danger("Бубльгум топает...")]")
+	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Бубльгум топает...")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1663,7 +1660,7 @@
 		var/message = generate_ion_law()
 		to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(GENITIVE)]."))
 		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
-		user.visible_message(span_danger("[icon2html(src, viewers(user))] [message]"))
+		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1702,7 +1699,7 @@
 	COOLDOWN_START(src, cooldown, 2 SECONDS)
 
 	for(var/message in messages)
-		user.loc.visible_message(span_danger("[icon2html(src, viewers(user.loc))] [message]"))
+		user.loc.visible_message(span_danger("[get_examine_icon(viewers(user.loc))] [message]"))
 		sleep(1 SECONDS)
 
 	return
@@ -1720,7 +1717,7 @@
 		var/message = pick("На этот раз тебе не уйти, Гриффин!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
-		user.visible_message(span_danger("[icon2html(src, viewers(user))] [message]"))
+		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1739,7 +1736,7 @@
 		var/message = pick("Ты не остановишь меня, Сова!", "Мой план безупречен! Хранилище моё!", "Карррр!", "Меня никогда не поймаешь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/creatures/caw.ogg', 25, TRUE)
-		user.visible_message(span_danger("[icon2html(src, viewers(user))] [message]"))
+		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1940,8 +1937,8 @@
 /obj/item/toy/russian_revolver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, flag, params)
-	if(flag)
+/obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(target in user.contents)
 			return
 		if(!ismob(target))
@@ -2062,7 +2059,7 @@
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит \"[toysay]\"."))
+		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит \"[toysay]\"."))
 		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 
 /obj/item/toy/figure/cmo
@@ -2304,7 +2301,7 @@
 	if(!cooldown)
 		var/answer = pick(possible_answers)
 		user.visible_message(span_notice("[user] сосредотачива[PLUR_ET_YUT(user)]ся на своём вопросе и [use_action]..."))
-		user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"[answer]\""))
+		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"[answer]\""))
 		spawn(30)
 			cooldown = 0
 		return

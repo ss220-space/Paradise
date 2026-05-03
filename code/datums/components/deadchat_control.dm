@@ -30,7 +30,7 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(orbit_begin))
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, PROC_REF(orbit_stop))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	deadchat_mode = _deadchat_mode
 	inputs = _inputs
 	input_cooldown = _input_cooldown
@@ -82,7 +82,7 @@
 			return
 		var/cooldown = ckey_to_cooldown[source.ckey] - world.time
 		if(cooldown > 0)
-			var/ceil_cooldown = CEILING(cooldown * 0.1, 1)
+			var/ceil_cooldown = ceil(cooldown * 0.1)
 			to_chat(source, span_warning("Управление командами будет доступно через [ceil_cooldown] секунд[DECL_SEC_MIN(ceil_cooldown)]."))
 			return MOB_DEADSAY_SIGNAL_INTERCEPT
 		ckey_to_cooldown[source.ckey] = world.time + input_cooldown
@@ -193,7 +193,7 @@
 
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/object, mob/user, list/examine_list)
-	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
+	SIGNAL_HANDLER  // COMSIG_ATOM_EXAMINE
 
 	if(!isobserver(user))
 		return

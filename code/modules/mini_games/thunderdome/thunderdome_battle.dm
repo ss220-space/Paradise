@@ -54,7 +54,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/image/I = new('icons/mob/thunderdome_previews.dmi', gamemode.preview_icon)
 	var/list/candidates = shuffle(SSghost_spawns.poll_candidates("Желаете записаться на Тандердом? (Режим — [gamemode.name])", \
 		role, poll_time = voting_poll_time, ignore_respawnability = TRUE, check_antaghud = FALSE, source = I))
-	var/players_count = clamp(CEILING(length(candidates)*spawn_coefficent, 1), 0, maxplayers)
+	var/players_count = clamp(ceil(length(candidates)*spawn_coefficent), 0, maxplayers)
 	if(players_count < spawn_minimum_limit)
 		notify_ghosts("Not enough players to start Thunderdome Battle!")
 		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), arena_cooldown) //making sure there will be no spam

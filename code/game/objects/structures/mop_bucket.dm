@@ -25,7 +25,7 @@
 /obj/structure/mopbucket/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += span_notice("[icon2html(src, user)] [src] contains [reagents.total_volume] units of water left.")
+		. += span_notice("[get_examine_icon(user)] [src] contains [reagents.total_volume] units of water left.")
 
 /obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
@@ -81,7 +81,7 @@
 				reagentsImage.icon_state = "mopbucket_reagents3"
 			if(76 to 100)
 				reagentsImage.icon_state = "mopbucket_reagents4"
-		reagentsImage.color = mix_color_from_reagents(reagents.reagent_list)
+		reagentsImage.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += reagentsImage
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)

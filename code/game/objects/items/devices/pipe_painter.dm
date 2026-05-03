@@ -17,17 +17,17 @@
 		modes += "[C]"
 	mode = pick(modes)
 
-/obj/item/pipe_painter/afterattack(atom/A, mob/user, proximity, params)
-	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(A,/obj/machinery/atmospherics/pipe/simple/insulated) || !in_range(user, A))
+/obj/item/pipe_painter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!istype(target, /obj/machinery/atmospherics/pipe) || istype(target, /obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(target, /obj/machinery/atmospherics/pipe/simple/insulated) || !in_range(user, target))
 		return
-	var/obj/machinery/atmospherics/pipe/P = A
+
+	var/obj/machinery/atmospherics/pipe/P = target
 
 	if(P.pipe_color == "[GLOB.pipe_colors[mode]]")
 		to_chat(user, span_notice("This pipe is aready painted [mode]!"))
 		return
 
-	var/turf/T = P.loc
-	if(P.level < 2 && T.level==1 && isturf(T) && T.intact)
+	if(HAS_TRAIT(P, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You must remove the plating first."))
 		return
 

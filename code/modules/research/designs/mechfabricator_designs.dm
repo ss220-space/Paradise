@@ -1417,7 +1417,7 @@
 	id = "borg_upgrade_mounted_seat"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/mounted_seat
-	req_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MATERIALS = 4)
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 6)
 	materials = list(MAT_METAL = 80000)
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)

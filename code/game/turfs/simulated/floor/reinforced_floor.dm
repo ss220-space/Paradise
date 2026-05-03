@@ -9,7 +9,7 @@
 	footstep = FOOTSTEP_PLATING
 	var/insulated = FALSE
 
-/turf/open/floor/engine/examine(mob/user)
+/turf/simulated/floor/engine/examine(mob/user)
 	. += ..()
 	. += span_notice("The reinforcement rods are <b>wrenched</b> firmly in place.")
 

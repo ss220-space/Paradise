@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - balance: "кд на выстрелы в упор в 3 секунды. (PR #8852)"

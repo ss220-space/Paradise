@@ -150,7 +150,7 @@
 		PREPOSITIONAL = "воскрешающем касании",
 	)
 
-/obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
 	if(!isliving(target))

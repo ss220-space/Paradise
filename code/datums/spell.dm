@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/gain_desc = null
 
 	/// The message displayed when a click based spell gets activated
-	var/selection_activated_message	= span_notice_alt("Click on a target to cast the spell.")
+	var/selection_activated_message = span_notice_alt("Click on a target to cast the spell.")
 	/// The message displayed when a click based spell gets deactivated
 	var/selection_deactivated_message = span_notice_alt("You choose to not cast this spell.")
 
