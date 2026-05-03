@@ -1,0 +1,4 @@
+author: "SansWD"
+delete-after: True
+changes:
+  - tweak: "Большая часть колод карт есть в лодауте и в merch computer(зеленая консоль у карго) (PR #9127)"
