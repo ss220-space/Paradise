@@ -101,12 +101,12 @@
 
 	var/entity_name = SSticker.cultdat?.entity_name || name
 	if(old_target)
-		to_chat(old_target, span_cultlarge("ТЫ БОЛЬШЕ НЕ ИНТЕРЕСУЕШЬ [uppertext(entity_name)]"))
+		to_chat(old_target, span_cultlarge("ТЫ БОЛЬШЕ НЕ ИНТЕРЕСУЕШЬ [uppertext(entity_name)]!"))
 	singularity_component.target = food
 	if(ishuman(food))
-		to_chat(food, span_cultlarge("[uppertext(entity_name)] ЖАЖДЕТ ТВОЮ ДУШУ"))
+		to_chat(food, span_cultlarge("[uppertext(entity_name)] ЖАЖДЕТ ТВОЮ ДУШУ!"))
 	else
-		to_chat(food, span_cultlarge("[uppertext(entity_name)] ВЫБРАЛА ТЕБЯ ПРОВОДНИКОМ К ЕЁ СЛЕДУЮЩЕЙ ЖЕРТВЕ"))
+		to_chat(food, span_cultlarge("[uppertext(entity_name)] ВЫБРАЛА ТЕБЯ ПРОВОДНИКОМ К ЕЁ СЛЕДУЮЩЕЙ ЖЕРТВЕ!"))
 
 /// Narsie's spawn animation pulls the icon/state from the active cult flavor instead of static defaults.
 /obj/god/narsie/spawn_animation()

@@ -117,7 +117,7 @@
 	return list()
 
 /obj/god/proc/on_rise()
-	send_to_playing_players(wrap_announce("[uppertext(declent_ru(NOMINATIVE))] ПРОБУДИЛ[GEND_SYA_AS_OS_IS(src)]"))
+	send_to_playing_players(wrap_announce(uppertext("[declent_ru(NOMINATIVE)] ПРОБУДИЛ[GEND_SYA_AS_OS_IS(src)]")))
 	if(rise_sound)
 		sound_to_playing_players(rise_sound)
 	announce_summon()
@@ -132,7 +132,7 @@
 	notify_ghosts("[ghost_alert_message] [area.name].", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /obj/god/proc/on_fall()
-	send_to_playing_players(wrap_announce("[uppertext(declent_ru(NOMINATIVE))] ПОВЕРЖЕН[GEND_A_O_I(src)]"))
+	send_to_playing_players(wrap_announce(uppertext("[declent_ru(NOMINATIVE)] ПОВЕРЖЕН[GEND_A_O_I(src)]")))
 	if(fall_sound)
 		sound_to_playing_players(fall_sound)
 	announce_death()
