@@ -5,7 +5,7 @@
 	var/list/modified_turfs = list()
 	var/mob_ref_key
 
-/datum/proximity_monitor/advanced/gravity/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, gravity)
+/datum/proximity_monitor/advanced/gravity/New(atom/_host, range, works_when_not_on_turf = FALSE, gravity)
 	. = ..()
 	gravity_value = gravity
 	recalculate_field(full_recalc = TRUE)

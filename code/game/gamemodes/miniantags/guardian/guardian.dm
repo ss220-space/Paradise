@@ -291,19 +291,18 @@ GLOBAL_LIST_EMPTY(parasites)
 	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
-		if(G.summoner == user)
-			to_chat(user, "У вас уже есть [mob_name]!")
-			return
+	if(has_guardian(user))
+		to_chat(user, "У вас уже есть [mob_name]!")
+		return
 	if(user.mind && (ischangeling(user) || isvampire(user)))
 		to_chat(user, "[ling_failure]")
 		return
-	if(used == TRUE)
+	if(used)
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
 	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
-	if(choice == "Нет")
+	if(choice != "Да")
 		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
 		return
@@ -330,6 +329,10 @@ GLOBAL_LIST_EMPTY(parasites)
 
 	if(length(candidates))
 		theghost = pick(candidates)
+		if(has_guardian(user))
+			to_chat(user, "У вас уже есть [mob_name]!")
+			used = FALSE
+			return
 		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
@@ -341,6 +344,13 @@ GLOBAL_LIST_EMPTY(parasites)
 	. = ..()
 	if(used)
 		. += span_notice("[used_message]")
+
+/obj/item/guardiancreator/proc/has_guardian(mob/living/user)
+	for(var/mob/living/simple_animal/hostile/guardian/guardian in GLOB.alive_mob_list)
+		if(guardian.summoner != user)
+			continue
+		return TRUE
+	return FALSE
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch

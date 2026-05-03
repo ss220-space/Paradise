@@ -17,15 +17,15 @@
 	if(chameleon_scanner)
 		qdel(chameleon_scanner)
 		chameleon_scanner = null
-	else
-		chameleon_scanner = new
-		chameleon_scanner.my_suit = src
-		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
-			chameleon_scanner.my_action = ninja_action
-			break
-		if(disguise_active)
-			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
-		ninja.put_in_hands(chameleon_scanner)
+		return
+
+	chameleon_scanner = new
+	chameleon_scanner.my_suit = src
+	var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_chameleon = locate() in ninja.actions
+	chameleon_scanner.my_action = ninja_chameleon
+	if(disguise_active)
+		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
+	ninja.put_in_hands(chameleon_scanner)
 
 /*
  * The scanner object and all the logic behind it below
@@ -43,10 +43,10 @@
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
 /obj/item/ninja_chameleon_scanner/Destroy()
-	. = ..()
 	my_suit.chameleon_scanner = null
 	my_suit = null
 	my_action = null
+	return ..()
 
 /obj/item/ninja_chameleon_scanner/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
@@ -155,9 +155,9 @@
 		if(chameleon_scanner)
 			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
 		//Action icon
-		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
-			ninja_action.action_ready = TRUE
-			ninja_action.use_action()
+		var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_chameleon = locate() in ninja.actions
+		ninja_chameleon.action_ready = TRUE
+		ninja_chameleon.use_action()
 		ninja.cut_overlays()
 	else
 		ninja.cut_overlay(disguise.overlays)
@@ -204,9 +204,9 @@
 	if(chameleon_scanner)
 		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]"
 	//Action icon
-	for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
-		ninja_action.action_ready = FALSE
-		ninja_action.use_action()
+	var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_chameleon = locate() in ninja.actions
+	ninja_chameleon.action_ready = FALSE
+	ninja_chameleon.use_action()
 	//Components
 	qdel(ninja.GetComponent(/datum/component/examine_override))
 	qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
