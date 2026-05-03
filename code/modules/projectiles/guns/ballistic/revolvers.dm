@@ -206,7 +206,7 @@
 		массовое производство, значительно урезав качество и конечную стоимость.<br>\
 		<br>\
 		Высокая инерция барабана и тяжёлый ударник требуют долгой паузы между выстрелами. Лёгкая полимерная рамка \
-		плохо справляется с гашением энергии 12-го калибра. Отсутствие каких-либо креплений под дополнительные модули усугубляет \
+		плохо справляется с гашением энергии 12-го калибра. Отсутствие каких-либо тактических креплений усугубляет \
 		и без того малую модульность.<br>\
 		<br>\
 		UC-12 не был принят для регулярных войск какой-либо армии из-за малой надёжности и специфичности использования. \
@@ -233,193 +233,6 @@
 		ACCUSATIVE = "золотой револьвер .357",
 		INSTRUMENTAL = "золотым револьвером .357",
 		PREPOSITIONAL = "золотом револьвере .357",
-	)
-
-// MARK: Nagant
-/obj/item/gun/projectile/revolver/nagant
-	name = "nagant revolver"
-	desc = "Старинный револьвер калибра 7,62x38."
-	icon_state = "nagant"
-	origin_tech = "combat=3"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
-	accuracy = GUN_ACCURACY_PISTOL_UPLINK
-	recoil = GUN_RECOIL_MEDIUM
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = 3),
-	)
-
-/obj/item/gun/projectile/revolver/nagant/get_ru_names()
-	return list(
-		NOMINATIVE = "револьвер Нагана 7,62x38",
-		GENITIVE = "револьвера Нагана 7,62x38",
-		DATIVE = "револьверу Нагана 7,62x38",
-		ACCUSATIVE = "револьвер Нагана 7,62x38",
-		INSTRUMENTAL = "револьвером Нагана 7,62x38",
-		PREPOSITIONAL = "револьвере Нагана 7,62x38",
-	)
-
-/obj/item/gun/projectile/revolver/nagant/rusted
-	desc = "Старинный револьвер калибра 7,62x38. Очень ржавый."
-
-/obj/item/gun/projectile/revolver/nagant/rusted/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
-	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
-
-// MARK: .36
-/obj/item/gun/projectile/revolver/c36
-	name = ".36 revolver"
-	desc = "An old fashion .36 chambered revolver."
-	icon_state = "detective"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
-	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_MEDIUM
-	attachable_allowed = GUN_MODULE_CLASS_NONE
-
-// MARK: Russian Roulette gun
-/obj/item/gun/projectile/revolver/russian
-	name = "russian roulette revolver"
-	desc = "Револьвер калибра .357, предназначенный для игры в русскую рулетку. Автоматически вращает барабан после каждого выстрела."
-	origin_tech = "combat=2;materials=2"
-	mag_type = /obj/item/ammo_box/magazine/internal/rus357
-	var/spun = FALSE
-	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_MEDIUM
-	can_air_shoot = FALSE
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
-	)
-
-/obj/item/gun/projectile/revolver/russian/get_ru_names()
-	return list(
-		NOMINATIVE = "револьвер для русской рулетки .357",
-		GENITIVE = "револьвера для русской рулетки .357",
-		DATIVE = "револьверу для русской рулетки .357",
-		ACCUSATIVE = "револьвер для русской рулетки .357",
-		INSTRUMENTAL = "револьвером для русской рулетки .357",
-		PREPOSITIONAL = "револьвере для русской рулетки .357",
-	)
-
-/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
-	. = ..()
-	Spin()
-
-/obj/item/gun/projectile/revolver/russian/proc/Spin()
-	chambered = null
-	var/random = rand(1, magazine.max_ammo)
-	if(random <= get_ammo(FALSE, FALSE))
-		chamber_round()
-	spun = TRUE
-
-/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
-	if(isspeedloader(I) || isammocasing(I))
-		if(get_ammo() > 0)
-			balloon_alert(user, "уже заряжено!")
-			return ATTACK_CHAIN_PROCEED
-		var/loaded = magazine.reload(I, user, silent = TRUE)
-		if(loaded)
-			user.visible_message(
-				span_notice("[user] заряжа[PLUR_ET_YUT(user)] патрон в [declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы заряжаете патрон в [declent_ru(ACCUSATIVE)].")
-			)
-			Spin()
-			return ATTACK_CHAIN_BLOCKED_ALL
-		return ATTACK_CHAIN_PROCEED
-
-	return ..()
-
-/obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
-	add_fingerprint(user)
-	if(!spun && can_shoot(user))
-		user.visible_message(
-			span_notice("[user] прокручива[PLUR_ET_YUT(user)] барабан [declent_ru(GENITIVE)]."),
-			span_notice("Вы прокручиваете барабан [declent_ru(GENITIVE)].")
-		)
-		Spin()
-		return
-	var/num_unloaded = 0
-	var/atom/drop_loc = drop_location()
-	while(get_ammo() > 0)
-		var/obj/item/ammo_casing/CB
-		CB = magazine.get_round()
-		chambered = null
-		CB.forceMove(drop_loc)
-		CB.pixel_x = rand(-10, 10)
-		CB.pixel_y = rand(-10, 10)
-		CB.setDir(pick(GLOB.alldirs))
-		CB.update_appearance()
-		CB.SpinAnimation(10, 1)
-		playsound(drop_loc, CB.casing_drop_sound, 60, TRUE)
-		num_unloaded++
-	if(num_unloaded)
-		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
-	else
-		balloon_alert(user, "уже разряжено!")
-
-/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(proximity_flag)
-		if(!(target in user.contents) && ismob(target))
-			if(user.a_intent == INTENT_HARM) // Flogging action
-				return
-
-	if(isliving(user))
-		if(!can_trigger_gun(user))
-			return
-	if(target != user)
-		if(ismob(target))
-			balloon_alert(user, "не подходящая цель!")
-		return
-
-	if(ishuman(user))
-		if(!spun)
-			balloon_alert(user, "прокрутите барабан!")
-			return
-
-		spun = FALSE
-
-		if(chambered)
-			var/obj/item/ammo_casing/AC = chambered
-			if(AC.fire(user, user, firer_source_atom = src))
-				playsound(user, fire_sound, 50, TRUE)
-				var/zone = check_zone(user.zone_selected)
-				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
-					shoot_self(user, zone)
-				else
-					user.visible_message(
-						span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[zone][ACCUSATIVE]]!"),
-						span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[zone][ACCUSATIVE]]!"),
-						span_italics("Вы слышите выстрел!")
-					)
-				chambered.after_fire()
-				return
-			chambered.after_fire()
-
-		user.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сухо щёлкает."))
-		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-
-/obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
-	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message(
-		span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
-		span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
-		span_italics("Вы слышите выстрел!"),
-		projectile_message = TRUE
-	)
-
-/obj/item/gun/projectile/revolver/russian/soul
-	desc = "Револьвер калибра .357, предназначенный для игры в русскую рулетку. Автоматически вращает барабан после каждого выстрела. \
-			Проклят и обладает способностью захватывать души своих жертв."
-
-/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
-	..()
-	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
-	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
-		qdel(SS)
-		return
-	user.visible_message(
-		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает душу [user]!"),
-		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает вашу душу!")
 	)
 
 // MARK: Capgun
@@ -637,4 +450,190 @@
 	starting_attachment_types = list(
 		/obj/item/gun_module/rail/scope/collimator/pistol,
 		/obj/item/gun_module/under/laser/point,
+	)
+
+// MARK: Nagant
+/obj/item/gun/projectile/revolver/nagant
+	name = "nagant revolver"
+	desc = "Старинный револьвер калибра 7,62x38."
+	icon_state = "nagant"
+	origin_tech = "combat=3"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = 3),
+	)
+
+/obj/item/gun/projectile/revolver/nagant/get_ru_names()
+	return list(
+		NOMINATIVE = "револьвер Нагана 7,62x38",
+		GENITIVE = "револьвера Нагана 7,62x38",
+		DATIVE = "револьверу Нагана 7,62x38",
+		ACCUSATIVE = "револьвер Нагана 7,62x38",
+		INSTRUMENTAL = "револьвером Нагана 7,62x38",
+		PREPOSITIONAL = "револьвере Нагана 7,62x38",
+	)
+
+/obj/item/gun/projectile/revolver/nagant/rusted
+
+/obj/item/gun/projectile/revolver/nagant/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
+
+// MARK: .36
+/obj/item/gun/projectile/revolver/c36
+	name = ".36 revolver"
+	desc = "An old fashion .36 chambered revolver."
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+
+// MARK: Russian Roulette gun
+/obj/item/gun/projectile/revolver/russian
+	name = "russian roulette revolver"
+	desc = "Револьвер калибра .357, предназначенный для игры в русскую рулетку. Автоматически вращает барабан после каждого выстрела."
+	origin_tech = "combat=2;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/internal/rus357
+	var/spun = FALSE
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM
+	can_air_shoot = FALSE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
+	)
+
+/obj/item/gun/projectile/revolver/russian/get_ru_names()
+	return list(
+		NOMINATIVE = "револьвер для русской рулетки .357",
+		GENITIVE = "револьвера для русской рулетки .357",
+		DATIVE = "револьверу для русской рулетки .357",
+		ACCUSATIVE = "револьвер для русской рулетки .357",
+		INSTRUMENTAL = "револьвером для русской рулетки .357",
+		PREPOSITIONAL = "револьвере для русской рулетки .357",
+	)
+
+/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
+	. = ..()
+	Spin()
+
+/obj/item/gun/projectile/revolver/russian/proc/Spin()
+	chambered = null
+	var/random = rand(1, magazine.max_ammo)
+	if(random <= get_ammo(FALSE, FALSE))
+		chamber_round()
+	spun = TRUE
+
+/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
+	if(isspeedloader(I) || isammocasing(I))
+		if(get_ammo() > 0)
+			balloon_alert(user, "уже заряжено!")
+			return ATTACK_CHAIN_PROCEED
+		var/loaded = magazine.reload(I, user, silent = TRUE)
+		if(loaded)
+			user.visible_message(
+				span_notice("[user] заряжа[PLUR_ET_YUT(user)] патрон в [declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы заряжаете патрон в [declent_ru(ACCUSATIVE)].")
+			)
+			Spin()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
+/obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
+	add_fingerprint(user)
+	if(!spun && can_shoot(user))
+		user.visible_message(
+			span_notice("[user] прокручива[PLUR_ET_YUT(user)] барабан [declent_ru(GENITIVE)]."),
+			span_notice("Вы прокручиваете барабан [declent_ru(GENITIVE)].")
+		)
+		Spin()
+		return
+	var/num_unloaded = 0
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/CB
+		CB = magazine.get_round()
+		chambered = null
+		CB.forceMove(drop_loc)
+		CB.pixel_x = rand(-10, 10)
+		CB.pixel_y = rand(-10, 10)
+		CB.setDir(pick(GLOB.alldirs))
+		CB.update_appearance()
+		CB.SpinAnimation(10, 1)
+		playsound(drop_loc, CB.casing_drop_sound, 60, TRUE)
+		num_unloaded++
+	if(num_unloaded)
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
+	else
+		balloon_alert(user, "уже разряжено!")
+
+/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
+		if(!(target in user.contents) && ismob(target))
+			if(user.a_intent == INTENT_HARM) // Flogging action
+				return
+
+	if(isliving(user))
+		if(!can_trigger_gun(user))
+			return
+	if(target != user)
+		if(ismob(target))
+			balloon_alert(user, "не подходящая цель!")
+		return
+
+	if(ishuman(user))
+		if(!spun)
+			balloon_alert(user, "прокрутите барабан!")
+			return
+
+		spun = FALSE
+
+		if(chambered)
+			var/obj/item/ammo_casing/AC = chambered
+			if(AC.fire(user, user, firer_source_atom = src))
+				playsound(user, fire_sound, 50, TRUE)
+				var/zone = check_zone(user.zone_selected)
+				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
+					shoot_self(user, zone)
+				else
+					user.visible_message(
+						span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[zone][ACCUSATIVE]]!"),
+						span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[zone][ACCUSATIVE]]!"),
+						span_italics("Вы слышите выстрел!")
+					)
+				chambered.after_fire()
+				return
+			chambered.after_fire()
+
+		user.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сухо щёлкает."))
+		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
+
+/obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
+	user.apply_damage(300, BRUTE, affecting)
+	user.visible_message(
+		span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
+		span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
+		span_italics("Вы слышите выстрел!"),
+		projectile_message = TRUE
+	)
+
+/obj/item/gun/projectile/revolver/russian/soul
+	desc = "Револьвер калибра .357, предназначенный для игры в русскую рулетку. Автоматически вращает барабан после каждого выстрела. \
+			Проклят и обладает способностью захватывать души своих жертв."
+
+/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
+	..()
+	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
+	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
+		qdel(SS)
+		return
+	user.visible_message(
+		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает душу [user]!"),
+		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает вашу душу!")
 	)

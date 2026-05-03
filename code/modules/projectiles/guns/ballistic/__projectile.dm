@@ -21,7 +21,7 @@
 	update_weight()
 	update_icon()
 
-/obj/item/gun/projectile/examine_more(mob/user)
+/obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	if(can_air_shoot)
 		. += span_notice("Находясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание.")

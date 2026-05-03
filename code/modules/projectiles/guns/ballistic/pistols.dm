@@ -18,87 +18,6 @@
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
-// MARK: Stechkin
-/obj/item/gun/projectile/automatic/pistol/stechkin
-	name = "Stechkin pistol"
-	desc = "Компактный пистолет калибра 10x25 мм. Отличается малыми габаритами и высокой огневой мощью для своего класса. \
-			Благодаря простоте конструкции и массовости производства \"Стечкины\" в различных модификациях \
-			встречаются по всей Галактике. Производитель данного экземпляра неизвестен."
-	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=1"
-	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
-	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
-	)
-
-/obj/item/gun/projectile/automatic/pistol/stechkin/get_ru_names()
-	return list(
-		NOMINATIVE = "пистолет \"Стечкин\" 10x25 мм",
-		GENITIVE = "пистолета \"Стечкин\" 10x25 мм",
-		DATIVE = "пистолету \"Стечкин\" 10x25 мм",
-		ACCUSATIVE = "пистолет \"Стечкин\" 10x25 мм",
-		INSTRUMENTAL = "пистолетом \"Стечкин\" 10x25 мм",
-		PREPOSITIONAL = "пистолете \"Стечкин\" 10x25 мм",
-	)
-
-/obj/item/gun/projectile/automatic/pistol/stechkin/add_deep_lore()
-	AddElement(/datum/element/examine_lore, \
-		lore = "Один из самых массовых пистолетов Галактики. По слухам, оригинальная конструкция была разработана в начале века, \
-		но после утечки чертежей в открытый доступ производство было запущено сотнями предприятий — от лицензированных заводов до \
-		подпольных мастерских.<br>\
-		<br>\
-		Массовость данного пистолета объясняется рядом причин:<br>\
-		1. Простота и надёжность конструкции.<br>\
-		2. Предельная дешевизна производства.<br>\
-		3. Высокая модульность и совместимость с широким спектром боеприпасов.<br>\
-		<br>\
-		Именно поэтому \"Стечкин\" пользуется высоким спросом как у гражданских лиц, которым нужно дешёвое оружие для самозащиты, \
-		так и у корпоративных наёмников, ценящих модульное и легко маскируемое оружие."\
-	)
-
-/obj/item/gun/projectile/automatic/pistol/stechkin/add_deep_lore()
-	AddElement(/datum/element/examine_lore, \
-		lore = "Один из самых массовых пистолетов Галактики. По слухам, оригинальная конструкция была разработана в начале века, \
-		но после утечки чертежей в открытый доступ производство было запущено сотнями предприятий — от лицензированных заводов до \
-		подпольных мастерских.<br>\
-		<br>\
-		Массовость данного пистолета объясняется рядом причин:<br>\
-		1. Простота и надёжность конструкции.<br>\
-		2. Предельная дешевизна производства.<br>\
-		3. Высокая модульность и совместимость с широким спектром боеприпасов.<br>\
-		<br>\
-		Именно поэтому \"Стечкин\" пользуется высоким спросом как у гражданских лиц, которым нужно дешёвое оружие для самозащиты, \
-		так и у корпоративных наёмников, ценящих модульное и легко маскируемое оружие."\
-	)
-
-// MARK: M1911
-/obj/item/gun/projectile/automatic/pistol/m1911
-	name = "M1911"
-	desc = "Классический пистолет калибра .45 с малой ёмкостью магазина. \
-			Низкая отдача, высокая останавливающая сила, простота в обслуживании. \
-			Проверенная временем конструкция, которую легко модифицировать под свои нужды."
-	icon_state = "m1911"
-	mag_type = /obj/item/ammo_box/magazine/m45
-	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 6),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -1),
-	)
-
-/obj/item/gun/projectile/automatic/pistol/m1911/get_ru_names()
-	return list(
-		NOMINATIVE = "пистолет M1911 .45",
-		GENITIVE = "пистолета M1911 .45",
-		DATIVE = "пистолету M1911 .45",
-		ACCUSATIVE = "пистолет M1911 .45",
-		INSTRUMENTAL = "пистолетом M1911 .45",
-		PREPOSITIONAL = "пистолете M1911 .45",
-	)
-
 // MARK: DCA-P9 Enforcer
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "DCA-P9 \"Enforcer\" pistol"
@@ -129,14 +48,14 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/add_deep_lore()
 	AddElement(/datum/element/examine_lore, \
 		lore = "Лёгкий пистолет под стандартный калибр 9x19 мм. Разработан компанией \"Donk Co. Arms\" в рамках \
-		открытого тендера на на оснащение корпоративных служб безопасности. <br>\
+		открытого тендера на оснащение корпоративных служб безопасности. <br>\
 		<br>\
 		Конструкция сочетает в себе проверенные технологические решения с современными материалами: полимерная рамка \
 		со стальными вкладышами, укороченный ход затвора для снижения отдачи, модульные направляющие для использования \
 		тактических приспособлений.<br>\
 		<br>\
 		В 2556 году \"Нанотрейзен\" заключила долгосрочный контракт с \"Donk Co. Arms\" на массовую поставку \
-		данных моделей в целях замены разрозненных моделей пистолетов, использовавшихся силами корпорации \
+		DCA-P9 в целях замены разрозненных моделей пистолетов, использовавшихся силами корпорации \
 		В настоящее время \"Блюстители\" остаются основным штатным оружием сотрудников службы безопасности \"Нанотрейзен\", \
 		повсеместно встречаясь даже на самых удалённых объектах корпорации."\
 	)
@@ -167,32 +86,66 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет P40 \"Эйсер\" .40 N&R",
-		GENITIVE = "пистолета P40 \"Эйсер\" .40 N&R",
-		DATIVE = "пистолету P40 \"Эйсер\" .40 N&R",
-		ACCUSATIVE = "пистолет P40 \"Эйсер\" .40 N&R",
-		INSTRUMENTAL = "пистолетом P40 \"Эйсер\" .40 N&R",
-		PREPOSITIONAL = "пистолете P40 \"Эйсер\" .40 N&R",
+		NOMINATIVE = "пистолет P40-E \"Эйсер\" .40 N&R",
+		GENITIVE = "пистолета P40-E \"Эйсер\" .40 N&R",
+		DATIVE = "пистолету P40-E \"Эйсер\" .40 N&R",
+		ACCUSATIVE = "пистолет P40-E \"Эйсер\" .40 N&R",
+		INSTRUMENTAL = "пистолетом P40-E \"Эйсер\" .40 N&R",
+		PREPOSITIONAL = "пистолете P40-E \"Эйсер\" .40 N&R",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/add_deep_lore()
 	AddElement(/datum/element/examine_lore, \
-		lore = "Флагманский пистолет новейшей серии. Разработан в 2567 году по прямому заказу \"Нанотрейзен\" \
-		для модернизации личного вооружения элитных подразделений.<br>\
+		lore = "P40-E \"Эйсер\" — штурмовой пистолет под патрон .40 N&R, разработанный \"Mars Special\" по прямому заказу \
+		\"Нанотрейзен\" для оснащения элитных подразделений.<br>\
 		<br>\
-		Использование калибра .40 N&R предоставляет иделальный баланс между останавливающей способностью и управляемостью. \
-		Использование композитных сплавов нового поколения позволило значительно снизить вес пистолета и повысить эргономику \
-		без потери удобства.<br>\
+		Калибр .40 N&R обеспечивает баланс между останавливающим действием и управляемостью при низкой отдаче. Три слота \
+		под тактические модули позволяют адаптировать оружие под конкретную задачу.<br>\
 		<br>\
-		\"Эйсер\" не поставляется в открытую продажу. Доступ к нему имеют только позразделения \"Нанотрейзен\", ряд союзных ЧВК и \
-		единичные подразделения спецназа ТСФ."\
+		В открытую продажу не поступает. Доступ к \"Эйсеру\" имеют только подразделения \"Нанотрейзен\", ряд союзных \
+		ЧВК и единичные подразделения спецназа ТСФ."\
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-// MARK: Desert Eagle
+// MARK: Stechkin
+/obj/item/gun/projectile/automatic/pistol/stechkin
+	name = "Stechkin pistol"
+	desc = "Компактный пистолет калибра 10x25 мм, собранный по открытой схеме из библиотеки \"Canon de Frontira\". Имеет два слота под \
+			тактические модули, а также совместим с широким спектром специальных боеприпасов. Встречается повсеместно — от гражданского рынка до криминальных структур."
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "combat=3;materials=2;syndicate=1"
+	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
+	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
+	)
+
+/obj/item/gun/projectile/automatic/pistol/stechkin/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет \"Стечкин\" 10x25 мм",
+		GENITIVE = "пистолета \"Стечкин\" 10x25 мм",
+		DATIVE = "пистолету \"Стечкин\" 10x25 мм",
+		ACCUSATIVE = "пистолет \"Стечкин\" 10x25 мм",
+		INSTRUMENTAL = "пистолетом \"Стечкин\" 10x25 мм",
+		PREPOSITIONAL = "пистолете \"Стечкин\" 10x25 мм",
+	)
+
+/obj/item/gun/projectile/automatic/pistol/stechkin/add_deep_lore()
+	AddElement(/datum/element/examine_lore, \
+		lore = "Схема пистолета под патрон 10x25 мм давно осела в открытой библиотеке \"Canon de Frontira\" и с тех пор \
+		воспроизводится всеми, у кого есть доступ к базовому производственному оборудованию. Народное прозвище \"Стечкин\" \
+		прикрепилось к платформе так давно, что оригинальный смысл этого названия канул в лету.<br>\
+		<br>\
+		Низкая цена сборки, малые габариты, и доступные повсеместно патроны калибра 10x25 мм во множестиве вариаций делают его \
+		востребованным как на гражданском рынке, так и вооружённых структур разной степени легальности."\
+	)
+
+// MARK: SGM-P Colossus
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "SGM-P \"Colossus\""
 	desc = "Тяжёлый пистолет калибра .50 AE производства \"Shellguard Munitions\". Патроны имеют огромную останавливающую силу, \
@@ -221,21 +174,6 @@
 		PREPOSITIONAL = "пистолете SGM-P \"Колосс\" .50 AE",
 	)
 
-/obj/item/gun/projectile/automatic/pistol/deagle/add_deep_lore()
-	AddElement(/datum/element/examine_lore, \
-		lore = "Ответ \"Shellguard Munitions\" на запрос рынка о необходимости компактного оружия против тяжёлых целей.<br>\
-		<br>\
-		В основе лежит схема газоотвода, заимствованная из винтовочных систем, \
-		что позволяет снизить вес конструкции по сравнению с чисто ударными механизмами аналогичного калибра. \
-		Ствол хромирован для увеличения ресурса работы. Рамка выполнена из титанового сплава с полимерными вставками для гашения вибраций. \
-		Благодаря использования патронов .50 AE, \"Колосс\" обладает огромной останавливающей силой. Однако цена этой мощи — высокая отдача, \
-		низкая скорострельность и малый магазин на 7 патронов.<br>\
-		<br>\
-		\"Колосс\" не предназначен для массовой закупки. Это специализированный оружие, используемое для задач, где нужна предельная \
-		огневая мощь вкупе с компактностью. Благодаря этому он не сыскал популярности у стандартизированных силовых подразделений Галактики, \
-		но стал популярным инструментом среди элитных наёмников."\
-	)
-
 /obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
@@ -243,7 +181,7 @@
 // MARK: APS Pistol
 /obj/item/gun/projectile/automatic/pistol/APS
 	name = "stechkin APS pistol"
-	desc = "Советский пистолет калибра 9x19 мм. Стреляет очередями. Произведён в СССП для использования вооружёнными силами."
+	desc = "Старинный пистолет калибра 9x19 мм. Стреляет очередями."
 	icon_state = "aps"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	burst_size = 3
@@ -265,4 +203,28 @@
 		ACCUSATIVE = "пистолет АПС 9x19 мм",
 		INSTRUMENTAL = "пистолетом АПС 9x19 мм",
 		PREPOSITIONAL = "пистолете АПС 9x19 мм",
+	)
+
+// MARK: M1911
+/obj/item/gun/projectile/automatic/pistol/m1911
+	name = "M1911"
+	desc = "Классический пистолет калибра .45 с малой ёмкостью магазина. Низкая отдача, высокая останавливающая сила, простота в обслуживании. \
+			Конструкция, проверенная временем."
+	icon_state = "m1911"
+	mag_type = /obj/item/ammo_box/magazine/m45
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 6),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -1),
+	)
+
+/obj/item/gun/projectile/automatic/pistol/m1911/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет M1911 .45",
+		GENITIVE = "пистолета M1911 .45",
+		DATIVE = "пистолету M1911 .45",
+		ACCUSATIVE = "пистолет M1911 .45",
+		INSTRUMENTAL = "пистолетом M1911 .45",
+		PREPOSITIONAL = "пистолете M1911 .45",
 	)

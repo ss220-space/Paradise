@@ -51,7 +51,7 @@
 		if(GUN_SINGLE_MODE)
 			burst_size = 1
 			fire_delay = 0
-			balloon_alert(user, "полуавтомат")
+			balloon_alert(user, "одиночный режим")
 		if(GUN_BURST_MODE)
 			burst_size = initial(burst_size) == 1 ? 2 : initial(burst_size)
 			fire_delay = initial(fire_delay)
@@ -59,7 +59,7 @@
 		if(GUN_AUTO_MODE)
 			burst_size = 1
 			fire_delay = initial(fire_delay)
-			balloon_alert(user, "автоматический")
+			balloon_alert(user, "автоматический режим")
 	SEND_SIGNAL(src, COMSIG_GUN_TOGGLE_FIREMODE, user, select)
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()

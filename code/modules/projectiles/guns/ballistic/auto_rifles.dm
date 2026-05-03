@@ -1,7 +1,54 @@
-// MARK: M-90gl Carbine
+// MARK: SGM-BR-52
+/obj/item/gun/projectile/automatic/m52
+	name = "SGM-BR-52 battle rifle"
+	desc = "Боевая винтовка калибра 7,62x51 мм производства \"Shellguard Munitions\". \
+			Высокая точность и впечатляющая огневая мощь делают её эффективной против живой силы в тяжёлом снаряжении. \
+			Состоит на вооружении подразделений быстрого реагирования \"Нанотрейзен\"."
+	gender = FEMALE
+	icon_state = "M52"
+	item_state = "arg"
+	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -7),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+
+/obj/item/gun/projectile/automatic/m52/get_ru_names()
+	return list(
+		NOMINATIVE = "боевая винтовка SGM-BR-52 7,62x51 мм",
+		GENITIVE = "боевой винтовки SGM-BR-52 7,62x51 мм",
+		DATIVE = "боевой винтовке SGM-BR-52 7,62x51 мм",
+		ACCUSATIVE = "боевую винтовку SGM-BR-52 7,62x51 мм",
+		INSTRUMENTAL = "боевой винтовкой SGM-BR-52 7,62x51 мм",
+		PREPOSITIONAL = "боевой винтовке SGM-BR-52 7,62x51 мм",
+	)
+
+/obj/item/gun/projectile/automatic/m52/add_deep_lore()
+	AddElement(/datum/element/examine_lore, \
+		lore = "SGM-BR-52 — тяжёлая штурмовая винтовка под патрон 7,62x51 мм, разработанная \"Shellguard Munitions\" \
+		для рынка корпоративных и частных силовых структур, которым недостаточно стандартных армейских платформ. \
+		Создавалась как инструмент поражения живой силы в тяжёлом снаряжении и за лёгкими укрытиями.<br>\
+		<br>\
+		Массивная затворная группа и удлинённый ствол под мощный патрон 7,62x51 мм обеспечивают высокую точность и убойность \
+		на дистанции, недоступной стандартным штурмовым винтовкам. Управляемая для своего класса отдача достигается за счёт \
+		значительной массы оружия. Стандартные крепления на дульном срезе, верхней планке и под стволом позволяют адаптировать \
+		винтовку под широкий спектр тактических задач.<br>\
+		<br>\
+		Среди корпоративных заказчиков SGM-BR-52 не снискала широкой популярности — высокая масса и избыточная для большинства \
+		сценариев мощность ограничивают круг применения. Тем не менее, \"Нанотрейзен\" закупила партию данных винтовок для оснащения \
+		подразделений быстрого реагирования."\
+	)
+
+// MARK: M-90GL Carbine
 /obj/item/gun/projectile/automatic/m90
-	name = "M-90gl Carbine"
-	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
+	name = "M-90GL Carbine"
+	desc = "Карабин калибра 5,56 мм, выпускаемый по лицензии \"Aegis Ordinance\". \
+			Оснащён встроенным подствольным гранатомётом, а также креплениями для тактических модулей."
 	icon_state = "m90"
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -18,6 +65,16 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 12, ATTACHMENT_OFFSET_Y = 7),
 	)
 	recoil = GUN_RECOIL_MEDIUM
+
+/obj/item/gun/projectile/automatic/m90/get_ru_names()
+	return list(
+		NOMINATIVE = "карабин M-90GL 5,56 мм",
+		GENITIVE = "карабина M-90GL 5,56 мм",
+		DATIVE = "карабину M-90GL 5,56 мм",
+		ACCUSATIVE = "карабин M-90GL 5,56 мм",
+		INSTRUMENTAL = "карабином M-90GL 5,56 мм",
+		PREPOSITIONAL = "карабине M-90GL 5,56 мм",
+	)
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
 	. = ..()
@@ -77,8 +134,6 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/m90/rusted
-	name = "M-90gl Carbine (Rusted)"
-	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
 	damage_mod = 0.85
 
 /obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
@@ -90,11 +145,12 @@
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
-// MARK: AR30 Regula
+// MARK: AR30
 /obj/item/gun/projectile/automatic/arg
-	name = "AR30 \"Regula\" assault rifle"
+	name = "AR30 assault rifle"
 	desc = "Штурмовая винтовка калибра 5,56 мм производства \"Mars Special\" — штатное вооружение вооружённых сил Транс-солнечной Федерации. \
-			Высокая точность, управляемая отдача и три слота под тактические модули обеспечивают универсальность в широком спектре боевых задач."
+			Высокая точность и управляемая отдача."
+	gender = FEMALE
 	icon_state = "arg"
 	item_state = "arg"
 	slot_flags = 0
@@ -115,41 +171,20 @@
 
 /obj/item/gun/projectile/automatic/arg/get_ru_names()
 	return list(
-		NOMINATIVE = "штурмовая винтовка AR30 \"Регула\" 5,56x45 мм",
-		GENITIVE = "штурмовой винтовки AR30 \"Регула\" 5,56x45 мм",
-		DATIVE = "штурмовой винтовке AR30 \"Регула\" 5,56x45 мм",
-		ACCUSATIVE = "штурмовую винтовку AR30 \"Регула\" 5,56x45 мм",
-		INSTRUMENTAL = "штурмовой винтовкой AR30 \"Регула\" 5,56x45 мм",
-		PREPOSITIONAL = "штурмовой винтовке AR30 \"Регула\" 5,56x45 мм",
+		NOMINATIVE = "штурмовая винтовка AR30 5,56x45 мм",
+		GENITIVE = "штурмовой винтовки AR30 5,56x45 мм",
+		DATIVE = "штурмовой винтовке AR30 5,56x45 мм",
+		ACCUSATIVE = "штурмовую винтовку AR30 5,56x45 мм",
+		INSTRUMENTAL = "штурмовой винтовкой AR30 5,56x45 мм",
+		PREPOSITIONAL = "штурмовой винтовке AR30 5,56x45 мм",
 	)
-
-/obj/item/gun/projectile/automatic/arg/add_deep_lore()
-    AddElement(/datum/element/examine_lore, \
-        lore = "AR30 \"Регула\" — штурмовая винтовка под патрон 5,56 мм, разработанная \
-        \"Mars Special\" по заказу вооружённых сил Транс-солнечной Федерации. Создавалась \
-        как единая пехотная платформа на замену устаревшего стрелкового \
-        вооружения в строевых частях ТСФ.<br>\
-        <br>\
-        Конструкция выдержана в духе военной прагматики: стальной ствол в полимерном \
-        цевье, усиленная затворная группа под длительную эксплуатацию в полевых условиях. \
-        Управляемая отдача обеспечивает уверенный контроль при стрельбе, высокая точность — \
-        эффективное поражение на дистанциях, характерных для пехотного боя. Стандартные \
-        крепления на дульном срезе, верхней планке и под стволом позволяют адаптировать \
-        винтовку под любую тактическую задачу.<br>\
-        <br>\
-        AR30 является штатным вооружением пехоты ТСФ и поставляется \"Mars Special\" \
-        крупными сериями по государственным контрактам. За пределами вооружённых сил \
-        федерации винтовка встречается в арсеналах корпоративных силовых структур, \
-        закупающих её по отдельным соглашениям — в частности, подразделения быстрого \
-        реагирования \"Нанотрейзен\"."\
-    )
 
 // MARK: AG-814 Buran
 /obj/item/gun/projectile/automatic/ak814
-	name = "AG-814 \"Buran\" assault rifle"
-	desc = "\"Автомат Грызова\" — штурмовая винтовка 5,45x39 мм производства \"Волкодав\", штатное вооружение армии СССП. \
+	name = "AG-814 assault rifle"
+	desc = "\"Автомат Грызова 814\" — штурмовая винтовка 5,45x39 мм производства \"Волкодав\", штатное вооружение армии СССП. \
 			Высокая надёжность и убойность в сочетании с низкой стоимостью производства делают его основой пехотного арсенала \
-			Советских сил. Настоящий символ советской оружейной доктрины."
+			Советских сил. Эталон советской оружейной доктрины."
 	gender = MALE
 	icon_state = "ak814"
 	item_state = "ak814"
@@ -171,29 +206,12 @@
 
 /obj/item/gun/projectile/automatic/ak814/get_ru_names()
 	return list(
-		NOMINATIVE = "автомат АГ-814 \"Буран\" 5,45x39 мм",
-		GENITIVE = "автомата АГ-814 \"Буран\" 5,45x39 мм",
-		DATIVE = "автомату АГ-814 \"Буран\" 5,45x39 мм",
-		ACCUSATIVE = "автомат АГ-814 \"Буран\" 5,45x39 мм",
-		INSTRUMENTAL = "автоматом АГ-814 \"Буран\" 5,45x39 мм",
-		PREPOSITIONAL = "автомате АГ-814 \"Буран\" 5,45x39 мм",
-	)
-
-/obj/item/gun/projectile/automatic/ak814/add_deep_lore()
-	AddElement(/datum/element/examine_lore, \
-		lore = "АГ-814 \"Буран\" — автомат под патрон 5,45x39 мм, выпускаемый на производственных мощностях СССП под брендом \
-		\"Волкодав\". Разрабатывался как замена предшествующим пехотным платформам с упором на снижение себестоимости без потери боевой \
-		эффективности.<br>\
-		<br>\
-		Конструкция следует проверенной философии: стальной ствол, полимерное цевьё, минимум подвижных частей и допуски, \
-		рассчитанные на эксплуатацию в условиях запылённости, перепадов температур и отсутствия регулярного обслуживания. \
-		Управляемая отдача и высокая точность обеспечивают стабильный результат в руках среднего стрелка. \
-		Стандартные крепления на дульном срезе, верхней планке и под стволом позволяют оснастить автомат базовым \
-		тактическим обвесом.<br>\
-		<br>\
-		АГ-814 является штатным вооружением пехоты СССП и производится массовыми сериями для нужд Советских вооружённых сил. \
-		Благодаря низкой стоимости и высокой надёжности экспортные партии регулярно оседают в арсеналах повстанческих формирований, \
-		молодых колониальных государств и вооружённых группировок по всей Галактике."\
+		NOMINATIVE = "автомат АГ-814 5,45x39 мм",
+		GENITIVE = "автомата АГ-814 5,45x39 мм",
+		DATIVE = "автомату АГ-814 5,45x39 мм",
+		ACCUSATIVE = "автомат АГ-814 5,45x39 мм",
+		INSTRUMENTAL = "автоматом АГ-814 5,45x39 мм",
+		PREPOSITIONAL = "автомате АГ-814 5,45x39 мм",
 	)
 
 // MARK: AGS74-U
@@ -236,55 +254,11 @@
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 25, destroy_max_chance = 5, malf_low_bound = 10, malf_high_bound = 30)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 10, misfire_high_bound = 30)
 
-// MARK: SGM-BR-52
-/obj/item/gun/projectile/automatic/m52
-	name = "SGM-BR-52 battle rifle"
-	desc = "Боевая винтовка калибра 7,62x51 мм производства \"Shellguard Munitions\". \
-			Высокая точность и впечатляющая огневая мощь делают её эффективной против живой силы в тяжёлом снаряжении. \
-			Состоит на вооружении подразделений быстрого реагирования \"Нанотрейзен\"."
-	icon_state = "M52"
-	item_state = "arg"
-	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
-	mag_type = /obj/item/ammo_box/magazine/m52mag
-	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 9),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -7),
-	)
-	recoil = GUN_RECOIL_MEDIUM
-
-/obj/item/gun/projectile/automatic/m52/get_ru_names()
-	return list(
-		NOMINATIVE = "боевая винтовка SGM-BR-52 7,61x51 мм",
-		GENITIVE = "боевой винтовки SGM-BR-52 7,61x51 мм",
-		DATIVE = "боевой винтовке SGM-BR-52 7,61x51 мм",
-		ACCUSATIVE = "боевую винтовку SGM-BR-52 7,61x51 мм",
-		INSTRUMENTAL = "боевой винтовкой SGM-BR-52 7,61x51 мм",
-		PREPOSITIONAL = "боевой винтовке SGM-BR-52 7,61x51 мм",
-	)
-
-/obj/item/gun/projectile/automatic/m52/add_deep_lore()
-	AddElement(/datum/element/examine_lore, \
-		lore = "SGM-BR-52 — тяжёлая штурмовая винтовка под патрон 7,62x51 мм, разработанная \"Shellguard Munitions\" \
-		для рынка корпоративных и частных силовых структур, которым недостаточно стандартных армейских платформ. \
-		Создавалась как инструмент поражения живой силы в тяжёлом снаряжении и за лёгкими укрытиями.<br>\
-		<br>\
-		Массивная затворная группа и удлинённый ствол под мощный патрон 7,62x51 мм обеспечивают высокую точность и убойность \
-		на дистанции, недоступной стандартным штурмовым винтовкам. Управляемая для своего класса отдача достигается за счёт \
-		значительной массы оружия. Стандартные крепления на дульном срезе, верхней планке и под стволом позволяют адаптировать \
-		винтовку под широкий спектр тактических задач.<br>\
-		<br>\
-		Среди корпоративных заказчиков SGM-BR-52 не снискала широкой популярности — высокая масса и избыточная для большинства \
-		сценариев мощность ограничивают круг применения. Тем не менее, \"Нанотрейзен\" закупила партию данных винтовок для оснащения \
-		подразделений быстрого реагирования."\
-	)
-
 // MARK: IK-60
 /obj/item/gun/projectile/automatic/ik60
 	name = "IK-60 Laser Carbine"
-	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	desc = "Укороченная винтовка с магазинным питанием, использующая специализированные патроны для стрельбы лазеро-подобными снарядами."
+	gender = MALE
 	icon_state = "lasercarbine"
 	item_state = "laser"
 	origin_tech = "combat=4;materials=2"
@@ -317,7 +291,8 @@
 // MARK: LR-30
 /obj/item/gun/projectile/automatic/lr30
 	name = "LR-30 Laser Rifle"
-	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	desc = "Штурмовая винтовка с магазинным питанием, использующая специализированные патроны для стрельбы лазеро-подобными снарядами."
+	gender = FEMALE
 	icon_state = "lr30"
 	item_state = "lr30"
 	origin_tech = "combat=3;materials=2"
