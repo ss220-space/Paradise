@@ -70,20 +70,20 @@
 
 /datum/storeitem/tarot
 	name = "Колода карт таро"
-	desc = "Простая колода игральных карт."
+	desc = "Для всех ваших оккультных нужд!"
 	typepath = /obj/item/deck/tarot
 	cost = 100
 
 /datum/storeitem/unum
 	name = "Колода карт UNUM!"
 	desc = "Колода карт UNUM! Правила для домашних ссор не входят в комплект."
-	typepath = /obj/item/deck/cards/tiny
+	typepath = /obj/item/deck/unum
 	cost = 100
 
 /datum/storeitem/cards_tiny
 	name = "Колода миниатюрных карт"
 	desc = "Простая колода миниатюрных игральных карт."
-	typepath = /obj/item/deck/unum
+	typepath = /obj/item/deck/cards/tiny
 	cost = 100
 
 /datum/storeitem/candle
