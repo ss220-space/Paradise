@@ -1428,6 +1428,7 @@
 /obj/item/storage/box/pen_case
 	name = "set of pens"
 	icon_state = "pen_case"
+	item_state = "pen_case"
 	custom_price = PAYCHECK_MIN * 2
 
 	/**
