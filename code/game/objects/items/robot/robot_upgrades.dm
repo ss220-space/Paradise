@@ -620,7 +620,6 @@
 
 		robot.module.modules += new /obj/item/storage/bag/trash/bluespace/cyborg(robot.module)
 		robot.module.rebuild()
-		return TRUE
 
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy *= 3
