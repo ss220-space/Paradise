@@ -267,6 +267,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/advanced
 	name = "AVD-CNED surgical toolset implant"
+	greyscale_colors = "#848fe6#8f0b0b#8f0b0b#8f0b0b"
 	contents = newlist(
 		/obj/item/scalpel/laser/manager/debug,
 		/obj/item/hemostat/alien, // its needed specifically for some surgeries
