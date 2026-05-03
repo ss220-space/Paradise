@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Банхаммер больше не палит админов fakekey и big_brother. (PR #9129)"
