@@ -77,6 +77,8 @@
 	storage_slots = 60
 	item_flags = NO_MAT_REDEMPTION
 
+/obj/item/storage/bag/trash/bluespace/cyborg
+
 ////////////////////////////////////////
 // MARK:	Plastic bag
 ////////////////////////////////////////
