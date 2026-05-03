@@ -220,7 +220,6 @@
 	desc = "Золотой револьвер калибра .357."
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
-	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEGA
 	attachable_allowed = GUN_MODULE_CLASS_NONE

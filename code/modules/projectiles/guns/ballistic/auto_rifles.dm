@@ -310,7 +310,7 @@
 	recoil = GUN_RECOIL_MIN
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/m52/get_ru_names()
+/obj/item/gun/projectile/automatic/lr30/get_ru_names()
 	return list(
 		NOMINATIVE = "лазерная винтовка LR-30",
 		GENITIVE = "лазерной винтовки LR-30",
