@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		return FALSE
 
 	var/language_key = cling.evented ? get_language_prefix(LANGUAGE_HIVE_EVENTLING) : get_language_prefix(LANGUAGE_HIVE_CHANGELING)
-	desc = "Позволяет обмениваться ДНК на расстоянии. Требует 10 химикатов. С помощью [language_key]можно говорить с собратьями."
+	desc = "Позволяет обмениваться ДНК на расстоянии. С помощью [language_key]можно говорить с собратьями."
 	to_chat(user, span_changeling("Используйте [language_key]для общения с другими генокрадми."))
 	return TRUE
 
