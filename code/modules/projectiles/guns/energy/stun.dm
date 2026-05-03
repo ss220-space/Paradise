@@ -36,7 +36,7 @@
 	on_recharge()
 
 /obj/item/gun/energy/gun/advtaser
-	name = "hybrid disabler"
+	name = "disabler"
 	desc = "A weapon designed to fire long-range disabler beams."
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
