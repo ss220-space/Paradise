@@ -219,7 +219,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/human = target
 		var/obj/item/organ/external/organ = human.get_organ(user.zone_selected)
-		if(organ && organ.brute_dam >= 85)
+		if(organ && organ.brute_dam >= organ.max_damage)
 			organ.droplimb()
 
 /***************************************\
@@ -245,7 +245,7 @@
 	item_state = "flesh_maul"
 	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 30
+	force = 40
 	armour_penetration = 40
 	hitsound = SFX_SWING_HIT
 	throw_range = 0
@@ -304,13 +304,13 @@
 		var/turf/simulated/wall/wall = target
 		user.do_attack_animation(wall)
 		user.changeNext_move(attack_speed)
-		wall.take_damage(35)
+		wall.take_damage(50)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(ishuman(target))
 		var/mob/living/carbon/human/human = target
 		var/obj/item/organ/external/organ = human.get_organ(user.zone_selected)
-		if(organ.brute_dam >= 60)
+		if(organ.brute_dam >= organ.max_damage)
 			organ.fracture()
 		if(isliving(target))
 			human.Knockdown(1 SECONDS)
