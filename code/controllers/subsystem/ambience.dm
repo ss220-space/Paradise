@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(ambience)
 			return
 
 ///Attempts to play an ambient sound to a mob, returning the cooldown in deciseconds
-/area/proc/play_ambience(mob/target, sound/override_sound, volume = 27)
+/area/proc/play_ambience(mob/target, sound/override_sound, volume = 37)
 	var/sound/new_sound = override_sound || pick(ambientsounds)
 	if(!new_sound) // Dont try to play a sound if we dont have any.
 		return 1 MINUTES
