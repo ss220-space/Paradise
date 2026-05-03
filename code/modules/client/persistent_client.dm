@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 
 	///Is thunderdom blocking this client from respawning
 	var/thunderdome_respawn_blocked = FALSE
+	var/thunderdome_saved_antaghud = FALSE
+	var/thunderdome_saved_respawnable = FALSE
 
 /datum/persistent_client/New(ckey, client)
 	src.client = client
