@@ -21,11 +21,18 @@ fn sound_len(sound_path: ByondValue) -> eyre::Result<ByondValue> {
 }
 
 fn get_sound_length_safe(path: &str) -> eyre::Result<f32> {
-    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| get_sound_length(path))) {
+    let prev_hook = std::panic::take_hook();
+    std::panic::set_hook(Box::new(|_| {}));
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| get_sound_length(path)));
+    std::panic::set_hook(prev_hook);
+    match result {
         Ok(r) => r,
-        Err(_) => Err(eyre::eyre!(format!(
-            "symphonia panicked while parsing {path}"
-        ))),
+        Err(_) => {
+            eprintln!("[rustlibs sound_len] PANIC parsing: {path}");
+            Err(eyre::eyre!(format!(
+                "symphonia panicked while parsing {path}"
+            )))
+        }
     }
 }
 
