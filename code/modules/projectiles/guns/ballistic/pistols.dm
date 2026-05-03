@@ -1,6 +1,8 @@
 // MARK: Base Pistol
 /obj/item/gun/projectile/automatic/pistol
 	gender = MALE
+	icon = 'icons/obj/weapons/pistols.dmi'
+	icon_state = "pistol"
 	can_holster = TRUE
 	recoil = GUN_RECOIL_LOW
 	origin_tech = "combat=3;materials=2"
@@ -11,12 +13,21 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	fire_modes = GUN_MODE_SINGLE_ONLY
+	/// Magazine icon (if exists on pistol, null for disable this feature)
+	var/magazine_icon = "pistol_mag"
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+		icon_state = "[base_icon_state][chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/pistol/update_overlays()
+	. = ..()
+	if(!magazine_icon || !magazine)
+		return
+	. += mutable_appearance(initial(icon), magazine_icon, layer = FLOAT_LAYER - 0.01)
+
 
 // MARK: DCA-P9 Enforcer
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -34,6 +45,7 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -3),
 	)
 	origin_tech = "combat=4;materials=2"
+	magazine_icon = "enforcer_mag"
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
 	return list(
@@ -72,16 +84,21 @@
 	name = "P40-E \"Acer\" pistol"
 	desc = "Штурмовой пистолет под патрон .40 N&R производства \"Mars Special\". Высокая точность, низкая отдача и усиленный ствол \
 			для стрельбы боеприпасами повышенной мощности. Используется элитными подразделениями сил защиты активов \"Нанотрейзен\"."
-	icon_state = "sp8_black"
+	greyscale_config = /datum/greyscale_config/sp8
+	greyscale_colors = COLOR_ALMOST_BLACK
+	icon_state = "/obj/item/gun/projectile/automatic/pistol/sp8"
+	base_icon_state = "sp8"
+	post_init_icon_state = "sp8" // thanks split
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
+	magazine_icon = "sp8_mag"
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	origin_tech = "combat=5;materials=2"
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 5),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -4),
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/get_ru_names()
@@ -153,6 +170,7 @@
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
+	magazine_icon = "deagle_mag"
 	fire_sound = 'sound/weapons/gunshots/1deagle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
@@ -184,6 +202,7 @@
 	desc = "Старинный пистолет калибра 9x19 мм. Стреляет очередями."
 	icon_state = "aps"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
+	magazine_icon = "aps_mag"
 	burst_size = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
@@ -212,6 +231,7 @@
 			Конструкция, проверенная временем."
 	icon_state = "m1911"
 	mag_type = /obj/item/ammo_box/magazine/m45
+	magazine_icon = "m1911_mag"
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 6),

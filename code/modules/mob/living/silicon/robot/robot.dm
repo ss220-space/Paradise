@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(thruster_button)
 	QDEL_NULL(robot_modules_background)
 	QDEL_NULL(undeployment_action)
-	QDEL_LIST(components)
+	QDEL_LIST_ASSOC_VAL(components)
 	QDEL_LIST(upgrades)
 	QDEL_LIST(module_actions)
 

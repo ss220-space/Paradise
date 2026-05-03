@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Исправлена ​​возможность подавления связи через radio jammer на разных Z уровнях. (PR #9118)"

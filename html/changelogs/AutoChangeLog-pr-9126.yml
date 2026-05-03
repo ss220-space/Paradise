@@ -1,0 +1,5 @@
+author: "Infaselt"
+delete-after: True
+changes:
+  - bugfix: "Замена материала из которого сделаны столы на единый reinforced (PR #9126)"
+  - map: " Замена стола на reinforced стол в ксенобиологии на кибериаде (PR #9126)"
