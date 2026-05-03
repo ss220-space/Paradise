@@ -94,7 +94,7 @@
 	path = /obj/item/deck/tarot
 
 /datum/gear/unum
-	index_name = "a deck of UNUM! cards"
+	index_name = "a deck of UNUM cards"
 	path = /obj/item/deck/unum
 
 /datum/gear/headphones
