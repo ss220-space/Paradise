@@ -893,28 +893,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/m50(src)
 	new /obj/item/ammo_box/m50(src)
 
-/obj/item/storage/box/syndie_kit/desert_eagle_gold
-	name = "golden desert eagle kit"
-	desc = "Коробка, содержащая золотой \"Пустынный Орёл\", три дополнительных магазина, и две коробки с патронами калибра .50AE."
-
-/obj/item/storage/box/syndie_kit/desert_eagle_gold/get_ru_names()
-	return list(
-		NOMINATIVE = "набор \"золотой Пустынный Орёл\"",
-		GENITIVE = "набора \"золотой Пустынный Орёл\"",
-		DATIVE = "набору \"золотой Пустынный Орёл\"",
-		ACCUSATIVE = "набор \"золотой Пустынный Орёл\"",
-		INSTRUMENTAL = "набором \"золотой Пустынный Орёл\"",
-		PREPOSITIONAL = "наборе \"золотой Пустынный Орёл\"",
-	)
-
-/obj/item/storage/box/syndie_kit/desert_eagle_gold/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol/deagle/gold(src)
-	new /obj/item/ammo_box/magazine/m50(src)
-	new /obj/item/ammo_box/magazine/m50(src)
-	new /obj/item/ammo_box/magazine/m50(src)
-	new /obj/item/ammo_box/m50(src)
-	new /obj/item/ammo_box/m50(src)
-
 /obj/item/storage/box/syndie_kit/stechkin_pistol
 	name = "stechkin pistol kit"
 	desc = "Коробка, содержащая пистолет \"FK-69 Стечкин\", и три дополнительных магазина."

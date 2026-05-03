@@ -343,9 +343,6 @@
 /// /obj/item/card/id/proc/freeze_linked_account(datum/source)
 #define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
 
-/// from base of atom/obj/item/death_book
-#define COMSIG_PHANTOM_DELETE "phantom_delete"
-
 /// Called after placing item on table. (mob/user, obj/structure/table)
 #define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"
 

@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "ЕРТ спавнится с полной аптечкой, вместо пустой. (PR #9074)"

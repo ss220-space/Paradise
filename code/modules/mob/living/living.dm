@@ -1781,10 +1781,6 @@
 		return TRUE
 	return FALSE
 
-/mob/living/examine(mob/user, infix, suffix)
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_LIVING_EXAMINE, user, .)
-
 /**
  * Sets the mob's direction lock towards a given atom.
  *

@@ -69,6 +69,7 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
+	anchorable = FALSE
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
 	interaction_flags_mouse_drop = NEED_HANDS

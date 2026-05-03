@@ -109,7 +109,7 @@
 
 		//Toys
 		/obj/item/toy/syndicateballoon = 5,
-		/obj/item/gun/projectile/automatic/c20r/toy,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/toy/pistol,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,

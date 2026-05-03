@@ -24,7 +24,7 @@
 	if(manifest)
 		. += "manifest"
 
-/obj/structure/closet/crate/large/attack_hand(mob/user)
+/obj/structure/closet/crate/large/attack_hand(mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(manifest)
 		tear_manifest(user)

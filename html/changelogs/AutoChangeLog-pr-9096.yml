@@ -1,0 +1,4 @@
+author: "Ksaikok46"
+delete-after: True
+changes:
+  - bugfix: "У офицера дедсквада сново нормально спавнится ядерный диск. (PR #9096)"

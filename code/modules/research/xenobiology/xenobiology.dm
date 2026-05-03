@@ -29,8 +29,8 @@
 
 	return ..()
 
-/obj/item/slime_extract/New()
-	..()
+/obj/item/slime_extract/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 
 /obj/item/slime_extract/grey
@@ -616,7 +616,7 @@
 	if(is_screen_atom(over_object))
 		return
 	if(over_object == user || loc != user || !ishuman(user))
-		return 
+		return
 	afterattack(over_object, user, TRUE, params2list(params))
 
 /obj/item/slimepotion/clothing/fireproof

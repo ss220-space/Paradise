@@ -1,6 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "GeoIP снова работает. (PR #9055)"
-  - refactor: "Полный рефактор GeoIP (PR #9055)"
-  - admin: "GeoIP TGUI (PR #9055)"

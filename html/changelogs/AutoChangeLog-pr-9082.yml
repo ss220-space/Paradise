@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - add: "Добавление двух донат скинов для броника сб. (PR #9082)"
