@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(sounds)
 	find_all_available_sounds()
 	init_sound_keys()
 
-	if(!(RUST_G))
+	if(!(RUSTLIB))
 		to_chat(world, span_boldnotice("Sounds subsystem: No rust_g detected."))
 		return ..()
 
