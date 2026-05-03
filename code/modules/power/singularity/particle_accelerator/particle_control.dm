@@ -212,6 +212,7 @@
 		tally++
 		layout[PARTICLE_LEFT][EMITTER]["status"] = "good"
 	scan_turf = get_step(scan_turf, right_dir)
+	scan_turf = get_step(scan_turf, right_dir) // its really need, dont delete
 	if(check_part(scan_turf, /obj/structure/particle_accelerator/particle_emitter/right, PARTICLE_RIGHT, EMITTER))
 		tally++
 		layout[PARTICLE_RIGHT][EMITTER]["status"] = "good"
