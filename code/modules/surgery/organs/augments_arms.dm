@@ -420,7 +420,6 @@
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv
-	name = "Inugami toolset implant"
 	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя. Новейшая разработка Inugami!"
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv"
 	greyscale_colors = "#ffffff#89d640#89d640#89d640"
