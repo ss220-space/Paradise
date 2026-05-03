@@ -665,24 +665,6 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/randn = rand(1, 100)
-		var/extra_knock_chance = 0
-		if(user.gloves)
-			if(istype(user.gloves, /obj/item/clothing/gloves))
-				var/obj/item/clothing/gloves/gloves = user.gloves
-				extra_knock_chance = gloves.extra_knock_chance
-		if(randn <= 5 + extra_knock_chance)
-			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
-			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
-			return
-
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.move_resist > user.pull_force)
 			return FALSE

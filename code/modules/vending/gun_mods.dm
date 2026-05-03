@@ -32,6 +32,7 @@
 		/obj/item/ammo_box/magazine/enforcer/extended = 10,
 		/obj/item/gun_module/rail/hud/medical = 3,
 		/obj/item/gun_module/rail/hud/security = 3,
+		/obj/item/gun_module/under/gun/taser = 4,
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
@@ -75,5 +76,6 @@
 		/obj/item/gun_module/muzzle/suppressor/heavy = 2,
 		/obj/item/gun_module/rail/scope/x8 = 5,
 		/obj/item/gun_module/rail/scope/x16 = 3,
+		/obj/item/gun_module/under/gun/taser = 5,
 	)
 	contraband = list()

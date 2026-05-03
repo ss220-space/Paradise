@@ -20,12 +20,18 @@
 
 	var/obj/item/taser_charge/charger = item
 
+	if(charger.used)
+		user.balloon_alert(user, "уже использовано!")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	user.balloon_alert(user, "замена картриджа...")
 	if(!do_after(user, 4 SECONDS, user, DEFAULT_DOAFTER_IGNORE))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	user.balloon_alert(user, "картридж заменён!")
 
-	qdel(charger)
+	charger.used = TRUE
+	charger.update_appearance(UPDATE_ICON_STATE)
+	user.drop_item_ground(charger)
 	our_cell.give(our_cell.maxcharge)
 	on_recharge()
 

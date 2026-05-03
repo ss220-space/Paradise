@@ -436,8 +436,8 @@
 /obj/item/gun_module/under/gun/taser
 	name = "underbarrel taser"
 	desc = "Модуль подствольного тазера. Устройство позволяет совершить один мощный выстрел, однако замена картриджа значительно затруднена."
-	icon_state = "shotgun"
-	overlay_state = "shotgun_o"
+	icon_state = "underbarrel_taser"
+	overlay_state = "underbarrel_taser_o"
 	internal_gun_type = /obj/item/gun/energy/taser/underbarrel
 
 /obj/item/gun_module/under/gun/taser/get_ru_names()
@@ -454,8 +454,11 @@
 	name = "taser charge"
 	desc = "Небольшой картридж, в котором находится заряд для подствольного тазера. "
 	icon = 'icons/obj/weapons/ammo.dmi'
-	icon_state = "baguette" //временно до появления спрайта. Не забыть заменить и удалить комментарий
+	icon_state = "taser_charge"
+	materials = list(MAT_METAL = 400, MAT_GLASS = 600)
 	w_class = WEIGHT_CLASS_TINY
+	/// Did we already used up our charge? Mainly used for icon change
+	var/used = FALSE
 
 /obj/item/taser_charge/get_ru_names()
 	return list(
@@ -466,3 +469,12 @@
 		INSTRUMENTAL = "картридже для тазера",
 		PREPOSITIONAL = "картриджем для тазера",
 	)
+
+/obj/item/taser_charge/examine(mob/user)
+	. = ..()
+	if(!used)
+		return
+	. += span_notice("Данный картридж уже был использован и не представляет какой-либо ценности.")
+
+/obj/item/taser_charge/update_icon_state(updates)
+	icon_state = used ? "taser_charge_empty" : initial(icon_state)

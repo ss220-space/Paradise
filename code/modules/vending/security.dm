@@ -42,6 +42,7 @@
 				/obj/item/storage/box/fingerprints = 3,
 				/obj/item/grenade/smokebomb = 8,
 				/obj/item/clothing/mask/muzzle/safety = 4,
+				/obj/item/taser_charge = 10,
 
 			),
 		),
