@@ -51,6 +51,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		return
 
 	is_going = TRUE
+	blocked_respawn_ckeys.Cut()
 	add_game_logs("Thunderdome poll voting in [gamemode.name] mode started.")
 	var/image/preview_image = new('icons/mob/thunderdome_previews.dmi', gamemode.preview_icon)
 	var/list/candidates = shuffle(SSghost_spawns.poll_candidates("Желаете записаться на Тандердом? (Режим — [gamemode.name])", \
@@ -114,10 +115,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 			blocked_respawn_ckeys |= ghost.ckey
 
 		brawler.attack_ghost(ghost)
-
-		var/mob/living/spawned_mob = ghost_mind?.current
-		if(istype(spawned_mob))
-			fighters |= spawned_mob
 
 		phi += delta_phi
 		currpoint += 1
