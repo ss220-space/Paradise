@@ -7,6 +7,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 	ricochets_max = 1
 	ricochet_chance = 5
+	stamina = 20
 
 /obj/projectile/bullet/get_ru_names()
 	return list(

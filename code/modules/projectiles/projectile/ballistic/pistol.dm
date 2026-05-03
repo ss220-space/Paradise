@@ -25,6 +25,7 @@
 /obj/projectile/bullet/midbullet3
 	damage = 33
 	ricochet_chance = 10
+	knockdown = 1 SECONDS
 
 /obj/projectile/bullet/midbullet3/hp
 	damage = 50
@@ -73,6 +74,7 @@
 /obj/projectile/bullet/midbullet
 	damage = 23
 	stamina = 33 //four rounds from the c20r knocks people down
+	knockdown = 1.5 SECONDS
 
 /obj/projectile/bullet/midbullet_AC2S
 	damage = 23
@@ -120,6 +122,7 @@
 /obj/projectile/bullet/desert_eagle
 	stamina = 33
 	ricochet_chance = 10
+	knockdown = 2 SECONDS
 
 // MARK: 7.62x25mm
 /obj/projectile/bullet/ftt762

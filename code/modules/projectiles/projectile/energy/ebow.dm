@@ -6,7 +6,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	knockdown = 0.5 SECONDS
+	knockdown = 3 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
 

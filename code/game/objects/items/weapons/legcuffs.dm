@@ -211,7 +211,7 @@
 	/// Duration of the weakening in seconds
 	var/weaken_amt = 0
 	/// Duration of the knockdown in seconds
-	var/knockdown_amt = 0
+	var/knockdown_amt = 4
 	/// Cyclic bola spin sound.
 	var/spin_sound = 'sound/items/bola_spin.ogg'
 

@@ -2,6 +2,7 @@
 /obj/projectile/bullet/slug
 	armour_penetration = 10
 	damage = 36
+	knockdown = 1 SECONDS
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"

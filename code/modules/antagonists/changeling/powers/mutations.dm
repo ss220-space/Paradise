@@ -226,6 +226,7 @@
 		var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
 		if(O && O.brute_dam >= 50)
 			O.droplimb()
+		H.Knockdown(1.5 SECONDS)
 
 /***************************************\
 |**************FLESHY MAUL**************|
@@ -316,6 +317,7 @@
 	else if(isliving(target))
 		var/mob/living/M = target
 		M.Slowed(2 SECONDS, 5)
+		M.Knockdown(3 SECONDS)
 		var/atom/throw_target = get_edge_target_turf(M, user.dir)
 		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
 		M.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))

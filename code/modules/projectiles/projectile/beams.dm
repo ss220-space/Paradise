@@ -151,6 +151,7 @@
 	name = "disabler beam"
 	icon_state = "omnilaser"
 	damage = 25
+	knockdown = 0.25 SECONDS
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
