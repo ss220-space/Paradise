@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	var/drain_ratio = 0.5
 	///Multiplier for the amount of gas removed per tick
 	var/powerproduction_drain = 0.001
+	///The percentage of the regular gas drain pumped out in the last tick
+	var/last_drain_efficiency = 0
 
 /obj/machinery/power/energy_accumulator/rad_collector/get_ru_names()
 	return list(
@@ -57,8 +59,10 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		eject()
 		return
 
-	var/gasdrained = min(powerproduction_drain * drain_ratio, loaded_tank.air_contents.toxins())
+	var/wanted_drain = powerproduction_drain * drain_ratio
+	var/gasdrained = min(wanted_drain, loaded_tank.air_contents.toxins())
 	loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
+	last_drain_efficiency = wanted_drain ? gasdrained / wanted_drain : 0
 
 	return ..()
 
@@ -168,7 +172,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/energy_accumulator/rad_collector/proc/receive_pulse(pulse_strength)
 	if(!loaded_tank || !active || pulse_strength <= RAD_COLLECTOR_THRESHOLD)
 		return
-	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT)
+	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT * last_drain_efficiency)
 
 /obj/machinery/power/energy_accumulator/rad_collector/proc/eject(mob/user)
 	locked = FALSE
