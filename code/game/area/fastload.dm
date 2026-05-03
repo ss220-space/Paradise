@@ -13,7 +13,6 @@
 	icon_state = "fastload_yellow"
 	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
-	ambience_index = AMBIENCE_GENERIC
 
 // MARK: Floor №2
 /area/fastload/purple

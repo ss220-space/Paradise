@@ -63,7 +63,7 @@ This applies to all STANDARD station areas
 /area/space/planetary
 	icon_state = "space_planet"
 	static_lighting = TRUE
-	ambience_index = list('sound/ambience/ruin/ambimine.ogg')
+	ambientsounds = list('sound/ambience/ruin/ambimine.ogg')
 	sound_environment = SOUND_AREA_ASTEROID
 
 /area/space/atmosalert()
@@ -1308,7 +1308,7 @@ This applies to all STANDARD station areas
 	icon_state = "bridge"
 	ambientsounds = list(
 		'sound/ambience/misc/signal.ogg',
-		)
+	)
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
@@ -1851,7 +1851,6 @@ This applies to all STANDARD station areas
 
 /area/teleporter/abandoned
 	name = "Abandoned Teleporter"
-	ambience_index = AMBIENCE_ENGI
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/teleporter/quantum
@@ -2731,7 +2730,9 @@ This applies to all STANDARD station areas
 	icon_state = "tcomms"
 
 // These areas are needed for MetaStation's AI sat
-/area/turret_protected
+/area/turret_protected/tcomsat
+	name = "Telecoms Satellite"
+	icon_state = "tcomms"
 	ambientsounds = list(
 		'sound/ambience/engineering/ambisin2.ogg',
 		'sound/ambience/misc/signal.ogg',
@@ -2739,21 +2740,35 @@ This applies to all STANDARD station areas
 		'sound/ambience/general/ambigen9.ogg',
 	)
 
-/area/turret_protected/tcomsat
-	name = "Telecoms Satellite"
-	icon_state = "tcomms"
-
 /area/turret_protected/tcomfoyer
 	name = "Telecoms Foyer"
 	icon_state = "tcomms"
+	ambientsounds = list(
+		'sound/ambience/engineering/ambisin2.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/general/ambigen9.ogg',
+	)
 
 /area/turret_protected/tcomwest
 	name = "Telecoms West Wing"
 	icon_state = "tcomms"
+	ambientsounds = list(
+		'sound/ambience/engineering/ambisin2.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/general/ambigen9.ogg',
+	)
 
 /area/turret_protected/tcomeast
 	name = "Telecoms East Wing"
 	icon_state = "tcomms"
+	ambientsounds = list(
+		'sound/ambience/engineering/ambisin2.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/general/ambigen9.ogg',
+	)
 
 /area/tcommsat/computer
 	name = "Telecoms Control Room"

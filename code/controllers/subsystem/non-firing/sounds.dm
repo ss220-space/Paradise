@@ -95,6 +95,8 @@ SUBSYSTEM_DEF(sounds)
 	for(var/key in GLOB.ambience_assoc)
 		sounds_to_precache |= GLOB.ambience_assoc[key]
 
+	precache_sounds()
+
 	return SS_INIT_SUCCESS
 
 /// Sets up all available sound channels.
@@ -124,14 +126,14 @@ SUBSYSTEM_DEF(sounds)
 	free_channel(channel)
 
 /// Frees all the channels a datum is using.
-/datum/controller/subsystem/sounds/proc/free_datum_channels(datum/D)
-	var/list/L = using_channels_by_datum[D]
-	if(!L)
+/datum/controller/subsystem/sounds/proc/free_datum_channels(datum/channel)
+	var/list/channel_list = using_channels_by_datum[channel]
+	if(!channel_list)
 		return
-	for(var/channel in L)
-		using_channels -= num2text(channel)
-		free_channel(channel)
-	using_channels_by_datum -= D
+	for(var/channel_from_list in channel_list)
+		using_channels -= num2text(channel_from_list)
+		free_channel(channel_from_list)
+	using_channels_by_datum -= channel
 
 /// Frees all datumless channels.
 /datum/controller/subsystem/sounds/proc/free_datumless_channels()
@@ -148,16 +150,16 @@ SUBSYSTEM_DEF(sounds)
 	using_channels_by_datum[DATUMLESS] += .
 
 /// Reserves a channel for a datum. Automatic cleanup only when the datum is deleted. Returns an integer for channel.
-/datum/controller/subsystem/sounds/proc/reserve_sound_channel(datum/D)
-	if(!D) //i don't like typechecks but someone will fuck it up
+/datum/controller/subsystem/sounds/proc/reserve_sound_channel(datum/channel)
+	if(!channel) //i don't like typechecks but someone will fuck it up
 		CRASH("Attempted to reserve sound channel without datum using the managed proc.")
 	. = reserve_channel()
 	if(!.)
 		CRASH("No more sound channels can be reserved.")
 	var/text_channel = num2text(.)
-	using_channels[text_channel] = D
-	LAZYINITLIST(using_channels_by_datum[D])
-	using_channels_by_datum[D] += .
+	using_channels[text_channel] = channel
+	LAZYINITLIST(using_channels_by_datum[channel])
+	using_channels_by_datum[channel] += .
 
 /// Reserves a channel and updates the datastructure. Private proc.
 /datum/controller/subsystem/sounds/proc/reserve_channel()

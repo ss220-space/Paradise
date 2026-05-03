@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(ambience)
 		//Check to see if the client-mob is in a valid area
 		var/area/current_area = get_area(client_mob)
 		if(!current_area) //Something's gone horribly wrong
-			stack_trace("[key_name(client_mob)] has somehow ended up in nullspace. WTF did you do")
+			stack_trace("[key_name(client_mob)] has somehow ended up in nullspace. WTF did you do?")
 			remove_ambience_client(client_iterator)
 			continue
 
