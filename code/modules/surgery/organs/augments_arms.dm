@@ -499,10 +499,6 @@
 			PREPOSITIONAL = "импланте экспериментальных хирургических инструментов",
 	)
 
-/obj/item/organ/internal/cyberimp/arm/surgery/l
-	parent_organ_zone = BODY_ZONE_L_ARM
-	slot = INTERNAL_ORGAN_L_ARM_DEVICE
-
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
