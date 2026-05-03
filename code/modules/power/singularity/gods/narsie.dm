@@ -1,8 +1,7 @@
 #define NARSIE_CHANCE_TO_PICK_NEW_TARGET 5
 
 /obj/god/narsie
-	name = "Nar'Sie"
-	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
+	name = "Нар'Си"
 	gender = FEMALE
 
 	icon = 'icons/obj/narsie.dmi'
@@ -24,7 +23,7 @@
 	rise_sound = 'sound/effects/narsie_risen.ogg'
 	ghost_alert_icon = 'icons/effects/cult_effects.dmi'
 	ghost_alert_state = "ghostalertsie"
-	ghost_alert_message = "Nar'Sie has risen in"
+	ghost_alert_message = "Нар'Си восстала в"
 
 /obj/god/narsie/wrap_announce(text)
 	return span_narsie(text)
@@ -41,7 +40,7 @@
 /obj/god/narsie/attack_ghost(mob/dead/observer/user)
 	if(!jobban_isbanned(user.ckey, ROLE_CULTIST))
 		return
-	if(tgui_alert(user, "Do you wish to become an occult harvester?", "Become Harvester?", list("Yes", "No"), timeout = 10 SECONDS) == "Yes")
+	if(tgui_alert(user, "Вы хотите стать кровавым Жнецом?", "Стать Жнецом?", list("Да", "Нет"), timeout = 10 SECONDS) == "Да")
 		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
 
 /obj/god/narsie/process()
@@ -57,20 +56,14 @@
 /obj/god/narsie/consume(atom/target)
 	target.narsie_act(src)
 
-/obj/god/narsie/mezzer()
-	for(var/mob/living/carbon/victim in oviewers(mesmerize_range, src))
-		if(victim.stat != CONSCIOUS || is_devotee(victim))
-			continue
-		to_chat(victim, span_cult("You feel your sanity crumble away in an instant as you gaze upon [name]..."))
-		victim.apply_effect(mesmerize_effect, STUN)
-
-/// Narsie rewards her cultists with being devoured first, then picks a ghost to follow. --NEO
+/// Narsie rewards her cultists with being devoured first, then picks a ghost to follow.
 /obj/god/narsie/proc/pickcultist()
 	var/list/cultists = list()
 	var/list/noncultists = list()
+	var/list/connected_z = SSmapping.get_connected_levels(get_turf(src))
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
-		if(!pos || (pos.z != z))
+		if(!pos || !(pos.z in connected_z))
 			continue
 
 		if(iscultist(food))
@@ -91,7 +84,7 @@
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
-		if(!pos || (pos.z != z))
+		if(!pos || !(pos.z in connected_z))
 			continue
 		cultists += ghost
 	if(length(cultists))
@@ -108,12 +101,12 @@
 
 	var/entity_name = SSticker.cultdat?.entity_name || name
 	if(old_target)
-		to_chat(old_target, span_cultlarge("[uppertext(entity_name)] HAS LOST INTEREST IN YOU"))
+		to_chat(old_target, span_cultlarge("ТЫ БОЛЬШЕ НЕ ИНТЕРЕСУЕШЬ [uppertext(entity_name)]"))
 	singularity_component.target = food
 	if(ishuman(food))
-		to_chat(food, span_cultlarge("[uppertext(entity_name)] HUNGERS FOR YOUR SOUL"))
+		to_chat(food, span_cultlarge("[uppertext(entity_name)] ЖАЖДЕТ ТВОЮ ДУШУ"))
 	else
-		to_chat(food, span_cultlarge("[uppertext(entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL"))
+		to_chat(food, span_cultlarge("[uppertext(entity_name)] ВЫБРАЛА ТЕБЯ ПРОВОДНИКОМ К ЕЁ СЛЕДУЮЩЕЙ ЖЕРТВЕ"))
 
 /// Narsie's spawn animation pulls the icon/state from the active cult flavor instead of static defaults.
 /obj/god/narsie/spawn_animation()

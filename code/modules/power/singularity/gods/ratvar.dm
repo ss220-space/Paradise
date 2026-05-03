@@ -1,6 +1,5 @@
 /obj/god/ratvar
-	name = "Ratvar, the Clockwork Justiciar"
-	desc = "I'm the bastard creation of a copy-paste coder. Don't look at me, I'm ashamed."
+	name = "Ратвар, Заводной Юстициар"
 	gender = MALE
 
 	icon = 'icons/obj/512x512.dmi'
@@ -22,7 +21,7 @@
 	rise_sound = 'sound/effects/ratvar_reveal.ogg'
 	ghost_alert_icon = 'icons/effects/clockwork_effects.dmi'
 	ghost_alert_state = "ghostalert"
-	ghost_alert_message = "Ratvar has risen in"
+	ghost_alert_message = "Ратвар восстал в"
 
 /obj/god/ratvar/wrap_announce(text)
 	return span_ratvar(text)
@@ -39,7 +38,7 @@
 /obj/god/ratvar/attack_ghost(mob/dead/observer/user)
 	if(!jobban_isbanned(user.ckey, ROLE_CLOCKER))
 		return
-	if(tgui_alert(user, "Do you wish to become an occult marauder?", "Become Marauder?", list("Yes", "No"), timeout = 10 SECONDS) == "Yes")
+	if(tgui_alert(user, "Вы хотите стать заводным мародёром Ратвара?", "Стать мародром?", list("Да", "Нет"), timeout = 10 SECONDS) == "Да")
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new(get_turf(src))
 		cog.possess_by_player(user.key)
 		SSticker.mode.add_clocker(cog.mind)

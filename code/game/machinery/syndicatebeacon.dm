@@ -124,10 +124,11 @@
 		if(user)
 			to_chat(user, span_notice("The connected wire doesn't have enough current."))
 		return
+	var/list/connected_z = SSmapping.get_connected_levels(get_turf(src))
 	for(var/_singulo in GLOB.singularities)
 		var/datum/component/singularity/singulo = _singulo
 		var/atom/singulo_atom = singulo.parent
-		if(singulo_atom.z == z)
+		if(singulo_atom.z in connected_z)
 			singulo.target = src
 	icon_state = "[base_icon_state]1"
 	active = TRUE

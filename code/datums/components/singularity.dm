@@ -9,6 +9,11 @@
 /// Per-tick chance the singularity climbs one z-level if there's a hole above it.
 #define CHANCE_TO_CLIMB_Z 20
 
+// Z-chase direction values returned by chase_z_direction().
+#define SINGULO_CHASE_DOWN -1
+#define SINGULO_CHASE_NONE 0
+#define SINGULO_CHASE_UP 1
+
 /// Things that maybe move around and does stuff to things around them
 /// Used for the singularity (duh) and Nar'Sie
 /datum/component/singularity
@@ -132,51 +137,63 @@
 
 /**
  * Attempts to move the parent (singularity) between z-levels.
- * Automatically falls down through open spaces, and occasionally climbs up,
- * even through solid floors/ceilings, destroying them if possible.
+ * Falls through open spaces, occasionally climbs up by eating through ceilings,
+ * and chases a target on another z-level when the target is in the same multi-z stack.
  *
- * * Returns - TRUE if the parent changed z-level, FALSE otherwise.
+ * Returns TRUE if the parent changed z-level, FALSE otherwise.
  */
 /datum/component/singularity/proc/try_change_z()
 	var/atom/movable/atom_parent = parent
 	var/turf/current_turf = get_turf(atom_parent)
+	var/chase_dir = chase_z_direction(current_turf)
 
-	// 1. Falling down: if we're standing on an openspace, chance to drop to the level below
-	if(isopenspaceturf(current_turf) && prob(CHANCE_TO_CLIMB_Z))
-		var/turf/below = GET_TURF_BELOW(current_turf)
-		if(below)
-			atom_parent.forceMove(below)
-			return TRUE
+	if(chase_dir == SINGULO_CHASE_DOWN)
+		return descend(atom_parent, current_turf, force = TRUE)
+	if(chase_dir == SINGULO_CHASE_UP)
+		return ascend(atom_parent, current_turf)
 
-	// 2. Climbing up: with a CHANCE_TO_CLIMB_Z probability, try to ascend, even if there is a solid floor above.
+	if(isopenspaceturf(current_turf) && prob(CHANCE_TO_CLIMB_Z) && descend(atom_parent, current_turf, force = FALSE))
+		return TRUE
 	if(prob(CHANCE_TO_CLIMB_Z))
-		var/turf/above = GET_TURF_ABOVE(current_turf)
-		if(!above)
-			return FALSE
-
-		// If there's already an open space above, just jump there
-		if(isopenspaceturf(above))
-			atom_parent.forceMove(above)
-			return TRUE
-
-		// Otherwise, there is a solid floor or other structure above.
-		// Let the singularity "eat" this tile before moving.
-		above.singularity_act(singularity_size, parent)
-
-		/**
-		 * After the act, check:
-		 * - whether the tile was destroyed (deleted or turned into openspace)
-		 * - or it survived
-		 */
-		if(QDELETED(above) || isopenspaceturf(above))
-			// The floor was destroyed; we can ascend to the now-open tile
-			atom_parent.forceMove(above)
-			return TRUE
-
-		// The floor survived (e.g., reinforced walls or indestructible tiles); climbing is blocked.
-		return FALSE
-
+		return ascend(atom_parent, current_turf)
 	return FALSE
+
+/// Returns one of SINGULO_CHASE_*: the z-direction we should chase `target` in,
+/// or SINGULO_CHASE_NONE when no chase applies (no target, target on same z,
+/// or target outside our multi-z stack).
+/datum/component/singularity/proc/chase_z_direction(turf/current_turf)
+	if(QDELETED(target) || target.z == current_turf.z)
+		return SINGULO_CHASE_NONE
+	if(!(target.z in SSmapping.get_connected_levels(current_turf)))
+		return SINGULO_CHASE_NONE
+	return target.z > current_turf.z ? SINGULO_CHASE_UP : SINGULO_CHASE_DOWN
+
+/// Drops one z-level. With `force`, eats the current floor to open a hole if needed.
+/datum/component/singularity/proc/descend(atom/movable/atom_parent, turf/current_turf, force)
+	if(!isopenspaceturf(current_turf))
+		if(!force)
+			return FALSE
+		current_turf.singularity_act(singularity_size, parent)
+		current_turf = get_turf(atom_parent)
+		if(!isopenspaceturf(current_turf))
+			return FALSE
+	var/turf/below = GET_TURF_BELOW(current_turf)
+	if(!below)
+		return FALSE
+	atom_parent.forceMove(below)
+	return TRUE
+
+/// Climbs one z-level, eating through any solid ceiling. Blocked by indestructible tiles.
+/datum/component/singularity/proc/ascend(atom/movable/atom_parent, turf/current_turf)
+	var/turf/above = GET_TURF_ABOVE(current_turf)
+	if(!above)
+		return FALSE
+	if(!isopenspaceturf(above))
+		above.singularity_act(singularity_size, parent)
+		if(!QDELETED(above) && !isopenspaceturf(above))
+			return FALSE
+	atom_parent.forceMove(above)
+	return TRUE
 
 /datum/component/singularity/proc/block_blob()
 	SIGNAL_HANDLER
@@ -417,3 +434,6 @@
 #undef CHANCE_TO_CHANGE_TARGET_BLOODTHIRSTY
 #undef CHANCE_TO_CLIMB_Z
 #undef FIELD_CONTAINMENT_DISTANCE
+#undef SINGULO_CHASE_DOWN
+#undef SINGULO_CHASE_NONE
+#undef SINGULO_CHASE_UP

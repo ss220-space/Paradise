@@ -1,7 +1,10 @@
-/// Shared base for round-ending eldritch avatars (Nar'Sie, Ratvar, ...).
+/// Shared base for round-ending eldritch avatars (Nar'Sie, Ratvar).
 /// Wraps the singularity component, the POI bookkeeping, the spawn animation,
 /// and the mesmerize tick. Subtypes only customize their flavor.
 /obj/god
+	abstract_type = /obj/god
+	name = "Бог"
+	desc = "Ваш разум пульсирует и плывёт в безуспешных попытках осознать ЭТО."
 	anchored = TRUE
 	appearance_flags = LONG_GLIDE
 	move_resist = INFINITY
@@ -94,7 +97,7 @@
 	for(var/mob/living/carbon/victim in oviewers(mesmerize_range, src))
 		if(victim.stat != CONSCIOUS || is_devotee(victim))
 			continue
-		to_chat(victim, span_warning("You feel your sanity crumble away in an instant as you gaze upon [name]..."))
+		to_chat(victim, span_warning("Вы чувствуете, как от одного только взгляда на [declent_ru(ACCUSATIVE)] ваше сознание раскалывается на части..."))
 		victim.apply_effect(mesmerize_effect, STUN)
 
 /// Wraps an announcement string in the god's themed span. Subtypes should override.
@@ -114,7 +117,7 @@
 	return list()
 
 /obj/god/proc/on_rise()
-	send_to_playing_players(wrap_announce("[uppertext(name)] HAS RISEN"))
+	send_to_playing_players(wrap_announce("[uppertext(declent_ru(NOMINATIVE))] ПРОБУДИЛ[GEND_SYA_AS_OS_IS(src)]"))
 	if(rise_sound)
 		sound_to_playing_players(rise_sound)
 	announce_summon()
@@ -129,15 +132,15 @@
 	notify_ghosts("[ghost_alert_message] [area.name].", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /obj/god/proc/on_fall()
-	send_to_playing_players(wrap_announce("[uppertext(name)] HAS FALLEN"))
+	send_to_playing_players(wrap_announce("[uppertext(declent_ru(NOMINATIVE))] ПОВЕРЖЕН[GEND_A_O_I(src)]"))
 	if(fall_sound)
 		sound_to_playing_players(fall_sound)
 	announce_death()
 	for(var/datum/mind/devotee_mind in devotees())
 		if(!devotee_mind?.current)
 			continue
-		to_chat(devotee_mind.current, wrap_announce("RETRIBUTION!"))
-		to_chat(devotee_mind.current, wrap_announce("Current goal: Slaughter the heretics!"))
+		to_chat(devotee_mind.current, wrap_announce("ОТМЩЕНИЕ!!"))
+		to_chat(devotee_mind.current, wrap_announce("Текущая цель: Истребить всех неверных!"))
 
 /obj/god/proc/spawn_animation()
 	icon = spawn_anim_icon
