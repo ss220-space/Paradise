@@ -119,7 +119,7 @@ SUBSYSTEM_DEF(sounds)
 	var/text_channel = num2text(channel)
 	var/using = using_channels[text_channel]
 	using_channels -= text_channel
-	if(!istrue(using)) // datum channel
+	if(!using) // datum channel
 		using_channels_by_datum[using] -= channel
 		if(!length(using_channels_by_datum[using]))
 			using_channels_by_datum -= using
@@ -213,7 +213,7 @@ SUBSYSTEM_DEF(sounds)
 	precache_errors = lengths[RUSTG_SOUNDLEN_ERRORS]
 	sound_lengths = lengths[RUSTG_SOUNDLEN_SUCCESSES]
 	for(var/sound_path in sound_lengths)
-		sound_lengths[sound_path] = text2num(sound_lengths[sound_path])
+		sound_lengths[sound_path] = sound_lengths[sound_path]
 
 	sounds_to_precache = null
 
@@ -228,7 +228,7 @@ SUBSYSTEM_DEF(sounds)
 	var/list/out = rustlib_sound_length_list(paths)
 	var/list/successes = out[RUSTG_SOUNDLEN_SUCCESSES]
 	for(var/sound_path in successes)
-		sound_lengths[sound_path] = text2num(successes[sound_path])
+		sound_lengths[sound_path] = successes[sound_path]
 
 /// Cache and return a single sound.
 /datum/controller/subsystem/sounds/proc/get_sound_length(file_path)
@@ -246,14 +246,13 @@ SUBSYSTEM_DEF(sounds)
 	if(!isnull(cached_length))
 		return cached_length
 
-	var/ret = RUSTG_CALL(RUST_G, "sound_len")(file_path)
-	var/as_num = text2num(ret)
+	var/ret = RUSTLIB_CALL(sound_len, file_path)
 	if(isnull(ret))
 		. = 0
 		CRASH("rustg_sound_length error: [ret]")
 
-	sound_lengths[file_path] = as_num
-	return as_num
+	sound_lengths[file_path] = ret
+	return ret
 
 /datum/controller/subsystem/sounds/proc/init_sound_keys()
 	for(var/datum/sound_effect/sfx as anything in subtypesof(/datum/sound_effect))
