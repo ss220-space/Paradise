@@ -1327,7 +1327,7 @@
 /area/ruin/space/pirate_base/prison_solar)
 "dH" = (
 /obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol/stechkin/m1911,
+/obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /turf/simulated/floor/plating,
@@ -7741,7 +7741,7 @@
 /obj/structure/safe/floor{
 	known_by = list("m1911")
 	},
-/obj/item/gun/projectile/automatic/pistol/stechkin/m1911,
+/obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /turf/simulated/floor/plasteel{
