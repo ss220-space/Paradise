@@ -466,8 +466,8 @@
 		GENITIVE = "картриджа для тазера",
 		DATIVE = "картриджу для тазера",
 		ACCUSATIVE = "картридж для тазера",
-		INSTRUMENTAL = "картридже для тазера",
-		PREPOSITIONAL = "картриджем для тазера",
+		INSTRUMENTAL = "картриджем для тазера",
+		PREPOSITIONAL = "картридже для тазера",
 	)
 
 /obj/item/taser_charge/examine(mob/user)
