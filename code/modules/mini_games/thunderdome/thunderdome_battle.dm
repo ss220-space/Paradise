@@ -109,7 +109,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		brawler.outfit.backpack_contents += random_stuff
 
 		var/mob/dead/observer/ghost = candidates[currpoint]
-		var/datum/mind/ghost_mind = ghost.mind
 
 		if(ghost.has_enabled_antagHUD)
 			blocked_respawn_ckeys |= ghost.ckey
