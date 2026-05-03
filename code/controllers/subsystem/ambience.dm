@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(ambience)
 		return
 
 	var/area/my_area = get_area(src)
-	var/sound_to_use = my_area.ambient_buzz
+	var/sound_to_use = my_area?.ambient_buzz
 	var/volume_modifier = client?.prefs.get_channel_volume(CHANNEL_BUZZ)
 
 	if(!sound_to_use || !volume_modifier)
