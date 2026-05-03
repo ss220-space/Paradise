@@ -384,7 +384,7 @@
 	crit_fail = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/surgery
-	name = "surgical toolset implant"
+	name = "Inugami toolset implant"
 	desc = "Набор хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
 	icon = 'icons/map_icons/items/_item.dmi'
 	post_init_icon_state = "armimp"
@@ -420,8 +420,8 @@
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv
-	name = "laser surgical toolset implant"
-	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
+	name = "Inugami toolset implant"
+	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя. Новейшая разработка Inugami!"
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv"
 	greyscale_colors = "#ffffff#89d640#89d640#89d640"
 	contents = newlist(
@@ -439,17 +439,17 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/get_ru_names()
 		return list(
-			NOMINATIVE = "имплант лазерных хирургических инструментов",
-			GENITIVE = "импланта лазерных хирургических инструментов",
-			DATIVE = "импланту лазерных хирургических инструментов",
-			ACCUSATIVE = "имплант лазерных хирургических инструментов",
-			INSTRUMENTAL = "имплантом лазерных хирургических инструментов",
-			PREPOSITIONAL = "импланте лазерных хирургических инструментов",
+			NOMINATIVE = "имплант Inugami",
+			GENITIVE = "импланта Inugami",
+			DATIVE = "импланту Inugami",
+			ACCUSATIVE = "имплант Inugami",
+			INSTRUMENTAL = "имплантом Inugami",
+			PREPOSITIONAL = "импланте Inugami",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
-	name = "military surgical toolset implant"
-	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя."
+	name = "NT-Med toolset implant"
+	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя. Крайне редкая модель, используются военными врачами корпорация Nanotrasen."
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert"
 	greyscale_colors = "#8f8a8a#89d640#89d640#89d640"
 	contents = newlist(
@@ -466,12 +466,12 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert/get_ru_names()
 		return list(
-			NOMINATIVE = "имплант военных хирургических инструментов",
-			GENITIVE = "импланта военных хирургических инструментов",
-			DATIVE = "импланту военных хирургических инструментов",
-			ACCUSATIVE = "имплант военных хирургических инструментов",
-			INSTRUMENTAL = "имплантом военных хирургических инструментов",
-			PREPOSITIONAL = "импланте военных хирургических инструментов",
+			NOMINATIVE = "имплант NT-Med",
+			GENITIVE = "импланта NT-Med",
+			DATIVE = "импланту NT-Med",
+			ACCUSATIVE = "имплант NT-Med",
+			INSTRUMENTAL = "имплантом NT-Med",
+			PREPOSITIONAL = "импланте NT-Med",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien
@@ -495,12 +495,12 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien/get_ru_names()
 		return list(
-			NOMINATIVE = "имплант ЭХИ",
-			GENITIVE = "импланта ЭХИ",
-			DATIVE = "импланту ЭХИ",
-			ACCUSATIVE = "имплант ЭХИ",
-			INSTRUMENTAL = "имплантом ЭХИ",
-			PREPOSITIONAL = "импланте ЭХИ",
+			NOMINATIVE = "инородный имплант",
+			GENITIVE = "инородного импланта",
+			DATIVE = "инородному импланту",
+			ACCUSATIVE = "инородный имплант",
+			INSTRUMENTAL = "инородным имплантом",
+			PREPOSITIONAL = "инородном импланте",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/janitorial
