@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 	var/list/valid_online_candidates = list()
 
 	for(var/client/admin_client in active_admins)
-		if(admin_client?.holder && (admin_client.holder.rights & R_ADMIN))
+		if(admin_client?.holder && (admin_client.holder.rights & R_ADMIN) && !admin_client.holder.fakekey)
 			valid_online_candidates += admin_client
 
 	if(length(valid_online_candidates))
