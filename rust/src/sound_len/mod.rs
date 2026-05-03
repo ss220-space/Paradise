@@ -28,12 +28,38 @@ fn get_sound_length_safe(path: &str) -> eyre::Result<f32> {
     match result {
         Ok(r) => r,
         Err(_) => {
-            eprintln!("[rustlibs sound_len] PANIC parsing: {path}");
+            diagnose_file(path);
             Err(eyre::eyre!(format!(
                 "symphonia panicked while parsing {path}"
             )))
         }
     }
+}
+
+fn diagnose_file(path: &str) {
+    use std::io::Read;
+    let bytes = path.as_bytes();
+    let path_hex: String = bytes.iter().map(|b| format!("{:02x}", b)).collect();
+    let cwd = std::env::current_dir()
+        .map(|p| p.display().to_string())
+        .unwrap_or_else(|_| "<err>".into());
+    let abs = std::path::Path::new(path)
+        .canonicalize()
+        .map(|p| p.display().to_string())
+        .unwrap_or_else(|e| format!("<canon err: {e}>"));
+    let mut head = [0u8; 16];
+    let (size, magic) = match std::fs::File::open(path) {
+        Ok(mut f) => {
+            let size = f.metadata().map(|m| m.len()).unwrap_or(0);
+            let n = f.read(&mut head).unwrap_or(0);
+            let h: String = head[..n].iter().map(|b| format!("{:02x}", b)).collect();
+            (size, h)
+        }
+        Err(e) => (0, format!("<open err: {e}>")),
+    };
+    eprintln!(
+        "[rustlibs sound_len] PANIC: path={path:?} bytes={path_hex} cwd={cwd} abs={abs} size={size} head={magic}"
+    );
 }
 
 fn get_sound_length(sound_path: &str) -> eyre::Result<f32> {
