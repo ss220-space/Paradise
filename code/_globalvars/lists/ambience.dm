@@ -65,6 +65,8 @@ GLOBAL_LIST_INIT(mining_ambience, list(
 	'sound/ambience/lavaland/ambilava1.ogg',
 	'sound/ambience/lavaland/ambilava2.ogg',
 	'sound/ambience/lavaland/ambilava3.ogg',
+	'sound/ambience/lavaland/ambilava4.ogg',
+	'sound/ambience/lavaland/ambilava5.ogg',
 	'sound/ambience/maintenance/ambimaint1.ogg',
 	'sound/ambience/ruin/ambimine.ogg',
 	'sound/ambience/ruin/ambiruin.ogg',

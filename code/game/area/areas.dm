@@ -664,16 +664,17 @@
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
-	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
-		return
-	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
-		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
 		arrived_mob.update_ambience_area(src)
 		if(!arrived_mob.lastarea || old_area != src)
 			arrived_mob.lastarea = src
+
+	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 /area/Exited(atom/movable/departed, area/new_area)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
