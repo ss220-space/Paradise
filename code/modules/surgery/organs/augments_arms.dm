@@ -385,7 +385,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
-	desc = "Набор хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
+	desc = "Набор хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
 	icon = 'icons/map_icons/items/_item.dmi'
 	post_init_icon_state = "armimp"
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery"
@@ -421,7 +421,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv
 	name = "laser surgical toolset implant"
-	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
+	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv"
 	greyscale_colors = "#ffffff#89d640#89d640#89d640"
 	contents = newlist(
@@ -449,7 +449,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
 	name = "military surgical toolset implant"
-	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя"
+	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя."
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert"
 	greyscale_colors = "#8f8a8a#89d640#89d640#89d640"
 	contents = newlist(
@@ -476,7 +476,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien
 	name = "alien surgical toolset implant"
-	desc = "Набор экспериментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя"
+	desc = "Набор экспериментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/alien"
 	greyscale_colors = "#848fe6#8b045c#5005d4#7e79ad"
 	contents = newlist(
@@ -495,12 +495,12 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien/get_ru_names()
 		return list(
-			NOMINATIVE = "имплант экспериментальных хирургических инструментов",
-			GENITIVE = "импланта экспериментальных хирургических инструментов",
-			DATIVE = "импланту экспериментальных хирургических инструментов",
-			ACCUSATIVE = "имплант экспериментальных хирургических инструментов",
-			INSTRUMENTAL = "имплантом экспериментальных хирургических инструментов",
-			PREPOSITIONAL = "импланте экспериментальных хирургических инструментов",
+			NOMINATIVE = "имплант ЭХИ",
+			GENITIVE = "импланта ЭХИ",
+			DATIVE = "импланту ЭХИ",
+			ACCUSATIVE = "имплант ЭХИ",
+			INSTRUMENTAL = "имплантом ЭХИ",
+			PREPOSITIONAL = "импланте ЭХИ",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/janitorial
