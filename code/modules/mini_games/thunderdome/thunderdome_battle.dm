@@ -1,4 +1,4 @@
-GLOBAL_DATUM_INIT(thunderdome_battle, /datum/mini_game/thunderdome_battle, new)
+GLOBAL_DATUM_INIT(thunderdome_battle, /datum/mini_game/thunderdome_battle, new())
 GLOBAL_VAR_INIT(tdome_arena, locate(/area/tdome/newtdome))
 GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 
@@ -23,25 +23,30 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/melee_random_items_count = 2
 	var/ranged_random_items_count = 2
 	var/mixed_random_items_count = 1
-	var/who_started_last_poll //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
+	var/who_started_last_poll = null //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
 	var/when_cleansing_happened = 0 //storing (in ticks) moment of arena cleansing
-	var/obj/minigame_anchor/thunderdome_poller/last_poller
-	var/list/fighters //list of current players on thunderdome, used for tracking winners and stuff.
+	var/obj/minigame_anchor/thunderdome_poller/last_poller = null
+	var/list/fighters = list()	//list of current players on thunderdome, used for tracking winners and stuff.
 	var/is_cleansing_going = FALSE
-	time_limit = 10 MINUTES
-	role = ROLE_THUNDERDOME
 
-/datum/mini_game/thunderdome_battle/New()
-	..()
-	fighters = list()
-	active_timers = list()
-
+/**
+ * Starts poll for candidates with a question and a preview of the mode
+ *
+ * Arguments:
+ * * mode - Name of the tdome mode: "ranged", "cqc", "mixed"
+ * * center - Object in the center of a thunderdome
+ */
 /datum/mini_game/thunderdome_battle/proc/start(obj/center, datum/thunderdome_gamemode/gamemode)
 	if(is_going)
 		return
 
-	if(!gamemode || !gamemode.brawler_type)
+	if(!gamemode)
+		return
+
+	//Should not happen
+	if(!gamemode.brawler_type)
 		is_going = FALSE
+		stack_trace("There was an attempt to start thunderdome without brawler type defines. Mode: [gamemode.name]")
 		return
 
 	is_going = TRUE
@@ -50,82 +55,102 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/image/preview_image = new('icons/mob/thunderdome_previews.dmi', gamemode.preview_icon)
 	var/list/candidates = shuffle(SSghost_spawns.poll_candidates("Желаете записаться на Тандердом? (Режим — [gamemode.name])", \
 		role, poll_time = voting_poll_time, ignore_respawnability = TRUE, check_antaghud = FALSE, source = preview_image))
-
-	var/players_count = clamp(ceil(length(candidates) * spawn_coefficent), 0, maxplayers)
+	var/players_count = clamp(ceil(length(candidates)*spawn_coefficent), 0, maxplayers)
 	if(players_count < spawn_minimum_limit)
 		notify_ghosts("Not enough players to start Thunderdome Battle!")
-		active_timers += addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), arena_cooldown, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), arena_cooldown) //making sure there will be no spam
 		return
 
-	var/list/random_stuff = get_random_items(item_pool = gamemode.item_pool, item_count = gamemode.random_items_count)
+	//vars below are responsible for making spawns at the edge of circle with certain radius
+	var/points = players_count
+	var/delta_phi = 2 * PI / points
+	var/currpoint = 1
+	var/curr_x = center.x
+	var/curr_y = center.y
+	var/phi = 0
+	//circle-builder vars ended
+
+	var/list/random_stuff = list()
+	var/list/item_pool_ref = gamemode.item_pool
 	var/brawler_type = gamemode.brawler_type
 	var/radius = gamemode.arena_radius
 
-	for(var/obj/machinery/door/poddoor/pod_door in GLOB.airlocks)
-		if(pod_door.id_tag != "TD_CloseCombat")
-			continue
-		if(!gamemode.extended_area)
+	random_stuff += get_random_items(item_pool_ref, gamemode.random_items_count)
+
+	if(!gamemode.extended_area)
+		for(var/obj/machinery/door/poddoor/pod_door in GLOB.airlocks)
+			if(pod_door.id_tag != "TD_CloseCombat")
+				continue
 			INVOKE_ASYNC(pod_door, TYPE_PROC_REF(/obj/machinery/door, do_animate), "closing")
 			pod_door.set_density(TRUE)
 			pod_door.set_opacity(TRUE)
 			pod_door.layer = pod_door.closingLayer
 			pod_door.update_icon()
-		else if(pod_door.density)
-			INVOKE_ASYNC(pod_door, TYPE_PROC_REF(/obj/machinery/door, do_animate), "opening")
-			pod_door.set_density(FALSE)
-			pod_door.set_opacity(FALSE)
-			pod_door.update_icon()
 
-	var/points = players_count
-	var/delta_phi = 2 * PI / points
-	var/phi = 0
-	var/center_x = center.x
-	var/center_y = center.y
-	var/center_z = center.z
+	else
+		for(var/obj/machinery/door/poddoor/pod_door in GLOB.airlocks)
+			if(pod_door.id_tag != "TD_CloseCombat")
+				continue
+			if(pod_door.density)
+				INVOKE_ASYNC(pod_door, TYPE_PROC_REF(/obj/machinery/door, do_animate), "opening")
+				pod_door.set_density(FALSE)
+				pod_door.set_opacity(FALSE)
+				pod_door.update_icon()
 
-	for(var/fighter_index in 1 to points)
-		var/spawn_angle = phi * 180 / PI
-		var/spawn_x = center_x + radius * cos(spawn_angle)
-		var/spawn_y = center_y + radius * sin(spawn_angle)
-
-		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(locate(spawn_x, spawn_y, center_z))
+	while(currpoint <= points)
+		if(phi > (2 * PI))
+			break;
+		var/ang = phi * 180 / PI
+		curr_x = center.x + radius * cos(ang)
+		curr_y = center.y + radius * sin(ang)
+		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(locate(curr_x, curr_y, center.z))
 		brawler.thunderdome = src
-		if(length(random_stuff))
-			brawler.outfit.backpack_contents += random_stuff
+		brawler.outfit.backpack_contents += random_stuff
+		var/mob/dead/observer/ghost = candidates[currpoint]
+		if(ghost && ghost.client && ghost.client.persistent_client)
+			var/datum/persistent_client/persistent = ghost.client.persistent_client
+			if(persistent)
+				persistent.respawn_locked = TRUE
+				GLOB.respawnable_list -= ghost
+				ghost.can_reenter_corpse = FALSE
 
-		var/mob/dead/observer/ghost = candidates[fighter_index]
-
-		if(ghost.client?.persistent_client && ghost.has_enabled_antagHUD)
-			ghost.client.persistent_client.thunderdome_respawn_blocked = TRUE
-
+		fighters += brawler
 		brawler.attack_ghost(ghost)
 		phi += delta_phi
+		currpoint += 1
 
 	add_game_logs("Thunderdome battle has begun in [gamemode.name] mode.")
-	active_timers += addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), time_limit, TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), time_limit)
 
-/datum/mini_game/thunderdome_battle/proc/get_random_items(list/item_pool, item_count)
-	if(!length(item_pool) || item_count <= 0)
-		return list()
+/**
+ * Rolls items from a list and returns associative list with keys and values.
+ *	Does not check if it's not associative list or some values don't have them.
+ *
+ * Arguments:
+ * * from - list we are collecting items from
+ * * count - how many items we will roll from a list
+ */
+
+/datum/mini_game/thunderdome_battle/proc/get_random_items(list/from, count)
+	if(!length(from))
+		return
 	var/list/random_items = list()
-	for(var/iteration in 1 to item_count)
-		var/picked_item = pick(item_pool)
-		if(item_pool[picked_item])
-			random_items[picked_item] = item_pool[picked_item]
-		else
-			random_items += picked_item
+	if(count <= 0)
+		return
+	for(var/i in 1 to count)
+		random_items += pick(from)
+
+	for(var/item_key in random_items)
+		random_items[item_key] = from[item_key]
+
 	return random_items
 
 /**
  * Clears thunderdome and it's specific areas, also resets thunderdome state.
  *
- */
+*/
 /datum/mini_game/thunderdome_battle/proc/clear_thunderdome()
 	is_cleansing_going = TRUE
-
-	for(var/datum/timedevent/timer in active_timers)
-		qdel(timer)
-	active_timers.Cut()
 
 	clear_area(GLOB.tdome_arena)
 	clear_area(GLOB.tdome_arena_melee)
@@ -147,18 +172,21 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 /datum/mini_game/thunderdome_battle/proc/clear_area(area/zone)
 	if(!zone)
 		return
-	for(var/mob/living/living_mob in zone)
-		living_mob.melt()
-	for(var/obj/target_obj in zone)
-		if(istype(target_obj, /obj/machinery/door/poddoor) || istype(target_obj, /obj/minigame_anchor/thunderdome_poller) || istype(target_obj, /obj/structure/sink/puddle) || istype(target_obj, /obj/structure/table/reinforced))
+	for(var/mob/living/mob in zone)
+		if(mob.ckey)
+			addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), mob.ckey), 1 SECONDS)
+		mob.melt()
+
+	for(var/obj/object_in_zone in zone)
+		if(istype(object_in_zone, /obj/machinery/door/poddoor) || istype(object_in_zone, /obj/minigame_anchor/thunderdome_poller) || istype(object_in_zone, /obj/structure/sink/puddle) || istype(object_in_zone, /obj/structure/table/reinforced))
 			continue
-		qdel(target_obj)
+		qdel(object_in_zone)
 
 /**
  * Gets location with rounded coordinates (needed for precise geometry builder)
  */
-/datum/mini_game/thunderdome_battle/proc/get_rounded_location(curr_x, curr_y, z)
-	return locate(round(curr_x), round(curr_y), z)
+/datum/mini_game/thunderdome_battle/proc/get_rounded_location(curr_x, curr_y, z_level)
+	return locate(round(curr_x), round(curr_y), z_level)
 
 /**
  * Handles thunderdome's participants deaths. Called from /datum/component/death_timer_reset/
@@ -167,34 +195,36 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	if(dead_fighter in fighters)
 		fighters -= dead_fighter
 
-	var/datum/persistent_client/per_client = GLOB.persistent_clients_by_ckey[dead_fighter.ckey]
-	if(per_client)
-		per_client.thunderdome_respawn_blocked = TRUE
-		// Запускаем таймер на 3 секунды, чтобы игрок успел стать гостом
-		addtimer(CALLBACK(src, PROC_REF(apply_respawn_restriction), dead_fighter.ckey), 3 SECONDS)
+	if(dead_fighter.ckey)
+		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 1 SECONDS)
 
 	if(!length(fighters) && !is_cleansing_going)
 		for(var/datum/timedevent/timer in active_timers)
 			qdel(timer)
-		active_timers.Cut()
 		is_cleansing_going = TRUE
-		active_timers += addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), 5 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), 5 SECONDS) //Everyone died. Time to reset.
+		//Also avoiding all issues with death handling of thunderdome participants by letting fighters' components do their stuff.
 		if(last_poller)
 			last_poller.visible_message(span_danger("Thunderdome has ended with death of all participants! Cleansing in 5 seconds..."))
 	return
 
-/datum/mini_game/thunderdome_battle/proc/apply_respawn_restriction(player_ckey)
-	if(!player_ckey)
+/**
+ * Restores ghost AntagHUD and respawnability after the battle.
+ */
+/datum/mini_game/thunderdome_battle/proc/restore_ghost_state(target_ckey)
+	var/datum/persistent_client/persistent = GLOB.persistent_clients_by_ckey[target_ckey]
+	if(!persistent)
 		return
 
-	var/mob/dead/observer/ghost_obs = get_mob_by_ckey(player_ckey)
+	persistent.respawn_locked = FALSE
 
-	if(ghost_obs && isobserver(ghost_obs))
-		ghost_obs.has_enabled_antagHUD = TRUE
-		ghost_obs.can_reenter_corpse = FALSE
-		GLOB.respawnable_list -= ghost_obs
-	else
-		addtimer(CALLBACK(src, PROC_REF(apply_respawn_restriction), player_ckey), 5 SECONDS)
+	var/mob/dead/observer/ghost = persistent.mob
+	if(istype(ghost))
+		ghost.antagHUD = persistent.antaghud_enabled
+
+		if(persistent.respawn_eligible)
+			GLOB.respawnable_list |= ghost
+			ghost.can_reenter_corpse = TRUE
 
 /**
  * Invisible object which is responsible for rolling brawlers for fighting on thunderdome.
