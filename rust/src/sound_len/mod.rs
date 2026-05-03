@@ -15,8 +15,18 @@ use symphonia::{
 
 #[byondapi::bind]
 fn sound_len(sound_path: ByondValue) -> eyre::Result<ByondValue> {
-    let length = get_sound_length(&sound_path.get_string()?)?;
+    let path = sound_path.get_string()?;
+    let length = get_sound_length_safe(&path)?;
     Ok(length.try_into()?)
+}
+
+fn get_sound_length_safe(path: &str) -> eyre::Result<f32> {
+    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| get_sound_length(path))) {
+        Ok(r) => r,
+        Err(_) => Err(eyre::eyre!(format!(
+            "symphonia panicked while parsing {path}"
+        ))),
+    }
 }
 
 fn get_sound_length(sound_path: &str) -> eyre::Result<f32> {
@@ -134,7 +144,7 @@ fn get_sound_length_list(list: &[ByondValue]) -> eyre::Result<ByondValue> {
             }
         };
 
-        match get_sound_length(&path_string) {
+        match get_sound_length_safe(&path_string) {
             Ok(duration) => {
                 successes.write_list_index(*path_value, duration)?;
             }
