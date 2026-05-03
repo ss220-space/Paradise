@@ -93,6 +93,10 @@
 	index_name = "a deck of tarot cards"
 	path = /obj/item/deck/tarot
 
+/datum/gear/tarot
+	index_name = "a deck of UNUM! cards"
+	path = /obj/item/deck/unum
+
 /datum/gear/headphones
 	index_name = "a pair of headphones"
 	path = /obj/item/clothing/ears/headphones
