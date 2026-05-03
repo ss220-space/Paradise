@@ -127,7 +127,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
 	desc = "Тяжёлая снайперская винтовка калибра .338."
-	icon = 'icons/obj/weapons/guns_48x32.dmi'
 	icon_state = "axmc"
 	item_state = "AXMC"
 	mag_type = /obj/item/ammo_box/magazine/a338
