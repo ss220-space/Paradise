@@ -36,6 +36,9 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 	/// World.time this player last died
 	var/time_of_death = 0
 
+	///Is thunderdom blocking this client from respawning
+	var/thunderdome_respawn_blocked = FALSE
+
 /datum/persistent_client/New(ckey, client)
 	src.client = client
 	achievements = new(ckey)
