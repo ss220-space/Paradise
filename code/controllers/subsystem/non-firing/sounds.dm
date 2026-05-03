@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(sounds)
 	init_sound_keys()
 
 	if(!(RUSTLIB))
-		to_chat(world, span_boldnotice("Sounds subsystem: No rust_g detected."))
+		to_chat(world, span_boldnotice("Sounds subsystem: No rustlib detected."))
 		return ..()
 
 	// Precache ambience sounds
@@ -235,12 +235,12 @@ SUBSYSTEM_DEF(sounds)
 	. = 0
 	if(!istext(file_path))
 		if(!isfile(file_path))
-			CRASH("rustg_sound_length error: Passed non-text object")
+			CRASH("rustlib_sound_length error: Passed non-text object")
 
 		if(length("[file_path]")) // Runtime generated RSC references stringify into 0-length strings.
 			file_path = "[file_path]"
 		else
-			CRASH("rustg_sound_length does not support non-static file refs.")
+			CRASH("rustlib_sound_length does not support non-static file refs.")
 
 	var/cached_length = sound_lengths[file_path]
 	if(!isnull(cached_length))
@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(sounds)
 	var/ret = RUSTLIB_CALL(sound_len, file_path)
 	if(isnull(ret))
 		. = 0
-		CRASH("rustg_sound_length error: [ret]")
+		CRASH("rustlib_sound_length error: [ret]")
 
 	sound_lengths[file_path] = ret
 	return ret
