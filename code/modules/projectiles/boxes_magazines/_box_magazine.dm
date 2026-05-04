@@ -130,7 +130,7 @@
 	if(use_top_bullet_type_overlay && ammo)
 		var/bullet_type = get_bullet_type()
 		if(bullet_type && bullet_type != BULLET_TYPE_PLAIN)
-			. += image(icon, icon_state = "[base_icon_state]-[bullet_type]")
+			. += mutable_appearance(icon, icon_state = "[base_icon_state]-[bullet_type]")
 
 	if(use_ammo_marker_overlay && ammo_marker_overlay_color)
 		. += mutable_appearance(icon, "[base_icon_state]-marker", appearance_flags = RESET_COLOR, color = ammo_marker_overlay_color)
@@ -256,12 +256,16 @@
 
 	if(use_ammo_marker_overlay && istype(attack_item, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/can = attack_item
-		if(can.capped || can.uses < 0)
+		if(can.capped || can.uses <= 0)
 			return ATTACK_CHAIN_PROCEED
+		if(ammo_marker_overlay_color == can.colour)
+			balloon_alert(user, "уже помечен этим цветом")
+			return ATTACK_CHAIN_BLOCKED_ALL
 		ammo_marker_overlay_color = can.colour
 		can.uses--
 		update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "магазин помечен")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
