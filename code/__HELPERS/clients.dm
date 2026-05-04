@@ -62,12 +62,6 @@
 			if(GLOB.stealthminID[stealth_key] == stealth_text)
 				return stealth_key
 
-/proc/find_stealth_key(stealth_text)
-	if(stealth_text)
-		for(var/stealth_key in GLOB.stealthminID)
-			if(GLOB.stealthminID[stealth_key] == stealth_text)
-				return stealth_key
-
 /proc/get_display_ckey(client/C)
 	if(!C)
 		return "(Disconnected)"
