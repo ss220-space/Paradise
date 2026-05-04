@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
-		user.balloon_alert(user, "недееспособны")
+		user.balloon_alert(user, "мы обездвижены")
 		return FALSE
 
 	return TRUE
