@@ -448,7 +448,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
 	name = "NT-Med toolset implant"
-	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя. Крайне редкая модель, использутся военными врачами корпорации Nanotrasen."
+	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя. Крайне редкая модель, используется военными врачами корпорации Nanotrasen."
 	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert"
 	greyscale_colors = "#8f8a8a#89d640#89d640#89d640"
 	contents = newlist(
