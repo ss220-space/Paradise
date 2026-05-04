@@ -478,9 +478,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(isobserver(subject))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
-					lname = "[keyname][(is_anon(DM)) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(is_anon(DM?.client)) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
 				else
-					if(is_anon(DM))	// If the person is actually observer they have the option to be anonymous
+					if(is_anon(DM?.client))	// If the person is actually observer they have the option to be anonymous
 						lname = "<i>Anon</i> ([name])"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
