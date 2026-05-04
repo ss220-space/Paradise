@@ -23,7 +23,7 @@
 		return
 
 	if(!ischangeling(owner) || !ishuman(owner))
-		owner.balloon_alert(owner, "не подходящая форма")
+		owner.balloon_alert(owner, "неподходящая форма")
 		return
 
 	if(!cling.chosen_sting)
@@ -52,7 +52,7 @@
 		return FALSE
 
 	if(user == target)
-		user.balloon_alert(user, "нельзя себе")
+		user.balloon_alert(user, "нельзя уколоть себя")
 		return FALSE
 
 	if(!cling.chosen_sting)
@@ -61,15 +61,15 @@
 
 	var/target_distance = get_dist(user, target)
 	if(target_distance > cling.sting_range) // Too far, don't bother pathfinding
-		user.balloon_alert(user, "жертва слишком далеко")
+		user.balloon_alert(user, "жертва слишком далеко!")
 		return FALSE
 
 	if(target_distance && !length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE))) // If they're not on the same turf, check if it can even reach them.
-		user.balloon_alert(user, "что-то мешает хоботку")
+		user.balloon_alert(user, "что-то мешает хоботку!")
 		return FALSE
 
 	if(ismachineperson(target))
-		user.balloon_alert(user, "нельзя синтетиков")
+		user.balloon_alert(user, "невозможно уколоть")
 		return FALSE
 
 	if(ischangeling(target))
@@ -94,7 +94,7 @@
  */
 /datum/action/changeling/sting/extract_dna
 	name = "Хоботок извлечения"
-	desc = "Мы скрытно уколим жертву и украдём её ДНК."
+	desc = "Мы скрытно уколем  жертву и украдём её ДНК."
 	helptext = "Украдёт ДНК жертвы, позволяя трансформироваться в неё."
 	button_icon_state = "sting_extract"
 	sting_icon = "sting_extract"
@@ -116,7 +116,7 @@
  */
 /datum/action/changeling/sting/transformation
 	name = "Хоботок трансформации"
-	desc = "Мы скрытно уколим гуманоида и введём ретровирус, который заставляет его трансформироваться. Требует 50 химикатов, дестабилизирует 50 генома."
+	desc = "Мы скрытно уколем  гуманоида и введём ретровирус, который заставит жертву трансформироваться. Требует 50 химикатов, дестабилизирует 50 генома."
 	helptext = "Жертва трансформируется подобно нам. Последствия будут очевидны для жертвы. Нельзя использовать при дестаблизации 30 генома."
 	button_icon_state = "sting_transform"
 	sting_icon = "sting_transform"
@@ -140,7 +140,7 @@
 
 /datum/action/changeling/sting/transformation/Trigger(mob/clicker, trigger_flags)
 	if(!ishuman(owner))
-		owner.balloon_alert(owner, "не подходящая форма")
+		owner.balloon_alert(owner, "неподходящая форма")
 		return
 
 	if(cling?.chosen_sting)
@@ -152,7 +152,7 @@
 		return
 
 	if(blacklisted_species[selected_dna.species.name] || selected_dna.species.is_monkeybasic)
-		owner.balloon_alert(owner, "не подходящая днк")
+		owner.balloon_alert(owner, "неподходящая ДНК")
 		return
 
 	..()
@@ -162,11 +162,11 @@
 		return FALSE
 
 	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_HUSK))
-		user.balloon_alert(user, "не подходящая жертва")
+		user.balloon_alert(user, "неподходящая жертва")
 		return FALSE
 
 	if(HAS_TRAIT(target, TRAIT_NO_DNA))
-		user.balloon_alert(user, "жертва без днк")
+		user.balloon_alert(user, "жертва без ДНК")
 		return FALSE
 
 	return TRUE
@@ -198,7 +198,7 @@
  */
 /datum/action/changeling/sting/mute
 	name = "Хоботок безмолвия"
-	desc = "Мы скрытно уколим жертву и она полностью лишится возможности говорить на короткое время. Требует 20 химикатов."
+	desc = "Мы скрытно уколем  жертву и она полностью лишится возможности говорить на короткое время. Требует 20 химикатов."
 	helptext = "Не даёт понять жертве о том, что она не может говорить, пока она не попытается сделать это."
 	dna_cost = 1
 	chemical_cost = 20
@@ -217,7 +217,7 @@
  */
 /datum/action/changeling/sting/blind
 	name = "Хоботок слепоты"
-	desc = "Мы скрытно уколим жертву и она временно ослепнет. Требует 20 химикатов."
+	desc = "Мы скрытно уколем  жертву и она временно ослепнет. Требует 20 химикатов."
 	helptext = "На 40 секунд полностью ослепит жертву и на 80 секунд оставит размытое зрение."
 	dna_cost = 1
 	chemical_cost = 20
@@ -242,7 +242,7 @@
  */
 /datum/action/changeling/sting/LSD
 	name = "Хоботок галлюцинаций"
-	desc = "Мы скрытно уколим жертву и посеем ужас в ней. Требует 20 химикатов."
+	desc = "Мы скрытно уколем  жертву и посеем ужас в ней. Требует 20 химикатов."
 	helptext = "Через 30-60 секунд у жертвы начнутся галлюцинации на 400 секунд."
 	dna_cost = 1
 	chemical_cost = 20
@@ -265,7 +265,7 @@
  */
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Криогенный хоботок"
-	desc = "Мы скрытно уколим жертву коктелем, который будет замораживать её изнутри. Требует 20 химикатов."
+	desc = "Мы скрытно уколем  жертву химическим коктейлем, который будет замораживать её изнутри. Требует 20 химикатов."
 	helptext = "Укол незаметный, но жертва начнёт быстро замерзать, что будет заметно."
 	dna_cost = 1
 	chemical_cost = 20

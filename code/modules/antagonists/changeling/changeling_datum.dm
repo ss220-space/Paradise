@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 /datum/antagonist/changeling/proc/try_respec()
 	var/mob/living/carbon/human/user = owner.current
 	if(!istype(user) || is_monkeybasic(user))
-		user.balloon_alert(user, "не подходящая форма")
+		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 	if(can_respec)
 		to_chat(user, span_changeling("Мы отринули наше развитие и теперь готовы к новой реадаптации."))
@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	if(!target || !target.dna)
-		user.balloon_alert(user, "жертва без днк")
+		user.balloon_alert(user, "жертва без ДНК")
 		return FALSE
 
 	var/mob/living/carbon/human/human_target = target
@@ -503,7 +503,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	if(HAS_TRAIT(human_target, TRAIT_HUSK) || HAS_TRAIT(human_target, TRAIT_NO_DNA) || HAS_TRAIT(human_target, TRAIT_SKELETON) || HAS_TRAIT(human_target, TRAIT_NO_CLONE))
-		user.balloon_alert(user, "жертва без днк")
+		user.balloon_alert(user, "жертва без ДНК")
 		return FALSE
 
 	if(get_dna(target.dna))
@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(!h_user.get_organ_slot("brain"))
 		to_chat(user, span_changeling("Мозги не обязательный орган для нас, мы способны к его регенерации!"))
 	else
-		to_chat(user, span_changeling("Хотя наш сосуд мёртв это не конец. Мы можем регенерировать его!"))
+		to_chat(user, span_changeling("Хотя наш сосуд мёртв, для нас это ещё не конец. Мы можем регенерировать!"))
 
 /**
  * Additional stasis delay from different sources.

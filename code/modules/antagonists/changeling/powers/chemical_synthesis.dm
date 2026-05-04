@@ -1,7 +1,7 @@
 /datum/action/changeling/chemical_synthesis
 	name = "Химический синтез"
 	desc = "Мы оптимизируем наши внутренние химические процессы для ускоренного производства реагентов."
-	helptext = "Постоянно увеличивает скорость химического синтеза до 5 химикатов."
+	helptext = "Постоянно увеличивает скорость химического синтеза на 2 химиката."
 	button_icon_state = "chemical_synthesis"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2

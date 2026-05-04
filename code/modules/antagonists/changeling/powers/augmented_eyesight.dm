@@ -4,7 +4,7 @@
  */
 /datum/action/changeling/augmented_eyesight
 	name = "Продвинутое зрение"
-	desc = "Создаём рецепторы и мембраны. Дестабилизирует геном на 5 секунд."
+	desc = "Создаёт тепловые рецепторы и светочувствительные мембраны в наших глазах. Дестабилизирует геном на 5 секунд."
 	helptext = "Рецепторы дают нам видеть во тьме и улавливать тепло, но делает нас уязвимыми ко вспышкам, а мембраны защищают от вспышек и лечат поврежения глаз. Они видны на сканерах. Можно использовать в низшей форме."
 	dna_cost = 1
 	button_icon_state = "augmented_eyesight"
@@ -24,11 +24,11 @@
 	var/obj/item/organ/internal/cyberimp/eyes/eyes
 	if(active)
 		eyes = new /obj/item/organ/internal/cyberimp/eyes/shield/ling(null)
-		user.balloon_alert(user, "защитная мембрана")
+		user.balloon_alert(user, "защитные мембраны")
 		active = FALSE
 	else
 		eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null)
-		user.balloon_alert(user, "тепловой рецептор")
+		user.balloon_alert(user, "тепловые рецепторы")
 		active = TRUE
 
 	eyes.insert(user)
@@ -45,12 +45,12 @@
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/get_ru_names()
 	return list(
-		NOMINATIVE = "защитная мембрана",
-		GENITIVE = "защитной мембраны",
-		DATIVE = "защитной мембране",
-		ACCUSATIVE = "защитную мембрану",
-		INSTRUMENTAL = "защитной мембраной",
-		PREPOSITIONAL = "защитной мембране",
+		NOMINATIVE = "защитные мембраны",
+		GENITIVE = "защитных мембран",
+		DATIVE = "защитным мембранам",
+		ACCUSATIVE = "защитные мембраны",
+		INSTRUMENTAL = "защитными мембранами",
+		PREPOSITIONAL = "защитных мембранах",
 	)
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/emp_act(severity)
@@ -80,13 +80,13 @@
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling
 	name = "heat receptors"
-	desc = "Эти тепловые рецепторы повысят вашу чувствительность к свету и теплу."
+	desc = "Эти тепловые рецепторы повысят вашу чувствительность к световому и тепловому излучению."
 	icon_state = "ling_thermal"
 	eye_colour = "#000000"
 	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_LING
 	status = NONE
-	aug_message = "Рецепторы фокусируются и позволяют видеть в темноте и тепло сквозь стены."
+	aug_message = "Рецепторы фокусируются и позволяют нам лучше видеть в темноте и сквозь препятствия."
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/get_ru_names()
 	return list(

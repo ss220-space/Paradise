@@ -1,7 +1,7 @@
 /datum/action/changeling/swap_form
 	name = "Обмен сосудами"
-	desc = "Мы силой забираем чужой сосуд, перенося её сознание в сосуд, который мы оставили. Дестабилизирует 60 генома."
-	helptext = "Мы заберём наши способности, но потеряем ДНК оставленного сосуда взамен на ДНК нового. Для этого потребуется душить её. Можно использовать в низшей форме."
+	desc = "Мы силой забираем чужой сосуд, перенося сознание из него в наш старый сосуд. Дестабилизирует 60 генома."
+	helptext = "Новый сосуд получит все наши способности, но мы потеряем ДНК оставленного сосуда взамен на ДНК нового. Для использования требуется душить жертву. Можно использовать в низшей форме."
 	button_icon_state = "mindswap"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
@@ -12,7 +12,7 @@
 		return FALSE
 
 	if(!user.pulling || user.pull_hand != user.hand || user.grab_state < GRAB_AGGRESSIVE)
-		user.balloon_alert(user, "нужно схватить крепче")
+		user.balloon_alert(user, "нужно схватить крепче!")
 		return FALSE
 
 	var/mob/living/carbon/human/target = user.pulling
@@ -21,19 +21,19 @@
 		return FALSE
 
 	if(HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETON) || HAS_TRAIT(target, TRAIT_NO_CLONE))
-		user.balloon_alert(user, "днк [target] уничтожена")
+		user.balloon_alert(user, "ДНК [target] уничтожена!")
 		return FALSE
 
 	if(ischangeling(target))
-		user.balloon_alert(user, "в сосуде собрат")
+		user.balloon_alert(user, "в сосуде собрат!")
 		return FALSE
 
 	if(isdevilantag(target))
-		user.balloon_alert(user, "сосуд испорчен")
+		user.balloon_alert(user, "сосуд испорчен!")
 		return FALSE
 
 	if(target.has_brain_worms() || user.has_brain_worms())
-		user.balloon_alert(user, "в разуме паразит")
+		user.balloon_alert(user, "в разуме паразит!")
 		return FALSE
 
 	return TRUE
@@ -45,13 +45,13 @@
 	user.Jitter(10 SECONDS)
 
 	if(!do_after(user, 10 SECONDS, target, NONE))
-		user.balloon_alert(user, "смена сосуда прервана")
+		user.balloon_alert(user, "смена сосуда прервана!")
 		return FALSE
 
 	if(!can_sting(user))
 		return FALSE
 
-	to_chat(target, span_userdanger("[user] усиливает захват, когда что-то проникает в вас."))
+	to_chat(target, span_userdanger("[user] усиливает захват, и вы чувствуете, как что-то проникает в вас."))
 
 	var/datum/dna/DNA = cling.get_dna(user.dna)
 	cling.absorbed_dna -= DNA

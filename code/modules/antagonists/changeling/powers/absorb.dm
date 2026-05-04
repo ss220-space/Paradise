@@ -70,8 +70,8 @@
 			for(var/spoken_memory in recent_speech)
 				user.mind.store_memory("\"[spoken_memory]\"")
 				to_chat(user, span_notice("\"[spoken_memory]\""))
-			user.mind.store_memory("<b>Мы забыли последние слова [target].</b>")
-			to_chat(user, span_boldnotice("Мы забыли последние слова [target]."))
+			user.mind.store_memory("<b>Мы забыли речевые шаблоны [target].</b>")
+			to_chat(user, span_boldnotice("Мы забыли речевые шаблоны [target]."))
 
 		var/datum/antagonist/changeling/target_cling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)
 		if(target_cling)//If the target was a changeling, suck out their extra juice and objective points!

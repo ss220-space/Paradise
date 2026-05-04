@@ -209,7 +209,7 @@
 			return
 
 		if(airlock.arePowerSystemsOn())
-			user.balloon_alert_to_viewers("открывает шлюз клинком", "открываем шлюз")
+			user.balloon_alert_to_viewers("раздвигает шлюз клинком!", "открываем шлюз")
 			playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
 			if(!do_after(user, 3 SECONDS, airlock))
 				return
@@ -360,7 +360,7 @@
 		if(!silent)
 			loc.visible_message(span_warning("[loc.name] с ужасным хрустом превращает руку в мясное щупальце!"), \
 								span_notice("Мы трансформируем руку в мясное щупальце."), \
-								span_italics("Вы слышите ужасный хруст и хлёст ораники!"))
+								span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
 			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 		else
 			to_chat(loc, span_notice("Мы готовы вытянуть щупальце."))
@@ -377,14 +377,14 @@
 	balloon_alert(user, "щупальце не готово")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] обвивает щею мясным щупальцем! Это выглядит, как суицид."))
+	user.visible_message(span_suicide("[user] обвивает свою шею мясным щупальцем! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_YUT(user)]ся покончить жизнь самоубийством!"))
 	return OXYLOSS
 
 /***************************************\
 |****************SHIELD*****************|
 \***************************************/
 /datum/action/changeling/weapon/shield
-	name = "Костянной щит"
+	name = "Костяной щит"
 	desc = "Мы трансформируем свою руку в твёрдый щит. Дестабилизирует 10 генома."
 	helptext = "Оставляет после себя лужу крови. Снижает производство химикатов на 1."
 	button_icon_state = "organic_shield"
@@ -394,7 +394,7 @@
 	recharge_slowdown = 1
 	weapon_type = /obj/item/shield/changeling
 	weapon_check_type = /obj/item/shield/changeling
-	weapon_name_simple = "костянной щит"
+	weapon_name_simple = "костяной щит"
 
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/obj/item/shield/changeling/shield = ..(user)
@@ -406,7 +406,7 @@
 
 /obj/item/shield/changeling
 	name = "shield-like mass"
-	desc = "Щит из плотной костянной ткани. На нём ещё видны пальцы в виде витого узора."
+	desc = "Щит из плотной костяной ткани. На нём можно разглядеть скрюченные в безумном узоре пальцы."
 	item_flags = DROPDEL
 	icon_state = "ling_shield"
 	var/remaining_uses //Set by the changeling ability.
@@ -417,7 +417,7 @@
 	if(ismob(loc))
 		loc.visible_message(span_warning("[loc.name] с ужасным хрустом превращает руку в костянной щит!"),
 							span_notice("Мы трансформируем руку в костянной щит."),
-							span_italics("Вы слышите ужасный хруст и хлёст ораники!"))
+							span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /***************************************\
@@ -438,7 +438,7 @@
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
-	desc = "Огромная масса плоти, что видимо даёт защиту от давления и температуры."
+	desc = "Огромная масса плоти, предоставляющая сносную защиту от давления и температуры."
 	icon_state = "lingspacesuit"
 	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_inv = HIDETAIL
@@ -460,7 +460,7 @@
 	if(ismob(loc))
 		loc.visible_message(span_warning("Плоть [loc.name] быстро раздувается и образует органический скафандр!"),
 							span_notice("Мы раздуваем плоть, чтобы создать органический скафандр."),
-							span_italics("Вы слышите ужасный хруст и хлёст ораники!"))
+							span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process()
@@ -470,7 +470,7 @@
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
-	desc = "Масса плоти, что видимо даёт защиту от давления и температуры, с стекловидным хитиновым покрытием спереди."
+	desc = "Масса плоти, предоставляющая сносную защиту от давления и температуры, с стекловидным хитиновым покрытием спереди."
 	icon_state = "lingspacehelmet"
 	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
@@ -508,7 +508,7 @@
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"
-	desc = "Твёрдоре покрытие из чёрного хитина."
+	desc = "Твёрдое  покрытие из чёрного хитина."
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -533,12 +533,12 @@
 	if(ismob(loc))
 		loc.visible_message(span_warning("Плоть [loc.name] быстро темнеет и образует хитиновое покрытие!"),
 							span_notice("Мы трансформируем плоть, чтобы создать хитиновую броню."),
-							span_italics("Вы слышите ужасный хруст и хлёст ораники!"))
+							span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
-	desc = "Твёрдоре покрытие из чёрного хитина с прозрачной оболочкой спереди."
+	desc = "Твёрдое  покрытие из чёрного хитина с прозрачной оболочкой спереди."
 	icon_state = "lingarmorhelmet"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	item_flags = DROPDEL

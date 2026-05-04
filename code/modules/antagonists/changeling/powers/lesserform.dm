@@ -1,6 +1,6 @@
 /datum/action/changeling/lesserform
 	name = "Низшая форма"
-	desc = "Мы трансофрмируемся в низшую форму. Дестабилизирует 20 генома."
+	desc = "Мы трансформируемся в низшую форму. Дестабилизирует 20 генома."
 	helptext = "Мы уменьшаемся в размерах, что освободит нас от наручников, всей одежды и позволит лазить по вентиляции. Оставляет после себя лужу крови."
 	button_icon_state = "lesser_form"
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -24,7 +24,7 @@
 		return FALSE
 
 	if(!user.dna.species.primitive_form)
-		user.balloon_alert(user, "не подходящая форма")
+		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 
 	user.visible_message(span_warning("[user] трансформируется в низшую форму!"), span_notice("Наш геном временно нестабилен."))
