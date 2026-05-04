@@ -157,14 +157,12 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
-		/obj/item/mod/module/defibrillator,
 		/obj/item/mod/module/monitor,
 		/obj/item/mod/module/health_analyzer,
 		/obj/item/mod/module/quick_carry/advanced,
 	)
 	default_pins = list(
 		/obj/item/mod/module/injector,
-		/obj/item/mod/module/defibrillator,
 		/obj/item/mod/module/monitor,
 		/obj/item/mod/module/health_analyzer,
 	)
