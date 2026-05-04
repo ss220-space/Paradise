@@ -567,7 +567,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
-					ID.name = "[newname]’s ID Card ([ID.assignment])"
+					ID.update_label(newname)
 					ID.RebuildHTML()
 					if(!search_pda)	break
 					search_id = 0

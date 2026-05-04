@@ -1425,6 +1425,45 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
 
+/obj/item/storage/box/pen_case
+	name = "box of pens"
+	icon_state = "pen_case"
+	item_state = "pen_case"
+	custom_price = PAYCHECK_MIN * 2
+
+	/**
+	 * Weighted list of possible loot items.
+	 * random_pen = ((probability in list * weight) / 100)
+	 */
+	var/static/list/random_pen = list(
+		/obj/item/pen = 50,
+		/obj/item/pen/blue = 10,
+		/obj/item/pen/red = 10,
+		/obj/item/pen/gray = 10,
+		/obj/item/pen/invisible = 5,
+		/obj/item/pen/fancy = 5,
+		/obj/item/pen/multi = 3,
+		/obj/item/pen/multi/fountain = 3,
+		/obj/item/pen/survival = 3,
+		/obj/item/pen/multi/gold = 1,
+	)
+
+/obj/item/storage/box/pen_case/get_ru_names()
+	return list(
+		NOMINATIVE = "набор ручек",
+		GENITIVE = "набора ручек",
+		DATIVE = "набору ручек",
+		ACCUSATIVE = "набор ручек",
+		INSTRUMENTAL = "набором ручек",
+		PREPOSITIONAL = "наборе ручек",
+	)
+
+/obj/item/storage/box/pen_case/populate_contents()
+	for(var/i in 1 to 7)
+		var/rand_pen = pickweight(random_pen)
+		new rand_pen(src)
+
+
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN
