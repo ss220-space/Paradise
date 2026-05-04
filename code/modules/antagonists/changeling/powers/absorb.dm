@@ -14,7 +14,7 @@
 		return FALSE
 
 	if(!user.pulling || user.pull_hand != user.hand)
-		user.balloon_alert(user, "этой рукой некого")
+		user.balloon_alert(user, "нужно схватить жертву")
 		return FALSE
 
 	if(user.grab_state <= GRAB_NECK)
