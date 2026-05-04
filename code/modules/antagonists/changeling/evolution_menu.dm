@@ -99,7 +99,7 @@
 
 	var/datum/action/changeling/power = power_type
 	if(cling.absorbed_count < initial(power.req_dna))
-		owner.balloon_alert(owner, "нужно больше днк")
+		owner.balloon_alert(owner, "нужно больше ДНК")
 		return FALSE
 
 	if(cling.genetic_points < initial(power.dna_cost))
