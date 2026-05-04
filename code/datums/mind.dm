@@ -139,7 +139,7 @@
 	// Now we see if we need to respect their privacy
 	var/out_ckey
 	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+		if(C.is_anon())
 			out_ckey = "(Anon)"
 		else
 			out_ckey = C.ckey
