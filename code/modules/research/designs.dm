@@ -76,8 +76,9 @@ other types of metals and chemistry for reagents).
 
 	if(design_name)
 		build_object_name = design_name
-		if(design_desc)
-			build_object_desc = design_desc
+	if(design_desc)
+		build_object_desc = design_desc
+	if(design_name && design_desc)
 		return
 
 	var/list/category_cached = category
