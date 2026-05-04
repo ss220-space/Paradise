@@ -67,6 +67,6 @@
 		return "(Disconnected)"
 
 	if(C.prefs && (C.prefs.toggles2 & PREFTOGGLE_2_ANON))
-		return "(Anon)"
+		return "Anon"
 
-	return C.ckey
+	return C.key
