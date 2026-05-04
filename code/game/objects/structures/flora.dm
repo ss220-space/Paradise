@@ -373,7 +373,7 @@
 		set_light_on(TRUE)
 
 /obj/item/twohanded/required/kirbyplants/Destroy()
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 

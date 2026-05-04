@@ -267,7 +267,7 @@
 				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)//cuz we sure its unhidden
-			if(isprocessing)
+			if(datum_flags & DF_ISPROCESSING)
 				STOP_PROCESSING(SSprocessing, src)
 				if(glow)
 					QDEL_NULL(glow)
