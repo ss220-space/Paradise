@@ -369,7 +369,7 @@
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
 	id = "Transference"
-	desc = "Странное вещество на подобии слизи. При использовании позволяет перенести сознание в менее развитое существо."
+	desc = "Странное вещество наподобие слизи. При использовании позволяет перенести сознание в менее развитое существо."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
 	origin_tech = "biotech=6"
@@ -399,14 +399,14 @@
 		return ..()
 	var/mob/living/simple_animal/SM = target
 	if(SM.sentience_type != animal_type)
-		balloon_alert(user, ("невозможно!")) //no controlling machines
+		balloon_alert(user, "невозможно!") //no controlling machines
 		return ..()
 	if(jobban_isbanned(user, ROLE_SENTIENT))
-		to_chat(user, span_warning("Ваш разум отвергает идею стать более тупым существом чем вы!"))
+		to_chat(user, span_warning("Ваш разум отвергает идею стать более тупым существом, чем вы!"))
 		return
 
 	prompted = TRUE
-	if(tgui_alert(user, "Данное действие перманентно переместит ваш разум в [SM.declent_ru(ACCUSATIVE)]. Вы уверены что хотите этого?", "Перенос сознания", list("Да", "Нет")) != "Да")
+	if(tgui_alert(user, "Данное действие перманентно переместит ваш разум в [SM.declent_ru(ACCUSATIVE)]. Вы уверены, что хотите этого?", "Перенос сознания", list("Да", "Нет")) != "Да")
 		prompted = FALSE
 		return
 
@@ -423,7 +423,7 @@
 	SM.sentience_act() //Same deal here as with sentience
 	SM.set_can_collar(TRUE)
 	user.death()
-	to_chat(SM, span_notice("Вы моментально чуствуете как ваше сознание перетекло в [SM.declent_ru(ACCUSATIVE)]!"))
+	to_chat(SM, span_notice("Вы моментально чувствуете как ваше сознание перетекло в [SM.declent_ru(ACCUSATIVE)]!"))
 	to_chat(SM, span_warning("Отныне вы [SM.declent_ru(NOMINATIVE)]. Ваши роли, союзники и те, кому вы подчиняетесь, остались такими же, как были до переноса сознания."))
 	SM.name = "[SM.name] как [user.real_name]"
 	if(istype(SM, /mob/living/simple_animal/hostile/lightgeist))
