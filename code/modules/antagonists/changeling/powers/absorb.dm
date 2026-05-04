@@ -42,7 +42,7 @@
 			user.balloon_alert(user, "поглощение прервано!")
 			cling.is_absorbing = FALSE
 			return FALSE
-	user.balloon_alert_to_viewers("[user] достал хоботок", "мы поглотили днк")
+	user.balloon_alert_to_viewers("поглощает [target]!", "поглощение успешно")
 
 	if(!cling.get_dna(target.dna))
 		cling.absorb_dna(target)
