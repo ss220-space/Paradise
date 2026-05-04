@@ -21,7 +21,7 @@
 		return FALSE
 
 	if(HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETON) || HAS_TRAIT(target, TRAIT_NO_CLONE))
-		user.balloon_alert(user, "ДНК [target] уничтожена!")
+		user.balloon_alert(user, "днк [target] уничтожена!")
 		return FALSE
 
 	if(ischangeling(target))
