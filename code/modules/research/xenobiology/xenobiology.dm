@@ -410,7 +410,7 @@
 		prompted = FALSE
 		return
 
-	if(QDELETED(SM) || !ismob(SM) || !in_range(SM, user) || SM.stat || user.stat)
+	if(QDELETED(SM) || !in_range(SM, user) || SM.stat || user.stat)
 		prompted = FALSE
 		balloon_alert(user, "невозможно!")
 		return
