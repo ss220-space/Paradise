@@ -38,6 +38,10 @@
 	var/use_top_bullet_type_overlay = FALSE
 	/// Additional info to be added to examine text.
 	var/extra_info = ""
+	/// Allow use ammo marker with specific overlay
+	var/use_ammo_marker_overlay = FALSE
+	/// Used ammo marker overlay color (null if marker not exists)
+	var/ammo_marker_overlay_color = null
 
 /obj/item/ammo_box/get_ru_names()
 	return list(
@@ -122,15 +126,14 @@
 
 /obj/item/ammo_box/update_overlays()
 	. = ..()
-	if(!use_top_bullet_type_overlay)
-		return
 	var/ammo = length(stored_ammo)
-	if(!ammo)
-		return
-	var/bullet_type = get_bullet_type()
-	if(!bullet_type || bullet_type == BULLET_TYPE_PLAIN)
-		return
-	. += image(icon, icon_state = "[base_icon_state]-[bullet_type]")
+	if(use_top_bullet_type_overlay && ammo)
+		var/bullet_type = get_bullet_type()
+		if(bullet_type && bullet_type != BULLET_TYPE_PLAIN)
+			. += image(icon, icon_state = "[base_icon_state]-[bullet_type]")
+
+	if(use_ammo_marker_overlay && ammo_marker_overlay_color)
+		. += mutable_appearance(icon, "[base_icon_state]-marker", appearance_flags = RESET_COLOR, color = ammo_marker_overlay_color)
 
 /obj/item/ammo_box/proc/get_bullet_type()
 	var/obj/item/ammo_casing/last_bullet = stored_ammo[length(stored_ammo)]
@@ -245,11 +248,21 @@
 	update_appearance()
 	update_equipped_item()
 
-/obj/item/ammo_box/attackby(obj/item/I, mob/user, params)
-	if(isammobox(I) || isammocasing(I))
-		if(reload(I, user))
+/obj/item/ammo_box/attackby(obj/item/attack_item, mob/user, params)
+	if(isammobox(attack_item) || isammocasing(attack_item))
+		if(reload(attack_item, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
+
+	if(use_ammo_marker_overlay && istype(attack_item, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = attack_item
+		if(can.capped || can.uses < 0)
+			return ATTACK_CHAIN_PROCEED
+		ammo_marker_overlay_color = can.colour
+		can.uses--
+		update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
 
 /obj/item/ammo_box/attack_self(mob/user)

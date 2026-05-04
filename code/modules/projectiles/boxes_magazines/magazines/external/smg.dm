@@ -5,6 +5,7 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 24
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/sparkle_a12/empty
 	start_empty = TRUE
@@ -16,10 +17,11 @@
 // MARK: 9mm - UZI
 /obj/item/ammo_box/magazine/uzim9mm
 	gun_name = "пистолет-пулемета UZI"
-	icon_state = "uzi9mm-32"
+	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 32
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/uzim9mm/update_icon_state()
 	icon_state = "uzi9mm-[round(ammo_count(),4)]"
@@ -32,6 +34,7 @@
 	caliber = CALIBER_9MM
 	max_ammo = 21
 	use_top_bullet_type_overlay = TRUE
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/smgm9mm/rubber
 	ammo_type = /obj/item/ammo_casing/rubber9mm
@@ -55,6 +58,7 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 30
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/sfg9mm/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
@@ -66,6 +70,7 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = CALIBER_DOT_45
 	max_ammo = 20
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/smgm45/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),2)]"
@@ -86,6 +91,7 @@
 	caliber = CALIBER_45NR
 	max_ammo = 30
 	materials = list(MAT_METAL = 3000)
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/sp91rc/empty
 	start_empty = TRUE
@@ -110,6 +116,7 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM
 	max_ammo = 30
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/wt550m9/empty
 	start_empty = TRUE

@@ -68,6 +68,7 @@
 	icon_state = "speedloader45colt-6"
 	multiple_sprites = 1
 	icon_prefix = "speedloader45colt"
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/speedloader/rubber45colt/empty
 	start_empty = TRUE

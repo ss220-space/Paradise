@@ -6,6 +6,7 @@
 	caliber = CALIBER_10MM
 	max_ammo = 10
 	multiple_sprites = 2
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	icon_state = "9x19pI"
@@ -30,6 +31,7 @@
 	caliber = CALIBER_DOT_45
 	max_ammo = 8
 	multiple_sprites = 1
+	use_ammo_marker_overlay = TRUE
 
 // MARK: .40 S&W - SP-8
 /obj/item/ammo_box/magazine/sp8
@@ -39,6 +41,7 @@
 	max_ammo = 10
 	caliber = CALIBER_40NR
 	materials = list(MAT_METAL = 2500)
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/sp8/empty
 	start_empty = TRUE
@@ -53,6 +56,7 @@
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = CALIBER_DOT_50AE
 	multiple_sprites = 1
+	use_ammo_marker_overlay = TRUE
 
 // MARK: 9mm - Enforcer
 /obj/item/ammo_box/magazine/enforcer
@@ -63,6 +67,7 @@
 	multiple_sprites = 1
 	caliber = CALIBER_9MM
 	use_top_bullet_type_overlay = TRUE
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/enforcer/empty
 	start_empty = TRUE
@@ -78,10 +83,11 @@
 // MARK: 9mm - APS
 /obj/item/ammo_box/magazine/pistolm9mm
 	gun_name = "АПС"
-	icon_state = "9x19p-15"
+	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 15
+	use_ammo_marker_overlay = TRUE
 
 /obj/item/ammo_box/magazine/pistolm9mm/update_icon_state()
 	icon_state = "9x19p-[ammo_count() ? "15" : "0"]"
