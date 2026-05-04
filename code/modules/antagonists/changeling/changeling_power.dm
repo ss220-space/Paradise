@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		return FALSE
 
 	if(req_stat < user.stat)
-		user.balloon_alert(user, "недееспособны")
+		user.balloon_alert(user, "мы обездвижены")
 		return FALSE
 
 	if(cling.genetic_damage > max_genetic_damage)
