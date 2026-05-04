@@ -50,7 +50,19 @@
 
 /obj/item/camera_bug/ert
 	name = "ERT Camera Monitor"
-	desc = "Небольшое портативное устройство, используемое командирами ОБР для удаленного наблюдения."
+	icon_state = "ert_monitor"
+	item_state = "ert_monitor"
+	desc = "Небольшой портативный планшет, используется командирами ОБР для удаленного наблюдения."
+
+/obj/item/camera_bug/ert/get_ru_names()
+	return list(
+		NOMINATIVE = "монитор видеокамер ОБР",
+		GENITIVE = "монитора видеокамер ОБР",
+		DATIVE = "монитору видеокамер ОБР",
+		ACCUSATIVE = "монитор видеокамер ОБР",
+		INSTRUMENTAL = "монитором видеокамер ОБР",
+		PREPOSITIONAL = "мониторе видеокамер ОБР",
+	)
 
 /obj/item/camera_bug/ert/Initialize(mapload)
 	. = ..()
