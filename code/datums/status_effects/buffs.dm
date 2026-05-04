@@ -480,7 +480,7 @@
 
 /datum/status_effect/speedlegs/tick(seconds_between_ticks)
 	if(owner.stat || owner.staminaloss >= owner.get_max_stamina() || cling.chem_charges <= (stacks * CLING_EXHAUSTION_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE)
-		owner.balloon_alert(owner, "ноги ужасно болят")
+		owner.balloon_alert(owner, "мы истощены!")
 		owner.Knockdown(6 SECONDS)
 		qdel(src)
 	else
