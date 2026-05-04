@@ -445,8 +445,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
-	icon_state = "dshotgun"
-	item_state = "shotgun"
+	icon_state = "dshotgun-base"
+	item_state = "dshotgun-base"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
