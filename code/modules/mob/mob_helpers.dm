@@ -481,7 +481,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
 					lname = "[display] ([name])"
 				else
-					if (DM)									// Non-anons
+					if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
 					else 										// Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
