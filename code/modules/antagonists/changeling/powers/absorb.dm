@@ -65,8 +65,8 @@
 			recent_speech = target.say_log.Copy()
 
 		if(recent_speech)
-			user.mind.store_memory("<b>Последние мысли [target].</b>")
-			to_chat(user, span_boldnotice("Последние мысли [target]."))
+			user.mind.store_memory("<b>Речевые шаблоны [target].</b>")
+			to_chat(user, span_boldnotice("Речевые шаблоны [target]."))
 			for(var/spoken_memory in recent_speech)
 				user.mind.store_memory("\"[spoken_memory]\"")
 				to_chat(user, span_notice("\"[spoken_memory]\""))
