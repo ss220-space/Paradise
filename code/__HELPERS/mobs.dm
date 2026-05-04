@@ -996,8 +996,3 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/obj/item/organ/external/part = get_bodypart(zone)
 
 	return part?.plaintext_zone || parse_zone(zone)
-
-/proc/is_anon(mob/M)
-	if(!M?.client?.prefs)
-		return FALSE
-	return (M.client.prefs.toggles2 & PREFTOGGLE_2_ANON)
