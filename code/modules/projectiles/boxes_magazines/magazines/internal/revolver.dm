@@ -60,11 +60,11 @@
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/get_ru_names()
 	return list(
 		NOMINATIVE = "кустарный барабан [gun_name] [get_cartridge_marking()]",
-		GENITIVE = "кустарный барабана [gun_name] [get_cartridge_marking()]",
-		DATIVE = "кустарный барабану [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "кустарного барабана [gun_name] [get_cartridge_marking()]",
+		DATIVE = "кустарному барабану [gun_name] [get_cartridge_marking()]",
 		ACCUSATIVE = "кустарный барабан [gun_name] [get_cartridge_marking()]",
-		INSTRUMENTAL = "кустарный барабаном [gun_name] [get_cartridge_marking()]",
-		PREPOSITIONAL = "кустарный барабане [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "кустарным барабаном [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "кустарном барабане [gun_name] [get_cartridge_marking()]",
 	)
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
@@ -84,11 +84,11 @@
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel/get_ru_names()
 	return list(
 		NOMINATIVE = "стальной барабан [gun_name] [get_cartridge_marking()]",
-		GENITIVE = "стальной барабана [gun_name] [get_cartridge_marking()]",
-		DATIVE = "стальной барабану [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "стального барабана [gun_name] [get_cartridge_marking()]",
+		DATIVE = "стальному барабану [gun_name] [get_cartridge_marking()]",
 		ACCUSATIVE = "стальной барабан [gun_name] [get_cartridge_marking()]",
-		INSTRUMENTAL = "стальной барабаном [gun_name] [get_cartridge_marking()]",
-		PREPOSITIONAL = "стальной барабане [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "стальным барабаном [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "стальном барабане [gun_name] [get_cartridge_marking()]",
 	)
 
 // MARK: Russian roulette .357

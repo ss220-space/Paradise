@@ -111,7 +111,7 @@
 // MARK: Incendiary slug
 /obj/item/ammo_casing/shotgun/incendiary
 	ammo_marking = "12g \"Зажигательный\""
-	extra_info = "Пуля воспламенятся при попадании в цель."
+	extra_info = "Пуля воспламенится при попадании в цель."
 	icon_state = "incendiaryshell"
 	projectile_type = /obj/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
