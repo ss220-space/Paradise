@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		return FALSE
 
 	if(cling.absorbed_count < req_dna)
-		user.balloon_alert(user, "нужно [req_dna] днк")
+		user.balloon_alert(user, "нужно [req_dna] ДНК")
 		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 
