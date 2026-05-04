@@ -339,14 +339,6 @@
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_BLUESHIELD, JOB_TITLE_MAGISTRATE, JOB_TITLE_OFFICER)
 
-/datum/gear/donor/heartsec_read
-	index_name = "Heart Security Glasses"
-	path = /obj/item/clothing/glasses/hud/security/sunglasses/heart/read_only
-	donator_tier = 4
-	cost = 2
-	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_LAWYER)
-
 /datum/gear/donor/heart_hydroponic
 	index_name = "Heart Hydroponic Glasses"
 	path = /obj/item/clothing/glasses/hud/heart
@@ -361,7 +353,7 @@
 	donator_tier = 4
 	cost = 2
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP)
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP, JOB_TITLE_LAWYER)
 
 /datum/gear/donor/visor_security
 	index_name = "Optical Security Visor"
