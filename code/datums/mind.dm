@@ -139,7 +139,7 @@
 	// Now we see if we need to respect their privacy
 	var/out_ckey
 	if(C)
-		if(C.is_anon())
+		if(is_anon(C))
 			out_ckey = "(Anon)"
 		else
 			out_ckey = C.ckey
