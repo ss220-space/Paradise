@@ -339,7 +339,8 @@
  * * maxdistance - how far the beam will go before stopping itself. Used mainly for two things: preventing lag if the beam may go in that direction and setting a range to abilities that use beams.
  * * beam_type - The type of your custom beam. This is for adding other wacky stuff for your beam only. Most likely, you won't (and shouldn't) change it.
  */
-/atom/proc/Beam(atom/BeamTarget,
+/atom/proc/Beam(
+	atom/BeamTarget,
 	icon_state = "b_beam",
 	icon = 'icons/effects/beam.dmi',
 	time = INFINITY,
