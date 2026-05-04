@@ -31,6 +31,7 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 21
+	use_top_bullet_type_overlay = TRUE
 
 /obj/item/ammo_box/magazine/smgm9mm/rubber
 	ammo_type = /obj/item/ammo_casing/rubber9mm

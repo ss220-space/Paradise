@@ -34,8 +34,8 @@
 	var/can_fast_load = TRUE
 	/// One bullet load duration
 	var/bullet_load_duration = 0.4 SECONDS
-	/// Use bullet type overlay
-	var/use_bullet_type_overlay = FALSE
+	/// Top bullet type overlay prefix
+	var/use_top_bullet_type_overlay = FALSE
 	/// Additional info to be added to examine text.
 	var/extra_info = ""
 
@@ -51,7 +51,8 @@
 
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
-
+	if(!base_icon_state)
+		base_icon_state = icon_state
 	if(!start_empty && ammo_type)
 		for(var/i in 1 to max_ammo)
 			stored_ammo += new ammo_type(src)
@@ -121,20 +122,17 @@
 
 /obj/item/ammo_box/update_overlays()
 	. = ..()
-	if(!use_bullet_type_overlay)
+	if(!use_top_bullet_type_overlay)
 		return
 	var/ammo = length(stored_ammo)
 	if(!ammo)
 		return
 	var/bullet_type = get_bullet_type()
-	if(!bullet_type)
+	if(!bullet_type || bullet_type == BULLET_TYPE_PLAIN)
 		return
-	. += image('icons/obj/weapons/ammo_type_overlay.dmi', icon_state = bullet_type)
+	. += image(icon, icon_state = "[base_icon_state]-[bullet_type]")
 
 /obj/item/ammo_box/proc/get_bullet_type()
-	var/ammo = length(stored_ammo)
-	if(!ammo)
-		return null
 	var/obj/item/ammo_casing/last_bullet = stored_ammo[length(stored_ammo)]
 	if(!istype(last_bullet))
 		return null
@@ -303,7 +301,6 @@
 	gender = MALE
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
-	use_bullet_type_overlay = TRUE
 	/// Name of the gun this magazine is for.
 	/// Should be in genitive case like `"пистолета \"Стечкин\""` or `"пулемёта L6 SAW"`.
 	var/gun_name = ""

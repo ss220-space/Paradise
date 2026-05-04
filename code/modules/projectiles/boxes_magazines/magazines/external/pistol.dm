@@ -62,22 +62,10 @@
 	max_ammo = 8
 	multiple_sprites = 1
 	caliber = CALIBER_9MM
+	use_top_bullet_type_overlay = TRUE
 
 /obj/item/ammo_box/magazine/enforcer/empty
 	start_empty = TRUE
-
-/obj/item/ammo_box/magazine/enforcer/update_overlays()
-	. = ..()
-	if(ammo_count() && is_rubber())
-		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-r")
-
-/obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
-	var/ammo = ammo_count()
-	if(!ammo)
-		return FALSE
-	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
-		return TRUE
-	return FALSE
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	ammo_type = /obj/item/ammo_casing/c9mm
