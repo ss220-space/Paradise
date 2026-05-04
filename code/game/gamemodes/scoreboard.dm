@@ -230,9 +230,6 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	else if(ishuman(mob))
 		score_dead_crew++
 
-/mob/proc/is_anon()
-	return client?.prefs.toggles2 & PREFTOGGLE_2_ANON
-
 /datum/scoreboard/proc/check_shuttle_player(mob/mob)
 	if(!mob.mind || mob.stat == DEAD || !ishuman(mob))
 		return
