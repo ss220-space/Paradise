@@ -32,7 +32,7 @@
 
 /datum/action/changeling/evolution_menu/try_to_sting(mob/user, mob/target)
 	if(!ishuman(user))	// No need to manipulate with the menu while you are not a humanoid
-		user.balloon_alert(user, "не подходящая форма")
+		user.balloon_alert(user, "неподходящая форма")
 		return
 	ui_interact(user)
 
