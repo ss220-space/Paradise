@@ -361,7 +361,7 @@
 	donator_tier = 4
 	cost = 2
 	slot = ITEM_SLOT_EYES
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP, JOB_TITLE_LAWYER)
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP)
 
 /datum/gear/donor/visor_security
 	index_name = "Optical Security Visor"
