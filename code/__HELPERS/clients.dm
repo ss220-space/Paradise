@@ -62,7 +62,17 @@
 			if(GLOB.stealthminID[stealth_key] == stealth_text)
 				return stealth_key
 
-/proc/is_anon(client/client)
-	if(!client?.prefs)
-		return FALSE
-	return (client.prefs.toggles2 & PREFTOGGLE_2_ANON)
+/proc/find_stealth_key(stealth_text)
+	if(stealth_text)
+		for(var/stealth_key in GLOB.stealthminID)
+			if(GLOB.stealthminID[stealth_key] == stealth_text)
+				return stealth_key
+
+/proc/get_display_ckey(client/C)
+	if(!C)
+		return "(Disconnected)"
+
+	if(C.prefs && (C.prefs.toggles2 & PREFTOGGLE_2_ANON))
+		return "(Anon)"
+
+	return C.ckey
