@@ -23,10 +23,14 @@ SUBSYSTEM_DEF(ambience)
 		cached_clients.len--
 
 		//Check to see if the client exists and isn't held by a new player
-		var/mob/client_mob = client_iterator?.mob
-		if(isnull(client_iterator) || !client_mob || isnewplayer(client_mob))
+		if(isnull(client_iterator))
+			continue
+		var/mob/client_mob = client_iterator.mob
+		if(!client_mob)
 			ambience_listening_clients -= client_iterator
 			client_old_areas -= client_iterator
+			continue
+		if(isnewplayer(client_mob))
 			continue
 
 		if(HAS_TRAIT(client_mob, TRAIT_DEAF)) //WHAT? I CAN'T HEAR YOU
@@ -54,7 +58,7 @@ SUBSYSTEM_DEF(ambience)
 			return
 
 ///Attempts to play an ambient sound to a mob, returning the cooldown in deciseconds
-/area/proc/play_ambience(mob/target, sound/override_sound, volume = 37)
+/area/proc/play_ambience(mob/target, sound/override_sound, volume = 27)
 	var/sound/new_sound = override_sound || pick(ambientsounds)
 	if(!new_sound) // Dont try to play a sound if we dont have any.
 		return 1 MINUTES
