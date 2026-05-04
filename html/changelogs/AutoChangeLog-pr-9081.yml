@@ -1,4 +1,0 @@
-author: "Den109G"
-delete-after: True
-changes:
-  - bugfix: "Механика встречи взгляда не вызывает проблем в коде (PR #9081)"
