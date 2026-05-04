@@ -61,10 +61,16 @@
 
 /// Pushes the new volume to whatever is currently playing on the given channel.
 /datum/preferences/proc/apply_channel_volume(channel, volume)
-	// /datum/looping_sound instances scale their own volume; tell each one on this channel to update.
+	var/client/owner = parent
+	var/mob/owner_mob = owner?.mob
+
+	// Update only loops parented to our mob — other players' loops on the same channel
+	// would push their volume onto our client.
 	var/updated_looping = FALSE
 	for(var/datum/looping_sound/looping in GLOB.looping_sounds)
 		if(looping.sound_channel != channel)
+			continue
+		if(looping.parent != owner_mob)
 			continue
 		send_volume_update(channel, looping.volume * volume / 100)
 		updated_looping = TRUE
@@ -73,8 +79,6 @@
 
 	// Ambient buzz isn't a /datum/looping_sound — re-fire it so the new volume takes effect.
 	if(channel == CHANNEL_BUZZ)
-		var/client/owner = parent
-		var/mob/owner_mob = owner?.mob
 		if(owner_mob)
 			owner.current_ambient_sound = null
 			owner_mob.refresh_looping_ambience()

@@ -1990,6 +1990,7 @@ This applies to all STANDARD station areas
 /area/medical/virology
 	name = "Virology"
 	icon_state = "virology"
+	ambience_index = AMBIENCE_VIROLOGY
 
 /area/medical/virology/lab
 	name = "Virology Laboratory"
@@ -3561,6 +3562,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 /area/coldcolony/malta/medical/virology
 	name = "Virology Laboratory"
 	icon_state = "virology"
+	ambience_index = AMBIENCE_VIROLOGY
 
 //Malta Security
 /area/coldcolony/malta/security
