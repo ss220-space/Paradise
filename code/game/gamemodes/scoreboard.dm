@@ -242,14 +242,14 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		richest_cash = cash_score
 		richest_name = human.real_name
 		richest_job = human.job
-		richest_key = is_anon(human?.client) ? "Anon" : human.key
+		richest_key = human?.get_display_key()
 
 	var/damage_score = human.getBruteLoss() + human.getFireLoss() + human.getToxLoss() + human.getOxyLoss()
 	if(damage_score > damaged_health)
 		damaged_health = damage_score
 		damaged_name = human.real_name
 		damaged_job = human.job
-		damaged_key = is_anon(human?.client) ? "Anon" : human.key
+		damaged_key = human?.get_display_key()
 
 /datum/scoreboard/proc/check_apc_power()
 	for(var/A in GLOB.apcs)
