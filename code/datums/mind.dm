@@ -137,17 +137,7 @@
 
 	// Ok we found a client, be it their active or their last
 	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(is_anon(C))
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+	return get_display_ckey(C)
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
