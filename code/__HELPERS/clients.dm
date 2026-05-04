@@ -61,3 +61,8 @@
 		for(var/stealth_key in GLOB.stealthminID)
 			if(GLOB.stealthminID[stealth_key] == stealth_text)
 				return stealth_key
+
+/proc/is_anon(client/client)
+	if(!client?.prefs)
+		return FALSE
+	return (client.prefs.toggles2 & PREFTOGGLE_2_ANON)
