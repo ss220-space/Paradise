@@ -39,7 +39,7 @@
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
 		if(!do_after(user, 15 SECONDS, target, NONE) || !can_sting(user, TRUE))
-			user.balloon_alert(user, "поглощение прервано")
+			user.balloon_alert(user, "поглощение прервано!")
 			cling.is_absorbing = FALSE
 			return FALSE
 	user.balloon_alert_to_viewers("[user] достал хоботок", "мы поглотили днк")
