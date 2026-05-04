@@ -1,4 +1,0 @@
-author: "Ksaikok46"
-delete-after: True
-changes:
-  - bugfix: "Имплант хранилища снова работает. (PR #9100)"
