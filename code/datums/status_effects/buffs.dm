@@ -486,7 +486,7 @@
 	else
 		stacks++
 		if(stacks == CLING_STACKS_BEFORE_EXHAUSTION)
-			owner.balloon_alert(owner, "ноги начали болеть")
+			owner.balloon_alert(owner, "наши ноги болят!")
 		else if(stacks > CLING_STACKS_BEFORE_EXHAUSTION) //Warning message that the stacks are getting too high
 			cling.chem_charges -= (stacks * CLING_EXHAUSTION_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE  //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 
