@@ -73,10 +73,10 @@
 	return TRUE
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/get_cartridge_marking()
-	return jointext(caliber, "\\")
+	return jointext(caliber, "/")
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
-	extra_info = "Совместим с патронами калибров .38 и .257."
+	extra_info = "Совместим с патронами обоих калибров."
 	icon_state = "s_rev_cylinder"
 	caliber = list(CALIBER_DOT_257, CALIBER_DOT_38)
 	max_ammo = 6
