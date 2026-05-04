@@ -478,9 +478,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(isobserver(subject))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
-					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(DM?.is_anon()) ? " [ANON]" : (DM ? "" : "^")] ([name])"
 				else
-					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
+					if(DM?.is_anon())	// If the person is actually observer they have the option to be anonymous
 						lname = "<i>Anon</i> ([name])"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
@@ -907,3 +907,6 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(bypass_warning && !length(limbs))
 			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
 	return (((chest_blacklisted && !base_zone) || even_weights) ? pick_weight_classic(limbs) : ran_zone(base_zone, base_probability, limbs))
+
+/mob/proc/is_anon()
+	return client?.prefs.toggles2 & PREFTOGGLE_2_ANON
