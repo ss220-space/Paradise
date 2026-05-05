@@ -150,8 +150,8 @@
 	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
 	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
-/mob/living/simple_animal/revenant/New()
-	..()
+/mob/living/simple_animal/revenant/Initialize(mapload)
+	. = ..()
 
 	remove_from_all_data_huds()
 	random_revenant_name()

@@ -27,8 +27,8 @@
 	melee_damage_type = STAMINA
 	flags = ADMIN_SPAWNED
 
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
+	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(summoner))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)

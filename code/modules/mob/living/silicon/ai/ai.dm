@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	remove_verb(src, GLOB.ai_verbs_default)
 	remove_verb(src, silicon_subsystems)
 
-/mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
+/mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcer = new(config_type = /datum/announcement_configuration/ai)
 	announcer.author = name
 
@@ -182,12 +182,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	rename_character(null, pickedName)
 	set_anchored(TRUE)
 	set_density(TRUE)
-	loc = loc
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 
 	if(B?.clock)
-		ratvar_act()
+		ASYNC
+			ratvar_act()
 	else if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
@@ -231,8 +231,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
 			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
-			qdel(src)//Delete AI.
-			return
+			return INITIALIZE_HINT_QDEL
 		else
 			if(B.brainmob.mind)
 				B.brainmob.mind.transfer_to(src)
@@ -248,9 +247,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
-	..()
-
-/mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 

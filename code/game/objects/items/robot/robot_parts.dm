@@ -402,7 +402,7 @@
 		check_lawsync()
 		laws_to_give = get_new_laws(new_mmi)
 
-		var/mob/living/silicon/robot/new_borg = new(loc, syndie = sabotaged, unfinished = TRUE, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
+		var/mob/living/silicon/robot/new_borg = new(loc, sabotaged, TRUE, FALSE, aisync, forced_ai)
 		if(QDELETED(new_borg))	// somehow??? jesus fucking christ
 			return .
 
