@@ -105,6 +105,7 @@
 			span_userdanger("Oh f-"))
 		new /obj/effect/gibspawner/human(get_turf(victim))
 		head.fracture()
+		head.disfigure()
 		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 	else
 		head.visible_message(
