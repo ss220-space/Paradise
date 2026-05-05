@@ -531,15 +531,3 @@
 /obj/machinery/door/zap_act(power, zap_flags)
 	zap_flags &= ~ZAP_OBJ_DAMAGE
 	. = ..()
-
-/obj/machinery/door/station_trait_act(trait_act)
-	if(trait_act == REVOLUTIONARY_TRASHED_ACT && prob(50))
-		take_damage(rand(200, 400))
-		return
-
-	if(trait_act == POST_WAR_ACT && prob(10))
-		if(prob(10))
-			emag_act()
-			return
-		take_damage(rand(150, 300))
-

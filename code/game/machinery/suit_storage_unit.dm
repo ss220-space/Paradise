@@ -95,13 +95,6 @@
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	req_access = list(ACCESS_SECURITY)
 
-/obj/machinery/suit_storage_unit/security/station_trait_act(trait_act)
-	if(trait_act == UPGRADED_ARMORY_ACT)
-		new /obj/machinery/suit_storage_unit/security/warden(loc)
-		qdel(src)
-		return
-	return ..()
-
 /obj/machinery/suit_storage_unit/security/hos
 	name = "head of security suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_two
@@ -875,8 +868,3 @@
 	var/charge_per_item = base_charge_rate / cell_count
 	for(var/obj/item/stock_parts/cell/cell as anything in cells_to_charge)
 		cell.give(charge_per_item)
-
-/obj/machinery/suit_storage_unit/station_trait_act(trait_act)
-	if(trait_act == LOOTED_ARMORY_ACT && prob(40))
-		qdel(src)
-

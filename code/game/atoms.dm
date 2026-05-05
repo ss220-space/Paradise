@@ -1805,6 +1805,3 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/container_resist_act(mob/living/user)
 	return
 
-/// Used by station traits to damage/destroy atoms when map inits
-/atom/proc/station_trait_act(trait_act)
-	return

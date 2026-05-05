@@ -1581,14 +1581,6 @@
 	var/matrix/to_turn = turn(transform, -tilted_rotation)
 	animate(src, transform = to_turn, 0.2 SECONDS)
 
-/obj/machinery/vending/station_trait_act(trait_act)
-	if(trait_act == POST_WAR_ACT && prob(5))
-		obj_break()
-		return
-
-	if(trait_act == REVOLUTIONARY_TRASHED_ACT && prob(70))
-		obj_break()
-
 #undef FLICK_NONE
 #undef FLICK_VEND
 #undef FLICK_DENY

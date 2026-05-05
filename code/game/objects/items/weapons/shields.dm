@@ -54,13 +54,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/shield/riot/station_trait_act(trait_act)
-	if(trait_act == UPGRADED_ARMORY_ACT)
-		new /obj/item/shield/riot/tele(loc)
-		qdel(src)
-		return
-	return ..()
-
 /obj/item/shield/riot/roman
 	name = "roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."

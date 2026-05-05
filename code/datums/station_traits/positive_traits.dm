@@ -371,5 +371,5 @@
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)
-					current_thing.station_trait_act(UPGRADED_ARMORY_ACT)
+					current_thing.change_from_station_trait(trait_to_give)
 				CHECK_TICK

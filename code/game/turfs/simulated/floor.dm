@@ -411,16 +411,3 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(pick(60))
 		return
 	break_tile()
-
-/turf/simulated/floor/station_trait_act(trait_act)
-	if(prob(80) || trait_act != POST_WAR_ACT)
-		return
-
-	if(prob(70))
-		burn_tile()
-		return
-
-	break_tile()
-
-	if(prob(45))
-		new /obj/item/ammo_casing/c45/empty(src)

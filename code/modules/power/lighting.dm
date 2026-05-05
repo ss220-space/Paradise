@@ -862,10 +862,6 @@
 	no_emergency = FALSE
 	update(FALSE)
 
-/obj/machinery/light/station_trait_act(trait_act)
-	if((trait_act == REVOLUTIONARY_TRASHED_ACT || trait_act == POST_WAR_ACT) && prob(40))
-		break_light_tube(skip_sound_and_sparks = TRUE)
-
 /**
  * # Light item
  *

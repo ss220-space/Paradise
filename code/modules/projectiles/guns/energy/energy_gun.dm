@@ -13,13 +13,6 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -7),
 	)
 
-/obj/item/gun/energy/gun/station_trait_act(trait_act)
-	if(trait_act == UPGRADED_ARMORY_ACT)
-		new /obj/item/gun/energy/gun/pdw9(loc)
-		qdel(src)
-		return
-	return ..()
-
 /obj/item/gun/energy/gun/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()

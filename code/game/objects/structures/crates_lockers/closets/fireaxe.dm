@@ -200,7 +200,3 @@
 
 /obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/I) //A bastion of sanity in a sea of madness
 	return
-
-/obj/structure/closet/fireaxecabinet/station_trait_act(trait_act)
-	if(trait_act == REVOLUTIONARY_TRASHED_ACT)
-		take_damage(90)

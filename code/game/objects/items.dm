@@ -1530,7 +1530,3 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	SIGNAL_HANDLER
 	return
-
-/obj/item/station_trait_act(trait_act)
-	if(trait_act == LOOTED_ARMORY_ACT && prob(50))
-		qdel(src)

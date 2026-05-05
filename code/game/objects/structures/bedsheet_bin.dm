@@ -56,10 +56,6 @@ LINEN BINS
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/bedsheet/station_trait_act(trait_act)
-	if(trait_act == REVOLUTIONARY_TRASHED_ACT)
-		qdel(src)
-
 /obj/item/bedsheet/blue
 	icon_state = "sheetblue"
 	item_color = "blue"

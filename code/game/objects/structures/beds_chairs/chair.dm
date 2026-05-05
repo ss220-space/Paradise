@@ -157,12 +157,6 @@
 	rotate(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/structure/chair/station_trait_act(trait_act)
-	if(trait_act != REVOLUTIONARY_TRASHED_ACT && prob(40))
-		return
-
-	take_damage(300)
-
 // CHAIR TYPES
 
 /obj/structure/chair/wood

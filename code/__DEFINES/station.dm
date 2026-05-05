@@ -24,9 +24,3 @@
 
 /// The amount of time until the station charter can no longer be used to rename the station
 #define STATION_RENAME_TIME_LIMIT 5 MINUTES
-
-// Used by different stuff to decide how they behave when different station traits affecting items/objects occure
-#define REVOLUTIONARY_TRASHED_ACT 1
-#define POST_WAR_ACT 2
-#define LOOTED_ARMORY_ACT 3
-#define UPGRADED_ARMORY_ACT 4

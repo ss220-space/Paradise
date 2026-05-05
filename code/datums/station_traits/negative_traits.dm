@@ -333,7 +333,7 @@
 					continue
 
 				for(var/obj/current_thing as anything in current_turf.contents)
-					current_thing.station_trait_act(REVOLUTIONARY_TRASHED_ACT)
+					current_thing.change_from_station_trait(trait_to_give)
 
 				CHECK_TICK
 
@@ -342,7 +342,7 @@
 	report_message = "Предыдущий экипаж объекта столкнулся с попыткой штурма оперативниками отряда \"Атом\". Силы ОБР устранили противника, но структурная целостность была серьёзно нарушена."
 	trait_type = STATION_TRAIT_NEGATIVE
 	show_in_report = TRUE
-	trait_to_give = STATION_TRAIT_REVOLUTIONARY_TRASHING
+	trait_to_give = STATION_TRAIT_POST_WAR_TRASH
 	weight = 1
 	blacklist = list(/datum/station_trait/revolutionary_trashing)
 
@@ -355,10 +355,10 @@
 	for(var/area/area_to_trash in SSmapping.existing_station_areas)
 		for(var/list/zlevel_turfs as anything in area_to_trash.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
-				current_turf.station_trait_act(POST_WAR_ACT)
+				current_turf.change_from_station_trait(trait_to_give)
 
 				for(var/obj/current_thing as anything in current_turf.contents)
-					current_thing.station_trait_act(POST_WAR_ACT)
+					current_thing.change_from_station_trait(trait_to_give)
 
 				CHECK_TICK
 
@@ -397,7 +397,7 @@
 				for(var/obj/current_thing as anything in current_turf.contents)
 					if(current_thing in GLOB.potential_theft_objectives)
 						continue
-					current_thing.station_trait_act(LOOTED_ARMORY_ACT)
+					current_thing.change_from_station_trait(trait_to_give)
 				CHECK_TICK
 
 /datum/station_trait/outdated_hardsuits

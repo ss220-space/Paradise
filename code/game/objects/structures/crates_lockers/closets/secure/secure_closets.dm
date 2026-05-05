@@ -128,8 +128,4 @@
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
 
-/obj/structure/closet/secure_closet/station_trait_act(trait_act)
-	if(trait_act == POST_WAR_ACT && prob(20))
-		emag_act()
-
 #undef CLOSET_BREAKOUT_TIME
