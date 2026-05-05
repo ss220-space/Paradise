@@ -919,12 +919,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/kedr_kit/get_ru_names()
 	return list(
-		NOMINATIVE = "набор пистолет-пулемета K-45",
-		GENITIVE = "набора пистолет-пулемета K-45",
-		DATIVE = "набору пистолет-пулемета K-45",
-		ACCUSATIVE = "набор пистолет-пулемета K-45",
-		INSTRUMENTAL = "набором пистолетом-пулемета K-45",
-		PREPOSITIONAL = "наборе пистолете-пулемета K-45",
+		NOMINATIVE = "набор пистолета-пулемета K-45",
+		GENITIVE = "набора пистолета-пулемета K-45",
+		DATIVE = "набору пистолета-пулемета K-45",
+		ACCUSATIVE = "набор пистолета-пулемета K-45",
+		INSTRUMENTAL = "набором пистолета-пулемета K-45",
+		PREPOSITIONAL = "наборе пистолета-пулемета K-45",
 	)
 
 /obj/item/storage/box/syndie_kit/kedr_kit/populate_contents()
@@ -941,12 +941,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/kedr_ammo/get_ru_names()
 	return list(
-		NOMINATIVE = "боеприпасы для пистолет-пулемета K-45",
-		GENITIVE = "боеприпасов для пистолет-пулемета K-45",
-		DATIVE = "боеприпасам для пистолет-пулемета K-45",
-		ACCUSATIVE = "боеприпасы для пистолет-пулемета K-45",
-		INSTRUMENTAL = "боеприпасами для пистолет-пулемета K-45",
-		PREPOSITIONAL = "боеприпасах для пистолет-пулемета K-45",
+		NOMINATIVE = "боеприпасы для пистолета-пулемета K-45",
+		GENITIVE = "боеприпасов для пистолета-пулемета K-45",
+		DATIVE = "боеприпасам для пистолета-пулемета K-45",
+		ACCUSATIVE = "боеприпасы для пистолета-пулемета K-45",
+		INSTRUMENTAL = "боеприпасами для пистолета-пулемета K-45",
+		PREPOSITIONAL = "боеприпасах для пистолета-пулемета K-45",
 	)
 
 /obj/item/storage/box/syndie_kit/kedr_ammo/populate_contents()

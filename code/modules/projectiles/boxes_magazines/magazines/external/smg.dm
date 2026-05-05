@@ -27,7 +27,7 @@
 
 // MARK: 9mm - SMG K-45
 /obj/item/ammo_box/magazine/kedr
-	gun_name = "пистолет-пулемета K-45"
+	gun_name = "пистолета-пулемета K-45"
 	icon_state = "kedr"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM

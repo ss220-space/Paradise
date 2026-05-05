@@ -291,7 +291,7 @@
 // MARK: SMG K-45 Kedr
 /obj/item/gun/projectile/automatic/smg/kedr
 	name = "SMG K-45"
-	desc = "Компактный пистолет-пулемет под калибр 10 мм. Часто используется агентами Синдиката при выполнении тайных операций."
+	desc = "Компактный пистолет-пулемет под калибр 9 мм. Часто используется агентами Синдиката при выполнении тайных операций."
 	icon_state = "kedr"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/kedr
