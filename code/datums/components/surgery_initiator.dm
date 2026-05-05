@@ -331,7 +331,7 @@
 /datum/component/surgery_initiator/limb/initiate_surgery_moment(datum/source, atom/target, mob/user)
 	var/old_forced = forced_surgery
 	var/old_anywhere = can_start_anywhere
-	if(target == user && ismachineperson(user) && istype(parent, /obj/item/organ/external))
+	if(target == user && ismachineperson(user) && isexternalorgan(parent))
 		forced_surgery = /datum/surgery/attach_robotic_limb/self_attach_ipc
 		can_start_anywhere = TRUE
 	. = ..()
