@@ -194,3 +194,6 @@
 /obj/machinery/flasher_button/update_icon_state()
 	icon_state = "launcher[active ? "act" : "btt"]"
 
+/obj/machinery/flasher/station_trait_act(trait_act)
+	if(trait_act == LOOTED_ARMORY_ACT && prob(60))
+		qdel(src)

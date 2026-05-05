@@ -700,6 +700,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
 
+/obj/machinery/computer/communications/station_trait_act(trait_act)
+	return
+
 /obj/machinery/computer/communications/indestrusctable
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 

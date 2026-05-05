@@ -438,6 +438,12 @@
 	else
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
 
+/obj/structure/table/station_trait_act(trait_act)
+	if(trait_act != REVOLUTIONARY_TRASHED_ACT && prob(60))
+		return
+
+	take_damage(100)
+
 /*
  * MARK: Glass Tables
  */

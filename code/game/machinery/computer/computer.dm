@@ -218,6 +218,15 @@
 		self_hurt = TRUE
 	return ..()
 
+/obj/machinery/computer/station_trait_act(trait_act)
+	if(trait_act == POST_WAR_ACT && prob(5))
+		take_damage(rand(150, 300))
+		return
+
+	if(trait_act == REVOLUTIONARY_TRASHED_ACT && prob(40))
+		take_damage(160)
+
+
 ///////// Decorative frames
 
 /obj/machinery/computer/old_frame

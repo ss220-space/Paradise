@@ -523,6 +523,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/get_explosion_block()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/obj/structure/window/station_trait_act(trait_act)
+	if((trait_act == REVOLUTIONARY_TRASHED_ACT || trait_act == POST_WAR_ACT) && prob(45))
+		take_damage(rand(40, 90)) //fulltile windows will be safe
+
 /obj/structure/window/basic
 	desc = "Выглядит тонким и хрупким. Пары ударов чем угодно будет достаточно, чтобы разбить его."
 

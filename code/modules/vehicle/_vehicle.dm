@@ -190,3 +190,6 @@
 		var/dir_to_move = get_dir(trailer.loc, old_loc)
 		step(trailer, dir_to_move)
 
+/obj/vehicle/station_trait_act(trait_act)
+	if(trait_act == LOOTED_ARMORY_ACT && prob(70))
+		qdel(src)

@@ -321,64 +321,19 @@
 	for(var/area/area_to_trash in choosen_areas)
 		for(var/list/zlevel_turfs as anything in area_to_trash.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
-				if(iswallturf(current_turf))
-					continue
-				if(prob(25))
+				if(isfloorturf(current_turf) && prob(25))
 					var/obj/effect/decal/cleanable/crayon/created_art
 					created_art = new(current_turf, RANDOM_COLOUR, pick(trash_talk))
 					created_art.pixel_x = rand(-10, 10)
 					created_art.pixel_y = rand(-10, 10)
+					continue
 
 				if(prob(0.1)) /// prob(1) is too much
 					new /obj/effect/mob_spawn/human/corpse/assistant(current_turf)
 					continue
 
 				for(var/obj/current_thing as anything in current_turf.contents)
-					if(istype(current_thing, /obj/machinery/light) && prob(40))
-						var/obj/machinery/light/light_to_smash = current_thing
-						light_to_smash.break_light_tube(skip_sound_and_sparks = TRUE)
-						continue
-
-					if(is_window(current_thing))
-						if(prob(45))
-							current_thing.take_damage(rand(50, 90)) //fulltile windows will be safe
-							continue
-
-					if(istable(current_thing) && prob(40))
-						current_thing.take_damage(100)
-						continue
-
-					if(istype(current_thing, /obj/structure/chair) && prob(60))
-						current_thing.take_damage(300)
-						continue
-
-					if(istype(current_thing, /obj/machinery/computer) && prob(30))
-						if(istype(current_thing, /obj/machinery/computer/communications))
-							continue //To prevent the shuttle from getting autocalled at the start of the round
-						current_thing.take_damage(160)
-						continue
-
-					if(istype(current_thing, /obj/machinery/vending) && prob(70))
-						var/obj/machinery/vending/vendor_to_trash = current_thing
-						vendor_to_trash.obj_break()
-						continue
-
-					if(istype(current_thing, /obj/structure/closet/fireaxecabinet)) //A staple of revolutionary behavior
-						current_thing.take_damage(90)
-						continue
-
-					if(istype(current_thing, /obj/item/bedsheet))
-						qdel(current_thing)
-						continue
-
-					if(istype(current_thing, /obj/item/flag))
-						new /obj/item/flag/ussp(current_thing.loc)
-						qdel(current_thing)
-						continue
-
-					if(istype(current_thing, /obj/machinery/door) && prob(50))
-						current_thing.take_damage(rand(200, 400))
-						continue
+					current_thing.station_trait_act(REVOLUTIONARY_TRASHED_ACT)
 
 				CHECK_TICK
 
@@ -400,58 +355,10 @@
 	for(var/area/area_to_trash in SSmapping.existing_station_areas)
 		for(var/list/zlevel_turfs as anything in area_to_trash.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
-				if(iswallturf(current_turf))
-					var/turf/simulated/wall/our_wall = current_turf
-					if(prob(15))
-						our_wall.add_multiple_dents(rand(1, 10), WALL_DENT_SHOT)
-					continue
-
-				if(isfloorturf(current_turf) && prob(20))
-					var/turf/simulated/floor/station_floor = current_turf
-					if(prob(70))
-						station_floor.burn_tile()
-					else
-						station_floor.break_tile()
-					if(prob(45))
-						new /obj/item/ammo_casing/c45/empty(current_turf)
+				current_turf.station_trait_act(POST_WAR_ACT)
 
 				for(var/obj/current_thing as anything in current_turf.contents)
-					if(istype(current_thing, /obj/machinery/light) && prob(40))
-						var/obj/machinery/light/light_to_smash = current_thing
-						light_to_smash.break_light_tube(skip_sound_and_sparks = TRUE)
-						continue
-
-					if(is_window(current_thing))
-						if(prob(45))
-							current_thing.take_damage(rand(40, 90)) //fulltile windows will be safe
-							continue
-
-					if(istype(current_thing, /obj/machinery/computer) && prob(5))
-						if(istype(current_thing, /obj/machinery/computer/communications))
-							continue //To prevent the shuttle from getting autocalled at the start of the round
-						current_thing.take_damage(rand(150, 300))
-						continue
-
-					if(istype(current_thing, /obj/item/flag) && prob(40))
-						new /obj/item/flag/syndi(current_thing.loc)
-						qdel(current_thing)
-						continue
-
-					if(istype(current_thing, /obj/machinery/vending) && prob(5))
-						var/obj/machinery/vending/vendor_to_trash = current_thing
-						vendor_to_trash.obj_break()
-						continue
-
-					if(istype(current_thing, /obj/structure/closet/secure_closet) && prob(20))
-						current_thing.emag_act()
-						continue
-
-					if(istype(current_thing, /obj/machinery/door) && prob(10))
-						if(prob(10))
-							current_thing.emag_act()
-						else
-							current_thing.take_damage(rand(150, 300))
-						continue
+					current_thing.station_trait_act(POST_WAR_ACT)
 
 				CHECK_TICK
 
@@ -488,24 +395,9 @@
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)
-
-					if(isitem(current_thing) && prob(50))
-						if(istype(current_thing, /obj/item/clothing/suit/armor/reflector))
-							continue
-						qdel(current_thing)
+					if(current_thing in GLOB.potential_theft_objectives)
 						continue
-
-					if(isvehicle(current_thing) && prob(70))
-						qdel(current_thing)
-						continue
-
-					if(istype(current_thing, /obj/machinery/flasher) && prob(60))
-						qdel(current_thing)
-						continue
-					if(istype(current_thing, /obj/machinery/suit_storage_unit) && prob(40))
-						qdel(current_thing)
-						continue
-
+					current_thing.station_trait_act(LOOTED_ARMORY_ACT)
 				CHECK_TICK
 
 /datum/station_trait/outdated_hardsuits

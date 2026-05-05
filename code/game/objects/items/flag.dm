@@ -53,6 +53,16 @@
 /obj/item/flag/proc/updateFlagIcon()
 	icon_state = initial(icon_state)
 
+/obj/item/flag/station_trait_act(trait_act)
+	if(trait_act == POST_WAR_ACT && prob(40))
+		new /obj/item/flag/syndi(loc)
+		qdel(src)
+		return
+
+	if(trait_act == REVOLUTIONARY_TRASHED_ACT)
+		new /obj/item/flag/ussp(loc)
+		qdel(src)
+
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
 	desc = "A flag proudly boasting the logo of NT."

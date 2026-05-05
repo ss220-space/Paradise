@@ -371,20 +371,5 @@
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)
-
-					if(istype(current_thing, /obj/item/shield/riot))
-						new /obj/item/shield/riot/tele(current_thing.loc)
-						qdel(current_thing)
-						continue
-
-					if(istype(current_thing, /obj/machinery/suit_storage_unit/security))
-						new /obj/machinery/suit_storage_unit/security/warden(current_thing.loc)
-						qdel(current_thing)
-						continue
-
-					if(istype(current_thing, /obj/item/gun/energy/gun))
-						new /obj/item/gun/energy/gun/pdw9(current_thing.loc)
-						qdel(current_thing)
-						continue
-
+					current_thing.station_trait_act(UPGRADED_ARMORY_ACT)
 				CHECK_TICK

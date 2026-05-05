@@ -613,3 +613,7 @@
 
 /turf/simulated/wall/flamer_fire_act(damage)
 	take_damage(damage)
+
+/turf/simulated/wall/station_trait_act(trait_act)
+	if(trait_act == POST_WAR_ACT && prob(15))
+		add_multiple_dents(rand(1, 10), WALL_DENT_SHOT)
