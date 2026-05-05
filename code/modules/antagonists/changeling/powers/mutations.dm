@@ -40,7 +40,7 @@
 	user.visible_message(
 		span_warning("[user] с ужасным хрустом превращает руку в [weapon_name_simple]!"),
 		span_notice("Мы трансформируем руку в [weapon_name_simple]."),
-		span_warning("Вы слышите ужасный хруст и хлёст органики!"),
+		span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
 	)
 
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(retract), override = TRUE)
@@ -75,7 +75,7 @@
 			user.visible_message(
 				span_warning("[user] с ужасным хрустом превращает [weapon_name_simple] в обычную руку!"),
 				span_notice("Мы трансформируем [weapon_name_simple] в руку."),
-				span_warning("Вы слышите ужасный хруст и хлёст органики!"),
+				span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
 			)
 
 //Parent to space suits and armor.
@@ -99,7 +99,7 @@
 		user.visible_message(
 			span_warning("[user] трансформирует [suit_name_simple] в кожу!"),
 			span_warning("Мы трансформируем [suit_name_simple][genetic_damage > 0 ? " и наш геном временно нестабилен!" : "."]"),
-			span_warning("Вы слышите ужасный хруст и хлёст органики!"),
+			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
 		)
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(user.wear_suit)
