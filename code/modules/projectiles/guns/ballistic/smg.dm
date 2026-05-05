@@ -132,6 +132,7 @@
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -152,9 +153,10 @@
 // MARK: SP-91-RC
 /obj/item/gun/projectile/automatic/smg/sp91rc
 	name = "SP-91-RC"
-	desc = "Компактный пистолет-пулемёт, предназначенный для \"нелетального\" подавления беспорядков."
+	desc = "Компактный пистолет-пулемёт, предназначенный для подавления беспорядков."
 	icon_state = "sp91"
 	item_state = "SP-91-RC"
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/sp91rc
 	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'

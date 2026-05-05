@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 23
+	damage = 25
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -150,7 +150,6 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
@@ -174,7 +173,6 @@
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
-	damage = 25
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -659,7 +657,6 @@
 /obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
