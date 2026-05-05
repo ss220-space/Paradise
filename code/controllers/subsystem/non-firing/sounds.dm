@@ -92,8 +92,8 @@ SUBSYSTEM_DEF(sounds)
 		return ..()
 
 	// Precache ambience sounds
-	for(var/key in GLOB.ambience_assoc)
-		sounds_to_precache |= GLOB.ambience_assoc[key]
+	for(var/key, value in GLOB.ambience_assoc)
+		sounds_to_precache |= value
 
 	precache_sounds()
 
@@ -212,8 +212,8 @@ SUBSYSTEM_DEF(sounds)
 	var/list/lengths = rustlib_sound_length_list(sounds_to_precache)
 	precache_errors = lengths[RUSTG_SOUNDLEN_ERRORS]
 	sound_lengths = lengths[RUSTG_SOUNDLEN_SUCCESSES]
-	for(var/sound_path in sound_lengths)
-		sound_lengths[sound_path] = sound_lengths[sound_path]
+	for(var/sound_path, value in sound_lengths)
+		sound_lengths[sound_path] = value
 
 	sounds_to_precache = null
 
@@ -227,8 +227,8 @@ SUBSYSTEM_DEF(sounds)
 
 	var/list/out = rustlib_sound_length_list(paths)
 	var/list/successes = out[RUSTG_SOUNDLEN_SUCCESSES]
-	for(var/sound_path in successes)
-		sound_lengths[sound_path] = successes[sound_path]
+	for(var/sound_path, value in successes)
+		sound_lengths[sound_path] = value
 
 /// Cache and return a single sound.
 /datum/controller/subsystem/sounds/proc/get_sound_length(file_path)

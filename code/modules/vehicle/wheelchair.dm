@@ -174,7 +174,7 @@
 		bell_sound()
 		return
 	detonation_delay = TRUE
-	for(var/i in 0 to 5)
+	for(var/i in 0 to 4)
 		addtimer(CALLBACK(src, PROC_REF(bell_sound)), (0.25 * i) SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(detonate_bomb)), 2 SECONDS)
 
