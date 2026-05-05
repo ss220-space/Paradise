@@ -74,9 +74,11 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator/examine(mob/user)
 	. = ..()
+    if(!Adjacent(user))
+        return
 	var/message = (open ? "Крышка открыта. " : "Крышка закрыта. ")
 	message += "Установленные языки: "
-	message += english_list(given_languages_rus, nothing_text = "Отсутствуют", and_text = "и", final_comma_text = ".")
+	message += russian_list(given_languages_rus, nothing_text = "Отсутствуют", and_text = "и", final_comma_text = ".")
 	. += span_notice(message)
 
 /obj/item/organ/internal/cyberimp/mouth/translator/can_insert(mob/living/user, mob/living/carbon/target)
