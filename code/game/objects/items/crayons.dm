@@ -15,7 +15,7 @@
 	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
 	var/colour = COLOR_RED
 	var/drawtype = "rune"
-	var/list/graffiti = list(
+	var/static/list/graffiti = list(
 		"body",
 		"amyjon",
 		"face",

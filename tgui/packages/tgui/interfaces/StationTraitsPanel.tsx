@@ -175,7 +175,6 @@ const ViewStationTraitsPage = (props) => {
 
             <Stack.Item>
               <Button.Confirm
-                content="Отмена"
                 color="red"
                 disabled={data.too_late_to_revert || !stationTrait.can_revert}
                 tooltip={
@@ -190,7 +189,9 @@ const ViewStationTraitsPage = (props) => {
                     uid: stationTrait.uid,
                   })
                 }
-              />
+              >
+                Отмена
+              </Button.Confirm>
             </Stack.Item>
           </Stack>
         </Stack.Item>

@@ -180,13 +180,12 @@
 		)
 
 	// recharge the APCs
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/A = thing
-		if(!is_station_level(A.z))
+	for(var/obj/machinery/power/apc/apc as anything in GLOB.apcs)
+		if(!is_station_level(apc.z))
 			continue
-		var/obj/item/stock_parts/cell/C = A.get_cell()
-		if(C)
-			C.give(C.maxcharge)
+		var/obj/item/stock_parts/cell/cell = apc.get_cell()
+		if(cell)
+			cell.give(cell.maxcharge)
 
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/smes in SSmachines.get_by_type(/obj/machinery/power/smes))
