@@ -36,28 +36,6 @@
 	caliber = CALIBER_DOT_36
 	max_ammo = 6
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvised
-	name = "improvised bullet cylinder"
-	desc = "A roughly made revolver cylinder."
-	icon = 'icons/obj/improvised.dmi'
-	icon_state = "rev_cylinder"
-	ammo_type = null
-	start_empty = TRUE
-	caliber = list(CALIBER_DOT_257)
-	max_ammo = 4
-
-/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
-	if(!new_casing || !(new_casing.caliber in caliber))
-		return FALSE
-	return TRUE
-
-/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
-	name = "steel bullet cylinder"
-	desc = "High quality steel revolver cylinder with increased amount of bullets."
-	icon_state = "s_rev_cylinder"
-	caliber = list(CALIBER_DOT_257, CALIBER_DOT_38)
-	max_ammo = 6
-
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/cap
@@ -68,6 +46,50 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	caliber = CALIBER_12G
 	max_ammo = 3
+
+// MARK: Improvised revolvers
+/obj/item/ammo_box/magazine/internal/cylinder/improvised
+	gun_name = "импровизированного револьвера"
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "rev_cylinder"
+	ammo_type = null
+	start_empty = TRUE
+	caliber = list(CALIBER_DOT_257)
+	max_ammo = 4
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/get_ru_names()
+	return list(
+		NOMINATIVE = "кустарный барабан [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "кустарного барабана [gun_name] [get_cartridge_marking()]",
+		DATIVE = "кустарному барабану [gun_name] [get_cartridge_marking()]",
+		ACCUSATIVE = "кустарный барабан [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "кустарным барабаном [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "кустарном барабане [gun_name] [get_cartridge_marking()]",
+	)
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
+	if(!new_casing || !(new_casing.caliber in caliber))
+		return FALSE
+	return TRUE
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/get_cartridge_marking()
+	return jointext(caliber, "/")
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
+	extra_info = "Совместим с патронами обоих калибров."
+	icon_state = "s_rev_cylinder"
+	caliber = list(CALIBER_DOT_257, CALIBER_DOT_38)
+	max_ammo = 6
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel/get_ru_names()
+	return list(
+		NOMINATIVE = "стальной барабан [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "стального барабана [gun_name] [get_cartridge_marking()]",
+		DATIVE = "стальному барабану [gun_name] [get_cartridge_marking()]",
+		ACCUSATIVE = "стальной барабан [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "стальным барабаном [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "стальном барабане [gun_name] [get_cartridge_marking()]",
+	)
 
 // MARK: Russian roulette .357
 /obj/item/ammo_box/magazine/internal/rus357

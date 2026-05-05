@@ -1,4 +1,5 @@
 /datum/job/head_of_staff
+	abstract_type = /datum/job/head_of_staff
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Капитаном"

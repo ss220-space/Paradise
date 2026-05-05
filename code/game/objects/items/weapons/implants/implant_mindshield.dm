@@ -128,6 +128,8 @@
 		var/mob/living/carbon/human/H = imp_in
 		H.sec_hud_set_implants()
 
+	return ..()
+
 /obj/item/implant/fake_mindshield/update_icon_state()
 	var/is_active = HAS_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD)
 	icon_state = "fake_mindshield[is_active ? 1 : 0]"

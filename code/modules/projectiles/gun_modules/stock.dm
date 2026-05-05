@@ -13,12 +13,10 @@
 	custom_price = 2 * PAYCHECK_LOWER
 	/// State flag
 	var/unfolded = FALSE
-	/// How many min spread decrease with unfold stock
-	var/min_spread_compensation = 5
-	/// How many max spread decrease with unfold stock
-	var/max_spread_compensation = 15
+	/// How many spread decrease with unfold stock
+	var/spread_compensation_mod = 0.5
 	/// How many recoil decrease with unfold stock
-	var/recoil_compensation = 0.2
+	var/recoil_compensation_mod = 0.5
 	/// Buffer variable for unfolded stock overlay
 	var/mutable_appearance/buffered_overlay_unfold
 	/// Default gun weight class buffer variable
@@ -52,9 +50,9 @@
 	unfolded = TRUE
 	gun_w_class = gun.w_class
 	gun.w_class = WEIGHT_CLASS_BULKY
-	gun.accuracy.min_spread -= min_spread_compensation
-	gun.accuracy.max_spread -= max_spread_compensation
-	gun.recoil.strength -= recoil_compensation
+	gun.accuracy.min_spread -= initial(gun.accuracy.min_spread) * spread_compensation_mod
+	gun.accuracy.max_spread -= initial(gun.accuracy.max_spread) * spread_compensation_mod
+	gun.recoil.strength -= initial(gun.recoil.strength) * recoil_compensation_mod
 	playsound(gun.loc, 'sound/weapons/gun_interactions/stock_unfold.ogg', 100, TRUE)
 
 /obj/item/gun_module/stock/proc/fold_stock(mob/user)
@@ -62,9 +60,9 @@
 		return
 	unfolded = FALSE
 	gun.w_class = gun_w_class
-	gun.accuracy.min_spread += min_spread_compensation
-	gun.accuracy.max_spread += max_spread_compensation
-	gun.recoil.strength += recoil_compensation
+	gun.accuracy.min_spread += initial(gun.accuracy.min_spread) * spread_compensation_mod
+	gun.accuracy.max_spread += initial(gun.accuracy.max_spread) * spread_compensation_mod
+	gun.recoil.strength += initial(gun.recoil.strength) * recoil_compensation_mod
 	playsound(gun.loc, 'sound/weapons/gun_interactions/stock_fold.ogg', 100, TRUE)
 
 /obj/item/gun_module/stock/create_overlay()

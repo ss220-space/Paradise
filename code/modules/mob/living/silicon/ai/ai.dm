@@ -188,6 +188,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(B?.clock)
 		ratvar_act()
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI))
+		make_special_laws()
 	else if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L

@@ -78,7 +78,7 @@
 		GLOB.major_announcement.announce(
 			message = "Зафиксированы множественные биоугрозы 6-го уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.",
 			new_title = ANNOUNCE_BIOHAZARD_RU,
-			new_sound = 'sound/AI/commandreport.ogg',
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 			new_sound2 = 'sound/effects/siren-spooky.ogg'
 		)
 		GLOB.morphs_announced = TRUE

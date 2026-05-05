@@ -1,0 +1,4 @@
+author: "Ksaikok46"
+delete-after: True
+changes:
+  - bugfix: "Исправлены спрайты замков у дверей химика и роботехника. (PR #9150)"

@@ -436,6 +436,8 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/react(atom/dump_location)
 	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
+	if(private_hypernoblium && private_hypernoblium >= REACTION_OPPRESSION_THRESHOLD && private_temperature > REACTION_OPPRESSION_MIN_TEMP)
+		return reacting
 	// ==================== Agent B Conversion ====================
 	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > AGENT_B_CONVERSION_MIN_TEMP)
 		if(private_toxins > MINIMUM_HEAT_CAPACITY && private_carbon_dioxide > MINIMUM_HEAT_CAPACITY)
@@ -910,7 +912,7 @@ What are the archived variables for?
 			continue
 
 		current_reaction.react(air_mixture = src, working_power = working_power, electrolyzer_args = electrolyzer_args)
-
+	set_dirty()
 
 /datum/gas_mixture/proc/archive()
 	private_oxygen_archived = private_oxygen

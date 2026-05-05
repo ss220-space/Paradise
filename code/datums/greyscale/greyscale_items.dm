@@ -111,3 +111,21 @@
 	icon_file = 'icons/obj/radio.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_syndie.json'
 
+/*
+	ARM IMPLANTS
+ */
+
+/datum/greyscale_config/armimp
+	name = "Arm Implant"
+	icon_file = 'icons/obj/surgery.dmi'
+	json_config = 'code/datums/greyscale/json_configs/armimp.json'
+
+/datum/greyscale_config/armimp_inhand_left
+	name = "Arm Implant, Left"
+	icon_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/armimp_inhand.json'
+
+/datum/greyscale_config/armimp_inhand_right
+	name = "Arm Implant, Right"
+	icon_file = 'icons/mob/inhands/implants_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/armimp_inhand.json'
