@@ -103,14 +103,14 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /obj/item/paper/sc_safehint_paper_prison
 	name = "smudged paper"
 
-/obj/item/paper/sc_safehint_paper_prison/New()
-	..()
+/obj/item/paper/sc_safehint_paper_prison/Initialize(mapload)
+	. = ..()
 	info = "<i>The ink is smudged, you can only make out a couple numbers:</i> '[GLOB.sc_safecode1]**[GLOB.sc_safecode4]*'"
 
 /obj/item/paper/sc_safehint_paper_hydro
 	name = "shredded paper"
-/obj/item/paper/sc_safehint_paper_hydro/New()
-	..()
+/obj/item/paper/sc_safehint_paper_hydro/Initialize(mapload)
+	. = ..()
 	info = "<i>Although the paper is shredded, you can clearly see the number:</i> '[GLOB.sc_safecode2]'"
 
 /obj/item/paper/sc_safehint_paper_caf
@@ -120,8 +120,8 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 
 /obj/item/paper/sc_safehint_paper_bible
 	name = "hidden paper"
-/obj/item/paper/sc_safehint_paper_bible/New()
-	..()
+/obj/item/paper/sc_safehint_paper_bible/Initialize(mapload)
+	. = ..()
 	info = {"<i>It would appear that the pen hidden with the paper had leaked ink over the paper.
 			However you can make out the last three digits:</i>'[GLOB.sc_safecode3][GLOB.sc_safecode4][GLOB.sc_safecode5]'
 			"}

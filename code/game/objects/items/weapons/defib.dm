@@ -400,7 +400,7 @@
 		PREPOSITIONAL = "электродах боевого дефибриллятора",
 	)
 
-/obj/item/twohanded/shockpaddles/New(mainunit)
+/obj/item/twohanded/shockpaddles/Initialize(mapload, mainunit)
 	. = ..()
 	add_defib_component(mainunit)
 

@@ -415,9 +415,9 @@
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+/obj/item/gun/projectile/automatic/shotgun/minotaur/Initialize(mapload)
+	. = ..()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
-	..()
 
 // MARK: C.A.T.S.
 /obj/item/gun/projectile/automatic/cats

@@ -59,29 +59,21 @@
 		PREPOSITIONAL = "ретрансляторе псионического голоса",
 	)
 
-/obj/item/organ/internal/cyberimp/mouth/translator/New()
-	if(!..())
-		return
-
+/obj/item/organ/internal/cyberimp/mouth/translator/Initialize(mapload)
+	. = ..()
 	if(!LAZYLEN(given_languages))
 		return
 
 	for(var/lang_name in given_languages)
 		LAZYADD(given_languages, GLOB.all_languages[lang_name])
 
-	return TRUE
-
-/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/New()
+/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/Initialize(mapload)
 	LAZYADD(given_languages, GLOB.all_languages[LANGUAGE_GALACTIC_COMMON]) // basic galcom for greys
 	LAZYADD(given_languages_rus, "Общегалактический")
-
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/mouth/translator/examine(mob/user)
 	. = ..()
-	if(!Adjacent(user)) // Too far!
-		return
-
 	var/message = (open ? "Крышка открыта. " : "Крышка закрыта. ")
 	message += "Установленные языки: "
 	message += english_list(given_languages_rus, nothing_text = "Отсутствуют", and_text = "и", final_comma_text = ".")
@@ -429,7 +421,7 @@
 		PREPOSITIONAL = "языковом чипе",
 	)
 
-/obj/item/translator_chip/New()
+/obj/item/translator_chip/Initialize(mapload)
 	. = ..()
 	if(stored_language)
 		stored_language = GLOB.all_languages[stored_language]

@@ -198,8 +198,8 @@
 	color = "#0CF"
 	var/id
 
-/obj/item/card/hotel_card/New(loc, ID)
-	..()
+/obj/item/card/hotel_card/Initialize(mapload, ID)
+	. = ..()
 	if(ID)
 		id = ID
 	if(id)

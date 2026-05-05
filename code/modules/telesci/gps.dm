@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
-/obj/item/gps/cyborg/New(gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
+/obj/item/gps/cyborg/Initialize(mapload, gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
 	. = ..()
 	src.gpstag = gpstag
 	src.upgraded = upgraded

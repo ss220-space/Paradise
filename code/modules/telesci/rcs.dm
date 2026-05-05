@@ -39,8 +39,8 @@
 /obj/item/rcs/get_cell()
 	return rcell
 
-/obj/item/rcs/New()
-	..()
+/obj/item/rcs/Initialize(mapload)
+	. = ..()
 	rcell = new(src)
 
 /obj/item/rcs/examine(mob/user)

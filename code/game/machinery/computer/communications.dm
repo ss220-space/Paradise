@@ -667,9 +667,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	SSshuttle.autoEvac()
 	return ..()
 
-/obj/item/circuitboard/communications/New()
+/obj/item/circuitboard/communications/Initialize(mapload)
+	. = ..()
 	GLOB.shuttle_caller_list += src
-	..()
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src

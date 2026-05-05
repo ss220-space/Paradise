@@ -716,10 +716,10 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	name = "udder"
 	var/feeded = FALSE
 
-/obj/item/udder/New()
+/obj/item/udder/Initialize(mapload)
+	. = ..()
 	create_reagents(80)
 	reagents.add_reagent("milk", 20)
-	. = ..()
 
 /obj/item/udder/proc/generateMilk()
 	var/probability = 5

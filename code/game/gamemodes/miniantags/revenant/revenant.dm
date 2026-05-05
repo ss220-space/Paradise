@@ -422,8 +422,8 @@
 		PREPOSITIONAL = "фантомной пыли",
 	)
 
-/obj/item/ectoplasm/revenant/New()
-	..()
+/obj/item/ectoplasm/revenant/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(reform)), reform_time)
 
 /obj/item/ectoplasm/revenant/Destroy()

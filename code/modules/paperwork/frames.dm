@@ -12,8 +12,8 @@
 		"poster22_legit", "poster23", "poster23_legit", "poster24", "poster24_legit",
 		"poster25", "poster27_legit", "poster28", "poster29")
 
-/obj/item/picture_frame/New(loc, obj/item/D)
-	..()
+/obj/item/picture_frame/Initialize(mapload, obj/item/D)
+	. = ..()
 	if(D)
 		insert(D)
 	update_icon()
@@ -176,8 +176,8 @@
 	icon_base = "wood"
 	icon_state = "wood-poster"
 
-/obj/item/picture_frame/wooden/New()
-	..()
+/obj/item/picture_frame/wooden/Initialize(mapload)
+	. = ..()
 	new /obj/item/stack/sheet/wood(src, 1)
 
 /obj/structure/sign/picture_frame

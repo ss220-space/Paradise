@@ -31,9 +31,9 @@
 	var/datum/reagent/reagent = reagents.reagent_list[1]
 	return reagent.name
 
-/obj/item/reagent_containers/New()
+/obj/item/reagent_containers/Initialize(mapload)
+	. = ..()
 	create_reagents(volume, temperature_min, temperature_max)
-	..()
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()

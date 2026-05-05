@@ -17,10 +17,10 @@
 	interaction_flags_mouse_drop = NEED_HANDS
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/New()
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/reagent_containers/food/drinks/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	bitesize = amount_per_transfer_from_this
 	if(bitesize < 5)
 		bitesize = 5

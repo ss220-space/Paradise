@@ -172,7 +172,8 @@
 	colourName = "purple"
 	dye_color = DYE_PURPLE
 
-/obj/item/toy/crayon/random/New()
+/obj/item/toy/crayon/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
@@ -205,7 +206,6 @@
 			colour = COLOR_PURPLE
 			colourName = "purple"
 			dye_color = DYE_PURPLE
-	..()
 
 /obj/item/toy/crayon/black
 	name = "black crayon"
