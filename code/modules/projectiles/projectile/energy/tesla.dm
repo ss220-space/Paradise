@@ -46,7 +46,8 @@
 
 /obj/projectile/energy/tesla_cannon/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	firer.Beam(target, icon_state = "tesla", time = 1, icon_state_variants = 24)
+	if(firer)
+		firer.Beam(target, icon_state = "tesla", time = 1, icon_state_variants = 24)
 
 	if(isliving(target))
 		var/mob/living/victim = target
@@ -58,7 +59,8 @@
 
 /obj/projectile/energy/tesla/ancient/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	firer.Beam(target, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
+	if(firer)
+		firer.Beam(target, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 100 SECONDS, maxdistance = 30)
 
 /obj/projectile/energy/tesla/ancient/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

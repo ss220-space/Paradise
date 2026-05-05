@@ -91,7 +91,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
 	item_state = null // null so we build the correct inhand.
-	SET_BASE_VISUAL_PIXEL(-8, 0)
+	pixel_w = -8
+	base_pixel_w = -8
 	ammo_type = list(/obj/item/ammo_casing/energy/tesla_cannon)
 	inhand_x_dimension = 64
 	shaded_charge = TRUE
@@ -109,9 +110,7 @@
 
 /obj/item/gun/energy/tesla_cannon/can_trigger_gun(mob/living/user, akimbo_usage)
 	if(ready_to_fire)
-		if(!user.can_use_guns(src))
-			return FALSE
-		return TRUE
+		return ..()
 	// If we have charge, but the stock is folded, do sparks.
 	if(can_shoot())
 		balloon_alert(user, "electricity arcing to stock!")
@@ -129,7 +128,7 @@
 		playsound(user, 'sound/weapons/gun/tesla/squeak_latch.ogg', 100)
 	else
 		playsound(user, 'sound/weapons/gun/tesla/click_creak.ogg', 100)
-		if(!do_after(user, 1.5 SECONDS))
+		if(!do_after(user, 1.5 SECONDS, src))
 			return
 		w_class = WEIGHT_CLASS_BULKY
 		ready_to_fire = TRUE
@@ -144,4 +143,5 @@
 		icon_state = "tesla_unfolded"
 		overlay_set = "tesla_unfolded"
 	else
+		icon_state = initial(icon_state)
 		overlay_set = initial(overlay_set)

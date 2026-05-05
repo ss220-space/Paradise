@@ -23,7 +23,6 @@
 	start_length = 200 MILLISECONDS
 	mid_sounds = list('sound/weapons/gun/tesla/tesla_loop.ogg' = 1)
 	mid_length = 3.8 SECONDS
-	volume = 100
 	end_sound = list('sound/weapons/gun/tesla/power_breaker_fan.ogg' = 1)
 	end_volume = 15
 	ignore_walls = FALSE
