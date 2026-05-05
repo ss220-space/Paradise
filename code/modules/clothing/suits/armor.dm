@@ -68,8 +68,15 @@
 	)
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/update_icon_state()
-	icon_state = "armor[attached_badge ? "sec" : ""]"
+/obj/item/clothing/suit/armor/vest/security/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/clothing/suit/armor/vest/security/update_overlays()
+	. = ..()
+	if(!attached_badge)
+		return
+	. += mutable_appearance(icon, "badge")
 	update_equipped_item(update_speedmods = FALSE)
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
@@ -91,7 +98,7 @@
 		attached_badge = I
 		var/datum/action/item_action/remove_badge/holoaction = new(src)
 		holoaction.Grant(user)
-		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -103,10 +110,10 @@
 		for(var/datum/action/item_action/remove_badge/action in actions)
 			LAZYREMOVE(actions, action)
 			action.Remove(user)
+		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		attached_badge = null
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		update_equipped_item()
-		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
 

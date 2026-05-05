@@ -33624,7 +33624,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
 "cOn" = (
-/obj/structure/table,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

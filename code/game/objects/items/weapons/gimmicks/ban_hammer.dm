@@ -45,6 +45,8 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 
 	for(var/client/admin_client in active_admins)
 		if(admin_client?.holder && (admin_client.holder.rights & R_ADMIN))
+			if(admin_client.holder.fakekey || admin_client.holder.big_brother)
+				continue
 			valid_online_candidates += admin_client
 
 	if(length(valid_online_candidates))
@@ -60,6 +62,8 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 		for(var/admin_ckey in admin_datums_cached)
 			var/datum/admins/admin_datum = admin_datums_cached[admin_ckey]
 			if(admin_datum && (admin_datum.rights & R_ADMIN))
+				if(admin_datum.fakekey || admin_datum.big_brother)
+					continue
 				valid_offline_ckeys += admin_ckey
 
 		if(length(valid_offline_ckeys))

@@ -2455,6 +2455,12 @@
 	item = /obj/item/stack/medical/bruise_pack/military
 	cost = 1
 
+/datum/uplink_item/badass/fast_pouch
+	name = "Подсумок на два магазина"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	item = /obj/item/storage/belt/security/webbing/pouch/fast
+	cost = 2
+
 /**
  * MARK: Bundles & TC
  */

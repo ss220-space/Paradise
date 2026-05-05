@@ -191,18 +191,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
-// Bullet type overlays
-#define BULLET_TYPE_PLAIN "plain_bullet"
-#define BULLET_TYPE_RUBBER "rubber"
-#define BULLET_TYPE_ARMOR_PIERCING "armor_piercing"
-#define BULLET_TYPE_EXPANSIVE "expansive"
-#define BULLET_TYPE_FIRE "fire"
-#define BULLET_TYPE_LASER "laser"
-#define BULLET_TYPE_DISABLER "disabler"
-
-/// Magazine reload duration
-#define GUN_MAGAZINE_RELOAD_DURATION (1 SECONDS)
-
 // Chrono beam stuff
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
