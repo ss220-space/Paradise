@@ -360,7 +360,7 @@
 	. = ..()
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(get_supply_group_name(pack.group) != "Безопасность") //fuck
+		if(pack.group != SUPPLY_SECURITY)
 			continue
 		pack.cost *= 1.5
 

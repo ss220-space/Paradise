@@ -100,22 +100,26 @@
 
 /datum/station_trait/birthday/on_round_start()
 	. = ..()
-	if(birthday_override_ckey)
-		if(!check_valid_override())
-			message_admins("Attempted to make [birthday_override_ckey] the birthday person but they are not a valid station role. A random birthday person has be selected instead.")
+	if(birthday_override_ckey && !check_valid_override())
+		message_admins("Attempted to make [birthday_override_ckey] the birthday person but they are not a valid station role. A random birthday person has be selected instead.")
 
-	if(!birthday_person)
-		var/list/birthday_options = list()
-		for(var/mob/living/carbon/human/human in GLOB.alive_player_list)
-			if(isnull(human.mind?.special_role)) //probably only station roundstart roles, i hope
-				birthday_options += human
-		if(length(birthday_options))
-			birthday_person = pick(birthday_options)
-			birthday_person_name = birthday_person.real_name
+	if(birthday_person)
+		addtimer(CALLBACK(src, PROC_REF(announce_birthday)), 120 SECONDS)
+		return
+
+	var/list/birthday_options = list()
+	for(var/mob/living/carbon/human/human in GLOB.alive_player_list)
+		if(isnull(human.mind?.special_role)) //probably only station roundstart roles, i hope
+			birthday_options += human
+
+	if(!length(birthday_options))
+		return
+
+	birthday_person = pick(birthday_options)
+	birthday_person_name = birthday_person.real_name
 	addtimer(CALLBACK(src, PROC_REF(announce_birthday)), 120 SECONDS)
 
 /datum/station_trait/birthday/proc/check_valid_override()
-
 	var/mob/living/carbon/human/birthday_override_mob = get_mob_by_ckey(birthday_override_ckey)
 
 	if(isnull(birthday_override_mob))
@@ -134,9 +138,11 @@
 		new_title = ANNOUNCE_PRIORITY_RU,
 		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
-	if(birthday_person)
-		playsound(birthday_person, 'sound/items/bikehorn.ogg', 50)
-		birthday_person = null
+	if(!birthday_person)
+		return
+
+	playsound(birthday_person, 'sound/items/bikehorn.ogg', 50)
+	birthday_person = null
 
 /datum/station_trait/birthday/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned_mob)
 	SIGNAL_HANDLER
@@ -167,11 +173,15 @@
 		spawned_mob.equip_to_slot_if_possible(toy, ITEM_SLOT_HAND_LEFT, disable_warning = TRUE) //Balloons do not fit inside of backpacks.
 	else
 		spawned_mob.equip_to_slot_if_possible(toy, ITEM_SLOT_BACK, disable_warning = TRUE)
-	if(birthday_person_name) //Anyone who joins after the annoucement gets one of these.
-		var/obj/item/birthday_invite/birthday_invite = new(spawned_mob)
-		birthday_invite.setup_card(birthday_person_name)
-		if(!spawned_mob.equip_to_slot_if_possible(birthday_invite, ITEM_SLOT_HANDS, disable_warning = TRUE))
-			spawned_mob.equip_to_slot_if_possible(birthday_invite, ITEM_SLOT_BACKPACK, disable_warning = TRUE)
+
+	if(!birthday_person_name)
+		return
+
+	//Anyone who joins after the annoucement gets one of these.
+	var/obj/item/birthday_invite/birthday_invite = new(spawned_mob)
+	birthday_invite.setup_card(birthday_person_name)
+	if(!spawned_mob.equip_to_slot_if_possible(birthday_invite, ITEM_SLOT_HANDS, disable_warning = TRUE))
+		spawned_mob.equip_to_slot_if_possible(birthday_invite, ITEM_SLOT_BACKPACK, disable_warning = TRUE)
 
 /obj/item/birthday_invite
 	name = "birthday invitation"

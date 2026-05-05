@@ -98,9 +98,9 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
-	var/chosen_job_name
 	// This station trait is checked when subsystems initialize, so it's too late
 	can_revert = FALSE
+	var/chosen_job_name
 
 /datum/station_trait/overflow_job_bureaucracy/New()
 	. = ..()

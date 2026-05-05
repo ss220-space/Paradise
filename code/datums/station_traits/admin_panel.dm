@@ -32,7 +32,7 @@ ADMIN_VERB(station_traits_panel, R_EVENT, "Modify Station Traits", ADMIN_VERB_NO
 		if(station_trait_path.abstract_type == station_trait_path)
 			continue
 		valid_station_traits += list(list(
-			"name" = initial(station_trait_path.name),
+			"name" = station_trait_path.name,
 			"path" = station_trait_path,
 		))
 
@@ -86,10 +86,10 @@ ADMIN_VERB(station_traits_panel, R_EVENT, "Modify Station Traits", ADMIN_VERB_NO
 					to_chat(usr, span_warning("Неподходящий тип: [station_trait_text]"))
 					return TRUE
 
-				station_trait_names += initial(station_trait_path.name)
+				station_trait_names += station_trait_path.name
 
 				new_future_traits += list(list(
-					"name" = initial(station_trait_path.name),
+					"name" = station_trait_path.name,
 					"path" = station_trait_path,
 				))
 

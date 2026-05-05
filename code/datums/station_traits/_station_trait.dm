@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(lobby_station_traits)
 	/// What code-trait does this station trait give? gives none if null
 	var/trait_to_give
 	/// What traits are incompatible with this one?
-	var/blacklist
+	var/list/blacklist
 	/// Extra flags for station traits such as it being abstract, planetary or space only
 	var/trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	/// Whether or not this trait can be reverted by an admin

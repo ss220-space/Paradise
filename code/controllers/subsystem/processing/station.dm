@@ -56,23 +56,23 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 	for(var/datum/station_trait/trait_typepath as anything in subtypesof(/datum/station_trait))
 		// If forced, (probably debugging), just set it up now, keep it out of the pool.
-		if(initial(trait_typepath.force))
+		if(trait_typepath.force)
 			setup_trait(trait_typepath)
 			continue
 
 		if(trait_typepath.abstract_type == trait_typepath)
 			continue //Dont add abstract ones to it
 
-		if(!(initial(trait_typepath.trait_flags) & STATION_TRAIT_PLANETARY) && SSmapping.is_planetary()) // we're on a planet but we can't do planet ;_;
+		if(!(trait_typepath.trait_flags & STATION_TRAIT_PLANETARY) && SSmapping.is_planetary()) // we're on a planet but we can't do planet ;_;
 			continue
 
-		if(!(initial(trait_typepath.trait_flags) & STATION_TRAIT_SPACE_BOUND) && !SSmapping.is_planetary()) //we're in space but we can't do space ;_;
+		if(!(trait_typepath.trait_flags & STATION_TRAIT_SPACE_BOUND) && !SSmapping.is_planetary()) //we're in space but we can't do space ;_;
 			continue
 
-		if(!(initial(trait_typepath.trait_flags) & STATION_TRAIT_REQUIRES_AI) && !CONFIG_GET(flag/allow_ai)) //can't have AI traits without AI
+		if(!(trait_typepath.trait_flags & STATION_TRAIT_REQUIRES_AI) && !CONFIG_GET(flag/allow_ai)) //can't have AI traits without AI
 			continue
 
-		selectable_traits_by_types[initial(trait_typepath.trait_type)][trait_typepath] = initial(trait_typepath.weight)
+		selectable_traits_by_types[trait_typepath.trait_type][trait_typepath] = trait_typepath.weight
 
 	var/positive_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/positive_station_traits)))
 	var/neutral_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/neutral_station_traits)))
