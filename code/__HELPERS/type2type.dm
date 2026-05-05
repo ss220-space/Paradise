@@ -578,6 +578,9 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH, NORTHEAST, EAST, SOUTHEAST, SO
 			return "Звуки взаимодействия с предметами"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Музыка боссов"
+		if(CHANNEL_ANNOUNCER)
+			return "Станционные оповещения"
+
 
 ///Get the dir to the RIGHT of dir if they were on a clock
 ///NORTH --> NORTHEAST

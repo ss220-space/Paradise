@@ -51,6 +51,7 @@
 
 /obj/item/implant/uplink/activate(cause)
 	hidden_uplink?.check_trigger(imp_in)
+	return ..()
 
 /obj/item/implanter/uplink
 	name = "bio-chip implanter (uplink)"

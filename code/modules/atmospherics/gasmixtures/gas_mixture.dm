@@ -912,7 +912,7 @@ What are the archived variables for?
 			continue
 
 		current_reaction.react(air_mixture = src, working_power = working_power, electrolyzer_args = electrolyzer_args)
-
+	set_dirty()
 
 /datum/gas_mixture/proc/archive()
 	private_oxygen_archived = private_oxygen

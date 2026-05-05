@@ -271,6 +271,9 @@
 	is_glass = 1
 	list_reagents = list("beer" = 30)
 
+/obj/item/reagent_containers/food/drinks/cans/beer/almost_empty
+	list_reagents = list("beer" = 1)
+
 /obj/item/reagent_containers/food/drinks/cans/beer/get_ru_names()
 	return list(
 		NOMINATIVE = "бутылка пива",

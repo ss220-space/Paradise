@@ -336,7 +336,7 @@
 		overloaded = TRUE
 		cell.use(125)
 		playsound(carbon.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, TRUE)
-		atom_say("Overloading failure.", use_tts = FALSE)
+		atom_say("Overloading success.", use_tts = FALSE)
 		set_light(3) // extra visual effect to make it more noticable to user and victims alike
 		holder = carbon
 		RegisterSignal(holder, COMSIG_MOB_SWAP_HANDS, PROC_REF(discharge))

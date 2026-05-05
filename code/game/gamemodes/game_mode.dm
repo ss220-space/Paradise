@@ -246,6 +246,7 @@
 
 	SScargo_quests.roll_start_quests()
 	generate_station_goals()
+	generate_traits_list()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 	return TRUE
@@ -732,10 +733,10 @@
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
-	
+
 	if(QDELETED(player))
 		return
-	
+
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -900,14 +901,14 @@
 	GLOB.major_announcement.announce(
 		message = "Обнаружена вторжение внепространственного бога по имени [god_name]. Помощь и инструкции по противодействию будут направлены в ближайшее время. Всему лояльному экипажу — не допустить распространения угрозы.",
 		new_title = ANNOUNCE_CCPARANORMAL_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 	sleep(50 SECONDS)
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	GLOB.major_announcement.announce(
 		message = "Помощь в пути. Всему лояльному экипажу следует закрепиться на текущих позициях и ожидать прибытия подкрепления.",
 		new_title = ANNOUNCE_CCPARANORMAL_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 	sleep(30 SECONDS)
 
@@ -917,7 +918,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Сенсоры более не фиксируют признаков угрозы. Санкционирована экстренная эвакуация.",
 			new_title = ANNOUNCE_CCPARANORMAL_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound()
 		)
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
@@ -964,6 +965,20 @@
 
 /datum/game_mode/proc/late_join(mob/new_player/player)
 	return FALSE
+
+/datum/game_mode/proc/generate_traits_list()
+	var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
+
+	var/list/trait_list_strings = list()
+	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
+		if(!station_trait.show_in_report)
+			continue
+		trait_list_strings += "[station_trait.get_report()]<br>"
+	if(trait_list_strings.len > 0)
+		message_text += "<hr><b>Выявленные особенности текущей смены:</b><br>" + trait_list_strings.Join()
+	else
+		message_text += "<hr><b>Аномальных особенностей текущей смены не обнаружено.</b><br>"
+	print_command_report(message_text, "Информация о состоянии станции", FALSE)
 
 #undef ROUNDSTART_LOGOUT_REPORT_TIME
 #undef STATION_GOAL_BUDGET
