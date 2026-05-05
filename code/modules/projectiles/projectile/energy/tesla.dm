@@ -57,11 +57,6 @@
 /obj/projectile/energy/tesla/ancient
 	damage = 5
 
-/obj/projectile/energy/tesla/ancient/on_hit(atom/target, blocked = 0, pierce_hit)
-	. = ..()
-	if(firer)
-		firer.Beam(target, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 100 SECONDS, maxdistance = 30)
-
 /obj/projectile/energy/tesla/ancient/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(isancientrobotleg(mover))
