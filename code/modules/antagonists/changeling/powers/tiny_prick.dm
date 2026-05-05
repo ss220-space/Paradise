@@ -180,8 +180,10 @@
 		var/mob/living/carbon/carbon = target
 		carbon.do_jitter_animation(500)
 
-	target.visible_message(span_danger("[target] начинает биться в конвульсиях!"), \
-							span_userdanger("Вы чувствуете укол и начинаете биться в конвульсиях!"))
+	target.visible_message(
+		span_danger("[target] начинает биться в конвульсиях!"),
+		span_userdanger("Вы чувствуете укол и начинаете биться в конвульсиях!"),
+	)
 
 	addtimer(CALLBACK(src, PROC_REF(victim_transformation), target, selected_dna), 10 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

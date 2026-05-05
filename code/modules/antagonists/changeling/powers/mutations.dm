@@ -37,9 +37,11 @@
 	user.put_in_hands(weapon)
 	cling.chem_recharge_slowdown += recharge_slowdown
 
-	user.visible_message(span_warning("[user] с ужасным хрустом превращает руку в [weapon_name_simple]!"),
-								span_notice("Мы трансформируем руку в [weapon_name_simple]."),
-								span_warning("Вы слышите ужасный хруст и хлёст ораники!"))
+	user.visible_message(
+		span_warning("[user] с ужасным хрустом превращает руку в [weapon_name_simple]!"),
+		span_notice("Мы трансформируем руку в [weapon_name_simple]."),
+		span_warning("Вы слышите ужасный хруст и хлёст органики!"),
+	)
 
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
@@ -70,9 +72,11 @@
 		cling.chem_recharge_slowdown -= recharge_slowdown
 		if(!silent)
 			playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			user.visible_message(span_warning("[user] с ужасным хрустом превращает [weapon_name_simple] в обычную руку!"),
-								span_notice("Мы трансформируем [weapon_name_simple] в руку."),
-								span_warning("Вы слышите ужасный хруст и хлёст ораники!"))
+			user.visible_message(
+				span_warning("[user] с ужасным хрустом превращает [weapon_name_simple] в обычную руку!"),
+				span_notice("Мы трансформируем [weapon_name_simple] в руку."),
+				span_warning("Вы слышите ужасный хруст и хлёст органики!"),
+			)
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
@@ -92,9 +96,11 @@
 		return FALSE
 
 	if(istype(user.wear_suit, suit_type) || istype(user.head, helmet_type))
-		user.visible_message(span_warning("[user] трансформирует [suit_name_simple] в кожу!"),
-							span_warning("Мы трансформируем [suit_name_simple][genetic_damage > 0 ? " и наш геном временно нестабилен!" : "."]"),
-							span_warning("Вы слышите ужасный хруст и хлёст ораники!"))
+		user.visible_message(
+			span_warning("[user] трансформирует [suit_name_simple] в кожу!"),
+			span_warning("Мы трансформируем [suit_name_simple][genetic_damage > 0 ? " и наш геном временно нестабилен!" : "."]"),
+			span_warning("Вы слышите ужасный хруст и хлёст органики!"),
+		)
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(user.wear_suit)
 		qdel(user.head)
@@ -358,9 +364,11 @@
 	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
-			loc.visible_message(span_warning("[loc.name] с ужасным хрустом превращает руку в мясное щупальце!"), \
-								span_notice("Мы трансформируем руку в мясное щупальце."), \
-								span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
+			loc.visible_message(
+				span_warning("[loc.name] с ужасным хрустом превращает руку в мясное щупальце!"),
+				span_notice("Мы трансформируем руку в мясное щупальце."),
+				span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
+			)
 			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 		else
 			to_chat(loc, span_notice("Мы готовы вытянуть щупальце."))
@@ -415,9 +423,11 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
-		loc.visible_message(span_warning("[loc.name] с ужасным хрустом превращает руку в костянной щит!"),
-							span_notice("Мы трансформируем руку в костянной щит."),
-							span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
+		loc.visible_message(
+			span_warning("[loc.name] с ужасным хрустом превращает руку в костянной щит!"),
+			span_notice("Мы трансформируем руку в костянной щит."),
+			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
+		)
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /***************************************\
@@ -458,9 +468,11 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
-		loc.visible_message(span_warning("Плоть [loc.name] быстро раздувается и образует органический скафандр!"),
-							span_notice("Мы раздуваем плоть, чтобы создать органический скафандр."),
-							span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
+		loc.visible_message(
+			span_warning("Плоть [loc.name] быстро раздувается и образует органический скафандр!"),
+			span_notice("Мы раздуваем плоть, чтобы создать органический скафандр."),
+			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
+		)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process()
@@ -531,9 +543,11 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
-		loc.visible_message(span_warning("Плоть [loc.name] быстро темнеет и образует хитиновое покрытие!"),
-							span_notice("Мы трансформируем плоть, чтобы создать хитиновую броню."),
-							span_warning("Вы слышите ужасный хруст и хлюпание органики!"))
+		loc.visible_message(
+			span_warning("Плоть [loc.name] быстро темнеет и образует хитиновое покрытие!"),
+			span_notice("Мы трансформируем плоть, чтобы создать хитиновую броню."),
+			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
+		)
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/clothing/head/helmet/changeling

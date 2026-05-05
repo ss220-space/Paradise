@@ -507,7 +507,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	if(get_dna(target.dna))
-		user.balloon_alert(user, "уже есть")
+		user.balloon_alert(user, "уже есть это ДНК")
 		return FALSE
 
 	return TRUE

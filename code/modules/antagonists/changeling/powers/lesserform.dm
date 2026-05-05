@@ -27,7 +27,10 @@
 		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 
-	user.visible_message(span_warning("[user] трансформируется в низшую форму!"), span_notice("Наш геном временно нестабилен."))
+	user.visible_message(
+		span_warning("[user] трансформируется в низшую форму!"),
+		span_notice("Наш геном временно нестабилен."),
+	)
 	remove_changeling_mutations(user)
 	user.force_gene_block(GLOB.monkeyblock, TRUE)
 

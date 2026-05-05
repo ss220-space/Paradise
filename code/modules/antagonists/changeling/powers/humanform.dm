@@ -19,7 +19,10 @@
 		return FALSE
 
 	// Notify players about transform.
-	user.visible_message(span_warning("[user] трансформируется в гуманоида!"), span_notice("Наш геном временно нестабилен."))
+	user.visible_message(
+		span_warning("[user] трансформируется в гуманоида!"),
+		span_notice("Наш геном временно нестабилен."),
+	)
 	user.force_gene_block(GLOB.monkeyblock, FALSE)
 
 	if(istype(user))

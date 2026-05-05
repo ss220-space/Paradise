@@ -42,11 +42,8 @@
 		return FALSE
 
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
-		switch(tgui_alert(user, "Мы уверены, что хотим инсценировать нашу смерть?", "Регенерирующий стазис", list("Да", "Нет")))
-			if("Да")
-				return TRUE
-			else
-				return FALSE
+		if(tgui_alert(user, "Мы уверены, что хотим инсценировать нашу смерть?", "Регенерирующий стазис", list("Да", "Нет")) != "Да")
+			return FALSE
 
 	return ..()
 
