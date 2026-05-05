@@ -179,7 +179,7 @@
 	report_message = "Станция была расположена в эпицентре ионизированной туманности. Ожидайте повышенную вероятность ионных штормов, влияющих на работу роботизированных систем."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 3
-	event_names = list("Ионный тайфун")
+	event_names = list(EVENT_ION_TYPHOON)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 5 //500 instead of 100
 	blacklist = list(/datum/station_trait/unique_ai)
@@ -189,17 +189,17 @@
 	report_message = "Звезда системы вошла в цикл повышенной активности. Ожидайте повышенную вероятность радиационных штормов."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Радиационный шторм")
+	event_names = list(EVENT_RADIATION_STORM)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 4 //100 instead of 25
 	disable_is_one_shot = TRUE
 
 /datum/station_trait/random_event_weight_modifier/meteor_showers
-	name = "Метеорный вал"
+	name = "Метеорный дождь"
 	report_message = "Орбита объекта пересекается с метеоритным потоком. Инженерам рекомендуется проверить системы защиты от метеоритов."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Метеорный дождь")
+	event_names = list(EVENT_METEOR_WAVE)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 5 //50 instead of 10. Probably much more, idk event containers SUCK
 
@@ -208,7 +208,7 @@
 	report_message = "Сканеры дальнего действия фиксируют истончение ткани реальности в вашем секторе. Ожидается повышенная аномальная активность."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Аномалия", "Червоточины")
+	event_names = list(EVENT_ANOMALY, EVENT_WORMHOLES)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 3 ///1500 instead of 500. Oh god
 
@@ -217,7 +217,7 @@
 	report_message = "Разведка докладывает о присутствии враждебных кораблей в секторе. Экипажу объекта соблюдать полную боевую готовность."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Космический ниндзя", "Ядерный оперативник", "Дрейфующий Контрактник")
+	event_names = list(EVENT_SPACE_NINJA, EVENT_LONE_OPERATIVE, EVENT_DRIFTING_CONTRACTOR)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 3
 	disable_is_one_shot = TRUE
@@ -227,7 +227,7 @@
 	report_message = "В вашем секторе был зафиксирован высокий риск столкновения с биологическими угрозами высшего уровня. Экипажу объекта соблюдать полную боевую готовность."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 1
-	event_names = list("Блоб", "Заражение ксеноморфами", "Пауки Ужаса", "Космический Дракон")
+	event_names = list(EVENT_BLOB, EVENT_XENOMORPH_INFESTATION, EVENT_TERROR_SPIDER, EVENT_SPACE_DRAGON)
 	event_severity = /datum/event_container/major
 	weight_multiplier = 3
 
@@ -236,7 +236,7 @@
 	report_message = "В секторе объекта был обнаружен замаскированный спутник РЭБ вражеской корпорации. В ближайшее время возможны массовые повреждения электроники. Наши сотрудники уже занимаются его обезвреживанием."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Перегрузка ЛКП", "Сбой работы дверей", "Цифровой вирус", "Электрический шторм", "Телекоммуникационный сбой")
+	event_names = list(EVENT_APC_OVERLOAD, EVENT_AIRLOCK_MALFUNCTION, EVENT_DIGITAL_VIRUS, EVENT_ELECTRICAL_STORM, EVENT_TELECOMMS_MALFUNCTION)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 5
 	disable_is_one_shot = TRUE
@@ -246,7 +246,7 @@
 	report_message = "Экипаж прошлой смены сообщил нам об обнаружении паучьих гнёзд в вентиляционной системе объекта. Рекомендуем проявлять бдительность."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Нашествие пауков")
+	event_names = list(EVENT_SPIDER_INFESTATION)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 10 //oh god
 	disable_is_one_shot = TRUE

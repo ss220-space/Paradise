@@ -344,7 +344,7 @@
 	report_message = "Корпорация \"Нанотрейзен\" заключила торговое соглашение с ТСФ. Сканеры дальнего действия засекли приближение торговых шаттлов."
 	weight = 5
 	trait_type = STATION_TRAIT_POSITIVE
-	event_names = list("Торговцы")
+	event_names = list(EVENT_TRADERS)
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 20 // you should be really unlucky
 

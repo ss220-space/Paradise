@@ -89,6 +89,7 @@
 #include "code\__DEFINES\economy.dm"
 #include "code\__DEFINES\emotes.dm"
 #include "code\__DEFINES\ert.dm"
+#include "code\__DEFINES\events.dm"
 #include "code\__DEFINES\experimentor.dm"
 #include "code\__DEFINES\explosions.dm"
 #include "code\__DEFINES\eyes.dm"

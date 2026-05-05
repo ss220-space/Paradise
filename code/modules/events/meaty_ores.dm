@@ -18,7 +18,7 @@
 
 /datum/event/dust/meaty/start()
 	while(qnty-- > 0)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/spawn_meteors, 1, GLOB.meteors_pigs)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), 1, GLOB.meteors_pigs)
 		if(prob(10))
 			sleep(randfloat(1 SECONDS, 1.5 SECONDS))
 
