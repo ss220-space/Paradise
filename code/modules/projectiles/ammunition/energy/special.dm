@@ -200,20 +200,19 @@
 	select_name = "gun mimic"
 	var/mimic_type
 
-/obj/item/ammo_casing/energy/mimic/New()
-	..()
+/obj/item/ammo_casing/energy/mimic/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
 
-// MARK: Shock revolver
-/obj/item/ammo_casing/energy/shock_revolver
-	fire_sound = 'sound/magic/lightningbolt.ogg'
+// MARK: Tesla Cannon
+/obj/item/ammo_casing/energy/tesla_cannon
+	fire_sound = null
 	e_cost = 200
-	select_name = "lightning beam"
-	muzzle_flash_color = LIGHT_COLOR_LAVENDER
-	projectile_type = /obj/projectile/energy/shock_revolver
+	select_name = "shock"
+	projectile_type = /obj/projectile/energy/tesla_cannon
 
 // MARK: HONK rifle
 /obj/item/ammo_casing/energy/clown

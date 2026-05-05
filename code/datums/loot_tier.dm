@@ -106,7 +106,7 @@
 		/obj/item/gun/energy/gun/hos,
 		/obj/item/gun/energy/mindflayer,
 		/obj/item/gun/energy/gun,
-		/obj/item/gun/energy/shock_revolver,
+		/obj/item/gun/energy/tesla_cannon,
 		/obj/item/gun/energy/laser/scatter,
 		/obj/item/gun/energy/laser,
 		/obj/item/gun/energy/emittercannon,
