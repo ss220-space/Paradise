@@ -214,6 +214,7 @@ GLOBAL_LIST_INIT(syndicat_bantype_meta, list(
 	"[BANTYPE_ADMIN_PERMA]" = list("str" = "ADMIN_PERMABAN", "perma" = TRUE, "jobban" = FALSE, "announce" = TRUE, "kick" = TRUE),
 	"[BANTYPE_ADMIN_TEMP]" = list("str" = "ADMIN_TEMPBAN", "perma" = FALSE, "jobban" = FALSE, "announce" = TRUE, "kick" = TRUE),
 ))
+GLOBAL_PROTECT(syndicat_bantype_meta)
 
 /**
  * Inserts a ban row into the SQL ban table on behalf of the synthetic admin `SyndiCat`.

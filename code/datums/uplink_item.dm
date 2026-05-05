@@ -1831,6 +1831,7 @@
 			бронежилет, штурмовой пояс, балаклава и очки ночного видения."
 	item = /obj/item/storage/box/syndie_kit/blackops_kit
 	cost = 8
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Сумка с хирургическими инструментами"
@@ -2453,6 +2454,12 @@
 	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
 	item = /obj/item/stack/medical/bruise_pack/military
 	cost = 1
+
+/datum/uplink_item/badass/fast_pouch
+	name = "Подсумок на два магазина"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	item = /obj/item/storage/belt/security/webbing/pouch/fast
+	cost = 2
 
 /**
  * MARK: Bundles & TC

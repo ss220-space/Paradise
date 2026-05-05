@@ -38,7 +38,7 @@
 // MARK: Rubbershot
 /obj/item/ammo_casing/shotgun/rubbershot
 	ammo_marking = "12g \"Резиновая картечь\""
-	extra_info = "Резиновая картечь. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
+	extra_info = "Наполнен резиновыми гранулами. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
 	icon_state = "rubbershotshell"
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/pellet/rubber
@@ -48,7 +48,7 @@
 // MARK: Chemical dart
 /obj/item/ammo_casing/shotgun/dart
 	ammo_marking = "12g \"Дротик\""
-	extra_info = "Дротик для использования в гладкоствольных ружьях. Может содержать до 30 единиц вещества."
+	extra_info = "Пуля представляет собой аналог дротика с ёмкостью для химикатов. Вмещает вплоть до 30 единиц вещества."
 	icon_state = "rubbershotshell"
 	container_type = OPENCONTAINER
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
@@ -64,7 +64,7 @@
 // MARK: Beanbag
 /obj/item/ammo_casing/shotgun/beanbag
 	ammo_marking = "12g \"Погремушка\""
-	extra_info = "Резиновая пуля. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
+	extra_info = "Цельная пуля из резины. Обладает высоким останавливающим действием, не нанося смертельных ранений при попадании."
 	icon_state = "beanbagshell"
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/weakbullet
@@ -111,7 +111,7 @@
 // MARK: Incendiary slug
 /obj/item/ammo_casing/shotgun/incendiary
 	ammo_marking = "12g \"Зажигательный\""
-	extra_info = "Зажигательная пуля с покрытием."
+	extra_info = "Пуля воспламенится при попадании в цель."
 	icon_state = "incendiaryshell"
 	projectile_type = /obj/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
@@ -203,7 +203,7 @@
 // MARK: Improvised buckshot
 /obj/item/ammo_casing/shotgun/improvised
 	ammo_marking = "12g \"Самодельный\""
-	extra_info = "Самодельный боеприпас, начинённый множеством металлических гранул и малым количеством пороха."
+	extra_info = "Импровизированный боеприпас, начинённый множеством металлических гранул и малым количеством пороха."
 	icon_state = "improvisedshell"
 	materials = list(MAT_METAL = 250)
 	projectile_type = /obj/projectile/bullet/pellet/weak
@@ -214,7 +214,7 @@
 
 /obj/item/ammo_casing/shotgun/improvised/overload
 	ammo_marking = "12g \"Самодельный+\""
-	extra_info = "Самодельный боеприпас, начинённый крупными металлическими гранулами и избыточным количеством пороха. Чрезвычайно нестабильный."
+	extra_info = "Импровизированный боеприпас, начинённый крупными металлическими гранулами и избыточным количеством пороха. Чрезвычайно нестабильный."
 	projectile_type = /obj/projectile/bullet/pellet/overload
 	pellets = 4
 	variance = 40

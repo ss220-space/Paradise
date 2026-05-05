@@ -150,6 +150,7 @@
 /obj/structure/sign/poster/official/space_cops{
 	pixel_x = -32
 	},
+/obj/machinery/recharge_station/ert,
 /turf/simulated/floor/indestructible{
 	dir = 9;
 	icon_state = "darkgreynavyblue"
@@ -389,15 +390,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
-"agn" = (
-/obj/item/radio/intercom/specops/directional/north,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "agB" = (
 /obj/machinery/computer/shuttle/ert,
 /obj/machinery/computer/security/telescreen{
@@ -1673,10 +1665,14 @@
 	},
 /area/vox_station)
 "aLg" = (
-/obj/structure/extinguisher_cabinet/directional/north,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access = list(109)
 	},
+/obj/structure/fans/tiny,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
 "aLk" = (
 /obj/structure/bed/roller,
@@ -31467,7 +31463,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "oKa" = (
-/obj/machinery/recharge_station/ert,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navybluealt"
@@ -108419,7 +108415,7 @@ dTg
 usR
 usR
 tKr
-sZA
+aLg
 sZA
 tKr
 usR
@@ -108674,9 +108670,9 @@ nAN
 nAN
 usR
 usR
-agn
 taZ
-aLg
+taZ
+woV
 evp
 fDh
 vpr
@@ -109188,7 +109184,7 @@ jMD
 nAN
 usR
 usR
-taZ
+dbW
 taZ
 taZ
 taZ

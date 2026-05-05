@@ -467,21 +467,20 @@
 
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
+		return
 
 	if(target.buckled)
 		return
 
 	if(target.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
+		return
 
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
-		return TRUE
+		return
 
 	put_in(target, user)
-	return TRUE
 
 /obj/machinery/bci_implanter/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

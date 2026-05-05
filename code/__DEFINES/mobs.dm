@@ -430,6 +430,8 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define SHOCK_DELAY_STUN (1<<6)
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
+/// No skeleton animation if a human was shocked
+#define SHOCK_NO_HUMAN_ANIM (1<<8)
 
 // tesla_zap
 #define ZAP_MACHINE_EXPLOSIVE (1<<0)

@@ -1,15 +1,15 @@
 // Objects in /obj/effect should never be things that are attackable, use obj/structure instead.
 // Effects are mostly temporary visual effects like sparks, smoke, as well as decals, etc...
 /obj/effect
-	icon = 'icons/effects/effects.dmi'
 	abstract_type = /obj/effect
+	icon = 'icons/effects/effects.dmi'
 	obj_flags = IGNORE_HITS
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|FREEZE_PROOF
 	move_resist = INFINITY
 	anchored = TRUE
 
-/obj/effect/add_debris_element() // They're not hittable, and prevents recursions.
-	return
+/obj/effect/add_debris_element()
+	return // They're not hittable, and prevents recursions.
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return

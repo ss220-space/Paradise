@@ -4,7 +4,6 @@
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
 	sibyl_tier = SIBYL_TIER_LETHAL
-	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/laser/light
 	projectile_type = /obj/projectile/beam/laser/light
@@ -76,7 +75,7 @@
 	fire_sound = 'sound/weapons/gunshots/accelerator_cannon.ogg'
 	e_cost = 150
 	delay = 20
-	
+
 /obj/item/ammo_casing/energy/laser/old
 	e_cost = 200
 
@@ -92,7 +91,6 @@
 	projectile_type = /obj/projectile/beam/immolator
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	e_cost = 125
-	bullet_type = BULLET_TYPE_FIRE
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/projectile/beam/immolator/strong
