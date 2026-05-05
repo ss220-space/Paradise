@@ -304,7 +304,7 @@
 
 	var/mob/living/carbon/human/h_victim = victim
 	if(ishuman(h_victim) && h_victim.wearing_shock_proof_gloves())
-		return FALSE	//to avoid spamming with insulated glvoes on
+		return FALSE //to avoid spamming with insulated glvoes on
 
 	var/area/source_area
 	if(isarea(power_source))

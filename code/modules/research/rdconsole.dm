@@ -836,15 +836,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			var/item_name = D.build_object_name
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
 			var/obj/item/created_object = D.build_path
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = item_name
-			design_list["desc"] = created_object.desc
+			design_list["name"] = D.build_object_name
+			design_list["desc"] = D.build_object_desc
 			design_list["icon"] = created_object.icon
 			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50

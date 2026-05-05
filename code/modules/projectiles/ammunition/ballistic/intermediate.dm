@@ -6,7 +6,6 @@
 	projectile_type = /obj/projectile/bullet/heavybullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	bullet_type = BULLET_TYPE_PLAIN
 
 // MARK: 5.45x39mm
 /obj/item/ammo_casing/a545
@@ -15,7 +14,6 @@
 	projectile_type = /obj/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/a545/fusty
 	extra_info = "Весь покрыт ржавчиной."
@@ -30,14 +28,12 @@
 	caliber = CALIBER_4_DOT_6X30MM
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/c46x30mm/ap
 	ammo_marking = "4,6x30 мм ББ"
 	extra_info = "Бронебойная пуля обладает повышенной проникающей способностью в ущерб останавливающего действия."
 	materials = list(MAT_METAL = 700, MAT_SILVER = 50)
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix/ap
-	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/c46x30mm/tox
 	ammo_marking = "4,6x30 мм \"Токсин\""
@@ -51,4 +47,3 @@
 	materials = list(MAT_METAL = 700, MAT_SILVER = 50, MAT_PLASMA = 50)
 	projectile_type = /obj/projectile/bullet/incendiary/foursix
 	muzzle_flash_color = LIGHT_COLOR_FIRE
-	bullet_type = BULLET_TYPE_FIRE

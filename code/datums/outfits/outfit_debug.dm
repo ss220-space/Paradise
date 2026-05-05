@@ -2,9 +2,7 @@
 	name = "Debug outfit"
 
 	uniform = /obj/item/clothing/under/patriotsuit
-	suit = /obj/item/clothing/suit/space/deathsquad/officer
-	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
-	back = /obj/item/storage/backpack/ert/security
+	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
