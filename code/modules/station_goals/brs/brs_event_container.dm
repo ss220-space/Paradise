@@ -75,24 +75,38 @@
 
 /datum/brs_event_container/normal
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Аномалия",		/datum/event/anomaly,		300),
+		new /datum/event_meta(
+			EVENT_LEVEL_NONE, EVENT_ANOMALY, /datum/event/anomaly, 300),
 
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых",			/datum/event/bluespace_rift_event/teleport_living,							500),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Поменять местами живых",		/datum/event/bluespace_rift_event/teleport_living/shuffle,					500),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых далеко",	/datum/event/bluespace_rift_event/teleport_living/within_z,					500),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_TELEPORT_LIVINGS, /datum/event/bluespace_rift_event/teleport_living, 500),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_SWAP_LIVINGS, /datum/event/bluespace_rift_event/teleport_living/shuffle, 500),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_TELEPORT_LIVINGS_FAR, /datum/event/bluespace_rift_event/teleport_living/within_z, 500),
 
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Взрывы",						/datum/event/bluespace_rift_event/explosions,								200),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "ЭМИ",						/datum/event/bluespace_rift_event/explosions/em_pulses,						300),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Вспышки",					/datum/event/bluespace_rift_event/explosions/flashes,						400),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Дым",						/datum/event/bluespace_rift_event/explosions/smoke,							400),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Искры",						/datum/event/bluespace_rift_event/explosions/sparks,						500),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_EXPLOSIONS, /datum/event/bluespace_rift_event/explosions, 200),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_EMP, /datum/event/bluespace_rift_event/explosions/em_pulses, 300),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_FLASHES, /datum/event/bluespace_rift_event/explosions/flashes, 400),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_SMOKE, /datum/event/bluespace_rift_event/explosions/smoke, 400),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_SPARKS, /datum/event/bluespace_rift_event/explosions/sparks, 500),
 
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Химические взрывы",			/datum/event/bluespace_rift_event/explosions/random_chem_effect,			100),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Опасные химические взрывы",	/datum/event/bluespace_rift_event/explosions/random_chem_effect/dangerous,	100),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Клоунские химические взрывы",/datum/event/bluespace_rift_event/explosions/random_chem_effect/funny,		100),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Испачкать пол",				/datum/event/bluespace_rift_event/explosions/random_chem_effect/dirt,		100),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_CHEM_EXPLOSIONS, /datum/event/bluespace_rift_event/explosions/random_chem_effect, 100),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_DANGEROUS_CHEM_EXPLOSIONS, /datum/event/bluespace_rift_event/explosions/random_chem_effect/dangerous, 100),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_CLOWN_CHEM_EXPLOSIONS, /datum/event/bluespace_rift_event/explosions/random_chem_effect/funny, 100),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_STAIN_FLOOR, /datum/event/bluespace_rift_event/explosions/random_chem_effect/dirt, 100),
 
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Снег",						/datum/event/bluespace_rift_event/snow,										200),
+		new /datum/event_meta/bluespace_rift_event_meta(
+			EVENT_LEVEL_NONE, EVENT_BRS_SNOW, /datum/event/bluespace_rift_event/snow, 200),
 	)
 
 /**

@@ -444,6 +444,32 @@
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
 
+/// Traits given by station traits
+#define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
+#define STATION_TRAIT_LATE_ARRIVALS "station_trait_late_arrivals"
+#define STATION_TRAIT_RANDOM_ARRIVALS "station_trait_random_arrivals"
+#define STATION_TRAIT_HANGOVER "station_trait_hangover"
+#define STATION_TRAIT_EMPTY_MAINT "station_trait_empty_maint"
+#define STATION_TRAIT_BOTS_GLITCHED "station_trait_bot_glitch"
+#define STATION_TRAIT_REVOLUTIONARY_TRASHING "station_trait_revolutionary_trashing"
+#define STATION_TRAIT_POST_WAR_TRASH "station_trait_post_war_trash"
+#define STATION_TRAIT_CRAMPED_INTERNALS "station_trait_cramped_internals"
+#define STATION_TRAIT_LOOTED_ARMORY "station_trait_looted_armory"
+#define STATION_TRAIT_SPIKED_DRINKS "station_trait_spiked_drinks"
+#define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
+#define STATION_TRAIT_MIMANIUM_SHIPMENTS "station_trait_mimanium_shipments"
+#define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
+#define STATION_TRAIT_PDA_GLITCHED "station_trait_pda_glitched"
+#define STATION_TRAIT_CLASSIC_ASSISTANTS "station_trait_classic_assistants"
+#define STATION_TRAIT_BIRTHDAY "station_trait_birthday"
+#define STATION_TRAIT_PREMIUM_INTERNALS "station_trait_premium_internals"
+#define STATION_TRAIT_FILLED_MAINT "station_trait_filled_maint"
+#define STATION_TRAIT_CYBERNETIC_REVOLUTION "station_trait_cybernetic_revolution"
+#define STATION_TRAIT_MEDBOT_MANIA "station_trait_medbot_mania"
+#define STATION_TRAIT_UPGRADED_ARMORY "station_trait_upgraded_armory"
+#define STATION_TRAIT_GREEN_ENERGY "station_trait_green_energy"
+#define STATION_TRAIT_OUTDATED_HARDSUITS "station_trait_outdated_hardsuits"
+
 // Radiation defines
 /// Marks that this object is irradiated
 #define TRAIT_IRRADIATED "irradiated"
@@ -480,6 +506,7 @@
 
 /// Trait used to ensure that things don't get animated as falling in multiple times
 #define TRAIT_FALLING_INTO_BINGLE_HOLE "falling_into_bingle_pit"
+
 /// Immune to being afflicted by time stop (spell)
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 
