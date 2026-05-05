@@ -988,8 +988,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/fastpouch
 	name = "Подсумки для магазинов"
 	contains = list(
-		/obj/item/storage/pouch/fast,
-		/obj/item/storage/pouch/fast,
+		/obj/item/storage/belt/security/webbing/pouch/fast,
+		/obj/item/storage/belt/security/webbing/pouch/fast,
 	)
 	cost = 100
 	containername = "ящик подсумков для магазинов"
