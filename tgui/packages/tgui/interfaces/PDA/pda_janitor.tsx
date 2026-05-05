@@ -49,7 +49,7 @@ export const pda_janitor = (props: unknown) => {
         </LabeledList.Item>
       )}
       {buckets && (
-        <LabeledList.Item label="Локации ведер">
+        <LabeledList.Item label="Локации вёдер">
           {buckets.map((b) => (
             <Box key={b}>
               {b.x},{b.y} ({b.dir}) - [{b.volume}/{b.max_volume}]
