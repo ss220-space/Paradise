@@ -57,7 +57,7 @@
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
-/obj/effect/payload_spawner/New(turf/newloc,type, numspawned as num, power)
+/obj/effect/payload_spawner/Initialize(mapload, type, numspawned, power)
 	. = ..()
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)

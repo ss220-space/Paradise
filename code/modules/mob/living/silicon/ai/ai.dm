@@ -412,16 +412,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
+/obj/machinery/ai_powersupply/Initialize(mapload, mob/living/silicon/ai/ai)
+	. = ..()
 	powered_ai = ai
 	if(isnull(powered_ai))
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 
-	loc = powered_ai.loc
+	forceMove(powered_ai.loc)
 	use_power(1) // Just incase we need to wake up the power system.
-
-	..()
 
 /obj/machinery/ai_powersupply/process()
 	if(!powered_ai || powered_ai.stat & DEAD)

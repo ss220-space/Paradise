@@ -207,8 +207,9 @@
 /obj/effect/hotspot/fake
 	var/burn_time = 3 SECONDS
 
-/obj/effect/hotspot/fake/New()
-	..()
+/obj/effect/hotspot/fake/Initialize(mapload)
+	. = ..()
+	
 	if(burn_time)
 		QDEL_IN(src, burn_time)
 

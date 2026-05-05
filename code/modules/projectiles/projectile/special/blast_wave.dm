@@ -8,11 +8,11 @@
 	var/mediumr = 0
 	var/lightr = 0
 
-/obj/projectile/blastwave/New(loc, _h, _m, _l)
-	..()
+/obj/projectile/blastwave/Initialize(mapload, _h, _m, _l)
 	heavyr = _h
 	mediumr = _m
 	lightr = _l
+	return ..()
 
 /obj/projectile/blastwave/Range()
 	..()
@@ -38,4 +38,4 @@
 	lightr = max(lightr - 1, 0)
 
 /obj/projectile/blastwave/ex_act()
-	return
+	return 

@@ -142,8 +142,9 @@
 	var/datum/money_account/account			// Account we're pulling from
 	var/roomtimer							// timer PS handle for updating room
 
-/obj/machinery/door/unpowered/hotel_door/New()
-	..()
+/obj/machinery/door/unpowered/hotel_door/Initialize(mapload)
+	. = ..()
+	
 	if(id)
 		name = "Room [id]"
 
@@ -266,7 +267,7 @@
 	vacant_rooms -= D
 	guests[occupant] = roomid
 
-	var/obj/item/card/hotel_card/C = new(ID = roomid)
+	var/obj/item/card/hotel_card/C = new(null, roomid)
 	D.card = C
 	return C
 

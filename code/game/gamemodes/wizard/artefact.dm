@@ -32,14 +32,12 @@
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
-	..()
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc)
+	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
 	src.desc = desc
-
 	START_PROCESSING(SSobj, src)
-	//return
 
 /obj/effect/rend/Destroy()
 	STOP_PROCESSING(SSobj, src)
