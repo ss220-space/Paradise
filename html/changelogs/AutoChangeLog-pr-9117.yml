@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Больше нельзя вызывать нескольких Голопаразитов. (PR #9117)"

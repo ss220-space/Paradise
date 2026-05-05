@@ -75,12 +75,76 @@
 /obj/item/gun/energy/disabler/cyborg/emp_act(severity)
 	return
 
-// MARK: Shock revolver
-/obj/item/gun/energy/shock_revolver
-	name = "tesla revolver"
-	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
-	icon_state = "stunrevolver"
-	origin_tech = "combat=4;materials=4;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
+/**
+ * MARK: Tesla Cannon
+ *
+ * An advanced weapon that provides extremely high dps output at pinpoint accuracy due to its hitscan nature.
+ * Due to its normal w_class when folded it is suitable as a heavy reinforcement weapon, since the cell drains very quickly when firing.
+ * The power level is somewhat tempered by several drawbacks such as research requirements, anomalock, two handed firing requirement, and insultation providing damage reduction.
+ * It is often confused with the mech weapon of the same name, since it is a bit more obscure despite being very powerful. Formerly called the tesla revolver.
+ */
+/obj/item/gun/energy/tesla_cannon
+	name = "tesla cannon"
+	desc = "A high voltage flux projector prototype created using the latest advancements in the anomaly science.\n\nThe anomalous nature of the flux core allows the tesla arc to be guided from the electrode to the target without being diverted to stray conductors outside the target field."
+	icon = 'icons/obj/weapons/guns/wide_guns.dmi'
+	icon_state = "tesla"
+	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
+	item_state = null // null so we build the correct inhand.
+	pixel_w = -8
+	base_pixel_w = -8
+	ammo_type = list(/obj/item/ammo_casing/energy/tesla_cannon)
+	inhand_x_dimension = 64
 	shaded_charge = TRUE
+	charge_sections = 2
+	//display_empty =  FALSE
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
 	accuracy = GUN_ACCURACY_MINIMAL
+	cell_type = /obj/item/stock_parts/cell/laser/tesla_cannon
+	can_add_sibyl_system = FALSE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+	var/ready_to_fire = FALSE
+
+/obj/item/gun/energy/tesla_cannon/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, autofire_shot_delay =  100 MILLISECONDS, firing_sound_loop = /datum/looping_sound/tesla_cannon)
+
+/obj/item/gun/energy/tesla_cannon/can_trigger_gun(mob/living/user, akimbo_usage)
+	if(ready_to_fire)
+		return ..()
+	// If we have charge, but the stock is folded, do sparks.
+	. = FALSE
+	if(!can_shoot())
+		return
+	balloon_alert(user, "электричество бьёт в приклад!")
+	if(prob(75)) // fake sparks to cut on spark spam
+		playsound(user, 'sound/effects/sparks1.ogg', 50, TRUE)
+		return
+	do_sparks(3, FALSE, user)
+
+/obj/item/gun/energy/tesla_cannon/attack_self(mob/living/user)
+	. = ..()
+	if(ready_to_fire)
+		w_class = WEIGHT_CLASS_NORMAL
+		ready_to_fire = FALSE
+		playsound(user, 'sound/weapons/gun/tesla/squeak_latch.ogg', 100)
+	else
+		playsound(user, 'sound/weapons/gun/tesla/click_creak.ogg', 100)
+		if(!do_after(user, 1.5 SECONDS, src))
+			return
+		w_class = WEIGHT_CLASS_BULKY
+		ready_to_fire = TRUE
+		playsound(user, 'sound/weapons/gun/tesla/squeak_latch.ogg', 100)
+
+	update_appearance()
+	balloon_alert_to_viewers("[ready_to_fire ? "разложен" : "сложен"] приклад")
+
+/obj/item/gun/energy/tesla_cannon/update_icon_state()
+	. = ..()
+	if(ready_to_fire)
+		icon_state = "tesla_unfolded"
+		overlay_set = "tesla_unfolded"
+	else
+		icon_state = initial(icon_state)
+		overlay_set = initial(overlay_set)
