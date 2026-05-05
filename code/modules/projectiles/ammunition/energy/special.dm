@@ -123,7 +123,6 @@
 	sibyl_tier = SIBYL_TIER_LETHAL
 	e_cost = 900
 	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
-	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/specter/disable
 	caliber = CALIBER_SPECTER
@@ -134,7 +133,6 @@
 	e_cost = 450
 	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
 	harmful = FALSE
-	bullet_type = BULLET_TYPE_DISABLER
 
 // MARK: Emmiter gun
 /obj/item/ammo_casing/energy/emittergun
