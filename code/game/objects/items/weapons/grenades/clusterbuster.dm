@@ -44,7 +44,7 @@
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = 1
-	GLOB.move_manager.move_away(src, loc, rand(1,4), timeout = 20)
+	GLOB.move_manager.move_away(src, loc, rand(1,4), timeout = 2 SECONDS)
 	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
@@ -63,7 +63,7 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(isgrenade(P))
 			P.active = 1
-		GLOB.move_manager.move_away(P, loc, rand(1,4), timeout = 20)
+		GLOB.move_manager.move_away(P, loc, rand(1,4), timeout = 2 SECONDS)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))

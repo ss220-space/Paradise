@@ -45,25 +45,3 @@
 
 /datum/effect_system/spark_spread
 	effect_type = /obj/effect/particle_effect/sparks
-
-//////////////////////////////////
-//////SPARKLE FIREWORKS
-/////////////////////////////////
-////////////////////////////
-/obj/effect/particle_effect/sparks/sparkles
-	name = "sparkle"
-	icon = 'icons/obj/fireworks.dmi'//findback
-	icon_state = "sparkel"
-	hotspottemp = 3000
-
-/obj/effect/particle_effect/sparks/sparkles/Initialize(mapload)
-	var/icon/I = new(icon, icon_state)
-	var/r = rand(0, 255)
-	var/g = rand(0, 255)
-	var/b = rand(0, 255)
-	I.Blend(rgb(r, g, b), ICON_MULTIPLY)
-	icon = I
-	. = ..()
-
-/datum/effect_system/sparkle_spread
-	effect_type = /obj/effect/particle_effect/sparks/sparkles

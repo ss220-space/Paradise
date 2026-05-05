@@ -249,14 +249,14 @@
 
 	wires = new(src)
 
-	var/area/A = get_area(src)
+	var/area/apc_area = get_area(src)
 
 	if(keep_preset_name)
-		if(isarea(A))
-			area = A
+		if(isarea(apc_area))
+			area = apc_area
 		// no-op, keep the name
-	else if(isarea(A) && !areastring)
-		area = A
+	else if(isarea(apc_area) && !areastring)
+		area = apc_area
 		name = "[area.name] APC"
 	else
 		name = "[get_area_name(area, TRUE)] APC"
