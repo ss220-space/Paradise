@@ -491,7 +491,7 @@
 	if(!liver)
 		if(!(HAS_TRAIT(H, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(H, TRAIT_NO_DNA)))
 			data["liverCondition"] = ORGAN_STATUS_LESS
-	else if((liver.damage == liver.max_damage) || (liver.status & ORGAN_DEAD))
+	else if(H.undergoing_liver_failure())
 		data["liverCondition"] = ORGAN_STATUS_NECROSIS
 
 	if(H.getStaminaLoss())

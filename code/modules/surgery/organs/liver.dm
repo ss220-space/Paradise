@@ -1,6 +1,12 @@
 ///amount of seconds before liver failure reaches a new stage
 #define LIVER_FAILURE_STAGE_SECONDS 60
 #define LIVER_DEFAULT_TOX_HEALING -0.1
+///liver failure stages
+#define LIVER_FAILURE_STAGE_PAIN 1
+#define LIVER_FAILURE_STAGE_BURN 2
+#define LIVER_FAILURE_STAGE_ACID 3
+#define LIVER_FAILURE_STAGE_COLLAPSE 4
+#define LIVER_FAILURE_STAGE_MELT 5
 
 /obj/item/organ/internal/liver
 	name = "liver"
@@ -97,20 +103,20 @@
 /obj/item/organ/internal/liver/organ_failure(seconds_per_tick)
 	var/obj/item/organ/internal/organ = safepick(owner.internal_organs)
 	switch(failure_time/LIVER_FAILURE_STAGE_SECONDS)
-		if(1)
+		if(LIVER_FAILURE_STAGE_PAIN)
 			to_chat(owner, span_userdanger("Вы чувствуете острую боль в животе."))
-		if(2)
+		if(LIVER_FAILURE_STAGE_BURN)
 			to_chat(owner, span_userdanger("Вы чувствуете жжение в животе!"))
 			owner.vomit()
-		if(3)
+		if(LIVER_FAILURE_STAGE_ACID)
 			to_chat(owner, span_userdanger("Вы чувствуете болезненное ощущение кислоты в горле!"))
 			owner.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-		if(4)
+		if(LIVER_FAILURE_STAGE_COLLAPSE)
 			to_chat(owner, span_userdanger("Невыносимая боль сбивает вас с ног!"))
 			owner.vomit(0, VOMIT_BLOOD, distance = rand(1,2))
 			owner.emote("Scream")
 			owner.AdjustDizzy(2.5 SECONDS)
-		if(5)
+		if(LIVER_FAILURE_STAGE_MELT)
 			to_chat(owner, span_userdanger("У вас ощущение, будто ваши внутренности вот-вот расплавятся!"))
 			owner.vomit(0, VOMIT_BLOOD, distance = rand(1,3))
 			owner.emote("Scream")
@@ -118,16 +124,16 @@
 
 	switch(failure_time)
 		//After 60 seconds we begin to feel the effects
-		if(1 * LIVER_FAILURE_STAGE_SECONDS to 2 * LIVER_FAILURE_STAGE_SECONDS - 1)
+		if(LIVER_FAILURE_STAGE_PAIN * LIVER_FAILURE_STAGE_SECONDS to LIVER_FAILURE_STAGE_BURN * LIVER_FAILURE_STAGE_SECONDS - 1)
 			owner.adjustToxLoss(0.2 * seconds_per_tick,forced = TRUE)
 			owner.AdjustDisgust(0.1 * seconds_per_tick)
 
-		if(2 * LIVER_FAILURE_STAGE_SECONDS to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
+		if(LIVER_FAILURE_STAGE_BURN * LIVER_FAILURE_STAGE_SECONDS to LIVER_FAILURE_STAGE_ACID * LIVER_FAILURE_STAGE_SECONDS - 1)
 			owner.adjustToxLoss(0.4 * seconds_per_tick,forced = TRUE)
 			owner.AdjustDrowsy(0.5 SECONDS * seconds_per_tick)
 			owner.AdjustDisgust(0.3 * seconds_per_tick)
 
-		if(3 * LIVER_FAILURE_STAGE_SECONDS to 4 * LIVER_FAILURE_STAGE_SECONDS - 1)
+		if(LIVER_FAILURE_STAGE_ACID * LIVER_FAILURE_STAGE_SECONDS to LIVER_FAILURE_STAGE_COLLAPSE * LIVER_FAILURE_STAGE_SECONDS - 1)
 			owner.adjustToxLoss(0.6 * seconds_per_tick,forced = TRUE)
 			organ.internal_receive_damage(0.2  * seconds_per_tick)
 			owner.AdjustDrowsy(1 SECONDS * seconds_per_tick)
@@ -136,7 +142,7 @@
 			if(SPT_PROB(1.5, seconds_per_tick))
 				owner.emote("drool")
 
-		if(4 * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
+		if(LIVER_FAILURE_STAGE_COLLAPSE * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
 			owner.adjustToxLoss(0.8 * seconds_per_tick,forced = TRUE)
 			organ.internal_receive_damage(0.2  * seconds_per_tick)
 			owner.AdjustDrowsy(1.6 SECONDS * seconds_per_tick)
@@ -155,11 +161,11 @@
 		return
 
 	switch(failure_time)
-		if(0 to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
+		if(0 to LIVER_FAILURE_STAGE_ACID * LIVER_FAILURE_STAGE_SECONDS - 1)
 			examine_list += span_notice("[GEND_HIS_HER_CAP(human_owner)] глаза выглядят слегка жёлтыми.")
-		if(3 * LIVER_FAILURE_STAGE_SECONDS to 4 * LIVER_FAILURE_STAGE_SECONDS - 1)
+		if(LIVER_FAILURE_STAGE_ACID * LIVER_FAILURE_STAGE_SECONDS to LIVER_FAILURE_STAGE_COLLAPSE * LIVER_FAILURE_STAGE_SECONDS - 1)
 			examine_list += span_notice("[GEND_HIS_HER_CAP(human_owner)] глаза полностью жёлтые и [GEND_HE_SHE(human_owner)] явно страдает.")
-		if(4 * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
+		if(LIVER_FAILURE_STAGE_COLLAPSE * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
 			examine_list += span_danger("[GEND_HIS_HER_CAP(human_owner)] глаза полностью жёлтые и опухшие от гноя. [GEND_HE_SHE_CAP(human_owner)] долго не продержится.")
 
 /obj/item/organ/internal/liver/cybernetic
@@ -218,3 +224,8 @@
 
 #undef LIVER_FAILURE_STAGE_SECONDS
 #undef LIVER_DEFAULT_TOX_HEALING
+#undef LIVER_FAILURE_STAGE_PAIN
+#undef LIVER_FAILURE_STAGE_BURN
+#undef LIVER_FAILURE_STAGE_ACID
+#undef LIVER_FAILURE_STAGE_COLLAPSE
+#undef LIVER_FAILURE_STAGE_MELT
