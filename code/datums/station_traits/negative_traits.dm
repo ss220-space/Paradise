@@ -139,10 +139,10 @@
 /// Abstract station trait used for traits that modify a random event in some way (their weight or max occurrences).
 /// I fucking hate event container system
 /datum/station_trait/random_event_weight_modifier
+	abstract_type = /datum/station_trait/random_event_weight_modifier
 	name = "Модификатор рандомных ивентов"
 	report_message = "Одно из событий было модифицировано. Интересно, как это скажется на игре?"
 	show_in_report = TRUE
-	abstract_trait_type = /datum/station_trait/random_event_weight_modifier
 	weight = 0
 
 	/// The names of the event we modify.

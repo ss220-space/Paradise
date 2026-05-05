@@ -29,6 +29,8 @@ ADMIN_VERB(station_traits_panel, R_EVENT, "Modify Station Traits", ADMIN_VERB_NO
 	var/list/valid_station_traits = list()
 
 	for(var/datum/station_trait/station_trait_path as anything in subtypesof(/datum/station_trait))
+		if(station_trait_path.abstract_type == station_trait_path)
+			continue
 		valid_station_traits += list(list(
 			"name" = initial(station_trait_path.name),
 			"path" = station_trait_path,
@@ -79,8 +81,8 @@ ADMIN_VERB(station_traits_panel, R_EVENT, "Modify Station Traits", ADMIN_VERB_NO
 
 			for(var/station_trait_text in params["station_traits"])
 				var/datum/station_trait/station_trait_path = text2path(station_trait_text)
-				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
-					log_admin("[key_name(usr)] tried to set an invalid future station trait: [station_trait_text]")
+				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path.abstract_type == station_trait_path)
+					stack_trace("[key_name(usr)] tried to set an invalid future station trait: [station_trait_text]")
 					to_chat(usr, span_warning("Неподходящий тип: [station_trait_text]"))
 					return TRUE
 

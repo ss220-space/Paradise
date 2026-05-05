@@ -161,10 +161,10 @@
 	SSshuttle.supply.callTime *= 0.5
 
 /datum/station_trait/deathrattle_department
+	abstract_type = /datum/station_trait/deathrattle_department
 	name = "Мониторинг жизнедеятельности: один из отделов"
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
-	abstract_trait_type = /datum/station_trait/deathrattle_department
 	blacklist = list(/datum/station_trait/deathrattle_all)
 
 	var/department_to_apply_to
