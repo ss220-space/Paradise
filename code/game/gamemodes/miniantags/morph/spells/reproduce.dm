@@ -29,6 +29,10 @@
 		if(show_message)
 			user.balloon_alert(user, "невозможно размножаться")
 		return FALSE
+	if(user.gathered_food < hunger_cost)
+		if(show_message)
+			user.balloon_alert(user, "нужно больше еды ([user.gathered_food]/[hunger_cost])")
+		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
 			to_chat(user, span_warning("нужна поверхность!"))
@@ -72,5 +76,8 @@
 
 	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
+
+/datum/spell_handler/morph
+	var/some_other_vars
 
 #undef MORPH_REPRODUCE_COST_INCREASE
