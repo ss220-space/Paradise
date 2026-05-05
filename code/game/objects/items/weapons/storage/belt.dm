@@ -414,7 +414,8 @@
 		/obj/item/flash,
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box,
+		/obj/item/ammo_box/magazine,
+		/obj/item/ammo_box/speedloader,
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
@@ -476,23 +477,6 @@
 	storage_slots = 6
 	use_item_overlays = FALSE
 	custom_price = 2 * PAYCHECK_MAX
-	can_hold = list( // can not hold batons, knifes and ammo_boxes
-		/obj/item/grenade/flashbang,
-		/obj/item/grenade/chem_grenade/teargas,
-		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/restraints/handcuffs,
-		/obj/item/flash,
-		/obj/item/clothing/glasses,
-		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box/magazine,
-		/obj/item/flashlight/seclite,
-		/obj/item/holosign_creator/security,
-		/obj/item/melee/baton/telescopic,
-		/obj/item/restraints/legcuffs/bola,
-		/obj/item/eftpos/sec,
-		/obj/item/weapon_cell,
-		/obj/item/radio,
-	)
 	/// Fast reload duration
 	var/fast_reload_delay = 1 SECONDS
 
@@ -516,21 +500,22 @@
 	AddElement(/datum/element/contextual_screentip_item_typechecks, hovering_item_typechecks)
 	AddElement(/datum/element/contextual_screentip_bare_hands, ctrl_lmb_text = "Достать магазин")
 
-/obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, params)
-	if(istype(attack_item, /obj/item/gun/projectile/automatic))
-		add_fingerprint(user)
-		var/obj/item/gun/projectile/automatic/gun = attack_item
-		for(var/obj/item/ammo_box/magazine/magazine in contents)
-			if(!istype(magazine, gun.mag_type))
-				continue
-			INVOKE_ASYNC(src, PROC_REF(do_fast_reload), user, gun, magazine, params)
-			break
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+/obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, list/modifiers)
+	if(!istype(attack_item, /obj/item/gun/projectile/automatic))
+		return ..()
 
-	return ..()
+	add_fingerprint(user)
+	var/obj/item/gun/projectile/automatic/gun = attack_item
+	for(var/obj/item/ammo_box/magazine/magazine in contents)
+		if(!istype(magazine, gun.mag_type))
+			continue
+		INVOKE_ASYNC(src, PROC_REF(do_fast_reload), user, gun, magazine, modifiers)
+		break
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 /obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
-	if(!user.Adjacent(src) || user.incapacitated())
+	if(!IsReachableBy(user) || user.incapacitated())
 		return ..()
 	for(var/obj/item/ammo_box/magazine/magazine in contents)
 		user.put_in_active_hand(magazine)
@@ -541,7 +526,7 @@
 /obj/item/storage/belt/security/webbing/proc/do_fast_reload(mob/user, obj/item/gun/projectile/automatic/gun, obj/item/ammo_box/magazine/magazine, params)
 	if(!do_after(user, fast_reload_delay, src, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1))
 		return
-	if(QDELETED(src) || QDELETED(user) || QDELETED(gun) || QDELETED(magazine) || magazine.loc != src || !user.is_in_hands(gun) || !user.Adjacent(src))
+	if(QDELETED(src) || QDELETED(user) || QDELETED(gun) || QDELETED(magazine) || magazine.loc != src || !user.is_in_hands(gun) || !IsReachableBy(user))
 		return
 
 	var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
@@ -557,31 +542,6 @@
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
 	desc = "Unique and versatile chest rig, can hold SRT gear."
-	can_hold = list(
-		/obj/item/grenade/flashbang,
-		/obj/item/grenade/chem_grenade/teargas,
-		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/restraints/handcuffs,
-		/obj/item/flash,
-		/obj/item/clothing/glasses,
-		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box,
-		/obj/item/reagent_containers/food/snacks/donut,
-		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/melee/baton/security,
-		/obj/item/melee/baton,
-		/obj/item/flashlight/seclite,
-		/obj/item/holosign_creator/security,
-		/obj/item/melee/baton/telescopic,
-		/obj/item/restraints/legcuffs/bola,
-		/obj/item/forensics/sample_kit/powder,
-		/obj/item/forensics/sample_kit,
-		/obj/item/eftpos/sec,
-		/obj/item/weapon_cell,
-		/obj/item/radio,
-		/obj/item/gun/projectile/automatic/pistol,
-	)
 
 /obj/item/storage/belt/security/webbing/srt/get_ru_names()
 	return list(
