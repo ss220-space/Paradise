@@ -6,7 +6,7 @@
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
 	implant_data = /datum/implant_fluff/adrenaline
 	actions_types = null
-	base_cooldown = 120 SECONDS
+	base_cooldown = 10 MINUTES
 
 /obj/item/implant/adrenalin/Initialize(mapload)
 	. = ..()
