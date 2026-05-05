@@ -186,8 +186,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 
 	if(B?.clock)
-		ASYNC
-			ratvar_act()
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, ratvar_act))
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI))
 		make_special_laws()
 	else if(L)

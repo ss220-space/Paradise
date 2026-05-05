@@ -74,8 +74,8 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator/examine(mob/user)
 	. = ..()
-    if(!Adjacent(user))
-        return
+	if(!Adjacent(user))
+		return
 	var/message = (open ? "Крышка открыта. " : "Крышка закрыта. ")
 	message += "Установленные языки: "
 	message += russian_list(given_languages_rus, nothing_text = "Отсутствуют", and_text = "и", final_comma_text = ".")

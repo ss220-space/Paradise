@@ -1285,7 +1285,7 @@
 	. = ..()
 	var/static/list/banned_spells = typesof(
 		/obj/item/spellbook/oneuse/mime,
-		/obj/item/spellbook/oneuse/emp,
+		/obj/item/spellbook/oneuse/emp/used,
 		/obj/item/spellbook/oneuse/fake_gib,
 	)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
