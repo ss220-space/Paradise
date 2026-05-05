@@ -52,7 +52,7 @@
 
 	if(target.grabbedby(user, supress_message = TRUE))
 		target.grippedby(user) //instant aggro grab
-		target.Weaken(4 SECONDS)
+		target.Weaken(1 SECONDS)
 
 /obj/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target, mob/living/carbon/user)
 	if(QDELETED(target) || QDELETED(user))
