@@ -478,7 +478,7 @@
 	use_item_overlays = FALSE
 	custom_price = 2 * PAYCHECK_MAX
 	/// Fast reload duration
-	var/fast_reload_delay = 1 SECONDS
+	var/fast_reload_delay = 1.5 SECONDS
 
 /obj/item/storage/belt/security/webbing/get_ru_names()
 	return list(
@@ -573,6 +573,7 @@
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	can_hold = list(/obj/item/ammo_box/magazine)
 	custom_price = PAYCHECK_MAX
+	fast_reload_delay = 2 SECONDS
 
 /obj/item/storage/belt/security/webbing/pouch/get_ru_names()
 	return list(
