@@ -471,7 +471,7 @@
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
-	desc = "Unique and versatile chest rig, can hold security gear."
+	desc = "Универсальная разгрузка, вмещающая снаряжение службы безопасности."
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
 	storage_slots = 6
@@ -541,16 +541,16 @@
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
-	desc = "Unique and versatile chest rig, can hold SRT gear."
+	desc = "Уникальная и универсальная нагрудная разгрузочная система, вмещающая снаряжение отряда специального назначения."
 
 /obj/item/storage/belt/security/webbing/srt/get_ru_names()
 	return list(
-		NOMINATIVE = "разгрузка ГСН",
-		GENITIVE = "разгрузки ГСН",
-		DATIVE = "разгрузке ГСН",
-		ACCUSATIVE = "разгрузку ГСН",
-		INSTRUMENTAL = "разгрузкой ГСН",
-		PREPOSITIONAL = "разгрузке ГСН",
+		NOMINATIVE = "разгрузка ОСН",
+		GENITIVE = "разгрузки ОСН",
+		DATIVE = "разгрузке ОСН",
+		ACCUSATIVE = "разгрузку ОСН",
+		INSTRUMENTAL = "разгрузкой ОСН",
+		PREPOSITIONAL = "разгрузке ОСН",
 	)
 
 /obj/item/storage/belt/security/webbing/srt/full/populate_contents()
