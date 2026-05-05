@@ -48,7 +48,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src)
+	paddles = new paddle_type(src, src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/Destroy()
@@ -405,11 +405,10 @@
 	add_defib_component(mainunit)
 
 /obj/item/twohanded/shockpaddles/proc/add_defib_component(mainunit)
-	if(check_defib_exists(mainunit))
-		update_icon(UPDATE_ICON_STATE)
-		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
-	else
-		AddComponent(/datum/component/defib)
+	if(!check_defib_exists(mainunit))
+		return
+	update_icon(UPDATE_ICON_STATE)
+	AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
 	RegisterSignal(src, COMSIG_DEFIB_PADDLES_APPLIED, PROC_REF(on_application))

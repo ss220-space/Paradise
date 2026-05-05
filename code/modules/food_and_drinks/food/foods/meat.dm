@@ -700,6 +700,10 @@
 	. = ..()
 	baconbeacon = new /obj/item/beacon/bacon(src)
 
+/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
+	QDEL_NULL(baconbeacon)
+	return ..()
+
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
 		baconbeacon.forceMove(user)

@@ -268,8 +268,6 @@
 		opened = APC_OPENED
 		operating = FALSE
 		stat |= MAINT
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 	else
 		electronics_state = APC_ELECTRONICS_SECURED
 		// is starting with a power cell installed, create it and set its charge level
