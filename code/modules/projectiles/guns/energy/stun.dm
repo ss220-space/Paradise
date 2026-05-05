@@ -102,6 +102,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	accuracy = GUN_ACCURACY_MINIMAL
 	cell_type = /obj/item/stock_parts/cell/laser/tesla_cannon
+	can_add_sibyl_system = FALSE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 	var/ready_to_fire = FALSE
 
 /obj/item/gun/energy/tesla_cannon/Initialize(mapload)
@@ -112,13 +114,14 @@
 	if(ready_to_fire)
 		return ..()
 	// If we have charge, but the stock is folded, do sparks.
-	if(can_shoot())
-		balloon_alert(user, "electricity arcing to stock!")
-		if(prob(75)) // fake sparks to cut on spark spam
-			playsound(user, 'sound/effects/sparks1.ogg', 50, TRUE)
-		else
-			do_sparks(3, FALSE, user)
-	return FALSE
+	. = FALSE
+	if(!can_shoot())
+		return
+	balloon_alert(user, "электричество бьёт в приклад!")
+	if(prob(75)) // fake sparks to cut on spark spam
+		playsound(user, 'sound/effects/sparks1.ogg', 50, TRUE)
+		return
+	do_sparks(3, FALSE, user)
 
 /obj/item/gun/energy/tesla_cannon/attack_self(mob/living/user)
 	. = ..()
@@ -135,7 +138,7 @@
 		playsound(user, 'sound/weapons/gun/tesla/squeak_latch.ogg', 100)
 
 	update_appearance()
-	balloon_alert_to_viewers("[ready_to_fire ? "unfolded" : "folded"] stock")
+	balloon_alert_to_viewers("[ready_to_fire ? "разложен" : "сложен"] приклад")
 
 /obj/item/gun/energy/tesla_cannon/update_icon_state()
 	. = ..()
