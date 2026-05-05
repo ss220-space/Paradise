@@ -44,8 +44,6 @@
 	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
-	/// Ammo type overlay for magazines (not add overlay if null)
-	var/bullet_type = null
 
 	/// Ammo marking for desc and names. Should be like `"9x19 мм БП."`
 	var/ammo_marking = null

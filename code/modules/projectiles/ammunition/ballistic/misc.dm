@@ -27,7 +27,6 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
-	bullet_type = BULLET_TYPE_LASER
 
 // MARK: Glockroack
 /obj/item/ammo_casing/caseless/glockroach

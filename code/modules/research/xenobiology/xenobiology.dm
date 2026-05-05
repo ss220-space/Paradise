@@ -369,12 +369,22 @@
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
 	id = "Transference"
-	desc = "A strange slime-based chemical that, when used, allows the user to transfer their consciousness to a lesser being."
+	desc = "Странное вещество наподобие слизи. При использовании позволяет перенести сознание в менее развитое существо."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
 	origin_tech = "biotech=6"
 	var/prompted = FALSE
 	var/animal_type = SENTIENCE_ORGANIC
+
+/obj/item/slimepotion/transference/get_ru_names()
+	return list(
+		NOMINATIVE = "зелье переноса сознания",
+		GENITIVE = "зелья переноса сознания",
+		DATIVE = "зелью переноса сознания",
+		ACCUSATIVE = "зелье переноса сознания",
+		INSTRUMENTAL = "зельем переноса сознания",
+		PREPOSITIONAL = "зелье переноса сознания"
+	)
 
 /obj/item/slimepotion/transference/afterattack(mob/living/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -382,25 +392,30 @@
 	if(prompted || !ismob(target))
 		return
 	if(!isanimal(target) || target.ckey) //much like sentience, these will not work on something that is already player controlled
-		to_chat(user, span_warning("[target] already has a higher consciousness!"))
+		balloon_alert(user, "слишком разумно!")
 		return ..()
 	if(target.stat)
-		to_chat(user, span_warning("[target] is dead!"))
+		balloon_alert(user, "цель мёртва!")
 		return ..()
 	var/mob/living/simple_animal/SM = target
 	if(SM.sentience_type != animal_type)
-		to_chat(user, span_warning("You cannot transfer your consciousness to [SM].")) //no controlling machines
+		balloon_alert(user, "невозможно!") //no controlling machines
 		return ..()
 	if(jobban_isbanned(user, ROLE_SENTIENT))
-		to_chat(user, span_warning("Your mind goes blank as you attempt to use the potion."))
+		to_chat(user, span_warning("Ваш разум отвергает идею стать более тупым существом, чем вы!"))
 		return
 
 	prompted = TRUE
-	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "Данное действие перманентно переместит ваш разум в [SM.declent_ru(ACCUSATIVE)]. Вы уверены, что хотите этого?", "Перенос сознания", list("Да", "Нет")) != "Да")
 		prompted = FALSE
 		return
 
-	to_chat(user, span_notice("You drink the potion then place your hands on [SM]..."))
+	if(QDELETED(SM) || !in_range(SM, user) || SM.stat || user.stat)
+		prompted = FALSE
+		balloon_alert(user, "невозможно!")
+		return
+
+	to_chat(user, span_notice("Вы выпиваете зелье, а затем кладете свои руки на [SM.declent_ru(ACCUSATIVE)]..."))
 	add_attack_logs(user, SM, "mind transference potion")
 	user.mind.transfer_to(SM)
 	SM.universal_speak = TRUE
@@ -408,9 +423,9 @@
 	SM.sentience_act() //Same deal here as with sentience
 	SM.set_can_collar(TRUE)
 	user.death()
-	to_chat(SM, span_notice("In a quick flash, you feel your consciousness flow into [SM]!"))
-	to_chat(SM, span_warning("You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!"))
-	SM.name = "[SM.name] as [user.real_name]"
+	to_chat(SM, span_notice("Вы моментально чувствуете как ваше сознание перетекло в [SM.declent_ru(ACCUSATIVE)]!"))
+	to_chat(SM, span_warning("Отныне вы [SM.declent_ru(NOMINATIVE)]. Ваши роли, союзники и те, кому вы подчиняетесь, остались такими же, как были до переноса сознания."))
+	SM.name = "[SM.name] как [user.real_name]"
 	if(istype(SM, /mob/living/simple_animal/hostile/lightgeist))
 		if(!GLOB.med_hud_users.Find(SM))
 			var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]

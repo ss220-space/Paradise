@@ -340,7 +340,7 @@
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_BLUESHIELD, JOB_TITLE_MAGISTRATE, JOB_TITLE_OFFICER)
 
 /datum/gear/donor/heartsec_read
-	index_name = "Heart Security Glasses"
+	index_name = "Heart Security Glasses (read-only)"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/heart/read_only
 	donator_tier = 4
 	cost = 2

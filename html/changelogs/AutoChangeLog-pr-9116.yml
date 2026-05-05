@@ -1,5 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - balance: "Приклад режет разброс на 50% вместо фиксированных 15 градусов. (PR #9116)"
-  - balance: "Sparkle A12 имеет такую же точность как и WT-550 и SP-91 (PR #9116)"
