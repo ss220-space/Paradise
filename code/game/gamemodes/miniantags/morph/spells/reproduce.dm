@@ -51,7 +51,6 @@
 
 	if(user.stat == DEAD)
 		revert_cast(user)
-		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 		return
 
 	if(!length(candidates))
