@@ -76,9 +76,9 @@
 	icon_state = "stock_kedr"
 	item_state = "stock_kedr"
 	overlay_state = "stock_kedr_o"
-	overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 14, ATTACHMENT_OFFSET_Y = 0)
 	can_detach = FALSE
-	var/list/unfold_overlay_offset = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
+	var/list/unfold_overlay_offset = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 4)
 	var/list/fold_overlay_offset
 
 /obj/item/gun_module/stock/integrated_kedr/Initialize(mapload)
