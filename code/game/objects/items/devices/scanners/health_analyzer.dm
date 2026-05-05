@@ -661,7 +661,7 @@
 	if(!liver)
 		if(!(HAS_TRAIT(H, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(H, TRAIT_NO_DNA)))
 			scan_data += span_alert("<b>Печень не обнаружена.</b>")
-	else if((liver.damage == liver.max_damage) || (liver.status & ORGAN_DEAD))
+	else if(H.undergoing_liver_failure())
 		scan_data += span_alert("<b>Обнаружена острая печёночная недостаточность.</b>")
 
 	if(H.getStaminaLoss())

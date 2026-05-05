@@ -13,7 +13,9 @@
 	var/alcohol_intensity = 1
 	/// Affects how much tox liver heals
 	var/toxin_healing = LIVER_DEFAULT_TOX_HEALING
+	/// How long has our liver been failing
 	var/failure_time = 0
+	/// Can the liver regenerate itself
 	var/regeneration = FALSE
 
 /obj/item/organ/internal/liver/get_ru_names()
@@ -68,9 +70,9 @@
 
 	// Damaged liver means some chemicals are very dangerous
 	if(damage >= min_bruised_damage)
-		for(var/datum/reagent/R in owner.reagents.reagent_list)
+		for(var/datum/reagent/reagent in owner.reagents.reagent_list)
 			// Ethanol and all drinks are bad
-			if(istype(R, /datum/reagent/consumable/ethanol))
+			if(istype(reagent, /datum/reagent/consumable/ethanol))
 				owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 
 		// Can't cope with toxins at all
@@ -78,7 +80,7 @@
 			if(owner.reagents.has_reagent(toxin))
 				owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
 
-	if((damage == max_damage) || (status & ORGAN_DEAD))
+	if(owner.undergoing_liver_failure())
 		failure_time += PROCESS_ACCURACY
 		organ_failure(PROCESS_ACCURACY)
 	else
@@ -212,7 +214,7 @@
 		toxin_healing = initial(toxin_healing)
 		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
 
-	. = ..()
+	return ..()
 
 #undef LIVER_FAILURE_STAGE_SECONDS
 #undef LIVER_DEFAULT_TOX_HEALING
