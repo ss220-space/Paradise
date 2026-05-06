@@ -918,7 +918,7 @@
 					def_value = "cyborg hijack"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
+			"assassinate", "supermatter cascade", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
 			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
 			"download", "nuclear", "capture", "blood", "absorb",
 			"destroy", "identity theft", "hijack", "kill all humans",
@@ -1255,6 +1255,10 @@
 				identity_objective.target_real_name = targ.current.real_name
 				identity_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
 				new_objective = identity_objective
+
+			if("supermatter cascade")
+				new_objective = new /datum/objective/supermatter_cascade
+				new_objective.owner = src
 
 			if("custom")
 				var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : ""))
