@@ -4,7 +4,6 @@
 /datum/item_skin_data/doublebarrel/default
 	name = "Обычный"
 	icon_state = "dshotgun-base"
-	item_state = "dshotgun-base"
 
 /datum/item_skin_data/doublebarrel/gold
 	name = "Золотой"
@@ -29,29 +28,23 @@
 /datum/item_skin_data/doublebarrel/classic
 	name = "Классика"
 	icon_state = "dshotgun"
-	item_state = "shotgun"
 
 /datum/item_skin_data/doublebarrel/dark_red
 	name = "Тёмно-красная отделка"
 	icon_state = "dshotgun-d"
-	item_state = "shotgun"
 
 /datum/item_skin_data/doublebarrel/ash
 	name = "Пепельный"
 	icon_state = "dshotgun-f"
-	item_state = "shotgun"
 
 /datum/item_skin_data/doublebarrel/fadded_grey
 	name = "Выцветший серый"
 	icon_state = "dshotgun-g"
-	item_state = "shotgun"
 
 /datum/item_skin_data/doublebarrel/maple
 	name = "Кленовый"
 	icon_state = "dshotgun-l"
-	item_state = "shotgun"
 
 /datum/item_skin_data/doublebarrel/rosewood
 	name = "Палисандровый"
 	icon_state = "dshotgun-p"
-	item_state = "shotgun"
