@@ -110,6 +110,11 @@
 
 	// delete these end
 
+	// Give them an get equipment objective if they don't have one already.
+	var/all_objectives = owner.get_all_objectives()
+	if(!(locate(/datum/objective/get_equipment) in all_objectives))
+		add_objective(/datum/objective/get_equipment)
+
 	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && length(SSticker.mode.traitors) >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
@@ -146,12 +151,6 @@
 		if(!(locate(/datum/objective/die) in owner.get_all_objectives()))
 			add_objective(/datum/objective/die)
 			return
-
-	// Give them an get equipment objective if they don't have one already.
-	var/all_objectives = owner.get_all_objectives()
-	if(!(locate(/datum/objective/get_equipment) in all_objectives))
-		if(owner.current?.client?.get_exp_type_num(EXP_TYPE_SPECIAL) < 300 HOURS)
-			add_objective(/datum/objective/get_equipment)
 
 	// Give them an escape objective if they don't have one already.
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))

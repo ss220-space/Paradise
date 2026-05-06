@@ -44,7 +44,7 @@
 /obj/projectile/bullet/sniper
 	//speed = 0.75
 	//range = 100
-	damage = 70
+	damage = 80
 	weaken = 4 SECONDS
 	dismemberment = 50
 	armour_penetration = 50
@@ -53,6 +53,9 @@
 
 /obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
+		if(hit_zone in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST))
+			return ..()
+
 		target.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 
 	return ..()
