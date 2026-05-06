@@ -175,16 +175,16 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x3"
 
-/obj/effect/spawner/graveyard_statues/New()
+/obj/effect/spawner/graveyard_statues/Initialize(mapload)
+	. = ..()
 	var/monument
 	var/offset = 0
-	switch(pick("big","small"))
+	switch(pick("big", "small"))
 		if("big")
 			monument = pick(
 				/obj/structure/statue/unknown,
 				/obj/structure/statue/death,
 			)
-
 		if("small")
 			monument = pick(
 				/obj/structure/statue/noble,
@@ -193,11 +193,8 @@
 			offset = 16
 	var/obj/structure/statue/statue = new monument(get_turf(src))
 	statue.pixel_x = offset
-	..()
-
-/obj/effect/spawner/graveyard_statues/Initialize(mapload)
-	. = ..()
 	return INITIALIZE_HINT_QDEL
+
 
 /obj/item/book/philosophy_of_death
 	name = "Философия смерти"

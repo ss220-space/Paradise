@@ -46,6 +46,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/engineering
+	abstract_type = /datum/job/engineering
 	department = STATION_DEPARTMENT_ENGINEERING
 	department_flag = JOBCAT_ENGSEC
 	is_engineering = 1

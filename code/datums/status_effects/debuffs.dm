@@ -243,11 +243,14 @@
 // MARK: stamina_dot
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
-	duration = 130
+	duration = 13 SECONDS
 	alert_type = null
 
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
+
+	if(owner.getStaminaLoss() >= owner.max_stamina)
+		qdel(src)
 
 // MARK: oxy_dot
 /datum/status_effect/oxy_dot

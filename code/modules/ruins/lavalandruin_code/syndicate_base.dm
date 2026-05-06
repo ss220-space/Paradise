@@ -86,7 +86,7 @@
 		/obj/item/paper/monitorkey = 1, // message console on lavaland does NOT spawn with this
 	)
 
-/obj/item/clothing/mask/chameleon/gps/New()
+/obj/item/clothing/mask/chameleon/gps/Initialize(mapload)
 	. = ..()
 	new /obj/item/gps/internal/lavaland_syndicate_base(src)
 

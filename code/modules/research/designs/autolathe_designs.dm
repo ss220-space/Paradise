@@ -961,3 +961,43 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
+//MARK: unlockable ammo
+/datum/design/sfg9mm
+	id = "sfg_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sfg9mm/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/smgm9mm
+	id = "saber_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/ak814_mag
+	id = "ak814_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/ak814/fusty/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/aksu_ammo_box
+	id = "aksu_ammo_box"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/a545x39/fusty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/laser_carbine_mag
+	id = "lk_mag_empty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/ik60mag/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)

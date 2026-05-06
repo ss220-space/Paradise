@@ -585,6 +585,10 @@
 /turf/simulated/wall/acid_melt()
 	dismantle_wall(1)
 
+/turf/simulated/wall/proc/add_multiple_dents(dent_count, denttype)
+	for(var/i in 1 to dent_count)
+		add_dent(denttype)
+
 /turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
 		return

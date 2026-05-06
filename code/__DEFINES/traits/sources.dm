@@ -183,6 +183,8 @@
 
 #define BUTTON_TRAIT "button"
 
+#define STATION_TRAIT "station-trait"
+
 /// Trait given by echolocation component.
 #define ECHOLOCATION_TRAIT "echolocation"
 

@@ -38,7 +38,11 @@
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
 	shoes = /obj/item/clothing/shoes/magboots/syndie
-	implants = list(/obj/item/implant/uplink/contractor, /obj/item/implant/explosive, )
+	implants = list(
+		/obj/item/implant/uplink/contractor,
+		/obj/item/implant/explosive,
+		/obj/item/implant/adrenalin/prototype,
+	)
 	r_pocket = /obj/item/melee/baton/telescopic/contractor
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate

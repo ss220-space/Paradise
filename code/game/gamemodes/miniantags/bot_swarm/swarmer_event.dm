@@ -11,7 +11,7 @@
 		GLOB.minor_announcement.announce(
 			message = "Отчёт был загружен и распечатан на всех консолях связи.",
 			new_title = ANNOUNCE_SECRETMSG_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound()
 		)
 
 /datum/event/spawn_swarmer/start()

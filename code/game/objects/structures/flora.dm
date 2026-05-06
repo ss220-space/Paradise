@@ -354,8 +354,8 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 
-/obj/item/twohanded/required/kirbyplants/New()
-	..()
+/obj/item/twohanded/required/kirbyplants/Initialize(mapload)
+	. = ..()
 	if(prob(1))
 		icon_state = "plant-36"
 		return

@@ -342,6 +342,11 @@
 	name = "Engine Beacon for Tesla and Singularity"
 	enginetype = list(ENGTYPE_TESLA, ENGTYPE_SING)
 
+/obj/item/beacon/engine/tesling/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_GREEN_ENERGY))
+		enginetype = list(ENGTYPE_TEG)
+	return ..()
+
 /obj/item/beacon/engine/tesla
 	name = "Engine Beacon for Tesla"
 	enginetype = list(ENGTYPE_TESLA)

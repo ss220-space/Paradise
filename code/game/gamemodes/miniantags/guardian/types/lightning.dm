@@ -20,8 +20,8 @@
 	if(!(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE)))
 		ADD_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
 
-/mob/living/simple_animal/hostile/guardian/beam/New()
-	..()
+/mob/living/simple_animal/hostile/guardian/beam/Initialize(mapload)
+	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian)
 
 /mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)

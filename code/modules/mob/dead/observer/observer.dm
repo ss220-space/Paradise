@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/datum/orbit_menu/orbit_menu
 	var/mob/living/do_observe_target = null
 
-/mob/dead/observer/New(mob/body=null, flags=1)
+/mob/dead/observer/Initialize(mapload, flags = 1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
@@ -70,9 +70,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	set_stat(DEAD)
 
-	var/turf/T
+	var/turf/location
+	var/mob/body = loc
 	if(ismob(body))
-		T = get_turf(body)				//Where is the body located?
+		location = get_turf(body)				//Where is the body located?
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -97,8 +98,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	appearance_flags |= KEEP_TOGETHER
 	GLOB.ghost_images |= ghostimage
 	updateallghostimages()
-	if(!T)
-		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
+	if(!location)
+		location = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 
 	if(!name)							//To prevent nameless ghosts
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
@@ -113,8 +114,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
 		alt_hud.apply_to_new_mob(src)
 
-	..()
-	abstract_move(T) //let ghost initialize properly, then off to spawn point
+	. = ..()
+	abstract_move(location) //let ghost initialize properly, then off to spawn point
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
