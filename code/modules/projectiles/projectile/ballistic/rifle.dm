@@ -44,7 +44,7 @@
 /obj/projectile/bullet/sniper
 	//speed = 0.75
 	//range = 100
-	damage = 80
+	damage = 100
 	weaken = 4 SECONDS
 	armour_penetration = 50
 	forced_accuracy = TRUE
