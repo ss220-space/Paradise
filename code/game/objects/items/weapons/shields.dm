@@ -7,19 +7,25 @@
 	abstract_type = /obj/item/shield
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	var/attack_angle = get_angle(owner, hitby)
+	var/facing_angle = dir2angle(owner.dir)
+	var/incidence = GET_ANGLE_OF_INCIDENCE(facing_angle, attack_angle)
+	if(incidence > 90 && incidence < 270)
+		return FALSE // blocking only in front of us
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
 	. = ..()
-	if(.)
-		var/damage_type = BRUTE
-		if(isprojectile(hitby))
-			var/obj/projectile/P = hitby
-			if(P.shield_buster)
-				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
-		if(isobj(hitby))
-			var/obj/hitby_obj = hitby
-			damage_type = hitby_obj.damtype
-		take_damage(damage, damage_type, sound_effect = FALSE)
+	if(!.)
+		return FALSE
+	var/damage_type = BRUTE
+	if(isprojectile(hitby))
+		var/obj/projectile/projectile = hitby
+		if(projectile.shield_buster)
+			take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
+	if(isobj(hitby))
+		var/obj/hitby_obj = hitby
+		damage_type = hitby_obj.damtype
+	take_damage(damage, damage_type, sound_effect = FALSE)
 
 /obj/item/shield/obj_destruction(damage_flag)
 	playsound(src, 'sound/weapons/smash.ogg', 50)
