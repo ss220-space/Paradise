@@ -23,13 +23,13 @@
 /// Open bodypart bleeding (units per 2 sec)
 #define OPEN_BODYPART_BLEEDING 0.75
 /// Internal bleeding size (units per 2 sec)
-#define BODYPART_INTERNAL_BLEEDING 0.5
+#define BODYPART_INTERNAL_BLEEDING 0.75
 /// Open fracture bleeding amount (units per 2 sec)
 #define BODYPART_OPEN_FRACTURE_BLEEDING 0.5
 /// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.005
 /// Multiplyer for bleeding calculate from bodypart value
-#define BLEEDING_MODIFIER 0.45
+#define BLEEDING_MODIFIER 0.55
 /// Suppressed bleeding modifier
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
 /// Oxy damage if use tourniquet on head
@@ -128,8 +128,10 @@ SUBSYSTEM_DEF(blood)
 				to_chat(target, span_warning("Вы чувствуете [symptom]."))
 
 		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-			target.death()
-			//TODO vakons: добавить остановку сердца вместо инста смерти
+			if(!target.undergoing_cardiac_arrest())
+				target.set_heartattack(TRUE)
+			if(!target.incapacitated())
+				target.Stun(30 SECONDS)
 
 
 /datum/controller/subsystem/blood/proc/process_bleeding(mob/living/carbon/human/target, seconds)
