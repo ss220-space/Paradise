@@ -141,8 +141,8 @@
 /obj/item/gun/energy/printer
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
-	icon_state = "l6closed0"
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "l6saw_cyborg"
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
@@ -336,7 +336,7 @@
 		overloaded = TRUE
 		cell.use(125)
 		playsound(carbon.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, TRUE)
-		atom_say("Overloading failure.", use_tts = FALSE)
+		atom_say("Overloading success.", use_tts = FALSE)
 		set_light(3) // extra visual effect to make it more noticable to user and victims alike
 		holder = carbon
 		RegisterSignal(holder, COMSIG_MOB_SWAP_HANDS, PROC_REF(discharge))

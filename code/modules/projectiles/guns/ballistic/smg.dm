@@ -21,7 +21,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/automatic/smg/update_icon_state()
-	icon_state = "[base_icon_state]_base"
+	icon_state = "[base_icon_state]"
 
 /obj/item/gun/projectile/automatic/smg/update_overlays()
 	. = ..()
@@ -44,15 +44,16 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	fire_modes = GUN_MODE_SINGLE_BURST
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SMG_STOCK
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -4),
+		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -13, ATTACHMENT_OFFSET_Y = 2),
 	)
-	starting_attachment_types = list(/obj/item/gun_module/rail/scope/collimator)
+	starting_attachment_types = list(/obj/item/gun_module/rail/scope/collimator, /obj/item/gun_module/stock)
 	chambered_light_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/saber/rubber
@@ -131,6 +132,7 @@
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -151,9 +153,10 @@
 // MARK: SP-91-RC
 /obj/item/gun/projectile/automatic/smg/sp91rc
 	name = "SP-91-RC"
-	desc = "Компактный пистолет-пулемёт, предназначенный для \"нелетального\" подавления беспорядков."
+	desc = "Компактный пистолет-пулемёт, предназначенный для подавления беспорядков."
 	icon_state = "sp91"
 	item_state = "SP-91-RC"
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/sp91rc
 	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -235,7 +238,6 @@
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
 	burst_size = 4
 	fire_delay = 1
-	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_MEDIUM
 
 // MARK: SFG-5

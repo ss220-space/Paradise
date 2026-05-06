@@ -466,6 +466,14 @@
 		/obj/structure/closet/secure_closet/guncabinet/lr30 = 50,
 	)
 
+/obj/effect/spawner/random_spawners/security_lasers/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UPGRADED_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/lasercarbine = 50,
+			/obj/structure/closet/secure_closet/guncabinet/plasma_pistols = 50,
+		)
+	return ..()
+
 /obj/effect/spawner/random_spawners/security_ballistics
 	name = "ballistics closet spawner"
 	icon_state = "guncabinet_ballistic"
@@ -474,6 +482,16 @@
 		/obj/structure/closet/secure_closet/guncabinet/sp91 = 33,
 		/obj/structure/closet/secure_closet/guncabinet/wt550 = 34,
 	)
+
+/obj/effect/spawner/random_spawners/security_ballistics/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UPGRADED_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/sfg = 33,
+			/obj/structure/closet/secure_closet/guncabinet/saber = 33,
+			/obj/structure/closet/secure_closet/guncabinet/ak814 = 34,
+		)
+	return ..()
+
 
 /obj/effect/spawner/random_spawners/security_shotguns
 	name = "shotguns closet spawner"
