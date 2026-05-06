@@ -6,7 +6,7 @@
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
 	implant_data = /datum/implant_fluff/adrenaline
 	actions_types = null
-	base_cooldown = 120 SECONDS
+	base_cooldown = 6 MINUTES
 
 /obj/item/implant/adrenalin/Initialize(mapload)
 	. = ..()
@@ -14,13 +14,14 @@
 		action = new(src)
 
 /obj/item/implant/adrenalin/Destroy()
-	. = ..()
 	QDEL_NULL(action)
+	return ..()
 
 /obj/item/implant/adrenalin/implant(mob/living/carbon/human/source, mob/user, force)
 	. = ..()
-	if(.)
-		add_item_action(action)
+	if(!.)
+		return
+	add_item_action(action)
 
 /obj/item/implant/adrenalin/create_new_cooldown()
 	var/datum/implant_cooldown/charges/C = new

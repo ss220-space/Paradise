@@ -573,6 +573,8 @@
 	item_state = "torch"
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+	fuel_lower = 60
+	fuel_upp = 70
 
 /obj/item/flashlight/flare/torch/get_ru_names()
 	return list(

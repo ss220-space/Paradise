@@ -667,43 +667,49 @@
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
+
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку обезоруживания [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
+
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
-	else
-		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		if(target.w_uniform)
-			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/randn = rand(1, 100)
-		var/extra_knock_chance = 0
-		if(user.gloves)
-			if(istype(user.gloves, /obj/item/clothing/gloves))
-				var/obj/item/clothing/gloves/gloves = user.gloves
-				extra_knock_chance = gloves.extra_knock_chance
-		if(randn <= 5 + extra_knock_chance)
-			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
-			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
-			return
 
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		if(target.move_resist > user.pull_force)
-			return FALSE
-		if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
-			return FALSE
-		if(target.anchored)
-			return FALSE
-		if(target.buckled)
-			target.buckled.unbuckle_mob(target)
+	if(IS_HORIZONTAL(user))
+		to_chat(user, span_warning("Вы не можете толкать в положении лёжа!"))
+		return TRUE
+
+	add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	if(target.w_uniform)
+		target.w_uniform.add_fingerprint(user)
+	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+	var/randn = rand(1, 100)
+	var/extra_knock_chance = 0
+	if(user.gloves)
+		if(istype(user.gloves, /obj/item/clothing/gloves))
+			var/obj/item/clothing/gloves/gloves = user.gloves
+			extra_knock_chance = gloves.extra_knock_chance
+	if(randn <= 5 + extra_knock_chance)
+		target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
+		playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
+		add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
+		if(!iscarbon(user))
+			target.LAssailant = null
+		else
+			target.LAssailant = user
+		return
+
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	if(target.move_resist > user.pull_force)
+		return FALSE
+	if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
+		return FALSE
+	if(target.anchored)
+		return FALSE
+	if(target.buckled)
+		target.buckled.unbuckle_mob(target)
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
@@ -748,9 +754,11 @@
 	if(!moved) //they got pushed into a dense object
 		if(prob(75)) // Chance to knockdown on wall hit
 			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-			target.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
-									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
-									"Раздаётся глухой удар.")
+			target.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"),
+				span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"),
+				span_hear("Раздаётся глухой удар."),
+			)
 			if(!HAS_TRAIT(target, TRAIT_FLOORED))
 				target.Knockdown(3 SECONDS)
 				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone

@@ -515,7 +515,7 @@
 						/obj/item/stack/telecrystal/hundred,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)

@@ -148,7 +148,7 @@
 		PREPOSITIONAL = "магическом морфе",
 	)
 
-/mob/living/simple_animal/hostile/morph/wizard/New()
+/mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
 	var/obj/effect/proc_holder/spell/smoke/smoke = new
 	var/obj/effect/proc_holder/spell/forcewall/forcewall = new

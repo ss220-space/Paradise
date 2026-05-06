@@ -848,5 +848,5 @@ SUBSYSTEM_DEF(mapping)
 
 /// Returns true if the map we're playing on is on a planet
 /datum/controller/subsystem/mapping/proc/is_planetary()
-	return SSmapping.map_datum.planetary
+	return map_datum.planetary
 

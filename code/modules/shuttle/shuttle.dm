@@ -829,14 +829,12 @@
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
-/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
-	..()
+/obj/machinery/computer/shuttle/Initialize(mapload, obj/item/circuitboard/shuttle/C)
+	. = ..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
-/obj/machinery/computer/shuttle/Initialize(mapload)
-	. = ..()
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 

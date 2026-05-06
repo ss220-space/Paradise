@@ -12,10 +12,10 @@
 
 	var/obj/item/paper/internal_paper
 
-/obj/item/paperplane/New(loc, obj/item/paper/new_paper)
-	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+/obj/item/paperplane/Initialize(mapload, obj/item/paper/new_paper)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-8, 8)
+	pixel_y = base_pixel_y + rand(-8, 8)
 	if(new_paper)
 		internal_paper = new_paper
 		flags = new_paper.flags
