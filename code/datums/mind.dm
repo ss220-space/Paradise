@@ -1261,8 +1261,7 @@
 			if("supermatter cascade")
 				new_objective = new /datum/objective/supermatter_cascade
 				new_objective.owner = src
-				if(objective)
-					new_objective.on_add_objective(src)
+				new_objective.on_add_objective(src)
 
 			if("custom")
 				var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : ""))

@@ -1883,8 +1883,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 // MARK: Supermatter cascade
 /datum/objective/supermatter_cascade
-	name = "Уничтожьте станцию с помощью каскадного резонанса суперматерии"
-	explanation_text = "Уничтожьте станцию с помощью каскадного резонанса суперматерии. Пройдите в %AREA% дабы получить дистабилизационный кристалл \
+	name = "Destroy the station by causing a crystallizing resonance cascade"
+	antag_menu_name = "Каскадный резонанс суперматерии"
+	explanation_text = "Уничтожьте станцию с помощью каскадного резонанса суперматерии. Пройдите в %AREA% дабы получить дестабилизационный кристалл \
 		и используйте его на суперматерии."
 	needs_target = FALSE
 	special_object_type = /obj/item/destabilizing_crystal
