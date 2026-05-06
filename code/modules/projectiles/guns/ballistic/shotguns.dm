@@ -444,7 +444,7 @@
 // MARK: Double-barreled
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
-	desc = "A true classic."
+	desc = "Классическое гладкоствольное ружье с двумя стволами. Отличается высокой надёжностью, простотой конструкции и возможностью быстрого производства двух выстрелов подряд."
 	icon_state = "dshotgun-base"
 	item_state = "dshotgun-base"
 	w_class = WEIGHT_CLASS_BULKY
@@ -453,13 +453,23 @@
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
-	sawn_desc = "Omar's coming!"
+	sawn_desc = "Укороченный вариант двустволки, удобен для скрытного ношения за счёт потери точности."
 	can_holster = FALSE
 	pb_knockback = 3
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	can_air_shoot = FALSE
+
+/obj/item/gun/projectile/revolver/doublebarrel/get_ru_names()
+	return list(
+		NOMINATIVE = "двуствольное ружьё",
+		GENITIVE = "двуствольного ружья",
+		DATIVE = "двуствольному ружью",
+		ACCUSATIVE = "двуствольное ружьё",
+		INSTRUMENTAL = "двуствольным ружьём",
+		PREPOSITIONAL = "двуствольном ружье",
+	)
 
 /obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
 	. = ..()
