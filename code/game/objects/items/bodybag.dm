@@ -73,6 +73,7 @@
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
 	interaction_flags_mouse_drop = NEED_HANDS
+	ignore_shoves = TRUE
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
@@ -154,9 +155,6 @@
 		perform_fold(user)
 		qdel(src)
 		return FALSE
-
-/obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
-	return FALSE
 
 /obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
