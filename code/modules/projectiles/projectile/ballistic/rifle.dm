@@ -58,7 +58,6 @@
 /obj/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = TRUE
-	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 	var/sleep_time = 40 SECONDS
@@ -101,7 +100,6 @@
 	name = "penetrator round"
 	damage = 60
 	forcedodge = -1
-	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 	ricochet_chance = 0
