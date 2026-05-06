@@ -667,6 +667,9 @@
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
+	if(IS_HORIZONTAL(user))
+		to_chat(user, span_warning("Вы не можете толкать в положении лёжа!"))
+		return TRUE
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку обезоруживания [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
