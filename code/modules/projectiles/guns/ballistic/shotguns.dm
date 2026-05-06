@@ -444,7 +444,7 @@
 // MARK: Double-barreled
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
-	desc = "Классическое гладкоствольное ружье с двумя стволами. Отличается высокой надёжностью, простотой конструкции и возможностью быстрого производства двух выстрелов подряд."
+	desc = "Классическое гладкоствольное ружьё с двумя стволами. Отличается высокой надёжностью, простотой конструкции и возможностью быстрого производства двух выстрелов подряд."
 	icon_state = "dshotgun-base"
 	item_state = "dshotgun-base"
 	w_class = WEIGHT_CLASS_BULKY
