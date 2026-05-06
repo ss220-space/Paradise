@@ -589,13 +589,10 @@ GLOBAL_VAR(bomb_set)
 /obj/item/disk/nuclear/unrestricted
 	desc = "Seems to have been stripped of its safeties, you better not lose it."
 
-/obj/item/disk/nuclear/New()
-	..()
-	START_PROCESSING(SSobj, src)
-	GLOB.poi_list |= src
-
 /obj/item/disk/nuclear/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSobj, src)
+	GLOB.poi_list |= src
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()

@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/Initialize(mapload, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		mmi.icon_state = "boris"
 
 	else if(mmi.clock)
-		ratvar_act(TRUE)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, ratvar_act), TRUE)
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new default_cell_type(src)
@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			C.installed = 1
 			C.wrapped = new C.external_type
 
-	..()
+	. = ..()
 
 	robot_module_hat_offset(icon_state)
 	add_robot_verbs()
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner.Grant(src)
 
 	if(length(module?.borg_skins) <= 1 && (has_transform_animation || module?.has_transform_animation))
-		transform_animation(icon_state, TRUE)
+		INVOKE_ASYNC(src, PROC_REF(transform_animation), icon_state, TRUE)
 
 	add_strippable_element()
 
@@ -1953,8 +1953,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculate_channels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc)
-	..(loc)
+/mob/living/silicon/robot/ert/Initialize(mapload)
+	. = ..()
 	var/rnum = rand(1,1000)
 	var/borgname = "[eprefix] ERT [rnum]"
 

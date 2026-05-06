@@ -103,22 +103,22 @@
 	..()
 	to_chat(src, span_shadowling("<b>Ваш дух вселился в [declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя — почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
-/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
-	..()
+/mob/living/simple_animal/possessed_object/Initialize(mapload)
+	. = ..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins(span_adminnotice("Posessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		stack_trace("[src] spawned manually, no object to assign attributes to.")
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
 		message_admins(span_adminnotice("Posessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		stack_trace("[src] attempted to find a turf to spawn on, and could not.")
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 	possessed_item = loc
-	forceMove( possessed_loc )
+	forceMove(possessed_loc)
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
 	update_icon(1)

@@ -29,7 +29,7 @@
 	healable = FALSE
 	light_system = MOVABLE_LIGHT
 
-/mob/living/simple_animal/hostile/construct/New()
+/mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	if(cult_icon_changing)
 		if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way

@@ -1002,8 +1002,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	scribe_damage = 10 //how much damage you take doing it
 	var/used = FALSE
 
-/obj/effect/rune/narsie/New()
-	..()
+/obj/effect/rune/narsie/Initialize(mapload, set_keyword)
+	. = ..()
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
 
