@@ -139,7 +139,7 @@ SUBSYSTEM_DEF(blood)
 	// 	return // dead humans no bleeding
 	// if(HAS_TRAIT(target, TRAIT_FAKEDEATH))
 	// 	return //not calculate bleeding for fake dath
-	if(target.bodytemperature < TCRYO || HAS_TRAIT(src, TRAIT_NO_CLONE))
+	if(target.bodytemperature < TCRYO || HAS_TRAIT(target, TRAIT_NO_CLONE))
 		return // cryosleep or husked people do not pump the blood.
 
 	var/current_bleed = 0
@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(blood)
 	var/splatter_color = target.get_blood_color()
 	if(!splatter_color)
 		return
-	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), rand(0, 360), splatter_color)
+	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(target), rand(0, 360), splatter_color)
 
 
 #undef BLOOD_REGENERATION
