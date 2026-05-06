@@ -150,7 +150,7 @@
 	// Give them an get equipment objective if they don't have one already.
 	var/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/get_equipment) in all_objectives))
-		if(owner.current?.client?.get_exp_type_num(EXP_TYPE_SPECIAL) < 200 HOURS)
+		if(owner.current?.client?.get_exp_type_num(EXP_TYPE_SPECIAL) < 300 HOURS)
 			add_objective(/datum/objective/get_equipment)
 
 	// Give them an escape objective if they don't have one already.

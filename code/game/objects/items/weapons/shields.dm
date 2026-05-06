@@ -10,7 +10,7 @@
 	var/attack_angle = get_angle(owner, hitby)
 	var/facing_angle = dir2angle(owner.dir)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(facing_angle, attack_angle)
-	if(!(incidence <= 90 || incidence >= 270))
+	if(incidence > 90 && incidence < 270)
 		return FALSE // blocking only in front of us
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
