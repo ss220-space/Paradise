@@ -72,6 +72,8 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		if(def_zone == BODY_ZONE_CHEST)
+			return -1
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
