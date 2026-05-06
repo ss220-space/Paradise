@@ -57,12 +57,14 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		PREPOSITIONAL = "консоли связи",
 	)
 
-/obj/machinery/computer/communications/New()
-	GLOB.shuttle_caller_list += src
-	..()
-
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
+	GLOB.shuttle_caller_list += src
+
+/obj/machinery/computer/communications/Destroy()
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	return ..()
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = TRUE)
 	if(user.can_admin_interact())
@@ -388,7 +390,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				GLOB.major_announcement.announce(
 					message = params["text"],
 					new_title = ANNOUNCE_CCMSG_RU,
-					new_sound = 'sound/AI/commandreport.ogg',
+					new_sound = SSstation.announcer.get_rand_report_sound(),
 					new_subtitle = params["subtitle"]
 				)
 				print_command_report(params["text"], params["subtitle"])
@@ -441,7 +443,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	GLOB.minor_announcement.announce(
 		message = "Отчёт был загружен и распечатан на всех консолях связи.",
 		new_title = ANNOUNCE_SECRETMSG_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)
@@ -662,14 +664,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		display.update()
 
-/obj/machinery/computer/communications/Destroy()
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	return ..()
-
-/obj/item/circuitboard/communications/New()
+/obj/item/circuitboard/communications/Initialize(mapload)
+	. = ..()
 	GLOB.shuttle_caller_list += src
-	..()
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src

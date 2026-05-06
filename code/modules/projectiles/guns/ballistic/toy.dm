@@ -93,7 +93,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 
 /obj/item/gun/projectile/automatic/smg/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -107,14 +107,17 @@
 /obj/item/gun/projectile/automatic/l6_saw/toy
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
-	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+
+/obj/item/gun/projectile/automatic/l6_saw/toy/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "l6saw_toy", layer = FLOAT_LAYER - 0.01)
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -132,7 +135,6 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"
 	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."
-	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
@@ -141,5 +143,6 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_SNIPER_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 
-/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""]"
+/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "[base_icon_state]_toy", layer = FLOAT_LAYER - 0.01)

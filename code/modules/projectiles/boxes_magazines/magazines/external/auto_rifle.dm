@@ -19,6 +19,22 @@
 	max_ammo = 30
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/ak814/get_ru_names()
+	return list(
+		NOMINATIVE = "автоматный магазин AK-814 (5,45x39 мм)",
+		GENITIVE = "автоматного магазина AK-814 (5,45x39 мм)",
+		DATIVE = "автоматному магазину AK-814 (5,45x39 мм)",
+		ACCUSATIVE = "автоматного магазина AK-814 (5,45x39 мм)",
+		INSTRUMENTAL = "автоматным магазином AK-814 (5,45x39 мм)",
+		PREPOSITIONAL = "автоматном магазине AK-814 (5,45x39 мм)",
+	)
+
+/obj/item/ammo_box/magazine/ak814/fusty
+	ammo_type = /obj/item/ammo_casing/a545/fusty
+
+/obj/item/ammo_box/magazine/ak814/fusty/empty
+	start_empty = TRUE
+
 // MARK: 5.45x39mm - AKS-74U
 /obj/item/ammo_box/magazine/aks74u
 	gun_name = "автомата АКС-74У"
@@ -28,6 +44,19 @@
 	caliber = CALIBER_5_DOT_45X39MM
 	max_ammo = 30
 	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/aks74u/get_ru_names()
+	return list(
+		NOMINATIVE = "автоматный магазин АКС-74У (5,45x39 мм)",
+		GENITIVE = "автоматного магазина АКС-74У (5,45x39 мм)",
+		DATIVE = "автоматному магазину АКС-74У (5,45x39 мм)",
+		ACCUSATIVE = "автоматного магазина АКС-74У (5,45x39 мм)",
+		INSTRUMENTAL = "автоматным магазином АКС-74У (5,45x39 мм)",
+		PREPOSITIONAL = "автоматном магазине АКС-74У (5,45x39 мм)",
+	)
+
+/obj/item/ammo_box/magazine/aksu/empty
+	start_empty = TRUE
 
 // MARK: 7.62x51mm - M-52
 /obj/item/ammo_box/magazine/m52mag
@@ -48,6 +77,9 @@
 
 /obj/item/ammo_box/magazine/ik60mag/update_icon_state()
 	icon_state = "[initial(icon_state)]-[ceil(ammo_count(FALSE)/20)*20]"
+
+/obj/item/ammo_box/magazine/ik60mag/empty
+	start_empty = TRUE
 
 // MARK: Laser - LR-30
 /obj/item/ammo_box/magazine/lr30mag

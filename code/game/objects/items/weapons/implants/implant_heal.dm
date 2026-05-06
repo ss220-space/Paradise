@@ -53,7 +53,7 @@
 	imp_in.reagents.add_reagent("traneksam_acid", 5)
 	imp_in.apply_status_effect(/datum/status_effect/heal)
 	imp_in.adjust_nutrition(-150)
-	return TRUE
+	return ..()
 
 /obj/item/implanter/heal
 	name = "bio-chip implanter (heal)"

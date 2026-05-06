@@ -166,6 +166,12 @@
 		survival_box.first_aid = species_box.first_aid
 	if(species_box.glowstick != initial(base_species_type.glowstick))
 		survival_box.glowstick = species_box.glowstick
+	if(species_box.premium_internals != initial(base_species_type.premium_internals))
+		survival_box.premium_internals = species_box.premium_internals
+	if(species_box.bruise_pack != initial(base_species_type.bruise_pack))
+		survival_box.bruise_pack = species_box.bruise_pack
+	if(species_box.ointment_pack != initial(base_species_type.ointment_pack))
+		survival_box.ointment_pack = species_box.ointment_pack
 	species_box.create_species_specific_items(survival_box)
 	survival_box.populate_contents()
 	qdel(species_box)

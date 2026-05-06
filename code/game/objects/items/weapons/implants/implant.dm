@@ -149,7 +149,9 @@
 	return
 
 /obj/item/implant/proc/activate(cause)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_ACTIVATED, cause, imp_in)
+	return TRUE
 
 /obj/item/implant/ui_action_click(mob/user, datum/action/action, leftclick)
 	activate("action_button")
@@ -166,7 +168,7 @@
  */
 /obj/item/implant/proc/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
 	if(!force && !can_implant(source, user))
-		return
+		return FALSE
 	var/obj/item/implant/imp_e = locate(type) in source
 	if(!allow_multiple && imp_e && imp_e != src && imp_e.type == src.type)
 		if(imp_e.uses < initial(imp_e.uses) * 2)
@@ -209,6 +211,7 @@
 	if(user)
 		add_attack_logs(user, source, "Chipped with [src]")
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, source, user, force)
 	return TRUE
 
 /**
@@ -245,6 +248,7 @@
 
 	unregister_emotes()
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source)
 	return TRUE
 
 /**

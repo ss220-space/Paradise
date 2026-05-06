@@ -193,4 +193,3 @@
 
 /obj/machinery/flasher_button/update_icon_state()
 	icon_state = "launcher[active ? "act" : "btt"]"
-

@@ -1,7 +1,7 @@
 /obj/item/gun/projectile
 	name = "projectile gun"
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
-	icon_state = "pistol"
+	icon_state = "default"
 	origin_tech = "combat=2;materials=2"
 	materials = list(MAT_METAL=1000)
 	recoil = GUN_RECOIL_LOW
@@ -19,7 +19,9 @@
 		magazine = new mag_type(src)
 	chamber_round()
 	update_weight()
-	update_icon()
+	if(!base_icon_state)
+		base_icon_state = initial(icon_state)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/examine_more(mob/user)
 	. = ..()
@@ -242,7 +244,7 @@
 			return .
 		user.visible_message("[user] shortens \the [src]!", span_notice("You shorten \the [src]."))
 		w_class = WEIGHT_CLASS_NORMAL
-		item_state = "gun"//phil235 is it different with different skin?
+		item_state = "[item_state]-sawn"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF

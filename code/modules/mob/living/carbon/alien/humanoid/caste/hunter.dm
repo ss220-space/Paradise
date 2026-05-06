@@ -9,11 +9,11 @@
 	role_text = "Вы — Охотник. Ваша основная задача — добыча носителей для заражения их грудоломами."
 	var/invisibility_cost = 5
 
-/mob/living/carbon/alien/humanoid/hunter/New()
+/mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
+	. = ..()
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
-	..()
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()

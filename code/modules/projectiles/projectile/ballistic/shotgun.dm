@@ -172,8 +172,9 @@
 		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 		M.throw_at(throw_target, 3, 2)
 
-/obj/projectile/bullet/meteorshot/New()
-	..()
+/obj/projectile/bullet/meteorshot/Initialize(mapload)
+	. = ..()
+
 	SpinAnimation()
 
 /obj/projectile/bullet/meteorshot/weak
@@ -252,9 +253,9 @@
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
 	damage = 8
 
-/obj/projectile/bullet/pellet/weak/New()
+/obj/projectile/bullet/pellet/weak/Initialize(mapload)
 	range = rand(1, 8)
-	..()
+	return ..()
 
 /obj/projectile/bullet/pellet/weak/on_range()
 	do_sparks(1, TRUE, src)
@@ -263,9 +264,9 @@
 /obj/projectile/bullet/pellet/overload
 	damage = 3
 
-/obj/projectile/bullet/pellet/overload/New()
+/obj/projectile/bullet/pellet/overload/Initialize(mapload)
 	range = rand(1, 10)
-	..()
+	return ..()
 
 /obj/projectile/bullet/pellet/assassination
 	damage = 12

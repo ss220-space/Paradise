@@ -415,9 +415,9 @@
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+/obj/item/gun/projectile/automatic/shotgun/minotaur/Initialize(mapload)
+	. = ..()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
-	..()
 
 // MARK: C.A.T.S.
 /obj/item/gun/projectile/automatic/cats
@@ -445,8 +445,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
-	icon_state = "dshotgun"
-	item_state = "shotgun"
+	icon_state = "dshotgun-base"
+	item_state = "dshotgun-base"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10

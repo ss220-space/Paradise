@@ -137,7 +137,7 @@
 
 			recipes.Add(list(list(
 				"name" = D.build_object_name,
-				"desc" = created_object.desc,
+				"desc" = D.build_object_desc,
 				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
