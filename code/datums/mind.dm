@@ -916,6 +916,8 @@
 					def_value = "plant explosive"
 				if("cyborg_hijack")
 					def_value = "cyborg hijack"
+				if("supermatter_cascade")
+					def_value = "supermatter cascade"
 
 		var/list/objective_types = list(
 			"assassinate", "supermatter cascade", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
@@ -1259,6 +1261,8 @@
 			if("supermatter cascade")
 				new_objective = new /datum/objective/supermatter_cascade
 				new_objective.owner = src
+				if(objective)
+					new_objective.on_add_objective(src)
 
 			if("custom")
 				var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : ""))
