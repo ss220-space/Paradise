@@ -2,7 +2,7 @@
 // MARK: Definitions
 
 ///Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
-#define EXOTIC_BLEED_MULTIPLIER 1
+#define EXOTIC_BLEED_MULTIPLIER 5
 /// How many bleeding is heavy bleeding
 #define HEAVY_BLEEDING_RATE 5
 
