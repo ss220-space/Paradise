@@ -62,6 +62,9 @@
 		recharge_speed_nutrition *= multiplier
 
 /obj/machinery/recharge_station/process()
+	if(!is_operational())
+		return
+
 	if(!occupant)
 		return
 
