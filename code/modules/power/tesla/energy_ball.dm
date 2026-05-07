@@ -2,11 +2,11 @@
 #define TESLA_MINI_ENERGY (869.13 KILO JOULES)
 
 // Zap constants, speeds up targeting
+#define BIKE (COIL + 1)
 #define COIL (ROD + 1)
 #define ROD (RIDE + 1)
 #define RIDE (LIVING + 1)
-#define LIVING (APC + 1)
-#define APC (MACHINERY + 1)
+#define LIVING (MACHINERY + 1)
 #define MACHINERY (BLOB + 1)
 #define BLOB (STRUCTURE + 1)
 #define STRUCTURE (1)
@@ -248,6 +248,7 @@
 		/mob/living = TRUE,
 		/obj/machinery = TRUE,
 		/obj/structure = TRUE,
+		/obj/vehicle/ridden = TRUE,
 
 		// Things that we don't want to shock.
 		/mob/living/simple_animal/slime = FALSE,
@@ -288,6 +289,17 @@
 		// NOTE: these type checks are safe because CURRENTLY the range family of procs returns turfs in least to greatest distance order
 		// This is unspecified behavior tho, so if it ever starts acting up just remove these optimizations and include a distance check
 
+		if(closest_type >= BIKE)
+			break
+
+		else if(istype(target_atom, /obj/vehicle/ridden/bicycle)) // God's not on our side cause he hates idiots.
+			var/obj/vehicle/ridden/bicycle/bicycle = target_atom
+			if(!HAS_TRAIT(bicycle, TRAIT_BEING_SHOCKED) && bicycle.can_buckle) // Gee goof thanks for the boolean
+				// We use both of these to save on istype and typecasting overhead later on
+				// While still allowing common code to run before hand
+				closest_type = BIKE
+				closest_atom = bicycle
+
 		else if(closest_type >= COIL)
 			continue //no need checking these other things
 
@@ -320,13 +332,6 @@
 			if(target_living.stat != DEAD && !HAS_TRAIT(target_living, TRAIT_TESLA_SHOCKIMMUNE) && !HAS_TRAIT(target_living, TRAIT_BEING_SHOCKED))
 				closest_type = LIVING
 				closest_atom = target_atom
-
-		else if(closest_type >= APC)
-			continue
-
-		else if(isapc(target_atom))
-			closest_type = APC
-			closest_atom = target_atom
 
 		else if(closest_type >= MACHINERY)
 			continue
@@ -398,11 +403,11 @@
 
 	tesla_zap(source = closest_atom, zap_range = next_range, power = power, cutoff = cutoff, zap_flags = zap_flags, shocked_targets = shocked_targets)
 
+#undef BIKE
 #undef COIL
 #undef ROD
 #undef RIDE
 #undef LIVING
-#undef APC
 #undef MACHINERY
 #undef BLOB
 #undef STRUCTURE

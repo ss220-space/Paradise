@@ -4050,6 +4050,7 @@
 #include "code\modules\vehicle\_vehicle.dm"
 #include "code\modules\vehicle\ambulance.dm"
 #include "code\modules\vehicle\atv.dm"
+#include "code\modules\vehicle\bicycle.dm"
 #include "code\modules\vehicle\janicart.dm"
 #include "code\modules\vehicle\lavaboat.dm"
 #include "code\modules\vehicle\motorcycle.dm"
