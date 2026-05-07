@@ -183,12 +183,3 @@
 	path = /obj/item/clothing/accessory/holster/
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT, JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF_ENGINEER)
 
-/datum/gear/accessory/holsters/New()
-	..()
-	var/list/holsters = list(/obj/item/clothing/accessory/holster/leg,
-							/obj/item/clothing/accessory/holster/leg/black,
-							/obj/item/clothing/accessory/holster/belt,
-							/obj/item/clothing/accessory/holster/belt/black,
-							)
-	gear_tweaks += new /datum/gear_tweak/path(holsters, src, TRUE)
-

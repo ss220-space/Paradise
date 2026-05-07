@@ -14,6 +14,10 @@
 	var/sound_holster = 'sound/weapons/gun_interactions/1holster.ogg'
 	var/sound_unholster = 'sound/weapons/gun_interactions/1unholster.ogg'
 
+/obj/item/clothing/accessory/holster/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
 /obj/item/clothing/accessory/holster/Destroy()
 	for(var/obj/item/I in holstered)
 		if(I.loc == src)
@@ -164,26 +168,6 @@
 
 /obj/item/clothing/accessory/holster/waist
 	desc = "A handgun holster. Made of expensive leather."
-
-/obj/item/clothing/accessory/holster/leg
-	name = "leg holster"
-	desc = "A handgun holster. This one for spies."
-	icon_state = "leg_holster"
-
-/obj/item/clothing/accessory/holster/leg/black
-	name = "black leg holster"
-	desc = "A handgun holster. This one for spies. Comes in stealthy black."
-	icon_state = "leg_holster_black"
-
-/obj/item/clothing/accessory/holster/belt
-	name = "belt holster"
-	desc = "A handgun holster. This one for security officers to remind some good ol' times."
-	icon_state = "belt_holster"
-
-/obj/item/clothing/accessory/holster/belt/black
-	name = "black belt holster"
-	desc = "A handgun holster. This one for security officers to remind some good ol' times. Comes in black, just like in the America!"
-	icon_state = "belt_holster_black"
 
 /obj/item/clothing/accessory/holster/knives
 	name = "knife holster"

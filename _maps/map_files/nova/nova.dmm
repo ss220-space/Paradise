@@ -20942,7 +20942,7 @@
 /obj/structure/safe,
 /obj/item/soap/syndie,
 /obj/item/flashlight/seclite,
-/obj/item/clothing/accessory/holster/leg/black,
+/obj/item/clothing/accessory/holster,
 /obj/item/grenade/clown_grenade,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
