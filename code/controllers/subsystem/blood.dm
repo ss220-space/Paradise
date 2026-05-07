@@ -51,7 +51,6 @@ SUBSYSTEM_DEF(blood)
 
 
 /datum/controller/subsystem/blood/fire(resumed = 0)
-	var/seconds = wait * 0.1
 	if(!resumed)
 		src.currentrun = GLOB.human_list.Copy()
 
@@ -59,11 +58,11 @@ SUBSYSTEM_DEF(blood)
 	while(length(currentrun))
 		var/mob/living/carbon/human/target = currentrun[length(currentrun)]
 		currentrun.len--
-		process_human(target, seconds)
+		process_human(target)
 		if(MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/blood/proc/process_human(mob/living/carbon/human/target, seconds)
+/datum/controller/subsystem/blood/proc/process_human(mob/living/carbon/human/target)
 	if(HAS_TRAIT(target, TRAIT_NO_BLOOD))
 		return // not process humans without blood
 
@@ -76,7 +75,7 @@ SUBSYSTEM_DEF(blood)
 	process_bleeding(target)
 
 
-/datum/controller/subsystem/blood/proc/restore_blood_volume(mob/living/carbon/human/target, seconds)
+/datum/controller/subsystem/blood/proc/restore_blood_volume(mob/living/carbon/human/target)
 	if(target.stat == DEAD)
 		return // death human can not restore blood
 	if(HAS_TRAIT(target, TRAIT_NO_BLOOD_RESTORE))
@@ -135,10 +134,6 @@ SUBSYSTEM_DEF(blood)
 
 
 /datum/controller/subsystem/blood/proc/process_bleeding(mob/living/carbon/human/target, seconds)
-	// if(target.stat == DEAD)
-	// 	return // dead humans no bleeding
-	// if(HAS_TRAIT(target, TRAIT_FAKEDEATH))
-	// 	return //not calculate bleeding for fake dath
 	if(target.bodytemperature < TCRYO || HAS_TRAIT(target, TRAIT_NO_CLONE))
 		return // cryosleep or husked people do not pump the blood.
 
