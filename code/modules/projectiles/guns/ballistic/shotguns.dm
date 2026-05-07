@@ -680,12 +680,12 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/get_ru_names()
 	return list(
-		NOMINATIVE = "импровизированный дробовик 12g",
-		GENITIVE = "импровизированного дробовика 12g",
-		DATIVE = "импровизированному дробовику 12g",
-		ACCUSATIVE = "импровизированный дробовик 12g",
-		INSTRUMENTAL = "импровизированным дробовиком 12g",
-		PREPOSITIONAL = "импровизированном дробовике 12g",
+		NOMINATIVE = "кустарный дробовик 12g",
+		GENITIVE = "кустарного дробовика 12g",
+		DATIVE = "кустарному дробовику 12g",
+		ACCUSATIVE = "кустарный дробовик 12g",
+		INSTRUMENTAL = "кустарным дробовиком 12g",
+		PREPOSITIONAL = "кустарном дробовике 12g",
 	)
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)

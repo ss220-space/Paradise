@@ -33,7 +33,7 @@
 
 // MARK: .40 S&W - SP-8
 /obj/item/ammo_box/magazine/sp8
-	gun_name = "пистолета MS-P40-E"
+	gun_name = "пистолета P40-E \"Эйсер\""
 	icon_state = "sp8mag"
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
@@ -56,7 +56,7 @@
 
 // MARK: 9mm - Enforcer
 /obj/item/ammo_box/magazine/enforcer
-	gun_name = "пистолета П-9 \"Блюститель\""
+	gun_name = "пистолета DCA-P9 \"Блюститель\""
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8

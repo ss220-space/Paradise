@@ -82,7 +82,7 @@
 
 // MARK: SGM-HSR-15-С Hornisse
 /obj/item/gun/projectile/automatic/sniper_rifle/compact
-	name = "SGM-HSR-15-С sniper rifle"
+	name = "SGM-HSR-15-С \"Hornisse\" sniper rifle"
 	desc = "Буллпап-конфигурация снайперской винтовки SGM-HSR-15. Использует патроны калибра .50L. Автоматика, \
 			оптимизированная под патрон уменьшенной мощности и перенос магазина за пистолетную рукоять делают \
 			эту винтовку пригодной для боя на коротких дистанциях."

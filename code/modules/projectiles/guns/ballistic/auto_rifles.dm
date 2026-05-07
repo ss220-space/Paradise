@@ -179,7 +179,7 @@
 		PREPOSITIONAL = "штурмовой винтовке AR30 5,56x45 мм",
 	)
 
-// MARK: AG-814 Buran
+// MARK: AG-814
 /obj/item/gun/projectile/automatic/ak814
 	name = "AG-814 assault rifle"
 	desc = "\"Автомат Грызова 814\" — штурмовая винтовка 5,45x39 мм производства \"Волкодав\", штатное вооружение армии СССП. \

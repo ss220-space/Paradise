@@ -1,5 +1,6 @@
 // MARK: Base Pistol
 /obj/item/gun/projectile/automatic/pistol
+	abstract_type = /obj/item/gun/projectile/automatic/pistol
 	gender = MALE
 	icon = 'icons/obj/weapons/pistols.dmi'
 	icon_state = "pistol"

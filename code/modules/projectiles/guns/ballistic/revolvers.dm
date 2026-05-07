@@ -273,12 +273,12 @@
 
 /obj/item/gun/projectile/revolver/improvised/get_ru_names()
 	return list(
-		NOMINATIVE = "импровизированный револьвер .257",
-		GENITIVE = "импровизированного револьвера .257",
-		DATIVE = "импровизированному револьверу .257",
-		ACCUSATIVE = "импровизированный револьвер .257",
-		INSTRUMENTAL = "импровизированным револьвером .257",
-		PREPOSITIONAL = "импровизированном револьвере .257",
+		NOMINATIVE = "кустарный револьвер .257",
+		GENITIVE = "кустарного револьвера .257",
+		DATIVE = "кустарному револьверу .257",
+		ACCUSATIVE = "кустарный револьвер .257",
+		INSTRUMENTAL = "кустарным револьвером .257",
+		PREPOSITIONAL = "кустарном револьвере .257",
 	)
 
 /obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
@@ -583,7 +583,7 @@
 			return
 	if(target != user)
 		if(ismob(target))
-			balloon_alert(user, "не подходящая цель!")
+			balloon_alert(user, "неподходящая цель!")
 		return
 
 	if(ishuman(user))
