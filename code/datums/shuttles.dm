@@ -39,6 +39,7 @@
 
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
+	description = "Маленький эвакуационный шаттл, включающий в себя: барную стойку, туалеты, мостик и бриг с медом."
 	name = "ТКН «Харон» (Кибериада)"
 	admin_notes = "Вторые доки справа на севере."
 
@@ -118,7 +119,7 @@
 
 /datum/map_template/shuttle/ferry/cult
 	suffix = "cult"
-	name = "ТКН «Ферри-666» "
+	name = "ТКН «Ферри-666»"
 	description = "Малый шаттл делегации неизвестного культа."
 
 /datum/map_template/shuttle/ferry/deepdarkdungeon
