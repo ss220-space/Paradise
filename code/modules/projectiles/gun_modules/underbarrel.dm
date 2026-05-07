@@ -273,6 +273,7 @@
 	class = GUN_MODULE_CLASS_RIFLE_UNDER
 	force = 12
 	throwforce = 12
+	sharp =  TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	custom_price = 2 * PAYCHECK_CREW
 	/// Addition force for attached gun
@@ -291,6 +292,12 @@
 		INSTRUMENTAL = "штык-ножом",
 		PREPOSITIONAL = "штык-ноже",
 	)
+
+/obj/item/gun_module/under/bayonet/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	. = ..()
+	if(!.)
+		return
+	bonus_force = clamp(bonus_force + whetstone.increment, 0, whetstone.max)
 
 /obj/item/gun_module/under/bayonet/long
 	name = "long bayonet"

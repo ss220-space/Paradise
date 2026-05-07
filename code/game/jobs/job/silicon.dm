@@ -14,6 +14,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SILICON
 	insurance_type = INSURANCE_TYPE_NONE
+	allow_bureaucratic_error = FALSE
 
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)

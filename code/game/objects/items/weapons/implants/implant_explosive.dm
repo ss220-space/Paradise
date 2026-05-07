@@ -31,6 +31,8 @@
 	detonating = TRUE
 	to_chat(imp_in, span_danger("You activate your microbomb bio-chip."))
 
+	. = ..()
+
 	if(delay <= 7)	//If the delay is short, just blow up already jeez
 		self_destruct()
 		return
@@ -84,15 +86,20 @@
 	self_destruct()
 
 /obj/item/implant/explosive/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	var/obj/item/implant/explosive/same_imp = locate(type) in source
-	if(same_imp && same_imp != src)
-		same_imp.heavy += heavy
-		same_imp.medium += medium
-		same_imp.weak += weak
-		same_imp.delay += delay
-		qdel(src)
-		return TRUE
-	return ..()
+	if(!same_imp || same_imp == src)
+		return
+
+	same_imp.heavy += heavy
+	same_imp.medium += medium
+	same_imp.weak += weak
+	same_imp.delay += delay
+	qdel(src)
+	return TRUE
 
 /obj/item/implant/explosive/macro
 	name = "macrobomb bio-chip"
@@ -111,20 +118,26 @@
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
 	to_chat(imp_in, span_notice("You activate your macrobomb bio-chip."))
+	. = ..()
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	var/obj/item/implant/explosive/same_imp = locate(type) in source
 	if(same_imp && same_imp != src)
 		return FALSE
 	same_imp = locate(/obj/item/implant/explosive) in source
-	if(same_imp && same_imp != src)
-		heavy += same_imp.heavy
-		medium += same_imp.medium
-		weak += same_imp.weak
-		delay += same_imp.delay
-		qdel(same_imp)
-	return ..()
+	if(!same_imp || same_imp == src)
+		return
+
+	heavy += same_imp.heavy
+	medium += same_imp.medium
+	weak += same_imp.weak
+	delay += same_imp.delay
+	qdel(same_imp)
 
 /obj/item/implanter/explosive
 	name = "bio-chip implanter (micro-explosive)"

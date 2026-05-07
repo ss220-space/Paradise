@@ -69,13 +69,13 @@ SUBSYSTEM_DEF(capitalism)
 		GLOB.minor_announcement.announce(
 			message = "На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
 			new_title = ANNOUNCE_CAPITAL_DEFOLT_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound()
 		)
 	else
 		GLOB.minor_announcement.announce(
 			message = "На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
 			new_title = ANNOUNCE_CAPITAL_REPAY_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound()
 		)
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()

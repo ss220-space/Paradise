@@ -52,7 +52,7 @@
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
-	tear_manifest()
+	tear_manifest(user)
 
 /obj/structure/closet/crate/before_open(mob/living/user, force)
 	. = ..()
@@ -129,9 +129,11 @@
 		to_chat(user, span_notice("You tear the manifest off of [src]."))
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 
-	our_manifest.forceMove(drop_location(src))
-	if(ishuman(user))
+	if(!ishuman(user))
+		our_manifest.forceMove(drop_location(src))
+	else
 		user.put_in_hands(our_manifest)
+
 	manifest = null
 	update_appearance()
 
@@ -168,7 +170,6 @@
 		console.createMessage(name, "Your Crate has Arrived!", message, 1)
 
 /obj/structure/closet/crate/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
 	if(!isliving(user))
 		return
 

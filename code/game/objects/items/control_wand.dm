@@ -18,8 +18,8 @@
 	var/obj/item/card/id/ID
 	var/z_cross = TRUE //Allows using remoters cross-sectory
 
-/obj/item/door_remote/New()
-	..()
+/obj/item/door_remote/Initialize(mapload)
+	. = ..()
 	ID = new /obj/item/card/id
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)

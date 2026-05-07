@@ -18,10 +18,10 @@
  *
  * Note that this proc can be overridden, and is in the case of screen objects.
  */
-/atom/Click(location,control,params)
+/atom/Click(location, control, params)
 	usr.ClickOn(src, params, location)
 
-/atom/DblClick(location,control,params)
+/atom/DblClick(location, control, params)
 	usr.DblClickOn(src,params)
 
 /**
@@ -145,46 +145,37 @@
 			return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
-	var/sdepth = A.storage_depth(src)
-	if(A == loc || (A in loc) || (sdepth != -1 && sdepth <= 2))
-		// No adjacency needed
+	if(A in DirectAccess())
 		beforeAdjacentClick(A, modifiers)
 		if(W)
 			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, 1, modifiers)
-
+			UnarmedAttack(A, TRUE, modifiers)
 		return
 
 	if(!loc.allow_click()) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
-	sdepth = A.storage_depth_turf()
-	if(isturf(A) || isturf(A.loc) || (sdepth != -1 && sdepth <= 1))
-		if(A.IsReachableBy(src, W?.reach))
-			beforeAdjacentClick(A, modifiers)
-			if(W)
-				W.melee_attack_chain(src, A, modifiers)
+	if(A.IsReachableBy(src, W?.reach))
+		beforeAdjacentClick(A, modifiers)
+		if(W)
+			W.melee_attack_chain(src, A, modifiers)
+		else
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A, TRUE, modifiers)
+	else // non-adjacent click
+		beforeRangedClick(A, modifiers)
+		if(W)
+			A.base_ranged_item_interaction(src, W, modifiers)
+		else
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				ranged_secondary_attack(A, modifiers)
 			else
-				if(ismob(A))
-					changeNext_move(CLICK_CD_MELEE)
-				UnarmedAttack(A, 1, modifiers)
-
-			return
-		else // non-adjacent click
-			beforeRangedClick(A, modifiers)
-			if(W)
-				A.base_ranged_item_interaction(src, W, modifiers)
-			else
-				if(LAZYACCESS(modifiers, RIGHT_CLICK))
-					ranged_secondary_attack(A, modifiers)
-				else
-					RangedAttack(A, modifiers)
-
-	return
+				RangedAttack(A, modifiers)
 
 /mob/proc/beforeAdjacentClick(atom/A, list/modifiers)
 	return
@@ -240,6 +231,7 @@
 
 	if(isnull(loc) || isarea(loc))
 		return FALSE
+
 	if(!HAS_TRAIT(src, TRAIT_SKIP_BASIC_REACH_CHECK) && !loc.IsContainedAtomAccessible(src, user))
 		return FALSE
 

@@ -333,8 +333,8 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/New(loc, direction)
-	..()
+/obj/machinery/bsa/full/Initialize(mapload, direction)
+	. = ..()
 
 	if(direction)
 		cannon_direction = direction

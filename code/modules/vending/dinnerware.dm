@@ -16,7 +16,7 @@
 	lightmask_overlay = "dinnerware_lightmask"
 	broken_overlay = "dinnerware_broken"
 	broken_lightmask_overlay = "dinnerware_broken_lightmask"
-	default_price = PAYCHECK_MIN * 2
+	default_price = PAYCHECK_MIN * 0.7
 	default_premium_price = PAYCHECK_CREW
 
 	products = list(
@@ -42,6 +42,8 @@
 		/obj/item/kitchen/mould/cash = 1,
 		/obj/item/kitchen/mould/coin = 1,
 		/obj/item/kitchen/mould/loli = 1,
+		/obj/item/pizzabox = 10,
+		/obj/item/storage/box/papersack = 20,
 	)
 	premium = list(
 		/obj/item/whetstone = 2,

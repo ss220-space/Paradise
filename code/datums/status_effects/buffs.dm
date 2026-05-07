@@ -375,6 +375,10 @@
 
 /datum/status_effect/regenerative_core/on_apply()
 	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.add_fracture_ignore_trait(src)
+
 	owner.heal_overall_damage(25, 25, affect_robotic = TRUE)
 	owner.remove_CC()
 	if(ishuman(owner))
@@ -394,6 +398,10 @@
 
 /datum/status_effect/regenerative_core/on_remove()
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_fracture_ignore_trait(src)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Регенерация плоти"
@@ -1019,3 +1027,29 @@
 	host.adjustOxyLoss(MEND_HOST_HEAL_AMOUNT * 3, FALSE)
 	host.update_health_hud()
 	host.med_hud_set_status()
+
+/// Gives a short period of time when the fracture occurs.
+/datum/status_effect/ignore_fracture
+	id = "ignore_fracture"
+	alert_type = null
+	duration = 10 SECONDS
+
+/datum/status_effect/ignore_fracture/on_creation(
+		mob/living/new_owner,
+		duration = 10 SECONDS,
+	)
+	src.duration = duration
+	return ..()
+
+/datum/status_effect/ignore_fracture/on_apply()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.add_fracture_ignore_trait(src)
+	return TRUE
+
+/datum/status_effect/ignore_fracture/on_remove()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_fracture_ignore_trait(src)

@@ -37,6 +37,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical
+	abstract_type = /datum/job/medical
 	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1

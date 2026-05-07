@@ -256,8 +256,7 @@
 							m["view_count"] = FM.view_count
 				// Update the last viewed times for the user
 				LAZYINITLIST(last_views[user_name])
-				for(var/c in GLOB.news_network.channels)
-					var/datum/feed_channel/C = c
+				for(var/datum/feed_channel/C as anything in GLOB.news_network.channels)
 					if(screen == NEWSCASTER_CHANNEL && C != viewing_channel)
 						continue
 					last_views[user_name][C.UID()] = now
@@ -304,12 +303,12 @@
 	// Append channels
 	var/list/channels = list()
 	data["channels"] = channels
-	for(var/c in GLOB.news_network.channels)
-		var/datum/feed_channel/C = c
+	for(var/datum/feed_channel/C as anything in GLOB.news_network.channels)
 		var/list/channel = list(
 			uid = C.UID(),
 			name = C.channel_name,
 			author = C.author,
+			author_ckey = (is_admin(user) ? C.author_ckey : "N/A"),
 			description = C.description,
 			icon = C.icon,
 			public = C.is_public,
@@ -321,8 +320,7 @@
 		// Add the number of unseen stories if authed
 		if(user_name)
 			var/last_view_time = (last_views[user_name] && last_views[user_name][C.UID()]) || 0
-			for(var/m in C.messages)
-				var/datum/feed_message/M = m
+			for(var/datum/feed_message/M as anything in C.messages)
 				if(last_view_time < M.publish_time)
 					channel["unread"]++
 		channels += list(channel)
@@ -342,6 +340,7 @@
 	return list(list(
 		uid = FM.UID(),
 		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
+		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
 		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
 		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
@@ -495,11 +494,11 @@
 		if(UI_MODAL_ANSWER)
 			switch(id)
 				if("create_channel", "manage_channel")
-					var/author = trim(arguments["author"])
-					var/name = trim(arguments["name"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/name = strip_html_full(trim(arguments["name"]))
 					if(!length(author) || !length(name))
 						return
-					var/description = trim(arguments["description"])
+					var/description = strip_html_full(trim(arguments["description"]))
 					var/icon = arguments["icon"]
 					var/public = text2num(arguments["public"])
 					var/admin_locked = text2num(arguments["admin_locked"])
@@ -527,14 +526,16 @@
 					FC.description = copytext_char(description, 1, CHANNEL_DESC_MAX_LENGTH)
 					FC.icon = usr.can_admin_interact() ? icon : "newspaper"
 					FC.author = usr.can_admin_interact() ? author : scanned_user
+					FC.author_ckey = usr.ckey
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
 					set_temp("Канал \"[FC.channel_name]\" создан.", "good")
+					usr.create_log(MISC_LOG, "Newscaster channel [name] created with desc [description].")
 				if("create_story")
-					var/author = trim(arguments["author"])
-					var/channel = trim(arguments["channel"])
-					var/title = trim(arguments["title"])
-					var/body = trim(arguments["body"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/channel = strip_html_full(trim(arguments["channel"]))
+					var/title = strip_html_full(trim(arguments["title"]))
+					var/body = strip_html_full(trim(arguments["body"]))
 					var/admin_locked = text2num(arguments["admin_locked"])
 					if(!length(author) || !length(title) || !length(body))
 						return
@@ -545,6 +546,7 @@
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user
+					FM.author_ckey = usr.ckey
 					FM.title = copytext_char(title, 1, STORY_NAME_MAX_LENGTH)
 					FM.body = copytext_char(body, 1, STORY_BODY_MAX_LENGTH)
 					FM.img = photo?.img
@@ -554,8 +556,7 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -564,12 +565,13 @@
 					viewing_channel = FC
 					eject_photo(usr)
 					set_temp("Статья была опубликована в канале \"[FC.channel_name]\".", "good")
+					usr.create_log(MISC_LOG, "Newscaster story [title] created with desc [body].")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
-					var/author = trim(arguments["author"])
-					var/name = trim(arguments["name"])
-					var/description = trim(arguments["description"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/name = strip_html_full(trim(arguments["name"]))
+					var/description = strip_html_full(trim(arguments["description"]))
 					var/admin_locked = text2num(arguments["admin_locked"])
 					if(!length(author) || !length(name) || !length(description))
 						return
@@ -588,11 +590,11 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Уведомление о розыске опубликовано.", "good")
+					usr.create_log(MISC_LOG, "Wanted notice for [name] created with desc [description].")
 				else
 					return FALSE
 		else

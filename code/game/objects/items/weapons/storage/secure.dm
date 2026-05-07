@@ -114,9 +114,8 @@
 	return ..()
 
 /obj/item/storage/secure/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!try_to_open(usr))
-		return FALSE
-	return ..()
+	if(!try_to_open(user))
+		return
 
 /obj/item/storage/secure/proc/try_to_open(mob/living/user)
 	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
