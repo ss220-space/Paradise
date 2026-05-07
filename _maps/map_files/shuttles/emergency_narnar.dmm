@@ -53,7 +53,9 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "am" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east{
+	dir = 1
+	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -131,7 +133,9 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ax" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west{
+	dir = 1
+	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -225,6 +229,7 @@
 "aM" = (
 /obj/effect/decal/cleanable/blood/innards,
 /obj/effect/decal/cleanable/blood/gibs/body,
+/mob/living/simple_animal/pet/dog/corgi/narsie,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aN" = (
@@ -236,9 +241,6 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aP" = (
-/obj/item/storage/firstaid/fire,
-/obj/item/extinguisher,
-/obj/item/crowbar,
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -362,6 +364,13 @@
 "bj" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/shuttle/plating,
+/area/shuttle/escape)
+"SU" = (
+/obj/structure/cult/altar,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -633,7 +642,7 @@ ab
 ab
 ab
 aw
-az
+aj
 aj
 aj
 aj
@@ -658,11 +667,11 @@ aa
 aa
 aa
 ab
+az
+SU
+az
 aj
 aA
-aj
-aj
-aj
 aJ
 aj
 aj

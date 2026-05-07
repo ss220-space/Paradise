@@ -6,6 +6,11 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/radio/intercom/directional/west,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -59,6 +64,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -114,9 +123,22 @@
 	},
 /area/shuttle/escape)
 "at" = (
-/obj/item/radio/intercom/directional/east,
+/obj/structure/closet/crate/internals,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "bot"
 	},
 /area/shuttle/escape)
 "au" = (
@@ -494,6 +516,10 @@
 /area/shuttle/escape)
 "bG" = (
 /obj/machinery/mech_bay_recharge_port,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -515,6 +541,10 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
+	},
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -920,6 +950,11 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"MI" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "Ow" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/escape)
@@ -992,7 +1027,7 @@ aa
 aa
 aa
 aa
-bc
+MI
 aO
 aH
 aH
@@ -1022,13 +1057,13 @@ aa
 aa
 aa
 aa
-cH
-Ow
+aa
+MI
 aI
 aH
 aH
 aN
-bc
+MI
 bg
 ba
 bQ
@@ -1120,8 +1155,8 @@ cH
 wB
 bc
 bj
-wB
 Ow
+cH
 bF
 ba
 ba
@@ -1238,7 +1273,7 @@ bw
 bc
 aj
 ao
-at
+an
 an
 bW
 aR
@@ -1275,9 +1310,9 @@ cH
 wB
 be
 be
-wB
 Ow
-aV
+cH
+at
 bK
 bE
 bE
@@ -1363,8 +1398,8 @@ aa
 aa
 aa
 aa
-cH
-Ow
+aa
+MI
 aU
 bg
 bl
@@ -1395,7 +1430,7 @@ aa
 aa
 aa
 aa
-bc
+MI
 aU
 bg
 bl
@@ -1458,12 +1493,12 @@ aa
 aa
 aa
 cH
-bc
+MI
 bi
 bi
 bc
-Ow
-wB
+cH
+cH
 bc
 bc
 bc

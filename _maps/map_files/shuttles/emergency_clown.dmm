@@ -45,11 +45,10 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/machinery/status_display{
+	pixel_y = -30
 	},
-/turf/simulated/floor/noslip,
+/turf/simulated/wall/shuttle,
 /area/shuttle/escape)
 "ap" = (
 /obj/item/toy/snappop,
@@ -58,7 +57,6 @@
 	},
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -96,12 +94,20 @@
 /area/shuttle/escape)
 "az" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/structure/closet/walllocker/emerglocker/directional/west{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/east{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "aB" = (
-/turf/simulated/floor/chasm,
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/status_display{
@@ -110,7 +116,9 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/chasm,
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/bed,
@@ -131,7 +139,7 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aH" = (
 /obj/item/storage/bible{
@@ -139,7 +147,6 @@
 	icon_state = "greentext";
 	name = "greentext"
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aI" = (
@@ -157,7 +164,9 @@
 /area/shuttle/escape)
 "aL" = (
 /obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/chasm,
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aM" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -252,7 +261,9 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ba" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -366,6 +377,16 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
+"eZ" = (
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
+"in" = (
+/obj/machinery/light/spot,
+/obj/item/toy/snappop/phoenix,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/escape)
 "HT" = (
 /obj/item/clothing/mask/cursedclown,
 /turf/simulated/floor/noslip,
@@ -387,7 +408,7 @@ bq
 bq
 bq
 bq
-ba
+bq
 aP
 aM
 XG
@@ -395,7 +416,7 @@ XG
 XG
 aM
 aT
-aM
+bq
 aY
 XG
 aM
@@ -463,7 +484,7 @@ ac
 as
 bq
 aB
-aB
+eZ
 aL
 aM
 am
@@ -485,7 +506,7 @@ aa
 bq
 ac
 ak
-ao
+aq
 at
 aM
 XG
@@ -499,7 +520,7 @@ XG
 XG
 am
 am
-aM
+ba
 bc
 bg
 bl
@@ -524,9 +545,9 @@ aD
 aD
 aD
 am
-aU
+in
 ba
-bq
+ao
 bq
 bq
 bq
@@ -551,7 +572,7 @@ ap
 ap
 am
 am
-XG
+ba
 aa
 aa
 aa
@@ -577,7 +598,7 @@ aD
 aD
 am
 aU
-aM
+ba
 bq
 bq
 bq
@@ -603,7 +624,7 @@ XG
 XG
 am
 am
-XG
+ba
 bd
 bh
 bm
@@ -655,7 +676,7 @@ am
 am
 am
 am
-XG
+aM
 aw
 aw
 bm
@@ -681,7 +702,7 @@ aD
 aD
 am
 am
-XG
+aM
 be
 bi
 aw
@@ -707,7 +728,7 @@ XG
 XG
 aM
 XG
-aM
+bq
 bq
 bq
 bq

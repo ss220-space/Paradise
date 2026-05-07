@@ -5,44 +5,32 @@
 	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
-"aH" = (
-/turf/simulated/wall/shuttle/nosmooth/interior{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	underlay_floor_icon = 'icons/turf/shuttle/floors.dmi';
-	underlay_floor_icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "aP" = (
 /obj/machinery/autolathe/upgraded,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "bi" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/emergency{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/structure/table/abductor,
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/obj/item/storage/toolbox/surgery/advanced,
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "bQ" = (
 /obj/machinery/computer/communications{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/gold{
-	dir = 6
-	},
 /obj/machinery/light/small,
-/turf/simulated/floor/carpet/royalblack,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
 /area/shuttle/administration)
 "ce" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -107,25 +95,12 @@
 	},
 /area/shuttle/administration)
 "cP" = (
-/obj/item/gun/energy/gun/nuclear{
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun/nuclear,
-/obj/item/gun/energy/gun/nuclear{
-	pixel_y = 3
-	},
-/obj/item/gun/energy/gun/nuclear{
-	pixel_y = 3
-	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	layer = 2;
-	name = "Weapons";
-	req_access = list(101)
+/obj/machinery/vending/nta/ertarmory/janitor{
+	all_products_free = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -153,12 +128,16 @@
 /obj/machinery/autolathe/security{
 	hacked = 1
 	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 4;
+	pixel_y = -32
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "dH" = (
-/obj/structure/chair,
+/obj/machinery/recharge_station/ert,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -168,9 +147,7 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "er" = (
 /obj/structure/sign/securearea{
@@ -197,7 +174,7 @@
 	},
 /area/shuttle/administration)
 "eY" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/abductor,
 /obj/item/storage/lockbox/mindshield,
 /obj/item/storage/lockbox/mindshield,
 /obj/item/storage/lockbox/mindshield,
@@ -240,17 +217,12 @@
 	dir = 6;
 	icon_state = "gs_deadlock"
 	},
-/turf/simulated/floor/carpet/royalblack,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
 /area/shuttle/administration)
 "gs" = (
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/alt,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
@@ -258,35 +230,33 @@
 	color = "#22aab7";
 	dir = 4
 	},
-/obj/structure/rack/gunrack,
+/obj/machinery/vending/nta/ertarmory/red{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "hP" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
-	},
-/obj/effect/turf_decal/stripes/gold{
-	dir = 5
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/administration)
-"hY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
+/obj/machinery/computer/card{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"iv" = (
-/obj/structure/table/reinforced,
+"hY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /obj/machinery/door/window/brigdoor{
 	color = "#22aab7";
 	dir = 1;
@@ -298,13 +268,24 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"iv" = (
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 1
+	},
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "iz" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
 "iZ" = (
-/obj/machinery/recharge_station/upgraded,
+/obj/item/flag/nt,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -379,18 +360,20 @@
 /area/shuttle/administration)
 "mw" = (
 /obj/machinery/vending/medical,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "mZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/gold{
-	dir = 6
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
-/turf/simulated/floor/carpet/royalblack,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
 /area/shuttle/administration)
 "nl" = (
 /obj/structure/fans/tiny,
@@ -452,14 +435,6 @@
 	},
 /area/shuttle/administration)
 "oG" = (
-/obj/item/gun/energy/sniperrifle{
-	pixel_y = -4
-	},
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle{
-	pixel_y = 3
-	},
-/obj/item/gun/energy/sniperrifle,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
@@ -468,18 +443,15 @@
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	layer = 2;
-	name = "Weapons";
-	req_access = list(101)
+/obj/machinery/vending/nta/ertarmory/engineer{
+	all_products_free = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "oY" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/flag/nt,
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -518,16 +490,12 @@
 	},
 /area/shuttle/administration)
 "qQ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
+/obj/structure/sign/poster/official/explosionsafe,
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/obj/effect/turf_decal/stripes/gold{
-	dir = 5
-	},
-/turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "rA" = (
-/obj/item/flag/nt,
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -556,61 +524,20 @@
 	},
 /area/shuttle/administration)
 "ua" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
 	icon_state = "gs_deadlock"
 	},
-/turf/simulated/floor/carpet/royalblack,
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	dir = 1;
+	name = "NTV Argos shuttle navigation computer"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
 /area/shuttle/administration)
 "uv" = (
-/obj/item/shield/riot,
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
-/obj/item/shield/riot{
-	pixel_x = 2;
-	pixel_y = -4
-	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 4
@@ -620,19 +547,21 @@
 	dir = 1
 	},
 /obj/structure/rack/gunrack,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
+/obj/item/shield/riot/tele,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "uY" = (
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/alt,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
@@ -641,13 +570,17 @@
 	color = "#22aab7";
 	dir = 4
 	},
-/obj/structure/rack/gunrack,
+/obj/machinery/vending/nta/ertarmory/red{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "vz" = (
-/obj/machinery/vending/security,
+/obj/machinery/vending/nta{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -663,20 +596,14 @@
 	dir = 8
 	},
 /obj/structure/rack/gunrack,
+/obj/machinery/light/spot{
+	dir = 8
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "vV" = (
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
@@ -684,7 +611,9 @@
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/rack/gunrack,
+/obj/machinery/vending/nta/ertarmory/blue{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -709,19 +638,13 @@
 	},
 /area/shuttle/administration)
 "wh" = (
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/alt,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 4
 	},
-/obj/structure/rack/gunrack,
+/obj/machinery/vending/nta/ertarmory/red{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -741,21 +664,15 @@
 	},
 /area/shuttle/administration)
 "xF" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "xH" = (
-/obj/item/gun/energy/immolator/multi{
-	pixel_y = -3
-	},
-/obj/item/gun/energy/immolator/multi,
-/obj/item/gun/energy/immolator/multi{
-	pixel_y = 3
-	},
-/obj/item/gun/energy/immolator/multi,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
@@ -763,11 +680,8 @@
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	layer = 2;
-	name = "Weapons";
-	req_access = list(101)
+/obj/machinery/vending/nta/ertarmory/medical{
+	all_products_free = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -781,44 +695,16 @@
 	},
 /area/shuttle/administration)
 "xZ" = (
-/obj/structure/table/reinforced,
-/obj/item/tank/internals/emergency_oxygen/engi{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/machinery/light/spot{
 	dir = 8
-	},
-/obj/item/clothing/mask/breath{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath{
-	pixel_x = 3;
-	pixel_y = -3
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
+/obj/machinery/bodyscanner{
+	dir = 4
 	},
-/area/shuttle/administration)
-"yg" = (
-/obj/structure/sign/nosmoking_2{
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "yk" = (
 /obj/structure/rack,
@@ -873,24 +759,22 @@
 /obj/machinery/sleeper/upgraded{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "ze" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/flag/nt,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "zg" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
 /obj/item/folder,
+/obj/structure/table/abductor,
 /turf/simulated/floor/shuttle{
 	dir = 5;
 	icon = 'icons/turf/floors.dmi';
@@ -903,29 +787,26 @@
 	},
 /area/shuttle/administration)
 "AH" = (
-/obj/item/gun/projectile/shotgun/riot/buckshot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/structure/rack/gunrack,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
+/obj/mecha/combat/gygax/ert/loaded,
+/turf/simulated/floor/redgrid,
 /area/shuttle/administration)
 "Bc" = (
-/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
+	},
+/obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
+/obj/machinery/door/window/brigdoor{
+	color = "#22aab7";
+	dir = 1;
+	icon_state = "rightsecure";
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -960,9 +841,7 @@
 	},
 /area/shuttle/administration)
 "Cl" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "Du" = (
 /obj/structure/shuttle/engine/heater{
@@ -982,35 +861,27 @@
 	},
 /area/shuttle/administration)
 "Dw" = (
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	layer = 2;
-	name = "Weapons";
-	req_access = list(101)
+/obj/structure/closet/crate/secure/large/reinforced{
+	name = "miscellanea"
 	},
+/obj/item/storage/box/flare,
+/obj/item/storage/box/flare,
+/obj/item/storage/briefcase/inflatable,
+/obj/item/storage/briefcase/inflatable,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Ev" = (
-/obj/structure/sign/securearea{
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
+/obj/structure/sign/poster/official/hardwork,
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)
 "EQ" = (
@@ -1047,11 +918,11 @@
 /area/shuttle/administration)
 "FU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
 	},
+/obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1074,38 +945,22 @@
 	},
 /area/shuttle/administration)
 "Gx" = (
-/obj/structure/table/reinforced,
-/obj/item/rcd/preloaded,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/rcd_ammo{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/obj/machinery/optable,
+/obj/machinery/shower,
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "GS" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 4;
-	pixel_y = -32
-	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Hc" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	color = "#22aab7";
 	req_access = list(101)
@@ -1116,24 +971,18 @@
 	},
 /area/shuttle/administration)
 "Hq" = (
-/obj/item/gun/projectile/shotgun/riot/buckshot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/rack/gunrack,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
+/obj/structure/table/abductor,
+/obj/item/aicard,
+/obj/item/stock_parts/cell/bluespace,
+/obj/item/stock_parts/cell/bluespace,
+/turf/simulated/floor/redgrid,
 /area/shuttle/administration)
 "Hv" = (
 /obj/machinery/atmospherics/unary/tank/air{
@@ -1169,13 +1018,6 @@
 	},
 /area/shuttle/administration)
 "HX" = (
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
@@ -1183,11 +1025,8 @@
 	color = "#22aab7";
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	layer = 2;
-	name = "Weapons";
-	req_access = list(101)
+/obj/machinery/vending/chinese{
+	all_products_free = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1199,31 +1038,31 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/administration)
 "Jt" = (
-/obj/item/clothing/shoes/combat/swat,
-/obj/item/clothing/shoes/combat/swat,
-/obj/item/clothing/shoes/combat/swat,
-/obj/item/clothing/shoes/combat/swat,
-/obj/item/clothing/suit/space/swat,
-/obj/item/clothing/suit/space/swat,
-/obj/item/clothing/suit/space/swat,
-/obj/item/clothing/suit/space/swat,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 4
 	},
 /obj/structure/rack/gunrack,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
+/obj/item/storage/belt/security/webbing,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Kh" = (
-/obj/structure/chair{
-	dir = 8
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7"
 	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
+/obj/machinery/vending/robotics/nt/durand{
+	all_products_free = 1
 	},
+/turf/simulated/floor/redgrid,
 /area/shuttle/administration)
 "Ki" = (
 /turf/simulated/floor/shuttle/transparent_floor,
@@ -1239,7 +1078,7 @@
 	},
 /area/shuttle/administration)
 "LK" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/abductor,
 /obj/item/kitchen/knife/combat{
 	pixel_x = -3;
 	pixel_y = 3
@@ -1273,9 +1112,7 @@
 /obj/item/storage/firstaid/surgery,
 /obj/item/storage/firstaid/tactical,
 /obj/item/storage/firstaid/tactical,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "Mv" = (
 /turf/simulated/floor/shuttle{
@@ -1285,7 +1122,7 @@
 	},
 /area/shuttle/administration)
 "MK" = (
-/obj/structure/chair{
+/obj/structure/chair/office/dark{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -1334,13 +1171,6 @@
 	},
 /area/shuttle/administration)
 "Pe" = (
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
@@ -1349,18 +1179,15 @@
 	color = "#22aab7";
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	layer = 2;
-	name = "Weapons";
-	req_access = list(101)
+/obj/machinery/vending/engivend{
+	all_products_free = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Pj" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/flag/nt,
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -1378,7 +1205,6 @@
 	},
 /area/shuttle/administration)
 "PE" = (
-/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
@@ -1387,31 +1213,39 @@
 	color = "#22aab7";
 	dir = 1
 	},
+/obj/structure/closet/crate/secure/mortar/mortar_kit,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Qt" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
+/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "Rh" = (
-/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
+	},
+/obj/structure/closet/crate/secure/mortar/mortar_shells/he,
+/obj/machinery/door/window/brigdoor{
+	color = "#22aab7";
+	dir = 1;
+	icon_state = "rightsecure";
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Ru" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
 /obj/machinery/turretid/stun{
 	check_access = 0;
 	name = "Shuttle Turret Control";
-	pixel_y = 30
+	pixel_y = 30;
+	check_records = 0
 	},
 /obj/machinery/door_control{
 	id = "asclblast";
@@ -1426,43 +1260,29 @@
 	},
 /area/shuttle/administration)
 "Rw" = (
-/obj/machinery/computer/secure_data,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
+	},
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Ti" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#22aab7";
+	dir = 1;
+	icon_state = "rightsecure";
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"RS" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle{
-	dir = 4;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "navybluealt"
-	},
-/area/shuttle/administration)
-"Ti" = (
-/turf/simulated/floor/shuttle{
-	dir = 1;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "navybluealt"
-	},
-/area/shuttle/administration)
 "TF" = (
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
@@ -1471,26 +1291,21 @@
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/rack/gunrack,
+/obj/machinery/vending/nta/ertarmory/blue{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Uc" = (
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
-/obj/structure/rack/gunrack,
+/obj/machinery/vending/nta/ertarmory/blue{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1514,10 +1329,9 @@
 /turf/space,
 /area/space)
 "Vi" = (
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_y = -32
+/obj/machinery/vending/gun_mods/advanced{
+	all_products_free = 1
 	},
-/obj/machinery/vending/security,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1548,23 +1362,7 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"XG" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/shuttle{
-	dir = 8;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "navybluealt"
-	},
-/area/shuttle/administration)
 "XP" = (
-/obj/item/clothing/head/helmet/swat,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/clothing/mask/gas/sechailer/swat,
-/obj/item/clothing/mask/gas/sechailer/swat,
-/obj/item/clothing/mask/gas/sechailer/swat,
-/obj/item/clothing/mask/gas/sechailer/swat,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
@@ -1573,19 +1371,16 @@
 	dir = 4
 	},
 /obj/structure/rack/gunrack,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
+/obj/item/storage/belt/security/webbing/pouch/fast,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"YF" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 4
-	},
-/obj/machinery/computer/secure_data,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
 	},
 /area/shuttle/administration)
 
@@ -1625,7 +1420,7 @@ Az
 MY
 vA
 cl
-aH
+Az
 Az
 Vc
 "}
@@ -1646,7 +1441,7 @@ FF
 VQ
 VQ
 VQ
-aH
+Az
 Az
 "}
 (4,1,1) = {"
@@ -1658,7 +1453,7 @@ Cl
 zd
 Az
 Ru
-qQ
+mZ
 mZ
 xF
 Az
@@ -1677,7 +1472,7 @@ Cl
 Cl
 Cl
 Az
-Az
+rW
 VQ
 VQ
 Az
@@ -1697,7 +1492,7 @@ Cl
 Az
 VI
 Az
-rW
+Az
 cV
 cV
 rW
@@ -1716,7 +1511,7 @@ VI
 VI
 Az
 gd
-XG
+xQ
 rA
 xQ
 so
@@ -1733,9 +1528,9 @@ Az
 Az
 oY
 VQ
-Ev
+VQ
 Rw
-Ti
+MK
 Ur
 Ur
 Ur
@@ -1767,7 +1562,7 @@ VQ
 VQ
 VQ
 Vi
-Az
+qQ
 "}
 (10,1,1) = {"
 UX
@@ -1776,7 +1571,7 @@ VQ
 VQ
 Az
 zg
-RS
+Mv
 Mv
 Mv
 zc
@@ -1787,7 +1582,7 @@ VQ
 VQ
 VQ
 vz
-Az
+Ev
 "}
 (11,1,1) = {"
 rW
@@ -1797,7 +1592,7 @@ VQ
 Az
 Az
 Hc
-YF
+Hc
 Az
 Az
 Az
@@ -1813,7 +1608,7 @@ rW
 pK
 VQ
 VQ
-yg
+VQ
 VQ
 VQ
 VQ
@@ -1842,7 +1637,7 @@ VQ
 VQ
 Az
 PE
-VQ
+Ti
 Bc
 nQ
 VQ
@@ -1851,12 +1646,12 @@ UX
 "}
 (14,1,1) = {"
 rW
-xF
-Kh
-Kh
 iZ
-Kh
-Kh
+xF
+xF
+iZ
+xF
+xF
 ze
 VQ
 Nf
@@ -1866,7 +1661,7 @@ hY
 Rh
 yk
 VQ
-AH
+Kh
 UX
 "}
 (15,1,1) = {"
