@@ -35,7 +35,6 @@
 	pixel_y = -2
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/pod/dark/lavaland_air,
@@ -346,8 +345,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "4-9"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -375,7 +372,6 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
@@ -572,13 +568,9 @@
 /area/ruin/powered/pirateship)
 "ng" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-10"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-6"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -628,7 +620,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/railing,
@@ -637,8 +628,6 @@
 "nE" = (
 /obj/machinery/vending/snack,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel/dark/lavaland_air,
@@ -831,8 +820,6 @@
 "ru" = (
 /obj/item/trash/chips,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -889,8 +876,6 @@
 /area/lavaland/surface/outdoors)
 "sU" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -975,8 +960,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "6-8"
 	},
 /obj/item/clothing/suit/hgpirate,
@@ -1096,8 +1079,6 @@
 /area/lavaland/surface/outdoors)
 "yQ" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1186,7 +1167,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/light/small{
@@ -1232,15 +1212,12 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "5-9"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1269,13 +1246,9 @@
 	icon_state = "8-10"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "6-8"
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -1737,8 +1710,6 @@
 /area/ruin/powered/pirateship)
 "LZ" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/gps{
@@ -1956,7 +1927,6 @@
 "PL" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable/orange{
@@ -2094,8 +2064,6 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/pod/dark/lavaland_air,
@@ -2269,8 +2237,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -2356,8 +2322,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-5"
 	},
 /obj/effect/decal/cleanable/dust,

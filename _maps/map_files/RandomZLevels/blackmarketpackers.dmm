@@ -297,7 +297,6 @@
 	},
 /obj/structure/grille,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -432,7 +431,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters,
@@ -522,7 +520,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/item/shard{
@@ -561,7 +558,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -625,7 +621,6 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1083,7 +1078,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -1178,7 +1172,6 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -1307,7 +1300,6 @@
 	pixel_y = 32
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1878,7 +1870,6 @@
 "fw" = (
 /obj/structure/alien/weeds,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -2181,7 +2172,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/terminal{
@@ -2226,7 +2216,6 @@
 /area/awaymission/BMPship/Containment)
 "gq" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2787,7 +2776,6 @@
 /area/awaymission/BMPship/Fore)
 "ij" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2927,7 +2915,6 @@
 /area/awaymission/BMPship/Gate)
 "iI" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -3009,7 +2996,6 @@
 /area/awaymission/BMPship/ChemLab)
 "iW" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor,
@@ -3761,7 +3747,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/item/mounted/frame/apc_frame,
@@ -3891,7 +3876,6 @@
 /area/space)
 "pq" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -4099,7 +4083,6 @@
 /area/space)
 "qQ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/grille,
@@ -4653,7 +4636,6 @@
 	pixel_y = 32
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4707,7 +4689,6 @@
 /area/awaymission/BMPship/MedBay)
 "wv" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -4791,7 +4772,6 @@
 /area/awaymission/BMPship/Kitchen)
 "xe" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -4851,7 +4831,6 @@
 /obj/item/clothing/head/fedora,
 /obj/item/clothing/suit/draculacoat,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -5008,7 +4987,6 @@
 	calibrated = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -5159,7 +5137,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/wrench,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5696,7 +5673,6 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/grille,
@@ -6028,7 +6004,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -6497,7 +6472,6 @@
 /area/awaymission/BMPship/Containment)
 "OC" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -6908,7 +6882,6 @@
 /area/awaymission)
 "Tj" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/grille,
@@ -7156,7 +7129,6 @@
 /area/awaymission/BMPship/Containment)
 "VH" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/alien/weeds,
