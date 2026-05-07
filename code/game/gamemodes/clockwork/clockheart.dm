@@ -231,7 +231,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/area/summon_zone = get_area(src)
 	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать внепространственного бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound()
 	)
 	gateway = new
 	gateway.heart = src
@@ -320,7 +320,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
 /obj/structure/heart_filler/mouse_drop_receive(atom/movable/dropping, mob/user, params)
-	parent.mouse_drop_receive(dropping, user, params)
+	return parent.mouse_drop_receive(dropping, user, params)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)

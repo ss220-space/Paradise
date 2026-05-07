@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - balance: "Количество слотов в кошельке уменьшено с 10 до 4. (PR #9146)"
+  - tweak: "В кошелек можно засовывать шприцы. (PR #9146)"

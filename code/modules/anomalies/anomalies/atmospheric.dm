@@ -161,7 +161,7 @@
 		PREPOSITIONAL = "большой ​​атмосферной аномалии",
 	)
 
-/obj/effect/anomaly/atmospheric/tier3/New()
+/obj/effect/anomaly/atmospheric/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -219,7 +219,7 @@
 		to_chat(mob, span_danger("Вы были испепелены [declent_ru(INSTRUMENTAL)]!"))
 		mob.dust()
 
-/obj/effect/anomaly/atmospheric/tier4/New()
+/obj/effect/anomaly/atmospheric/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)

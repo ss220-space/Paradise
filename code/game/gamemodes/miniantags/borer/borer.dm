@@ -150,9 +150,9 @@
 		PREPOSITIONAL = "мозговом черве",
 	)
 
-/mob/living/simple_animal/borer/New(atom/newloc, gen=1)
+/mob/living/simple_animal/borer/Initialize(mapload, gen = 1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
-	..(newloc)
+	. = ..()
 	remove_from_all_data_huds()
 	generation = gen
 	add_language(LANGUAGE_HIVE_BORER)

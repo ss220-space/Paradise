@@ -87,7 +87,7 @@
 
 /datum/proximity_monitor/advanced/on_moved(atom/movable/movable, atom/old_loc)
 	. = ..()
-	if(ignore_if_not_on_turf)
+	if(!works_when_not_on_turf)
 		//Early return if it's not the host that has moved.
 		if(movable != host)
 			return
@@ -127,7 +127,7 @@
 		cleanup_field_turf(target)
 
 /datum/proximity_monitor/advanced/proc/update_new_turfs()
-	if(ignore_if_not_on_turf && !isturf(host.loc))
+	if(!works_when_not_on_turf && !isturf(host.loc))
 		return list(FIELD_TURFS_KEY = list(), EDGE_TURFS_KEY = list())
 
 	var/list/local_field_turfs = list()

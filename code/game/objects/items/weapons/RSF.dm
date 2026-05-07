@@ -14,8 +14,8 @@ RSF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	var/list/configured_items = list()
 
-/obj/item/rsf/New(use_rsf_list = TRUE)
-	..()
+/obj/item/rsf/Initialize(mapload, use_rsf_list = TRUE)
+	. = ..()
 	if(use_rsf_list)
 		configured_items = list(
 			list("Dosh", 50, /obj/item/stack/spacecash/c10),
@@ -35,8 +35,8 @@ RSF
 	desc = "A device used to rapidly deploy delucious food!"
 	icon_state = "rff"
 
-/obj/item/rsf/rff/New()
-	..(use_rsf_list = FALSE)
+/obj/item/rsf/rff/Initialize(mapload, use_rsf_list = FALSE)
+	. = ..()
 	configured_items = list(
 		list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles),
 		list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut),

@@ -57,11 +57,11 @@
 	heat_level_3 = 400 //Default 460
 	heatmod = 3
 
-	flesh_color = "#a3d4eb"
+	flesh_color = BLOOD_COLOR_DRASK
 	reagent_tag = ORGANIC
-	base_color = "#a3d4eb"
+	base_color = BLOOD_COLOR_DRASK
 	blood_species = "Drask"
-	blood_color = "#a3d4eb"
+	blood_color = BLOOD_COLOR_DRASK
 	butt_sprite = "drask"
 
 	has_organ = list(

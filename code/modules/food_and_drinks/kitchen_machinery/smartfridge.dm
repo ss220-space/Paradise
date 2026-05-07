@@ -263,17 +263,17 @@
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/mouse_drop_receive(obj/over_object, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return TRUE
+		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
-		return TRUE
+		return
 	if(stat & (BROKEN|NOPOWER))
 		balloon_alert(user, "не работает!")
-		return TRUE
+		return
 
 	var/obj/item/storage/box/pillbottles/P = over_object
 	if(!length(P.contents))
 		balloon_alert(user, "нечего выгружать!")
-		return TRUE
+		return
 
 	add_fingerprint(user)
 	var/items_loaded = 0
@@ -290,7 +290,6 @@
 	var/failed = length(P.contents)
 	if(failed)
 		to_chat(user, span_notice("[failed] предмет[DECL_CREDIT(failed)] не был[declension_ru(failed, "", "и", "и")] загружен[declension_ru(failed, "", "ы", "ы")]."))
-	return TRUE
 
 /obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)

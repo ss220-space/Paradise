@@ -12,7 +12,7 @@
 
 /obj/effect/temp_visual/explosion/Initialize(mapload, radius, color, small = FALSE, large = FALSE)
 	. = ..()
-	set_light(radius, radius, LIGHT_COLOR_LAVA)
+	set_light(radius, radius, color)
 	generate_particles(radius, small, large)
 	var/image/explosion_effect = image(icon = icon, loc = src, icon_state = icon_state, layer = 10)
 	explosion_effect.pixel_w = -32

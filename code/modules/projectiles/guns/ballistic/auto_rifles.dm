@@ -126,6 +126,7 @@
 	burst_size = 2
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_HEAVY
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 1),
@@ -133,6 +134,10 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
+
+/obj/item/gun/projectile/automatic/ak814/weakened
+	desc = "Импортная версия классической штурмовой винтовки AK-814 с уменьшенным магазином и планками для установки оружейных модулей."
+	mag_type = /obj/item/ammo_box/magazine/ak814/fusty
 
 // MARK: AKS74-U
 /obj/item/gun/projectile/automatic/aks74u
