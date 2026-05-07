@@ -14,7 +14,7 @@
 	var/sound_holster = 'sound/weapons/gun_interactions/1holster.ogg'
 	var/sound_unholster = 'sound/weapons/gun_interactions/1unholster.ogg'
 
-/obj/item/clothing/accessory/holster/ComponentInitialize()
+/obj/item/clothing/accessory/holster/gun/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
@@ -162,12 +162,7 @@
 
 	holster.attack_self(usr)
 
-/obj/item/clothing/accessory/holster/armpit
-	desc = "A worn-out handgun holster. Perfect for concealed carry"
-	holster_allow = /obj/item/gun/projectile
-
-/obj/item/clothing/accessory/holster/waist
-	desc = "A handgun holster. Made of expensive leather."
+/obj/item/clothing/accessory/holster/gun
 
 /obj/item/clothing/accessory/holster/knives
 	name = "knife holster"

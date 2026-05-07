@@ -69,7 +69,7 @@
 	new /obj/item/gun/energy/anomaly_stabilizer(src)
 	new /obj/item/gun/energy/anomaly_stabilizer(src)
 	new /obj/item/gun/energy/gun/mini(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

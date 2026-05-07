@@ -1805,7 +1805,7 @@
 /datum/uplink_item/device_tools/holster
 	name = "Кобура"
 	desc = "Надежно крепится к комбинезону, обеспечивая быстрый доступ к оружию нормального размера."
-	item = /obj/item/clothing/accessory/holster
+	item = /obj/item/clothing/accessory/holster/gun
 	cost = 2
 
 /datum/uplink_item/device_tools/holster/knives

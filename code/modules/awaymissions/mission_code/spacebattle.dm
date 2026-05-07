@@ -364,7 +364,7 @@
 		if(35 to 40) // 5%
 			SynRange = /obj/item/gun/projectile/automatic/pistol
 		if(40 to 47) // 7%
-			SynRange = /obj/item/clothing/accessory/holster
+			SynRange = /obj/item/clothing/accessory/holster/gun
 		if(47 to 50) // 3%
 			SynRange = /obj/item/ammo_box/magazine/smgm45
 		if(50 to 51) // 1%
@@ -550,7 +550,7 @@
 	mob_name = "Ship Officer"
 	id = /obj/item/card/id/away/old/sec
 	uniform = /obj/item/clothing/under/retro/security
-	belt = /obj/item/clothing/accessory/holster/waist
+	belt = /obj/item/clothing/accessory/holster/gun/
 	suit = /obj/item/clothing/suit/armor/vest/security
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet
@@ -656,7 +656,7 @@
 	mob_name = "Bridge Officer"
 	id = /obj/item/card/id/away/old/sec
 	uniform = /obj/item/clothing/under/rank/blueshield{name = "Bridge Officer uniform"}
-	belt = /obj/item/clothing/accessory/holster/waist
+	belt = /obj/item/clothing/accessory/holster/gun
 	suit = /obj/item/clothing/suit/armor/vest/security
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet/night

@@ -234,7 +234,7 @@
 	)
 
 	accessories = list(
-		/obj/item/clothing/accessory/holster,
+		/obj/item/clothing/accessory/holster/gun,
 	)
 
 	implants = list(

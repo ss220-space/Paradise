@@ -5149,7 +5149,7 @@
 /area/storage/tech)
 "aOS" = (
 /obj/structure/safe/floor,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel,
 /obj/item/weaponcrafting/revolverbarrel/steel,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
@@ -20942,7 +20942,7 @@
 /obj/structure/safe,
 /obj/item/soap/syndie,
 /obj/item/flashlight/seclite,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/item/grenade/clown_grenade,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
@@ -65019,7 +65019,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/item/gun/projectile/revolver/mateba,
 /obj/item/ammo_box/tox46x30mm,
 /obj/item/ammo_box/inc46x30mm,
@@ -94853,7 +94853,7 @@
 "ozm" = (
 /obj/structure/closet/secure_closet/captains,
 /obj/effect/decal/warning_stripes/southeast,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
 "ozo" = (
@@ -112019,7 +112019,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"

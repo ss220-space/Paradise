@@ -971,7 +971,7 @@
 /obj/item/storage/backpack/duffel/syndie,
 /obj/item/radio/headset/syndicate/alt/syndteam,
 /obj/item/gun/energy/gun/advtaser,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -991,10 +991,10 @@
 /obj/item/melee/energy/sword/pirate{
 	pixel_y = 6
 	},
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
@@ -1088,7 +1088,7 @@
 /obj/item/gun/projectile/automatic/pistol{
 	pixel_x = 3
 	},
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/item/melee/energy/sword/pirate{
 	pixel_y = 6
 	},

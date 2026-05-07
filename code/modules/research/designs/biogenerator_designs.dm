@@ -176,7 +176,7 @@
 	id = "s_holster"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 400)
-	build_path = /obj/item/clothing/accessory/holster
+	build_path = /obj/item/clothing/accessory/holster/gun
 	category = list(PRINTER_CATEGORY_INITIAL, "Leather and Cloth")
 
 /datum/design/k_holster

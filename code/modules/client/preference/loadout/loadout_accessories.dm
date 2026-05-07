@@ -176,10 +176,3 @@
 	index_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
-
-/datum/gear/accessory/holsters
-	index_name = "holster, select"
-	display_name = "Кобура"
-	path = /obj/item/clothing/accessory/holster/
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT, JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF_ENGINEER)
-

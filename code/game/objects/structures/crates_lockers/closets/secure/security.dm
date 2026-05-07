@@ -19,7 +19,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/storage/garmentbag/captains(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -39,7 +39,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -58,7 +58,7 @@
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/holosign_creator/security(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/clothing/mask/gas/sechailer/hos(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/sec(src)
@@ -94,8 +94,8 @@
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
-	new /obj/item/megaphone(src)	//added here deleted on maps
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/megaphone(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/storage/garmentbag/warden(src)
 	new /obj/item/gun/projectile/automatic/pistol/sp8(src)
 	new /obj/item/ammo_box/magazine/sp8(src)
@@ -534,7 +534,7 @@
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/clothing/gloves/combat/swat(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/clothing/mask/gas/sechailer/blue(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/sensor_device/advanced/command(src)

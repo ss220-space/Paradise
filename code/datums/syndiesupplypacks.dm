@@ -3037,7 +3037,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/card/id/syndicate, // 2 TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2 TC
 		/obj/item/clothing/mask/chameleon,  // In 2 TC bundle (chameleon)
-		/obj/item/clothing/accessory/holster,  // 0 TC
+		/obj/item/clothing/accessory/holster/gun,  // 0 TC
 		/obj/item/storage/belt/military/traitor/sec,  // 0 TC
 		/obj/item/pinpointer/advpinpointer,  // 4 TC
 		/obj/item/gun/projectile/automatic/pistol,  // 4 TC
@@ -3068,7 +3068,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/under/syndicate/tacticool, // 0 TK
 		/obj/item/clothing/gloves/combat, // 0 TK
 		/obj/item/clothing/shoes/combat, // 0 TK
-		/obj/item/clothing/accessory/holster, // 5 TK
+		/obj/item/clothing/accessory/holster/gun, // 5 TK
 		/obj/item/clothing/head/beret, // 0 TK
 		/obj/item/clothing/accessory/scarf/red, // 0 TK
 		/obj/item/encryptionkey/syndicate, // 0-2 TK

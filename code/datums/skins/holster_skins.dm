@@ -1,5 +1,5 @@
 /datum/item_skin_data/holster
-	item_path = /obj/item/clothing/accessory/holster
+	item_path = /obj/item/clothing/accessory/holster/gun
 
 /datum/item_skin_data/holster/default
 	name = "Обычный"

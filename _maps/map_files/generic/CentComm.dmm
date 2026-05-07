@@ -7306,7 +7306,7 @@
 /obj/item/storage/box/survival/centcomofficer,
 /obj/item/radio/headset/centcom,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/item/storage/backpack/satcheldeluxe,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
 	pixel_x = -4;
@@ -14854,7 +14854,7 @@
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "navyblue"
@@ -15935,11 +15935,11 @@
 	desc = null;
 	name = "Black tie"
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	desc = null;
 	name = "Shoulder holster"
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	desc = null;
 	name = "Shoulder holster"
 	},
@@ -18542,7 +18542,7 @@
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
@@ -20374,7 +20374,7 @@
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navyblue"
@@ -21931,7 +21931,7 @@
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "navyblue"
@@ -23927,34 +23927,34 @@
 /area/ussp_centcom/secretariat)
 "lun" = (
 /obj/structure/rack,
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 10
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 10
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 10
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 10
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 5
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 5
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 5
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	pixel_y = 5
 	},
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -30822,7 +30822,7 @@
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "navyblue"
@@ -35927,7 +35927,7 @@
 "qMg" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/mask/balaclava,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/item/storage/box/survival/survival_security{
 	name = "Security survival kit"
 	},
@@ -43181,7 +43181,7 @@
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navyblue"
@@ -49255,11 +49255,11 @@
 	desc = null;
 	name = "Black tie"
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	desc = null;
 	name = "Shoulder holster"
 	},
-/obj/item/clothing/accessory/holster{
+/obj/item/clothing/accessory/holster/gun{
 	desc = null;
 	name = "Shoulder holster"
 	},

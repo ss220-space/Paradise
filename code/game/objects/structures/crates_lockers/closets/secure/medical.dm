@@ -160,7 +160,7 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/CMO(src)
 	new /obj/item/gun/energy/gun/mini(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/storage/firstaid/premium(src)
 
 /obj/structure/closet/secure_closet/animal

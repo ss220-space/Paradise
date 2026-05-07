@@ -33,5 +33,5 @@
 	new /obj/item/stamp/denied(src)
 	new /obj/item/storage/garmentbag/quartermaster(src)
 	new /obj/item/gun/energy/gun/mini(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/clothing/accessory/medal/gold/cargo(src)

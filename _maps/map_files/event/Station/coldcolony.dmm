@@ -35879,7 +35879,7 @@
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/machinery/light{
 	dir = 4
 	},

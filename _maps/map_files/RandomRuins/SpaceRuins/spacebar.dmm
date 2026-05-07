@@ -77,7 +77,7 @@
 /area/ruin/powered)
 "aD" = (
 /obj/structure/table,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "aF" = (

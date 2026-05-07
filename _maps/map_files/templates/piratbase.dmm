@@ -1144,10 +1144,10 @@
 /obj/item/flash{
 	pixel_x = -4
 	},
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
+/obj/item/clothing/accessory/holster/gun,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},

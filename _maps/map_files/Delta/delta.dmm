@@ -63970,7 +63970,7 @@
 	pixel_y = 4
 	},
 /obj/item/ammo_box/speedloader/a357,
-/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster/gun,
 /obj/structure/safe{
 	known_by = list("hos")
 	},

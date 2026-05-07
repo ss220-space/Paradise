@@ -184,7 +184,7 @@
 		/obj/item/clothing/under/syndicate/tacticool = 1,
 		/obj/item/clothing/gloves/combat = 1,
 		/obj/item/clothing/shoes/combat = 1,
-		/obj/item/clothing/accessory/holster = 1,
+		/obj/item/clothing/accessory/holster/gun = 1,
 		/obj/item/clothing/head/beret = 1,
 		/obj/item/clothing/accessory/scarf/red = 1,
 		/obj/item/clothing/mask/holo_cigar = 1,

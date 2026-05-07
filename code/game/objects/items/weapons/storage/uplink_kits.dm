@@ -956,7 +956,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/c12_dot_7X55(src)
 	new /obj/item/ammo_box/c12_dot_7X55(src)
 	new /obj/item/ammo_box/c12_dot_7X55(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/item/storage/box/syndie_kit/combat_exoframe
 	name = "combat exoframe kit"

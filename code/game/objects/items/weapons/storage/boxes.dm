@@ -1200,7 +1200,7 @@
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
 	new /obj/item/clothing/suit/armor/vest/security(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/security_voucher(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/flash(src)
@@ -1213,7 +1213,7 @@
 
 /obj/item/storage/box/dominator_kit/populate_contents()
 	new /obj/item/gun/energy/dominator/sibyl(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/item/storage/box/enforcer_kit
 	name = "Набор пистолета \"Блюститель\""
@@ -1224,7 +1224,7 @@
 	new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/item/storage/box/specter_kit
 	name = "Набор энергитического пистолета \"Спектр\""
@@ -1244,7 +1244,7 @@
 
 /obj/item/storage/box/specter_kit/populate_contents()
 	new /obj/item/gun/energy/specter/sibyl(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/weapon_cell/specter(src)
 	new /obj/item/weapon_cell/specter(src)
 
@@ -1266,7 +1266,7 @@
 
 /obj/item/storage/box/taurus_kit/populate_contents()
 	new /obj/item/gun/projectile/revolver/taurus(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 
@@ -1279,7 +1279,7 @@
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/gun/projectile/revolver/detective(src)
-	new /obj/item/clothing/accessory/holster/armpit(src)
+	new /obj/item/clothing/accessory/holster/gun/(src)
 
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
@@ -1387,7 +1387,7 @@
 	new /obj/item/gun/projectile/revolver/mateba(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/item/storage/box/pen_case
 	name = "box of pens"

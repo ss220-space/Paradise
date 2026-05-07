@@ -265,7 +265,7 @@
 								/obj/item/clothing/under/syndicate/tacticool = 1,                           // 0 TK
 								/obj/item/clothing/gloves/combat = 1,                                       // 0 TK
 								/obj/item/clothing/shoes/combat = 1,                                        // 0 TK
-								/obj/item/clothing/accessory/holster = 1,                                   // 5 TK
+								/obj/item/clothing/accessory/holster/gun = 1,                                   // 5 TK
 								/obj/item/clothing/head/beret = 1,                                          // 0 TK
 								/obj/item/clothing/accessory/scarf/red = 1,                               	// 0 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK

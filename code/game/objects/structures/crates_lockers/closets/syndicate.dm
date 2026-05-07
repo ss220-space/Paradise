@@ -160,7 +160,7 @@
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 	new /obj/item/clothing/accessory/stripedredscarf(src)
 	new /obj/item/storage/box/syndie_kit/chameleon(src)
 	new /obj/item/storage/secure/briefcase/syndie(src)
