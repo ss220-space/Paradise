@@ -27,10 +27,6 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
 /area/shuttle/administration)
 "ce" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -248,10 +244,6 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
 /area/shuttle/administration)
 "hY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -361,19 +353,6 @@
 "mw" = (
 /obj/machinery/vending/medical,
 /turf/simulated/floor/pod,
-/area/shuttle/administration)
-"mZ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
 /area/shuttle/administration)
 "nl" = (
 /obj/structure/fans/tiny,
@@ -1453,8 +1432,8 @@ Cl
 zd
 Az
 Ru
-mZ
-mZ
+xF
+xF
 xF
 Az
 uv

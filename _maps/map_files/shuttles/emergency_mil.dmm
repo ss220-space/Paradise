@@ -85,10 +85,6 @@
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /mob/living/simple_animal/bot/ed209,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluefull"
 	},

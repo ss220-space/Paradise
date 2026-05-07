@@ -538,10 +538,6 @@
 /obj/item/clothing/glasses/welding{
 	pixel_y = 10
 	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
 /obj/machinery/light{
 	dir = 1;
 	on = 1

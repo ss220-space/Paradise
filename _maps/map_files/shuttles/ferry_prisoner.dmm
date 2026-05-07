@@ -32,9 +32,6 @@
 /area/shuttle/transport)
 "f" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/spot{
-	dir = 8
-	},
 /obj/machinery/recharger,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 28

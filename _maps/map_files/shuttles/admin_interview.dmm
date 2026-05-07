@@ -505,9 +505,6 @@
 	},
 /area/shuttle/administration)
 "zi" = (
-/obj/machinery/computer/communications{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6
 	},
