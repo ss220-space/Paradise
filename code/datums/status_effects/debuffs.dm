@@ -1624,7 +1624,7 @@
 	host.med_hud_set_status()
 
 	if(prob(30))
-		to_chat(host, span_danger("Паразит высасывает ваши жизненные силы"))
+		to_chat(host, span_danger("Паразит высасывает ваши жизненные силы!"))
 		host.AdjustKnockdown(2 SECONDS)
 		host.AdjustConfused(3 SECONDS)
 		host.AdjustJitter(10 SECONDS)
