@@ -1875,9 +1875,16 @@
 /turf/simulated/floor/plating,
 /area/toxins/launch)
 "ajN" = (
-/obj/effect/landmark/start/hangover,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/starboard/west)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "ajO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -11428,9 +11435,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11684,14 +11689,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"aYk" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "aYn" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -11706,9 +11703,6 @@
 /obj/machinery/door/window/eastright{
 	name = "Coroner";
 	req_access = list(4,5)
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12461,8 +12455,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/medical/morgue)
 "bbz" = (
@@ -18602,7 +18596,9 @@
 	},
 /area/hallway/secondary/exit)
 "bDl" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18839,7 +18835,6 @@
 /area/hallway/primary/central/se)
 "bEt" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/start/coroner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18857,7 +18852,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/medical/morgue)
 "bEF" = (
@@ -19486,15 +19482,7 @@
 /area/crew_quarters/courtroom)
 "bHE" = (
 /obj/structure/window/reinforced,
-/obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_y = 8
-	},
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20367,6 +20355,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20712,11 +20701,9 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "bMX" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/medical/morgue)
+/obj/structure/closet,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/west)
 "bMZ" = (
 /obj/structure/morgue,
 /obj/effect/landmark/spawner/revenant,
@@ -45585,8 +45572,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "fvA" = (
-/obj/structure/filingcabinet/chestdrawer/autopsy,
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52707,11 +52697,7 @@
 /area/maintenance/xenozoo)
 "irj" = (
 /obj/machinery/alarm/directional/south,
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_y = 5
-	},
-/obj/item/pen/multi,
+/obj/effect/landmark/start/coroner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56502,6 +56488,22 @@
 /obj/structure/closet/wardrobe/coroner,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/storage/box/bodybags{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/gloves{
+	pixel_y = 8
+	},
+/obj/item/storage/box/bodybags/biohazard,
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/forensics/sample_kit,
+/obj/item/forensics/sample_kit/powder,
+/obj/item/storage/box/swabs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56926,7 +56928,7 @@
 	},
 /area/security/prisonershuttle)
 "kdv" = (
-/obj/structure/closet,
+/obj/machinery/dnaforensics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57105,8 +57107,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/filingcabinet/chestdrawer/autopsy,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60762,17 +60763,6 @@
 	icon_state = "grimy"
 	},
 /area/turret_protected/aisat_interior)
-"lBk" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "lBu" = (
 /obj/structure/rack{
 	dir = 8;
@@ -65537,16 +65527,14 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen/multi{
+	pixel_x = -6;
+	pixel_y = -1
+	},
 /obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71252,7 +71240,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/medical/morgue)
 "pXq" = (
@@ -71366,7 +71355,11 @@
 /area/atmos/distribution)
 "pZb" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/photocopier,
+/obj/structure/table,
+/obj/machinery/microscope{
+	pixel_y = 6;
+	pixel_x = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75248,8 +75241,8 @@
 /area/medical/morgue)
 "rGI" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "rGQ" = (
@@ -129134,7 +129127,7 @@ dqA
 esq
 uwX
 rgv
-uwX
+bMX
 bEu
 jUI
 gjp
@@ -129391,7 +129384,7 @@ dqq
 esq
 uwX
 rgv
-ajN
+uwX
 bEu
 jVc
 bHK
@@ -129908,7 +129901,7 @@ nHF
 uwX
 bEu
 pZb
-lBk
+bOX
 irj
 bEu
 bLK
@@ -130161,11 +130154,11 @@ buJ
 vVn
 bdT
 wZi
-nHF
+kvi
 lHB
 bEu
 kdv
-aYk
+bHL
 bEt
 bHE
 pLq
@@ -130679,11 +130672,11 @@ nHF
 tvW
 bEu
 aTN
-bHL
-bMX
+bOV
+bOV
 pwL
-bMX
-bMX
+bOV
+bOV
 bOT
 bRb
 bRc
@@ -131449,7 +131442,7 @@ jjn
 bAs
 gTo
 hYH
-bEE
+ajN
 bEE
 bEE
 bHM
@@ -132222,9 +132215,9 @@ uwX
 bEu
 muS
 bby
+bOV
 bEI
-bEI
-bEI
+bOV
 bby
 rGI
 bEu

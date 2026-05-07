@@ -360,10 +360,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "acr" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "act" = (
@@ -1736,6 +1739,16 @@
 /obj/item/gun/energy/kinetic_accelerator,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
+"arf" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/filingcabinet/chestdrawer/autopsy,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "arm" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/firealarm/directional/north,
@@ -10012,11 +10025,8 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "byk" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
 /obj/machinery/light_switch/directional/west,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -15653,7 +15663,6 @@
 	},
 /area/atmos)
 "ccl" = (
-/obj/effect/decal/warning_stripes/north,
 /obj/structure/morgue{
 	dir = 8
 	},
@@ -15661,6 +15670,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/spawner/revenant,
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -19210,6 +19220,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
+"cyr" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluecorners"
+	},
+/area/medical/morgue)
 "cyt" = (
 /mob/living/carbon/human/lesser/monkey/punpun{
 	icon_state = "punpun1"
@@ -28141,19 +28161,12 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "drP" = (
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Morgue";
-	req_access = list(5)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 4;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -28325,16 +28338,18 @@
 	},
 /area/atmos)
 "dsP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
 	c_tag = "Medbay Coroner's Office";
 	dir = 8;
 	network = list("SS13","Medical")
 	},
+/obj/structure/morgue{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/revenant,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "dsQ" = (
@@ -28582,10 +28597,11 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "duh" = (
-/obj/structure/window/reinforced,
-/obj/machinery/photocopier,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -28830,15 +28846,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39401,14 +39413,12 @@
 	},
 /area/toxins/misc_lab)
 "eXe" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/item/scalpel{
+	pixel_y = -1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+/obj/structure/table,
+/obj/item/autopsy_scanner{
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42091,6 +42101,17 @@
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"fAV" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "fBh" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/bucket,
@@ -43049,10 +43070,16 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "fMo" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/door/window/eastright{
+	dir = 2;
+	name = "Morgue";
+	req_access = list(5)
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "fMD" = (
@@ -45162,10 +45189,9 @@
 /turf/simulated/wall,
 /area/crew_quarters/cabin2)
 "gnh" = (
-/obj/machinery/bodyscanner{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -46618,8 +46644,9 @@
 	},
 /area/medical/cryo)
 "gCV" = (
-/obj/structure/filingcabinet/chestdrawer/autopsy,
 /obj/item/radio/intercom/directional/west,
+/obj/effect/landmark/start/coroner,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -46976,14 +47003,12 @@
 	},
 /area/security/medbay)
 "gHb" = (
-/obj/structure/window/reinforced,
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen{
-	pixel_x = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "gHc" = (
@@ -47373,6 +47398,16 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
+"gKQ" = (
+/obj/structure/morgue{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/revenant,
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "gLn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -48491,6 +48526,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
+"gWU" = (
+/obj/structure/window/reinforced,
+/obj/structure/table,
+/obj/item/pen{
+	pixel_x = -4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "gXb" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -55963,11 +56009,10 @@
 /turf/simulated/floor/engine,
 /area/security/execution)
 "iJS" = (
-/obj/machinery/optable,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/obj/effect/landmark/start/hangover,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -65309,9 +65354,8 @@
 	},
 /area/hallway/primary/central/sw)
 "kTu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start/hangover,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -73884,17 +73928,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "mRb" = (
-/obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
-/obj/item/storage/box/gloves,
-/obj/item/camera,
-/obj/item/reagent_containers/spray/cleaner/medical,
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags,
-/obj/effect/landmark/start/coroner,
-/obj/item/storage/box/bodybags/biohazard,
-/obj/item/storage/box/bodybags/biohazard,
+/obj/machinery/computer/med_data{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -84389,10 +84425,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 9
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -99963,13 +100000,6 @@
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/trading)
 "sBQ" = (
-/obj/structure/table,
-/obj/item/autopsy_scanner{
-	pixel_y = 4
-	},
-/obj/item/scalpel{
-	pixel_y = -1
-	},
 /obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -112987,18 +113017,13 @@
 	},
 /area/medical/virology/lab)
 "vwb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/microscope{
+	pixel_y = 6
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -117643,6 +117668,7 @@
 	name = "Morgue Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/dnaforensics,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -122741,12 +122767,21 @@
 	},
 /area/engineering/hardsuitstorage)
 "xBT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/firealarm/directional/east,
+/obj/structure/window/reinforced,
+/obj/structure/closet/wardrobe/coroner,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/box/bodybags/biohazard,
+/obj/item/camera,
+/obj/item/reagent_containers/spray/cleaner/medical,
+/obj/item/forensics/sample_kit,
+/obj/item/forensics/sample_kit/powder,
+/obj/item/storage/box/swabs,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "xCj" = (
@@ -126375,11 +126410,6 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "yko" = (
-/obj/structure/chair/office/dark,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/effect/landmark/start/coroner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -166585,7 +166615,7 @@ dpa
 dnE
 duk
 ccl
-swV
+gKQ
 ylJ
 mcf
 jiq
@@ -166841,8 +166871,8 @@ duk
 duk
 duk
 duk
-pem
-xmM
+arf
+fAV
 ylJ
 xGL
 jxO
@@ -167098,8 +167128,8 @@ iJS
 byk
 gCV
 duh
-mcf
-swV
+cyr
+gWU
 ylJ
 mcf
 xWx
@@ -167351,9 +167381,9 @@ diy
 dlf
 duk
 wvS
-kTg
-eXe
 yko
+eXe
+kTg
 gHb
 acr
 fMo
