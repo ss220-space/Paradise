@@ -12,8 +12,8 @@
 	start_charging_text = "You start gathering magnetism around you."
 	bounce_hit_sound = 'sound/machines/defib_zap.ogg'
 
-/obj/effect/proc_holder/spell/charge_up/bounce/magnet/New()
-	..()
+/obj/effect/proc_holder/spell/charge_up/bounce/magnet/Initialize(mapload)
+	. = ..()
 	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity", layer = EFFECTS_LAYER)
 
 /obj/effect/proc_holder/spell/charge_up/bounce/magnet/get_bounce_energy()

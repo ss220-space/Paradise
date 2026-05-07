@@ -58,8 +58,8 @@
 	var/static/queen_count = 0
 	var/static/queen_maximum = 0
 
-/mob/living/carbon/alien/New()
-	..()
+/mob/living/carbon/alien/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	add_verb(src, /mob/living/verb/mob_sleep)
 	night_vision_action = new

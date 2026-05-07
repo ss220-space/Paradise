@@ -84,10 +84,10 @@
 	icon_keyboard = "rd_key"
 	var/datum/ui_module/sat_control/sat_control
 
-/obj/machinery/computer/sat_control/New()
+/obj/machinery/computer/sat_control/Initialize(mapload)
+	. = ..()
 	sat_control = new(src)
 	sat_control.object = src
-	..()
 
 /obj/machinery/computer/sat_control/Destroy()
 	QDEL_NULL(sat_control)

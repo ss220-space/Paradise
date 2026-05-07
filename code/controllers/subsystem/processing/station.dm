@@ -74,6 +74,13 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 		selectable_traits_by_types[trait_typepath.trait_type][trait_typepath] = trait_typepath.weight
 
+// Most of the traits depend on some kind of station feature that FAST_LOAD map lacks, so for now,
+// to avoid inconvenience with runtimes and until we maybe have better map for testing,
+// FAST_LOAD disables random station traits from generation. You still can force them though.
+#ifdef FAST_LOAD
+	return
+#endif
+
 	var/positive_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/positive_station_traits)))
 	var/neutral_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/neutral_station_traits)))
 	var/negative_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/negative_station_traits)))

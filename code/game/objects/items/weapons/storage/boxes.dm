@@ -1361,8 +1361,8 @@
 	name = "plant data disks box"
 	icon_state = "box_disc"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 

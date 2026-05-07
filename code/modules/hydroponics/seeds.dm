@@ -50,10 +50,10 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		return declent_ru(NOMINATIVE)
 	return plantname
 
-/obj/item/seeds/New(loc, nogenes = FALSE)
-	..()
-	pixel_x = rand(-8, 8)
-	pixel_y = rand(-8, 8)
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-8, 8)
+	pixel_y = base_pixel_y + rand(-8, 8)
 
 	if(!icon_grow)
 		icon_grow = "[species]-grow"
@@ -63,13 +63,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 	if(!icon_harvest && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && yield != -1)
 		icon_harvest = "[species]-harvest"
+
 	src.nogenes = nogenes
 	GLOB.plant_seeds += src
-
-/obj/item/seeds/Initialize(mapload)
-	. = ..()
-	pixel_x = base_pixel_x + rand(-8, 8)
-	pixel_y = base_pixel_y + rand(-8, 8)
 
 	if(!nogenes) // not used on Copy()
 		genes += new /datum/plant_gene/core/lifespan(lifespan)

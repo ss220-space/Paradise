@@ -44,9 +44,9 @@
 		PREPOSITIONAL = "козле",
 	)
 
-/mob/living/simple_animal/hostile/retaliate/goat/New()
-	udder = new()
+/mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	. = ..()
+	udder = new()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
 	QDEL_NULL(udder)
@@ -176,8 +176,8 @@
 		PREPOSITIONAL = "корове",
 	)
 
-/mob/living/simple_animal/cow/New()
-	..()
+/mob/living/simple_animal/cow/Initialize(mapload)
+	. = ..()
 	if(!body_color)
 		body_color = pick(validColors)
 	icon_living = "[icon_prefix]_[body_color]"
@@ -304,10 +304,10 @@
 		PREPOSITIONAL = "цыплёнке",
 	)
 
-/mob/living/simple_animal/chick/New()
-	..()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+/mob/living/simple_animal/chick/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-6, 6)
+	pixel_y = base_pixel_y + rand(0, 10)
 
 /mob/living/simple_animal/chick/Life(seconds, times_fired)
 	. =..()
@@ -380,8 +380,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		PREPOSITIONAL = "курице",
 	)
 
-/mob/living/simple_animal/chicken/New()
-	..()
+/mob/living/simple_animal/chicken/Initialize(mapload)
+	. = ..()
 	if(!body_color)
 		body_color = pick(validColors)
 	icon_state = "[icon_prefix]_[body_color]"
@@ -716,10 +716,10 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	name = "udder"
 	var/feeded = FALSE
 
-/obj/item/udder/New()
+/obj/item/udder/Initialize(mapload)
+	. = ..()
 	create_reagents(80)
 	reagents.add_reagent("milk", 20)
-	. = ..()
 
 /obj/item/udder/proc/generateMilk()
 	var/probability = 5
