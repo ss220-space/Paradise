@@ -44,7 +44,8 @@ def parse_macros(dme_path):
         code = line.split('//')[0].strip()
         m = re.match(r'#include\s+"([^"]+)"', code)
         if m:
-            abs_path = os.path.normpath(os.path.join(root, m.group(1)))
+            rel = m.group(1).replace('\\', '/')
+            abs_path = os.path.normpath(os.path.join(root, rel))
             if os.path.isfile(abs_path):
                 includes.append(abs_path)
     _parse_macros_from_text(dme_text, bit_macros, name_macros, r_macro_lines)
