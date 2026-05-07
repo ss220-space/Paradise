@@ -129,3 +129,15 @@
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
 
 #define ATOM_COORDS(A) list(A.x, A.y, A.z)
+
+
+/// Define the alpha for holiday/colored tile decals. Probably not implemented yet
+#define DECAL_ALPHA 60
+/// Generate horizontal striped color turf decals
+#define PATTERN_DEFAULT "default"
+/// Generate vertical striped color turf decals
+#define PATTERN_VERTICAL_STRIPE "vertical"
+/// Generate random color turf decals
+#define PATTERN_RANDOM "random"
+/// Generate rainbow color turf decals
+#define PATTERN_RAINBOW "rainbow"

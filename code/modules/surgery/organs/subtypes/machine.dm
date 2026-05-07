@@ -206,12 +206,12 @@
 		PREPOSITIONAL = "позитронном мозге",
 	)
 
-/obj/item/organ/internal/brain/mmi_holder/posibrain/New()
-	..()
+/obj/item/organ/internal/brain/mmi_holder/posibrain/Initialize(mapload)
+	. = ..()
 	stored_mmi = new /obj/item/mmi/robotic_brain/positronic(src)
 	if(!owner)
 		stored_mmi.forceMove(get_turf(src))
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(stored_mmi && dna)

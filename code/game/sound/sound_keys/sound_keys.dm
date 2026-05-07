@@ -702,3 +702,17 @@
 		'sound/items/tray/tray_drop2.ogg',
 		'sound/items/tray/tray_drop3.ogg',
 	)
+
+/datum/sound_effect/mender
+	key = SFX_MENDER
+	file_paths = list(
+		'sound/goonstation/items/mender.ogg',
+		'sound/goonstation/items/mender2.ogg',
+	)
+
+/datum/sound_effect/glitched_pda
+	key = SFX_GLITCHED_PDA_RINGTONE
+	file_paths = list(
+		'sound/machines/twobeep_voice1.ogg',
+		'sound/machines/twobeep_voice2.ogg',
+	)

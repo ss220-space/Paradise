@@ -47,7 +47,7 @@
 	icon_state = "alien_transfer"
 	var/plasma_amount = 0
 
-/obj/item/melee/touch_attack/alien/transfer_plasma/New(spell, owner, plasma)
+/obj/item/melee/touch_attack/alien/transfer_plasma/Initialize(mapload, spell, owner, plasma)
 	. = ..()
 	name = "[name] ([plasma])"
 

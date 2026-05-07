@@ -226,7 +226,9 @@
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
+		var/splatter_color = get_blood_color()
+		if(splatter_color)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), splatter_color)
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, modifiers, user.zone_selected)
 

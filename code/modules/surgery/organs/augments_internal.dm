@@ -11,7 +11,7 @@
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	abstract_type = /obj/item/organ/internal/cyberimp
 
-/obj/item/organ/internal/cyberimp/New(mob/M = null)
+/obj/item/organ/internal/cyberimp/Initialize(mapload, mob/M = null)
 	. = ..()
 	if(implant_overlay)
 		var/image/overlay = new /image(icon, implant_overlay)

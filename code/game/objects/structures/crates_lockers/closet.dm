@@ -373,8 +373,7 @@ GLOBAL_LIST_EMPTY(closets)
 		bust_open()
 
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
-	mouse_drop_receive(grabbed_thing, grabber)	//act like they were dragged onto the closet
-	return TRUE
+	return mouse_drop_receive(grabbed_thing, grabber) //act like they were dragged onto the closet
 
 /obj/structure/closet/attackby(obj/item/used, mob/user, params)
 	if(opened)
@@ -506,11 +505,8 @@ GLOBAL_LIST_EMPTY(closets)
 			var/mob/living/target_living = target_movable
 			if(!issilicon(target_living))
 				target_living.Knockdown(4 SECONDS)
-			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
-				target_movable.forceMove(src)
-			else
-				target_movable.forceMove(current_turf)
-				close()
+			target_movable.forceMove(current_turf)
+			close()
 			add_attack_logs(user, target_movable, "stuffed inside of [src]", ATKLOG_ALMOSTALL)
 	else
 		target_movable.forceMove(current_turf)

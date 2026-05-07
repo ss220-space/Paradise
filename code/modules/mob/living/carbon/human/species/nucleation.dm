@@ -11,7 +11,7 @@
 	and produces a calming effect on the individual. Nucleations are highly stigmatized, and are treated much in the same \
 	way as lepers were back on Earth."
 	language = LANGUAGE_SOL_COMMON
-	blood_color = "#ada776"
+	blood_color = BLOOD_COLOR_NUCLEATION
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 

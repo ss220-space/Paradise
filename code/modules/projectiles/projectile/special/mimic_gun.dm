@@ -7,8 +7,8 @@
 	flag = "melee"
 	var/obj/item/gun/stored_gun
 
-/obj/projectile/mimic/New(loc, mimic_type)
-	..(loc)
+/obj/projectile/mimic/Initialize(mapload, mimic_type)
+	. = ..()
 	if(mimic_type)
 		stored_gun = new mimic_type(src)
 		icon = stored_gun.icon

@@ -123,7 +123,6 @@
 	sibyl_tier = SIBYL_TIER_LETHAL
 	e_cost = 900
 	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
-	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/specter/disable
 	caliber = CALIBER_SPECTER
@@ -134,7 +133,6 @@
 	e_cost = 450
 	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
 	harmful = FALSE
-	bullet_type = BULLET_TYPE_DISABLER
 
 // MARK: Emmiter gun
 /obj/item/ammo_casing/energy/emittergun
@@ -200,20 +198,19 @@
 	select_name = "gun mimic"
 	var/mimic_type
 
-/obj/item/ammo_casing/energy/mimic/New()
-	..()
+/obj/item/ammo_casing/energy/mimic/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
 
-// MARK: Shock revolver
-/obj/item/ammo_casing/energy/shock_revolver
-	fire_sound = 'sound/magic/lightningbolt.ogg'
+// MARK: Tesla Cannon
+/obj/item/ammo_casing/energy/tesla_cannon
+	fire_sound = null
 	e_cost = 200
-	select_name = "lightning beam"
-	muzzle_flash_color = LIGHT_COLOR_LAVENDER
-	projectile_type = /obj/projectile/energy/shock_revolver
+	select_name = "shock"
+	projectile_type = /obj/projectile/energy/tesla_cannon
 
 // MARK: HONK rifle
 /obj/item/ammo_casing/energy/clown

@@ -87,6 +87,7 @@
 	/// Overlay for showing debug info
 	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
+	/// GeoIPdata about a current client
 	var/datum/geoip_data/geoip = null
 
 	//datum that controls the displaying and hiding of tooltips

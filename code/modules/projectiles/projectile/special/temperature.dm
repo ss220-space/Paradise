@@ -21,8 +21,7 @@
 		PREPOSITIONAL = "температурном луче",
 	)
 
-/obj/projectile/temp/New(loc, shot_temp)
-	..()
+/obj/projectile/temp/Initialize(mapload, shot_temp)
 	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
@@ -136,6 +135,7 @@
 				INSTRUMENTAL = "температурным лучом",
 				PREPOSITIONAL = "температурном луче",
 			)
+	return ..()
 
 /obj/projectile/temp/on_hit(mob/living/carbon/human/target, blocked = 0, hit_zone)
 	. = ..()

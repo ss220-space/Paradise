@@ -29,9 +29,11 @@
 	var/windup_spindown = 3 SECONDS
 	///Timer for tracking the spindown reset timings
 	var/timerid
+	///Looping sound while firing.
+	var/datum/looping_sound/autofire_sound_loop
 	COOLDOWN_DECLARE(next_shot_cd)
 
-/datum/component/automatic_fire/Initialize(autofire_shot_delay, windup_autofire, windup_autofire_reduction_multiplier, windup_autofire_cap, windup_spindown, allow_akimbo = TRUE)
+/datum/component/automatic_fire/Initialize(autofire_shot_delay, windup_autofire, windup_autofire_reduction_multiplier, windup_autofire_cap, windup_spindown, allow_akimbo = TRUE, firing_sound_loop)
 	. = ..()
 	if(!isgun(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -49,8 +51,11 @@
 	if(autofire_stat == AUTOFIRE_STAT_IDLE && ismob(gun.loc))
 		var/mob/user = gun.loc
 		wake_up(src, user)
+	if(firing_sound_loop)
+		autofire_sound_loop = new firing_sound_loop(parent)
 
 /datum/component/automatic_fire/Destroy()
+	QDEL_NULL(autofire_sound_loop)
 	autofire_off()
 	return ..()
 
@@ -201,6 +206,9 @@
 	START_PROCESSING(SSprojectiles, src)
 	RegisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG, PROC_REF(on_mouse_drag))
 
+	if(autofire_sound_loop)
+		autofire_sound_loop.start(shooter)
+
 /datum/component/automatic_fire/proc/on_mouse_up(datum/source, atom/object, turf/location, control, params)
 	SIGNAL_HANDLER
 
@@ -230,6 +238,9 @@
 	target = null
 	target_loc = null
 	mouse_parameters = null
+
+	if(autofire_sound_loop)
+		autofire_sound_loop.stop()
 
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
@@ -334,11 +345,11 @@
 	var/obj/item/gun/akimbo_gun = shooter.get_inactive_hand()
 	var/bonus_spread = 0
 	var/badass = HAS_TRAIT(shooter, TRAIT_BADASS)
-	if(isgun(akimbo_gun) && (badass || weapon_weight < WEAPON_MEDIUM) && allow_akimbo)
+	if(shooter.a_intent == INTENT_HARM && isgun(akimbo_gun) && (badass || weapon_weight < WEAPON_MEDIUM) && allow_akimbo)
 		if((badass || akimbo_gun.weapon_weight < WEAPON_MEDIUM) && akimbo_gun.can_trigger_gun(shooter))
 			if(!badass)
 				bonus_spread = accuracy.dual_wield_spread
-			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params, null, bonus_spread), 1)
+			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params2list(params), null, bonus_spread), 1)
 	process_fire(target, shooter, TRUE, params2list(params), null, bonus_spread)
 
 #undef AUTOFIRE_MOUSEUP

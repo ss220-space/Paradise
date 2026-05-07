@@ -3,12 +3,9 @@
 ***********************************/
 
 /mob/living/carbon/human/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(src == usr)
-		interact(over_object)
-
-/mob/proc/make_interaction()
-	return
+	if(src != user)
+		return
+	interact(over_object)
 
 //Distant interactions
 /mob/living/carbon/human/verb/interact(mob/M as mob)
@@ -20,9 +17,9 @@
 		make_interaction(machine)
 
 /mob/living/carbon/human/proc/is_nude()
-	return (!wear_suit && !w_uniform) ? 1 : 0 //TODO: Nudity check for underwear
+	return (!wear_suit && !w_uniform) ? TRUE : FALSE //TODO: Nudity check for underwear
 
-/mob/living/carbon/human/make_interaction()
+/mob/living/carbon/human/proc/make_interaction()
 	set_machine(src)
 
 	var/mob/living/carbon/human/H = usr

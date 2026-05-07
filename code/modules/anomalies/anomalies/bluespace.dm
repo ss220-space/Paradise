@@ -144,8 +144,9 @@
 		PREPOSITIONAL = "большой ​​блюспейс аномалии",
 	)
 
-/obj/effect/anomaly/bluespace/tier3/New()
+/obj/effect/anomaly/bluespace/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
+
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.stat)
 			continue
@@ -192,8 +193,9 @@
 		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии",
 	)
 
-/obj/effect/anomaly/bluespace/tier4/New()
+/obj/effect/anomaly/bluespace/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
+	
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.stat)
 			continue

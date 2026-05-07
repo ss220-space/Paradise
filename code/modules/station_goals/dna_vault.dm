@@ -38,16 +38,16 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 			.++
 
 /datum/station_goal/dna_vault/get_report()
-	return {"<b>DNA Vault construction</b><br>
-	Our long term prediction systems say there's 99% chance of system-wide cataclysm in near future. As such, we need you to construct a DNA Vault aboard your station.
+	return {"<b>Создание ДНК—хранилища</b><br>
+	Наши системы долгосрочного предсказывания говорят, что в ближайшем будущем с шансом 99% должен произойти катаклизм масштаба звёздной системы . Поэтому, нам нужно, чтобы вы построили ДНК-хранилище на вашей станции и сохранили образцы, необходимые для восстановления биологического разнообразия в случае катастрофы.
 	<br><br>
-	The DNA Vault needs to contain samples of:
+	ДНК хранилище должно иметь образцы:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	<li>[animal_count] unique animal data.</li>
-	<li>[plant_count] unique non-standard plant data.</li>
-	<li>[human_count] unique sapient humanoid DNA data.</li>
+	<li>[animal_count] уникальных животных.</li>
+	<li>[plant_count] уникальных нестандартных растений.</li>
+	<li>[human_count] уникальных разумных гуманоидов.</li>
 	</ul>
-	The base vault parts should be available for shipping by your cargo shuttle."}
+	Базовые части хранилища должны быть доступны для заказа в отделе снабжения."}
 
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]

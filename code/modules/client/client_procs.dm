@@ -236,6 +236,8 @@
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
+	set_right_click_menu_mode(TRUE)
+
 	if(connection != "seeker") //Invalid connection type.
 		return null
 
@@ -608,11 +610,11 @@
 	if(query_donor_select.NextRow())
 		var/total = query_donor_select.item[1]
 		if(total >= 100)
-			donator_level = 1
+			donator_level = DONATOR_TIER_I
 		if(total >= 300)
-			donator_level = 2
+			donator_level = DONATOR_TIER_II
 		if(total >= 500)
-			donator_level = 3
+			donator_level = DONATOR_TIER_III
 		if(total >= 1000)
 			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
@@ -1701,6 +1703,16 @@
 ///Redirect proc that makes it easier to get the status of an achievement. Achievement type is the typepath to the award.
 /client/proc/get_award_status(achievement_type, mob/user, value = 1)
 	return persistent_client.achievements.get_achievement_status(achievement_type)
+
+/client/proc/set_right_click_menu_mode(shift_only)
+	if(shift_only)
+		winset(src, "mapwindow.map", "right-click=true")
+		winset(src, "ShiftUp", "is-disabled=false")
+		winset(src, "Shift", "is-disabled=false")
+	else
+		winset(src, "mapwindow.map", "right-click=false")
+		winset(src, "default.Shift", "is-disabled=true")
+		winset(src, "default.ShiftUp", "is-disabled=true")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
