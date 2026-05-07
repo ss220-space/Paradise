@@ -33,7 +33,7 @@
 	///Do we lose energy over time?
 	var/dissipate = TRUE
 	/// How long should it take for us to dissipate in seconds?
-	var/dissipate_delay = 20
+	var/dissipate_delay = 10
 	/// How much energy do we lose every dissipate_delay?
 	var/dissipate_strength = 1
 	/// How long its been (in seconds) since the last dissipation
@@ -172,7 +172,7 @@
 		return
 	time_since_act = 0
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, max_range = 8, threshold = RAD_MEDIUM_INSULATION, chance = 50)
+		radiation_pulse(src, max_range = 4, threshold = RAD_HEAVY_INSULATION, chance = 30)
 		pulse()
 		if(prob(event_chance))
 			event()
@@ -508,7 +508,7 @@
 		apply_stun(stunned_mob)
 
 /obj/singularity/proc/apply_stun(mob/living/carbon/stunned_mob)
-	stunned_mob.apply_effect(60, STUN)
+	stunned_mob.apply_effect(6 SECONDS, STUN)
 	stunned_mob.visible_message(
 		span_danger("[stunned_mob] stares blankly at [src]!"),
 		span_userdanger("You look directly into [src] and feel weak.")
