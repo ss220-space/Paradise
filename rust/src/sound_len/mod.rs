@@ -1,6 +1,6 @@
 use byondapi::value::ByondValue;
 use core::f32;
-use std::{fs::File, time::Duration};
+use std::time::Duration;
 use symphonia::{
     self,
     core::{
