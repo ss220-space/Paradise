@@ -228,7 +228,7 @@ effective or pretty fucking useless.
 	var/flawless = FALSE
 
 /obj/item/teleporter/Destroy()
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -316,7 +316,7 @@ effective or pretty fucking useless.
 	if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 		charges--
 		update_icon(UPDATE_ICON_STATE)
-		if(!isprocessing)
+		if(!(datum_flags & DF_ISPROCESSING))
 			START_PROCESSING(SSobj, src)
 
 	var/turf/destination = pick(turfs)

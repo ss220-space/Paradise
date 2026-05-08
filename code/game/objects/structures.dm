@@ -43,7 +43,7 @@
 			QUEUE_SMOOTH_NEIGHBORS(T)
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 

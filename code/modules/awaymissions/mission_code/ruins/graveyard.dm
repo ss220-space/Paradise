@@ -5,12 +5,12 @@
 /area/ruin/space/graveyard/church
 	name = "Space Graveyard Church"
 	icon_state = "away1"
-	ambientsounds = list('sound/ambience/ambicha4.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin6.ogg')
+	ambience_index = AMBIENCE_MINING
 
 /area/ruin/space/graveyard/graves
 	name = "Space Graveyard Graves"
 	icon_state = "away2"
-	ambientsounds = list('sound/ambience/apathy.ogg')
+	ambientsounds = list('sound/ambience/spooky/apathy.ogg')
 
 ///// The Undertaker Shuttle
 
