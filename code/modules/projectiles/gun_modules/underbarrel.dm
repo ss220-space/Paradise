@@ -410,6 +410,10 @@
 		launcher.unload_act(user)
 	return ..()
 
+/obj/item/gun_module/under/gun/grenade_launcher/integrated
+	can_detach = FALSE
+	overlay_state = null
+
 // MARK: Shotgun
 /obj/item/gun_module/under/gun/shotgun
 	name = "underbarrel shotgun"
