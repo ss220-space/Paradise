@@ -78,7 +78,6 @@ jobs:
           USER_USER: ${{ github.actor }}
           USER_EMAIL: ${{ github.event.sender.email }}
           SOURCE_DATE_EPOCH: "1577836800"
-          RUSTFLAGS: "-C link-arg=-Wl,--build-id=none"
           TZ: UTC
         run: |
           git config --local user.name "Rust Builder"
@@ -107,19 +106,17 @@ jobs:
           fi
 
           # Build it for CI
-          export RUSTFLAGS='-C target-cpu=x86-64'
           cargo build --release --target $LINUX_TARGET
           cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs.so
           cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs.so
           cargo clean
 
           # Build it for Windows
-          export RUSTFLAGS='-C target-cpu=x86-64'
           cargo build --release --target $WINDOWS_TARGET
           cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
           cargo clean
 
-          export RUSTFLAGS='-C target-cpu=raptorlake'
+          export RUSTFLAGS='-C target-cpu=raptorlake -C link-arg=-Wl,--build-id=none'
           cargo build --release --target=$LINUX_TARGET
           cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.so
       - name: Generate App Token
