@@ -36,10 +36,12 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 	/// World.time this player last died
 	var/time_of_death = 0
 
-	/// Saving status for Thunderdome
-	var/tdome_locked_respawn = FALSE
-	var/tdome_saved_antaghud = FALSE
-	var/tdome_saved_respawnable = FALSE
+	/// The client's ability to respawn is currently blocked by a minigame or event.
+	var/respawn_locked = FALSE
+	/// Temporary storage for the AntagHUD status, used to restore it after the event ends.
+	var/saved_antaghud = FALSE
+	/// Track if the client was in the global respawnable list before the event started.
+	var/saved_respawnable = FALSE
 
 /datum/persistent_client/New(ckey, client)
 	src.client = client
