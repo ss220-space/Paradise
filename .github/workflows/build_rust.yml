@@ -159,6 +159,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
+      - name: Install MinGW
+        run: |
+          choco install mingw -y
+          echo "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
       - name: Setup Rust
         run: |
           rustup target add i686-pc-windows-gnu
@@ -239,7 +244,7 @@ jobs:
           git config --local user.name "Rust Builder"
           git config --local user.email "action@github.com"
 
-          git add --force librustlibs.so librustlibs_prod.so tools/ci/librustlibs.so rustlibs.dll rustlibs_gnu.dll
+          git add --force librustlibs.so librustlibs_prod.so tools/ci/librustlibs.so rustlibs.dll
           git commit -m "Build Rust library for Linux and Windows" || echo "No changes to commit"
           git push origin
 
