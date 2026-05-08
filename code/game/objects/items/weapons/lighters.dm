@@ -36,8 +36,8 @@
 		PREPOSITIONAL = "дешёвой зажигалке",
 	)
 
-/obj/item/lighter/random/New()
-	..()
+/obj/item/lighter/random/Initialize(mapload)
+	. = ..()
 	var/color = pick("r","c","y","g")
 	icon_on = "lighter-[color]-on"
 	icon_off = "lighter-[color]"

@@ -109,6 +109,9 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
+/obj/item/ammo_casing/c45/empty
+	projectile_type = null
+
 // MARK: .45 Colt
 /obj/item/ammo_casing/c45colt
 	ammo_marking = ".45 Colt"

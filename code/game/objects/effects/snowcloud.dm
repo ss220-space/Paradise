@@ -6,8 +6,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/snow_machine/parent_machine
 
-/obj/effect/snowcloud/New(turf, obj/machinery/snow_machine/SM)
-	..()
+/obj/effect/snowcloud/Initialize(mapload, obj/machinery/snow_machine/SM)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	if(SM && istype(SM))
 		parent_machine = SM

@@ -203,6 +203,7 @@
 // Engine types
 #define ENGTYPE_SING "Сингулярность"
 #define ENGTYPE_TESLA "Тесла"
+#define ENGTYPE_TEG "Термоэлектрический генератор"
 
 #define AALARM_MODE_FILTERING 1
 /// Makes draught

@@ -46,8 +46,8 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 25
 
-/mob/living/simple_animal/hostile/poison/terror_spider/healer/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/Initialize(mapload)
+	. = ..()
 	greeneggs_action = new()
 	greeneggs_action.Grant(src)
 

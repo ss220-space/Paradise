@@ -231,7 +231,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/area/summon_zone = get_area(src)
 	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать внепространственного бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound()
 	)
 	gateway = new
 	gateway.heart = src

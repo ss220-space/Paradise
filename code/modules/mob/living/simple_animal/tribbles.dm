@@ -25,13 +25,12 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	harm_intent_damage = 5
 	var/gestation = 0
 
-/mob/living/simple_animal/tribble/New()
-	..()
+/mob/living/simple_animal/tribble/Initialize(mapload)
+	. = ..()
 	var/list/types = list("tribble1","tribble2","tribble3")
-	src.icon_state = pick(types)
-	src.icon_living = src.icon_state
-	src.icon_dead = "[src.icon_state]_dead"
-	//random pixel offsets so they cover the floor
+	icon_state = pick(types)
+	icon_living = icon_state
+	icon_dead = "[icon_state]_dead"
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 	GLOB.totaltribbles += 1

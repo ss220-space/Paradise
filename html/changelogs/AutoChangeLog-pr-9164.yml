@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - code_imp: "Скрипт генерирующий актуальную документацию по админ вёрбам. (PR #9164)"
