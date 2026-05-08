@@ -188,6 +188,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
 
+// MARK: Firemodes
 #define GUN_FIREMODE_SEMIAUTO "semi-auto fire mode"
 #define GUN_FIREMODE_BURSTFIRE "burst-fire mode"
 #define GUN_FIREMODE_AUTOMATIC "automatic fire mode"
