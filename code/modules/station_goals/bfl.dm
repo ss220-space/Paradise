@@ -563,10 +563,11 @@
 	. = ..()
 	lavaland_z_lvl = level_name_to_num(MINING)
 	var/datum/component/singularity/singularity = singularity_component?.resolve()
-	if(singularity)
-		singularity.grav_pull = 1
-		singularity.consume_range = 0
-		singularity.bsa_targetable = FALSE
+	if(!singularity)
+		return
+	singularity.grav_pull = 1
+	singularity.consume_range = 0
+	singularity.bsa_targetable = FALSE
 
 /obj/singularity/bfl_red/process(seconds_per_tick)
 	move++

@@ -147,9 +147,10 @@
 		return // damage was too much
 	jedi.ghostize()
 	var/obj/item/organ/external/head/rip_u = jedi.get_bodypart(BODY_ZONE_HEAD)
-	if(rip_u)
-		rip_u.droplimb()
-		qdel(rip_u)
+	if(!rip_u)
+		return
+	rip_u.droplimb()
+	qdel(rip_u)
 
 /obj/singularity/ex_act(severity, target)
 	switch(severity)
@@ -367,18 +368,31 @@
 		investigate_log("has been destroyed by [log_name]", INVESTIGATE_ENGINE)
 		qdel(src)
 
+/obj/singularity/update_name()
+	. = ..()
+	if(collapsing)
+		name = "unstable [initial(name)]"
+	else if(consumed_supermatter)
+		name = "supermatter-charged [initial(name)]"
+
+/obj/singularity/update_desc()
+	. = ..()
+	desc = initial(desc)
+	if(collapsing)
+		desc += " It seems to be collapsing in on itself."
+	else if(consumed_supermatter)
+		desc += " It glows fiercely with inner fire."
+
 /// Permanently empowers the singularity after consuming a supermatter shard, unlocking stage six.
 /obj/singularity/proc/supermatter_upgrade()
-	name = "supermatter-charged [initial(name)]"
-	desc = "[initial(desc)] It glows fiercely with inner fire."
 	consumed_supermatter = TRUE
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	set_light(10)
 
 /// Triggers the Bag of Holding collapse sequence: the singularity shrinks, plays effects, and deletes itself.
 /obj/singularity/proc/consume_boh(obj/boh)
 	collapsing = TRUE
-	name = "unstable [initial(name)]"
-	desc = "[initial(desc)] It seems to be collapsing in on itself."
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	visible_message(
 		message = span_danger("As [src] consumes [boh], it begins to collapse in on itself!"),
 		blind_message = span_hear("You hear aggressive crackling!"),
@@ -401,12 +415,14 @@
 	. = length(GLOB.cardinal) // Should be 4.
 	for(var/i in GLOB.cardinal)
 		. -= check_turfs_in(i, steps) // -1 for each working direction
-	if(. && retry_with_move) // If there's still a positive value it means it didn't pass. Retry with move if applicable
-		for(var/i in GLOB.cardinal)
-			if(step(src, i)) // Move in each direction.
-				if(check_cardinals_range(steps, FALSE)) // New location passes, return true.
-					return TRUE
-	return !.
+	if(!.)
+		return TRUE
+	if(!retry_with_move)
+		return FALSE
+	for(var/i in GLOB.cardinal)
+		if(step(src, i) && check_cardinals_range(steps, FALSE))
+			return TRUE
+	return FALSE
 
 /obj/singularity/proc/check_turfs_in(direction = 0, step = 0)
 	if(!direction)
@@ -443,12 +459,12 @@
 			dir2 = 1
 			dir3 = 2
 	var/turf/other_turf = considered_turf
-	for(var/j = 1 to (steps - 1))
+	for(var/j in 1 to (steps - 1))
 		other_turf = get_step(other_turf,dir2)
 		if(!isturf(other_turf))
 			return FALSE
 		turfs.Add(other_turf)
-	for(var/k = 1 to (steps - 1))
+	for(var/k in 1 to (steps - 1))
 		considered_turf = get_step(considered_turf, dir3)
 		if(!isturf(considered_turf))
 			return FALSE

@@ -125,8 +125,7 @@
 			to_chat(user, span_notice("The connected wire doesn't have enough current."))
 		return
 	var/list/connected_z = SSmapping.get_connected_levels(get_turf(src))
-	for(var/_singulo in GLOB.singularities)
-		var/datum/component/singularity/singulo = _singulo
+	for(var/datum/component/singularity/singulo as anything in GLOB.singularities)
 		var/atom/singulo_atom = singulo.parent
 		if(singulo_atom.z in connected_z)
 			singulo.target = src
@@ -137,8 +136,7 @@
 		to_chat(user, span_notice("You activate the beacon."))
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
-	for(var/_singulo in GLOB.singularities)
-		var/datum/component/singularity/singulo = _singulo
+	for(var/datum/component/singularity/singulo as anything in GLOB.singularities)
 		if(singulo.target == src)
 			singulo.target = null
 	icon_state = "[base_icon_state]0"

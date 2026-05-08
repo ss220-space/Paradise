@@ -52,7 +52,7 @@
 /obj/god/narsie/is_devotee(mob/living/carbon/mob)
 	return iscultist(mob)
 
-/// Called to make Nar'Sie convert objects to cult stuff, or to eat
+/// Called to make Nar'Sie convert objects to cult stuff, or to eat.
 /obj/god/narsie/consume(atom/target)
 	target.narsie_act(src)
 

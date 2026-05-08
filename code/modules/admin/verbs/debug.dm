@@ -302,8 +302,7 @@ ADMIN_VERB(cmd_debug_del_sing, R_DEBUG, "Del Singulo / Tesla", "Delete all singu
 	if(confirm != "Yes")
 		return
 
-	for(var/_singulo_component in GLOB.singularities)
-		var/datum/component/singularity/singulo_component = _singulo_component
+	for(var/datum/component/singularity/singulo_component as anything in GLOB.singularities)
 		var/atom/singulo = singulo_component.parent
 		if(!is_level_reachable(singulo.z))
 			continue
