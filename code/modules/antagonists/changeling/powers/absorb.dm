@@ -3,7 +3,6 @@
 	desc = "Поглощение ДНК нашей жертвы. Для этого потребуется душить её."
 	button_icon_state = "absorb_dna"
 	power_type = CHANGELING_INNATE_POWER
-	req_human = TRUE
 
 /datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user, ignore_absorbing = FALSE)
 	if(!..())
@@ -38,7 +37,7 @@
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
-		if(!do_after(user, 15 SECONDS, target, NONE) || !can_sting(user, TRUE))
+		if(!do_after(user, 6 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			user.balloon_alert(user, "поглощение прервано!")
 			cling.is_absorbing = FALSE
 			return FALSE

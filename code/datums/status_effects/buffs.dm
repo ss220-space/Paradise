@@ -462,8 +462,9 @@
 
 		active_instances -= expired_instances
 
-	tolerance = max(tolerance - 0.1, 1)
-	if(tolerance <= 1 && length(active_instances) == 0)
+	tolerance = clamp(tolerance - 0.1, 1, 2)
+
+	if(length(active_instances) == 0)
 		qdel(src)
 
 /datum/status_effect/speedlegs

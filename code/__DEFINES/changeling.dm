@@ -1,9 +1,11 @@
+/// Cling chemical recharge rate
+#define CLING_CHEM_RECHARGE_RATE 3
+/// Cling genetic damage reduction
+#define CLING_GENETIC_DAMAGE_REDUCTION 2
 /// How many stacks cling can get before getting nerfed
 #define CLING_STACKS_BEFORE_EXHAUSTION 10
 ///Speedlegs chemical consumption modifier for exhaustion
 #define CLING_EXHAUSTION_MODIFICATOR 0.1
-/// Cling chemical recharge rate
-#define CLING_CHEM_RECHARGE_RATE 3
 /// Time before changeling can revive himself.
 #define CLING_FAKEDEATH_TIME 60 SECONDS
 /// The lowest value of genetic_damage [/datum/antagonist/changeling/process()] can take it to while dead.

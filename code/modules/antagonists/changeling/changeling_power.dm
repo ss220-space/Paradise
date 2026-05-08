@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(req_human && (!ishuman(user) || is_monkeybasic(user)))
-		to_chat(user, span_warning("We cannot do that in this form!"))
+		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 
 	if(cling.chem_charges < chemical_cost)
@@ -116,7 +116,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 
 	if(cling.absorbed_count < req_dna)
 		user.balloon_alert(user, "нужно [req_dna] ДНК")
-		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 
 	if(req_stat < user.stat)

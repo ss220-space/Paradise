@@ -243,11 +243,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	if(h_owner.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
-		genetic_damage = directional_bounded_sum(genetic_damage, -1, CLING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
+		genetic_damage = directional_bounded_sum(genetic_damage, - CLING_GENETIC_DAMAGE_REDUCTION, CLING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
 
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
-		genetic_damage = max(0, genetic_damage - 1)
+		genetic_damage = max(0, genetic_damage - CLING_GENETIC_DAMAGE_REDUCTION)
 
 /**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].

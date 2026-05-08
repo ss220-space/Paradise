@@ -15,7 +15,7 @@
 	robust_searching = TRUE
 	stat_attack = DEAD
 	obj_damage = 0
-	environment_smash = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
 	speak_emote = list("попискивает")
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
@@ -27,14 +27,18 @@
 	var/egg_layed = FALSE
 	sentience_type = SENTIENCE_OTHER
 	holder_type = /obj/item/holder/headslug
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-/mob/living/simple_animal/hostile/headslug/examine(mob/user)
-	. = ..()
-	if(stat == DEAD)
-		. += span_deadsay("Выглядит мертвым.")
+/mob/living/simple_animal/hostile/headslug/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
+	egg_layed = TRUE
 	egg.evented = evented
 	egg.insert(victim, ORGAN_MANIPULATION_NOEFFECT)
 	if(origin)
@@ -45,7 +49,7 @@
 	balloon_alert_to_viewers("впивается в [victim]", "мы ввели яйцо")
 
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
-	if(egg_layed || !istype(carbon_target) || carbon_target.stat != DEAD || !Adjacent(carbon_target) || is_monkeybasic(carbon_target))
+	if(egg_layed || !istype(carbon_target) || carbon_target.stat != DEAD || !Adjacent(carbon_target))
 		return ..()
 
 	changeNext_move(CLICK_CD_MELEE)
@@ -72,7 +76,7 @@
 	do_attack_animation(carbon_target)
 	playsound(src.loc, 'sound/creatures/terrorspiders/spit2.ogg', 30, TRUE)
 	Infect(carbon_target)
-	to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
+	to_chat(src, span_userdanger("Отложив яйцо, мы стремительно приближаемся к смерти..."))
 	addtimer(CALLBACK(src, PROC_REF(death)), 30 SECONDS)
 
 /obj/item/organ/internal/body_egg/changeling_egg
@@ -104,7 +108,6 @@
 		qdel(src)
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
-
 	var/mob/living/carbon/human/lesser/monkey/monka = new(owner)
 	LAZYADD(owner.stomach_contents, monka)
 
