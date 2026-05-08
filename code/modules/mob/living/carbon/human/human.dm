@@ -197,6 +197,9 @@
 /mob/living/carbon/human/wryn/Initialize(mapload)
 	. = ..(mapload, /datum/species/wryn)
 
+/mob/living/carbon/human/resomi/Initialize(mapload)
+	. = ..(mapload, /datum/species/resomi)
+
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
 
@@ -1096,6 +1099,11 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
+	max_blood = dna.species.max_blood
+	blood_volume = min(blood_volume, max_blood)
+	inhand_sprite_offset_x = dna.species.inhand_sprite_offset_x
+	inhand_sprite_offset_y = dna.species.inhand_sprite_offset_y
+	inhand_sprite_scale = dna.species.inhand_sprite_scale
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -2037,6 +2045,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
+	if(try_pick_up_grabbed_mob(M))
+		return TRUE
 	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
 	if(can_be_firemanned(M))
 		var/active_hand_available = can_pull(hand, supress_message = TRUE)
@@ -2051,6 +2061,151 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return ishuman(target) && target.body_position == LYING_DOWN
+
+/**
+ * Returns TRUE if this human can hold the provided small humanoid.
+ *
+ * Arguments:
+ * * target_mob - The mob we want to pick up.
+ */
+/mob/living/carbon/human/proc/can_hold_pickupable_mob(mob/living/target_mob)
+	if(!isliving(target_mob))
+		return FALSE
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if(r_hand && l_hand)
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+	return TRUE
+
+/**
+ * Checks whether this human can request to be picked up by `target_human`.
+ *
+ * Returns TRUE if the target human can hold this mob.
+ */
+/mob/living/carbon/human/proc/can_request_pick_up_from(mob/living/carbon/human/target_human)
+	if(!target_human)
+		return FALSE
+	if(!HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+	if(!src.can_be_picked_up(target_human))
+		return FALSE
+	return target_human.can_hold_pickupable_mob(src)
+
+/**
+ * Sends a HUD alert to `target_human` asking them to pick up this human.
+ *
+ * Returns TRUE if the alert was sent.
+ */
+/mob/living/carbon/human/proc/offer_self_pick_up(mob/living/carbon/human/target_human)
+	if(!can_request_pick_up_from(target_human))
+		return FALSE
+	var/category_id = "take_pickupable_[src]"
+	target_human.throw_alert(category_id, /atom/movable/screen/alert/take_pickupable_mob, null, src, alert_args = list(src, target_human))
+	to_chat(src, span_notice("Вы попросили [target_human] взять вас на руки."))
+	return TRUE
+
+/**
+ * Final validation for completing a grab-based pickup.
+ *
+ * Arguments:
+ * * target_mob - The mob we are trying to pick up.
+ */
+/mob/living/carbon/human/proc/can_complete_grab_pickup(mob/living/target_mob)
+	if(!isliving(target_mob))
+		return FALSE
+	if(pulling != target_mob || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+	if(!Adjacent(target_mob))
+		return FALSE
+	if(!can_hold_pickupable_mob(target_mob))
+		return FALSE
+
+	var/mob/living/living_target = target_mob
+	return living_target.can_be_picked_up(src)
+
+/**
+ * Tries to pick up a grabbed mob using `do_after`.
+ *
+ * Returns TRUE if the action succeeds or if the early validation passes.
+ */
+/mob/living/carbon/human/proc/try_pick_up_grabbed_mob(mob/living/target_mob)
+	if(!can_complete_grab_pickup(target_mob))
+		return FALSE
+
+	visible_message(
+		span_notice("[src] начинает поднимать [target_mob] на руки."),
+		span_notice("Вы начинаете поднимать [target_mob] на руки."),
+	)
+	if(!do_after(src, 2 SECONDS, target_mob, DA_IGNORE_HELD_ITEM | DA_IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_complete_grab_pickup), target_mob), max_interact_count = 1, cancel_on_max = TRUE))
+		return TRUE
+
+	if(!can_complete_grab_pickup(target_mob))
+		return TRUE
+
+	target_mob.get_scooped(src)
+	return TRUE
+
+/**
+ * Checks whether this small humanoid can climb into the provided storage.
+ *
+ * Arguments:
+ * * target_storage - The storage container to climb into.
+ */
+/mob/living/carbon/human/proc/can_climb_into_storage(obj/item/storage/target_storage)
+	var/static/list/resomi_storage_blacklist = typecacheof(list(
+		/obj/item/storage/backpack/holding,
+		/obj/item/storage/lockbox,
+		/obj/item/storage/secure,
+	))
+	if(!target_storage || QDELETED(target_storage))
+		return FALSE
+	if(!HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+	if(is_type_in_typecache(target_storage, resomi_storage_blacklist))
+		return FALSE
+	if(!isturf(loc) || !isturf(target_storage.loc))
+		return FALSE
+	return Adjacent(target_storage)
+
+/**
+ * Starts a timed climb into storage.
+ *
+ * Returns TRUE on success/finalization.
+ */
+/mob/living/carbon/human/proc/try_climb_into_storage(atom/over_object)
+	if(!HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+	if(!istype(over_object, /obj/item/storage))
+		return FALSE
+
+	var/obj/item/storage/target_storage = over_object
+	if(!can_climb_into_storage(target_storage))
+		return FALSE
+
+	visible_message(
+		span_notice("[src] начинает забираться в [target_storage]."),
+		span_notice("Вы начинаете забираться в [target_storage]."),
+	)
+	if(!do_after(src, 2 SECONDS, target = target_storage, timed_action_flags = DA_IGNORE_HELD_ITEM | DA_IGNORE_LYING, extra_checks = CALLBACK(src, PROC_REF(can_climb_into_storage), target_storage), max_interact_count = 1, cancel_on_max = TRUE, interaction_key = "climb_into_[target_storage.UID()]"))
+		to_chat(src, span_warning("Вы передумали залезать."))
+		return TRUE
+
+	if(!can_climb_into_storage(target_storage))
+		return TRUE
+
+	var/obj/item/holder/holder_item = get_scooped(null)
+	if(!holder_item)
+		return TRUE
+	if(!target_storage.can_be_inserted(holder_item, stop_messages = TRUE))
+		holder_item.forceMove(get_turf(target_storage))
+		holder_item.process()
+		return TRUE
+
+	target_storage.handle_item_insertion(holder_item, prevent_warning = TRUE)
+	to_chat(src, span_notice("Вы забираетесь внутрь [target_storage]."))
+	return TRUE
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))

@@ -29,6 +29,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
 		return TRUE
 
+	// Drag small mobs(resomi) onto self with blue grab should run pickup (mouse_drop_dragged), not /datum/element/strippable.
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		return !human_user.can_be_firemanned(src)

@@ -53,7 +53,7 @@ Difficulty: Hard
 	del_on_death = TRUE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
-	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
+	blood_volume = BLOOD_VOLUME_TO_UNITS(BLOOD_VOLUME_MAXIMUM, BLOOD_VOLUME_NORMAL_HUMAN) //BLEED FOR ME
 	var/actively_moving = FALSE
 	var/turf/charging
 	var/enrage_till = 0

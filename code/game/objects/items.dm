@@ -527,6 +527,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!user)
 		return
 
+	// If the item is inside a storage the user is inside of, pull it out properly first.
+	if(isstorage(loc))
+		var/obj/item/storage/S = loc
+		if(user.loc == S || (isitem(user.loc) && user.loc.loc == S))
+			S.remove_from_storage(src, user)
+			user.put_in_active_hand(src, ignore_anim = FALSE)
+			return TRUE
+
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
@@ -1461,6 +1469,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_thrown(mob/living/carbon/user, atom/target)
 	if((item_flags & ABSTRACT) || HAS_TRAIT(src, TRAIT_NODROP))
 		return
+	if(HAS_TRAIT(user, TRAIT_SMALL_MOB))
+		var/obj/item/holder/H = user.loc
+		if(istype(H) && istype(H.loc, /obj/item/storage))
+			if(!user.drop_transfer_item_to_loc(src, get_turf(H.loc), silent = TRUE))
+				return
+			if(throwforce && HAS_TRAIT(user, TRAIT_PACIFISM))
+				to_chat(src, span_notice("Вы осторожно опускаете [declent_ru(ACCUSATIVE)] на землю."))
+				return
+			return src
 	user.drop_item_ground(src, silent = TRUE)
 	if(throwforce && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(src, span_notice("Вы осторожно опускаете [declent_ru(ACCUSATIVE)] на землю."))

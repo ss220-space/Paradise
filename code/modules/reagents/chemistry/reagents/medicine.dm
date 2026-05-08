@@ -136,7 +136,7 @@
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
-			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
+			C.setBlood(min(C.blood_volume + round(volume, 0.1), C.max_blood))
 			C.reagents.del_reagent(id)
 
 	if(iscarbon(M))
@@ -383,7 +383,7 @@
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
 		//do not restore blood on things with no blood by nature.
-		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < H.max_blood)
 			H.AdjustBlood(1)
 
 	return ..() | update_flags
@@ -1540,7 +1540,7 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 56 healing to all internal organs.
 						I.heal_internal_damage(8)
-					if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 210 units total
+					if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < H.max_blood * 0.9)// If below 90% blood, regenerate 210 units total
 						H.AdjustBlood(30)
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
@@ -1778,7 +1778,7 @@
 	if(HAS_TRAIT(user, TRAIT_NO_BLOOD) || HAS_TRAIT(user, TRAIT_NO_BLOOD_RESTORE))
 		return ..()
 
-	if(user.blood_volume < BLOOD_VOLUME_NORMAL)
+	if(user.blood_volume < user.max_blood)
 		switch(current_cycle)
 
 			if(1)

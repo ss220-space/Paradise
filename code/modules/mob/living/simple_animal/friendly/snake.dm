@@ -67,7 +67,7 @@
 	name = "Руж"
 	desc = "Уникальная трёхголовая змея Офицера Телекоммуникаций \"Синдиката\". Выращена в лаборатории. У каждой головы свой характер!"
 	icon = 'icons/mob/pets.dmi'
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	gender = FEMALE
 	icon_state = "rouge"
 	icon_living = "rouge"

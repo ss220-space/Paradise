@@ -1570,10 +1570,10 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("age")
 					age = get_rand_age(S)
 				if("hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_RESOMI))
 						h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_RESOMI))
 						h_sec_colour = rand_hex_color()
 				if("h_style")
 					h_style = random_hair_style(gender, S, robohead)
@@ -1672,7 +1672,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 							robohead = GLOB.all_robolimbs[head_model]
 						//grab one of the valid hair styles for the newly chosen species
-						h_style = random_hair_style(gender, S, robohead)
+						h_style = random_hair_style(gender, NS, robohead)
 
 						//grab one of the valid facial hair styles for the newly chosen species
 						f_style = random_facial_hair_style(gender, species, robohead)
@@ -1716,12 +1716,20 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 						//reset skin tone and colour
 						if(NS.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-							random_skin_tone(species)
+							s_tone = random_skin_tone(species)
 						else
 							s_tone = 0
 
 						if(!(NS.bodyflags & HAS_SKIN_COLOR))
 							s_colour = "#000000"
+						else if(!(NS.bodyflags & HAS_ICON_SKIN_TONE))
+							randomize_skin_color()
+
+						if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_RESOMI))
+							randomize_hair_color("hair")
+						if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+							randomize_hair_color("facial")
+						randomize_eyes_color()
 
 						age = get_rand_age(NS)
 						alt_head = "None" //No alt heads on species that don't have them.
@@ -1777,13 +1785,13 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_RESOMI)) //Species that have hair. (No HAS_HAIR flag)
 						var/new_hair = tgui_input_color(user, "Выберите цвет причёски.", "Причёска", h_colour)
 						if(!isnull(new_hair))
 							h_colour = new_hair
 
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_RESOMI))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет причёски.", "Причёска", h_sec_colour)
@@ -2908,6 +2916,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	character.s_tone = s_tone
 
 	// Destroy/cyborgize organs
+	var/species_forbids_roboparts = HAS_TRAIT(character, TRAIT_NO_ROBOPARTS)
 	for(var/name in organ_data)
 
 		var/status = organ_data[name]
@@ -2916,14 +2925,14 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(status == PREF_ORGANSTATUS_AMPUTATED_ENG)
 				qdel(O.remove(character))
 
-			else if(status == PREF_ORGANSTATUS_CYBORG_ENG)
+			else if(status == PREF_ORGANSTATUS_CYBORG_ENG && !species_forbids_roboparts)
 				if(rlimb_data[name])
 					O.robotize(company = rlimb_data[name], convert_all = FALSE)
 				else
 					O.robotize()
 		else
 			var/obj/item/organ/internal/I = character.internal_organs_slot[name]
-			if(I && status == PREF_ORGANSTATUS_CYBERNETIC_ENG)
+			if(I && status == PREF_ORGANSTATUS_CYBERNETIC_ENG && !species_forbids_roboparts)
 				I.robotize()
 
 	character.dna.blood_type = b_type

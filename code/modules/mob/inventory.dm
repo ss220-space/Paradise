@@ -468,6 +468,16 @@
 */
 /mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
 
+	// If a pickupable humanoid is inside a storage container, prefer dropping into that container (if it has space).
+	if(I && HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		var/obj/item/holder/H = loc
+		if(istype(H))
+			var/obj/item/storage/S = H.loc
+			if(istype(S) && S.can_be_inserted(I, stop_messages = TRUE))
+				if(do_unEquip(I, force, drop_location(), FALSE, invdrop, silent))
+					S.handle_item_insertion(I, prevent_warning = TRUE)
+					return TRUE
+
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.

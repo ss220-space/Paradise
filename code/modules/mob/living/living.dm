@@ -974,7 +974,7 @@
 		if(trail_type)
 			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
 
-			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0)) // don't leave trail if blood volume below a threshold
+			if(blood_volume && blood_volume > max(max_blood * (1 - brute_ratio * 0.25), 0)) // don't leave trail if blood volume below a threshold
 				setBlood(max(blood_volume - max(1, brute_ratio * 2), 0)) // that depends on our brute damage.
 				var/newdir = get_dir(T, loc)
 
@@ -1453,6 +1453,11 @@
 	gib()
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		var/obj/item/holder/H = loc
+		if(istype(H) && istype(H.loc, /obj/item/storage))
+			to_chat(src, span_warning("Слишком тесно для стрельбы."))
+			return FALSE
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
 		return 0

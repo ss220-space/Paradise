@@ -70,7 +70,6 @@
 	var/mob/remoteview_target = null
 	var/meatleft = 3 //For chef item
 	var/decaylevel = 0 // For rotting bodies
-	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
 
@@ -109,6 +108,13 @@
 	var/emp_damage_multiplier_internal = 1
 	/// EMP damage multiplier for external organs
 	var/emp_damage_multiplier_external = 1
+	/// If TRUE, only clothing with species-specific sprites can be worn.
+	var/restrict_clothing_to_species_sprites = FALSE
+	/// Visual inhand sprite offset for this mob.
+	var/inhand_sprite_offset_x = 0
+	var/inhand_sprite_offset_y = 0
+	/// Visual inhand sprite scale for this mob.
+	var/inhand_sprite_scale = 1
 
 	/// Bleeding bodyparts (optimisation)
 	var/list/bleeding_bodyparts = list()

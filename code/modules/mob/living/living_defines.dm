@@ -94,6 +94,8 @@
 
 	/// How much blood the mob has
 	var/blood_volume = 0
+	/// Maximum blood units this mob can naturally hold.
+	var/max_blood = BLOOD_VOLUME_NORMAL_HUMAN
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD,THOUGHT_HUD)
 
 	/// A list of all status effects the mob has

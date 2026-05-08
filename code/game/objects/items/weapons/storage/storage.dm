@@ -278,9 +278,15 @@
 
 /obj/item/storage/proc/update_viewers()
 	for(var/mob/M as anything in mobs_viewing)
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+		if(!QDELETED(M) && M.s_active == src && ((M in range(1, loc)) || (M.loc == src) || (isitem(M.loc) && M.loc.loc == src)))
 			continue
 		hide_from(M)
+
+/obj/item/storage/IsReachableBy(atom/movable/user, reacher_range = 1, depth = INFINITY, direct_access = user.DirectAccess())
+	// If the user is physically inside this storage (usually via a holder), always allow reach.
+	if(user && (user.loc == src || (isitem(user.loc) && user.loc.loc == src)))
+		return TRUE
+	return ..()
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound && isliving(user))

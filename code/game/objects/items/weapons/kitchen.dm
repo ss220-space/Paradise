@@ -226,8 +226,8 @@
 	if(head && !head.has_arterial_bleeding())
 		head.arterial_bleeding()
 
-	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
-		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
+	if(defender.get_blood_percent() > BLOOD_VOLUME_SURVIVE)
+		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (defender.max_blood - (defender.max_blood * BLOOD_VOLUME_SURVIVE / BLOOD_VOLUME_NORMAL))) //-25% of max blood volume
 
 		for(var/i in 1 to 2)
 			var/obj/effect/decal/cleanable/blood/blood_decal = new(defender.loc)

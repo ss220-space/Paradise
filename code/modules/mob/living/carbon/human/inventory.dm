@@ -365,6 +365,8 @@
 		if(ITEM_SLOT_BACK)
 			back = I
 			update_worn_back()
+			if(isstorage(I))
+				force_eject_pickupable_humanoids_from_container(I)
 
 		if(ITEM_SLOT_MASK)
 			wear_mask = I
@@ -392,6 +394,8 @@
 		if(ITEM_SLOT_BELT)
 			belt = I
 			update_worn_belt()
+			if(isstorage(I))
+				force_eject_pickupable_humanoids_from_container(I)
 
 		if(ITEM_SLOT_ID)
 			wear_id = I
@@ -475,6 +479,23 @@
 			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 	return I.equipped(src, slot, initial)
+
+/**
+ * Forces any contained small humanoid holders out of `container_item`.
+ */
+/mob/living/carbon/human/proc/force_eject_pickupable_humanoids_from_container(obj/item/container_item)
+	if(!HAS_TRAIT(src, TRAIT_SMALL_MOB) || !container_item)
+		return
+
+	for(var/obj/item/holder/H in container_item.get_all_contents())
+		if(!H.held_mob || !HAS_TRAIT(H.held_mob, TRAIT_SMALL_MOB))
+			continue
+		if(isstorage(H.loc))
+			var/obj/item/storage/S = H.loc
+			S.remove_from_storage(H, get_turf(src))
+		else
+			H.forceMove(get_turf(src))
+		H.process()
 
 /**
  * Returns the item currently in the slot

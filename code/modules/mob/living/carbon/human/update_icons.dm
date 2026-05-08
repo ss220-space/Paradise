@@ -288,7 +288,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 		if(body_marking_style?.species_allowed && (dna.species.name in body_marking_style.species_allowed))
-			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
+			var/body_marking_state = "[body_marking_style.icon_state]_s"
+			if(!icon_exists(body_marking_style.icon, body_marking_state))
+				body_marking_state = body_marking_style.icon_state
+			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = body_marking_state)
 			if(body_marking_style.do_colouration)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
@@ -1371,6 +1374,18 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 		standing = draw_target
 
 	standing = center_image(standing, isinhands ? inhand_x_dimension : worn_x_dimension, isinhands ? inhand_y_dimension : worn_y_dimension)
+
+	if(isinhands && ishuman(wearer))
+		var/mob/living/carbon/human/human_wearer = wearer
+		var/hand_x_offset = human_wearer.inhand_sprite_offset_x
+		var/file_text = "[file2use]"
+		if(findtext(file_text, "lefthand") || (length(t_state) >= 2 && copytext(t_state, length(t_state) - 1) == "_l"))
+			hand_x_offset = -hand_x_offset
+		if(human_wearer.inhand_sprite_offset_x || human_wearer.inhand_sprite_offset_y)
+			standing.pixel_w += hand_x_offset
+			standing.pixel_z += human_wearer.inhand_sprite_offset_y
+		if(human_wearer.inhand_sprite_scale != 1)
+			standing.transform = matrix().Scale(human_wearer.inhand_sprite_scale, human_wearer.inhand_sprite_scale)
 
 	standing.alpha = alpha
 	standing.color = color

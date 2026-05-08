@@ -87,7 +87,7 @@
 	)
 
 /datum/vampire_subclass/hemomancer/on_blood_sucking(mob/living/carbon/human/H)
-	H.setBlood(min(H.blood_volume + 5, BLOOD_VOLUME_NORMAL))
+	H.setBlood(min(H.blood_volume + 5, H.max_blood))
 
 /datum/vampire_subclass/gargantua
 	name = "gargantua"

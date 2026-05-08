@@ -147,7 +147,7 @@
 			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
 			if(update)
 				H.updatehealth()
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+			if(H.blood_volume < H.max_blood)
 				H.AdjustBlood(0.5)
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)

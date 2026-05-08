@@ -3,7 +3,7 @@
 	gender = MALE
 	pressure_resistance = 15
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	rotate_on_lying = TRUE
 	pull_hand = null
 	throw_range = 3

@@ -612,7 +612,12 @@
 
 	throw_mode_off()
 
-	if(!target || !isturf(loc) || is_screen_atom(target))
+	var/can_throw_from_storage = FALSE
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		var/obj/item/holder/H = loc
+		can_throw_from_storage = istype(H) && istype(H.loc, /obj/item/storage)
+
+	if(!target || (!isturf(loc) && !can_throw_from_storage) || is_screen_atom(target))
 		return FALSE
 
 	var/atom/movable/thrown_thing

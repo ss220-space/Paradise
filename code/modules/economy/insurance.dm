@@ -98,7 +98,7 @@
 
 	insurance += internal_organs_damage * REQ_INSURANCE_ORGAN
 
-	insurance += max(0, round((BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL * 100)) * REQ_INSURANCE_BLOOD
+	insurance += max(0, round(BLOOD_VOLUME_NORMAL - user.get_blood_percent())) * REQ_INSURANCE_BLOOD
 
 	var/internal_bleedings = 0
 	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)

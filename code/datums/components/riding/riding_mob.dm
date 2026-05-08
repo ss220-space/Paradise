@@ -178,7 +178,8 @@
 /datum/component/riding/creature/human/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = NONE, potion_boost = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/human_parent = parent
-	human_parent.add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
+	if(!HAS_TRAIT(riding_mob, TRAIT_SMALL_MOB))
+		human_parent.add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 
 	if(ride_check_flags & RIDER_NEEDS_ARMS) // piggyback
 		human_parent.buckle_lying = 0
@@ -218,9 +219,25 @@
 /datum/component/riding/creature/human/vehicle_mob_unbuckle(datum/source, mob/living/former_rider, force = FALSE)
 	unequip_buckle_inhands(parent)
 	var/mob/living/carbon/human/H = parent
-	H.remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
+	if(!HAS_TRAIT(former_rider, TRAIT_SMALL_MOB))
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
+	UnregisterSignal(former_rider, COMSIG_HUMAN_DISARM_HIT)
 	REMOVE_TRAIT(former_rider, TRAIT_UNDENSE, VEHICLE_TRAIT)
+	reset_rider_offsets(former_rider)
+	addtimer(CALLBACK(src, PROC_REF(reset_rider_offsets), former_rider), 0)
 	return ..()
+
+/datum/component/riding/creature/human/proc/reset_rider_offsets(mob/living/rider)
+	if(!rider || QDELETED(rider))
+		return
+	rider.pixel_x = rider.base_pixel_x
+	rider.pixel_y = rider.base_pixel_y
+	rider.layer = initial(rider.layer)
+
+/datum/component/riding/creature/human/vehicle_mob_buckle(mob/living/ridden, mob/living/rider, force = FALSE)
+	. = ..()
+	if(HAS_TRAIT(rider, TRAIT_SMALL_MOB))
+		RegisterSignal(rider, COMSIG_HUMAN_DISARM_HIT, PROC_REF(on_rider_disarmed))
 
 /// If the carrier shoves the person they're carrying, force the carried mob off
 /datum/component/riding/creature/human/proc/on_host_unarmed_melee(mob/living/source, atom/target, proximity, modifiers)
@@ -266,10 +283,21 @@
 
 /datum/component/riding/creature/human/get_offsets(pass_index)
 	var/mob/living/carbon/human/H = parent
+	var/mob/living/rider = H.buckled_mobs[pass_index]
+	var/y_offset_bonus = (HAS_TRAIT(rider, TRAIT_SMALL_MOB) ? 4 : 0)
 	if(H.buckle_lying)
 		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(0, 6), TEXT_WEST = list(0, 6))
 	else
-		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-6, 4), TEXT_WEST = list(6, 4))
+		return list(TEXT_NORTH = list(0, 6 + y_offset_bonus), TEXT_SOUTH = list(0, 6 + y_offset_bonus), TEXT_EAST = list(-6, 4 + y_offset_bonus), TEXT_WEST = list(6, 4 + y_offset_bonus))
+
+/datum/component/riding/creature/human/proc/on_rider_disarmed(mob/living/carbon/human/source, mob/living/carbon/human/attacker, zone_targeted)
+	SIGNAL_HANDLER
+	if(!HAS_TRAIT(source, TRAIT_SMALL_MOB))
+		return
+	if(source.buckled != parent)
+		return
+	if(prob(30))
+		force_dismount(source)
 
 /datum/component/riding/creature/human/force_dismount(mob/living/dismounted_rider)
 	var/atom/movable/AM = parent

@@ -21,8 +21,9 @@
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, S, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
+	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_RESOMI))
 		randomize_hair_color("hair")
+	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("facial")
 	if(S?.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
@@ -262,10 +263,11 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+	var/species_forbids_roboparts = current_species && (TRAIT_NO_ROBOPARTS in current_species.inherent_traits)
 	for(var/limb_zone in check_list)
 		if(organ_data[limb_zone] == "amputated")
 			continue
-		if(organ_data[limb_zone] == "cyborg")
+		if(!species_forbids_roboparts && organ_data[limb_zone] == "cyborg")
 			var/datum/robolimb/R
 			if(rlimb_data[limb_zone])
 				R = GLOB.all_robolimbs[rlimb_data[limb_zone]]
@@ -354,7 +356,12 @@
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
-		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
+		var/eyes_icon = 'icons/mob/human_face.dmi'
+		var/eyes_state = current_species ? current_species.eyes : "eyes_s"
+		if(current_species.name == SPECIES_RESOMI)
+			eyes_icon = 'icons/mob/sprite_accessories/resomi/resomi_eyes.dmi'
+			eyes_state = "resomi_eyes_s"
+		var/icon/eyes_s = new/icon("icon" = eyes_icon, "icon_state" = eyes_state)
 		eyes_s.Blend(e_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 

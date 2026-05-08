@@ -508,6 +508,44 @@
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
 	english_names = TRUE
 
+/datum/language/resomi
+	name = LANGUAGE_RESOMI
+	desc = "Смесь чириканья, свиста и щелчков, дополненная активной жестикуляцией ушами и хвостом, которая в итоге складывается в мелодичный и очень сложный язык."
+	speech_verbs = list("чирика%(ет,ют)%")
+	exclaim_verbs = list("вскрикива%(ет,ют)%")
+	whisper_verbs = list("тихо щёлка%(ет,ют)%")
+	colour = "resomi"
+	runechat_span = "resomi"
+	flags = RESTRICTED
+	key = "sa"
+	space_chance = 40
+	syllables = list(
+		"ki", "skre", "chir", "vli", "tri", "kree", "zrit", "pree", "skrit", "kli",
+		"shree", "tchi", "vree", "kri", "zri", "shkree", "tiv", "lit", "skra", "krrr",
+		"tchi", "pree", "vli", "kris", "zril", "skree", "vrit", "tril", "krees", "shri",
+		"tik", "klik", "prik", "skrik", "vrik", "trik", "zrik", "shrik", "krik", "klik",
+		"va", "si", "li", "re", "so", "mi", "va", "li", "ka", "tu", "ra", "tsi",
+		"kree-ah", "vlee-it", "skree-at", "chri-it", "zree-al", "tkri", "skli", "vri", "zra"
+	)
+
+/datum/language/resomi/get_random_name()
+	var/list/name_starts = list(
+		"Ме", "Ши", "Ре", "Ас", "Им", "За", "Ки", "Ли", "Ти", "Ва",
+		"Ни", "Хо", "Се", "Ми", "Па", "Ри", "Те", "Ко", "Си", "Лу",
+		"Кри", "Тка", "Фло", "Ма", "Не", "Ос", "Ве", "Зи", "Юн",
+		"Асси", "Крети", "Шери", "Има", "Рети", "Зари", "Меу", "Вали",
+		"Ники", "Скай", "Трил", "Крис", "Флит", "При", "Мно", "Кло"
+	)
+	var/list/name_ends = list(
+		"ути", "рива", "тини", "сиер", "аки", "ери", "зи", "ива", "ель", "оми",
+		"ата", "уна", "кит", "лис", "вет", "ани", "ро", "та", "ми", "не",
+		"тра", "ка", "ири", "ко", "ла", "на", "ри", "си", "ти", "вэ",
+		"ерри", "атта", "нари", "миер", "атри", "лика", "рази", "ини",
+		"кира", "рисс", "тико", "велли", "стас", "трисс", "кери"
+	)
+	var/new_name = "[pick(name_starts)][pick(name_ends)]"
+	return new_name
+
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
 	name = LANGUAGE_TRADER

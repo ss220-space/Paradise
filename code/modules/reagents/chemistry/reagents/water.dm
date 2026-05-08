@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			if(!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(data["blood_species"] == C.dna.species.blood_species))
 				C.reagents.add_reagent("toxin", volume * 0.5)
 			else
-				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), C.max_blood)
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				if(C.stat != DEAD)
 					C.adjustOxyLoss(4)
 			else
-				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), C.max_blood)
 
 /datum/reagent/blood/synthetic/oxy
 	name = "Синтетическая кровь (Кислород)"
@@ -265,7 +265,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				if(C.stat != DEAD)
 					C.adjustOxyLoss(4)
 			else
-				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+				C.blood_volume = min(C.blood_volume + round(volume, 0.1), C.max_blood)
 
 /datum/reagent/vaccine
 	//data must contain virus type

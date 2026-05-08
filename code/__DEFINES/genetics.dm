@@ -46,15 +46,18 @@
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
-//Blood levels
-#define BLOOD_VOLUME_MAXIMUM 2000
-#define BLOOD_VOLUME_NORMAL 560 // 100%
-#define BLOOD_VOLUME_SAFE 501 // 89.5%
-#define BLOOD_VOLUME_PALE 448 // 80%
-#define BLOOD_VOLUME_REGENERATION 392 // 70%
-#define BLOOD_VOLUME_OKAY 346 // 61.8%
-#define BLOOD_VOLUME_BAD 234 // 41.8%
-#define BLOOD_VOLUME_SURVIVE 168 // 30%
+// Blood levels in percents
+#define BLOOD_VOLUME_MAXIMUM 357 // 2000 for a 560 blood maximum
+#define BLOOD_VOLUME_NORMAL 100 // 560 for a 560 blood maximum
+#define BLOOD_VOLUME_SAFE 89.5 // 501 for a 560 blood maximum
+#define BLOOD_VOLUME_PALE 80 // 448 for a 560 blood maximum
+#define BLOOD_VOLUME_REGENERATION 70 // 392 for a 560 blood maximum
+#define BLOOD_VOLUME_OKAY 61.8 // 346 for a 560 blood maximum
+#define BLOOD_VOLUME_BAD 41.8 // 234 for a 560 blood maximum
+#define BLOOD_VOLUME_SURVIVE 30 // 168 for a 560 blood maximum
+
+#define BLOOD_VOLUME_NORMAL_HUMAN 560
+#define BLOOD_VOLUME_TO_UNITS(percent, max_blood) ((max_blood) * (percent) / BLOOD_VOLUME_NORMAL)
 
 
 //Sizes of mobs, used by mob/living/var/mob_size

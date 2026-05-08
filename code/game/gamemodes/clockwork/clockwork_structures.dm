@@ -176,7 +176,7 @@
 				if(M.health < M.maxHealth)
 					M.adjustHealth(-8)
 
-			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < L.max_blood)
 				L.AdjustBlood(1)
 
 /obj/structure/clockwork/functional/beacon/Destroy()

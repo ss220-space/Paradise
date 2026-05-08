@@ -19,7 +19,7 @@
 	speed = 2
 	maxHealth = 40
 	health = 40
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	attacktext = "терзает"

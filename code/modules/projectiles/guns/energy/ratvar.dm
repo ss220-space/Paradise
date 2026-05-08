@@ -97,7 +97,7 @@
 	else
 		to_chat(shooter, span_clocklarge("Руки прочь!"))
 	shooter.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Выстрелил себе в [GLOB.body_zone[zone][ACCUSATIVE]] из [declent_ru(GENITIVE)].")
-	shooter.bleed(BLOOD_VOLUME_NORMAL)
+	shooter.bleed(shooter.max_blood)
 	shooter.death()
 
 /obj/item/gun/energy/clockwork/proc/remove_enchanted_bullet()

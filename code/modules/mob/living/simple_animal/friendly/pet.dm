@@ -1,7 +1,7 @@
 /mob/living/simple_animal/pet
 	icon = 'icons/mob/pets.dmi'
 	mob_size = MOB_SIZE_SMALL
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	can_collar = TRUE
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'

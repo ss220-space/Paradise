@@ -245,6 +245,10 @@
 	if(!istype(item))
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB) && item.w_class >= WEIGHT_CLASS_BULKY)
+		if(!is_type_in_typecache(item, GLOB.pickupable_humanoid_bulky_exceptions))
+			return FALSE
+
 	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, item, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
 		return FALSE
 

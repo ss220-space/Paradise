@@ -88,6 +88,11 @@
 	age_based = TRUE
 	volume = 70
 
+/datum/emote/living/carbon/giggle/select_message_type(mob/living/carbon/user, msg, intentional)
+	. = ..()
+	if(ishuman(user) && user.dna?.species?.name == SPECIES_RESOMI)
+		return "кудахч%(ет,ут)%."
+
 /datum/emote/living/carbon/giggle/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user.dna?.species)
 		if(user.gender == FEMALE)

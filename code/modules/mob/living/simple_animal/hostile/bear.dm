@@ -20,7 +20,7 @@
 	response_harm   = "hits"
 	maxHealth = 60
 	health = 60
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	obj_damage = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30

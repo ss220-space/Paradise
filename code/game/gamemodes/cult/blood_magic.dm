@@ -767,15 +767,16 @@
 
 				//Blood restoration
 				if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && !HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD))
-					if(H.blood_volume < BLOOD_VOLUME_SAFE)
-						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
+					var/safe_blood_volume = H.max_blood * BLOOD_VOLUME_SAFE / BLOOD_VOLUME_NORMAL
+					if(H.blood_volume < safe_blood_volume)
+						var/restore_blood = safe_blood_volume - H.blood_volume
 						if(uses * 2 < restore_blood)
 							H.AdjustBlood(uses * 2)
 							to_chat(user, span_danger("You use the last of your charges to restore what blood you could, and the spell dissipates!"))
 							uses = 0
 							return ..()
 						else
-							H.blood_volume = BLOOD_VOLUME_SAFE
+							H.blood_volume = safe_blood_volume
 							uses -= round(restore_blood / 2)
 							to_chat(user, span_cult("Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!"))
 
@@ -827,7 +828,7 @@
 					to_chat(user, span_danger("[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
 					return
 				if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD))
-					if(H.blood_volume > BLOOD_VOLUME_SAFE)
+					if(H.get_blood_percent() > BLOOD_VOLUME_SAFE)
 						H.blood_volume -= 100
 						uses += 50
 						user.Beam(H, icon_state = "drainbeam", time = 10)

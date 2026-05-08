@@ -248,6 +248,7 @@
 #define SPECIES_SHADOWLING "Shadowling"
 #define SPECIES_LESSER_SHADOWLING "Lesser Shadowling"
 
+#define SPECIES_RESOMI "Resomi"
 #define SPECIES_SKELETON "Skeleton"
 #define SPECIES_SKRELL "Skrell"
 #define SPECIES_SLIMEPERSON "Slime People"
@@ -265,6 +266,12 @@
 
 // not race
 #define SPECIES_OTHER "Other"
+
+// Pickupable humanoids (e.g. Resomi) cannot hold bulky items by default. Exceptions are here.
+GLOBAL_LIST_INIT(pickupable_humanoid_bulky_exceptions, typecacheof(list(
+	/obj/item/storage/backpack,
+	/obj/item/storage/belt
+)))
 
 GLOBAL_LIST_INIT(ru_species, list(
 	SPECIES_ABDUCTOR = "абдуктор",
@@ -305,6 +312,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 	SPECIES_SHADOW_BASIC = "тень",
 	SPECIES_SHADOWLING = "тенеморф",
 	SPECIES_LESSER_SHADOWLING = "низший тенеморф",
+	SPECIES_RESOMI = "резоми",
 	SPECIES_SKELETON = "скелет",
 	SPECIES_SKRELL = "скрелл",
 	SPECIES_SLIMEPERSON = "слаймолюд",

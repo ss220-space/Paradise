@@ -323,7 +323,7 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] довольно полн[GEND_YM_OI_YM_YMI(src)].\n")
 
-	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
+	if(dna.species.can_be_pale && get_blood_percent() < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += span_warning("У н[GEND_HIS_HER(src)] бледная кожа.\n")
 
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)

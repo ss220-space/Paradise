@@ -476,6 +476,10 @@
 		user.balloon_alert(user, "нет места под орган!")
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
+		user.balloon_alert(user, "орган не подходит!")
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
 		user.balloon_alert(user, "нет места под орган!")
 		return SURGERY_BEGINSTEP_SKIP

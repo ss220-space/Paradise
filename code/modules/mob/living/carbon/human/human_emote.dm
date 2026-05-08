@@ -757,6 +757,75 @@
 	sound = 'sound/effects/voxrustle.ogg'
 
 /**
+ * Resomi
+ */
+/datum/emote/living/carbon/human/resomi
+	species_type_whitelist_typecache = list(/datum/species/resomi)
+
+/datum/emote/living/carbon/human/resomi/wurble
+	key = "wurble"
+	key_third_person = "wurbles"
+	message = "тихо курлыч%(ет,ут)%."
+	message_mime = "беззвучно шевел%(ит,ят)% клювом."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+	muzzled_noises = list("тихие")
+	sound = 'sound/voice/wurble.ogg'
+
+/datum/emote/living/carbon/human/resomi/warbles
+	key = "warbles"
+	key_third_person = "warbles"
+	message = "курлыч%(ет,ут)%."
+	message_mime = "беззвучно курлыч%(ет,ут)%."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+	muzzled_noises = list("гортанные")
+	sound = 'sound/voice/warbles.ogg'
+
+/datum/emote/living/carbon/human/resomi/trill
+	key = "trill"
+	key_third_person = "trills"
+	message = "изда%(ёт,ют)% трель."
+	message_mime = "дела%(ет,ют)% вид, что изда%(ёт,ют)% трель."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+	muzzled_noises = list("громкие")
+	sound = 'sound/voice/resomitrill.ogg'
+
+/datum/emote/living/carbon/human/resomi/wiggle_ears
+	key = "wiggle_ears"
+	key_third_person = "wiggle_ears"
+	message = "дёрга%(ет,ют)% ушками."
+	message_postfix = ", смотря на %t."
+	message_param = EMOTE_PARAM_USE_POSTFIX
+
+/datum/emote/living/carbon/human/resomi/pin_ears
+	key = "pin_ears"
+	key_third_person = "pin_ears"
+	message = "прижима%(ет,ют)% ушки."
+	message_postfix = ", смотря на %t."
+	message_param = EMOTE_PARAM_USE_POSTFIX
+
+/datum/emote/living/carbon/human/resomi/fluff_feathers
+	key = "fluff_feathers"
+	key_third_person = "fluff_feathers"
+	message = "распуша%(ет,ют)% перья."
+	emote_type = EMOTE_AUDIBLE
+	sound = 'sound/voice/resomichirp.ogg'
+
+/datum/emote/living/carbon/human/resomi/shake_feathers
+	key = "shake_feathers"
+	key_third_person = "shake_feathers"
+	message = "встряхива%(ет,ют)% перья."
+	emote_type = EMOTE_AUDIBLE
+	sound = 'sound/effects/voxrustle.ogg'
+
+/datum/emote/living/carbon/human/resomi/click_beak
+	key = "click_beak"
+	key_third_person = "click_beak"
+	message = "щёлка%(ет,ют)% клювом."
+	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
+	muzzled_noises = list("тихие")
+	sound = 'sound/effects/kidanclack2.ogg'
+
+/**
  * Skrell
  */
 /datum/emote/living/carbon/human/skrell

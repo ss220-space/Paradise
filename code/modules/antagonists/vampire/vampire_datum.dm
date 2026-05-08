@@ -400,14 +400,15 @@
 		to_chat(vampire, span_warning("Вы выпили свою жертву досуха!"))
 		return FALSE
 
-	if(target.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
+	var/target_blood_percent = target.get_blood_percent()
+	if(target_blood_percent <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
 		to_chat(vampire, span_danger("У вашей жертвы остаётся опасно мало крови!"))
 
-	else if(target.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+	else if(target_blood_percent <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
 		to_chat(vampire, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
 
 	// Set to blood volume, so that you only get the message once
-	blood_volume_warning = target.blood_volume
+	blood_volume_warning = target_blood_percent
 	return TRUE
 
 /// Mends fractures, stops internal bleedings and applies special subclass bloodsucking effects

@@ -840,7 +840,7 @@
 
 	var/temp = PULSE_NORM
 
-	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
+	if(get_blood_percent() <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))

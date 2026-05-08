@@ -69,6 +69,7 @@
 
 /datum/sprite_accessory/hair
 	icon = 'icons/mob/sprite_accessories/human/human_hair.dmi'	  // default icon for all human hair. Override if it doesn't belong to human. Human hair that is shared belongs in human file.
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON)
 	var/glasses_over //Hair styles with hair that don't overhang the arms of glasses should have glasses_over set to a positive value
 
 /datum/sprite_accessory/hair/bald
@@ -81,6 +82,7 @@
 /datum/sprite_accessory/facial_hair
 	unsuitable_gender = FEMALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
 	icon = 'icons/mob/sprite_accessories/human/human_facial_hair.dmi'
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON)
 	var/over_hair
 
 /datum/sprite_accessory/hair/fluff
@@ -170,11 +172,12 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH, SPECIES_RESOMI)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+		// TODO: Add SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/underwear.dmi' once the fitted underwear sheet exists.
 	)
 
 	var/allow_change_color = FALSE
@@ -182,7 +185,7 @@
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH, SPECIES_RESOMI)
 
 /datum/sprite_accessory/underwear/male
 	unsuitable_gender = FEMALE
@@ -325,18 +328,19 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH, SPECIES_RESOMI)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+		// TODO: Add SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/underwear.dmi' once the fitted undershirt sheet exists.
 	)
 	var/allow_change_color = FALSE
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH, SPECIES_RESOMI)
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_colorized
@@ -569,19 +573,20 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH, SPECIES_RESOMI)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/underwear.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/underwear.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/underwear.dmi',
+		// TODO: Add SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/underwear.dmi' once the fitted socks sheet exists.
 	)
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH, SPECIES_RESOMI)
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"

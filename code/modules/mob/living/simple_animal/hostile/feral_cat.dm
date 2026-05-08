@@ -5,7 +5,7 @@
 	icon_state = "cat2"
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	melee_damage_lower = 10
 	melee_damage_upper = 5
 	attacktext = "рвёт"

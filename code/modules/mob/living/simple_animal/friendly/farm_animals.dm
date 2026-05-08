@@ -30,7 +30,7 @@
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = 1
 	can_collar = 1
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	var/obj/item/udder/udder = null
 	footstep_type = FOOTSTEP_MOB_SHOE
 
@@ -159,7 +159,7 @@
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -524,7 +524,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 
 /mob/living/simple_animal/pig/get_ru_names()
 	return list(
@@ -663,7 +663,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal/get_ru_names()
@@ -700,7 +700,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 
 /mob/living/simple_animal/walrus/get_ru_names()
 	return list(

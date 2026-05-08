@@ -450,7 +450,7 @@
 			owner.updatehealth("fleshmend")
 
 		if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD_RESTORE))
-			owner.setBlood(min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL))
+			owner.setBlood(min(owner.blood_volume + blood_restore, owner.max_blood))
 
 		var/list/expired_instances = list()
 
@@ -893,7 +893,7 @@
 /datum/status_effect/lavaland_blood_regen/tick(seconds_between_ticks)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < H.max_blood)
 			H.blood_volume += 0.4
 
 /datum/status_effect/drask_coma

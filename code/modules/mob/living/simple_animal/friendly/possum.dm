@@ -21,7 +21,7 @@
 	pass_flags = PASSTABLE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	blood_volume = BLOOD_VOLUME_NORMAL
+	blood_volume = BLOOD_VOLUME_NORMAL_HUMAN
 	melee_damage_type = STAMINA
 	melee_damage_lower = 3
 	melee_damage_upper = 8

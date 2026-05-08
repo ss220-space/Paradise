@@ -1967,7 +1967,7 @@
 		user.visible_message(span_danger("[src] goes off!"))
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
-		user.bleed(BLOOD_VOLUME_NORMAL)
+		user.bleed(user.max_blood)
 		user.death() // Just in case
 		return TRUE
 	else

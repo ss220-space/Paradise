@@ -837,3 +837,73 @@
 		return
 
 	qdel(usr.GetComponent(/datum/component/object_possession))
+
+/atom/movable/screen/alert/take_pickupable_mob
+	name = "Просится на ручки"
+	desc = "Кто-то хочет, чтобы вы взяли его на руки."
+	icon_state = "template"
+	timeout = 15 SECONDS
+	var/mob/living/requester
+	var/mob/living/carbon/human/receiver
+
+/atom/movable/screen/alert/take_pickupable_mob/Initialize(mapload, mob/living/_requester, mob/living/carbon/human/_receiver)
+	. = ..()
+	if(!_requester)
+		return INITIALIZE_HINT_QDEL
+
+	requester = _requester
+	receiver = _receiver
+	desc = "[requester.name] просится к вам на руки."
+	var/mutable_appearance/view = new(requester)
+	view.pixel_x = 0
+	view.pixel_y = 0
+	view.transform = matrix() * 0.75
+
+	cut_overlays()
+	add_overlay(view)
+
+
+/atom/movable/screen/alert/take_pickupable_mob/Click()
+	if(!usr || !usr.client || usr.stat != CONSCIOUS)
+		return TRUE
+
+	if(usr != receiver || !requester)
+		return TRUE
+
+	if(requester.Adjacent(receiver) && receiver.can_hold_pickupable_mob(requester))
+		requester.get_scooped(receiver)
+		receiver.clear_alert("take_pickupable_[requester]")
+	else
+		to_chat(receiver, span_warning("Не удалось поднять [requester]."))
+
+	return TRUE
+
+/atom/movable/screen/alert/pickupable_container
+	name = "Вы в контейнере"
+	desc = "Нажмите, чтобы показать содержимое контейнера, в котором вы находитесь."
+	icon_state = "template"
+	timeout = 0
+	var/obj/item/storage/target_storage
+
+/atom/movable/screen/alert/pickupable_container/Initialize(mapload, obj/item/storage/_target_storage)
+	. = ..()
+	if(!_target_storage)
+		return INITIALIZE_HINT_QDEL
+	target_storage = _target_storage
+	desc = "Вы находитесь в [target_storage]. Нажмите, чтобы открыть."
+
+/atom/movable/screen/alert/pickupable_container/Click()
+	if(!usr || !usr.client || usr.stat != CONSCIOUS)
+		return TRUE
+
+	if(!target_storage || QDELETED(target_storage))
+		return TRUE
+
+	// Only useful if you're actually inside this storage.
+	var/obj/item/holder/H = usr.loc
+	if(!istype(H) || H.loc != target_storage)
+		return TRUE
+
+	// Open the storage UI and play its configured open sound.
+	target_storage.open(usr)
+	return TRUE

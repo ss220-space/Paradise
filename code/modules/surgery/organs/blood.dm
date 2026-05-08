@@ -89,13 +89,14 @@
 	if(bodytemperature < TCRYO || HAS_TRAIT(src, TRAIT_NO_CLONE))
 		return
 	// regenerate blood VERY slowly
-	if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
-		AdjustBlood(BLOOD_REGENERATION)
+	if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < max_blood)
+		AdjustBlood(BLOOD_REGENERATION * max(dna?.species?.blood_regen_mod, 0))
 	apply_current_blood_level_effect()
 	calculate_current_bleeding()
 
 /mob/living/carbon/human/proc/apply_current_blood_level_effect()
-	switch(blood_volume)
+	var/current_blood_percent = get_blood_percent()
+	switch(current_blood_percent)
 		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
 			adjust_blood_loss_damage(BLOOD_PALE_DAMAGE)
 
@@ -234,7 +235,7 @@
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(src), rand(0, 360), splatter_color)
 
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_volume()
-	var/blood_volume_percent = clamp(blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
+	var/blood_volume_percent = clamp(blood_volume / max_blood, 0, 1)
 	return BLOODLOSS_SPEED_BY_VOLUME_MIN + (BLOODLOSS_SPEED_BY_VOLUME_MAX - BLOODLOSS_SPEED_BY_VOLUME_MIN) * blood_volume_percent
 
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_temperature()
@@ -335,7 +336,7 @@
 	setBlood(initial(blood_volume))
 
 /mob/living/carbon/human/restore_blood()
-	setBlood(BLOOD_VOLUME_NORMAL)
+	setBlood(max_blood)
 	bleed_rate = 0
 
 /****************************************************
@@ -346,7 +347,7 @@
 /mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced)
 	if(!blood_volume || !AM.reagents)
 		return 0
-	if(blood_volume < BLOOD_VOLUME_BAD && !forced)
+	if(get_blood_percent() < BLOOD_VOLUME_BAD && !forced)
 		return 0
 
 	if(blood_volume < amount)
@@ -373,11 +374,16 @@
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
-			C.setBlood(min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))
+			C.setBlood(min(C.blood_volume + round(amount, 0.1), C.max_blood))
 			return 1
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
 	return 1
+
+/mob/living/proc/get_blood_percent()
+	if(max_blood <= 0)
+		return 0
+	return (blood_volume / max_blood) * BLOOD_VOLUME_NORMAL
 
 /// Returns the color of the mob's blood, or null if the mob has no blood.
 /mob/living/proc/get_blood_color()

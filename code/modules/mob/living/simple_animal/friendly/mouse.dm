@@ -27,7 +27,7 @@
 	nightvision = 6
 	maxHealth = 5
 	health = 5
-	blood_volume = BLOOD_VOLUME_SURVIVE
+	blood_volume = BLOOD_VOLUME_TO_UNITS(BLOOD_VOLUME_SURVIVE, BLOOD_VOLUME_NORMAL_HUMAN)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"

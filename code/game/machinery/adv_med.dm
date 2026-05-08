@@ -302,7 +302,7 @@
 		if(!HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 			bloodData["hasBlood"] = TRUE
 			bloodData["volume"] = occupant.blood_volume
-			bloodData["percent"] = round(((occupant.blood_volume / BLOOD_VOLUME_NORMAL)*100))
+			bloodData["percent"] = round(occupant.get_blood_percent())
 			bloodData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			bloodData["bloodLevel"] = occupant.blood_volume
 			bloodData["bloodMax"] = occupant.max_blood
@@ -481,10 +481,9 @@
 		if(occupant.borer?.controlling)
 			dat += "В лобной доле обнаружено крупное образование, возможно, злокачественное. Рекомендуется хирургическое удаление."
 
-		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
-		blood_percent *= 100
+		var/blood_percent = round(occupant.get_blood_percent())
 
-		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+		extra_font = (blood_percent > BLOOD_VOLUME_PALE ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)

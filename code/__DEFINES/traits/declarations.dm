@@ -300,6 +300,8 @@
 #define TRAIT_NO_PAIN "no_pain"
 /// This human mob will not feedback user about the damage done via HUD alerts
 #define TRAIT_NO_PAIN_HUD "no_pain_hud"
+/// This humanoid is small enough to be picked up and stored in compatible containers.
+#define TRAIT_SMALL_MOB "small_mob"
 /// Another biotype thing
 #define TRAIT_PLANT_ORIGIN "plant_origin"
 /// Another damn biotype

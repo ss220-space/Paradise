@@ -190,10 +190,9 @@
 	if(target.borer?.controlling)
 		dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
-	var/blood_percent =  round((target.blood_volume / BLOOD_VOLUME_NORMAL))
-	blood_percent *= 100
+	var/blood_percent = round(target.get_blood_percent())
 
-	extra_font = (target.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+	extra_font = (blood_percent > BLOOD_VOLUME_PALE ? "<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tBlood Level %: [blood_percent] ([target.blood_volume] units)</font><br>"
 
 	if(target.reagents)

@@ -145,6 +145,16 @@
 	var/bodyflags = 0
 
 	var/blood_color = BLOOD_COLOR_RED
+	/// Maximum blood units for this species.
+	var/max_blood = BLOOD_VOLUME_NORMAL_HUMAN
+	/// Multiplier for passive blood regeneration speed.
+	var/blood_regen_mod = 1
+	/// Inhand sprite X offset applied to this species.
+	var/inhand_sprite_offset_x = 0
+	/// Inhand sprite Y offset applied to this species.
+	var/inhand_sprite_offset_y = 0
+	/// Inhand sprite scale applied to this species.
+	var/inhand_sprite_scale = 1
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -367,6 +377,10 @@
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/target) //Handles anything not already covered by basic species assignment.
 	SHOULD_CALL_PARENT(TRUE)
+	var/previous_max_blood = max(target.max_blood, 1)
+	var/blood_percent = clamp(target.blood_volume / previous_max_blood, 0, 1)
+	target.max_blood = max_blood
+	target.setBlood(round(target.max_blood * blood_percent, DAMAGE_PRECISION))
 
 	if(speed_mod)
 		target.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
@@ -476,7 +490,7 @@
 		regenerate = FALSE
 		H.adjustBruteLoss(1)
 
-	if(regenerate && (H.blood_volume > BLOOD_VOLUME_REGENERATION) && HAS_TRAIT(H, TRAIT_HAS_REGENERATION) && (H.getBruteLoss() || H.getFireLoss()))
+	if(regenerate && (H.get_blood_percent() > BLOOD_VOLUME_REGENERATION) && HAS_TRAIT(H, TRAIT_HAS_REGENERATION) && (H.getBruteLoss() || H.getFireLoss()))
 		H.heal_overall_damage(0.1, 0.1)
 
 /**
@@ -881,6 +895,23 @@
 	if(isclothing(I) && !user.is_general_slot(slot))
 		var/obj/item/clothing/cloth = I
 		var/list/rectricted = cloth.species_restricted
+		var/static/list/species_sprite_restricted_slots = list(
+			ITEM_SLOT_BACK,
+			ITEM_SLOT_MASK,
+			ITEM_SLOT_NECK,
+			ITEM_SLOT_BELT,
+			ITEM_SLOT_EYES,
+			ITEM_SLOT_HEAD,
+			ITEM_SLOT_GLOVES,
+			ITEM_SLOT_FEET,
+			ITEM_SLOT_CLOTH_OUTER,
+			ITEM_SLOT_CLOTH_INNER,
+		)
+
+		if(user.restrict_clothing_to_species_sprites && (slot in species_sprite_restricted_slots) && !cloth.sprite_sheets?[name])
+			if(!disable_warning)
+				to_chat(user, span_warning("[I.declent_ru(NOMINATIVE)] не налезает на вас!."))
+			return FALSE
 
 		if(rectricted)
 			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)

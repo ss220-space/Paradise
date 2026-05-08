@@ -1446,7 +1446,7 @@
 
 	// blood
 	if(!HAS_TRAIT(human_vampire, TRAIT_NO_BLOOD_RESTORE))
-		human_vampire.setBlood(clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL))
+		human_vampire.setBlood(clamp(human_vampire.blood_volume + heal_blood, 0, human_vampire.max_blood))
 
 	// internal organs
 	for(var/obj/item/organ/internal/organ as anything in human_vampire.internal_organs)

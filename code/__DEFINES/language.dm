@@ -15,6 +15,7 @@
 #define LANGUAGE_MOTH "Ткачий язык"
 #define LANGUAGE_GALACTIC_COMMON "Общегалактический"
 #define LANGUAGE_SOL_COMMON "Общесолнечный"
+#define LANGUAGE_RESOMI "Скречи"
 #define LANGUAGE_TRADER "Торговый"
 #define LANGUAGE_GUTTER "Гангстерский"
 #define LANGUAGE_CLOWN "Клоунский"

@@ -35,7 +35,7 @@
 	if(human.getStaminaLoss() > 0)
 		human.adjustStaminaLoss(human.current_nutrition_level.stamina_regen)
 
-	if(human.blood_volume < BLOOD_VOLUME_NORMAL)
+	if(human.blood_volume < human.max_blood)
 		human.AdjustBlood(human.current_nutrition_level.blood_regen)
 
 /// Applies nutrition level effects (including speed mods) to the human
