@@ -1190,7 +1190,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-			if(!M.can_hear() || M.stat == UNCONSCIOUS)
+			if(HAS_TRAIT(M, TRAIT_DEAF) || M.stat == UNCONSCIOUS)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)

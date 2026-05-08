@@ -107,12 +107,14 @@ jobs:
           fi
 
           # Build it for CI
+          export RUSTFLAGS='-C target-cpu=x86-64'
           cargo build --release --target $LINUX_TARGET
           cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs.so
           cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs.so
           cargo clean
 
           # Build it for Windows
+          export RUSTFLAGS='-C target-cpu=x86-64'
           cargo build --release --target $WINDOWS_TARGET
           cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
           cargo clean

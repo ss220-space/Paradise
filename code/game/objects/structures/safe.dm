@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		if(H.can_hear() && H.is_type_in_hands(/obj/item/clothing/accessory/stethoscope))
+		if(!HAS_TRAIT(H, TRAIT_DEAF) && H.is_type_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
 	. = TRUE

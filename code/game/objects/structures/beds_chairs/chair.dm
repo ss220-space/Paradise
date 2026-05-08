@@ -451,7 +451,7 @@
 /obj/structure/chair/brass/click_alt(mob/living/user)
 	add_fingerprint(user)
 	turns = 0
-	if(!isprocessing)
+	if(!(datum_flags & DF_ISPROCESSING))
 		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
 		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
 		START_PROCESSING(SSfastprocess, src)

@@ -1513,11 +1513,9 @@
 	if(prefs.sound & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
 			return // If already properly set we don't want to reset the timer.
-
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
-
 	else
-		SSambience.ambience_listening_clients -= src
+		SSambience.remove_ambience_client(src)
 
 /client/proc/set_eye(new_eye)
 	if(new_eye == eye)

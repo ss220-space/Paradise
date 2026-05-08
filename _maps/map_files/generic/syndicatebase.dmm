@@ -4293,7 +4293,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ech" = (
 /obj/structure/table/wood,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
