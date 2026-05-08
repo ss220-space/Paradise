@@ -43,11 +43,12 @@ fn get_sound_length(sound_path: &str) -> eyre::Result<f32> {
 }
 
 fn get_sound_length_inner(sound_path: &str) -> eyre::Result<f32> {
-    let data = std::fs::read(sound_path).map_err(|e| eyre::eyre!("Couldn't read file: {}", e))?;
+    let sound_src = match File::open(sound_path) {
+        Ok(r) => r,
+        Err(e) => return Err(eyre::eyre!(format!("Couldn't open file, {e}"))),
+    };
 
-    let cursor = std::io::Cursor::new(data);
-    let mss = MediaSourceStream::new(Box::new(cursor), Default::default());
-
+    let mss = MediaSourceStream::new(Box::new(sound_src), Default::default());
     let mut hint = Hint::new();
     hint.with_extension("ogg");
     hint.with_extension("mp3");
