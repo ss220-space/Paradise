@@ -332,10 +332,10 @@
 				.["class"] = null
 				return
 
-//		if(VV_COLOR_MATRIX)
-//			.["value"] = open_color_matrix_editor()
-//			if(.["value"] == COLOR_MATRIX_IDENTITY) //identity is equivalent to null
-//				.["class"] = null
+		if(VV_COLOR_MATRIX)
+			.["value"] = open_color_matrix_editor()
+			if(.["value"] == COLOR_MATRIX_IDENTITY) //identity is equivalent to null
+				.["class"] = null
 
 		if(VV_INFINITY)
 			.["value"] = INFINITY

@@ -5,12 +5,16 @@
 		var/turf/current_turf = get_turf(src)
 		if(current_turf)
 			. += "<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[current_turf.x];Y=[current_turf.y];Z=[current_turf.z]' style='display:none;'>Jump To</a>"
+	VV_DROPDOWN_OPTION(VV_HK_SPIN_ANIMATION, "SpinAnimation")
+	VV_DROPDOWN_OPTION(VV_HK_STOP_ALL_ANIMATIONS, "Stop All Animations")
 	VV_DROPDOWN_OPTION(VV_HK_ATOM_SAY, "Atom Say")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_REAGENTS, "Edit Reagents")
 	VV_DROPDOWN_OPTION(VV_HK_TEST_MATRIXES, "Test Matrices")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
 
@@ -20,15 +24,12 @@
 	if(!.)
 		return
 
-	if(href_list[VV_HK_TEST_MATRIXES])
-		usr.client?.open_matrix_tester(src)
-
-	else if(href_list[VV_HK_ADD_REAGENT]) /* Made on /TG/, credit to them. */
+	if(href_list[VV_HK_ADD_REAGENT]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 		usr.client?.try_add_reagent(src)
 
-	else if(href_list[VV_HK_EDIT_REAGENTS])
+	if(href_list[VV_HK_EDIT_REAGENTS])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 		usr.client?.try_open_reagent_editor(src)
@@ -46,11 +47,49 @@
 		atom_say(say_text)
 		log_and_message_admins("atom_said on behalf of [src] the following: [say_text].")
 
+	if(href_list[VV_HK_SPIN_ANIMATION])
+		var/num_spins = tgui_alert(usr, "Do you want infinite spins?", "Spin Animation", list("Yes", "No"))
+		if(num_spins == "No")
+			num_spins = tgui_input_number(usr, "How many spins?", "Spin Animation")
+		else if(num_spins == "Yes")
+			num_spins = -1
+		else
+			return
+		if(!num_spins)
+			return
+		var/spins_per_sec = tgui_input_number(usr, "How many spins per second?", "Spin Animation", round_value = FALSE)
+		if(!spins_per_sec)
+			return
+		var/direction = tgui_alert(usr, "Which direction?", "Spin Animation", list("Clockwise", "Counter-clockwise"))
+		switch(direction)
+			if("Clockwise")
+				direction = 1
+			if("Counter-clockwise")
+				direction = 0
+			else
+				return
+		SpinAnimation(1 SECONDS / spins_per_sec, num_spins, direction)
+
+	if(href_list[VV_HK_STOP_ALL_ANIMATIONS])
+		var/result = tgui_alert(usr, "Are you sure?", "Stop Animating", list("Yes", "No"))
+		if(result == "Yes")
+			animate(src, transform = null, flags = ANIMATION_END_NOW)
+		return
+
 	if(href_list[VV_HK_AUTO_RENAME])
 		var/new_name = tgui_input_text(usr, "What do you want to rename this to?", "Automatic Rename")
 		// Check the new name against the chat filter. If it triggers the IC chat filter, give an option to confirm.
 		if(new_name && (tgui_alert(usr, "Your selected name contains words restricted by IC chat filters. Confirm this new name?", "IC Chat Filter Conflict", list("Confirm", "Cancel")) != "Confirm"))
 			vv_auto_rename(new_name)
+
+	if(href_list[VV_HK_EDIT_FILTERS])
+		usr.client?.open_filter_editor(src)
+
+	if(href_list[VV_HK_EDIT_COLOR_MATRIX])
+		usr.client?.open_color_matrix_editor(src)
+
+	if(href_list[VV_HK_TEST_MATRIXES])
+		usr.client?.open_matrix_tester(src)
 
 /atom/vv_get_header()
 	. = ..()

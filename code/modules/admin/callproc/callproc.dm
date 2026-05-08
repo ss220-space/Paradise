@@ -1,4 +1,3 @@
-
 GLOBAL_DATUM_INIT(AdminProcCallHandler, /mob/proccall_handler, new())
 GLOBAL_PROTECT(AdminProcCallHandler)
 
@@ -117,7 +116,7 @@ ADMIN_VERB(advanced_proc_call, R_DEBUG|R_PROCCALL, "Advanced ProcCall", "Call a 
 			target = null
 			targetselected = FALSE
 
-	var/procpath = input("Proc path, eg: /proc/fake_blood","Path:", null) as text|null
+	var/procpath = tgui_input_text(usr, "Proc path, eg: /proc/fake_blood", "Path:")
 	if(!procpath)
 		return
 
@@ -243,7 +242,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 #endif
 
 ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_DEBUG|R_PROCCALL, "Atom ProcCall", atom/thing as null|area|mob|obj|turf)
-	var/procname = input(user, "Proc name, eg: fake_blood","Proc:", null) as text|null
+	var/procname = tgui_input_text(user, "Proc name, eg: fake_blood", "Proc:")
 	if(!procname)
 		return
 	if(!hascall(thing, procname))
@@ -266,14 +265,14 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_DEBUG|R_PROCCALL, "Atom ProcCall
 		to_chat(user, ., confidential = TRUE)
 
 /client/proc/get_callproc_args()
-	var/argnum = input("Number of arguments","Number:", 0) as num|null
+	var/argnum = tgui_input_number(usr, "Number of arguments", "Number:")
 	if(isnull(argnum))
 		return
 
 	. = list()
 	var/list/named_args = list()
 	while(argnum--)
-		var/named_arg = input("Leave blank for positional argument. Positional arguments will be considered as if they were added first.", "Named argument") as text|null
+		var/named_arg = tgui_input_text(usr, "Leave blank for positional argument. Positional arguments will be considered as if they were added first.", "Named argument")
 		var/value = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
 		if(!value["class"])
 			return

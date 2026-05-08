@@ -38,7 +38,7 @@
 		value = get_vv_appearance(value)
 
 	// Make sure this line can never runtime
-	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] [UID_of(value)])"
+	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] [text_ref(value)])"
 
 	if(isnull(value))
 		return "<span class='value'>null</span>"

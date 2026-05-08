@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: UID string if datum, text_ref if list.
  */
 /proc/UID_of(target)
-	if(islist(target))
+	if(islist(target) || isappearance(target))
 		return text_ref(target)
 
 	if(!isdatum(target))

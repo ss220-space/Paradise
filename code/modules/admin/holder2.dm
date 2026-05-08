@@ -26,6 +26,9 @@ GLOBAL_PROTECT(href_token)
 	/// Tabs of secrets
 	var/current_tab = 0
 
+	var/datum/filter_editor/filterrific
+	var/datum/particle_editor/particle_test
+	var/datum/colorblind_tester/color_test
 	var/datum/spawn_menu/spawn_menu
 	var/datum/spawnpanel/spawn_panel
 

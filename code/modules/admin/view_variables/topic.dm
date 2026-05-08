@@ -125,6 +125,39 @@
 			log_admin(log_msg)
 			vv_update_display(target_living, loss_proc_text, "[new_amount]")
 
+	// MARK: item var tweak
+	else if(href_list["item_to_tweak"] && href_list["var_tweak"])
+		var/obj/item/editing = locateUID(href_list["item_to_tweak"])
+		if(!istype(editing) || QDELING(editing))
+			return
+
+		var/existing_val = -1
+		switch(href_list["var_tweak"])
+			if("damtype")
+				existing_val = editing.damtype
+			if("force")
+				existing_val = editing.force
+			else
+				CRASH("Invalid var_tweak passed to item vv set var: [href_list["var_tweak"]]")
+
+		var/new_val
+		if(href_list["var_tweak"] == "damtype")
+			new_val = tgui_input_list(usr, "Enter the new damage type for [editing]", "Set Damtype", list(BRUTE, BURN, TOX, OXY, CLONE, STAMINA, BRAIN), existing_val)
+		else
+			new_val = tgui_input_number(usr, "Enter the new value for [editing]'s [href_list["var_tweak"]]", "Set [href_list["var_tweak"]]", existing_val, max_value = 10000, min_value = -10000)
+		if(isnull(new_val) || new_val == existing_val || QDELETED(editing) || !check_rights(R_VAREDIT))
+			return
+
+		switch(href_list["var_tweak"])
+			if("damtype")
+				editing.damtype = new_val
+			if("force")
+				editing.force = new_val
+
+		message_admins(span_adminnotice("[key_name(usr)] set [editing]'s [href_list["var_tweak"]] to [new_val] (was [existing_val])"))
+		log_admin("[key_name(usr)] set [editing]'s [href_list["var_tweak"]] to [new_val] (was [existing_val])")
+		vv_update_display(editing, href_list["var_tweak"], istext(new_val) ? uppertext(new_val) : new_val)
+
 	// MARK: datumrefresh
 	if(href_list["datumrefresh"])
 		var/datum/datum = locateUID(href_list["datumrefresh"])

@@ -1,13 +1,10 @@
-#define VV_HK_GIVE_DEADCHAT_CONTROL "grantdeadchatcontrol"
-#define VV_HK_REMOVE_DEADCHAT_CONTROL "removedeadchatcontrol"
-
 /atom/movable/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "--- /movable ---")
-	if(!GetComponent(/datum/component/deadchat_control))
-		VV_DROPDOWN_OPTION(VV_HK_GIVE_DEADCHAT_CONTROL, "Give deadchat control")
-	else
-		VV_DROPDOWN_OPTION(VV_HK_REMOVE_DEADCHAT_CONTROL, "Remove deadchat control")
+	VV_DROPDOWN_OPTION(VV_HK_OBSERVE_FOLLOW, "Observe Follow")
+	VV_DROPDOWN_OPTION(VV_HK_GET_MOVABLE, "Get Movable")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_PARTICLES, "Edit Particles")
+	VV_DROPDOWN_OPTION(VV_HK_DEADCHAT_PLAYS, "Start/Stop Deadchat Plays")
 
 /atom/movable/vv_do_topic(list/href_list)
 	. = ..()
@@ -15,54 +12,33 @@
 	if(!.)
 		return
 
-	if(href_list["grantdeadchatcontrol"])
+	if(href_list[VV_HK_OBSERVE_FOLLOW])
+		if(!check_rights(R_ADMIN))
+			return
+		usr.client?.admin_follow(src)
+
+	if(href_list[VV_HK_GET_MOVABLE])
+		if(!check_rights(R_ADMIN))
+			return
+		if(QDELETED(src))
+			return
+		forceMove(get_turf(usr))
+
+	if(href_list[VV_HK_EDIT_PARTICLES])
+		usr.client?.open_particle_editor(src)
+
+	if(href_list[VV_HK_DEADCHAT_PLAYS])
 		if(!check_rights(R_EVENT))
 			return
-
-		if(!CONFIG_GET(flag/dsay_allowed))
-			// TODO verify what happens when deadchat is muted
-			to_chat(usr, span_warning("Дедчат глобально отключён, включите его перед тем как включать это."))
+		if(tgui_alert(usr, "Allow deadchat to control [src] via chat commands?", "Deadchat Plays [src]", list("Allow", "Cancel")) != "Allow")
 			return
-
-		if(GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже находится под контролем призраков!"))
+		// Alert is async, so quick sanity check to make sure we should still be doing this.
+		if(QDELETED(src))
 			return
-
-		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
-
-		var/selected_mode
-		switch(control_mode)
-			if("демократия")
-				selected_mode = DEADCHAT_DEMOCRACY_MODE
-			if("анархия")
-				selected_mode = DEADCHAT_ANARCHY_MODE
-			else
-				return
-
-		var/cooldown = tgui_input_number(usr, "Пожалуйста, введите время между действиями в секундах. Для демократии это время между действиями (должно быть больше нуля). Для анархии это время между действиями каждого пользователя или -1, если время между ними отсутствует.", "Время между действиями", 0)
-		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
-			return
-		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
-			to_chat(usr, span_warning("Время между действиями режима демократии должно быть больше нуля."))
-			return
-		if(cooldown == -1)
-			cooldown = 0
-		else
-			cooldown = cooldown SECONDS
-
-		deadchat_plays(selected_mode, cooldown)
-		log_and_message_admins("provided deadchat control to [src].")
-
-	if(href_list["removedeadchatcontrol"])
-		if(!check_rights(R_EVENT))
-			return
-
-		if(!GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] больше не находится под контролем призраков!")
-			return
-
-		stop_deadchat_plays()
-		log_and_message_admins("removed deadchat control from [src].")
-
-#undef VV_HK_GIVE_DEADCHAT_CONTROL
-#undef VV_HK_REMOVE_DEADCHAT_CONTROL
+		// This should never happen, but if it does it should not be silent.
+		if(deadchat_plays() == COMPONENT_INCOMPATIBLE)
+			to_chat(usr, span_warning("Deadchat control not compatible with [src]."))
+			CRASH("deadchat_control component incompatible with object of type: [type]")
+		to_chat(usr, span_notice("Deadchat now control [src]."))
+		log_admin("[key_name(usr)] has added deadchat control to [src]")
+		message_admins(span_adminnotice("[key_name(usr)] has added deadchat control to [src]"))

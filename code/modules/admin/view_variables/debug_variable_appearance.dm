@@ -38,7 +38,7 @@
 // arg is actually an appearance, typed as mutable_appearance as closest mirror
 /mutable_appearance/appearance_mirror/New(mutable_appearance/appearance_father)
 	. = ..() // /mutable_appearance/New() copies over all the appearance vars MAs care about by default
-	appearance_ref = UID_of(appearance_father)
+	appearance_ref = text_ref(appearance_father)
 
 // This means if the appearance loses refs before a click it's gone, but that's consistent to other datums so it's fine
 // Need to ref the APPEARANCE because we just free on our own, which sorta fucks this operation up you know?

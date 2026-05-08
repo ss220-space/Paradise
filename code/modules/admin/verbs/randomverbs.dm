@@ -718,7 +718,7 @@ ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatme
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/target as mob in GLOB.mob_list)
 	var/list/mob_contents = target.get_contents()
 	for(var/atom/content in mob_contents)
-		to_chat(user, "[content] [ADMIN_VV(content, "VV")]", confidential = TRUE)
+		to_chat(user, "[content] [ADMIN_VV(content, "VV")] [ADMIN_TAG(content)]", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)

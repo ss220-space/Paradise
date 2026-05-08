@@ -20,6 +20,7 @@
 		log_admin("[key_name(usr)] deleted [thing] [coords]")
 		message_admins("[key_name_admin(usr)] deleted [thing] [jmp_coords]")
 		BLACKBOX_LOG_ADMIN_VERB("Delete")
+		SEND_SIGNAL(thing, COMSIG_ADMIN_DELETING, src)
 
 		if(isturf(thing))
 			var/turf/current_turf = thing

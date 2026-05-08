@@ -69,7 +69,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(jump_to_mob, R_ADMIN, "Jump To Mob", mob/target in 
 	message_admins("[key_name_admin(user)] jumped to [ADMIN_LOOKUPFLW(target)] at [AREACOORD(target)]")
 	BLACKBOX_LOG_ADMIN_VERB("Jump To Mob")
 
-ADMIN_VERB(jump_to_coord, R_ADMIN, "Jump To Coordinate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, cx as num, cy as num, cz as num)
+ADMIN_VERB(jump_to_coord, R_ADMIN|R_DEBUG, "Jump To Coordinate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, cx as num, cy as num, cz as num)
 	var/turf/where_we_droppin = locate(cx, cy, cz)
 	if(isnull(where_we_droppin))
 		to_chat(user, span_warning("Invalid coordinates."))
@@ -169,11 +169,11 @@ ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed
 
 		names[name] = ruin_landmark
 
-	if(!names)
+	if(!length(names))
 		to_chat(user, "No ruins now!")
 		return
 
-	var/ruinname = tgui_input_list(user, "Select ruin", "Jump to Ruin", sort_list(names))
+	var/ruinname = tgui_input_list(user, "Select ruin", "Jump to Ruin", names)
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 	if(!istype(landmark))
 		return
