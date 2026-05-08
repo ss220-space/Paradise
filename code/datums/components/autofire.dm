@@ -168,7 +168,6 @@
 				next_fire = world.time + burstfire_shot_delay
 		if(GUN_FIREMODE_AUTOMATIC)
 			var/next_delay = auto_fire_shot_delay
-			next_fire = world.time + auto_fire_shot_delay
 			if(windup_autofire)
 				next_delay = clamp(next_delay - current_windup_reduction,  auto_fire_shot_delay * windup_autofire_cap, auto_fire_shot_delay)
 				current_windup_reduction = current_windup_reduction +  auto_fire_shot_delay * windup_autofire_reduction_multiplier

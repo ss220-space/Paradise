@@ -290,7 +290,7 @@
 	if(slot & ITEM_SLOT_HANDS)
 		//Exclude lasertag guns from the CLUMSY check.
 		if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-			to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE )]!"))
+			to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE)]!"))
 			var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			fast_fire(user, user, zone_override = shot_leg)
 			user.drop_from_active_hand()
@@ -363,7 +363,7 @@
 	if(!can_trigger_gun(user))
 		return
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
-		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE )] нужны две свободные руки!"))
+		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
 		return
 	if(user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) // If the object in our active hand is not a gun, abort
 		return
@@ -415,7 +415,7 @@
 ///Helper proc that processes a clicked target, if the target is not black tiles, it will not change it. If they are it will return the turf of the black tiles. It will return null if the object is a screen object other than black tiles.
 /proc/get_turf_on_clickcatcher(atom/target, mob/user, params)
 	var/list/modifiers = params2list(params)
-	if(!istype(target, /atom/movable/screen))
+	if(!is_screen_atom(target))
 		return target
 	if(!istype(target, /atom/movable/screen/click_catcher))
 		return null
@@ -594,7 +594,7 @@
 	if(proximity_flag)
 		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
+				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
 				handle_suicide(user, target, modifiers)
 			return
@@ -1051,7 +1051,7 @@
 	if(!length(gun_firemode_list))
 		CRASH("[src] called do_toggle_firemode() with an empty gun_firemode_list")
 
-	if(length(gun_firemode) == 1)
+	if(length(gun_firemode_list) == 1)
 		return
 
 	if(new_firemode)
@@ -1104,7 +1104,7 @@
 			LAZYADD(actions, new_action)
 			if(user)
 				var/mob/living/living_user = user
-				if((src == living_user.l_hand || src == living_user.r_hand))
+				if(src == living_user.l_hand || src == living_user.r_hand)
 					new_action.Grant(living_user)
 		else //The action should already be there by now.
 			return
@@ -1119,7 +1119,7 @@
 			LAZYREMOVE(actions, old_action)
 			if(user)
 				var/mob/living/living_user = user
-				if((src == living_user.l_hand || src == living_user.r_hand))
+				if(src == living_user.l_hand || src == living_user.r_hand)
 					old_action.Remove(living_user)
 			qdel(old_action)
 
