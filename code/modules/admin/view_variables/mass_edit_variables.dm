@@ -22,8 +22,8 @@
 	var/variable = ""
 	if(!var_name)
 		var/list/names = list()
-		for (var/V in target.vars)
-			names += V
+		for(var/name_var in target.vars)
+			names += name_var
 
 		names = sort_list(names)
 

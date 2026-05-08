@@ -1,4 +1,13 @@
 /**
+ * `UID_of()` returns a `UID()` for datums and `\ref` for lists,
+ * so we choose the locate() method based on the string format, instead of locateUID().
+ * 
+ * - LittleBoobs
+ */
+/proc/locate_vv_href(value)
+	return (copytext(value, 1, 2) == "\[") ? locate(value) : locateUID(value)
+
+/**
  * DO NOT add new branches to view_var_Topic() — this is a legacy dispatcher, kept only for existing handlers.
  *
  * * For new VV actions on a datum, override /datum/proc/vv_do_topic() in the appropriate type.
@@ -10,12 +19,7 @@
 		to_chat(usr, span_warning("У вас недостаточно прав для доступа к VV."), confidential = TRUE)
 		return
 
-	/**
-	 * UID_of() returns a UID() for datums and `\ref` for lists,
-	 * so we choose the locate() method based on the string format, istead of locateUID().
-	 * --LittleBoobs
-	 */
-	var/target = (copytext(href_list[VV_HK_TARGET], 1, 2) == "\[") ? GET_VV_TARGET_LIST : GET_VV_TARGET
+	var/target = locate_vv_href(href_list[VV_HK_TARGET])
 	vv_do_basic(target, href_list, href)
 	if(isdatum(target))
 		var/datum/datum = target
@@ -24,7 +28,7 @@
 		vv_do_list(target, href_list)
 
 	if(href_list["Vars"])
-		var/datum/vars_target = locateUID(href_list["Vars"])
+		var/vars_target = locate_vv_href(href_list["Vars"])
 		debug_variables(vars_target)
 
 	// MARK: rename
@@ -160,7 +164,7 @@
 
 	// MARK: datumrefresh
 	if(href_list["datumrefresh"])
-		var/datum/datum = locateUID(href_list["datumrefresh"])
+		var/datum = locate_vv_href(href_list["datumrefresh"])
 		if(!isdatum(datum) && !isclient(datum) && !islist(datum))
 			return
 		debug_variables(datum)

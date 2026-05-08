@@ -41,28 +41,28 @@
 	. = "<font color='red'>DISPLAY_ERROR:</font> ([value] [text_ref(value)])"
 
 	if(isnull(value))
-		return "<span class='value'>null</span>"
+		return "[span_value("null")]"
 
 	if(istext(value))
-		return "<span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		return "[span_value("\"[VV_HTML_ENCODE(value)]\"")]"
 
 	if(isicon(value))
 		#ifdef VARSICON
 		var/icon/icon_value = icon(value)
-		var/rnd = rand(1,10000)
+		var/rnd = rand(1, 10000)
 		var/rname = "tmp[UID_of(icon_value)][rnd].png"
 		usr << browse_rsc(icon_value, rname)
-		return "(<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon (<span class='value'>[value]</span>)"
+		return "/icon ([span_value("[value]")])"
 		#endif
 
 	if(isfilter(value))
 		var/datum/filter_value = value
-		return "/filter (<span class='value'>[filter_value.type] [UID_of(filter_value)]</span>)"
+		return "/filter ([span_value("[filter_value.type] [UID_of(filter_value)]")])"
 
 	if(isfile(value))
-		return "<span class='value'>'[value]'</span>"
+		return "[span_value("'[value]'")]"
 
 	if(isdatum(value))
 		var/datum/datum_value = value
@@ -110,7 +110,7 @@
 		valid_bitflags = get_valid_bitflags(name)
 
 	if(!length(valid_bitflags))
-		return "<span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		return "[span_value("[VV_HTML_ENCODE(value)]")]"
 
 	var/list/flags = list()
 	for(var/bit_name in valid_bitflags)

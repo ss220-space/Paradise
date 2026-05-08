@@ -165,7 +165,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				var ca = document.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i];
-					while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+					while(c.charAt(0) == ' ') c = c.substring(1,c.length);
 					if(c.indexOf(name) == 0) return c.substring(name.length,c.length);
 				}
 				return "";
@@ -183,7 +183,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				} else if(filter.indexOf(last_filter) === 0) {
 					// The new filter starts with the old filter, fast path by removing only.
 					var children = vars_ol.childNodes;
-					for (var i = children.length - 1; i >= 0; --i) {
+					for(var i = children.length - 1; i >= 0; --i) {
 						try {
 							var li = children\[i];
 							if(li.innerText.toLowerCase().indexOf(filter) == -1) {
@@ -193,11 +193,11 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 					}
 				} else {
 					// Remove everything and put back what matches.
-					while (vars_ol.hasChildNodes()) {
+					while(vars_ol.hasChildNodes()) {
 						vars_ol.removeChild(vars_ol.lastChild);
 					}
 
-					for (var i = 0; i < complete_list.length; ++i) {
+					for(var i = 0; i < complete_list.length; ++i) {
 						try {
 							var li = complete_list\[i];
 							if(!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
@@ -246,7 +246,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			function hideDropdown() {
 				var div = document.getElementById("vvDropdownDiv");
 				var a = div.getElementsByTagName("a");
-				for (i = 0; i < a.length; i++) {
+				for(i = 0; i < a.length; i++) {
 					a\[i\].style.display = "none";
 				}
 				var input = document.getElementById("vvDropdownInput");
@@ -258,7 +258,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				var filter = input.value.toUpperCase();
 				var div = document.getElementById("vvDropdownDiv");
 				var a = div.getElementsByTagName("a");
-				for (i = 0; i < a.length; i++) {
+				for(i = 0; i < a.length; i++) {
 					txtValue = a\[i\].textContent || a\[i\].innerText;
 					if(txtValue.toUpperCase().indexOf(filter) > -1) {
 						a\[i\].style.display = "";

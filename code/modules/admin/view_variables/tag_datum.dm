@@ -3,7 +3,6 @@
 		return
 	holder.add_tagged_datum(target_datum)
 
-// dont implemented to some click
 /client/proc/toggle_tag_datum(datum/target_datum)
 	if(!holder || !target_datum)
 		return

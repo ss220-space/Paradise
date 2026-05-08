@@ -48,8 +48,6 @@
 #define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>" //for stuff like basic varedits, one variable
 #define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
 
-#define GET_VV_TARGET locateUID(href_list[VV_HK_TARGET])
-#define GET_VV_TARGET_LIST locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
 
 // Helper for getting something to vv_do_topic in general
@@ -149,7 +147,6 @@
 #define VV_HK_GIVE_AI "give_ai"
 #define VV_HK_GIVE_AI_SPEECH "give_ai_speech"
 #define VV_HK_GIVE_ACCESS "give_access"
-#define VV_HK_GIVE_MARTIAL_ART "givemartialart"
 #define VV_HK_MAKE_SKELETON "make_skeleton"
 #define VV_HK_ADD_LANGUAGE "addlanguage"
 #define VV_HK_REMOVE_LANGUAGE "remlanguage"

@@ -4,6 +4,10 @@
 /datum/filter_editor/New(atom/target)
 	src.target = target
 
+/datum/filter_editor/Destroy()
+	target = null
+	return ..()
+
 /datum/filter_editor/ui_state(mob/user)
 	return ADMIN_STATE(R_VAREDIT)
 
@@ -22,7 +26,7 @@
 	var/list/data = list()
 	data["target_name"] = target.name
 	var/list/target_filter_data = list()
-	for (var/list/filter_info as anything in target.filter_data)
+	for(var/list/filter_info as anything in target.filter_data)
 		filter_info = deep_copy_list(filter_info)
 		if(filter_info["transform"])
 			var/matrix/filter_transform = filter_info["transform"]
