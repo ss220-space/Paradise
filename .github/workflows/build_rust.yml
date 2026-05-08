@@ -17,7 +17,7 @@ jobs:
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Install jq
@@ -120,7 +120,7 @@ jobs:
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
 
-    runs-on: windows-2019 # Используем Windows Server 2019 для совместимости
+    runs-on: windows-latest
 
     steps:
       - name: Install jq
