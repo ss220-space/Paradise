@@ -174,6 +174,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	new_commando.mind_initialize()
 	new_commando.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+	new_commando.mind.offstation_role = TRUE
 	SSticker.mode.deathsquad |= new_commando.mind
 	if(is_leader)
 		new_commando.equipOutfit(/datum/outfit/admin/death_commando/officer)
