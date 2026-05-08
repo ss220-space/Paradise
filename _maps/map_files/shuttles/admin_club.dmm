@@ -267,6 +267,10 @@
 	},
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
+"vX" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/glass/reinforced/plasma,
+/area/shuttle/administration)
 "wa" = (
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -427,6 +431,14 @@
 "Gz" = (
 /obj/machinery/disco/immobile,
 /turf/simulated/floor/light/colour_cycle/dancefloor_a,
+/area/shuttle/administration)
+"GN" = (
+/obj/structure/chair/sofa/corp/left,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "navybluealt"
+	},
 /area/shuttle/administration)
 "Hi" = (
 /obj/machinery/door/airlock/shuttle{
@@ -761,6 +773,7 @@
 	},
 /obj/machinery/light/small,
 /obj/machinery/light_switch/directional/south,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "Vd" = (
@@ -1035,7 +1048,7 @@ xX
 "}
 (9,1,1) = {"
 zk
-Jx
+GN
 AM
 RM
 FP
@@ -1140,7 +1153,7 @@ tQ
 tQ
 Zo
 OV
-AM
+vX
 Tz
 AM
 Sk

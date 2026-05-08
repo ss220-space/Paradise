@@ -85,6 +85,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -295,6 +296,7 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "be" = (
@@ -387,9 +389,22 @@
 	icon_state = "white"
 	},
 /area/shuttle/escape)
+"wk" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
 "HT" = (
 /obj/item/clothing/mask/cursedclown,
 /turf/simulated/floor/noslip,
+/area/shuttle/escape)
+"Uq" = (
+/obj/item/toy/snappop/phoenix,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/shuttle/escape)
 "XG" = (
 /obj/structure/window/full/shuttle,
@@ -431,7 +446,7 @@ aa
 aa
 aa
 bq
-aB
+wk
 aG
 aB
 bq
@@ -441,7 +456,7 @@ aR
 aD
 aD
 aS
-am
+Uq
 bq
 aw
 bf
@@ -701,7 +716,7 @@ aD
 aD
 aD
 am
-am
+Uq
 aM
 be
 bi

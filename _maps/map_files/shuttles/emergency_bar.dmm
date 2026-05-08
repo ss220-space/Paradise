@@ -114,6 +114,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "ax" = (
@@ -241,6 +242,7 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -256,6 +258,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/carpet/arcade,
 /area/shuttle/escape)
 "aT" = (
@@ -529,6 +532,12 @@
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
+"up" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/shuttle/escape)
 "AA" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -624,7 +633,7 @@ aY
 bb
 aY
 be
-aA
+up
 Ri
 bo
 Ri
@@ -676,7 +685,7 @@ aH
 aH
 aH
 aH
-aA
+up
 Ri
 bo
 Ri

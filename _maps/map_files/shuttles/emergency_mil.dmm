@@ -188,6 +188,7 @@
 /area/shuttle/escape)
 "aM" = (
 /obj/machinery/sleeper,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aO" = (
@@ -257,6 +258,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bb" = (
@@ -522,6 +524,13 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
+"qL" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
 "rt" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -533,6 +542,13 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Ap" = (
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -557,6 +573,14 @@
 	dir = 1;
 	icon_state = "dark"
 	},
+/area/shuttle/escape)
+"Mv" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "Px" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
@@ -618,12 +642,12 @@ aa
 aa
 ab
 aG
-UH
+Mv
 aO
 aG
 aF
 Px
-aF
+qL
 aO
 aG
 bs
@@ -714,7 +738,7 @@ aI
 bl
 bl
 bl
-aI
+Ap
 aE
 aG
 "}
@@ -723,7 +747,7 @@ aj
 av
 an
 aI
-aI
+Ap
 aG
 be
 be
@@ -775,7 +799,7 @@ aj
 aw
 an
 aI
-aI
+Ap
 aG
 be
 be
@@ -818,7 +842,7 @@ aI
 bk
 bk
 bk
-aI
+Ap
 aE
 aG
 "}

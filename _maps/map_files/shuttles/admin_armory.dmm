@@ -23,6 +23,7 @@
 	dir = 1
 	},
 /obj/machinery/light/small,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -556,6 +557,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"vn" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "vz" = (
 /obj/machinery/vending/nta{
 	all_products_free = 1
@@ -935,6 +946,7 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1197,6 +1209,14 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"PR" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle{
+	dir = 8;
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "navybluealt"
+	},
+/area/shuttle/administration)
 "Qt" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/pod,
@@ -1362,6 +1382,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"ZF" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/pod,
+/area/shuttle/administration)
 
 (1,1,1) = {"
 Vc
@@ -1449,7 +1473,7 @@ Gx
 Cl
 Cl
 Cl
-Cl
+ZF
 Az
 rW
 VQ
@@ -1476,7 +1500,7 @@ cV
 cV
 rW
 Az
-FF
+VQ
 VQ
 VQ
 VQ
@@ -1490,7 +1514,7 @@ VI
 VI
 Az
 gd
-xQ
+PR
 rA
 xQ
 so
@@ -1629,7 +1653,7 @@ iZ
 xF
 xF
 iZ
-xF
+vn
 xF
 ze
 VQ

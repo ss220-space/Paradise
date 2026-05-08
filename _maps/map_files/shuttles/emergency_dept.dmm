@@ -58,6 +58,7 @@
 "am" = (
 /obj/structure/table/wood/fancy/blue,
 /obj/machinery/recharger,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "an" = (
@@ -72,6 +73,7 @@
 "ap" = (
 /obj/structure/table/wood/fancy/blue,
 /obj/item/storage/toolbox/mechanical,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "ar" = (
@@ -656,6 +658,10 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/shuttle/escape)
+"gi" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/carpet/cyan,
+/area/shuttle/escape)
 "kR" = (
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/escape)
@@ -684,6 +690,13 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
+"sN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/escape)
 "xD" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -698,6 +711,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
 "CE" = (
@@ -823,11 +837,11 @@ aa
 VF
 CJ
 bl
-az
+sN
 ac
 az
 bW
-az
+sN
 aH
 cH
 aT
@@ -1136,7 +1150,7 @@ au
 aB
 cH
 bm
-cp
+gi
 cp
 cp
 aI

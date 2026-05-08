@@ -193,6 +193,7 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/storage/box/gloves,
 /obj/item/storage/box/masks,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -336,6 +337,7 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -425,6 +427,7 @@
 "cs" = (
 /obj/machinery/chem_heater,
 /obj/machinery/light,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -499,6 +502,7 @@
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/administration)
 "gT" = (

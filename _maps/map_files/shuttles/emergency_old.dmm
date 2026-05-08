@@ -79,6 +79,7 @@
 /area/shuttle/escape)
 "au" = (
 /obj/machinery/light/spot,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "av" = (
@@ -339,6 +340,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -350,6 +352,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "mk" = (
@@ -401,6 +404,10 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
+/area/shuttle/escape)
+"LC" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "OC" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -531,7 +538,7 @@ ac
 ac
 ac
 an
-an
+LC
 OC
 aX
 bc

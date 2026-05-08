@@ -8,6 +8,12 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/escape)
+"g" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/escape)
 "i" = (
 /obj/structure/table,
 /obj/item/book/manual,
@@ -149,6 +155,13 @@
 	icon_state = "darkgrey"
 	},
 /area/shuttle/escape)
+"H" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle,
+/area/shuttle/escape)
 "Y" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
@@ -182,9 +195,9 @@ s
 s
 s
 s
-s
+H
 F
-s
+H
 F
 z
 B
@@ -211,7 +224,7 @@ C
 D
 D
 k
-m
+g
 p
 r
 r
