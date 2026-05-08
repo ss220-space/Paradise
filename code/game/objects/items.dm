@@ -1471,7 +1471,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 	if(HAS_TRAIT(user, TRAIT_SMALL_MOB))
 		var/obj/item/holder/H = user.loc
-		if(istype(H) && istype(H.loc, /obj/item/storage))
+		if(istype(H) && isstorage(H.loc))
 			if(!user.drop_transfer_item_to_loc(src, get_turf(H.loc), silent = TRUE))
 				return
 			if(throwforce && HAS_TRAIT(user, TRAIT_PACIFISM))

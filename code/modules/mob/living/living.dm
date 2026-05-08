@@ -1455,7 +1455,7 @@
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
 		var/obj/item/holder/H = loc
-		if(istype(H) && istype(H.loc, /obj/item/storage))
+		if(istype(H) && isstorage(H.loc))
 			to_chat(src, span_warning("Слишком тесно для стрельбы."))
 			return FALSE
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))

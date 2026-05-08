@@ -2177,7 +2177,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/try_climb_into_storage(atom/over_object)
 	if(!HAS_TRAIT(src, TRAIT_SMALL_MOB))
 		return FALSE
-	if(!istype(over_object, /obj/item/storage))
+	if(!isstorage(over_object))
 		return FALSE
 
 	var/obj/item/storage/target_storage = over_object

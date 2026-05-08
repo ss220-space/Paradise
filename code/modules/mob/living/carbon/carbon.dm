@@ -615,7 +615,7 @@
 	var/can_throw_from_storage = FALSE
 	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
 		var/obj/item/holder/H = loc
-		can_throw_from_storage = istype(H) && istype(H.loc, /obj/item/storage)
+		can_throw_from_storage = istype(H) && isstorage(H.loc)
 
 	if(!target || (!isturf(loc) && !can_throw_from_storage) || is_screen_atom(target))
 		return FALSE
