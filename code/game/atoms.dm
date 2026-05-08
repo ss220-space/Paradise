@@ -88,7 +88,7 @@
 	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
 	var/list/image/update_overlays_on_z
 
-	var/list/atom_colours	 //used to store the different colors on an atom
+	var/list/atom_colours  //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 	/// Currently used color filter - cached because its applied to all of our overlays because BYOND is horrific
 	var/list/cached_color_filter
@@ -414,11 +414,11 @@
 	return FALSE
 
 /*
- *	atom/proc/search_contents_for(path, list/filter_path = null)
+ * atom/proc/search_contents_for(path, list/filter_path = null)
  * Recursevly searches all atom contens (including contents contents and so on).
  *
  * ARGS: path - search atom contents for atoms of this type
- *	   list/filter_path - if set, contents of atoms not of types in this list are excluded from search.
+ *    list/filter_path - if set, contents of atoms not of types in this list are excluded from search.
  *
  * RETURNS: list of found atoms
  */
@@ -477,7 +477,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	. = NONE
-	if(updates == NONE)	// NONE is being sent on purpose, and thus no signal should be sent.
+	if(updates == NONE) // NONE is being sent on purpose, and thus no signal should be sent.
 		return .
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
@@ -634,7 +634,7 @@
  */
 /atom/proc/relaymove(mob/living/user, direction)
 	//if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
-	//	return
+	// return
 	if(COOLDOWN_FINISHED(src, buckle_message_cd))
 		COOLDOWN_START(src, buckle_message_cd, 2.5 SECONDS)
 		balloon_alert(user, "can't move while buckled!")
@@ -805,7 +805,7 @@
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
-			return FALSE		//Now, lets get to the dirty work.
+			return FALSE //Now, lets get to the dirty work.
 		//First, make sure their DNA makes sense.
 		var/mob/living/carbon/human/H = M
 		if(!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
@@ -877,11 +877,11 @@
 
 	// Transfer
 	if(fingerprints)
-		A.fingerprints |= fingerprints.Copy()			//detective
+		A.fingerprints |= fingerprints.Copy() //detective
 	if(fingerprints_time)
 		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
-		A.fingerprintshidden |= fingerprintshidden.Copy()	//admin
+		A.fingerprintshidden |= fingerprintshidden.Copy() //admin
 	A.fingerprintslast = fingerprintslast
 
 /**
@@ -914,28 +914,24 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return list("UNKNOWN DNA" = "X*")
 
 //to add a mob's dna info into an object's blood_DNA list.
-/atom/proc/transfer_mob_blood_dna(mob/living/L)
-	var/new_blood_dna = L.get_blood_dna_list()
+/atom/proc/transfer_mob_blood_dna(mob/living/living_mob)
+	var/new_blood_dna = living_mob.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
 	return transfer_blood_dna(new_blood_dna)
 
-/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = BLOOD_COLOR_RED
+/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/living_mob)
+	..(living_mob)
+	var/splatter_color = living_mob.get_blood_color()
+	if(splatter_color)
+		basecolor = splatter_color
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = BLOOD_COLOR_RED
+/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/living_mob)
+	..(living_mob)
+	var/footprints_color = living_mob.get_blood_color()
+	if(footprints_color)
+		basecolor = footprints_color
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -945,17 +941,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	LAZYINITLIST(blood_DNA)
 	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
-	return length(blood_DNA) > old_length	//some new blood DNA was added
+	return length(blood_DNA) > old_length //some new blood DNA was added
 
 //to add blood from a mob onto something, and transfer their dna info
-/atom/proc/add_mob_blood(mob/living/M)
-	var/list/blood_dna = M.get_blood_dna_list()
+/atom/proc/add_mob_blood(mob/living/living_mob)
+	var/list/blood_dna = living_mob.get_blood_dna_list()
 	if(!blood_dna)
 		return FALSE
-	var/bloodcolor = BLOOD_COLOR_RED
-	var/list/b_data = M.get_blood_data(M.get_blood_id())
-	if(b_data)
-		bloodcolor = b_data["blood_color"]
+	var/bloodcolor = living_mob.get_blood_color()
+	if(!bloodcolor)
+		return FALSE
 
 	return add_blood(blood_dna, bloodcolor)
 
@@ -991,6 +986,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
 	B.basecolor = color
+	B.update_appearance(UPDATE_ICON)
 	return TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)
@@ -1021,7 +1017,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		transfer_blood_dna(blood_dna)
 		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
-	update_worn_gloves()	//handles bloody hands overlays and updating
+	update_worn_gloves() //handles bloody hands overlays and updating
 	return TRUE
 
 /obj/item/proc/add_blood_overlay()
@@ -1095,7 +1091,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(neck.clean_blood())
 			update_worn_neck()
 	..(clean_hands, clean_mask, clean_feet)
-	update_icons()	//apply the now updated overlays to the mob
+	update_icons() //apply the now updated overlays to the mob
 
 /atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
@@ -1124,7 +1120,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
 			break
-//	to_chat(world, "X = [cur_x]; Y = [cur_y]")
+// to_chat(world, "X = [cur_x]; Y = [cur_y]")
 	if(cur_x && cur_y)
 		return list("x" = cur_x, "y" = cur_y)
 	else
@@ -1194,7 +1190,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-			if(!M.can_hear() || M.stat == UNCONSCIOUS)
+			if(HAS_TRAIT(M, TRAIT_DEAF) || M.stat == UNCONSCIOUS)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
@@ -1487,10 +1483,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	. = !density
 
-/atom/proc/get_examine_time()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+/atom/proc/get_examine_time() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return 0 SECONDS
 
-/atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+/atom/proc/get_visible_gender() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
 #define ANGLE_DIR_POS 1
@@ -1566,7 +1562,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * otherwise no gravity
  */
 /atom/proc/get_gravity(turf/gravity_turf)
-	if(!isnull(GLOB.gravity_is_on))	// global admin override
+	if(!isnull(GLOB.gravity_is_on)) // global admin override
 		return GLOB.gravity_is_on
 
 	if(!isturf(gravity_turf))
@@ -1808,3 +1804,4 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /// Called when something resists while this atom is its loc
 /atom/proc/container_resist_act(mob/living/user)
 	return
+

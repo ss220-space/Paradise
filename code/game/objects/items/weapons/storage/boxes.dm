@@ -1187,42 +1187,6 @@
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
 
-/obj/item/storage/pouch
-	name = "pouch"
-	desc = "Подсумок на два магазина."
-	icon_state = "pouch"
-	item_state = "pouch"
-	storage_slots = 2
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_BELT
-	can_hold = list(/obj/item/ammo_box/magazine)
-
-/obj/item/storage/pouch/fast
-	name = "fast pouch"
-	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
-	icon_state = "pouch_fast"
-	item_state = "pouch_fast"
-
-/obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun/projectile/automatic))
-		add_fingerprint(user)
-		var/obj/item/gun/projectile/automatic/gun = I
-		for(var/obj/item/ammo_box/magazine/magazine in contents)
-			if(!istype(magazine, gun.mag_type))
-				continue
-			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
-			gun.attackby(magazine, user, params)
-			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
-			var/success = mag_changed || (!gun_magazine && gun.magazine)
-			if(mag_changed && can_be_inserted(gun_magazine))
-				handle_item_insertion(gun_magazine)
-				gun_magazine.update_appearance()
-			if(success)
-				break
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
 /obj/item/storage/box/sec
 	name = "officer starter kit"
 	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
@@ -1397,8 +1361,8 @@
 	name = "plant data disks box"
 	icon_state = "box_disc"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
@@ -1424,6 +1388,45 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/pen_case
+	name = "box of pens"
+	icon_state = "pen_case"
+	item_state = "pen_case"
+	custom_price = PAYCHECK_MIN * 2
+
+	/**
+	 * Weighted list of possible loot items.
+	 * random_pen = ((probability in list * weight) / 100)
+	 */
+	var/static/list/random_pen = list(
+		/obj/item/pen = 50,
+		/obj/item/pen/blue = 10,
+		/obj/item/pen/red = 10,
+		/obj/item/pen/gray = 10,
+		/obj/item/pen/invisible = 5,
+		/obj/item/pen/fancy = 5,
+		/obj/item/pen/multi = 3,
+		/obj/item/pen/multi/fountain = 3,
+		/obj/item/pen/survival = 3,
+		/obj/item/pen/multi/gold = 1,
+	)
+
+/obj/item/storage/box/pen_case/get_ru_names()
+	return list(
+		NOMINATIVE = "набор ручек",
+		GENITIVE = "набора ручек",
+		DATIVE = "набору ручек",
+		ACCUSATIVE = "набор ручек",
+		INSTRUMENTAL = "набором ручек",
+		PREPOSITIONAL = "наборе ручек",
+	)
+
+/obj/item/storage/box/pen_case/populate_contents()
+	for(var/i in 1 to 7)
+		var/rand_pen = pickweight(random_pen)
+		new rand_pen(src)
+
 
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN

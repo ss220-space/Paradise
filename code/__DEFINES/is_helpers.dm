@@ -134,7 +134,7 @@
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
 #define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
-#define	is_organ(A) (istype(A, /obj/item/organ))
+#define is_organ(A) (istype(A, /obj/item/organ))
 
 #define isbluespacecrystal(A) (istype(A, /obj/item/stack/ore/bluespace_crystal))
 
@@ -166,8 +166,9 @@
 
 #define is_module_input(A) (istype(A, /obj/item/circuit_component/module_input))
 
-
 #define is_mmi(A) (istype(A, /obj/item/mmi))
+
+#define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -394,7 +395,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
 
-#define isspacearea(A)	(istype(A, /area/space))
+#define isspacearea(A) (istype(A, /area/space))
 
 #define isrelic(A) (istype(A, /obj/item/relic))
 

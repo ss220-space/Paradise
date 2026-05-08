@@ -1,6 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - code_imp: "IsReachableBy (PR #8982)"
-  - refactor: "fireproof_rods теперь наследуются от обычных rods (PR #8982)"
-  - refactor: "handle_openspace_click (PR #8982)"

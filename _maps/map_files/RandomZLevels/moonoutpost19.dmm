@@ -524,8 +524,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "bp" = (
-/obj/machinery/alarm/monitor{
-	pixel_y = 23;
+/obj/machinery/alarm/monitor/directional/north{
 	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
@@ -663,9 +662,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	pixel_x = 23;
+/obj/machinery/alarm/monitor/directional/east{
 	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -798,8 +795,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "bU" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/alarm/monitor{
-	pixel_y = 23;
+/obj/machinery/alarm/monitor/directional/north{
 	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -874,9 +870,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cc" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
+/obj/machinery/alarm/all_access/monitor/directional/north{
 	req_access = list(150)
 	},
 /obj/structure/alien/weeds{
@@ -1212,10 +1206,8 @@
 /area/moonoutpost19/syndicateoutpost)
 "cJ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
-	name = "Worn-out APC";
-	pixel_y = -25;
 	req_access = list(150);
 	start_charge = 0
 	},
@@ -1301,9 +1293,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cS" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	pixel_x = 23;
+/obj/machinery/alarm/monitor/directional/east{
 	req_access = list(150)
 	},
 /obj/machinery/light{
@@ -1475,9 +1465,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "dh" = (
 /obj/structure/chair/wood,
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	pixel_x = -23;
+/obj/machinery/alarm/monitor/directional/west{
 	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1501,9 +1489,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "dj" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	pixel_x = 23;
+/obj/machinery/alarm/monitor/directional/east{
 	req_access = list(150)
 	},
 /turf/simulated/floor/wood,
@@ -2370,11 +2356,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fd" = (
@@ -2441,9 +2423,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
 "fj" = (
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /obj/structure/table,
 /obj/item/storage/box/beakers{
 	pixel_x = 2;
@@ -2588,20 +2568,14 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
 "fw" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -3044,11 +3018,7 @@
 	pixel_x = -3;
 	pixel_y = -2
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -3107,9 +3077,7 @@
 /area/moonoutpost19/mo19research)
 "gp" = (
 /obj/machinery/door/firedoor,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -29
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3276,9 +3244,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/security_unit/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -3426,12 +3392,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/east{
 	cell_type = 15000;
-	dir = 4;
 	locked = 0;
-	name = "Maintenance APC";
-	pixel_x = 25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -3603,10 +3566,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -3700,12 +3660,9 @@
 /area/moonoutpost19/mo19research)
 "hq" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/east{
 	cell_type = 15000;
-	dir = 4;
 	locked = 0;
-	name = "Research APC";
-	pixel_x = 25;
 	req_access = list();
 	start_charge = 0
 	},
@@ -3731,9 +3688,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -3747,11 +3702,7 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/item/paper{
 	info = "Personal Log for Research Director Gerald Rosswell<br><br>Entry One &mdash; 17/05/2554:<br>You know, I can't believe I took this position so suddenly. I saw that corporate needed a research director for one of its outposts and thought it would be a cakewalk; there isn't going to be a lot of research to be done on a tiny outpost. Mainly just running scans on the gas giant we are orbiting or some basic RnD. However, they conveniently forgot to tell me that I and my science staff would have to pull double duty as medical staff, and that there is no one higher up on the chain of command here, so I get to pull triple duty as acting captain as well! This shit is probably allowed in some 3pt. fine print buried underneath the literally thousands of pages of contracts. Well, at least the research will be easy work.<br><br>Entry Two &mdash; 25/05/2554:<br>Well, we all expected it at the outpost: CentComm has decided to completely change what research we are doing. They've decided that we should be researching the species known as 'xenomorphs'. They announced this change 4 days ago, and along with it, sadly, the termination of our current science staff, barring me. Not to mention the constant noise made by the construction detail they sent, to staple on a xenobiology lab, ensuring no one has been able to sleep decently ever since they announced the shift. To make matters worse, our current security guard actually died of a heart attack today. Just goes to show, that 75 year old men shouldn't be security guards. Still can't believe that they decided to do this major change less than a month after the outpost was established.<br><br>Entry Three &mdash; 27/05/2554:<br>The new security guard arrived today. Apparently transferred here from the research station that also is orbiting the gas giant. He seems to be rather angry about his transfer. Considering the rumors I've heard about the research station, he's probably caught off guard by the fact that Steve hasn't tried to force an IED down his throat.<br><br>Entry Four &mdash; 06/06/2554:<br>My requests for additional security and containment measures for the 'xenomorph' has been denied. Does Central Command not notice how dangerous these creatures are? The only thing keeping them in is a force field: a minor problem with the power grid and the entire hive is loose. What would stop them then, the lone security guard with a dinky little taser? Kenneth can barely handle a short-tempered engineer. We are under-equipped and under-staffed, we are inevitably going to be destroyed, unless we get the equipment and staff we need.<br><br>Entry Five &mdash; 10/06/2554:<br>Cunningham got a good look at the xenomorph in containment. He was frightened for the rest of the day, rather amusing if it wasn't for the fact that we are all trapped on this scrap heap, with naught but a force field keeping those xenomorphs in.<br><br>Entry Six &mdash; 17/06/2554:<br>The reactions from the specimens today have shown that they possess strange mental properties. Mark hypothesizes that they possibly have a sort of hive mind; while nothing is certain, this would explain how xenomorphs seem to have vastly increased intellect when a 'queen' is present. Of course, testing this hypothesis would require many complicated procedures which we will not be able to undertake. Although we do not know the full extend of the xenomorph mind, it may or may not be able to find a way to circumvent our containment system. I will resubmit my request for additional security measures, along with this newfound information.";
 	name = "Personal Log &mdash; Gerald Rosswell"
@@ -3843,10 +3794,7 @@
 "hB" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/fire,
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitehall"
@@ -3872,12 +3820,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -3924,12 +3867,7 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitehall"
@@ -4165,9 +4103,7 @@
 /obj/structure/table,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -4193,12 +4129,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "ik" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -4427,9 +4358,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iJ" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4678,10 +4607,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "jp" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4856,11 +4782,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "jL" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "jM" = (
@@ -4930,17 +4852,13 @@
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "jU" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "jV" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5152,12 +5070,7 @@
 	dir = 4
 	},
 /obj/machinery/processor,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -5246,12 +5159,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	cell_type = 15000;
-	dir = 1;
 	locked = 0;
-	name = "Habitat APC";
-	pixel_y = 25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -5316,10 +5226,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "kK" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5487,9 +5394,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "lc" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/camera{
 	c_tag = "Kitchen";
 	dir = 8;
@@ -5579,12 +5484,7 @@
 	dir = 4
 	},
 /obj/structure/chair/wood,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "lr" = (
@@ -5593,12 +5493,7 @@
 	},
 /obj/structure/table,
 /obj/item/storage/box,
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5612,10 +5507,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "lt" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Bar";
@@ -5744,9 +5636,7 @@
 "lN" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "lO" = (
@@ -5769,11 +5659,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -5852,9 +5738,7 @@
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
 "me" = (
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5988,10 +5872,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mw" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	germ_level = 20;
@@ -6032,9 +5913,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "mB" = (
@@ -6164,10 +6043,7 @@
 /turf/simulated/floor/plating/airless,
 /area/moonoutpost19/mo19arrivals)
 "mS" = (
-/obj/machinery/firealarm/no_alarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -6199,12 +6075,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "mW" = (
@@ -6276,9 +6147,7 @@
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
 "ni" = (
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/machinery/light/small,
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
@@ -6437,12 +6306,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/khonsu19)
 "nE" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/plasteel/airless{
 	germ_level = 20;
 	icon_state = "neutralcorner";
@@ -6574,9 +6438,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "nV" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet{
 	germ_level = 20
 	},

@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - balance: "Изменена формула расчета шанса на бонусный уровень в эксперементаторе. (PR #8903)"

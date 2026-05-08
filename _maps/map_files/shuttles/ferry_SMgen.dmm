@@ -88,20 +88,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/transport)
-"n" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/alarm{
-	pixel_y = 55
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/transport)
 "p" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -297,6 +283,7 @@
 	dir = 4
 	},
 /obj/machinery/computer/sm_monitor,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -432,7 +419,7 @@ a
 (6,1,1) = {"
 a
 P
-n
+H
 l
 a
 "}

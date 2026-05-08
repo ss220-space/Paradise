@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - tweak: "Контроллер в интегралках теперь использует ПКМ заместо CTRL ЛКМ для доп действия. (PR #8922)"

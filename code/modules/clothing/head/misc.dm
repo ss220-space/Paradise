@@ -239,7 +239,6 @@
 	icon_state = "fedora"
 	item_state = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
-	actions_types = list(/datum/action/item_action/tip_fedora)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
@@ -249,6 +248,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
+
+/obj/item/clothing/head/fedora/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поправить федору")
 
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
@@ -492,6 +495,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 	actions_types = list(/datum/action/item_action/caw)
+
+/obj/item/clothing/head/griffin/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Каркнуть")
 
 /obj/item/clothing/head/griffin/attack_self()
 	caw()

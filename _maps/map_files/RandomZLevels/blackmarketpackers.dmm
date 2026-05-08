@@ -1182,14 +1182,12 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
+/obj/machinery/power/apc/noalarm/directional/west{
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
-	pixel_x = -24;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -1341,9 +1339,7 @@
 "dZ" = (
 /obj/effect/decal/cleanable/blood/oil,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = -28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/south,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
@@ -1524,10 +1520,7 @@
 	pixel_y = -1;
 	layer = 2.9
 	},
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_x = -28;
-	layer = 3.6
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Kitchen)
 "ez" = (
@@ -1710,9 +1703,7 @@
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/east,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "fb" = (
@@ -1890,11 +1881,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	lighting_channel = 0;
 	locked = 0;
-	pixel_y = 24;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -1954,10 +1943,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_x = -28;
-	layer = 3.6
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/west,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -2522,9 +2508,7 @@
 /area/awaymission/BMPship/Fore)
 "hq" = (
 /obj/structure/alien/weeds,
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = -28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/south,
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
@@ -2948,11 +2932,9 @@
 	pixel_y = 1
 	},
 /obj/structure/spider/stickyweb,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	lighting_channel = 2;
 	locked = 0;
-	pixel_y = 24;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -3918,14 +3900,12 @@
 	icon_state = "1-2"
 	},
 /obj/structure/spider/stickyweb,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
+/obj/machinery/power/apc/noalarm/directional/east{
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
 	environment_channel = 2;
 	equipment_channel = 2;
-	pixel_x = 24;
 	start_charge = 100
 	},
 /obj/structure/spider/stickyweb,
@@ -4128,9 +4108,7 @@
 /area/awaymission/BMPship/Containment)
 "qS" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "qX" = (
@@ -4818,11 +4796,9 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	lighting_channel = 2;
 	locked = 0;
-	pixel_y = 24;
 	req_access = list();
 	environment_channel = 1;
 	equipment_channel = 0;
@@ -4853,9 +4829,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = -28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -4880,11 +4854,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	lighting_channel = 2;
 	locked = 0;
-	pixel_y = 24;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -5927,9 +5899,7 @@
 "Hd" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/item/storage/firstaid/with_mousetrap/tactical,
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/north,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Hl" = (
@@ -6071,9 +6041,7 @@
 /obj/item/cigbutt/roach{
 	pixel_x = -12
 	},
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/north,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -6452,10 +6420,9 @@
 /area/awaymission/BMPship/TurretsSouth)
 "Nq" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	lighting_channel = 2;
 	locked = 0;
-	pixel_y = -24;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -6507,9 +6474,7 @@
 "Oj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/firealarm/triggered_nosignals{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/triggered_nosignals/directional/north,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
@@ -6536,14 +6501,12 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
+/obj/machinery/power/apc/noalarm/directional/west{
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
-	pixel_x = -24;
 	start_charge = 0
 	},
 /turf/simulated/floor/engine,
@@ -7201,10 +7164,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/alien/resin,
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
+/obj/machinery/power/apc/noalarm/directional/north{
 	lighting_channel = 0;
-	pixel_y = 24;
 	req_access = list(111);
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -7370,14 +7331,12 @@
 "XH" = (
 /obj/item/trash/tastybread,
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
+/obj/machinery/power/apc/noalarm/directional/west{
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
-	pixel_x = -24;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{

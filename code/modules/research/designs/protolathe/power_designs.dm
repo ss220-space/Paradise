@@ -103,7 +103,7 @@
 /datum/design/diode_disk_healing
 	id = "diode_disk_healing"
 	build_type = PROTOLATHE
-	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIO = 5)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_BIOTECH = 5)
 	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT, MAT_SILVER = SMALL_MATERIAL_AMOUNT) //silver is medical metal. Why? who knows.
 	construction_time = 0.5 SECONDS
 	build_path = /obj/item/emitter_disk/healing

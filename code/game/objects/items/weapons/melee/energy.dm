@@ -141,8 +141,8 @@
 		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
-/obj/item/melee/energy/sword/New()
-	..()
+/obj/item/melee/energy/sword/Initialize(mapload)
+	. = ..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple", "yellow", "pink", "darkblue", "orange")
 
@@ -176,8 +176,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	tool_behaviour = TOOL_SAW
 
-/obj/item/melee/energy/sword/cyborg/saw/New()
-	..()
+/obj/item/melee/energy/sword/cyborg/saw/Initialize(mapload)
+	. = ..()
 	item_color = null
 
 /obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)

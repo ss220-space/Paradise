@@ -48,7 +48,7 @@
 #define INTERNAL_ORGAN_HIVECORE "hivecore"
 #define INTERNAL_ORGAN_PARASITE_EGG "parasite_egg"
 
-#define INTERNAL_ORGAN_HAIR "hair_organ"	// yeah thats a thing
+#define INTERNAL_ORGAN_HAIR "hair_organ" // yeah thats a thing
 #define INTERNAL_ORGAN_HONK_BLADDER "honk_bladder"
 #define INTERNAL_ORGAN_BRAIN_TUMOR "brain_tumor"
 #define INTERNAL_ORGAN_HIGHRP_TUMOR "highrp_tumor"

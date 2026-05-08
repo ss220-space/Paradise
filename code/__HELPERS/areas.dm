@@ -179,8 +179,8 @@
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
-	//	   Movement based on lower left corner. Tiles that do not fit
-	//		 into the new area will not be moved.
+	//    Movement based on lower left corner. Tiles that do not fit
+	//  into the new area will not be moved.
 
 	if(!A || !src)
 		return FALSE
@@ -192,17 +192,17 @@
 	var/src_min_y = 0
 	for(var/turf/T in turfs_src)
 		if(T.x < src_min_x || !src_min_x)
-			src_min_x	= T.x
+			src_min_x = T.x
 		if(T.y < src_min_y || !src_min_y)
-			src_min_y	= T.y
+			src_min_y = T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
 	for(var/turf/T in turfs_trg)
 		if(T.x < trg_min_x || !trg_min_x)
-			trg_min_x	= T.x
+			trg_min_x = T.x
 		if(T.y < trg_min_y || !trg_min_y)
-			trg_min_y	= T.y
+			trg_min_y = T.y
 
 	var/list/refined_src = new/list()
 	for(var/turf/T in turfs_src)

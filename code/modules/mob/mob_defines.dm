@@ -338,3 +338,12 @@
 
 	/// Mob bitflags
 	var/mob_flags = NONE
+
+	/// A ref of the area we're taking our ambient loop from.
+	var/area/ambience_tracked_area
+
+	var/shift_to_open_context_menu = TRUE
+
+	///Cursor icon used when holding shift over things
+	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
+

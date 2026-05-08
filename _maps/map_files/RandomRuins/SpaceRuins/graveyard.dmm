@@ -1736,9 +1736,8 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/machinery/power/apc/noalarm{
-	req_access = list();
-	pixel_y = -32
+/obj/machinery/power/apc/noalarm/directional/south{
+	req_access = list()
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -2206,12 +2205,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	pixel_x = -32;
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list()
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Wj" = (

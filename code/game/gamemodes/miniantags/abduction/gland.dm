@@ -329,6 +329,8 @@
 	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
 	uses = -1
 	mind_control_duration = 800
+	var/gas_flag = LINDA_SPAWN_TOXINS
+	var/gas_amount = 5
 
 /obj/item/organ/internal/heart/gland/toxic_gas/activate()
 	to_chat(owner, span_warning("Вы чувствуете тяжесть в животе."))
@@ -341,5 +343,9 @@
 	owner.visible_message(span_danger("[capitalize(owner.name)] отрыгива[PLUR_ET_YUT(owner)] облако неизвестного газа!"))
 	var/turf/simulated/turf = get_turf(owner)
 	if(istype(turf))
-		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS, 5, T20C)
+		turf.atmos_spawn_air(gas_flag, gas_amount, T20C)
 	owner.vomit()
+
+/obj/item/organ/internal/heart/gland/toxic_gas/bz
+	gas_flag = LINDA_SPAWN_BZ
+	gas_amount = 50

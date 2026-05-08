@@ -1616,7 +1616,7 @@
 		update_flags |= M.adjustBruteLoss(-0.25, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-0.25, FALSE, affect_robotic = FALSE)
 	else
-		update_flags |= M.adjustToxLoss(4, FALSE)
+		update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/grubjuice

@@ -434,7 +434,7 @@
 			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
 				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 		if(GRAB_KILL)
-			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
+			if(. <= GRAB_KILL) // Grab got ugraded from neck grab.
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
 /// Use this to override topmost bump thing in [/turf/proc/Enter()].
@@ -1540,7 +1540,7 @@
 	if(!can_devour(gourmet))
 		return FALSE
 
-	var/mob/living/victim = src	// its just living mobs now, subject to change later
+	var/mob/living/victim = src // its just living mobs now, subject to change later
 
 	var/target = isturf(loc) ? src : gourmet
 

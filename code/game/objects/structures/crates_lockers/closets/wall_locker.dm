@@ -5,6 +5,7 @@
 	icon_state = "wall-locker"
 	density = FALSE
 	anchored = TRUE
+	anchorable = FALSE
 	ignore_density_closed = TRUE
 	no_overlays = TRUE
 	icon_closed = "wall-locker"
@@ -59,4 +60,4 @@
 #undef EMERGENCY_CONTENTS_TANK
 #undef EMERGENCY_CONTENTS_BOTH
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32, 32)

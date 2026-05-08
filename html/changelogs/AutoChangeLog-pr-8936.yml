@@ -1,4 +1,0 @@
-author: "Etrnlmelancholy"
-delete-after: True
-changes:
-  - balance: "двойные антажки больше не падают (PR #8936)"

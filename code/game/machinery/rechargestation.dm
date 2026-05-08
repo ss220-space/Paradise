@@ -62,18 +62,18 @@
 		recharge_speed_nutrition *= multiplier
 
 /obj/machinery/recharge_station/process()
-	if(!(NOPOWER|BROKEN))
+	if(!is_operational())
 		return
 
-	if(src.occupant)
-		process_occupant()
+	if(!occupant)
+		return
 
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
+	process_occupant()
+
+	for(var/mob/mob_inside in src)
+		if(mob_inside == occupant || ispulsedemon(mob_inside))
 			continue
-		else if(!ispulsedemon(M))
-			M.forceMove(src.loc)
-	return 1
+		mob_inside.forceMove(loc)
 
 /obj/machinery/recharge_station/ex_act(severity, target)
 	if(occupant)
@@ -99,6 +99,12 @@
 
 /obj/machinery/recharge_station/Bumped(atom/movable/moving_atom)
 	. = ..()
+	if(!is_operational())
+		return
+
+	if(occupant)
+		return
+
 	if(ismob(moving_atom))
 		move_inside(moving_atom)
 
@@ -108,28 +114,25 @@
 /obj/machinery/recharge_station/relaymove(mob/user as mob)
 	if(ispulsedemon(user))
 		return
-	if(user.stat)
-		return
-	src.go_out()
-	return
+	go_out()
 
 /obj/machinery/recharge_station/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
-		..(severity)
-		return
 	if(occupant)
 		occupant.emp_act(severity)
 		go_out()
-	..(severity)
+
+	return ..(severity)
 
 /obj/machinery/recharge_station/update_icon_state()
-	if(occupant)
-		if(stat & (NOPOWER|BROKEN))
-			icon_state = "borgcharger2"
-		else
-			icon_state = "borgcharger1"
-	else
+	if(!occupant)
 		icon_state = "borgcharger0"
+		return
+
+	if(stat & (NOPOWER|BROKEN))
+		icon_state = "borgcharger2"
+		return
+
+	icon_state = "borgcharger1"
 
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -158,80 +161,107 @@
 			our_occupant.heal_overall_damage(repairs, repairs)
 		if(our_occupant.cell)
 			our_occupant.cell.charge = min(our_occupant.cell.charge + recharge_speed, our_occupant.cell.maxcharge)
-	else if(ishuman(occupant))
+		return
+
+	if(ishuman(occupant))
 		var/mob/living/carbon/human/our_human = occupant
-		if(our_human.get_int_organ(/obj/item/organ/internal/cell))
-			if(our_human.nutrition < NUTRITION_LEVEL_FULL - 1)
-				our_human.set_nutrition(min(our_human.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
-			if(repairs)
-				our_human.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+		if(!our_human.get_int_organ(/obj/item/organ/internal/cell))
+			return
+
+		if(our_human.nutrition < NUTRITION_LEVEL_FULL - 1)
+			our_human.set_nutrition(min(our_human.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
+		if(repairs)
+			our_human.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)
 		return
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		return
+
 	occupant.forceMove(loc)
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 	use_power = IDLE_POWER_USE
 
 /obj/machinery/recharge_station/proc/restock_modules()
-	if(isrobot(occupant))
-		var/mob/living/silicon/robot/R = occupant
-		var/coeff = recharge_speed / 200
-		if(R.module && R.module.modules)
-			var/list/um = R.contents|R.module.modules
-			// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
-			for(var/obj/O in um)
-				// Security
-				if(istype(O,/obj/item/flash))
-					var/obj/item/flash/F = O
-					if(F.broken)
-						F.broken = FALSE
-						F.times_used = 0
-						F.update_icon(UPDATE_ICON_STATE)
-				else if(isenergygun(O))
-					var/obj/item/gun/energy/D = O
-					if(D.cell.charge < D.cell.maxcharge)
-						var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-						D.cell.give(E.e_cost)
-						D.on_recharge()
-						D.update_icon()
-					else
-						D.charge_tick = 0
-				//Service
-				else if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
-					if(O.reagents.get_reagent_amount("enzyme") < 50)
-						O.reagents.add_reagent("enzyme", 2 * coeff)
-				//Janitor
-				else if(istype(O, /obj/item/lightreplacer))
-					var/obj/item/lightreplacer/LR = O
-					var/i = 1
-					for(1, i <= coeff, i++)
-						LR.Charge(occupant)
-				//Fire extinguisher
-				else if(istype(O, /obj/item/extinguisher))
-					var/obj/item/extinguisher/ext = O
-					ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
-				//Welding tools
-				else if(iswelder(O))
-					var/obj/item/weldingtool/weld = O
-					weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
+	if(!isrobot(occupant))
+		return
 
-			R.module.respawn_consumable(R)
+	var/mob/living/silicon/robot/robot = occupant
+	if(!robot.module)
+		return
 
-			//Emagged items for janitor and medical borg
-			if(R.module.emag)
-				if(istype(R.module.emag, /obj/item/reagent_containers/spray))
-					var/obj/item/reagent_containers/spray/S = R.module.emag
-					if(S.name == "polyacid spray")
-						S.reagents.add_reagent("facid", 2 * coeff)
-					if(S.name == "lube spray")
-						S.reagents.add_reagent("lube", 2 * coeff)
-					else if(S.name == "acid synthesizer")
-						S.reagents.add_reagent("facid", 2 * coeff)
-						S.reagents.add_reagent("sacid", 2 * coeff)
+	var/list/modules = robot.module.modules
+	if(!length(modules))
+		return
+
+	var/coeff = recharge_speed / 200
+	for(var/obj/item/module as anything in modules)
+		// Security
+		if(istype(module, /obj/item/flash))
+			var/obj/item/flash/flash = module
+			if(flash.broken)
+				flash.broken = FALSE
+				flash.times_used = 0
+				flash.update_icon(UPDATE_ICON_STATE)
+			continue
+
+		if(isenergygun(module))
+			var/obj/item/gun/energy/egun = module
+			var/obj/item/stock_parts/cell/gun_cell = egun.get_cell()
+			if(gun_cell.charge < gun_cell.maxcharge)
+				var/obj/item/ammo_casing/energy/E = egun.ammo_type[egun.select]
+				gun_cell.give(E.e_cost)
+				egun.on_recharge()
+				egun.update_appearance(UPDATE_ICON)
+			else
+				egun.charge_tick = 0
+			continue
+
+		//Service
+		if(istype(module, /obj/item/reagent_containers/food/condiment/enzyme))
+			if(module.reagents.get_reagent_amount("enzyme") < 50)
+				module.reagents.add_reagent("enzyme", 2 * coeff)
+			continue
+
+		//Janitor
+		if(istype(module, /obj/item/lightreplacer))
+			var/obj/item/lightreplacer/light_replacer = module
+			for(var/i in 1 to coeff)
+				light_replacer.Charge(occupant)
+			continue
+
+		//Fire extinguisher
+		if(istype(module, /obj/item/extinguisher))
+			var/obj/item/extinguisher/ext = module
+			ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
+			continue
+
+		//Welding tools
+		if(iswelder(module))
+			var/obj/item/weldingtool/weld = module
+			weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
+			continue
+
+	robot.module.respawn_consumable(robot)
+
+	//Emagged items for janitor and medical borg
+	if(!robot.module.emag)
+		return
+
+	if(istype(robot.module.emag, /obj/item/reagent_containers/spray))
+		var/obj/item/reagent_containers/spray/spray = robot.module.emag
+		if(spray.name == "polyacid spray")
+			spray.reagents.add_reagent("facid", 2 * coeff)
+			return
+
+		if(spray.name == "lube spray")
+			spray.reagents.add_reagent("lube", 2 * coeff)
+			return
+
+		if(spray.name == "acid synthesizer")
+			spray.reagents.add_reagent("facid", 2 * coeff)
+			spray.reagents.add_reagent("sacid", 2 * coeff)
+			return
 
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = VERB_CATEGORY_OBJECT
@@ -244,21 +274,17 @@
 	move_inside(usr)
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user)
-	if(!user)
+	if(!user || !istype(user))
 		return
 
-	if(ismob(usr) && usr.stat != CONSCIOUS)
+	if(!is_operational())
 		return
 
-	if(user.stat == DEAD)
+	if(user.stat != CONSCIOUS)
 		return
 
 	if(get_dist(src, user) > 2)
 		to_chat(user, "They are too far away to put inside")
-		return
-
-	if(panel_open)
-		to_chat(user, span_warning("Close the maintenance panel first."))
 		return
 
 	if(occupant)
@@ -267,10 +293,10 @@
 
 	var/can_accept_user
 	if(isrobot(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/robot/robot = user
 
-		if(!R.cell)
-			to_chat(R, span_warning("Without a power cell, you can't be recharged."))
+		if(!robot.cell)
+			to_chat(robot, span_warning("Without a power cell, you can't be recharged."))
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
 		can_accept_user = TRUE
@@ -297,3 +323,9 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_use_power(1)
 
+/obj/machinery/recharge_station/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(occupant && occupant == gone)
+		occupant = null
+		update_icon(UPDATE_ICON_STATE)
+		use_power = IDLE_POWER_USE

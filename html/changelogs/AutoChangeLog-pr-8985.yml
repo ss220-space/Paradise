@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - del: "Удаление верба Climb structure. (PR #8985)"

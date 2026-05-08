@@ -168,18 +168,6 @@
 		C.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, поглощая [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
-/obj/effect/self_deleting
-	icon = null
-	desc = ""
-	//layer = 15
-
-/obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
-	. = ..()
-	name = oname
-	loc=location
-	icon = I
-	QDEL_IN(src, duration)
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mattereater

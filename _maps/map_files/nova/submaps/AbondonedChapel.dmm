@@ -90,9 +90,7 @@
 /obj/item/chair/wood/wings{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -306,10 +304,7 @@
 	},
 /area/maintenance/server)
 "jw" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -398,11 +393,7 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "ls" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -843,11 +834,7 @@
 	},
 /area/maintenance/server)
 "Bz" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/chair/wood{
 	dir = 1
@@ -916,10 +903,7 @@
 /turf/template_noop,
 /area/template_noop)
 "EF" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -1060,11 +1044,7 @@
 "KA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rat,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
 /area/maintenance/club)
 "La" = (
@@ -1105,9 +1085,7 @@
 	},
 /area/maintenance/server)
 "Lx" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
@@ -1116,10 +1094,7 @@
 	},
 /area/maintenance/server)
 "LF" = (
-/obj/machinery/firealarm{
-	pixel_y = 26;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1249,11 +1224,7 @@
 	pixel_x = 12;
 	pixel_y = -9
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1336,10 +1307,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1445,11 +1413,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"

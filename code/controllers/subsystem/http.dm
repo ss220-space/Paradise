@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(http)
 	active_async_requests += req
 	total_requests++
 
-	// if(logging_enabled)
+	//if(logging_enabled)
 	//	// Create a log holder
 	//	var/list/log_data = list()
 	//	log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
@@ -97,7 +97,6 @@ SUBSYSTEM_DEF(http)
 	//	log_data += "\tRequest headers: [req.headers]"
 	//	log_data += "END ASYNC REQUEST (ID: [req.id])"
 	//	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
-
 	//	// Write the log data
 	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 

@@ -1,0 +1,39 @@
+help: "Use the specific directional subtypes for this firealarm."
+/obj/machinery/firealarm:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+    - name
+
+/obj/machinery/firealarm/no_alarm:
+  banned_variables:
+    - report_fire_alarms
+
+/obj/machinery/firealarm/triggered_nosignals:
+  banned_variables:
+    - report_fire_alarms = FALSE
+    - show_alert_level = FALSE
+
+=/obj/machinery/firealarm:
+  banned: TRUE
+=/obj/machinery/firealarm/no_alarm:
+  banned: TRUE
+=/obj/machinery/firealarm/triggered_nosignals:
+  banned: TRUE
+=/obj/machinery/firealarm/syndicate:
+  banned: TRUE
+=/obj/machinery/firealarm/syndicate/taipan:
+  banned: TRUE
+
+# directional
+=/obj/machinery/firealarm/directional:
+  banned: TRUE
+=/obj/machinery/firealarm/no_alarm/directional:
+  banned: TRUE
+=/obj/machinery/firealarm/triggered_nosignals/directional:
+  banned: TRUE
+=/obj/machinery/firealarm/syndicate/directional:
+  banned: TRUE
+=/obj/machinery/firealarm/syndicate/taipan/directional:
+  banned: TRUE

@@ -31,7 +31,7 @@
 				if(mob.stat == DEAD)
 					continue
 			this["uids"] += UID_of(spawner_obj)
-			if(!this["desc"])	//haven't set descriptions yet
+			if(!this["desc"]) //haven't set descriptions yet
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
 					var/obj/effect/mob_spawn/MS = spawner_obj
 					this["desc"] = MS.description
