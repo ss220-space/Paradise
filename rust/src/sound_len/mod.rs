@@ -20,13 +20,35 @@ fn sound_len(sound_path: ByondValue) -> eyre::Result<ByondValue> {
 }
 
 fn get_sound_length(sound_path: &str) -> eyre::Result<f32> {
+    let path = sound_path.to_string();
+
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        get_sound_length_inner(&path)
+    }));
+
+    match result {
+        Ok(Ok(duration)) => Ok(duration),
+        Ok(Err(e)) => Err(e),
+        Err(panic_info) => {
+            let msg = if let Some(s) = panic_info.downcast_ref::<String>() {
+                s.clone()
+            } else if let Some(s) = panic_info.downcast_ref::<&str>() {
+                s.to_string()
+            } else {
+                "Unknown panic".to_string()
+            };
+            Err(eyre::eyre!("Symphonia panic: {}", msg))
+        }
+    }
+}
+
+fn get_sound_length_inner(sound_path: &str) -> eyre::Result<f32> {
     let sound_src = match File::open(sound_path) {
         Ok(r) => r,
         Err(e) => return Err(eyre::eyre!(format!("Couldn't open file, {e}"))),
     };
 
     let mss = MediaSourceStream::new(Box::new(sound_src), Default::default());
-
     let mut hint = Hint::new();
     hint.with_extension("ogg");
     hint.with_extension("mp3");
