@@ -7,5 +7,5 @@
 /datum/asset/group/permissions
 	children = list(
 		/datum/asset/simple/permissions,
-		/datum/asset/simple/namespaced/common
+		/datum/asset/simple/namespaced/common,
 	)

@@ -115,7 +115,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 /client/proc/mod_list(list/target_list, atom/target_atom, original_name, objectvar, index, autodetect_class = FALSE)
 	if(!check_rights(R_VAREDIT))
 		return
-	if(!istype(target_list, /list))
+	if(!islist(target_list))
 		to_chat(src, "Not a List.", confidential = TRUE)
 		return
 	if(isalist(target_list))

@@ -155,7 +155,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				filter_text.focus();
 				filter_text.select();
 				var lastsearch = getCookie("[refid][cookieoffset]search");
-				if (lastsearch) {
+				if(lastsearch) {
 					filter_text.value = lastsearch;
 					updateSearch();
 				}
@@ -166,7 +166,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i];
 					while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+					if(c.indexOf(name) == 0) return c.substring(name.length,c.length);
 				}
 				return "";
 			}
@@ -177,16 +177,16 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				var filter = document.getElementById('filter').value.toLowerCase();
 				var vars_ol = document.getElementById("vars");
 
-				if (filter === last_filter) {
+				if(filter === last_filter) {
 					// An event triggered an update but nothing has changed.
 					return;
-				} else if (filter.indexOf(last_filter) === 0) {
+				} else if(filter.indexOf(last_filter) === 0) {
 					// The new filter starts with the old filter, fast path by removing only.
 					var children = vars_ol.childNodes;
 					for (var i = children.length - 1; i >= 0; --i) {
 						try {
 							var li = children\[i];
-							if (li.innerText.toLowerCase().indexOf(filter) == -1) {
+							if(li.innerText.toLowerCase().indexOf(filter) == -1) {
 								vars_ol.removeChild(li);
 							}
 						} catch(err) {}
@@ -200,7 +200,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 					for (var i = 0; i < complete_list.length; ++i) {
 						try {
 							var li = complete_list\[i];
-							if (!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
+							if(!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
 								vars_ol.appendChild(li);
 							}
 						} catch(err) {}
@@ -230,7 +230,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			// onchange
 			function handle_dropdown(list) {
 				var value = list.options\[list.selectedIndex].value;
-				if (value !== "") {
+				if(value !== "") {
 					location.href = value;
 				}
 				list.selectedIndex = 0;
@@ -260,7 +260,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 				var a = div.getElementsByTagName("a");
 				for (i = 0; i < a.length; i++) {
 					txtValue = a\[i\].textContent || a\[i\].innerText;
-					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					if(txtValue.toUpperCase().indexOf(filter) > -1) {
 						a\[i\].style.display = "";
 					} else {
 						a\[i\].style.display = "none";

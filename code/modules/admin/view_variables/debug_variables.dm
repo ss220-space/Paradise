@@ -20,7 +20,7 @@
 
 	var/name_part = VV_HTML_ENCODE(name)
 	if(level > 0 || islist(owner)) //handling keys in assoc lists
-		if(istype(name,/datum))
+		if(isdatum(name))
 			name_part = "<a href='byond://?_src_=vars;Vars=[UID_of(name)]'>[VV_HTML_ENCODE(name)] [UID_of(name)]</a>"
 		else if(islist(name))
 			var/list/list_value = name

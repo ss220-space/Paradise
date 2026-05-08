@@ -135,7 +135,7 @@
 		if(mass_remove)
 			var/method = vv_subtype_prompt(target.type)
 			targets_to_remove_from = get_all_of_type(target.type, method)
-			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+			if(tgui_alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", list("Yes", "No")) == "No")
 				return
 		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
 			if(ispath(path, /datum/element))

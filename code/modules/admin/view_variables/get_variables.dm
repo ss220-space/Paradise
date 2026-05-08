@@ -25,7 +25,7 @@
 	else if(isloc(var_value))
 		. = VV_ATOM_REFERENCE
 
-	else if(istype(var_value, /client))
+	else if(isclient(var_value))
 		. = VV_CLIENT
 
 	else if(isweakref(var_value))
