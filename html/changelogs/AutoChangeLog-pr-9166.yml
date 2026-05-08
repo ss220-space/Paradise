@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Починка выбора эффекта взрыва и света от него. (PR #9166)"

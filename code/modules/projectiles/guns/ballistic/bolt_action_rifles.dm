@@ -34,7 +34,7 @@
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
 	if(chambered?.BB)
-		process_fire(user, user,0)
+		fast_fire(user, user)
 		. = 1
 
 /obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/I, mob/user, params)

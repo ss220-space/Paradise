@@ -14,8 +14,8 @@
 	icon_state = "b_beam"
 	var/tmp/atom/BeamSource
 
-/obj/effect/overlay/beam/New()
-	..()
+/obj/effect/overlay/beam/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 10)
 
 /obj/effect/overlay/palmtree_r
@@ -54,7 +54,7 @@
 	layer = 5
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/overlay/wall_rot/New()
-	..()
-	pixel_x += rand(-10, 10)
-	pixel_y += rand(-10, 10)
+/obj/effect/overlay/wall_rot/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-10, 10)
+	pixel_y = base_pixel_y + rand(-10, 10)

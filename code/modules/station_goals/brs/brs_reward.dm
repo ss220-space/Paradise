@@ -217,7 +217,7 @@
 		/obj/item/storage/secure/briefcase/syndie = 30,
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_rift/New()
+/obj/effect/spawner/lootdrop/bluespace_rift/Initialize(mapload)
 	playsound(loc, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, loc)
 	if(!locate(/obj/effect/portal) in get_turf(loc))
@@ -236,7 +236,7 @@
 		/obj/item/paper/researchnotes_brs,
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_rift_server/New()
+/obj/effect/spawner/lootdrop/bluespace_rift_server/Initialize(mapload)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	do_sparks(2, FALSE, loc)
 	return ..()

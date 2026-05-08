@@ -13,8 +13,8 @@
 /obj/singularity/god/ratvar/admin_investigate_setup()
 	return
 
-/obj/singularity/god/ratvar/New()
-	..()
+/obj/singularity/god/ratvar/Initialize(mapload, starting_energy)
+	. = ..()
 	set_light(15, 1, "#BE8700")
 	to_chat(world, span_ratvar("ONCE AGAIN MY LIGHT SHINES AMONG THESE PATHETIC STARS"))
 	SEND_SOUND(world, sound('sound/effects/ratvar_reveal.ogg'))
@@ -28,7 +28,7 @@
 		var/image/alert_overlay = image('icons/effects/clockwork_effects.dmi', "ghostalert")
 		notify_ghosts("The Justiciar's light calls to you! Reach out to Ratvar in [A.name] to be granted a shell to spread his glory!", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
-	ratvar_spawn_animation()
+	INVOKE_ASYNC(src, PROC_REF(ratvar_spawn_animation))
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse), "Ратвар"), 10 SECONDS)
 
 /obj/singularity/god/ratvar/update_icon_state()

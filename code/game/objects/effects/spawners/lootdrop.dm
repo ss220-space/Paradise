@@ -7,6 +7,10 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
+	spawn_loot()
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/lootdrop/proc/spawn_loot()
 	while(lootcount)
 		var/lootspawn = pickweight(loot)
 		if(lootspawn)
@@ -14,7 +18,6 @@
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 		lootcount--
-	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/maintenance
 	name = "maintenance loot spawner"
@@ -127,7 +130,7 @@
 		/obj/item/clothing/head/helmet/biker = 2,
 		/obj/item/mod/construction/broken_core = 4,
 		/obj/effect/spawner/random_spawners/mod/maint = 10,
-		/obj/item/tripod/camera = 15,
+		/obj/item/tripod/camera = 1,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
@@ -159,6 +162,13 @@
 		/obj/item/clothing/glasses/chameleon/meson = 7,
 		"" = 70,
 	)
+
+/obj/effect/spawner/lootdrop/maintenance/spawn_loot()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
+		return
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT))
+		lootcount = FLOOR(lootcount * 1.5, 1)
+	return ..()
 
 /obj/effect/spawner/lootdrop/maintenance/double
 	icon_state = "x2"

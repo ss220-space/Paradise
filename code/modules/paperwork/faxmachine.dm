@@ -49,8 +49,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		PREPOSITIONAL = "факсе",
 	)
 
-/obj/machinery/photocopier/faxmachine/New()
-	..()
+/obj/machinery/photocopier/faxmachine/Initialize(mapload)
+	. = ..()
+	
 	GLOB.allfaxes += src
 	update_network()
 

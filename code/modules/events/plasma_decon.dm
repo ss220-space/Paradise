@@ -5,7 +5,7 @@
 	GLOB.major_announcement.announce(
 		message = "Активирована экспериментальная система дезакцивации плазмы. Пожалуйста, стойте подальше от вентиляционных отверстий и не вдыхайте выходящий дым.",
 		new_title = "Активирован протокол дезактивации плазмы",
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /datum/event/plasma_decon/start()// This only contains vent_pumps so don't bother with type checking
