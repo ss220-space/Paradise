@@ -145,8 +145,8 @@ fn get_sound_length_list(list: &[ByondValue]) -> eyre::Result<ByondValue> {
     }
 
     let mut out = ByondValue::new_list()?;
-    out.write_list_index(ByondValue::try_from("successes")?, successes)?;
-    out.write_list_index(ByondValue::try_from("errors")?, errors)?;
+    out.write_list_index(ByondValue::new_str("successes")?, successes)?;
+    out.write_list_index(ByondValue::new_str("errors")?, errors)?;
 
     Ok(out)
 }

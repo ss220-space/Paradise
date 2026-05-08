@@ -226,13 +226,13 @@
 #define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
 
 /// Causes the mob to become blind via the passed source
-#define become_blind(source) apply_status_effect(/datum/status_effect/transient/blindness, source)
+#define become_blind(source) apply_status_effect(STATUS_EFFECT_BLINDED, source)
 /// Cures the mob's blindness from the passed source, removing blindness wholesale if no sources are left
-#define cure_blind(source) remove_status_effect(/datum/status_effect/transient/blindness, source)
+#define cure_blind(source) remove_status_effect(STATUS_EFFECT_BLINDED, source)
 
 /// Is the mob blind?
-#define is_blind(...) has_status_effect(/datum/status_effect/transient/blindness)
+#define is_blind(...) has_status_effect(STATUS_EFFECT_BLINDED)
 /// Is the mob blind from the passed source or sources?
-#define is_blind_from(sources) has_status_effect_from_source(/datum/status_effect/transient/blindness, sources)
+#define is_blind_from(sources) has_status_effect_from_source(STATUS_EFFECT_BLINDED, sources)
 
 #define set_silence_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/silenced, TRUE)

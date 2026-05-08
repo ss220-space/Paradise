@@ -245,7 +245,9 @@
 
 /obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
 	var/image/overlay = module.create_overlay()
-	if(overlay && attachable_offset)
+	if(!overlay)
+		return
+	if(attachable_offset)
 		apply_attachment_offset(module.slot, overlay, module)
 	attachment_overlays[module.slot] = overlay
 	update_icon(UPDATE_OVERLAYS)
@@ -345,6 +347,7 @@
 /obj/item/gun/proc/clean_gun_user()
 	SIGNAL_HANDLER
 	set_gun_user(null)
+
 ///Check if the gun can fire and add it to bucket auto_fire system if needed, or just fire the gun if not
 /obj/item/gun/proc/start_fire(datum/source, atom/object, turf/location, control, params, bypass_checks = FALSE)
 	SIGNAL_HANDLER
@@ -1133,3 +1136,21 @@
 	if(gun_firemode == removed_firemode)
 		gun_firemode = gun_firemode_list[1]
 		toggle_firemode(gun_firemode)
+
+/obj/item/gun/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, fire_delay))
+		modify_fire_delay(-fire_delay + var_value, usr)
+		return TRUE
+	if(var_name == NAMEOF(src, burst_delay))
+		modify_burst_delay(-burst_delay + var_value, usr)
+		return TRUE
+	if(var_name == NAMEOF(src, autoburst_delay))
+		modify_auto_burst_delay(-autoburst_delay + var_value , usr)
+		return TRUE
+	if(var_name == NAMEOF(src, burst_amount))
+		modify_burst_amount(-burst_amount + var_value, usr)
+		return TRUE
+	if(var_name == NAMEOF(src, gun_firemode))
+		toggle_firemode(var_value)
+		return TRUE
+	. = ..()

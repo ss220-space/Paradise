@@ -188,5 +188,6 @@
 /// Trait given by echolocation component.
 #define ECHOLOCATION_TRAIT "echolocation"
 
+#define NO_EARS "no_ears"
 /// Traits related to guns
 #define GUN_TRAIT "gun"

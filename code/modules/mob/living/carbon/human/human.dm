@@ -2,6 +2,9 @@
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	create_dna()
 
+	// This needs to be called very very early in human init (before organs / species are created at the minimum)
+	setup_organless_effects()
+
 	. = ..()
 
 	if(!tts_seed)
@@ -36,6 +39,13 @@
 	GLOB.human_list -= src
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
 	return ..()
+
+/// This proc is for holding effects applied when a mob is missing certain organs
+/// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
+/// Gaining said organs removes these effects
+/mob/living/carbon/human/proc/setup_organless_effects()
+	// And no ears, and get them via set species
+	ADD_TRAIT(src, TRAIT_DEAF, NO_EARS)
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
@@ -801,7 +811,7 @@
 	. = ..()
 	if(.)
 		return .
-	if(!can_hear())
+	if(HAS_TRAIT(src, TRAIT_DEAF))
 		return HEARING_PROTECTION_TOTAL
 	if(l_ear)
 		if(l_ear.item_flags & BANGPROTECT_TOTAL)
