@@ -503,7 +503,7 @@
 /obj/item/lighter/zippo/gold/get_ru_names()
 	return list(
 		NOMINATIVE = "золотая зажигалка Зиппо",
-		GENITIVE = "золотой зажигалки Зиппо ",
+		GENITIVE = "золотой зажигалки Зиппо",
 		DATIVE = "золотой зажигалке Зиппо",
 		ACCUSATIVE = "золотую зажигалку Зиппо",
 		INSTRUMENTAL = "золотой зажигалкой Зиппо",
