@@ -395,7 +395,7 @@
 				owner.a_intent_change(INTENT_HARM)
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
-			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
+			found_gun.fast_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
 			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 // start of `living` level status procs.
