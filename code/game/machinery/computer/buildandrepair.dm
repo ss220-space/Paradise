@@ -26,6 +26,9 @@
 	board_type = "machine"
 	abstract_type = /obj/item/circuitboard/machine
 
+/obj/item/circuitboard/drone
+	board_type = "drone"
+
 /obj/item/circuitboard/Initialize(mapload)
 	. = ..()
 	format_board_name()
