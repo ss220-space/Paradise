@@ -1,6 +1,4 @@
-#define DEFAULT_EGGS_SPAWN_VOLUME 5
 // Terror Spider, Black, Deadly Venom
-
 /datum/reagent/terror_black_toxin
 	name = "Яд Вдовы Ужаса"
 	id = "terror_black_toxin"
@@ -34,45 +32,3 @@
 		M.EyeBlurry(12 SECONDS)
 		M.Paralyse(10 SECONDS)
 	return ..() | update_flags
-
-/datum/reagent/organ_spawner
-	name = "Вы не должны видеть этого"
-	id = "spawner_template"
-	description = "Пациент, да у вас чужой"
-	can_synth = FALSE //stop arbuze
-
-	var/obj/item/organ/internal/organ_type
-	var/need_volume_to_inject = DEFAULT_EGGS_SPAWN_VOLUME
-
-/datum/reagent/organ_spawner/on_mob_life(mob/living/target)
-	if(!organ_type)
-		return ..()
-
-	organ_inject(target)
-	return ..()
-
-/datum/reagent/organ_spawner/proc/organ_inject(mob/living/target)
-	if(volume < need_volume_to_inject)
-		return
-
-	if(!iscarbon(target))
-		return
-
-	if(target.get_int_organ(organ_type))
-		return
-
-	new organ_type(target)
-
-/datum/reagent/organ_spawner/terror_eggs
-	name = "Яйца паука ужаса"
-	id = "terror_eggs"
-	description = "Стремительно растущие паучьи яйца."
-	color = "#6b336b"
-	taste_mult = 0
-	organ_type = /obj/item/organ/internal/body_egg/terror_eggs
-
-/datum/reagent/organ_spawner/terror_eggs/phantom
-	id = "terror_phantom_eggs"
-	organ_type = /obj/item/organ/internal/body_egg/terror_eggs/phantom
-
-#undef DEFAULT_EGGS_SPAWN_VOLUME

@@ -92,8 +92,8 @@
 	var/mob/living/simple_animal/diona/user = owner
 	user.steal_blood()
 
-/mob/living/simple_animal/diona/New()
-	..()
+/mob/living/simple_animal/diona/Initialize(mapload)
+	. = ..()
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
@@ -125,8 +125,7 @@
 /mob/living/simple_animal/diona/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
 		gestalt_heal(user)
-		return FALSE
-	return ..()
+		return
 
 /mob/living/simple_animal/diona/proc/gestalt_heal(mob/living/carbon/human/M)
 	if(!Adjacent(M))

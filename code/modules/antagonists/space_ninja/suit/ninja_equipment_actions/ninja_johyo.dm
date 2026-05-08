@@ -14,15 +14,16 @@
 	if(integrated_harpoon)
 		qdel(integrated_harpoon)
 		integrated_harpoon = null
-	else
-		integrated_harpoon = new
-		integrated_harpoon.my_suit = src
-		for(var/datum/action/item_action/advanced/ninja/johyo/ninja_action in actions)
-			integrated_harpoon.my_action = ninja_action
-			ninja_action.action_ready = TRUE
-			ninja_action.toggle_button_on_off()
-			break
-		ninja.put_in_hands(integrated_harpoon)
+		return
+
+	integrated_harpoon = new
+	integrated_harpoon.my_suit = src
+	var/datum/action/item_action/advanced/ninja/johyo/johyo = locate() in ninja.actions
+	integrated_harpoon.my_action = johyo
+	johyo.action_ready = TRUE
+	johyo.toggle_button_on_off()
+
+	ninja.put_in_hands(integrated_harpoon)
 
 //Harpoon
 
@@ -58,12 +59,12 @@
 	)
 
 /obj/item/gun/magic/johyo/Destroy()
-	. = ..()
 	my_suit.integrated_harpoon = null
 	my_suit = null
 	my_action.action_ready = FALSE
 	my_action.toggle_button_on_off()
 	my_action = null
+	return ..()
 
 /obj/item/gun/magic/johyo/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
@@ -74,7 +75,7 @@
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
 	if(!my_action.IsAvailable(feedback = TRUE))
 		return FALSE
-	if(!my_suit.ninjacost(cost*burst_size))
+	if(!my_suit.ninjacost(cost * burst_amount))
 		my_action.use_action()
 		return TRUE
 	return FALSE

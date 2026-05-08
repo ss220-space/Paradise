@@ -23,9 +23,9 @@
 		summoner.ExtinguishMob()
 		summoner.adjust_fire_stacks(-20)
 
-/mob/living/simple_animal/hostile/guardian/fire/New()
+/mob/living/simple_animal/hostile/guardian/fire/Initialize(mapload)
 	. = ..()
-	src.AddSpell(new /obj/effect/proc_holder/spell/aoe/guardian_hallucination(summoner))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/guardian_hallucination(summoner))
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()
@@ -68,7 +68,7 @@
 	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
 	aoe_range = 10
 
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination/New(mob/living/summoned_by)
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination/Initialize(mapload, mob/living/summoned_by)
 	. = ..()
 	summoner = summoned_by
 

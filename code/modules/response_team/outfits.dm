@@ -74,7 +74,7 @@
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
+	belt = /obj/item/gun/projectile/automatic/pistol/sp8
 	hours_dif = 250
 	ranks = list(
 		"Min" = "Мастер-сержант",
@@ -106,7 +106,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
-	belt = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
+	belt = /obj/item/gun/projectile/automatic/pistol/sp8
 	hours_dif = 300
 	ranks = list(
 		"Min" = "Лейтенант",
@@ -176,7 +176,7 @@
 		"Max" = "Специалист",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 3,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
@@ -212,7 +212,7 @@
 		"Max" = "Старший специалист",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 3,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
@@ -289,7 +289,7 @@
 		"Max" = "Специалист",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
@@ -324,7 +324,7 @@
 		"Max" = "Старший специалист",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
@@ -402,12 +402,11 @@
 		"Max" = "Специалист",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator/advanced = 1,
 		/obj/item/storage/pill_bottle/patch_pack/filled = 1,
@@ -415,7 +414,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
-		/obj/item/organ/internal/cyberimp/arm/surgery,
+		/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 	)
 	implants = list(
@@ -442,10 +441,9 @@
 		"Max" = "Старший специалист",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/firstaid/ertm = 1,
-		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
@@ -454,8 +452,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/surgery/l,
-		/obj/item/organ/internal/cyberimp/arm/medibeam,
+		/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -519,7 +516,7 @@
 		"Max" = "Инквизитор",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
 	)
@@ -548,7 +545,7 @@
 		"Max" = "Инквизитор",
 	)
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
 	)
@@ -612,7 +609,7 @@
 	r_pocket = /obj/item/scythe/tele
 	mask = /obj/item/clothing/mask/gas/sechailer
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 	)
 	cybernetic_implants = list(
@@ -632,7 +629,7 @@
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/storage/box/lights/mixed = 1,

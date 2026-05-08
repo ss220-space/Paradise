@@ -2,13 +2,15 @@
 /obj/item/gun/projectile/automatic/pistol
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
+	icon = 'icons/obj/weapons/pistols.dmi'
+	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=3"
+	origin_tech = "combat=3;materials=2;syndicate=1"
 	can_holster = TRUE
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	burst_size = 1
+	burst_amount = 1
 	fire_delay = 0
 	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
 	recoil = GUN_RECOIL_LOW
@@ -17,10 +19,22 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
 	)
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
+	/// Magazine icon (if exists on pistol, null for disable this feature)
+	var/magazine_icon = "pistol_mag"
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[base_icon_state][chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/pistol/update_overlays()
+	. = ..()
+	if(!magazine_icon || !magazine)
+		return
+	. += mutable_appearance(initial(icon), magazine_icon, layer = FLOAT_LAYER - 0.01)
+
 
 // MARK: M1911
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -37,6 +51,7 @@
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
+	magazine_icon = "m1911_mag"
 
 // MARK: Enforcer
 
@@ -57,6 +72,7 @@
 	)
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
+	magazine_icon = "enforcer_mag"
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
 	return list(
@@ -72,12 +88,6 @@
 	. = ..()
 	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/automatic/pistol/enforcer)
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
@@ -85,7 +95,11 @@
 /obj/item/gun/projectile/automatic/pistol/sp8
 	name = "SP-8"
 	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон .40 S&W."
-	icon_state = "sp8_black"  // thanks split
+	greyscale_config = /datum/greyscale_config/sp8
+	greyscale_colors = COLOR_ALMOST_BLACK
+	icon_state = "/obj/item/gun/projectile/automatic/pistol/sp8"
+	base_icon_state = "sp8"
+	post_init_icon_state = "sp8" // thanks split
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
@@ -94,46 +108,16 @@
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 5),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 4),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -4),
 	)
+	magazine_icon = "sp8_mag"
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t
-	name = "SP-8-T"
-	icon_state = "sp8t_dust"
-	desc = "Новейшая разработка для сил защиты активов."
-	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins)
-
-/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
-	name = "SP-8-AR"
-	desc = "Пистолет сил защиты активов оснащённый ДТК."
-	icon_state = "sp8ar"
-	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = -2),
-	)
 
 // MARK: Desert Eagle
 /obj/item/gun/projectile/automatic/pistol/deagle
@@ -154,19 +138,11 @@
 	)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_HIGH
+	magazine_icon = "deagle_mag"
 
-/obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
-/obj/item/gun/projectile/automatic/pistol/deagle/gold
-	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
-	icon_state = "deagleg"
-	item_state = "deagleg"
-
-/obj/item/gun/projectile/automatic/pistol/deagle/camo
-	desc = "A Deagle brand Deagle for operators operating operationally. Uses .50 AE ammo."
-	icon_state = "deaglecamo"
-	item_state = "deagleg"
+/obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 // MARK: APS Pistol
 /obj/item/gun/projectile/automatic/pistol/APS
@@ -175,7 +151,7 @@
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	burst_size = 3
+	burst_amount = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
@@ -183,4 +159,5 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 5),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
 	)
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
+	magazine_icon = "aps_mag"

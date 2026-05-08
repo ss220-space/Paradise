@@ -7,6 +7,7 @@
 	item_color = "r"
 	implant_data = /datum/implant_fluff/storage
 	var/obj/item/storage/hidden/implant/storage
+	allow_multiple = TRUE
 
 /obj/item/implant/storage/Initialize(mapload)
 	. = ..()
@@ -22,6 +23,7 @@
 	else
 		for(var/mob/to_close in storage.mobs_viewing)
 			storage.close(to_close)
+	return ..()
 
 /obj/item/implant/storage/removed(mob/living/source)
 	. = ..()
@@ -36,13 +38,14 @@
 		storage.remove_from_storage(item, drop_location())
 
 /obj/item/implant/storage/implant(mob/living/source, mob/user, force = FALSE)
+	// We need to check for the same implant inside before we call parent which will implant it
+	var/obj/item/implant/storage/imp_e = locate(src.type) in source
 	. = ..()
 	if(!.)
-		return
+		return FALSE
 
-	var/obj/item/implant/storage/imp_e = locate(src.type) in source
 	if(!imp_e)
-		return
+		return TRUE
 
 	imp_e.storage.storage_slots += storage.storage_slots
 	imp_e.storage.max_combined_w_class += storage.max_combined_w_class

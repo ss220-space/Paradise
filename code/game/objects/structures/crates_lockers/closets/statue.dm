@@ -4,8 +4,10 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
 	anchored = TRUE
+	anchorable = FALSE
 	max_integrity = 100 //destroying the statue kills the mob within
 	no_overlays = TRUE
+	ignore_shoves = TRUE
 	var/intialTox = 0	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
 	var/intialBrute = 0
@@ -82,9 +84,6 @@
 
 /obj/structure/closet/statue/toggle()
 	return
-
-/obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
-	return FALSE
 
 /obj/structure/closet/statue/obj_destruction(damage_flag)
 	for(var/mob/M in src)

@@ -46,8 +46,8 @@
 		PREPOSITIONAL = "Разрушителе Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/Initialize(mapload)
+	. = ..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
 

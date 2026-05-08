@@ -133,8 +133,8 @@
 		C.equip(H)
 		affected_targets.Add(H)
 
-/obj/machinery/anomalous_crystal/honk/New()
-	..()
+/obj/machinery/anomalous_crystal/honk/Initialize(mapload)
+	. = ..()
 	activation_method = pick("mob_bump","speech")
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one

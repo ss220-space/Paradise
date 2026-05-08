@@ -186,7 +186,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in get_hearers_in_view(8, owner))
-		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
+		if(!HAS_TRAIT(L, TRAIT_DEAF) && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)

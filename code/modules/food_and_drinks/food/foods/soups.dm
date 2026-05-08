@@ -148,8 +148,8 @@
 	tastes = list("beet" = 1)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/soup/beetsoup/New()
-	..()
+/obj/item/reagent_containers/food/snacks/soup/beetsoup/Initialize(mapload)
+	. = ..()
 	name = pick("borsch","bortsch","borstch","borsh","borshch","borscht")
 
 /obj/item/reagent_containers/food/snacks/soup/rassolnik

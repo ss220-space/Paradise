@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - add: "Добавлены случайные раундстартовые события (PR #8292)"

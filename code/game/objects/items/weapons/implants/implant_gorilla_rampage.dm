@@ -18,6 +18,7 @@
 		span_italics("You hear angry gorilla noises."),
 	)
 	target.gorillize("Enraged", message = FALSE)
+	. = ..()
 
 /obj/item/implanter/gorilla_rampage
 	name = "bio-chip implanter (magillitis serum)"

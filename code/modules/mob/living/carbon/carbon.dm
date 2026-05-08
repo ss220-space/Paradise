@@ -562,7 +562,8 @@
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
-	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
+	if(client?.mouse_override_icon == THROW_MODE_ICON)
+		client.mouse_override_icon = null
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
 /mob/living/carbon/proc/throw_mode_on()
@@ -572,7 +573,8 @@
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
-	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
+	if(!client.mouse_override_icon)
+		client.mouse_override_icon = THROW_MODE_ICON
 		client.mouse_pointer_icon = THROW_MODE_ICON
 	// we nullify click cd when someone tries to throw a grabbed mob
 	// improves combat robustness a lot

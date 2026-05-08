@@ -193,9 +193,6 @@
 		PREPOSITIONAL = "капюшоне священника",
 	)
 
-/obj/item/clothing/head/hooded/chaplain_hood/armoured
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
-
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
 	flags_inv = parent_type::flags_inv|HIDENAME

@@ -20,7 +20,6 @@
 
 // MARK: Laser
 /obj/item/ammo_casing/laser
-	desc = "An experimental laser casing."
 	icon_state = "lasercasing"
 	materials = list(MAT_METAL = 1000)
 	caliber = CALIBER_LASER
@@ -28,10 +27,19 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
-	bullet_type = BULLET_TYPE_LASER
 
 // MARK: Glockroack
 /obj/item/ammo_casing/caseless/glockroach
 	name = "0.9mm bullet casing"
 	desc = "Это... 0.9mm гильза? Чего?"
 	projectile_type = /obj/projectile/glockroachbullet
+
+/obj/item/ammo_casing/caseless/glockroach/get_ru_names()
+	return list(
+		NOMINATIVE = "гильза 0,9 мм",
+		GENITIVE = "гильзы 0,9 мм",
+		DATIVE = "гильзе 0,9 мм",
+		ACCUSATIVE = "гильзу 0,9 мм",
+		INSTRUMENTAL = "гильзой 0,9 мм",
+		PREPOSITIONAL = "гильзе 0,9 мм",
+	)

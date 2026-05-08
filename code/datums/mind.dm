@@ -1275,7 +1275,7 @@
 			else
 				objectives.Insert(objective_pos[1], new_objective)
 		else
-			new_objective.on_add_objective(new_objective)
+			new_objective.on_add_objective(src)
 			objectives += new_objective
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")
@@ -2295,6 +2295,7 @@
 				ninja_datum.give_equip = FALSE
 				ninja_datum.give_objectives = FALSE
 				ninja_datum.generate_antags = FALSE
+				ninja_datum.change_species(current)
 				add_antag_datum(ninja_datum)
 				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
@@ -2519,7 +2520,7 @@
 	else if(href_list["obj_announce"])
 		var/list/messages = prepare_announce_objectives()
 		to_chat(current, chat_box_red(messages.Join("<br>")))
-		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
+		SEND_SOUND(current, sound('sound/ambience/misc/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 

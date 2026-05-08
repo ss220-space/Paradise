@@ -249,6 +249,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		"1012" = 50, // CHANNEL_RADIO_NOISE
 		"1011" = 100, // CHANNEL_BOSS_MUSIC
 		"1010" = 100, // CHANNEL_INTERACTION_SOUNDS
+		"1009" = 40, // CHANNEL_ANNOUNCER
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -1944,6 +1945,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 								continue
 							if(!M.pickable)
 								continue
+							if(M.wizard_only)
+								continue
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на теле", "Отметки на теле", valid_markings)
@@ -2025,6 +2028,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
+							continue
+						if(SA.wizard_only)
 							continue
 						if(gender == SA.unsuitable_gender)
 							continue

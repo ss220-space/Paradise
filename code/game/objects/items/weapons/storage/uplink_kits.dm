@@ -611,7 +611,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/dangertray
 	name = "danger tray pack"
 	desc = "Коробка, содержащая 3 острых металлических подноса."
-	can_hold = list(/obj/item/storage/bag/dangertray)
+	can_hold = list(/obj/item/storage/bag/tray/danger)
 	max_combined_w_class = 3
 	max_w_class = WEIGHT_CLASS_NORMAL
 
@@ -627,7 +627,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/dangertray/populate_contents()
 	for(var/I in 1 to 3)
-		new /obj/item/storage/bag/dangertray(src)
+		new /obj/item/storage/bag/tray/danger(src)
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
 	name = "Mr. Chang's aggressive marketing technique"
@@ -887,28 +887,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/desert_eagle/populate_contents()
 	new	/obj/item/gun/projectile/automatic/pistol/deagle(src)
-	new /obj/item/ammo_box/magazine/m50(src)
-	new /obj/item/ammo_box/magazine/m50(src)
-	new /obj/item/ammo_box/magazine/m50(src)
-	new /obj/item/ammo_box/m50(src)
-	new /obj/item/ammo_box/m50(src)
-
-/obj/item/storage/box/syndie_kit/desert_eagle_gold
-	name = "golden desert eagle kit"
-	desc = "Коробка, содержащая золотой \"Пустынный Орёл\", три дополнительных магазина, и две коробки с патронами калибра .50AE."
-
-/obj/item/storage/box/syndie_kit/desert_eagle_gold/get_ru_names()
-	return list(
-		NOMINATIVE = "набор \"золотой Пустынный Орёл\"",
-		GENITIVE = "набора \"золотой Пустынный Орёл\"",
-		DATIVE = "набору \"золотой Пустынный Орёл\"",
-		ACCUSATIVE = "набор \"золотой Пустынный Орёл\"",
-		INSTRUMENTAL = "набором \"золотой Пустынный Орёл\"",
-		PREPOSITIONAL = "наборе \"золотой Пустынный Орёл\"",
-	)
-
-/obj/item/storage/box/syndie_kit/desert_eagle_gold/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol/deagle/gold(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/magazine/m50(src)

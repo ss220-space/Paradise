@@ -35,7 +35,7 @@
 	. += span_notice("Текущий заряд: [charge].")
 	. += span_notice("Текущая сила: [get_strength()].")
 
-/obj/item/assembly/signaler/core/New(spawnloc, charge)
+/obj/item/assembly/signaler/core/Initialize(mapload, charge)
 	. = ..()
 	if(!charge)
 		charge = iscoreempty(src) ? 0 : rand(51, 60)
