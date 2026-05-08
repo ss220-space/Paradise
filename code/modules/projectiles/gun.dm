@@ -287,7 +287,7 @@
 
 
 /obj/item/gun/equipped(mob/user, slot)
-	if(!slot & ITEM_SLOT_HANDS)
+	if(!(slot & ITEM_SLOT_HANDS))
 		set_gun_user(null)
 		reset_direction()
 		return ..()
