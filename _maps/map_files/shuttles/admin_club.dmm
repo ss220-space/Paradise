@@ -153,7 +153,7 @@
 	},
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
 	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
+	name = "NTV Parnassus shuttle navigation computer"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -726,7 +726,7 @@
 "TC" = (
 /obj/machinery/computer/shuttle/admin{
 	dir = 1;
-	name = "NTV Argos shuttle console"
+	name = "NTV Parnassus shuttle console"
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;

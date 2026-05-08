@@ -231,7 +231,7 @@
 	},
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
 	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
+	name = "NHS Asclepius shuttle navigation computer"
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/administration)
@@ -865,7 +865,7 @@
 	icon_state = "gs_deadlock"
 	},
 /obj/machinery/computer/shuttle/admin{
-	name = "NHV Asclepius shuttle console"
+	name = "NHS Asclepius shuttle console"
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/administration)
