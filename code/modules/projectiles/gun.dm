@@ -247,7 +247,7 @@
 	var/image/overlay = module.create_overlay()
 	if(!overlay)
 		return
-	if(overlay && attachable_offset)
+	if(attachable_offset)
 		apply_attachment_offset(module.slot, overlay, module)
 	attachment_overlays[module.slot] = overlay
 	update_icon(UPDATE_OVERLAYS)
