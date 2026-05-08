@@ -37,7 +37,7 @@
 	///Timer for tracking the spindown reset timings
 	var/timerid
 
-/datum/component/automatedfire/autofire/Initialize(_auto_fire_shot_delay = 0.3 SECONDS, _auto_burst_fire_shot_delay, _burstfire_shot_delay, _burst_shots_to_fire = 3, _fire_mode = GUN_FIREMODE_SEMIAUTO, datum/callback/_callback_bursting, datum/callback/_callback_reset_fire, datum/callback/_callback_fire, windup_autofire, windup_autofire_reduction_multiplier, windup_autofire_cap, windup_spindown)
+/datum/component/automatedfire/autofire/Initialize(auto_fire_shot_delay = 0.3 SECONDS, auto_burst_fire_shot_delay, burstfire_shot_delay, burst_shots_to_fire = 3, fire_mode = GUN_FIREMODE_SEMIAUTO, datum/callback/callback_bursting, datum/callback/callback_reset_fire, datum/callback/callback_fire, windup_autofire, windup_autofire_reduction_multiplier, windup_autofire_cap, windup_spindown)
 	. = ..()
 
 	RegisterSignal(parent, COMSIG_GUN_TOGGLE_FIREMODE, PROC_REF(modify_fire_mode))
@@ -48,14 +48,14 @@
 	RegisterSignal(parent, COMSIG_GUN_FIRE, PROC_REF(initiate_shot))
 	RegisterSignal(parent, COMSIG_GUN_STOP_FIRE, PROC_REF(stop_firing))
 
-	auto_fire_shot_delay = _auto_fire_shot_delay
-	burstfire_shot_delay = _burstfire_shot_delay
-	burst_shots_to_fire = _burst_shots_to_fire
-	auto_burst_fire_shot_delay = _auto_burst_fire_shot_delay
-	fire_mode = _fire_mode
-	callback_bursting = _callback_bursting
-	callback_reset_fire = _callback_reset_fire
-	callback_fire = _callback_fire
+	src.auto_fire_shot_delay = auto_fire_shot_delay
+	src.burstfire_shot_delay = burstfire_shot_delay
+	src.burst_shots_to_fire = burst_shots_to_fire
+	src.auto_burst_fire_shot_delay = auto_burst_fire_shot_delay
+	src.fire_mode = fire_mode
+	src.callback_bursting = callback_bursting
+	src.callback_reset_fire = callback_reset_fire
+	src.callback_fire = callback_fire
 
 	if(!windup_autofire)
 		return

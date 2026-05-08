@@ -287,19 +287,29 @@
 
 
 /obj/item/gun/equipped(mob/user, slot)
-	if(slot & ITEM_SLOT_HANDS)
-		//Exclude lasertag guns from the CLUMSY check.
-		if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-			to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE)]!"))
-			var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-			fast_fire(user, user, zone_override = shot_leg)
-			user.drop_from_active_hand()
-			return
-		set_gun_user(user)
-	else
+	if(!slot & ITEM_SLOT_HANDS)
 		set_gun_user(null)
+		reset_direction()
+		return ..()
+	//Exclude lasertag guns from the CLUMSY check.
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE)]!"))
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		fast_fire(user, user, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
+	set_gun_user(user)
 	reset_direction()
 	return ..()
+
+
+/obj/item/gun/proc/clumsy_check(mob/user)
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE)]!"))
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		fast_fire(user, user, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
 
 /obj/item/gun/dropped(mob/user, slot, silent)
 	. = ..()
@@ -335,13 +345,6 @@
 /obj/item/gun/proc/clean_gun_user()
 	SIGNAL_HANDLER
 	set_gun_user(null)
-
-//----------------------------------------------------------
-			//							    \\
-			// AFTER ATTACK AND CHAMBERING  \\
-			//							    \\
-			//						   	    \\
-//----------------------------------------------------------
 ///Check if the gun can fire and add it to bucket auto_fire system if needed, or just fire the gun if not
 /obj/item/gun/proc/start_fire(datum/source, atom/object, turf/location, control, params, bypass_checks = FALSE)
 	SIGNAL_HANDLER
@@ -360,8 +363,10 @@
 
 	if(gun_on_cooldown(user))
 		return
+
 	if(!can_trigger_gun(user))
 		return
+
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
 		return
@@ -420,7 +425,7 @@
 	if(!istype(target, /atom/movable/screen/click_catcher))
 		return null
 	var/loctoget = user.client?.eye ? user.client.eye : user
-	return params2turf(modifiers[SCREEN_LOC], get_turf(loctoget), user.client)
+	return parse_caught_click_modifiers(modifiers, get_turf(loctoget), user.client)
 
 ///Set the target and take care of hard delete
 /obj/item/gun/proc/set_target(atom/object)
@@ -1042,7 +1047,7 @@
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		toggle_firemode()
 		return TRUE
-	. = ..()
+	return ..()
 
 /obj/item/gun/proc/toggle_firemode(new_firemode)
 	if(HAS_TRAIT(src, TRAIT_GUN_BURST_FIRING))//can't toggle mid burst

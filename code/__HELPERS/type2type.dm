@@ -671,17 +671,3 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH, NORTHEAST, EAST, SOUTHEAST, SO
 			return list(-1, -1)
 		else
 			return list(0, 0)
-
-/proc/params2turf(scr_loc, turf/origin, client/client)
-	if(!scr_loc || !origin)
-		return
-	var/tX = splittext(scr_loc, ",")
-	var/tY = splittext(tX[2], ":")
-	var/tZ = origin.z
-	tY = tY[1]
-	tX = splittext(tX[1], ":")
-	tX = tX[1]
-	var/list/actual_view = getviewsize(client ? client.view : world.view)
-	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] * 0.5) + (round(client?.pixel_x / 32)) - 1, 1, world.maxx)
-	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] * 0.5) + (round(client?.pixel_y / 32)) - 1, 1, world.maxy)
-	return locate(tX, tY, tZ)
