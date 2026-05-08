@@ -19,6 +19,40 @@
 		yourself.
 */
 
+//All objective types.
+#define OBJ_TYPE_ASSASSINATE "assassinate"
+#define OBJ_TYPE_SUPERMATTER_CASCADE "supermatter cascade"
+#define OBJ_TYPE_PREVENT_FROM_ESCAPE "prevent from escape"
+#define OBJ_TYPE_PAIN_HUNTER "pain hunter"
+#define OBJ_TYPE_STEAL_BRAIN "steal brain"
+#define OBJ_TYPE_PROTECT "protect"
+#define OBJ_TYPE_ESCAPE "escape"
+#define OBJ_TYPE_SURVIVE "survive"
+#define OBJ_TYPE_DIE "die"
+#define OBJ_TYPE_STEAL "steal"
+#define OBJ_TYPE_THIEF_HARD "thief hard"
+#define OBJ_TYPE_THIEF_MEDIUM "thief medium"
+#define OBJ_TYPE_THIEF_COLLECT "thief collect"
+#define OBJ_TYPE_THIEF_PET "thief pet"
+#define OBJ_TYPE_THIEF_STRUCTURE "thief structure"
+#define OBJ_TYPE_DOWNLOAD "download"
+#define OBJ_TYPE_NUCLEAR "nuclear"
+#define OBJ_TYPE_CAPTURE "capture"
+#define OBJ_TYPE_BLOOD "blood"
+#define OBJ_TYPE_ABSORB "absorb"
+#define OBJ_TYPE_DESTROY "destroy"
+#define OBJ_TYPE_IDENTITY_THEFT "identity theft"
+#define OBJ_TYPE_HIJACK "hijack"
+#define OBJ_TYPE_KILL_ALL_HUMANS "kill all humans"
+#define OBJ_TYPE_GET_MONEY "get money"
+#define OBJ_TYPE_FIND_AND_SCAN "find and scan"
+#define OBJ_TYPE_SET_UP "set up"
+#define OBJ_TYPE_RESEARCH_CORRUPT "research corrupt"
+#define OBJ_TYPE_AI_CORRUPT "ai corrupt"
+#define OBJ_TYPE_PLANT_EXPLOSIVE "plant explosive"
+#define OBJ_TYPE_CYBORG_HIJACK "cyborg hijack"
+#define OBJ_TYPE_CUSTOM "custom"
+
 /datum/mind
 	var/key
 	/// Replaces mob/var/original_name
@@ -883,41 +917,41 @@
 
 			switch(def_value)
 				if("maroon")
-					def_value = "prevent from escape"
+					def_value = OBJ_TYPE_PREVENT_FROM_ESCAPE
 				if("pain_hunter")
-					def_value = "pain hunter"
+					def_value = OBJ_TYPE_PAIN_HUNTER
 				if("debrain")
-					def_value = "steal brain"
+					def_value = OBJ_TYPE_STEAL_BRAIN
 				if("steal/hard")
-					def_value = "thief hard"
+					def_value = OBJ_TYPE_THIEF_HARD
 				if("steal/medium")
-					def_value = "thief medium"
+					def_value = OBJ_TYPE_THIEF_MEDIUM
 				if("collect")
-					def_value = "thief collect"
+					def_value = OBJ_TYPE_THIEF_COLLECT
 				if("steal_pet")
-					def_value = "thief pet"
+					def_value = OBJ_TYPE_THIEF_PET
 				if("steal_structure")
-					def_value = "thief structure"
+					def_value = OBJ_TYPE_THIEF_STRUCTURE
 				if("escape_with_identity")
-					def_value = "identity theft"
+					def_value = OBJ_TYPE_IDENTITY_THEFT
 				if("block")
-					def_value = "kill all humans"
+					def_value = OBJ_TYPE_KILL_ALL_HUMANS
 				if("get_money")
-					def_value = "get money"
+					def_value = OBJ_TYPE_GET_MONEY
 				if("find_and_scan")
-					def_value = "find and scan"
+					def_value = OBJ_TYPE_FIND_AND_SCAN
 				if("set_up")
-					def_value = "set up"
+					def_value = OBJ_TYPE_SET_UP
 				if("research_corrupt")
-					def_value = "research corrupt"
+					def_value = OBJ_TYPE_RESEARCH_CORRUPT
 				if("ai_corrupt")
-					def_value = "ai corrupt"
+					def_value = OBJ_TYPE_AI_CORRUPT
 				if("plant_explosive")
-					def_value = "plant explosive"
+					def_value = OBJ_TYPE_PLANT_EXPLOSIVE
 				if("cyborg_hijack")
-					def_value = "cyborg hijack"
+					def_value = OBJ_TYPE_CYBORG_HIJACK
 				if("supermatter_cascade")
-					def_value = "supermatter cascade"
+					def_value = OBJ_TYPE_SUPERMATTER_CASCADE
 
 		var/list/objective_types = list(
 			OBJ_TYPE_ASSASSINATE, OBJ_TYPE_SUPERMATTER_CASCADE, OBJ_TYPE_PREVENT_FROM_ESCAPE, OBJ_TYPE_PAIN_HUNTER, OBJ_TYPE_STEAL_BRAIN, OBJ_TYPE_PROTECT, OBJ_TYPE_ESCAPE, OBJ_TYPE_SURVIVE,
@@ -3133,3 +3167,35 @@
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
+#undef OBJ_TYPE_ASSASSINATE
+#undef OBJ_TYPE_SUPERMATTER_CASCADE
+#undef OBJ_TYPE_PREVENT_FROM_ESCAPE
+#undef OBJ_TYPE_PAIN_HUNTER
+#undef OBJ_TYPE_STEAL_BRAIN
+#undef OBJ_TYPE_PROTECT
+#undef OBJ_TYPE_ESCAPE
+#undef OBJ_TYPE_SURVIVE
+#undef OBJ_TYPE_DIE
+#undef OBJ_TYPE_STEAL
+#undef OBJ_TYPE_THIEF_HARD
+#undef OBJ_TYPE_THIEF_MEDIUM
+#undef OBJ_TYPE_THIEF_COLLECT
+#undef OBJ_TYPE_THIEF_PET
+#undef OBJ_TYPE_THIEF_STRUCTURE
+#undef OBJ_TYPE_DOWNLOAD
+#undef OBJ_TYPE_NUCLEAR
+#undef OBJ_TYPE_CAPTURE
+#undef OBJ_TYPE_BLOOD
+#undef OBJ_TYPE_ABSORB
+#undef OBJ_TYPE_DESTROY
+#undef OBJ_TYPE_IDENTITY_THEFT
+#undef OBJ_TYPE_HIJACK
+#undef OBJ_TYPE_KILL_ALL_HUMANS
+#undef OBJ_TYPE_GET_MONEY
+#undef OBJ_TYPE_FIND_AND_SCAN
+#undef OBJ_TYPE_SET_UP
+#undef OBJ_TYPE_RESEARCH_CORRUPT
+#undef OBJ_TYPE_AI_CORRUPT
+#undef OBJ_TYPE_PLANT_EXPLOSIVE
+#undef OBJ_TYPE_CYBORG_HIJACK
+#undef OBJ_TYPE_CUSTOM
