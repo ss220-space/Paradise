@@ -203,7 +203,7 @@ jobs:
        github.event.comment.author_association == 'OWNER')
 
     needs: [build-linux, build-windows]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Extract PR info
