@@ -31,8 +31,8 @@
 /obj/item/taperecorder/empty
 	starts_with_tape = FALSE
 
-/obj/item/taperecorder/New()
-	..()
+/obj/item/taperecorder/Initialize(mapload)
+	. = ..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
 		update_icon(UPDATE_ICON_STATE)
@@ -374,8 +374,8 @@
 	var/list/timestamp = list()
 	var/ruined = FALSE
 
-/obj/item/tape/random/New()
-	..()
+/obj/item/tape/random/Initialize(mapload)
+	. = ..()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"
 
 /obj/item/tape/examine(mob/user)

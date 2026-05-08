@@ -17,11 +17,10 @@
 	icon_state = "good_contract"
 	signed = TRUE
 
-/obj/item/paper/contract/employment/New(atom/loc, mob/living/nOwner)
+/obj/item/paper/contract/employment/Initialize(mapload, mob/living/nOwner)
 	. = ..()
 	if(!nOwner || !nOwner.mind)
-		qdel(src)
-		return -1
+		return INITIALIZE_HINT_QDEL
 	target = nOwner.mind
 	update_text()
 	GLOB.employmentContracts |= src

@@ -122,7 +122,7 @@
 	GLOB.major_announcement.announce(
 		message = "Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
 		new_title = "Отчёт об объекте [station_name()].",
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /datum/team/xenomorph/proc/evolve_start(area/loc)

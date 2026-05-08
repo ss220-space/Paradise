@@ -577,10 +577,9 @@
 /obj/singularity/bfl_red/singularity_act()
 	return 0
 
-/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
-	starting_energy = 250
+/obj/singularity/bfl_red/Initialize(mapload)
 	lavaland_z_lvl = level_name_to_num(MINING)
-	. = ..(loc, starting_energy, temp)
+	. = ..(mapload, 250)
 
 /obj/effect/bfl_laser
 	name = "big laser beam"

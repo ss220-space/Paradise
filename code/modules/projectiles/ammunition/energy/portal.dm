@@ -19,8 +19,8 @@
 	select_name = "teleport beam"
 	var/teleport_target
 
-/obj/item/ammo_casing/energy/teleport/New()
-	..()
+/obj/item/ammo_casing/energy/teleport/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/teleport/newshot()

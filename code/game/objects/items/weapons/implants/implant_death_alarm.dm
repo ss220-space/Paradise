@@ -13,7 +13,8 @@
 	if(.)
 		mobname = source.real_name
 
-/obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
+// Death signal sends name followed by the gibbed/not gibbed check
+/obj/item/implant/death_alarm/activate(cause)
 	var/area/mob_area = get_area(imp_in)
 
 	var/message
@@ -34,6 +35,8 @@
 				message = "Потерян сигнал жизнедеятельности от [mobname] в [mob_area.name]!"
 			destroy = TRUE
 	radio_announce(message, "Оповещение о смерти [mobname]", PUB_FREQ, follow_target_override = imp_in)
+
+	. = ..()
 
 	if(!destroy)
 		return

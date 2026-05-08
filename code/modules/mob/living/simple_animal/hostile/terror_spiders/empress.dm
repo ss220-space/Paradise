@@ -40,8 +40,8 @@
 		PREPOSITIONAL = "Императрице Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/Initialize(mapload)
+	. = ..()
 	grant_actions()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/grant_actions()

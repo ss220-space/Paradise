@@ -27,11 +27,6 @@
 	else
 		clear_fullscreen("nearsighted")
 
-/mob/living/carbon/human/can_hear()
-	if(dna?.species)
-		return dna.species.can_hear(src)
-	return ..() // Fallback if we don't have a species or DNA
-
 /mob/living/carbon/human/has_vision(information_only = FALSE)
 	if(dna?.species)
 		return dna.species.has_vision(src, information_only)

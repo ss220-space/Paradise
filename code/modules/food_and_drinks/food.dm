@@ -49,7 +49,7 @@
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 

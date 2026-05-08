@@ -198,7 +198,7 @@
 		PREPOSITIONAL = "большой вихревой аномалии",
 	)
 
-/obj/effect/anomaly/vortex/tier3/New()
+/obj/effect/anomaly/vortex/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -239,9 +239,9 @@
 		PREPOSITIONAL = "колоссальной вихревой аномалии",
 	)
 
-/obj/effect/anomaly/vortex/tier4/New()
+/obj/effect/anomaly/vortex/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
-
+	
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.stat)
 			continue

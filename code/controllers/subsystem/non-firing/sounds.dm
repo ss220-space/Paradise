@@ -30,10 +30,72 @@ SUBSYSTEM_DEF(sounds)
 	/// All valid sound files in the sound directory
 	var/list/all_sounds
 
+	/* Sound caching */
+	/// k:v list of file_path : length
+	VAR_PRIVATE/list/sound_lengths
+	/// A list of sounds to cache upon initialize.
+	VAR_PRIVATE/list/sounds_to_precache = list()
+	/// Any errors from precaching.
+	VAR_PRIVATE/list/precache_errors = list()
+
+	// Comments from https://github.com/DaedalusDock/daedalusdock We love Francinum.
+	/// A list of sound formats that work in byond. Indexed for direct accesing rather then loop itteration or usage of `in`
+	var/static/list/byond_sound_formats = list(
+		"mid" = TRUE, //Midi, 8.3 File Name
+		"midi" = TRUE, //Midi, Long File Name
+		"mod" = TRUE, //Module, Original Amiga Tracker format
+		"it" = TRUE, //Impulse Tracker Module format
+		"s3m" = TRUE, //ScreamTracker 3 Module
+		"xm" = TRUE, //FastTracker 2 Module
+		"oxm" = TRUE, //FastTracker 2 (Vorbis Compressed Samples)
+		"wav" = TRUE, //Waveform Audio File Format, A (R)IFF-class format, and Microsoft's choice in the 80s sound format pissing match.
+		"ogg" = TRUE, //OGG Audio Container, Usually contains Vorbis-compressed Audio
+		//"raw" = TRUE, //On the tin, byond purports to support raw, uncompressed PCM Audio. I actually have no fucking idea how FMOD actually handles these.
+		//since they completely lack all information. As a confusion based anti-footgun, I'm just going to wire this to FALSE for now. It's here though.
+		"wma" = TRUE, //Windows Media Audio container
+		"aiff" = TRUE, //Audio Interchange File Format, Apple's side of the 80s sound format pissing match. It's also (R)IFF in a trenchcoat.
+		"mp3" = TRUE //MPeg Layer 3 Container (And usually, Codec.)
+	)
+
+	/// File types we can sniff the duration from using rustg.
+	var/static/list/safe_formats = list(
+		"ogg" = TRUE,
+		"mp3" = TRUE
+	)
+
+	// Currently set to private as I would prefer you use byond_sound_formats but you can unprivate it if you have a valid use!
+	// Put more common extensions first to speed this up a bit (So only ogg and mp3 lol.)
+	/// Similar to byond_sound_formats, a list of sound formats that work in byond.
+	VAR_PRIVATE/static/list/byond_sound_extensions = list(
+		".ogg",
+		".mp3",
+		".mid",
+		".midi",
+		".mod",
+		".it",
+		".s3m",
+		".xm",
+		".oxm",
+		".wav",
+		//".raw", See byond_sound_formats
+		".wma",
+		".aiff"
+	)
+
 /datum/controller/subsystem/sounds/Initialize()
 	setup_available_channels()
 	find_all_available_sounds()
 	init_sound_keys()
+
+	if(!(RUSTLIB))
+		to_chat(world, span_boldnotice("Sounds subsystem: No rustlib detected."))
+		return ..()
+
+	// Precache ambience sounds
+	for(var/key, value in GLOB.ambience_assoc)
+		sounds_to_precache |= value
+
+	precache_sounds()
 
 	return SS_INIT_SUCCESS
 
@@ -50,44 +112,28 @@ SUBSYSTEM_DEF(sounds)
 
 /datum/controller/subsystem/sounds/proc/find_all_available_sounds()
 	all_sounds = list()
-	// Put more common extensions first to speed this up a bit
-	var/static/list/valid_file_extensions = list(
-		".ogg",
-		".wav",
-		".mid",
-		".midi",
-		".mod",
-		".it",
-		".s3m",
-		".xm",
-		".oxm",
-		".raw",
-		".wma",
-		".aiff",
-	)
-
-	all_sounds = pathwalk("sound/", valid_file_extensions)
+	all_sounds = pathwalk("sound/", byond_sound_extensions)
 
 /// Removes a channel from using list.
 /datum/controller/subsystem/sounds/proc/free_sound_channel(channel)
 	var/text_channel = num2text(channel)
 	var/using = using_channels[text_channel]
 	using_channels -= text_channel
-	if(!istrue(using)) // datum channel
+	if(!using) // datum channel
 		using_channels_by_datum[using] -= channel
 		if(!length(using_channels_by_datum[using]))
 			using_channels_by_datum -= using
 	free_channel(channel)
 
 /// Frees all the channels a datum is using.
-/datum/controller/subsystem/sounds/proc/free_datum_channels(datum/D)
-	var/list/L = using_channels_by_datum[D]
-	if(!L)
+/datum/controller/subsystem/sounds/proc/free_datum_channels(datum/channel)
+	var/list/channel_list = using_channels_by_datum[channel]
+	if(!channel_list)
 		return
-	for(var/channel in L)
-		using_channels -= num2text(channel)
-		free_channel(channel)
-	using_channels_by_datum -= D
+	for(var/channel_from_list in channel_list)
+		using_channels -= num2text(channel_from_list)
+		free_channel(channel_from_list)
+	using_channels_by_datum -= channel
 
 /// Frees all datumless channels.
 /datum/controller/subsystem/sounds/proc/free_datumless_channels()
@@ -104,16 +150,16 @@ SUBSYSTEM_DEF(sounds)
 	using_channels_by_datum[DATUMLESS] += .
 
 /// Reserves a channel for a datum. Automatic cleanup only when the datum is deleted. Returns an integer for channel.
-/datum/controller/subsystem/sounds/proc/reserve_sound_channel(datum/D)
-	if(!D) //i don't like typechecks but someone will fuck it up
+/datum/controller/subsystem/sounds/proc/reserve_sound_channel(datum/channel)
+	if(!channel) //i don't like typechecks but someone will fuck it up
 		CRASH("Attempted to reserve sound channel without datum using the managed proc.")
 	. = reserve_channel()
 	if(!.)
 		CRASH("No more sound channels can be reserved.")
 	var/text_channel = num2text(.)
-	using_channels[text_channel] = D
-	LAZYINITLIST(using_channels_by_datum[D])
-	using_channels_by_datum[D] += .
+	using_channels[text_channel] = channel
+	LAZYINITLIST(using_channels_by_datum[channel])
+	using_channels_by_datum[channel] += .
 
 /// Reserves a channel and updates the datastructure. Private proc.
 /datum/controller/subsystem/sounds/proc/reserve_channel()
@@ -158,6 +204,55 @@ SUBSYSTEM_DEF(sounds)
 /// How many channels we have left.
 /datum/controller/subsystem/sounds/proc/available_channels_left()
 	return length(channel_list) - random_channels_min
+
+/datum/controller/subsystem/sounds/proc/precache_sounds()
+	if(!length(sounds_to_precache))
+		return
+
+	var/list/lengths = rustlib_sound_length_list(sounds_to_precache)
+	precache_errors = lengths[RUSTG_SOUNDLEN_ERRORS]
+	sound_lengths = lengths[RUSTG_SOUNDLEN_SUCCESSES]
+	for(var/sound_path, value in sound_lengths)
+		sound_lengths[sound_path] = value
+
+	sounds_to_precache = null
+
+/// Cache a list of sound lengths.
+/datum/controller/subsystem/sounds/proc/cache_sounds(list/paths)
+	var/list/reconstructed = list()
+	reconstructed.len = length(paths)
+
+	for(var/i in 1 to length(paths))
+		reconstructed[i] = "[paths[i]]"
+
+	var/list/out = rustlib_sound_length_list(paths)
+	var/list/successes = out[RUSTG_SOUNDLEN_SUCCESSES]
+	for(var/sound_path, value in successes)
+		sound_lengths[sound_path] = value
+
+/// Cache and return a single sound.
+/datum/controller/subsystem/sounds/proc/get_sound_length(file_path)
+	. = 0
+	if(!istext(file_path))
+		if(!isfile(file_path))
+			CRASH("rustlib_sound_length error: Passed non-text object")
+
+		if(length("[file_path]")) // Runtime generated RSC references stringify into 0-length strings.
+			file_path = "[file_path]"
+		else
+			CRASH("rustlib_sound_length does not support non-static file refs.")
+
+	var/cached_length = sound_lengths[file_path]
+	if(!isnull(cached_length))
+		return cached_length
+
+	var/ret = RUSTLIB_CALL(sound_len, file_path)
+	if(isnull(ret))
+		. = 0
+		CRASH("rustlib_sound_length error: [ret]")
+
+	sound_lengths[file_path] = ret
+	return ret
 
 /datum/controller/subsystem/sounds/proc/init_sound_keys()
 	for(var/datum/sound_effect/sfx as anything in subtypesof(/datum/sound_effect))

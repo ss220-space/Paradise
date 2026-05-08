@@ -130,7 +130,7 @@
 		PREPOSITIONAL = "большой гравитационной аномалии",
 	)
 
-/obj/effect/anomaly/gravitational/tier3/New()
+/obj/effect/anomaly/gravitational/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -178,9 +178,9 @@
 		PREPOSITIONAL = "колоссальной гравитационной аномалии",
 	)
 
-/obj/effect/anomaly/gravitational/tier4/New()
+/obj/effect/anomaly/gravitational/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
-
+	
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.stat)
 			continue

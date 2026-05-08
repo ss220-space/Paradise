@@ -59,7 +59,7 @@
 /mob/living/proc/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_GODMODE))	//godmode
+	if(HAS_TRAIT(src, TRAIT_GODMODE)) //godmode
 		return FALSE
 	shock_damage *= siemens_coeff
 	if(!(flags & SHOCK_IGNORE_IMMUNITY))
@@ -72,6 +72,9 @@
 	var/is_atom_source = istype(source)
 	if(!(flags & SHOCK_ILLUSION))
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
+		if(getFireLoss() > 100)
+			add_shared_particles(/particles/smoke/burning)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, remove_shared_particles), /particles/smoke/burning), 10 SECONDS)
 		if(shock_damage > 200)
 			visible_message(
 				span_danger("[capitalize(is_atom_source? source.declent_ru(NOMINATIVE) : "[source]")] поразил электрической дугой [declent_ru(ACCUSATIVE)]!"),

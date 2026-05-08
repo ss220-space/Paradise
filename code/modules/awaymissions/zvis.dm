@@ -12,12 +12,9 @@
 	var/offset_z
 	var/global/list/levels[0]
 
-/obj/effect/levelref/New()
-	..()
-	levels += src
-
 /obj/effect/levelref/Initialize(mapload)
 	. = ..()
+	levels += src
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
 			other = O
