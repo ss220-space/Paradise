@@ -354,7 +354,7 @@
 	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
 	holder = null
 
-/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/plasma_pistol/process_fire(zone_override, secondary_fire = FALSE)
 	if(charging)
 		return
 	return ..()
@@ -433,10 +433,10 @@
 /obj/item/gun/energy/chrono_gun/update_overlays()
 	return list()
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/chrono_gun/process_fire(zone_override, secondary_fire = FALSE)
 	if(field)
 		field_disconnect(field)
-	..()
+	return ..()
 
 /obj/item/gun/energy/chrono_gun/Destroy()
 	if(TED)
@@ -497,7 +497,7 @@
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)
 	can_charge = FALSE
-	burst_size = 3
+	burst_amount = 3
 	var/cost = 100
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
@@ -527,7 +527,7 @@
 	qdel(src)
 
 /obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
-	return !my_suit.ninjacost(cost*burst_size)
+	return !my_suit.ninjacost(cost * burst_amount)
 
 /obj/item/gun/energy/shuriken_emitter/borg
 	name = "robotic shuriken emitter"
@@ -552,7 +552,7 @@
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	burst_size = 2 // burst has to be stored here
+	burst_amount = 2 // burst has to be stored here
 	can_charge = FALSE
 	selfcharge = TRUE
 	charge_delay = 10

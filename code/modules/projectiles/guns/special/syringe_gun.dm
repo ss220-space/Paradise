@@ -101,9 +101,10 @@
 	item_state = "blowgun"
 	fire_sound = 'sound/items/blowgunproj.ogg'
 
-/obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/syringe/blowgun/process_fire(zone_override, secondary_fire = FALSE)
+	var/mob/living/user = gun_user
 	visible_message(span_danger("[user] starts aiming with a blowgun!"))
 	if(do_after(user, 1.5 SECONDS, src))
 		user.apply_damages(oxy = 20, stamina = 20)
-		..()
+		return ..()
 
