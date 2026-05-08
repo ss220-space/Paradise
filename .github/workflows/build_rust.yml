@@ -125,9 +125,7 @@ jobs:
     steps:
       - name: Install jq
         run: choco install jq -y
-
       - run: echo "FAIL_NOTIFIED=false" >> "$env:GITHUB_ENV"
-
       - name: Like the comment
         env:
           BASE_REPOSITORY: ${{ github.repository }}
