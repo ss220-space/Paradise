@@ -176,8 +176,7 @@
 	damage_mod = 0.5
 	mag_type = /obj/item/ammo_box/magazine/m10mm
 	accuracy = new /datum/gun_accuracy/pistol/uplink/automatic()
-	burst_size = 4
-	autofire_delay = 0.15 SECONDS
+	burst_amount = 4
 	fire_delay = 0.15 SECONDS
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 15, ATTACHMENT_OFFSET_Y = 3),
