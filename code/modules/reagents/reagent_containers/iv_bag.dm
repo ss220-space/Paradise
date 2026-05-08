@@ -65,7 +65,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		add_attack_logs(injection_target, injection_target, "injection of [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"])  stopped.")
 	injection_target = null
 	injection_limb = null

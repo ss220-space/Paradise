@@ -9,8 +9,7 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 1
-	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
+	can_suppress = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -18,26 +17,7 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 12, ATTACHMENT_OFFSET_Y = 7),
 	)
 	recoil = GUN_RECOIL_MEDIUM
-
-/obj/item/gun/projectile/automatic/m90/Initialize(mapload)
-	. = ..()
-	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
-	update_icon()
-
-/obj/item/gun/projectile/automatic/m90/Destroy()
-	QDEL_NULL(underbarrel)
-	return ..()
-
-/obj/item/gun/projectile/automatic/m90/attackby(obj/item/I, mob/user, params)
-	if(istype(I, underbarrel.magazine.ammo_type))
-		add_fingerprint(user)
-		var/reload = underbarrel.magazine.reload(I, user, replace_spent = TRUE)
-		if(reload)
-			underbarrel.chamber_round(FALSE)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		return ATTACK_CHAIN_PROCEED
-
-	return ..()
+	starting_attachment_types = list(/obj/item/gun_module/under/gun/grenade_launcher/integrated)
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
@@ -60,10 +40,7 @@
 	name = "M-90gl Carbine (Rusted)"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
 	damage_mod = 0.85
-
-/obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
-	. = ..()
-	QDEL_NULL(underbarrel.chambered)
+	starting_attachment_types = list(/obj/item/gun_module/under/gun/grenade_launcher/integrated/unloaded)
 
 /obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
 	. = ..()

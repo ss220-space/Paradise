@@ -8,6 +8,7 @@
 	strip_delay = 15
 	put_on_delay = 25
 	resistance_flags = FLAMMABLE
+	clothing_traits = list(TRAIT_DEAF)
 
 /obj/item/clothing/ears/earrings
 	name = "Earrings"

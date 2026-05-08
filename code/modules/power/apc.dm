@@ -299,10 +299,11 @@
 	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	area.power_light = 0
-	area.power_equip = 0
-	area.power_environ = 0
-	area.power_change()
+	if(area)
+		area.power_light = FALSE
+		area.power_equip = FALSE
+		area.power_environ = FALSE
+		area.power_change()
 	if(occupier)
 		malfvacate(TRUE)
 	QDEL_NULL(wires)
@@ -1160,6 +1161,7 @@
 		area.power_light = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_equip = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_environ = (environment_channel > CHANNEL_SETTING_AUTO_OFF)
+		playsound(loc, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -1171,6 +1173,7 @@
 		area.power_light = FALSE
 		area.power_equip = FALSE
 		area.power_environ = FALSE
+		playsound(loc, 'sound/machines/terminal_off.ogg', 50, FALSE)
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	area.power_change()
 

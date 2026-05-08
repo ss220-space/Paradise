@@ -154,7 +154,7 @@
 			type = alt_type
 			. = FALSE
 
-		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+		if(type & EMOTE_AUDIBLE && HAS_TRAIT(src, TRAIT_DEAF))	//Hearing related
 			if(!alt_msg)
 				return FALSE
 			msg = alt_msg
@@ -1512,3 +1512,20 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/compressor_grind()
 	gib()
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+ */
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	var/area/mob_area = get_area(src)
+
+	if(mob_location.get_lumcount() > light_amount)
+		return TRUE
+	else if(!mob_area.static_lighting)
+		return TRUE
+
+	return FALSE

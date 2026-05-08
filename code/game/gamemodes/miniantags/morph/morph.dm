@@ -59,6 +59,8 @@
 	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
 	/// The spell the morph uses to open vent when crawling in them
 	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
+	/// The spell the morph uses to reproduce
+	var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -94,6 +96,8 @@
 	AddSpell(open_vent_spell)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
+	reproduce_spell = new
+	AddSpell(reproduce_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
@@ -106,6 +110,8 @@
 	open_vent_spell = null
 	RemoveSpell(pass_airlock_spell)
 	pass_airlock_spell = null
+	RemoveSpell(reproduce_spell)
+	reproduce_spell = null
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
@@ -121,12 +127,7 @@
  * * boolean - TRUE = enabled, FALSE = disabled
  */
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
-	if(boolean)
-		can_reproduce = TRUE
-		AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
-	else
-		can_reproduce = FALSE
-		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
+	can_reproduce = boolean
 
 /mob/living/simple_animal/hostile/morph/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -324,16 +325,16 @@
 		return TRUE
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/larva_attacker)
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/simple_animal/hostile/morph/attack_alien(mob/living/carbon/alien/humanoid/alien_attacker)
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/attack_tk(mob/user)
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/slime_attacker)
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/water_act(volume, temperature, source, method)
