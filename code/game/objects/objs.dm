@@ -260,10 +260,12 @@
 	extinguish()
 	acid_level = 0
 
-/obj/singularity_pull(S, current_size)
+/obj/singularity_pull(singularity, current_size)
 	..()
+	if(move_resist == INFINITY)
+		return
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src, S)
+		step_towards(src, singularity)
 
 /obj/proc/on_mob_move(mob/user, dir)
 	return

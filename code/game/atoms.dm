@@ -1146,11 +1146,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/handle_fall(mob/living/carbon/faller)
 	return
 
+/// Respond to the singularity eating this atom
 /atom/proc/singularity_act()
 	return
 
-/atom/proc/singularity_pull(obj/singularity/S, current_size)
-	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
+/**
+ * Respond to the singularity pulling on us
+ *
+ * Default behaviour is to send [COMSIG_ATOM_SING_PULL] and return
+ */
+/atom/proc/singularity_pull(obj/singularity/singularity, current_size)
+	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, singularity, current_size)
 
 /**
  * Respond to acid being used on our atom
