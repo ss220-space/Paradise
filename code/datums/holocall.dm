@@ -12,14 +12,14 @@
 //this datum manages it's own references
 
 /datum/holocall
-	var/mob/living/user	//the one that called
-	var/obj/machinery/hologram/holopad/calling_holopad	//the one that sent the call
-	var/obj/machinery/hologram/holopad/connected_holopad	//the one that answered the call (may be null)
-	var/list/dialed_holopads	//all things called, will be cleared out to just connected_holopad once answered
+	var/mob/living/user //the one that called
+	var/obj/machinery/hologram/holopad/calling_holopad //the one that sent the call
+	var/obj/machinery/hologram/holopad/connected_holopad //the one that answered the call (may be null)
+	var/list/dialed_holopads //all things called, will be cleared out to just connected_holopad once answered
 
-	var/mob/camera/aiEye/remote/holo/eye	//user's eye, once connected
-	var/obj/effect/overlay/holo_pad_hologram/hologram	//user's hologram, once connected
-	var/datum/action/innate/end_holocall/hangup	//hangup action
+	var/mob/camera/aiEye/remote/holo/eye //user's eye, once connected
+	var/obj/effect/overlay/holo_pad_hologram/hologram //user's hologram, once connected
+	var/datum/action/innate/end_holocall/hangup //hangup action
 
 	var/call_start_time
 

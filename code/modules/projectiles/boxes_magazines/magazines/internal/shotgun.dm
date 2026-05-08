@@ -1,7 +1,7 @@
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
-	caliber = CALIBER_12X70
+	caliber = CALIBER_12G
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = TRUE)
@@ -45,3 +45,12 @@
 
 /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+
+// MARK: Winchester
+/obj/item/ammo_box/magazine/internal/shot/winchester
+	name = "winchester internal tube magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	max_ammo = 5
+
+/obj/item/ammo_box/magazine/internal/shot/winchester/cargo
+	max_ammo = 6

@@ -48,8 +48,8 @@
 /datum/tlv/oxygen
 	min2 = 16		// hazard_min
 	min1 = 19		// warning_min
-	max1 = TLV_VALUE_IGNORE
-	max2 = TLV_VALUE_IGNORE
+	max1 = 135
+	max2 = 140
 
 /datum/tlv/nitrogen
 	min2 = TLV_VALUE_IGNORE
@@ -62,24 +62,6 @@
 	min1 = TLV_VALUE_IGNORE
 	max1 = 5
 	max2 = 10
-
-/datum/tlv/plasma
-	min2 = TLV_VALUE_IGNORE
-	min1 = TLV_VALUE_IGNORE
-	max1 = 0.2
-	max2 = 0.5
-
-/datum/tlv/nitrous_oxide
-	min2 = TLV_VALUE_IGNORE
-	min1 = TLV_VALUE_IGNORE
-	max1 = 0.2
-	max2 = 0.5
-
-/datum/tlv/hydrogen
-	min2 = TLV_VALUE_IGNORE
-	min1 = TLV_VALUE_IGNORE
-	max1 = 0.2
-	max2 = 0.5
 
 /datum/tlv/water_vapor
 	min2 = TLV_VALUE_IGNORE
@@ -94,10 +76,10 @@
 	max2 = 1.0
 
 /datum/tlv/pressure
-	min2 = HAZARD_LOW_PRESSURE
-	min1 = WARNING_LOW_PRESSURE
-	max1 = WARNING_HIGH_PRESSURE
-	max2 = HAZARD_HIGH_PRESSURE
+	min2 = ONE_ATMOSPHERE * 0.80
+	min1 = ONE_ATMOSPHERE * 0.90
+	max1 = ONE_ATMOSPHERE * 1.10
+	max2 = ONE_ATMOSPHERE * 1.20
 
 /datum/tlv/temperature
 	min2 = COLD_WARNING_1

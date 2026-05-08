@@ -6,7 +6,7 @@
 #define CHANNEL_HEARTBEAT 1020 //sound channel for heartbeats
 #define CHANNEL_BUZZ 1019
 #define CHANNEL_AMBIENCE 1018
-#define CHANNEL_UNUSED 1017	// МОЛЮ, Если кто-то будет добавлять новый канал. ВОСПОЛЬЗУЙСЯ ЭТИМ! ОН ПУСТОЙ! -BeebBeebBoob
+#define CHANNEL_UNUSED 1017 // МОЛЮ, Если кто-то будет добавлять новый канал. ВОСПОЛЬЗУЙСЯ ЭТИМ! ОН ПУСТОЙ! -BeebBeebBoob
 #define CHANNEL_GENERAL 1016 //Sound channel for playsound(), most of the sounds
 #define CHANNEL_JUSTICAR_ARK 1015
 #define CHANNEL_TTS_LOCAL 1014
@@ -14,10 +14,11 @@
 #define CHANNEL_RADIO_NOISE 1012 // radio headset noise
 #define CHANNEL_BOSS_MUSIC 1011
 #define CHANNEL_INTERACTION_SOUNDS 1010	// item pickup/equip/drop sounds
-#define CHANNEL_ESCAPEMENU 1009
+#define CHANNEL_ANNOUNCER 1009
+#define CHANNEL_ESCAPEMENU 1008
 // THIS SHOULD ALWAYS BE THE LOWEST ONE!
 // KEEP IT UPDATED
-#define CHANNEL_HIGHEST_AVAILABLE 1008
+#define CHANNEL_HIGHEST_AVAILABLE 1007
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
@@ -73,7 +74,8 @@
 											'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
 											'sound/ambience/ambiruin5.ogg',  'sound/ambience/ambiruin6.ogg',  'sound/ambience/ambiruin7.ogg',\
 											'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambimaint1.ogg',\
-											'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava2.ogg', 'sound/ambience/ambilava3.ogg')
+											'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava2.ogg', 'sound/ambience/ambilava3.ogg',\
+											'sound/ambience/ambilava4.ogg', 'sound/ambience/ambilava5.ogg')
 
 #define MEDICAL_SOUNDS list('sound/ambience/ambinice.ogg')
 
@@ -187,6 +189,44 @@
  */
 #define CALCULATE_SOUND_VOLUME(volume, distance, max_distance, falloff_distance, falloff_exponent)\
 	((max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * volume)
+
+///Announcer audio keys
+#define ANNOUNCER_AIMALF "announcer_aimalf"
+#define ANNOUNCER_ALIENS "announcer_aliens"
+#define ANNOUNCER_ANIMES "announcer_animes"
+#define ANNOUNCER_GRANOMALIES "announcer_granomalies"
+#define ANNOUNCER_INTERCEPT "announcer_intercept"
+#define ANNOUNCER_IONSTORM "announcer_ionstorm"
+#define ANNOUNCER_METEORS "announcer_meteors"
+#define ANNOUNCER_OUTBREAK5 "announcer_outbreak5"
+#define ANNOUNCER_OUTBREAK7 "announcer_outbreak7"
+#define ANNOUNCER_POWEROFF "announcer_poweroff"
+#define ANNOUNCER_POWERON "announcer_poweron"
+#define ANNOUNCER_RADIATION "announcer_radiation"
+#define ANNOUNCER_SHUTTLECALLED "announcer_shuttlecalled"
+#define ANNOUNCER_SHUTTLEDOCK "announcer_shuttledock"
+#define ANNOUNCER_SHUTTLERECALLED "announcer_shuttlerecalled"
+#define ANNOUNCER_SPANOMALIES "announcer_spanomalies"
+
+/// Global list of all of our announcer keys.
+GLOBAL_LIST_INIT(announcer_keys, list(
+	ANNOUNCER_AIMALF,
+	ANNOUNCER_ALIENS,
+	ANNOUNCER_ANIMES,
+	ANNOUNCER_GRANOMALIES,
+	ANNOUNCER_INTERCEPT,
+	ANNOUNCER_IONSTORM,
+	ANNOUNCER_METEORS,
+	ANNOUNCER_OUTBREAK5,
+	ANNOUNCER_OUTBREAK7,
+	ANNOUNCER_POWEROFF,
+	ANNOUNCER_POWERON,
+	ANNOUNCER_RADIATION,
+	ANNOUNCER_SHUTTLECALLED,
+	ANNOUNCER_SHUTTLEDOCK,
+	ANNOUNCER_SHUTTLERECALLED,
+	ANNOUNCER_SPANOMALIES,
+))
 
 /**
  * Assoc list of datum by key.
@@ -324,7 +364,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_CIG_PACK_PICKUP "cig_pack_pickup"
 #define SFX_CIG_PACK_RUSTLE "cig_pack_rustle"
 #define SFX_CIG_PACK_THROW_DROP "cig_pack_throw_drop"
-#define	SFX_RORO_WARBLE "roro_warble"
+#define SFX_RORO_WARBLE "roro_warble"
 #define SFX_BEAKERPOUR_0_10 "beakerpour_0_10"
 #define SFX_BEAKERPOUR_10_25 "beakerpour_10_25"
 #define SFX_BEAKERPOUR_25_50 "beakerpour_25_50"
@@ -338,3 +378,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_FART "fart"
 #define SFX_CLOSET_TOGGLE_LOCK "closet_toggle_lock"
 #define SFX_BUTTON_DENIED "button_denied"
+#define SFX_TRAY_PICKUP "tray_pickup"
+#define SFX_TRAY_DROP "tray_drop"
+#define SFX_MENDER "mender"
+#define SFX_GLITCHED_PDA_RINGTONE "glitched_pda"

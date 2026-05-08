@@ -36,6 +36,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		new_subtitle = null
 	)
 
+	if(!new_sound)
+		new_sound = SSstation.announcer.get_rand_alert_sound()
+
 	if(!message)
 		return
 
@@ -145,7 +148,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 			var/volume = mob.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
 				continue
-		SEND_SOUND(mob, message_sound)
+		var/volume_mod = 100 * mob?.client?.prefs?.get_channel_volume(CHANNEL_ANNOUNCER)
+		SEND_SOUND(mob, sound(
+				message_sound,
+				channel = CHANNEL_ANNOUNCER,
+				volume = volume_mod,
+			))
 
 /datum/announcer/proc/announce_log(message, message_title)
 	add_game_logs("has made \a [config.log_name]: [message_title] – [message] – [author]", usr)
@@ -196,3 +204,20 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 /datum/announcer/Destroy()
 	QDEL_NULL(config)
 	return ..()
+
+/// Proc that just dispatches the announcement to our applicable audience. Only the announcement is a mandatory arg.
+/// `should_play_sound` can also be a callback, if you want to only play the sound to specific players.
+/proc/dispatch_announcement_to_players(announcement, list/players = GLOB.player_list, sound_override = null, should_play_sound = TRUE)
+	var/sound_to_play = !isnull(sound_override) ? sound_override : 'sound/misc/notice2.ogg'
+
+	var/datum/callback/should_play_sound_callback = astype(should_play_sound)
+
+	for(var/mob/target in players)
+		if(isnewplayer(target) || HAS_TRAIT(target, TRAIT_DEAF))
+			continue
+
+		to_chat(target, announcement)
+		if(!should_play_sound || (should_play_sound_callback && !should_play_sound_callback.Invoke(target)))
+			continue
+		//if(target.client?.prefs.read_preference(/datum/preference/toggle/sound_announcements))
+		SEND_SOUND(target, sound(sound_to_play))

@@ -113,6 +113,8 @@
 			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
+#define PLUOXIUM_O2_EFFICIENCY 8
+
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_GODMODE) || HAS_TRAIT(H, TRAIT_NO_BREATH))
 		return
@@ -139,12 +141,12 @@
 	var/gas_breathed = 0
 
 	//Partial pressures in our breath
-	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
+	var/pluoxium_pp = breath.get_breath_partial_pressure(breath.pluoxium())
+	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen()) + PLUOXIUM_O2_EFFICIENCY * pluoxium_pp
 	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
 	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins())
 	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide())
 	var/SA_pp = breath.get_breath_partial_pressure(breath.sleeping_agent())
-	var/pluoxium_pp = breath.get_breath_partial_pressure(breath.pluoxium())
 	var/bz_pp = breath.get_breath_partial_pressure(breath.bz())
 	var/freon_pp = breath.get_breath_partial_pressure(breath.freon())
 	var/halon_pp = breath.get_breath_partial_pressure(breath.halon())
@@ -318,6 +320,8 @@
 	handle_breath_temperature(breath, H)
 
 	return TRUE
+
+#undef PLUOXIUM_O2_EFFICIENCY
 
 /// Behaves like Oxygen with 8X efficacy, but metabolizes into a reagent.
 /obj/item/organ/internal/lungs/proc/consume_pluoxium(mob/living/carbon/breather, datum/gas_mixture/breath, pluoxium_pp)

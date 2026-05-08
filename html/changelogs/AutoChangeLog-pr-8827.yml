@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Минимальный возраст у карты агента уменьшен до 1 года (PR #8827)"

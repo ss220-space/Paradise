@@ -97,3 +97,6 @@
 /// If this is set for max stat, then its value will be ignored.
 #define DEFAULT_MAX_STAT_ALLOWED_EMOTE "defaultstat"
 
+// Defines for priorities for the bubble_icon_override comp
+#define BUBBLE_ICON_PRIORITY_ACCESSORY 2
+#define BUBBLE_ICON_PRIORITY_ORGAN 1

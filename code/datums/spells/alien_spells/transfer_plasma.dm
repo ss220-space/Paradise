@@ -47,7 +47,7 @@
 	icon_state = "alien_transfer"
 	var/plasma_amount = 0
 
-/obj/item/melee/touch_attack/alien/transfer_plasma/New(spell, owner, plasma)
+/obj/item/melee/touch_attack/alien/transfer_plasma/Initialize(mapload, spell, owner, plasma)
 	. = ..()
 	name = "[name] ([plasma])"
 
@@ -56,11 +56,11 @@
 		owner.adjust_alien_plasma(plasma_amount)
 	return ..()
 
-/obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(target == user)
 		return ..()
 
-	if(!proximity || !isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || !isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/mob/living/carbon/transfering_to = target

@@ -6,6 +6,7 @@
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 10)
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/obj/item/stock_parts/cell/cell
 	var/on = 0
 	var/open = 0

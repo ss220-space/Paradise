@@ -168,18 +168,6 @@
 		C.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, поглощая [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
-/obj/effect/self_deleting
-	icon = null
-	desc = ""
-	//layer = 15
-
-/obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
-	. = ..()
-	name = oname
-	loc=location
-	icon = I
-	QDEL_IN(src, duration)
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mattereater
@@ -312,7 +300,7 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(ismob(user.loc) || user.incapacitated(INC_IGNORE_RESTRAINED) || user.buckled)
+	if(ismob(user.loc) || user.incapacitated(IGNORE_RESTRAINTS) || user.buckled)
 		to_chat(user, span_warning("Вы не можете прыгнуть прямо сейчас!"))
 		return
 	var/turf/turf_to_check = get_turf(user)

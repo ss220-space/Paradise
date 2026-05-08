@@ -32,8 +32,8 @@
 	if(has_suit)
 		return has_suit.mouse_drop_dragged(over_object, user, src_location, over_location, params)
 
-	if(!hold || !hold.handle_mousedrop(usr, over_object))
-		return ..()
+	if(hold)
+		return hold.handle_mousedrop(user, over_object)
 
 /obj/item/clothing/accessory/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()

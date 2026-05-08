@@ -15,6 +15,7 @@ Pipelines + Other Objects -> Pipe network
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 100, ACID = 70)
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_IGNORE_MOBILITY
 
 	/// Generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things.
 	var/layer_offset = 0.0
@@ -188,10 +189,10 @@ Pipelines + Other Objects -> Pipe network
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
 		return .
-	if(level == 1 && (our_turf.transparent_floor == TURF_TRANSPARENT) && istype(src, /obj/machinery/atmospherics/pipe))
+	if(level == 1 && HAS_TRAIT(src, TRAIT_UNDERFLOOR)) // if non-pipe somehow gets under floor - check non-pipe's code, not here
 		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
 		return .
-	if(level == 1 && our_turf.intact)
+	if(level == 1 && our_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 		to_chat(user, span_danger("You must remove the plating first."))
 		return .
 	if(!can_unwrench)
@@ -239,7 +240,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!our_turf)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(our_turf.transparent_floor == TURF_TRANSPARENT)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You cannot interact with something that's under the floor!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 

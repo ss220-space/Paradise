@@ -216,13 +216,13 @@
 		patientStatus = "без сознания"
 
 	if(isNewPatient)
-		atom_say("Обнаружен новый пациент, загрузка показаний.")
+		atom_say("Обнаружен новый пациент, загрузка показаний.", use_tts = FALSE)
 		var/blood_type_msg
 		if(ishuman(table.patient))
 			blood_type_msg = table.patient.dna.blood_type
 		else
 			blood_type_msg = "\[ОШИБКА: НЕИЗВЕСТНО\]"
-		atom_say("[table.patient], группа крови [blood_type_msg], [patientStatus].")
+		atom_say("[table.patient], группа крови [blood_type_msg], [patientStatus].", use_tts = FALSE)
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient
@@ -234,9 +234,9 @@
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
 			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
 		if(healthAnnounce && table.patient.health <= healthAlarm)
-			atom_say("Оценка здоровья пациента: [round(table.patient.health)] %.")
+			atom_say("Оценка здоровья пациента: [round(table.patient.health)] %.", use_tts = FALSE)
 		if(table.patient.stat != patientStatusHolder)
-			atom_say("Состояние пациента: [patientStatus].")
+			atom_say("Состояние пациента: [patientStatus].", use_tts = FALSE)
 			patientStatusHolder = table.patient.stat
 
 /obj/machinery/computer/operating/old_frame

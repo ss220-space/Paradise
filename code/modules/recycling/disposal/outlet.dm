@@ -100,7 +100,7 @@
 	if(!loc)
 		return .
 	var/turf/simulated/floor/floor = old_loc
-	if(isfloorturf(floor) && floor.intact)
+	if(isfloorturf(floor) && floor.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)
 		floor.remove_tile(null, TRUE, TRUE)
 		floor.visible_message(
 			span_warning("The floortile is ripped from the floor!"),

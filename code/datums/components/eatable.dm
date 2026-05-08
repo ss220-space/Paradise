@@ -41,10 +41,10 @@
 
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/eatable/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_PRE_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ITEM_PRE_ATTACKBY, COMSIG_ATOM_EXAMINE))
 
 /datum/component/eatable/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
 	SIGNAL_HANDLER

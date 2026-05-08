@@ -36,6 +36,8 @@ type Props = {
   animated: boolean;
   /** The matrix to use for the drag. */
   dragMatrix: [number, number];
+  /** onChange also fires when you drag the input. */
+  tickWhileDragging: boolean;
   /** Format the value using this function before displaying it. */
   format: (value: number) => string;
   /** The maximum value. */
@@ -44,8 +46,6 @@ type Props = {
   minValue: number;
   /** An event which fires when you release the input, or successfully enter a number. */
   onChange: (event: Event, value: number) => void;
-  /** An event which fires when you drag the input. */
-  onDrag: (event: MouseEvent, value: number) => void;
   /** The step size. */
   step: number;
   /** The step size in pixels. */
@@ -81,11 +81,11 @@ export const DraggableControl = (props: Props) => {
     animated,
     children,
     dragMatrix = [1, 0],
+    tickWhileDragging,
     format,
     maxValue = Number.POSITIVE_INFINITY,
     minValue = Number.NEGATIVE_INFINITY,
     onChange,
-    onDrag,
     step = 1,
     stepPixelSize = 1,
 
@@ -141,14 +141,16 @@ export const DraggableControl = (props: Props) => {
       document.addEventListener('mousemove', handleDragMove);
 
       dragIntervalRef.current = setInterval(() => {
-        if (dragging.current) onDrag?.(event, props.value);
+        if (dragging.current && tickWhileDragging) {
+          onChange?.(event, finalValue.current);
+        }
       }, updateRate);
     } else {
       setEditing(true);
 
       if (inputRef.current) {
         const input = inputRef.current;
-        input.value = internalValue.current.toString();
+        input.value = finalValue.current.toString();
 
         setTimeout(() => {
           input.focus();
@@ -201,7 +203,6 @@ export const DraggableControl = (props: Props) => {
     if (!dragging.current) return; // user only clicked
 
     onChange?.(event, finalValue.current);
-    onDrag?.(event, finalValue.current);
     dragging.current = false;
   };
 

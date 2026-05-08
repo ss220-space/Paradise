@@ -1,4 +1,0 @@
-author: "DraumLord"
-delete-after: True
-changes:
-  - tweak: "Изменен оффсет пикселей с -6 на -3 (PR #8766)"

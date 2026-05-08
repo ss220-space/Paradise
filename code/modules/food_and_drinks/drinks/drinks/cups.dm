@@ -71,7 +71,7 @@
 			if(85 to INFINITY)
 				filling.icon_state = "[base_icon_state]100"
 
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/attack_self(mob/user)
@@ -119,7 +119,7 @@
 		if(80 to INFINITY)
 			filling.icon_state = "[base_icon_state]100"
 
-	filling.color = mix_color_from_reagents(reagents.reagent_list)
+	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee

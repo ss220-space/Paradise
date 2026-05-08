@@ -71,16 +71,16 @@
  * * ignore_flags (optional) bitflags that determine if special situations are exempt from being considered incapacitated
  *
  * bitflags: (see code/__DEFINES/flags.dm)
- * * INC_IGNORE_RESTRAINED - mob in a restraint (handcuffs/straightjacket) is not considered incapacitated
- * * INC_IGNORE_GRABBED - mob that is agressively grabbed is not considered incapacitated
-**/
+ * * IGNORE_RESTRAINTS - mob in a restraint (handcuffs/straightjacket) is not considered incapacitated
+ * * IGNORE_GRAB - mob that is agressively grabbed is not considered incapacitated
+ */
 /mob/living/incapacitated(ignore_flags)
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return TRUE
 
-	if(!(ignore_flags & INC_IGNORE_RESTRAINED) && HAS_TRAIT(src, TRAIT_RESTRAINED))
+	if(!(ignore_flags & IGNORE_RESTRAINTS) && HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return TRUE
-	if(!(ignore_flags & INC_IGNORE_GRABBED) && pulledby && pulledby.grab_state > GRAB_PASSIVE)
+	if(!(ignore_flags & IGNORE_GRAB) && pulledby && pulledby.grab_state > GRAB_PASSIVE)
 		return TRUE
 	return FALSE
 

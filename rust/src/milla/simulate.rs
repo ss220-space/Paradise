@@ -379,11 +379,15 @@ pub(crate) fn post_process(
             my_next_tile.updates = ReasonFlags::NONE;
             my_next_tile.nuclear_particles = 0.0;
 
-            react(my_next_tile, false);
-            if my_next_tile.hotspot_volume > 0.0 {
-                react(my_next_tile, true);
+            if my_next_tile.gases.hypernoblium() < REACTION_OPPRESSION_THRESHOLD
+                || my_next_tile.temperature() <= REACTION_OPPRESSION_MIN_TEMP
+            {
+                react(my_next_tile, false);
+                if my_next_tile.hotspot_volume > 0.0 {
+                    react(my_next_tile, true);
+                }
+                do_turf_effects(my_next_tile);
             }
-            do_turf_effects(my_next_tile);
 
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
@@ -1756,6 +1760,7 @@ pub(crate) fn normalise_hotspot(tile: &mut Tile) {
     if tile.hotspot_temperature < min_temp
         || !has_fuel
         || tile.gases.oxygen() <= REACTION_SIGNIFICANCE_MOLES
+        || tile.temperature() < min_temp
     {
         tile.thermal_energy += hotspot_extra_thermal_energy;
         tile.hotspot_temperature = 0.0;

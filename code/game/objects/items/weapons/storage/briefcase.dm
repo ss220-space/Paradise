@@ -44,11 +44,11 @@
 		QDEL_NULL(stored_item)
 	return ..()
 
-/obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
+/obj/item/storage/briefcase/false_bottomed/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
-	if(stored_item && isgun(stored_item) && !Adjacent(A))
+	if(stored_item && isgun(stored_item) && !Adjacent(target))
 		var/obj/item/gun/stored_gun = stored_item
-		stored_gun.afterattack(A, user, flag, params)
+		stored_gun.afterattack(target, user, proximity_flag, modifiers)
 
 /obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, params)
 	if(bottom_open)

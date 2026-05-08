@@ -21,9 +21,9 @@
 #define BOT_DELIVER 12 // moving to deliver
 #define BOT_GO_HOME 13 // returning to home
 #define BOT_BLOCKED 14 // blocked
-#define BOT_NAV 15	// computing navigation
-#define BOT_WAIT_FOR_NAV 16	// waiting for nav computation
-#define BOT_NO_ROUTE 17	// no destination beacon found (or no route)
+#define BOT_NAV 15 // computing navigation
+#define BOT_WAIT_FOR_NAV 16 // waiting for nav computation
+#define BOT_NO_ROUTE 17 // no destination beacon found (or no route)
 
 // Bot types
 /// Secutritrons (Beepsky)

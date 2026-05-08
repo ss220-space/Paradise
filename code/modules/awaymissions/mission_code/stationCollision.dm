@@ -45,8 +45,9 @@
 /obj/effect/landmark/sc_bible_spawner
 	name = "Safecode hint spawner"
 
-/obj/effect/landmark/sc_bible_spawner/New()
+/obj/effect/landmark/sc_bible_spawner/Initialize(mapload)
 	. = ..()
+
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible/booze(src.loc)
 	B.name = "The Holy book of the Geometer"
 	B.deity_name = "Narsie"
@@ -54,7 +55,7 @@
 	B.item_state = "melted"
 	new /obj/item/paper/sc_safehint_paper_bible(B)
 	new /obj/item/pen(B)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /*
  * Guns - I'm making these specifically so that I dont spawn a pile of fully loaded weapons on the map.
@@ -66,9 +67,9 @@
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
-/obj/item/gun/projectile/automatic/c20r/sc_c20r
+/obj/item/gun/projectile/automatic/smg/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/Initialize(mapload)
+/obj/item/gun/projectile/automatic/smg/c20r/sc_c20r/Initialize(mapload)
 	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
@@ -103,14 +104,14 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /obj/item/paper/sc_safehint_paper_prison
 	name = "smudged paper"
 
-/obj/item/paper/sc_safehint_paper_prison/New()
-	..()
+/obj/item/paper/sc_safehint_paper_prison/Initialize(mapload)
+	. = ..()
 	info = "<i>The ink is smudged, you can only make out a couple numbers:</i> '[GLOB.sc_safecode1]**[GLOB.sc_safecode4]*'"
 
 /obj/item/paper/sc_safehint_paper_hydro
 	name = "shredded paper"
-/obj/item/paper/sc_safehint_paper_hydro/New()
-	..()
+/obj/item/paper/sc_safehint_paper_hydro/Initialize(mapload)
+	. = ..()
 	info = "<i>Although the paper is shredded, you can clearly see the number:</i> '[GLOB.sc_safecode2]'"
 
 /obj/item/paper/sc_safehint_paper_caf
@@ -120,8 +121,8 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 
 /obj/item/paper/sc_safehint_paper_bible
 	name = "hidden paper"
-/obj/item/paper/sc_safehint_paper_bible/New()
-	..()
+/obj/item/paper/sc_safehint_paper_bible/Initialize(mapload)
+	. = ..()
 	info = {"<i>It would appear that the pen hidden with the paper had leaked ink over the paper.
 			However you can make out the last three digits:</i>'[GLOB.sc_safecode3][GLOB.sc_safecode4][GLOB.sc_safecode5]'
 			"}
@@ -181,21 +182,27 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 		return FALSE
 	if(is_type_in_list(A, uneatable))
 		return FALSE
+
 	if(isliving(A))
 		var/mob/living/L = A
 		L.gib()
+
 	else if(isobj(A))
 		var/obj/O = A
 		O.ex_act(EXPLODE_DEVASTATE)
-		if(O) qdel(O)
+		if(O)
+			qdel(O)
+
 	else if(isturf(A))
 		var/turf/T = A
-		if(T.intact)
+
+		if(T.underfloor_accessibility != UNDERFLOOR_INTERACTABLE) // this code only cares about pipes and stuff under floor
 			for(var/obj/O in T.contents)
 				if(O.level != 1)
 					continue
 				if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 					src.consume(O)
+
 		T.ChangeTurf(T.baseturf)
 	return
 

@@ -30,7 +30,7 @@
 	if(!our_turf)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if((our_turf.transparent_floor == TURF_TRANSPARENT) || our_turf.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 

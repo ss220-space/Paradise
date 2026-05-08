@@ -42,6 +42,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/supply
+	abstract_type = /datum/job/supply
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_SUPPLY
 	is_supply = 1

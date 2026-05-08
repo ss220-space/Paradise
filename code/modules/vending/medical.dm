@@ -50,6 +50,7 @@
 				/obj/item/reagent_containers/syringe/calomel = 8,
 				/obj/item/reagent_containers/syringe/insulin = 8,
 				/obj/item/reagent_containers/syringe/heparin = 8,
+				/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 3,
 			),
 		),
 		list(
@@ -111,7 +112,6 @@
 	contraband = list(
 		/obj/item/reagent_containers/glass/bottle/sulfonal = 3,
 		/obj/item/reagent_containers/glass/bottle/pancuronium = 3,
-		/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 3,
 	)
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF

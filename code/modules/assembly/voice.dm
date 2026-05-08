@@ -48,9 +48,9 @@
 		recorded = msg
 		recorded_type = type
 		listening = FALSE
-		T.audible_message("[icon2html(src, hearers(T))] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
+		T.audible_message("[get_examine_icon(hearers(T))] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
-		T.visible_message(span_warning("[icon2html(src, viewers(T))] beeps!"))
+		T.visible_message(span_warning("[get_examine_icon(viewers(T))] beeps!"))
 		pulse(0, M)
 
 /obj/item/assembly/voice/activate()
@@ -62,7 +62,7 @@
 
 	listening = !listening
 	var/turf/T = get_turf(src)
-	T.audible_message("[icon2html(src, hearers(T))] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
+	T.audible_message("[get_examine_icon(hearers(T))] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
 	return TRUE
 
 /obj/item/assembly/voice/toggle_secure()
@@ -86,5 +86,5 @@
 /obj/item/assembly/voice/noise/hear_message(mob/living/M, msg)
 	pulse(0, M)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
-	T.visible_message(span_warning("[icon2html(src, viewers(T))] beeps!"))
+	T.visible_message(span_warning("[get_examine_icon(viewers(T))] beeps!"))
 

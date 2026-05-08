@@ -585,8 +585,8 @@ ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communicat
 
 	var/list/message_sound = list(
 		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
-		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
-		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg'
+		"Перехвачено вражеское сообщение" = ANNOUNCER_INTERCEPT,
+		"Составлен отчёт о новой команде" = SSstation.announcer.get_rand_report_sound(),
 	)
 
 	var/type = tgui_input_list(user, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")

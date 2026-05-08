@@ -130,6 +130,8 @@
 			continue
 
 		for(var/image/map_layer in overlays_to_use[overlay]["markers"])
+			if(length(.) >= HOLOMAP_MAX_OVERLAYS)
+				return
 			. += map_layer
 
 

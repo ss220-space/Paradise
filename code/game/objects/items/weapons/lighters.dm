@@ -36,8 +36,8 @@
 		PREPOSITIONAL = "дешёвой зажигалке",
 	)
 
-/obj/item/lighter/random/New()
-	..()
+/obj/item/lighter/random/Initialize(mapload)
+	. = ..()
 	var/color = pick("r","c","y","g")
 	icon_on = "lighter-[color]-on"
 	icon_off = "lighter-[color]"
@@ -166,6 +166,10 @@
 		INSTRUMENTAL = "зажигалкой Зиппо",
 		PREPOSITIONAL = "зажигалке Зиппо",
 	)
+
+/obj/item/lighter/zippo/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)

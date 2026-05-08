@@ -147,14 +147,6 @@
 	build_path = /obj/item/ammo_box/expansive45colt
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
-/datum/design/enforcer/laser
-	id = "enforcer_laser"
-	req_tech = list(RESEARCH_TREE_COMBAT = 2, RESEARCH_TREE_POWERSTORAGE = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 35000)
-	build_path = /obj/item/ammo_box/enforcer/laser
-	category = list(PROTOLATHE_CATEGORY_WEAPON)
-
 /datum/design/lmag
 	id = "lmag"
 	build_type = PROTOLATHE | AUTOLATHE
@@ -189,10 +181,10 @@
 
 /datum/design/stunrevolver
 	id = "stunrevolver"
-	req_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_POWERSTORAGE = 5)
+	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_POWERSTORAGE = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
-	build_path = /obj/item/gun/energy/shock_revolver
+	build_path = /obj/item/gun/energy/tesla_cannon
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 

@@ -979,11 +979,8 @@
 	},
 /area/awaymission/academy/classrooms)
 "er" = (
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Acad_Door5";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "Acad_Door5"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -1733,11 +1730,8 @@
 	},
 /area/awaymission/academy/classrooms)
 "hA" = (
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Acad_Door7";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "Acad_Door7"
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
@@ -2083,11 +2077,8 @@
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "iK" = (
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Acad_Door_katana;Acad_Door_katana_end";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "Acad_Door_katana;Acad_Door_katana_end"
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/plasma,
@@ -2696,11 +2687,8 @@
 	},
 /area/awaymission/academy/academyaft)
 "lC" = (
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Acad_Door_katana;Acad_Door_katana_end";
-	opacity = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "Acad_Door_katana;Acad_Door_katana_end"
 	},
 /obj/machinery/door/airlock/plasma,
 /obj/structure/fans/tiny,

@@ -20,7 +20,7 @@
 
 /obj/item/ammo_casing/energy/electrode/old
 	e_cost = 1000
-	
+
 // MARK: Disabler
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler
@@ -29,7 +29,6 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
-	bullet_type = BULLET_TYPE_DISABLER
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40

@@ -276,7 +276,7 @@
 	if(source_turf)
 		var/uses_multiz = !!GET_LOWEST_STACK_OFFSET(source_turf.z)
 		if(uses_multiz)
-			for(var/turf/T in view(CEILING(light_range, 1), source_turf))
+			for(var/turf/T in view(ceil(light_range), source_turf))
 				if(IS_OPAQUE_TURF(T))
 					continue
 				INSERT_CORNERS(corners, T)
@@ -305,7 +305,7 @@
 					INSERT_CORNERS(corners, above)
 					above = GET_TURF_ABOVE(above)
 		else // Yes I know this could be acomplished with an if in the for loop, but it's fukin lighting code man
-			for(var/turf/T in view(CEILING(light_range, 1), source_turf))
+			for(var/turf/T in view(ceil(light_range), source_turf))
 				if(IS_OPAQUE_TURF(T))
 					continue
 				INSERT_CORNERS(corners, T)

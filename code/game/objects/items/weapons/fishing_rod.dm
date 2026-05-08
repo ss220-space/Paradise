@@ -69,8 +69,8 @@
 	if(!bait)
 		cut_overlays()
 
-/obj/item/twohanded/fishing_rod/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/twohanded/fishing_rod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	if(!istype(target, /turf/simulated/floor/lava/lava_land_surface))

@@ -267,7 +267,7 @@
 		return
 
 	var/obj/structure/bigDelivery/delivery = pointed_at
-	var/pointed_at_crate = iscloset(pointed_at) || (istype(delivery) && istype(delivery.wrapped, /obj/structure/closet/crate))
+	var/pointed_at_crate = iscloset(pointed_at) || (istype(delivery) && is_crate(delivery.wrapped))
 
 	if(pointed_at_crate && LAZYLEN(crates_in_hand) >= crate_limit)
 		oogaooga(100, 100)

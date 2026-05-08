@@ -7,7 +7,7 @@
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	icon_state = "contractor_baton"
-	affect_cyborgs = TRUE
+	affect_cyborg = TRUE
 	affect_bots = TRUE
 	cooldown = 2.5 SECONDS
 	clumsy_knockdown_time = 24 SECONDS

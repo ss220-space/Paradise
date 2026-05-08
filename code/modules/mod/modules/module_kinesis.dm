@@ -67,9 +67,7 @@
 	return ..()
 
 /*
-tier 1 - range 2-3
-tier 2 - range 5-6, can lift conscious with handcuffs on them
-tier 3 - range 7-8, can lift conscious
+range 2-3
 */
 
 /obj/item/mod/module/anomaly_locked/kinesis/update_core_powers()
@@ -81,10 +79,6 @@ tier 3 - range 7-8, can lift conscious
 
 	var/calculated_range = round((core.get_strength() / 20))
 	grab_range = min(calculated_range, maximum_grab_range)
-	if(core.get_strength() > 100)
-		stat_required = CONSCIOUS
-	if(core.get_strength() > 200)
-		incapacitated_required = FALSE
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_select_use(atom/target)
 	. = ..()
@@ -114,7 +108,7 @@ tier 3 - range 7-8, can lift conscious
 	clear_grab(playsound = !deleting)
 
 /obj/item/mod/module/anomaly_locked/kinesis/process()
-	if(!mod.wearer.client || mod.wearer.incapacitated(INC_IGNORE_GRABBED))
+	if(!mod.wearer.client || mod.wearer.incapacitated(IGNORE_GRAB))
 		clear_grab()
 		return
 	if(!range_check(grabbed_atom))

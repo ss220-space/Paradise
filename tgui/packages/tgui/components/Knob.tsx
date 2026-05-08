@@ -20,6 +20,8 @@ type Props = {
   bipolar: boolean;
   /** Color of the outer ring around the knob. */
   color: string | BooleanLike;
+  /** onChange also fires every 500ms while dragging the input. */
+  tickWhileDragging: boolean;
   /**
    * If set, this value will be used to set the fill percentage of the outer
    * ring independently of the main value.
@@ -33,11 +35,6 @@ type Props = {
   minValue: number;
   /** Adjust value by this amount when dragging the input. */
   onChange: (event: Event, value: number) => void;
-  /**
-   * An event, which fires about every 500ms when you drag the input up and
-   * down, on release and on manual editing.
-   */
-  onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the outer ring around the knob based on whether the
    * value lands in the range between `from` and `to`.
@@ -76,11 +73,11 @@ export const Knob = (props: Props) => {
   const {
     // Draggable props (passthrough)
     animated,
+    tickWhileDragging,
     format,
     maxValue,
     minValue,
     onChange,
-    onDrag,
     step,
     stepPixelSize,
     suppressFlicker,
@@ -103,11 +100,11 @@ export const Knob = (props: Props) => {
       dragMatrix={[0, -1]}
       {...{
         animated,
+        tickWhileDragging,
         format,
         maxValue,
         minValue,
         onChange,
-        onDrag,
         step,
         stepPixelSize,
         suppressFlicker,

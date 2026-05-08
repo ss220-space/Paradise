@@ -13,8 +13,8 @@
 	playstyle_string = null
 	has_transform_animation = FALSE
 
-/mob/living/silicon/robot/syndicate/saboteur/ninja/New(loc)
-	..()
+/mob/living/silicon/robot/syndicate/saboteur/ninja/Initialize(mapload)
+	. = ..()
 	mmi = new /obj/item/mmi/robotic_brain/ninja(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/ninja/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)

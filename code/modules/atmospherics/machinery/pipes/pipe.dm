@@ -21,6 +21,8 @@
 	if(iswallturf(get_turf(src)) || istype(get_turf(src), /turf/simulated/wall/shuttle))
 		level = 1
 
+	AddElement(/datum/element/undertile)
+
 /obj/machinery/atmospherics/pipe/Destroy()
 	var/turf/turf = get_turf(src)
 	turf.blind_release_air(air_temporary)

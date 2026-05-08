@@ -22,17 +22,17 @@
 	var/alt_sound = null
 	usesound = 'sound/items/rped.ogg'
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
-	if(!flag && works_from_distance && istype(M))
+/obj/item/storage/part_replacer/afterattack(obj/machinery/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag && works_from_distance && istype(target))
 		// Make sure its in range
-		if(get_dist(src, M) <= (user.client.maxview() + 2))
-			if(M.component_parts)
-				M.exchange_parts(user, src)
-				user.Beam(M,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		if(get_dist(src, target) <= (user.client.maxview() + 2))
+			if(target.component_parts)
+				target.exchange_parts(user, src)
+				user.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		else
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, span_notice("ERROR: [M] is out of [src]'s range!"))
+			to_chat(user, span_notice("ERROR: [target] is out of [src]'s range!"))
 
 /obj/item/storage/part_replacer/bluespace
 	name = "bluespace rapid part exchange device"

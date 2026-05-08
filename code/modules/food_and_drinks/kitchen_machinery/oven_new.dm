@@ -76,4 +76,3 @@
 	add_attack_logs(grabber, victim, "Smashed with [src]")
 	//Removes the grip to prevent rapid bashes. With the knockdown, you PROBABLY can't run unless they are slow to grab you again...
 	grabber.stop_pulling()
-

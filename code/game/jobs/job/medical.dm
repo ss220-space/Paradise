@@ -37,6 +37,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical
+	abstract_type = /datum/job/medical
 	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
@@ -314,7 +315,6 @@
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	head = /obj/item/clothing/head/soft/paramedic
 	belt = /obj/item/storage/belt/medical/filled
-	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	l_hand = /obj/item/storage/firstaid/paramed

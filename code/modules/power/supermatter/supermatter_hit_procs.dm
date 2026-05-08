@@ -1,0 +1,143 @@
+/obj/machinery/power/supermatter_crystal/proc/eat_bullets(datum/source, obj/projectile/projectile)
+	SIGNAL_HANDLER
+
+	var/turf/local_turf = loc
+	if(!istype(local_turf))
+		return NONE
+
+	if(!istype(projectile.firer, /obj/machinery/power/emitter))
+		investigate_log("has been hit by [projectile] fired by [key_name(projectile.firer)]", INVESTIGATE_ENGINE)
+	if(projectile.flag != BULLET)
+		log_activation(who = projectile.firer, how = projectile.firer_source_atom)
+	else
+		external_damage_immediate += projectile.damage * bullet_energy * 0.01
+		// Stop taking damage at emergency point, yell to players at danger point.
+		// This isn't clean and we are repeating [/obj/machinery/power/supermatter_crystal/proc/calculate_damage], sorry for this.
+		var/damage_to_be = damage + external_damage_immediate * clamp((emergency_point - damage) / emergency_point, 0, 1)
+		if(damage_to_be > danger_point)
+			visible_message(span_notice("[src] compresses under stress, resisting further impacts!"))
+		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+	if(istype(projectile, /obj/projectile/beam/emitter/hitscan))
+		var/obj/projectile/beam/emitter/hitscan/mahlaser = projectile
+		if(mahlaser?.integrity_heal)
+			damage = max(0, damage - mahlaser?.integrity_heal)
+		if(mahlaser?.energy_reduction)
+			internal_energy = max(0, internal_energy - mahlaser?.energy_reduction)
+		if(mahlaser?.psi_change)
+			psy_coeff = clamp(psy_coeff + mahlaser?.psi_change, 0, 1)
+	external_power_immediate += projectile.damage * bullet_energy
+	if(istype(projectile, /obj/projectile/beam/emitter/hitscan/magnetic))
+		absorption_ratio = clamp(absorption_ratio + 0.05, 0.15, 1)
+
+	qdel(projectile)
+
+/obj/machinery/power/supermatter_crystal/singularity_act()
+	var/gain = 100
+	investigate_log("was consumed by a singularity.", INVESTIGATE_ENGINE)
+	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
+	visible_message(span_userdanger("[src] is consumed by the singularity!"))
+	var/turf/sm_turf = get_turf(src)
+	for(var/mob/hearing_mob as anything in GLOB.player_list)
+		if(!is_valid_z_level(get_turf(hearing_mob), sm_turf))
+			continue
+		SEND_SOUND(hearing_mob, 'sound/effects/supermatter.ogg') //everyone goan know bout this
+		to_chat(hearing_mob, span_bolddanger("A horrible screeching fills your ears, and a wave of dread washes over you..."))
+	qdel(src)
+	return gain
+
+/obj/machinery/power/supermatter_crystal/attack_tk(mob/user)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, span_userdanger("That was a really dense idea."))
+	jedi.investigate_log("had [jedi.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
+	jedi.ghostize()
+	var/obj/item/organ/internal/brain/rip_u = jedi.get_int_organ(/obj/item/organ/internal/brain)
+	if(rip_u)
+		rip_u.remove(jedi)
+		qdel(rip_u)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/power/supermatter_crystal/attackby(obj/item/item, mob/user, params)
+	if(!istype(item) || (item.flags & ABSTRACT) || !istype(user))
+		return ATTACK_CHAIN_BLOCKED
+
+	if(HAS_TRAIT(item, TRAIT_SUPERMATTER_IMMUNE))
+		return ATTACK_CHAIN_BLOCKED
+
+	if(istype(item, /obj/item/scalpel/supermatter))
+		var/obj/item/scalpel/supermatter/scalpel = item
+		to_chat(user, span_notice("You carefully begin to scrape \the [src] with \the [scalpel]..."))
+
+		if(!scalpel.use_tool(src, user, 60, volume = 100))
+			return ATTACK_CHAIN_BLOCKED
+
+		if(!scalpel.uses_left)
+			to_chat(user, span_warning("You fail to extract a sliver from \the [src]! \The [scalpel] isn't sharp enough anymore."))
+			return ATTACK_CHAIN_BLOCKED
+
+		to_chat(user, span_danger("You extract a sliver from \the [src]. \The [src] begins to react violently!"))
+		new /obj/item/nuke_core/supermatter_sliver(get_turf(user))
+		supermatter_sliver_removed = TRUE
+		external_power_trickle += 800
+		log_activation(who = user, how = scalpel)
+
+		scalpel.uses_left--
+		if(!scalpel.uses_left)
+			to_chat(user, span_notice("A tiny piece of \the [scalpel] falls off, rendering it useless!"))
+
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(item, /obj/item/retractor/supermatter))
+		to_chat(user, span_warning("You poke [src] with [item]'s hyper-noblium tips. Nothing happens."))
+		return ATTACK_CHAIN_BLOCKED
+
+	if(istype(item, /obj/item/destabilizing_crystal))
+		var/obj/item/destabilizing_crystal/destabilizing_crystal = item
+
+		if(!is_main_engine)
+			to_chat(user, span_warning("You can't use \the [destabilizing_crystal] on \a [name]."))
+			return ATTACK_CHAIN_BLOCKED
+
+		if(get_integrity_percent() < SUPERMATTER_CASCADE_PERCENT)
+			to_chat(user, span_warning("You can only apply \the [destabilizing_crystal] to \a [name] that is at least [SUPERMATTER_CASCADE_PERCENT]% intact."))
+			return ATTACK_CHAIN_BLOCKED
+
+		to_chat(user, span_warning("You begin to attach \the [destabilizing_crystal] to \the [src]..."))
+		if(!do_after(user, 3 SECONDS, src))
+			return ATTACK_CHAIN_BLOCKED
+
+		message_admins("[ADMIN_LOOKUPFLW(user)] attached [destabilizing_crystal] to the supermatter at [ADMIN_VERBOSEJMP(src)].")
+		add_game_logs("attached [destabilizing_crystal] to the supermatter", user)
+		user.investigate_log("attached [destabilizing_crystal] to a supermatter crystal.", INVESTIGATE_ENGINE)
+		to_chat(user, span_danger("\The [destabilizing_crystal] snaps onto \the [src]."))
+
+		radio_announce(
+			"Обнаружена интеграция неизвестного вещества в гиперструктуру кристалла!",
+			src,
+			emergency_channel
+		)
+		set_delam(SM_DELAM_PRIO_IN_GAME, /datum/sm_delam/cascade)
+		external_damage_immediate += 10
+		external_power_trickle += 500
+		log_activation(who = user, how = destabilizing_crystal)
+		qdel(destabilizing_crystal)
+
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
+////Do not blow up our internal radio
+///obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)
+//	return
+
+/obj/machinery/power/supermatter_crystal/proc/wrench_act_callback(mob/user, obj/item/tool)
+	if(moveable)
+		default_unfasten_wrench(user, tool)
+
+/obj/machinery/power/supermatter_crystal/proc/consume_callback(matter_increase, damage_increase)
+	external_power_trickle += matter_increase
+	external_damage_immediate += damage_increase
+
+/obj/machinery/power/supermatter_crystal/attack_ai(mob/user)
+	return

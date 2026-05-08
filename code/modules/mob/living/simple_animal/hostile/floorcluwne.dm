@@ -410,8 +410,9 @@
 	duration = 150
 	randomdir = FALSE
 
-/obj/effect/temp_visual/fcluwne_manifest/New()
+/obj/effect/temp_visual/fcluwne_manifest/Initialize(mapload)
 	. = ..()
+	
 	playsound(src, 'sound/spookoween/scary_clown_appear.ogg', 100, TRUE)
 
 #undef STAGE_HAUNT

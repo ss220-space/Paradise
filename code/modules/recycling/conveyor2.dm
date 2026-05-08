@@ -601,20 +601,20 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 	return ..()
 
-/obj/item/conveyor_construct/afterattack(turf/interacting_with, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/conveyor_construct/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(user.incapacitated())
 		return
-	if(!isfloorturf(interacting_with))
+	if(!isfloorturf(target))
 		return
-	if(interacting_with == user.loc)
+	if(target == user.loc)
 		to_chat(user, span_warning("You cannot place [src] under yourself."))
 		return
-	if(locate(/obj/machinery/conveyor) in interacting_with) //Can't put conveyors beneath conveyors
+	if(locate(/obj/machinery/conveyor) in target) //Can't put conveyors beneath conveyors
 		to_chat(user, span_warning("There's already a conveyor there!"))
 		return
-	var/obj/machinery/conveyor/conveyor = new(interacting_with, user.dir, id)
+	var/obj/machinery/conveyor/conveyor = new(target, user.dir, id)
 	transfer_fingerprints_to(conveyor)
 	qdel(src)
 
@@ -639,12 +639,12 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. += span_notice("<b>Use</b> it on a section of conveyor belt or conveyor placer to link them together.")
 	. += span_notice("<b>Use</b> the assembly on the ground to finalize it.")
 
-/obj/item/conveyor_switch_construct/afterattack(turf/interacting_with, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/conveyor_switch_construct/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(user.incapacitated())
 		return
-	if(!isfloorturf(interacting_with))
+	if(!isfloorturf(target))
 		return
 	var/found = FALSE
 	for(var/obj/machinery/conveyor/belt in view())
@@ -654,7 +654,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(!found)
 		to_chat(user, span_notice("The conveyor switch did not detect any linked conveyor belts in range."))
 		return
-	var/obj/machinery/conveyor_switch/built_switch = new(interacting_with, id)
+	var/obj/machinery/conveyor_switch/built_switch = new(target, id)
 	transfer_fingerprints_to(built_switch)
 	qdel(src)
 

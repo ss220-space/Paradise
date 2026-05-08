@@ -9,8 +9,8 @@
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 
-/obj/item/robot_parts/New(newloc, model)
-	..(newloc)
+/obj/item/robot_parts/Initialize(mapload, model)
+	. = ..()
 	if(model_info && model)
 		model_info = model
 		var/datum/robolimb/R = GLOB.all_robolimbs[model]
@@ -101,8 +101,8 @@
 	var/aisync = 1
 	var/panel_locked = 1
 
-/obj/item/robot_parts/robot_suit/New()
-	..()
+/obj/item/robot_parts/robot_suit/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
@@ -402,7 +402,7 @@
 		check_lawsync()
 		laws_to_give = get_new_laws(new_mmi)
 
-		var/mob/living/silicon/robot/new_borg = new(loc, syndie = sabotaged, unfinished = TRUE, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
+		var/mob/living/silicon/robot/new_borg = new(loc, sabotaged, TRUE, FALSE, aisync, forced_ai)
 		if(QDELETED(new_borg))	// somehow??? jesus fucking christ
 			return .
 
@@ -435,6 +435,8 @@
 		process_clocker_cyborg(new_borg)
 		check_locomotion(new_borg)
 		return .
+
+	return ..()
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"

@@ -68,7 +68,7 @@
 	icon = 'icons/map_icons/objects.dmi'
 	icon_state = "/obj/structure/chair/sofa/bench"
 	greyscale_config = /datum/greyscale_config/bench_middle
-	greyscale_colors = "#a3f38d"
+	greyscale_colors = COLOR_BENCH_BROWN
 	post_init_icon_state = "bench_middle"
 	comfort = 0.1
 
@@ -107,64 +107,84 @@
 // Middle section color variations
 /obj/structure/chair/sofa/bench/security_red
 	icon_state = "/obj/structure/chair/sofa/bench/security_red"
-	greyscale_colors = COLOR_PINK_RED
+	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/medical_blue
 	icon_state = "/obj/structure/chair/sofa/bench/medical_blue"
-	greyscale_colors = COLOR_BRIGHT_BLUE
+	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/science_pink
 	icon_state = "/obj/structure/chair/sofa/bench/science_pink"
-	greyscale_colors = COLOR_FADED_PINK
+	greyscale_colors = COLOR_SCIENCE_PINK
+
+/obj/structure/chair/sofa/bench/command_blue
+	icon_state = "/obj/structure/chair/sofa/bench/command_blue"
+	greyscale_colors = COLOR_COMMAND_BLUE
 
 // Left section color variations
 /obj/structure/chair/sofa/bench/left/security_red
 	icon_state = "/obj/structure/chair/sofa/bench/left/security_red"
-	greyscale_colors = COLOR_PINK_RED
+	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/left/medical_blue
 	icon_state = "/obj/structure/chair/sofa/bench/left/medical_blue"
-	greyscale_colors = COLOR_BRIGHT_BLUE
+	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/left/science_pink
 	icon_state = "/obj/structure/chair/sofa/bench/left/science_pink"
-	greyscale_colors = COLOR_FADED_PINK
+	greyscale_colors = COLOR_SCIENCE_PINK
+
+/obj/structure/chair/sofa/bench/left/command_blue
+	icon_state = "/obj/structure/chair/sofa/bench/left/command_blue"
+	greyscale_colors = COLOR_COMMAND_BLUE
 
 // Right section color variations
 /obj/structure/chair/sofa/bench/right/security_red
 	icon_state = "/obj/structure/chair/sofa/bench/right/security_red"
-	greyscale_colors = COLOR_PINK_RED
+	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/right/medical_blue
 	icon_state = "/obj/structure/chair/sofa/bench/right/medical_blue"
-	greyscale_colors = COLOR_BRIGHT_BLUE
+	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/right/science_pink
 	icon_state = "/obj/structure/chair/sofa/bench/right/science_pink"
-	greyscale_colors = COLOR_FADED_PINK
+	greyscale_colors = COLOR_SCIENCE_PINK
+
+/obj/structure/chair/sofa/bench/right/command_blue
+	icon_state = "/obj/structure/chair/sofa/bench/right/command_blue"
+	greyscale_colors = COLOR_COMMAND_BLUE
 
 // Corner section color variations
 /obj/structure/chair/sofa/bench/corner/security_red
 	icon_state = "/obj/structure/chair/sofa/bench/corner/security_red"
-	greyscale_colors = COLOR_PINK_RED
+	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/corner/medical_blue
 	icon_state = "/obj/structure/chair/sofa/bench/corner/medical_blue"
-	greyscale_colors = COLOR_BRIGHT_BLUE
+	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/corner/science_pink
 	icon_state = "/obj/structure/chair/sofa/bench/corner/science_pink"
-	greyscale_colors = COLOR_FADED_PINK
+	greyscale_colors = COLOR_SCIENCE_PINK
+
+/obj/structure/chair/sofa/bench/corner/command_blue
+	icon_state = "/obj/structure/chair/sofa/bench/corner/command_blue"
+	greyscale_colors = COLOR_COMMAND_BLUE
 
 // Solo section color variations
 /obj/structure/chair/sofa/bench/solo/security_red
 	icon_state = "/obj/structure/chair/sofa/bench/solo/security_red"
-	greyscale_colors = COLOR_PINK_RED
+	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/solo/medical_blue
 	icon_state = "/obj/structure/chair/sofa/bench/solo/medical_blue"
-	greyscale_colors = COLOR_BRIGHT_BLUE
+	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/solo/science_pink
 	icon_state = "/obj/structure/chair/sofa/bench/solo/science_pink"
-	greyscale_colors = COLOR_FADED_PINK
+	greyscale_colors = COLOR_SCIENCE_PINK
+
+/obj/structure/chair/sofa/bench/solo/command_blue
+	icon_state = "/obj/structure/chair/sofa/bench/solo/command_blue"
+	greyscale_colors = COLOR_COMMAND_BLUE

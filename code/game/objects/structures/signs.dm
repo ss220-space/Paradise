@@ -198,14 +198,15 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/redcross
-	name = "медбэй"
+/obj/structure/sign/medbay
+	name = "МЕДБЭЙ"
 	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
+	icon_state = "lifestar"
+
+/obj/structure/sign/medbay/redcross
 	icon_state = "redcross"
 
-/obj/structure/sign/greencross
-	name = "медбэй"
-	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
+/obj/structure/sign/medbay/greencross
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
@@ -302,6 +303,9 @@
 	desc = "Знак, обозначающий область, где исследуются ксенобиологические существа."
 	icon_state = "xenobio"
 
+/obj/structure/sign/xenobio/slime
+	icon_state = "xenobio2"
+
 /obj/structure/sign/evac
 	name = "ЭВАКУАЦИЯ"
 	desc = "Знак, обозначающий область, где проводятся процедуры эвакуации."
@@ -311,6 +315,11 @@
 	name = "ДЕСАНТНЫЕ КАПСУЛЫ"
 	desc = "Знак, обозначающий область, где проводятся процедуры загрузки десантных капсул."
 	icon_state = "drop"
+
+/obj/structure/sign/doors
+	name = "ШЛЮЗЫ"
+	desc = "Знак, обозначающий область, где возможно внезапное закрытие шлюзов."
+	icon_state = "doors"
 
 /obj/structure/sign/custodian
 	name = "УБОРЩИК"

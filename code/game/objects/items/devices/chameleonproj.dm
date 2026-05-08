@@ -41,24 +41,30 @@
 /obj/item/chameleon/attack_self(mob/user)
 	toggle(user)
 
-/obj/item/chameleon/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/chameleon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(!check_sprite(target))
 		return
+
 	if(target.alpha < 255)
 		return
+
 	if(target.invisibility)
 		return
-	if(!active_dummy)
-		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
-			to_chat(user, span_notice("Scanned [target]."))
-			var/obj/temp = new /obj()
-			temp.appearance = target.appearance
-			temp.layer = initial(target.layer)
-			SET_PLANE_EXPLICIT(temp, initial(plane), src)
-			saved_appearance = temp.appearance
+
+	if(active_dummy)
+		return
+
+	if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
+		to_chat(user, span_notice("Scanned [target]."))
+		var/obj/temp = new()
+		temp.appearance = target.appearance
+		temp.layer = initial(target.layer)
+		SET_PLANE_EXPLICIT(temp, initial(plane), src)
+		saved_appearance = temp.appearance
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	if(icon_exists(target.icon, target.icon_state))

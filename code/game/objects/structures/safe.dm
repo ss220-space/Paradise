@@ -475,12 +475,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
-	var/turf/T = loc
-	if(!T.transparent_floor)
-		hide(T.intact)
-
-/obj/structure/safe/floor/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
+	AddElement(/datum/element/undertile)
 
 /**
  * # Safe Internals

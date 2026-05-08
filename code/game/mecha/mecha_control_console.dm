@@ -68,33 +68,6 @@
 	origin_tech = "programming=2;magnets=2"
 	var/ai_beacon = FALSE //If this beacon allows for AI control. Exists to avoid using istype() on checking.
 
-/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
-	if(!in_mecha())
-		return FALSE
-	var/obj/mecha/M = loc
-	var/list/answer[0]
-	answer["reference"] = UID()
-	answer["name"] = sanitize(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
-	if(M.cell)
-		answer["cell"] = 1
-		answer["cell_capacity"] = M.cell.maxcharge
-		answer["cell_current"] = M.get_charge()
-		answer["cell_percentage"] = round(M.cell.percent())
-	else
-		answer["cell"] = 0
-	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
-	answer["airtank"] = M.internal_tank.return_pressure()
-	answer["pilot"] = "[M.occupant||"None"]"
-	var/area/area = get_area(M)
-	answer["location"] = "[sanitize(area.name)||UNKNOWN_STATUS_RUS]"
-	answer["equipment"] = "[M.selected||"None"]"
-	if(istype(M, /obj/mecha/working))
-		var/obj/mecha/working/RM = M
-		answer["hascargo"] = 1
-		answer["cargo"] = length(RM.cargo) / RM.cargo_capacity * 100
-
-	return answer
-
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info_text()
 	if(!in_mecha())
 		return FALSE
@@ -107,7 +80,9 @@
 						<b>Airtank:</b> [M.internal_tank.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
 						<b>Location:</b> [sanitize(A.name)||UNKNOWN_STATUS_RUS]
-						<b>Active equipment:</b> [M.selected||"None"]<br>"}
+						<b>Left Hand:</b> [M.selected_equipment_in_hands[MECH_HAND_LEFT] || "None"]<br>
+						<b>Right Hand:</b> [M.selected_equipment_in_hands[MECH_HAND_RIGHT]|| "None"]<br>
+						"}
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M
 		answer += "<b>Used cargo space:</b> [length(RM.cargo) / RM.cargo_capacity * 100]%<br>"
@@ -131,7 +106,8 @@
 	data["airtank"] = M.internal_tank.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
-	data["active"] = M.selected
+	data["active_left"] = M.selected_equipment_in_hands[MECH_HAND_LEFT]
+	data["active_right"] = M.selected_equipment_in_hands[MECH_HAND_RIGHT]
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
 		data["cargoUsed"] = length(RM.cargo)

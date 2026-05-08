@@ -428,7 +428,7 @@
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name
 
-/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
@@ -450,30 +450,36 @@
 	color = RUNE_COLOR_RED
 	invocation = "Фуу ма'джин!"
 
-/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(!isliving(target) || !proximity)
+/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
+	if(!isliving(target) || !proximity_flag)
 		return
 	var/mob/living/L = target
 
 	if(iscultist(target))
 		return
 
-	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
-							span_cultitalic("You attempt to stun [L] with the spell!"))
+	user.visible_message(
+		span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"),
+		span_cultitalic("You attempt to stun [L] with the spell!"),
+	)
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 
 	if(N)
-		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
-								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		target.visible_message(
+			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
+			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),
+		)
 		uses--
 		return ..()
 
 	if(ismindshielded(L))
-		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
-								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
+		target.visible_message(
+			span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"),
+			span_userdanger("Ваш имплант блокирует ослепляющий свет!"),
+		)
 		return ..()
 
 	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
@@ -503,11 +509,11 @@
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Сас'со к'арта форбичи!"
 
-/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
-	if(!iscultist(target) || !proximity)
+	if(!iscultist(target) || !proximity_flag)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
 	for(var/R in GLOB.teleport_runes)
@@ -574,8 +580,8 @@
 	invocation = "Ин'тотум Лиг'абис!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(iscarbon(target) && proximity)
+/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(iscarbon(target) && proximity_flag)
 		var/mob/living/carbon/C = target
 		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
@@ -629,7 +635,7 @@
 	. += span_notice("<u>A sinister spell used to convert:</u> Plasteel into runed metal [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\
 						Airlocks into brittle runed airlocks after a delay (harm intent)")
 
-/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag)
 		if(channeling)
 			to_chat(user, span_cultitalic("You are already invoking twisted construction!"))
@@ -684,8 +690,8 @@
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity, params)
-	if(iscarbon(target) && proximity)
+/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(iscarbon(target) && proximity_flag)
 		uses--
 		var/mob/living/carbon/C = target
 		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_CLOTH_OUTER)
@@ -707,7 +713,7 @@
 	color = "#9c0651"
 	has_source = FALSE //special, only availible for a blood cost.
 
-/obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag)
 
 		// Shielded suit
@@ -753,8 +759,8 @@
 	. += span_cultitalic("You have collected [uses] charge\s of blood.")
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity, params)
-	if(proximity)
+/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 

@@ -92,8 +92,8 @@
 		ink.color = rgb(tattoo_r, tattoo_g, tattoo_b, 190)
 		. += ink
 
-/obj/item/fluff/tattoo_gun/New()
-	..()
+/obj/item/fluff/tattoo_gun/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
@@ -205,8 +205,8 @@
 		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски",
 	)
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target))
@@ -309,8 +309,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
@@ -341,8 +341,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
@@ -373,8 +373,8 @@
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/melee/baton/security) && !istype(target, /obj/item/melee/baton/security/cattleprod))
@@ -397,8 +397,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
@@ -417,8 +417,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -458,8 +458,8 @@
 	icon_state = "modkit"
 	w_class = 2
 
-/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
@@ -483,7 +483,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /*
-/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -538,7 +538,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /*
-/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -651,8 +651,8 @@
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
@@ -1476,8 +1476,8 @@
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
 	icon_state = "modkit"
 
-/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(!isspacepod(target))

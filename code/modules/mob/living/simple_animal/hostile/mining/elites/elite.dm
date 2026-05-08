@@ -511,7 +511,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		PREPOSITIONAL = "осколке опухоли",
 	)
 
-/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target

@@ -50,11 +50,19 @@ SUBSYSTEM_DEF(dbcore)
 
 //nu
 /datum/controller/subsystem/dbcore/can_vv_get(var_name)
-	return var_name != NAMEOF(src, connection) && var_name != NAMEOF(src, active_queries) && ..()
+	if(var_name == NAMEOF(src, connection))
+		return FALSE
+	if(var_name == NAMEOF(src, active_queries))
+		return FALSE
+
+	return ..()
 
 /datum/controller/subsystem/dbcore/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, connection))
 		return FALSE
+	if(var_name == NAMEOF(src, active_queries))
+		return FALSE
+
 	return ..()
 
 /**

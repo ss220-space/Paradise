@@ -279,10 +279,10 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
+/obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/plant_analyzer))
 		// Hacky item guess
-		item.melee_attack_chain(user, myseed, params)
+		item.melee_attack_chain(user, myseed, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

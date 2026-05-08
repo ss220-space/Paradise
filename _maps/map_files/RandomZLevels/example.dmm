@@ -37,10 +37,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ag" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/noalarm/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2";
 	pixel_y = 1;
@@ -319,12 +316,9 @@
 	dir = 8
 	},
 /obj/structure/grille,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "example";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/example)
@@ -337,12 +331,9 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "example";
-	name = "Privacy Shutters";
-	opacity = 0
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/example)

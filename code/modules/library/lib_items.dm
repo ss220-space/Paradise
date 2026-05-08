@@ -77,7 +77,7 @@
 	if(update)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bookcase/MouseDrop_T(atom/movable/thing, mob/user, params)
+/obj/structure/bookcase/mouse_drop_receive(atom/movable/thing, mob/user, params)
 	if(!istype(user, /mob/living/simple_animal/pet/library_owl))
 		return
 	if(!is_type_in_typecache(thing, allowed_books))
@@ -403,7 +403,7 @@
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
-	if(I.sharp)
+	if(!I.sharp)
 		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)

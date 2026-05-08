@@ -222,13 +222,6 @@
 		return r_hand
 	return null
 
-/mob/proc/is_in_hands_to_flag(obj/item/I)
-	if(I == l_hand)
-		return ITEM_SLOT_HAND_LEFT
-	if(I == r_hand)
-		return ITEM_SLOT_HAND_RIGHT
-	return NONE
-
 /**
  * Returns `TRUE` if mob's hands free
  */

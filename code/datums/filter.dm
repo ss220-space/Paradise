@@ -143,8 +143,8 @@
  * Example use:
  * * add_filter("blue_pulse", 1, color_matrix_filter(COLOR_WHITE))
  * * transition_filter_chain(src, "blue_pulse", INDEFINITE,\
- * *	filter_chain_step(color_matrix_filter(COLOR_BLUE), 10 SECONDS, CUBIC_EASING),\
- * *	filter_chain_step(color_matrix_filter(COLOR_WHITE), 10 SECONDS, CUBIC_EASING))
+ * * filter_chain_step(color_matrix_filter(COLOR_BLUE), 10 SECONDS, CUBIC_EASING),\
+ * * filter_chain_step(color_matrix_filter(COLOR_WHITE), 10 SECONDS, CUBIC_EASING))
  * The above code would edit a color_matrix_filter() to slowly turn blue over 10 seconds before returning back to white 10 seconds after, repeating this chain forever.
  */
 /datum/proc/transition_filter_chain(name, num_loops, ...)

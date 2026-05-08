@@ -6,6 +6,8 @@
 #define TRAIT_BLOCK_RADIATION "block_radiation"
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
 #define TRAIT_BEING_SHOCKED "being_shocked" // Used together with WAS_SHOCKED instead of flag SHOCKED_2 from the Official Paradise.
+/// Trait that determines, if object under floor.
+#define TRAIT_UNDERFLOOR "underfloor"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -76,7 +78,7 @@
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
-/// Make some nuild actions quicker
+/// Make some build actions quicker
 #define TRAIT_QUICK_BUILD "quick-build"
 /// Prevents mob from riding mobs when buckled onto something
 #define TRAIT_CANT_RIDE "cant_ride"
@@ -233,6 +235,8 @@
 #define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
 /// Combat exoframe EMP nutrition shield flag
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
+/// Item still allows you to examine items while blind and actively held.
+#define TRAIT_BLIND_TOOL "blind_tool"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 /// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item
@@ -316,6 +320,8 @@
 #define TRAIT_PIERCEIMMUNE "pierce_immunity"
 /// This human mob will not be affected by embedding of the thrown items
 #define TRAIT_EMBEDIMMUNE "embed_immunity"
+/// This human mob will not be affected by fracture effects
+#define TRAIT_IGNORE_FRACTURE "ignore_fracture"
 /// This human mob will never suffer from the malnutrition
 #define TRAIT_NO_HUNGER "no_hunger"
 /// This human mob will not obtain additional bonuses/penalties from nutrition level (look at /datum/element/nutrition_effects)
@@ -414,6 +420,9 @@
 /// Ignores darkness for hearing
 #define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
 
+/// Ignores darkness for hearing
+#define TRAIT_HIJACK "hijack"
+
 //important_recursive_contents traits
 /*
  * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
@@ -434,6 +443,32 @@
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
+
+/// Traits given by station traits
+#define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
+#define STATION_TRAIT_LATE_ARRIVALS "station_trait_late_arrivals"
+#define STATION_TRAIT_RANDOM_ARRIVALS "station_trait_random_arrivals"
+#define STATION_TRAIT_HANGOVER "station_trait_hangover"
+#define STATION_TRAIT_EMPTY_MAINT "station_trait_empty_maint"
+#define STATION_TRAIT_BOTS_GLITCHED "station_trait_bot_glitch"
+#define STATION_TRAIT_REVOLUTIONARY_TRASHING "station_trait_revolutionary_trashing"
+#define STATION_TRAIT_POST_WAR_TRASH "station_trait_post_war_trash"
+#define STATION_TRAIT_CRAMPED_INTERNALS "station_trait_cramped_internals"
+#define STATION_TRAIT_LOOTED_ARMORY "station_trait_looted_armory"
+#define STATION_TRAIT_SPIKED_DRINKS "station_trait_spiked_drinks"
+#define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
+#define STATION_TRAIT_MIMANIUM_SHIPMENTS "station_trait_mimanium_shipments"
+#define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
+#define STATION_TRAIT_PDA_GLITCHED "station_trait_pda_glitched"
+#define STATION_TRAIT_CLASSIC_ASSISTANTS "station_trait_classic_assistants"
+#define STATION_TRAIT_BIRTHDAY "station_trait_birthday"
+#define STATION_TRAIT_PREMIUM_INTERNALS "station_trait_premium_internals"
+#define STATION_TRAIT_FILLED_MAINT "station_trait_filled_maint"
+#define STATION_TRAIT_CYBERNETIC_REVOLUTION "station_trait_cybernetic_revolution"
+#define STATION_TRAIT_MEDBOT_MANIA "station_trait_medbot_mania"
+#define STATION_TRAIT_UPGRADED_ARMORY "station_trait_upgraded_armory"
+#define STATION_TRAIT_GREEN_ENERGY "station_trait_green_energy"
+#define STATION_TRAIT_OUTDATED_HARDSUITS "station_trait_outdated_hardsuits"
 
 // Radiation defines
 /// Marks that this object is irradiated
@@ -471,6 +506,7 @@
 
 /// Trait used to ensure that things don't get animated as falling in multiple times
 #define TRAIT_FALLING_INTO_BINGLE_HOLE "falling_into_bingle_pit"
+
 /// Immune to being afflicted by time stop (spell)
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 
@@ -489,8 +525,20 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// If a human has a fracture in their legs or feet (for optimization)
+#define TRAIT_FRACTURE_FALL "fracture_fall"
 /// Suppression implant trait
 #define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
 
 ///Trait applied to turf blocked by a containment field
 #define TRAIT_CONTAINMENT_FIELD "containment_field"
+
+/// Prevents the projectile itself from ricocheting.
+#define TRAIT_NO_RICOCHET "no_ricochet"
+
+#define TRAIT_FACING_TO_MOUSE "facing_to_mouse"
+
+/// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
+#define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"
+
+#define TRAIT_GUN_BURST_FIRING "burst_firing"

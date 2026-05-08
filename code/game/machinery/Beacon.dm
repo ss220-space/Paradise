@@ -1,6 +1,6 @@
 /obj/machinery/bluespace_beacon
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "floor_beaconf"
+	icon_state = "floor_beacon"
 	name = "Bluespace Gigabeacon"
 	desc = "A device that draws power from bluespace and creates a permanent tracking beacon."
 	level = 1		// underfloor
@@ -16,6 +16,7 @@
 
 /obj/machinery/bluespace_beacon/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/undertile)
 	create_beacon()
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
@@ -26,8 +27,6 @@
 	Beacon.syndicate = syndicate
 	Beacon.area_bypass = area_bypass
 	Beacon.cc_beacon = cc_beacon
-	if(!T.transparent_floor)
-		hide(T.intact)
 
 /obj/machinery/bluespace_beacon/proc/destroy_beacon()
 	QDEL_NULL(Beacon)
@@ -40,17 +39,6 @@
 	destroy_beacon()
 	return ..()
 
-/obj/machinery/bluespace_beacon/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	update_icon(UPDATE_ICON_STATE)
-
-// update the icon_state
-/obj/machinery/bluespace_beacon/update_icon_state()
-	var/state="floor_beacon"
-	if(invisibility)
-		icon_state = "[state]f"
-	else
-		icon_state = "[state]"
 
 /obj/machinery/bluespace_beacon/process()
 	if(enabled)

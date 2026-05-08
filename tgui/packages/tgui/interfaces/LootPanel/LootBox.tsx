@@ -11,9 +11,13 @@ type Data = {
 type Props =
   | {
       item: SearchItem;
+      selected?: boolean;
+      onToggleSelection?: (uid: string) => void;
     }
   | {
       group: SearchGroup;
+      selected?: boolean;
+      onToggleSelection?: (uid: string) => void;
     };
 
 export const LootBox = (props: Props) => {
@@ -22,11 +26,17 @@ export const LootBox = (props: Props) => {
 
   let amount = 0;
   let item: SearchItem;
+  let selected = false;
+  let onToggleSelection: ((uid: string) => void) | undefined;
   if ('group' in props) {
     amount = props.group.amount;
     item = props.group.item;
+    selected = props.selected ?? false;
+    onToggleSelection = props.onToggleSelection;
   } else {
     item = props.item;
+    selected = props.selected ?? false;
+    onToggleSelection = props.onToggleSelection;
   }
 
   const name = !item.name ? '???' : item.name;
@@ -35,7 +45,10 @@ export const LootBox = (props: Props) => {
     <Button
       p={0}
       fluid
-      color="transparent"
+      color={selected ? 'good' : 'transparent'}
+      style={
+        selected ? { backgroundColor: 'hsl(94, 63%, 31%, 0.25)' } : undefined
+      }
       onClick={(event) =>
         act('grab', {
           alt: event.altKey,
@@ -46,10 +59,14 @@ export const LootBox = (props: Props) => {
       }
       onContextMenu={(event) => {
         event.preventDefault();
-        act('grab', {
-          right: true,
-          uid: item.uid,
-        });
+        if (onToggleSelection) {
+          onToggleSelection(item.uid);
+        } else {
+          act('grab', {
+            right: true,
+            uid: item.uid,
+          });
+        }
       }}
     >
       <Stack>
@@ -60,6 +77,7 @@ export const LootBox = (props: Props) => {
           lineHeight="34px"
           overflow="hidden"
           style={{ textOverflow: 'ellipsis' }}
+          color={selected ? 'good' : undefined}
         >
           {!is_blind && name}
         </Stack.Item>

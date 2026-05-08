@@ -35,6 +35,11 @@
 		PREPOSITIONAL = "фонарике"
 	)
 
+
+/obj/item/flashlight/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить свет")
+
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
 	light_system = MOVABLE_LIGHT
@@ -340,6 +345,7 @@
 
 /obj/item/flashlight/flare/proc/turn_on()
 	on = TRUE
+	START_PROCESSING(SSobj, src)
 	update_brightness()
 	force = on_damage
 	damtype = FIRE
@@ -358,7 +364,6 @@
 		balloon_alert_to_viewers("медленно тускнеет")
 
 /obj/item/flashlight/flare/attack_self(mob/user)
-	// Usual checks
 	if(!fuel)
 		balloon_alert(user, "израсходовано!")
 		return
@@ -568,6 +573,8 @@
 	item_state = "torch"
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+	fuel_lower = 60
+	fuel_upp = 70
 
 /obj/item/flashlight/flare/torch/get_ru_names()
 	return list(
@@ -649,16 +656,17 @@
 		return ..()
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/flashlight/emp/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/flashlight/emp/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
-		if(ismob(A))
-			var/mob/M = A
-			add_attack_logs(user, M, "Hit with EMP-light")
+		if(ismob(target))
+			var/mob/mob_target = target
+			add_attack_logs(user, mob_target, "Hit with EMP-light")
 		balloon_alert(user, "осталось [emp_cur_charges] использовани[declension_ru(emp_cur_charges, "е", "я", "й")]")
-		A.emp_act(1)
+		target.emp_act(1)
 	else
 		balloon_alert(user, "перезарядка!")
 

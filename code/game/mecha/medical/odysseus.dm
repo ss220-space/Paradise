@@ -57,14 +57,15 @@
 	deflect_chance = 0 // нахуй рандом
 	mech_enter_time = 1
 
-/obj/mecha/medical/odysseus/full_load/New()
+/obj/mecha/medical/odysseus/full_load/Initialize(mapload)
 	. = ..()
+	
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
 	ME.attach(src)
 

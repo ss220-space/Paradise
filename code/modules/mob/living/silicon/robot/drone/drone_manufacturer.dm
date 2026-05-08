@@ -60,7 +60,7 @@
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
-	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
+	if(produce_drones && drone_progress >= 100 && isdead(user) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
 		. += span_notice("<br><b>Дрон готов. Выберите 'Присоединиться как дрон' во вкладке Ghost, чтобы появиться как дрон обслуживания.</b>")
 
 /obj/machinery/drone_fabricator/proc/count_drones()
@@ -78,7 +78,7 @@
 	if(!produce_drones || !CONFIG_GET(flag/allow_drone_spawn) || count_drones() >= CONFIG_GET(number/max_maint_drones))
 		return
 
-	if(!player || !istype(player.mob,/mob/dead))
+	if(!player || !isdead(player.mob))
 		return
 
 	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")

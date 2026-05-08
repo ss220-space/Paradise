@@ -20,9 +20,10 @@ export const Signaler = (props: SignalerProps) => {
             minValue={minFrequency / 10}
             maxValue={maxFrequency / 10}
             value={frequency / 10}
+            tickWhileDragging
             format={(value) => toFixed(value, 1)}
             width="80px"
-            onDrag={(value) =>
+            onChange={(value) =>
               act('freq', {
                 freq: value,
               })
@@ -38,7 +39,8 @@ export const Signaler = (props: SignalerProps) => {
             maxValue={100}
             value={code}
             width="80px"
-            onDrag={(value) =>
+            tickWhileDragging
+            onChange={(value) =>
               act('code', {
                 code: value,
               })

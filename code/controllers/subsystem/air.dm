@@ -404,7 +404,7 @@ SUBSYSTEM_DEF(air)
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
 		currentrun.len--
 
-		if(istype(atmos_machine, /obj/machinery/atmospherics/supermatter_crystal))
+		if(istype(atmos_machine, /obj/machinery/power/supermatter_crystal))
 			supermatters += atmos_machine
 
 		else if(isnull(atmos_machine) || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
@@ -416,7 +416,7 @@ SUBSYSTEM_DEF(air)
 			return
 
 	while(length(supermatters))
-		var/obj/machinery/atmospherics/supermatter_crystal/supermatter = supermatters[length(supermatters)]
+		var/obj/machinery/power/supermatter_crystal/supermatter = supermatters[length(supermatters)]
 		supermatters.len--
 
 		if(isnull(supermatter) || (supermatter.process_atmos(seconds) == PROCESS_KILL))
@@ -501,15 +501,17 @@ SUBSYSTEM_DEF(air)
 					// Wasn't an active hotspot before, add it.
 					hotspots += simulated_turf
 				else
-					simulated_turf.active_hotspot.temperature = temperature
-					simulated_turf.active_hotspot.fuel_burnt = fuel_burnt
-					simulated_turf.active_hotspot.data_tick = milla_tick
+					var/obj/effect/hotspot/active_hotspot = simulated_turf.active_hotspot
+					active_hotspot.temperature = temperature
+					active_hotspot.fuel_burnt = fuel_burnt
+					active_hotspot.data_tick = milla_tick
 					if(hotspot_volume > 0)
-						simulated_turf.active_hotspot.temperature = hotspot_temperature
-						simulated_turf.active_hotspot.volume = hotspot_volume * CELL_VOLUME
+						active_hotspot.temperature = hotspot_temperature
+						active_hotspot.volume = hotspot_volume * CELL_VOLUME
 					else
-						simulated_turf.active_hotspot.temperature = temperature
-						simulated_turf.active_hotspot.volume = CELL_VOLUME
+						active_hotspot.temperature = temperature
+						active_hotspot.volume = CELL_VOLUME
+					active_hotspot.coldfire_possible = !!currentrun[offset + MILLA_INDEX_FREON]
 
 				turf.temperature_expose(temperature)
 				var/radiated_temperature = temperature * FIRE_SPREAD_RADIOSITY_SCALE
@@ -901,6 +903,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/is_in_milla_safe_code()
 	return in_milla_safe_code || length(sleepers) > 0
+
 /datum/controller/subsystem/air/proc/on_milla_tick_finished()
 	milla_idle = TRUE
 	run_sleepless_callbacks()

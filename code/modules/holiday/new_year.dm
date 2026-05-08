@@ -7,7 +7,6 @@
 	icon = 'icons/obj/new_year/decorations.dmi'
 	icon_state = "garland_on"
 	max_integrity = 24 //can be removed easily (also, symbolism)
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/wirecutters/I)
@@ -30,7 +29,7 @@
 	icon_state = "red_furhat"
 	item_state = "red_furhat"
 	resistance_flags = INDESTRUCTIBLE
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT

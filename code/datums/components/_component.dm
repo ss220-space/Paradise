@@ -17,15 +17,6 @@
 	 */
 	var/dupe_mode = COMPONENT_DUPE_HIGHLANDER
 
-	/**
-	 * The type to check for duplication
-	 *
-	 * `null` means exact match on `type` (default)
-	 *
-	 * Any other type means that and all subtypes
-	 */
-	var/dupe_type
-
 	/// The datum this components belongs to
 	var/datum/parent
 
@@ -58,7 +49,7 @@
 		return
 
 	if(QDELETED(src) || QDELETED(parent))
-		CRASH("Component [type] was created with a deleted parent or was deleted itself before it could be added to a parent")
+		CRASH("Component [type] was created with a deleted parent or was deleted itself before it could be added to a parent.")
 
 	_JoinParent()
 

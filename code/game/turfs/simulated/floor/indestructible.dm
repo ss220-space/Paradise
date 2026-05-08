@@ -31,7 +31,7 @@
 /turf/simulated/floor/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
+/turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
 /turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)

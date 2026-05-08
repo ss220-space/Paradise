@@ -239,7 +239,7 @@
 /datum/component/riding/vehicle/scooter/skateboard/RegisterWithParent()
 	. = ..()
 	if(can_slow_down)
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	var/obj/vehicle/ridden/scooter/skateboard/board = parent
 	if(istype(board))
 		board.can_slow_down = can_slow_down

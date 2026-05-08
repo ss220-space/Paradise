@@ -569,15 +569,18 @@
 
 /obj/item/clothing/shoes/bhop/clown
 	name = "clown shoes"
-	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте <b>Ctrl</b>!"
+	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные!"
 	icon_state = "clown"
 	item_state = "clown_shoes"
-	description_antag = "Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	actions_types = list(/datum/action/item_action/bhop/clown)
 	var/enabled_waddle = TRUE
 	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
+
+/obj/item/clothing/shoes/bhop/clown/examine_more(mob/user)
+	. = ..()
+	. += span_warning("Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!")
 
 /obj/item/clothing/shoes/bhop/clown/get_ru_names()
 	return list(

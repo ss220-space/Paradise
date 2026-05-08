@@ -2,9 +2,7 @@
 	name = "Debug outfit"
 
 	uniform = /obj/item/clothing/under/patriotsuit
-	suit = /obj/item/clothing/suit/space/deathsquad/officer
-	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
-	back = /obj/item/storage/backpack/ert/security
+	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
@@ -195,8 +193,8 @@
 		PREPOSITIONAL = "создателе гуманоидов",
 	)
 
-/obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
-	..()
+/obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
 	if(isturf(target))
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
 		if(selected_species)
@@ -267,6 +265,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/surgery/advanced
 	name = "AVD-CNED surgical toolset implant"
+	greyscale_colors = "#848fe6#8f0b0b#8f0b0b#8f0b0b"
 	contents = newlist(
 		/obj/item/scalpel/laser/manager/debug,
 		/obj/item/hemostat/alien, // its needed specifically for some surgeries

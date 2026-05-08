@@ -18,6 +18,10 @@
 		PREPOSITIONAL = "крюке",
 	)
 
+/obj/projectile/hook/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_RICOCHET, INNATE_TRAIT)
+
 /obj/projectile/hook/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)

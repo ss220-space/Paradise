@@ -10,6 +10,7 @@
 
 	hud_type = /datum/hud/simple_animal
 	abstract_type = /mob/living/simple_animal
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
@@ -437,11 +438,11 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Здоровье:", "[round((health / maxHealth) * 100)]%")
 
-/mob/living/simple_animal/proc/drop_loot(drop_loc)
+/mob/living/simple_animal/proc/drop_loot()
 	if(!length(loot))
 		return
 	for(var/item in loot)
-		new item(drop_loc)
+		new item(drop_location())
 	loot = null
 
 /mob/living/simple_animal/death(gibbed)

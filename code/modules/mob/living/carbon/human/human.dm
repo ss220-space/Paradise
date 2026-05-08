@@ -24,6 +24,7 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	AddElement(/datum/element/strippable, GLOB.strippable_human_items,  TYPE_PROC_REF(/mob/living/carbon/human/, should_strip))
+	AddComponent(/datum/component/anti_juggling)
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -271,7 +272,7 @@
 		return FALSE
 
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection
-	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
+	var/limb_loss_reduction = floor(armor / 25) //It's guaranteed that every 25th armor point will protect from one delimb
 	var/limbs_affected = 0
 
 	switch(severity)
@@ -481,7 +482,38 @@
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
 				to_chat(src, span_warning("Вы чувствуете, как ваше сердце вновь бьётся!"))
 
+	if(!(flags & SHOCK_NO_HUMAN_ANIM))
+		electrocution_animation(4 SECONDS)
+
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
+
+/// Turns a mob black, flashes a skeleton overlay. Just like a cartoon!
+/mob/living/carbon/human/proc/electrocution_animation(anim_duration)
+	var/mutable_appearance/zap_appearance
+
+	// If we have a species, we need to handle mutant parts and stuff
+	if(dna?.species)
+		add_atom_colour(COLOR_BLACK, TEMPORARY_COLOUR_PRIORITY)
+		var/static/mutable_appearance/shock_animation_dna
+		if(!shock_animation_dna)
+			shock_animation_dna = mutable_appearance('icons/mob/human.dmi', "electrocuted_base")
+			shock_animation_dna.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_dna
+
+	// Otherwise do a generic animation
+	else
+		var/static/mutable_appearance/shock_animation_generic
+		if(!shock_animation_generic)
+			shock_animation_generic = mutable_appearance('icons/mob/human.dmi', "electrocuted_generic")
+			shock_animation_generic.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_generic
+
+	add_overlay(zap_appearance)
+	addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), zap_appearance), anim_duration)
+
+/mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/zap_appearance)
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_BLACK)
+	cut_overlay(zap_appearance)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(in_range(src, usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -524,6 +556,23 @@
 			if(QDELETED(bodypart) || !bodypart.tourniquet)
 				return
 			bodypart.tourniquet.remove_from_bodypart(usr)
+			return
+
+		if(href_list["open_fracture_limb"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["open_fracture_limb"])
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+				return
+			if(!do_after(usr, 10 SECONDS, src, max_interact_count = 1))
+				return
+			if(QDELETED(bodypart) || !bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+				return
+			bodypart.owner.emote("scream")
+			if(prob(bodypart.fracture.reattach_chance)) //success
+				bodypart.fracture = FRACTURE_TYPE_CLOSED
+				return
+			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
+			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
+			bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
 			return
 
 	if(href_list["criminal"])
@@ -1000,8 +1049,6 @@
 	if(usr == src)
 		check_self_for_injuries()
 		return
-
-	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, usr, usr)
 
 /**
  * Set up DNA and species.
@@ -1912,6 +1959,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message(span_notice("[user] разделыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
 		gib()
 
+/mob/living/carbon/human/proc/add_fracture_ignore_trait(source)
+	ADD_TRAIT(src, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(source))
+	update_fractures_effects()
+
+/mob/living/carbon/human/proc/remove_fracture_ignore_trait(source)
+	REMOVE_TRAIT(src, TRAIT_IGNORE_FRACTURE, UNIQUE_TRAIT_SOURCE(source))
+	update_fractures_effects()
+
+/mob/living/carbon/human/proc/update_fractures_effects()
+	update_fractures_slowdown()
+	update_fractures_workspeed()
+	update_fractures_fall()
+
 /mob/living/carbon/human/proc/update_fractures_slowdown()
 	var/static/list/possible_limbs = list(
 		BODY_ZONE_L_LEG,
@@ -1921,16 +1981,63 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/modifier = 0
-	for(var/zone in possible_limbs)
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
-		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
-			continue
-		modifier += 2
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			modifier += bodypart.fracture.slowdown_mod
 
 	if(modifier)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
+
+/mob/living/carbon/human/proc/update_fractures_workspeed()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+	)
+
+	var/modifier = 0
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			modifier += bodypart.fracture.workspeed_mod
+
+	if(modifier)
+		add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/fractures, multiplicative_slowdown = modifier)
+	else
+		remove_actionspeed_modifier(/datum/actionspeed_modifier/fractures)
+
+/mob/living/carbon/human/proc/update_fractures_fall()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+
+	var/exists_fracture  = FALSE
+
+	if(!HAS_TRAIT(src, TRAIT_IGNORE_FRACTURE))
+		for(var/zone in possible_limbs)
+			var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+			if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+				continue
+			exists_fracture  = TRUE
+			break
+
+	if(exists_fracture)
+		ADD_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_FRACTURE_FALL, GENERIC_TRAIT)
 
 /mob/living/carbon/human/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)
@@ -1965,7 +2072,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return ishuman(target) && target.body_position == LYING_DOWN
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED))
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
 		target.balloon_alert(src, "цель не лежит!")
 		return
 	/// if you have latex you are faster at grabbing
@@ -1989,7 +2096,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED) || target.buckled)
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
 		visible_message(
 			span_warning("[declent_ru(DATIVE)] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват."),
 			ignored_mobs = src

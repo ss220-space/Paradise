@@ -1,7 +1,7 @@
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../../backend';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Box, Button, Input, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
@@ -22,24 +22,91 @@ export const LootPanel = (props: unknown) => {
   // limitations: items with different stack counts, charges etc.
   // const [contentsByPathName, setPresets] = useLocalState<Preset[]>('presets', []);
   // Тут был useMemo из 'react'. Я скушал его потому что не мог достать по другому. Он был кислым. Н
-  const contentsByPathName: Record<string, SearchItem[]> = {};
-  for (let i = 0; i < contents.length; i++) {
-    const item = contents[i];
-    if (item.path) {
-      if (!contentsByPathName[item.path + item.name]) {
-        contentsByPathName[item.path + item.name] = [];
+  const contentsByPathName = useMemo(() => {
+    const result: Record<string, { items: SearchItem[]; path: string }> = {};
+    for (let i = 0; i < contents.length; i++) {
+      const item = contents[i];
+      const groupKey = item.path ? item.path + item.name : item.uid;
+      if (!result[groupKey]) {
+        result[groupKey] = { items: [], path: item.path || '' };
       }
-      contentsByPathName[item.path + item.name].push(item);
-    } else {
-      contentsByPathName[item.uid] = [item];
+      result[groupKey].items.push(item);
     }
-  }
+    return result;
+  }, [contents]);
+
+  // Floor is always the first item in the list
+  const hasCopyableItems = contents.length > 1;
 
   // Search
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const [grouping, setGrouping] = useState(true);
   const [searchText, setSearchText] = useState('');
+
+  // Selection
+  const [selectedUids, setSelectedUids] = useState<Set<string>>(new Set());
+
+  const toggleSelection = useCallback((uid: string) => {
+    setSelectedUids((prev) => {
+      const next = new Set(prev);
+      if (next.has(uid)) {
+        next.delete(uid);
+      } else {
+        next.add(uid);
+      }
+      return next;
+    });
+  }, []);
+
+  const clearSelection = useCallback(() => {
+    setSelectedUids(new Set());
+  }, []);
+
+  const copySelected = useCallback(() => {
+    const selectedNames: string[] = [];
+    if (selectedUids.size > 0) {
+      // Copy selected items
+      if (grouping) {
+        for (const value of Object.values(contentsByPathName)) {
+          const firstItem = value.items[0];
+          if (selectedUids.has(firstItem.uid)) {
+            selectedNames.push(
+              value.items.length > 1
+                ? `${firstItem.name} x${value.items.length}`
+                : firstItem.name
+            );
+          }
+        }
+      } else {
+        for (const item of contents) {
+          if (selectedUids.has(item.uid)) {
+            selectedNames.push(item.name);
+          }
+        }
+      }
+    } else {
+      // Copy all items (skip first — it's always the floor)
+      if (grouping) {
+        const values = Object.values(contentsByPathName);
+        for (let i = 1; i < values.length; i++) {
+          const value = values[i];
+          const amount = value.items.length;
+          const name = value.items[0].name;
+          selectedNames.push(amount > 1 ? `${name} x${amount}` : name);
+        }
+      } else {
+        for (let i = 1; i < contents.length; i++) {
+          selectedNames.push(contents[i].name);
+        }
+      }
+    }
+    if (selectedNames.length > 0) {
+      const text = selectedNames.join(', ');
+      navigator.clipboard.writeText(text).catch(() => {});
+    }
+    clearSelection();
+  }, [selectedUids, contents, grouping, contentsByPathName, clearSelection]);
 
   const headerHeight = 38;
   const itemHeight = 38;
@@ -86,6 +153,12 @@ export const LootPanel = (props: unknown) => {
             onClick={() => act('refresh')}
             tooltip="Refresh"
           />
+          <Button
+            icon="copy"
+            disabled={!hasCopyableItems}
+            onClick={copySelected}
+            tooltip="Copy items (all if none selected)"
+          />
         </Box>
       }
     >
@@ -103,9 +176,16 @@ export const LootPanel = (props: unknown) => {
             <GroupedContents
               contents={contentsByPathName}
               searchText={searchText}
+              selectedUids={selectedUids}
+              onToggleSelection={toggleSelection}
             />
           ) : (
-            <RawContents contents={contents} searchText={searchText} />
+            <RawContents
+              contents={contents}
+              searchText={searchText}
+              selectedUids={selectedUids}
+              onToggleSelection={toggleSelection}
+            />
           )}
         </Section>
       </Window.Content>

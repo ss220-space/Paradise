@@ -4,6 +4,7 @@
 	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
+	item_state = "syndcapt"
 	body_parts_covered = UPPER_TORSO | ARMS
 	var/colour = null
 
@@ -107,7 +108,6 @@
 	name = "syndicate captain's cloak"
 	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate captains."
 	icon_state = "syndcapt"
-	item_state = "syndcapt"
 
 /obj/item/clothing/neck/cloak/syndiecap/comms
 	name = "syndicate officer's cloak"
@@ -124,3 +124,63 @@
 	desc = "Hole, a blackhole on your back!"
 	icon_state = "spacecloak"
 	item_state = "spacecloak"
+
+/obj/item/clothing/neck/cloak/civil_cape
+	name = "standard cape cloak"
+	desc = "Тёмная, почти чёрная накидка из плотной ткани. По краям — глубокие синие вставки. Застёгивается на два металлические заклепки. Известна тем, что при намокании начинает источать слабый запах формальдегида — производственный брак, который так и не исправили.."
+	icon_state = "civil_cape"
+
+/obj/item/clothing/neck/cloak/civil_cape/get_ru_names()
+	return list(
+		NOMINATIVE = "стандартная накидка",
+		GENITIVE = "стандартной накидки",
+		DATIVE = "стандартной накидке",
+		ACCUSATIVE = "стандартную накидку",
+		INSTRUMENTAL = "стандартной накидкой",
+		PREPOSITIONAL = "стандартной накидке",
+	)
+
+/obj/item/clothing/neck/cloak/commander_cape
+	name = "commander cape cloak"
+	desc = "Тёмно-антрацитовая накидка с крупными синими вставками. По синему фону идёт аккуратная золотая вышивка. Застёжки титановые, с чернёным золотом. Изнутри подкладка темно-синего цвета с вышитой золотом надписью \"Per aspera ad astra\"."
+	icon_state = "commander_cape"
+
+/obj/item/clothing/neck/cloak/commander_cape/get_ru_names()
+	return list(
+		NOMINATIVE = "командная накидка",
+		GENITIVE = "командной накидки",
+		DATIVE = "командной накидке",
+		ACCUSATIVE = "командную накидку",
+		INSTRUMENTAL = "командной накидкой",
+		PREPOSITIONAL = "командной накидке"
+	)
+
+/obj/item/clothing/neck/cloak/sec_cape
+	name = "security officer cape cloak"
+	desc = "Тёмная вытянутая накидка из армированной ткани с красной окантовкой. На заклёпке виднеется логотип НТ. Красная окантовка выполнена из материала, что темнеет при контакте с кровью...правда вы всё равно этого не заметите покуда будете ходить в крови с ног до головы."
+	icon_state = "sec_cape"
+
+/obj/item/clothing/neck/cloak/sec_cape/get_ru_names()
+	return list(
+		NOMINATIVE = "офицерская накидка",
+		GENITIVE = "офицерской накидки",
+		DATIVE = "офицерской накидке",
+		ACCUSATIVE = "офицерскую накидку",
+		INSTRUMENTAL = "офицерской накидкой",
+		PREPOSITIONAL = "офицерской накидке"
+	)
+
+/obj/item/clothing/neck/cloak/hos_cape
+	name = "marine cape cloak"
+	desc = "Накидка из матовой ткани, почти не отражающая свет. Заклёпка выглядит как медаль за проявленный героизм. Края накидки у ног выглядят так будто их выжигали кислотой. Пахнет напалмом. Изнутри накидки золотыми нитями вышито \"Gloria dei T.S.F.\"."
+	icon_state = "hos_cape"
+
+/obj/item/clothing/neck/cloak/hos_cape/get_ru_names()
+	return list(
+		NOMINATIVE = "накидка морпехов",
+		GENITIVE = "накидки морпехов",
+		DATIVE = "накидке морпехов",
+		ACCUSATIVE = "накидку морпехов",
+		INSTRUMENTAL = "накидкой морпехов",
+		PREPOSITIONAL = "накидке морпехов"
+	)

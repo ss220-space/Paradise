@@ -68,10 +68,10 @@
 	if(volume >= 3)
 		MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
-	quench(1000, 2)
+	quench(1000, 2, min_temperature =  temperature)
 
 /// Quenches any fire on the turf, and if it does, cools down the turf's air by the given parameters.
-/turf/simulated/proc/quench(delta, divisor)
+/turf/simulated/proc/quench(delta, divisor, min_temperature = TCMB)
 	var/found = FALSE
 	for(var/obj/effect/hotspot/hotspot in src)
 		qdel(hotspot)
@@ -81,13 +81,13 @@
 		return
 
 	var/datum/milla_safe/turf_cool/milla = new()
-	milla.invoke_async(src, delta, divisor)
+	milla.invoke_async(src, delta, divisor, min_temperature)
 
 /datum/milla_safe/turf_cool
 
-/datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
-	var/datum/gas_mixture/air = get_turf_air(T)
-	air.set_temperature(max(min(air.temperature() - delta * divisor, air.temperature() / divisor), TCMB))
+/datum/milla_safe/turf_cool/on_run(turf/location, delta, divisor, min_temperature = TCMB)
+	var/datum/gas_mixture/air = get_turf_air(location)
+	air.set_temperature(max(min(air.temperature() - delta * divisor, air.temperature() / divisor), min_temperature))
 	air.react()
 
 /turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)

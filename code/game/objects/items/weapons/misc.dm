@@ -73,8 +73,8 @@
 /obj/item/lightning/update_icon_state()
 	icon_state = "[angle]"
 
-/obj/item/lightning/afterattack(atom/A, mob/living/user, flag, params)
-	var/angle = get_angle(A, user)
+/obj/item/lightning/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	var/angle = get_angle(target, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
 	if(angle > 180)
@@ -85,7 +85,7 @@
 	if(!angle)
 		angle = 1
 	update_icon(UPDATE_ICON_STATE)
-	user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
+	user.Beam(target, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/newton
 	name = "newton cradle"

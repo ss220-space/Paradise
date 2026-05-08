@@ -3,7 +3,6 @@
 	icon_state = "girder"
 	anchored = TRUE
 	density = TRUE
-	layer = BELOW_OBJ_LAYER
 	cares_about_temperature = TRUE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
