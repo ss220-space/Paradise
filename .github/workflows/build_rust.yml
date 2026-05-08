@@ -171,8 +171,10 @@ jobs:
       - name: Build Windows DLL
         run: |
           cd rust
-
-          # Build with GNU as fallback
+          $env:PATH = "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;C:\msys64\mingw32\bin;$env:PATH"
+          $env:CC_i686_pc_windows_gnu = "i686-w64-mingw32-gcc"
+          $env:CXX_i686_pc_windows_gnu = "i686-w64-mingw32-g++"
+          Get-Command i686-w64-mingw32-gcc -ErrorAction SilentlyContinue
           cargo build --release --target i686-pc-windows-gnu
           copy target\i686-pc-windows-gnu\release\rustlibs.dll ..\rustlibs.dll
 
