@@ -10,7 +10,7 @@
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	burst_size = 1
+	burst_amount = 1
 	fire_delay = 0
 	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
 	recoil = GUN_RECOIL_LOW
@@ -19,7 +19,7 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 3),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 7),
 	)
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 	/// Magazine icon (if exists on pistol, null for disable this feature)
 	var/magazine_icon = "pistol_mag"
 
@@ -151,7 +151,7 @@
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	burst_size = 3
+	burst_amount = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
@@ -159,5 +159,5 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 5),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 8),
 	)
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
 	magazine_icon = "aps_mag"

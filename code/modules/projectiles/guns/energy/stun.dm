@@ -104,11 +104,11 @@
 	cell_type = /obj/item/stock_parts/cell/laser/tesla_cannon
 	can_add_sibyl_system = FALSE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	fire_delay = 100 MILLISECONDS
+	gun_firemode = GUN_FIREMODE_AUTOMATIC
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
+	sound_loop = /datum/looping_sound/tesla_cannon
 	var/ready_to_fire = FALSE
-
-/obj/item/gun/energy/tesla_cannon/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/automatic_fire, autofire_shot_delay =  100 MILLISECONDS, firing_sound_loop = /datum/looping_sound/tesla_cannon)
 
 /obj/item/gun/energy/tesla_cannon/can_trigger_gun(mob/living/user, akimbo_usage)
 	if(ready_to_fire)

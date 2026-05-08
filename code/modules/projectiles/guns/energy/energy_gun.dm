@@ -173,6 +173,13 @@
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	fire_delay = 0.4 SECONDS
+	windup_autofire = TRUE
+	windup_autofire_reduction_multiplier = 0.05
+	windup_autofire_cap = 0.25
+	windup_spindown = 1 SECONDS
+	gun_firemode = GUN_FIREMODE_AUTOMATIC
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
 	var/force_unwielded = 10
 	var/force_wielded = 20
 
@@ -193,15 +200,6 @@
 		force_wielded = src.force_wielded, \
 		require_twohands = TRUE \
 	)
-	AddComponent( \
-		/datum/component/automatic_fire, \
-		0.4 SECONDS, \
-		TRUE, \
-		0.05, \
-		0.25, \
-		1 SECONDS \
-	)
-
 
 /obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	..()
@@ -218,7 +216,7 @@
 		return .
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/charge_amount = round(cell.charge / (shot.e_cost * burst_size))
+	var/charge_amount = round(cell.charge / (shot.e_cost * burst_amount))
 
 	. += span_notice("Индикатор батареи сообщает: заряда хватит на <b>[charge_amount]</b> [declension_ru(charge_amount, "выстрел", "выстрела", "выстрелов")].")
 

@@ -215,7 +215,7 @@
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
-			process_fire(user, user, 0, zone_override = BODY_ZONE_HEAD)
+			fast_fire(user, user, zone_override = BODY_ZONE_HEAD)
 			user.visible_message(span_suicide("[user] blows [user.p_their()] brains out with the [name]!"))
 			return BRUTELOSS
 		else
@@ -257,5 +257,5 @@
 	. = FALSE
 	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
 		if(AC.BB)
-			process_fire(user, user,0)
+			fast_fire(user, user)
 			. = TRUE

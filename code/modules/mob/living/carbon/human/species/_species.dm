@@ -1282,10 +1282,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
 
-/datum/species/proc/can_hear(mob/living/carbon/human/user)
-	var/obj/item/organ/internal/ears/ears = user.get_organ_slot(INTERNAL_ORGAN_EARS)
-	return ears && !HAS_TRAIT(user, TRAIT_DEAF)
-
 /datum/species/proc/has_vision(mob/living/carbon/human/user, information_only = FALSE)
 	if(information_only && user.stat == DEAD)
 		return TRUE

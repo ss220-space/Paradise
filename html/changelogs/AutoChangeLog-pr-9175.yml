@@ -1,0 +1,4 @@
+author: "Ksaikok46"
+delete-after: True
+changes:
+  - bugfix: "Дедсквад теперь отображается для админов в меню антагонистов (PR #9175)"

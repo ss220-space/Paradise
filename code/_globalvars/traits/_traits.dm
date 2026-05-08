@@ -276,6 +276,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_COMPONENT_MMI" = TRAIT_COMPONENT_MMI,
 		"TRAIT_COMPONENT_WIRE_BUNDLE" = TRAIT_COMPONENT_WIRE_BUNDLE,
 	),
+	/obj/item/gun = list(
+		"TRAIT_GUN_BURST_FIRING" = TRAIT_GUN_BURST_FIRING,
+	),
 	// MARK: Station traits
 	/datum/controller/subsystem/processing/station = list(
 		"STATION_TRAIT_BANANIUM_SHIPMENTS" = STATION_TRAIT_BANANIUM_SHIPMENTS,
