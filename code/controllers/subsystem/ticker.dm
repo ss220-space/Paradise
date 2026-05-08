@@ -353,7 +353,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, span_darkmblue("<b>Приятной игры!</b>"))
+	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
 	SEND_SOUND(world, sound(
 			SSstation.announcer.get_rand_welcome_sound(),
 			channel = CHANNEL_ANNOUNCER,
