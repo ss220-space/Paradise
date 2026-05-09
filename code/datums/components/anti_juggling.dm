@@ -4,7 +4,7 @@
 
 /datum/component/anti_juggling/Initialize(...)
 	. = ..()
-	if(!iscarbon(parent) || !isrobot(parent))
+	if(!iscarbon(parent) && !isrobot(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_MOB_GUN_COOLDOWN, PROC_REF(check_cooldown))
 	RegisterSignal(parent, COMSIG_MOB_GUN_FIRE, PROC_REF(on_fire))
