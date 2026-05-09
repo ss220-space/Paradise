@@ -738,6 +738,8 @@
 		return TRUE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
+	if(isstorage(target))
+		return TRUE
 	return FALSE
 
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
