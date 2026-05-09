@@ -109,3 +109,6 @@
 	target.holder_type = initial(target.holder_type)
 	target.pass_flags &= ~PASSTABLE
 	target.restrict_clothing_to_species_sprites = initial(target.restrict_clothing_to_species_sprites)
+
+/datum/species/resomi/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_WEAK, STRENGTH_LEVEL_STRONG, can_become_stronger)
