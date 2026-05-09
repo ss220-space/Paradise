@@ -22,7 +22,7 @@
 	///Reference to the objective that will be completed after da bang!
 	var/datum/objective/plant_explosive/detonation_objective
 
-/obj/item/grenade/plastic/c4/ninja/New()
+/obj/item/grenade/plastic/c4/ninja/Initialize(mapload)
 	. = ..()
 	image_overlay = image('icons/obj/ninjaobjects.dmi', "[item_state]2")
 

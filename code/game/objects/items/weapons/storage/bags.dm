@@ -77,6 +77,8 @@
 	storage_slots = 60
 	item_flags = NO_MAT_REDEMPTION
 
+/obj/item/storage/bag/trash/bluespace/cyborg
+
 ////////////////////////////////////////
 // MARK:	Plastic bag
 ////////////////////////////////////////
@@ -742,6 +744,8 @@
 		var/mutable_appearance/item_copy = new(item)
 		item_copy.plane = FLOAT_PLANE
 		item_copy.layer = FLOAT_LAYER + 0.1
+		item_copy.pixel_x = 0
+		item_copy.pixel_y = 0
 		item_copy.pixel_w = rand(-3, 3)
 		item_copy.pixel_z = rand(-3, 3)
 		. += item_copy

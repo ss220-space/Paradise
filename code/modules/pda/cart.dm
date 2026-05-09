@@ -16,7 +16,7 @@
 
 /obj/item/cartridge/Destroy()
 	QDEL_NULL(radio)
-	LAZYCLEARLIST(programs)
+	QDEL_LIST(programs)
 	QDEL_LIST(messenger_plugins)
 	return ..()
 

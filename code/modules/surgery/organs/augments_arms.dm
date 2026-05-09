@@ -101,6 +101,10 @@
 	var/obj/current_hand = host.hand ? host.get_organ(BODY_ZONE_L_ARM) : host.get_organ(BODY_ZONE_R_ARM)
 	if(hand != current_hand)
 		return //wrong hand
+	// We should not react to the item when it's not in our hand,
+	// it makes no sense and other items with something like TRAIT_NODROP might fuck us very badly
+	if(!active_item || active_item != host.get_active_hand())
+		return
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
 
@@ -322,8 +326,8 @@
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 
-/obj/item/organ/internal/cyberimp/arm/combat/New()
-	..()
+/obj/item/organ/internal/cyberimp/arm/combat/Initialize(mapload)
+	. = ..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
 		F.I = src
@@ -380,17 +384,123 @@
 	crit_fail = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/surgery
-	name = "surgical toolset implant"
-	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
-	icon_state = "surgical_arm_implant"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
+	name = "Inugami toolset implant"
+	desc = "Набор хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
+	icon = 'icons/map_icons/items/_item.dmi'
+	post_init_icon_state = "armimp"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery"
+	item_state = "armimp"
+	greyscale_config = /datum/greyscale_config/armimp
+	greyscale_config_inhand_left = /datum/greyscale_config/armimp_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/armimp_inhand_right
+	greyscale_colors = "#ffffff#269a9d#269a9d#269a9d"
+	contents = newlist(
+		/obj/item/retractor/augment,
+		/obj/item/hemostat/augment,
+		/obj/item/cautery/augment,
+		/obj/item/bonesetter/augment,
+		/obj/item/scalpel/augment,
+		/obj/item/circular_saw/augment,
+		/obj/item/bonegel/augment,
+		/obj/item/FixOVein/augment,
+		/obj/item/surgicaldrill/augment,
+		)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
-/obj/item/organ/internal/cyberimp/arm/surgery/l
-	parent_organ_zone = BODY_ZONE_L_ARM
-	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+/obj/item/organ/internal/cyberimp/arm/surgery/get_ru_names()
+		return list(
+			NOMINATIVE = "имплант хирургических инструментов",
+			GENITIVE = "импланта хирургических инструментов",
+			DATIVE = "импланту хирургических инструментов",
+			ACCUSATIVE = "имплант хирургических инструментов",
+			INSTRUMENTAL = "имплантом хирургических инструментов",
+			PREPOSITIONAL = "импланте хирургических инструментов",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv
+	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя. Новейшая разработка Inugami!"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv"
+	greyscale_colors = "#ffffff#89d640#89d640#89d640"
+	contents = newlist(
+		/obj/item/scalpel/laser/laser3,
+		/obj/item/hemostat/laser,
+		/obj/item/retractor/laser,
+		/obj/item/surgicaldrill/laser,
+		/obj/item/circular_saw/laser,
+		/obj/item/bonesetter/laser,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		)
+	origin_tech = "materials=5;biotech=3;magnets=4"
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_advanced")
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/get_ru_names()
+		return list(
+			NOMINATIVE = "имплант Inugami",
+			GENITIVE = "импланта Inugami",
+			DATIVE = "импланту Inugami",
+			ACCUSATIVE = "имплант Inugami",
+			INSTRUMENTAL = "имплантом Inugami",
+			PREPOSITIONAL = "импланте Inugami",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
+	name = "NT-Med toolset implant"
+	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя. Крайне редкая модель, используется военными врачами корпорации Nanotrasen."
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert"
+	greyscale_colors = "#8f8a8a#89d640#89d640#89d640"
+	contents = newlist(
+		/obj/item/bodyanalyzer/advanced,
+		/obj/item/scalpel/laser/manager,
+		/obj/item/surgicaldrill/laser,
+		/obj/item/circular_saw/laser,
+		/obj/item/bonesetter/laser,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		)
+	origin_tech = "materials=8;biotech=4;magnets=5;programming=4"
+	emp_proof = 1
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert/get_ru_names()
+		return list(
+			NOMINATIVE = "имплант NT-Med",
+			GENITIVE = "импланта NT-Med",
+			DATIVE = "импланту NT-Med",
+			ACCUSATIVE = "имплант NT-Med",
+			INSTRUMENTAL = "имплантом NT-Med",
+			PREPOSITIONAL = "импланте NT-Med",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/alien
+	name = "alien surgical toolset implant"
+	desc = "Набор экспериментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/alien"
+	greyscale_colors = "#848fe6#8b045c#5005d4#7e79ad"
+	contents = newlist(
+		/obj/item/scalpel/alien,
+		/obj/item/hemostat/alien,
+		/obj/item/retractor/alien,
+		/obj/item/circular_saw/alien,
+		/obj/item/surgicaldrill/alien,
+		/obj/item/cautery/alien,
+		/obj/item/bonegel/alien,
+		/obj/item/bonesetter/alien,
+		/obj/item/FixOVein/alien,
+		)
+	origin_tech = "materials=4;biotech=3;abductor=2"
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
+
+/obj/item/organ/internal/cyberimp/arm/surgery/alien/get_ru_names()
+		return list(
+			NOMINATIVE = "инородный имплант",
+			GENITIVE = "инородного импланта",
+			DATIVE = "инородному импланту",
+			ACCUSATIVE = "инородный имплант",
+			INSTRUMENTAL = "инородным имплантом",
+			PREPOSITIONAL = "инородном импланте",
+	)
 
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"

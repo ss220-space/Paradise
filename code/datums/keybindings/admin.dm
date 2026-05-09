@@ -67,3 +67,15 @@
 		return .
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/invisimin)
 	return TRUE
+
+/datum/keybinding/admin/view_tags
+	name = "View Tags"
+	keys = list("F3")
+	rights = R_ADMIN|R_DEBUG
+
+/datum/keybinding/admin/view_tags/down(client/user)
+	. = ..()
+	if(.)
+		return
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/display_tags)
+	return TRUE

@@ -16,8 +16,8 @@
 	if(toggle)
 		visible_message(span_danger("Взрыв отражается от энергетического щита [src]!")) //FLEX
 
-/mob/living/simple_animal/hostile/guardian/protector/New()
-	..()
+/mob/living/simple_animal/hostile/guardian/protector/Initialize(mapload)
+	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater/guardian)
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()

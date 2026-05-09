@@ -73,7 +73,7 @@ help: "Use the specific directional subtypes for this air alarm."
   banned: TRUE
 =/obj/machinery/alarm/syndicate/directional:
   banned: TRUE
-=/obj/machinery/alarm/syndicate/pirat:
+=/obj/machinery/alarm/syndicate/pirate/directional:
   banned: TRUE
 =/obj/machinery/alarm/vox/directional:
   banned: TRUE

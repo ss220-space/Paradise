@@ -610,11 +610,11 @@
 	if(query_donor_select.NextRow())
 		var/total = query_donor_select.item[1]
 		if(total >= 100)
-			donator_level = 1
+			donator_level = DONATOR_TIER_I
 		if(total >= 300)
-			donator_level = 2
+			donator_level = DONATOR_TIER_II
 		if(total >= 500)
-			donator_level = 3
+			donator_level = DONATOR_TIER_III
 		if(total >= 1000)
 			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
@@ -1513,11 +1513,9 @@
 	if(prefs.sound & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
 			return // If already properly set we don't want to reset the timer.
-
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
-
 	else
-		SSambience.ambience_listening_clients -= src
+		SSambience.remove_ambience_client(src)
 
 /client/proc/set_eye(new_eye)
 	if(new_eye == eye)
@@ -1713,6 +1711,17 @@
 		winset(src, "mapwindow.map", "right-click=false")
 		winset(src, "default.Shift", "is-disabled=true")
 		winset(src, "default.ShiftUp", "is-disabled=true")
+
+/client/proc/open_filter_editor(atom/in_atom)
+	if(holder)
+		holder.filterrific = new /datum/filter_editor(in_atom)
+		holder.filterrific.ui_interact(mob)
+
+///opens the particle editor UI for the in_atom object for this client
+/client/proc/open_particle_editor(atom/movable/in_atom)
+	if(holder)
+		holder.particle_test = new /datum/particle_editor(in_atom)
+		holder.particle_test.ui_interact(mob)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

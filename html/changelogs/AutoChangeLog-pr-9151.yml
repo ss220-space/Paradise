@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - balance: "значительно уменьшено время горения факела (PR #9151)"

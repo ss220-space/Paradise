@@ -24,8 +24,9 @@
 	add_overlay(multiz_overlay_node)
 */
 
-/obj/machinery/atmospherics/pipe/multiz/New()
-	..()
+/obj/machinery/atmospherics/pipe/multiz/Initialize(mapload)
+	. = ..()
+	
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()

@@ -989,8 +989,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(targets_hit, test))
 			continue
 
-		if(istype(test, /obj/vehicle/ridden/))
-			var/obj/vehicle/ridden/bike = test
+		if(istype(test, /obj/vehicle/ridden/bicycle))
+			var/obj/vehicle/ridden/bicycle/bike = test
 			if(!HAS_TRAIT(bike, TRAIT_BEING_SHOCKED) && bike.can_buckle)//God's not on our side cause he hates idiots.
 				if(target_type != BIKE)
 					arc_targets = list()

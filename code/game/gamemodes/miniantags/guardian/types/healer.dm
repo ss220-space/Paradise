@@ -27,8 +27,8 @@
 	melee_damage_type = STAMINA
 	flags = ADMIN_SPAWNED
 
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
+	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(summoner))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
@@ -153,7 +153,7 @@
 	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
 	var/mob/living/carbon/human/summoner = null
 
-/obj/effect/proc_holder/spell/guardian_quickmend/New(mob/living/carbon/human/summoned_by)
+/obj/effect/proc_holder/spell/guardian_quickmend/Initialize(mapload, mob/living/carbon/human/summoned_by)
 	. = ..()
 	summoner = summoned_by
 

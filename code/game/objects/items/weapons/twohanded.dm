@@ -201,13 +201,6 @@
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped
-	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ. Выглядит острее обычного"
-
-/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped/Initialize(mapload)
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
-
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
 	force_wielded = 30
@@ -921,13 +914,13 @@
 		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
-/obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
+/obj/item/twohanded/mjollnir/proc/yeet_shock(mob/living/target)
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
 		span_danger("[DECLENT_RU_CAP(target, NOMINATIVE)] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
-		span_italics("Раздаётся оглушительный электрический треск!")
+		span_hear("Раздаётся оглушительный электрический треск!")
 	)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
@@ -936,12 +929,12 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
-	shock(target)
+	yeet_shock(target)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(isliving(target))
-		shock(target)
+	if(!QDELETED(target) && isliving(target))
+		yeet_shock(target)
 
 /obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"

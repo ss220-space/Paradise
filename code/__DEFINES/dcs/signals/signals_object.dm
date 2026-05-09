@@ -234,6 +234,12 @@
 /// Sent from /datum/powernet/remove_cable()
 #define COMSIG_UPDATE_TWOHANDED_DAMAGE "update_twohanded_damage"
 
+/// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
+#define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
+
+/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+#define COMSIG_IMPLANT_REMOVED "implant_removed"
+
 /// Sent from /obj/structure/bingle_hole to /datum/team/bingles
 #define COMSIG_BINGLE_HOLE_INITIALIZED "bingle_hole_initialized"
 
@@ -342,9 +348,6 @@
 
 /// /obj/item/card/id/proc/freeze_linked_account(datum/source)
 #define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
-
-/// from base of atom/obj/item/death_book
-#define COMSIG_PHANTOM_DELETE "phantom_delete"
 
 /// Called after placing item on table. (mob/user, obj/structure/table)
 #define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"

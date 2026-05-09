@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - qol: "Перенос действий экшн кнопок на правый клик для одежды. (PR #8931)"

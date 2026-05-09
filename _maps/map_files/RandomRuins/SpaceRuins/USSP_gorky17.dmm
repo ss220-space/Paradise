@@ -9232,7 +9232,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/gun/projectile/automatic/ppsh/rusted,
+/obj/item/gun/projectile/automatic/smg/ppsh/rusted,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
 	name = "Gorky17 ammunition locker";
@@ -11757,7 +11757,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/megaphone,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -13301,7 +13301,7 @@
 /obj/item/clothing/suit/armor/vest,
 /obj/item/melee/baton,
 /obj/item/clothing/gloves/combat,
-/obj/item/gun/projectile/automatic/ppsh/rusted,
+/obj/item/gun/projectile/automatic/smg/ppsh/rusted,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
 	name = "Gorky17 ammunition locker";

@@ -13,11 +13,12 @@
 #define CHANNEL_TTS_RADIO 1013
 #define CHANNEL_RADIO_NOISE 1012 // radio headset noise
 #define CHANNEL_BOSS_MUSIC 1011
-#define CHANNEL_INTERACTION_SOUNDS 1010 // item pickup/equip/drop sounds
-#define CHANNEL_ESCAPEMENU 1009
+#define CHANNEL_INTERACTION_SOUNDS 1010	// item pickup/equip/drop sounds
+#define CHANNEL_ANNOUNCER 1009
+#define CHANNEL_ESCAPEMENU 1008
 // THIS SHOULD ALWAYS BE THE LOWEST ONE!
 // KEEP IT UPDATED
-#define CHANNEL_HIGHEST_AVAILABLE 1008
+#define CHANNEL_HIGHEST_AVAILABLE 1007
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
@@ -46,57 +47,21 @@
 
 #define USER_VOLUME(M, C) M?.client?.prefs?.get_channel_volume(C)
 
-//Ambience types
-#define GENERIC_SOUNDS list('sound/ambience/ambigen1.ogg', 'sound/ambience/ambigen3.ogg',\
-								'sound/ambience/ambigen4.ogg', 'sound/ambience/ambigen5.ogg',\
-								'sound/ambience/ambigen6.ogg', 'sound/ambience/ambigen7.ogg',\
-								'sound/ambience/ambigen8.ogg', 'sound/ambience/ambigen9.ogg',\
-								'sound/ambience/ambigen10.ogg', 'sound/ambience/ambigen11.ogg',\
-								'sound/ambience/ambigen12.ogg', 'sound/ambience/ambigen14.ogg', 'sound/ambience/ambigen15.ogg')
-
-#define HOLY_SOUNDS list('sound/ambience/ambicha1.ogg', 'sound/ambience/ambicha2.ogg', 'sound/ambience/ambicha3.ogg',\
-										'sound/ambience/ambicha4.ogg', 'sound/ambience/ambiholy.ogg', 'sound/ambience/ambiholy2.ogg',\
-										'sound/ambience/ambiholy3.ogg')
-
-#define HIGHSEC_SOUNDS list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg')
-
-#define RUINS_SOUNDS list('sound/ambience/ambimine.ogg', 'sound/ambience/ambicave.ogg', 'sound/ambience/ambiruin.ogg',\
-									'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
-									'sound/ambience/ambiruin5.ogg',  'sound/ambience/ambiruin6.ogg',  'sound/ambience/ambiruin7.ogg',\
-									'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambitech3.ogg',\
-									'sound/ambience/ambimystery.ogg', 'sound/ambience/ambimaint1.ogg')
-
-#define ENGINEERING_SOUNDS list('sound/ambience/ambisin1.ogg', 'sound/ambience/ambisin2.ogg', 'sound/ambience/ambisin3.ogg', 'sound/ambience/ambisin4.ogg',\
-										'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg')
-
-#define MINING_SOUNDS list('sound/ambience/ambimine.ogg', 'sound/ambience/ambicave.ogg', 'sound/ambience/ambiruin.ogg',\
-											'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
-											'sound/ambience/ambiruin5.ogg',  'sound/ambience/ambiruin6.ogg',  'sound/ambience/ambiruin7.ogg',\
-											'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambimaint1.ogg',\
-											'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava2.ogg', 'sound/ambience/ambilava3.ogg',\
-											'sound/ambience/ambilava4.ogg', 'sound/ambience/ambilava5.ogg')
-
-#define MEDICAL_SOUNDS list('sound/ambience/ambinice.ogg')
-
-#define SPOOKY_SOUNDS list('sound/ambience/ambimo1.ogg','sound/ambience/ambimo2.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin6.ogg',\
-										'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg')
-
-#define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg')
-
-#define MAINTENANCE_SOUNDS list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg',\
-											'sound/ambience/ambimaint5.ogg', 'sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg', 'sound/ambience/ambitech2.ogg' )
-
-#define AWAY_MISSION_SOUNDS list('sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiruin.ogg',\
-									'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
-									'sound/ambience/ambiruin5.ogg',  'sound/ambience/ambiruin6.ogg',  'sound/ambience/ambiruin7.ogg',\
-									'sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg', 'sound/ambience/ambimaint.ogg',\
-									'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg', 'sound/ambience/ambiodd.ogg')
-
-#define CREEPY_SOUNDS list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/heart_beat.ogg', 'sound/effects/screech.ogg',\
-	'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
-	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
-	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
-	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+#define AMBIENCE_GENERIC "generic"
+#define AMBIENCE_HOLY "holy"
+#define AMBIENCE_DANGER "danger"
+#define AMBIENCE_RUINS "ruins"
+#define AMBIENCE_ENGI "engi"
+#define AMBIENCE_MINING "mining"
+#define AMBIENCE_ICEMOON "icemoon"
+#define AMBIENCE_MEDICAL "med"
+#define AMBIENCE_VIROLOGY "viro"
+#define AMBIENCE_SPOOKY "spooky"
+#define AMBIENCE_SPACE "space"
+#define AMBIENCE_MAINT "maint"
+#define AMBIENCE_AWAY "away"
+#define AMBIENCE_REEBE "reebe"
+#define AMBIENCE_CREEPY "creepy"
 
 //default byond sound environments
 #define SOUND_ENVIRONMENT_NONE -1
@@ -188,6 +153,44 @@
  */
 #define CALCULATE_SOUND_VOLUME(volume, distance, max_distance, falloff_distance, falloff_exponent)\
 	((max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * volume)
+
+///Announcer audio keys
+#define ANNOUNCER_AIMALF "announcer_aimalf"
+#define ANNOUNCER_ALIENS "announcer_aliens"
+#define ANNOUNCER_ANIMES "announcer_animes"
+#define ANNOUNCER_GRANOMALIES "announcer_granomalies"
+#define ANNOUNCER_INTERCEPT "announcer_intercept"
+#define ANNOUNCER_IONSTORM "announcer_ionstorm"
+#define ANNOUNCER_METEORS "announcer_meteors"
+#define ANNOUNCER_OUTBREAK5 "announcer_outbreak5"
+#define ANNOUNCER_OUTBREAK7 "announcer_outbreak7"
+#define ANNOUNCER_POWEROFF "announcer_poweroff"
+#define ANNOUNCER_POWERON "announcer_poweron"
+#define ANNOUNCER_RADIATION "announcer_radiation"
+#define ANNOUNCER_SHUTTLECALLED "announcer_shuttlecalled"
+#define ANNOUNCER_SHUTTLEDOCK "announcer_shuttledock"
+#define ANNOUNCER_SHUTTLERECALLED "announcer_shuttlerecalled"
+#define ANNOUNCER_SPANOMALIES "announcer_spanomalies"
+
+/// Global list of all of our announcer keys.
+GLOBAL_LIST_INIT(announcer_keys, list(
+	ANNOUNCER_AIMALF,
+	ANNOUNCER_ALIENS,
+	ANNOUNCER_ANIMES,
+	ANNOUNCER_GRANOMALIES,
+	ANNOUNCER_INTERCEPT,
+	ANNOUNCER_IONSTORM,
+	ANNOUNCER_METEORS,
+	ANNOUNCER_OUTBREAK5,
+	ANNOUNCER_OUTBREAK7,
+	ANNOUNCER_POWEROFF,
+	ANNOUNCER_POWERON,
+	ANNOUNCER_RADIATION,
+	ANNOUNCER_SHUTTLECALLED,
+	ANNOUNCER_SHUTTLEDOCK,
+	ANNOUNCER_SHUTTLERECALLED,
+	ANNOUNCER_SPANOMALIES,
+))
 
 /**
  * Assoc list of datum by key.
@@ -342,3 +345,4 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_TRAY_PICKUP "tray_pickup"
 #define SFX_TRAY_DROP "tray_drop"
 #define SFX_MENDER "mender"
+#define SFX_GLITCHED_PDA_RINGTONE "glitched_pda"

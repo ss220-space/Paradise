@@ -7,6 +7,8 @@
 #define ATTACHMENT_SLOT_UNDER "under"
 /// Sibyl slot identifier
 #define ATTACHMENT_SLOT_SIBYL "sibyl"
+/// Muzzle slot identifier
+#define ATTACHMENT_SLOT_STOCK "stock"
 
 // Keys for attachment X/Y offset values
 #define ATTACHMENT_OFFSET_X "x"
@@ -32,7 +34,11 @@
 #define GUN_MODULE_CLASS_SHOTGUN_UNDER (1<<9)
 #define GUN_MODULE_CLASS_RIFLE_UNDER (1<<10)
 #define GUN_MODULE_CLASS_SNIPER_UNDER (1<<11)
+
 #define GUN_MODULE_CLASS_ENERGY_WEAPON (1 << 12)
+
+// Stock slot types flags
+#define GUN_MODULE_CLASS_SMG_STOCK (1 << 13)
 
 GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
@@ -40,13 +46,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_UNDER = "цевьё",
 	ATTACHMENT_SLOT_SIBYL = "курок"
 ))
-//MARK: Firemodes
-/// Single shot firemode
-#define GUN_SINGLE_MODE 0
-/// Burst fire mode
-#define GUN_BURST_MODE 1
-/// Full auto firemode
-#define GUN_AUTO_MODE 2
 
 #define GUN_MODE_SINGLE_ONLY 1
 #define GUN_MODE_SINGLE_BURST 2
@@ -180,21 +179,21 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
 /// Uplink rifles accuracy (better than default rifles)
 #define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
+/// Extend spread rifle accuracy
+#define GUN_ACCURACY_RIFLE_EXTEND_SPREAD new /datum/gun_accuracy/rifle/extend_spread()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
-
-// Bullet type overlays
-#define BULLET_TYPE_PLAIN "plain_bullet"
-#define BULLET_TYPE_RUBBER "rubber"
-#define BULLET_TYPE_ARMOR_PIERCING "armor_piercing"
-#define BULLET_TYPE_EXPANSIVE "expansive"
-#define BULLET_TYPE_FIRE "fire"
-#define BULLET_TYPE_LASER "laser"
-#define BULLET_TYPE_DISABLER "disabler"
-
-/// Magazine reload duration
-#define GUN_MAGAZINE_RELOAD_DURATION (1 SECONDS)
 
 // Chrono beam stuff
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
+
+// MARK: Firemodes
+#define GUN_FIREMODE_SEMIAUTO "semi-auto fire mode"
+#define GUN_FIREMODE_BURSTFIRE "burst-fire mode"
+#define GUN_FIREMODE_AUTOMATIC "automatic fire mode"
+#define GUN_FIREMODE_AUTOBURST "auto-burst-fire mode"
+
+//autofire component fire callback callback return flags
+#define AUTOFIRE_CONTINUE (1<<0)
+#define AUTOFIRE_SUCCESS (1<<1)

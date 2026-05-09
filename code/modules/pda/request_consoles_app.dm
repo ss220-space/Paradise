@@ -28,9 +28,9 @@
 	selected_console = null
 	for(var/obj/machinery/requests_console/console as anything in possible_consoles)
 		UnregisterSignal(console, list(COMSIG_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
-	QDEL_NULL(possible_consoles)
-	QDEL_NULL(consoles_mute)
-	. = ..()
+	possible_consoles = null
+	consoles_mute = null
+	return ..()
 
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
 	SIGNAL_HANDLER

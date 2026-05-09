@@ -69,8 +69,6 @@
 	var/global/global_uid = 0
 	var/uid
 
-	var/list/ambientsounds = GENERIC_SOUNDS
-
 	var/list/firedoors
 	var/list/cameras
 	var/list/firealarms
@@ -93,13 +91,23 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
+
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	var/ambience_index = AMBIENCE_GENERIC
+	///A list of sounds to pick from every so often to play to clients.
+	var/list/ambientsounds
+	///Does this area immediately play an ambience track upon enter?
+	var/forced_ambience = FALSE
+	///The background droning loop that plays 24/7
+	var/ambient_buzz = 'sound/ambience/general/shipambience.ogg'
+	///The volume of the ambient buzz
+	var/ambient_buzz_vol = 35
 	///Used to decide what the minimum time between ambience is
-	var/min_ambience_cooldown = 30 SECONDS
+	var/min_ambience_cooldown = 4 SECONDS
 	///Used to decide what the maximum time between ambience is
-	var/max_ambience_cooldown = 90 SECONDS
+	var/max_ambience_cooldown = 10 SECONDS
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
 	var/datum/map_generator/cave_generator/map_generator
@@ -140,9 +148,12 @@
 	if(area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
 	GLOB.areas += src
-	..()
+	return ..()
 
 /area/Initialize(mapload)
+	if(!ambientsounds)
+		ambientsounds = GLOB.ambience_assoc[ambience_index]
+
 	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
@@ -642,19 +653,28 @@
 		if(ENVIRON)
 			used_environ += amount
 
+/**
+ * Call back when an atom enters an area
+ *
+ * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to a list of atoms)
+ *
+ * If the area has ambience, then it plays some ambience music to the ambience channel
+ */
 /area/Entered(atom/movable/arrived, area/old_area)
-
+	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
+
+	if(ismob(arrived))
+		var/mob/arrived_mob = arrived
+		arrived_mob.update_ambience_area(src)
+		if(!arrived_mob.lastarea || old_area != src)
+			arrived_mob.lastarea = src
+
 	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
 		return
 	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
-
-	if(ismob(arrived))
-		var/mob/arrived_mob = arrived
-		if(!arrived_mob.lastarea || old_area != src)
-			arrived_mob.lastarea = src
 
 /area/Exited(atom/movable/departed, area/new_area)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
