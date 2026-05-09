@@ -1823,19 +1823,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	..()
 
-/mob/living/carbon/human/vv_get_dropdown()
-	. = ..()
-	. += "---"
-	.["Set Species"] = "byond://?_src_=vars;setspecies=[UID()]"
-	.["Copy Outfit"] = "byond://?_src_=vars;copyoutfit=[UID()]"
-	.["Make AI"] = "byond://?_src_=vars;makeai=[UID()]"
-	.["Make cyborg"] = "byond://?_src_=vars;makerobot=[UID()]"
-	.["Make monkey"] = "byond://?_src_=vars;makemonkey=[UID()]"
-	.["Make alien"] = "byond://?_src_=vars;makealien=[UID()]"
-	.["Make slime"] = "byond://?_src_=vars;makeslime=[UID()]"
-	.["Make superhero"] = "byond://?_src_=vars;makesuper=[UID()]"
-	. += "---"
-
 /mob/living/carbon/human/adjust_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE

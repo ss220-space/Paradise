@@ -938,6 +938,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/datum/minigames_explorer = new /datum/minigames_explorer(src)
 	minigames_explorer.ui_interact(src)
 
+/mob/dead/observer/AltClickSecondaryOn(atom/target)
+	if(client && check_rights_for(client, R_DEBUG))
+		client.toggle_tag_datum(src)
+
 #undef GHOST_ORBIT_CIRCLE
 #undef GHOST_ORBIT_TRIANGLE
 #undef GHOST_ORBIT_HEXAGON

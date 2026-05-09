@@ -152,3 +152,9 @@
 	icon = initial(icon)
 	var/datum/component/singularity/singularity_component = singularity?.resolve()
 	singularity_component?.roaming = TRUE
+
+/obj/god/Bump(atom/target)
+	var/turf/target_turf = get_turf(target)
+	if(target_turf == loc)
+		target_turf = get_step(target, target.dir) //please don't slam into a window like a bird, Nar'Sie
+	forceMove(target_turf)

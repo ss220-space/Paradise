@@ -588,7 +588,7 @@
 	projectile.set_angle(projectile_angle)
 
 /obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
-	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays))
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
 		return
@@ -596,9 +596,8 @@
 	move_self = FALSE
 
 /// Callback fired when the deadchat-control component is removed; restores autonomous movement.
-/obj/singularity/stop_deadchat_plays()
+/obj/singularity/proc/stop_deadchat_plays()
 	move_self = TRUE
-	return ..()
 
 /obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
