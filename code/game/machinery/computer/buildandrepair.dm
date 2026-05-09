@@ -28,6 +28,7 @@
 
 /obj/item/circuitboard/drone
 	board_type = "drone"
+	abstract_type = /obj/item/circuitboard/drone
 	var/tech_to_give
 
 /obj/item/circuitboard/Initialize(mapload)
