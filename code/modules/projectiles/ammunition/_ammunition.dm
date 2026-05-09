@@ -26,7 +26,7 @@
 	/// Variance for inaccuracy fundamental to the casing
 	var/variance = 0
 	/// Delay for energy weapons
-	var/delay = 0
+	var/delay = 0.3 SECONDS
 	/// Randomspread for automatics
 	var/randomspread = FALSE
 	/// Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.

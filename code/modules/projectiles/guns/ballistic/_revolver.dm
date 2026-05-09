@@ -11,6 +11,7 @@
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
+	fire_delay = 0.5 SECONDS
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 4),
 	)

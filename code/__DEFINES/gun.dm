@@ -197,3 +197,11 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 //autofire component fire callback callback return flags
 #define AUTOFIRE_CONTINUE (1<<0)
 #define AUTOFIRE_SUCCESS (1<<1)
+
+#define modify_fire_delay(value, user) set_fire_delay(fire_delay + value, user)
+
+#define modify_burst_delay(value, user) set_burst_delay(burst_delay + value, user)
+
+#define modify_auto_burst_delay(value, user) set_auto_burst_delay(autoburst_delay + value, user)
+
+#define modify_burst_amount(value, user) set_burst_amount(burst_amount + value, user)

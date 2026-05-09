@@ -13,7 +13,7 @@
 	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 40
+	fire_delay = 4 SECONDS
 	burst_amount = 1
 	origin_tech = "combat=7"
 	can_suppress = TRUE
