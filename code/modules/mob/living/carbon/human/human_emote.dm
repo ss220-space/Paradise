@@ -789,20 +789,6 @@
 	muzzled_noises = list("громкие")
 	sound = 'sound/voice/resomitrill.ogg'
 
-/datum/emote/living/carbon/human/resomi/wiggle_ears
-	key = "wiggle_ears"
-	key_third_person = "wiggle_ears"
-	message = "дёрга%(ет,ют)% ушками."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-
-/datum/emote/living/carbon/human/resomi/pin_ears
-	key = "pin_ears"
-	key_third_person = "pin_ears"
-	message = "прижима%(ет,ют)% ушки."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-
 /datum/emote/living/carbon/human/resomi/fluff_feathers
 	key = "fluff_feathers"
 	key_third_person = "fluff_feathers"

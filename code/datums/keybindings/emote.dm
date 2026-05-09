@@ -558,14 +558,6 @@
 	linked_emote = /datum/emote/living/carbon/human/resomi/trill
 	name = "Издать трель (резоми)"
 
-/datum/keybinding/emote/carbon/human/resomi/wiggle_ears
-	linked_emote = /datum/emote/living/carbon/human/resomi/wiggle_ears
-	name = "Дёрнуть ушками (резоми)"
-
-/datum/keybinding/emote/carbon/human/resomi/pin_ears
-	linked_emote = /datum/emote/living/carbon/human/resomi/pin_ears
-	name = "Прижать ушки (резоми)"
-
 /datum/keybinding/emote/carbon/human/resomi/fluff_feathers
 	linked_emote = /datum/emote/living/carbon/human/resomi/fluff_feathers
 	name = "Распушить перья (резоми)"

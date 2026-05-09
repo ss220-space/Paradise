@@ -663,13 +663,3 @@
 	set name = "< Щёлкнуть клювом >"
 	set category = VERB_CATEGORY_EMOTIONS
 	emote("click_beak", intentional = TRUE)
-
-/mob/living/carbon/human/verb/emote_resomi_wiggle_ears()
-	set name = "~ Дёргать ушками"
-	set category = VERB_CATEGORY_EMOTIONS
-	emote("wiggle_ears", intentional = TRUE)
-
-/mob/living/carbon/human/verb/emote_resomi_pin_ears()
-	set name = "~ Прижать ушки"
-	set category = VERB_CATEGORY_EMOTIONS
-	emote("pin_ears", intentional = TRUE)
