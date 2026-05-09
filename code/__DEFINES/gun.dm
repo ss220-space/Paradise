@@ -46,13 +46,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_UNDER = "цевьё",
 	ATTACHMENT_SLOT_SIBYL = "курок"
 ))
-//MARK: Firemodes
-/// Single shot firemode
-#define GUN_SINGLE_MODE 0
-/// Burst fire mode
-#define GUN_BURST_MODE 1
-/// Full auto firemode
-#define GUN_AUTO_MODE 2
 
 #define GUN_MODE_SINGLE_ONLY 1
 #define GUN_MODE_SINGLE_BURST 2
@@ -191,18 +184,16 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
-// Bullet type overlays
-#define BULLET_TYPE_PLAIN "plain_bullet"
-#define BULLET_TYPE_RUBBER "rubber"
-#define BULLET_TYPE_ARMOR_PIERCING "armor_piercing"
-#define BULLET_TYPE_EXPANSIVE "expansive"
-#define BULLET_TYPE_FIRE "fire"
-#define BULLET_TYPE_LASER "laser"
-#define BULLET_TYPE_DISABLER "disabler"
-
-/// Magazine reload duration
-#define GUN_MAGAZINE_RELOAD_DURATION (1 SECONDS)
-
 // Chrono beam stuff
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
+
+// MARK: Firemodes
+#define GUN_FIREMODE_SEMIAUTO "semi-auto fire mode"
+#define GUN_FIREMODE_BURSTFIRE "burst-fire mode"
+#define GUN_FIREMODE_AUTOMATIC "automatic fire mode"
+#define GUN_FIREMODE_AUTOBURST "auto-burst-fire mode"
+
+//autofire component fire callback callback return flags
+#define AUTOFIRE_CONTINUE (1<<0)
+#define AUTOFIRE_SUCCESS (1<<1)

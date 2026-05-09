@@ -7,16 +7,12 @@
 	var/centered = 1
 	var/loaded = 0
 
-/obj/effect/landmark/map_loader/New(turf/loc, tname)
-	..()
-
+/obj/effect/landmark/map_loader/Initialize(mapload, tname)
+	. = ..()
 	if(tname)
 		template_name = tname
 	if(template_name)
 		template = GLOB.map_templates[template_name]
-
-/obj/effect/landmark/map_loader/Initialize(mapload)
-	. = ..()
 	if(template)
 		END_OF_TICK(CALLBACK(src, PROC_REF(load), template))
 

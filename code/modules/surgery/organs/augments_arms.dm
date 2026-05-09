@@ -326,8 +326,8 @@
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 
-/obj/item/organ/internal/cyberimp/arm/combat/New()
-	..()
+/obj/item/organ/internal/cyberimp/arm/combat/Initialize(mapload)
+	. = ..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
 		F.I = src

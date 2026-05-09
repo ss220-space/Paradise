@@ -207,7 +207,7 @@
 	set_vehicle_dir_layer(SOUTH, OBJ_LAYER)
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
 	set_vehicle_dir_layer(EAST, OBJ_LAYER)
-/*
+
 /datum/component/riding/vehicle/bicycle
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 	vehicle_move_delay = 0
@@ -216,6 +216,7 @@
 	. = ..()
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
 
+/*
 /datum/component/riding/vehicle/scooter/handle_specials(mob/living/riding_mob)
 	. = ..()
 	if(isrobot(riding_mob))

@@ -92,8 +92,8 @@
 		ink.color = rgb(tattoo_r, tattoo_g, tattoo_b, 190)
 		. += ink
 
-/obj/item/fluff/tattoo_gun/New()
-	..()
+/obj/item/fluff/tattoo_gun/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
@@ -651,8 +651,8 @@
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()

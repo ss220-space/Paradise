@@ -30,6 +30,7 @@
 #include "test_security_levels.dm"
 #include "test_spawn_humans.dm"
 #include "test_sql.dm"
+#include "test_station_traits.dm"
 #include "test_status_effect_ids.dm"
 #include "test_subsystem_init.dm"
 #include "test_subsystem_metric_sanity.dm"

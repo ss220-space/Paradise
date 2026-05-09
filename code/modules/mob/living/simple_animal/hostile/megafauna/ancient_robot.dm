@@ -400,7 +400,7 @@ Difficulty: Very Hard
 				var/turf/S = get_turf(src)
 				if(!S || !T)
 					return
-				var/obj/projectile/energy/shock_revolver/ancient/O = new /obj/projectile/energy/shock_revolver/ancient(S)
+				var/obj/projectile/energy/tesla/ancient/O = new /obj/projectile/energy/tesla/ancient(S)
 				O.current = S
 				O.firer = src
 				O.yo = T.y - S.y

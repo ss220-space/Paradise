@@ -1,7 +1,6 @@
 // Basically it's both an ammo box and external magazine
 /obj/item/ammo_box/speedloader
 	gender = MALE
-	use_bullet_type_overlay = TRUE
 	can_fast_load = FALSE
 	var/gun_name = "револьверов"
 

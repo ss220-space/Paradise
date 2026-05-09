@@ -709,3 +709,10 @@
 		'sound/goonstation/items/mender.ogg',
 		'sound/goonstation/items/mender2.ogg',
 	)
+
+/datum/sound_effect/glitched_pda
+	key = SFX_GLITCHED_PDA_RINGTONE
+	file_paths = list(
+		'sound/machines/twobeep_voice1.ogg',
+		'sound/machines/twobeep_voice2.ogg',
+	)

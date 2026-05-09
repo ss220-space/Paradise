@@ -216,7 +216,7 @@
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 /mob/living/silicon/pai/init_subsystems()
-	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
+	gps = new(src, "pAI0", TRUE, FALSE)
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()

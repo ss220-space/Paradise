@@ -302,11 +302,11 @@ ADMIN_VERB(cmd_debug_del_sing, R_DEBUG, "Del Singulo / Tesla", "Delete all singu
 	if(confirm != "Yes")
 		return
 
-	for(var/I in GLOB.singularities)
-		var/obj/singularity/S = I
-		if(!is_level_reachable(S.z))
+	for(var/datum/component/singularity/singulo_component as anything in GLOB.singularities)
+		var/atom/singulo = singulo_component.parent
+		if(!is_level_reachable(singulo.z))
 			continue
-		qdel(S)
+		qdel(singulo)
 	log_and_message_admins("has deleted all Singularities and Tesla orbs.")
 	BLACKBOX_LOG_ADMIN_VERB("Del Singulo/Tesla")
 

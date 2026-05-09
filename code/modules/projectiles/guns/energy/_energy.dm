@@ -209,8 +209,8 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
-/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	if(!chambered && can_shoot(user))
+/obj/item/gun/energy/process_fire(zone_override, secondary_fire = FALSE)
+	if(!chambered && can_shoot(gun_user))
 		process_chamber()
 	return ..()
 

@@ -77,7 +77,7 @@
 	var/obj/item/I = A
 	if(!istype(I))
 		return FALSE
-	if(I.isprocessing)
+	if(I.datum_flags & DF_ISPROCESSING)
 		LAZYSET(suspended_items, I.UID(), list(I, (I in SSfastprocess.processing)))
 		STOP_PROCESSING(SSobj, I)
 	I.loc = src // No forceMove because we don't want to trigger anything here

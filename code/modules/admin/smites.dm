@@ -376,7 +376,7 @@
 	GLOB.major_announcement.announce(
 		message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 		new_title = ANNOUNCE_CCDEMOTE_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 	for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
@@ -435,7 +435,7 @@
 	GLOB.major_announcement.announce(
 		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[DECL_CREDIT(bounty)].",
 		new_title = ANNOUNCE_CCKILL_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	target.AddComponent(/datum/component/killing_reward, bounty)
