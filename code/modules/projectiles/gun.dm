@@ -629,9 +629,11 @@
 	var/old_user = gun_user
 	src.target = target
 	gun_user = user
+	setup_bullet_accuracy()
 	. = process_fire(zone_override)
 	src.target = old_target
 	gun_user = old_user
+	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
 	var/atom/target = src.target
@@ -734,7 +736,7 @@
 /obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
 	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		return TRUE
-	if(!ismob(target) || user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM)
 		return TRUE
 	return FALSE
 
