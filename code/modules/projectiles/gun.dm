@@ -364,6 +364,9 @@
 	if(modifiers[RIGHT_CLICK])
 		return
 
+	if(user.in_throw_mode)
+		return
+
 	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
@@ -384,9 +387,6 @@
 		if(user.a_intent == INTENT_HARM)
 			dual_wield = TRUE
 			setup_bullet_accuracy()
-
-	if(user.in_throw_mode)
-		return
 
 	if(QDELETED(object))
 		return
