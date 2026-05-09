@@ -1,8 +1,7 @@
 /**
  * `UID_of()` returns a `UID()` for datums and `\ref` for lists,
  * so we choose the locate() method based on the string format, instead of locateUID().
- * 
- * - LittleBoobs
+ * -- LittleBoobs
  */
 /proc/locate_vv_href(value)
 	return (copytext(value, 1, 2) == "\[") ? locate(value) : locateUID(value)
