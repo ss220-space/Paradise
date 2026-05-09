@@ -126,6 +126,8 @@
 
 	// MARK: item var tweak
 	else if(href_list["item_to_tweak"] && href_list["var_tweak"])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 		var/obj/item/editing = locateUID(href_list["item_to_tweak"])
 		if(!istype(editing) || QDELING(editing))
 			return

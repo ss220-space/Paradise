@@ -65,15 +65,19 @@
 
 	// MARK: mark datum
 	if(href_list[VV_HK_MARK])
+		if(!check_rights(R_VIEWRUNTIMES|R_ADMIN))
+			return
 		usr.client.mark_datum(target)
 
 	// MARK: tag datum
 	if(href_list[VV_HK_TAG])
+		if(!check_rights(R_VIEWRUNTIMES|R_ADMIN))
+			return
 		usr.client.tag_datum(target)
 
 	// MARK: add component
 	if(href_list[VV_HK_ADDCOMPONENT])
-		if(!check_rights(NONE))
+		if(!check_rights(R_DEBUG|R_EVENT))
 			return
 		var/list/names = list()
 		var/list/componentsubtypes = sort_list(subtypesof(/datum/component), GLOBAL_PROC_REF(cmp_typepaths_asc))
@@ -112,7 +116,7 @@
 
 	// MARK: remove component
 	if(href_list[VV_HK_REMOVECOMPONENT] || href_list[VV_HK_MASS_REMOVECOMPONENT])
-		if(!check_rights(NONE))
+		if(!check_rights(R_DEBUG|R_EVENT))
 			return
 		var/mass_remove = href_list[VV_HK_MASS_REMOVECOMPONENT]
 		var/list/components = target.datum_components.Copy()
@@ -152,7 +156,7 @@
 
 	// MARK: greyscale
 	if(href_list[VV_HK_MODIFY_GREYSCALE])
-		if(!check_rights(NONE))
+		if(!check_rights(R_VAREDIT))
 			return
 		var/datum/greyscale_modify_menu/menu = new(target, usr, SSgreyscale.configurations, unlocked = TRUE)
 		menu.ui_interact(usr)
