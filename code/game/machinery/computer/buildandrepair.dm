@@ -34,7 +34,7 @@
 	. = ..()
 	format_board_name()
 
-/obj/item/circuitboard/drone/Initialize()
+/obj/item/circuitboard/drone/Initialize(mapload)
 	. = ..()
 	if(!tech_to_give)
 		return
