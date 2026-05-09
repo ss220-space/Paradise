@@ -9,8 +9,9 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 	invisibility = INVISIBILITY_ABSTRACT	// nope, can't see this
 	density = TRUE
 
-/obj/effect/bump_teleporter/New()
-	..()
+/obj/effect/bump_teleporter/Initialize(mapload)
+	. = ..()
+	
 	GLOB.bump_teleporters += src
 
 /obj/effect/bump_teleporter/Destroy()

@@ -243,11 +243,14 @@
 // MARK: stamina_dot
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
-	duration = 130
+	duration = 13 SECONDS
 	alert_type = null
 
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
+
+	if(owner.getStaminaLoss() >= owner.max_stamina)
+		qdel(src)
 
 // MARK: oxy_dot
 /datum/status_effect/oxy_dot
@@ -392,7 +395,7 @@
 				owner.a_intent_change(INTENT_HARM)
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
-			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
+			found_gun.fast_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
 			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 // start of `living` level status procs.

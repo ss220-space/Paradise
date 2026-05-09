@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - refactor: "Код View Variables. (PR #9176)"
+  - admin: "Починка текущего функционала VV, расширение его функционала, улучшение внешнего вида. Подробнее в пр-е. (PR #9176)"

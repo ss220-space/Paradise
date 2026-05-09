@@ -42,7 +42,7 @@
 		chambered.newshot(params)
 	return
 
-/obj/item/gun/magic/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/magic/process_fire(zone_override, secondary_fire = FALSE)
 	newshot()
 	return ..()
 

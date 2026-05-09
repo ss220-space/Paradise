@@ -11757,7 +11757,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/megaphone,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},

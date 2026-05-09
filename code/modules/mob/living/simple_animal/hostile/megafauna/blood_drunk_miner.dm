@@ -72,6 +72,10 @@ Difficulty: Medium
 		INSTRUMENTAL = "кровожадным шахтёром",
 		PREPOSITIONAL = "кровожадном шахтёре",
 	)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
+	. = ..()
+	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	AddComponent(/datum/component/boss_music, 'sound/music/boss/bdm_boss.ogg', COMSIG_HOSTILE_FOUND_TARGET)
 
 /* New costume */
 
@@ -167,10 +171,6 @@ Difficulty: Medium
 		return .
 	LAZYREMOVE(user.mob_spell_list, blood_spell)
 	blood_spell.action.Remove(user)
-
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
-	. = ..()
-	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Рывок к цели"

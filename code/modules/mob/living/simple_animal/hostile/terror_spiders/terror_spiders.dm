@@ -246,8 +246,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(killcount >= 1)
 			. += span_warning("Разбрызгивает во все стороны алую кровь, струяющуюся из пасти.")
 
-/mob/living/simple_animal/hostile/poison/terror_spider/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderlist += src
 	add_language(LANGUAGE_HIVE_TERRORSPIDER)
 	for(var/spell in special_abillity)

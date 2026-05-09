@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 	return FALSE
 
 /datum/bitfield/vv_edit_var(var_name, var_value)
-	return FALSE // no.
+	return FALSE
 
 /// Turns /datum/bitfield subtypes into a list for use in debugging
 /proc/generate_bitfields()
@@ -21,6 +21,17 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 		var/datum/bitfield/bitfield = new _bitfield
 		bitfields[bitfield.variable] = bitfield.flags
 	return bitfields
+
+/// Returns an associative list of bitflag name -> number for all valid bitflags in the passed in field
+/proc/get_valid_bitflags(var_name)
+	return GLOB.bitfields[var_name] || list()
+
+/proc/get_random_bitflag(var_name)
+	var/list/flags = get_valid_bitflags(var_name)
+	if(!length(flags))
+		return
+	var/name = pick(flags)
+	return flags[name]
 
 /proc/translate_bitfield(variable_type, variable_name, variable_value)
 	if(variable_type != VV_BITFIELD)

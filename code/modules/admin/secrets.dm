@@ -90,7 +90,6 @@
 					<br>
 					<b>Другое</b><br>
 					<a href='byond://?src=[UID()];secretsfun=spawn_cargo_crate'>Spawn Cargo Crate</a><br>
-					<a href='byond://?src=[UID()];secretsfun=shuttle_start'>Переключить старт с шаттла</a><br>
 					</center>"}
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT), FALSE))

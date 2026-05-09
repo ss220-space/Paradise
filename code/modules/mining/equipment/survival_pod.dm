@@ -479,7 +479,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
 	anchored = TRUE
-	layer = MOB_LAYER - 0.2
+	layer = BELOW_MOB_LAYER
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -515,7 +515,7 @@
 						/obj/item/stack/telecrystal/hundred,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)

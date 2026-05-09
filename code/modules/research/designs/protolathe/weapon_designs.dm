@@ -384,7 +384,7 @@
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_ILLEGAL = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/camera_bug
+	build_path = /obj/item/camera_bug/syndicate
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
 

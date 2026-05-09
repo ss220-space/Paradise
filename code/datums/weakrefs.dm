@@ -57,7 +57,7 @@
 	var/reference
 
 /datum/weakref/New(datum/thing)
-	reference = UID_of(thing)
+	reference = thing.UID()
 
 /datum/weakref/Destroy(force)
 	var/datum/target = resolve()
@@ -76,3 +76,19 @@
 /datum/weakref/proc/resolve()
 	var/datum/datum = locateUID(reference)
 	return (!QDELETED(datum) && datum.weak_reference == src) ? datum : null
+
+/datum/weakref/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "--- /weakref ---")
+	VV_DROPDOWN_OPTION(VV_HK_WEAKREF_RESOLVE, "Go to reference")
+
+/datum/weakref/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_WEAKREF_RESOLVE])
+		var/datum/datum = resolve()
+		if(datum)
+			usr.client.debug_variables(datum)

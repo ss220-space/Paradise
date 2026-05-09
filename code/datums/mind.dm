@@ -2520,7 +2520,7 @@
 	else if(href_list["obj_announce"])
 		var/list/messages = prepare_announce_objectives()
 		to_chat(current, chat_box_red(messages.Join("<br>")))
-		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
+		SEND_SOUND(current, sound('sound/ambience/misc/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
@@ -3018,6 +3018,11 @@
 	else
 		return get_ghost(even_if_they_cant_reenter = TRUE)
 
+/// Signal proc for [COMSIG_ADMIN_DELETING], to ghostize a mob beforehand if an admin is manually deleting it.
+/mob/proc/ghost_before_admin_delete(datum/source)
+	SIGNAL_HANDLER
+	ghostize()
+
 //Initialisation procs
 /mob/proc/mind_initialize()
 	if(mind)
@@ -3031,6 +3036,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	RegisterSignal(src, COMSIG_ADMIN_DELETING, PROC_REF(ghost_before_admin_delete), override = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 
 //HUMAN

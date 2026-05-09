@@ -8,10 +8,10 @@
 	QDEL_LIST(link_lines)
 
 /datum/buildmode_mode/link/proc/form_connection(atom/source, atom/dest, valid)
-	var/obj/effect/buildmode_line/L = new(BM.holder, source, dest, "[source.name] to [dest.name]")
+	var/obj/effect/buildmode_line/L = new(get_turf(source), BM.holder, source, dest, "[source.name] to [dest.name]")
 	L.color = valid ? "#339933" : "#993333"
 	link_lines += L
-	var/obj/effect/buildmode_line/L2 = new(BM.holder, dest, source, "[dest.name] to [source.name]") // Yes, reversed one so that you can see it source both sides.
+	var/obj/effect/buildmode_line/L2 = new(get_turf(dest), BM.holder, dest, source, "[dest.name] to [source.name]") // Yes, reversed one so that you can see it source both sides.
 	L2.color = L.color
 	link_lines += L2
 

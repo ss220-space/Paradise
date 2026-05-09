@@ -13,7 +13,7 @@
 
 /obj/structure/bed/nest/Initialize(mapload)
 	. = ..()
-	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
+	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=BELOW_MOB_LAYER)
 
 /obj/structure/bed/nest/Destroy()
 	playsound(get_turf(src), 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)

@@ -47,34 +47,49 @@
 /datum/preferences/proc/set_channel_volume(channel, volume, debounce_save = TRUE)
 	if(!get_channel_name(channel))
 		return
-	// Set the volume
 	volume = clamp(volume, 0, 100)
 	volume_mixer["[channel]"] = volume
 
-	// Update the sound channel
-	var/sound/S
-	var/channel_already_updated = FALSE
-	// special handling for looping sounds, especially if they're decreasing
-	for(var/datum/looping_sound/D in GLOB.looping_sounds)
-		if(channel == D.sound_channel)
-			S = sound(null, channel = channel, volume = D.volume * volume / 100)
-			S.status = SOUND_UPDATE
-			SEND_SOUND(parent, S)
-			channel_already_updated = TRUE
+	apply_channel_volume(channel, volume)
 
-	if(!channel_already_updated)
-		// Update the currently playing sound to update its volume
-		S = sound(null, channel = channel, volume = volume)
-		S.status = SOUND_UPDATE
-		SEND_SOUND(parent, S)
-
-	// Save it
-	if(debounce_save)
-		volume_mixer_saving = addtimer(CALLBACK(src, PROC_REF(save_volume_mixer)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
-	else
+	if(!debounce_save)
 		if(volume_mixer_saving)
 			deltimer(volume_mixer_saving)
 		save_volume_mixer()
+		return
+	volume_mixer_saving = addtimer(CALLBACK(src, PROC_REF(save_volume_mixer)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+
+/// Pushes the new volume to whatever is currently playing on the given channel.
+/datum/preferences/proc/apply_channel_volume(channel, volume)
+	var/client/owner = parent
+	var/mob/owner_mob = owner?.mob
+
+	// Update only loops parented to our mob — other players' loops on the same channel
+	// would push their volume onto our client.
+	var/updated_looping = FALSE
+	for(var/datum/looping_sound/looping in GLOB.looping_sounds)
+		if(looping.sound_channel != channel)
+			continue
+		if(looping.parent != owner_mob)
+			continue
+		send_volume_update(channel, looping.volume * volume / 100)
+		updated_looping = TRUE
+	if(updated_looping)
+		return
+
+	// Ambient buzz isn't a /datum/looping_sound — re-fire it so the new volume takes effect.
+	if(channel == CHANNEL_BUZZ)
+		if(owner_mob)
+			owner.current_ambient_sound = null
+			owner_mob.refresh_looping_ambience()
+		return
+
+	send_volume_update(channel, volume)
+
+/datum/preferences/proc/send_volume_update(channel, volume)
+	var/sound/update = sound(null, channel = channel, volume = volume)
+	update.status = SOUND_UPDATE
+	SEND_SOUND(parent, update)
 
 /**
  * Returns a volume multiplier for the given channel, from 0 to 1 (default).
