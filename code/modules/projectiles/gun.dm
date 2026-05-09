@@ -364,6 +364,12 @@
 	if(modifiers[RIGHT_CLICK])
 		return
 
+	if(user.in_throw_mode)
+		return
+
+	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
+		return
+
 	if(gun_on_cooldown(user))
 		return
 
@@ -373,18 +379,18 @@
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
 		return
+
 	if(user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) // If the object in our active hand is not a gun, abort
 		return
+
 	if(user.hand && isgun(user.r_hand) || !user.hand && isgun(user.l_hand)) // If we have a gun in our inactive hand too, both guns get innacuracy maluses
 		if(user.a_intent == INTENT_HARM)
 			dual_wield = TRUE
 			setup_bullet_accuracy()
-	if(user.in_throw_mode)
-		return
-	if(user.Adjacent(object)) //Dealt with by attack code
-		return
+
 	if(QDELETED(object))
 		return
+
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
@@ -601,24 +607,6 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
-	. = ..()
-	if(proximity_flag) //It's adjacent, is the user, or is on the user's person
-		if(target in user.contents) //can't shoot stuff inside us.
-			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
-			return
-		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
-			return
-
-	if(proximity_flag)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
-			else
-				handle_suicide(user, target, modifiers)
-			return
-
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
 		if(!user.can_use_guns(src))
@@ -637,11 +625,15 @@
 	return
 
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
-	set_target(target)
-	set_gun_user(user)
-	process_fire(zone_override)
-	set_target(null)
-	set_gun_user(null)
+	var/old_target = src.target
+	var/old_user = gun_user
+	src.target = target
+	gun_user = user
+	setup_bullet_accuracy()
+	. = process_fire(zone_override)
+	src.target = old_target
+	gun_user = old_user
+	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
 	var/atom/target = src.target
@@ -705,12 +697,7 @@
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(azoom)
 		zoom(user)
-		return
-	. = ..()
-
-/obj/item/gun/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent != INTENT_HARM)
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_SUCCESS
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
@@ -731,6 +718,27 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/gun/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
+		return
+
+	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
+		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
+	else
+		handle_suicide(user, interacting_with, modifiers)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
+	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		return TRUE
+	if(user.a_intent == INTENT_HARM)
+		return TRUE
+	return FALSE
 
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
@@ -1164,5 +1172,11 @@
 		return TRUE
 	if(var_name == NAMEOF(src, gun_firemode))
 		toggle_firemode(var_value)
+		return TRUE
+	if(var_name == NAMEOF(src, gun_user))
+		set_gun_user(var_value)
+		return TRUE
+	if(var_name == NAMEOF(src, target))
+		set_target(var_value)
 		return TRUE
 	. = ..()
