@@ -71,16 +71,32 @@
 		SpinAnimation(1 SECONDS / spins_per_sec, num_spins, direction)
 
 	if(href_list[VV_HK_STOP_ALL_ANIMATIONS])
-		var/result = tgui_alert(usr, "Are you sure?", "Stop Animating", list("Yes", "No"))
-		if(result == "Yes")
+		var/result = tgui_alert(usr, "Вы уверены?", "Прекратить анимацию", list("Да", "Нет"))
+		if(result == "Да")
 			animate(src, transform = null, flags = ANIMATION_END_NOW)
 		return
 
 	if(href_list[VV_HK_AUTO_RENAME])
-		var/new_name = tgui_input_text(usr, "What do you want to rename this to?", "Automatic Rename")
-		// Check the new name against the chat filter. If it triggers the IC chat filter, give an option to confirm.
-		if(new_name && (tgui_alert(usr, "Your selected name contains words restricted by IC chat filters. Confirm this new name?", "IC Chat Filter Conflict", list("Confirm", "Cancel")) != "Confirm"))
-			vv_auto_rename(new_name)
+		var/new_name = tgui_input_text(usr, "Как вы хотите это переименовать?", "Авто-переименование")
+		if(!new_name)
+			return
+		var/list/ru_declensions
+		if(!ismob(src) && tgui_alert(usr, "Заполнить русские склонения вручную для каждого падежа?", "Авто-переименование", list("Да", "Нет")) == "Да")
+			var/static/list/case_prompts = list(
+				NOMINATIVE = "Именительный (кто? что?)",
+				GENITIVE = "Родительный (кого? чего?)",
+				DATIVE = "Дательный (кому? чему?)",
+				ACCUSATIVE = "Винительный (кого? что?)",
+				INSTRUMENTAL = "Творительный (кем? чем?)",
+				PREPOSITIONAL = "Предложный (о ком? о чём?)",
+			)
+			ru_declensions = list()
+			for(var/case_id in case_prompts)
+				var/case_name = tgui_input_text(usr, case_prompts[case_id], "Авто-переименование", default = new_name)
+				if(!case_name)
+					return
+				ru_declensions[case_id] = case_name
+		vv_auto_rename(new_name, ru_declensions)
 
 	if(href_list[VV_HK_EDIT_FILTERS])
 		usr.client?.open_filter_editor(src)
@@ -94,7 +110,7 @@
 /atom/vv_get_header()
 	. = ..()
 	var/refid = UID_of(src)
-	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
+	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[name || type]</b>")]"
 	. += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[refid];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='byond://?_src_=vars;rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
 /**
@@ -176,5 +192,13 @@
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 			update_appearance()
 
-/atom/proc/vv_auto_rename(new_name)
+/atom/proc/vv_auto_rename(new_name, list/ru_declensions)
 	name = new_name
+	ru_names = ru_declensions || list(
+		NOMINATIVE = new_name,
+		GENITIVE = new_name,
+		DATIVE = new_name,
+		ACCUSATIVE = new_name,
+		INSTRUMENTAL = new_name,
+		PREPOSITIONAL = new_name,
+	)
