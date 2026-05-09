@@ -92,25 +92,28 @@ SUBSYSTEM_DEF(capitalism)
 		if(account.linked_job?.paycheck)
 			pending_salary_total += account.linked_job.paycheck
 
-	// Decide up-front whether we're paying this cycle. With hysteresis: exiting default
-	// requires an EXTRA_MONEY buffer so we don't immediately re-default on the next cycle.
-	var/can_afford_now = payment_account.money >= pending_salary_total
-	if(default_status)
-		if(payment_account.money >= pending_salary_total + EXTRA_MONEY)
-			default_status = FALSE
-			default_announce()
-		else
-			// Still defaulted. Keep the resumed queue so we eventually pay them when funds return;
-			// drop a freshly-built one because it would just be rebuilt next cycle anyway.
-			if(!resuming)
-				currentrun.Cut()
-			default_counter++
-	else if(!can_afford_now)
-		default_status = TRUE
+	// Hysteresis: exiting default requires an EXTRA_MONEY buffer so we don't re-default next cycle.
+	if(default_status && payment_account.money >= pending_salary_total + EXTRA_MONEY)
+		default_status = FALSE
 		default_announce()
+		return
+
+	if(default_status)
+		// Still defaulted. Keep a resumed queue so we eventually pay it; drop a fresh one
+		// since it would just be rebuilt next cycle anyway.
 		if(!resuming)
 			currentrun.Cut()
 		default_counter++
+		return
+
+	if(payment_account.money >= pending_salary_total)
+		return
+
+	default_status = TRUE
+	default_announce()
+	if(!resuming)
+		currentrun.Cut()
+	default_counter++
 
 /// Processes the payout queue across as many ticks as needed. Drains `currentrun`.
 /datum/controller/subsystem/capitalism/proc/process_payments()

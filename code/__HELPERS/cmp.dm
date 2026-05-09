@@ -10,14 +10,14 @@
 /proc/cmp_text_dsc(a,b)
 	return sorttext(a,b)
 
-/proc/cmp_embed_text_asc(a,b)
+/proc/cmp_embed_text_asc(a, b)
 	if(isdatum(a))
 		a = UID_of(a)
 	if(isdatum(b))
 		b = UID_of(b)
 	return sorttext("[b]", "[a]")
 
-/proc/cmp_embed_text_dsc(a,b)
+/proc/cmp_embed_text_dsc(a, b)
 	if(isdatum(a))
 		a = UID_of(a)
 	if(isdatum(b))
@@ -70,8 +70,8 @@
 /proc/cmp_subsystem_priority(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return a.priority - b.priority
 
-/proc/cmp_filter_data_priority(list/A, list/B)
-	return A["priority"] - B["priority"]
+/proc/cmp_filter_data_priority(list/a, list/b)
+	return a["priority"] - b["priority"]
 
 /proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
 	return a.timeToRun - b.timeToRun
