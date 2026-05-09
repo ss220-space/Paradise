@@ -21,7 +21,7 @@
 	src.pixel_z_offset = pixel_z_offset
 	src.loose_hat = loose_hat
 	// Examine signals
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 	// Equip signals, used to drop loose hats
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
@@ -52,7 +52,7 @@
 /datum/component/hat_stabilizer/UnregisterFromParent()
 	if(attached_hat)
 		remove_hat()
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY,
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_PARENT_ATTACKBY,
 	COMSIG_CLICK_ALT, COMSIG_MODULE_GENERATE_WORN_OVERLAY,
 	COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_QDELETING,
 	COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))

@@ -32,7 +32,7 @@
 #define COLOR_DARKMODE_DARKBACKGROUND "#171717"
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
-// White & Black
+// MARK: White & Black
 #define COLOR_WHITE "#ffffff"
 #define COLOR_OFF_WHITE "#fff5ed"
 #define COLOR_VERY_LIGHT_GRAY "#eeeeee"
@@ -49,7 +49,7 @@
 #define COLOR_BLACK "#000000"
 #define COLOR_HALF_TRANSPARENT_BLACK "#0000007a"
 
-// Red
+// MARK: Red
 #define COLOR_RED "#ff0000"
 #define COLOR_CHRISTMAS_RED "#d6001c"
 #define COLOR_OLD_GLORY_RED "#b22234"
@@ -73,7 +73,7 @@
 #define COLOR_BUBBLEGUM_RED "#950a0a"
 #define COLOR_CARP_RIFT_RED "#ff330030"
 
-// Yellow
+// MARK: Yellow
 #define COLOR_YELLOW "#ffff00"
 #define COLOR_VIVID_YELLOW "#fbff23"
 #define COLOR_TANGERINE_YELLOW "#ffcc00"
@@ -83,7 +83,7 @@
 #define COLOR_LIGHT_YELLOW "#fffee0"
 #define COLOR_PALE_YELLOW "#fff4bb"
 
-// Green
+// MARK: Green
 #define COLOR_OLIVE "#808000"
 #define COLOR_OLIVE_GREEN "#677714"
 #define COLOR_ASSISTANT_OLIVE "#828163"
@@ -107,7 +107,7 @@
 #define COLOR_LIGHT_GREEN "#aaffaa"
 #define COLOR_BRIGHT_LIME "#f7ff57"
 
-// Blue
+// MARK: Blue
 #define COLOR_CYAN "#00ffff"
 #define COLOR_HEALING_CYAN "#80f5ff"
 #define COLOR_DARK_CYAN "#00a2ff"
@@ -132,7 +132,7 @@
 #define COLOR_BLUE_GRAY "#75a2bb"
 #define COLOR_MEDIUM_TURQUOISE "#48d1cc"
 
-// Pink
+// MARK: Pink
 #define COLOR_PINK "#ffc0cb"
 #define COLOR_LIGHT_PINK "#ff3cc8"
 #define COLOR_SCIENCE_PINK "#c96dbf"
@@ -149,7 +149,7 @@
 #define COLOR_STRONG_VIOLET "#6927c5"
 #define COLOR_DARK_PURPLE "#551a8b"
 
-// Orange
+// MARK: Orange
 #define COLOR_ORANGE "#ff9900"
 #define COLOR_IRISH_ORANGE "#ff883e"
 #define COLOR_ENGINEERING_ORANGE "#ffa62b"
@@ -165,7 +165,7 @@
 #define COLOR_RUSTED_GLASS "#917c65"
 #define COLOR_DARK_DELAM "#ddd6cf"
 
-// Brown
+// MARK: Brown
 #define COLOR_BROWN "#ba9f6d"
 #define COLOR_DARK_BROWN "#997c4f"
 #define COLOR_DARKER_BROWN "#330000"
@@ -175,8 +175,9 @@
 #define COLOR_BENCH_BROWN "#af7d28"
 #define COLOR_LIGHT_BROWN "#996666"
 #define COLOR_BROWNER_BROWN "#663300"
+#define COLOR_CULT_RATVAR "#BE8700"
 
-// Gray
+// MARK: Gray
 #define COLOR_GREEN_GRAY "#99bb76"
 #define COLOR_RED_GRAY "#b4696a"
 #define COLOR_PALE_BLUE_GRAY "#98c5df"
@@ -186,6 +187,7 @@
 #define COLOR_PURPLE_GRAY "#ae8ca8"
 #define COLOR_GOLEM_GRAY "#8e8c81"
 
+// MARK: Assembly
 // Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK "#545454"
 #define COLOR_ASSEMBLY_BGRAY "#9497ab"
@@ -203,6 +205,7 @@
 #define COLOR_ASSEMBLY_BLUE "#38559e"
 #define COLOR_ASSEMBLY_PURPLE "#6f6192"
 
+// MARK: Bioluminescence
 // Colors for Bioluminescence plant traits.
 #define COLOR_BIOLUMINESCENCE_STANDARD "#c3e381"
 #define COLOR_BIOLUMINESCENCE_SHADOW "#aad84b"
@@ -212,6 +215,7 @@
 #define COLOR_BIOLUMINESCENCE_PURPLE "#d966ff"
 #define COLOR_BIOLUMINESCENCE_PINK "#ffb3da"
 
+// MARK: Crayons
 // Colors for crayons.
 #define COLOR_CRAYON_RED "#da0000"
 #define COLOR_CRAYON_ORANGE "#ff9300"
@@ -222,6 +226,7 @@
 #define COLOR_CRAYON_BLACK "#1c1c1c"
 #define COLOR_CRAYON_RAINBOW "#fff000"
 
+// MARK: Tools
 // Colors for grayscale tools.
 #define COLOR_TOOL_BLUE "#1861d5"
 #define COLOR_TOOL_RED "#951710"
@@ -231,6 +236,7 @@
 #define COLOR_TOOL_CYAN "#18a2d5"
 #define COLOR_TOOL_YELLOW "#d58c18"
 
+// MARK: Xenobiology vatgrowing
 // Colors for xenobiology vatgrowing.
 #define COLOR_SAMPLE_YELLOW "#c0b823"
 #define COLOR_SAMPLE_PURPLE "#342941"
@@ -238,6 +244,7 @@
 #define COLOR_SAMPLE_BROWN "#91542d"
 #define COLOR_SAMPLE_GRAY "#5e5856"
 
+// MARK: Blood
 // Colors for blood greyscale sprites.
 #define BLOOD_COLOR_RED "#aa1010"
 #define BLOOD_COLOR_LIZARD "#035a00"
@@ -246,7 +253,24 @@
 #define BLOOD_COLOR_MACHINE "#1f181f"
 #define BLOOD_COLOR_BLACK "#1f1a00"
 #define BLOOD_COLOR_DRIED "#370404" // Not to be used normally, only exists for mapper convinience.
+#define BLOOD_COLOR_ABDUCTOR "#ff5aff"
+#define BLOOD_COLOR_DIONA "#004400"
+#define BLOOD_COLOR_DRASK "#a3d4eb"
+#define BLOOD_COLOR_GOLEM "#515573"
+#define BLOOD_COLOR_GREY "#a200ff"
+#define BLOOD_COLOR_KIDAN "#fb9800"
+#define BLOOD_COLOR_SKRELL "#1d2cbf"
+#define BLOOD_COLOR_MOTH "#b9ae9c"
+#define BLOOD_COLOR_NUCLEATION "#ada776"
+#define BLOOD_COLOR_SHADOW "#cccccc"
+#define BLOOD_COLOR_SHADOWLING "#555555"
+#define BLOOD_COLOR_SKELETON "#ffffff"
+#define BLOOD_COLOR_SLIMEPERSON "#0064c8"
+#define BLOOD_COLOR_VOX "#2299fc"
+#define BLOOD_COLOR_WRYN "#ffff99"
+#define BLOOD_COLOR_PLASMAMAN "#8b3fba"
 
+// MARK: UI Themes
 // Main colors for UI themes.
 #define COLOR_THEME_MIDNIGHT "#6086a0"
 #define COLOR_THEME_PLASMAFIRE "#ffb200"
@@ -261,6 +285,7 @@
 /// Colors for eigenstates.
 #define COLOR_PERIWINKLEE "#9999FF"
 
+// MARK: Light
 /// Starlight!
 #define COLOR_STARLIGHT "#8589fa"
 /**
@@ -335,6 +360,7 @@
 /// Garland lights.
 #define LIGHT_COLOR_GARLAND "#ffb366"
 
+// MARK: Circuits
 // The GAGS greyscale_colors for each department's computer/machine circuits
 #define CIRCUIT_COLOR_GENERIC "#1a7a13"
 #define CIRCUIT_COLOR_COMMAND "#1b4594"
@@ -344,14 +370,6 @@
 #define CIRCUIT_COLOR_MEDICAL "#00ccff"
 #define CIRCUIT_COLOR_ENGINEERING "#f8d700"
 #define CIRCUIT_COLOR_SUPPLY "#c47749"
-
-// Colors for pride week
-#define COLOR_PRIDE_RED "#ff6666"
-#define COLOR_PRIDE_ORANGE "#fc9f3c"
-#define COLOR_PRIDE_YELLOW "#eaff51"
-#define COLOR_PRIDE_GREEN "#41fc66"
-#define COLOR_PRIDE_BLUE "#42fff2"
-#define COLOR_PRIDE_PURPLE "#5d5dfc"
 
 // Colors for status/tram/incident displays
 #define COLOR_DISPLAY_RED "#be3455"
@@ -373,6 +391,7 @@
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
+// MARK: Wires
 // Wire colours.
 #define WIRE_COLOR_BLUE "#2020dd"
 #define WIRE_COLOR_CYAN "#20ddcc"
@@ -383,6 +402,7 @@
 #define WIRE_COLOR_WHITE "#dddddd"
 #define WIRE_COLOR_YELLOW "#eebb20"
 
+// MARK: Cables
 // Colors related to items used in construction
 #define CABLE_COLOR_BLUE "blue"
 	#define CABLE_HEX_COLOR_BLUE WIRE_COLOR_BLUE
@@ -406,7 +426,7 @@
 /// Windows affected by Nar'Sie turn this color.
 #define NARSIE_WINDOW_COLOUR "#7d1919"
 
-// Carp colors.
+// MARK: Carps
 #define COLOR_CARP_PURPLE "#aba2ff"
 #define COLOR_CARP_PINK "#da77a8"
 #define COLOR_CARP_GREEN "#70ff25"
@@ -425,7 +445,7 @@
 #define COLOR_CARP_DARK_BLUE "#3a384d"
 #define COLOR_CARP_DARK_GREEN "#358102"
 
-// Slime colors.
+// MARK: Slimes
 #define COLOR_SLIME_ADAMANTINE "#135f49"
 #define COLOR_SLIME_BLACK "#3b3b3b"
 #define COLOR_SLIME_BLUE "#19ffff"
@@ -449,7 +469,7 @@
 #define COLOR_SLIME_SILVER "#dadada"
 #define COLOR_SLIME_YELLOW "#fff419"
 
-// Gnome colors.
+// MARK: Gnomes
 #define COLOR_GNOME_RED_ONE "#f10b0b"
 #define COLOR_GNOME_RED_TWO "#bc5347"
 #define COLOR_GNOME_RED_THREE "#b40f1a"
@@ -467,11 +487,11 @@
 #define COLOR_GNOME_GREY "#a9a9a9"
 #define COLOR_GNOME_BLACK "#303030"
 
-// Sofa colors.
+// MARK: Sofa
 #define SOFA_BROWN "#a75400"
 #define SOFA_MAROON "#830000"
 
-// Icecream colors.
+// MARK: Icecream
 #define COLOR_ICECREAM_VANILLA "#f2eede"
 #define COLOR_ICECREAM_CHOCOLATE "#93683c"
 #define COLOR_ICECREAM_STRAWBERRY "#f4cbcb"
@@ -483,6 +503,7 @@
 #define COLOR_ICECREAM_CUSTOM "#f3f3f3"
 #define COLOR_ICECREAM_CHERRY_CHOCOLATE "#800000"
 
+// MARK: .38 ammo type
 // Defines for .38 ammo type colors.
 #define COLOR_AMMO_TRACK "#bd0ed4"
 #define COLOR_AMMO_MATCH "#ff0000a8"
@@ -493,12 +514,13 @@
 #define COLOR_AMMO_ICEBLOX "#0de3ff"
 #define COLOR_AMMO_HELLFIRE "#f60021"
 
+// MARK: Ammo types
 // Defines for other ammo type colors (should this be merged with above?)
 #define COLOR_AMMO_INCENDIARY "#f4001f"
 #define COLOR_AMMO_ARMORPIERCE "#d9d9d9"
 #define COLOR_AMMO_HOLLOWPOINT "#ff9900"
 
-// Pipe colours.
+// MARK: Pipes
 #define PIPE_COLOR_GREY "#dddddd"
 #define PIPE_COLOR_RED "#dd1010"
 #define PIPE_COLOR_BLUE "#1010dd"
@@ -574,7 +596,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	0.33, 0.33, 0.33,\
 	0.33, 0.33, 0.33)
 
-// Security spear colors
+// MARK: Security spear
 #define COLOR_SECSPEAR_RED "#ed3f3f"
 #define COLOR_SECSPEAR_BLUE "#3fc4ed"
 #define COLOR_SECSPEAR_YELLOW "#edc73f"
@@ -587,6 +609,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define LUMA_G 0.715
 #define LUMA_B 0.072
 
+// MARK: Gas
 #define COLOR_GAS_MINER_N2O "#ffcccc"
 #define COLOR_GAS_MINER_N2 "#ccffcc"
 #define COLOR_GAS_MINER_O2 "#007fff"

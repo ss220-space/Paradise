@@ -126,22 +126,22 @@
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
 
-/obj/effect/mapping_helpers/no_lava/New()
+/obj/effect/mapping_helpers/no_lava/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	T.turf_flags |= NO_LAVA_GEN
-	. = ..()
 
 /obj/effect/mapping_helpers/light
 	icon_state = "sunlight_helper"
 	light_color = null
 	light_range = 10
 
-/obj/effect/mapping_helpers/light/New()
+/obj/effect/mapping_helpers/light/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	T.light_color = light_color
 	T.light_power = light_power
 	T.light_range = light_range
-	. = ..()
 
 /obj/effect/mapping_helpers/table_flip //used to flip tables. That's all.
 	name = "Table flip"

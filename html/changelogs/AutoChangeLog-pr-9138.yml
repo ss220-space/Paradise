@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - balance: "Ускорение прогорания плазмы в 2 раза. (PR #9138)"
+  - bugfix: "Гиперноб теперь может останавливать реакции. (PR #9138)"

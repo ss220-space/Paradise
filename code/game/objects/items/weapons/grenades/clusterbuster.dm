@@ -39,34 +39,31 @@
 	name = "clusterbang segment"
 	icon_state = "clusterbang_segment"
 
-/obj/item/grenade/clusterbuster/segment/New(loc, payload_type = /obj/item/grenade/flashbang/cluster)
-	..()
+/obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)
+	. = ..()
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = 1
-	GLOB.move_manager.move_away(src, loc, rand(1,4), 1)
+	GLOB.move_manager.move_away(src, loc, rand(1,4), timeout = 2 SECONDS)
 	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
 
 /obj/item/grenade/clusterbuster/segment/prime()
-
 	new /obj/effect/payload_spawner(loc, payload, rand(4,8), payload_power)
-
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
-
 	qdel(src)
 
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
-/obj/effect/payload_spawner/New(turf/newloc,type, numspawned as num, power)
+/obj/effect/payload_spawner/Initialize(mapload, type, numspawned, power)
 	. = ..()
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)
 		if(isgrenade(P))
 			P.active = 1
-		GLOB.move_manager.move_away(P, loc, rand(1,4), 1)
+		GLOB.move_manager.move_away(P, loc, rand(1,4), timeout = 2 SECONDS)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))

@@ -31,12 +31,9 @@
 	var/datum/reagent/reagent = reagents.reagent_list[1]
 	return reagent.name
 
-/obj/item/reagent_containers/New()
-	create_reagents(volume, temperature_min, temperature_max)
-	..()
-
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
+	create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
 		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)

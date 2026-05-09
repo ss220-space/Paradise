@@ -20,6 +20,8 @@
 	verb_exclaim = "рычит"
 	verb_yell = "ревёт"
 
+	blood_color = BLOOD_COLOR_XENO
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
@@ -56,8 +58,8 @@
 	var/static/queen_count = 0
 	var/static/queen_maximum = 0
 
-/mob/living/carbon/alien/New()
-	..()
+/mob/living/carbon/alien/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	add_verb(src, /mob/living/verb/mob_sleep)
 	night_vision_action = new

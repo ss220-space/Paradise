@@ -134,7 +134,7 @@
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
 		return
 
-	if(over_object == user && IsReachableBy(user))
+	if(over_object == user && IsReachableBy(user)) // this must come before the screen objects only block
 		open(user)
 		return
 
@@ -142,22 +142,15 @@
 		var/obj/item/storage = over_object
 		if(!(storage.item_flags & IN_STORAGE))
 			dump_storage(user, over_object)
-		return
+			return
 
-	// Checking the possibility to dump the contents on the table /floor
-	if(istype(src, /obj/item/storage/lockbox))
-		return
-
-	if(!istable(over_object) && !isfloorturf(over_object))
-		return
-
-	if(!length(contents) || loc != user || user.incapacitated() || !over_object.IsReachableBy(user))
+	if(istype(src, /obj/item/storage/lockbox) || (!istable(over_object) && !isfloorturf(over_object)) \
+		|| !length(contents) || loc != user || user.incapacitated() || !over_object.IsReachableBy(user))
 		return
 
 	if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
 		return
 
-	// Re-checking after the alert
 	if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
 		return
 
@@ -169,12 +162,11 @@
 		span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 	)
-
 	var/turf/object_turf = get_turf(over_object)
 	for(var/obj/item/item in src)
 		remove_from_storage(item, object_turf)
 
-	update_appearance()
+	update_appearance() // For content-sensitive icons
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))

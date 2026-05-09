@@ -47,6 +47,9 @@
 /obj/item/ammo_box/magazine/smgm9mm/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
+/obj/item/ammo_box/magazine/smgm9mm/empty
+	start_empty = TRUE
+
 // MARK: 9mm - SFG-5
 /obj/item/ammo_box/magazine/sfg9mm
 	gun_name = "пистолет-пулемёта SFG-5"
@@ -57,6 +60,9 @@
 
 /obj/item/ammo_box/magazine/sfg9mm/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
+
+/obj/item/ammo_box/magazine/sfg9mm/empty
+	start_empty = TRUE
 
 // MARK: .45 - C-20r
 /obj/item/ammo_box/magazine/smgm45
@@ -83,14 +89,14 @@
 	icon_state = "45NRmag"
 	ammo_type = /obj/item/ammo_casing/c45nr
 	caliber = CALIBER_45NR
-	max_ammo = 20
+	max_ammo = 30
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/sp91rc/empty
 	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 6)]"
 
 // MARK: 7.62x25mm - PPSh
 /obj/item/ammo_box/magazine/ppsh

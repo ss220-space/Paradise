@@ -1612,19 +1612,6 @@
 /atom/movable/proc/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown)
 
-/// Easy way to remove the component when the fun has been played out
-/atom/movable/proc/stop_deadchat_plays()
-	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	if(!QDELETED(comp))
-		qdel(comp)
-
-/atom/movable/vv_get_dropdown()
-	. = ..()
-	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
-	else
-		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
-
 /atom/movable/proc/fall_up_in_space()
 	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
 					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))

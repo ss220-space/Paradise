@@ -108,8 +108,7 @@
 	add_language(LANGUAGE_SLIME)
 
 /mob/living/simple_animal/slime/Destroy()
-	for(var/A in actions)
-		var/datum/action/AC = A
+	for(var/datum/action/AC as anything in actions)
 		AC.Remove(src)
 	Target = null
 	Leader = null

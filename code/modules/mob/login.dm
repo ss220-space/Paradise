@@ -94,6 +94,11 @@
 		alt_hud.check_hud(src)
 
 	update_client_colour(0)
+	update_ambience_area(get_area(src))
+
+	if(HAS_TRAIT(src, TRAIT_DEAF))
+		stop_sound_channel(CHANNEL_AMBIENCE)
+
 	update_morgue()
 	client.init_verbs()
 

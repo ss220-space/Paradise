@@ -1176,12 +1176,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
-		return FALSE
+		return
 
 	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, dropping, user)
-		return TRUE
+		return
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
@@ -1530,3 +1530,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	SIGNAL_HANDLER
 	return
+
+/obj/item/vv_get_header()
+	. = ..()
+	. += {"
+		<br><font size='1'>
+			DAMTYPE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=damtype' id='damtype'>[uppertext(damtype)]</a>
+			FORCE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=force' id='force'>[force]</a>
+		</font>
+	"}

@@ -150,6 +150,7 @@
 /obj/structure/sign/poster/official/space_cops{
 	pixel_x = -32
 	},
+/obj/machinery/recharge_station/ert,
 /turf/simulated/floor/indestructible{
 	dir = 9;
 	icon_state = "darkgreynavyblue"
@@ -389,15 +390,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
-"agn" = (
-/obj/item/radio/intercom/specops/directional/north,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/specops)
 "agB" = (
 /obj/machinery/computer/shuttle/ert,
 /obj/machinery/computer/security/telescreen{
@@ -1673,10 +1665,14 @@
 	},
 /area/vox_station)
 "aLg" = (
-/obj/structure/extinguisher_cabinet/directional/north,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access = list(109)
 	},
+/obj/structure/fans/tiny,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
 "aLk" = (
 /obj/structure/bed/roller,
@@ -14815,7 +14811,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -18503,7 +18499,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -20335,7 +20331,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -21892,7 +21888,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -25583,34 +25579,34 @@
 "mhA" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = -6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -30783,7 +30779,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -31467,7 +31463,7 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "oKa" = (
-/obj/machinery/recharge_station/ert,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "navybluealt"
@@ -32282,7 +32278,7 @@
 "pdl" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/smg/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -43142,7 +43138,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -43949,12 +43945,12 @@
 	},
 /area/centcom/zone1)
 "unV" = (
-/obj/item/gun/projectile/automatic/c20r{
+/obj/item/gun/projectile/automatic/smg/c20r{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r{
+/obj/item/gun/projectile/automatic/smg/c20r,
+/obj/item/gun/projectile/automatic/smg/c20r{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -45424,7 +45420,7 @@
 "uUC" = (
 /obj/structure/table/wood,
 /obj/item/card/id/prisoner/random,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "uVc" = (
@@ -108419,7 +108415,7 @@ dTg
 usR
 usR
 tKr
-sZA
+aLg
 sZA
 tKr
 usR
@@ -108674,9 +108670,9 @@ nAN
 nAN
 usR
 usR
-agn
 taZ
-aLg
+taZ
+woV
 evp
 fDh
 vpr
@@ -109188,7 +109184,7 @@ jMD
 nAN
 usR
 usR
-taZ
+dbW
 taZ
 taZ
 taZ

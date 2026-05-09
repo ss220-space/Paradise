@@ -1,5 +1,3 @@
-///////////////////////////Veil Render//////////////////////
-
 /obj/item/veilrender
 	name = "veil render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast city."
@@ -9,17 +7,17 @@
 	force = 15
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	var/charged = 1
-	var/spawn_type = /obj/singularity/god/narsie/wizard
+	var/charges = 1
+	var/spawn_type = /obj/tear_in_reality
 	var/spawn_amt = 1
 	var/activate_descriptor = "reality"
 	var/rend_desc = "You should run now."
 
-/obj/item/veilrender/attack_self(mob/user as mob)
-	if(charged)
+/obj/item/veilrender/attack_self(mob/user)
+	if(charges > 0)
 		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
-		charged = 0
-		user.visible_message(span_userdanger("[src] hums with power as [user] deals a blow to [activate_descriptor] itself!"))
+		charges--
+		user.visible_message(span_bolddanger("[src] hums with power as [user] deals a blow to [activate_descriptor] itself!"))
 	else
 		to_chat(user, span_danger("The unearthly energies that powered the blade are now dormant."))
 
@@ -32,39 +30,38 @@
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
-	..()
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc)
+	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
 	src.desc = desc
-
 	START_PROCESSING(SSobj, src)
-	//return
 
 /obj/effect/rend/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/effect/rend/process()
-	for(var/mob/M in loc)
+	for(var/mob/target in loc)
 		return
 	new spawn_path(loc)
 	spawn_amt_left--
 	if(spawn_amt_left <= 0)
 		qdel(src)
+		return PROCESS_KILL
 
-/obj/effect/rend/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/nullrod))
-		add_fingerprint(user)
-		user.visible_message(span_danger("[user] seals [src] with [I]."))
-		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
+/obj/effect/rend/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/nullrod))
+		return NONE
+	add_fingerprint(user)
+	user.visible_message(span_danger("[user] seals [src] with [tool]."))
+	qdel(src)
+	return ITEM_INTERACT_SUCCESS
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_act()
 	return
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/item/veilrender/vealrender
@@ -91,6 +88,56 @@
 	spawn_amt = 10
 	activate_descriptor = "sea life"
 	rend_desc = "Gently wafting with the sounds of endless clacking."
+
+#define TEAR_IN_REALITY_CONSUME_RANGE 3
+#define TEAR_IN_REALITY_SINGULARITY_SIZE STAGE_FOUR
+
+/// Tear in reality, spawned by the veil render
+/obj/tear_in_reality
+	name = "tear in the fabric of reality"
+	desc = "This isn't right."
+	icon = 'icons/effects/224x224.dmi'
+	icon_state = "reality"
+	pixel_x = -96
+	pixel_y = -96
+	anchored = TRUE
+	density = TRUE
+	move_resist = INFINITY
+	plane = ABOVE_LIGHTING_PLANE
+	light_range = 6
+	appearance_flags = LONG_GLIDE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	obj_flags = DANGEROUS_POSSESSION
+
+/obj/tear_in_reality/Initialize(mapload)
+	. = ..()
+
+	AddComponent(
+		/datum/component/singularity, \
+		consume_range = TEAR_IN_REALITY_CONSUME_RANGE, \
+		notify_admins = !mapload, \
+		roaming = FALSE, \
+		singularity_size = TEAR_IN_REALITY_SINGULARITY_SIZE, \
+	)
+
+/obj/tear_in_reality/attack_tk(mob/user)
+	if(!iscarbon(user))
+		return
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, span_userdanger("OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!"))
+	addtimer(CALLBACK(src, PROC_REF(deranged), jedi), 10 SECONDS)
+
+/obj/tear_in_reality/proc/deranged(mob/living/carbon/carbon)
+	if(!carbon || carbon.stat == DEAD)
+		return
+	carbon.vomit(mode = VOMIT_BLOOD, lost_nutrition = 0, distance = 3)
+	carbon.spew_organ(3, 2)
+	carbon.investigate_log("has died from using telekinesis on a tear in reality.", INVESTIGATE_DEATHS)
+	carbon.death()
+
+#undef TEAR_IN_REALITY_CONSUME_RANGE
+#undef TEAR_IN_REALITY_SINGULARITY_SIZE
 
 /////////////////////////////////////////Scrying///////////////////
 
@@ -136,8 +183,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/duplicate_self = 0 //Do we want the species randomized along with equipment should the user be duplicated in their entirety?
 	var/sword_type = /obj/item/multisword //type of sword to equip.
 
-/obj/item/multisword/New()
-	..()
+/obj/item/multisword/Initialize(mapload)
+	. = ..()
 	GLOB.multiverse |= src
 
 /obj/item/multisword/Destroy()

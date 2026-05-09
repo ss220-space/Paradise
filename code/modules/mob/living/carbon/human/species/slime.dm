@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	reagent_tag = ORGANIC
 
 	flesh_color = "#5fe8b1"
-	blood_color = "#0064C8"
+	blood_color = BLOOD_COLOR_SLIMEPERSON
 	exotic_blood = "slimejelly"
 
 	butt_sprite = "slime"
@@ -137,9 +137,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 			slime.update_body()
 			blend(slime)
 	..()
-
-/datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !HAS_TRAIT(user, TRAIT_DEAF)
 
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN

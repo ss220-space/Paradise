@@ -1335,12 +1335,14 @@
 	gib()
 	return 20
 
-/mob/living/singularity_pull(S, current_size)
+/mob/living/singularity_pull(singularity, current_size)
 	..()
+	if(move_resist == INFINITY)
+		return
 	if(current_size >= STAGE_SIX) //your puny magboots/wings/whatever will not save you against supermatter singularity
-		throw_at(S, 14, 3, src, TRUE)
+		throw_at(singularity, 14, 3, src, TRUE)
 	else if(!mob_negates_gravity())
-		step_towards(src,S)
+		step_towards(src, singularity)
 
 /mob/living/narsie_act()
 	if(client)
@@ -1386,13 +1388,13 @@
 	..()
 
 /// Helper proc that causes the mob to do a jittering animation by jitter_amount.
-/// `jitteriness` will only apply up to 300 (maximum jitter effect).
-/mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
-	var/amplitude = min(4, (jitteriness / 100) + 1)
-	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
+/// `jitter_amount` will only apply up to 300 (maximum jitter effect).
+/mob/living/proc/do_jitter_animation(jitter_amount = 100, loop_amount = 6)
+	var/amplitude = min(4, (jitter_amount / 100) + 1)
+	var/pixel_w_diff = rand(-amplitude, amplitude)
+	var/pixel_z_diff = rand(-amplitude / 3, amplitude / 3)
+	animate(src, pixel_w = pixel_w_diff, pixel_z = pixel_z_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_w = -pixel_w_diff, pixel_z = -pixel_z_diff, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	if(istype(loc, /obj/structure/closet/crate/critter))
@@ -1687,55 +1689,6 @@
 	for(var/obj/item/item as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		item.extinguish_light(force)
 
-/mob/living/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if(NAMEOF(src, maxHealth))
-			if(!isnum(var_value) || var_value <= 0)
-				return FALSE
-		if(NAMEOF(src, health)) //this doesn't work. gotta use procs instead.
-			return FALSE
-		if(NAMEOF(src, resting))
-			set_resting(var_value)
-			. = TRUE
-		if(NAMEOF(src, lying_angle))
-			set_lying_angle(var_value)
-			. = TRUE
-		if(NAMEOF(src, buckled))
-			set_buckled(var_value)
-			. = TRUE
-		if(NAMEOF(src, num_legs))
-			set_num_legs(var_value)
-			. = TRUE
-		if(NAMEOF(src, usable_legs))
-			set_usable_legs(var_value)
-			. = TRUE
-		if(NAMEOF(src, num_hands))
-			set_num_hands(var_value)
-			. = TRUE
-		if(NAMEOF(src, usable_hands))
-			set_usable_hands(var_value)
-			. = TRUE
-		if(NAMEOF(src, body_position))
-			set_body_position(var_value)
-			. = TRUE
-		if(NAMEOF(src, current_size))
-			if(var_value == 0) //prevents divisions of and by zero.
-				return FALSE
-			update_transform(var_value/current_size)
-			. = TRUE
-
-	if(!isnull(.))
-		datum_flags |= DF_VAR_EDITED
-		return .
-
-	. = ..()
-
-	switch(var_name)
-		if(NAMEOF(src, maxHealth))
-			updatehealth(reason = "var edit")
-		if(NAMEOF(src, lighting_alpha))
-			sync_lighting_plane_alpha()
-
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
@@ -1780,10 +1733,6 @@
 		to_chat(src, chat_box_regular(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 	return FALSE
-
-/mob/living/examine(mob/user, infix, suffix)
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_LIVING_EXAMINE, user, .)
 
 /**
  * Sets the mob's direction lock towards a given atom.
@@ -2083,6 +2032,7 @@
 			update_blurry_effects()
 			update_unconscious_overlay()
 		if(DEAD)
+			REMOVE_TRAIT(src, TRAIT_DEAF, STAT_TRAIT)
 			update_sight()
 			update_blind_effects()
 			update_blurry_effects()
@@ -2096,6 +2046,7 @@
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), STAT_TRAIT)
 		if(DEAD)
+			ADD_TRAIT(src, TRAIT_DEAF, STAT_TRAIT)
 			SetDizzy(0)
 			SetJitter(0)
 			SetLoseBreath(0)

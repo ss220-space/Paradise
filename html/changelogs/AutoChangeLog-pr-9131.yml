@@ -1,0 +1,4 @@
+author: "DraumLord"
+delete-after: True
+changes:
+  - add: "Добавлено улучшения хранилища для борга уборщика (PR #9131)"

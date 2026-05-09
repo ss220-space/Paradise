@@ -6460,7 +6460,7 @@
 "Ws" = (
 /obj/structure/chair/office/light,
 /obj/structure/safe/floor,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /obj/item/flash{
 	pixel_x = -4;
 	pixel_y = 2
