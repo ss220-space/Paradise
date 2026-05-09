@@ -850,50 +850,6 @@
 
 	return ..()
 
-/obj/item/spellbook/proc/GetCategoryHeader(category)
-	var/dat = ""
-	switch(category)
-		if("Offensive")
-			dat += "Spells geared towards debilitating and destroying.<br><br>"
-			dat += "For spells: the number after the spell name is the cooldown time.<br>"
-			dat += "You can reduce this number by spending more points on the spell.<br>"
-		if("Defensive")
-			dat += "Spells geared towards improving your survivabilty or reducing foes ability to attack.<br><br>"
-			dat += "For spells: the number after the spell name is the cooldown time.<br>"
-			dat += "You can reduce this number by spending more points on the spell.<br>"
-		if("Mobility")
-			dat += "Spells geared towards improving your ability to move. It is a good idea to take at least one.<br><br>"
-			dat += "For spells: the number after the spell name is the cooldown time.<br>"
-			dat += "You can reduce this number by spending more points on the spell.<br>"
-		if("Assistance")
-			dat += "Spells geared towards improving your other items and abilities.<br><br>"
-			dat += "For spells: the number after the spell name is the cooldown time.<br>"
-			dat += "You can reduce this number by spending more points on the spell.<br>"
-		if("Rituals")
-			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<br>"
-		if("Weapons and Armors")
-			dat += "Various weapons and armors to crush your enemies and protect you from harm.<br><br>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
-		if("Staves")
-			dat += "Various staves granting you their power, which they slowly recharge over time.<br><br>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
-		if("Artefacts")
-			dat += "Various magical artefacts to aid you.<br><br>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
-		if("Spell books")
-			dat += "Spell books to train your companions.<br><br>"
-			dat += "Various sets of spell books that will help you and your partner in creating chaos.<br>"
-		if("Summons")
-			dat += "Magical items geared towards bringing in outside forces to aid you.<br><br>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
-		if("Standard")
-			dat += "These battle-tested spell sets are easy to use and provide good balance between offense and defense.<br><br>"
-			dat += "They all cost, and are worth, 10 spell points. You are able to refund any of the spells included as long as you stay in the wizard den.<br>"
-		if("Unique")
-			dat += "These esoteric loadouts usually contain spells or items that cannot be bought elsewhere in this spellbook.<br><br>"
-			dat += "Recommended for experienced wizards looking for something new. No refunds once purchased!<br>"
-	return dat
-
 /obj/item/spellbook/attack_self(mob/user as mob)
 	if(!owner)
 		to_chat(user, span_notice("You bind the spellbook to yourself."))
@@ -902,106 +858,95 @@
 	if(user != owner)
 		to_chat(user, span_warning("The [name] does not recognize you as it's owner and refuses to open!"))
 		return
-	user.set_machine(src)
-	var/dat = ""
+	
+	ui_interact(user)
 
-	dat += "<ul id=\"maintabs\">"
-	var/list/cat_dat = list()
-	for(var/main_category in main_categories)
-		cat_dat[main_category] = "<hr>"
-		dat += "<li><a [main_tab==main_category?"class=selected":""] href='byond://?src=[UID()];mainpage=[main_category]'>[main_category]</a></li>"
-	dat += "</ul>"
-	dat += "<ul id=\"tabs\">"
-	switch(main_tab)
-		if("Spells")
-			for(var/category in categories)
-				if(category in spell_categories)
-					cat_dat[category] = "<hr>"
-					dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
-		if("Magical Items")
-			for(var/category in categories)
-				if(category in item_categories)
-					cat_dat[category] = "<hr>"
-					dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
-		if("Loadouts")
-			for(var/category in categories)
-				if(category in loadout_categories)
-					cat_dat[category] = "<hr>"
-					dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
-	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
-	dat += "</ul>"
+/obj/item/spellbook/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Spellbook", name)
+		ui.open()
 
-	var/datum/spellbook_entry/E
-	for(var/i=1,i<=length(entries),i++)
-		var/spell_info = ""
-		E = entries[i]
-		spell_info += E.GetInfo()
-		if(E.CanBuy(user,src))
-			spell_info+= "<a href='byond://?src=[UID()];buy=[i]'>[E.buy_word]</a><br>"
+/obj/item/spellbook/ui_data(mob/user)
+	var/list/data = list()
+
+	data["points"] = uses
+
+	data["main_categories"] = main_categories
+	data["spell_categories"] = spell_categories
+	data["item_categories"] = item_categories
+	data["loadout_categories"] = loadout_categories
+
+	var/list/all_entries = list()
+	for(var/i in 1 to length(entries))
+		var/datum/spellbook_entry/E = entries[i]
+		var/list/entry_data = list()
+
+		entry_data["name"] = E.name
+		entry_data["category"] = E.category
+		entry_data["cost"] = E.cost
+		entry_data["buy_word"] = E.buy_word
+		entry_data["refundable"] = E.refundable
+		entry_data["index"] = i
+
+		entry_data["can_buy"] = E.CanBuy(user, src)
+		entry_data["can_refund"] = E.CanRefund(user, src)
+
+		if(E.spell_type)
+			if(!E.S)
+				E.S = new E.spell_type()
+			entry_data["desc"] = E.S.desc + E.desc
+			entry_data["cooldown"] = E.S.base_cooldown / 10
+			entry_data["clothes_req"] = E.S.clothes_req
 		else
-			spell_info+= "<span>Can't [E.buy_word]</span><br>"
-		if(E.CanRefund(user,src))
-			spell_info+= "<a href='byond://?src=[UID()];refund=[i]'>Refund</a><br>"
-		spell_info += "<hr>"
-		if(cat_dat[E.category])
-			cat_dat[E.category] += spell_info
+			entry_data["desc"] = E.desc
+			entry_data["cooldown"] = null
+			entry_data["clothes_req"] = null
 
-	for(var/category in categories)
-		dat += "<div class=\"[tab==category?"tabContent":"tabContent hide"]\" id=\"[category]\">"
-		dat += GetCategoryHeader(category)
-		dat += cat_dat[category]
-		dat += "</div>"
+		if(istype(E, /datum/spellbook_entry/item))
+			var/datum/spellbook_entry/item/I = E
+			entry_data["item_path"] = "[I.item_path]"
 
-	var/datum/browser/popup = new(user, "spellbook", "Spellbook", 800, 600)
-	popup.set_content(dat)
-	popup.add_stylesheet("spellbook", 'html/css/spellbook.css')
-	popup.open(TRUE)
-	onclose(user, "spellbook")
-	return
+		all_entries += list(entry_data)
 
-/obj/item/spellbook/Topic(href, href_list)
+	data["entries"] = all_entries
+	return data
+
+/obj/item/spellbook/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
+	
 	var/mob/living/carbon/human/H = usr
+	if(!ishuman(H) || !owner || H != owner)
+		return
 
-	if(!ishuman(H))
-		return 1
+	if(H.mind && H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
+		to_chat(H, span_warning("If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."))
+		return
 
-	if(H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-		temp = "If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
-		return 1
+	switch(action)
+		if("buy")
+			var/idx = text2num(params["index"])
+			if(idx && idx <= length(entries))
+				var/datum/spellbook_entry/E = entries[idx]
+				if(E && E.CanBuy(H, src))
+					if(E.Buy(H, src))
+						if(E.limit)
+							E.limit--
+						uses -= E.cost
+						. = TRUE 
 
-	var/datum/spellbook_entry/E = null
-	if(loc == H || (in_range(src, H) && isturf(loc)))
-		H.set_machine(src)
-		if(href_list["buy"])
-			E = entries[text2num(href_list["buy"])]
-			if(E && E.CanBuy(H,src))
-				if(E.Buy(H,src))
-					if(E.limit)
-						E.limit--
-					uses -= E.cost
-		else if(href_list["refund"])
-			E = entries[text2num(href_list["refund"])]
-			if(E?.refundable)
-				var/result = E.Refund(H,src)
-				if(result > 0)
-					if(!isnull(E.limit))
-						E.limit += result
-					uses += result
-		else if(href_list["mainpage"])
-			main_tab = sanitize(href_list["mainpage"])
-			tab = sanitize(href_list["page"])
-			if(main_tab == "Spells")
-				tab = spell_categories[1]
-			else if(main_tab == "Magical Items")
-				tab = item_categories[1]
-			else if(main_tab == "Loadouts")
-				tab = loadout_categories[1]
-		else if(href_list["page"])
-			tab = sanitize(href_list["page"])
-	attack_self(H)
-	return 1
+		if("refund")
+			var/idx = text2num(params["index"])
+			if(idx && idx <= length(entries))
+				var/datum/spellbook_entry/E = entries[idx]
+				if(E && E.refundable)
+					var/result = E.Refund(H, src)
+					if(result > 0)
+						if(!isnull(E.limit))
+							E.limit += result
+						uses += result
+						. = TRUE 
 
 //Single Use Spellbooks
 /obj/item/spellbook/oneuse
@@ -1075,7 +1020,6 @@
 	icon_state = "bookfireball"
 	item_state = "bookfireball"
 	desc = "На ощупь эта книга достаточно тёплая."
-
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
 	explosion(user.loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 3, adminlog = FALSE, flame_range = 2, cause = "Recoiled fireball book")
@@ -1088,7 +1032,6 @@
 	icon_state = "booksmoke"
 	item_state = "booksmoke"
 	desc = "Эта книга переполнена тёмными искусствами."
-
 /obj/item/spellbook/oneuse/smoke/recoil(mob/user as mob)
 	..()
 	to_chat(user, span_caution("Ваш живот начинает урчать..."))
@@ -1101,7 +1044,6 @@
 	icon_state = "bookblind"
 	item_state = "bookblind"
 	desc = "Как ни посмотри, эта книга остаётся размытой в ваших глазах."
-
 /obj/item/spellbook/oneuse/blind/recoil(mob/user)
 	..()
 	if(isliving(user))
@@ -1116,7 +1058,7 @@
 	icon_state = "bookmindswap"
 	item_state = "bookmindswap"
 	desc = "Обложка этой книги выглядит нетронутой, хотя её страницы выглядят изношенными и истрёпанными."
-	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
+var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
 /obj/item/spellbook/oneuse/mindswap/get_ru_names_cached()
 	return get_ru_names()
@@ -1176,7 +1118,6 @@
 	icon_state = "bookforcewall"
 	item_state = "bookforcewall"
 	desc = "На обложке этой книги всё кричит о любви к мимам."
-
 /obj/item/spellbook/oneuse/forcewall/recoil(mob/user as mob)
 	..()
 	to_chat(user, span_warning("Внезапно вы ощущаете твёрдость своего тела!"))
@@ -1187,11 +1128,10 @@
 /obj/item/spellbook/oneuse/knock
 	spell = /obj/effect/proc_holder/spell/aoe/knock
 	spellname = "knock"
-	spellname = "Открывания"
+	spellname_ru = "Открывания"
 	icon_state = "bookknock"
 	item_state = "bookknock"
 	desc = "Эту книгу тяжело держать закрытой."
-
 /obj/item/spellbook/oneuse/knock/recoil(mob/living/user)
 	..()
 	to_chat(user, span_warning("Вы сбиты с ног!"))
@@ -1204,7 +1144,6 @@
 	icon_state = "bookhorses"
 	item_state = "bookhorses"
 	desc = "В этой книге больше лошадиных сил, чем во всех челноках в обозримой вселенной."
-
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
 		to_chat(user, span_userdanger("ЛОШ'АДЬ ПРОБУДИЛАСЬ!"))
@@ -1227,7 +1166,6 @@
 	icon_state = "bookcharge"
 	item_state = "bookcharge"
 	desc = "Эта книга на 100% состоит из постпотребительской магии."
-
 /obj/item/spellbook/oneuse/charge/recoil(mob/user)
 	..()
 	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает нагреваться!"))
@@ -1240,7 +1178,6 @@
 	icon_state = "booksummons"
 	item_state = "booksummons"
 	desc = "Эта книга яркая и броская, ее очень трудно не заметить."
-
 /obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
 	..()
 	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно исчезает!"))
@@ -1265,7 +1202,7 @@
 /obj/item/spellbook/oneuse/goliath_dash
 	spell = /obj/effect/proc_holder/spell/goliath_dash
 	spellname = "goliath dash"
-	spellname = "Рывка Голиафа"
+	spellname_ru = "Рывка Голиафа"
 	icon_state = "bookgoliathdash"
 	item_state = "bookgoliathdash"
 	desc = "Эта книга достаточно горяча, а щупальца, что лезут из неё, извиваются и держат ваши руки."
