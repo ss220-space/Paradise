@@ -151,6 +151,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	burst_amount = 3
+	fire_delay = 0.3 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_offset = list(
