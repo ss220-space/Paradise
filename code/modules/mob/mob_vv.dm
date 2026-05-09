@@ -164,6 +164,6 @@
 			return
 		togglebuildmode(src)
 
-/mob/vv_auto_rename(new_name)
+/mob/vv_auto_rename(new_name, list/ru_declensions)
 	// Do not do parent's actions, as we *usually* do this differently.
 	rename_character(real_name, new_name)
