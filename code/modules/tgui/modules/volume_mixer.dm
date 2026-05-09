@@ -15,7 +15,7 @@
 	var/list/data = list()
 
 	var/list/channels = list()
-	for(var/channel in user.client.prefs.volume_mixer)
+	for(var/channel in user.client?.prefs.volume_mixer)
 		channels += list(list(
 			"num" = channel,
 			"name" = get_channel_name(text2num(channel)),

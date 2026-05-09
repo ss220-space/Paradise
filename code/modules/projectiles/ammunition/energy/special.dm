@@ -106,7 +106,6 @@
 	fire_sound = 'sound/weapons/bulletflyby.ogg'
 	click_cooldown_override = 2
 	harmful = FALSE
-	delay = 3
 
 /obj/item/ammo_casing/energy/shuriken/borg
 	e_cost = 50
@@ -241,6 +240,5 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
-	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'

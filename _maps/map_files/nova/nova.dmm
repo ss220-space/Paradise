@@ -71321,7 +71321,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/lighter/zippo/fluff/purple{
+/obj/item/lighter/zippo/purple{
 	pixel_x = 8;
 	pixel_y = 2
 	},

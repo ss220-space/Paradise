@@ -23,11 +23,10 @@
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	burst_size = 1
-	fire_delay = 0
+	burst_amount = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_PISTOL
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"

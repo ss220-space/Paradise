@@ -214,7 +214,7 @@
 "M" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (

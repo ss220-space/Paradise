@@ -76,8 +76,8 @@
 		PREPOSITIONAL = "дроне",
 	)
 
-/mob/living/silicon/robot/drone/New()
-	..()
+/mob/living/silicon/robot/drone/Initialize(mapload)
+	. = ..()
 
 	remove_language(LANGUAGE_BINARY)
 	remove_language(LANGUAGE_GALACTIC_COMMON)

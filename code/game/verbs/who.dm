@@ -147,7 +147,7 @@
 		final_message += adminmsg
 		final_message += "<br>"
 	if(num_mentors_online)
-		final_message += span_bold("Менторов/Модераторов онлайн ([num_mentors_online]):<br>")
+		final_message += span_bold("Менторов онлайн ([num_mentors_online]):<br>")
 		final_message += mentormsg
 		final_message += "<br>"
 	if(num_devs_online)

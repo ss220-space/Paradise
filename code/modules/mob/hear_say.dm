@@ -150,7 +150,7 @@
 				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
 			return
 
-	if(!can_hear())
+	if(HAS_TRAIT(src, TRAIT_DEAF))
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
@@ -198,7 +198,7 @@
 	speaker_name = colorize_name(speaker, speaker_name)
 	track = handle_track(message, genderize_decode(speaker, verb), speaker, speaker_name, follow_target, hard_to_hear)
 
-	if(!can_hear())
+	if(HAS_TRAIT(src, TRAIT_DEAF))
 		if(prob(20))
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
@@ -255,7 +255,7 @@
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
 
-	if(!can_hear())
+	if(HAS_TRAIT(src, TRAIT_DEAF))
 		return
 
 	var/message_clean = combine_message(message_pieces, speaker)
@@ -272,7 +272,7 @@
 		var/mob/speaker_mob = speaker
 		name = speaker_mob.voice_name
 
-	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
+	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !HAS_TRAIT(src, TRAIT_DEAF))
 		create_chat_message(H, message_clean, list("radio"))
 
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, SOUND_EFFECT_RADIO)

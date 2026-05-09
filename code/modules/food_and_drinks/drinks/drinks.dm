@@ -17,10 +17,10 @@
 	interaction_flags_mouse_drop = NEED_HANDS
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/New()
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/reagent_containers/food/drinks/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	bitesize = amount_per_transfer_from_this
 	if(bitesize < 5)
 		bitesize = 5
@@ -255,9 +255,9 @@
 	list_reagents = list("tea" = 30)
 
 /obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
-	. = ..()
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
@@ -297,9 +297,9 @@
 	list_reagents = list("dry_ramen" = 30)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
-	. = ..()
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"

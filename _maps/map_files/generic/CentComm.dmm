@@ -45420,7 +45420,7 @@
 "uUC" = (
 /obj/structure/table/wood,
 /obj/item/card/id/prisoner/random,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "uVc" = (
