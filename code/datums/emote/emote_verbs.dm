@@ -448,6 +448,16 @@
 	set category = VERB_CATEGORY_EMOTIONS
 	emote("hiss", intentional = TRUE)
 
+/mob/living/carbon/human/proc/emote_wiggle_ears()
+	set name = "~ Дёргать ушками"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("wiggle_ears", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_pin_ears()
+	set name = "~ Прижать ушки"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("pin_ears", intentional = TRUE)
+
 /**
  * Unathi
  */

@@ -869,6 +869,15 @@
 		return 0
 	return 1
 
+/mob/living/carbon/human/proc/update_mobile_external_ear_verbs()
+	if(HAS_TRAIT(src, TRAIT_MOBILE_EXTERNAL_EARS))
+		add_verb(src, /mob/living/carbon/human/proc/emote_wiggle_ears)
+		add_verb(src, /mob/living/carbon/human/proc/emote_pin_ears)
+		return
+
+	remove_verb(src, /mob/living/carbon/human/proc/emote_wiggle_ears)
+	remove_verb(src, /mob/living/carbon/human/proc/emote_pin_ears)
+
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if(skipface && (check_obscured_slots() & ITEM_SLOT_CLOTH_INNER))

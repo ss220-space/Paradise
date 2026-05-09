@@ -426,6 +426,7 @@
 	target.hud_used?.update_locked_slots()
 	gain_muscles(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
 	target.update_body(TRUE)
+	target.update_mobile_external_ear_verbs()
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
 	target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
@@ -454,6 +455,7 @@
 			human.faction -= i
 
 	qdel(human?.GetComponent(/datum/component/muscles))
+	human.update_mobile_external_ear_verbs()
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return

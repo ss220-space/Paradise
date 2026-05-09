@@ -513,3 +513,6 @@
 
 /// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
 #define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"
+
+/// Humanoids with visibly mobile outer ears - vulpas/tajaran and cat ears gene holders.
+#define TRAIT_MOBILE_EXTERNAL_EARS "mobile_external_ears"

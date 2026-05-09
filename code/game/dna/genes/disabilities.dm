@@ -364,14 +364,18 @@
 /datum/dna/gene/disability/catears/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	ADD_TRAIT(mutant, TRAIT_MOBILE_EXTERNAL_EARS, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
+	mutant.update_mobile_external_ear_verbs()
 
 /datum/dna/gene/disability/catears/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	REMOVE_TRAIT(mutant, TRAIT_MOBILE_EXTERNAL_EARS, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
+	mutant.update_mobile_external_ear_verbs()
 
 // /datum/dna/gene/disability/catears/OnDrawUnderlays(mob/M, g)
 //	return "catears_s"
