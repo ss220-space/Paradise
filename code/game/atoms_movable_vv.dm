@@ -25,6 +25,8 @@
 		forceMove(get_turf(usr))
 
 	if(href_list[VV_HK_EDIT_PARTICLES])
+		if(!check_rights(R_VAREDIT))
+			return
 		usr.client?.open_particle_editor(src)
 
 	if(href_list[VV_HK_DEADCHAT_PLAYS])
