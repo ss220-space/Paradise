@@ -1,0 +1,4 @@
+author: "Etrnlmelancholy"
+delete-after: True
+changes:
+  - bugfix: "Коробка с покраской LAWYER больше не невидимая (PR #9200)"

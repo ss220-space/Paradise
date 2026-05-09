@@ -254,7 +254,7 @@
 	desc = "Контроль камер и базы данных служб безопасности"
 	item_list = list(
 		/obj/item/clothing/glasses/hud/security/chameleon,
-		/obj/item/camera_bug,
+		/obj/item/camera_bug/syndicate,
 	)
 
 /datum/thief_kit/gas

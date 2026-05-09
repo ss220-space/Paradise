@@ -1034,12 +1034,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = rgb(255, 0, 0)
 	..()
-	SEND_SOUND(world, sound('sound/effects/narsie_summon.ogg'))
+	sound_to_playing_players('sound/effects/narsie_summon.ogg')
 	to_chat(world, span_cultitalic("<b>The veil... [span_big("is...")] [span_reallybig("TORN!!!--")]</b>"))
 	update_icon(UPDATE_ICON_STATE)
-	var/turf/T = get_turf(src)
+	var/turf/rune_turf = get_turf(src)
 	sleep(40)
-	new /obj/singularity/god/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
+	new /obj/god/narsie(rune_turf) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/attackby(obj/item/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))

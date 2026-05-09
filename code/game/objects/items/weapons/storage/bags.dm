@@ -77,6 +77,8 @@
 	storage_slots = 60
 	item_flags = NO_MAT_REDEMPTION
 
+/obj/item/storage/bag/trash/bluespace/cyborg
+
 /obj/item/storage/bag/trash/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	. = ..()
 	if(. & ITEM_INTERACT_ANY_BLOCKER)
