@@ -11,7 +11,6 @@
 	if(cling.mimicking)
 		cling.mimicking = ""
 		cling.tts_mimicking = ""
-		cling.chem_recharge_slowdown -= 0.5
 		to_chat(user, span_notice("We return our vocal glands to their original position."))
 		return FALSE
 
@@ -38,7 +37,6 @@
 
 	cling.mimicking = mimic_voice
 	cling.tts_mimicking = mimic_voice_tts
-	cling.chem_recharge_slowdown += 0.5
 	to_chat(user, span_notice("We shape our glands to take the voice of <b>[mimic_voice]</b>."))
 	to_chat(user, span_notice("Use this power again to return to our original voice."))
 

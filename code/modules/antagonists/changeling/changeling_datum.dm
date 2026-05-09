@@ -36,6 +36,12 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/chem_charges = 20
 	/// The amount of chemicals that recharges per `Life()` call.
 	var/chem_recharge_rate = 1
+	/// Basic chemical regeneration rate, before any modifiers are applied.
+	var/base_chem_recharge_rate
+	///minimum possible production of chemicals
+	var/min_chem_recharge_rate = 0.1
+	///list of modifiers affecting the synthesis of chemicals
+	var/list/chem_rate_modifiers = list()
 	/// Amount of chemical recharge slowdown, calculated as `chem_recharge_rate - chem_recharge_slowdown`
 	var/chem_recharge_slowdown = 0
 	/// The total amount of chemicals able to be stored.
@@ -77,6 +83,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
 	if(!length(purchaseable_powers))
 		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
+
+	base_chem_recharge_rate = chem_recharge_rate
 
 /datum/antagonist/changeling/on_gain()
 	SSticker.mode.changelings |= owner
@@ -615,5 +623,19 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
+
+/datum/antagonist/changeling/proc/update_chem_recharge_rate()
+	var/new_rate = base_chem_recharge_rate
+	for(var/mod in chem_rate_modifiers)
+		new_rate += chem_rate_modifiers[mod]
+	chem_recharge_rate = max(new_rate, min_chem_recharge_rate)
+
+/datum/antagonist/changeling/proc/add_chem_rate_modifier(source, amount)
+	chem_rate_modifiers[source] = amount
+	update_chem_recharge_rate()
+
+/datum/antagonist/changeling/proc/remove_chem_rate_modifier(source)
+	chem_rate_modifiers -= source
+	update_chem_recharge_rate()
 
 #undef FORMAT_CHEM_CHARGES_TEXT

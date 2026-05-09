@@ -5,17 +5,17 @@
 	button_icon_state = "chemical_synthesis"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
-	var/recharge_bonus = 0.5
+	var/chemical_synthesis_modifier = 0.5
 
 /datum/action/changeling/chemical_synthesis/on_purchase(mob/user)
 	. = ..()
 	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
-		changeling.chem_recharge_rate += recharge_bonus
+		changeling.add_chem_rate_modifier(src, chemical_synthesis_modifier)
 
 /datum/action/changeling/chemical_synthesis/Remove(mob/user)
 	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
-		changeling.chem_recharge_rate -= recharge_bonus
+		changeling.remove_chem_rate_modifier(src)
 	return ..()
 
