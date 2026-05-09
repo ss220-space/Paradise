@@ -191,7 +191,7 @@
 	)
 	starting_attachment_types = list(/obj/item/gun_module/stock, /obj/item/gun_module/muzzle/suppressor/integrated)
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
-	fire_delay = 1
+	fire_delay = 0.1 SECONDS
 	damage_mod = 0.7
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
@@ -236,7 +236,7 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
 	burst_amount = 4
-	fire_delay = 1
+	fire_delay = 0.1 SECONDS
 	recoil = GUN_RECOIL_MEDIUM
 
 // MARK: SFG-5

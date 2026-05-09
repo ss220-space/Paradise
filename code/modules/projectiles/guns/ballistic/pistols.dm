@@ -11,7 +11,6 @@
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	burst_amount = 1
-	fire_delay = 0
 	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
@@ -152,7 +151,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	burst_amount = 3
-	fire_delay = 2
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_offset = list(

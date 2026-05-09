@@ -28,7 +28,7 @@
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
 	var/sawn_desc = null				//description change if weapon is sawn-off
 	var/sawn_state = SAWN_INTACT
-	var/fire_delay = 0					//rate of fire for burst firing and semi auto
+	var/fire_delay = 0.6 SECONDS					//rate of fire for burst firing and semi auto
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
 	var/ninja_weapon = FALSE			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
@@ -486,20 +486,20 @@
 	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY) && prob(50))
 		bonus_spread += 45
 
-/obj/item/gun/proc/modify_fire_delay(value, mob/user)
-	fire_delay += value
+/obj/item/gun/proc/set_fire_delay(value, mob/user)
+	fire_delay = value
 	SEND_SIGNAL(src, COMSIG_GUN_AUTOFIREDELAY_MODIFIED, fire_delay)
 
-/obj/item/gun/proc/modify_burst_delay(value, mob/user)
-	burst_delay += value
+/obj/item/gun/proc/set_burst_delay(value, mob/user)
+	burst_delay = value
 	SEND_SIGNAL(src, COMSIG_GUN_BURST_SHOT_DELAY_MODIFIED, burst_delay)
 
-/obj/item/gun/proc/modify_auto_burst_delay(value, mob/user)
-	autoburst_delay += value
+/obj/item/gun/proc/set_auto_burst_delay(value, mob/user)
+	autoburst_delay = value
 	SEND_SIGNAL(src, COMSIG_GUN_AUTO_BURST_SHOT_DELAY_MODIFIED, autoburst_delay)
 
-/obj/item/gun/proc/modify_burst_amount(value, mob/user)
-	burst_amount += value
+/obj/item/gun/proc/set_burst_amount(value, mob/user)
+	burst_amount = value
 	SEND_SIGNAL(src, COMSIG_GUN_BURST_SHOTS_TO_FIRE_MODIFIED, burst_amount)
 
 	if(burst_amount < 2)
@@ -512,6 +512,18 @@
 			add_firemode(GUN_FIREMODE_BURSTFIRE, user)
 		if((GUN_FIREMODE_AUTOMATIC in gun_firemode_list) && !(GUN_FIREMODE_AUTOBURST in gun_firemode_list))
 			add_firemode(GUN_FIREMODE_AUTOBURST, user)
+
+/obj/item/gun/proc/modify_fire_delay(value, mob/user)
+	set_fire_delay(fire_delay + value, user)
+
+/obj/item/gun/proc/modify_burst_delay(value, mob/user)
+	set_burst_delay(burst_delay + value, user)
+
+/obj/item/gun/proc/modify_auto_burst_delay(value, mob/user)
+	set_auto_burst_delay(autoburst_delay + value, user)
+
+/obj/item/gun/proc/modify_burst_amount(value, mob/user)
+	set_burst_amount(burst_amount + value, user)
 
 /// Inform the gun if he is currently bursting, to prevent reloading
 /obj/item/gun/proc/set_bursting(bursting)
@@ -1139,16 +1151,16 @@
 
 /obj/item/gun/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, fire_delay))
-		modify_fire_delay(-fire_delay + var_value, usr)
+		set_fire_delay(var_value, usr)
 		return TRUE
 	if(var_name == NAMEOF(src, burst_delay))
-		modify_burst_delay(-burst_delay + var_value, usr)
+		set_burst_delay(var_value, usr)
 		return TRUE
 	if(var_name == NAMEOF(src, autoburst_delay))
-		modify_auto_burst_delay(-autoburst_delay + var_value , usr)
+		set_auto_burst_delay(var_value , usr)
 		return TRUE
 	if(var_name == NAMEOF(src, burst_amount))
-		modify_burst_amount(-burst_amount + var_value, usr)
+		set_burst_amount(var_value, usr)
 		return TRUE
 	if(var_name == NAMEOF(src, gun_firemode))
 		toggle_firemode(var_value)
