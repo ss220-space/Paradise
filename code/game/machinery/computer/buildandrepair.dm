@@ -29,6 +29,7 @@
 /obj/item/circuitboard/drone
 	board_type = "drone"
 	abstract_type = /obj/item/circuitboard/drone
+	var/list/drone_list
 	var/tech_to_give
 
 /obj/item/circuitboard/Initialize(mapload)
@@ -37,6 +38,7 @@
 
 /obj/item/circuitboard/drone/Initialize(mapload)
 	. = ..()
+	drone_list = subtypesof(/obj/item/circuitboard/drone)
 	if(!tech_to_give)
 		return
 	origin_tech = "[tech_to_give]=[rand(3, 6)]"

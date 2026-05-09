@@ -131,8 +131,9 @@
 
 	//spawn 1-4 boards of a random type
 	var/num_boards = rand(1, 4)
-	var/list/options = subtypesof(/obj/item/circuitboard/drone)
-	for(var/i=0, i<num_boards, i++)
+	var/obj/item/circuitboard/drone/D = new()
+	var/list/options = D.drone_list.Copy()
+	for(var/i in 1 to num_boards)
 		var/chosen = pick_n_take(options)
 		new chosen(T)
 
