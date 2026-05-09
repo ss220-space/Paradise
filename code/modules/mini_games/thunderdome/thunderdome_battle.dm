@@ -211,9 +211,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 /**
  * Restores ghost AntagHUD and respawnability after the battle.
  */
-/**
- * Restores ghost AntagHUD and respawnability after the battle.
- */
 /datum/mini_game/thunderdome_battle/proc/restore_ghost_state(target_ckey)
 	var/datum/persistent_client/persistent = GLOB.persistent_clients_by_ckey[target_ckey]
 	if(!persistent)
