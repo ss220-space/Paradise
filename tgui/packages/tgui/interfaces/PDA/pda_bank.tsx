@@ -128,13 +128,20 @@ export const pda_bank = () => {
     default:
       PageContent = <UUErrorPage setPage={setPage} />;
   }
+  const contentHeightPercent = 93;
+  const paddingHeightPercent = 100 - contentHeightPercent;
+
   return (
     <Window width={580} height={850}>
       <Window.Content>
         <Stack fill vertical>
-          <Section fill scrollable>
-            {PageContent}
-          </Section>
+          <Stack.Item height={`${contentHeightPercent}%`}>
+            <Section fill scrollable>
+              {PageContent}
+            </Section>
+          </Stack.Item>
+
+          <Stack.Item height={`${paddingHeightPercent}%`} />
         </Stack>
       </Window.Content>
     </Window>

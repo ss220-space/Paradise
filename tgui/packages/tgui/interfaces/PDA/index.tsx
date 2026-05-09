@@ -105,27 +105,37 @@ export const PDA = () => {
       height={PDA_UI.window.height}
       theme={theme}
     >
-      <Window.Content p={0} height="100%">
+      <Window.Content p={0}>
+        {/* Используем flexbox для правильного разделения секций */}
         <Box
-          height="100%"
           style={{
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr minmax(4rem, 9%)',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
             overflow: 'hidden',
           }}
         >
-          <PDAHeader />
+          {/* Header - фиксированная часть сверху */}
+          <Box style={{ flexShrink: 0 }}>
+            <PDAHeader />
+          </Box>
+
+          {/* Content - скроллируемая область, занимает всё свободное пространство */}
           <Box
-            p={0.75}
-            minHeight={0}
             style={{
+              flex: 1,
               overflowY: 'auto',
+              minHeight: 0, // Важно для правильного скролла во flex-контейнере
             }}
+            p={0.75}
           >
             <AppComponent />
           </Box>
 
-          <PDAFooter />
+          {/* Footer - фиксированная часть снизу */}
+          <Box style={{ flexShrink: 0 }}>
+            <PDAFooter />
+          </Box>
         </Box>
       </Window.Content>
     </Window>
