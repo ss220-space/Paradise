@@ -74,7 +74,7 @@ type PageBaseProps = {
   setPage: (page: Page) => void;
 };
 
-export const pda_bank = (props: unknown) => {
+export const pda_bank = () => {
   const [page, setPage] = useState<Page>('main');
   const { data } = useBackend<RaingorBankData>();
   const { loginState } = data;
@@ -740,7 +740,7 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
   );
 };
 
-const UUAboutMenuPage = ({ setPage, data }: PageProps) => {
+const UUAboutMenuPage = ({ setPage }: PageProps) => {
   return (
     <Box>
       {/* Back Button */}
