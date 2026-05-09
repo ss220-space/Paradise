@@ -607,27 +607,6 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	. = ..()
-	if(.)
-		return
-
-	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
-		return
-
-	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
-		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
-	else
-		handle_suicide(user, interacting_with, modifiers)
-	return ITEM_INTERACT_SUCCESS
-
-/obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
-	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-		return TRUE
-	if(!ismob(target) || user.a_intent == INTENT_HARM)
-		return TRUE
-	return FALSE
-
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
 		if(!user.can_use_guns(src))
@@ -716,12 +695,7 @@
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(azoom)
 		zoom(user)
-		return
-	. = ..()
-
-/obj/item/gun/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent != INTENT_HARM)
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_SUCCESS
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
@@ -742,6 +716,27 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/gun/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
+		return
+
+	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
+		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
+	else
+		handle_suicide(user, interacting_with, modifiers)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
+	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		return TRUE
+	if(!ismob(target) || user.a_intent == INTENT_HARM)
+		return TRUE
+	return FALSE
 
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
