@@ -364,6 +364,9 @@
 	if(modifiers[RIGHT_CLICK])
 		return
 
+	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
+		return
+
 	if(gun_on_cooldown(user))
 		return
 
@@ -386,9 +389,6 @@
 		return
 
 	if(QDELETED(object))
-		return
-
-	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
 	set_target(get_turf_on_clickcatcher(object, user, params))
