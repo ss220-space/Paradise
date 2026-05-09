@@ -30,7 +30,7 @@
 	if(user.a_intent != INTENT_DISARM)
 		return
 
-	if(HAS_TRAIT(user, TRAIT_CANT_LUNGE) || IS_HORIZONTAL(user) || user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_CANT_LUNGE) || IS_HORIZONTAL(user) || user.incapacitated)
 		return
 
 	if(user.Adjacent(target))

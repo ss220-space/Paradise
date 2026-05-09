@@ -19,7 +19,7 @@
 	item_state = "banana_touch"
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/smoke = new

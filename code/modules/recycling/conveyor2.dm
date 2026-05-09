@@ -604,7 +604,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/item/conveyor_construct/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(!isfloorturf(target))
 		return
@@ -642,7 +642,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/item/conveyor_switch_construct/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(!isfloorturf(target))
 		return

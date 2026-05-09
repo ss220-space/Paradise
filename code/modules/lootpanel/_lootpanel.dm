@@ -61,7 +61,7 @@
 			return UI_INTERACTIVE
 		return UI_CLOSE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return UI_DISABLED
 
 	var/dist = get_dist(source_turf, user)

@@ -259,7 +259,7 @@
 	if(..())
 		return TRUE
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(href_list["op"])
@@ -423,7 +423,7 @@
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/mouse_drop_receive(atom/movable/AM, mob/user, params)
-	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return
 
 	load(AM)
@@ -476,15 +476,15 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
-	target.pixel_y = target.base_pixel_y + 9
-	if(target.layer < layer)
-		target.layer = layer + 0.01
-
-/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
-	load = null
-	target.layer = initial(target.layer)
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+// /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target) Похуй потом
+// 	target.pixel_y = target.base_pixel_y + 9
+// 	if(target.layer < layer)
+// 		target.layer = layer + 0.01
+//
+// /mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
+// 	load = null
+// 	target.layer = initial(target.layer)
+// 	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 // called to unload the bot
 // argument is optional direction to unload
@@ -869,7 +869,7 @@
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
 	if(ispulsedemon(user))
 		return ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(load == user)
 		unload(0)

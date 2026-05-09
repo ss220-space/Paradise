@@ -159,7 +159,7 @@
 
 /datum/spellbook_entry/goliath_tentacles
 	name = "Summon Tentacles"
-	spell_type = /obj/effect/proc_holder/spell/goliath_tentacles
+	spell_type = /datum/action/cooldown/mob_cooldown/tentacle_burst
 	category = "Offensive"
 	cost = 1
 

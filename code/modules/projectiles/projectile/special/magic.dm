@@ -356,7 +356,7 @@
 					if("carp")
 						new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
 					if("bear")
-						new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
+						new_mob = new /mob/living/basic/bear(M.loc)
 					if("statue")
 						new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
 					if("giantspider")

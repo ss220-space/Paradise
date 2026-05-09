@@ -144,17 +144,15 @@
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE
 
-	/// The x amount a mob's sprite should be offset due to the current position they're in
-	var/body_position_pixel_x_offset = 0
-	/// The y amount a mob's sprite should be offset due to the current position they're in or size (e.g. lying down moves your sprite down)
-	var/body_position_pixel_y_offset = 0
 	/// The height offset of a mob's maptext due to their current size.
 	var/body_maptext_height_offset = 0
 
 	var/pixel_y_lying_offset = PIXEL_Y_OFFSET_LYING
 
-	/// Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
+	/// Tracks the scale of the mob transformation matrix in relation to its identity. Use update_transform(resize) to change it.
 	var/current_size = RESIZE_DEFAULT_SIZE
+	/// How the mob transformation matrix is scaled on init.
+	var/initial_size = RESIZE_DEFAULT_SIZE
 
 	/// Whether the mob is slowed down when pulling/pushing other mobs and objects
 	var/slowed_by_pull_and_push = TRUE
@@ -215,3 +213,13 @@
 
 	/// How many tiles can this mob reach with their hands? 1 tile is adjacent.
 	var/reach_length = 1
+	//Damage dealing vars! These are meaningless outside of specific instances where it's checked and defined.
+	/// Lower bound of damage done by unarmed melee attacks. Mob code is a mess, only works where this is checked for.
+	var/melee_damage_lower = 0
+	/// Upper bound of damage done by unarmed melee attacks. Please ensure you check the xyz_defenses.dm for the mobs in question to see if it uses this or hardcoded values.
+	var/melee_damage_upper = 0
+
+	/// Lazylists of pixel offsets this mob is currently using
+	/// Modify this via add_offsets and remove_offsets,
+	/// NOT directly (and definitely avoid modifying offsets directly)
+	VAR_PRIVATE/list/offsets

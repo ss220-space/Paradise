@@ -217,7 +217,7 @@
 		return FALSE
 
 	var/mob/living/carbon/alien/alien = user
-	if(alien.incapacitated())
+	if(alien.incapacitated)
 		return FALSE
 
 	switch_state()

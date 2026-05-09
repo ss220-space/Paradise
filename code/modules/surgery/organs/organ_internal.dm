@@ -68,6 +68,9 @@
 
 	loc = null
 
+	for(var/trait in organ_traits)
+		ADD_TRAIT(target, trait, UID())
+
 	for(var/datum/action/action as anything in actions)
 		action.Grant(target)
 
@@ -114,6 +117,9 @@
 		else
 			stack_trace("[src] attempted to remove from a [parent_organ_zone], but [parent_organ_zone] didn't exist! [atom_loc_line(target)]")
 		h_owner.update_int_organs()
+
+	for(var/trait in organ_traits)
+		REMOVE_TRAIT(organ_owner, trait, UID())
 
 	for(var/datum/action/action as anything in actions)
 		action.Remove(organ_owner)

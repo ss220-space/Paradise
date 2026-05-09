@@ -90,7 +90,7 @@
 	on_select_skin(item, user, skins, choice)
 
 /datum/element/item_skins/proc/on_select_skin(obj/item/item, mob/living/carbon/human/user, list/skins, choice)
-	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated() || item.current_skin)
+	if(!choice || QDELETED(item) || !user.is_in_hands(item) || user.incapacitated || item.current_skin)
 		return
 
 	var/datum/item_skin_data/selected_skin = null

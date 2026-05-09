@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 		/obj/effect/proc_holder/spell/aoe/knock,
 		/obj/effect/proc_holder/spell/aoe/conjure/legion_skulls,
 		/obj/effect/proc_holder/spell/goliath_dash,
-		/obj/effect/proc_holder/spell/goliath_tentacles,
+		/datum/action/cooldown/mob_cooldown/tentacle_burst,
 		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
 		/obj/effect/proc_holder/spell/watchers_look,
 	)

@@ -166,7 +166,8 @@
 	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, TRUE)
 
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
+	var/mob/thrower = throwingdatum?.get_thrower()
+	var/datum/martial_art/throwing/MA = thrower?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		embed_chance = MA.knife_embed_chance
 		throwforce = default_throwforce + MA.knife_bonus_damage

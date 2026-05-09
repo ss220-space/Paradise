@@ -8,9 +8,9 @@
 	) //this stuff needs to be on mob_spawn_list. This is temp stuff because we don't have any feature.... yet
 
 	weighted_mob_spawn_list = list(
-		/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40,
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30,
+		/mob/living/basic/mining/goliath/random = 50,
+		/mob/living/basic/mining/watcher/random = 40,
+		/mob/living/basic/mining/legion/random = 30,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous/random = 30,
 		/mob/living/simple_animal/hostile/asteroid/goldgrub = 15,
 		SPAWN_MEGAFAUNA = 4,

@@ -309,7 +309,7 @@
 	usr.visible_message(span_warning("[usr] начина[PLUR_ET_YUT(usr)] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
-		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
+		if(QDELETED(chosen) || !usr|| usr.incapacitated || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
 		usr.visible_message(span_warning("[usr] пролеза[PLUR_ET_YUT(usr)] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[PLUR_ET_YUT(usr)] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 		usr.forceMove(destination)

@@ -82,11 +82,10 @@
 	GiveTarget(null)
 	return ..()
 
-/mob/living/simple_animal/hostile/tamed(whomst)
-	if(isliving(whomst))
-		var/mob/living/fren = whomst
-		friends = fren
-		faction = fren.faction.Copy()
+/mob/living/simple_animal/hostile/tamed(mob/living/tamer, obj/item/food)
+	if(isliving(tamer))
+		friends = tamer
+		faction = tamer.faction.Copy()
 		visible_message(span_notice("[src] gently growls and calms down. It seems that it no longer sees you as a threat!"))
 	return ..()
 
@@ -383,7 +382,7 @@
 		GainPatience()
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
-	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated())
+	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated)
 		UnarmedAttack(target, TRUE)
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
@@ -699,28 +698,6 @@
 	if(!value)
 		value = initial(search_objects)
 	search_objects = value
-
-/mob/living/simple_animal/hostile/consider_wakeup()
-	..()
-	var/turf/out_turf = get_turf(src)
-	if(!out_turf)
-		return
-
-	if(!length(SSmobs.clients_by_zlevel[out_turf.z]))
-		toggle_ai(AI_Z_OFF)
-		return
-
-	var/cheap_search = !is_station_level(out_turf.z)
-	var/list/targets_list
-	if(cheap_search)
-		targets_list = ListTargetsLazy(out_turf.z)
-	else
-		targets_list = ListTargets()
-
-	if(AIStatus == AI_IDLE && FindTarget(targets_list))
-		if(cheap_search) //Try again with full effort
-			FindTarget()
-		toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/ListTargetsLazy(check_z)//Step 1, find out what we can see
 	var/static/hostile_machines = typecacheof(list(

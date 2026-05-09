@@ -226,7 +226,7 @@
 	return buckled.zMove(dir, target, z_move_flags) // Return value is a loc.
 
 /mob/living/can_z_move(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
-	if(z_move_flags & ZMOVE_INCAPACITATED_CHECKS && incapacitated())
+	if(z_move_flags & ZMOVE_INCAPACITATED_CHECKS && incapacitated)
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			to_chat(rider || src, span_warning("[rider ? src : "Ты"] не можешь сделать это прямо сейчас"))
 		return FALSE
@@ -250,7 +250,7 @@
 
 ///Checks if the user is incapacitated or on cooldown.
 /mob/living/proc/can_look_up()
-	return !(incapacitated(IGNORE_RESTRAINTS) || !isturf(loc))
+	return !(INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS) || !isturf(loc))
 
 /**
  * look_up Changes the perspective of the mob to any openspace turf above the mob

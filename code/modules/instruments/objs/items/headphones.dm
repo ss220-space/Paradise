@@ -28,7 +28,7 @@
 	return song.ui_data(user)
 
 /obj/item/clothing/ears/headphones/ui_interact(mob/user, datum/tgui/ui = null)
-	if(should_stop_playing(user) || user.incapacitated())
+	if(should_stop_playing(user) || user.incapacitated)
 		return
 	song.ui_interact(user, ui)
 

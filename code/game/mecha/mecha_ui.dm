@@ -13,7 +13,7 @@
 	if(occupant != user)
 		return UI_CLOSE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return UI_DISABLED
 
 	return UI_INTERACTIVE

@@ -8,7 +8,7 @@
 	invocation_type = "shout"
 	action_icon_state = "sumon_skulls"
 
-	summon_type = list(/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/magic)
+	summon_type = list(/mob/living/basic/mining/legion_brood)
 	summon_amt = 3
 	aoe_range = 1
 	can_use_stunned = TRUE

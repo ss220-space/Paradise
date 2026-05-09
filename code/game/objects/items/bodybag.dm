@@ -143,7 +143,7 @@
 
 
 /obj/structure/closet/body_bag/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != user || !ishuman(user) || user.incapacitated())
+	if(over_object != user || !ishuman(user) || user.incapacitated)
 		return
 
 	if(!opened && !length(contents))
@@ -248,7 +248,7 @@
 	return item_bag
 
 /obj/item/bodybag/bluespace/container_resist_act(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		balloon_alert(user, "вы связаны!")
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
@@ -259,7 +259,7 @@
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(loc, span_warning("Давление ослабевает. Похоже, [GEND_HE_SHE(user)] перестал[GEND_A_O_I(user)] сопротивляться..."))
 		return
 	loc.visible_message(span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"))

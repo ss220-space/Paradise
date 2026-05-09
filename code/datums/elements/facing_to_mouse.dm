@@ -19,7 +19,7 @@
 	if(!mob_client)
 		return
 
-	if(source.incapacitated())
+	if(source.incapacitated)
 		return
 
 	source.face_atom(target)

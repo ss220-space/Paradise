@@ -207,6 +207,9 @@
 		Weaken(stun_duration)
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/shaker)
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, shaker) & COMPONENT_BLOCK_MISC_HELP)
+		return
+
 	if(shaker == src && ishuman(src))
 		check_self_for_injuries()
 		return

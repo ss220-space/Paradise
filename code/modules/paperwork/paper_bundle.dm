@@ -147,7 +147,7 @@
 	if(resistance_flags & FIRE_PROOF)
 		return
 
-	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(P.lit && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 

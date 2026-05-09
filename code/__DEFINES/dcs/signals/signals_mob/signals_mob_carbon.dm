@@ -6,6 +6,11 @@
 #define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"
 ///from /item/organ/proc/Remove() (/obj/item/organ/)
 #define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"
+///Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
+#define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
+	/// Stops the rest of help act (hugging, etc) from occurring
+	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
+
 ///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)
 #define COMSIG_CARBON_EQUIP_HAT "carbon_equip_hat"
 ///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)

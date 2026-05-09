@@ -80,7 +80,7 @@
 		visible_message(span_danger("[spawned_mob.declent_ru(NOMINATIVE)] выползает из [declent_ru(GENITIVE)]!"))
 
 /obj/structure/nest/lavaland
-	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)
+	spawn_mob_options = list(/mob/living/basic/mining/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub)
 
 /obj/structure/nest/carppuppy
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)

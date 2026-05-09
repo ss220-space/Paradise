@@ -73,6 +73,8 @@
 
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
+/// From grabbing someone
+#define GRABBING_TRAIT "grabbing"
 
 #define INCORPOREAL_TRAIT "incorporeal"
 
@@ -128,6 +130,11 @@
 
 #define FULTON_TRAIT "fulton"
 
+/// Trait from mob/living/update_transform()
+#define UPDATE_TRANSFORM_TRAIT "update_transform"
+/// Trait from mob/living/update_offsets()
+#define UPDATE_OFFSET_TRAIT "update_offset"
+
 #define ANOMALOUS_CRYSTAL_TRAIT "anomalous_crystal"
 
 #define FLOOR_CLUWNE_TRAIT "floor_cluwne"
@@ -138,6 +145,8 @@
 
 /// Trait given by living mob death
 #define SIMPLE_MOB_DEATH_TRAIT "simple_mob_death"
+/// Trait given by simple/basic mob death
+#define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
 
 #define VENTCRAWLING_TRAIT "ventcrawling"
 
@@ -191,3 +200,6 @@
 #define NO_EARS "no_ears"
 /// Traits related to guns
 #define GUN_TRAIT "gun"
+
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"

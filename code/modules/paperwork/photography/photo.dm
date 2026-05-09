@@ -30,7 +30,7 @@
 			to_chat(user, span_warning("You don't know how to write!"))
 			return ATTACK_CHAIN_PROCEED
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
-		if(!txt || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!txt || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return ATTACK_CHAIN_PROCEED
 		scribble = txt
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -42,14 +42,14 @@
 	return ..()
 
 /obj/item/photo/click_alt(mob/user)
-	if(user.incapacitated() || !isAI(usr) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || !isAI(usr) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return NONE
 
 	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
 	if(!n_name)
 		return CLICK_ACTION_BLOCKING
 	//loc.loc check is for making possible renaming photos in clipboards
-	if((loc == user || (loc.loc && loc.loc == user)) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if((loc == user || (loc.loc && loc.loc == user)) && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
 		add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
@@ -57,7 +57,7 @@
 /obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
 
-	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(P.lit && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 

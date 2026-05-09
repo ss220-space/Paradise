@@ -39,7 +39,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/structure/particle_accelerator/proc/rotate_accelerator(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, span_notice("It is fastened to the floor!"))
@@ -195,7 +195,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/particle_accelerator/proc/rotate_accelerator(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, span_notice("It is fastened to the floor!"))

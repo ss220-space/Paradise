@@ -85,6 +85,7 @@
 		return .
 
 	afterattack(target, user, TRUE, modifiers, .)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, modifiers, attack_modifiers)
 	mark_target(target)
 
 /// Used to mark a target for the demo system during a melee attack chain, call this before return

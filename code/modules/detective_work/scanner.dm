@@ -19,7 +19,7 @@
 /obj/item/detective_scanner/attack_self(mob/user)
 	var/search = tgui_input_text(user, "Введите имя, отпечатки пальцев или код ДНК.", "Найти запись", "")
 
-	if(!search || user.stat || user.incapacitated())
+	if(!search || user.stat || user.incapacitated)
 		return
 
 	search = lowertext(search) //This is here so that it doesn't run 'lowertext()' until the checks have passed.

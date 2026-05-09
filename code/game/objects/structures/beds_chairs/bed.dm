@@ -174,12 +174,12 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/target)
 	set_density(TRUE)
 	update_icon(UPDATE_ICON_STATE)
-	target.pixel_y = target.base_pixel_y + 3
+	target.add_offsets(type, y_add = 3)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
 	set_density(FALSE)
 	update_icon(UPDATE_ICON_STATE)
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	target.remove_offsets(type)
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"

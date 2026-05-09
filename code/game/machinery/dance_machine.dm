@@ -341,7 +341,7 @@
 	for(var/i = 1, i < 10, i++)
 		for(var/d in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 			M.setDir(d)
-			if(i == WEST && !M.incapacitated())
+			if(i == WEST && !M.incapacitated)
 				M.SpinAnimation(7, 1)
 			sleep(1)
 		sleep(20)

@@ -211,7 +211,7 @@
 /obj/structure/table/mouse_drop_receive(obj/dropping, mob/user, params)
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
 		return ..()
-	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(isrobot(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(dropping, /obj/item/storage/bag/tray)) // we don't put the tray on the table
 		return
@@ -461,6 +461,7 @@
 	. = ..()
 	debris += new frame
 	debris += new /obj/item/shard
+	AddElement(/datum/element/give_turf_traits, string_list(list(TRAIT_AI_AVOID_TURF)))
 
 /obj/structure/table/glass/Destroy()
 	for(var/i in debris)

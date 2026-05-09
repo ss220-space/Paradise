@@ -3423,7 +3423,7 @@
 /area/awaymission/BMPship/MedBay)
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/structure/closet/crate/critter{
 	opened = 1
 	},
@@ -6208,7 +6208,7 @@
 /area/awaymission)
 "KG" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/structure/closet/crate/critter{
 	opened = 1
 	},

@@ -613,7 +613,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/effect/decal/warning_stripes/southwest,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "cp" = (

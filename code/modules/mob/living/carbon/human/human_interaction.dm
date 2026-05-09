@@ -3,7 +3,7 @@
 	if(!href_list["interaction"])
 		return ..()
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	//CONDITIONS

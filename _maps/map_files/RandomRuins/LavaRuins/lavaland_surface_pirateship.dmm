@@ -253,7 +253,7 @@
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/lavaland/surface/outdoors)
 "gR" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast,
+/mob/living/basic/mining/goliath,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "gV" = (

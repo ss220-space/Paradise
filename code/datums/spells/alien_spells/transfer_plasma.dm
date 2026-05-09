@@ -60,7 +60,7 @@
 	if(target == user)
 		return ..()
 
-	if(!proximity_flag || !isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || !isalien(target) || !iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/mob/living/carbon/transfering_to = target

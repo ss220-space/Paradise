@@ -860,16 +860,6 @@ emp_act
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
-	. = ..()
-	if(!.)
-		return
-	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACKS, user.armour_penetration))
-		return FALSE
-	var/obj/item/organ/external/affecting = user.get_organ(BODY_ZONE_CHEST)
-	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
-	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
-
 /mob/living/carbon/human/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	. = ..()
 	switch(fire.fire_variant)

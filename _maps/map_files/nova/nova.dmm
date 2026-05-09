@@ -45433,7 +45433,7 @@
 /obj/structure/bed/dogbed{
 	name = "fox box"
 	},
-/mob/living/simple_animal/pet/dog/fox/Renault,
+/mob/living/basic/pet/fox/Renault,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -50101,7 +50101,7 @@
 /area/hallway/primary/central/second/north)
 "hxd" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+/mob/living/basic/pet/fox/fennec/Fenya,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"

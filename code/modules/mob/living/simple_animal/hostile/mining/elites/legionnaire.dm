@@ -378,22 +378,15 @@
 		PREPOSITIONAL = "позвоночнике легионера",
 	)
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire
-	health = 25
-	maxHealth = 25
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-
 /obj/item/crusher_trophy/legionnaire_spine/effect_desc()
 	return "Взрыв метки имеет <b>[bonus_value]%</b> шанс призвать союзный череп легиона"
 
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(user.loc)
-	A.GiveTarget(target)
-	A.friends += user
-	A.faction = user.faction.Copy()
+	var/mob/living/basic/mining/legion_brood/minion = new(user.loc)
+	minion.assign_creator(user)
+	minion.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 
 /obj/item/crusher_trophy/legionnaire_spine/attack_self(mob/user)
 	if(!isliving(user))
@@ -404,9 +397,8 @@
 		balloon_alert(LivingUser, "перезарядка")
 		return
 	LivingUser.visible_message(span_warning("[LivingUser] тряс[PLUR_YOT_UT(LivingUser)] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
-	LegionSkull.friends += LivingUser
-	LegionSkull.faction = LivingUser.faction.Copy()
+	var/mob/living/basic/mining/legion_brood/LegionSkull = new(LivingUser.loc)
+	LegionSkull.assign_creator(LivingUser)
 	next_use_time = world.time + 4 SECONDS
 
 #undef LEGIONNAIRE_CHARGE

@@ -32,7 +32,7 @@
 
 /obj/item/teleportation_scroll/Topic(href, href_list)
 	..()
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
 		return
 	var/mob/living/carbon/human/H = usr
 	if(!( ishuman(H)))
@@ -56,7 +56,7 @@
 
 	var/area/thearea = SSmapping.teleportlocs[A]
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!((user == loc || (in_range(src, user) && isturf(src.loc)))))
 		return

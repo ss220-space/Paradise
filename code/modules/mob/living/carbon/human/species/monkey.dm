@@ -58,6 +58,7 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
 	)
+	ai_controlled_species = TRUE
 
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
@@ -270,4 +271,50 @@
 
 /datum/species/monkey/unathi/can_understand(mob/other)
 	return
+
+/obj/item/organ/internal/brain/primate //Ook Ook
+	name = "Primate Brain"
+	desc = "This wad of meat is small, but has enlarged occipital lobes for spotting bananas."
+	// organ_traits = list(TRAIT_CAN_STRIP, TRAIT_PRIMITIVE, TRAIT_GUN_NATURAL) // No literacy or advanced tool usage. Похуй потом
+	actions_types = list(/datum/action/item_action/organ_action/toggle_trip)
+	/// Will this monkey stumble if they are crossed by a simple mob or a carbon in combat mode? Toggable by monkeys with clients, and is messed automatically set to true by monkey AI.
+	var/tripping = TRUE
+
+/datum/action/item_action/organ_action/toggle_trip
+	name = "Toggle Tripping"
+	button_icon_state = "lesser_form"
+	background_icon_state = "bg_default_on"
+	overlay_icon_state = "bg_default_border"
+
+/datum/action/item_action/organ_action/toggle_trip/do_effect(trigger_flags)
+	var/obj/item/organ/internal/brain/primate/monkey_brain = target
+	if(monkey_brain.tripping)
+		monkey_brain.tripping = FALSE
+		background_icon_state = "bg_default"
+		to_chat(monkey_brain.owner, span_notice("You will now avoid stumbling while colliding with people who are in combat mode."))
+	else
+		monkey_brain.tripping = TRUE
+		background_icon_state = "bg_default_on"
+		to_chat(monkey_brain.owner, span_notice("You will now stumble while colliding with people who are in combat mode."))
+	build_all_button_icons()
+	return TRUE
+
+/obj/item/organ/internal/brain/primate/insert(mob/living/target, special)
+	. = ..()
+	RegisterSignal(target, COMSIG_LIVING_MOB_BUMPED, PROC_REF(on_mob_bump))
+
+/obj/item/organ/internal/brain/primate/remove(mob/living/target, special)
+	. = ..()
+	UnregisterSignal(target, COMSIG_LIVING_MOB_BUMPED)
+
+/obj/item/organ/internal/brain/primate/proc/on_mob_bump(mob/source, mob/living/crossing_mob)
+	SIGNAL_HANDLER
+	if(!tripping || !crossing_mob.intent != INTENT_HELP)
+		return
+	crossing_mob.knockOver(owner)
+
+// /obj/item/organ/internal/brain/primate/get_attacking_limb(mob/living/carbon/human/target)
+// 	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER) || HAS_TRAIT(owner, TRAIT_FERAL_BITER))
+// 		return owner.get_bodypart(BODY_ZONE_HEAD)
+// 	return ..()
 

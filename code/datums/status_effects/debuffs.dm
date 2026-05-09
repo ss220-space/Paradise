@@ -333,7 +333,7 @@
 	if(t_hearts && prob(t_hearts * 10))	// 60% on MAX
 		owner.adjustFireLoss(t_hearts)	// 6 MAX
 
-	if(!owner.incapacitated() && !HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED) && prob(30 + t_eyes * 7))	// 100% on MAX
+	if(!owner.incapacitated && !HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED) && prob(30 + t_eyes * 7))	// 100% on MAX
 		// lets check our arms first
 		var/obj/item/left_hand = owner.l_hand
 		var/obj/item/right_hand = owner.r_hand
@@ -1571,3 +1571,24 @@
 	name = "Unbalanced"
 	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
+
+/datum/status_effect/freezing_blast
+	id = "freezing_blast"
+	alert_type = /atom/movable/screen/alert/status_effect/freezing_blast
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REPLACE
+
+/atom/movable/screen/alert/status_effect/freezing_blast
+	name = "Freezing Blast"
+	desc = "You've been struck by a freezing blast! Your body moves more slowly!"
+	icon_state = "frozen"
+
+/datum/status_effect/freezing_blast/on_apply()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/freezing_blast, update = TRUE)
+	return ..()
+
+/datum/status_effect/freezing_blast/on_remove()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/freezing_blast, update = TRUE)
+
+/datum/movespeed_modifier/freezing_blast
+	multiplicative_slowdown = 1

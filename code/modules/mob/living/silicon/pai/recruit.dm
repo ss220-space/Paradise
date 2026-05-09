@@ -32,7 +32,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		var/obj/item/paicard/card = locateUID(href_list["device"])
 		if(card.pai)
 			return
-		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
+		if(usr.incapacitated || isobserver(usr) || !card.Adjacent(usr))
 			return
 		if(istype(card, /obj/item/paicard) && istype(candidate, /datum/paiCandidate))
 			var/mob/living/silicon/pai/pai = new(card)

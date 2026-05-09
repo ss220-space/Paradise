@@ -75,16 +75,10 @@
 	)
 
 /mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	if(target)
-		DestroySurroundings() //So they can path through chasms.
-	if(nest?.parent && get_dist(nest.parent, src) > nest_range)
-		var/turf/closest = get_turf(nest.parent)
-		for(var/i = 1 to nest_range)
-			closest = get_step(closest, get_dir(closest, src))
-		forceMove(closest) // someone teleported out probably and the megafauna kept chasing them
-		GiveTarget(null)
-		return
-	return ..()
+	if(!target)
+		return ..()
+
+	DestroySurroundings()
 
 /mob/living/simple_animal/hostile/megafauna/can_die()
 	return ..() && health <= 0

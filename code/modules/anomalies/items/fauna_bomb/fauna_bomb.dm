@@ -169,7 +169,7 @@
 	return OBLITERATION
 
 /obj/item/fauna_bomb/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 
 	if(choose_target_timer && user.client == chooser)

@@ -87,7 +87,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_speech()
 	..()
-	if(prob(speak_chance) && !incapacitated())
+	if(prob(speak_chance) && !incapacitated)
 		playsound(src, squeak_sound, 100, TRUE)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_movement()

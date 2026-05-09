@@ -88,7 +88,7 @@
 	add_fingerprint(user)
 	if(!bag)
 		return
-	if(loc != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(loc != user || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(user.s_active == bag)
 			user.s_active.close(user)
 		return

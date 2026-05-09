@@ -127,7 +127,7 @@
 		var/tentacle_loc = spiral_range_turfs(5, get_turf(src))
 		for(var/i in 1 to tentacle_amount)
 			var/turf/t = pick_n_take(tentacle_loc)
-			new /obj/effect/temp_visual/goliath_tentacle/broodmother(t, src)
+			new /obj/effect/goliath_tentacle/broodmother(t, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/tentacle_patch(target)
 	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
@@ -135,7 +135,7 @@
 	if(!isturf(tturf))
 		return
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] зарывает свои щупальца под [target]!"))
-	new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(tturf, src)
+	new /obj/effect/goliath_tentacle/broodmother/patch(tturf, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(target)
 	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
@@ -252,46 +252,24 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	qdel(src)
 
-/obj/effect/temp_visual/goliath_tentacle/broodmother
-	var/damage = 25
-	var/stun_duration = 1
-	var/stun_delay = 1.5
+/obj/effect/goliath_tentacle/broodmother
+	grapple_time = 1 SECONDS
+	min_damage = 30
+	max_damage = 35
 
-/obj/effect/temp_visual/goliath_tentacle/broodmother/tripanim()
-	icon_state = "Goliath_tentacle_wiggle"
-	deltimer(timerid)
-	timerid = addtimer(CALLBACK(src, PROC_REF(trip)), stun_delay, TIMER_STOPPABLE)
-
-//Tentacles stun WAY less compared to regular variant, to balance being able to use them much more often. Also, 10 more damage.
-/obj/effect/temp_visual/goliath_tentacle/broodmother/trip()
-	var/latched = FALSE
-	for(var/mob/living/L in loc)
-		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
-			continue
-		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] опутывает щупальцами [L.declent_ru(ACCUSATIVE)]!"))
-		L.Stun(stun_duration)
-		L.adjustBruteLoss(damage)
-		latched = TRUE
-	if(!latched)
-		retract()
-	else
-		deltimer(timerid)
-		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), stun_duration * 10, TIMER_STOPPABLE)
-
-/obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
+/obj/effect/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(createpatch))
 
-/obj/effect/temp_visual/goliath_tentacle/broodmother/patch/proc/createpatch()
-	var/tentacle_locs = spiral_range_turfs(2, get_turf(src))
+/obj/effect/goliath_tentacle/broodmother/patch/proc/createpatch()
+	var/tentacle_locs = spiral_range_turfs(1, get_turf(src))
 	for(var/T in tentacle_locs)
-		new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
+		new /obj/effect/goliath_tentacle/broodmother(T)
 	var/list/directions = GLOB.cardinal.Copy()
 	for(var/i in directions)
 		var/turf/T = get_step(get_turf(src), i)
-		for(var/j in 1 to 2)
-			T = get_step(T, i)
-			new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
+		T = get_step(T, i)
+		new /obj/effect/goliath_tentacle/broodmother(T)
 
 // Broodmother's loot: Broodmother Tongue
 /obj/item/crusher_trophy/broodmother_tongue
@@ -320,7 +298,7 @@
 
 /obj/item/crusher_trophy/broodmother_tongue/on_mark_detonation(mob/living/target, mob/living/user)
 	if(prob(bonus_value) && target.stat != DEAD)
-		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
+		new /obj/effect/goliath_tentacle/broodmother/patch(get_turf(target), user)
 
 /obj/item/crusher_trophy/broodmother_tongue/attack_self(mob/user)
 	if(!isliving(user))

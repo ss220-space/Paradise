@@ -61,7 +61,7 @@
 		remove_spell()
 		return
 	BS = possible_spells[entered_spell_name]
-	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
+	if(QDELETED(src) || owner.incapacitated || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 
 	if(!channeling)
@@ -143,7 +143,7 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/IsAvailable(feedback = FALSE)
-	if(!iscultist(owner) || owner.incapacitated() || !charges)
+	if(!iscultist(owner) || owner.incapacitated || !charges)
 		return FALSE
 	return ..()
 
@@ -307,7 +307,7 @@
 /obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
 		return FALSE
-	if(ranged_ability_user.incapacitated() || !iscultist(user))
+	if(ranged_ability_user.incapacitated || !iscultist(user))
 		user.ranged_ability.remove_ranged_ability(user)
 		return FALSE
 	var/turf/T = get_turf(ranged_ability_user)
@@ -540,7 +540,7 @@
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	var/turf/destination = get_turf(actual_selected_rune)
-	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune || !destination)
+	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated || !actual_selected_rune || !destination)
 		return
 
 	var/turf/origin = get_turf(teleporting_mob)

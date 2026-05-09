@@ -339,7 +339,7 @@
 	set name = "Повернуть"
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(facing == "l")

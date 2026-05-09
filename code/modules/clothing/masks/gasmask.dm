@@ -903,7 +903,7 @@
 		to_chat(user, span_warning("The [name] is already broken."))
 		return .
 	var/confirm = tgui_alert(user, "Do you want to cut off the voice modulator? Warning: It will destroy mask's functionality.", "Cut voice modulator?", list("Yes", "No"))
-	if(confirm != "Yes" || aggressiveness == AGGRESSIVENESS_BROKEN || !Adjacent(user) || user.incapacitated())
+	if(confirm != "Yes" || aggressiveness == AGGRESSIVENESS_BROKEN || !Adjacent(user) || user.incapacitated)
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .

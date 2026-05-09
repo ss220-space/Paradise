@@ -30,6 +30,9 @@
 #define ALERT_NUTRITION "nutrition"
 #define ALERT_UNPOSSESS_OBJECT "unpossess_object"
 
+/** Environment related */
+#define ALERT_TEMPERATURE "temp"
+
 /** Silicon related */
 #define ALERT_LOCKED "locked"
 

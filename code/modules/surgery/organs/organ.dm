@@ -58,6 +58,14 @@
 	/// Will it skip pain messages?
 	var/hidden_pain = FALSE
 
+	/**
+	 * Traits that are given to the holder of the organ.
+	 * If you want an effect that changes this, don't add directly to this. Use the add_organ_trait() proc.
+	 */
+	var/list/organ_traits
+	/// Status Effects that are given to the holder of the organ.
+	var/list/organ_effects
+
 /obj/item/organ/Initialize(mapload)
 	. = ..()
 
@@ -445,3 +453,30 @@
 		dna.deserialize(data["dna"])
 		..()
 
+/// Add a Trait to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_trait(trait)
+	LAZYOR(organ_traits, trait)
+	if(isnull(owner))
+		return
+	ADD_TRAIT(owner, trait, UID())
+
+/// Removes a Trait from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_trait(trait)
+	LAZYREMOVE(organ_traits, trait)
+	if(isnull(owner))
+		return
+	REMOVE_TRAIT(owner, trait, UID())
+
+/// Add a Status Effect to an organ that it will give its owner.
+/obj/item/organ/proc/add_organ_status(status)
+	LAZYADD(organ_effects, status)
+	if(isnull(owner))
+		return
+	owner.apply_status_effect(status, type)
+
+/// Removes a Status Effect from an organ, and by extension, its owner.
+/obj/item/organ/proc/remove_organ_status(status)
+	LAZYREMOVE(organ_effects, status)
+	if(isnull(owner))
+		return
+	owner.remove_status_effect(status, type)

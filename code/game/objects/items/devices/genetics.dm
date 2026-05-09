@@ -191,7 +191,7 @@
 	var/mob/user = usr
 	if(!istype(user))
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	print_report(user)
 

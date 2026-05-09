@@ -108,7 +108,7 @@ range 2-3
 	clear_grab(playsound = !deleting)
 
 /obj/item/mod/module/anomaly_locked/kinesis/process()
-	if(!mod.wearer.client || mod.wearer.incapacitated(IGNORE_GRAB))
+	if(!mod.wearer.client || INCAPACITATED_IGNORING(mod.wearer, INCAPABLE_GRAB)) // Похуй потом
 		clear_grab()
 		return
 	if(!range_check(grabbed_atom))
@@ -189,7 +189,7 @@ range 2-3
 		var/mob/living/living_target = movable_target
 		if(living_target.stat < stat_required)
 			return FALSE
-		if(!living_target.incapacitated() && incapacitated_required)
+		if(!living_target.incapacitated && incapacitated_required)
 			return FALSE
 	else if(isitem(movable_target))
 		var/obj/item/item_target = movable_target

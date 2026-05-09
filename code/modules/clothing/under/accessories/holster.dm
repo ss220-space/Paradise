@@ -142,7 +142,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!isliving(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/obj/item/clothing/accessory/holster/holster

@@ -1113,7 +1113,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/topic_denied(mob/user)
 	if(user.can_admin_interact())
 		return FALSE
-	if(user.incapacitated() || !(issilicon(user) || in_range(src, user)))
+	if(user.incapacitated || !(issilicon(user) || in_range(src, user)))
 		return TRUE
 	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
 		if(!hacked) //Manually emagged by a human - access denied to all.

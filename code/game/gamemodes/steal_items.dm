@@ -515,12 +515,12 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/animal/renault
 	id = "animal_renault"
-	typepath = /mob/living/simple_animal/pet/dog/fox/Renault
+	typepath = /mob/living/basic/pet/fox/Renault
 	name = "лису по кличке Renault"
 
 /datum/theft_objective/animal/fenya
 	id = "animal_fenya"
-	typepath = /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
+	typepath = /mob/living/basic/pet/fox/fennec/Fenya
 	name = "лису по кличке Феня"
 
 /datum/theft_objective/animal/floppa

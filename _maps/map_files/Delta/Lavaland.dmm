@@ -25,7 +25,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "ad" = (
@@ -1443,12 +1443,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "fh" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf{
-	a_intent = "help";
-	desc = "Sorry, Bobby, but I really need this legion core";
-	faction = list("neutral");
-	name = "Bobby"
-	},
+/mob/living/basic/mining/legion/dwarf/bobby,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -2105,7 +2100,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "ij" = (
@@ -2960,13 +2955,13 @@
 /area/lavaland/surface/outdoors/necropolis)
 "ms" = (
 /obj/structure/stone_tile/slab/cracked,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/mob/living/basic/mining/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "mu" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/mob/living/basic/mining/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "mv" = (
@@ -3268,7 +3263,7 @@
 	},
 /area/mine/laborcamp)
 "nK" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /obj/structure/stone_tile{
 	dir = 1
 	},
@@ -3474,7 +3469,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "pt" = (
@@ -3534,7 +3529,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/mob/living/basic/mining/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "pI" = (
@@ -3901,7 +3896,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "sh" = (
@@ -4152,7 +4147,7 @@
 /area/mine/laborcamp/security)
 "tR" = (
 /obj/structure/stone_tile/slab,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "tT" = (
@@ -4191,7 +4186,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "uf" = (
@@ -5085,7 +5080,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/mob/living/basic/mining/legion/spawner_made,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Ai" = (
@@ -5558,7 +5553,7 @@
 /area/lavaland/surface/outdoors)
 "Dh" = (
 /obj/structure/stone_tile/slab/cracked,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Dn" = (
@@ -5582,7 +5577,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "DN" = (
@@ -6522,7 +6517,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/cracked,
-/mob/living/simple_animal/hostile/big_legion,
+/mob/living/basic/mining/legion/large,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "JD" = (
@@ -7297,7 +7292,7 @@
 "OU" = (
 /obj/structure/stone_tile/center,
 /obj/structure/stone_tile/surrounding,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/mob/living/basic/mining/legion/spawner_made,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "OV" = (
@@ -7691,7 +7686,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/mob/living/basic/mining/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "RY" = (
@@ -7716,7 +7711,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Sd" = (
@@ -8090,7 +8085,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/mob/living/basic/mining/legion/spawner_made,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Uh" = (
@@ -8629,7 +8624,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/big_legion,
+/mob/living/basic/mining/legion/large,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Xm" = (
@@ -8648,7 +8643,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
+/mob/living/basic/mining/legion/spawner_made,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "Xu" = (

@@ -165,7 +165,7 @@
 				custom_emote(EMOTE_VISIBLE, pick("вылизыва%(ет,ют)% шерсть.", "подёргива%(ет,ют)% усами.", "отряхива%(ет,ют)% шерсть."))
 
 	//MICE!
-	if(eats_mice && isturf(loc) && !incapacitated())
+	if(eats_mice && isturf(loc) && !incapacitated)
 		for(var/mob/living/simple_animal/mouse/mouse in view(1, src))
 			if(!mouse.stat && Adjacent(mouse))
 				custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)%ся на мышь!")

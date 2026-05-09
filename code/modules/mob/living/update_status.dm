@@ -58,27 +58,19 @@
 			return FALSE
 	return TRUE
 
-/**
- * Checks if a mob is incapacitated.
- * Normally being restrained or agressively grabbed counts as incapacitated
- * unless there is a flag being used to check if it's ignored.
- *
- * Arguments:
- * * ignore_flags (optional) bitflags that determine if special situations are exempt from being considered incapacitated
- *
- * bitflags: (see code/__DEFINES/flags.dm)
- * * IGNORE_RESTRAINTS - mob in a restraint (handcuffs/straightjacket) is not considered incapacitated
- * * IGNORE_GRAB - mob that is agressively grabbed is not considered incapacitated
- */
-/mob/living/incapacitated(ignore_flags)
+// Remember, anything that influences this needs to call update_incapacitated somehow when it changes
+// Most often best done in [code/modules/mob/living/init_signals.dm]
+/mob/living/build_incapacitated(flags)
+	// Holds a set of flags that describe how we are currently incapacitated
+	var/incap_status = NONE
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
-		return TRUE
+		incap_status |= TRADITIONAL_INCAPACITATED
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		incap_status |= INCAPABLE_RESTRAINTS
+	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
+		incap_status |= INCAPABLE_GRAB
 
-	if(!(ignore_flags & IGNORE_RESTRAINTS) && HAS_TRAIT(src, TRAIT_RESTRAINED))
-		return TRUE
-	if(!(ignore_flags & IGNORE_GRAB) && pulledby && pulledby.grab_state > GRAB_PASSIVE)
-		return TRUE
-	return FALSE
+	return incap_status
 
 /mob/living/proc/update_stamina()
 	return

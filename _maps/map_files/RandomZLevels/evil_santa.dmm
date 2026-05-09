@@ -765,7 +765,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "gE" = (
 /obj/structure/flora/grass/brown,
-/mob/living/simple_animal/pet/dog/fox/forest/winter{
+/mob/living/basic/pet/fox/forest/winter{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	faction = list("hostile","syndicate","winter")
 	},
@@ -3367,7 +3367,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "CH" = (
-/mob/living/simple_animal/pet/dog/fox/forest/winter{
+/mob/living/basic/pet/fox/forest/winter{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	faction = list("hostile","syndicate","winter")
 	},

@@ -123,7 +123,7 @@
 	if(!istype(human) || !human.Adjacent(src))
 		return
 
-	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+	if(human.incapacitated || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(operating)

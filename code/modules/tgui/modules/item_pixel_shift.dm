@@ -2,7 +2,7 @@
 	set name = "Shift Item Pixel Position"
 	set src in oview(1)
 
-	if(!isturf(src.loc) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
+	if(!isturf(src.loc) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
 		return
 
 	if(!item_pixel_shift)
@@ -49,7 +49,7 @@
 
 	var/obj/item/source = host
 
-	if(!isturf(source.loc) || usr.incapacitated() || !in_range(usr, source) || source.anchored || source.density)
+	if(!isturf(source.loc) || usr.incapacitated || !in_range(usr, source) || source.anchored || source.density)
 		return
 
 	var/shift_max = ICON_SIZE_ALL / 2

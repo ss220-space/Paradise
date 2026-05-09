@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
 		return TRUE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 
 	. = FALSE

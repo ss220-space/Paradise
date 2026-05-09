@@ -845,9 +845,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return FALSE
 
-/mob/dead/observer/incapacitated(ignore_flags)
-	return TRUE
-
 /**
  * Handles the pointing action for observer mobs, notifying nearby mobs and adding a follow link for invisible ghosts
  *

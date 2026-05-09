@@ -311,14 +311,6 @@
 
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
-	if(!beehome || loc != beehome) // If bees are chilling in their nest, they're not actively looking for targets
-		return ..()
-	idle = min(100, ++idle)
-	if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
-		forceMove(beehome.loc)
-		toggle_ai(AI_ON)
-
 //Syndicate Bees
 /mob/living/simple_animal/hostile/poison/bees/syndi
 	name = "syndi-bee"

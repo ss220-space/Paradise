@@ -308,7 +308,7 @@
 	set name = "Ввести название"
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/temp_name = reject_bad_name(tgui_input_text(usr, "Enter cardholder name:", "Cardholder name", usr.name), TRUE)

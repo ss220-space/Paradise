@@ -161,7 +161,7 @@
 	hide_under(usr)
 
 /obj/item/assembly/mousetrap/proc/hide_under(mob/user = usr)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	layer = TURF_LAYER + 0.2

@@ -71,10 +71,10 @@
 				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
 					step_with_glide(step)
 
-/mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
-	. = ..()
-	if(stat == CONSCIOUS)
-		udder.generateMilk()
+// /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired) // Похуй потом
+// 	. = ..()
+// 	if(stat == CONSCIOUS)
+// 		udder.generateMilk()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
@@ -94,8 +94,8 @@
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))	// yeah, ITS DEAD
 			return ATTACK_CHAIN_PROCEED
-		if(udder.milkAnimal(I, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+		// if(udder.milkAnimal(I, user))
+		// 	return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -217,7 +217,7 @@
 			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)].")
 		)
 		COOLDOWN_START(src, feeded_cow, 60 SECONDS)
-		udder.feeded = TRUE
+		// udder.feeded = TRUE
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -226,18 +226,18 @@
 		if(stat != CONSCIOUS)
 			to_chat(user, span_warning("[src] has problems with health."))
 			return ATTACK_CHAIN_PROCEED
-		if(udder.milkAnimal(I, user))
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+		// if(udder.milkAnimal(I, user))
+		// 	return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 
-/mob/living/simple_animal/cow/Life(seconds, times_fired)
-	. = ..()
-	if(udder.feeded && COOLDOWN_FINISHED(src, feeded_cow))
-		udder.feeded = FALSE
-	if(stat == CONSCIOUS)
-		udder.generateMilk()
+// /mob/living/simple_animal/cow/Life(seconds, times_fired)
+// 	. = ..()
+// 	if(udder.feeded && COOLDOWN_FINISHED(src, feeded_cow))
+// 		udder.feeded = FALSE
+// 	if(stat == CONSCIOUS)
+// 		udder.generateMilk()
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
@@ -711,40 +711,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		INSTRUMENTAL = "моржом",
 		PREPOSITIONAL = "морже",
 	)
-
-/obj/item/udder
-	name = "udder"
-	var/feeded = FALSE
-
-/obj/item/udder/Initialize(mapload)
-	. = ..()
-	create_reagents(80)
-	reagents.add_reagent("milk", 20)
-
-/obj/item/udder/proc/generateMilk()
-	var/probability = 5
-	if(feeded)
-		probability = 30
-
-	if(prob(probability))
-		reagents.add_reagent("milk", rand(5, 10))
-
-/obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
-	if(!container.reagents)
-		balloon_alert(user, "неподходящая ёмкость!")
-		return FALSE
-	if(container.reagents.total_volume >= container.volume)
-		balloon_alert(user, "ёмкость заполнена!")
-		return FALSE
-	var/transfered = reagents.trans_to(container, rand(5,10))
-	if(!transfered)
-		balloon_alert(user, "вымя сухое!")
-		return FALSE
-	user.visible_message(
-		span_notice("[user] до[PLUR_IT_YAT(user)] [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы доите [declent_ru(ACCUSATIVE)]."),
-	)
-	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump
 	name = "humpback goat"

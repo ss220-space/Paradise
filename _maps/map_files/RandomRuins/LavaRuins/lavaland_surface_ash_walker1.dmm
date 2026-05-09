@@ -1375,7 +1375,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "lA" = (
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
+/mob/living/basic/mining/gutlunch/warrior,
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
@@ -1388,7 +1388,7 @@
 /turf/simulated/floor/indestructible/boss/indoors,
 /area/ruin/unpowered/ash_walkers)
 "rV" = (
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,
+/mob/living/basic/mining/gutlunch/milk,
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},

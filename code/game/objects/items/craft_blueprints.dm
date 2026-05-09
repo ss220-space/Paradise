@@ -108,7 +108,7 @@
 	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 
 /obj/item/craft_blueprints/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != user || !ishuman(user) || user.incapacitated())
+	if(over_object != user || !ishuman(user) || user.incapacitated)
 		return
 
 	var/mob/living/human = user

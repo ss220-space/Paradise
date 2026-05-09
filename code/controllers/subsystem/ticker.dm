@@ -352,6 +352,7 @@ SUBSYSTEM_DEF(ticker)
 		if(S.name != JOB_TITLE_AI)
 			qdel(S)
 
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 	SSdbcore.SetRoundStart()
 	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
 	SEND_SOUND(world, sound(

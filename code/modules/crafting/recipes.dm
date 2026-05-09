@@ -1199,6 +1199,15 @@
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log = 5,
 	)
 
+/datum/crafting_recipe/lasso
+	name = "Bone Lasso"
+	reqs = list(
+		/obj/item/stack/sheet/bone = 1,
+		/obj/item/stack/sheet/sinew = 5,
+	)
+	result = /obj/item/key/lasso
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/rake //Category resorting incoming
 	name = "Rake"
 	reqs = list(

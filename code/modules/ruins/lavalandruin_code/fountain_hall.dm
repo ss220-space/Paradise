@@ -17,7 +17,7 @@
 	)
 
 /obj/structure/sacrificealtar/attack_hand(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(!has_buckled_mobs())
 		return

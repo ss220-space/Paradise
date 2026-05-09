@@ -234,7 +234,7 @@
 		INVOKE_ASYNC(src, PROC_REF(merge), arrived)
 
 /obj/item/stack/click_alt(mob/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		to_chat(user, span_warning("You can't do that right now!"))
 		return NONE
 

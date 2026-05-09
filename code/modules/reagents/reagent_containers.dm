@@ -75,7 +75,7 @@
 	if(!possible_transfer_amounts)
 		return
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/default = null
@@ -90,7 +90,7 @@
 		balloon_alert(usr, "слишком далеко!")
 		return
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		balloon_alert(user, "руки заблокированы!")
 		return
 
@@ -103,11 +103,11 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(tgui_alert(usr, "Вы уверены?", "Вылить содержимое", list("Да", "Нет")) != "Да")
 		return
-	if(!usr.Adjacent(src) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!usr.Adjacent(src) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(isturf(usr.loc) && loc == usr)
 		if(!is_open_container() && !pass_open_check)

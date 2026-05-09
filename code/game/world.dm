@@ -356,5 +356,4 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/incrementMaxZ()
 	maxz++
 	SSmobs.MaxZChanged()
-	SSidlenpcpool.MaxZChanged()
-
+	SSai_controllers.on_max_z_changed()

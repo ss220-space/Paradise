@@ -131,7 +131,7 @@
 		return
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
-	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
+	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated)
 		return
 
 	if(over_object == user && IsReachableBy(user)) // this must come before the screen objects only block
@@ -145,13 +145,13 @@
 			return
 
 	if(istype(src, /obj/item/storage/lockbox) || (!istable(over_object) && !isfloorturf(over_object)) \
-		|| !length(contents) || loc != user || user.incapacitated() || !over_object.IsReachableBy(user))
+		|| !length(contents) || loc != user || user.incapacitated || !over_object.IsReachableBy(user))
 		return
 
 	if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
 		return
 
-	if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
+	if(!user || !over_object || user.incapacitated || loc != user || !over_object.IsReachableBy(user))
 		return
 
 	if(user.s_active == src)
@@ -890,7 +890,7 @@
 	set name = "Выбросить содержимое"
 	set category = VERB_CATEGORY_OBJECT
 
-	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	drop_inventory(usr)

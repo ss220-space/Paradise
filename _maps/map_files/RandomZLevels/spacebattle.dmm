@@ -5264,7 +5264,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "py" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "pA" = (
@@ -5597,12 +5597,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/server)
 "qG" = (
-/mob/living/simple_animal/hostile/bear{
-	faction = list("hostile");
-	harm_intent_damage = 15;
-	health = 120;
-	name = "Winny"
-	},
+/mob/living/basic/bear/winny,
 /turf/simulated/floor/wood,
 /area/awaymission/spacebattle)
 "qH" = (
@@ -8195,7 +8190,7 @@
 	},
 /area/awaymission/spacebattle/hallway8)
 "xJ" = (
-/mob/living/simple_animal/hostile/hivebot/tele,
+/obj/structure/hivebot_beacon,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "xK" = (
@@ -14555,7 +14550,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "PR" = (
-/mob/living/simple_animal/hostile/hivebot/rapid,
+/mob/living/basic/hivebot/rapid,
 /turf/simulated/mineral/random,
 /area/awaymission)
 "PT" = (
@@ -14852,7 +14847,7 @@
 	},
 /area/awaymission/spacebattle/bridge)
 "QD" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/mineral/random,
 /area/awaymission)
 "QE" = (
@@ -15327,7 +15322,7 @@
 /turf/simulated/floor/pod,
 /area/awaymission/spacebattle/syndicate6)
 "RV" = (
-/mob/living/simple_animal/hostile/hivebot/rapid,
+/mob/living/basic/hivebot/rapid,
 /turf/simulated/mineral,
 /area/awaymission)
 "RW" = (
@@ -16644,7 +16639,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret7)
 "VC" = (
-/mob/living/simple_animal/hostile/hivebot/range,
+/mob/living/basic/hivebot/range,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "VE" = (
@@ -17214,7 +17209,7 @@
 	},
 /area/awaymission/spacebattle/prhallway1)
 "Xm" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/mineral,
 /area/awaymission)
 "Xn" = (

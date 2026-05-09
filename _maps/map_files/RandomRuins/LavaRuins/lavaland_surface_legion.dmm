@@ -20,11 +20,11 @@
 "g" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "o" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "p" = (
@@ -83,7 +83,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "T" = (
 /obj/effect/turf_decal/sand/plating,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "U" = (

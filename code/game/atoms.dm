@@ -1314,7 +1314,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	add_fingerprint(user)
@@ -1349,7 +1349,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		balloon_alert(user, "слишком далеко!")
 		return null
-	else if(user.incapacitated())
+	else if(user.incapacitated)
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
@@ -1676,6 +1676,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 /atom/proc/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return
+
+///Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
+/atom/proc/tamed(mob/living/tamer, obj/item/food)
 	return
 
 /// Transforms the message emphasis mods from [/atom/proc/apply_message_emphasis] into the appropriate HTML tags. Includes escaping.

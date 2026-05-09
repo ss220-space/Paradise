@@ -225,7 +225,7 @@
 		/mob/living/simple_animal/hostile/pirate,
 		/mob/living/simple_animal/hostile/creature,
 		/mob/living/simple_animal/hostile/pirate/ranged,
-		/mob/living/simple_animal/hostile/hivebot,
+		/mob/living/basic/hivebot,
 		/mob/living/simple_animal/hostile/viscerator,
 		/mob/living/simple_animal/hostile/pirate,
 	)

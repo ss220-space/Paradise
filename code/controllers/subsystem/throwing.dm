@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(throwing)
 	///Turfs to travel per tick
 	var/speed
 	///If a mob is the one who has thrown the object, then it's moved here. This can be null and must be null checked before trying to use it.
-	var/mob/thrower
+	var/datum/weakref/thrower
 	///A variable that helps in describing objects thrown at an angle, if it should be moved diagonally first or last.
 	var/diagonals_first
 	///Set to TRUE if the throw is exclusively diagonal (45 Degree angle throws for example)
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(throwing)
 	src.maxrange = maxrange
 	src.speed = speed
 	if(thrower)
-		src.thrower = thrower
+		src.thrower = WEAKREF(thrower)
 	src.diagonals_first = diagonals_first
 	src.force = force
 	src.callback = callback
@@ -138,6 +138,12 @@ SUBSYSTEM_DEF(throwing)
 	SIGNAL_HANDLER
 
 	qdel(src)
+
+/// Returns the mob thrower, or null
+/datum/thrownthing/proc/get_thrower()
+	. = thrower?.resolve()
+	if(isnull(.))
+		thrower = null
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -231,8 +237,9 @@ SUBSYSTEM_DEF(throwing)
 	qdel(src)
 
 /datum/thrownthing/proc/hitcheck()
+	var/atom/atom_thrower = get_thrower()
 	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || obstacle == thrower)
+		if(obstacle == thrownthing || obstacle == atom_thrower)
 			continue
 		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
 			continue

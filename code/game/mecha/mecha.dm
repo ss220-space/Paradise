@@ -303,7 +303,7 @@
 		return
 	if(completely_disabled)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(phasing)
 		occupant_message(span_warning("Нельзя взаимодействовать с объектами, пока [declent_ru(NOMINATIVE)] находится в режиме фазового перехода!"))
@@ -1328,7 +1328,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
@@ -1846,7 +1846,7 @@
 /obj/mecha/proc/check_menu(mob/living/L)
 	if(L != occupant || !istype(L))
 		return FALSE
-	if(L.incapacitated())
+	if(L.incapacitated)
 		return FALSE
 	return TRUE
 

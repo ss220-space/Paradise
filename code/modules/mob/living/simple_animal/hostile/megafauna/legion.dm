@@ -112,7 +112,7 @@ Difficulty: Medium
 	if(. && ishuman(target))
 		var/mob/living/L = target
 		if(L.stat == UNCONSCIOUS)
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
+			var/mob/living/basic/mining/legion_brood/A = new(loc)
 			A.infest(L)
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
@@ -141,25 +141,19 @@ Difficulty: Medium
 			SLEEP_CHECK_DEATH(src, beam_time + 2 SECONDS)
 			firing_laser = FALSE
 		else if(prob(40))
-			var/mob/living/simple_animal/hostile/big_legion/A = new(loc)
-			A.GiveTarget(target)
-			A.friends = friends
+			var/mob/living/basic/mining/legion/large/A = new(loc)
+			A.ai_controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET] = target
 			A.faction = faction
 			visible_message(span_danger("Чудовище появляется из [declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы призываете огромного [A.declent_ru(GENITIVE)]!"))
 			ranged_cooldown = world.time + 5 SECONDS
 		else
-			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
+			var/mob/living/basic/mining/legion/A
 			if(enraged)
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril(loc)
+				A = new /mob/living/basic/mining/legion/advanced(loc)
 			else
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril(loc)
-			if(!enraged || prob(33))
-				A.GiveTarget(target)
-			else
-				for(var/mob/living/carbon/human/H in range(7, src))
-					if(H.stat == DEAD)
-						A.GiveTarget(target)
-			A.friends = friends
+				A = new /mob/living/basic/mining/legion/spawner_made(loc)
+			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
 			visible_message(span_danger("[A.declent_ru(ACCUSATIVE)] появляется из [declent_ru(GENITIVE)]!"), span_userdanger("Вы призываете [A.declent_ru(ACCUSATIVE)]!"))
 			ranged_cooldown = world.time + 2 SECONDS
@@ -232,11 +226,10 @@ Difficulty: Medium
 	update_transform((0.5 + (health / maxHealth)) / current_size)
 
 	if(amount > 0 && (enraged || prob(33)))
-		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
+		var/mob/living/basic/mining/legion_brood/minion
 		if(enraged)
-			A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
+			minion = new /mob/living/basic/mining/legion_brood/advanced(loc)
 		else
-			A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
-		A.GiveTarget(target)
-		A.friends = friends
-		A.faction = faction
+			minion = new /mob/living/basic/mining/legion_brood(loc)
+		minion.assign_creator(src)
+		minion.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)

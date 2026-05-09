@@ -471,7 +471,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || !Adjacent(user) || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
+	if(!src || !Adjacent(user) || QDELETED(src) || user.incapacitated || !actual_selected_rune)
 		fail_invoke()
 		return
 
@@ -643,7 +643,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return FALSE
 	if(QDELETED(user))
 		return FALSE
-	if(!Adjacent(user) || user.incapacitated())
+	if(!Adjacent(user) || user.incapacitated)
 		return FALSE
 	if(QDELETED(target_mob))
 		return FALSE
@@ -715,7 +715,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			cultists[M.current.real_name] = M.current
 	var/input = tgui_input_list(user, "Who do you wish to call to [src]?", "Acolytes", cultists)
 	var/mob/living/cultist_to_summon = cultists[input]
-	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated())
+	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated)
 		return
 	if(!cultist_to_summon)
 		return
@@ -830,7 +830,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return FALSE
 	var/list/cultists = list()
 	for(var/mob/living/M in range(1, src)) // Get all cultists currently in range
-		if(iscultist(M) && !M.incapacitated())
+		if(iscultist(M) && !M.incapacitated)
 			cultists += M
 
 	if(length(cultists) < req_cultists) // Stop the rune there's not enough invokers

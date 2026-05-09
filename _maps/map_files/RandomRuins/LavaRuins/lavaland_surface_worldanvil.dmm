@@ -25,7 +25,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "hk" = (
@@ -70,7 +70,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "mH" = (
 /obj/effect/mapping_helpers/no_lava,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/mob/living/basic/mining/watcher/magmawing,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "na" = (
@@ -130,7 +130,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "ww" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/mob/living/basic/mining/watcher/magmawing,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
@@ -392,7 +392,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/mob/living/basic/mining/goliath/ancient,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 

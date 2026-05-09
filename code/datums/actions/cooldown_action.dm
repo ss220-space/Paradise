@@ -267,14 +267,14 @@
 
 /// For signal calling
 /datum/action/cooldown/proc/PreActivate(atom/target)
-	// if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
-	// 	return
+	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
+		return
 	// Note, that PreActivate handles no cooldowns at all by default.
 	// Be sure to call StartCooldown() in Activate() where necessary.
 	. = Activate(target)
 	// There is a possibility our action (or owner) is qdeleted in Activate().
-	// if(!QDELETED(src) && !QDELETED(owner))
-	// 	SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
+	if(!QDELETED(src) && !QDELETED(owner))
+		SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
 
 /// To be implemented by subtypes (if not generic)
 /datum/action/cooldown/proc/Activate(atom/target)

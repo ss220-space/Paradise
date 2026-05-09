@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	var/obj/item/clothing/accessory/accessory
 	if(accessories_len > 1)
 		accessory = tgui_input_list(user, "Select an accessory to remove from [jumpsuit]", "Accessory Removal", jumpsuit.accessories)
-		if(!accessory || !LAZYIN(jumpsuit.accessories, accessory) || !source.Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!accessory || !LAZYIN(jumpsuit.accessories, accessory) || !source.Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return
 	else
 		accessory = jumpsuit.accessories[1]
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 			span_danger("You start to take off [accessory] from [source]'s [jumpsuit]!")
 			)
 
-	if(!do_after(user, POCKET_STRIP_DELAY, jumpsuit, NONE, max_interact_count = 1) || QDELETED(accessory) || !LAZYIN(jumpsuit.accessories, accessory) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!do_after(user, POCKET_STRIP_DELAY, jumpsuit, NONE, max_interact_count = 1) || QDELETED(accessory) || !LAZYIN(jumpsuit.accessories, accessory) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	accessory.on_removed(source)

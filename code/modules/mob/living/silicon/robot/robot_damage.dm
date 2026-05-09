@@ -1,6 +1,11 @@
 /mob/living/silicon/robot/updatehealth(reason = "none given", should_log = FALSE)
-	..()
+	if(..())
+		return
+
 	check_module_damage()
+
+/mob/living/silicon/robot/calculate_health()
+	return maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))

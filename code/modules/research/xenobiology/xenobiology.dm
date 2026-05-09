@@ -133,7 +133,7 @@
 	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(target))
 		to_chat(user, span_notice("You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.")) // le fluff faec
@@ -190,7 +190,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(being_used || !ismob(target))
@@ -387,7 +387,7 @@
 	)
 
 /obj/item/slimepotion/transference/afterattack(mob/living/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(prompted || !ismob(target))
 		return
@@ -529,7 +529,7 @@
 	origin_tech = "biotech=5"
 
 /obj/item/slimepotion/speed/afterattack(obj/target, mob/user, proximity_flag, list/modifiers, status, drop = FALSE)
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	..()
 	if(!istype(target))
@@ -600,7 +600,7 @@
 	C.armor = C.armor.detachArmor(armor)
 
 /obj/item/slimepotion/clothing/afterattack(obj/item/clothing/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!uses)
 		qdel(src)

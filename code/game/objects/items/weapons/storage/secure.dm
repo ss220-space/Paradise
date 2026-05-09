@@ -118,7 +118,7 @@
 		return
 
 /obj/item/storage/secure/proc/try_to_open(mob/living/user)
-	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!istype(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return TRUE
 	if(locked)
 		add_fingerprint(usr)

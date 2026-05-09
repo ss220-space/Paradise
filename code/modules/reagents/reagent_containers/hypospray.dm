@@ -442,7 +442,7 @@
 			"Gray" = image('icons/obj/hypo.dmi', "stimpen")
 		)
 		var/choice = show_radial_menu(user, user, injector_icons, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
-		if(!choice || loc != user || can.loc != user || !can.uses || user.incapacitated())
+		if(!choice || loc != user || can.loc != user || !can.uses || user.incapacitated)
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		balloon_alert(user, "покрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
@@ -454,7 +454,7 @@
 	return ..()
 
 /obj/item/reagent_containers/hypospray/autoinjector/proc/check_reskin(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(loc != user)
 		return FALSE

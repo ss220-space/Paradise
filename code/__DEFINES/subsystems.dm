@@ -94,6 +94,7 @@
 #define INIT_ORDER_BLACKBOX 56
 #define INIT_ORDER_ADMIN_VERBS 55
 #define INIT_ORDER_CLEANUP 54
+#define INIT_ORDER_AI_IDLE_CONTROLLERS 50
 #define INIT_ORDER_INPUT 50
 #define INIT_ORDER_STATION 49
 #define INIT_ORDER_SOUNDS 45
@@ -142,9 +143,10 @@
 
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
+#define FIRE_PRIORITY_UNPLANNED_NPC 3
 #define FIRE_PRIORITY_PING 10
 #define FIRE_PRIORITY_NIGHTSHIFT 10
-#define FIRE_PRIORITY_IDLE_NPC 10
+#define FIRE_PRIORITY_IDLE_NPC 5
 #define FIRE_PRIORITY_CLEANUP 10
 #define FIRE_PRIORITY_TICKETS 10
 #define FIRE_PRIORITY_AMBIENCE 10

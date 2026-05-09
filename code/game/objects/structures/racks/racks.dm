@@ -135,7 +135,7 @@
 
 /// Attempts to place a gun onto the rack.
 /obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/gun_item, mob/user, list/modifiers)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(!istype(gun_item))
 		to_chat(user, span_warning("Этот предмет не подходит!"))

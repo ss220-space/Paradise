@@ -23,8 +23,10 @@
 	speak_emote = list("щебечет")
 	layer = BELOW_MOB_LAYER //when you stomp on it and he lives, it looks kinda bad
 	basic_mob_flags = DEL_ON_DEATH
-	faction = list("hostile")
-	affects_by_temperature = FALSE
+	faction = list(FACTION_HOSTILE)
+	unsuitable_atmos_damage = 0
+	minimum_survivable_temperature = 270
+	maximum_survivable_temperature = INFINITY
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
@@ -53,7 +55,7 @@
 
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic(),
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 	)
 	ai_traits = STOP_MOVING_WHEN_PULLED
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -84,7 +86,10 @@
 
 /mob/living/basic/cockroach/glockroach/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/caseless/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
+	AddComponent(/datum/component/ranged_attacks,\
+	casing_type = /obj/item/ammo_casing/caseless/glockroach,\
+	projectile_sound = 'sound/weapons/gunshots/gunshot3.ogg'\
+	)
 
 /datum/ai_controller/basic_controller/cockroach/glockroach
 	planning_subtrees = list(

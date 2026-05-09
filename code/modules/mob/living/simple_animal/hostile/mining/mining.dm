@@ -22,6 +22,24 @@
 	var/crusher_drop_mod = 25
 	var/has_laser_resist = TRUE //If we want the mob to have 66% resist from burn damage projectiles
 
+/mob/living/simple_animal/hostile/asteroid/Initialize(mapload)
+	. = ..()
+	if(crusher_loot)
+		AddElement(/datum/element/crusher_loot, crusher_loot, crusher_drop_mod, del_on_death)
+
+	var/static/list/vulnerable_projectiles
+	if(!vulnerable_projectiles)
+		vulnerable_projectiles = string_list(MINING_MOB_PROJECTILE_VULNERABILITY)
+
+	AddElement(\
+		/datum/element/ranged_armour,\
+		minimum_projectile_force = 30,\
+		below_projectile_multiplier = 0.3,\
+		vulnerable_projectile_types = vulnerable_projectiles,\
+		minimum_thrown_force = 20,\
+		throw_blocked_message = throw_message,\
+	)
+
 /mob/living/simple_animal/hostile/asteroid/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \

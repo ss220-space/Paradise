@@ -409,7 +409,7 @@
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/machinery/bci_implanter/attack_hand(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ..())
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ..())
 		return FALSE
 
 	if(istype(occupant))
@@ -450,7 +450,7 @@
 	if(target.loc == user) //no you can't pull things out of your ass
 		return
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 
 	if(target.anchored || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
@@ -542,7 +542,7 @@
 	set src in oview(1)
 	set name = "Извлечь цель изнутри"
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	go_out(usr)
 	add_fingerprint(usr)

@@ -54,7 +54,7 @@
 	. += span_notice("You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.")
 
 /obj/item/clothing/glasses/click_alt(mob/living/carbon/human/user)
-	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!istype(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	over_mask = !over_mask
@@ -63,7 +63,7 @@
 	to_chat(user, span_notice("You adjust [src] to be worn [over_mask ? "over" : "under"] a mask."))
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	if(!ishuman(user) || user.incapacitated())
+	if(!ishuman(user) || user.incapacitated)
 		return ..()
 
 	if(istype(I, /obj/item/clothing/glasses/regular))
@@ -917,7 +917,7 @@
 	toggle_veil(user)
 
 /obj/item/clothing/glasses/proc/toggle_veil(mob/living/carbon/human/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	. = TRUE
 	up = !up

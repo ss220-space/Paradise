@@ -61,7 +61,7 @@
 	var/mob/user = usr
 	if(!istype(user))
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	print_report(user)
 
@@ -763,7 +763,7 @@
 	set name = "Вкл/Выкл локализацию"
 	set category = VERB_CATEGORY_OBJECT
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	mode = !mode

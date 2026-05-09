@@ -46,7 +46,7 @@
 		return
 	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
 		return
-	if(user.buckled || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //Is the person trying to use the table incapacitated or restrained?
+	if(user.buckled || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //Is the person trying to use the table incapacitated or restrained?
 		return
 	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return

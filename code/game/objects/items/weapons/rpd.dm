@@ -233,7 +233,7 @@
 /obj/item/rpd/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(loc != user)
 		return

@@ -18,7 +18,7 @@
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(living_target.incapacitated() || living_target.body_position == LYING_DOWN)
+		if(living_target.incapacitated || living_target.body_position == LYING_DOWN)
 			return
 
 	waddling_animation(target)

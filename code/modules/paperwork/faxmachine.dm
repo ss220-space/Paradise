@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	set name = "Достать ID-карту"
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)

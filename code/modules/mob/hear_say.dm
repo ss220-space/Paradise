@@ -73,7 +73,7 @@
 				else
 					continue
 			else if(SP.speaking)
-				piece = SP.speaking.scramble(piece)
+				piece = SP.speaking.scramble(piece) // Похуй потом Рандом спич басик
 			else
 				continue
 		msg += (piece + " ")

@@ -492,7 +492,7 @@
 /obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
 	if(..())
 		return
-	if(ranged_ability_user.incapacitated())
+	if(ranged_ability_user.incapacitated)
 		remove_ranged_ability()
 		return
 	if(!istype(target))
@@ -544,7 +544,7 @@
 /obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
 	if(..())
 		return
-	if(ranged_ability_user.incapacitated())
+	if(ranged_ability_user.incapacitated)
 		remove_ranged_ability()
 		return
 	if(!istype(target))
@@ -611,7 +611,7 @@
 		C.images -= I
 
 /mob/living/silicon/ai/proc/can_place_transformer(datum/action/innate/ai/place_transformer/action)
-	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
+	if(!eyeobj || !isturf(loc) || incapacitated || !action)
 		return
 	var/turf/middle = get_turf(eyeobj)
 	var/list/turfs = list(middle, locate(middle.x - 1, middle.y, middle.z), locate(middle.x + 1, middle.y, middle.z))

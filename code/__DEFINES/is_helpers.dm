@@ -101,6 +101,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define iscloset(A) (istype(A, /obj/structure/closet))
 
+#define isindestructiblewall(A) (istype(A, /turf/simulated/wall/indestructible))
+
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
@@ -144,6 +146,7 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
+
 #define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
 #define is_organ(A) (istype(A, /obj/item/organ))
@@ -251,6 +254,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 /// Not really closed, but the meaning is the same.
 #define isclosedturf(A) (iswallturf(A) || ismineralturf(A))
 
+#define isasteroidturf(A) (istype(A, /turf/simulated/floor/plating/asteroid))
+
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
 #define istable(A) (istype(A, /obj/structure/table))
@@ -301,7 +306,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isbeachwater(A) (istype(A, /turf/simulated/floor/beach/water))
 #define isbeachwater_i(A) (istype(A, /turf/simulated/floor/indestructible/beach/water))
 
-#define isanimal(A) (istype(A, /mob/living/simple_animal) || istype(A, /mob/living/basic))
+#define isanimal(A) (istype(A, /mob/living/simple_animal))
 #define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
 #define isdog(A) (istype(A, /mob/living/simple_animal/pet/dog))
 #define iscorgi(A) (istype(A, /mob/living/simple_animal/pet/dog/corgi))
@@ -320,6 +325,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 #define ismarauder(A) (istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+#define isbear(A) (istype(A, /mob/living/basic/bear))
 
 #define issilicon(A) (istype(A, /mob/living/silicon))
 #define isAI(A) (istype(A, /mob/living/silicon/ai))
@@ -327,6 +333,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ispAI(A) (istype(A, /mob/living/silicon/pai))
 #define isdrone(A) (istype(A, /mob/living/silicon/robot/drone))
 #define iscogscarab(A) (istype(A, /mob/living/silicon/robot/cogscarab))
+
+/// returns whether or not the atom is either a basic mob OR simple animal
+#define isanimal_or_basicmob(A) (isanimal(A) || isbasicmob(A))
+#define isbrood(A) (islegionbrood(A) || ishivebrood(A))
+#define islegionbrood(A) (istype((A), /mob/living/basic/mining/legion_brood))
+#define ishivebrood(A) (istype((A), /mob/living/basic/hivelord_brood))
 
 // For the tcomms monitor
 #define ispathhuman(A) (ispath(A, /mob/living/carbon/human))

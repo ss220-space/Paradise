@@ -6,7 +6,7 @@
 		to_chat(usr, span_danger("Погодите-ка... у [target.declent_ru(ACCUSATIVE)] НЕТ РУК! ААА!"))
 		return
 
-	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
+	if(target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
 		return
 
 	var/obj/item/I = get_active_hand()
@@ -23,7 +23,7 @@
 			return
 		switch(ans)
 			if("Взять")
-				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+				if(target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))
 					to_chat(usr, span_warning("Нужно оставаться в пределах досягаемости!"))
@@ -58,7 +58,7 @@
 	set name = "Передать предмет"
 	set category = VERB_CATEGORY_IC
 
-	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+	if(incapacitated || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
 		to_chat(src, span_warning("Вы уже предлагаете предмет другому игроку!"))

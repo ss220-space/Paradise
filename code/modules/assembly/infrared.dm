@@ -123,8 +123,9 @@
 		return FALSE
 
 	var/mob/triggered
-	if(AM.throwing?.thrower)
-		triggered = AM.throwing.thrower
+	var/atom/thrower = AM.throwing.get_thrower()
+	if(thrower)
+		triggered = thrower
 
 	else if(ismob(AM))
 		triggered = AM
@@ -153,7 +154,7 @@
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
 		close_window(usr, "infra")
 		onclose(usr, "infra")
 		return
@@ -184,7 +185,7 @@
 	rotate(usr)
 
 /obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	dir = turn(dir, 90)

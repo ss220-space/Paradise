@@ -1050,7 +1050,7 @@
 	var/mob/living/simple_animal/mob = locate() in used_things
 	qdel(mob)
 
-	new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(get_turf(ritual_object))
+	new /mob/living/basic/mining/goliath/ancient(get_turf(ritual_object))
 
 	return
 

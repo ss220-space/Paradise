@@ -21,19 +21,14 @@
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 
-	///How much wounding power it has
-	// var/wound_bonus = CANT_WOUND
-	///How much bare wounding power it has
-	var/bare_wound_bonus = 0
-	///If the attacks from this are sharp
-	var/sharpness = NONE
-
 	/// Sound played when the critter attacks.
 	var/attack_sound
 	/// Override for the visual attack effect shown on 'do_attack_animation()'.
 	var/attack_vis_effect
 	///Played when someone punches the creature.
 	var/attacked_sound = SFX_PUNCH //This should be an element
+	/// How often can you melee attack?
+	var/melee_attack_cooldown = 2 SECONDS
 
 	///What kind of objects this mob can smash.
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
@@ -70,6 +65,8 @@
 	var/friendly_verb_continuous = "обнюхивает"
 	///Attacking, but without damage, verb in present simple tense.
 	var/friendly_verb_simple = "нюхает"
+	/// Блять... Похуй потом
+	var/attacktext = "атакует"
 
 	////////THIS SECTION COULD BE ITS OWN ELEMENT
 	///Icon to use
@@ -99,12 +96,15 @@
 	/// This damage is taken when atmos doesn't fit all the requirements above.
 	/// Set to 0 to avoid adding the atmos_requirements element.
 	var/unsuitable_atmos_damage = 5
-	/// Set to FALSE to avoid getting damage from temparature
-	var/affects_by_temperature = TRUE
-	/// Minimal body temperature without receiving damage
-	var/minimum_survivable_temperature = 250
-	/// Maximal body temperature without receiving damage
-	var/maximum_survivable_temperature = 350
+
+	///Minimal body temperature without receiving damage
+	var/minimum_survivable_temperature = NPC_DEFAULT_MIN_TEMP
+	///Maximal body temperature without receiving damage
+	var/maximum_survivable_temperature = NPC_DEFAULT_MAX_TEMP
+	///This damage is taken when the body temp is too cold. Set both this and unsuitable_heat_damage to 0 to avoid adding the body_temp_sensitive element.
+	var/unsuitable_cold_damage = 1
+	///This damage is taken when the body temp is too hot. Set both this and unsuitable_cold_damage to 0 to avoid adding the body_temp_sensitive element.
+	var/unsuitable_heat_damage = 1
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -135,9 +135,10 @@
 	AddElement(/datum/element/atmos_requirements, atmos_requirements, unsuitable_atmos_damage)
 
 /mob/living/basic/proc/apply_temperature_requirements()
-	if(!affects_by_temperature)
+	if((unsuitable_cold_damage == 0 && unsuitable_heat_damage == 0) || (minimum_survivable_temperature <= 0 && maximum_survivable_temperature >= INFINITY))
 		return
-	AddComponent(/datum/component/animal_temperature, minimum_survivable_temperature, maximum_survivable_temperature)
+
+	AddElement(/datum/element/body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
 
 /mob/living/basic/Life(delta_time, times_fired)
 	. = ..()
@@ -154,29 +155,50 @@
 		..()
 		qdel(src)
 		return
-	else
-		health = 0
-		icon_state = icon_dead
-		if(flip_on_death)
-			transform = transform.Turn(180)
-		set_density(FALSE)
-		..()
+
+	health = 0
+	icon_state = icon_dead
+	if(flip_on_death)
+		transform = transform.Turn(180)
+
+	set_density(FALSE)
+	..()
 
 // copied from simplemobs
 /mob/living/basic/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		icon = initial(icon)
-		icon_state = icon_living
-		set_density(initial(density))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
+	. = ..()
+	if(!.) //successfully ressuscitated from death
+		return
 
-/mob/living/basic/proc/melee_attack(atom/target)
-	src.face_atom(target)
-	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
-	//	return FALSE //but more importantly return before attack_animal called
-	var/result = target.attack_basic_mob(src)
-	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
+	look_alive()
+		// icon = initial(icon)
+		// icon_state = icon_living
+		// set_density(initial(density))
+		// mobility_flags = MOBILITY_FLAGS_DEFAULT
+
+/mob/living/basic/proc/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
+	if(!early_melee_attack(target, modifiers, ignore_cooldown))
+		return FALSE
+
+	var/result = target.attack_basic_mob(src, modifiers)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
+	if(!ignore_cooldown)
+		changeNext_move(melee_attack_cooldown) // Set it again because objects like to fuck with it in attack_basic_mob
+
 	return result
+
+/mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
+	face_atom(target)
+	if(!ignore_cooldown)
+		changeNext_move(melee_attack_cooldown) // Set cooldown early in case it is cancelled
+
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
+
+	return TRUE
+
+/mob/living/basic/OnUnarmedAttack(atom/atom, proximity_flag)
+	return melee_attack(atom, proximity_flag)
 
 /mob/living/basic/proc/set_varspeed(var_value)
 	speed = var_value
@@ -188,9 +210,47 @@
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
 
+/mob/living/basic/update_movespeed()
+	. = ..()
+	if(cached_multiplicative_slowdown > END_GLIDE_SPEED)
+		ADD_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+
+/mob/living/basic/relaymove(mob/living/user, direction)
+	if(user.incapacitated)
+		return
+	return relaydrive(user, direction)
+
+/**
+ * Apply the appearance and properties this mob has when it dies
+ * This is called by the mob pretending to be dead too so don't put loot drops in here or something
+ */
+/mob/living/basic/proc/look_dead()
+	icon_state = icon_dead
+	if(basic_mob_flags & FLIP_ON_DEATH)
+		transform = transform.Turn(180)
+	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
+		ADD_TRAIT(src, TRAIT_UNDENSE, BASIC_MOB_DEATH_TRAIT)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_DEAD)
+
+/// Apply the appearance and properties this mob has when it is alive
+/mob/living/basic/proc/look_alive()
+	icon_state = icon_living
+	if(basic_mob_flags & FLIP_ON_DEATH)
+		transform = transform.Turn(180)
+	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
+		REMOVE_TRAIT(src, TRAIT_UNDENSE, BASIC_MOB_DEATH_TRAIT)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_ALIVE)
+
+// /mob/living/basic/update_sight()
+// 	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
+// 	return ..()
+
 //temp code
 /mob/living/basic/examine(mob/user)
 	. = ..()
-	if(stat == DEAD)
-		. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] мёртв[GEND_YM_OI_YM_YMI(user)].")
+	if(stat != DEAD)
 		return
+
+	. += span_deadsay("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] мёртв[GEND_YM_OI_YM_YMI(user)].")

@@ -36,7 +36,7 @@
 				var/list/puppytype = list(
 					/mob/living/simple_animal/pet/dog/corgi/puppy,
 					/mob/living/simple_animal/pet/dog/pug,
-					/mob/living/simple_animal/pet/dog/fox)
+					/mob/living/basic/pet/fox)
 
 				var/mob/living/puppypicked = pick(puppytype)
 				affected_mob.visible_message(span_danger("[affected_mob] отрыгива[PLUR_ET_YUT(affected_mob)] [initial(puppypicked.name)]!"), span_userdanger("Вы отрыгиваете [initial(puppypicked.name)]?!"))

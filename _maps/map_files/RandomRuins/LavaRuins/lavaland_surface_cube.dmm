@@ -17,8 +17,8 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/item/paper/monolithren,
 /obj/item/grown/bananapeel/bluespace,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing,
+/mob/living/basic/mining/goliath,
+/mob/living/basic/mining/watcher/icewing,
 /obj/item/gun/energy/gun/nuclear,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)

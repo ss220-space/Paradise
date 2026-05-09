@@ -243,7 +243,7 @@
 	gunshot_residue = null
 
 /obj/item/clothing/proc/can_use(mob/user)
-	if(isliving(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(isliving(user) && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return TRUE
 	return FALSE
 
@@ -478,7 +478,7 @@
 			. += blood_overlay
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_NECK)
 		balloon_alert(user, "не добраться!")
@@ -581,7 +581,7 @@
 	adjust_headgear(user)
 
 /obj/item/clothing/head/proc/adjust_headgear(mob/living/carbon/human/user)
-	if(!can_toggle || user.incapacitated() || world.time < cooldown + toggle_cooldown)
+	if(!can_toggle || user.incapacitated || world.time < cooldown + toggle_cooldown)
 		return FALSE
 
 	. = TRUE
@@ -645,7 +645,7 @@
 
 /// Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/human/user)
-	if(!can_toggle || !ishuman(user) || user.incapacitated())
+	if(!can_toggle || !ishuman(user) || user.incapacitated)
 		return FALSE
 
 	. = TRUE
@@ -921,7 +921,7 @@
 	if(ignore_suitadjust)
 		to_chat(user, span_notice("You attempt to button up the velcro on [src], before promptly realising how foolish you are."))
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -1301,7 +1301,7 @@
 	var/obj/item/clothing/accessory/accessory
 	if(accessories_len > 1)
 		accessory = tgui_input_list(user, "Выберите аксессуар для удаления с [declent_ru(GENITIVE)]", "Удаление аксессуара", accessories)
-		if(!accessory || !LAZYIN(accessories, accessory) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!accessory || !LAZYIN(accessories, accessory) || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return FALSE
 	else
 		accessory = accessories[1]
@@ -1337,7 +1337,7 @@
 		return
 
 	var/mob/living/carbon/human/owner = usr
-	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+	if(owner.incapacitated || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 

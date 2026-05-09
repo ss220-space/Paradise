@@ -279,6 +279,9 @@
 
 	var/max_radiation = CARBON_MAX_RADIATION //! Maximum radiation species can hold
 
+	/// This supresses the "dosen't appear to be himself" examine text for if the mob is run by an AI controller. Should be used on any NPC human subtypes. Monkeys are the prime example.
+	var/ai_controlled_species = FALSE
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
@@ -906,14 +909,14 @@
 		if(ITEM_SLOT_HAND_LEFT)
 			if(user.l_hand)
 				return FALSE
-			if(!bypass_incapacitated && user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated)
 				return FALSE
 			return TRUE
 
 		if(ITEM_SLOT_HAND_RIGHT)
 			if(user.r_hand)
 				return FALSE
-			if(!bypass_incapacitated && user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated)
 				return FALSE
 			return TRUE
 

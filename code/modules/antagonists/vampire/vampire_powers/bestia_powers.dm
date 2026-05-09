@@ -529,7 +529,7 @@
 	deduct_blood_on_cast = FALSE
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(user, INCAPABLE_GRAB))
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -620,7 +620,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || user.buckled || (iscarbon(user) && user.legcuffed))
+	if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || user.buckled || (iscarbon(user) && user.legcuffed))
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -838,7 +838,7 @@
 				balloon_alert(user, "метаморфоза уже используется!")
 			return FALSE
 
-	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -1176,7 +1176,7 @@
 	var/rejuvenation_time = 30 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		if(show_message)
 			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE

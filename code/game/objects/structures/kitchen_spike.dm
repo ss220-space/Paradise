@@ -47,6 +47,10 @@
 	can_buckle = TRUE
 	max_integrity = 250
 
+/obj/structure/kitchenspike/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
+
 /obj/structure/kitchenspike/Destroy()
 	unbuckle_all_mobs(force = TRUE)
 	return ..()
@@ -129,12 +133,10 @@
 	var/matrix/m180 = matrix(target.transform)
 	m180.Turn(180)
 	animate(target, transform = m180, time = 0.3 SECONDS)
-	if(ismonkey(target))
-		target.pixel_x = target.base_pixel_x
-		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING + 3
-	else
-		target.pixel_x = target.base_pixel_x
-		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
+
+	var/y_offset = PIXEL_Y_OFFSET_LYING + ismonkey(target) ? 3 : 0
+
+	target.add_offsets(type, y_add = y_offset)
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/target)
 	target.adjustBruteLoss(30)
@@ -142,8 +144,7 @@
 	var/matrix/m180 = matrix(target.transform)
 	m180.Turn(180)
 	animate(target, transform = m180, time = 0.3 SECONDS)
-	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	target.remove_offsets(type)
 	target.AdjustWeakened(20 SECONDS)
 
 /obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
