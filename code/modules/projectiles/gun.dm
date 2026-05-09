@@ -513,6 +513,18 @@
 		if((GUN_FIREMODE_AUTOMATIC in gun_firemode_list) && !(GUN_FIREMODE_AUTOBURST in gun_firemode_list))
 			add_firemode(GUN_FIREMODE_AUTOBURST, user)
 
+/obj/item/gun/proc/modify_fire_delay(value, mob/user)
+	set_fire_delay(fire_delay + value, user)
+
+/obj/item/gun/proc/modify_burst_delay(value, mob/user)
+	set_burst_delay(burst_delay + value, user)
+
+/obj/item/gun/proc/modify_auto_burst_delay(value, mob/user)
+	set_auto_burst_delay(autoburst_delay + value, user)
+
+/obj/item/gun/proc/modify_burst_amount(value, mob/user)
+	set_burst_amount(burst_amount + value, user)
+
 /// Inform the gun if he is currently bursting, to prevent reloading
 /obj/item/gun/proc/set_bursting(bursting)
 	if(bursting)
