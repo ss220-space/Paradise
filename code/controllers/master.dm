@@ -671,7 +671,7 @@ ADMIN_VERB(cmd_controller_view_ui, R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, "Controller O
 	canary.use_variable()
 
 	//the actual loop.
-	while (1)
+	while(1)
 		var/newdrift = ((REALTIMEOFDAY - init_timeofday) - (world.time - init_time)) / world.tick_lag
 		tickdrift = max(0, MC_AVERAGE_FAST(tickdrift, newdrift))
 		var/starting_tick_usage = TICK_USAGE
@@ -1001,7 +1001,7 @@ ADMIN_VERB(cmd_controller_view_ui, R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, "Controller O
 
 /// Warns us that the end of tick byond map_update will be laggier then normal, so that we can just skip running subsystems this tick.
 /datum/controller/master/proc/laggy_byond_map_update_incoming()
-	if (!skip_ticks)
+	if(!skip_ticks)
 		skip_ticks = 1
 
 /datum/controller/master/stat_entry(msg)

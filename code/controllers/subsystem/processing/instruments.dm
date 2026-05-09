@@ -1,6 +1,6 @@
 PROCESSING_SUBSYSTEM_DEF(instruments)
 	name = "Instruments"
-	wait = 0.5
+	wait = 1
 	ss_flags = SS_KEEP_TIMING|SS_HIBERNATE
 	priority = FIRE_PRIORITY_INSTRUMENTS
 

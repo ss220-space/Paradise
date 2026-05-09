@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(shuttle)
 	dependencies = list(
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/atoms,
-		/datum/controller/subsystem/air
+		/datum/controller/subsystem/air,
 	)
 	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME

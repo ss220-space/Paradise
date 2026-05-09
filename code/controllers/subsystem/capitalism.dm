@@ -76,14 +76,21 @@ SUBSYSTEM_DEF(capitalism)
 
 /// Snapshots all accounts that should receive a salary this cycle and sums their paychecks.
 /// Also resolves the default-status transition before any money is moved, so we don't half-pay.
+/// If a previous fire() was interrupted mid-payout (charge failed), `currentrun` will still
+/// hold the unpaid accounts — we resume that queue instead of rebuilding to avoid double-paying
+/// anyone who already got their salary in the prior cycle.
 /datum/controller/subsystem/capitalism/proc/build_payment_run()
-	currentrun.Cut()
+	var/resuming = length(currentrun) > 0
+	if(!resuming)
+		for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+			if(!account.salary_payment_active || !account.linked_job?.paycheck || account.suspended)
+				continue
+			currentrun += account
+
 	pending_salary_total = 0
-	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
-		if(!account.salary_payment_active || !account.linked_job?.paycheck || account.suspended)
-			continue
-		currentrun += account
-		pending_salary_total += account.linked_job.paycheck
+	for(var/datum/money_account/account as anything in currentrun)
+		if(account.linked_job?.paycheck)
+			pending_salary_total += account.linked_job.paycheck
 
 	// Decide up-front whether we're paying this cycle. With hysteresis: exiting default
 	// requires an EXTRA_MONEY buffer so we don't immediately re-default on the next cycle.
@@ -93,12 +100,16 @@ SUBSYSTEM_DEF(capitalism)
 			default_status = FALSE
 			default_announce()
 		else
-			currentrun.Cut() // still in default, skip payout
+			// Still defaulted. Keep the resumed queue so we eventually pay them when funds return;
+			// drop a freshly-built one because it would just be rebuilt next cycle anyway.
+			if(!resuming)
+				currentrun.Cut()
 			default_counter++
 	else if(!can_afford_now)
 		default_status = TRUE
 		default_announce()
-		currentrun.Cut()
+		if(!resuming)
+			currentrun.Cut()
 		default_counter++
 
 /// Processes the payout queue across as many ticks as needed. Drains `currentrun`.
@@ -112,8 +123,11 @@ SUBSYSTEM_DEF(capitalism)
 		var/paycheck = account.linked_job.paycheck
 		if(!payment_account.charge(paycheck, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"", "Поступление зарплаты.", "Поступление зарплаты", "Терминал Бизель №[rand(111,333)]"))
 			// payment_account ran dry mid-batch despite the pre-check (e.g. an admin debited it).
-			// Bail rather than partial-pay; the next cycle will re-evaluate default state.
-			cached_run.Cut()
+			// Flip to default and bail without clearing cached_run — build_payment_run() will
+			// resume the remaining queue next cycle so no one gets paid twice or skipped.
+			default_status = TRUE
+			default_announce()
+			default_counter++
 			return
 		account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [paycheck] кредитов\" (Невозможно Ответить)", FALSE)
 		total_salary_payment += paycheck

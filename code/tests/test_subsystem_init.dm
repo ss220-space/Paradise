@@ -19,4 +19,5 @@
 			continue
 
 		message_strings += "This subsystem is marked as SS_OK_TO_FAIL_INIT. This is still a bug, but it is non-blocking."
-		TEST_NOTICE(src, jointext(message_strings, "\n"))
+		//TEST_NOTICE(src, jointext(message_strings, "\n"))
+		TEST_FAIL(jointext(message_strings, "\n"))
