@@ -1,14 +1,13 @@
-#define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
 
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
-	ss_id = "capitalism_subsystem"
-	init_order =  INIT_ORDER_CAPITALISM
-	offline_implications = "Выплаты зарплат приостановлены, по идее выплаты за задания карго не сломаются. Награда за цель не выплачивается. Немедленных действий не требуется."
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
 	runlevels = RUNLEVEL_GAME
-	wait = FREQUENCY_SALARY
-	flags = SS_BACKGROUND
+	wait = 5 MINUTES
+	ss_flags = SS_BACKGROUND
 
 	//This separation is necessary for tests and in general so that it is pleasant
 	var/datum/money_account/base_account	= null //the account that receives money for orders and vending machines
@@ -182,5 +181,4 @@ SUBSYSTEM_DEF(capitalism)
 		account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 	return TRUE
 
-#undef FREQUENCY_SALARY
 #undef EXTRA_MONEY

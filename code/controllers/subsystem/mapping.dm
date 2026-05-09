@@ -1,8 +1,12 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING // 7
+	dependencies = list(
+		/datum/controller/subsystem/jobs,
+		/datum/controller/subsystem/processing/station,
+	//	/datum/controller/subsystem/processing/reagents,
+	)
 	runlevels = ALL
-	ss_id = "mapping"
+
 	/// What map datum are we using
 	var/datum/map/map_datum
 	/// What map will be used next round
@@ -843,7 +847,7 @@ SUBSYSTEM_DEF(mapping)
 	return target.lazy_load()
 
 /datum/controller/subsystem/mapping/Recover()
-	flags |= SS_NO_INIT
+	ss_flags |= SS_NO_INIT
 	loaded_lazy_templates = SSmapping.loaded_lazy_templates
 
 /// Returns true if the map we're playing on is on a planet

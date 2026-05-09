@@ -9,9 +9,12 @@
  */
 SUBSYSTEM_DEF(persistent_data)
 	name = "Persistent Data"
-	init_order = INIT_ORDER_PERSISTENCE // -95 | Loads after EVERYTHING else
-	flags = SS_NO_FIRE
-	ss_id = "persistent_data"
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+	)
+	ss_flags = SS_NO_FIRE
+
 	/// List of atoms registered into the subsystem for persistent data storage. Can be anything at all
 	var/list/registered_atoms = list()
 

@@ -8,12 +8,10 @@ GLOBAL_VAR_INIT(npcpool_suspension, TRUE)
 
 SUBSYSTEM_DEF(npcpool)
 	name = "NPC Pool"
-	flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
+	ss_flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
 	priority = FIRE_PRIORITY_NPC
 	runlevels = RUNLEVEL_GAME|RUNLEVEL_POSTGAME
 	wait = 2 SECONDS
-	offline_implications = "Simple animals will no longer process. Shuttle call recommended."
-	ss_id = "npc_pool"
 
 	var/list/currentrun = list()
 
