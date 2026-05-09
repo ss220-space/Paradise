@@ -1,6 +1,6 @@
 /datum/data/pda/app/bank
-	name = "Raingor Interstellar Banking" // this is the perfect name for a bank. (do not change)
-	title = "Raingor Interstellar Banking"
+	name = "Raingor Interstellar Bank" // this is the perfect name for a bank. (do not change)
+	title = "Raingor Interstellar Bank"
 	icon = "university"
 	template = "pda_bank"
 	update = PDA_APP_UPDATE_SLOW

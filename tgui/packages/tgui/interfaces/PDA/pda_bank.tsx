@@ -82,7 +82,7 @@ export const pda_bank = (props: unknown) => {
 
   if (!loginState.logged_in) {
     return (
-      <Window width={750} height={950}>
+      <Window width={580} height={850}>
         <Window.Content>
           <Stack fill vertical>
             <Section
@@ -90,7 +90,7 @@ export const pda_bank = (props: unknown) => {
               title={
                 <Box fontSize="22px" bold textAlign="center">
                   <Icon name="university" color="blue" mr={1} />
-                  Raingor Interstellar Banking
+                  Raingor Interstellar Bank
                 </Box>
               }
             >
@@ -130,7 +130,7 @@ export const pda_bank = (props: unknown) => {
       PageContent = <UUErrorPage setPage={setPage} />;
   }
   return (
-    <Window width={750} height={950}>
+    <Window width={580} height={850}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>
@@ -174,7 +174,7 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
             textAlign="center"
             style={{ letterSpacing: '2px', opacity: 0.9 }}
           >
-            INTERSTELLAR BANKING
+            INTERSTELLAR BANK
           </Box>
 
           {/* Divider */}
@@ -756,14 +756,14 @@ const UUAboutMenuPage = ({ setPage, data }: PageProps) => {
       <Section>
         <Box className="lore-section-title" textAlign="center" mb={3}>
           <Icon name="university" className="text-gold" size={2} mr={1} />
-          <Box as="span">О Raingor Interstellar Banking</Box>
+          <Box as="span">О Raingor Interstellar Bank</Box>
         </Box>
 
         <Box className="lore-container">
           {/* Paragraph 1 */}
           <Box className="lore-paragraph">
             <Box as="span" className="lore-highlight">
-              Raingor Interstellar Banking
+              Raingor Interstellar Bank
             </Box>{' '}
             — корпорация, объединившая частное кредитование и систему мгновенных
             переводов.
@@ -773,7 +773,7 @@ const UUAboutMenuPage = ({ setPage, data }: PageProps) => {
           <Box className="lore-paragraph">
             Основанная в 24 веке,{' '}
             <Box as="span" className="lore-highlight">
-              Raingor Interstellar Banking
+              Raingor Interstellar Bank
             </Box>{' '}
             стала ведущим игроком в сфере частного финансирования межзвёздной
             экономики. Благодаря
@@ -841,7 +841,7 @@ const UUAboutMenuPage = ({ setPage, data }: PageProps) => {
       {/* Footer */}
       <Box textAlign="center" mt={3} className="text-muted" fontSize={0.9}>
         <Icon name="copyright" mr={0.5} />
-        Raingor Interstellar Banking © 24XX
+        Raingor Interstellar Bank © 24XX
       </Box>
     </Box>
   );
