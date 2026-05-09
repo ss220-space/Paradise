@@ -1,14 +1,14 @@
-/proc/cmp_numeric_dsc(a,b)
+/proc/cmp_numeric_dsc(a, b)
 	return b - a
 
-/proc/cmp_numeric_asc(a,b)
+/proc/cmp_numeric_asc(a, b)
 	return a - b
 
-/proc/cmp_text_asc(a,b)
-	return sorttext(b,a)
+/proc/cmp_text_asc(a, b)
+	return sorttext(b, a)
 
-/proc/cmp_text_dsc(a,b)
-	return sorttext(a,b)
+/proc/cmp_text_dsc(a, b)
+	return sorttext(a, b)
 
 /proc/cmp_embed_text_asc(a, b)
 	if(isdatum(a))
@@ -39,7 +39,7 @@
 /proc/cmp_init_name_asc(atom/a, atom/b)
 	return sorttext(initial(b.name), initial(a.name))
 
-// Datum cmp with vars is always slower than a specialist cmp proc, use your judgement.
+/// Datum cmp with vars is always slower than a specialist cmp proc, use your judgement.
 /proc/cmp_datum_numeric_asc(datum/a, datum/b, variable)
 	return cmp_numeric_asc(a.vars[variable], b.vars[variable])
 
@@ -76,40 +76,40 @@
 /proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
 	return a.timeToRun - b.timeToRun
 
-/proc/cmp_ruincost_priority(datum/map_template/ruin/A, datum/map_template/ruin/B)
-	return initial(A.cost) - initial(B.cost)
+/proc/cmp_ruincost_priority(datum/map_template/ruin/a, datum/map_template/ruin/b)
+	return initial(a.cost) - initial(b.cost)
 
-/proc/cmp_qdel_item_time(datum/qdel_item/A, datum/qdel_item/B)
-	. = B.hard_delete_time - A.hard_delete_time
+/proc/cmp_qdel_item_time(datum/qdel_item/a, datum/qdel_item/b)
+	. = b.hard_delete_time - a.hard_delete_time
 	if(!.)
-		. = B.destroy_time - A.destroy_time
+		. = b.destroy_time - a.destroy_time
 	if(!.)
-		. = B.failures - A.failures
+		. = b.failures - a.failures
 	if(!.)
-		. = B.qdels - A.qdels
+		. = b.qdels - a.qdels
 
-/proc/cmp_generic_stat_item_time(list/A, list/B)
-	. = B[STAT_ENTRY_TIME] - A[STAT_ENTRY_TIME]
+/proc/cmp_generic_stat_item_time(list/a, list/b)
+	. = b[STAT_ENTRY_TIME] - a[STAT_ENTRY_TIME]
 	if(!.)
-		. = B[STAT_ENTRY_COUNT] - A[STAT_ENTRY_COUNT]
+		. = b[STAT_ENTRY_COUNT] - a[STAT_ENTRY_COUNT]
 
-/proc/cmp_atom_layer_asc(atom/A,atom/B)
-	if(A.plane != B.plane)
-		return A.plane - B.plane
+/proc/cmp_atom_layer_asc(atom/a, atom/b)
+	if(a.plane != b.plane)
+		return a.plane - b.plane
 	else
-		return A.layer - B.layer
+		return a.layer - b.layer
 
 /proc/cmp_reagents_asc(datum/reagent/a, datum/reagent/b)
 	return sorttext(initial(b.name), initial(a.name))
 
-/proc/cmp_typepaths_asc(A, B)
-	return sorttext("[B]","[A]")
+/proc/cmp_typepaths_asc(a, b)
+	return sorttext("[b]","[a]")
 
-/proc/cmp_num_string_asc(A, B)
-	return text2num(A) - text2num(B)
+/proc/cmp_num_string_asc(a, b)
+	return text2num(a) - text2num(b)
 
-/proc/cmp_mob_realname_dsc(mob/A, mob/B)
-	return sorttext(A.real_name, B.real_name)
+/proc/cmp_mob_realname_dsc(mob/a, mob/b)
+	return sorttext(a.real_name, b.real_name)
 
 /// Orders by integrated circuit weight
 /proc/cmp_port_order_asc(datum/port/compare1, datum/port/compare2)
@@ -122,18 +122,18 @@
  * This prevents any reagent_containers from being consumed before the reagents they contain, which can
  * lead to runtimes and item duplication when it happens.
  */
-/proc/cmp_crafting_req_priority(A, B)
+/proc/cmp_crafting_req_priority(a, b)
 	var/lhs
 	var/rhs
 
-	lhs = ispath(A, /datum/reagent) ? 0 : 1
-	rhs = ispath(B, /datum/reagent) ? 0 : 1
+	lhs = ispath(a, /datum/reagent) ? 0 : 1
+	rhs = ispath(b, /datum/reagent) ? 0 : 1
 
 	return lhs - rhs
 
 /// Passed a list of assoc lists, sorts them by the list's "name" keys.
-/proc/cmp_assoc_list_name(list/A, list/B)
-	return sorttext(B["name"], A["name"])
+/proc/cmp_assoc_list_name(list/a, list/b)
+	return sorttext(b["name"], a["name"])
 
 /// Orders vending products by their price
 /proc/cmp_vending_prices(datum/data/vending_product/a, datum/data/vending_product/b)

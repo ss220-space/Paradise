@@ -3,6 +3,8 @@
 
 /datum/game_test/subsystem_init/Run()
 	for(var/datum/controller/subsystem/subsystem as anything in Master.subsystems)
+		if((subsystem.ss_flags & SS_NO_INIT) && (subsystem.ss_flags & SS_NO_FIRE))
+			TEST_FAIL("[subsystem]([subsystem.type]) is a subsystem which is set to not initialize or fire. Use a global datum instead an subsystem.")
 		if(subsystem.ss_flags & SS_NO_INIT)
 			continue
 		if(subsystem.initialized)
