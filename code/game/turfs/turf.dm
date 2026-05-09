@@ -606,11 +606,11 @@
 
 /turf/singularity_act()
 	if(intact)
-		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.level != 1)
+		for(var/obj/on_top in contents) //this is for deleting things like wires contained in the turf
+			if(on_top.level != 1)
 				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
-				O.singularity_act()
+			if(on_top.invisibility in list(INVISIBILITY_MAXIMUM, INVISIBILITY_ABSTRACT))
+				on_top.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
 

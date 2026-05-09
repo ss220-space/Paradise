@@ -1546,17 +1546,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				step_towards(hand_item, src)
 				to_chat(src, span_warning("[S] вырывает [hand_item.declent_ru(ACCUSATIVE)] из вашей хватки!"))
 
-/mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
+/mob/living/carbon/human/narsie_act(obj/god/narsie)
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
 		return
 	if(narsie)
 		narsie.soul_devoured++
-	..()
+	return ..()
 
-/mob/living/carbon/human/ratvar_act(weak, obj/singularity/god/ratvar/ratvar)
+/mob/living/carbon/human/ratvar_act(weak, obj/god/ratvar)
 	if(ratvar)
 		ratvar.soul_devoured++
-	. = ..()
+	return ..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
@@ -1822,19 +1822,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	update_icons()
 
 	..()
-
-/mob/living/carbon/human/vv_get_dropdown()
-	. = ..()
-	. += "---"
-	.["Set Species"] = "byond://?_src_=vars;setspecies=[UID()]"
-	.["Copy Outfit"] = "byond://?_src_=vars;copyoutfit=[UID()]"
-	.["Make AI"] = "byond://?_src_=vars;makeai=[UID()]"
-	.["Make cyborg"] = "byond://?_src_=vars;makerobot=[UID()]"
-	.["Make monkey"] = "byond://?_src_=vars;makemonkey=[UID()]"
-	.["Make alien"] = "byond://?_src_=vars;makealien=[UID()]"
-	.["Make slime"] = "byond://?_src_=vars;makeslime=[UID()]"
-	.["Make superhero"] = "byond://?_src_=vars;makesuper=[UID()]"
-	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))

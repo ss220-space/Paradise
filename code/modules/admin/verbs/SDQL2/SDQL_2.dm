@@ -1059,6 +1059,9 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		if(!istype(located))
 			to_chat(usr, span_danger("Invalid pointer: [expression[start + 1]] - null or not datum"), confidential = TRUE)
 			return null
+		if(!located.can_vv_mark())
+			to_chat(usr, span_danger("Pointer [expression[start+1]] cannot be marked"), confidential = TRUE)
+			return null
 		v = located
 		start++
 		long = start < expression.len

@@ -83,6 +83,10 @@ fn iconforge_check(id: ByondValue) -> eyre::Result<ByondValue> {
 
 #[byondapi::bind]
 fn iconforge_cleanup() -> eyre::Result<ByondValue> {
+    // Only perform cleanup if no jobs are currently using the icon cache
+    if image_cache::CACHE_ACTIVE.load(std::sync::atomic::Ordering::SeqCst) > 0 {
+        return Ok(ByondValue::new_str("Skipped, cache in use")?);
+    }
     image_cache::icon_cache_clear();
     image_cache::image_cache_clear();
     Ok(ByondValue::new_str("Ok")?)

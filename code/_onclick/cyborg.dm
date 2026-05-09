@@ -110,9 +110,8 @@
 		return
 
 //Ctrl+Middle click cycles through modules
-/mob/living/silicon/robot/proc/CtrlMiddleClickOn(atom/A)
+/mob/living/silicon/robot/CtrlMiddleClickOn(atom/A)
 	cycle_modules()
-	return
 
 /obj/machinery/power/apc/attack_robot_secondary(mob/living/silicon/user, list/modifiers)
 	return attack_ai_secondary(user, modifiers)
@@ -123,7 +122,6 @@
 		// Drones cannot point.
 		return
 	pointed(A)
-	return
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks
 // for non-doors/apcs

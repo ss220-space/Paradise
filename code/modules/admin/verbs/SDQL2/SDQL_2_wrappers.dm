@@ -13,12 +13,12 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 
 /proc/list_to_object_arbitrary_vars(list/data, position)
 	if(!islist(data))
-		throw EXCEPTION("Not a list.")
+		CRASH("Not a list.")
 	if(!("type" in data))
-		throw EXCEPTION("No 'type' field in the data")
+		CRASH("No 'type' field in the data")
 	var/path = text2path(data["type"])
 	if(!path)
-		throw EXCEPTION("Path not found: [path]")
+		CRASH("Path not found: [path]")
 
 	var/atom/movable/thing = new path(position)
 	data -= "type"
@@ -91,7 +91,10 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 
 /proc/_locate(X, Y, Z)
 	if(isnull(Y)) // Assuming that it's only a single-argument call.
-		return locate(X)
+		// direct ref locate
+		var/datum/D = locate(X)
+		// &&'s to last value
+		return istype(D) && D.can_vv_mark() && D
 
 	return locate(X, Y, Z)
 

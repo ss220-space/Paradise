@@ -1086,3 +1086,14 @@ so that different stomachs can handle things in different ways VB*/
 	if(affect_robotic && !affected_organ.is_robotic())
 		return FALSE
 	return affected_organ.internal_receive_damage(min(amount, maximum))
+
+/mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
+	for(var/i in 1 to amt)
+		if(!length(internal_organs))
+			break //Guess we're out of organs!
+		var/obj/item/organ/guts = pick(internal_organs)
+		var/turf/current_turf = get_turf(src)
+		guts.remove(src)
+		guts.forceMove(current_turf)
+		var/atom/throw_target = get_edge_target_turf(guts, dir)
+		guts.throw_at(throw_target, power, 4, src)
