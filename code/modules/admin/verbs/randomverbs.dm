@@ -262,7 +262,8 @@ ADMIN_VERB(toggle_antaghud_use, R_SERVER, "Toggle antagHUD usage", "Toggles anta
 		for(var/mob/dead/observer/g in user.get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
-				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
+				if(g.persistent_client)
+					g.persistent_client.antaghud_enabled = FALSE				// We'll allow them to respawn
 				to_chat(g, span_danger("The Administrator has disabled AntagHUD."))
 
 		CONFIG_SET(flag/allow_antag_hud, FALSE)
@@ -292,7 +293,8 @@ ADMIN_VERB(toggle_antaghug_restrictions, R_SERVER, "Toggle antagHUD Restrictions
 			to_chat(ghost, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
 			to_chat(ghost, span_danger("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."), confidential = TRUE)
 			ghost.antagHUD = FALSE
-			ghost.has_enabled_antagHUD = FALSE
+			if(ghost.persistent_client)
+				ghost.persistent_client.antaghud_enabled = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
 		to_chat(user, span_danger("AntagHUD restrictions have been enabled."), confidential = TRUE)
