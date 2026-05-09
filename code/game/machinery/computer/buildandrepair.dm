@@ -95,7 +95,7 @@
 
 /obj/item/circuitboard/drone/core
 	name = "Corrupted drone morality core"
-	tech_to_give = "powerstorage"
+	tech_to_give = "syndicate"
 
 /obj/item/circuitboard/message_monitor
 	board_name = "Message Monitor"
