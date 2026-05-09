@@ -21,4 +21,5 @@
 	addtimer(CALLBACK(src, PROC_REF(activate)), time_to_live)
 
 /obj/item/implant/postponed_death/activate()
+	. = ..()
 	imp_in.melt()

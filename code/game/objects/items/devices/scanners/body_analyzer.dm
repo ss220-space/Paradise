@@ -39,15 +39,15 @@
 	scan_time = 5 SECONDS
 	scan_cd = 20 SECONDS
 
-/obj/item/bodyanalyzer/New()
-	..()
+/obj/item/bodyanalyzer/Initialize(mapload)
+	. = ..()
 	cell = new cell_type(src)
 	cell.give(cell.maxcharge)
 	update_icon()
 
 /obj/item/bodyanalyzer/Destroy()
 	QDEL_NULL(cell)
-	. = ..()
+	return ..()
 
 /obj/item/bodyanalyzer/proc/setReady()
 	ready = TRUE

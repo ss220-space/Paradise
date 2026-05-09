@@ -8,6 +8,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
+	ricochet_chance = 0
 	flag = "magic"
 
 /obj/projectile/magic/get_ru_names()
@@ -503,8 +504,8 @@
 		PREPOSITIONAL = "волшебном банане",
 	)
 
-/obj/projectile/magic/slipping/New()
-	..()
+/obj/projectile/magic/slipping/Initialize(mapload)
+	. = ..()
 	SpinAnimation()
 
 /obj/projectile/magic/slipping/on_hit(atom/target, blocked = 0)

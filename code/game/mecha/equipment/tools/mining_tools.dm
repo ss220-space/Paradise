@@ -114,7 +114,9 @@
 			target_human.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target_human.run_armor_check(target_part, MELEE))
 
 			//blood splatters
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_human.drop_location(), splatter_angle, target_human.get_blood_color())
+			var/splatter_color = target_human.get_blood_color()
+			if(splatter_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_human.drop_location(), splatter_angle, splatter_color)
 
 			//organs go everywhere
 			if(target_part && prob(10 * drill_level))
@@ -122,7 +124,9 @@
 		else
 			target.adjustBruteLoss(10)
 			if(isalien(target))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_angle, target.get_blood_color())
+				var/splatter_color = target.get_blood_color()
+				if(splatter_color)
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_angle, splatter_color)
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"

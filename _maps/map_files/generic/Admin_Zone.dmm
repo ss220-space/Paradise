@@ -2545,7 +2545,7 @@
 	},
 /area/holodeck/source_knightarena)
 "CJ" = (
-/obj/item/gun/energy/shock_revolver,
+/obj/item/gun/energy/tesla_cannon,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -3692,11 +3692,6 @@
 /obj/item/toy/katana,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
-"Sq" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle,
-/turf/simulated/floor/wood,
-/area/admin)
 "Su" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/experimental,
@@ -4236,11 +4231,6 @@
 	},
 /turf/simulated/floor/holofloor/burn_mix_floor,
 /area/holodeck/source_burntest)
-"Yc" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle,
-/turf/simulated/floor/wood,
-/area/admin)
 "Yf" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -9296,7 +9286,7 @@ qE
 qE
 eo
 fE
-Sq
+Nt
 EU
 iz
 IU
@@ -9554,7 +9544,7 @@ qE
 dX
 fE
 Nt
-Yc
+Nt
 dz
 IU
 Ge

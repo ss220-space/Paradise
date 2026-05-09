@@ -15,9 +15,9 @@
 		PREPOSITIONAL = "орнаменте",
 	)
 
-/obj/projectile/ornament/New()
+/obj/projectile/ornament/Initialize(mapload)
 	icon_state = pick("ornament-1", "ornament-2")
-	..()
+	. = ..()
 
 /obj/projectile/ornament/on_hit(atom/target)	//knockback
 	..()

@@ -115,7 +115,7 @@
 
 /obj/effect/countdown/clockworkgate
 	name = "gateway countdown"
-	color = "#BE8700"
+	color = COLOR_CULT_RATVAR
 
 /obj/effect/countdown/clockworkgate/get_value()
 	var/obj/structure/clockwork/functional/celestial_gateway/gateway = attached_to

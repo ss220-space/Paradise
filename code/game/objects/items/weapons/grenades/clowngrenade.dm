@@ -37,7 +37,7 @@
 	qdel(src)
 	return
 
-/obj/item/grown/bananapeel/traitorpeel/New(newloc, obj/item/seeds/new_seed)
+/obj/item/grown/bananapeel/traitorpeel/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
 	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`.
