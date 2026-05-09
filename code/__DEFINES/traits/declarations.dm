@@ -536,6 +536,8 @@
 /// Prevents the projectile itself from ricocheting.
 #define TRAIT_NO_RICOCHET "no_ricochet"
 
+/// Trait for hud infection by borer
+#define TRAIT_PARASITISM "parasitism"
 #define TRAIT_FACING_TO_MOUSE "facing_to_mouse"
 
 /// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().

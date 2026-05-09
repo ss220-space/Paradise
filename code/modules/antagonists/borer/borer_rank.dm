@@ -50,16 +50,23 @@
 	return TRUE
 
 /datum/borer_rank/mature/on_apply()
-	parent.user.update_transform(2)
+	parent.user.transform = parent.user.transform.Scale(2)
+	parent.user.pixel_y = 0
 	parent.user.maxHealth += 5
+	parent.user.updatehealth()
+	parent.user.set_varspeed(3)
 	return TRUE
 
 /datum/borer_rank/adult/on_apply()
 	parent.user.maxHealth += 5
+	parent.user.updatehealth()
+	parent.user.set_varspeed(2)
 	return TRUE
 
 /datum/borer_rank/elder/on_apply()
 	parent.user.maxHealth += 10
+	parent.user.updatehealth()
+	parent.user.set_varspeed(1)
 	return TRUE
 
 /datum/borer_rank/young/tick()

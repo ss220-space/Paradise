@@ -1007,6 +1007,26 @@
 /datum/status_effect/jump_jet/on_remove()
 	owner.RemoveElement(/datum/element/forced_gravity, 0)
 
+/atom/movable/screen/alert/status_effect/mend_host
+	name = "Регенерация"
+	desc = "Симбионт ускоряет заживление ваших ран."
+	icon_state = "fleshmend"
+
+/datum/status_effect/mend_host
+	id = "mend_host"
+	duration = 10 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/mend_host
+
+/datum/status_effect/mend_host/tick(seconds_between_ticks)
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/host = owner
+	host.adjustBruteLoss(MEND_HOST_HEAL_AMOUNT, FALSE)
+	host.adjustFireLoss(MEND_HOST_HEAL_AMOUNT, FALSE)
+	host.adjustToxLoss(MEND_HOST_HEAL_AMOUNT, FALSE)
+	host.adjustOxyLoss(MEND_HOST_HEAL_AMOUNT * 3, FALSE)
+	host.update_health_hud()
+	host.med_hud_set_status()
 
 /// Gives a short period of time when the fracture occurs.
 /datum/status_effect/ignore_fracture

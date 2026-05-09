@@ -27,38 +27,44 @@
 	return ..()
 
 /datum/borer_focus/head
-	name = "Head focus"
+	name = "Фокусировка головы"
 	cost = HEAD_FOCUS_COST
-	
+
 /datum/borer_focus/torso
-	name = "Body focus"
+	name = "Фокусировка тела"
 	cost = TORSO_FOCUS_COST
 	var/obj/item/organ/internal/heart/linked_organ
-	
+
 /datum/borer_focus/hands
-	name = "Hands focus"
+	name = "Фокусировка рук"
 	cost = HANDS_FOCUS_COST
-	
+
 /datum/borer_focus/legs
-	name = "Legs focus"
+	name = "Фокусировка ног"
 	cost = LEGS_FOCUS_COST
 
 /datum/borer_focus/sting
-	name = "Sting focus"
+	name = "Фокусировка жала"
 	cost = STING_FOCUS_COST
 
 /datum/borer_focus/reproductive
-	name = "Reproductive focus"
+	name = "Фокусировка репродукции"
 	cost = REPRODUCTION_FOCUS_COST
 
 /datum/borer_focus/abdomen
-	name = "Abdomen focus"
+	name = "Фокусировка брюшка"
 	cost = ABDOMEN_FOCUS_COST
 
 /datum/borer_focus/secretion
-	name = "Secretion focus"
+	name = "Фокусировка секреции"
 	cost = SECRETION_FOCUS_COST
-	
+
+/datum/borer_focus/strength
+	name = "Фокусировка мышц"
+	cost = STRENGTH_FOCUS_COST
+	var/datum/strength_level/backup_strength_level
+	var/backup_strength_points = 0
+
 /datum/borer_focus/head/grant_movable_effect()
 	if(!is_catathonic)
 		parent.user.host.physiology.brain_mod *= 0.85
@@ -86,7 +92,7 @@
 /datum/borer_focus/head/tick()
 	if(!parent.user.controlling && parent.user.host && parent.user.host.stat != DEAD)
 		parent.user.host.adjustBrainLoss(-1)
-			
+
 /datum/borer_focus/torso/grant_movable_effect()
 	if(!is_catathonic)
 		parent.user.host.physiology.brute_mod *= 0.9
@@ -116,7 +122,7 @@
 /datum/borer_focus/torso/Destroy(force)
 	linked_organ = null
 	return ..()
-		
+
 /datum/borer_focus/hands/grant_movable_effect()
 	parent.user.host.add_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	parent.user.host.physiology.punch_damage_low += 7
@@ -127,10 +133,10 @@
 /datum/borer_focus/hands/remove_movable_effect()
 	parent.user.host.remove_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	parent.user.host.physiology.punch_damage_low -= 7
-	parent.user.host.physiology.punch_damage_high -= 5	
+	parent.user.host.physiology.punch_damage_high -= 5
 	parent.user.host.next_move_modifier /= 0.75
 	return TRUE
-	
+
 /datum/borer_focus/legs/grant_movable_effect()
 	if(!is_catathonic)
 		parent.user.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus/lesser)
@@ -177,8 +183,50 @@
 	return ..()
 
 /datum/borer_focus/abdomen/apply()
-	parent.user.update_transform(0.8) // 20%
+	parent.user.transform = parent.user.transform.Scale(0.8)
+	parent.user.pixel_y = 0
 
 /datum/borer_focus/secretion/apply()
 	parent.user.chem_gain += 0.5
 	parent.user.infest_spell.cast_time = parent.user.infest_spell.cast_time * 0.5
+
+
+/datum/borer_focus/strength/grant_movable_effect()
+	var/mob/living/carbon/human/host = parent.user.host
+	if(!istype(host))
+		return FALSE
+
+	var/datum/component/muscles/muscles = host.GetComponent(/datum/component/muscles)
+	if(!muscles)
+		muscles = host.AddComponent(/datum/component/muscles)
+		if(!muscles)
+			return FALSE
+
+	backup_strength_level = muscles.real_strength_level
+	backup_strength_points = muscles.strength_points
+
+	ADD_TRAIT(host, TRAIT_STRONG_MUSCLES, BORER_TRAIT)
+	muscles.real_strength_level = new STRENGTH_LEVEL_SUPERHUMAN()
+	muscles.strength_points = 0
+
+	host.update_body(TRUE)
+	return TRUE
+
+/datum/borer_focus/strength/remove_movable_effect()
+	var/mob/living/carbon/human/host = parent.user.host
+	if(!istype(host))
+		return FALSE
+
+	REMOVE_TRAIT(host, TRAIT_STRONG_MUSCLES, BORER_TRAIT)
+
+	var/datum/component/muscles/muscles = host.GetComponent(/datum/component/muscles)
+	if(muscles)
+		if(backup_strength_level)
+			muscles.real_strength_level = backup_strength_level
+			muscles.strength_points = backup_strength_points
+		else
+			muscles.real_strength_level = new STRENGTH_LEVEL_DEFAULT()
+			muscles.strength_points = 0
+
+	host.update_body(TRUE)
+	return TRUE

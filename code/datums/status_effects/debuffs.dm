@@ -1571,3 +1571,73 @@
 	name = "Unbalanced"
 	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
+
+
+// MARK: effect borer
+/datum/status_effect/parasitism
+	id = "parasitism"
+	duration = 60 SECONDS
+	tick_interval = 3 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/parasitism
+
+/atom/movable/screen/alert/status_effect/parasitism
+	name = "Паразит"
+	desc = "Симбионт ускоренно развивается, истощая ваше тело."
+	icon_state = "blooddrunk"
+
+/datum/status_effect/parasitism/on_apply()
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/host = owner
+		ADD_TRAIT(host, TRAIT_PARASITISM, id)
+		host.med_hud_set_status()
+	return TRUE
+
+/datum/status_effect/parasitism/tick(seconds_between_ticks)
+	var/mob/living/carbon/host = owner
+	if(!iscarbon(owner))
+		qdel(src)
+		return
+
+	if(host.stat == DEAD || host.health <= HEALTH_THRESHOLD_CRIT)
+		qdel(src)
+		return
+
+	var/mob/living/simple_animal/borer/borer = host.has_brain_worms()
+	if(!borer)
+		qdel(src)
+		return
+
+	if(host.reagents.has_reagent("sugar"))
+		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком слабым"))
+		qdel(src)
+		return
+
+	if(borer.controlling)
+		qdel(src)
+		return
+
+	if(borer.antag_datum)
+		SEND_SIGNAL(borer, COMSIG_BORER_EVOLUTION_TICK, PARASITISM_EVOLUTION_GAIN)
+
+	borer.chemicals = min(borer.chemicals + PARASITISM_CHEMICAL_GAIN, borer.max_chems)
+
+	host.adjustBruteLoss(PARASITISM_HOST_DAMAGE, FALSE)
+	host.adjustToxLoss(PARASITISM_HOST_DAMAGE, FALSE)
+	host.adjust_nutrition(-5)
+	host.update_health_hud()
+	host.med_hud_set_status()
+
+	if(prob(30))
+		to_chat(host, span_danger("Паразит высасывает ваши жизненные силы!"))
+		host.AdjustKnockdown(2 SECONDS)
+		host.AdjustConfused(3 SECONDS)
+		host.AdjustJitter(10 SECONDS)
+		return
+
+/datum/status_effect/parasitism/on_remove()
+	if(iscarbon(owner))
+		var/mob/living/carbon/host = owner
+		REMOVE_TRAIT(host, TRAIT_PARASITISM, id)
+		host.med_hud_set_status()
+	return ..()

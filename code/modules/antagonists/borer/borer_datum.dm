@@ -26,6 +26,7 @@
 	RegisterSignal(user, COMSIG_BORER_EARLY_LEFT_HOST, PROC_REF(left_host))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(process_life))
 	RegisterSignal(user, COMSIG_BORER_REPRODUCE, PROC_REF(post_reproduce))
+	RegisterSignal(src, COMSIG_BORER_EVOLUTION_TICK, PROC_REF(on_evolution_tick))
 
 	return TRUE
 
@@ -47,6 +48,11 @@
 	update_rank()
 
 	return
+
+/datum/antagonist/borer/proc/on_evolution_tick(datum/source, gain)
+	SIGNAL_HANDLER
+
+	evo_points += gain
 
 /datum/antagonist/borer/proc/process_focus_choice(datum/borer_focus/focus)
 	if(!user || !user.host || user.stat || user.docile)
