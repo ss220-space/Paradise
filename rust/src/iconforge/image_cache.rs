@@ -5,10 +5,28 @@ use dmi::{
     icon::{dir_to_dmi_index, Icon, IconState},
 };
 use image::RgbaImage;
-use once_cell::sync::Lazy;
-use std::{fs::File, hash::BuildHasherDefault, io::BufReader, sync::Arc};
+use once_cell::sync::{Lazy, OnceCell};
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::{fs::File, hash::BuildHasherDefault, io::BufReader, path::PathBuf, sync::Arc};
 use tracy_full::zone;
 use twox_hash::XxHash64;
+
+pub static CACHE_ACTIVE: AtomicUsize = AtomicUsize::new(0);
+
+struct CacheGuard;
+
+impl CacheGuard {
+    fn new() -> Self {
+        CACHE_ACTIVE.fetch_add(1, Ordering::SeqCst);
+        CacheGuard
+    }
+}
+
+impl Drop for CacheGuard {
+    fn drop(&mut self) {
+        CACHE_ACTIVE.fetch_sub(1, Ordering::SeqCst);
+    }
+}
 
 /// A cache of UniversalIcon to UniversalIconData. In order for something to exist in this cache, it must have had any transforms applied to the images.
 static ICON_STATES: Lazy<
@@ -16,10 +34,12 @@ static ICON_STATES: Lazy<
 > = Lazy::new(|| DashMap::with_hasher(BuildHasherDefault::<XxHash64>::default()));
 
 pub fn image_cache_contains(icon: &UniversalIcon) -> bool {
+    let _guard = CacheGuard::new();
     ICON_STATES.contains_key(icon)
 }
 
 pub fn image_cache_clear() {
+    let _guard = CacheGuard::new();
     ICON_STATES.clear();
 }
 
@@ -35,6 +55,7 @@ impl UniversalIcon {
         flatten: bool,
     ) -> eyre::Result<(Arc<UniversalIconData>, bool)> {
         zone!("universal_icon_to_image_data");
+        let _guard = CacheGuard::new();
         if cached {
             zone!("check_image_cache");
             if let Some(entry) = ICON_STATES.get(self) {
@@ -166,51 +187,52 @@ impl UniversalIcon {
 
 pub fn cache_transformed_images(uni_icon: &UniversalIcon, image_data: Arc<UniversalIconData>) {
     zone!("cache_transformed_images");
+    let _guard = CacheGuard::new();
     ICON_STATES.insert(uni_icon.to_owned(), image_data.to_owned());
 }
 
 /* ---- DMI CACHING ---- */
+type IconMap = DashMap<String, OnceCell<Arc<Icon>>, BuildHasherDefault<XxHash64>>;
 
 /// A cache of DMI filepath -> Icon objects.
-static ICON_FILES: Lazy<DashMap<String, Arc<Icon>, BuildHasherDefault<XxHash64>>> =
+static ICON_FILES: Lazy<IconMap> =
     Lazy::new(|| DashMap::with_hasher(BuildHasherDefault::<XxHash64>::default()));
 
 pub fn icon_cache_clear() {
+    let _guard = CacheGuard::new();
     ICON_FILES.clear();
 }
+
+pub static ICON_ROOT: Lazy<PathBuf> = Lazy::new(|| std::env::current_dir().unwrap());
 
 /// Given a DMI filepath, returns a DMI Icon structure and caches it.
 pub fn filepath_to_dmi(icon_path: &str) -> eyre::Result<Arc<Icon>> {
     zone!("filepath_to_dmi");
-    {
-        zone!("check_dmi_exists");
-        if let Some(found) = ICON_FILES.get(icon_path) {
-            return Ok(found.clone());
-        }
-    }
-    let icon_file = match File::open(icon_path) {
-        Ok(icon_file) => icon_file,
-        Err(err) => {
-            return Err(eyre::eyre!("Failed to open DMI '{icon_path}' - {err}"));
-        }
-    };
-    let reader = BufReader::new(icon_file);
-    let dmi: Icon;
-    {
-        zone!("parse_dmi");
-        dmi = match Icon::load(reader) {
-            Ok(dmi) => dmi,
+
+    let full_path = ICON_ROOT.join(icon_path);
+
+    let cell = ICON_FILES.entry(icon_path.to_owned()).or_default();
+
+    cell.get_or_try_init(|| {
+        zone!("open_dmi_file");
+        let icon_file = match File::open(icon_path) {
+            Ok(icon_file) => icon_file,
             Err(err) => {
-                return Err(eyre::eyre!("DMI '{icon_path}' failed to parse - {err}"));
+                return Err(eyre::eyre!(
+                    "Failed to open DMI '{}' (resolved to '{}') - {}",
+                    icon_path,
+                    full_path.display(),
+                    err
+                ));
             }
         };
-    }
-    {
-        zone!("insert_dmi");
-        let dmi_arc = Arc::new(dmi);
-        let other_arc = dmi_arc.clone();
-        // Cache it for later, saving future DMI parsing operations, which are very slow.
-        ICON_FILES.insert(icon_path.to_owned(), dmi_arc);
-        Ok(other_arc)
-    }
+
+        let reader = BufReader::new(icon_file);
+
+        zone!("parse_dmi");
+        Ok(Arc::new(Icon::load(reader).map_err(|err| {
+            eyre::eyre!("DMI '{}' failed to parse - {}", icon_path, err)
+        })?))
+    })
+    .cloned()
 }

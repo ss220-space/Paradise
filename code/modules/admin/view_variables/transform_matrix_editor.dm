@@ -3,7 +3,7 @@
  *
  * More than just a completely true statement, this datum is created as a tgui interface
  * allowing you to modify each vector until you know what you're doing.
- * Much like filteriffic, 'nobody wants to learn matrix math' is meant for developers like you and I
+ * Much like filterrific, 'nobody wants to learn matrix math' is meant for developers like you and I
  * to implement interesting matrix transformations without the hassle if needing to know... algebra? Damn, i'm stupid.
  */
 /datum/transform_matrix_editor
@@ -14,13 +14,13 @@
 	src.target = target
 	testing_matrix = matrix(target.transform)
 
-/datum/transform_matrix_editor/Destroy(force, ...)
+/datum/transform_matrix_editor/Destroy(force)
 	QDEL_NULL(testing_matrix)
 	target = null
 	return ..()
 
 /datum/transform_matrix_editor/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN)
+	return ADMIN_STATE(R_VAREDIT)
 
 /datum/transform_matrix_editor/ui_close(mob/user)
 	qdel(src)
@@ -45,9 +45,6 @@
 /datum/transform_matrix_editor/ui_act(action, list/params)
 	. = ..()
 	if(.)
-		return
-
-	if(!check_rights(R_VAREDIT))
 		return
 
 	switch(action)

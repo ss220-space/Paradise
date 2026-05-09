@@ -1156,36 +1156,6 @@
 
 	target += new_log
 
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
-
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
