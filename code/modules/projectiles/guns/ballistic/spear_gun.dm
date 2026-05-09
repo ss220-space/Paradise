@@ -9,7 +9,6 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
 	fire_sound = 'sound/weapons/genhit.ogg'
 	burst_amount = 1
-	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_DEFAULT
 	recoil = null
