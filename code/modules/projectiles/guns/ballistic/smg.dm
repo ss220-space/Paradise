@@ -286,3 +286,38 @@
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 4, malf_low_bound = 15, malf_high_bound = 71)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 30, misfire_high_bound = 71)
+
+
+// MARK: SMG K-45 Kedr
+/obj/item/gun/projectile/automatic/smg/kedr
+	name = "SMG K-45"
+	desc = "Компактный пистолет-пулемет под калибр 9 мм. Часто используется агентами Синдиката при выполнении тайных операций."
+	icon_state = "kedr"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/kedr
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	weapon_weight = WEAPON_LIGHT
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SMG_STOCK
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 33, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 13, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -5, ATTACHMENT_OFFSET_Y = -1),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/stock/integrated_kedr)
+	chambered_light_exists = TRUE
+	mag_ammo_counter_exists = TRUE
+	mag_ammo_counter_size = 5
+
+/obj/item/gun/projectile/automatic/smg/kedr/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемет K-45",
+		GENITIVE = "пистолета-пулемета K-45",
+		DATIVE = "пистолету-пулемету K-45",
+		ACCUSATIVE = "пистолет-пулемет K-45",
+		INSTRUMENTAL = "пистолетом-пулеметом K-45",
+		PREPOSITIONAL = "пистолете-пулемете K-45",
+	)
