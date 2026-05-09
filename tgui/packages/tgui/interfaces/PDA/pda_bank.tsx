@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useBackend } from '../../backend';
 import {
   Box,
   Button,
-  Dropdown,
   Icon,
   LabeledList,
   NumberInput,
