@@ -62,7 +62,7 @@
 			if(GLOB.stealthminID[stealth_key] == stealth_text)
 				return stealth_key
 
-/proc/get_display_ckey(client/client)
+/proc/get_display_key(client/client)
 	if(!client)
 		return "(Disconnected)"
 
