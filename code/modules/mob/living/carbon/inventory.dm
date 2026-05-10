@@ -245,6 +245,12 @@
 	if(!istype(item))
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		if(istype(item, /obj/item/holder) && (item.holder_flags & HUMAN_HOLDER))
+			return FALSE
+		if(item.contains_pickupable_humanoid_holder())
+			return FALSE
+
 	if(HAS_TRAIT(src, TRAIT_SMALL_MOB) && item.w_class >= WEIGHT_CLASS_BULKY)
 		if(!is_type_in_typecache(item, GLOB.pickupable_humanoid_bulky_exceptions))
 			return FALSE

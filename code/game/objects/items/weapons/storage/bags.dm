@@ -465,7 +465,7 @@
 	for(var/obj/item/stack/sheet/sheet_stack in contents)
 		. += sheet_stack.amount
 
-/obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/inserted_item, stop_messages = FALSE, skip_equip_delay = FALSE)
+/obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/inserted_item, stop_messages = FALSE)
 	if(!istype(inserted_item, /obj/item/stack/sheet) || istype(inserted_item, /obj/item/stack/sheet/mineral/sandstone) || istype(inserted_item, /obj/item/stack/sheet/wood))
 		if(!stop_messages)
 			to_chat(usr, "The snatcher does not accept [inserted_item].")
@@ -481,6 +481,8 @@
 /obj/item/storage/bag/sheetsnatcher/handle_item_insertion(obj/item/inserted_item, prevent_warning = FALSE)
 	var/obj/item/stack/sheet/sheet_stack = inserted_item
 	if(!istype(sheet_stack))
+		return FALSE
+	if(usr && !can_be_inserted_equip_delay_wait(sheet_stack))
 		return FALSE
 
 	// Preliminary check with proper warnings if not prevented.

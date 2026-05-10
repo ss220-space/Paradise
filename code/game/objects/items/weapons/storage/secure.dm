@@ -184,7 +184,7 @@
 					if(length(code) > 5)
 						code = "ERROR"
 
-/obj/item/storage/secure/can_be_inserted(obj/item/W, stop_messages = 0, skip_equip_delay = FALSE)
+/obj/item/storage/secure/can_be_inserted(obj/item/W, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)

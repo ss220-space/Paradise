@@ -361,7 +361,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.drop_item_ground(src, force = TRUE, skip_equip_delay = TRUE)
+		M.drop_item_for_qdel(src)
 	else
 		remove_item_from_storage(get_turf(src))
 
@@ -933,6 +933,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			to_chat(user, span_warning("Неведомая сила не позволяет Вам надеть [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 	return TRUE
+
+/// Whether this item or anything inside it recursively is a /obj/item/holder carrying a TRAIT_SMALL_MOB mob (e.g. Resomi).
+/obj/item/proc/contains_pickupable_humanoid_holder()
+	for(var/obj/item/holder/H in get_all_contents())
+		if(H.held_mob && HAS_TRAIT(H.held_mob, TRAIT_SMALL_MOB))
+			return TRUE
+	return FALSE
 
 /**
  * Mob 'M' is attempting to equip this item into the slot passed through as 'slot'. Return `TRUE` if it can do this and `FALSE` if it can't.

@@ -614,7 +614,7 @@
 
 /// This proc returns TRUE if the item can be picked up and FALSE if it can't.
 /// Set the stop_messages to stop it from printing messages
-/obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE, skip_equip_delay = FALSE)
+/obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
 	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
 		return FALSE
 
@@ -648,7 +648,7 @@
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
 			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
-		return FALSE
+			return FALSE
 
 	if(W.w_class > max_w_class)
 		if(length(w_class_override) && is_type_in_list(W, w_class_override))
@@ -685,8 +685,11 @@
 		usr.balloon_alert(usr, "не получается выпустить!")
 		return FALSE
 
-	// item unequip delay
-	if(!skip_equip_delay && usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
+	return TRUE
+
+/// Runs timed unequip when inserting from a non-general equipment slot; safe when [usr] is null (e.g. deletion paths skip calling this).
+/obj/item/storage/proc/can_be_inserted_equip_delay_wait(obj/item/W)
+	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(
 			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
@@ -705,6 +708,8 @@
 /// such as when picking up all the items on a tile with one click.
 /obj/item/storage/proc/handle_item_insertion(obj/item/W, prevent_warning = FALSE)
 	if(!istype(W))
+		return FALSE
+	if(usr && !can_be_inserted_equip_delay_wait(W))
 		return FALSE
 	if(usr)
 		if(W.loc == usr && !usr.drop_item_ground(W))

@@ -454,6 +454,26 @@
 	I.forceMove(newloc)
 	I.dir = dir
 
+/// Pixel spread + drop animation after do_unEquip moved item to the floor.
+/mob/proc/finish_drop_item_ground_visual(obj/item/item, ignore_pixel_shift = FALSE)
+	if(!item)
+		return
+	var/shift_max = ICON_SIZE_X / 2
+	var/shift_limit_x = initial(pixel_x) + shift_max
+	var/shift_limit_y = initial(pixel_y) + shift_max
+	var/shift_x
+	var/shift_y
+	if(ignore_pixel_shift || (item.item_flags & NO_PIXEL_RANDOM_DROP))
+		shift_x = clamp(pixel_x, -shift_limit_x, shift_limit_x)
+		shift_y = clamp(pixel_y, -shift_limit_y, shift_limit_y)
+	else
+		shift_x = clamp(pixel_x + rand(-6, 6), -shift_limit_x, shift_limit_x)
+		shift_y = clamp(pixel_y + rand(-6, 6), -shift_limit_y, shift_limit_y)
+	item.pixel_x = shift_x
+	item.pixel_y = shift_y
+	item.do_drop_animation(src)
+	item.dir = dir
+
 /**
  * Used to drop an item (if it exists) to the ground.
  * Returns `TRUE` if item is successfully dropped.
@@ -465,42 +485,45 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
- * * 'skip_equip_delay' set to `TRUE` when timing/interaction delays must not run (e.g. item deletion).
 */
-/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE, skip_equip_delay = FALSE)
+/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
 
 	// If a pickupable humanoid is inside a storage container, prefer dropping into that container (if it has space).
 	if(I && HAS_TRAIT(src, TRAIT_SMALL_MOB))
 		var/obj/item/holder/H = loc
 		if(istype(H))
 			var/obj/item/storage/S = H.loc
-			if(istype(S) && S.can_be_inserted(I, stop_messages = TRUE, skip_equip_delay = skip_equip_delay))
-				if(do_unEquip(I, force, drop_location(), FALSE, invdrop, silent))
-					S.handle_item_insertion(I, prevent_warning = TRUE)
-					return TRUE
+			if(istype(S) && S.can_be_inserted(I, stop_messages = TRUE))
+				if(S.can_be_inserted_equip_delay_wait(I))
+					if(do_unEquip(I, force, drop_location(), FALSE, invdrop, silent))
+						S.handle_item_insertion(I, prevent_warning = TRUE)
+						return TRUE
 
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	var/shift_max = ICON_SIZE_X / 2
-	var/shift_limit_x = initial(pixel_x) + shift_max
-	var/shift_limit_y = initial(pixel_y) + shift_max
-	var/shift_x
-	var/shift_y
+	finish_drop_item_ground_visual(I, ignore_pixel_shift)
 
-	if(ignore_pixel_shift || (I.item_flags & NO_PIXEL_RANDOM_DROP))
-		shift_x = clamp(pixel_x, -shift_limit_x, shift_limit_x)
-		shift_y = clamp(pixel_y, -shift_limit_y, shift_limit_y)
-	else
-		shift_x = clamp(pixel_x + rand(-6, 6), -shift_limit_x, shift_limit_x)
-		shift_y = clamp(pixel_y + rand(-6, 6), -shift_limit_y, shift_limit_y)
+/// Separate entry point from [drop_item_ground] so SpacemanDMM does not associate [/obj/item/proc/Destroy] with [can_be_inserted_equip_delay_wait]/sleep.
+/// Same visuals and defaults as `drop_item_ground(I, force=TRUE)` except TRAIT_SMALL_MOB→storage routing skips timed unequip.
+/mob/proc/drop_item_for_qdel(obj/item/I)
+	if(I && HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		var/obj/item/holder/H = loc
+		if(istype(H))
+			var/obj/item/storage/S = H.loc
+			if(istype(S) && S.can_be_inserted(I, TRUE))
+				if(do_unEquip(I, TRUE, drop_location(), FALSE, TRUE, FALSE))
+					S.handle_item_insertion(I, prevent_warning = TRUE)
+					return TRUE
 
-	I.pixel_x = shift_x
-	I.pixel_y = shift_y
-	I.do_drop_animation(src)
-	I.dir = dir
+	. = do_unEquip(I, TRUE, drop_location(), FALSE, TRUE, FALSE)
+
+	if(!. || !I)
+		return
+
+	finish_drop_item_ground_visual(I, FALSE)
 
 /**
  * For when the item will be immediately placed in a loc other than the ground.

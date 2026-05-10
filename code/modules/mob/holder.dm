@@ -17,31 +17,58 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/holder/Destroy()
-	if(held_mob)
-		UnregisterSignal(held_mob, list(
-			COMSIG_CARBON_APPLY_OVERLAY,
-			COMSIG_CARBON_REMOVE_OVERLAY,
-			COMSIG_MOB_UPDATE_HELD_ITEMS,
-			COMSIG_MOB_UNEQUIPPED_ITEM,
-			COMSIG_HUMAN_REGENERATE_ICONS,
-		))
-		if(container_alert_id)
-			held_mob.clear_alert(container_alert_id)
+/obj/item/holder/proc/detach_held_mob_tracking()
+	if(!held_mob || QDELETED(held_mob))
 		held_mob = null
+		return
+	UnregisterSignal(held_mob, list(
+		COMSIG_CARBON_APPLY_OVERLAY,
+		COMSIG_CARBON_REMOVE_OVERLAY,
+		COMSIG_MOB_UPDATE_HELD_ITEMS,
+		COMSIG_MOB_UNEQUIPPED_ITEM,
+		COMSIG_HUMAN_REGENERATE_ICONS,
+	))
+	if(container_alert_id)
+		held_mob.clear_alert(container_alert_id)
+	held_mob = null
+
+/// Drops carried livings onto our turf
+/obj/item/holder/proc/release_holder_contents_on_turf(play_land_sound = FALSE, inertia_direction = NONE)
+	if(QDELETED(src))
+		return
+	var/turf/T = get_turf(src)
+	if(!T || !length(contents))
+		detach_held_mob_tracking()
+		qdel(src)
+		return
+	var/list/mob/living/released_mobs = list()
+	for(var/mob/living/M in contents)
+		released_mobs += M
+	for(var/mob/living/M as anything in released_mobs)
+		M.forceMove(T)
+		if(inertia_direction && isliving(M))
+			M.newtonian_move(inertia_direction)
+	detach_held_mob_tracking()
+	if(play_land_sound)
+		playsound(T, get_drop_sound(), YEET_SOUND_VOLUME, ignore_walls = FALSE)
+	qdel(src)
+
+/// After [Moved] to turf, storage code may still move us into a bag in the same tick — wait until tick end.
+/obj/item/holder/proc/try_deferred_turf_release()
+	if(QDELETED(src) || throwing || !isturf(loc) || !length(contents))
+		return
+	release_holder_contents_on_turf(TRUE)
+
+/obj/item/holder/Destroy()
+	detach_held_mob_tracking()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/holder/process()
-
-	if(isturf(loc) || !(length(contents)))
-
-		for(var/mob/M in contents)
-
-			var/atom/movable/mob_container
-			mob_container = M
-			mob_container.forceMove(get_turf(src))
-
+	if(isturf(loc) && !throwing)
+		release_holder_contents_on_turf(TRUE)
+		return
+	if(!length(contents))
 		qdel(src)
 		return
 
@@ -52,6 +79,9 @@
 
 /obj/item/holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
+	if(length(contents) && isturf(loc) && !throwing)
+		addtimer(CALLBACK(src, PROC_REF(try_deferred_turf_release)), 0, TIMER_UNIQUE|TIMER_OVERRIDE)
+
 	if(!held_mob || QDELETED(held_mob) || !HAS_TRAIT(held_mob, TRAIT_SMALL_MOB))
 		return
 
@@ -67,6 +97,14 @@
 /obj/item/holder/proc/on_held_mob_icon_updated(atom/source)
 	SIGNAL_HANDLER
 	update_held_mob_appearance()
+
+/obj/item/holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(!length(contents))
+		return ..()
+	var/inertia_dir = NONE
+	if(throwingdatum)
+		inertia_dir = throwingdatum.init_dir
+	release_holder_contents_on_turf(TRUE, inertia_dir)
 
 /obj/item/holder/proc/update_held_mob_appearance()
 	if(!held_mob || QDELETED(held_mob))
