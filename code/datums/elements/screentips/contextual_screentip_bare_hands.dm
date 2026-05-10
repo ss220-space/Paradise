@@ -17,6 +17,12 @@
 	/// If set, the text to show for RMB when in combat mode. Otherwise, defaults to rmb_text.
 	var/rmb_text_combat_mode
 
+	/// If set, the text to show for Alt+LMB
+	var/alt_lmb_text
+
+	/// If set, the text to show for Ctrl+LMB
+	var/ctrl_lmb_text
+
 // If you're curious about `use_named_parameters`, it's because you should use named parameters!
 // AddElement(/datum/element/contextual_screentip_bare_hands, lmb_text = "Do the thing")
 /datum/element/contextual_screentip_bare_hands/Attach(
@@ -26,6 +32,8 @@
 	rmb_text,
 	lmb_text_combat_mode,
 	rmb_text_combat_mode,
+	alt_lmb_text,
+	ctrl_lmb_text,
 )
 	. = ..()
 	if(!isatom(target))
@@ -38,6 +46,8 @@
 	src.rmb_text = rmb_text
 	src.lmb_text_combat_mode = lmb_text_combat_mode || lmb_text
 	src.rmb_text_combat_mode = rmb_text_combat_mode || rmb_text
+	src.alt_lmb_text = alt_lmb_text
+	src.ctrl_lmb_text = ctrl_lmb_text
 
 	var/atom/atom_target = target
 	atom_target.flags |= HAS_CONTEXTUAL_SCREENTIPS
@@ -74,5 +84,11 @@
 
 	if(!isnull(rmb_text))
 		context[SCREENTIP_CONTEXT_RMB] = living_user.a_intent == INTENT_HARM ? lmb_text_combat_mode : rmb_text
+
+	if(!isnull(alt_lmb_text))
+		context[SCREENTIP_CONTEXT_ALT_LMB] = alt_lmb_text
+
+	if(!isnull(ctrl_lmb_text))
+		context[SCREENTIP_CONTEXT_CTRL_LMB] = ctrl_lmb_text
 
 	return CONTEXTUAL_SCREENTIP_SET

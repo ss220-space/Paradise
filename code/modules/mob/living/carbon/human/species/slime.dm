@@ -138,9 +138,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 			blend(slime)
 	..()
 
-/datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !HAS_TRAIT(user, TRAIT_DEAF)
-
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
 

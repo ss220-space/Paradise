@@ -222,3 +222,11 @@
 #define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
+
+/// Sent from /client/MouseDown(): (atom/object, turf/location, control, params)
+#define COMSIG_MOB_MOUSEDOWN "mob_mousedown"
+/// Sent from /client/MouseUp(): (atom/object, turf/location, control, params)
+#define COMSIG_MOB_MOUSEUP "mob_mouseup"
+/// Sent from /client/MouseDrag(): (atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
+#define COMSIG_MOB_MOUSEDRAG "mob_mousedrag"
+	#define COMSIG_MOB_CLICK_CANCELED (1<<0)

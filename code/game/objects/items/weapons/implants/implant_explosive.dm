@@ -31,6 +31,8 @@
 	detonating = TRUE
 	to_chat(imp_in, span_danger("You activate your microbomb bio-chip."))
 
+	. = ..()
+
 	if(delay <= 7)	//If the delay is short, just blow up already jeez
 		self_destruct()
 		return
@@ -116,6 +118,7 @@
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
 	to_chat(imp_in, span_notice("You activate your macrobomb bio-chip."))
+	. = ..()
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/living/carbon/human/source, mob/user, force = FALSE)

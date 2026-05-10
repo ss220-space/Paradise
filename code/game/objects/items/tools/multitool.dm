@@ -118,8 +118,8 @@
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 	emp_shielded = TRUE
 
-/obj/item/multitool/ai_detect/New()
-	..()
+/obj/item/multitool/ai_detect/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/multitool/ai_detect/Destroy()

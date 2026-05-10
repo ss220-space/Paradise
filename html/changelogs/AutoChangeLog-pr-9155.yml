@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь электролизация помечает смесь газов как грязную. (PR #9155)"

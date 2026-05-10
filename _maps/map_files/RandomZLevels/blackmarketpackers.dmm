@@ -2535,7 +2535,7 @@
 /area/awaymission/BMPship/Engines)
 "hu" = (
 /obj/structure/table/wood,
-/obj/item/lighter/zippo/fluff/michael_guess_1,
+/obj/item/lighter/zippo/gold,
 /obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
@@ -2749,7 +2749,7 @@
 /area/awaymission/BMPship/Mining)
 "ie" = (
 /obj/structure/table/wood,
-/obj/item/lighter/zippo/fluff/duckchan,
+/obj/item/lighter/zippo/purple,
 /obj/item/clothing/mask/cigarette/pipe,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
