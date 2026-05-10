@@ -376,7 +376,7 @@
 	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
-	if(user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) // If the object in our active hand is not a gun, abort
+	if((user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) && !isrobot(user)) // If the object in our active hand is not a gun, abort
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
