@@ -351,7 +351,7 @@
 
 #define TRAIT_BLOB_ZOMBIFIED "blob_zombified"
 
-#define TRAIT_BLOB_WAS_BUSRTED "blob_was_bursted"
+#define TRAIT_BLOB_WAS_BURSTED "blob_was_bursted"
 
 #define TRAIT_BEING_OFFERED "offered"
 

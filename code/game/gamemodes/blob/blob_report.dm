@@ -83,7 +83,8 @@
 	for(var/turf/turf as anything in block(1, 1, 1, world.maxx, world.maxy, 1))
 
 		if(isfloorturf(turf))
-			if(!(turf:burnt))
+			var/turf/simulated/floor/floor_turf = turf
+			if(!(floor_turf.burnt))
 				floor += 12
 			else
 				floor++

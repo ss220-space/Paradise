@@ -118,7 +118,7 @@
 	else
 		INVOKE_ASYNC(src, PROC_REF(get_new_overmind))
 
-/obj/structure/blob/special/core/proc/get_new_overmind(client/new_overmind)
+/obj/structure/blob/special/core/proc/get_new_overmind()
 	var/mob/candidate = null
 	var/list/candidates = list()
 	// sendit
@@ -130,7 +130,7 @@
 	if(length(candidates))
 		candidate = pick(candidates)
 
-	complete_overmind(candidate)
+	complete_overmind(candidate?.client)
 
 /obj/structure/blob/special/core/proc/complete_overmind(client/new_overmind)
 	if(!new_overmind || QDELETED(src))

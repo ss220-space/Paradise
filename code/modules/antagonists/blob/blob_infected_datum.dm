@@ -132,13 +132,13 @@
 	SIGNAL_HANDLER
 	if(!ismob(source.loc) || source.dusted)
 		return
-	INVOKE_ASYNC(src, PROC_REF(burst_blob), TRUE)
+	INVOKE_ASYNC(src, PROC_REF(burst_blob))
 
 /datum/antagonist/blob_infected/proc/on_death(mob/living/source)
 	SIGNAL_HANDLER
 	if(source.dusted)
 		return
-	INVOKE_ASYNC(src, PROC_REF(burst_blob), TRUE)
+	INVOKE_ASYNC(src, PROC_REF(burst_blob))
 
 /datum/antagonist/blob_infected/proc/is_type_suitable(mob/living/affected)
 	return mob_type && istype(affected, mob_type)
@@ -157,7 +157,7 @@
 		message_time = 0
 	message_time += BURST_BLOB_TICK
 	if(burst_waited_time >= burst_wait_time)
-		burst_blob(owner, FALSE)
+		burst_blob()
 		return
 	if(burst_waited_time >= burst_wait_time * BURST_SECOND_STAGE_COEF)
 		player_message = SECOND_STAGE_WARN
@@ -234,7 +234,7 @@
 		return
 	log_admin("[key_name(current_mob)] was in space when attempting to burst as a blob.")
 	message_admins("[key_name_admin(current_mob)] was in space when attempting to burst as a blob.")
-	ADD_TRAIT(current_mob, TRAIT_BLOB_WAS_BUSRTED, BLOB_INFECTED_TRAIT)
+	ADD_TRAIT(current_mob, TRAIT_BLOB_WAS_BURSTED, BLOB_INFECTED_TRAIT)
 	kill_borer_inside()
 	current_mob.gib()
 	if(need_new_blob)
@@ -243,12 +243,12 @@
 /datum/antagonist/blob_infected/proc/burst_blob()
 	var/client/blob_client = null
 	var/turf/location = null
-	var/mob/living/current_mob = owner.current
+	var/mob/living/current_mob = owner?.current
 
-	if(!current_mob || !istype(current_mob))
+	if(!istype(current_mob))
 		return
 
-	if(!GLOB.directory[ckey(owner.key)] || HAS_TRAIT(current_mob, TRAIT_BLOB_WAS_BUSRTED))
+	if(!GLOB.directory[ckey(owner.key)] || HAS_TRAIT(current_mob, TRAIT_BLOB_WAS_BURSTED))
 		return
 
 	blob_client = GLOB.directory[ckey(owner.key)]
@@ -258,14 +258,17 @@
 		var/mob/absorber = current_mob.loc
 		absorber.gib()
 
+	if(!location)
+		return
+
 	if(!is_station_level(location.z) || isspaceturf(location))
 		burst_blob_in_space(!warn_blob)
 		return
 
-	if(!blob_client || !location)
+	if(!blob_client)
 		return
 
-	ADD_TRAIT(current_mob, TRAIT_BLOB_WAS_BUSRTED, BLOB_INFECTED_TRAIT)
+	ADD_TRAIT(current_mob, TRAIT_BLOB_WAS_BURSTED, BLOB_INFECTED_TRAIT)
 	kill_borer_inside()
 	var/datum/antagonist/blob_overmind/overmind = transform_to_overmind()
 	owner.remove_antag_datum(/datum/antagonist/blob_infected)
@@ -278,9 +281,13 @@
 	notify_ghosts(
 		"A Blob host has burst in [get_area_name(core)]",
 		source = core,
-		title = "Blob Awakening!",
+		title = "Blob Awakening!"
 	)
-	SSticker?.mode?.process_blob_stages()
+
+	if(!mode)
+		return
+
+	mode.process_blob_stages()
 	mode.update_blob_objective()
 
 /datum/antagonist/blob_infected/proc/transform_to_overmind()

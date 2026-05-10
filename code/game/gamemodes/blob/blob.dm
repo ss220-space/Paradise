@@ -202,8 +202,9 @@
 
 /datum/game_mode/proc/show_warning(message)
 	for(var/datum/mind/blob as anything in (blobs[BLOB_GROUP_INFECTED] + blobs[BLOB_GROUP_OFFSPRINGS]))
-		if(blob.current.stat != DEAD)
-			to_chat(blob.current, span_warning("[message]"))
+		var/mob/living/blob_mob = blob.current
+		if(blob_mob && blob_mob.stat != DEAD)
+			to_chat(blob_mob, span_warning("[message]"))
 
 /datum/game_mode/proc/burst_blobs()
 	for(var/datum/mind/blob as anything in get_blobs_minds())
