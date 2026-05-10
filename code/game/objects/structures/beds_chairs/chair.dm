@@ -294,18 +294,27 @@
 	icon_state = "stool"
 	item_chair = /obj/item/chair/stool
 
+/obj/structure/chair/stool/post_buckle_mob(mob/living/target)
+	target.add_offsets(type, z_add = 4)
+	return ..()
+
+/obj/structure/chair/stool/post_unbuckle_mob(mob/living/target)
+	target.remove_offsets(type)
+	return ..()
+
 /obj/structure/chair/stool/bar
 	name = "bar stool"
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
+/obj/structure/chair/stool/bar/post_buckle_mob(mob/living/target)
+	target.add_offsets(type, z_add = 7)
+	return ..()
+
 /obj/structure/chair/stool/bar/dark
 	icon_state = "bar_dark"
 	item_chair = /obj/item/chair/stool/bar/dark
-
-/obj/structure/chair/stool/handle_layer()
-	return
 
 /obj/item/chair
 	name = "chair"

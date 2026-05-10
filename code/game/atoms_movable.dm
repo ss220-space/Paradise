@@ -507,10 +507,10 @@
 	if(is_multi_tile && isturf(loc))
 		old_locs = locs // locs is a special list, this is effectively the same as .Copy() but with less steps
 		for(var/atom/exiting_loc as anything in old_locs)
-			if(!exiting_loc.Exit(src, newloc))
+			if(!exiting_loc.Exit(src, direct))
 				return .
 	else
-		if(!loc.Exit(src, newloc))
+		if(!loc.Exit(src, direct))
 			return .
 
 	var/list/new_locs
@@ -545,11 +545,11 @@
 
 	if(old_locs) // This condition will only be true if it is a multi-tile object.
 		for(var/atom/exited_loc as anything in (old_locs - new_locs))
-			exited_loc.Exited(src, newloc)
+			exited_loc.Exited(src, direct)
 	else // Else there's just one loc to be exited.
-		oldloc.Exited(src, newloc)
+		oldloc.Exited(src, direct)
 	if(oldarea != newarea)
-		oldarea.Exited(src, newarea)
+		oldarea.Exited(src, direct)
 
 	if(new_locs) // Same here, only if multi-tile.
 		for(var/atom/entered_loc as anything in (new_locs - old_locs))
@@ -856,6 +856,7 @@
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
+		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = NONE
 
@@ -878,10 +879,10 @@
 				)
 
 				if(old_area && old_area != destarea)
-					old_area.Exited(src, destarea)
+					old_area.Exited(src, movement_dir)
 
 				for(var/atom/left_loc as anything in (locs - new_locs))
-					left_loc.Exited(src, destination)
+					left_loc.Exited(src, movement_dir)
 
 				for(var/atom/entering_loc as anything in (new_locs - locs))
 					entering_loc.Entered(src, oldloc)
@@ -892,7 +893,7 @@
 				if(oldloc)
 					oldloc.Exited(src, destination)
 					if(old_area && old_area != destarea)
-						old_area.Exited(src, destarea)
+						old_area.Exited(src, movement_dir)
 
 				destination.Entered(src, oldloc)
 				if(destarea && old_area != destarea)
@@ -909,12 +910,12 @@
 			var/area/old_area = get_area(oldloc)
 			if(is_multi_tile && isturf(oldloc))
 				for(var/atom/old_loc as anything in locs)
-					old_loc.Exited(src, null)
+					old_loc.Exited(src, NONE)
 			else
-				oldloc.Exited(src, null)
+				oldloc.Exited(src, NONE)
 
 			if(old_area)
-				old_area.Exited(src, null)
+				old_area.Exited(src, NONE)
 
 	RESOLVE_ACTIVE_MOVEMENT
 

@@ -112,7 +112,7 @@
 
 	blood_decal_crossed(arrived)
 
-/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	if(off_floor || !ishuman(departed))

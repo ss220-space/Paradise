@@ -167,7 +167,6 @@
 	icon_state = "socle"
 	pass_flags = LETPASSTHROW
 	can_be_flipped = FALSE
-	climbable = FALSE
 	smooth = NONE
 
 /obj/effect/spawner/graveyard_statues
