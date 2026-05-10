@@ -412,14 +412,14 @@
 	id = "fleshmend"
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
-	/// This diminishes the healing of fleshmend the higher it is.
-	var/tolerance = 0
 	/// This diminishes the healing of fleshmend if the user is cold when it is activated
 	var/freezing = FALSE
 	/// Number of heal ticks.
 	var/instance_duration = 10
 	/// A list of integers, one for each remaining instance of fleshmend.
 	var/list/active_instances = list()
+	/// A reference to the changeling's changeling antag datum.
+	var/datum/antagonist/changeling/cling
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
@@ -431,20 +431,26 @@
 	..()
 
 /datum/status_effect/fleshmend/proc/apply_new_fleshmend()
-	tolerance += 1
+	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
-	if(freezing)
-		to_chat(owner, span_warning("Эффективность нашего исцеления снижена из-за холодного тела!"))
+
+	cling.tolerance += 1
 	active_instances += instance_duration
+
+	if(freezing || cling.tolerance > 1)
+		owner.balloon_alert(owner, "эффективность регенерации снижена")
+	else
+		owner.balloon_alert(owner, "быстрая регенерация плоти")
 
 /datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	if(LAZYLEN(active_instances) >= 1)
-		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
+		var/heal_amount = (length(active_instances) / cling.tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
 		var/update = NONE
 
 		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+		owner.balloon_alert(owner, "heal_amount: [heal_amount], tolerance: [cling.tolerance]")
 
 		if(update)
 			owner.updatehealth("fleshmend")
@@ -462,9 +468,7 @@
 
 		active_instances -= expired_instances
 
-	tolerance = clamp(tolerance - 0.1, 1, 2)
-
-	if(length(active_instances) == 0)
+	if(length(active_instances) <= 0)
 		qdel(src)
 
 /datum/status_effect/speedlegs

@@ -46,6 +46,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/changelingID = "Changeling"
 	/// The current amount of genetic damage incurred from power use.
 	var/genetic_damage = 0
+	/// This diminishes the healing of fleshmend the higher it is.
+	var/tolerance = 0
 	/// This variable is applied to default [CLING_FAKEDEATH_TIME]
 	var/fakedeath_delay = 0 SECONDS
 	/// If the changeling is in the process of absorbing someone.
@@ -248,6 +250,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - CLING_GENETIC_DAMAGE_REDUCTION)
+
+	if(h_owner.has_status_effect(STATUS_EFFECT_FLESHMEND))
+		tolerance = max(tolerance - 0.2, 1)
+	else
+		tolerance = max(tolerance - 0.2, 0)
 
 /**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
