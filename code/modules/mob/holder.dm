@@ -50,7 +50,7 @@
 /obj/item/holder/allow_click()
 	return TRUE
 
-/obj/item/holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs)
+/obj/item/holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!held_mob || QDELETED(held_mob) || !HAS_TRAIT(held_mob, TRAIT_SMALL_MOB))
 		return
