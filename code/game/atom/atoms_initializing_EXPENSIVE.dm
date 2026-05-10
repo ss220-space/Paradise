@@ -1,8 +1,8 @@
 // This is distinct from /tg/ because of our space management system
 // This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
 /atom/proc/attempt_init(...)
-	var/do_initialize = SSatoms.initialized
-	if(do_initialize != INITIALIZATION_INSSATOMS)
+	var/do_initialize = SSatoms?.initialized
+	if(!isnull(do_initialize) && do_initialize != INITIALIZATION_INSSATOMS)
 		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
 		if(SSatoms.InitAtom(src, args))
 			// we were deleted

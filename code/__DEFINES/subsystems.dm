@@ -54,10 +54,10 @@
 ///Call qdel on the atom after initialization
 #define INITIALIZE_HINT_QDEL 2
 
-///type and all subtypes should always immediately call Initialize in New()
+/// Type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
 	..();\
-	if(!(flags & INITIALIZED)) {\
+	if(!(flags & INITIALIZED) && SSatoms) {\
 		var/previous_initialized_value = SSatoms.initialized;\
 		SSatoms.initialized = INITIALIZATION_INNEW_MAPLOAD;\
 		args[1] = TRUE;\
