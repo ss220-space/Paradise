@@ -1,15 +1,16 @@
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
-	init_order = INIT_ORDER_ATOMS
-	flags = SS_NO_FIRE
-	ss_id = "atoms"
+	dependencies = list(
+	//	/datum/controller/subsystem/processing/reagents,
+		/datum/controller/subsystem/fluids,
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/jobs,
+	)
+	ss_flags = SS_NO_FIRE
 
 	var/old_initialized
-
 	var/list/late_loaders
-
 	var/list/BadInitializeCalls = list()
-
 	var/init_start_time
 
 /datum/controller/subsystem/atoms/Initialize()

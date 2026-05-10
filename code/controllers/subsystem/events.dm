@@ -3,12 +3,12 @@
 
 SUBSYSTEM_DEF(events)
 	name = "Events"
-	init_order = INIT_ORDER_EVENTS
+	dependencies = list(
+		/datum/controller/subsystem/processing/station,
+	)
 	runlevels = RUNLEVEL_GAME
-	flags = SS_KEEP_TIMING
-	offline_implications = "Random events will no longer happen. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "events"
+	ss_flags = SS_KEEP_TIMING
+
 	var/list/current_run
 	var/stage = EVENTS_STAGE_EVENTS
 	// Report events at the end of the rouund

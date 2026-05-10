@@ -48,6 +48,8 @@
 		log_and_message_admins("atom_said on behalf of [src] the following: [say_text].")
 
 	if(href_list[VV_HK_SPIN_ANIMATION])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 		var/num_spins = tgui_alert(usr, "Do you want infinite spins?", "Spin Animation", list("Yes", "No"))
 		if(num_spins == "No")
 			num_spins = tgui_input_number(usr, "How many spins?", "Spin Animation")
@@ -71,12 +73,16 @@
 		SpinAnimation(1 SECONDS / spins_per_sec, num_spins, direction)
 
 	if(href_list[VV_HK_STOP_ALL_ANIMATIONS])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 		var/result = tgui_alert(usr, "Вы уверены?", "Прекратить анимацию", list("Да", "Нет"))
 		if(result == "Да")
 			animate(src, transform = null, flags = ANIMATION_END_NOW)
 		return
 
 	if(href_list[VV_HK_AUTO_RENAME])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 		var/new_name = tgui_input_text(usr, "Как вы хотите это переименовать?", "Авто-переименование")
 		if(!new_name)
 			return
@@ -99,12 +105,18 @@
 		vv_auto_rename(new_name, ru_declensions)
 
 	if(href_list[VV_HK_EDIT_FILTERS])
+		if(!check_rights(R_VAREDIT))
+			return
 		usr.client?.open_filter_editor(src)
 
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX])
+		if(!check_rights(R_VAREDIT))
+			return
 		usr.client?.open_color_matrix_editor(src)
 
 	if(href_list[VV_HK_TEST_MATRIXES])
+		if(!check_rights(R_VAREDIT))
+			return
 		usr.client?.open_matrix_tester(src)
 
 /atom/vv_get_header()

@@ -17,16 +17,16 @@
  * This is just so you can apply the animation to things which can be animated but are not movables (like images)
  */
 #define STOP_FLOATING_ANIM(target) \
-	var/final_pixel_z = 0; \
+	var/__final_pixel_z = 0; \
 	if(ismovable(target)) { \
-		var/atom/movable/movable_target = target; \
-		final_pixel_z = movable_target.base_pixel_y; \
+		var/atom/movable/__movable_target = target; \
+		__final_pixel_z += __movable_target.base_pixel_z; \
 	}; \
 	if(isliving(target)) { \
-		var/mob/living/living_target = target; \
-		final_pixel_z += living_target.body_position_pixel_y_offset; \
+		var/mob/living/__living_target = target; \
+		__final_pixel_z += __living_target.has_offset(pixel = PIXEL_Z_OFFSET); \
 	}; \
-	animate(target, pixel_z = final_pixel_z, time = 0.2 SECONDS)
+	animate(target, pixel_z = __final_pixel_z, time = 1 SECONDS)
 
 /// The duration of the animate call in mob/living/update_transform
 #define UPDATE_TRANSFORM_ANIMATION_TIME (0.2 SECONDS)

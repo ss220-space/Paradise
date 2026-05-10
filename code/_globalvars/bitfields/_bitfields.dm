@@ -45,20 +45,38 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 		return jointext(flags, ", ")
 	return "NONE"
 
-/proc/input_bitfield(mob/user, bitfield, current_value)
-	if(!user || !(bitfield in GLOB.bitfields))
+/proc/input_bitfield(mob/user, bitfield, current_value, allowed_edit_field = ALL)
+	var/list/bitflags = get_valid_bitflags(bitfield)
+	if(!user || !length(bitflags))
 		return
 	var/list/currently_checked = list()
-	for(var/name in GLOB.bitfields[bitfield])
-		currently_checked[name] = (current_value & GLOB.bitfields[bitfield][name])
+	for(var/bit_name in bitflags)
+		var/bit_value = bitflags[bit_name]
+		if(!(allowed_edit_field & bit_value))
+			continue
+		currently_checked[bit_name] = !!(current_value & bit_value)
+
+	if(!length(currently_checked))
+		return
 
 	var/list/result = tgui_input_checkbox_list(user, "Редактирование битовой маски для [bitfield].", "Битовая маска", currently_checked)
 	if(isnull(result) || !islist(result))
 		return
 
-	var/new_result = 0
-	for(var/name in GLOB.bitfields[bitfield])
-		if(result[name])
-			new_result |= GLOB.bitfields[bitfield][name]
-	return new_result
+	var/result_bitfield = current_value & ~allowed_edit_field
+	for(var/flag_name in result)
+		if(result[flag_name])
+			result_bitfield |= bitflags[flag_name]
+	return result_bitfield
 
+/// Returns null if no such field exists, a list of all matching flags by name otherwise
+/proc/get_matching_bitflags(var_name, value)
+	var/list/valid_bitflags = get_valid_bitflags(var_name)
+	if(!length(valid_bitflags))
+		return null
+
+	var/list/flags = list()
+	for(var/bit_name in valid_bitflags)
+		if(value & valid_bitflags[bit_name])
+			flags += bit_name
+	return flags

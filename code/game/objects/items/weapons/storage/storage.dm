@@ -800,9 +800,9 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/movable/departed, atom/newLoc)
-	remove_from_storage(departed, newLoc) //worry not, comrade; this only gets called once
-	. = ..()
+/obj/item/storage/Exited(atom/movable/gone, direction)
+	remove_from_storage(gone) //worry not, comrade; this only gets called once
+	return ..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc

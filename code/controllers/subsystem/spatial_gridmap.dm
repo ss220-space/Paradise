@@ -73,9 +73,15 @@
  *
  */
 SUBSYSTEM_DEF(spatial_grid)
-	can_fire = FALSE
-	init_order = INIT_ORDER_SPATIAL_GRID
 	name = "Spatial Grid"
+	can_fire = FALSE
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
+	dependents = list(
+		/datum/controller/subsystem/atoms,
+	)
+
 	///list of the spatial_grid_cell datums per z level, arranged in the order of y index then x index
 	var/list/grids_by_z_level = list()
 	var/list/waiting_to_add_by_type = list(SPATIAL_GRID_CONTENTS_TYPE_HEARING = list(), SPATIAL_GRID_CONTENTS_TYPE_CLIENTS = list(), SPATIAL_GRID_CONTENTS_TYPE_ATMOS = list())

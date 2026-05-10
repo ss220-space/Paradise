@@ -10,14 +10,15 @@
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
-	init_order = INIT_ORDER_AIR
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+	)
 	priority = FIRE_PRIORITY_AIR
 	// The MC really doesn't like it if we sleep (even though it's supposed to), and ends up running us continuously. Instead, we ask it to run us every tick, and "sleep" by skipping the current tick.
 	wait = 1
-	flags = SS_BACKGROUND | SS_TICKER
+	ss_flags = SS_BACKGROUND | SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// How long we actually wait between ticks. Will round up to the next server tick.
 	var/self_wait = 0.15 SECONDS
@@ -197,6 +198,7 @@ SUBSYSTEM_DEF(air)
 	currentrun = SSair.currentrun
 	currentpart = SSair.currentpart
 	milla_idle = SSair.milla_idle
+	hotspots = SSair.hotspots
 
 /datum/controller/subsystem/air/pause()
 	was_paused = TRUE
@@ -948,7 +950,7 @@ SUBSYSTEM_DEF(air)
 	log_world(msg)
 
 	// Disable firing.
-	SSair.flags |= SS_NO_FIRE
+	SSair.ss_flags |= SS_NO_FIRE
 	// Disable fire, too.
 	for(var/turf/simulated/simuleated_turf in SSair.hotspots)
 		QDEL_NULL(simuleated_turf.active_hotspot)

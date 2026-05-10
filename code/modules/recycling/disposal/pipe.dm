@@ -268,7 +268,7 @@
 /obj/structure/disposalpipe/trunk/proc/null_linked_refs() //disposals is well-coded
 	if(!linked)
 		return
-	if(istype(linked, /obj/machinery/disposal))
+	if(isdisposalunit(linked))
 		var/obj/machinery/disposal/disposal = linked
 		disposal.trunk = null
 	else if(istype(linked, /obj/structure/disposaloutlet))

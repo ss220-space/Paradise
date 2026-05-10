@@ -76,6 +76,8 @@
 	if(SEND_SIGNAL(src, COMSIG_VV_TOPIC, usr, href_list) & COMPONENT_VV_HANDLED)
 		return FALSE
 	if(href_list[VV_HK_MODIFY_TRAITS])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 		usr.client.holder.modify_traits(src)
 	return TRUE
 

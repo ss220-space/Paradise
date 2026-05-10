@@ -1,10 +1,8 @@
 PROCESSING_SUBSYSTEM_DEF(instruments)
 	name = "Instruments"
-	init_order = INIT_ORDER_INSTRUMENTS
 	wait = 1
-	flags = SS_TICKER|SS_BACKGROUND|SS_KEEP_TIMING|SS_HIBERNATE
-	offline_implications = "Instruments will no longer play. No immediate action is needed."
-	ss_id = "instruments"
+	ss_flags = SS_KEEP_TIMING|SS_HIBERNATE
+	priority = FIRE_PRIORITY_INSTRUMENTS
 
 	/// List of all instrument data, associative id = datum
 	var/static/list/datum/instrument/instrument_data = list()

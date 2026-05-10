@@ -292,10 +292,10 @@
 	if(rpm > 1000)
 		suck_in()
 
-/obj/machinery/power/compressor/proc/leave_inlet_turf(turf/source, atom/movable/entered)
+/obj/machinery/power/compressor/proc/leave_inlet_turf(turf/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER  //COMSIG_ATOM_EXIT
 
-	var/list/things = list(entered)
+	var/list/things = list(leaving)
 	while(length(things))
 		var/atom/movable/thing = things[1]
 		things -= thing
@@ -403,7 +403,7 @@
 
 	// We just changed our composition
 	gas_heat_capacity = compressor_gas.heat_capacity()
-	
+
 	var/bearing_damage_ratio = (1 - compressor.bearing_damage / BEARING_DAMAGE_MAX)
 
 	// The portion of the thermal energy of the gas converted to kinetic energy

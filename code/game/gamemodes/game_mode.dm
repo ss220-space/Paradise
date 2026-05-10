@@ -158,16 +158,15 @@
 
 	/// List of of blobs, their offsprings and blobburnouts spawned by them
 	var/list/blobs = list(
-		"infected" = list(),
-		"offsprings" = list(),
-		"minions" = list()
+		BLOB_GROUP_INFECTED = list(),
+		BLOB_GROUP_OFFSPRINGS = list(),
+		BLOB_GROUP_MINIONS = list()
 	)
 	/// Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
 	/// Number of resource produced by the core
 	var/blob_point_rate = 3
-	/// Number of bursted blob infected
-	var/bursted_blobs_count = 0
+
 	/// Total blob submode stage
 	var/blob_stage = BLOB_STAGE_NONE
 	/// The need to delay the end of the game when the blob wins
