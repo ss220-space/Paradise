@@ -46,7 +46,7 @@
 	. = ..()
 	update_weight()
 
-/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
+/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE, skip_equip_delay = FALSE)
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
 		balloon_alert(usr, "сначала вытащите пояс!")
 		return FALSE

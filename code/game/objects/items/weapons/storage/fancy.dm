@@ -301,7 +301,7 @@
 	else
 		user.balloon_alert(user, "рот цели чем-то занят!")
 
-/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/item , stop_messages = 0)
+/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/item , stop_messages = 0, skip_equip_delay = FALSE)
 	if(istype(item, /obj/item/match))
 		var/obj/item/match/match = item
 		if(match.lit)
