@@ -282,12 +282,6 @@
 			continue
 		hide_from(M)
 
-/obj/item/storage/IsReachableBy(atom/movable/user, reacher_range = 1, depth = INFINITY, direct_access = user.DirectAccess())
-	// If the user is physically inside this storage (usually via a holder), always allow reach.
-	if(user && (user.loc == src || (isitem(user.loc) && user.loc.loc == src)))
-		return TRUE
-	return ..()
-
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)

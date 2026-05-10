@@ -285,6 +285,19 @@
 /mob/living/DirectAccess(atom/target)
 	return ..() + get_all_contents()
 
+
+/mob/living/carbon/DirectAccess()
+	. = ..()
+	// We need to intecact with the items inside a container if we are located within the same container
+	var/atom/our_location = loc
+	if(isitem(our_location) && !istype(our_location, /obj/item/storage))
+		our_location = our_location.loc
+
+	if(istype(our_location, /obj/item/storage))
+		var/obj/item/storage/storage = our_location
+		. |= storage.contents 
+		. |= storage
+
 /atom/proc/AllowClick()
 	return FALSE
 

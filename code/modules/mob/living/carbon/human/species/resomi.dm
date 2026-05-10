@@ -6,11 +6,7 @@
 	primitive_form = null
 	greater_form = null
 	language = LANGUAGE_RESOMI
-	damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
-	damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
-	blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
 	unarmed_type = /datum/unarmed_attack/claws
-	eyes = "eyes_s"
 	tail = "tajtail"
 
 	blurb = "Резоми — это небольшие пернатые рапторы, приспособленные к жизни в холоде. \
@@ -21,7 +17,6 @@
 	hunger_drain_mod = 2
 	max_blood = 330
 	blood_regen_mod = 2.5
-	inhand_sprite_offset_x = 0
 	inhand_sprite_offset_y = -4
 	inhand_sprite_scale = 0.8
 
@@ -38,7 +33,6 @@
 
 	total_health = 75
 
-	clothing_flags = 0
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS | HAS_BODY_ACCESSORY
 	default_hair = "Resomi Ears"
 	default_bodyacc = "Spiky tail"

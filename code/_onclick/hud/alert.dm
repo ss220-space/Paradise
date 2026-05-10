@@ -882,7 +882,6 @@
 	name = "Вы в контейнере"
 	desc = "Нажмите, чтобы показать содержимое контейнера, в котором вы находитесь."
 	icon_state = "template"
-	timeout = 0
 	var/obj/item/storage/target_storage
 
 /atom/movable/screen/alert/pickupable_container/Initialize(mapload, obj/item/storage/_target_storage)

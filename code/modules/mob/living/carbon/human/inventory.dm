@@ -495,7 +495,6 @@
 			S.remove_from_storage(H, get_turf(src))
 		else
 			H.forceMove(get_turf(src))
-		H.process()
 
 /**
  * Returns the item currently in the slot

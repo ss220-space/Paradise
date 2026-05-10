@@ -21,8 +21,8 @@
 		return FALSE
 
 	visible_message(
-		span_notice("[src] готовится запрыгнуть [target_human.declent_ru(PREPOSITIONAL)] на спину."),
-		span_notice("Вы готовитесь запрыгнуть [target_human.declent_ru(PREPOSITIONAL)] на спину."),
+		span_notice("[src] готовится запрыгнуть [target_human.declent_ru(DATIVE)] на спину."),
+		span_notice("Вы готовитесь запрыгнуть [target_human.declent_ru(DATIVE)] на спину."),
 	)
 
 	if(!do_after(src, 1 SECONDS, target_human, timed_action_flags = DA_IGNORE_HELD_ITEM | DA_IGNORE_LYING, extra_checks = CALLBACK(src, PROC_REF(can_jump_on_back_of), target_human), max_interact_count = 1, cancel_on_max = TRUE))
