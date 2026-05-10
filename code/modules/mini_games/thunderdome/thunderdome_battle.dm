@@ -174,7 +174,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		return
 	for(var/mob/living/mob in zone)
 		if(mob.ckey)
-			addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), mob.ckey), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), mob.ckey), 5 SECONDS)
 		mob.melt()
 
 	for(var/obj/object_in_zone in zone)
@@ -196,7 +196,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		fighters -= dead_fighter
 
 	if(dead_fighter.ckey)
-		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 5 SECONDS)
 
 	if(!length(fighters) && !is_cleansing_going)
 		for(var/datum/timedevent/timer in active_timers)
