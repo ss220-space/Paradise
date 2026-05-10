@@ -2,6 +2,9 @@
 SUBSYSTEM_DEF(weather)
 	name = "Weather"
 	ss_flags = SS_BACKGROUND
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
 	wait = 1 SECONDS
 	runlevels = RUNLEVEL_GAME
 

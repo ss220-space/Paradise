@@ -16,9 +16,6 @@ SUBSYSTEM_DEF(holomaps)
 	dependencies = list(
 		/datum/controller/subsystem/mapping,
 	)
-	dependents = list(
-		/datum/controller/subsystem/atoms,
-	)
 	ss_flags = SS_NO_FIRE
 
 	var/static/list/valid_map_indexes = list()
