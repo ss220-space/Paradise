@@ -376,17 +376,17 @@
 	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
-	if(gun_on_cooldown(user))
-		return
-
-	if(!can_trigger_gun(user))
-		return
-
 	if(user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) // If the object in our active hand is not a gun, abort
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
+		return
+
+	if(gun_on_cooldown(user))
+		return
+
+	if(!can_trigger_gun(user))
 		return
 
 	if(user.hand && isgun(user.r_hand) || !user.hand && isgun(user.l_hand)) // If we have a gun in our inactive hand too, both guns get innacuracy maluses
@@ -744,7 +744,7 @@
 		return TRUE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
-	if(isitem(target) || iscloset(target) || is_screen_atom(target) || isdisposalunit(target))
+	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target))
 		return TRUE
 	return FALSE
 
