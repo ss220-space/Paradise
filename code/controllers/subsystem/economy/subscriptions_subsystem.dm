@@ -35,10 +35,8 @@ GLOBAL_LIST_EMPTY(all_subscriptions)
 
 SUBSYSTEM_DEF(subscriptions_subsystem)
 	name = "Subscriptions"
-	ss_id = "subscriptions_subsystem"
-	offline_implications = "Планировщик подписок отключен. Проверка всех подписок и списания за них остановлены."
 	wait = BASE_FREQUENCY_SUBSYSTEM
-	flags = SS_BACKGROUND
+	ss_flags = SS_BACKGROUND
 
 	var/catalog_initialized = FALSE /// Flag to ensure catalog is loaded only once.
 
