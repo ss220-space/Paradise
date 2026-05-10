@@ -171,7 +171,7 @@
 
 	// Ok we found a client, be it their active or their last
 	// Now we see if we need to respect their privacy
-	return get_display_ckey(C)
+	return get_display_key(C)
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
