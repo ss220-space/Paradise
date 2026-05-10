@@ -223,6 +223,7 @@
 	base_icon_state = "r_wall"
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
+	mineral_amount = 4
 
 /obj/structure/falsewall/reinforced/examine_status(mob/user)
 	. = ..()

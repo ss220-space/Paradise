@@ -232,7 +232,7 @@
 		var/obj/item/stack/sheet/plasteel/plasteel = sheet
 		switch(state)
 			if(GIRDER_DISPLACED)
-				if(plasteel.get_amount() < 2)
+				if(plasteel.get_amount() < 4)
 					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
 					return .
 				to_chat(user, span_notice("You start building a false wall..."))
