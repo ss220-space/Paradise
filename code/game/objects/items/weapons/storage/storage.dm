@@ -614,7 +614,7 @@
 
 /// This proc returns TRUE if the item can be picked up and FALSE if it can't.
 /// Set the stop_messages to stop it from printing messages
-/obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
+/obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE, skip_equip_delay = FALSE)
 	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
 		return FALSE
 
@@ -686,7 +686,7 @@
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
+	if(!skip_equip_delay && usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(
 			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),

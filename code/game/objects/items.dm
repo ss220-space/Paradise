@@ -361,7 +361,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.drop_item_ground(src, TRUE)
+		M.drop_item_ground(src, force = TRUE, skip_equip_delay = TRUE)
 	else
 		remove_item_from_storage(get_turf(src))
 

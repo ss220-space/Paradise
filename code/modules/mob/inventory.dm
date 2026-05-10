@@ -465,15 +465,16 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
+ * * 'skip_equip_delay' set to `TRUE` when timing/interaction delays must not run (e.g. item deletion).
 */
-/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
+/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE, skip_equip_delay = FALSE)
 
 	// If a pickupable humanoid is inside a storage container, prefer dropping into that container (if it has space).
 	if(I && HAS_TRAIT(src, TRAIT_SMALL_MOB))
 		var/obj/item/holder/H = loc
 		if(istype(H))
 			var/obj/item/storage/S = H.loc
-			if(istype(S) && S.can_be_inserted(I, stop_messages = TRUE))
+			if(istype(S) && S.can_be_inserted(I, stop_messages = TRUE, skip_equip_delay = skip_equip_delay))
 				if(do_unEquip(I, force, drop_location(), FALSE, invdrop, silent))
 					S.handle_item_insertion(I, prevent_warning = TRUE)
 					return TRUE
