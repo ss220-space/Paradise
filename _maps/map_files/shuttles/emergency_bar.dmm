@@ -578,8 +578,10 @@
 	},
 /area/shuttle/escape)
 "Li" = (
-/obj/item/radio/intercom/department,
-/turf/simulated/wall/shuttle,
+/obj/item/radio/intercom/custom/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/shuttle/escape)
 "Ms" = (
 /obj/structure/table/abductor,
@@ -778,8 +780,8 @@ aA
 aA
 aA
 aA
-aA
 Li
+bu
 bp
 Ri
 bB

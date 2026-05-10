@@ -984,10 +984,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"lV" = (
-/turf/simulated/floor/plating,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/shuttle/escape)
 "pA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -997,11 +993,6 @@
 	dir = 1;
 	icon_state = "bot"
 	},
-/area/shuttle/escape)
-"qk" = (
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "qN" = (
 /obj/machinery/door/airlock/shuttle{
@@ -1017,12 +1008,6 @@
 /area/shuttle/escape)
 "wB" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/shuttle/escape)
-"yS" = (
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Cj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1063,7 +1048,7 @@ bD
 wB
 MI
 MI
-qk
+MI
 wB
 bo
 wB
@@ -1071,7 +1056,7 @@ bo
 wB
 wB
 MI
-qk
+MI
 wB
 cH
 cH
@@ -1275,7 +1260,7 @@ aL
 aY
 bk
 br
-lV
+wB
 bg
 ba
 bQ
@@ -1368,7 +1353,7 @@ aR
 bd
 bf
 bx
-lV
+wB
 bg
 ba
 ba
@@ -1539,7 +1524,7 @@ cv
 cy
 cp
 cF
-yS
+MI
 bu
 bw
 "}
