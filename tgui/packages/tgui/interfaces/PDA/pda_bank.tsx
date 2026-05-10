@@ -762,68 +762,75 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
       <Section>
         <Box className="lore-section-title" textAlign="center" mb={3}>
           <Icon name="university" className="text-gold" size={2} mr={1} />
-          <Box as="span">О Raingor Interstellar Bank</Box>
+          <Box
+            as="span"
+            fontSize={1.5}
+            fontWeight="bold"
+            style={{ textTransform: 'uppercase' }}
+          >
+            О Raingor Interstellar Bank
+          </Box>
         </Box>
 
         <Box className="lore-container">
-          {/* Paragraph 1 */}
+          {/* Paragraph 1: Identity & Parent Company */}
           <Box className="lore-paragraph">
             <Box as="span" className="lore-highlight">
               Raingor Interstellar Bank
             </Box>{' '}
-            — корпорация, объединившая частное кредитование и систему мгновенных
-            переводов.
-          </Box>
-
-          {/* Paragraph 2 */}
-          <Box className="lore-paragraph">
-            Основанная в 24 веке,{' '}
+            — ключевое финансовое подразделение холдинга{' '}
             <Box as="span" className="lore-highlight">
-              Raingor Interstellar Bank
-            </Box>{' '}
-            стала ведущим игроком в сфере частного финансирования межзвёздной
-            экономики. Благодаря
-            <Box as="span" className="lore-italic">
-              {' '}
-              беспрепятственному доступу ко всем ретрансляторам блюспейс-сети,
-              полученному по эксклюзивному контракту со всеми государственными
-              структурами, вошедшими в соглашение об использовании кредита в
-              качестве циркуляционной валюты
+              Black Rain Group
             </Box>
-            , корпорация может управлять транзакциями и капиталом{' '}
-            <Box as="span" className="lore-highlight">
-              с немыслимой скоростью
-            </Box>{' '}
-            по всей галактике.
+            . Мы специализируемся на высокоскоростных межзвездных транзакциях и
+            управлении частным капиталом, обеспечивая стабильность экономических
+            потоков в секторах присутствия корпорации.
           </Box>
 
-          {/* Decorative Divider */}
+          {/* Paragraph 2: History & Tech (Sanitized) */}
+          <Box className="lore-paragraph">
+            Основанный в конце 24 века как инструмент консолидации активов
+            группы компаний, банк быстро занял лидирующие позиции благодаря
+            внедрению проприетарных протоколов шифрования данных.
+            <br />
+            <br />
+            Наша инфраструктура интегрирована с ретрансляторами блюспейс-сети,
+            что позволяет проводить операции{' '}
+            <Box as="span" className="lore-italic">
+              с минимальной задержкой
+            </Box>{' '}
+            и гарантировать целостность финансовой информации независимо от
+            внешних факторов.
+          </Box>
+
+          {/* Decorative Divider - Subtle/Corporate */}
           <Box className="lore-divider">
-            <Icon name="star" size={1} className="lore-icon-decor" />
-            <Icon name="star" size={1} className="lore-icon-decor" />
-            <Icon name="star" size={1} className="lore-icon-decor" />
+            <Icon name="chart-line" size={1} className="lore-icon-decor" />
+            <Icon name="shield-halved" size={1} className="lore-icon-decor" />
+            <Icon name="globe" size={1} className="lore-icon-decor" />
           </Box>
 
-          {/* Paragraph 3 */}
+          {/* Paragraph 3: Services (Legit facade) */}
           <Box className="lore-paragraph">
-            Наши клиенты — от частных предпринимателей до межзвёздных
-            исследовательских корпораций.{' '}
+            Клиентская база банка включает как частных инвесторов, так и крупные
+            исследовательские синдикаты.{' '}
             <Box as="span" className="lore-highlight">
-              Raingor Bank
+              RIB
             </Box>{' '}
-            предоставляет кредиты на развитие частных колонизационных проектов,
-            инвестирует в инфраструктуру планет и поддерживает финансовую
-            экосистему новых миров.
+            предоставляет услуги кредитования колонизационных проектов,
+            страхование рисков и инвестиционное сопровождение. Мы создаем среду,
+            где капитал работает эффективно, а риски сведены к минимуму.
           </Box>
 
-          {/* Paragraph 4 */}
+          {/* Paragraph 4: Reliability (The "Clean" Promise) */}
           <Box className="lore-paragraph">
-            Надёжность и инновации лежат в основе каждого нашего сервиса. Мы
-            обеспечиваем прозрачность операций, мгновенные переводы и
-            сохранность ваших средств даже в самых удалённых уголках космоса.
+            Приоритет банка — абсолютная конфиденциальность и надежность
+            хранения средств. Наши алгоритмы защиты данных соответствуют высшим
+            стандартам индустрии, обеспечивая безопасность ваших активов даже в
+            условиях нестабильности рынка или локальных конфликтов.
           </Box>
 
-          {/* Quote / Slogan */}
+          {/* Quote / Slogan - Neutral but firm */}
           <Box className="card--quote">
             <Icon
               name="quote-left"
@@ -832,7 +839,7 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
               size={1.5}
             />
             <Box className="lore-quote-text">
-              «Доверие, проверенное временем и звёздами»
+              «Стабильность в каждом переводе. Тишина в каждой детали.»
             </Box>
             <Icon
               name="quote-right"
@@ -847,7 +854,7 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
       {/* Footer */}
       <Box textAlign="center" mt={3} className="text-muted" fontSize={0.9}>
         <Icon name="copyright" mr={0.5} />
-        Raingor Interstellar Bank © 24XX
+        Raingor Interstellar Bank © 24XX | Part of Black Rain Group
       </Box>
     </Box>
   );
