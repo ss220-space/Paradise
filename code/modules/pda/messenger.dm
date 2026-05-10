@@ -46,6 +46,12 @@
 			var/chat_id = params["chatId"]
 			var/datum/messenger_chat/chat = locateUID(chat_id)
 			qdel(chat)
+		if("create_group_chat")
+			var/name_chat = params["name"]
+			var/description = params["description"]
+			var/is_public = params["is_public"]
+			var/members = params["members"]
+			create_group_chat(name_chat, description, is_public, last_login_owner, members)
 
 // Логинимся и возвращаем аккаунт, либо выдаем null
 /datum/data/pda/app/messenger/proc/login_in_messenger(list/data)

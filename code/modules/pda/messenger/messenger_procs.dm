@@ -23,11 +23,23 @@
 	created_new_private_chat.add_member_in_chat(chat_initiator)
 	created_new_private_chat.add_member_in_chat(interlocutor_messenger_account)
 
-	return
-
 // Создание группового чата, гд
-/proc/create_group_chat(datum/messenger_account/chat_initiator, list/datum/messenger_account/chat_admins, list/datum/messenger_account/chat_members)
+/proc/create_group_chat(var/name_chat,var/description,
+	var/is_public, datum/messenger_account/chat_initiator, list/members)
+	var/datum/messenger_chat/created_new_group_chat = new /datum/messenger_chat(
+		name_chat,
+		description,
+		chat_initiator,
+		TRUE,
+		is_public
+	)
 
+	created_new_group_chat.add_member_in_chat(chat_initiator)
+
+	for(var/target_name as anything in members)
+		var/datum/money_account/interlocutor_money_account = get_account_with_name(target_name)
+		var/datum/messenger_account/interlocutor_messenger_account = interlocutor_money_account.messenger_profile
+		created_new_group_chat.add_member_in_chat(interlocutor_messenger_account)
 
 /proc/send_message_to_chat(sended_message, chat_id, datum/messenger_account/last_login_owner)
 	var/datum/messenger_chat/chat = locateUID(chat_id)

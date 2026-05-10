@@ -101,7 +101,6 @@
 	return added_message
 
 // сделать прок с инкрементом непрочитанных сообщений
-
 /datum/messenger_chat/proc/get_ui_data(datum/messenger_account/last_login_owner)
 	var/list/data = list()
 	data["chat_id"] = chat_id

@@ -442,22 +442,37 @@ const UUErrorPage = ({ setPage }: PageBaseProps) => (
     </Button>
   </Box>
 );
-
 // ==================== СТРАНИЦА: СОЗДАНИЕ ГРУППЫ ====================
 const CreateGroupPage = ({ setPage, data }: PageProps) => {
+  // Упрощенная версия CreateGroupPage без изменения SearchableDropdown
   const { act } = useBackend();
   const [groupName, setGroupName] = useState('');
   const [groupDesc, setGroupDesc] = useState('');
   const [isPublic, setIsPublic] = useState(true);
   const [members, setMembers] = useState<string[]>([]);
-  const [dropdownVal, setDropdownVal] = useState<string>('');
+  const [selectedTarget, setSelectedTarget] = useState<string>('');
 
-  const addMember = (target: string) => {
-    if (target && !members.includes(target)) setMembers([...members, target]);
-    setDropdownVal('');
+  // Пытаемся найти фото пользователя по имени из существующих чатов или владельца
+  const getUserPhoto = (name: string) => {
+    if (data.owner_messenger_account.name === name) {
+      return data.owner_messenger_account.photo;
+    }
+    // Ищем в чатах
+    const chat = data.chats.find((c) => c.owner_chat?.name === name);
+    return chat?.owner_chat?.photo;
   };
-  const removeMember = (target: string) =>
+
+  const addMember = () => {
+    if (selectedTarget && !members.includes(selectedTarget)) {
+      setMembers([...members, selectedTarget]);
+      setSelectedTarget('');
+    }
+  };
+
+  const removeMember = (target: string) => {
     setMembers(members.filter((m) => m !== target));
+  };
+
   const handleCreate = () => {
     if (!groupName.trim()) return;
     act('create_group_chat', {
@@ -469,77 +484,57 @@ const CreateGroupPage = ({ setPage, data }: PageProps) => {
     setPage('main');
   };
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    padding: '0.6rem 0.8rem',
-    borderRadius: '0.5rem',
-    border: '1px solid #444',
-    backgroundColor: '#1e1e1e',
-    color: '#fff',
-    fontSize: '1rem',
-    outline: 'none',
-    boxSizing: 'border-box',
-  };
+  const inputClass =
+    'w-full p-2 rounded bg-gray-800 border border-gray-600 text-white focus:outline-none';
 
   return (
     <Stack fill vertical>
       <Section>
         <Stack align="center" mb={2}>
-          <Button icon="arrow-left" onClick={() => setPage('main')} mr={1} />
-          <Box bold fontSize={1.25}>
+          <Button icon="arrow-left" onClick={() => setPage('main')} />
+          <Box bold fontSize={1.25} ml={1}>
             Создание группового чата
           </Box>
         </Stack>
 
         <Stack vertical>
           <Box>
-            <Box fontSize={0.95} color="label" mb={0.5}>
-              Название чата
-            </Box>
+            <Label>Название чата</Label>
             <input
-              type="text"
+              className={inputClass}
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               placeholder="Введите название..."
-              style={inputStyle}
             />
           </Box>
 
           <Box>
-            <Box fontSize={0.95} color="label" mb={0.5}>
-              Описание
-            </Box>
+            <Label>Описание</Label>
             <textarea
+              className={`${inputClass} resize-y`}
+              rows={3}
               value={groupDesc}
               onChange={(e) => setGroupDesc(e.target.value)}
               placeholder="О чём этот чат?"
-              rows={3}
-              style={{
-                ...inputStyle,
-                resize: 'vertical',
-                fontFamily: 'inherit',
-              }}
             />
           </Box>
 
           <Box>
-            <Box fontSize={0.95} color="label" mb={0.5}>
-              Доступ
-            </Box>
+            <Label>Доступ</Label>
             <Stack>
               <Button
                 fluid
                 color={isPublic ? 'green' : 'dark'}
-                onClick={() => setIsPublic(true)}
                 icon="globe"
+                onClick={() => setIsPublic(true)}
               >
                 Открытый
               </Button>
               <Button
                 fluid
                 color={!isPublic ? 'red' : 'dark'}
-                onClick={() => setIsPublic(false)}
                 icon="lock"
+                onClick={() => setIsPublic(false)}
               >
                 Закрытый
               </Button>
@@ -547,55 +542,36 @@ const CreateGroupPage = ({ setPage, data }: PageProps) => {
           </Box>
 
           <Box>
-            <Box fontSize={0.95} color="label" mb={0.5}>
-              Участники ({members.length})
-            </Box>
+            <Label>Участники ({members.length})</Label>
             <Stack mb={1}>
               <Stack.Item grow>
                 <SearchableDropdown
                   options={data.targets}
-                  value={dropdownVal}
-                  onChange={setDropdownVal}
+                  value={selectedTarget}
+                  onChange={setSelectedTarget}
                   placeholder="Поиск сотрудника..."
                 />
               </Stack.Item>
               <Button
                 icon="plus"
-                disabled={!dropdownVal || members.includes(dropdownVal)}
-                onClick={() => addMember(dropdownVal)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.4rem',
-                  padding: '0 0.8rem',
-                  lineHeight: '1',
-                  minHeight: '2.2rem',
-                }}
+                disabled={!selectedTarget || members.includes(selectedTarget)}
+                onClick={addMember}
               >
                 Добавить
               </Button>
             </Stack>
 
             {members.length > 0 && (
-              <Box
-                style={{
-                  maxHeight: '7rem',
-                  overflowY: 'auto',
-                  backgroundColor: 'rgba(0,0,0,0.2)',
-                  borderRadius: '0.5rem',
-                  padding: '0.5rem',
-                }}
-              >
-                {members.map((m) => (
-                  <Stack key={m} align="center" mb={0.5}>
-                    <Stack.Item grow>
-                      <Box fontSize={0.95}>{m}</Box>
-                    </Stack.Item>
+              <Box className="max-h-28 overflow-y-auto bg-black/20 rounded p-2 mt-2">
+                {members.map((memberName) => (
+                  <Stack key={memberName} align="center" mb={0.5}>
+                    <Avatar account_photo={getUserPhoto(memberName)} />
+                    <Box ml={1}>{memberName}</Box>
                     <Button
                       icon="times"
                       color="red"
-                      onClick={() => removeMember(m)}
+                      compact
+                      onClick={() => removeMember(memberName)}
                     />
                   </Stack>
                 ))}
@@ -618,3 +594,9 @@ const CreateGroupPage = ({ setPage, data }: PageProps) => {
     </Stack>
   );
 };
+
+const Label = ({ children }: { children: React.ReactNode }) => (
+  <Box fontSize={0.95} color="label" mb={0.5}>
+    {children}
+  </Box>
+);
