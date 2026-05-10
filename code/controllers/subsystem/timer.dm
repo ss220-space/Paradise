@@ -577,11 +577,13 @@ SUBSYSTEM_DEF(timer)
 GLOBAL_LIST_EMPTY(timers_by_type)
 // Allows us to track what types generate the most timers. Just invokes the global addtimer
 /datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0, datum/controller/subsystem/timer/timer_subsystem)
-	var/tt = "[type]"
-	if(tt in GLOB.timers_by_type)
-		GLOB.timers_by_type[tt]++
-	else
-		GLOB.timers_by_type[tt] = 1
+	var/list/timers_by_type = GLOB.timers_by_type
+	if(timers_by_type)
+		var/tt = "[type]"
+		if(tt in timers_by_type)
+			timers_by_type[tt]++
+		else
+			timers_by_type[tt] = 1
 	return global.addtimer(callback, wait, flags, timer_subsystem)
 
 /**
