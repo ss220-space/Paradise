@@ -744,7 +744,7 @@
 		return TRUE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
-	if(isstorage(target))
+	if(isitem(target) || iscloset(target) || is_screen_atom(target) || isdisposalunit(target))
 		return TRUE
 	return FALSE
 
