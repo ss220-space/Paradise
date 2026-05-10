@@ -1257,12 +1257,17 @@
  * Externally mobile ears (vulpas/tajaran/cat ears gene).
  */
 
-/datum/emote/living/carbon/human/wiggle_ears
+/datum/emote/living/carbon/human/external_ears/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
+	if(!HAS_TRAIT(user, TRAIT_MOBILE_EXTERNAL_EARS))
+		return FALSE
+	return ..()
+
+/datum/emote/living/carbon/human/external_ears/wiggle_ears
 	key = "wiggle_ears"
 	key_third_person = "wiggle_ears"
 	message = "дёрга%(ет,ют)% ушками."
 
-/datum/emote/living/carbon/human/pin_ears
+/datum/emote/living/carbon/human/external_ears/pin_ears
 	key = "pin_ears"
 	key_third_person = "pin_ears"
 	message = "прижима%(ет,ют)% ушки."

@@ -680,12 +680,12 @@
 /**
  * MARK: Mobile external ears
  */
-/datum/keybinding/emote/carbon/human/external_ears/wiggle_ears
-	linked_emote = /datum/emote/living/carbon/human/wiggle_ears
+/datum/keybinding/emote/carbon/human/wiggle_ears
+	linked_emote = /datum/emote/living/carbon/human/external_ears/wiggle_ears
 	name = "Дёрнуть ушками"
 
-/datum/keybinding/emote/carbon/human/external_ears/pin_ears
-	linked_emote = /datum/emote/living/carbon/human/pin_ears
+/datum/keybinding/emote/carbon/human/pin_ears
+	linked_emote = /datum/emote/living/carbon/human/external_ears/pin_ears
 	name = "Прижать ушки"
 
 /**
