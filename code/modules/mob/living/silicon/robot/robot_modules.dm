@@ -292,6 +292,7 @@
 	modules += new /obj/item/stack/medical/suture/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/roller_holder(src)
+	modules += new /obj/item/soap(src)
 	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
@@ -315,13 +316,6 @@
 
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
-
-/obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
-	if(emag)
-		var/obj/item/reagent_containers/spray/PS = emag
-		PS.reagents.add_reagent("sacid", 2)
-
-	..()
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -391,10 +385,12 @@
 	modules += new /obj/item/airlock_painter(src)
 	modules += new /obj/item/pipe_painter(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
-	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/sheet/wood/cyborg(src)
+	modules += new /obj/item/stack/tile/wood(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	emag = new /obj/item/gun/energy/emittercannon(src)
@@ -518,6 +514,7 @@
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
 	modules += new /obj/item/soap/nanotrasen(src)
+	modules += new /obj/item/reagent_containers/spray/cleaner/tactical/cyborg(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/mop/advanced/cyborg(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)

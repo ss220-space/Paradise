@@ -205,6 +205,8 @@
 	spray_maxrange = 5
 	spray_currentrange = 5
 
+/obj/item/reagent_containers/spray/cleaner/tactical/cyborg
+
 /obj/item/reagent_containers/spray/cleaner/tactical/get_ru_names()
 	return list(
 		NOMINATIVE = "тактический распылитель",
@@ -248,8 +250,8 @@
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
-	volume = 50
-	list_reagents = list("cleaner" = 50)
+	volume = 250
+	list_reagents = list("cleaner" = 250)
 
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
