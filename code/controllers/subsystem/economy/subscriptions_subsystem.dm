@@ -36,8 +36,7 @@ GLOBAL_LIST_EMPTY(all_subscriptions)
 SUBSYSTEM_DEF(subscriptions_subsystem)
 	name = "Subscriptions"
 	ss_id = "subscriptions_subsystem"
-	init_order = INIT_ORDER_SUBSCRIPTIONS
-	offline_implications = "Это планировщик подписок. Отключение приведет к остановке проверки всех подписок, а так же списаний за них"
+	offline_implications = "Планировщик подписок отключен. Проверка всех подписок и списания за них остановлены."
 	wait = BASE_FREQUENCY_SUBSYSTEM
 	flags = SS_BACKGROUND
 
