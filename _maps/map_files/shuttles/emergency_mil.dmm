@@ -65,9 +65,6 @@
 	},
 /area/shuttle/escape)
 "ap" = (
-/obj/machinery/light/spot{
-	dir = 1
-	},
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -115,9 +112,6 @@
 /area/shuttle/escape)
 "aB" = (
 /obj/machinery/computer/station_alert,
-/obj/machinery/light/spot{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "navyblue"
@@ -491,6 +485,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -513,6 +508,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
