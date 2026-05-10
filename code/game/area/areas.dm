@@ -134,6 +134,34 @@
 	///Whether this area is iluminated by starlight
 	var/use_starlight = FALSE
 
+/**
+ * A list of teleport locations
+ *
+ * Adding a wizard area teleport list because motherfucking lag -- Urist
+ * I am far too lazy to make it a proper list of areas so I'll just make it run the usual teleport routine at the start of the game
+ */
+GLOBAL_LIST_EMPTY(teleportlocs)
+
+/**
+ * Generate a list of turfs you can teleport to from the areas list
+ *
+ * Includes areas if they're not a shuttle or not not teleport or have no contents
+ *
+ * The chosen turf is the first item in the areas contents that is a station level
+ *
+ * The returned list of turfs is sorted by name
+ */
+/proc/process_teleport_locs()
+	for(var/area/AR as anything in get_sorted_areas())
+		if(istype(AR, /area/shuttle) || AR.tele_proof)
+			continue
+		if(GLOB.teleportlocs[AR.name])
+			continue
+		if (!AR.has_contained_turfs())
+			continue
+		if (is_station_level(AR.z))
+			GLOB.teleportlocs[AR.name] = AR
+
 /area/New(loc, ...)
 	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.

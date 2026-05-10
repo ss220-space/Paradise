@@ -205,6 +205,9 @@
 /// from base of /client/proc/set_eye() : (atom/old_eye, atom/new_eye)
 #define COMSIG_CLIENT_SET_EYE "client_set_eye"
 /// from /mob/proc/change_mob_type() : ()
+#define COMSIG_PRE_MOB_CHANGED_TYPE "pre_mob_changed_type"
+	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+/// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
 
 /// From /obj/item/melee/baton/baton_effect(): (datum/source, mob/living/user, /obj/item/melee/baton)

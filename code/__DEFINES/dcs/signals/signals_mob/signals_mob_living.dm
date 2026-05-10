@@ -152,3 +152,13 @@
 ///from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_LIVING_ATTACH_LIMB "living_attach_limb"
 	#define COMPONENT_NO_ATTACH (1<<0)
+///From /proc/wabbajack(): (randomize_type)
+#define COMSIG_LIVING_PRE_WABBAJACKED "living_mob_wabbajacked"
+	/// Return to stop the rest of the wabbajack from triggering.
+	#define STOP_WABBAJACK (1<<0)
+///From mob/living/proc/on_wabbajack(): (mob/living/new_mob)
+#define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
+/// From /datum/status_effect/shapechange_mob/on_apply(): (mob/living/shape)
+#define COMSIG_LIVING_SHAPESHIFTED "living_shapeshifted"
+/// From /datum/status_effect/shapechange_mob/after_unchange(): (mob/living/caster)
+#define COMSIG_LIVING_UNSHAPESHIFTED "living_unshapeshifted"
