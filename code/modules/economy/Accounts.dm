@@ -7,6 +7,7 @@
 
 GLOBAL_VAR_INIT(num_financial_terminals, 1)
 GLOBAL_DATUM(station_account, /datum/money_account)
+GLOBAL_DATUM(system_account, /datum/money_account)
 GLOBAL_LIST_EMPTY(department_accounts)
 GLOBAL_LIST_EMPTY(active_salary_system)
 GLOBAL_VAR_INIT(next_account_number, 0)
@@ -14,7 +15,6 @@ GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // t
 GLOBAL_DATUM(vendor_account, /datum/money_account)
 GLOBAL_LIST_EMPTY(all_money_accounts)
 GLOBAL_LIST_EMPTY(dna2account)
-
 GLOBAL_DATUM(CC_account, /datum/money_account)
 
 /proc/create_CC_account()
@@ -46,6 +46,25 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 
 		//add the account
 		GLOB.all_money_accounts.Add(GLOB.station_account)
+
+/proc/create_system_account()
+	if(!GLOB.system_account)
+		GLOB.next_account_number = rand(111111, 999999)
+
+		GLOB.system_account = new()
+		GLOB.system_account.owner_name = "RIC System Account"
+		GLOB.system_account.account_number = rand(111111, 999999)
+		GLOB.system_account.remote_access_pin = rand(111111, 999999)
+		GLOB.system_account.money = 0
+
+		//create an entry in the account transaction log for when it was created
+		GLOB.system_account.makeTransactionLog(
+			0, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.system_account.owner_name, FALSE,
+			STATION_CREATION_DATE, STATION_CREATION_TIME
+		)
+
+		//add the account
+		GLOB.all_money_accounts.Add(GLOB.system_account)
 
 /proc/create_department_account(department)
 	GLOB.next_account_number = rand(111111, 999999)

@@ -1,6 +1,4 @@
-/**
- * Chat message data type, stores data about messages themselves.
- */
+///Chat message data type, stores data about messages themselves.
 /datum/messenger_message
 	var/message_id
 	/// The message itself.

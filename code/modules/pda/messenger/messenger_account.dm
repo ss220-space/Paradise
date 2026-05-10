@@ -1,12 +1,10 @@
-/**
- * Extending money_account to messenger_account
- */
+/// Extending money_account to messenger_account
 /datum/messenger_account
-	/// chats the person is a member of
+	// chats the person is a member of
 	var/list/datum/messenger_chat/active_chat = list()
-	/// Counts how many unread messages there are in each chat.
+	// Counts how many unread messages there are in each chat.
 	var/list/unread_counts = list()
-	/// money_account how user account
+	// money_account how user account
 	var/datum/money_account/owner
 	var/photo
 
@@ -43,10 +41,8 @@
 	count_unread++
 	owner.unread_counts[added_chat.name_chat] = count_unread
 
-/**
- * Iterates through the input list,
- * checking whether the account exists in the given list.
- */
+///Iterates through the input list,
+///checking whether the account exists in the given list.
 /proc/check_account_in_list(datum/messenger_account/checked_account, list/checked_list)
 	for(var/datum/messenger_account/selected_account as anything in checked_list)
 		if(selected_account.owner.account_number == checked_account.owner.account_number)

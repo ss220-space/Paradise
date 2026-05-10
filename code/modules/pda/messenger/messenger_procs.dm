@@ -23,7 +23,7 @@
 	created_new_private_chat.add_member_in_chat(chat_initiator)
 	created_new_private_chat.add_member_in_chat(interlocutor_messenger_account)
 
-// Создание группового чата, гд
+// Создание группового чата
 /proc/create_group_chat(var/name_chat,var/description,
 	var/is_public, datum/messenger_account/chat_initiator, list/members)
 	var/datum/messenger_chat/created_new_group_chat = new /datum/messenger_chat(

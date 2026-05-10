@@ -10,6 +10,7 @@ type RaingorMessengerData = {
   owner_messenger_account: MessengerAccount;
   chats: Chat[];
   targets: string[];
+  allTargets: string[];
 };
 
 type MessengerAccount = { name: string; account_number: number; photo: string };
@@ -158,11 +159,20 @@ export const pda_raingor_messenger = () => {
       PageContent = <UUErrorPage setPage={setPage} />;
   }
 
+  const contentHeightPercent = 93;
+  const paddingHeightPercent = 100 - contentHeightPercent;
+
   return (
     <Window width={600} height={950}>
       <Window.Content>
         <Stack fill vertical>
-          {PageContent}
+          <Stack.Item height={`${contentHeightPercent}%`}>
+            <Section fill scrollable>
+              {PageContent}
+            </Section>
+          </Stack.Item>
+
+          <Stack.Item height={`${paddingHeightPercent}%`} />
         </Stack>
       </Window.Content>
     </Window>
@@ -283,12 +293,12 @@ const MainMenuPage = ({ setPage, setChatId, data }: MainPageProps) => {
         onClick={() => setPage('create_group')}
         style={{
           position: 'absolute',
-          bottom: '10%',
+          bottom: '3%',
           right: '1.2rem',
-          width: '3.5rem',
-          height: '3.5rem',
+          width: '4.5rem',
+          height: '4.5rem',
           borderRadius: '50%',
-          backgroundColor: '#2b5278',
+          backgroundColor: '#782b2b',
           color: '#fff',
           display: 'flex',
           alignItems: 'center',
@@ -308,15 +318,30 @@ const MainMenuPage = ({ setPage, setChatId, data }: MainPageProps) => {
 
 // ==================== СТРАНИЦА: ПРОСМОТР ЧАТА ====================
 const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
-  const { chats } = data;
+  const { owner_messenger_account, chats, allTargets } = data;
   const { act } = useBackend();
   const chat =
     chatId !== null ? chats.find((c) => c.chat_id === chatId) : undefined;
   const [messageDraft, setMessageDraft] = useState<string>('');
+  const [showMembers, setShowMembers] = useState(false);
+  const [newMemberTarget, setNewMemberTarget] = useState<string>('');
+
   useEffect(() => {
     setMessageDraft(chat?.message_draft || '');
+    setShowMembers(false);
+    setNewMemberTarget('');
   }, [chatId]);
 
+  const isOwner =
+    !chat?.owner_chat || chat.owner_chat.name === owner_messenger_account?.name;
+  // Проверяем, является ли текущий пользователь админом этого чата
+  const isAdmin =
+    chat?.chat_admins?.some(
+      (admin) =>
+        admin.account_number === owner_messenger_account?.account_number
+    ) || false;
+  const hasAdminRights = isOwner || isAdmin;
+  // --- ДЕЙСТВИЯ ---
   const deleteChat = () => {
     act('delete_chat', { chatId });
     setPage('main');
@@ -325,6 +350,22 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
     if (!messageDraft.trim()) return;
     act('send_message', { sendedMessage: messageDraft, chatId });
     setMessageDraft('');
+  };
+  const addMember = () => {
+    if (!newMemberTarget) return;
+    act('add_member_to_chat', {
+      invater: owner_messenger_account?.name,
+      chatId: chatId,
+      targetName: newMemberTarget,
+    });
+    setNewMemberTarget('');
+  };
+  const removeMember = (memberName: string) => {
+    act('remove_member_from_chat', {
+      invater: owner_messenger_account?.name,
+      chatId: chatId,
+      targetName: memberName,
+    });
   };
 
   if (!chat) {
@@ -355,15 +396,29 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
                 : 'Личный чат'}
             </Box>
           </Stack.Item>
+
+          {/* Кнопка управления участниками (видна всегда, но функционал зависит от прав) */}
+          <Button
+            icon="users"
+            color={showMembers ? 'blue' : 'default'}
+            onClick={() => setShowMembers(!showMembers)}
+            tooltip="Участники чата"
+            mr={1}
+          />
+
           <Button
             icon="trash"
             color="red"
             onClick={deleteChat}
-            tooltip="Удалить чат"
+            tooltip={
+              isOwner ? 'Удалить чат' : 'Только владелец может удалить чат'
+            }
+            disabled={!isOwner}
           />
         </Stack>
       </Section>
 
+      {/* ОСНОВНОЙ КОНТЕНТ: Сообщения или Панель участников */}
       <Box
         p={1}
         style={{
@@ -373,25 +428,112 @@ const ChatView = ({ setPage, data, chatId }: ChatPageProps) => {
           borderRadius: '0.6rem',
           marginBottom: '0.6rem',
           minHeight: 0,
+          position: 'relative',
         }}
       >
-        {chat.messages && chat.messages.length > 0 ? (
-          chat.messages.map((msg) => (
-            <MessageBubble key={msg.message_id} msg={msg} />
-          ))
+        {!showMembers ? (
+          // --- ОБЫЧНЫЙ ВИД: СООБЩЕНИЯ ---
+          chat.messages && chat.messages.length > 0 ? (
+            chat.messages.map((msg) => (
+              <MessageBubble key={msg.message_id} msg={msg} />
+            ))
+          ) : (
+            <Box textAlign="center" color="label" mt={3} italic>
+              Нет сообщений. Начните диалог!
+            </Box>
+          )
         ) : (
-          <Box textAlign="center" color="label" mt={3} italic>
-            Нет сообщений. Начните диалог!
-          </Box>
+          // --- ВИД: ПАНЕЛЬ УЧАСТНИКОВ ---
+          <Stack vertical fill>
+            <Box bold mb={1} fontSize={1.1}>
+              Участники ({chat.chat_members.length})
+            </Box>
+
+            {/* Список участников */}
+            <Box style={{ flex: 1, overflowY: 'auto', paddingRight: '0.5rem' }}>
+              {chat.chat_members.map((member) => {
+                const isMe =
+                  member.account_number ===
+                  owner_messenger_account?.account_number;
+                const isMemberOwner = member.name === chat.owner_chat?.name;
+
+                return (
+                  <Stack
+                    key={member.account_number}
+                    align="center"
+                    mb={1}
+                    p={0.5}
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.05)',
+                      borderRadius: '0.4rem',
+                    }}
+                  >
+                    <Avatar account_photo={member.photo} />
+                    <Stack.Item grow>
+                      <Box bold fontSize={0.95}>
+                        {member.name}
+                      </Box>
+                      <Box fontSize={0.8} color="label">
+                        {isMemberOwner ? 'Владелец' : 'Участник'}
+                      </Box>
+                    </Stack.Item>
+
+                    {/* Кнопка удаления участника (только для админов/владельца и нельзя удалить себя или владельца) */}
+                    {hasAdminRights && !isMe && !isMemberOwner && (
+                      <Button
+                        icon="times"
+                        color="red"
+                        compact
+                        tooltip="Исключить из чата"
+                        onClick={() => removeMember(member.name)}
+                      />
+                    )}
+                  </Stack>
+                );
+              })}
+            </Box>
+
+            {/* Блок добавления участника (только для групп и админов/владельца) */}
+            {chat.is_group && hasAdminRights && (
+              <Section mt={1} title="Добавить участника">
+                <Stack vertical>
+                  <SearchableDropdown
+                    options={allTargets}
+                    value={newMemberTarget}
+                    onChange={(val) => setNewMemberTarget(val)}
+                    placeholder="Поиск сотрудника..."
+                  />
+                  <Button
+                    fluid
+                    icon="plus"
+                    color="green"
+                    disabled={!newMemberTarget}
+                    onClick={addMember}
+                  >
+                    Добавить
+                  </Button>
+                </Stack>
+              </Section>
+            )}
+
+            {!chat.is_group && (
+              <Box color="label" fontSize={0.9} textAlign="center" mt={2}>
+                Это личный чат. Управление участниками недоступно.
+              </Box>
+            )}
+
+            {!hasAdminRights && chat.is_group && (
+              <Box color="label" fontSize={0.9} textAlign="center" mt={2}>
+                У вас нет прав на управление участниками.
+              </Box>
+            )}
+          </Stack>
         )}
       </Box>
 
-      {chat.can_reply && (
-        <Section
-          style={{
-            marginBottom: '12%',
-          }}
-        >
+      {/* ПОЛЕ ВВОДА СООБЩЕНИЯ (скрываем, если открыта панель участников, чтобы не мешало, или оставляем - на выбор. Обычно скрывают) */}
+      {chat.can_reply && !showMembers && (
+        <Section>
           <Stack align="center">
             <Stack.Item grow>
               <input
@@ -546,7 +688,7 @@ const CreateGroupPage = ({ setPage, data }: PageProps) => {
             <Stack mb={1}>
               <Stack.Item grow>
                 <SearchableDropdown
-                  options={data.targets}
+                  options={data.allTargets}
                   value={selectedTarget}
                   onChange={setSelectedTarget}
                   placeholder="Поиск сотрудника..."

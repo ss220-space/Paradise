@@ -93,6 +93,9 @@ SUBSYSTEM_DEF(capitalism)
 	if(!GLOB.station_account)
 		create_station_account()
 
+	if(!GLOB.system_account)
+		create_system_account()
+
 	if(!length(GLOB.department_accounts))
 		for(var/department in GLOB.station_departments)
 			create_department_account(department)

@@ -3,34 +3,30 @@
 * а если их нет, то чат удаляется;
 */
 
-/**
- * Chat log data type, stores information about the chat members,
- * the messages themselves and other metadata.
- */
-
-// ну кароче тк тут не постгря будем вот его юзать для уникальный чатиков
+/// Chat log data type, stores information about the chat members,
+/// the messages themselves and other metadata.
 /datum/messenger_chat
 	var/chat_id
-	/// group name
+	// group name
 	var/name_chat = "Неизвестный чат"
-	/// chat description
+	// chat description
 	var/description_chat = "Нет описания"
-	/// The creator and main admin in the chat
+	// The creator and main admin in the chat
 	var/datum/messenger_account/owner_chat
-	/// people who are designated as the chat creator and can interact
-	/// as the chat creator except for deletion
+	// people who are designated as the chat creator and can interact
+	// as the chat creator except for deletion
 	var/list/datum/messenger_account/chat_admins
-	/// a list of all chat participants
+	// a list of all chat participants
 	var/list/datum/messenger_account/chat_members
-	/// list of all messages in this chat
+	// list of all messages in this chat
 	var/list/datum/messenger_message/messages = list()
-	/// Used to determine if you can talk in a chat
+	// Used to determine if you can talk in a chat
 	var/can_reply = TRUE
-	/// A variable that indicates whether this is a group
+	// A variable that indicates whether this is a group
 	var/is_group = FALSE
-	/// a variable that determines whether a group is private or public
+	// a variable that determines whether a group is private or public
 	var/is_private = TRUE
-	/// Saved draft of a message so the sender can leave and come back later
+	// Saved draft of a message so the sender can leave and come back later
 	var/message_draft = ""
 
 /datum/messenger_chat/New(name_chat, description_chat, owner_chat, is_group, is_private)
@@ -48,9 +44,7 @@
 		member.delete_chat(src)
 	. = ..()
 
-/**
- * Can update multiple fields at once.
- */
+/// Can update multiple fields at once.
 /datum/messenger_chat/proc/update_chat(
 	name_chat = null, description_chat = null, owner_chat = null, is_private = null)
 	if(name_chat)
@@ -62,10 +56,8 @@
 	if(is_private)
 		src.is_private = is_private
 
-/**
- * Return FALSE if the account was not added.
- *		  TRUE  if it was.
- */
+///Return FALSE if the account was not added.
+///		  TRUE  if it was.
 /datum/messenger_chat/proc/add_admin_in_chat(datum/messenger_account/added_member)
 	if(!added_member)
 		return FALSE
@@ -78,10 +70,8 @@
 	chat_admins += added_member
 	return TRUE
 
-/**
- * Return FALSE if the account was not added.
- *		  TRUE  if it was.
- */
+/// Return FALSE if the account was not added.
+/// 		  TRUE  if it was.
 /datum/messenger_chat/proc/add_member_in_chat(datum/messenger_account/added_member)
 	if(!added_member)
 		return FALSE
@@ -92,10 +82,18 @@
 	added_member.add_chat(src)
 	return TRUE
 
-/**
- * Adds a message to the chat log and optionally shows the chat in recents.
- * Call this instead of adding to messages directly.
- */
+/datum/messenger_chat/proc/delete_member_in_chat(datum/messenger_account/added_member)
+	if(!added_member)
+		return FALSE
+	// Checking if you are already a member of the chat.
+	if(check_account_in_list(added_member, chat_members))
+		return FALSE
+	chat_members -= added_member
+	added_member.delete_chat(src)
+	return TRUE
+
+/// Adds a message to the chat log and optionally shows the chat in recents.
+/// Call this instead of adding to messages directly.
 /datum/messenger_chat/proc/add_message(datum/messenger_message/added_message)
 	messages += added_message
 	return added_message
@@ -158,3 +156,46 @@
 
 	// никогда такого не должно быть, но что бы не крашилось, передаем как черный ящик
 	return name_chat
+
+/datum/messenger_chat/proc/add_member_to_chat(invater, target_name)
+	if(!is_group)
+		return FALSE
+
+	var/datum/money_account/interlocutor_money_account = get_account_with_name(target_name)
+	var/datum/messenger_account/new_member = interlocutor_money_account.messenger_profile
+
+	if(!new_member)
+		to_chat(usr, span_warning("Пользователь [target_name] не найден(-a)."))
+		return FALSE
+
+	if(check_account_in_list(new_member, chat_members))
+		to_chat(usr, span_warning("[target_name] уже состоит в этом чате."))
+		return FALSE
+
+	add_member_in_chat(new_member)
+	send_message_to_chat("Пользователь [invater] добавил(-a) в группу [target_name]", chat_id, GLOB.system_account.messenger_profile)
+	return TRUE
+
+/datum/messenger_chat/proc/remove_member_from_chat(invater, target_name)
+	if(!is_group)
+		return FALSE
+
+	var/datum/money_account/interlocutor_money_account = get_account_with_name(target_name)
+	var/datum/messenger_account/new_member = interlocutor_money_account.messenger_profile
+
+	if(!new_member)
+		to_chat(usr, span_warning("Пользователь [target_name] не найден(-a)."))
+		return FALSE
+
+	if(!check_account_in_list(new_member, chat_members))
+		to_chat(usr, span_warning("[target_name] не состоит в этом чате."))
+		return FALSE
+
+	chat_members -= new_member
+
+	if(!!invater)
+		send_message_to_chat("Пользователь [invater] удалил(-a) из группы [target_name]", chat_id, GLOB.system_account.messenger_profile)
+	else
+		send_message_to_chat("Пользователь [target_name] вышел(-a) из группы", chat_id, GLOB.system_account.messenger_profile)
+
+	return TRUE

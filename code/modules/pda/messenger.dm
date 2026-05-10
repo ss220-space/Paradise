@@ -52,6 +52,18 @@
 			var/is_public = params["is_public"]
 			var/members = params["members"]
 			create_group_chat(name_chat, description, is_public, last_login_owner, members)
+		if("add_member_to_chat")
+			var/invater = params["invater"]
+			var/chat_id = params["chatId"]
+			var/datum/messenger_chat/chat = locateUID(chat_id)
+			var/target_name = params["targetName"]
+			chat.add_member_to_chat(invater, target_name)
+		if("remove_member_from_chat")
+			var/invater = params["invater"]
+			var/chat_id = params["chatId"]
+			var/datum/messenger_chat/chat = locateUID(chat_id)
+			var/target_name = params["targetName"]
+			chat.remove_member_from_chat(invater, target_name)
 
 // Логинимся и возвращаем аккаунт, либо выдаем null
 /datum/data/pda/app/messenger/proc/login_in_messenger(list/data)
@@ -67,6 +79,7 @@
 
 	// так как тут выше был money_account запихиваем возможные таргеты
 	data["targets"] = get_possible_targets(owner_money_account)
+	data["allTargets"] = get_all_targets(owner_money_account)
 
 	// берем аккаунт мессенджера из аккаунта человека+
 	var/datum/messenger_account/owner_messenger_account = owner_money_account.messenger_profile
@@ -78,6 +91,14 @@
 	last_login_owner = owner_messenger_account
 	data["can_login"] = can_login
 	return owner_messenger_account
+
+// передает в UI все таргеты для создания личных/групповых чатов
+/datum/data/pda/app/messenger/proc/get_all_targets(datum/money_account/exclude_account)
+	var/list/all_targets = list()
+	for(var/datum/money_account/target_account as anything in GLOB.all_money_accounts)
+		if(target_account.owner_name != exclude_account.owner_name)
+			all_targets.Add(target_account.owner_name)
+	return all_targets
 
 // передает в UI возможные тагреты для создания личных/групповых чатов
 /datum/data/pda/app/messenger/proc/get_possible_targets(datum/money_account/exclude_account)
@@ -92,4 +113,3 @@
 			!check_account_in_list(target_account.messenger_profile, used_targets))
 			possible_targets.Add(target_account.owner_name)
 	return possible_targets
-
