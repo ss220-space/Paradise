@@ -577,6 +577,8 @@ GLOBAL_VAR(bomb_set)
 	else
 		visible_message(span_notice("The [src] emits a quiet whirling noise!"))
 
+#define NUCLEAR_DISK_SECURE_THRESHOLD 500 SECONDS
+
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear
 	name = "nuclear authentication disk"
@@ -590,6 +592,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/unrestricted
 	desc = "Seems to have been stripped of its safeties, you better not lose it."
+	unrestricted = TRUE
 
 /obj/item/disk/nuclear/Initialize(mapload)
 	. = ..()
@@ -628,7 +631,7 @@ GLOBAL_VAR(bomb_set)
 		if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
 			disk_comfort_level++
 
-	if(last_move < world.time - 500 SECONDS && prob((world.time - 500 SECONDS - last_move) * 0.0001))
+	if(last_move < world.time - NUCLEAR_DISK_SECURE_THRESHOLD && prob((world.time - NUCLEAR_DISK_SECURE_THRESHOLD - last_move) * 0.0001))
 		var/datum/event_meta/loneop = GLOB.lone_operative_meta
 		if(!istype(loneop))
 			return
@@ -660,9 +663,6 @@ GLOBAL_VAR(bomb_set)
 	user.adjustOxyLoss(200)
 	user.death(FALSE)
 
-/obj/item/disk/nuclear/unrestricted
-	unrestricted = TRUE
-
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
 #undef NUKE_COVER_OPEN
@@ -673,3 +673,4 @@ GLOBAL_VAR(bomb_set)
 #undef NUKE_CORE_PANEL_EXPOSED
 #undef NUKE_CORE_PANEL_UNWELDED
 #undef NUKE_CORE_FULLY_EXPOSED
+#undef NUCLEAR_DISK_SECURE_THRESHOLD

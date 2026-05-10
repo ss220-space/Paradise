@@ -32,7 +32,7 @@
 
 /datum/component/keep_me_secure/RegisterWithParent()
 	last_move = world.time
-	if (secured_callback || unsecured_callback)
+	if(secured_callback || unsecured_callback)
 		START_PROCESSING(SSobj, src)
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE_MORE, PROC_REF(on_examine_more))
@@ -48,11 +48,11 @@
 		return TRUE
 
 	var/obj/item/item_parent = parent
-	if (last_secured_location == get_turf(item_parent))
+	if(last_secured_location == get_turf(item_parent))
 		return FALSE
 
 	var/mob/holder = item_parent.pulledby || get(parent, /mob)
-	if (isnull(holder?.client))
+	if(isnull(holder?.client))
 		return FALSE
 
 	return TRUE
