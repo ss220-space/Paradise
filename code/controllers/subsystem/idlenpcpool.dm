@@ -8,13 +8,13 @@ GLOBAL_VAR_INIT(idlenpc_suspension, TRUE)
 
 SUBSYSTEM_DEF(idlenpcpool)
 	name = "Idling NPC Pool"
-	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
+	ss_flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	priority = FIRE_PRIORITY_IDLE_NPC
 	wait = 6 SECONDS
 	runlevels = RUNLEVEL_GAME|RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_IDLENPCS // MUST be after SSmapping since it tracks max Zs
-	offline_implications = "Idle simple animals will no longer process. Shuttle call recommended."
-	ss_id = "idle_npc_pool"
+	dependencies = list(
+		/datum/controller/subsystem/mapping, // tracks max Zs
+	)
 
 	var/list/currentrun = list()
 	var/static/list/idle_mobs_by_zlevel[][]

@@ -132,7 +132,7 @@
 				return
 
 		if(VV_BITFIELD)
-			.["value"] = input_bitfield(usr, "Editing bitfield: [var_name]", var_name, current_value)
+			.["value"] = input_bitfield(usr, var_name, current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return

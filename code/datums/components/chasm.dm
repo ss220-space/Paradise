@@ -278,10 +278,10 @@
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-/obj/effect/abstract/chasm_storage/Exited(atom/movable/departed, atom/newLoc)
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(isliving(departed))
-		UnregisterSignal(departed, COMSIG_LIVING_REVIVE)
+	if(isliving(gone))
+		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
 
 /obj/effect/abstract/chasm_storage/proc/get_fish(mob/fish, atom/new_loc)
 	if(!(fish in src))

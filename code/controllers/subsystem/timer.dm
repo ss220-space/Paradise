@@ -19,12 +19,8 @@
 SUBSYSTEM_DEF(timer)
 	name = "Timer"
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
-	init_order = INIT_ORDER_TIMER
 	priority = FIRE_PRIORITY_TIMER
-	flags = SS_TICKER|SS_NO_INIT
-	offline_implications = "The game will no longer process timers. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "timer"
+	ss_flags = SS_TICKER|SS_NO_INIT
 
 	/// Queue used for storing timers that do not fit into the current buckets
 	var/list/datum/timedevent/second_queue = list()
@@ -284,7 +280,7 @@ SUBSYSTEM_DEF(timer)
 		return
 
 	// Sort all timers by time to run
-	sortTim(alltimers, cmp = /proc/cmp_timer)
+	sortTim(alltimers, GLOBAL_PROC_REF(cmp_timer))
 
 	// Get the earliest timer, and if the TTR is earlier than the current world.time,
 	// then set the head offset appropriately to be the earliest time tracked by the
@@ -344,7 +340,7 @@ SUBSYSTEM_DEF(timer)
 	// Find the current timer sub-subsystem in global and recover its buckets etc
 	var/datum/controller/subsystem/timer/timerSS = null
 	for(var/global_var in global.vars)
-		if(istype(global.vars[global_var],src.type))
+		if(istype(global.vars[global_var], src.type))
 			timerSS = global.vars[global_var]
 
 	hashes = timerSS.hashes
@@ -581,11 +577,13 @@ SUBSYSTEM_DEF(timer)
 GLOBAL_LIST_EMPTY(timers_by_type)
 // Allows us to track what types generate the most timers. Just invokes the global addtimer
 /datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0, datum/controller/subsystem/timer/timer_subsystem)
-	var/tt = "[type]"
-	if(tt in GLOB.timers_by_type)
-		GLOB.timers_by_type[tt]++
-	else
-		GLOB.timers_by_type[tt] = 1
+	var/list/timers_by_type = GLOB.timers_by_type
+	if(timers_by_type)
+		var/tt = "[type]"
+		if(tt in timers_by_type)
+			timers_by_type[tt]++
+		else
+			timers_by_type[tt] = 1
 	return global.addtimer(callback, wait, flags, timer_subsystem)
 
 /**
@@ -594,7 +592,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  * In-round ability to view what has created a timer, and how many times a timer for that path has been created
  */
 ADMIN_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of what types created timers this round.", ADMIN_CATEGORY_DEBUG)
-	var/list/sorted = sortTim(GLOB.timers_by_type, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
@@ -614,7 +612,7 @@ ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currentl
 		else
 			timers[cbtxt] = 1
 
-	var/list/sorted = sortTim(timers, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted = sortTim(timers, GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/list/text = list("<h1>All active timers sorted by callback</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
@@ -631,7 +629,7 @@ ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currentl
 			timers2[cbtxt] = 1
 
 	text += "<h1>All buckets, sorted by callback</h1><ul>"
-	var/list/sorted2 = sortTim(timers2, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted2 = sortTim(timers2, GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	for(var/key in sorted2)
 		text += "<li>[key] - [sorted2[key]]</li>"
 

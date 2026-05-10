@@ -49,12 +49,12 @@
 	QDEL_LIST(coffee)
 	return ..()
 
-/obj/machinery/coffeemaker/Exited(atom/movable/departed, atom/newLoc)
+/obj/machinery/coffeemaker/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(departed == coffeepot)
+	if(gone == coffeepot)
 		coffeepot = null
 		update_appearance(UPDATE_OVERLAYS)
-	if(departed == cartridge)
+	if(gone == cartridge)
 		cartridge = null
 		update_appearance(UPDATE_OVERLAYS)
 

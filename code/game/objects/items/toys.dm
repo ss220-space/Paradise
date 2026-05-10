@@ -636,6 +636,10 @@
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
 
+/obj/item/toy/plushie/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/bed_tuckable, mapload, 6, -4, 90)
+
 /obj/item/toy/plushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))

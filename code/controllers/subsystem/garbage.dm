@@ -1,14 +1,32 @@
+/*!
+## Debugging GC issues
+
+In order to debug `qdel()` failures, there are several tools available.
+To enable these tools, define `TESTING` in [_compile_options.dm].
+
+First is a verb called "Find References", which lists **every** refererence to an object in the world. This allows you to track down any indirect or obfuscated references that you might have missed.
+
+Complementing this is another verb, "qdel() then Find References".
+This does exactly what you'd expect; it calls `qdel()` on the object and then it finds all references remaining.
+This is great, because it means that `Destroy()` will have been called before it starts to find references,
+so the only references you'll find will be the ones preventing the object from `qdel()`ing gracefully.
+
+If you have a datum or something you are not destroying directly (say via the singulo),
+the next tool is `QDEL_HINT_FINDREFERENCE`. You can return this in `Destroy()` (where you would normally `return ..()`),
+to print a list of references once it enters the GC queue.
+
+Finally is a verb, "Show qdel() Log", which shows the deletion log that the garbage subsystem keeps. This is helpful if you are having race conditions or need to review the order of deletions.
+
+Note that for any of these tools to work `TESTING` must be defined.
+By using these methods of finding references, you can make your life far, far easier when dealing with `qdel()` failures.
+*/
 SUBSYSTEM_DEF(garbage)
 	name = "Garbage"
 	priority = FIRE_PRIORITY_GARBAGE
 	wait = 2 SECONDS
-	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
+	ss_flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
-	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
-	//init_stage = INITSTAGE_EARLY
-	offline_implications = "Garbage statistics collection is no longer functional, not a big deal actually. No futher actions required."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "garbage_collector"
+	init_stage = INITSTAGE_FIRST
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick
@@ -44,14 +62,7 @@ SUBSYSTEM_DEF(garbage)
 
 #ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/PreInit()
-	if(isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
-		queues = new(GC_QUEUE_COUNT)
-		pass_counts = new(GC_QUEUE_COUNT)
-		fail_counts = new(GC_QUEUE_COUNT)
-		for(var/i in 1 to GC_QUEUE_COUNT)
-			queues[i] = list()
-			pass_counts[i] = 0
-			fail_counts[i] = 0
+	InitQueues()
 #endif
 
 /datum/controller/subsystem/garbage/get_stat_details()
@@ -100,7 +111,7 @@ SUBSYSTEM_DEF(garbage)
 	var/list/dellog = list()
 
 	//sort by how long it's wasted hard deleting
-	sortTim(items, cmp = /proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(items, GLOBAL_PROC_REF(cmp_qdel_item_time), associative = TRUE)
 	for(var/path in items)
 		var/datum/qdel_item/I = items[path]
 		dellog += "Path: [path]"
@@ -137,6 +148,16 @@ SUBSYSTEM_DEF(garbage)
 				if(state == SS_PAUSED) //make us wait again before the next run.
 					state = SS_RUNNING
 				break
+
+/datum/controller/subsystem/garbage/proc/InitQueues()
+	if(isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
+		queues = new(GC_QUEUE_COUNT)
+		pass_counts = new(GC_QUEUE_COUNT)
+		fail_counts = new(GC_QUEUE_COUNT)
+		for(var/i in 1 to GC_QUEUE_COUNT)
+			queues[i] = list()
+			pass_counts[i] = 0
+			fail_counts[i] = 0
 
 /datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_FILTER)
 	if(level == GC_QUEUE_FILTER)
@@ -324,6 +345,7 @@ SUBSYSTEM_DEF(garbage)
 
 #ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/Recover()
+	InitQueues() //We first need to create the queues before recovering data
 	if(istype(SSgarbage.queues))
 		for(var/i in 1 to length(SSgarbage.queues))
 			queues[i] |= SSgarbage.queues[i]
@@ -403,7 +425,7 @@ SUBSYSTEM_DEF(garbage)
 			SSgarbage.Queue(to_delete)
 		if(QDEL_HINT_IWILLGC)
 			to_delete.gc_destroyed = world.time
-			SSdemo.mark_destroyed(to_delete)
+			//SSdemo.mark_destroyed(to_delete)
 			return
 		if(QDEL_HINT_LETMELIVE) //qdel should let the object live after calling destory.
 			if(!force)
@@ -424,10 +446,10 @@ SUBSYSTEM_DEF(garbage)
 			SSgarbage.Queue(to_delete)
 		if(QDEL_HINT_HARDDEL) //qdel should assume this object won't gc, and queue a hard delete
 			SSgarbage.Queue(to_delete, GC_QUEUE_HARDDELETE)
-			SSdemo.mark_destroyed(to_delete)
+			//SSdemo.mark_destroyed(to_delete)
 		if(QDEL_HINT_HARDDEL_NOW) //qdel should assume this object won't gc, and hard del it post haste.
 			SSgarbage.HardDelete(to_delete, FALSE)
-			SSdemo.mark_destroyed(to_delete)
+			//SSdemo.mark_destroyed(to_delete)
 		#ifdef REFERENCE_TRACKING
 		if(QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
 			SSgarbage.Queue(to_delete)
@@ -445,5 +467,5 @@ SUBSYSTEM_DEF(garbage)
 			trash.no_hint++
 			SSgarbage.Queue(to_delete)
 
-	if(to_delete)
-		SSdemo.mark_destroyed(to_delete)
+	//if(to_delete)
+	//	SSdemo.mark_destroyed(to_delete)

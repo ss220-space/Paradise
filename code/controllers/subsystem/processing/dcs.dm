@@ -1,11 +1,8 @@
 PROCESSING_SUBSYSTEM_DEF(dcs)
 	name = "Datum Component System"
-	flags = SS_NO_INIT|SS_HIBERNATE
-	ss_id = "datum_component_system"
+	ss_flags = SS_NO_INIT|SS_HIBERNATE
 
 	var/list/elements_by_type = list()
-	// Update this if you add in components which actually use this as a processor
-	offline_implications = "This SS doesnt actually process anything yet. No immediate action is needed."
 
 /datum/controller/subsystem/processing/dcs/Recover()
 	comp_lookup = SSdcs.comp_lookup

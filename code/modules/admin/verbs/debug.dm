@@ -491,7 +491,7 @@ ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta
 
 ADMIN_VERB(display_del_log, R_DEBUG, "Display del() Log", "Display del's log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
 	var/list/dellog = list("<b>List of things that have gone through qdel this round</b><br><br><ol>")
-	sortTim(SSgarbage.items, cmp = /proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(SSgarbage.items, GLOBAL_PROC_REF(cmp_qdel_item_time), associative = TRUE)
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
@@ -628,3 +628,41 @@ ADMIN_VERB(clear_smart_asset_cache, R_DEBUG, "Clear Smart Asset Cache", "Clear t
 
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_DEBUG|R_SPAWN, "Delete", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/target as obj|mob|turf in world)
 	user.admin_delete(target)
+
+/datum/mc_dependency_ui
+
+/datum/mc_dependency_ui/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MCDependencyDebug")
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/datum/mc_dependency_ui/ui_state(mob/user)
+	return ADMIN_STATE(R_DEBUG)
+
+/datum/mc_dependency_ui/ui_data(mob/user)
+	var/list/data = list()
+
+	var/list/subsystems = Master.subsystems.Copy()
+	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_init))
+
+	for(var/datum/controller/subsystem/subsystem as anything in subsystems)
+		var/list/sub_data = list()
+		sub_data["name"] = subsystem.name
+		var/list/dependents = list()
+		for(var/datum/controller/subsystem/dependent as anything in subsystem.dependents)
+			dependents += dependent.name
+		sub_data["dependents"] = dependents
+		data += list(sub_data)
+
+	return list(
+		"subsystems" = data
+	)
+
+/datum/mc_dependency_ui/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/simple/plane_background))
+
+ADMIN_VERB(debug_mc_dependencies, R_DEBUG, "Debug MC Dependencies", "Debug MC dependencies.", ADMIN_CATEGORY_DEBUG)
+	var/datum/mc_dependency_ui/data = new /datum/mc_dependency_ui()
+	data.ui_interact(usr)

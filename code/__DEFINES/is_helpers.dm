@@ -180,6 +180,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_mmi(A) (istype(A, /obj/item/mmi))
 
+#define isdisposalunit(A) (istype(A, /obj/machinery/disposal))
+
 #define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(

@@ -1,6 +1,8 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
+	AddComponent(/datum/component/anti_juggling)
+	ADD_TRAIT(src, TRAIT_CAN_HOLD_ITEMS, INNATE_TRAIT) // Carbons are assumed to be innately capable of having arms, we check their arms count instead
 
 /mob/living/carbon/Destroy()
 	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.

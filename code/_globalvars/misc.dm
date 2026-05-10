@@ -93,3 +93,5 @@ GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
 
 /// Global list of all /datum/mod_theme
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
+
+GLOBAL_DATUM(lone_operative_meta, /datum/event_meta/lone_operative)
