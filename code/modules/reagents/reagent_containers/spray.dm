@@ -250,8 +250,7 @@
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
-	volume = 250
-	list_reagents = list("cleaner" = 250)
+
 
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
