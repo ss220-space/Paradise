@@ -48,7 +48,6 @@
 	var/last_message_count = 0
 	/// Holds the last time (based on world.time) a message was sent.
 	var/last_message_time = 0
-
 	var/datum/pm_tracker/pm_tracker
 
 		/////////
