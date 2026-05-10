@@ -950,6 +950,10 @@
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
+/datum/status_effect/transient/jittery/on_remove()
+	. = ..()
+	owner.update_offsets()
+
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)

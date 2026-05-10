@@ -215,31 +215,6 @@
 
 	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
 
-/obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
-	name = "purple engraved zippo"
-	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "purple_zippo_off"
-	item_state = "purplezippo"
-	icon_on = "purple_zippo_on"
-	icon_off = "purple_zippo_off"
-
-/obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
-	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "guessip"
-	item_state = "rubysfluffzippo"
-	icon_on = "guessipon"
-	icon_off = "guessip"
-
-/obj/item/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
-	name = "Monogrammed Zippo"
-	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "rybysfluff"
-	icon_on = "rybysfluffopen"
-	icon_off = "rybysfluff"
 
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"

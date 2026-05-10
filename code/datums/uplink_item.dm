@@ -831,6 +831,13 @@
 	item = /obj/item/storage/box/syndie_kit/desert_eagle
 	cost = 50
 
+/datum/uplink_item/dangerous/kedr
+	name = "Пистолет-пулемёт K-45"
+	desc = "Комплект с компактным пистолет-пулемётом K-45 калибра 9 мм, четыре дополнительных магазина к нему и универсальный глушитель."
+	item = /obj/item/storage/box/syndie_kit/kedr_kit
+	cost = 35
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
@@ -1079,6 +1086,13 @@
 	desc = "Магазин на 15 экспансивных патронов калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 2
+
+
+/datum/uplink_item/ammo/kedr_ammo
+	name = "Пистолет-пулемет K-45 — 4 магазина 9 мм"
+	desc = "Четыре магазина на 20 стандартных патронов калибра 9 мм. Подходят к пистолет-пулемету K-45."
+	item = /obj/item/storage/box/syndie_kit/kedr_ammo
+	cost = 4
 
 /datum/uplink_item/ammo/bullbuck
 	name = "Барабан 12g — \"Магнум Картечь\""

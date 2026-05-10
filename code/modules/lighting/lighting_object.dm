@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 			00, 00, 00, 01
 		)
 
-	SSdemo.mark_turf(affected_turf)
+	//SSdemo.mark_turf(affected_turf)
 
 // Variety of overrides so the overlays don't get affected by weird things.
 

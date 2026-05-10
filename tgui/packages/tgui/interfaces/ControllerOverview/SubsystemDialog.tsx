@@ -5,7 +5,7 @@ import {
   LabeledList,
   Modal,
   Stack,
-} from 'tgui/components';
+} from '../../components';
 
 import type { SubsystemData } from './types';
 
@@ -19,6 +19,7 @@ export const SubsystemDialog = (props: Props) => {
   const {
     cost_ms,
     init_order,
+    initialization_failure_message,
     last_fire,
     name,
     next_fire,
@@ -55,6 +56,11 @@ export const SubsystemDialog = (props: Props) => {
           <LabeledList.Item label="Tick Overrun">
             {overtime.toFixed(2)}%
           </LabeledList.Item>
+          {initialization_failure_message && (
+            <LabeledList.Item color="bad">
+              {initialization_failure_message}
+            </LabeledList.Item>
+          )}
         </LabeledList>
       </Box>
       <Stack fill justify="space-between">

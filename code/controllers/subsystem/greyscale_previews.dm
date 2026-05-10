@@ -5,8 +5,11 @@
 
 SUBSYSTEM_DEF(greyscale_previews)
 	name = "Greyscale Previews"
-	flags = SS_NO_FIRE
-	init_order = INIT_ORDER_GREYSCALE_PREVIEW
+	ss_flags = SS_NO_FIRE
+	init_stage = INITSTAGE_EARLY
+	dependencies = list(
+		/datum/controller/subsystem/processing/greyscale,
+	)
 
 /datum/controller/subsystem/greyscale_previews/Initialize()
 #ifndef TEST_RUNNER // We want this to run during unit tests regardless of the config

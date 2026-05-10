@@ -24,7 +24,6 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	burst_amount = 1
-	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_PISTOL
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)

@@ -22,10 +22,9 @@
 SUBSYSTEM_DEF(verb_manager)
 	name = "Verb Queue Manager"
 	wait = 1
-	flags = SS_TICKER|SS_NO_INIT
+	ss_flags = SS_TICKER|SS_NO_INIT
 	priority = FIRE_PRIORITY_DELAYED_VERBS
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
-	ss_id = "verb_manager"
 
 	///list of callbacks to procs called from verbs or verblike procs that were executed when the server was overloaded and had to delay to the next tick.
 	///this list is ran through every tick, and the subsystem does not yield until this queue is finished.
@@ -117,7 +116,7 @@ SUBSYSTEM_DEF(verb_manager)
 		return TRUE
 
 	if((usr.client?.holder && !can_queue_admin_verbs) \
-	|| (!initialized && !(flags & SS_NO_INIT)) \
+	|| (!initialized && !(ss_flags & SS_NO_INIT)) \
 	|| FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs \
 	|| !(runlevels & Master.current_runlevel))
 		return FALSE

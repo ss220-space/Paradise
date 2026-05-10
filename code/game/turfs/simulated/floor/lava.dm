@@ -128,6 +128,8 @@
 		if(burn_target.throwing) // to avoid gulag prisoners easily escaping, throwing only works for objects.
 			return LAVA_BE_IGNORING
 		var/obj/burn_obj = burn_target
+		if(HAS_TRAIT(src, TRAIT_ELEVATED_TURF) && !HAS_TRAIT(burn_obj, TRAIT_ELEVATING_OBJECT))
+			return LAVA_BE_PROCESSING
 		if((burn_obj.resistance_flags & immunity_resistance_flags) || (burn_obj.resistance_flags & INDESTRUCTIBLE))
 			return LAVA_BE_PROCESSING
 		return LAVA_BE_BURNING
@@ -136,6 +138,9 @@
 		return LAVA_BE_IGNORING
 
 	if(HAS_TRAIT(burn_target, immunity_trait))
+		return LAVA_BE_PROCESSING
+
+	if(HAS_TRAIT(burn_target, TRAIT_MOB_ELEVATED))
 		return LAVA_BE_PROCESSING
 
 	var/mob/living/burn_living = burn_target

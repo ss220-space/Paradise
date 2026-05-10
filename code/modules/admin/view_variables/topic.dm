@@ -14,10 +14,6 @@
  * * For basic operations, use /client/proc/vv_do_basic().
  */
 /client/proc/view_var_Topic(href, href_list, hsrc)
-	if(!check_rights_for(src, R_VAREDIT))
-		to_chat(usr, span_warning("У вас недостаточно прав для доступа к VV."), confidential = TRUE)
-		return
-
 	var/target = locate_vv_href(href_list[VV_HK_TARGET])
 	vv_do_basic(target, href_list, href)
 	if(isdatum(target))
@@ -130,6 +126,8 @@
 
 	// MARK: item var tweak
 	else if(href_list["item_to_tweak"] && href_list["var_tweak"])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))
+			return
 		var/obj/item/editing = locateUID(href_list["item_to_tweak"])
 		if(!istype(editing) || QDELING(editing))
 			return
