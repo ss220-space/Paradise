@@ -800,11 +800,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
-"JJ" = (
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "La" = (
 /obj/structure/sign/directions/medical{
 	dir = 1
@@ -911,7 +906,7 @@ bT
 VF
 VF
 RT
-JJ
+RT
 VF
 cH
 cH
@@ -1418,7 +1413,7 @@ cH
 aa
 cH
 VF
-JJ
+RT
 VF
 cH
 cH

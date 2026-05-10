@@ -161,11 +161,6 @@
 /obj/item/bedsheet/rainbow,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
-"aL" = (
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "aM" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
@@ -423,7 +418,7 @@ aP
 aM
 XG
 XG
-aL
+XG
 aM
 aT
 bq
@@ -527,7 +522,7 @@ am
 XG
 XG
 XG
-aL
+XG
 am
 am
 XG
