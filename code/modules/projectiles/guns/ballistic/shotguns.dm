@@ -341,7 +341,6 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 1
-	fire_delay = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -401,7 +400,7 @@
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
-	fire_delay = 1.5
+	fire_delay = 0.15 SECONDS
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -426,7 +425,6 @@
 	icon_state = "tla_cats"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/cats12g
-	fire_delay = 0
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	burst_amount = 2

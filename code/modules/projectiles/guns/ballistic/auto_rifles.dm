@@ -59,7 +59,7 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 1
+	fire_delay = 0.1 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -81,7 +81,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 2
-	fire_delay = 1
+	fire_delay = 0.1 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	weapon_weight = WEAPON_HEAVY
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER

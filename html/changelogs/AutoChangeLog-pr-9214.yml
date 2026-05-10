@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Эффект флеш гранат не зависит от пристутствия офицеров (PR #9214)"

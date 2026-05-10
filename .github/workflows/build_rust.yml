@@ -162,11 +162,35 @@ jobs:
           rustup default stable-x86_64-pc-windows-msvc
           rustup target add i686-pc-windows-msvc
 
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          install: mingw-w64-i686-gcc
+
       - name: Build Windows DLL (MSVC)
         run: |
           cd rust
           cargo build --release --target i686-pc-windows-msvc
           copy target\i686-pc-windows-msvc\release\rustlibs.dll ..\rustlibs.dll
+
+      - name: Build Windows DLL (GNU)
+        shell: msys2 {0}
+        run: |
+          export PATH="/c/Users/runneradmin/.cargo/bin:$PATH"
+
+          which cargo || echo "Cargo not found, installing..."
+
+          if ! command -v cargo &> /dev/null; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-host x86_64-pc-windows-gnu
+            export PATH="$HOME/.cargo/bin:$PATH"
+          fi
+
+          rustup target add i686-pc-windows-gnu
+
+          cd rust
+          cargo build --release --target i686-pc-windows-gnu
+          cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs_gnu.dll
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
@@ -174,6 +198,7 @@ jobs:
           name: windows-libraries
           path: |
             rustlibs.dll
+            rustlibs_gnu.dll
 
   commit-and-push:
     permissions:
@@ -236,7 +261,7 @@ jobs:
           git config --local user.name "Rust Builder"
           git config --local user.email "action@github.com"
 
-          git add --force librustlibs.so librustlibs_prod.so tools/ci/librustlibs.so rustlibs.dll
+          git add --force librustlibs.so librustlibs_prod.so tools/ci/librustlibs.so rustlibs.dll rustlibs_gnu.dll
           git commit -m "Build Rust library for Linux and Windows" || echo "No changes to commit"
           git push origin
 
