@@ -167,8 +167,6 @@
 	/// The body part where the bleeding was suppressed by the left hand
 	var/right_hand_bleed_suppress_lib = null
 
-	//Did the blob infected mob burst.
-	var/was_bursted = FALSE
 	//Was death by turning to dust.
 	var/dusted = FALSE
 
