@@ -200,9 +200,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/computer/card{
-	dir = 1
-	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "bc" = (

@@ -3,9 +3,8 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ac" = (
 /obj/structure/grille,
@@ -115,7 +114,10 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "ax" = (
 /obj/machinery/status_display{
@@ -125,7 +127,10 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "ay" = (
 /obj/machinery/door/airlock/shuttle{
@@ -160,7 +165,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/structure/piano,
+/obj/structure/pianoclassic,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -176,17 +181,26 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aF" = (
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
 	req_access = list(63)
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aH" = (
 /turf/simulated/floor/carpet/blue,
@@ -198,17 +212,27 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle/objective_check,
+/obj/item/radio/intercom/custom/directional/north,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aM" = (
 /obj/structure/chair/stool/bar{
@@ -276,7 +300,9 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/table,
@@ -350,7 +376,9 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/shuttle/escape)
 "bh" = (
 /obj/machinery/status_display{
@@ -365,23 +393,15 @@
 /obj/machinery/door/airlock{
 	name = "Toilet"
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
 	},
 /area/shuttle/escape)
 "bk" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/machinery/status_display{
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/escape)
 "bn" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -397,11 +417,10 @@
 	},
 /area/shuttle/escape)
 "bp" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
-/obj/machinery/shower,
 /obj/structure/curtain/open/shower,
+/obj/machinery/shower{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -453,9 +472,6 @@
 	},
 /area/shuttle/escape)
 "bx" = (
-/obj/machinery/status_display{
-	pixel_x = -30
-	},
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -472,7 +488,8 @@
 /area/shuttle/escape)
 "bz" = (
 /obj/structure/toilet{
-	dir = 4
+	dir = 1;
+	layer = 4
 	},
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
@@ -538,6 +555,13 @@
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
+"zf" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
+/area/shuttle/escape)
 "AA" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -546,12 +570,29 @@
 	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
+"Gp" = (
+/obj/item/radio/intercom/custom/directional/south,
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Li" = (
+/obj/item/radio/intercom/department,
+/turf/simulated/wall/shuttle,
+/area/shuttle/escape)
 "Ms" = (
 /obj/structure/table/abductor,
 /obj/item/instrument/violin,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
+/area/shuttle/escape)
+"PB" = (
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = -3
+	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/escape)
 "PG" = (
 /obj/machinery/light/spot{
@@ -577,9 +618,9 @@ aI
 Ri
 aT
 Ri
-ac
-ac
-ac
+ab
+ab
+ab
 Ri
 bg
 Ri
@@ -635,7 +676,7 @@ aY
 be
 up
 Ri
-bo
+bA
 Ri
 Ri
 bG
@@ -645,7 +686,7 @@ bL
 aa
 aa
 bu
-ac
+ab
 bk
 aq
 bu
@@ -653,7 +694,7 @@ aK
 aF
 aJ
 bu
-AA
+aA
 aV
 aY
 bc
@@ -672,10 +713,10 @@ aa
 bu
 bu
 ak
-bm
+ai
 ar
 bu
-aK
+zf
 aF
 aJ
 Ri
@@ -687,7 +728,7 @@ aH
 aH
 up
 Ri
-bo
+bA
 Ri
 Ri
 bG
@@ -699,12 +740,12 @@ bu
 ah
 ai
 al
-ab
+as
 Ri
-ac
+ab
 aG
-ac
-ac
+ab
+bm
 aA
 aA
 aA
@@ -720,7 +761,7 @@ bu
 bu
 "}
 (7,1,1) = {"
-ac
+ab
 af
 ai
 al
@@ -738,7 +779,7 @@ aA
 aA
 aA
 aA
-bu
+Li
 bp
 Ri
 bB
@@ -751,7 +792,7 @@ bu
 aj
 ai
 al
-as
+Gp
 Ri
 aA
 aA
@@ -778,7 +819,7 @@ bu
 am
 ao
 al
-bu
+PB
 aA
 aA
 aN
@@ -801,7 +842,7 @@ bL
 aa
 aa
 bu
-ac
+ab
 bk
 ad
 bu
@@ -885,15 +926,15 @@ aa
 bu
 bu
 Ri
-ac
+ab
 Ri
 bu
 Ri
-ac
-ac
-ac
+ab
+ab
+ab
 Ri
-ac
+ab
 Ri
 bu
 bu

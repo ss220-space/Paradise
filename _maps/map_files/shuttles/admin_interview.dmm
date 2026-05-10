@@ -618,13 +618,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
-"Gs" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/administration)
 "Hs" = (
 /obj/machinery/light{
 	dir = 4
@@ -1201,10 +1194,10 @@ TC
 cl
 vb
 Xl
-Gs
+cN
 jI
 NW
-Gs
+cN
 ZZ
 Tl
 Ak

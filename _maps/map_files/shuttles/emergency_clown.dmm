@@ -39,9 +39,6 @@
 /area/shuttle/escape)
 "an" = (
 /obj/machinery/computer/crew,
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
@@ -70,6 +67,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/item/radio/intercom/private/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -155,7 +153,7 @@
 	name = "Escape Shuttle Cell";
 	req_access = list(63)
 	},
-/turf/simulated/floor/noslip,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
@@ -164,10 +162,9 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "aL" = (
-/obj/item/radio/intercom/directional/east,
-/obj/structure/bed,
-/obj/item/bedsheet/rainbow,
-/turf/simulated/floor/shuttle/objective_check,
+/obj/effect/spawner/window/shuttle,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aM" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -229,11 +226,8 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "aU" = (
-/obj/machinery/status_display{
-	pixel_y = -30
-	},
-/obj/machinery/light/spot,
 /obj/item/toy/snappop/phoenix,
+/obj/item/radio/intercom/private/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -262,9 +256,8 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ba" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -319,9 +312,6 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bh" = (
-/obj/machinery/status_display{
-	pixel_x = -30
-	},
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -395,6 +385,12 @@
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
+"Es" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/obj/item/radio/intercom/pirate/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
 "HT" = (
 /obj/item/clothing/mask/cursedclown,
 /turf/simulated/floor/noslip,
@@ -407,8 +403,7 @@
 	},
 /area/shuttle/escape)
 "XG" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 
@@ -428,7 +423,7 @@ aP
 aM
 XG
 XG
-XG
+aL
 aM
 aT
 bq
@@ -448,7 +443,7 @@ aa
 bq
 wk
 aG
-aB
+Es
 bq
 am
 aQ
@@ -498,9 +493,9 @@ XG
 ac
 as
 bq
-aB
+ba
 eZ
-aL
+aB
 aM
 am
 aD
@@ -527,15 +522,15 @@ aM
 XG
 aI
 XG
-XG
+aM
 am
 XG
 XG
 XG
+aL
+am
+am
 XG
-am
-am
-ba
 bc
 bg
 bl
@@ -561,7 +556,7 @@ aD
 aD
 am
 in
-ba
+bq
 ao
 bq
 bq
@@ -586,8 +581,8 @@ ap
 ap
 ap
 am
-am
-ba
+aU
+bq
 aa
 aa
 aa
@@ -612,9 +607,9 @@ aD
 aD
 aD
 am
-aU
-ba
+in
 bq
+ao
 bq
 bq
 bq
@@ -639,7 +634,7 @@ XG
 XG
 am
 am
-ba
+XG
 bd
 bh
 bm
@@ -740,7 +735,7 @@ bq
 aM
 XG
 XG
-XG
+aL
 aM
 XG
 bq

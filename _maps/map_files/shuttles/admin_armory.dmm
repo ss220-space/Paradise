@@ -10,7 +10,7 @@
 /turf/simulated/floor/pod,
 /area/shuttle/administration)
 "bi" = (
-/obj/structure/table/abductor,
+/obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
@@ -30,10 +30,15 @@
 	},
 /area/shuttle/administration)
 "ce" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/porta_turret/centcom/pulse,
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 8;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
 	},
 /area/shuttle/administration)
 "cl" = (
@@ -79,21 +84,17 @@
 /obj/item/grenade/smokebomb{
 	pixel_x = 10
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
+/obj/structure/window/reinforced,
 /obj/structure/rack,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "cP" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/vending/nta/ertarmory/janitor{
@@ -171,12 +172,11 @@
 	},
 /area/shuttle/administration)
 "eY" = (
-/obj/structure/table/abductor,
+/obj/structure/table/reinforced,
 /obj/item/storage/lockbox/mindshield,
 /obj/item/storage/lockbox/mindshield,
 /obj/item/storage/lockbox/mindshield,
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle{
@@ -193,6 +193,22 @@
 	tag_chamber_sensor = "admin_s_sensor";
 	tag_exterior_door = "admin_s_outer";
 	tag_interior_door = "admin_s_inner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"fN" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -220,11 +236,8 @@
 	},
 /area/shuttle/administration)
 "gs" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/vending/nta/ertarmory/red{
@@ -232,6 +245,19 @@
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"hu" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#22aab7";
+	req_access = list(101)
+	},
+/obj/structure/table/reinforced,
+/obj/item/folder,
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "hP" = (
@@ -261,9 +287,24 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"ig" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side_inv"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
 "iv" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/machinery/computer/secure_data,
@@ -373,35 +414,16 @@
 	},
 /area/shuttle/administration)
 "nQ" = (
-/obj/structure/rack,
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor4"
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "oj" = (
@@ -415,12 +437,10 @@
 	},
 /area/shuttle/administration)
 "oG" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/vending/nta/ertarmory/engineer{
@@ -460,9 +480,7 @@
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
 	},
-/obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
-	},
+/obj/machinery/porta_turret/centcom/pulse,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 8;
 	icon = 'icons/turf/shuttle/misc.dmi';
@@ -518,12 +536,10 @@
 	},
 /area/shuttle/administration)
 "uv" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/rack/gunrack,
@@ -542,12 +558,10 @@
 	},
 /area/shuttle/administration)
 "uY" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/vending/nta/ertarmory/red{
@@ -581,8 +595,7 @@
 	pixel_y = 3
 	},
 /obj/item/gun/energy/ionrifle,
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/rack/gunrack,
@@ -594,11 +607,8 @@
 	},
 /area/shuttle/administration)
 "vV" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/vending/nta/ertarmory/blue{
@@ -612,24 +622,19 @@
 /obj/machinery/porta_turret{
 	installation = /obj/item/gun/energy/gun
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "wh" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/vending/nta/ertarmory/red{
@@ -644,9 +649,7 @@
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
 	},
-/obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
-	},
+/obj/machinery/porta_turret/centcom/pulse,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 4;
 	icon = 'icons/turf/shuttle/misc.dmi';
@@ -663,11 +666,8 @@
 	},
 /area/shuttle/administration)
 "xH" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/vending/nta/ertarmory/medical{
@@ -697,32 +697,11 @@
 /turf/simulated/floor/pod,
 /area/shuttle/administration)
 "yk" = (
-/obj/structure/rack,
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
+/obj/mecha/combat/marauder/loaded,
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/administration)
 "yu" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -762,9 +741,6 @@
 	},
 /area/shuttle/administration)
 "zg" = (
-/obj/item/storage/box/handcuffs,
-/obj/item/folder,
-/obj/structure/table/abductor,
 /turf/simulated/floor/shuttle{
 	dir = 5;
 	icon = 'icons/turf/floors.dmi';
@@ -777,20 +753,15 @@
 	},
 /area/shuttle/administration)
 "AH" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/obj/mecha/combat/gygax/ert/loaded,
+/obj/structure/window/reinforced,
+/obj/machinery/vending/robotics/nt/gygax,
 /turf/simulated/floor/redgrid,
 /area/shuttle/administration)
 "Bc" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
+/obj/structure/window/reinforced,
 /obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
 /obj/machinery/door/window/brigdoor{
 	color = "#22aab7";
@@ -814,16 +785,13 @@
 /obj/machinery/porta_turret{
 	installation = /obj/item/gun/energy/gun
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle{
@@ -851,8 +819,7 @@
 	},
 /area/shuttle/administration)
 "Dw" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/closet/crate/secure/large/reinforced{
@@ -891,8 +858,7 @@
 	},
 /area/shuttle/administration)
 "FF" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -908,11 +874,13 @@
 /area/shuttle/administration)
 "FU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -952,8 +920,10 @@
 	},
 /area/shuttle/administration)
 "Hc" = (
-/obj/machinery/door/window/brigdoor{
-	color = "#22aab7";
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Armory";
+	opacity = 1;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
@@ -962,17 +932,15 @@
 	},
 /area/shuttle/administration)
 "Hq" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
+/obj/structure/window/reinforced,
 /obj/structure/table/abductor,
 /obj/item/aicard,
 /obj/item/stock_parts/cell/bluespace,
 /obj/item/stock_parts/cell/bluespace,
+/obj/machinery/cell_charger,
 /turf/simulated/floor/redgrid,
 /area/shuttle/administration)
 "Hv" = (
@@ -1009,11 +977,8 @@
 	},
 /area/shuttle/administration)
 "HX" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/vending/chinese{
@@ -1026,11 +991,30 @@
 "Ir" = (
 /obj/effect/spawner/window/shuttle/gray,
 /obj/structure/fans/tiny/invisible,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "asclblast";
+	name = "Blast Door"
+	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/administration)
+"Jm" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
 "Jt" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/rack/gunrack,
@@ -1047,9 +1031,7 @@
 	},
 /area/shuttle/administration)
 "Kh" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
+/obj/structure/window/reinforced,
 /obj/machinery/vending/robotics/nt/durand{
 	all_products_free = 1
 	},
@@ -1069,7 +1051,7 @@
 	},
 /area/shuttle/administration)
 "LK" = (
-/obj/structure/table/abductor,
+/obj/structure/table/reinforced,
 /obj/item/kitchen/knife/combat{
 	pixel_x = -3;
 	pixel_y = 3
@@ -1087,8 +1069,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle{
@@ -1132,12 +1113,10 @@
 /obj/item/gun/energy/gun/advtaser,
 /obj/item/gun/energy/gun/advtaser,
 /obj/item/gun/energy/gun/advtaser,
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/rack/gunrack,
@@ -1154,20 +1133,11 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"Ni" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/administration)
 "Pe" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/vending/engivend{
@@ -1196,12 +1166,10 @@
 	},
 /area/shuttle/administration)
 "PE" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/closet/crate/secure/mortar/mortar_kit,
@@ -1222,15 +1190,16 @@
 /turf/simulated/floor/pod,
 /area/shuttle/administration)
 "Rh" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
+/obj/structure/window/reinforced,
 /obj/structure/closet/crate/secure/mortar/mortar_shells/he,
 /obj/machinery/door/window/brigdoor{
 	color = "#22aab7";
 	dir = 1;
 	icon_state = "rightsecure";
 	req_access = list(101)
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1259,8 +1228,7 @@
 	},
 /area/shuttle/administration)
 "Rw" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/machinery/computer/camera_advanced,
@@ -1282,12 +1250,10 @@
 	},
 /area/shuttle/administration)
 "TF" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/vending/nta/ertarmory/blue{
@@ -1298,8 +1264,7 @@
 	},
 /area/shuttle/administration)
 "Uc" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/vending/nta/ertarmory/blue{
@@ -1337,10 +1302,8 @@
 /area/shuttle/administration)
 "Vq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/plasticflaps,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "podfloor_dark"
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)
 "VI" = (
@@ -1362,11 +1325,8 @@
 	},
 /area/shuttle/administration)
 "XP" = (
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/rack/gunrack,
@@ -1512,7 +1472,7 @@ Az
 Az
 VI
 VI
-Az
+rW
 gd
 PR
 rA
@@ -1594,7 +1554,7 @@ VQ
 VQ
 Az
 Az
-Hc
+hu
 Hc
 Az
 Az
@@ -1678,13 +1638,13 @@ Az
 rW
 le
 HQ
+Az
 rW
-Az
 Hv
-Az
-Du
-jF
-Gn
+rW
+ig
+Jm
+fN
 Az
 "}
 (16,1,1) = {"
@@ -1712,7 +1672,7 @@ Az
 Ki
 FT
 Ki
-Ni
+Pn
 Pn
 Az
 eG
@@ -1721,7 +1681,7 @@ iz
 sq
 Az
 Pn
-ce
+Pn
 Ki
 FT
 Ki
@@ -1732,7 +1692,7 @@ Vc
 Ki
 Ki
 Ki
-Vc
+ce
 qE
 Az
 rW
@@ -1741,7 +1701,7 @@ lf
 rW
 Az
 qE
-Vc
+ce
 Ki
 Ki
 Ki

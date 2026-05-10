@@ -96,9 +96,6 @@
 "kH" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -581,6 +578,9 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
 /obj/structure/closet/crate,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

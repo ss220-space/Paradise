@@ -170,7 +170,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aA" = (
 /obj/machinery/light,
@@ -206,10 +209,16 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aH" = (
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aI" = (
 /obj/machinery/light{
@@ -217,12 +226,18 @@
 	on = 1
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aL" = (
 /obj/structure/table/reinforced,
@@ -246,11 +261,17 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aO" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aR" = (
 /obj/structure/closet/fireaxecabinet{
@@ -309,13 +330,19 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aY" = (
 /obj/structure/table/reinforced,
@@ -412,7 +439,10 @@
 "bp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "br" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -778,6 +808,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
+/obj/item/radio/intercom/custom/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -923,6 +954,26 @@
 "cH" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/escape)
+"fG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/custom/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"gS" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Cell";
+	req_access = list(63)
+	},
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
+/area/shuttle/escape)
 "kj" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -933,8 +984,45 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"lV" = (
+/turf/simulated/floor/plating,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/escape)
+"pA" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/radio/intercom/custom/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"qk" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"qN" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch"
+	},
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
+/area/shuttle/escape)
 "wB" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/escape)
+"yS" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/spawner/window/shuttle,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Cj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -946,9 +1034,13 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"KR" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/item/radio/intercom/custom/directional/west,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
 "MI" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Ow" = (
@@ -965,21 +1057,21 @@ cH
 cH
 cH
 wB
-bo
+qN
 wB
 bD
 wB
-bc
-bc
-bc
+MI
+MI
+qk
 wB
 bo
 wB
 bo
 wB
 wB
-bc
-bc
+MI
+qk
 wB
 cH
 cH
@@ -1007,7 +1099,7 @@ cb
 bE
 cj
 bE
-cb
+KR
 bP
 bP
 bP
@@ -1044,7 +1136,7 @@ ba
 ba
 ba
 bB
-bc
+MI
 bu
 bw
 "}
@@ -1075,14 +1167,14 @@ bQ
 bQ
 ba
 bB
-bc
+MI
 bu
 bw
 "}
 (5,1,1) = {"
 cH
 wB
-bc
+MI
 wB
 cH
 cH
@@ -1090,7 +1182,7 @@ aO
 aH
 aH
 aN
-bc
+MI
 bg
 ba
 bR
@@ -1142,7 +1234,7 @@ bu
 bw
 "}
 (7,1,1) = {"
-bc
+MI
 af
 an
 as
@@ -1150,9 +1242,9 @@ aA
 cH
 wB
 bc
-bj
+gS
 Ow
-cH
+wB
 bF
 ba
 ba
@@ -1168,12 +1260,12 @@ ba
 ba
 ba
 bB
-bc
+MI
 bu
 bw
 "}
 (8,1,1) = {"
-bc
+MI
 ag
 ao
 an
@@ -1183,7 +1275,7 @@ aL
 aY
 bk
 br
-bc
+lV
 bg
 ba
 bQ
@@ -1198,13 +1290,13 @@ bQ
 bQ
 bQ
 ba
-bB
+fG
 cH
 cH
 cH
 "}
 (9,1,1) = {"
-bc
+MI
 ah
 ao
 an
@@ -1230,12 +1322,12 @@ bW
 bY
 ba
 bB
-bc
+MI
 bu
 bw
 "}
 (10,1,1) = {"
-bc
+MI
 ai
 ao
 an
@@ -1261,12 +1353,12 @@ bP
 bP
 ba
 bB
-bc
+MI
 bu
 bw
 "}
 (11,1,1) = {"
-bc
+MI
 aj
 ao
 an
@@ -1276,7 +1368,7 @@ aR
 bd
 bf
 bx
-bc
+lV
 bg
 ba
 ba
@@ -1297,7 +1389,7 @@ cH
 cH
 "}
 (12,1,1) = {"
-bc
+MI
 ak
 an
 au
@@ -1313,7 +1405,7 @@ bK
 bE
 bE
 bQ
-bQ
+pA
 bQ
 ck
 bQ
@@ -1323,7 +1415,7 @@ ba
 bQ
 ck
 aV
-bc
+MI
 bu
 bw
 "}
@@ -1348,10 +1440,10 @@ cH
 cH
 cH
 cn
-bc
+MI
 cu
 cu
-bc
+MI
 bW
 cH
 cH
@@ -1361,7 +1453,7 @@ bw
 (14,1,1) = {"
 cH
 wB
-bc
+MI
 wB
 cH
 cH
@@ -1416,7 +1508,7 @@ cv
 cy
 cp
 cE
-bc
+MI
 bu
 bw
 "}
@@ -1447,7 +1539,7 @@ cv
 cy
 cp
 cF
-bc
+yS
 bu
 bw
 "}
@@ -1492,22 +1584,22 @@ cH
 MI
 bi
 bi
-bc
+MI
 cH
 cH
-bc
-bc
-bc
-bc
-bc
+MI
+MI
+MI
+MI
+MI
 wB
 cH
 cH
 wB
-bc
-bc
-bc
-bc
+MI
+MI
+MI
+MI
 wB
 cH
 cH

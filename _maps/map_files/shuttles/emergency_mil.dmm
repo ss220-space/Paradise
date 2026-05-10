@@ -3,16 +3,12 @@
 /turf/space,
 /area/space)
 "ab" = (
-/obj/machinery/porta_turret{
-	check_access = 0;
-	check_arrest = 0;
-	check_weapons = 1;
-	name = "shuttle turret";
-	check_records = 0
-	},
-/obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
 	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 6;
@@ -21,7 +17,13 @@
 	},
 /area/shuttle/escape)
 "ad" = (
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 4;
 	icon = 'icons/turf/shuttle/misc.dmi';
@@ -34,11 +36,6 @@
 	dir = 1;
 	icon_state = "navyblue"
 	},
-/area/shuttle/escape)
-"aj" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ak" = (
 /obj/structure/chair/comfy/shuttle/dark{
@@ -112,7 +109,7 @@
 "ay" = (
 /obj/machinery/computer/crew,
 /obj/machinery/light/spot{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -127,16 +124,12 @@
 	},
 /area/shuttle/escape)
 "aC" = (
-/obj/machinery/porta_turret{
-	check_access = 0;
-	check_arrest = 0;
-	check_weapons = 1;
-	name = "shuttle turret";
-	check_records = 0
-	},
-/obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerjade-on"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
 	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 10;
@@ -249,22 +242,20 @@
 /obj/item/roller/holo,
 /obj/item/roller/holo,
 /obj/item/storage/toolbox/surgery/advanced,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/adv,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ba" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bb" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
 /obj/machinery/vending/medical{
 	all_products_free = 1
 	},
@@ -282,8 +273,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle/gray,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bf" = (
@@ -405,6 +395,9 @@
 /area/shuttle/escape)
 "by" = (
 /obj/structure/lattice/catwalk,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 5;
 	icon = 'icons/turf/shuttle/misc.dmi';
@@ -417,11 +410,7 @@
 	icon_state = "markerjade-on"
 	},
 /obj/machinery/porta_turret{
-	check_access = 0;
-	check_arrest = 0;
-	check_weapons = 1;
-	name = "shuttle turret";
-	check_records = 0
+	installation = /obj/item/gun/energy/gun
 	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 1;
@@ -430,13 +419,13 @@
 	},
 /area/shuttle/escape)
 "hC" = (
-/obj/structure/chair/comfy/shuttle/dark,
 /obj/machinery/light/spot{
 	dir = 1
 	},
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
+/obj/structure/chair/comfy/shuttle/dark,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "jn" = (
@@ -453,52 +442,12 @@
 	},
 /area/shuttle/escape)
 "mf" = (
-/obj/machinery/porta_turret{
-	check_access = 0;
-	check_arrest = 0;
-	check_weapons = 1;
-	name = "shuttle turret";
+/obj/machinery/turretid/stun{
+	name = "Shuttle Turret Control";
+	pixel_y = 30;
 	check_records = 0
 	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "navybluefull"
-	},
-/area/shuttle/escape)
-"mo" = (
-/obj/machinery/porta_turret{
-	check_access = 0;
-	check_arrest = 0;
-	check_weapons = 1;
-	name = "shuttle turret";
-	check_records = 0
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 4
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced{
-	color = "#22aab7"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "navybluefull"
-	},
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "pO" = (
 /obj/machinery/door/airlock/command/glass{
@@ -560,11 +509,6 @@
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
-"Hx" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
-/turf/simulated/floor/shuttle/objective_check,
-/area/shuttle/escape)
 "Lj" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -576,9 +520,6 @@
 /area/shuttle/escape)
 "Mv" = (
 /obj/structure/chair/comfy/shuttle/dark,
-/obj/machinery/light/spot{
-	dir = 1
-	},
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -591,6 +532,9 @@
 /area/shuttle/escape)
 "Tm" = (
 /obj/structure/lattice/catwalk,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 9;
 	icon = 'icons/turf/shuttle/misc.dmi';
@@ -600,7 +544,7 @@
 "UH" = (
 /obj/structure/chair/comfy/shuttle/dark,
 /obj/machinery/light/spot{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -617,7 +561,7 @@ aa
 aa
 aG
 aG
-Hx
+be
 aE
 aG
 aG
@@ -631,7 +575,7 @@ aG
 aG
 aG
 bq
-aj
+be
 bq
 aG
 aG
@@ -657,7 +601,7 @@ bl
 bl
 bn
 bs
-mo
+bs
 bs
 bl
 bn
@@ -691,8 +635,8 @@ bu
 bx
 "}
 (4,1,1) = {"
-aj
-aj
+be
+be
 aE
 aG
 aG
@@ -717,7 +661,7 @@ bu
 bx
 "}
 (5,1,1) = {"
-aj
+be
 ap
 ak
 au
@@ -743,7 +687,7 @@ aE
 aG
 "}
 (6,1,1) = {"
-aj
+be
 av
 an
 aI
@@ -769,7 +713,7 @@ aG
 by
 "}
 (7,1,1) = {"
-aj
+be
 ag
 an
 aI
@@ -795,7 +739,7 @@ aG
 bz
 "}
 (8,1,1) = {"
-aj
+be
 aw
 an
 aI
@@ -821,7 +765,7 @@ aG
 Tm
 "}
 (9,1,1) = {"
-aj
+be
 aB
 ao
 aL
@@ -847,10 +791,10 @@ aE
 aG
 "}
 (10,1,1) = {"
-aj
-aj
+be
+be
 aE
-aG
+mf
 aG
 aE
 aK
@@ -917,7 +861,7 @@ bk
 bk
 bm
 at
-mf
+bs
 br
 bk
 bm
@@ -929,12 +873,12 @@ aa
 aa
 aG
 aG
-aj
+be
 aE
 aG
 aG
 aG
-aj
+be
 aE
 aG
 aG
@@ -943,7 +887,7 @@ aG
 aG
 aG
 aG
-aj
+be
 aG
 aG
 aG
