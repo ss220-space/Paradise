@@ -166,7 +166,7 @@
 		else
 			icon_state = "[base_state][density ? "" : "open"]"
 
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/window/open(forced=0)
 

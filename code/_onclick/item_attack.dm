@@ -32,7 +32,7 @@
 
 	. |= tool_chain_result
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		mark_target(target)
+		//mark_target(target)
 		return .
 
 	var/pre_attackby_result
@@ -51,12 +51,12 @@
 		pre_attackby_result = pre_attackby(target, user, modifiers, attack_modifiers)
 
 	if(!(pre_attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
-		mark_target(target)
+		//mark_target(target)
 		CRASH("pre_attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= pre_attackby_result
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		mark_target(target)
+		//mark_target(target)
 		return .
 
 	var/attackby_result
@@ -75,25 +75,25 @@
 		attackby_result = target.attackby(src, user, modifiers, attack_modifiers)
 
 	if(!(attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
-		mark_target(target)
+		//mark_target(target)
 		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= attackby_result
 	// yes a lot of QDELETED checks but attackby is a longest spaghetti code in the entire game
 	if((. & ATTACK_CHAIN_NO_AFTERATTACK) || QDELETED(src) || QDELETED(target) || QDELETED(user))
-		mark_target(target)
+		//mark_target(target)
 		return .
 
 	afterattack(target, user, TRUE, modifiers, .)
-	mark_target(target)
+	//mark_target(target)
 
 /// Used to mark a target for the demo system during a melee attack chain, call this before return
-/obj/item/proc/mark_target(atom/target)
-	SSdemo.mark_dirty(src)
-	if(isturf(target))
-		SSdemo.mark_turf(target)
-	else
-		SSdemo.mark_dirty(target)
+///obj/item/proc/mark_target(atom/target)
+//	SSdemo.mark_dirty(src)
+//	if(isturf(target))
+//		SSdemo.mark_turf(target)
+//	else
+//		SSdemo.mark_dirty(target)
 
 /**
  * Called on the item to check if it has any of the tool's behavior
@@ -117,7 +117,7 @@
 		return FALSE
 	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /// Called when the item is in the active hand, and right-clicked. Intended for alternate or opposite functions, such as lowering reagent transfer amount. At the moment, there is no verb or hotkey.
 /obj/item/proc/attack_self_secondary(mob/user, list/modifiers)

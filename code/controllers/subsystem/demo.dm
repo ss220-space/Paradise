@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(demo)
 	name = "Demo"
 	wait = 1
-	ss_flags = SS_TICKER | SS_BACKGROUND
+	ss_flags = SS_NO_INIT // SS_TICKER | SS_BACKGROUND
 	///Adding Lobby to the runlevel because we want it to start writing before the game starts since there's a of atoms queued to be written during init
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	dependencies = list(
