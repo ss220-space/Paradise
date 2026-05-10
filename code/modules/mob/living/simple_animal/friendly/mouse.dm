@@ -121,10 +121,10 @@
 	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
-/mob/living/simple_animal/mouse/New()
-	..()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-6, 6)
+	pixel_y = base_pixel_y + rand(0, 10)
 
 	if(is_available_for_anim())
 		add_verb(src, /mob/living/simple_animal/mouse/proc/sniff)

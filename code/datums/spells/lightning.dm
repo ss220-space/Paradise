@@ -28,8 +28,8 @@
 	energy_divisor = 4
 	human_req = FALSE
 
-/obj/effect/proc_holder/spell/charge_up/bounce/lightning/New()
-	..()
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/Initialize(mapload)
+	. = ..()
 	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity", layer = EFFECTS_LAYER)
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_energy()

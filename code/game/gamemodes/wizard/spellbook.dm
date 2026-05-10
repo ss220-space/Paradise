@@ -760,7 +760,7 @@
 		PREPOSITIONAL = "книге заклинаний",
 	)
 
-/obj/item/spellbook/proc/initialize()
+/obj/item/spellbook/proc/create_spellbook()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
@@ -773,9 +773,9 @@
 	main_tab = main_categories[1]
 	tab = categories[1]
 
-/obj/item/spellbook/New()
-	..()
-	initialize()
+/obj/item/spellbook/Initialize(mapload)
+	. = ..()
+	create_spellbook()
 
 /obj/item/spellbook/magic_charge_act(mob/user)
 	. = RECHARGE_SUCCESSFUL|RECHARGE_BURNOUT
@@ -1039,12 +1039,9 @@
 		qdel(src)
 		. |= RECHARGE_BURNOUT
 
-/obj/item/spellbook/oneuse/New()
-	..()
+/obj/item/spellbook/oneuse/Initialize(mapload)
+	. = ..()
 	name += spellname
-
-/obj/item/spellbook/oneuse/initialize(mapload) //No need to init
-	return
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
@@ -1284,9 +1281,13 @@
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
-/obj/item/spellbook/oneuse/random/Initialize(mapload)
+/obj/item/spellbook/oneuse/random/create_spellbook()
 	. = ..()
-	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib, /obj/item/spellbook/oneuse/emp/used)
+	var/static/list/banned_spells = typesof(
+		/obj/item/spellbook/oneuse/mime,
+		/obj/item/spellbook/oneuse/emp/used,
+		/obj/item/spellbook/oneuse/fake_gib,
+	)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
 	qdel(src)

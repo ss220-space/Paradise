@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(mechas_list)											//list of all mechs. Used by hostile mo
 GLOBAL_LIST_EMPTY(spacepods_list)										//list of all space pods. Used by hostile mobs target tracking.
 GLOBAL_LIST_EMPTY(joblist)												//list of all jobstypes, minus borg and AI
 GLOBAL_LIST_EMPTY(airlocks)												//list of all airlocks
-GLOBAL_LIST_EMPTY(singularities)										//list of all singularities on the station
+GLOBAL_LIST_EMPTY_TYPED(singularities, /datum/component/singularity) //list of all singularities on the station
 GLOBAL_LIST_EMPTY(janitorial_equipment)									//list of janitorial equipment
 GLOBAL_LIST_EMPTY(crafting_recipes)										//list of all crafting recipes
 GLOBAL_LIST_EMPTY(slime_potions)										//list of all slime potions

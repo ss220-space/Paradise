@@ -360,23 +360,6 @@ no power level overlay is currently in the overlays list.
 
 	move_resist = initial(move_resist)
 
-	// This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
-	// singulo eats the evidence". It's not fool-proof but better than nothing.
-	// I want to avoid using global variables.
-	INVOKE_ASYNC(src, PROC_REF(admin_alert))
-
-/obj/machinery/field/generator/proc/admin_alert()
-	var/alert_sent = FALSE
-	for(var/thing in GLOB.singularities)
-		var/obj/singularity/singulo = thing
-		if(alert_sent || !singulo.last_warning || !are_zs_connected(singulo, src) || (world.time - singulo.last_warning) <= 50)
-			singulo.last_warning = world.time
-			continue
-		alert_sent = TRUE
-		message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [ADMIN_VERBOSEJMP(singulo)] | Field generator location: [ADMIN_VERBOSEJMP(src)]")
-		investigate_log("has FAILED whilst a singulo exists (size: [singulo.current_size], energy: [singulo.energy]).", INVESTIGATE_ENGINE)
-		singulo.last_warning = world.time
-
 /obj/machinery/field/generator/proc/shield_floor(create)
 	if(length(connected_gens) < 2)
 		return

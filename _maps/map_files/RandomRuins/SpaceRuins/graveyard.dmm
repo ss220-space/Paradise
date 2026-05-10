@@ -233,7 +233,7 @@
 /area/ruin/space/graveyard/graves)
 "ey" = (
 /obj/structure/table/wood,
-/obj/item/lighter/zippo/fluff/purple,
+/obj/item/lighter/zippo/purple,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},

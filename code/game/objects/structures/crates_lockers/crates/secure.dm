@@ -340,6 +340,15 @@
 		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — кислород)",
 	)
 
+/obj/structure/closet/crate/secure/engineering/teg
+	name = "thermoelectric generator crate"
+	desc = "Ящик, в котором находятся детали для термоэлектрического генератора"
+
+/obj/structure/closet/crate/secure/engineering/teg/populate_contents()
+	new /obj/machinery/power/generator(src)
+	new /obj/item/pipe/circulator(src)
+	new /obj/item/pipe/circulator(src)
+
 #undef SECURE_CRATE_STAGE_NO_BROKEN
 #undef SECURE_CRATE_STAGE_PANEL_OPEN
 #undef SECURE_CRATE_STAGE_WIRES_PREPARED

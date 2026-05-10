@@ -41,14 +41,12 @@
 	var/list/list/signal_procs
 
 	var/tmp/unique_datum_id = null
+
 	/// Datum level flags
 	var/datum_flags = NONE
 
 	/// A weak reference to another datum
 	var/datum/weakref/weak_reference
-
-	/// Used by SSprocessing
-	var/isprocessing = FALSE
 
 	/// List for handling persistent filters.
 	var/list/filter_data

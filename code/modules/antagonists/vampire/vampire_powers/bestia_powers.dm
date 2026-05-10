@@ -1344,7 +1344,7 @@
 /obj/structure/closet/coffin/vampire/Destroy()
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает, оставляя после себя лишь кучку пепла..."))
 	new /obj/effect/decal/cleanable/ash(loc)
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	if(human_vampire)
 		playsound(loc, 'sound/objects/coffin_break.ogg', 50, TRUE)

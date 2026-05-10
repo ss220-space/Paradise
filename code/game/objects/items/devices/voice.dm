@@ -14,7 +14,7 @@
 	var/tts_voice
 	var/active
 
-/obj/item/voice_changer/New()
+/obj/item/voice_changer/Initialize(mapload)
 	. = ..()
 
 	if(isitem(loc))

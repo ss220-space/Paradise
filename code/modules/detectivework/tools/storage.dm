@@ -14,8 +14,7 @@
 		PREPOSITIONAL = "коробке ватных палочек",
 	)
 
-/obj/item/storage/box/swabs/New()
-	..()
+/obj/item/storage/box/swabs/populate_contents()
 	new /obj/item/forensics/swab(src)
 	new /obj/item/forensics/swab(src)
 	new /obj/item/forensics/swab(src)
@@ -39,8 +38,7 @@
 		PREPOSITIONAL = "коробке карт отпечатков пальцев",
 	)
 
-/obj/item/storage/box/fingerprints/New()
-	..()
+/obj/item/storage/box/fingerprints/populate_contents()
 	new /obj/item/sample/print(src)
 	new /obj/item/sample/print(src)
 	new /obj/item/sample/print(src)

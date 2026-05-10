@@ -1,10 +1,10 @@
 pygit2==1.19.0
 bidict==0.23.1
 Pillow==12.2.0
-json5==0.12.0
+json5==0.14.0
 
 # changelogs
-PyYaml==6.0.3 # maplint also
+PyYaml==6.0.3
 beautifulsoup4==4.14.3
 
 # various CI checks

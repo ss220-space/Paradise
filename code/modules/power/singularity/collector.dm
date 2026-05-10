@@ -1,7 +1,9 @@
 /// Radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_THRESHOLD 80
 /// Amount of joules created for each rad point over RAD_COLLECTOR_THRESHOLD
-#define RAD_COLLECTOR_COEFFICIENT 200
+#define RAD_COLLECTOR_COEFFICIENT 400
+/// Toxin moles in a fully filled plasma tank divided by 100; used to display fuel as a percentage.
+#define RAD_COLLECTOR_FUEL_PERCENT_DIVISOR 0.3
 
 GLOBAL_LIST_EMPTY(rad_collectors)
 
@@ -23,6 +25,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	var/drain_ratio = 0.5
 	///Multiplier for the amount of gas removed per tick
 	var/powerproduction_drain = 0.001
+	///The percentage of the regular gas drain pumped out in the last tick
+	var/last_drain_efficiency = 0
 
 /obj/machinery/power/energy_accumulator/rad_collector/get_ru_names()
 	return list(
@@ -55,68 +59,70 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		eject()
 		return
 
-	var/gasdrained = min(powerproduction_drain * drain_ratio, loaded_tank.air_contents.toxins())
+	var/wanted_drain = powerproduction_drain * drain_ratio
+	var/gasdrained = min(wanted_drain, loaded_tank.air_contents.toxins())
 	loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
+	last_drain_efficiency = wanted_drain ? gasdrained / wanted_drain : 0
 
 	return ..()
 
 /obj/machinery/power/energy_accumulator/rad_collector/attack_hand(mob/user)
 	if(..())
 		return TRUE
+	if(!anchored)
+		return
+	if(locked)
+		to_chat(user, span_warning("The controls are locked!"))
+		return
+	toggle_power()
+	user.visible_message(
+		"[user.name] turns the [name] [active ? "on" : "off"].",
+		"You turn the [name] [active ? "on" : "off"]."
+	)
+	add_fingerprint(user)
+	investigate_log("turned [active ? span_green("on") : span_red("off")] by [key_name_log(user)]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / RAD_COLLECTOR_FUEL_PERCENT_DIVISOR)]%" : span_red("It is empty")].", INVESTIGATE_ENGINE)
 
-	if(anchored)
-		if(!locked)
-			toggle_power()
-			user.visible_message(
-				"[user.name] turns the [name] [active ? "on" : "off"].",
-				"You turn the [name] [active ? "on" : "off"]."
-			)
-			add_fingerprint(user)
-			investigate_log("turned [active ? span_green("on") : span_red("off")] by [key_name_log(user)]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / 0.29)]%" : span_red("It is empty")].", INVESTIGATE_ENGINE)
-		else
-			to_chat(user, span_warning("The controls are locked!"))
-
-/obj/machinery/power/energy_accumulator/rad_collector/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/energy_accumulator/rad_collector/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return NONE
 
-	if(istype(item, /obj/item/tank/internals/plasma))
+	if(istype(tool, /obj/item/tank/internals/plasma))
 		add_fingerprint(user)
 		if(!anchored)
 			to_chat(user, span_warning("The [name] should be secured to the floor first."))
-			return ATTACK_CHAIN_PROCEED
+			return ITEM_INTERACT_BLOCKING
 		if(loaded_tank)
 			to_chat(user, span_warning("The [name] already has a plasma tank loaded."))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(item, src))
-			return ..()
+			return ITEM_INTERACT_BLOCKING
+		if(!user.drop_transfer_item_to_loc(tool, src))
+			return NONE
 		to_chat(user, span_notice("You have loaded the plasma tank into [src]."))
-		loaded_tank = item
+		loaded_tank = tool
 		update_icon()
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ITEM_INTERACT_SUCCESS
 
-	if(item.GetID() || is_pda(item))
+	if(tool.GetID() || is_pda(tool))
 		add_fingerprint(user)
 		if(!allowed(user))
 			to_chat(user, span_warning("Access denied."))
-			return ATTACK_CHAIN_PROCEED
+			return ITEM_INTERACT_BLOCKING
 		if(!active)
 			locked = FALSE //just in case it somehow gets locked
 			to_chat(user, span_warning("The controls can only be locked while [src] is active."))
-			return ATTACK_CHAIN_PROCEED
+			return ITEM_INTERACT_BLOCKING
 		locked = !locked
 		to_chat(user, span_notice("The controls are now [locked ? "locked." : "unlocked."]"))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
-	return ..()
+	return NONE
 
-/obj/machinery/power/energy_accumulator/rad_collector/wrench_act(mob/living/user, obj/item/item)
+/obj/machinery/power/energy_accumulator/rad_collector/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(loaded_tank)
 		add_fingerprint(user)
 		to_chat(user, span_warning("You should remove the plasma tank first."))
 		return .
-	if(!item.use_tool(src, user, volume = item.tool_volume))
+	if(!tool.use_tool(src, user, volume = tool.tool_volume))
 		return .
 	set_anchored(!anchored)
 	if(anchored)
@@ -134,7 +140,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		)
 		disconnect_from_network()
 
-/obj/machinery/power/energy_accumulator/rad_collector/crowbar_act(mob/living/user, obj/item/item)
+/obj/machinery/power/energy_accumulator/rad_collector/crowbar_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	add_fingerprint(user)
 	if(!loaded_tank)
@@ -143,7 +149,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(locked)
 		to_chat(user, span_warning("The [name] is locked."))
 		return .
-	if(!item.use_tool(src, user, volume = item.tool_volume))
+	if(!tool.use_tool(src, user, volume = tool.tool_volume))
 		return .
 	eject(user)
 
@@ -166,7 +172,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/energy_accumulator/rad_collector/proc/receive_pulse(pulse_strength)
 	if(!loaded_tank || !active || pulse_strength <= RAD_COLLECTOR_THRESHOLD)
 		return
-	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT)
+	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT * last_drain_efficiency)
 
 /obj/machinery/power/energy_accumulator/rad_collector/proc/eject(mob/user)
 	locked = FALSE
@@ -207,3 +213,4 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 #undef RAD_COLLECTOR_THRESHOLD
 #undef RAD_COLLECTOR_COEFFICIENT
+#undef RAD_COLLECTOR_FUEL_PERCENT_DIVISOR

@@ -19,14 +19,21 @@
 	var/datum/middleClickOverride/middleClickOverride
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
-	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
-	var/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
-	var/toxloss = 0	//Toxic damage caused by being poisoned or radiated
-	var/fireloss = 0	//Burn damage caused by being way too hot, too cold or burnt.
-	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
-	var/staminaloss = 0 //Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
+	///Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
+	var/bruteloss = 0
+	///Oxygen depravation damage (no air in lungs)
+	var/oxyloss = 0
+	///Toxic damage caused by being poisoned or radiated
+	var/toxloss = 0
+	///Burn damage caused by being way too hot, too cold or burnt.
+	var/fireloss = 0
+	///Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
+	var/cloneloss = 0
+	///Stamina damage, or exhaustion. You recover it slowly naturally, and are stunned if it gets too high. Holodeck and hallucinations deal this.
+	var/staminaloss = 0
 
-	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
+	///Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
+	var/last_special = 0
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = INCORPOREAL_NONE

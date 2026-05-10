@@ -8,8 +8,8 @@
 	/// List of refs to falling objects -> how many levels deep we've fallen
 	var/static/list/falling_atoms = list()
 	var/static/list/forbidden_types = typecacheof(list(
-		/mob/living/simple_animal/hostile/asteroid/elite, //failsafe also
-		/mob/living/simple_animal/hostile/megafauna, //failsafe
+		/mob/living/simple_animal/hostile/asteroid/elite,
+		/mob/living/simple_animal/hostile/megafauna,
 		/obj/docking_port,
 		/obj/effect/abstract,
 		/obj/effect/collapse,
@@ -25,10 +25,11 @@
 		/obj/effect/spawner,
 		/obj/effect/temp_visual,
 		/obj/effect/wisp,
+		/obj/energy_ball,
+		/obj/god,
 		/obj/machinery/bfl_receiver,
 		/obj/projectile,
 		/obj/singularity,
-		/obj/energy_ball,
 		/obj/spacepod,
 		/obj/structure/lattice,
 		/obj/structure/railing,

@@ -57,8 +57,8 @@
 		PREPOSITIONAL = "шахтёрском боте",
 	)
 
-/mob/living/simple_animal/hostile/mining_drone/New()
-	..()
+/mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
+	. = ..()
 	stored_gun = new(src)
 	toggle_light_action = new()
 	toggle_light_action.Grant(src)

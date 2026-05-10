@@ -51,8 +51,8 @@
 	icon_state = "waterballoon-e"
 	item_state = "waterballoon-e"
 
-/obj/item/toy/balloon/New()
-	..()
+/obj/item/toy/balloon/Initialize(mapload)
+	. = ..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -478,8 +478,8 @@
 	var/cooldown = 0
 	resistance_flags = FLAMMABLE
 
-/obj/item/toy/therapy/New()
-	..()
+/obj/item/toy/therapy/Initialize(mapload)
+	. = ..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."
@@ -1030,8 +1030,8 @@
 	var/cooldown = FALSE
 	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
 
-/obj/item/toy/plushie/ashwalkerplushie/New()
-	..()
+/obj/item/toy/plushie/ashwalkerplushie/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		icon_state = "plushie_ashwalker2"
 
@@ -1922,8 +1922,8 @@
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	return BRUTELOSS
 
-/obj/item/toy/russian_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/Initialize(mapload)
+	. = ..()
 	spin_cylinder()
 
 /obj/item/toy/russian_revolver/attack_self(mob/user)
@@ -1991,8 +1991,8 @@
 		PREPOSITIONAL = "револьвере .357 калибра",
 	)
 
-/obj/item/toy/russian_revolver/trick_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/trick_revolver/Initialize(mapload)
+	. = ..()
 	fake_bullets = rand(2, 7)
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
@@ -2052,8 +2052,8 @@
 	var/cooldown = 0
 	var/toysay = "Чё за хуйню вы натворили?"
 
-/obj/item/toy/figure/New()
-	..()
+/obj/item/toy/figure/Initialize(mapload)
+	. = ..()
 	desc = "A \"Space Life\" brand [name]"
 
 /obj/item/toy/figure/attack_self(mob/user as mob)

@@ -564,17 +564,37 @@ SUBSYSTEM_DEF(jobs)
 	else
 		mark_spawn = get_default_spawn_landmark(rank)
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS))
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = get_safe_random_station_turf(typesof(/area/security))  || pick(GLOB.latejoin_prisoner)
+		else
+			mark_spawn = get_safe_random_station_turf()  || pick(GLOB.latejoin)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = pick(GLOB.latejoin_prisoner)
+		else
+			var/obj/effect/landmark/start/hangover_spawn_point
+			for(var/obj/effect/landmark/start/hangover/hangover_landmark in GLOB.start_landmarks_list)
+				hangover_spawn_point = hangover_landmark
+				if(hangover_landmark.used) //so we can revert to spawning them on top of eachother if something goes wrong
+					continue
+				hangover_landmark.used = TRUE
+				break
+			mark_spawn = hangover_spawn_point || pick(GLOB.latejoin)
+
 	if(!mark_spawn)
 		mark_spawn = locate("start*[rank]") // use old stype
 
-	if(!mark_spawn || SSticker.shuttle_start) // No spawn, then spawn on latejoin mark
+	if(!mark_spawn) // No spawn, then spawn on latejoin mark
 		stack_trace("No landmark start for [rank].")
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = pick(GLOB.latejoin_prisoner)
 		else
 			mark_spawn = pick(GLOB.latejoin)
 
-	if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
+
+	if(!mark_spawn || HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS)) // still no spawn, fall back to the arrivals shuttle
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
 		else
@@ -592,7 +612,7 @@ SUBSYSTEM_DEF(jobs)
 	if(!turf_spawn)
 		return
 
-	human.forceMove(turf_spawn)
+	turf_spawn.JoinPlayerHere(human)
 	// Moving wheelchair if they have one
 	if(!human.buckled || !istype(human.buckled, /obj/vehicle/ridden/wheelchair))
 		return
@@ -1050,3 +1070,47 @@ SUBSYSTEM_DEF(jobs)
 	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
 
 	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
+
+/atom/proc/JoinPlayerHere(mob/joining_mob)
+	// By default, just place the mob on the same turf as the marker or whatever.
+	joining_mob.forceMove(get_turf(src))
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		make_hungover(joining_mob)
+
+/atom/proc/make_hungover(mob/hangover_mob)
+	if(!iscarbon(hangover_mob))
+		return
+	var/mob/living/carbon/spawned_carbon = hangover_mob
+	spawned_carbon.set_resting(TRUE, silent = TRUE, instant = TRUE)
+	var/obj/item/organ/internal/liver/our_liver
+	var/liver_multiplier = 1
+	our_liver = spawned_carbon.get_int_organ(/obj/item/organ/internal/liver)
+	if(our_liver)
+		liver_multiplier = our_liver.alcohol_intensity
+	spawned_carbon.AdjustDrunk((2 / liver_multiplier) MINUTES)
+	spawned_carbon.AdjustDisgust(2 MINUTES)
+
+/// Returns a list of jobs that we are allowed to fuck with during random events
+/datum/controller/subsystem/jobs/proc/get_valid_overflow_jobs()
+	var/static/list/overflow_jobs
+	if(!isnull(overflow_jobs))
+		return overflow_jobs
+
+	overflow_jobs = list()
+	for(var/datum/job/check_job in occupations)
+		if(check_job.admin_only)
+			continue
+		if(!check_job.allow_bureaucratic_error)
+			continue
+		overflow_jobs += check_job
+	return overflow_jobs
+
+/datum/controller/subsystem/jobs/proc/set_overflow_role(new_overflow_role)
+	var/datum/job/new_overflow = ispath(new_overflow_role) ? GetJobType(new_overflow_role) : GetJob(new_overflow_role)
+	if(!new_overflow)
+		CRASH("set_overflow_role failed | new_overflow_role: [isnull(new_overflow_role) ? "null" : new_overflow_role]")
+	var/cap = CONFIG_GET(number/overflow_cap)
+
+	new_overflow.allow_bureaucratic_error = FALSE
+	new_overflow.spawn_positions = cap
+	new_overflow.total_positions = cap

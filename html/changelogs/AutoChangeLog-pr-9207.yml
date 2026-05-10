@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - admin: "Теперь практически все опции ВВ имеют защиту на определенных правах (PR #9207)"

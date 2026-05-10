@@ -193,12 +193,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "BORG0"
 	desc = "Внутренняя система позиционирования шахтёрского робота. Служит маяком для поиска повреждённых единиц или инструментом координации командой."
 
-/obj/item/gps/cyborg/Initialize(mapload)
+/obj/item/gps/cyborg/Initialize(mapload, gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
-/obj/item/gps/cyborg/New(gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
-	. = ..()
 	src.gpstag = gpstag
 	src.upgraded = upgraded
 	src.tracking = tracking

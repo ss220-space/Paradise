@@ -12,20 +12,37 @@
 // MARK: Base survival box
 /obj/item/storage/box/survival
 	icon_state = "box_civ"
+	/// Our breathmask
 	var/breathmask = /obj/item/clothing/mask/breath
+	/// Our internals
 	var/internals = /obj/item/tank/internals/emergency_oxygen
+	/// What we give to the players with premium internals trait
+	var/premium_internals = /obj/item/tank/internals/emergency_oxygen/double
+	/// Our standart medkit
 	var/first_aid = /obj/item/storage/firstaid/crew/full
+	/// Our standart glowstick
 	var/glowstick = /obj/item/flashlight/flare/glowstick/blue
+	/// Our first healing item with premium internals trait
+	var/bruise_pack = /obj/item/stack/medical/bruise_pack/advanced
+	/// Our second healing item with premium internals trait
+	var/ointment_pack = /obj/item/stack/medical/ointment/advanced
 
 /obj/item/storage/box/survival/populate_contents()
 	if(breathmask)
 		new breathmask(src)
-	if(internals)
+	if(internals && !HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new internals(src)
-	if(first_aid)
+	if(premium_internals && HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new premium_internals(src)
+	if(first_aid && !HAS_TRAIT(SSstation, STATION_TRAIT_CRAMPED_INTERNALS))
 		new first_aid(src)
-	if(glowstick)
+	if(glowstick && !HAS_TRAIT(SSstation, STATION_TRAIT_CRAMPED_INTERNALS))
 		new glowstick(src)
+
+	if(bruise_pack && HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new bruise_pack(src)
+	if(ointment_pack && HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new ointment_pack(src)
 
 //MARK: Job-specific survival boxes
 /obj/item/storage/box/survival/brigphys
@@ -486,13 +503,17 @@
 	item_state = "vox"
 	breathmask = /obj/item/clothing/mask/breath/vox
 	internals = /obj/item/tank/internals/emergency_oxygen/nitrogen
+	premium_internals = /obj/item/tank/internals/emergency_oxygen/double/vox
 
 /obj/item/storage/box/survival/species/machine
 	icon_state = "box_machine"
 	item_state = "mech"
 	breathmask = null
 	internals = null
+	premium_internals = null
 	first_aid = null
+	bruise_pack = /obj/item/stack/nanopaste
+	ointment_pack = /obj/item/stack/nanopaste
 
 /obj/item/storage/box/survival/species/machine/create_species_specific_items(obj/item/storage/box/place)
 	new /obj/item/weldingtool/mini(place)
@@ -503,9 +524,11 @@
 	item_state = "eng"
 	breathmask = null
 	internals = null
+	premium_internals = null
 	first_aid = /obj/item/storage/firstaid/crew/nucleation
 
 /obj/item/storage/box/survival/species/plasmaman
 	icon_state = "box_plasma"
 	item_state = "mining"
 	internals = /obj/item/tank/internals/emergency_oxygen/plasma
+	premium_internals = /obj/item/tank/internals/emergency_oxygen/plasma

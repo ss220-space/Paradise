@@ -77,9 +77,9 @@
 /obj/item/gun/energy/clockwork/emp_act(severity)
 	return
 
-/obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	if(!isclocker(user))
-		kill_shooter(user)
+/obj/item/gun/energy/clockwork/process_fire(zone_override, secondary_fire = FALSE)
+	if(!isclocker(gun_user))
+		kill_shooter(gun_user)
 		return
 	. = ..()
 	if(!enchant_type)
@@ -152,9 +152,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light/rat)
 	recoil = new /datum/gun_recoil/high()
 	blocks_emissive = FALSE
+	fire_delay = 0.1 SECONDS
 	COOLDOWN_DECLARE(overheated)
 	COOLDOWN_DECLARE(balloon)
-	var/datum/component/automatic_fire/autofire
+	var/datum/component/automatedfire/autofire/autofire
 	var/overheat = FALSE
 	var/last_fire = 0
 	var/delay_no_beacon = 50
@@ -197,11 +198,7 @@
 		overheat = FALSE
 
 /obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
-	AddComponent( \
-		/datum/component/automatic_fire, \
-		0.1 SECONDS \
-		)
-	autofire = src.GetComponent(/datum/component/automatic_fire)
+	autofire = src.GetComponent(/datum/component/automatedfire/autofire)
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
 	. = ..()
@@ -211,7 +208,7 @@
 		. += "[initial(icon_state)]_overlay_[enchant_type]"
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_icon_state()
-	if(autofire.autofire_stat == AUTOFIRE_STAT_FIRING && !overheat)
+	if(autofire.shooting && !overheat)
 		icon_state = "clockgun_firing"
 	else
 		icon_state = "clockgun"
@@ -239,10 +236,10 @@
 		QDEL_NULL(chambered)
 	newshot()
 
-/obj/item/gun/energy/gun/minigun/clockwork/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/gun/minigun/clockwork/process_fire(zone_override, secondary_fire = FALSE)
 	if(overheat)
 		if(COOLDOWN_FINISHED(src, balloon))
-			balloon_alert(user, "миниган перегрет!")
+			balloon_alert(gun_user, "миниган перегрет!")
 			COOLDOWN_START(src, balloon, 1 SECONDS)
 		return
 	if(enchant_type > 0)

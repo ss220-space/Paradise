@@ -267,7 +267,7 @@
 				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)//cuz we sure its unhidden
-			if(isprocessing)
+			if(datum_flags & DF_ISPROCESSING)
 				STOP_PROCESSING(SSprocessing, src)
 				if(glow)
 					QDEL_NULL(glow)
@@ -385,7 +385,9 @@
 			return ATTACK_CHAIN_PROCEED
 		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар. Служба безопасности получает право свободно применять летальную силу для уничтожения угрозы. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
 			ANNOUNCE_CCPARANORMAL_RU,
-			'sound/AI/commandreport.ogg')
+			SSstation.announcer.get_rand_report_sound(),
+		)
+
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual(user)

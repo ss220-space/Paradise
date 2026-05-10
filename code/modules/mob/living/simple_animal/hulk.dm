@@ -206,8 +206,8 @@
 		playsound(D, 'sound/machines/airlock_force_open.ogg', CHANNEL_BUZZ, 30, null, -4)
 		D.open(1)
 
-/mob/living/simple_animal/hulk/New()
-	..()
+/mob/living/simple_animal/hulk/Initialize(mapload)
+	. = ..()
 	name = text("[initial(name)] ([rand(1, 1000)])")
 	real_name = name
 	status_flags ^= CANPUSH

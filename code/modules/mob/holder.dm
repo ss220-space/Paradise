@@ -13,8 +13,8 @@
 	/// Alert id used while held mob sits inside a storage container.
 	var/tmp/container_alert_id
 
-/obj/item/holder/New()
-	..()
+/obj/item/holder/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/holder/Destroy()

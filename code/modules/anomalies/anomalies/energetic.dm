@@ -219,8 +219,9 @@
 		PREPOSITIONAL = "большой энергетической аномалии",
 	)
 
-/obj/effect/anomaly/energetic/tier3/New()
+/obj/effect/anomaly/energetic/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
+
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.stat)
 			continue
@@ -256,7 +257,7 @@
 		PREPOSITIONAL = "энергетическом шаре",
 	)
 
-/obj/effect/energy_ball/New(loc, owner)
+/obj/effect/energy_ball/Initialize(mapload, owner)
 	. = ..()
 	src.owner = owner
 
@@ -360,8 +361,9 @@
 		PREPOSITIONAL = "колоссальной энергетической аномалии",
 	)
 
-/obj/effect/anomaly/energetic/tier4/New()
+/obj/effect/anomaly/energetic/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
+
 	for(var/mob/living/mob as anything in GLOB.player_list)
 		mob.electrocute_act(rand(5, 15), src)
 		if(mob.stat)

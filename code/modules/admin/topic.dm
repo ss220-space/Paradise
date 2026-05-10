@@ -3297,7 +3297,11 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, sound('sound/AI/animes.ogg'))
+					SEND_SOUND(human, sound(
+							ANNOUNCER_ANIMES,
+							channel = CHANNEL_ANNOUNCER,
+							volume = 40,
+							))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 
@@ -3325,7 +3329,7 @@
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.announce(
 					message = "Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
-					new_sound = 'sound/AI/commandreport.ogg'
+					new_sound = SSstation.announcer.get_rand_report_sound(),
 				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
@@ -3446,11 +3450,6 @@
 				if(!you_realy_want_do_this())
 					return
 				create_cargo_crate()
-
-			if("shuttle_start")
-				if(!you_realy_want_do_this())
-					return
-				shuttle_start()
 
 			if("borg_skins")
 				if(!check_rights(R_SKINS))
@@ -3809,6 +3808,33 @@
 		popup.open()
 		onclose(usr, "show_dna")
 
+	else if(href_list["tag_datum"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/datum_to_tag = locateUID(href_list["tag_datum"])
+		if(!datum_to_tag)
+			return
+		return add_tagged_datum(datum_to_tag)
+
+	else if(href_list["del_tag"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/datum_to_remove = locateUID(href_list["del_tag"])
+		if(!datum_to_remove)
+			return
+		return remove_tagged_datum(datum_to_remove)
+
+	else if(href_list["show_tags"])
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/display_tags)
+
+	else if(href_list["mark_datum"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/datum_to_mark = locateUID(href_list["mark_datum"])
+		if(!datum_to_mark)
+			return
+		return usr.client?.mark_datum(datum_to_mark)
+
 #undef POWER_ALL
 #undef REPAIR_ALL
 #undef REPAIR_AND_POWER_ALL
@@ -3943,21 +3969,6 @@
 		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
 
 	log_and_message_admins("Initiated mass mindswap")
-
-/datum/admins/proc/shuttle_start()
-	if(!SSticker)
-		tgui_alert(usr, "Пожалуйста подождите, необходимая подсистема еще не была запущенна.")
-		return FALSE
-
-	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
-		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential = TRUE)
-		return FALSE
-
-	SSticker.shuttle_start = !SSticker.shuttle_start
-	var/msg = "[usr.key] [SSticker.shuttle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
-	log_admin(msg)
-	message_admins(span_darkmblue(msg))
-	return TRUE
 
 /datum/admins/proc/change_lava_type()
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)

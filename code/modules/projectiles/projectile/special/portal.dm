@@ -66,8 +66,8 @@
 		PREPOSITIONAL = "вспышке телепортации",
 	)
 
-/obj/projectile/energy/teleport/New(loc, tele_target)
-	..(loc)
+/obj/projectile/energy/teleport/Initialize(mapload, tele_target)
+	. = ..()
 	if(tele_target)
 		teleport_target = tele_target
 
