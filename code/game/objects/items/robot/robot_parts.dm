@@ -452,7 +452,7 @@
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
 	var/mob/living/living_user = usr
-	if(living_user.incapacitated() || !Adjacent(living_user))
+	if(living_user.incapacitated || !Adjacent(living_user))
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)

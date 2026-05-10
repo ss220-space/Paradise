@@ -523,7 +523,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	strap_side_straight = !strap_side_straight
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"

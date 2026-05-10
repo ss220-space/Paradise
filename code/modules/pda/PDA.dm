@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(loc != user)
 		return FALSE
 
-	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	return TRUE

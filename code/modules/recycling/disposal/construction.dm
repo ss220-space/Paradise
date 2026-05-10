@@ -107,7 +107,7 @@
 
 /// Rotates construct 90 degrees counter-clockwise
 /obj/structure/disposalconstruct/proc/rotate(mob/user)
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(user && (user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return FALSE
 	if(anchored)
@@ -131,7 +131,7 @@
 
 /// Flips construct 180 degrees, but also inverts it if its a pipe with defined flip_type
 /obj/structure/disposalconstruct/proc/flip(mob/user)
-	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(user && (user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return FALSE
 	if(anchored)

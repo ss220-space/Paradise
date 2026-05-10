@@ -105,7 +105,7 @@
 		to_chat(user, span_noticealien("Not enough plasma stored."))
 		return FALSE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_noticealien("You can't do this right now!"))
 		return FALSE
 

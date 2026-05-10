@@ -631,7 +631,7 @@
 	},
 /area/awaymission)
 "cA" = (
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /turf/simulated/floor/indestructible{
 	icon_state = "asteroid";
 	name = "cave"

@@ -432,3 +432,31 @@
 		return TRUE
 	var/obj/item/thermal_drill/D = parent
 	return D.should_stop_playing(player)
+
+/**
+ * Parses a song the user has input into lines and stores them.
+ */
+/datum/song/proc/ParseSong(mob/user, new_song)
+	set waitfor = FALSE
+	//split into lines
+	lines = islist(new_song) ? new_song : splittext(new_song, "\n")
+	if(lines.len)
+		var/bpm_string = "BPM: "
+		if(findtext(lines[1], bpm_string, 1, length(bpm_string) + 1))
+			var/divisor = text2num(copytext(lines[1], length(bpm_string) + 1)) || 120 // default
+			tempo = sanitize_tempo(BPM_TO_TEMPO_SETTING(divisor))
+			lines.Cut(1, 2)
+		else
+			tempo = sanitize_tempo(5) // default 120 BPM
+		if(lines.len > MUSIC_MAXLINES)
+			if(user)
+				to_chat(user, "Too many lines!")
+			lines.Cut(MUSIC_MAXLINES + 1)
+		var/linenum = 1
+		for(var/l in lines)
+			if(length_char(l) > MUSIC_MAXLINECHARS)
+				if(user)
+					to_chat(user, "Line [linenum] too long!")
+				lines.Remove(l)
+			else
+				linenum++

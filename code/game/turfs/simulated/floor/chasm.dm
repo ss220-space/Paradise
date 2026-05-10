@@ -189,3 +189,5 @@
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
+/turf/simulated/floor/chasm/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(src, TRAIT_CHASM_STOPPED) || HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)

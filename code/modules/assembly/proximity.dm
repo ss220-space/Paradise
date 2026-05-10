@@ -109,7 +109,7 @@
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
 		close_window(usr, "prox")
 		onclose(usr, "prox")
 		return

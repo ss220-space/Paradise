@@ -1,8 +1,12 @@
 //Updates the mob's health from organs and mob damage variables
 /mob/living/carbon/human/updatehealth(reason = "none given", should_log = FALSE)
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return ..()
+	if(..())
+		return
 
+	update_stamina()
+	CheckHusk()
+
+/mob/living/carbon/human/calculate_health()
 	var/total_burn  = 0
 	var/total_brute = 0
 
@@ -10,11 +14,10 @@
 		total_brute += bodypart.brute_dam //calculates health based on organ brute and burn
 		total_burn += bodypart.burn_dam
 
-	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
-	update_stat("updatehealth([reason])", should_log)
-	update_stamina()
+	return round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION)
 
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
+/mob/living/carbon/human/proc/CheckHusk() // Похуй потом
+	if(stat == DEAD && ((maxHealth - getFireLoss()) < HEALTH_THRESHOLD_DEAD))
 		ChangeToHusk()
 
 /mob/living/carbon/human/update_stamina()

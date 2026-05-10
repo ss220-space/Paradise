@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /// All generic checks with feedback for the user
 /obj/machinery/washing_machine/proc/generic_check(mob/living/user, states_to_ignore)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You cannot do that right now!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_WORKING) && (state & STATE_WORKING))

@@ -125,7 +125,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
-	if(!wrenchable || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!wrenchable || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	lid_closed = !lid_closed

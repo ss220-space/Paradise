@@ -373,6 +373,10 @@
 		if(isnull(organ))
 			return FALSE
 
+	var/target_signal = SEND_SIGNAL(bumped_atom, COMSIG_PROJECTILE_PREHIT, src)
+	if(target_signal & PROJECTILE_INTERRUPT_HIT)
+		return
+
 	if(HAS_TRAIT(src, TRAIT_SHRAPNEL))
 		shrapnel_hit(bumped_atom)
 		return
@@ -708,6 +712,43 @@
 
 /obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
+
+/**
+ * Is this projectile considered "hostile"?
+ *
+ * By default all projectiles which deal damage or impart crowd control effects (including stamina) are hostile
+ *
+ * This is NOT used for pacifist checks, that's handled by [/obj/item/ammo_casing/var/harmful]
+ * This is used in places such as AI responses to determine if they're being threatened or not (among other places)
+ */
+/obj/projectile/proc/is_hostile_projectile()
+	if(damage > 0 || stamina > 0)
+		return TRUE
+
+	if(stun + weaken + paralyze + knockdown > 0 SECONDS)
+		return TRUE
+
+	return FALSE
+
+/// Fire a projectile from this atom at another atom
+/atom/proc/fire_projectile(projectile_type, atom/target, sound, firer, list/ignore_targets = list())
+	if(!isnull(sound))
+		playsound(src, sound, vol = 100, vary = TRUE)
+
+	var/turf/startloc = get_turf(src)
+	var/obj/projectile/bullet = new projectile_type(startloc)
+	bullet.starting = startloc
+	for(var/atom/thing as anything in ignore_targets)
+		LAZYADD(bullet.permutated, thing)
+
+	bullet.firer = firer || src
+	bullet.firer_source_atom = src
+	bullet.yo = target.y - startloc.y
+	bullet.xo = target.x - startloc.x
+	bullet.original = target
+	bullet.preparePixelProjectile(target, src)
+	bullet.fire()
+	return bullet
 
 #undef MOVES_HITSCAN
 #undef MUZZLE_EFFECT_PIXEL_INCREMENT

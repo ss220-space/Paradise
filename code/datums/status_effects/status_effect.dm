@@ -59,6 +59,8 @@
 				START_PROCESSING(SSfastprocess, src)
 			if(STATUS_EFFECT_NORMAL_PROCESS)
 				START_PROCESSING(SSprocessing, src)
+
+	SEND_SIGNAL(owner, COMSIG_LIVING_STATUS_APPLIED, src)
 	return TRUE
 
 /datum/status_effect/Destroy()

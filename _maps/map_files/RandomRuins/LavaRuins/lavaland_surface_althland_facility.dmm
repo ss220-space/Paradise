@@ -151,7 +151,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -304,7 +304,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -703,7 +703,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bedsheet,
 /obj/structure/bed,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
 "CQ" = (
@@ -760,7 +760,7 @@
 "FC" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/effect/turf_decal/box/white,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
 "FH" = (
@@ -876,7 +876,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Li" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/random,
+/mob/living/basic/mining/goliath/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -946,7 +946,7 @@
 /obj/structure/sign/poster/official/air2{
 	pixel_y = -32
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -960,7 +960,7 @@
 /area/ruin/unpowered)
 "PO" = (
 /obj/structure/disposalpipe/segment,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
@@ -1013,7 +1013,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/workboots/mining,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/legion,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered)
 "Sg" = (

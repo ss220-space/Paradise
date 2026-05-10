@@ -215,7 +215,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(panel_open)
 		return FALSE
 
-	if(user.incapacitated() || (user.get_active_hand() != circuit))
+	if(user.incapacitated || (user.get_active_hand() != circuit))
 		return FALSE
 
 	return TRUE

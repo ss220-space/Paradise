@@ -147,7 +147,7 @@
 
 // Datum actions
 /obj/item/deck/proc/draw_card(mob/living/carbon/human/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!LAZYLEN(cards))
@@ -176,7 +176,7 @@
 	)
 
 /obj/item/deck/proc/deal_card(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!LAZYLEN(cards))
@@ -185,7 +185,7 @@
 
 	var/list/players = list()
 	for(var/mob/living/carbon/player in viewers(3, user))
-		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
+		if(!player.incapacitated && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
 			players += player
 
 	if(!LAZYLEN(players))
@@ -193,7 +193,7 @@
 		return
 
 	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать карту?", "Раздать карту", players)
-	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
+	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!LAZYLEN(cards))
@@ -203,7 +203,7 @@
 	deal_at(user, target, 1)
 
 /obj/item/deck/proc/deal_card_multi(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!LAZYLEN(cards))
@@ -211,14 +211,14 @@
 		return
 
 	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карты", "карт", "карт")]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
-	if(isnull(dcard) || !LAZYLEN(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(isnull(dcard) || !LAZYLEN(cards) || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	dcard = clamp(min(round(abs(dcard)), LAZYLEN(cards)), 1, 10)	// we absolutely trust our players
 
 	var/list/players = list()
 	for(var/mob/living/carbon/player in viewers(3, user))
-		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
+		if(!player.incapacitated && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
 			players += player
 
 	if(!LAZYLEN(players))
@@ -227,7 +227,7 @@
 	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."))
 
 	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]?", "Раздать карты", players)
-	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
+	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(LAZYLEN(cards) < dcard)
@@ -266,7 +266,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/deck/proc/deckshuffle(mob/user)
-	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
@@ -472,7 +472,7 @@
 /obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	var/pickablecards = list()
@@ -513,12 +513,12 @@
 /obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/maxcards = min(LAZYLEN(cards), 5)
 	var/discards = tgui_input_number(usr, "Сколько карт вы хотите сбросить? Вы можете сбросить до <b>[maxcards]</b> карт[maxcards == 1 ? "ы" : ""].", "Сбросить карты", max_value = maxcards)
-	if(discards > maxcards || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(discards > maxcards || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	for(var/i in 1 to discards)

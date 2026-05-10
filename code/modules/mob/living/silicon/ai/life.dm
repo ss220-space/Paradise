@@ -130,14 +130,11 @@
 						theAPC = null
 
 /mob/living/silicon/ai/updatehealth(reason = "none given", should_log = FALSE)
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return ..()
-	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss())
+	if(..())
+		return
 
 	if(health <= maxHealth * 0.5 && health > 0)
 		send_ai_alarm("Обнаружено критическое повреждение ИИ. Уровень целостности: [round((health / maxHealth) * 100)]%")
-
-	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/ai/proc/lacks_power()
 	if(!require_power)

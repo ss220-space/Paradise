@@ -38,8 +38,9 @@
 			icon_state = "cashrbow"
 
 /obj/item/stack/spacecash/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
-		throwingdatum.thrower.say(pick(
+	var/mob/thrower = throwingdatum?.get_thrower()
+	if(istype(thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
+		thrower.say(pick(
 			"Бесплатные деньги!!", "Настоящий денежный дождь!!",\
 			"Деньги, деньги, деньги!!!", "Это лучшая сделка!!")
 		)

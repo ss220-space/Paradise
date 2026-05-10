@@ -18339,7 +18339,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bBC" = (
-/mob/living/simple_animal/pet/dog/fox/Renault,
+/mob/living/basic/pet/fox/Renault,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bBD" = (

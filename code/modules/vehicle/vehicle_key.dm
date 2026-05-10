@@ -26,3 +26,16 @@
 	name = "snowmobile key"
 	desc = "A keyring with a small steel key, and tag with a red cross on it; clearly it's not implying you're going to the hospital for this..."
 	icon_state = "keydoc" //get a better icon, sometime.
+
+/obj/item/key/lasso
+	name = "bone lasso"
+	desc = "The perfect tool for directing a Goliath! If only it made them move any faster..."
+	force = 12
+	icon_state = "lasso"
+	item_state = "chain"
+	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
+	// attack_verb_continuous = list("flogs", "whips", "lashes", "disciplines")
+	// attack_verb_simple = list("flog", "whip", "lash", "discipline") // Похуй потом
+	hitsound = 'sound/weapons/whip.ogg'
+	slot_flags = ITEM_SLOT_BELT

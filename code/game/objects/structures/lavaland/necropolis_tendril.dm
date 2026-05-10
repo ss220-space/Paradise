@@ -10,9 +10,9 @@
 	max_mobs = 3
 	max_integrity = 300
 	mob_types = list(
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 5,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5,
+		/mob/living/basic/mining = 90,
+		/mob/living/basic/mining/watcher/icewing/spawner_made = 5,
+		/mob/living/basic/mining/watcher/magmawing/spawner_made = 5,
 	)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
@@ -34,21 +34,21 @@
 	)
 
 /obj/structure/spawner/lavaland/goliath
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
+	mob_types = list(/mob/living/basic/mining/goliath)
 	mob_gps_id = "GL"
 
 /obj/structure/spawner/lavaland/legion
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+	mob_types = list(/mob/living/basic/mining/legion/spawner_made)
 	spawn_time = 400 // say no to core farming
 	mob_gps_id = "LG"
 
 /obj/structure/spawner/lavaland/random_threat
 	max_integrity = 400
 	mob_types = list(
-		/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril = 27,
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 26,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 26,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 1,
+		/mob/living/basic/mining/goliath = 27,
+		/mob/living/basic/mining/legion/spawner_made = 26,
+		/mob/living/basic/mining/watcher = 26,
+		/mob/living/basic/mining/watcher/icewing/spawner_made = 1,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20,
 	)
 	max_mobs = 5
@@ -58,11 +58,11 @@
 /obj/structure/spawner/lavaland/random_threat/dangerous //rare
 	max_integrity = 500
 	mob_types = list(
-		/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril = 17,
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 15,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 18,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 12,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 12,
+		/mob/living/basic/mining/goliath = 17,
+		/mob/living/basic/mining/legion/spawner_made = 15,
+		/mob/living/basic/mining/watcher = 18,
+		/mob/living/basic/mining/watcher/icewing/spawner_made = 12,
+		/mob/living/basic/mining/watcher/magmawing/spawner_made = 12,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 12,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14,
 	)

@@ -146,7 +146,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	set name = "Извлечь ID-карту"
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)

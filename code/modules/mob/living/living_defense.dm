@@ -328,7 +328,7 @@
 /**
  * Called when this mob is grabbed by another mob.
  */
-/mob/living/proc/grabbedby(mob/living/grabber, supress_message = FALSE)
+/mob/living/proc/grabbedby(mob/living/grabber, supress_message = FALSE) // Похуй потом
 	if(grabber == src || anchored || !isturf(grabber.loc) || !(grabber.mobility_flags & MOBILITY_PULL))
 		return FALSE
 
@@ -488,7 +488,7 @@
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
-		if(!M.friendly)
+		if(!M.friendly) // Рантайм еба
 			return FALSE
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [declent_ru(ACCUSATIVE)].")
 		return FALSE
@@ -499,6 +499,7 @@
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, TRUE, 1)
 	M.do_attack_animation(src)
+	// Рантайм еба снизу
 	visible_message(span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] [M.attacktext] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[DECLENT_RU_CAP(M, NOMINATIVE)] [M.attacktext] [declent_ru(ACCUSATIVE)]!"))
 	add_attack_logs(M, src, "Animal attacked")
@@ -571,26 +572,6 @@
 	Knockdown(1 SECONDS)
 	return TRUE
 
-/mob/living/attack_basic_mob(mob/living/basic/user)
-	if(user.melee_damage == 0)
-		if(user != src)
-			visible_message(span_notice("[user] [user.friendly_verb_continuous] [declent_ru(ACCUSATIVE)]!"), \
-				span_notice("[user] [user.friendly_verb_continuous] вас!"))
-			to_chat(user, span_notice("Вы [user.friendly_verb_simple] [declent_ru(ACCUSATIVE)]!"))
-		return FALSE
-	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("Вы не хотите никому вредить."))
-		return FALSE
-
-	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, 1)
-	user.do_attack_animation(src)
-	visible_message(span_danger("[user] [user.attack_verb_continuous] [declent_ru(ACCUSATIVE)]!"), \
-					span_userdanger("[user] [user.attack_verb_continuous] вас!"))
-	to_chat(user, span_danger("Вы [user.attack_verb_simple] [declent_ru(ACCUSATIVE)]!"))
-	add_attack_logs(user, src, "атаковал")
-	return TRUE
-
 /mob/living/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
 	. = ..()
 	fire.set_on_fire(src)
@@ -598,3 +579,9 @@
 /mob/living/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	. = ..()
 	fire.set_on_fire(src)
+
+/mob/living/proc/set_intent(new_intent) // Похуй потом
+	if(intent == new_intent)
+		return
+
+	intent = new_intent

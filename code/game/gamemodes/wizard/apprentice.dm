@@ -23,7 +23,7 @@
 
 	var/mob/living/carbon/human/teacher = usr
 
-	if(teacher.incapacitated() || HAS_TRAIT(teacher, TRAIT_HANDS_BLOCKED))
+	if(teacher.incapacitated || HAS_TRAIT(teacher, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(loc == teacher || (in_range(src, teacher) && isturf(loc)))
@@ -107,7 +107,7 @@
 
 	var/mob/living/carbon/human/apprentice = usr
 
-	if(apprentice.incapacitated() || HAS_TRAIT(apprentice, TRAIT_HANDS_BLOCKED))
+	if(apprentice.incapacitated || HAS_TRAIT(apprentice, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(loc == apprentice || (in_range(src, apprentice) && isturf(loc)))
@@ -485,7 +485,7 @@
 /datum/magick_school/lavaland/kit()
 	owner.faction += "mining"
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_tentacles)
+	owner.mind.AddSpell(new /datum/action/cooldown/mob_cooldown/tentacle_burst)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_dash)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/watchers_look)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch/advanced)

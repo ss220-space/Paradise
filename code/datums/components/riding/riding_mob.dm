@@ -5,10 +5,15 @@
 	var/can_be_driven = TRUE
 	/// If TRUE, this creature's abilities can be triggered by the rider while mounted
 	var/can_use_abilities = FALSE
-	/// shall we require riders to go through the riding minigame if they arent in our friends list
-	//var/require_minigame = FALSE //not implemented yet
+	/// Shall we require riders to go through the riding minigame if they arent in our friends list
+	/// Do we use vehicle_move_delay or default to mob's own movespeed?
+	var/uses_native_speed = FALSE
+	/// Shall we require riders to go through the riding minigame if they arent in our friends list
+	var/require_minigame = FALSE
 	/// list of blacklisted abilities that cant be shared
 	var/list/blacklist_abilities = list()
+	/// flag that determine how our ai acts while ridden
+	var/ai_behavior_while_ridden = RIDING_PAUSE_AI_PLANNING | RIDING_PAUSE_AI_MOVEMENT
 
 /datum/component/riding/creature/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = NONE, potion_boost = FALSE)
 	if(!isliving(parent))
@@ -19,8 +24,7 @@
 	var/mob/living/living_parent = parent
 	living_parent.stop_pulling() // was only used on humans previously, may change some other behavior
 	log_riding(living_parent, riding_mob)
-	riding_mob.set_glide_size(living_parent.glide_size)
-	handle_vehicle_offsets(living_parent.dir)
+	update_parent_layer_and_offsets(living_parent.dir)
 
 	if(can_use_abilities)
 		setup_abilities(riding_mob)
@@ -34,7 +38,7 @@
 	if(isanimal(parent))
 		var/mob/living/simple_animal/simple_parent = parent
 		simple_parent.stop_automated_movement = FALSE
-	REMOVE_TRAIT(parent, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
+	parent.remove_traits(list(TRAIT_AI_PAUSED, TRAIT_AI_MOVEMENT_HALTED), UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/component/riding/creature/RegisterWithParent()
@@ -58,10 +62,10 @@
 	if(living_parent.body_position != STANDING_UP) // if we move while on the ground, the rider falls off
 		. = FALSE
 	// for piggybacks and (redundant?) borg riding, check if the rider is stunned/restrained
-	else if((ride_check_flags & RIDER_NEEDS_ARMS) && (HAS_TRAIT(rider, TRAIT_RESTRAINED) || rider.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
+	else if((ride_check_flags & RIDER_NEEDS_ARMS) && (HAS_TRAIT(rider, TRAIT_RESTRAINED) || INCAPACITATED_IGNORING(rider, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB)))
 		. = FALSE
 	// for fireman carries, check if the ridden is stunned/restrained
-	else if((ride_check_flags & CARRIER_NEEDS_ARM) && (HAS_TRAIT(living_parent, TRAIT_RESTRAINED) || living_parent.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
+	else if((ride_check_flags & CARRIER_NEEDS_ARM) && (HAS_TRAIT(living_parent, TRAIT_RESTRAINED) || INCAPACITATED_IGNORING(living_parent, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB)))
 		. = FALSE
 
 	else if((ride_check_flags & JUST_FRIEND_RIDERS) && !(living_parent.faction.Find(rider)))
@@ -82,7 +86,10 @@
 	rider.layer = initial(rider.layer)
 	if(can_be_driven)
 		//let the player take over if they should be controlling movement
-		ADD_TRAIT(ridden, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
+		if(ai_behavior_while_ridden & RIDING_PAUSE_AI_PLANNING)
+			ADD_TRAIT(ridden, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
+		if(ai_behavior_while_ridden & RIDING_PAUSE_AI_MOVEMENT)
+			ADD_TRAIT(ridden, TRAIT_AI_MOVEMENT_HALTED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/formerly_ridden, mob/living/former_rider, force = FALSE)
@@ -93,7 +100,7 @@
 
 	//remove_abilities(former_rider)
 	if(!length(formerly_ridden.buckled_mobs))
-		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, UNIQUE_TRAIT_SOURCE(src))
+		formerly_ridden.remove_traits(list(TRAIT_AI_PAUSED, TRAIT_AI_MOVEMENT_HALTED), UNIQUE_TRAIT_SOURCE(src))
 	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
 	formerly_ridden.layer = MOB_LAYER
@@ -108,13 +115,15 @@
 			to_chat(user, span_warning("You need a [initial(key.name)] to ride [movable_parent]!"))
 		return COMPONENT_DRIVER_BLOCK_MOVE
 	var/mob/living/living_parent = parent
-	var/turf/next = get_step(living_parent, direction)
 	step(living_parent, direction)
-	last_move_diagonal = ((direction & (direction - 1)) && (living_parent.loc == next))
+
 	var/modified_move_cooldown = vehicle_move_cooldown
-	var/modified_move_delay = vehicle_move_delay
-	//weird sanity code here, we don't got it, at least for now.
-	COOLDOWN_START(src, vehicle_move_cooldown = modified_move_cooldown, (last_move_diagonal ? 2 : 1) * modified_move_delay)
+	var/modified_move_delay = uses_native_speed ? living_parent.cached_multiplicative_slowdown : vehicle_move_delay
+
+	if(NSCOMPONENT(direction) && EWCOMPONENT(direction))
+		modified_move_delay = FLOOR(modified_move_delay * sqrt(2), world.tick_lag)
+
+	COOLDOWN_START(src, vehicle_move_cooldown = modified_move_cooldown, modified_move_delay)
 	return ..()
 
 /// Yeets the rider off, used for animals and cyborgs, redefined for humans who shove their piggyback rider off
@@ -171,6 +180,74 @@
 		return COMPONENT_RIDDEN_STOP_Z_MOVE
 	return COMPONENT_RIDDEN_ALLOW_Z_MOVE
 
+/datum/component/riding/creature/goliath
+	keytype = /obj/item/key/lasso
+	uses_native_speed = TRUE
+	rider_traits = list(TRAIT_NO_FLOATING_ANIM, TRAIT_TENTACLE_IMMUNE)
+
+/datum/component/riding/creature/goliath/deathmatch
+	keytype = null
+
+/datum/component/riding/creature/goliath/Initialize(mob/living/riding_mob, force, ride_check_flags)
+	. = ..()
+	var/mob/living/basic/mining/goliath/goliath = parent
+	goliath.add_movespeed_modifier(/datum/movespeed_modifier/goliath_mount)
+
+/datum/component/riding/creature/goliath/Destroy(force)
+	var/mob/living/basic/mining/goliath/goliath = parent
+	goliath.remove_movespeed_modifier(/datum/movespeed_modifier/goliath_mount)
+	return ..()
+
+/datum/component/riding/creature/goliath/get_rider_offsets_and_layers(pass_index, mob/offsetter)
+	return list(
+		TEXT_NORTH = list(0, 12),
+		TEXT_SOUTH = list(0, 12),
+		TEXT_EAST =  list(-4, 12),
+		TEXT_WEST =  list(3, 12),
+	)
+
+/datum/component/riding/creature/goliath/get_parent_offsets_and_layers()
+	return list(
+		TEXT_NORTH = list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_SOUTH = list(0, 0, MOB_ABOVE_PIGGYBACK_LAYER),
+		TEXT_EAST =  list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_WEST =  list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+	)
+
+/datum/component/riding/creature/cyborg
+	can_be_driven = FALSE
+
+/datum/component/riding/creature/cyborg/Initialize(mob/living/riding_mob, force, ride_check_flags, potion_boost)
+	if(!isrobot(parent))
+		return COMPONENT_INCOMPATIBLE
+	return ..()
+
+/datum/component/riding/creature/cyborg/ride_check(mob/living/user, consequences = TRUE)
+	var/mob/living/silicon/robot/robot_parent = parent
+	if(!iscarbon(user))
+		return TRUE
+
+	. = user.usable_hands
+	if(!. && consequences)
+		Unbuckle(user)
+		to_chat(user, span_warning("You can't grab onto [robot_parent] with no hands!"))
+
+/datum/component/riding/creature/cyborg/get_rider_offsets_and_layers(pass_index, mob/offsetter)
+	return list(
+		TEXT_NORTH = list(0, 4),
+		TEXT_SOUTH = list(0, 4),
+		TEXT_EAST =  list(-6, 3),
+		TEXT_WEST =  list(6, 3)
+	)
+
+/datum/component/riding/creature/cyborg/get_parent_offsets_and_layers()
+	return list(
+		TEXT_NORTH = list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_SOUTH = list(0, 0, MOB_ABOVE_PIGGYBACK_LAYER),
+		TEXT_EAST =  list(0, 0, MOB_ABOVE_PIGGYBACK_LAYER),
+		TEXT_WEST =  list(0, 0, MOB_ABOVE_PIGGYBACK_LAYER),
+	)
+
 ///////Yes, I said humans. No, this won't end well...//////////
 /datum/component/riding/creature/human
 	can_be_driven = FALSE
@@ -188,15 +265,18 @@
 	else if(ride_check_flags & CARRIER_NEEDS_ARM) // fireman
 		human_parent.buckle_lying = 90
 
-/*
-/datum/component/riding/creature/post_vehicle_mob_buckle(mob/living/ridden, mob/living/rider)
-	if(!require_minigame || ridden.faction.Find(REF(rider)))
+
+/datum/component/riding/creature/handle_buckle(mob/living/rider)
+	. = ..()
+	var/mob/living/ridden = parent
+	if(!require_minigame || ridden.faction.Find(rider.UID()))
 		return
-	ridden.Shake(duration = 2 SECONDS)
+
+	ridden.Shake(pixelshiftx = 1, pixelshifty = 0, duration = 1 SECONDS)
+	ridden.spin(spintime = 1 SECONDS, speed = 1)
 	ridden.balloon_alert(rider, "вас пытаются сбросить!")
-	var/datum/riding_minigame/game = new(ridden, rider, FALSE)
-	game.commence_minigame()
-*/
+	new /datum/riding_minigame(ridden, rider)
+
 /datum/component/riding/creature/human/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND, PROC_REF(on_host_unarmed_melee))
@@ -244,61 +324,57 @@
 					span_warning("You fall to the ground, bringing [rider] with you!"), span_hear("You hear two consecutive thuds."))
 		to_chat(rider, span_danger("[human_parent] falls to the ground, bringing you with [human_parent.p_them()]!"))
 
-/datum/component/riding/creature/human/handle_vehicle_layer(dir)
-	var/atom/movable/AM = parent
-	if(!AM.buckled_mobs || !length(AM.buckled_mobs))
-		AM.layer = MOB_LAYER
-		return
+/datum/component/riding/creature/human/get_rider_offsets_and_layers(pass_index, mob/offsetter)
+	var/mob/living/carbon/human/seat = parent
+	// fireman carry
+	if(seat.buckle_lying)
+		return list(
+			TEXT_NORTH = list(0, 6, MOB_ABOVE_PIGGYBACK_LAYER),
+			TEXT_SOUTH = list(0, 6, MOB_BELOW_PIGGYBACK_LAYER),
+			TEXT_EAST =  list(0, 6, MOB_BELOW_PIGGYBACK_LAYER),
+			TEXT_WEST =  list(0, 6, MOB_BELOW_PIGGYBACK_LAYER),
+		)
+	// piggyback
+	return list(
+		TEXT_NORTH = list(0, 8, MOB_ABOVE_PIGGYBACK_LAYER),
+		TEXT_SOUTH = list(0, 8, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_EAST =  list(-6, 8, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_WEST =  list(6, 8, MOB_BELOW_PIGGYBACK_LAYER),
+	)
 
-	for(var/mob/M in AM.buckled_mobs) //ensure proper layering of piggyback and carry, sometimes weird offsets get applied
-		M.layer = MOB_LAYER
+/datum/component/riding/creature/human/get_parent_offsets_and_layers()
+	return list(
+		TEXT_NORTH = list(0, 0),
+		TEXT_SOUTH = list(0, 0),
+		TEXT_EAST =  list(0, 0),
+		TEXT_WEST =  list(0, 0),
+	)
 
-	if(!AM.buckle_lying) // rider is vertical, must be piggybacking
-		if(dir == SOUTH)
-			AM.layer = MOB_ABOVE_PIGGYBACK_LAYER
-		else
-			AM.layer = MOB_BELOW_PIGGYBACK_LAYER
-	else  // laying flat, we must be firemanning the rider
-		if(dir == NORTH)
-			AM.layer = MOB_BELOW_PIGGYBACK_LAYER
-		else
-			AM.layer = MOB_ABOVE_PIGGYBACK_LAYER
+/datum/component/riding/creature/human/force_dismount(mob/living/rider, throw_range = 8, throw_speed = 3, gentle = FALSE)
+	var/atom/movable/seat = parent
+	seat.unbuckle_mob(rider)
+	rider.Weaken(1 SECONDS)
+	rider.Knockdown(4 SECONDS)
+	rider.visible_message(
+		span_warning("[seat] pushes [rider] off of [seat.p_them()]!"),
+		span_warning("[seat] pushes you off of [seat.p_them()]!"),
+	)
 
-/datum/component/riding/creature/human/get_offsets(pass_index)
-	var/mob/living/carbon/human/H = parent
-	if(H.buckle_lying)
-		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(0, 6), TEXT_WEST = list(0, 6))
-	else
-		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-6, 4), TEXT_WEST = list(6, 4))
+/datum/component/riding/creature/bear
+	vehicle_move_delay = 1.5
 
-/datum/component/riding/creature/human/force_dismount(mob/living/dismounted_rider)
-	var/atom/movable/AM = parent
-	AM.unbuckle_mob(dismounted_rider)
-	dismounted_rider.Weaken(1 SECONDS)
-	dismounted_rider.Knockdown(4 SECONDS)
-	dismounted_rider.visible_message(span_warning("[AM] pushes [dismounted_rider] off of [AM.p_them()]!"), \
-						span_warning("[AM] pushes you off of [AM.p_them()]!"))
+/datum/component/riding/creature/bear/get_rider_offsets_and_layers(pass_index, mob/offsetter)
+	return list(
+		TEXT_NORTH = list(1, 8),
+		TEXT_SOUTH = list(1, 8),
+		TEXT_EAST =  list(-3, 6),
+		TEXT_WEST =  list(3, 6),
+	)
 
-/datum/component/riding/creature/cyborg
-	can_be_driven = FALSE
-
-/datum/component/riding/creature/cyborg/Initialize(mob/living/riding_mob, force, ride_check_flags, potion_boost)
-	if(!isrobot(parent))
-		return COMPONENT_INCOMPATIBLE
-	return ..()
-
-/datum/component/riding/creature/cyborg/post_vehicle_mob_buckle(atom/movable/ridden, atom/movable/rider)
-	// Cyborgs seats have advanced safety system, so crew wont fall off and hurt themselves
-	ADD_TRAIT(rider, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src))
-
-/datum/component/riding/creature/cyborg/handle_unbuckle(mob/living/rider)
-	. = ..()
-	REMOVE_TRAIT(rider, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src))
-	// For some reason, after unbuckling, game is substracting atom's 'pixel_y' var by 9.
-	rider.pixel_y += 9
-
-/datum/component/riding/creature/cyborg/get_offsets(pass_index)
-	var/mob/living/silicon/robot/robot = parent
-	if(!robot.selected_skin)
-		return ..()
-	return robot.selected_skin.get_riding_offsets()
+/datum/component/riding/creature/bear/get_parent_offsets_and_layers()
+	return list(
+		TEXT_NORTH = list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_SOUTH = list(0, 0, MOB_ABOVE_PIGGYBACK_LAYER),
+		TEXT_EAST =  list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+		TEXT_WEST =  list(0, 0, MOB_BELOW_PIGGYBACK_LAYER),
+	)

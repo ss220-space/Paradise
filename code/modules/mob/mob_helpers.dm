@@ -147,34 +147,26 @@
 // If "chest" was passed in as zone, then on a "miss" will return "head", "l_arm", or "r_arm"
 // Do not use this if someone is intentionally trying to hit a specific body part.
 // Use get_zone_with_miss_chance() for that.
-/proc/ran_zone(zone, probability = 80)
+/proc/ran_zone(zone, probability = 80, list/weighted_list)
 
 	zone = check_zone(zone)
 
 	if(probability > 0 && prob(probability))
-		return zone
+		zone = check_zone(zone)
+	else
+		zone = pickweight(weighted_list ? weighted_list : list(\
+			BODY_ZONE_HEAD = 1,\
+			BODY_ZONE_CHEST = 2,\
+			BODY_ZONE_L_ARM = 1,\
+			BODY_ZONE_PRECISE_L_HAND = 1,\
+			BODY_ZONE_R_ARM = 1,\
+			BODY_ZONE_PRECISE_R_HAND = 1,\
+			BODY_ZONE_L_LEG = 1,\
+			BODY_ZONE_PRECISE_L_FOOT = 1,\
+			BODY_ZONE_R_LEG = 1,\
+			BODY_ZONE_PRECISE_R_FOOT = 1,\
+		))
 
-	switch(rand(1, 11))	// randomly pick a different zone, or maybe the same one
-		if(1)
-			return BODY_ZONE_HEAD
-		if(2 to 3)
-			return BODY_ZONE_CHEST
-		if(4)
-			return BODY_ZONE_L_ARM
-		if(5)
-			return BODY_ZONE_PRECISE_L_HAND
-		if(6)
-			return BODY_ZONE_R_ARM
-		if(7)
-			return BODY_ZONE_PRECISE_R_HAND
-		if(8)
-			return BODY_ZONE_L_LEG
-		if(9)
-			return BODY_ZONE_PRECISE_L_FOOT
-		if(10)
-			return BODY_ZONE_R_LEG
-		if(11)
-			return BODY_ZONE_PRECISE_R_FOOT
 	return zone
 
 /proc/above_neck(zone)
@@ -532,7 +524,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	return TRUE
 
 /mob/proc/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
+	if(!C.can_use() || incapacitated || (get_dist(C, src) > 1 || machine != src || !has_vision()))
 		return FALSE
 	check_eye(src)
 	return TRUE
@@ -896,7 +888,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(limb_zone == BODY_ZONE_CHEST || limb_zone == BODY_ZONE_HEAD)
 			limbs[limb_zone] = 1
 		else
-			limbs[limb_zone] = 4
+			limbs[limb_zone] = 4 // Похуй потом
 
 	if(base_zone && !(check_zone(base_zone) in limbs))
 		base_zone = null //check if the passed zone is infact valid

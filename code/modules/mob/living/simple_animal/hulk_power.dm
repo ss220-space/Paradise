@@ -67,7 +67,7 @@
 		return
 
 	var/failure = 0
-	if(ismob(user.loc) || user.incapacitated() || user.buckled)
+	if(ismob(user.loc) || user.incapacitated || user.buckled)
 		to_chat(user, span_warning("You can't dash right now!"))
 		return
 
@@ -225,7 +225,7 @@
 	if(!user)
 		return
 
-	if(ismob(user.loc) || user.incapacitated() || user.buckled)
+	if(ismob(user.loc) || user.incapacitated || user.buckled)
 		to_chat(user, span_warning("You can't jump right now!"))
 		return
 	var/turf/turf_to_check = get_turf(user)
@@ -340,7 +340,7 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_red("You can't right now!"))
 		return
 	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)
@@ -378,7 +378,7 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/hulk_joke/cast(list/targets,mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't right now!"))
 		return
 
@@ -408,7 +408,7 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/hulk_mill/cast(list/targets, mob/user = usr)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
 
@@ -448,7 +448,7 @@
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/fireball/hulk_spit/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return ..()
 

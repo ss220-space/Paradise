@@ -37,6 +37,8 @@
 	if(self_destroy)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
 
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
+
 /obj/structure/energy_net/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BRUTE || damage_type == BURN)
 		playsound(src, 'sound/weapons/slash.ogg', 80, TRUE)

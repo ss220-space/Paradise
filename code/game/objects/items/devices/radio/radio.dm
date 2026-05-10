@@ -683,7 +683,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		balloon_alert(user, "невозможно!")
 		return
 	set_listening(!listening)

@@ -111,7 +111,7 @@
 	toggle_paddles(user)
 
 /obj/item/defibrillator/CtrlClick(mob/user)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	toggle_paddles(user)
@@ -175,7 +175,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	toggle_paddles(usr)
@@ -194,7 +194,7 @@
 		action.UpdateButtonIcon()
 
 /obj/item/defibrillator/proc/dispence_paddles(mob/living/carbon/human/user)
-	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated())
+	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated)
 		return
 
 	//Detach the paddles into the user's hands

@@ -40,9 +40,10 @@
 
 /datum/component/boomerang/proc/prepare_throw(datum/source, datum/thrownthing/thrown_thing, spin)
 	SIGNAL_HANDLER
-	if(thrower_easy_catch_enabled && iscarbon(thrown_thing?.thrower))
-		var/mob/living/carbon/C = thrown_thing.thrower
-		C.throw_mode_on()
+
+	var/mob/living/carbon/thrower = thrown_thing?.get_thrower()
+	if(thrower_easy_catch_enabled && istype(thrower))
+		thrower.throw_mode_on()
 
 /**
  * Proc that triggers when the thrown boomerang hits an object.
@@ -84,7 +85,7 @@
 		var/turf/T = get_ranged_target_turf(thrown_by, dir, 2)
 		addtimer(CALLBACK(true_parent, TYPE_PROC_REF(/atom/movable, throw_at), T, boomerang_throw_range, throwing_datum.speed, null, TRUE), 1)
 		last_boomerang_throw = world.time + BOOMERANG_REBOUND_INTERVAL
-	thrown_by.visible_message(span_danger("[true_parent] is flying back at [throwing_datum.thrower]!"), \
+	thrown_by.visible_message(span_danger("[true_parent] is flying back at [throwing_datum.get_thrower()]!"), \
 						span_danger("You see [true_parent] fly back at you!"), \
 						span_hear("You hear an aerodynamic woosh!"))
 

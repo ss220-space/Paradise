@@ -297,7 +297,7 @@
 	if(isobserver(user))
 		return FALSE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 
 	if(!user.can_use_machinery(src))
@@ -644,7 +644,7 @@
  * * user - the mob who is trying to interact with the machine.
  */
 /obj/machinery/proc/can_use_shortcut(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't do that right now!"))
 		return FALSE
 

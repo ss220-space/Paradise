@@ -98,7 +98,7 @@
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
 		requested_amount = S.amount
-		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
+		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
 	if(!user.drop_transfer_item_to_loc(I, parent))
 		I.balloon_alert(user, "не удаётся выпустить из руки!")

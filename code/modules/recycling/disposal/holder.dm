@@ -205,7 +205,7 @@
 
 // called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/living/user, direction)
-	if(user.incapacitated() || world.time <= user.last_special)
+	if(user.incapacitated || world.time <= user.last_special)
 		return
 	user.last_special = world.time + 10 SECONDS
 	for(var/mob/hearer in range(5, get_turf(src)))

@@ -195,7 +195,7 @@
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
 	set category = VERB_CATEGORY_OBJECT
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	change_state()
@@ -205,7 +205,7 @@
 	set desc = "Вытаскивает животное из переноски."
 	set category = VERB_CATEGORY_OBJECT
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	try_free_content(null, usr)

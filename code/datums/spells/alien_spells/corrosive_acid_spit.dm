@@ -42,7 +42,7 @@
 
 	var/mob/living/carbon/alien/alien_target = target
 
-	if(!proximity_flag || istype(alien_target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
+	if(!proximity_flag || istype(alien_target) || !iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
 
 	if(!plasma_check(plasma_cost, user))

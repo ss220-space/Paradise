@@ -188,7 +188,7 @@
 
 	var/mob/living/user = usr
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
@@ -204,7 +204,7 @@
 
 	var/mob/living/user = usr
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")

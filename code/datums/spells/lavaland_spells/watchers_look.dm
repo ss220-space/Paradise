@@ -9,10 +9,9 @@
 	action_background_icon_state = ""
 	need_active_overlay = TRUE
 	var/projectiles_icons = list(
-		"watcher_normal" = /obj/projectile/watcher,
-		"watcher_fire" = /obj/projectile/temp/basilisk/magmawing,
-		"watcher_ice" = /obj/projectile/temp/basilisk/icewing,
-	)
+		"watcher_normal" = /obj/projectile/temp/watcher,
+		"watcher_fire" = /obj/projectile/temp/watcher/magma_wing,
+		"watcher_ice" = /obj/projectile/temp/watcher/ice_wing)
 	var/selected_projectile = 1
 
 /obj/effect/proc_holder/spell/watchers_look/create_new_targeting()

@@ -945,7 +945,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	set src in oview(1)
 	set name = "Pick up"
 
-	if(usr.incapacitated() || !isturf(loc) || !Adjacent(usr))
+	if(usr.incapacitated || !isturf(loc) || !Adjacent(usr))
 		return
 	if(!iscarbon(usr))
 		to_chat(usr, span_warning("Вы не можете поднимать предметы!"))
@@ -1048,10 +1048,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
 	if(QDELETED(hit_atom))
 		return
-
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 
 	var/itempush = TRUE
 	if(w_class < WEIGHT_CLASS_BULKY)
@@ -1062,27 +1061,39 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	. = hit_atom.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
 
-	if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-		var/mob/living/living = hit_atom
-		var/item_catched = FALSE
-		if(. && living.is_in_hands(src))
-			item_catched = TRUE
-
-		if(get_temperature() && !item_catched)
-			living.IgniteMob()
-
-		if(impact_throwforce > 0 && !item_catched)
-			if(mob_throw_hit_sound)
-				playsound(living, mob_throw_hit_sound, volume, TRUE, -1)
-			else if(hitsound)
-				playsound(living, hitsound, volume, TRUE, -1)
-			else
-				playsound(living, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
-		else
-			playsound(living, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
-
-	else
+	if(!isliving(hit_atom)) //Living mobs handle hit sounds differently.
 		playsound(src, get_drop_sound(), YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		return
+
+	var/mob/living/living = hit_atom
+	var/item_catched = FALSE
+
+	if(. && living.is_in_hands(src))
+		item_catched = TRUE
+
+	if(get_temperature() && !item_catched)
+		living.IgniteMob()
+
+	if(impact_throwforce > 0 && !item_catched)
+		if(mob_throw_hit_sound)
+			playsound(living, mob_throw_hit_sound, volume, TRUE, -1)
+		else if(hitsound)
+			playsound(living, hitsound, volume, TRUE, -1)
+		else
+			playsound(living, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+	else
+		playsound(living, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
+
+/obj/item/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = ..()
+	if(w_class < WEIGHT_CLASS_BULKY)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH
+
+	if(!(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND) && get_temperature() && isliving(hit_atom))
+		var/mob/living/victim = hit_atom
+		victim.IgniteMob()
+
+	return impact_flags
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force, dodgeable)
 	thrownby = thrower?.UID()
@@ -1139,11 +1150,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return ..()
 	return FALSE
 
-/obj/item/attack_basic_mob(mob/living/basic/user)
-	if(obj_flags & IGNORE_HITS)
-		return ..()
-	return FALSE
-
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return FALSE
 
@@ -1164,7 +1170,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return
 
 		var/mob/living/living_user = user
-		if(istype(living_user) && living_user.incapacitated())
+		if(istype(living_user) && living_user.incapacitated)
 			apply_outline(living_user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
 			apply_outline(living_user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
@@ -1175,7 +1181,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 /obj/item/mouse_drop_receive(atom/dropping, mob/user, params)
-	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
+	if(!user || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
 		return
 
 	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?

@@ -417,7 +417,7 @@
 			else
 				scan_mode = FALSE
 		if("eject")
-			if(usr.incapacitated() || !scanner || loading)
+			if(usr.incapacitated || !scanner || loading)
 				return
 			scanner.eject_occupant(usr)
 			scanner.add_fingerprint(usr)

@@ -63,9 +63,6 @@
 	/// This damage is taken when atmos doesn't fit all the requirements above.
 	var/unsuitable_atmos_damage = 2
 
-	/// LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly.
-	var/melee_damage_lower = 0
-	var/melee_damage_upper = 0
 	/// How much damage this simple animal does to objects, if any.
 	var/obj_damage = 0
 	/// How much armour they ignore, as a flat reduction from the targets armour value.
@@ -111,8 +108,6 @@
 	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
 	var/mob/living/carbon/human/master_commander = null
 
-	var/datum/component/spawner/nest
-
 	/// Sentience type, for slime potions.
 	var/sentience_type = SENTIENCE_ORGANIC
 
@@ -130,7 +125,7 @@
 
 	var/attacked_sound = SFX_PUNCH
 
-	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever).
+	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near).
 	var/AIStatus = AI_ON
 	/// Once we have become sentient, we can never go back.
 	var/can_have_ai = TRUE
@@ -216,22 +211,10 @@
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
 
-	if(nest)
-		nest.spawned_mobs -= src
-		nest = null
-
-	var/turf/our_turf = get_turf(src)
-	if(our_turf && AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] -= src
-
 	return ..()
 
 /mob/living/simple_animal/ComponentInitialize()
 	AddComponent(/datum/component/animal_temperature)
-
-///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
-/mob/living/simple_animal/proc/tamed(whomst)
-	return
 
 /mob/living/simple_animal/handle_atom_del(atom/A)
 	if(A == pcollar)
@@ -246,10 +229,12 @@
 	if(IsSleeping())
 		. += span_notice("При ближайшем рассмотрении, [GEND_HE_SHE(user)] выгляд[PLUR_IT_YAT(user)] спящ[GEND_IM_EI_IM_IMI(user)].")
 
-/mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
+/mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE) // Похуй потом
 	. = ..()
-	set_health(clamp(health, 0, maxHealth))
 	med_hud_set_health()
+
+/mob/living/simple_animal/calculate_health()
+	return clamp(health, 0, maxHealth)
 
 /mob/living/simple_animal/on_lying_down(new_lying_angle)
 	. = ..()
@@ -450,10 +435,9 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(nest)
-		nest.spawned_mobs -= src
-		nest = null
+
 	drop_loot()
+
 	if(!gibbed)
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, TRUE)
@@ -467,12 +451,14 @@
 		del_on_death = FALSE
 		ghostize()
 		qdel(src)
-	else
-		set_health(0)
-		update_icons()
-		if(flip_on_death)
-			transform = transform.Turn(180)
-		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
+		return
+
+	set_health(0)
+	update_icons()
+	if(flip_on_death)
+		transform = transform.Turn(180)
+
+	ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(!isatom(the_target))
@@ -664,14 +650,10 @@
 	var/turf/our_turf = get_turf(src)
 	if(QDELETED(src) || !our_turf)
 		return
-	if(togglestatus < AI_ON || togglestatus > AI_Z_OFF)
+	if(togglestatus < AI_ON || togglestatus > AI_OFF)
 		stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
 		return
-	if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
-		if(AIStatus == AI_Z_OFF)
-			SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] -= src
-		else
-			SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] += src
+
 	GLOB.simple_animals[AIStatus] -= src
 	GLOB.simple_animals[togglestatus] += src
 	AIStatus = togglestatus
@@ -679,16 +661,6 @@
 
 /mob/living/simple_animal/proc/lose_target()
 	return
-
-/mob/living/simple_animal/proc/consider_wakeup()
-	if(pulledby || shouldwakeup)
-		toggle_ai(AI_ON)
-
-/mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
-	..()
-	if(old_turf && AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
-		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)

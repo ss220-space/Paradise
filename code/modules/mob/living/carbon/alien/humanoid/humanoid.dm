@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 /mob/living/carbon/alien/humanoid/proc/can_consume(mob/living/target)
 	if(!isliving(target) || !pulling || (pulling && pulling != target))
 		return FALSE
-	if(incapacitated() || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
+	if(incapacitated || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
 	return TRUE
 

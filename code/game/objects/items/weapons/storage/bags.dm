@@ -438,7 +438,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set desc = "Activate to convert your plants into plantable seeds."
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

@@ -298,7 +298,7 @@
 
 // So the user can use movement keys to get out of the cryopod
 /obj/machinery/cryopod/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	go_out()
 
@@ -535,7 +535,7 @@
 /obj/machinery/cryopod/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -629,7 +629,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != occupant)
@@ -652,7 +652,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))
 		return
 
 	if(occupant)
@@ -663,7 +663,7 @@
 		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
 		return
 
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	visible_message("[usr] starts climbing into [src].")

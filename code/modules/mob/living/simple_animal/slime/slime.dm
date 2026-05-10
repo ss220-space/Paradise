@@ -1,3 +1,4 @@
+// Похуй потом
 /mob/living/simple_animal/slime
 	name = "grey baby slime (123)"
 	var/is_renamed = FALSE //если слайм был заранее переименован
@@ -508,10 +509,6 @@
 
 /mob/living/simple_animal/slime/pet
 	docile = TRUE
-
-/mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
-	if(..())
-		return 3
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
 	age_state_new = new /datum/slime_age/baby

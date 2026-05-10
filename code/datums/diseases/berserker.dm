@@ -37,7 +37,7 @@
 				affected_mob.drop_l_hand()
 				affected_mob.drop_r_hand()
 			if(prob(33))
-				if(affected_mob.incapacitated())
+				if(affected_mob.incapacitated)
 					affected_mob.visible_message(span_danger("[affected_mob] бьётся в судорогах и дёрга[PLUR_ET_YUT(affected_mob)]ся!"))
 					return
 				affected_mob.visible_message(span_danger("[affected_mob] яростно меч[PLUR_ET_YUT(affected_mob)]ся!"))

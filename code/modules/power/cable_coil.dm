@@ -172,7 +172,7 @@
 /obj/item/stack/cable_coil/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || user.get_active_hand() != src)
+	if(user.incapacitated || user.get_active_hand() != src)
 		return FALSE
 	return TRUE
 

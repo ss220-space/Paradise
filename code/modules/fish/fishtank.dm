@@ -93,13 +93,13 @@
 	toggle_light(usr)
 
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	lid_switch = !lid_switch
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fishtank/proc/toggle_light(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	light_switch = !light_switch
 	if(light_switch)
@@ -575,7 +575,7 @@
 					to_chat(M, span_warning("There are no fish in [src]!"))
 		else
 			return ..()
-	else if(istype(M, /mob/living/simple_animal/hostile/bear))
+	else if(isbear(M))
 		if(M.a_intent == INTENT_HELP)							//Bears can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message(

@@ -75,7 +75,7 @@
 	set desc = "Click to spin your revolver's chamber."
 	set src in usr
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))

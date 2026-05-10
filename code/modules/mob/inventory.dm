@@ -229,6 +229,12 @@
 	return !l_hand && !r_hand
 
 /**
+ * Returns `TRUE` if mob's hands full
+ */
+/mob/proc/is_hands_full()
+	return l_hand && r_hand
+
+/**
  * Returns `TRUE` if item is in mob's active hand
  */
 /mob/proc/is_in_active_hand(obj/item/I)
@@ -274,6 +280,9 @@
 	else
 		return l_hand
 
+/mob/proc/get_held_items()
+	return list(l_hand, r_hand)
+
 /**
  * Only external organs and only for humans
  */
@@ -284,6 +293,13 @@
  * Nonliving mobs don't have hands
  */
 /mob/proc/put_in_hand_check(obj/item/I, hand_id)
+	return FALSE
+
+
+/mob/proc/can_put_in_hands(obj/item/item)
+	for(var/hand_id in list(ITEM_SLOT_HAND_LEFT, ITEM_SLOT_HAND_RIGHT))
+		if(put_in_hand_check(item, hand_id))
+			return TRUE
 	return FALSE
 
 /**

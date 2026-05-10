@@ -397,3 +397,6 @@
 
 /turf/simulated/floor/lava/lava_land_surface/lava_only/add_to_lazis_primary()
 	return
+
+/turf/simulated/floor/lava/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(src, TRAIT_LAVA_STOPPED) || HAS_TRAIT(crossing, immunity_trait) || HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)

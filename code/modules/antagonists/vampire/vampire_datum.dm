@@ -425,12 +425,13 @@
 		subclass?.on_blood_sucking(vampire)
 
 /datum/antagonist/vampire/proc/stop_sucking()
-	if(draining)
-		to_chat(owner.current, span_notice("Вы прекращаете пить кровь [draining.name]."))
-		draining = null
-		owner.current.pixel_x = owner.current.base_pixel_x + owner.current.body_position_pixel_x_offset
-		owner.current.pixel_y = owner.current.base_pixel_y + owner.current.body_position_pixel_y_offset
-		owner.current.layer = initial(owner.current.layer)
+	if(!draining)
+		return
+
+	to_chat(owner.current, span_notice("Вы прекращаете пить кровь [draining.name]."))
+	draining = null
+	owner.current.update_offsets(animate = TRUE)
+	owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER
 #undef CLOSING_IN_TIME_MOD

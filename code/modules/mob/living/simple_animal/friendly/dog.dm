@@ -42,7 +42,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
 	collar_type = "dog"
-	ai_controller = /datum/ai_controller/dog
+	// ai_controller = /datum/ai_controller/dog Похуй потом
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Гоняться за хвостом"

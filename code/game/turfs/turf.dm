@@ -1136,3 +1136,7 @@
 		pressure_overlay.Initialize()
 
 	return pressure_overlay
+
+/// Returns whether it is safe for an atom to move across this turf	// Кусок
+/turf/proc/can_cross_safely(atom/movable/crossing)					// ебаного
+	return !HAS_TRAIT(src, TRAIT_AI_AVOID_TURF)						// говна

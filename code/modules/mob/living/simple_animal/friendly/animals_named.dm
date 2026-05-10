@@ -335,23 +335,6 @@
 		PREPOSITIONAL = "Реми",
 	)
 
-/mob/living/simple_animal/pet/dog/fox/fennec/Fenya
-	name = "Fenya"
-	desc = "Миниатюрная лисичка c важным видом и очень большими ушами. Был пойман во время разливания огромного мороженого по формочкам и теперь магистрат держит его при себе и следит за ним. Похоже, ему даже нравится быть частью правосудия."
-	resting = TRUE
-	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
-
-/mob/living/simple_animal/pet/dog/fox/fennec/Fenya/get_ru_names()
-	return list(
-		NOMINATIVE = "Феня",
-		GENITIVE = "Фени",
-		DATIVE = "Фене",
-		ACCUSATIVE = "Феню",
-		INSTRUMENTAL = "Феней",
-		PREPOSITIONAL = "Фене",
-	)
-
 /mob/living/simple_animal/pet/dog/brittany/Psycho
 	name = "Psycho"
 	real_name = "Перрито"

@@ -49,5 +49,5 @@
 
 	for(var/d in GLOB.alldirs)
 		var/turf/E = get_step(user, d)
-		new /obj/effect/temp_visual/goliath_tentacle(E, user)
+		new /obj/effect/goliath_tentacle(E, user)
 

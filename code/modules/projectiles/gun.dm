@@ -832,7 +832,7 @@
 /obj/item/gun/click_alt(mob/user)
 	if(loc != user)
 		return NONE
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
 		return CLICK_ACTION_BLOCKING
 	try_detach_gun_module(user)

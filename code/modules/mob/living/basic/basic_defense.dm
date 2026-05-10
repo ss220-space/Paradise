@@ -106,12 +106,6 @@
 		var/damage = rand(5, 10)
 		. = attack_threshold_check(damage)
 
-/mob/living/basic/attack_basic_mob(mob/living/basic/user)
-	. = ..()
-	if(.)
-		// var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
-
 /mob/living/basic/attack_animal(mob/living/simple_animal/user)
 	. = ..()
 	if(.)

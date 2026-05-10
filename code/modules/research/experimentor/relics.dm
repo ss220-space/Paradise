@@ -80,7 +80,7 @@
 	to_chat(user, message)
 	var/amount = rand(1, 3)
 	var/list/possible_mobs = list(
-		/mob/living/simple_animal/hostile/bear,
+		/mob/living/basic/bear,
 		/mob/living/simple_animal/hostile/poison/bees,
 		/mob/living/simple_animal/hostile/carp,
 		/mob/living/simple_animal/hostile/alien,

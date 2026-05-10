@@ -1,14 +1,21 @@
 /mob/living/Initialize(mapload)
 	. = ..()
+
+	if(initial_size != RESIZE_DEFAULT_SIZE)
+		update_transform(initial_size)
+
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
+
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
 	faction += PERSONAL_FACTION(src)
 	determine_move_and_pull_forces()
 	gravity_setup()
+
 	if(unique_name)
 		set_name()
+
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -121,7 +128,7 @@
 		return .
 
 	// If you are incapped, you probably can't brace yourself
-	var/can_help_themselves = !incapacitated(IGNORE_RESTRAINTS)
+	var/can_help_themselves = !INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS)
 	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
@@ -201,6 +208,7 @@
 	// even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(bumped_mob)
 	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, bumped_mob)
+	SEND_SIGNAL(bumped_mob, COMSIG_LIVING_MOB_BUMPED, src)
 
 	if(get_confusion() && get_disoriented())
 		Weaken(1 SECONDS)
@@ -439,12 +447,12 @@
 
 	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
-		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
-			ignore_flags |= IGNORE_RESTRAINTS
-		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
-			ignore_flags |= IGNORE_GRAB
+		if(action_bitflags & INCAPABLE_RESTRAINTS)
+			ignore_flags |= INCAPABLE_RESTRAINTS
+		if(!(action_bitflags & INCAPABLE_GRAB))
+			ignore_flags |= INCAPABLE_GRAB
 
-		if(incapacitated(ignore_flags))
+		if(INCAPACITATED_IGNORING(src, ignore_flags))
 			to_chat(src, span_warning("Вы сейчас недееспособны!"))
 			return FALSE
 
@@ -516,7 +524,7 @@
 			return projectile_allow_through(mover, border_dir)
 		return TRUE
 	if(mover.throwing)
-		return body_position == LYING_DOWN || mover.throwing.thrower == src
+		return body_position == LYING_DOWN || mover.throwing.get_thrower() == src
 	if(pulling && pulling == mover && grab_state >= GRAB_NECK)	// pulled mob can step through us
 		return TRUE
 	if(buckled == mover)
@@ -595,7 +603,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
@@ -673,12 +681,19 @@
 	health = new_value
 
 /mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		set_health(maxHealth)
 		update_stat("updatehealth([reason])", should_log)
-		return
-	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
+		return TRUE
+
+	set_health(calculate_health())
 	update_stat("updatehealth([reason])", should_log)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
+
+/mob/living/proc/calculate_health()
+	return maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -1589,11 +1604,19 @@
 
 	update_pull_movespeed()
 
-/mob/living/proc/set_pull_offsets(mob/living/target, grab_state_to_offset = GRAB_PASSIVE)
-	if(target.buckled)
+/**
+ * Updates the offsets of the passed mob according to the passed grab state and the direction between them and us
+ *
+ * * mob_to_set - the mob to update the offsets of
+ * * grab_state - the state of the grab
+ * * animate - whether or not to animate the offsets
+ */
+/mob/living/proc/set_pull_offsets(mob/living/mob_to_set, grab_state = GRAB_PASSIVE, animate = TRUE)
+	if(mob_to_set.buckled)
 		return //don't make them change direction or offset them if they're buckled into something.
+
 	var/offset = 0
-	switch(grab_state_to_offset)
+	switch(grab_state)
 		if(GRAB_PASSIVE)
 			offset = GRAB_PIXEL_SHIFT_PASSIVE
 		if(GRAB_AGGRESSIVE)
@@ -1601,36 +1624,41 @@
 		if(GRAB_NECK)
 			offset = GRAB_PIXEL_SHIFT_NECK
 		if(GRAB_KILL)
-			offset = GRAB_PIXEL_SHIFT_KILL
-	var/same_loc = target.loc == loc
-	var/direction = same_loc ? dir : get_dir(target, src)
-	var/target_pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
-	var/target_pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
-	target.setDir(direction)
-	target.update_layer()
-	if(direction & NORTH)
-		target_pixel_y += offset
-	else if(direction & SOUTH)
-		target_pixel_y -= offset
-	if(direction & EAST)
-		if(same_loc && target.lying_angle == LYING_ANGLE_EAST) //update the dragged dude's direction if we've turned
-			target.set_lying_angle(LYING_ANGLE_WEST)
-		else if(!same_loc && target.lying_angle == LYING_ANGLE_WEST)
-			target.set_lying_angle(LYING_ANGLE_EAST)
-		target_pixel_x += offset
-	else if(direction & WEST)
-		if(same_loc && target.lying_angle == LYING_ANGLE_WEST)
-			target.set_lying_angle(LYING_ANGLE_EAST)
-		else if(!same_loc && target.lying_angle == LYING_ANGLE_EAST)
-			target.set_lying_angle(LYING_ANGLE_WEST)
-		target_pixel_x -= offset
-	animate(target, pixel_x = target_pixel_x, pixel_y = target_pixel_y, 0.3 SECONDS)
+			offset = GRAB_PIXEL_SHIFT_NECK
+	mob_to_set.setDir(get_dir(mob_to_set, src))
+	mob_to_set.update_layer()
+	var/dir_filter = mob_to_set.dir
+	if(ISDIAGONALDIR(dir_filter))
+		dir_filter = EWCOMPONENT(dir_filter)
+
+	switch(dir_filter)
+		if(NORTH)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = 0, y_add = offset, animate = animate)
+		if(SOUTH)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = 0, y_add = -offset, animate = animate)
+		if(EAST)
+			if(mob_to_set.lying_angle == LYING_ANGLE_WEST) //update the dragged dude's direction if we've turned
+				mob_to_set.set_lying_angle(LYING_ANGLE_EAST)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = offset, y_add = 0, animate = animate)
+		if(WEST)
+			if(mob_to_set.lying_angle == LYING_ANGLE_EAST)
+				mob_to_set.set_lying_angle(LYING_ANGLE_WEST)
+			mob_to_set.add_offsets(GRABBING_TRAIT, x_add = -offset, y_add = 0, animate = animate)
+
+/**
+ * Removes any offsets from the passed mob that are related to being grabbed
+ *
+ * * M - the mob to remove the offsets from
+ * * override - if TRUE, the offsets will be removed regardless of the mob's buckled state
+ * otherwise we won't remove the offsets if the mob is buckled
+ */
 
 /mob/living/proc/reset_pull_offsets(mob/living/target, override)
 	if(!override && target.buckled)
 		return
+
 	update_layer()
-	animate(target, pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset , pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset, 0.1 SECONDS)
+	target.remove_offsets(GRABBING_TRAIT)
 
 /mob/living/Move_Pulled(atom/moving_atom)
 	. = ..()
@@ -1897,7 +1925,7 @@
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 	if(rotate_on_lying)
-		body_position_pixel_y_offset = pixel_y_lying_offset
+		add_offsets(LYING_DOWN_TRAIT, y_add = pixel_y_lying_offset)
 	if(!buckled || buckled.buckle_lying == NO_BUCKLE_LYING)
 		lying_angle_on_lying_down(new_lying_angle)
 
@@ -1910,7 +1938,7 @@
 	update_layer()
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 	// Make sure it doesn't go out of the southern bounds of the tile when standing.
-	body_position_pixel_y_offset = get_pixel_y_offset_standing(current_size)
+	remove_offsets(LYING_DOWN_TRAIT)
 	set_lying_angle(0)
 
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
@@ -2214,3 +2242,32 @@
 /// Prints an ominous message if something bad is going to happen to you
 /mob/living/proc/ominous_nosebleed()
 	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))
+
+/// Proc for giving a mob a new 'friend', generally used for AI control and targeting. Returns false if already friends or null if qdeleted.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(new_friend, COMSIG_LIVING_MADE_NEW_FRIEND, src)
+	if(QDELETED(new_friend))
+		return
+
+	var/friend_uid = new_friend.UID()
+	if(LAZYFIND(faction, friend_uid))
+		return FALSE
+	LAZYOR(faction, friend_uid)
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE
+
+/// Proc for removing a friend you added with the proc 'befriend'. Returns true if you removed a friend.
+/mob/living/proc/unfriend(mob/living/old_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	var/friend_uid = old_friend.UID()
+	if(!LAZYFIND(faction, friend_uid))
+		return FALSE
+	faction -= friend_uid
+	// LAZYREMOVE(faction, friend_uid)
+	ai_controller?.remove_thing_from_blackboard_key(BB_FRIENDS_LIST, old_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
+	return TRUE

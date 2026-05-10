@@ -56,7 +56,7 @@
 			break
 
 	if(can_hang)
-		if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !user.drop_transfer_item_to_loc(moving_atom, src)))
+		if(user && (user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !user.drop_transfer_item_to_loc(moving_atom, src)))
 			return .
 		. = TRUE
 		coat = moving_atom

@@ -120,14 +120,14 @@
 			new_rod.name = "sanctified " + new_rod.name
 
 /obj/item/nullrod/proc/radial_check(mob/living/carbon/human/user)
-	if(!src || !user.is_type_in_hands(src) || user.incapacitated() || reskinned)
+	if(!src || !user.is_type_in_hands(src) || user.incapacitated || reskinned)
 		return FALSE
 	return TRUE
 
 /obj/item/nullrod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
 
 	if(isliving(target))

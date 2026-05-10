@@ -126,7 +126,7 @@
 	active_power_usage = power_usage
 
 /obj/machinery/power/emitter/click_alt(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return CLICK_ACTION_BLOCKING
 

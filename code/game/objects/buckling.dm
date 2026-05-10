@@ -101,6 +101,7 @@
 	post_buckle_mob(target)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, target, force)
+	SEND_SIGNAL(target, COMSIG_MOB_BUCKLED, src)
 	return TRUE
 
 /obj/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE)
@@ -145,6 +146,7 @@
 	if(!length(buckled_mobs))
 		UnregisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
+	SEND_SIGNAL(buckled_mob, COMSIG_MOB_UNBUCKLED, src)
 
 	if(can_fall)
 		var/turf/location = buckled_mob.loc
@@ -258,7 +260,7 @@
  */
 /atom/movable/proc/is_user_buckle_possible(mob/living/target, mob/living/carbon/user, check_loc = TRUE)
 	// Standard adjacency and other checks.
-	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || target.anchored)
+	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || target.anchored)
 		return FALSE
 
 	if(iscarbon(user) && user.usable_hands <= 0)

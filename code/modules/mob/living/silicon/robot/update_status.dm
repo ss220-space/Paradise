@@ -1,6 +1,9 @@
-// No args for restraints because robots don't have those
-/mob/living/silicon/robot/incapacitated(ignore_flags)
-	return lockcharge || HAS_TRAIT(src, TRAIT_INCAPACITATED) || !is_component_functioning("actuator")
+/mob/living/silicon/robot/build_incapacitated()
+	var/incap_status = NONE
+	if(lockcharge || HAS_TRAIT(src, TRAIT_INCAPACITATED) || !is_component_functioning("actuator"))
+		incap_status |= TRADITIONAL_INCAPACITATED
+
+	return incap_status
 
 /mob/living/silicon/robot/has_vision(information_only = FALSE)
 	return ..(information_only) && ((stat == DEAD && information_only) || is_component_functioning("camera"))

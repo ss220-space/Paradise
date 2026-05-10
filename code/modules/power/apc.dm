@@ -1210,7 +1210,7 @@
 
 	var/mob/living/carbon/human/h_user = user
 	if(ishuman(h_user))
-		if(h_user.incapacitated() || HAS_TRAIT(h_user, TRAIT_HANDS_BLOCKED))
+		if(h_user.incapacitated || HAS_TRAIT(h_user, TRAIT_HANDS_BLOCKED))
 			return FALSE
 		if(h_user.getBrainLoss() >= 60)
 			h_user.visible_message(span_danger("[h_user] stares cluelessly at [src] and drools."))

@@ -90,6 +90,8 @@
 #define span_bad(str) ("<span class='bad'>[str]</span>")
 #define span_average(str) ("<span class='average'>[str]</span>")
 #define span_good(str) ("<span class='good'>[str]</span>")
+#define span_monkey(str) ("<span class='monkey'>[str]</span>")
+#define span_nicegreen(str) ("<span class='nicegreen'>[str]</span>")
 
 /**
  * MARK: Admin/Mentor

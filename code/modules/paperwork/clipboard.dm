@@ -28,7 +28,7 @@
 /obj/item/clipboard/verb/removePen()
 	set category = VERB_CATEGORY_OBJECT
 	set name = "Открепить ручку"
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	penPlacement(usr, containedpen, FALSE)
 
@@ -126,7 +126,7 @@
 			toppaper.attackby(I, user, params)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/writeonwhat = tgui_alert(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!", list("Write", "Place pen"))
-		if(!writeonwhat || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!writeonwhat || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return ATTACK_CHAIN_PROCEED
 		switch(writeonwhat)
 			if("Write")
@@ -152,7 +152,7 @@
 
 /obj/item/clipboard/Topic(href, href_list)
 	..()
-	if(!Adjacent(usr) || usr.incapacitated())
+	if(!Adjacent(usr) || usr.incapacitated)
 		return
 	var/obj/item/I = usr.get_active_hand()
 	if(href_list["doPenThings"])

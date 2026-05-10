@@ -1,4 +1,3 @@
-
 // /mob/living signals
 ///from base of mob/living/resist() (/mob/living)
 #define COMSIG_LIVING_RESIST "living_resist"
@@ -73,6 +72,8 @@
 
 	///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMPED "living_mob_bumped"
 
 /// Source: /mob/living/AdjustBlood(amount)
 #define COMSIG_LIVING_BLOOD_ADJUST "living_blood_adjust"
@@ -152,3 +153,46 @@
 ///from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_LIVING_ATTACH_LIMB "living_attach_limb"
 	#define COMPONENT_NO_ATTACH (1<<0)
+
+///from mob/living/befriend()
+#define COMSIG_LIVING_MADE_NEW_FRIEND "living_made_new_friend"
+
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
+
+/// From /datum/ai/behavior/climb_tree/perform() : (mob/living/basic/living_pawn)
+#define COMSIG_LIVING_CLIMB_TREE "living_climb_tree"
+
+/// From /datum/status_effect/proc/on_creation() : (datum/status_effect/effect)
+#define COMSIG_LIVING_STATUS_APPLIED "living_status_applied"
+
+/// From /datum/status_effect/proc/Destroy() : (datum/status_effect/effect)
+#define COMSIG_LIVING_STATUS_REMOVED "living_status_removed"
+
+///From /datum/component/happiness()
+#define COMSIG_MOB_HAPPINESS_CHANGE "happiness_change"
+
+/// from base of mob/living/updatehealth()
+#define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
+/// from base of mob/living/updatestamina()
+#define COMSIG_LIVING_STAMINA_UPDATE "living_stamina_update"
+
+/// From /datum/element/death_drops/on_death(mob/living/target, gibbed) : (list/loot, gibbed)
+#define COMSIG_LIVING_DROP_LOOT "living_drop_loot"
+	/// Prevent loot from being dropped
+	#define COMPONENT_NO_LOOT_DROP (1<<0)
+/// From /datum/element/death_drops/on_death(mob/living/target, gibbed) : (list/loot, gibbed)
+#define COMSIG_LIVING_DROPPED_LOOT "living_dropped_loot"

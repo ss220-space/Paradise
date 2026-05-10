@@ -990,6 +990,10 @@
 	icon_state = "egg-yellow"
 	item_color = "yellow"
 
+/obj/item/reagent_containers/food/snacks/egg/penguin_egg
+	icon = 'icons/mob/penguins.dmi'
+	icon_state = "penguin_egg"
+
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 

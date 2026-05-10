@@ -125,7 +125,7 @@
 			temp = pick(graffiti)
 		else
 			temp = href_list["type"]
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.is_in_active_hand(src))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.is_in_active_hand(src))
 		return
 	drawtype = temp
 	update_window(usr)
@@ -289,7 +289,7 @@
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
-	if(!Adjacent(usr) || usr.incapacitated())
+	if(!Adjacent(usr) || usr.incapacitated)
 		return
 	if(href_list["color"])
 		if(colour != COLOR_WHITE)
@@ -316,7 +316,7 @@
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
-	if(!Adjacent(usr) || usr.incapacitated())
+	if(!Adjacent(usr) || usr.incapacitated)
 		return
 	if(href_list["color"])
 		var/temp = tgui_input_color(usr, "Please select colour.", "Crayon colour")

@@ -159,7 +159,7 @@
 /obj/structure/shadowcocoon/click_alt(mob/user)
 	if(!isdemon(user))
 		return NONE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return CLICK_ACTION_BLOCKING
 	if(silent)
 		to_chat(user, span_notice("Вы искажаете и изменяете свою пойманную жертву в [declent_ru(ACCUSATIVE)], чтобы заманить больше добычи."))

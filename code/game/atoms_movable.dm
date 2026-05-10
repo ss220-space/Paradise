@@ -492,6 +492,7 @@
 	if(!newloc || newloc == loc)
 		return .
 
+	SEND_SIGNAL(src, COMSIG_MOVABLE_ATTEMPTED_MOVE, newloc, direct)
 	// A mid-movement... movement... occured, resolve that first.
 	RESOLVE_ACTIVE_MOVEMENT
 
@@ -1260,9 +1261,28 @@
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = FALSE
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
-	if(!QDELETED(hit_atom))
-		return hit_atom.hitby(src, throwingdatum = throwingdatum)
+	SHOULD_CALL_PARENT(TRUE)
+
+	var/hitpush = TRUE
+	var/impact_flags = pre_impact(hit_atom, throwingdatum)
+	if(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
+		return // in case a signal interceptor broke or deleted the thing before we could process our hit
+
+	if(impact_flags & COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH)
+		hitpush = FALSE
+
+	var/caught = hit_atom.hitby(src, throwingdatum=throwingdatum, hitpush=hitpush)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum, caught)
+	return caught
+
+///Called before we attempt to call hitby and send the COMSIG_MOVABLE_IMPACT signal
+/atom/movable/proc/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_IMPACT, hit_atom, throwingdatum)
+	var/target_flags = SEND_SIGNAL(hit_atom, COMSIG_ATOM_PREHITBY, src, throwingdatum)
+	if(target_flags & COMSIG_HIT_PREVENTED)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_NEVERMIND
+
+	return impact_flags
 
 /// called after an items throw is ended.
 /atom/movable/proc/end_throw()
@@ -1272,6 +1292,11 @@
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
+
+/atom/movable/proc/safe_throw_at(atom/target, range, speed, atom/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE)
+	if((force < (move_resist * MOVE_FORCE_THROW_RATIO)) || (move_resist == INFINITY))
+		return
+	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, gentle)
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
 	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)

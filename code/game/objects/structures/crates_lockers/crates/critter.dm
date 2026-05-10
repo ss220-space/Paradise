@@ -138,15 +138,15 @@
 
 /obj/structure/closet/crate/critter/fox
 	name = "fox crate"
-	content_mob = /mob/living/simple_animal/pet/dog/fox
+	content_mob = /mob/living/basic/pet/fox
 
 /obj/structure/closet/crate/critter/fox/populate_contents()
 	if(prob(30))
-		content_mob = /mob/living/simple_animal/pet/dog/fox/forest
+		content_mob = /mob/living/basic/pet/fox/forest
 
 /obj/structure/closet/crate/critter/fennec
 	name = "fennec crate"
-	content_mob = /mob/living/simple_animal/pet/dog/fox/fennec
+	content_mob = /mob/living/basic/pet/fox/fennec
 
 /obj/structure/closet/crate/critter/butterfly
 	name = "butterfly crate"

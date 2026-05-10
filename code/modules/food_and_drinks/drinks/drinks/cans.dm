@@ -57,7 +57,7 @@
 /obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/living/user)
 	if(!can_shake || !ishuman(user))
 		return ..()
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		balloon_alert(user, "невозможно в данный момент!")
 		return ..()
 	var/mob/living/carbon/human/H = user

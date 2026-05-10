@@ -6,6 +6,8 @@
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
 /// From base of [atom/proc/attacby_secondary()]: (/obj/item/weapon, /mob/user, list/modifiers)
 #define COMSIG_ATOM_ATTACKBY_SECONDARY "atom_attackby_secondary"
+/// From [/item/attack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, list/modifiers)
+#define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"
 /// from /datum/component/cleave_attack/proc/hit_atoms_on_turf(): (atom/target, obj/item, mob/user)
 #define COMSIG_ATOM_CLEAVE_ATTACK "atom_cleave_attack"
 	// allows cleave attack to hit things it normally wouldn't
@@ -18,8 +20,11 @@
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 //from base of atom/attack_basic_mob(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
+	#define COMSIG_BASIC_ATTACK_CANCEL_CHAIN (1<<0)
 ///from base of /obj/item//attack(): (/obj/item, /atom/source, params) sends singal on user who attacked source
 #define COMSIG_ATOM_ATTACK "atom_attack"
+///from relay_attackers element: (atom/attacker, attack_flags)
+#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
@@ -50,3 +55,9 @@
 /// from base of atom/attack_robot_secondary(): (mob/user)
 #define COMSIG_ATOM_ATTACK_ROBOT_SECONDARY "atom_attack_robot_secondary"
 
+	///The damage type of the weapon projectile is non-lethal stamina
+	#define ATTACKER_STAMINA_ATTACK (1<<0)
+	///the attacker is shoving the source
+	#define ATTACKER_SHOVING (1<<1)
+	/// The attack is a damaging-type attack
+	#define ATTACKER_DAMAGING_ATTACK (1<<2)

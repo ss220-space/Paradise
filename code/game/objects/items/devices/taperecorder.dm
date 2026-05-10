@@ -135,7 +135,7 @@
 		SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
 	)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
-	if(!choice || user.incapacitated())
+	if(!choice || user.incapacitated)
 		return CLICK_ACTION_BLOCKING
 	switch(choice)
 		if(PLAYBACK_TAPE)
@@ -444,7 +444,7 @@
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr
-	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!istype(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(ruined)
 		return

@@ -441,7 +441,7 @@
 				else
 					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
 					picked_class = construct_types[construct_choice]
-				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && shell.IsReachableBy(user, reach) && !user.incapacitated() && radial_check(user))
+				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && shell.IsReachableBy(user, reach) && !user.incapacitated && radial_check(user))
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)

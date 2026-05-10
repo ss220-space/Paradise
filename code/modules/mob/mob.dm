@@ -41,6 +41,7 @@
 		add_to_dead_mob_list()
 	else
 		add_to_alive_mob_list()
+	update_incapacitated()
 	set_focus(src)
 	prepare_huds()
 	become_hearing_sensitive()
@@ -482,7 +483,7 @@
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!Adjacent(examined_thing) || incapacitated())
+	if(!Adjacent(examined_thing) || incapacitated)
 		to_chat(src, span_warning("Здесь что-то есть, но вы не можете это разглядеть!"))
 		return FALSE
 
@@ -1047,25 +1048,6 @@
 		return FALSE
 	return ..()
 
-///Call back post buckle to a mob to offset your visual height
-/mob/post_buckle_mob(mob/living/target)
-	target.pixel_y += target.get_mob_buckling_height(src)
-	if(target.layer < layer)
-		target.layer = layer + 0.01
-
-///Call back post unbuckle from a mob, (reset your visual height here)
-/mob/post_unbuckle_mob(mob/living/target)
-	target.pixel_y -= target.get_mob_buckling_height(src)
-	target.layer = initial(target.layer)
-
-///returns the height in pixel the mob should have when buckled to another mob.
-/mob/proc/get_mob_buckling_height(mob/seat)
-	if(isliving(seat))
-		var/mob/living/L = seat
-		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
-			return 0
-	return 9
-
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	return FALSE
@@ -1389,29 +1371,31 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /mob/proc/update_z(new_z) // 1+ to register, null to unregister
 	if(registered_z == new_z)
 		return
+
 	if(registered_z)
 		SSmobs.clients_by_zlevel[registered_z] -= src
+
 	if(isnull(client))
 		registered_z = null
 		return
+
+	var/old_level_new_clients = (registered_z ? length(SSmobs.clients_by_zlevel[registered_z]) : null)
+
+	if(registered_z && old_level_new_clients == 0)
+		for(var/datum/ai_controller/controller as anything in GLOB.ai_controllers_by_zlevel[registered_z])
+			controller.set_ai_status(AI_STATUS_OFF)
+
 	if(!new_z)
 		registered_z = new_z
 		return
-	//Figure out how many clients were here before
-	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
+
+	var/new_level_old_clients = length(SSmobs.clients_by_zlevel[new_z])
 	SSmobs.clients_by_zlevel[new_z] += src
-	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
-		if(animal)
-			if(!oldlen)
-				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
-				animal.toggle_ai(AI_IDLE)
-			//If they are also within a close distance ask the AI if it wants to wake up
-			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
-				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
-		//They should clean up in destroy, but often don't so we get them here
-		else
-			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
+
+	if(new_level_old_clients == 0)
+		for(var/datum/ai_controller/controller as anything in GLOB.ai_controllers_by_zlevel[new_z])
+			controller.set_ai_status(controller.get_expected_ai_status())
+
 	registered_z = new_z
 
 /mob/proc/track_z()

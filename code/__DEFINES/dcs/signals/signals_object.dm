@@ -171,6 +171,8 @@
 #define COMSIG_PROJECTILE_FIRE "projectile_fire"
 ///sent to targets during the process_hit proc of projectiles
 #define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"
+	#define PROJECTILE_INTERRUPT_HIT (1<<0)
+	#define PROJECTILE_INTERRUPT_HIT_PHASE (1<<1)
 ///sent to targets during the process_hit proc of projectiles
 #define COMSIG_PROJECTILE_RANGE_OUT "projectile_range_out"
 ///sent when trying to force an embed (mainly for projectiles, only used in the embed element)

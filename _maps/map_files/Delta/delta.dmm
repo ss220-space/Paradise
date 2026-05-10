@@ -48234,7 +48234,7 @@
 /obj/structure/bed/dogbed{
 	name = "fox box"
 	},
-/mob/living/simple_animal/pet/dog/fox/Renault,
+/mob/living/basic/pet/fox/Renault,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
@@ -50797,7 +50797,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
+/mob/living/basic/pet/fox/fennec/Fenya,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "hzS" = (

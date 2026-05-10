@@ -401,3 +401,6 @@
 
 /turf/space/zAirOut()
 	return TRUE
+
+/turf/space/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(crossing, TRAIT_SPACEWALK)

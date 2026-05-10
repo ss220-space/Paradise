@@ -95,7 +95,7 @@
 		to_chat(user, "Вы даже не гуманоид... Вы не понимаете как это открыть")
 		return FALSE
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(loc == user || (in_range(src, user) && isturf(loc)))

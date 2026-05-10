@@ -96,7 +96,7 @@
 
 	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 	var/picked_type = choosable_items[choice]
-	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
+	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated && cooldowntime <= world.time)
 		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type(drop_location())

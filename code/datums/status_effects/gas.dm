@@ -78,3 +78,6 @@
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/hypernoblium)
 	REMOVE_TRAIT(human_owner, TRAIT_NO_FIRE, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/freon/watcher/extended
+	duration = 5 SECONDS

@@ -124,7 +124,7 @@
 /obj/machinery/bodyscanner/mouse_drop_receive(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
 		return //not human
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return //user shouldn't be doing things
 	if(H.anchored)
 		return //mob is anchored???
@@ -196,7 +196,7 @@
 	. = ..()
 
 /obj/machinery/bodyscanner/relaymove(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
@@ -205,7 +205,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь пациента"
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	go_out()
 	add_fingerprint(usr)

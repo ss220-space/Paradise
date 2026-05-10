@@ -66,7 +66,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
-	if(ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(ishuman(user) && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
 		balloon_alert(user, "[armed ? "взведён" : "обезврежен"]")

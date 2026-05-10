@@ -428,7 +428,7 @@
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker, span_warning("Вы не можете использовать руки для телепатии!"))
 			return FALSE
-	if(speaker.incapacitated())
+	if(speaker.incapacitated)
 		to_chat(speaker, span_warning("Вы не можете поднести руки к голове для телепатии!"))
 		return FALSE
 

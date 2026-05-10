@@ -91,7 +91,7 @@
 	return ..()
 
 /obj/machinery/sleeper/relaymove(mob/user as mob)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return 0 //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
@@ -473,7 +473,7 @@
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 		return
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 
 	go_out()
@@ -484,7 +484,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		return
 
 	if(beaker)
@@ -498,7 +498,7 @@
 /obj/machinery/sleeper/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -557,7 +557,7 @@
 	set name = "Залезть внутрь"
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
+	if(!ishuman(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
 		return
 	if(occupant)
 		balloon_alert(usr, "внутри кто-то есть!")

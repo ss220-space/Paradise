@@ -1735,6 +1735,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else if(.)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
 
+	update_incapacitated()
+
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()

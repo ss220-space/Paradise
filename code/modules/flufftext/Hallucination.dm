@@ -158,11 +158,14 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	..()
 	name = "alien hunter ([rand(1, 1000)])"
 
-/obj/effect/hallucination/simple/xeno/throw_impact(atom/A, datum/thrownthing/throwingdatum)
+/obj/effect/hallucination/simple/xeno/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..() // Похуй потом
 	update_state("alienh_pounce")
-	if(A == target)
-		target.Weaken(10 SECONDS)
-		target.visible_message(span_danger("[target] flails around wildly."),"<span class ='userdanger'>[name] pounces on you!</span>")
+	if(hit_atom != target)
+		return
+
+	target.Weaken(10 SECONDS)
+	target.visible_message(span_danger("[target] flails around wildly."),"<span class ='userdanger'>[name] pounces on you!</span>")
 
 /obj/effect/hallucination/xeno_attack
 	//Xeno crawls from nearby vent,jumps at you, and goes back in
@@ -969,7 +972,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			sleep(rand(100,250))
 			hal_screwyhud = SCREWYHUD_NONE
 		if("fake_alert")
-			var/alert_type = pick(ALERT_NOT_ENOUGH_OXYGEN, ALERT_NOT_ENOUGH_TOX, ALERT_NOT_ENOUGH_CO2, ALERT_TOO_MUCH_OXYGEN, ALERT_TOO_MUCH_TOX, ALERT_TOO_MUCH_CO2,"newlaw","nutrition","charge","weightless","fire","locked","hacked","temp","pressure")
+			var/alert_type = pick(ALERT_NOT_ENOUGH_OXYGEN, ALERT_NOT_ENOUGH_TOX, ALERT_NOT_ENOUGH_CO2, ALERT_TOO_MUCH_OXYGEN, ALERT_TOO_MUCH_TOX, ALERT_TOO_MUCH_CO2,"newlaw","nutrition","charge","weightless","fire","locked","hacked",ALERT_TEMPERATURE,"pressure")
 			if(specific)
 				alert_type = specific
 			switch(alert_type)
@@ -989,11 +992,11 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					throw_alert("weightless", /atom/movable/screen/alert/weightless, override = TRUE)
 				if("fire")
 					throw_alert("fire", /atom/movable/screen/alert/fire, override = TRUE)
-				if("temp")
+				if(ALERT_TEMPERATURE)
 					if(prob(50))
-						throw_alert("temp", /atom/movable/screen/alert/hot, 3, override = TRUE)
+						throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3, override = TRUE)
 					else
-						throw_alert("temp", /atom/movable/screen/alert/cold, 3, override = TRUE)
+						throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3, override = TRUE)
 				if("pressure")
 					if(prob(50))
 						throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2, override = TRUE)

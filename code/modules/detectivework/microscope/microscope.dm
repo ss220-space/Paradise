@@ -101,7 +101,7 @@
 	return
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)
-	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
+	if(!istype(remover) || remover.incapacitated || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!sample)
 		to_chat(remover, span_warning("Внутри микроскопа нет образца!"))

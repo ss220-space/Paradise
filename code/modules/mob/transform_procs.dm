@@ -253,7 +253,7 @@
 
 	var/static/list/safe_respawn_typecache_nuclear = typecacheof(list(
 		/mob/living/simple_animal/pet/cat/Syndi,
-		/mob/living/simple_animal/pet/dog/fox/Syndifox,
+		/mob/living/basic/pet/fox/Syndifox,
 	))
 	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_nuclear))
 		return GAMEMODE_IS_NUCLEAR
@@ -284,7 +284,7 @@
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/pet/cat,
 		/mob/living/simple_animal/pet/dog/corgi,
-		/mob/living/simple_animal/pet/dog/fox,
+		/mob/living/basic/pet/fox,
 		/mob/living/simple_animal/pet/dog/pug,
 		/mob/living/simple_animal/pet/dog/security,
 		/mob/living/simple_animal/pet/penguin,
@@ -297,7 +297,7 @@
 
 	// Blacklist typecache.
 	var/static/list/safe_respawn_typecache_blacklist = typecacheof(list(
-		/mob/living/simple_animal/pet/dog/fox/alisa,
+		/mob/living/basic/pet/fox/alisa,
 	))
 
 	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_whitelist) && !is_type_in_typecache(passed_mob, safe_respawn_typecache_blacklist))

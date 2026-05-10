@@ -168,7 +168,7 @@
 /obj/machinery/coffeemaker/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return
 	if(brewing)
 		balloon_alert(user, "в процессе варки!")

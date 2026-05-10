@@ -14,6 +14,7 @@
 /obj/structure/bed/nest/Initialize(mapload)
 	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=BELOW_MOB_LAYER)
+	ADD_TRAIT(src, TRAIT_DANGEROUS_BUCKLE, INNATE_TRAIT)
 
 /obj/structure/bed/nest/Destroy()
 	playsound(get_turf(src), 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
@@ -23,7 +24,7 @@
 	return FALSE
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/target, mob/living/user, check_loc = TRUE)
-	if(!isliving(target) || target.buckled || !in_range(src, user) || target.loc != loc || user.incapacitated())
+	if(!isliving(target) || target.buckled || !in_range(src, user) || target.loc != loc || user.incapacitated)
 		return FALSE
 
 	if(target.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
@@ -88,15 +89,13 @@
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/target)
 	ADD_TRAIT(target, TRAIT_RESTRAINED, type)
-	target.pixel_y = target.base_pixel_y
-	target.pixel_x = target.base_pixel_x + 2
+	target.add_offsets(type, x_add = 2)
 	target.layer = BELOW_MOB_LAYER
 	add_overlay(nest_overlay)
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/target)
 	REMOVE_TRAIT(target, TRAIT_RESTRAINED, type)
-	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	target.remove_offsets(type)
 	target.layer = initial(target.layer)
 	cut_overlay(nest_overlay)
 	deltimer(ghost_timer)

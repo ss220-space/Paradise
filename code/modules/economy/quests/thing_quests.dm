@@ -789,15 +789,15 @@
 	bounty_jobs = list(JOB_TITLE_MINER)
 
 	normal_items = list(
-		/mob/living/simple_animal/hostile/asteroid/goliath/beast = 180,
+		/mob/living/basic/mining/goliath = 180,
 		/mob/living/simple_animal/hostile/asteroid/goldgrub = 120,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 130,
+		/mob/living/basic/mining/watcher = 130,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver = 210,
 	)
 	hard_items = list(
-		/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient = 450,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing = 330,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing = 350,
+		/mob/living/basic/mining/goliath/ancient = 450,
+		/mob/living/basic/mining/watcher/icewing = 330,
+		/mob/living/basic/mining/watcher/magmawing = 350,
 		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)

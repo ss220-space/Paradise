@@ -264,7 +264,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/mouse_drop_receive(mob/living/target, mob/living/user, params)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(user.has_status_effect(STATUS_EFFECT_LEANING) || target.has_status_effect(STATUS_EFFECT_LEANING))
 		return
@@ -287,11 +287,11 @@
 		return
 	if(QDELETED(src) || target_loc != target.loc)
 		return
-	if(target == user && !user.incapacitated())	// if drop self, then climbed in
+	if(target == user && !user.incapacitated)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
 		msg = "[DECLENT_RU_CAP(user, NOMINATIVE)] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)]."
 		to_chat(user, "Вы залезаете в [declent_ru(ACCUSATIVE)].")
-	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	else if(target != user && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		msg = "[DECLENT_RU_CAP(user, NOMINATIVE)] заталкива[PLUR_ET_YUT(user)] [target.name] в [declent_ru(ACCUSATIVE)]!"
 		to_chat(user, "Вы заталкиваете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!")
 		if(!iscarbon(user))
@@ -583,8 +583,9 @@
 
 /obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	var/atom/thrower = mover.throwing?.get_thrower()
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
-		if((prob(75)  || mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
+		if((prob(75)  || thrower && HAS_TRAIT(thrower, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
 			mover.forceMove(src)
 			SEND_SIGNAL(mover, COMSIG_DISPOSAL_INJECT, src)
 			visible_message("[DECLENT_RU_CAP(mover, NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)].")

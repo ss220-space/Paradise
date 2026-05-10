@@ -75,7 +75,7 @@
 /area/lavaland/surface/outdoors)
 "o" = (
 /obj/effect/decal/cleanable/blood,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast{
+/mob/living/basic/mining/goliath{
 	stat = 2;
 	health = 0;
 	bruteloss = 350;

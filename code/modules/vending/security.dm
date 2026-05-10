@@ -150,7 +150,7 @@
 /obj/machinery/vending/security/proc/check_voucher_menu(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 

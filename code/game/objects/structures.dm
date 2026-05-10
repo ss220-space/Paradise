@@ -219,7 +219,7 @@
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.buckled)
 		to_chat(user, span_notice("Для этого нужны свободные руки и ноги."))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(issilicon(user))
 		to_chat(user, span_notice("Для этого нужны свободные руки."))

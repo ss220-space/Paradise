@@ -102,15 +102,19 @@
 	return ..()
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(reagents.total_volume >= 1)
-		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
-		reagents.reaction(get_turf(hit_atom))
-		for(var/atom/A in get_turf(hit_atom))
-			reagents.reaction(A)
-		icon_state = "burst"
-		spawn(5)
-			if(src)
-				qdel(src)
+	if(!..())
+		return
+
+	if(reagents.total_volume < 1)
+		return
+
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
+	reagents.reaction(get_turf(hit_atom))
+	for(var/atom/A in get_turf(hit_atom))
+		reagents.reaction(A)
+
+	icon_state = "burst"
+	qdel(src)
 
 /obj/item/toy/balloon/update_icon_state()
 	if(reagents.total_volume >= 1)
@@ -1401,7 +1405,7 @@
 			desc = "Watch out for angry voxes!"
 
 /obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated || !ishuman(user))
 		return
 
 	if(!user.put_in_hands(src, ignore_anim = FALSE))
@@ -2353,7 +2357,7 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		to_chat(usr, span_warning("Сейчас ты не можешь этого сделать!"))
 		return
 	dir = turn(dir, 270)

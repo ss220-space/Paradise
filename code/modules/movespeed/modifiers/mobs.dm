@@ -217,3 +217,9 @@
 /datum/movespeed_modifier/timestop_modifier
 	multiplicative_slowdown = 25
 	flags = IGNORE_NOSLOW
+
+/datum/movespeed_modifier/goliath_mount
+	multiplicative_slowdown = -27.5
+
+/datum/movespeed_modifier/basilisk_overheat
+	multiplicative_slowdown = -18

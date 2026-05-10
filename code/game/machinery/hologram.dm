@@ -388,7 +388,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	return FALSE
 
 /obj/machinery/hologram/holopad/proc/validate_user(mob/living/user)
-	if(QDELETED(user) || user.incapacitated() || !user.client)
+	if(QDELETED(user) || user.incapacitated || !user.client)
 		return FALSE
 
 	if(isAI(user))

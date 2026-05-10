@@ -220,7 +220,7 @@
 		return CLICK_ACTION_SUCCESS
 
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(modelocked)
@@ -468,7 +468,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/list/name_counts = list()
@@ -498,7 +498,7 @@
 		return
 
 	var/choice = tgui_input_list(user, "Person to track", "Pinpoint", names)
-	if(!choice || !src || !user || (user.get_active_hand() != src) || user.incapacitated())
+	if(!choice || !src || !user || (user.get_active_hand() != src) || user.incapacitated)
 		return
 
 	target = names[choice]
@@ -563,7 +563,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))
