@@ -236,7 +236,7 @@
 					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
 					return .
 				to_chat(user, span_notice("You start building a false wall..."))
-				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(2))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(4))
 					return .
 				to_chat(user, span_notice("You created a reinforced false wall. Push on it to open or close the passage."))
 				var/obj/structure/falsewall/reinforced/falsewall = new(loc)
