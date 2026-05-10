@@ -29,6 +29,7 @@
 	del_on_death = 1
 	var/passive_mode = TRUE // if true, don't target anything.
 	var/datum/effect_system/trail_follow/ion/ion_trail
+	var/static/list/drone_list = subtypesof(/obj/item/circuitboard/drone)
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
@@ -131,8 +132,7 @@
 
 	//spawn 1-4 boards of a random type
 	var/num_boards = rand(1, 4)
-	var/obj/item/circuitboard/drone/D = new()
-	var/list/options = D.drone_list.Copy()
+	var/list/options = drone_list.Copy()
 	for(var/i in 1 to num_boards)
 		var/chosen = pick_n_take(options)
 		new chosen(T)
