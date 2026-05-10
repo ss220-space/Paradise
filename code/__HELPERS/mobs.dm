@@ -677,7 +677,7 @@
 	else if(M.last_known_ckey in GLOB.directory)
 		C = GLOB.directory[M.last_known_ckey]
 // Now we see if we need to respect their privacy
-	return get_display_ckey(C)
+	return get_display_key(C)
 
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)
