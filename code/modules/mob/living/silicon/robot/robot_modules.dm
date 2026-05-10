@@ -292,7 +292,7 @@
 	modules += new /obj/item/stack/medical/suture/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/roller_holder(src)
-	modules += new /obj/item/soap(src)
+	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
@@ -316,6 +316,9 @@
 
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
+
+/obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
+	..()
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -528,6 +531,11 @@
 	emag.name = "Lube spray"
 
 	fix_modules()
+
+/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
+	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
+	C.reagents.add_reagent("cleaner", 4)
+	..()
 
 /obj/item/robot_module/butler
 	name = "Service"
